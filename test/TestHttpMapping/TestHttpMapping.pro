@@ -5,7 +5,7 @@ QT -= gui
 CONFIG += c++14 console
 CONFIG -= app_bundle
 
-include(../../src/src.pri)
+include(../../src/IWebCore.pri)
 
 #QMAKE_CXXFLAGS += /MP
 

@@ -5,7 +5,7 @@ QT += xml core testlib network
 CONFIG += c++11 console
 CONFIG -= app_bundle
 
-include(../../../src/src.pri)
+include(../../../src/IWebCore.pri)
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings

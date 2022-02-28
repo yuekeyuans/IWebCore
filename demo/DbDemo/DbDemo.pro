@@ -5,7 +5,7 @@ QT += xml network sql
 CONFIG += c++11 console
 CONFIG -= app_bundle
 
-include(../../src/src.pri)
+include(../../src/IWebCore.pri)
 
 INCLUDEPATH += E:/project/libs/boost/boost_1_77_0/
 

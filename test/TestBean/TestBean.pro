@@ -6,7 +6,7 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-include(../../src/src.pri)
+include(../../src/IWebCore.pri)
 
 SOURCES +=  \
     OneBean.cpp \

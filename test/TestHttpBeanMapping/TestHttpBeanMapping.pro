@@ -6,7 +6,7 @@ CONFIG += c++11 console
 CONFIG -= app_bundle
 
 
-include(../../src/src.pri)
+include(../../src/IWebCore.pri)
 
 DEFINES += QT_DEPRECATED_WARNINGS
 

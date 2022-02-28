@@ -7,9 +7,7 @@ CONFIG -= app_bundle
 
 DEFINES += QT_DEPRECATED_WARNINGS
 
-
-include(../../src/src.pri)
-
+include(../../src/IWebCore.pri)
 SOURCES += \
         DataBean.cpp \
         TestBeanListMapConvertion.cpp \
