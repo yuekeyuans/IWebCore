@@ -11,7 +11,8 @@ class DataBean
     {
         auto clsInfo = IMetaUtil::getMetaClassInfoMap(staticMetaObject);
         auto props = IMetaUtil::getMetaProperties(staticMetaObject);
-        IConfigurationManage::getConfigBean(this, clsInfo, props);
+        bool ok;
+        IConfigurationManage::getConfigBean(this, clsInfo, props,&ok);
     }
 
 public:
