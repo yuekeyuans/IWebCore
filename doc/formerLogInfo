@@ -1,0 +1,4287 @@
+commit e3ae5578caedd8d9c382b930ed983f0b48907b3f
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 28 00:20:12 2022 +0800
+
+    submit code
+
+commit 57a95ca312bcd0f0000b13f6fc2063bed7d3259f
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 27 17:29:01 2022 +0800
+
+    说好了现在不再提交新的代码，但是又看见代码有瑕疵忍不住啊。
+
+commit f981c52c3ac4a5e89067f985148340c86ec1b191
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 27 16:29:05 2022 +0800
+
+    auto submit via script
+
+commit 207aa02956e0e7d7ebaec5677581cea8df0cae85
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 24 14:55:54 2022 +0800
+
+    测试通过
+
+commit c6fb6b7e258ba6188865f51b8470c9f48c7f47e5
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 24 13:32:41 2022 +0800
+
+    胡乱一通改
+
+commit 66c68fc9b7da4553c2fb012b8589633571f265eb
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 24 13:20:24 2022 +0800
+
+    更改 connection 代码
+
+commit f0c801d892689bd9ed118c53a93fcd3a0876a20c
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 24 13:09:58 2022 +0800
+
+    添加 table 测试代码
+
+commit 8441435e7ca2bb62b19c6d2a8196fbbaaae3e14e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 24 11:42:44 2022 +0800
+
+    add database
+
+commit d17e430ab986929cbb3fb12cb5f460b6ccf4722d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 24 11:16:49 2022 +0800
+
+    刚刚不知道怎么操作的，删了一些不该删的东西，还好，git 上面找回来了
+
+commit 604f9b727879254dcea7f190a1c955cc77214d93
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 24 10:20:49 2022 +0800
+
+    测试 bean 完成
+
+commit 46a40fc826720374507e8d72c42ba47e94a9d453
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 24 10:10:12 2022 +0800
+
+    添加 todo
+
+commit f264adf4aace616738bdb7e30448cb14e6ea9493
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 24 10:00:53 2022 +0800
+
+    submit code
+
+commit d9df5afd2a4d564bdc0c9138a1abe9eab1995325
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 24 09:56:38 2022 +0800
+
+    添加 utf-8 json, html, text 原生支持
+
+commit e1b53c45bbdab13f76b980e1d8acea97d3e6364f
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 24 08:49:54 2022 +0800
+
+    submit code
+
+commit 993c34bbaf3ab44d3f2e4bbfd6e25565a517dd1b
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 24 00:06:13 2022 +0800
+
+    改了半天终于把 IgnoreField 的功能添加上去了，不过也半夜了，不搞了，
+    按时睡觉。
+    现在 24 号，还有五天的时间，除非逻辑不自洽的，不然任何功能都不要加了，bug 就留着吧。
+
+commit d6b42efeebaf593523b872f22a19b86e7c261eb5
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 23 23:54:39 2022 +0800
+
+    代码暂时修改完整，运行一下试试
+
+commit ddf0fc4421203c3d1cdc115fb72738f24acf10b5
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 23 23:25:08 2022 +0800
+
+    提交代码
+
+commit f7cf648d1b0007afa8eb7f4df2002851b356a721
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 23 22:55:57 2022 +0800
+
+    保存代码
+
+commit 10a800090b9ba7400b72557db9eeff388794504a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 23 22:17:31 2022 +0800
+
+    add ignore all warn
+
+commit 46b1e346abdd9546a79a8efa9be81d4718546b92
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 23 22:03:06 2022 +0800
+
+    get 测试完成， 在写 post 测试之前，先补上一个小功能，同样也是能够使逻辑自洽的一个 feature
+
+commit 7188fe125ce632f5801b0db238aacfe5f9ef6ae6
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 23 21:26:32 2022 +0800
+
+    注册 controller 函数 QString 类型
+
+commit 03fdc1e6c40f30972083845e5055c39c1627e0ca
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 23 20:31:16 2022 +0800
+
+    添加 url 验证代码
+
+commit 2095a0326f9d6cfea6094089dae9dcf7488d47cc
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 23 14:55:34 2022 +0800
+
+    enrich invalid output
+
+commit 65dcb2489b86b9349732b2ca103a272cb34b83be
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 23 10:52:06 2022 +0800
+
+    代码原本的测试通过
+
+commit 83c72e8d67620763d70120995649a9f0d71155ab
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 23 09:19:49 2022 +0800
+
+    目前所有的代码都已经调试完成，暂时没有发现 bug，
+    新的功能目前不做了，接下来写测试案例，写上两天的案例，查看代码漏洞
+
+commit 337d8c582c4fda69beff3f2caf4adc9259f997b8
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 23 00:17:13 2022 +0800
+
+    现在不搞了，天亮了再搞，
+    明天解决一下现在的bug, 估计到 25号，这个东西差不多测试完成。
+    26-28三天写文档用的。
+
+commit 9be7fcbc70b9731db2463f330b294d7ac425c8de
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 23 00:10:36 2022 +0800
+
+    找到错误了， 把 bool* 当作 bool 在 if 中判断。
+    之后规定如下， 传入 bool* 时 使用 ok， 自定义 bool值时使用 convertOk
+
+commit 0065d648a3987cf4accc00766b4bdfdb779950b3
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 22 23:17:55 2022 +0800
+
+    现在 23:17了，说实话，真不想熬下去了，刷会手机多香啊，
+    感觉哪里都是 bug.
+    赶快把它给结掉，写文档，发表吧，
+    也希望 域名赶快能够使用。
+
+commit 9c1a116a48ed5a109176afff89c989a05ac01569
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 22 20:43:50 2022 +0800
+
+    腰酸背痛，身上好难受，坐了一天了。
+    提交代码
+
+commit 73ec01c50c1df61de1e319e733b76f5f167e0069
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 22 20:02:29 2022 +0800
+
+    submit code
+
+commit c25fbf9b26994eff2cdab3eaf6e5cd16a72f9c3c
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 22 19:05:24 2022 +0800
+
+    优化代码结构
+
+commit aab2e87c7b2ee0d00ae16702ef67d94a5270754c
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 22 18:50:50 2022 +0800
+
+    submit code
+
+commit 02c8dcff8126b2630831954c5b5cdc50f53972fc
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 22 18:13:43 2022 +0800
+
+    感觉代码越来越复杂了
+
+commit 7af1cb400ca5e321c5ee3810c9990dfe1f2666ed
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 22 17:48:50 2022 +0800
+
+    submit code
+
+commit 16950415178bfe46dc5f49df05351242928c512a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 22 16:58:36 2022 +0800
+
+    添加 安全代码，测试一下，
+
+commit 203c2eab1764ad036eb1b707502a9224138878d4
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 22 16:48:12 2022 +0800
+
+    继续代码加固
+
+commit f663f27f00ebb4fec0cc71e9b0d8cbebc3300155
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 22 16:06:37 2022 +0800
+
+    add new pp
+
+commit af1e127d08d9e3b19afc4e4a7786c327358c56fa
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 22 15:48:21 2022 +0800
+
+    submit code
+
+commit 633a4a09abb2da8fbbc03d09c263cdb5901a8171
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 22 14:01:02 2022 +0800
+
+    今天上午的改代码，突然对自己的代码不信任了，有好多该检查而没有检查的地方。
+    之后对 request 和 configuration 这两个部分的代码重点检查一遍。
+
+commit 700e4e6b4f4331db040d3d3415e5d1d035def944
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 22 13:57:48 2022 +0800
+
+    解决之前产生的bug
+
+commit c76211591998e328f568fb0e231be11d0b6cc7b4
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 22 13:22:10 2022 +0800
+
+    感觉之前脑袋里面有shia，烂代码
+
+commit ec6ebecfdac46151cd9cc769fc0d2dde028104fa
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 22 13:14:08 2022 +0800
+
+    提交修改，修改了一部分的jiegou
+
+commit c2f694b4655229bec10f312296af53d8ff1d0b13
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 22 12:10:57 2022 +0800
+
+    提交代码，下面进行试验性改动
+
+commit b1601967ff60e7365a683f2bd471df79743c8e84
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 22 11:49:51 2022 +0800
+
+    完成代码的调试，准备清理代码
+
+commit cc00cd59a806ed3bac45d79865118e44f03a27a6
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 21 20:37:12 2022 +0800
+
+    下自习了,回家
+
+commit 83efab174247a3c012726bfd5927689c39cd68ef
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 21 20:28:17 2022 +0800
+
+    代码遇见 大麻烦了，他的 parameter 类型判断出问题了，所有相关的代码都要检查修改。
+    
+    另外，刚刚和 boolean 的人聊了聊，问我能不能上去演讲， 估计梅西 [😂]
+
+commit 110c924450c383fc0b3fa6fcf7c6b6584324aeff
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 21 19:37:05 2022 +0800
+
+    submit code
+
+commit f871ff66346a7a04f0fe0350b0b370da3a2eec74
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 21 19:09:19 2022 +0800
+
+    万万没想到，这么一个 功能要耗这么长的时间，编写这么多的代码，我快被这个东西给搞死了
+    今天是21 号， 不算今天还有七天的时间。任务比较紧啊。
+
+commit 88201351d6e84c8c4b5f448439543a17cc421f19
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 21 18:40:03 2022 +0800
+
+    对 request 的parameter 实行 验证
+
+commit 20000b19dc847af0f08d16cfff965c6451c22abb
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 21 15:16:28 2022 +0800
+
+    完成第一个 request 设计
+
+commit fd5899685fa8610892a988021446e1ee3e42cf75
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 21 13:11:43 2022 +0800
+
+    有点困，是去玩一会，还是睡一会呢？
+
+commit 8ce5beac60a4f87136953cea7abd2a75009bceef
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 21 13:10:45 2022 +0800
+
+    submit code
+
+commit cfcb0b5e0a6cbd2031f07b0f6e20232dfcadee0b
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 21 13:09:06 2022 +0800
+
+    submit code add QDate resolve
+
+commit aac43e6295575dca9d430f7eb613b1d32be21e32
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 21 13:01:54 2022 +0800
+
+    submit code
+
+commit 5833c27c46d5f0a83ddb4f6c51e2df9ee05cfa9c
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 21 12:28:43 2022 +0800
+
+    添加 IConvertUti::toVariant 函数 用于转换不同类型的数据
+
+commit 835d5e83208167cd1fd85d3957d28f5c19397099
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 21 01:34:57 2022 +0800
+
+    出了一个 bug
+
+commit 090988795c16b40186acbf40793a8d360df2662f
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 21 01:27:28 2022 +0800
+
+    提交一下代码，准备上床睡觉，
+    上个星期就应该写 resolve bean 的了，结果一直重构代码重构到现在，
+    现在代码重构的差不多了，明天把 resolve bean 写一下，再重构一下 process 这个模块，加上 MiddleWare 代码部分就差不多了
+    嗯，还有文档和 网站。
+    嗯，静态文件服务器就先不搞了吧，虽然工作也不多。
+    
+    购买的网站有点垃圾
+
+commit c89195551e73da8e8cbbaf4fb057e92aea2e30b6
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 21 01:13:25 2022 +0800
+
+    submit code
+
+commit a0e8ca63b46cadc71b9153268005bbd2ab45d47d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 21 01:11:16 2022 +0800
+
+    rename
+
+commit 855a75999ffd06f02ead78b62491cae856dba1e6
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 21 00:47:05 2022 +0800
+
+    rename cpp files
+
+commit d9d74ff6d24c09e617ef5fcf8c491173eaf4c4b7
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 21 00:39:58 2022 +0800
+
+    submit code
+
+commit 754d77a4a4516334b5938461db664ccc404aabd4
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 21 00:21:37 2022 +0800
+
+    submit code
+
+commit 3182cdb3103620c2c06e4f6ab5f01d9bf8948b8c
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 20 23:48:30 2022 +0800
+
+    又添加了一个功能点
+
+commit 856a9b31b1832557df12a647335ce2c0f1e80f67
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 20 18:06:23 2022 +0800
+
+    移动文件
+
+commit 128ac6edfee5003fdf3152fc64fe13ac9eddb906
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 20 18:00:37 2022 +0800
+
+    submit code
+
+commit 17b75966b59812b8a1170ffc006f14b8030dfb6e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 20 17:50:45 2022 +0800
+
+    暂时添加 cookie 和 session 的类，之后会实现他，
+    ICookie 和 ISession 是代理模式， 具体代理的内容需要使用注册方式实现
+    需要提供一个默认的 本地 cookie 和 session 处理类。如果想要实现高级功能，则需要开发者自己提供
+
+commit bbe3ea7593f71eb687f7d78dcdb4776be9cc5a61
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 20 17:42:15 2022 +0800
+
+    重构 arguments, 并确立 unit 和 interface 之间的界限
+
+commit 608a78f3c748210f890aba08de37ed513924c8b5
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 20 16:55:00 2022 +0800
+
+    准备把 argument 给优化掉
+
+commit 7140ffe1a93aa7a600facb706613dbc5ae6a5a06
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 20 16:53:14 2022 +0800
+
+    submit code
+
+commit e052e8396db11ed8ff09b69066e6a782eb24edcd
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 20 16:32:21 2022 +0800
+
+    submit code
+
+commit f472900c348d83b403325c126ba92475ccea8ce4
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 20 16:30:54 2022 +0800
+
+    submit code
+
+commit 6b67d3e3ba8be0f8818b2a33756923e3b61dccbe
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 20 16:23:15 2022 +0800
+
+    找到一种隐藏 impl 文件的方法
+
+commit 7a502411f1290104c0d489419f6994212a7bfdc8
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 20 16:09:32 2022 +0800
+
+    submit code
+
+commit ba6c2287b50421b955cb92f3fbf3020ed2b4cbf3
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 20 16:06:07 2022 +0800
+
+    完成代码的重构
+
+commit 27c4fc603d2aa3131dcaa4ed496a5beb1dd8c0a4
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 20 15:58:22 2022 +0800
+
+    重构代码，看看我删了多少小可爱
+
+commit 7d4781342950c4200300957ebc99a339dbcbfd11
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 20 14:36:49 2022 +0800
+
+    添加一个 ignore parameter check 和相关的程序 完成
+
+commit bbfa1b23e66d12d312f9f2f03d44c664198d9df2
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 20 14:05:39 2022 +0800
+
+    姚明的小功能
+
+commit 60b9c648c962f4fdf6928ec3f4392aaf1dd24775
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 20 13:59:28 2022 +0800
+
+    submit code
+
+commit 4ad36db76500ecf9fd772bee76c7f8e88e6be24f
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 20 13:41:56 2022 +0800
+
+    submit code
+
+commit b1797cb6f321f1845d2d66cc8728849ee0d81638
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 20 13:38:30 2022 +0800
+
+    添加 parametr
+
+commit 927801f9837ec8c9241538519391ba79ca80dd6a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 20 12:32:30 2022 +0800
+
+    今天是 2022-02-20 号， 还有十天的开发时间，
+    功能多或者少不要紧，把代码写干净，清晰， Api 设计好比较重要。
+    一天工作新起头
+
+commit b092c24fc0c42ce4524b0cb8749f3ede21a9b680
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 19 23:42:51 2022 +0800
+
+    submit code
+
+commit 3898cf6ca5897f4e34ddf86e924e689e17a5f666
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 19 23:39:16 2022 +0800
+
+    争抢代码健壮性
+
+commit 0ac857c4f011a2682f860fbdf7729abb49f1017a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 19 22:48:13 2022 +0800
+
+    优化代码
+
+commit b8de71c0f069cdc17493ce5143ac51ee851f3819
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 19 22:36:34 2022 +0800
+
+    add debug test for request
+
+commit 19e368de2ca6513439a3d66824b697df995501b3
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 19 20:48:22 2022 +0800
+
+    感觉我离解析 bean 又近了一步。
+    每当你感觉代码难写时， 绝大部分原因时之前代码烂，所以你需要先重构代码
+
+commit 12fe40fc52f2d187f82f90f2a19d27d255e65b62
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 19 19:53:31 2022 +0800
+
+    对 request 解析进行安全加固
+
+commit 46214072938e2e146a4e96060587d2f31ce05e44
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 19 19:32:29 2022 +0800
+
+    submit code
+
+commit 258b9d40d097cb28c892d516c7e67c9a5373f40e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 19 18:15:41 2022 +0800
+
+    暂时提交一下，准备休息一下
+
+commit 09d5b287d3c76b14862eebea9b2b727bda69938e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 19 17:30:33 2022 +0800
+
+    弹栈
+
+commit 48ffdf3d9f61c8a5b60bd64067f9d1826c12c32b
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 19 17:13:12 2022 +0800
+
+    说一件 开心的事情， iwebcore.com 的域名已经申请下来了，买了三年的时间，花了 213块钱
+    还有就是已经实名认证，之后就可以编写网络代码，使用了。
+    嗯，加油吧，打工人，
+
+commit be10150a3c263810410219ff852942369a017566
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 19 16:36:43 2022 +0800
+
+    修改 controller 的注册方式完成
+
+commit fac77cb0b72767a2401f3de39ffcc022b55d9e21
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 19 16:11:44 2022 +0800
+
+    提交 configuration 的task， 准备修改 controller 的 task
+
+commit 136de49ed1d19af55dfab5fab3e1e222f293e662
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 19 15:59:54 2022 +0800
+
+    顶下 unit 的书写位置了,一般和响应的基类放在一起
+
+commit 5d6796d2240ab438d404109c14da952d5c927277
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 21:49:27 2022 +0800
+
+    submit code, 刚刚到家，
+    虽然媳妇不在家，但是今天也不搞台湾， 肝脏受不了
+
+commit 986869cd9f4c7d405bfa8f6b6b64a48d7f8b84cf
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 20:44:53 2022 +0800
+
+    优化掉一个类，使他变成公共类，又删掉好多代码
+
+commit fd22d2621bc4817c83ab709dda2623463c2c2e5d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 20:35:54 2022 +0800
+
+    重构代码
+
+commit 74cbc2d59b6d5b7f72b638b551472b88cac3d86e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 20:30:53 2022 +0800
+
+    submit code
+
+commit 844bc7d92c582fc344a7ff95b1239804563d14d1
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 19:43:23 2022 +0800
+
+    输出一下午，现在不想写了，但又没事做，急得慌
+
+commit d6a56bda13a562bc222a4752e674ccf98358747b
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 19:17:34 2022 +0800
+
+    优化 删除代码
+
+commit d5b1e54cd9baa66b7d2549865e749ebf591dbbdb
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 19:06:51 2022 +0800
+
+    优化删除代码
+
+commit 08194b8d7344642cdb68d0f20ff49ece617b6466
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 19:02:26 2022 +0800
+
+    来回改了三遍了，这个代码
+
+commit a997a98a1d37d47d9e863fd51861be9c78a13cf9
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 18:28:51 2022 +0800
+
+    今天搞了一天的linux 调试了
+
+commit aa3fdd3ac931d53196326b85561179840cf53e6d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 18:26:34 2022 +0800
+
+    fix bug
+
+commit 7650a4f8b0ec0a1ace30420e210f4bb2a3d28306
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 18:24:00 2022 +0800
+
+    解决了 linux 下面的类型注册导致的 controller 注册问题, 休息一下出去玩玩
+
+commit 0f0ff153489dde357a9d8730799856d536811d1a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 18:11:02 2022 +0800
+
+    submit code
+
+commit a916ca889ba9fd095262e733d77f1b02936decde
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 17:59:37 2022 +0800
+
+    终于绕过去了
+
+commit 72464a7000b621c3d4b22314653ba2b289dc1e44
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 16:49:04 2022 +0800
+
+    linux 上面爆出一个大瓜， 就是linux 上面的注册系统不是根据 头文件的引用顺序来的，
+    问题先放在这里，
+    其实也好解决， 把 controller 的代码重构的时候，把系统注册的内容放到 ITaskManage 中间来处理。
+    这里先不处理，之后在处理吧。
+
+commit 6e3805725e59186b1bb35adf91683134c9734713
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 16:46:07 2022 +0800
+
+    我快被 linux 搞死了
+
+commit a22dbd32c9d3bb260c6304e2dea11aa09379bc0a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 16:41:24 2022 +0800
+
+    submit code
+
+commit 76458c17b0c4003fac0249e11f6b401acfbd452e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 16:35:07 2022 +0800
+
+    submit code
+
+commit 5fa56ab98ba5ebc8bb315c044270864bf49d504b
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 16:05:46 2022 +0800
+
+    submit code
+
+commit 24c3a00de87cfe5dd5e3e02cf00e513f3bbface4
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 15:36:24 2022 +0800
+
+    submit code
+
+commit 259aa14a14b7bbf2f7e18917806151e22ac62ccd
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 14:55:50 2022 +0800
+
+    submit code
+
+commit 2eecb811b63a03a9b220d0dceee87179474bce79
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 14:51:21 2022 +0800
+
+    submit code
+
+commit 7281da128d0f4540ccfa0d5b68d66732cf754c5a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 14:26:56 2022 +0800
+
+    fix bugs compiled in gcc
+
+commit 05d217c964e0bfa2d07eed1a23904057da073c88
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 14:22:22 2022 +0800
+
+    fix bugs in gcc
+
+commit 0d12c91b90d9ffc31634a5e19f71f078375e92eb
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 13:59:19 2022 +0800
+
+    patch
+
+commit 2708dddc78b74f765b97be87b925045b8de39a1f
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 13:57:43 2022 +0800
+
+    submit code
+
+commit bf29a8df90abdef6d818c1b549848241bcfc46cf
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 13:51:42 2022 +0800
+
+    写的不好的地方，编译器都有意见
+
+commit 2473027f3babe152dc77ff73753b4e1d6bbcf2a6
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 11:34:06 2022 +0800
+
+    去图书馆写吧，媳妇儿走了，家里没氛围了
+
+commit c9707dadabf14c8b6d8318d91b50739fc2cb3007
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 18 09:22:36 2022 +0800
+
+    今天是 2月18号，还有十天的时间，看一看我可能写完代码吧
+    新的一天开始，作者加油！！！
+
+commit b593b527a871de467afa2e25ce57bd955d226c81
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 23:59:55 2022 +0800
+
+    不写了，该喊媳妇起床了，她今天要回老家，不带我，但我要送她
+
+commit e5cf8b6f2922d2f742e76d22ac8b1914338d65c6
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 23:45:16 2022 +0800
+
+    突然发现还要重构 controller package
+
+commit c5a67feef405916895ef2d54879cb0ee5abd233a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 23:38:24 2022 +0800
+
+    submit code
+    重构了 QMetaType 相关的代码，代码删的心疼人，一行一行写出来的，还得删掉，不然代码质量就下降，
+    哎！ 码农的悲惨人生啊！
+
+commit a70dfd783e2f6f877394a60c430a0ab95f58c222
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 23:27:06 2022 +0800
+
+    找到绝妙的方法解析参数类型
+
+commit 9fbf76af1c6295219cfed04721aff387488a076b
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 21:50:05 2022 +0800
+
+    跟踪 QMetaType register
+
+commit a5d049526304445780ebe2d9393c7844e4da64b6
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 20:35:08 2022 +0800
+
+    submit code
+
+commit a2642e98dd7f1be01cd4f828d72c96d7ae6d4246
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 20:30:23 2022 +0800
+
+    优化代码
+
+commit a323d04e38e7fa0a61b1e4d7bcb1c77f252d82f4
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 20:23:53 2022 +0800
+
+    submit code
+
+commit 42bad0131e40e5c7729457cf7e0bd509963935f7
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 11:29:20 2022 +0800
+
+    fix bug
+
+commit df0800e71682898202daa24f43309157898140be
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 11:23:26 2022 +0800
+
+    阶段性完成 Req Resp 的重构
+
+commit 225b85785c629b34e1332a5067d8ca2e9369c50f
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 10:38:11 2022 +0800
+
+    提交一下， 去下厕所，准备开大
+
+commit 4302e17781dd9f0ce301c29a6d0ecb80bfced7cd
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 10:36:26 2022 +0800
+
+    rename IReqRespRaw
+
+commit 29e75ffb2a5e3b2626c1517f7c20119ce17e6784
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 10:34:13 2022 +0800
+
+    submit code
+
+commit 3c442b588c00cc5c11c6ed9199460100861cd2b7
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 10:31:48 2022 +0800
+
+    整理 IxxResponse 代码
+
+commit a1c2a825c5742805065c9e5839127f56661ca252
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 09:54:26 2022 +0800
+
+    重构代码
+
+commit ebf0cf302cb711b2668932d083a9567d8b7cdd37
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 09:49:31 2022 +0800
+
+    submit code
+
+commit eba739c85214eebd551a5e091dc7dd8dfcc7e404
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 09:46:29 2022 +0800
+
+    submit code
+
+commit 58aa8706a1a304a596a244582d92540908df3428
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 09:43:42 2022 +0800
+
+    重构代码
+
+commit 18e9354b1f7fe3a8f158771d6547f88c609c8d45
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 09:30:08 2022 +0800
+
+    sumbit code
+
+commit 83e9f3acda1c7a69302f516feb02242f47a26068
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 09:27:22 2022 +0800
+
+    submit first
+
+commit 54e186fb55c61570d92cca93e5eb6b4eb726a9ad
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 09:16:11 2022 +0800
+
+    清晨开工
+
+commit cc943c056d614e581d70364b3e9258d277df7f75
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 00:32:42 2022 +0800
+
+    想把 request, response dataImpl  reqImp, resImp 给分开，分的清清楚楚， 但是工作量有点大，明天再搞吧
+
+commit d43c52de38beff3b46f6fc9421541349ee20679c
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 00:24:41 2022 +0800
+
+    重排代码格式
+
+commit aadab9127c89d5df6b2ec39012d1309bea88dbac
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 17 00:18:15 2022 +0800
+
+    又重构了代码
+
+commit b1d79c917599b170b847ced21f222395a2abb863
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 16 23:55:51 2022 +0800
+
+    重构 IResponse
+
+commit acd98948398cd615d6b101d0e3b3e45302326525
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 16 23:41:32 2022 +0800
+
+    整理 IResponse 代码
+
+commit c26fcd988258672abed2fbfd82d18b87fc086208
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 16 23:15:57 2022 +0800
+
+    完成 一半  IRequest 的改造
+
+commit 215ab4d7132b76182076f4a07a77612e0b6ea858
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 16 23:06:55 2022 +0800
+
+    submit code
+
+commit 1e58904e460164d47a38027352690f4f84b5bbf3
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 16 22:56:10 2022 +0800
+
+    调整顺序
+
+commit 03b73afb538ee36534250c2acd238b8ee33b07e7
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 16 22:52:22 2022 +0800
+
+    保存一下，准备大规模修改 IRequest 代码
+
+commit 02f4a5e6b2580e8dd5c1e5706e07443835755284
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 16 21:11:16 2022 +0800
+
+    完成测试案例的编写
+
+commit e096868b6cf03b80240d3b43b988ad71733fa6e2
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 16 21:06:35 2022 +0800
+
+    又修复一个小bug， 小八嘎真多
+
+commit 8d62596489bb2c6699ca8e6569bdee35543d4177
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 16 20:52:59 2022 +0800
+
+    add operator<< to IResponse
+
+commit 522167965c2611d927a1849344779ff537ffc070
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 16 20:40:10 2022 +0800
+
+    魔芋爽吃多了，脑袋转太快，静不下来了
+
+commit dc345edbcc585af04f3e06e5faef65f9bb0b4664
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 16 18:58:22 2022 +0800
+
+    add test
+
+commit bdc3756896cc6e1342eb4134b71947e77d7102f7
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 16 11:10:26 2022 +0800
+
+    测试完成，可以配置 bean了
+
+commit ced87c0807a0d2f0f4e041a4b3a73fd38b3f7cea
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 16 11:00:00 2022 +0800
+
+    修改 response 中间的bug，
+    修改 void return 的bug.
+
+commit f710ef12d02f8771aa829156c5b3d985287fcc2e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 16 09:58:25 2022 +0800
+
+    以空提交开启02-16的提交，还有 12天就到三月份了，愁人
+
+commit 3ce46d984cae5545d2f6dd9585bfc981605d61b9
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 16 01:23:51 2022 +0800
+
+    have a nice night
+    
+    one thing: library need not perfect, but release on schedue.
+
+commit 8c9499d225881600f0d5f2c2efa8cf7b0ae55f88
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 16 01:22:06 2022 +0800
+
+    标记两件事
+    1: 写测试案例
+    2: 处理 直接传入 response 返回 1024 status 事件
+
+commit 531df3eeb2208e0272f5515a491b68de56c37dc0
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 16 00:51:00 2022 +0800
+
+    午夜提交
+
+commit 00cc3a9d2c06871fd4fee29ab67edcf515ebd2cf
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 16 00:30:53 2022 +0800
+
+    安全代码编写完成
+
+commit 32bb0031461c52f63d66b3538d91bb5abcfb982d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 15 23:38:05 2022 +0800
+
+    删除之前的不必要代码
+
+commit 1bc02fca054766e388aa72e1ea11853cbd8eef5d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 15 23:31:35 2022 +0800
+
+    代码全部测试完毕, 能够正常运行，现在开始整改代码
+
+commit 2f0142d57f7bd3c248f10d63ffd253e712eee10f
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 15 23:27:21 2022 +0800
+
+    有阶段性成果了
+
+commit 82ed59f3207836f43197520e9d2b69b0c5564f3c
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 15 17:21:17 2022 +0800
+
+    又解决一个测试出来的bug， IMultiPart
+
+commit d953aa8ddaa97e2d10d8f6b4682ea484106fd875
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 15 17:04:37 2022 +0800
+
+    submit code
+
+commit 3f4ca460ff2068bf5e654caccc0a91103d3435ee
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 15 14:01:59 2022 +0800
+
+    submit code
+
+commit cc4499456f44e6d5e369b0da2c5bd0f8e3c73c30
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 15 13:29:44 2022 +0800
+
+    有点小复杂了
+
+commit 2efcab0020c6a4ef6d613b9c506cf4f36d6ecc3a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 15 13:15:00 2022 +0800
+
+    重构代码
+
+commit 7ff432a3d14acefd5bb53943394701c1c0af7ba8
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 15 13:06:16 2022 +0800
+
+    submit code
+
+commit dfc8dc72dbe170ebb8e7f6fc19e3c2f107e515a1
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 15 12:41:20 2022 +0800
+
+    我也不知道提交的啥
+
+commit 63c1c92b450fda10af50c4118f8ae21256a777c2
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 15 12:27:03 2022 +0800
+
+    submit code
+
+commit 0427d1c0c95b2d563386ee8c1b319baf22811cd2
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 15 11:23:49 2022 +0800
+
+    修改bug
+
+commit 41e334a98cecbb372576cbbea4355d5e186fb0f0
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 15 11:00:19 2022 +0800
+
+    重构 IFunctionNode
+
+commit db0ac00f669195cc5d085d4a3d1cfdfa4b81daef
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 15 10:39:44 2022 +0800
+
+    重构代码完成
+
+commit e80d7010cf7cf6eb7f9143e413282a30d487366b
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 15 10:20:24 2022 +0800
+
+    保存代码，准备放大
+
+commit f5a79dba470fc021c17f9771722c7e1758bb1541
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 15 09:55:38 2022 +0800
+
+    submit code
+
+commit a49f92b080edb1dd3374472dd616f28e89b5cfcc
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 14 22:00:18 2022 +0800
+
+    代码重构
+
+commit 41d5d65bd7c92803aab6d2b4e3aa44e017a45c87
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 14 18:44:26 2022 +0800
+
+    该 virtual class base to real
+
+commit 2baacbf9f2f561bee17fa8cc085490988bdf3b32
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 14 17:55:34 2022 +0800
+
+    存档
+
+commit 4dfe7020961fa86b743fd8e1ceabafe7235c81dd
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 14 00:12:50 2022 +0800
+
+    好好干吧，还有一半时间
+
+commit 36ae263a1a4e3392164fc7345f52c1694c141778
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 13 19:11:55 2022 +0800
+
+    优化信息提示
+
+commit 11661399cf96d61e2621be34e85d42a4ef62d0b0
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 12 23:27:06 2022 +0800
+
+    添加 type 判断
+
+commit b23a7a5787559ccf254eeee021603373c6c68669
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 12 21:55:01 2022 +0800
+
+    添加 typeManage
+
+commit 2674b6f1b8168fd7c580f0ebd6c2e58d0f3ae43a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 12 11:33:10 2022 +0800
+
+    submit code
+
+commit 36efb875a5b4b72cdd40d6924672a8b213fc119e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 12 10:07:22 2022 +0800
+
+    submit code， 二月已过一半了
+
+commit d8c5b9ad2b160ce346216c311e77a4b0e02f8b39
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 11 18:23:44 2022 +0800
+
+    完善 blue print
+
+commit 68e8d42fabf8527892cadab145e27cba6a5fc24c
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 11 17:17:36 2022 +0800
+
+    完成 command 测试
+
+commit 591578f6f66c8b5f45b12779a7293b15f3c55269
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 11 16:53:47 2022 +0800
+
+    add application and banner
+
+commit 30a369cb0972c1523b55871d5b76c02059ad8d20
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 11 16:00:20 2022 +0800
+
+    整理文件分类，每当没有思路时，抓住一点破全局
+
+commit 95f74f974798d29292e15419cb29158b06c95ded
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 11 11:30:00 2022 +0800
+
+    感觉没啥思路了
+
+commit 7a0bf2eb8f3efa35f3b5fc5c8c8d771b32bd67d4
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 11 11:13:00 2022 +0800
+
+    subit code
+
+commit 6b7fdd324a5c5abfa24a920c30d2ab11d0db7185
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 10 22:28:15 2022 +0800
+
+    submit code
+
+commit 3e634991be39231700fed18c06ed8b98e236ae12
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 9 15:05:12 2022 +0800
+
+    所有的http 测试案例调整完成
+
+commit 8d2cad9595bcb0fb6ce9f91383d62906f72bac60
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 9 11:08:53 2022 +0800
+
+    submit code
+
+commit 5ee443f0960490b60d5f504ec9696380f3730efd
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 9 09:07:14 2022 +0800
+
+    bean 转换先做到这里
+
+commit 811a5b15d9b42de84e69fb76f9991f645d759bcd
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 9 08:20:48 2022 +0800
+
+    submit code
+
+commit d612bef9f5cfe60bec2c8bc5056b0960374e531d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 8 23:14:52 2022 +0800
+
+    测试案例通过，明天安排更多的测试案例
+
+commit d8fb675c765739ae4bc0aeb6a3743f60b2bb2611
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 8 23:08:47 2022 +0800
+
+    submit code
+
+commit 75d14a43c4c604438e0b2df6de36445e7ce34718
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 8 23:00:07 2022 +0800
+
+    back up
+
+commit e5a8081ff0876dc698fcdc98704def87d14067d2
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 8 22:56:10 2022 +0800
+
+    提交一下，准备优化
+
+commit 261a26f93c14be3d2e6a604768ada49c4affc0f5
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 8 21:58:03 2022 +0800
+
+    添加 trait
+
+commit 89efd8e778bde83def494c41f09a2c67d17d1a1d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 8 21:28:48 2022 +0800
+
+    添加 IsBean trait
+
+commit b6cee4af2f3f59bdebda15aa15cfe5432b488567
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 8 19:44:53 2022 +0800
+
+    submit code
+
+commit 9dad98af17245de1038b33c599622426cd95329b
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 8 16:43:43 2022 +0800
+
+    完成代码的调试
+
+commit 8b073ec3d736a328964b29e7f28f04d004df44ab
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 8 10:58:03 2022 +0800
+
+    编译没啥问题，运行问题一会调试
+
+commit 357842c2a4fb23bf8c65529ee7c75cf7e9df6e3e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 8 10:28:14 2022 +0800
+
+    所有的测试案例要重新梳理
+
+commit 521e580c7e85dcf9523d44a18cdf84bc91240249
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 8 08:09:53 2022 +0800
+
+    代码开启一天生活
+
+commit 581f23920ed416b49fc60d0b167ce7eb1a7dfc1d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 7 23:26:39 2022 +0800
+
+    今天的工作结束， configuration 的方式有一些瑕疵，但是之后如果没有必须性，不会修改 configuration了，直到下一个版本
+
+commit 548bf2c1605053009f30021050b4afc7fac3438f
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 7 23:24:05 2022 +0800
+
+    完成 system 的调用和设置
+
+commit 11b53635a1ce2cf50dc656a6e88754f8fe73b9d1
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 7 22:32:44 2022 +0800
+
+    完成第二种调用方式
+
+commit 2f7d52cab150745c172d0647c042f288ac83e648
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 7 22:00:30 2022 +0800
+
+    添加相关的转换函数
+
+commit b04bd2e2e0abe26232ce3abe03ca169a8db20891
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 7 18:04:28 2022 +0800
+
+    submit code
+
+commit b575b0faa3bb48edee4e5317b5cba43ed087489d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 7 17:51:44 2022 +0800
+
+    重构代码
+
+commit c9153508d15b9b4e57ad5dc3df79d442f00ccb2e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 7 17:49:05 2022 +0800
+
+    重构代码
+
+commit 73f956195837bff8465cd903420e670bbe92c68e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 7 17:39:42 2022 +0800
+
+    提交代码
+
+commit d5179e4f0e19448314f96e3764d99e6d637c21fd
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 7 17:17:50 2022 +0800
+
+    submit code
+
+commit f0d743eb5c2ab50f1e6cff429f55f31fd908e32d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 7 17:05:07 2022 +0800
+
+    submit code
+
+commit 373f2457c355ada8c0c83c7b58f9d961b8c32ef0
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 7 16:45:20 2022 +0800
+
+    commit code
+
+commit 61c9a25beacb29c6b641e417fbbd99b881c1e0b6
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 7 16:42:15 2022 +0800
+
+    deadline 2022-02-28
+
+commit 2c56ad6a569dcd3d3d414f7adce391b801c07823
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 7 16:30:43 2022 +0800
+
+    submit code
+
+commit cce0086c32575e70f7695d0d93b6312a82c1aa11
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 7 16:18:52 2022 +0800
+
+    贫贱夫妻百事哀
+
+commit a86529232ba88e9cb62127900cfed17abc5e87fd
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Feb 7 15:12:43 2022 +0800
+
+    submit code
+
+commit 56d4204bae80b530fb257adab8a0da70143960f8
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Feb 6 21:52:44 2022 +0800
+
+    submit code
+
+commit 737b755622e23b1b096455dc68cc330db4b5bea0
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 5 14:25:17 2022 +0800
+
+    当天上午
+    添加 User Configruation， 现在 System, Application, User 三个级别的配置。
+    
+    2022-02-05 23:34
+    晚上好不容易有点时间，能够静下心,有思路写写代码了，老婆让睡觉了，先记录一下，明天接着这个思路搞。
+    写这种代码真的很耗思路，耗知识储备，耗人。
+
+commit fcb682b4c785ff91204c2d44cf1134ee6e601f27
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 5 14:02:05 2022 +0800
+
+    提交代码
+
+commit b094a2a5932f48a108a1a83592dc60ce065eca09
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 5 13:25:49 2022 +0800
+
+    add system configuration group
+
+commit f81a8a1a68d346dfdbdcc166f5a84f00d38c9962
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Feb 5 09:10:39 2022 +0800
+
+    2022年 2 月 5号了， 赶快结束吧，我快吃不起饭了
+
+commit 6746a6d56e45cc641932015c60d49128b189551a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 4 14:41:01 2022 +0800
+
+    吃的有点撑，没啥思路
+
+commit 1581dab8c638748370161ddfc44f2f29b651c379
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 4 11:10:18 2022 +0800
+
+    添加一些 unit
+
+commit fb1c463aea635ccb75e333eef50ab5af5ff9893c
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Feb 4 10:30:56 2022 +0800
+
+    早晨，从中午开始 --路遥。 新的一天开始了，看看干点啥。 另外今天少喝一点茶
+
+commit 73e3a9ec70fb646e159d825c1c0644889e210715
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 3 23:59:04 2022 +0800
+
+    一天的殷勤工作结束了， 恭贺！！！
+
+commit 355970e23226bc40db0988e6144c9bff454a720c
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 3 22:37:05 2022 +0800
+
+    修改 mingw32 上的编译错误
+
+commit b63f0aadaebdbad9db875065246aaf63610ef2e4
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 3 22:05:08 2022 +0800
+
+    accepted
+
+commit d58915c5d534ab9cd73a3aed052b067989f7c5a1
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 3 21:20:54 2022 +0800
+
+    随手保存
+
+commit 88bb364ef4ed0d97895b7d7e4a9c828ac9ff3d51
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 3 20:56:44 2022 +0800
+
+    改了一个名字，思路一下就开阔起来了
+
+commit 9239f9b25c7815dd65ddae2c67ff5ee631ab1d3e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 3 19:27:11 2022 +0800
+
+    提交一下，夜场开始了， high 起来!
+
+commit 2c63149f158c29b378cf4193bf102a16ea31f9b8
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 3 17:52:02 2022 +0800
+
+    submit code
+
+commit e9b0d306aa7c426f2c3f86958e6fce49d92b05e3
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 3 15:16:48 2022 +0800
+
+    提交代码， 添加一个提示
+
+commit bb37b401271059a01640fc4eac3b534e4d3780f4
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 3 12:26:17 2022 +0800
+
+    第一个 assertion 运行成功
+
+commit 83c838b34736fb16233f0b85e28d063e3c2eed8e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 3 11:54:33 2022 +0800
+
+    改造 assertion 完成
+
+commit 42a8ba279528e5d282e75085da6daab18bb9c7d2
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 3 11:06:54 2022 +0800
+
+    submit code
+
+commit 6c085c1b64d1ef041e9fb90910f48cf3078a4268
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 3 11:04:04 2022 +0800
+
+    新的一天，开始创造吧！
+
+commit 44594c40778816378ee4b73942707508c25b0365
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Feb 3 08:23:11 2022 +0800
+
+    添加一些创意想法
+
+commit ef459e8ac9059df66ac2e2ab92158698e1a662a5
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 2 22:52:05 2022 +0800
+
+    思路有点乱
+
+commit eae3fa56d34d51816b51abc3459236bf8d4c41d8
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 2 22:25:22 2022 +0800
+
+    submit code
+
+commit e2d20140891076f6d54a31b55ac53a7182be8b75
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 2 22:04:58 2022 +0800
+
+    基本完成 IFatalManage 设计，但后面肯定要大量的修改, 先凑活用
+
+commit 87512a89b7e4fb73c9f4648d371a380e284864c0
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 2 21:04:51 2022 +0800
+
+    流程已经跑通了，先停在这里，我去实现 fatal 信息的调用
+
+commit 964383ae22b28b079e9bd8e5d98f67c20734f48a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 2 16:41:13 2022 +0800
+
+    保存一下准备放大
+
+commit beef48a99e1b97f8b190ff3d37469d4e09ab8932
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 2 16:03:51 2022 +0800
+
+    submit code
+
+commit be59c37c92743ea1eb4adb14c6d6b54a55288138
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 2 14:38:49 2022 +0800
+
+    submit code
+
+commit b217b4db7b463fffdfe048fe84da5f00b02bde46
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 2 14:09:11 2022 +0800
+
+    submit code
+
+commit 5252a6742bb679dfcd60e900787871866d8687bf
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 2 13:32:03 2022 +0800
+
+    auto submit via script
+
+commit 3c3855807ff54cc0f26f98929c1b6a183194e683
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 2 13:27:57 2022 +0800
+
+    优化代码
+
+commit f9a496ffece6957a8fc39dce07122b55ca49d152
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 2 13:17:27 2022 +0800
+
+    提交代码
+
+commit 44f55992545c99214188fc8b98a16ce33eead174
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 2 12:25:04 2022 +0800
+
+    添加 mini-yaml
+
+commit 8cc7614327935351c2ac2b7a0253446567db80bb
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 2 11:08:18 2022 +0800
+
+    解决 mingw 编译器条件下的warning 问题
+
+commit 6aa998fbb74d5ca4e2d8f87860a5d7bf6dec3d3b
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 2 10:59:28 2022 +0800
+
+    貌似改了什么，但是什么又都没改
+
+commit 76c49afd04d34bd92303d04c7e4a92d33a01a9d9
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 2 10:45:38 2022 +0800
+
+    保存文件
+
+commit c52e8af6028446aa527012cc7c4d131a3e0766ce
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Feb 2 04:47:19 2022 +0800
+
+    喜提一个bug 并成功的解决了它
+
+commit 487983f38c2bc57ee28ee44fb9cc9613d36bdfcb
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 1 23:52:16 2022 +0800
+
+    更改 controller 中间的 pp 的名称
+
+commit d76a6c63aaa8d22a0e5ca9f72afd9ad7c543e945
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 1 23:45:14 2022 +0800
+
+    add support of PATCH method
+
+commit befc820735ca00c81187f6a86254ab08737862fa
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Feb 1 23:31:33 2022 +0800
+
+    看起来改动的多,其实就只改动了 IOrmModelInterface to IOrmTableModelInterface
+
+commit a5e23fb0e3f0bc4376c91b6e56fe0e9eabf2f864
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 19:45:18 2022 +0800
+
+    submit code
+
+commit 3e94cea608b23923b9593de73e3f5cd2d670d056
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 18:16:58 2022 +0800
+
+    优化 IOrmTableInfo 初始化 等内容
+
+commit 89d6f6c2c2f748c8055140d7bf63ab2965dfea72
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 17:36:09 2022 +0800
+
+    提交 代码
+
+commit 5a36cbef3f05dbffb1c95bc56fe0c11e51d2161a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 17:35:20 2022 +0800
+
+    调试 orm 完成
+
+commit f48aba6c85fe640428565bd9588a4166616cae4f
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 15:25:46 2022 +0800
+
+    现在运行不了了，不过代码越看越清爽了
+
+commit e5703be1bd63c809b581bc1ef773c9943e9efaa4
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 15:15:59 2022 +0800
+
+    拆除以前的手脚架
+
+commit 207717406799b24b216309864c8d8f5cc2362140
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 15:03:04 2022 +0800
+
+    清理一些 宏
+
+commit 2902191ddef1fe547682b2a3d00718488e8517fe
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 14:57:05 2022 +0800
+
+    一个绝妙的初始化方式
+
+commit 6001ced245b3ad116f39fa1932ea9c39d465f25d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 13:58:02 2022 +0800
+
+    思维有点受阻
+
+commit 36c79b3bb9f3ce915d41f810e533586e223f8d42
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 13:49:22 2022 +0800
+
+    submit code
+
+commit 79a1aa5c58a382b39e7579029f95d91405a0ff68
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 12:56:16 2022 +0800
+
+    submit code
+
+commit 1339105059a4ccad097cbfb21087ca5defc71d00
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 12:51:01 2022 +0800
+
+    submit code
+
+commit 84097e724976b5fdcb3e89b0b33436d64ba690c2
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 12:38:01 2022 +0800
+
+    submit code
+
+commit 5cca38ad78bf038e6ec4ffd0c2a429ff30392f49
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 12:17:38 2022 +0800
+
+    更改 response 命名规则
+
+commit 83b6124c0e566cb9d6a6508f9307b632deda3c85
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 12:09:01 2022 +0800
+
+    更改configuration
+
+commit bcc690741ca83a7d23e2d9496116761904a9c207
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 12:05:26 2022 +0800
+
+    更改controller
+
+commit 228344de0375b2041fdaa97ad9a922bcdf1ddd4a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 12:03:13 2022 +0800
+
+    rename file
+
+commit 23649a2d4ab637fe733a0663720cb5735fcb43cd
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 12:00:56 2022 +0800
+
+    修改 tableview 的命名规则
+
+commit f8e75bca0e340d12ac31522a8a494cba069517ce
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 11:49:30 2022 +0800
+
+    整理 dialect
+
+commit d35323baace3a55d24b65b8fb41b7fd98efb0754
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 11:45:09 2022 +0800
+
+    submit code
+
+commit 3c72fd556a2288627cef43d5b305cf2f09217271
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 10:23:36 2022 +0800
+
+    submit code
+
+commit d534eb5442c3d4c4b908c92a5eb8517ad65e2fb5
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 31 10:16:18 2022 +0800
+
+    改变文件构造
+
+commit 2776efb3c89d83b498523e8d7d29adad7f86e84c
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Jan 30 23:27:19 2022 +0800
+
+    添加 IFunPostRunManage
+
+commit 7a98dd50b5063ddb93bc94fca4443923a1a13349
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Jan 30 22:11:05 2022 +0800
+
+    验证了一下，没啥问题
+
+commit 0c256f0b20453c0f66acfe3c28a50f612210bac6
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Jan 30 21:29:45 2022 +0800
+
+    不知道改的啥，但是又不想没有提交
+
+commit 4ad72ca840cb7e18e67d112bf800a8ee0cf174ac
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Jan 30 10:51:29 2022 +0800
+
+    submit code
+
+commit f4b7a21d4f7462ed5740713e03340b1fa0f4e84d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 29 23:59:44 2022 +0800
+
+    遇到一个 bug， 明天再解决
+
+commit 2a2be0c4a35f230bf15c9f89c4311c200d154cff
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 29 19:08:33 2022 +0800
+
+    change names
+
+commit b497991573146c4faa8bda8609f6293e99ddfeb8
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 29 18:58:45 2022 +0800
+
+    submit code
+
+commit 765049a2041f8fb1818b3d572f40628956b79fb8
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 29 14:35:42 2022 +0800
+
+    又一次走通了另一个流程
+
+commit 3e838135e2e5c1ab8a8a6853ec8f926734af9c89
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 29 11:57:15 2022 +0800
+
+    乱改一通，改了一半了
+
+commit 52d694c7cfdc2f997adda5d6899b6657945aaf12
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 29 10:30:53 2022 +0800
+
+    优化代码
+
+commit 9fb35787247bdfc40ccd791f57947b1eb92ec3bc
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 29 00:34:54 2022 +0800
+
+    走通一部分
+
+commit a16b0a5276f15e924bc7133b12dc2256f9323587
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Jan 28 23:50:59 2022 +0800
+
+    submit first and then 放大招
+
+commit 6ada756dd7626ee776a5b2b3e2d88c1b42d3a509
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Jan 28 19:18:55 2022 +0800
+
+    submit code
+
+commit dc63a00605f931d6be1e99f5ad9de2219fc32e5b
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Jan 28 10:13:16 2022 +0800
+
+    保存一下，准备生成doc
+
+commit 2d4ef15231d6025ae0102ace522e0f123d5c1a8f
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Jan 27 17:49:22 2022 +0800
+
+    完成代码的更改
+
+commit e57fc47e9bd0ea6fe5b1bd91c08b4d7a0ae42e14
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Jan 27 16:31:33 2022 +0800
+
+    修改了注册调用逻辑
+
+commit 04467bf251dea3de07751f52e05c36c860354e76
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Jan 27 15:21:31 2022 +0800
+
+    把其他选项也给整掉
+
+commit 1653d70703e674c50c04baf77af30c4695b043fa
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Jan 27 15:02:59 2022 +0800
+
+    这个输出有点搞不懂
+
+commit 35918b80b05a621a770531d92bc89830020dd1b8
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Jan 27 14:02:47 2022 +0800
+
+    submit code
+
+commit c8779349dbb670e37d60237bf824cda343608b87
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Jan 27 12:40:23 2022 +0800
+
+    重新构建 静态编译系统
+
+commit c15b383af92feadf870d419d95077e15b1c37e24
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 26 19:14:06 2022 +0800
+
+    submit code
+
+commit 95a51ef82255f786238821576c63a40a55034dea
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 26 18:56:43 2022 +0800
+
+    准备修复这个代码
+
+commit 73cf9f60732e4a886315ecfa0275335c3d3a1dc9
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 26 18:33:05 2022 +0800
+
+    修改package 完成
+
+commit 84352d2b07a3ccb7b73ee669639c51ef42625ddb
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 26 16:50:41 2022 +0800
+
+    先保存一下，准备把所有的文件放上 package
+
+commit a67353bda136e3605f10e695f4dd3a3b78ac0b62
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 17 15:30:40 2022 +0800
+
+    不想写测试案例了
+
+commit 4c568655662e94b982b0338eebf33a4047a59381
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 17 11:02:45 2022 +0800
+
+    布置作业
+
+commit 0485c6e2e63a31958ee5e8f2f0fb59fb67f645b1
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Jan 17 10:45:55 2022 +0800
+
+    submit code
+
+commit 0b373ce22e4d16a484d453db2207816e9141abd8
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Jan 16 18:57:55 2022 +0800
+
+    完成设计，等待写测试案例
+
+commit 1e75dfec034182255666640beecaf40474350026
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Jan 16 18:48:21 2022 +0800
+
+    submit code
+
+commit e8602d793a4df00234bcd2b23b3d525744350555
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Jan 16 18:46:06 2022 +0800
+
+    修改完成代码
+
+commit 6e0e6b84cd784d4ea3213f1ea10fcd5805503ecf
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Jan 16 12:22:39 2022 +0800
+
+    优势一大段代码
+
+commit db16031c810e2379f519952fa8b81b899e35c88d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Jan 16 11:59:07 2022 +0800
+
+    提交
+
+commit 4b2ebe1f29089831c43e08b6297898caba83eb3e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 15 23:35:42 2022 +0800
+
+    submit code
+
+commit db0976d2443a5c55fdfbbb2f1a317daa8351088d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 15 23:30:02 2022 +0800
+
+    模板改成展开的形态
+
+commit 0cddd44b3e741da6e1b6c5158e232b2b9990ee92
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 15 20:47:19 2022 +0800
+
+    营业时间已经结束，又到了和您说再见的时候
+
+commit 379b506ba45b1ff5f1d02f4407c157628f2af935
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 15 16:41:22 2022 +0800
+
+    submit code
+
+commit 56a2e105896dbb6b2965ae7cb10ce66d2d011603
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 15 16:17:46 2022 +0800
+
+    添加说明
+
+commit 8b3e81501da59a71527cbd9913306a5eadd294d2
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 15 16:13:30 2022 +0800
+
+    梳理 condition 之间的关系
+
+commit 8878b51d11239b130cd731a851868abc2b3f23a5
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 15 16:03:25 2022 +0800
+
+    submit code
+
+commit ed7628ae384e98856f2412f08144b1fc7e362d98
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 15 15:30:13 2022 +0800
+
+    submit code
+
+commit 102ec1f7a59e8840392e679b7129820c20430ca4
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 15 15:22:50 2022 +0800
+
+    完成sql or 的验证，
+
+commit 0bf53de836e1aa680784fa7c6dbb028369512ee6
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 15 14:09:26 2022 +0800
+
+    submit code
+
+commit feb386b6fe7e1ef26269131cc058d1d5c87287cd
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 15 13:55:56 2022 +0800
+
+    修正bug
+
+commit c8100855f7d770855df644099ebb9fec6da50713
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 15 13:51:11 2022 +0800
+
+    重构代码
+
+commit a4a0a3b1706bbb36652f3fb566fe830ae795d577
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 15 13:43:02 2022 +0800
+
+    submit code
+
+commit 316f237fc00fb76fcfcae6ce6e68b16fe96ae8b3
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Jan 14 18:19:51 2022 +0800
+
+    submit code go to gathering
+
+commit 59cc6a79efb4d50db90663215d1fedc4447abdca
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Jan 14 17:38:33 2022 +0800
+
+    添加调试代码
+
+commit b596665351ec8be46831b90d4d5259f2197be2c3
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Jan 14 16:58:22 2022 +0800
+
+    submit code
+
+commit aa06f28c71850681327276c534cce10c873f4548
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Jan 14 15:44:58 2022 +0800
+
+    调整代码
+
+commit e3e195c28e2255404e2038654c1b7042dfd7fd86
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Jan 14 15:41:03 2022 +0800
+
+    完成 status intercept 的设计和实现
+
+commit 0c4a2d440b38cc9756b1fd0072671e771ff20900
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Jan 14 15:09:44 2022 +0800
+
+    submit code
+
+commit 4544e7f0a1b34ccba2effffd7cdef783ac894bbd
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Jan 14 14:43:23 2022 +0800
+
+    add fatalinfo file and validate statusFunctions
+
+commit 4345e3b416f2d10e6a7e329c4ad3fb9b8c1b1b90
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Jan 14 13:11:01 2022 +0800
+
+    整理代码
+
+commit b9bf6e9cb6fc81130071153c10d3543779fa36ec
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Jan 14 13:03:45 2022 +0800
+
+    开始工作了
+
+commit e26f0da21124c9512b8e1a2e5fd936f8762adda4
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Jan 13 23:18:41 2022 +0800
+
+    submit code
+
+commit cac581da6ea55681320b8e181c21aaf82b1f9689
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Jan 13 22:51:46 2022 +0800
+
+    submit code
+
+commit a3596356a327d84ed70090bd938de9a0fb7322e2
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Jan 13 20:44:31 2022 +0800
+
+    change unique_ptr to shared_ptr
+
+commit 4d00fdf55d303e633d2da67d368b7ece31718a89
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Jan 13 20:28:10 2022 +0800
+
+    submit code
+
+commit 2af2a3f9f67a8e25eb7def3bf39da40e81033386
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Jan 13 20:22:01 2022 +0800
+
+    修改完成， 提交一下
+
+commit 71c5abd9c3256f920f8f948e11b697dc67f70bc5
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Jan 13 20:12:27 2022 +0800
+
+    保存一下，准备改一些代码
+
+commit 74ddbef243dd099366f39707347bdeaa5c8da9aa
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Jan 13 17:29:44 2022 +0800
+
+    submit code, 停更了这么久，想有一个新的开始
+
+commit b0bb98492e02669e9585cc24b9aeb6be6bc49d91
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 5 22:49:11 2022 +0800
+
+    添加 funDefine
+
+commit a2ba29c7f2e1d5ebc66859abfbc729ebba2ec5ee
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 5 19:18:33 2022 +0800
+
+    提交一下，今天啥也写不了了，改写的，能写的写完了。上次说的吃一顿，今天搞起
+
+commit 199e045e9b639d79207377fa4c73b1baefe96b92
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 5 18:24:30 2022 +0800
+
+    改一个名字
+
+commit 7710474bc1bcca97e5ce573a4a53166cb6978642
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 5 18:22:14 2022 +0800
+
+    保存当前项目布局
+
+commit 39c7d24e5696bef23589c8ea275e463dca9596c2
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 5 18:11:29 2022 +0800
+
+    auto submit via script
+
+commit 9c11deb35879a901014c0d4e7f42d82d53d23882
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 5 17:35:18 2022 +0800
+
+    添加测试案例
+
+commit 1f29576a05a2fc5e19708d853e5825ace1ea333c
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 5 16:02:17 2022 +0800
+
+    添加 不同数据库的调用
+
+commit d1ff4f515b14617edceee8c679b1cd0072ee2c95
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 5 14:55:02 2022 +0800
+
+    submit code
+
+commit 63573b32cfde3aaa4a1882934e866b1e5fe42736
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 5 14:07:08 2022 +0800
+
+    将 数据独立出来
+
+commit e33f66d583c0718c7bcc3d81ec4088e23e711d89
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 5 13:29:24 2022 +0800
+
+    submit 一下吧
+
+commit de5f2a6698d87510880314e63f907ab783c0f957
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 5 13:02:00 2022 +0800
+
+    convert database config to dataSource
+
+commit 5ae684e84beda0123932af07b137c856bc5f8388
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 5 10:49:52 2022 +0800
+
+    处理 bool 值的问题
+
+commit 17a548ca8d3841d74ee51be9b47410412de453b3
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 5 01:07:53 2022 +0800
+
+    不搞了，赶快睡哈
+
+commit 35fcabb529d1192089954a5a6ed9d1aa5befdffb
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 5 00:48:32 2022 +0800
+
+    现在跑起来没问题，先提交一下
+
+commit 38873dee07ccbe8dc58c8c5190c15a412cee4aec
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 5 00:36:54 2022 +0800
+
+    提交代码，准备对 table 做bean 化处理
+
+commit 48d77d3410264afebcbf2ef45aac2781d26b8629
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 5 00:19:47 2022 +0800
+
+    完成dataSource 的整改工作
+
+commit 1536f1043bf2c3e22b1157da95b883732afbd2ff
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Jan 5 00:13:57 2022 +0800
+
+    submit code
+
+commit 4f346e0bb84d7f2589aa4be3ece8b515a8136f49
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Jan 4 23:38:23 2022 +0800
+
+    添加 bean 支持
+
+commit d8e9c911aa6ad846ceabddba668831e85ebd982b
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Jan 4 22:21:17 2022 +0800
+
+    add test bool
+
+commit 5fe748f7b4d9dd4f7256544b29ec09ee259af239
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Jan 4 20:53:31 2022 +0800
+
+    add date test
+
+commit 20a1f95f2ae06bcbc00691509f4f38091d889753
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Jan 4 20:41:02 2022 +0800
+
+    使 config 支持 QStringList
+
+commit 254fd78f3968ebc1e4a28bfe8a42326af886e166
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Jan 4 18:26:24 2022 +0800
+
+    开始完善 Config 的测试
+
+commit 9e538c8bceeb549161be7a3927f4f46cdafe69fc
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Jan 4 17:57:21 2022 +0800
+
+    完成测试 多个数据库并存的情况
+
+commit a4c5d36807c22ca85e46cf357f76dec43dd17242
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Jan 4 17:38:35 2022 +0800
+
+    调通 mingw64 环境
+
+commit 25bb41cb767d5a17cf535d75ec57abb140e2073a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Jan 4 17:05:31 2022 +0800
+
+    submit code
+
+commit 398501e6bb7727819ed10fe7f500bb73b0e7f5d4
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Jan 4 16:33:27 2022 +0800
+
+    修改 mysql auto increment
+
+commit 153c29fca827880167f3d720fe10c5f972671807
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Jan 4 16:19:19 2022 +0800
+
+    基本完成 mysql 的调用
+
+commit 2eb1167332fd378a86b2613f04369fb75fef5994
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Jan 4 14:40:21 2022 +0800
+
+    修改 orm dialect 的注册
+
+commit 1e75ca51af89fada8928146921380d43a001a9e6
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Jan 2 16:42:52 2022 +0800
+
+    准备实现 table view, 先再table 的基础上面实现，之后如果不合适的话，再分开写
+
+commit e688e7b15003ab87777d1c73d47cc4d414e59050
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Jan 2 15:41:10 2022 +0800
+
+    假装这是新年第二天的第一次提交
+
+commit 50c434ed7bed930e1f46f1e9780768fde6d76e35
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 1 22:05:49 2022 +0800
+
+    开启一个新功能的编写
+
+commit 232dc0c7291b72da73d2f806465f0a9a97ad6b40
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 1 18:09:51 2022 +0800
+
+    改造 IConvertUtil完成，回塔
+
+commit b0b408270b7eb155f37bc668f9be3972b704b6df
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 1 17:29:31 2022 +0800
+
+    Good, 回血，准备放大
+
+commit ce93f0ebf7938e7a05447eed90383e06af32e9f5
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 1 16:59:56 2022 +0800
+
+    将 orm 中间的 toXX 函数移动到 IConvertUtil 当中
+
+commit 15d4579f3414b6d8890fb3949bb7cf0f3e936281
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 1 14:32:18 2022 +0800
+
+    完成 ISqlQquery的 log 注册
+
+commit 2b738eb1b6e73edd5475f404da21b6e48ad08a2d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 1 13:35:15 2022 +0800
+
+    修改代码
+
+commit 38e8298327cbf312342ab07c323278b51e04b482
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 1 12:43:26 2022 +0800
+
+    完成generateValue 的注册工作
+
+commit 4c9f2e7e3be7f85f2137c1f25a72e28c9cf9a9fa
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Jan 1 10:44:39 2022 +0800
+
+    新年好
+
+commit 5ec167f06d20f1056f3802b2039b0a0a71808acf
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 31 23:35:45 2021 +0800
+
+    submit code
+
+commit 9342623dcaa2a4f534540937f3a14c358702337d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 31 18:49:13 2021 +0800
+
+    也不知道改的啥，收拾收拾聚会
+
+commit c813d6a6369ce744b99097ec0c5d138704858856
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 31 18:47:36 2021 +0800
+
+    优化代码，估计代码行又要少好多，伤心
+
+commit bac7cd3cb480420c87a41e23778b5dad58fc4fa2
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 31 18:14:25 2021 +0800
+
+    完成数值型数据的填写与转换
+
+commit 043b54cc00456a268170a16bae05760b5794d85e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 31 17:50:04 2021 +0800
+
+    解决 primary key所存在的问题
+
+commit 52631270851a6c02bf4e02f66744092dbba5b72b
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 31 17:20:03 2021 +0800
+
+    魔法表演完成，谢幕！
+
+commit 91228d06e9cc97265110bf8f3ec92f2486780bb0
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 31 17:07:19 2021 +0800
+
+    开始变魔术
+
+commit eb9c21d1df0a8c6b44a31feecfe7b643b18a0e92
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 31 16:20:42 2021 +0800
+
+    真好，又解决一个以前没有刚刚添加进去的问题
+
+commit 98bbe5671d6976daa7d1325f2376360f11e81372
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 31 16:09:09 2021 +0800
+
+    为 primary key 添加支持
+
+commit f9a625719f53706c78ce09ef50322ee265a2ceb6
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 31 15:36:34 2021 +0800
+
+    add $SqlType to orm
+
+commit afda0686e4413ba19ad2c8267463b2e3ff4ca210
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 31 14:29:33 2021 +0800
+
+    真棒，借着测试改了一个 bug
+
+commit f15c9038d19b9865109dda4cf858f505d56d8f3a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 31 14:04:24 2021 +0800
+
+    完成时间类型的测试
+
+commit 0498abbf992c5fab4b9b7b972a303fd07a772688
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 31 13:42:23 2021 +0800
+
+    优化代码
+
+commit b7ffae737ff1249d49244dea4ed3977bb1a90b1b
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 31 13:30:23 2021 +0800
+
+    2021年最后一天的第一次提交
+
+commit bc657dd03e4645b75b90c1e4587c1b8ba9baabbc
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Dec 30 21:46:15 2021 +0800
+
+    不知名提交
+
+commit 86b48e844e6220f5c4b9a4afcee2712e3e70996e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Dec 30 20:28:18 2021 +0800
+
+    分离头文件中的引用
+
+commit e67e1e5aca48005b139ada30a85ebbb140ac22d5
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Dec 30 19:47:35 2021 +0800
+
+    修改bean
+
+commit 2e09d23438d4651d3be6e96c72c5f153d792fed3
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Dec 30 19:22:07 2021 +0800
+
+    开始编写 date 等date 编写完就回去，不能再干了
+
+commit ead7a124333d00ed2fafe7c1238846ec2ce2eba9
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Dec 30 18:57:12 2021 +0800
+
+    submit code
+
+commit 88c3cf1d73c3b8b78478e1efa461c719213df492
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Dec 30 18:30:32 2021 +0800
+
+    添加 bool 测试案例
+
+commit 81a6919633b29889f41667a40656ce5a74dda919
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Dec 30 16:52:21 2021 +0800
+
+    submit code
+
+commit 11199b550ef7a5bf500810b4d513eb0fe7f5fb9a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Dec 30 16:33:48 2021 +0800
+
+    submit code
+
+commit 4584f729fb4314df2f7f39de0c6b6ac613217616
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Dec 30 11:35:07 2021 +0800
+
+    这里特别记录一下，关于 bool 值的一个 bug。这个bug 已经被处理掉了，
+    在 bool b = QVariant::toBool 这种操作过程中， bool 能够被正确返回，但是 他实际的值可能不为 0 或 1
+    也就是说这种状态下不能够使用 b1 == b2 或者 !b1 这种的操作。
+
+commit 1de52b23612cc8b228cceb02d758e76f1d90e425
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 29 22:57:56 2021 +0800
+
+    又写几行代码
+
+commit 3946421f60aaa101d4ab626afb13ada634e4198f
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 29 22:38:08 2021 +0800
+
+    编写 date 转换函数
+
+commit 0b043229d9df64a41d256a8afc24fc304469c252
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 29 21:43:01 2021 +0800
+
+    写是写完了，但是是否有 bug 不知道
+
+commit c9dd5d74dcebab088a85c66212acd91366082a14
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 29 21:39:34 2021 +0800
+
+    完善 convert util 的配置
+
+commit b39950c6898d6b6d65117fabc13aa4997914a56a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 29 20:28:21 2021 +0800
+
+    先提交一下， 剩下的晚上改一改就行'
+
+commit d75b8d1cd953eb4bf96f752d8d7457d824fcf3db
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 29 19:15:38 2021 +0800
+
+    提交一下代码， 对于转换这个东西，越写越感觉没谱，需要写测试案例测一下，但是又不想写测试案例，咋办？
+
+commit e033d6d7068ce194ea86dd82c2c89837f05b9bcf
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 29 18:58:25 2021 +0800
+
+    转换内容写的好繁琐啊，之后肯定要重构
+
+commit 93c37d1a61b17534bf7a630177a1df1650b51a6e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 29 17:44:13 2021 +0800
+
+    把这一波函数实现掉，就没啥函数要实现了
+
+commit 897f47248177bb7b18fb39a089d69a97e936973e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 29 17:18:08 2021 +0800
+
+    完成部分 util 设计
+
+commit d71e659243de3d379b8eea2aa117156198b9919f
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 29 17:15:51 2021 +0800
+
+    submit code
+
+commit 966bf4a6b6e52eb57bb51a72210d5bc48fb52e70
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 29 17:08:12 2021 +0800
+
+    提交代码，
+
+commit 9812b08345370f85b22551798be4b5aef128b949
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 29 16:06:35 2021 +0800
+
+    submit code
+
+commit 04fa831b2e69b1d952fac2d357320eee14ed306d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 29 11:30:24 2021 +0800
+
+    整体实现代码
+
+commit fe4af363953d7cca1af553e912da6f785000353c
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 29 11:18:23 2021 +0800
+
+    重构代码
+
+commit 3ac4e72b75f830a894ae11f65344f238c771510e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 29 10:54:38 2021 +0800
+
+    编写 OrmUtil
+
+commit 21c73a8da7c272196ccd52a0ffd6c45f991aa697
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 29 08:23:07 2021 +0800
+
+    学到了一个 using 的新用法
+
+commit 99c5d9be0964595cbec023049cdc53b0a02a638f
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 28 21:56:33 2021 +0800
+
+    add whereTrue and whereFalse
+
+commit 65720c8453bca1eb5ce23c4597e897b182de2d21
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 28 21:32:04 2021 +0800
+
+    改的比较有效果
+
+commit 5314aa72c362ca13b002d95712fadfce7bfaa86c
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 28 20:43:25 2021 +0800
+
+    回家，留一个小 bug
+
+commit 9eeea9d08cfc79ef35c04581a48c65176df97384
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 28 20:33:45 2021 +0800
+
+    submit code
+
+commit 7dc851d3623966498049eb965acfc2173c139275
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 28 20:18:09 2021 +0800
+
+    给 ISqlQuery 添加了一项必杀技 , bindParameters
+
+commit b9e8282a284f086e26eed0ee77cb88d4079c2aba
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 28 19:16:23 2021 +0800
+
+    刚写好一个api 发现逻辑不对，又删掉了，好可惜
+
+commit 56989247903f8c1420258b33caa43548446d3839
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 28 18:09:19 2021 +0800
+
+    update list with columns
+
+commit 80404817d9b54357055fc08a526729e220f53d37
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 28 18:02:08 2021 +0800
+
+    submit code
+
+commit a872b6f0c9aea0fcd1582291d31b2c5dcc4c0fa5
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 28 17:41:00 2021 +0800
+
+    哎！又提交一次
+
+commit 8ed887ddd8af2004b6e58bf2da2769aa8bac7b5e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 28 17:26:53 2021 +0800
+
+    我该一行 submit 一下，就是玩
+
+commit f2b62955ae01168dc7196a60c1023683eaf1c21e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 28 17:06:55 2021 +0800
+
+    改了个寂寞
+
+commit 4f6db626ff0121a85509ec0878789bc1ad11e1aa
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 28 16:58:38 2021 +0800
+
+    auto submit via script
+
+commit 3d105106634f1082e4b322e2e146edc1ec33430f
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 28 16:15:56 2021 +0800
+
+    移除之前的 orm 设计
+
+commit ac06246d4b519f78641280d7dc8a2f79292e6bf8
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Dec 27 23:23:27 2021 +0800
+
+    submit code
+
+commit 674953649023f5d5f2096638eb526013f54e3b02
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Dec 27 23:19:27 2021 +0800
+
+    整理代码
+
+commit 44fac685663e13e603930ca37b777c681d43bde5
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Dec 27 23:10:40 2021 +0800
+
+    submit code
+
+commit b435e607f03ea4a42372a7972cef7f4a7a3eb391
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Dec 27 23:05:14 2021 +0800
+
+    整理 orm table
+
+commit e965e8eb115b008c1ead509b4f8f6195ecf11644
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Dec 27 22:30:02 2021 +0800
+
+    完善 findColumns
+
+commit a0f6cbb37f6e8b054ec58d3ba54fbdff1e93826c
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Dec 27 19:28:42 2021 +0800
+
+    submit code
+
+commit 1fe1c7b249da74265b6e643e78437a3cfe894b0b
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Dec 27 19:00:04 2021 +0800
+
+    提交一下代码
+
+commit 206d85d26869ba174aedc455fe3dcc47cf5439a7
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Dec 27 18:20:06 2021 +0800
+
+    添加了一查询方法， 并且在bean 上实现 operator== 和 operator QString
+
+commit c21252a88e3598191035aed598aaab60d8d82952
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Dec 27 12:41:58 2021 +0800
+
+    添加了 findAll
+
+commit 6d0004e8af1df7a2991304faf79c4abbf08c0ff5
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Dec 27 12:21:13 2021 +0800
+
+    test select
+
+commit 1066e5237f3aca8da8a963857d24bb5ded866876
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Dec 27 11:31:39 2021 +0800
+
+    submit code
+
+commit 43718e46f31f020d16175f7fcadb38b63ebcf556
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Dec 26 23:30:42 2021 +0800
+
+    submit code
+
+commit cd7252057e09113e2aefafd812fc9c72660c660d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Dec 26 19:24:03 2021 +0800
+
+    submit code
+
+commit d4aad2a06011a7dcc2bfe9f3bc542e19e5498df6
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Dec 26 19:11:32 2021 +0800
+
+    submit code
+
+commit a015f83491c265370c179f15a8e007d1ed25296a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Dec 26 19:00:02 2021 +0800
+
+    submit code
+
+commit 2db33abd89e6780ca0f74101aa1c46fb985c6770
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Dec 26 18:49:05 2021 +0800
+
+    submit code
+
+commit 8e5492e17bf93776d3da5501ec456b1b2288dd2b
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Dec 26 18:34:17 2021 +0800
+
+    add some class
+
+commit 1025ff4b7f27f532bbc0918e52c98d4ea4e90176
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Dec 26 18:23:41 2021 +0800
+
+    submit code
+
+commit c5e43a44ee2c341101cfebea0231123085e26960
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Dec 26 17:31:35 2021 +0800
+
+    submit code
+
+commit 7997df40d7b8259d9f5ab1723e92add187530f6b
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Dec 26 17:07:03 2021 +0800
+
+    submit code
+
+commit 55141626b6bab73ea56d3a046282a8f003e0b0ff
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 24 18:17:22 2021 +0800
+
+    不想干了啊，
+
+commit ce2d28f8267a774adef1764461f02f58a4673c94
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 24 16:30:15 2021 +0800
+
+    submit code
+
+commit 24ebb685de1d874cbfa9ddc07db6f1b1bcfc33e4
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 24 16:25:02 2021 +0800
+
+    submit code
+
+commit bedb7e3c8e8079b76038ed74b808c0fb95386ed4
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Thu Dec 23 20:06:46 2021 +0800
+
+    submit code
+
+commit 5b34056640945b6f68f3151631d03b358579a1cb
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 22 22:56:49 2021 +0800
+
+    结束，提交，碎觉
+
+commit b449f3105753e5949194c8394ca1660804877440
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 22 22:48:54 2021 +0800
+
+    submit code
+
+commit 2d4c358d6001e872c342670b8a1bd5a21ab97db0
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 22 20:37:04 2021 +0800
+
+    准备走人了, 提交收工
+
+commit 3c2320a31c235a7dc2e4abc06a132262d881d4f2
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 22 20:22:33 2021 +0800
+
+    submit code
+
+commit 240aada03b0f26231b9c9f16d2e3485543adfb3c
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 22 19:08:07 2021 +0800
+
+    add delete
+
+commit f096074c73eaaaace456b67889bf86004255109a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 22 18:59:20 2021 +0800
+
+    status code
+
+commit a41337ec7b4391543c72aa38326761e71d6e9b6d
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 22 18:58:00 2021 +0800
+
+    add delete code
+
+commit f933c0eb8dd943e8a09f22732748287a32b3deea
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 22 17:31:20 2021 +0800
+
+    submit code
+
+commit c2cd5753590e216d7ce935d047fa94de3903c8e3
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Wed Dec 22 09:10:38 2021 +0800
+
+    开始一天新代码
+
+commit c5515b67787bf7f7a3e164eb37c8534f30513161
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 21 23:06:28 2021 +0800
+
+    submit
+
+commit e17f9a48703b76ce61d2a3d05f94cd1311a33346
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 21 22:59:46 2021 +0800
+
+    submit
+
+commit 3413f472f5dc7df63d19136f93ddbf894da0fa3e
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 21 22:47:17 2021 +0800
+
+    submit code
+
+commit d1ff9d5f36ff0a9fffa0a3ba4bb0aa0ea393d7ae
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 21 22:31:54 2021 +0800
+
+    git orm condition 编写
+
+commit 393b41e38546fd293d1b9ca5fe711ff7ac8e15ce
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 21 17:56:40 2021 +0800
+
+    add all kind of clause
+
+commit 00a1fd930dcd3411ca726ffea5fef9313993fff8
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 21 16:27:28 2021 +0800
+
+    submit code
+
+commit 1857412ae030f6023223e4734fbb9e65f6d78f95
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 21 16:26:37 2021 +0800
+
+    添加 test 多案例测试
+
+commit b83bff31fb82d7979ca4b8e06feed054822e60a0
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 21 15:40:39 2021 +0800
+
+    清理代码
+
+commit b46272351b288acf4e0e01d3cb64056e77074496
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 21 15:36:10 2021 +0800
+
+    添加 test， 并且添加一些处理函数
+
+commit 19cafdd28a354ecfac7e83ec9207e198c0fa646f
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 21 14:03:08 2021 +0800
+
+    提交 toObject
+
+commit 09392eb64c9473bdf7edd0e58dc5fb939613ae3c
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 21 13:38:10 2021 +0800
+
+    submit code
+
+commit 727fcb288906c5311ae4e9928411621aadcabafe
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 21 13:20:34 2021 +0800
+
+    submit code
+
+commit ff9e92e4f3e9b3c3b2418a22f75d035977e038b3
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 21 13:02:34 2021 +0800
+
+    submit code
+
+commit f7c09c37aba036aca62e14437f956a03bea27c22
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 21 12:00:56 2021 +0800
+
+    submit code
+
+commit b4ff7ff57c7d527ac5cb215c2702f19a94227a62
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Tue Dec 21 10:34:40 2021 +0800
+
+    submit code
+
+commit 35e5b0e1ec5b80ca1924b319b93893512e251842
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Dec 20 18:30:47 2021 +0800
+
+    收工
+
+commit 5f751318ba17dce9535af7bb11413e5f5c20fa54
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Dec 20 18:27:07 2021 +0800
+
+    submit code
+
+commit c525950f058acc74757689b8c4235dcc0e3e407c
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Dec 20 17:25:05 2021 +0800
+
+    submit code
+
+commit 491ee90222fd9748c2c39856b2d232ceb622bb11
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Dec 20 16:59:11 2021 +0800
+
+    就这么干吧，不搞独立的bean 了
+
+commit cfabfdf832849824e4c9fb0e1f02cd1581abf238
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Dec 20 16:15:40 2021 +0800
+
+    保存一下,走另外一个思路
+
+commit 5c26f9c13f50d5a62bc2da6702cec2e0c2786fee
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Mon Dec 20 11:40:09 2021 +0800
+
+    理清自动生成序列的设计方式， 并部分实现，接下来再接再励
+
+commit 5e1f0864c086c112b6a9f2b55dc2beed27d5a62a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Dec 19 19:08:40 2021 +0800
+
+    submit code
+
+commit 6ef85a14f57ea9ab34602b5e689e8773dd2ee6bb
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Dec 19 18:57:33 2021 +0800
+
+    submit code
+
+commit 818bf804c81b0e3df353b78f83643212bbcaebd0
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Dec 19 18:29:45 2021 +0800
+
+    submit code
+
+commit 1fcfeeec3f938d84efba26618f747a6b75e44c98
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Dec 19 17:56:37 2021 +0800
+
+    add primary key
+
+commit a1bbe85b7da61e4651821469490a82531407dddf
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Dec 19 17:40:16 2021 +0800
+
+    submit code
+
+commit 4632fceed5d6b057edc5ed9dc914f7ad2c18e502
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Dec 19 17:35:17 2021 +0800
+
+    submit code
+
+commit 9677e5c21ced990ef4c6270874fdf4f58d6a11ca
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Dec 19 16:32:56 2021 +0800
+
+    我在干什么？
+
+commit 64192148e26d5bc198a0f2fb784531a01e2b723c
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Dec 18 20:20:43 2021 +0800
+
+    接下来需要制定一个功能表， 以便于 开发功能
+
+commit c2f5afd4cc67fb8759b05b02087432ef349eaefa
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Dec 18 19:34:01 2021 +0800
+
+    能够插入自定义的数据了
+
+commit 9b9b3fd9217ed57b40c19b6bbaa3cdac9c82a327
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Dec 18 18:57:55 2021 +0800
+
+    submit code
+
+commit fa8c8fcfa1c60ad005dad68d432911deea0a9bff
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Dec 18 18:18:53 2021 +0800
+
+    submit code
+
+commit ad8edd83ade9c22dafda2231e9dd917aca87247a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Dec 18 18:03:04 2021 +0800
+
+    submit code
+
+commit c56fbf3f1e65e2f20759ec85520b43a5b6eb2ae0
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Dec 18 17:28:10 2021 +0800
+
+    提交一下代码
+
+commit 1b991b41b8dc7474d8e35d95aa40dab36ccfd1ad
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sat Dec 18 09:56:16 2021 +0800
+
+    头有点蒙，再看看
+
+commit 5fa6433f0882ecc45a670e40bd9d5f6800cd359a
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 17 23:30:19 2021 +0800
+
+    提交代码，准备睡觉
+
+commit bd82cf9a1eeb64d3a73c584ca43c42a358796115
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 17 23:19:42 2021 +0800
+
+    搭出大致的框架了
+
+commit 83b946ca26d96e69a49772fca5a65c497d15a249
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 17 22:35:23 2021 +0800
+
+    完成一个 create 的demo
+
+commit 27194c90b1d85e905618da6fd358b3d4b9c02428
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 17 20:59:39 2021 +0800
+
+    submit code
+
+commit ae41fe37b9075e8f30ac3b2d30464fc42002ff43
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 17 18:13:30 2021 +0800
+
+    准备重写 orm ，大概长的话，可能需要一个星期，之后就可以再花一个星期整合项目了
+
+commit f116fe7239ba96a94a3c57690e76414f71f3386b
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Fri Dec 17 13:46:41 2021 +0800
+
+    添加db 支持，需要完善
+
+commit c9d437731e365ac790f83654d68e5259bc068ee5
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 16 20:37:15 2021 +0800
+
+    submit code， 现在 开始进入 bean 的编写
+
+commit dd15961b9b86582045fcc51c2107a45d54b38f22
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 16 20:24:32 2021 +0800
+
+    submit code
+
+commit 93eba736e468c57055bd1a3e10cad190a8966553
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 16 19:35:16 2021 +0800
+
+    submit code
+
+commit a1a7636311e57aad09b732243bd013ca40f76e88
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 16 17:10:33 2021 +0800
+
+    submit code
+
+commit ac7b082d3644278ed97008b82a5c1d53255e62bd
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 16 17:06:32 2021 +0800
+
+    把 response 中的内容放到 requestImp 中
+
+commit 0b4760a8ba84294ec8230676600913749765102f
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 16 16:26:23 2021 +0800
+
+    备份一下，准备修改代码
+
+commit 47cc96762a8c25b2e312f069ff43396c4ac7c3b6
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 16 11:34:09 2021 +0800
+
+    胡乱改的
+
+commit fe8374bdb6644ead9fc447c03a3feb935eface30
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 16 11:06:42 2021 +0800
+
+    修改rquest response 模型
+
+commit eee05f03ee8f2c620ee39ea67503221120ebf2f0
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 15 20:38:29 2021 +0800
+
+    commit code , 执行流程有点乱，要好好梳理一下
+
+commit 4b1f847e09aeefb98454740c8df328bc0dc17308
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 15 19:45:11 2021 +0800
+
+    遇到一个大问题，需要重新组织运行方式
+
+commit 614aaa9818bf57f9beb638326e4b38889ed40b24
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 15 18:42:15 2021 +0800
+
+    submit code
+
+commit 66704f63708a9ead80501661642f2ac5ac06fc06
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 15 18:02:25 2021 +0800
+
+    删除了 statusCodeNode， 并且准备修改 status
+
+commit b1b8a8476779765fa179b9435dd38ed05c086f9a
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 15 17:34:10 2021 +0800
+
+    submit code
+
+commit d5d3aad90035fad96d263914b527ac407014f339
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 15 17:26:38 2021 +0800
+
+    submit code
+
+commit 24ad391ae15a06d971616d13414d85ec3f0f2957
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 15 17:12:19 2021 +0800
+
+    submit code
+
+commit c3555f555771c25c3ac6fc2b9c8588a5b3a0053f
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 15 17:02:17 2021 +0800
+
+    submit code
+
+commit 6dbfb4928945d55a5057c0d1b9ff9b74374e10eb
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 15 16:44:25 2021 +0800
+
+    submit code
+
+commit 03d2326b14c288fe3343d71fd506585c7f282d38
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 15 16:39:56 2021 +0800
+
+    submit code
+
+commit 04b961791e0f36e007f82a8c94060f70162051df
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 15 16:34:13 2021 +0800
+
+    添加 MultiPart 支持
+
+commit 2f27ccc344c04737f980f240c58ca8a4a298bfe8
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 15 12:10:10 2021 +0800
+
+    text return 添加 测试代码
+
+commit 428cd1583f5c8855d1bc2429348edd5c5e8366a0
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 15 10:48:17 2021 +0800
+
+    通过测试发现了一个bug
+
+commit 2f8b75927435e304e40031b94b2886fa78088dbf
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 15 10:21:40 2021 +0800
+
+    继续添加测试案例
+
+commit d37ac66f4248ee6be74167f208b38ea6dc6061de
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 14 23:13:55 2021 +0800
+
+    修改 contentJson的bug
+
+commit 99f5a02e7c8e64ff1a2545aeda983cf2debbcf38
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 14 22:37:01 2021 +0800
+
+    完成 MultiPart 请求的逻辑
+
+commit ba043067a269badcd42d9ad531e7b0a92bf88c7e
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 14 21:50:20 2021 +0800
+
+    submit code
+
+commit 0dc90d4a7fa1491644f942b5c4e4e45062b9c74c
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 14 10:49:54 2021 +0800
+
+    继续编写测试案例
+
+commit 24a7be733e778d8439179fe9c8787868f2b340c6
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 14 10:28:05 2021 +0800
+
+    添加 json 测试实例
+
+commit 82d064d1b293ac1244113d2d3b72b633d7618573
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 14 09:57:54 2021 +0800
+
+    submit code
+
+commit 13742011868c837abca01d790f41051bf46b8b2f
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 14 09:56:36 2021 +0800
+
+    submit code
+
+commit cf108ba04f9792a117c089b5003b8dcd51b4ed79
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 14 09:53:49 2021 +0800
+
+    submit code
+
+commit b85e5393fa94da0181771875f9e1e7e932998397
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 14 09:51:39 2021 +0800
+
+    update git ignore
+
+commit b9e4d83cd5b97200e260a66055a699ec009dbd7f
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 14 00:23:55 2021 +0800
+
+    修改 gitignore
+
+commit 98de650cff8c31189c6f12744a67765feef02d82
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 14 00:22:05 2021 +0800
+
+    将测试修改成本地的 Python 测试方式
+
+commit 6d6b85b3ad7dd267ae8022bd9385f0fc8e3d5da2
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Dec 13 11:24:39 2021 +0800
+
+    提交吃饭去
+
+commit 783384a4be13c21c0f732ae7185d3df39a2f16a8
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Dec 13 11:18:09 2021 +0800
+
+    完成数据的迁移，下一步进一步优化，并作细致的测试
+
+commit 828e580310ffcd78ad07672755d6ae3c51eda029
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Dec 13 11:08:43 2021 +0800
+
+    submit code
+
+commit 9f7f6fa765d45ea7d064d1a6f27ba3029f1f892c
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Dec 13 10:36:03 2021 +0800
+
+    改造完成，移动解析函数
+
+commit 97b3a627a8df9c11133692c949acd43f1c925527
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Dec 13 10:24:03 2021 +0800
+
+    submit code
+
+commit 692b2c849e0927a1db3eeee480c276a898b1597b
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Dec 12 23:23:05 2021 +0800
+
+    submit code
+
+commit 3870150368811f9bf6cc9f73b2736c3926bf5caf
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Dec 12 23:20:27 2021 +0800
+
+    修改 IRequest api
+
+commit c84792357648c9a622e0ea5d331ea653337a2e6c
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Dec 12 22:37:29 2021 +0800
+
+    提交一下，准备放大
+
+commit ab9a1dd6fbe4c11de1f007059d01df1458b3f32c
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Dec 12 21:10:34 2021 +0800
+
+    准备将 interceptor 中的内容移到 IRequest 当中
+
+commit f8edb98185ab7b41942a5bc5803063919ecdd2f5
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Dec 12 16:57:17 2021 +0800
+
+    修改 IResponse 的位置
+
+commit c3f7dd1fd9e8a2758fa969510721249f3d87f778
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Dec 12 16:36:40 2021 +0800
+
+    习惯性提交
+
+commit 62f26460e0eac26de0dc518fab3fec0ce0fb00e4
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Dec 12 16:30:25 2021 +0800
+
+    优化代码
+
+commit 28f9e5a3e23a21e369d182402fa72a2026e0083c
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sat Dec 11 18:58:02 2021 +0800
+
+    下一步 ，将 RequestBodyResolver 和 IRequest 合并，并去掉 Resolver 类， 同时，在 request 当中添加一个拦截器功能
+
+commit eda07a366f98ee104f30dfddd8d9ea8867331350
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sat Dec 11 18:52:13 2021 +0800
+
+    submit code with error
+
+commit f45afa3c3369d74056a8d8be06fa0698b24daf12
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sat Dec 11 18:26:34 2021 +0800
+
+    submit code
+
+commit 5bad5f67b4bacb5fce7edd0fabff4a54ec46a1dd
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sat Dec 11 18:03:33 2021 +0800
+
+    完成 inline 设计
+
+commit e2d2ac73d902d7de0a83218f032532f5456738fc
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sat Dec 11 17:57:51 2021 +0800
+
+    修改完一部分
+
+commit e7a8b9ee39098b754b924a2d3fe0d712b74b3547
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sat Dec 11 17:25:41 2021 +0800
+
+    保存代码，准备放大招
+
+commit 6f441bc0aa6f98592e994526b8ce8bc6c4a93df7
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sat Dec 11 16:54:35 2021 +0800
+
+    感觉今天晚上不太想敲代码，输出一个星期了，有点疲
+
+commit 66d3bc5631ffcaf5ddb77ad0c09b08b1e0dfd640
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sat Dec 11 16:46:38 2021 +0800
+
+    更改优化 宏定义 名称
+
+commit ce43b2361f2ca1164ce638f131a9c128f9cc531f
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sat Dec 11 16:33:49 2021 +0800
+
+    更改 $Controller 标签
+
+commit bc6eaf9ebd38d2db82ab52fc1cd3cc45d9a3badc
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sat Dec 11 12:26:55 2021 +0800
+
+    完善 git text 的转换规则， 完善 IJsonUtil 的转换规则
+
+commit 62cf09a436c0f877b06e038b356521e224688d70
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 10 22:48:44 2021 +0800
+
+    完成转换， 并且修完了上面提到的bug
+
+commit e25bc334273eaea0b30d3cb09245c459da713eaf
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 10 20:33:49 2021 +0800
+
+    保存一下，准备放大
+
+commit 039f64d959ccb84c4d5dc82790630c44ec97805d
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 10 20:18:51 2021 +0800
+
+    submit code
+
+commit 85891d257c630d2523579b9bc3676f3fd1316bab
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 10 20:14:38 2021 +0800
+
+    优化代码
+
+commit 3bc27d7a6e2ce5893b790c5b049313b547fe8a89
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 10 19:43:36 2021 +0800
+
+    submit code
+
+commit f70dbfce2d81093fbd3ead3641a92a66c4a52f26
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 10 17:45:41 2021 +0800
+
+    有点不想干了
+
+commit 9fb741e46f1494d6dfe0592bf6da79181c497b05
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 10 17:31:31 2021 +0800
+
+    submit code
+
+commit dde62b1c835de09175bc3d6984675c9d10b8587c
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 10 17:22:36 2021 +0800
+
+    add QJsonValue& error tips
+
+commit 83895d22b3834e7f44733c337c700828efd0b319
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 10 17:07:11 2021 +0800
+
+    添加void response 判断
+
+commit 94922ea368b4a325c5803173276cdfe454a26421
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 10 16:57:07 2021 +0800
+
+    修改函数返回方式
+
+commit c33227416fdbc642272062262251e65e11bb0e25
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 10 16:36:44 2021 +0800
+
+    修改了一个渔村八哥
+
+commit 25bbf2f96abd26e5e2179553336a6472ed7abe0e
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 10 15:41:25 2021 +0800
+
+    再提交一下
+
+commit 45530de422e777cb664c8bf8f0d719bba6aafa71
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 10 14:42:50 2021 +0800
+
+    没事就喜欢提交代码
+
+commit 65e39bbadb664a68b03ca215dcf18dd92976b364
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 10 14:23:16 2021 +0800
+
+    submit code
+
+commit 631fbfd453310f0ec6bdb8d92b8e713ba0a00621
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 10 14:06:51 2021 +0800
+
+    提交一笔
+
+commit ebc22a6c7693511e8ca52ec288438aafc41d31e0
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 10 13:16:27 2021 +0800
+
+    submit code
+
+commit e22e07321741668f0cbc8b99c4276b123082ac36
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 10 12:42:05 2021 +0800
+
+    真好，又修复了一个 bug
+
+commit 1668b369124421cce1d4492ad9f70eeb9b5fb044
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 10 12:33:19 2021 +0800
+
+    现在准备对 mapping 函数进行限制
+
+commit 54aeda4eed915be7758f65b9537c57c47a803b52
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 9 18:04:33 2021 +0800
+
+    submit code
+
+commit 4dc7c462b8abe183d335f3bd02ba0c7c949ef5bb
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 9 17:23:13 2021 +0800
+
+    submit code
+
+commit 6c6f9ff4d7bf9276ac5d9323753e3a2ddd26ec29
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 9 16:43:48 2021 +0800
+
+    对于解析参数进行错误拦截
+
+commit 51de51d7ec75ae8ff3a08a74ecb518dfad19f901
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 9 16:08:55 2021 +0800
+
+    需要将执行函数的执行过程，包括参数的解析纳入异常的范畴,不然总是会出错
+
+commit f37ea862c816b16d6853f7c88f7038314f7275f4
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 9 15:37:36 2021 +0800
+
+    也不知道这是啥，习惯性提交
+
+commit fa3a457e9780199638ea0a37a8294e3ea8a7b82c
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 9 15:16:33 2021 +0800
+
+    无休无止的优化代码
+
+commit 25255073531144d5bb1e04dd16d44be141990864
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 9 15:02:03 2021 +0800
+
+    整理转换类型
+
+commit 780699f8f0056af0423e119e87cf6fb4217b688d
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 9 14:09:44 2021 +0800
+
+    规范化 部分 ConvertUtil
+
+commit 71a9c586451f703d1277f660e67b689a8b5c3881
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 9 11:44:10 2021 +0800
+
+    这回到5K 了吧？
+
+commit a5b1309b4bbe1c2f6a071b56c28c53b8d10b6a57
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 9 11:14:22 2021 +0800
+
+    完成基本的json value 请求验证
+
+commit dd5b33fec268cee3b28589b89ad6ad3e83b6d802
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 9 11:01:00 2021 +0800
+
+    提交一下，应该写5K 行代码了
+
+commit 738472796191153bcadc5342cfbb2fe00fabf8d7
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 9 00:00:41 2021 +0800
+
+    代码写完，任重道远， 重构了 参数产生释放方面的内容，没写完，还需要一边写，一边改
+
+commit 1b45810686ba327f65881d1bb09e678880fb3c13
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 8 23:39:18 2021 +0800
+
+    重构代码
+
+commit fd9b10c75bf3501272cd6d0417af3808d691ff7d
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 8 23:28:48 2021 +0800
+
+    重构代码
+
+commit 1db251ae903c12e6739322d890d9b594f60cf20f
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 8 23:22:32 2021 +0800
+
+    完成两个内容， 1: json 的传入， 2: body 整个解析
+
+commit cad316faf042a549b7b2e0ee2cda98c2946bc915
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 8 20:41:38 2021 +0800
+
+    request bean 化
+
+commit 1fdab90caa538d79153851c9c96843c6a709a64c
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 8 16:57:17 2021 +0800
+
+    submit code
+
+commit a91bd58b380c84bbb3a04e486c51642b12a1c200
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 8 16:55:00 2021 +0800
+
+    无心工作啊
+
+commit 32c6f1b7ed322f73c3a206eb642caa7d2ef52287
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 8 14:20:43 2021 +0800
+
+    submit code
+
+commit cce19a208fbe51dd38d7ce48ad8563c4107ff43a
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 8 13:33:43 2021 +0800
+
+    添加预编译头文件，大大降低编译时间
+
+commit bfa854dc5c9c13e804605be5a9981d832d3118b3
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 8 08:00:42 2021 +0800
+
+    我快要被这个东西搞死了
+
+commit ec928de3c05c57e4ce26709de0165af546e405ff
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Dec 8 00:08:07 2021 +0800
+
+    睡觉睡觉
+
+commit 1ec5a19815127e2a519cf0b9946c4fc16324d619
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 7 23:25:57 2021 +0800
+
+    提交一下吧
+
+commit a666da3418c6a0a5e1dd4ac10d3930a22cc027cd
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 7 18:40:39 2021 +0800
+
+    完成部分 multipart 的解析，这个真费事
+
+commit e5b129391a8929e7522ec2409d98f969721a6934
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 7 17:40:18 2021 +0800
+
+    这个有点男，我先多搞一会
+
+commit 38c95c3e2cf7db1e7a683e6e9225a148bbb8a726
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 7 15:18:21 2021 +0800
+
+    add reference
+
+commit 1b6e02a6f14d2d093ac53418c4304e2089ab561e
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 7 14:59:34 2021 +0800
+
+    submit code
+
+commit 43963beadcf24a97283150608b1d34494f623b49
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 7 13:18:24 2021 +0800
+
+    添加 body 处理函数
+
+commit c18c4b99cbec62fbbed8689d8fcef53a683e401e
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 7 11:30:53 2021 +0800
+
+    submit code
+
+commit 912c856b52f94b065344c4fb4777957e554418ed
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 7 11:27:38 2021 +0800
+
+    add erorr code interceptor
+
+commit aed42d8e0ea4a1c9cdf72fa4c1c6117ba289ffb1
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Dec 7 10:55:36 2021 +0800
+
+    change the routing of process
+
+commit 95122ad359f04d341aac60a7d1b90ca778a04af9
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Dec 6 19:08:04 2021 +0800
+
+    收工，回去再写
+
+commit 0c83ac7689deaebb0dc7c62a08df3fa7cdf9a66e
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Dec 6 19:04:58 2021 +0800
+
+    第一次使用到了 preProcessor
+
+commit 95f4190e52494511e8434284c67ea6705f485fc7
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Dec 6 18:38:08 2021 +0800
+
+    submit code
+
+commit f296925fa81e32f92e7173ab70c07a1a829170dd
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Dec 6 17:44:59 2021 +0800
+
+    快被搞死了
+
+commit 9e9328a0e78b7e4f6a94a826f1236cd415409a85
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Dec 6 14:24:25 2021 +0800
+
+    submit code
+
+commit 229c9dbd04be0f5d524bdf1280b13255fc2ce9d6
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Dec 6 14:23:25 2021 +0800
+
+    submit code
+
+commit 9c0a57bd5c55ea01cfaed6d0663ccbb9897fd8ce
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Dec 6 11:35:21 2021 +0800
+
+    submit code
+
+commit 0ec6cf16662506edc5b7e66d350eee0c2db5d253
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Dec 6 11:05:46 2021 +0800
+
+    submit code
+
+commit bab60ea71639c1c2215e991198016c4ce3229822
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Dec 6 10:22:26 2021 +0800
+
+    submit code
+
+commit 67a81926469644b8e12100db87c3b4397ccb53a0
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Dec 5 21:26:44 2021 +0800
+
+    submit code
+
+commit bfea399c05143787fcd25b4c8456157d7bf75863
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Dec 5 17:31:33 2021 +0800
+
+    submit code
+
+commit aa85e6a554452812e133904d3feb7d4559cfcb89
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Dec 5 16:13:57 2021 +0800
+
+    submit code
+
+commit 3bbb58a9fae0dfc59cd5f2bff0821a284ee1bc1a
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Dec 5 16:01:02 2021 +0800
+
+    转换 解析 get 参数
+
+commit 1562b1e0bf15dbaace30cddadfd329b0b40375df
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Dec 5 13:35:12 2021 +0800
+
+    submit code
+
+commit da51f62f201db1d70d8584b5df29d00d0bc3fd0d
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sat Dec 4 23:51:08 2021 +0800
+
+    解决一个 bug
+
+commit a22f450d17d33578ec2180870e689bf4dcee3c1c
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sat Dec 4 23:18:00 2021 +0800
+
+    参数处理的第一部分完成
+
+commit 0f549a51b83ab24133f7d4eab9399e26e1ebc563
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 3 21:35:28 2021 +0800
+
+    初步完成 url mapping
+
+commit bac7385a8b8fb5841868d225f8072238c5a91cf9
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 3 20:28:09 2021 +0800
+
+    submit code
+
+commit 60d65ed4605188e1386d5a4e8ffebe789df0d72f
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 3 19:12:51 2021 +0800
+
+    add changes
+
+commit 8c26f8fcb2efab0ef3f7ebb6682b1631d771768d
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 3 18:04:00 2021 +0800
+
+    submit code
+
+commit ed9e8d1e0acb6c2dbbe0b24242a648409feb4b6c
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 3 17:17:55 2021 +0800
+
+    submit code
+
+commit fbe54fa4a37c10099e36f29567a6ab322ca61cd4
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 3 16:18:34 2021 +0800
+
+    commit code
+
+commit 1297919a482e70253b2285d86fdad5ea2ef99233
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 3 11:44:09 2021 +0800
+
+    submit code
+
+commit 40ea56377ef0158f43280005b046eefedb62e1c5
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Dec 3 10:37:49 2021 +0800
+
+    添加处理函数
+
+commit 5424524732e25d452ddf967cc02439c9b990ae29
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 2 19:58:47 2021 +0800
+
+    submit ocde
+
+commit 8d1862e2e4412f5bbd962f9b1220f36c1a037e64
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 2 19:56:47 2021 +0800
+
+    submit code
+
+commit 3a845f9b8d519b94001ce8fee1b743b213b6cd53
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 2 19:23:16 2021 +0800
+
+    submit code
+
+commit 4858d8cb1168eaef40daea054202ddc903d214fa
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 2 19:21:12 2021 +0800
+
+    submit code
+
+commit 8ef3e066baf09e29c9bb74ca4a5a662cf566cf58
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 2 18:50:45 2021 +0800
+
+    auto submit via script
+
+commit b6a59fabf960f3072cef0564c20ca7ab5dad4ee9
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 2 12:09:42 2021 +0800
+
+    重构代码
+
+commit 54fa222b9db526de5089695dfca6b9a50be25f4e
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 2 11:16:37 2021 +0800
+
+    整理代码
+
+commit 5bfb29a0f598653a5ca0c3dd0b855baf61c4ec47
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 2 10:50:23 2021 +0800
+
+    rename http status
+
+commit 504417764b70db3177bf1ffdb1e2dfe04e3e945a
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Dec 2 10:40:32 2021 +0800
+
+    submit
+
+commit c69ff8a124add14812e1a38ae19cfed687cac324
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Nov 24 11:16:17 2021 +0800
+
+    submit code
+
+commit 7f5d9447e92300f8b4eccca570960199ee7fbf4f
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Nov 23 15:07:48 2021 +0800
+
+    修复 mapping 过程中 post put delete 不能够匹配 parent fragment 的问题
+
+commit eec8ebb1a2a4557df6d1ba177c2e4105e971d11e
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Nov 22 19:59:41 2021 +0800
+
+    收工
+
+commit 7592958f446e93ceed7a91e845db4ebf2df61291
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Nov 22 19:54:24 2021 +0800
+
+    达到redirect 的要求了
+
+commit 801ff25dcbc26cd311430479217d23228bf44ca6
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Nov 22 19:41:43 2021 +0800
+
+    又添加了几个实例
+
+commit 60430a4909d9a5f3833b7edc2fa234c6a390f78b
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Nov 22 19:25:02 2021 +0800
+
+    修复了 一个 httpVersion 转换错误的 bug
+
+commit 43e10661ef1da025a266806c38d2bedc90e07dbd
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Nov 22 19:02:59 2021 +0800
+
+    恭喜恭喜你！ 完成第一个 redirect 实例
+
+commit 6101620b3b1c079a8b6ffd58bbebe07e296586a4
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Nov 22 18:32:50 2021 +0800
+
+    更新 IRedirectResponse
+
+commit 47f203d26cacd825923ac8bd9c0a24db64490074
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Nov 22 17:59:39 2021 +0800
+
+    使用 与 通路， 加快运行过程
+
+commit 5e26aeadc48d2480a78667383676722f8010c8eb
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Nov 22 17:55:48 2021 +0800
+
+    submit code
+
+commit 8925e8ccf69981dea7865d595e6dde98a70906ea
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Nov 22 16:45:29 2021 +0800
+
+    完成 status code 的编写， 不知道有没有用，全给写上去了
+
+commit 8f218a6373e357b84a1475560363165faaae8bae
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Nov 22 14:50:22 2021 +0800
+
+    完成 html 返回
+
+commit 9b6bfde9fda5ee9127274a57d25c1d8e94036ffe
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Nov 22 13:49:03 2021 +0800
+
+    submit
+
+commit 6f4b5be624b71493bbaad19370752a3175056919
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Nov 22 13:30:53 2021 +0800
+
+    完成 plainTextController
+
+commit a53b599fa374b12a33dde79fe3f6a2bf502604aa
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Nov 22 11:31:41 2021 +0800
+
+    完成 byte response 的设计，可以返回字节数据了
+
+commit 1ef80bd96814d76bf7638d487b87a441202a75a2
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Nov 22 00:48:00 2021 +0800
+
+    完成 大部分 IJsonResponse 的 设计
+
+commit 0b3ff8355f8573b4b8097db906dc11849a316f01
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Nov 22 00:07:53 2021 +0800
+
+    submit code
+
+commit cb14c0c69de60c4798f06b37d8e6baec38417203
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Nov 21 23:53:34 2021 +0800
+
+    submit code
+
+commit 45dc9eb0d1cc811e119cf6036c5a770a55079d52
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Nov 21 23:44:57 2021 +0800
+
+    整理文件名
+
+commit c39f3bebab372c6f02cf27082e43b54f08cf1c3b
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Nov 21 23:36:54 2021 +0800
+
+    终于完成了，搞定 objectToString
+
+commit d757a7f23d06eb49025181b17f58ea308b686b73
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Nov 21 20:26:21 2021 +0800
+
+    不搞了，搞死人了，先放下，之后补一补模板元编程再说
+
+commit fce5a0b55e0b0e94eac12d8b2b312e655f248888
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Nov 21 19:55:00 2021 +0800
+
+    gcc 搞死我把
+
+commit 894f9bf67b598662f147dac60b1565ef0c86c86b
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Nov 21 18:46:59 2021 +0800
+
+    被模板元搞死了
+
+commit 62ca681e1abe797337be3d1e1b50fe64b48009ed
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Nov 21 14:35:19 2021 +0800
+
+    也不知道改的啥，但是改的挺多的
+
+commit 0bd3f66ff1d5bab243c59f0d72e51e09d7ece58b
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Nov 21 14:13:44 2021 +0800
+
+    开始一天新工作
+
+commit a0e28b1ff0e30e6d0575a1c69bcd93cc793af643
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Nov 21 00:39:48 2021 +0800
+
+    完成 IJsonResponse 的编写
+
+commit c976aa2cc4c2049a4b31354cfe1867d9bb07c781
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sat Nov 20 23:48:00 2021 +0800
+
+    解决返回值传递的问题
+
+commit 32e319929b2ec2d9d9433a7abf5f5caa3a18827d
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Nov 19 16:12:38 2021 +0800
+
+    submit code
+
+commit 010d4af60317628d505cf2dd7fbcdc40fd7a237d
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Nov 19 15:45:27 2021 +0800
+
+    添加 byteArray response
+
+commit 7ede193038c8db9d8223994b4c071adf40f135c2
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Nov 19 11:30:21 2021 +0800
+
+    auto submit via script
+
+commit c2ca45acb10c47a503064cea3f6ad11c812cf632
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Nov 19 11:29:03 2021 +0800
+
+    submit
+
+commit 842d7878725dad4848907171829644a5ccc48cd5
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Nov 19 11:18:01 2021 +0800
+
+    submit
+
+commit b108ae78b8f8c343b1f2861245d7dbbf3d1b962f
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Nov 19 11:06:40 2021 +0800
+
+    add bean define and some mime types
+
+commit 29af55956ba446380de35cdd7be42f6b2cbdfeb3
+Author: unknown <yuekeyuan@tom.com>
+Date:   Fri Nov 19 10:23:00 2021 +0800
+
+    new day, new submit
+
+commit 283daffb76b0b0be974ce05f15b7a3a7759b3937
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Nov 18 23:31:23 2021 +0800
+
+    睡前来一波
+
+commit 6db65ac0721aff63e6038fb4c8782f9074f6155a
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Nov 18 20:14:29 2021 +0800
+
+    长舒一气， 快乐无边，走通整个调用流程
+
+commit 3b958fa2eb7623ff412a153e3938d5765553fc71
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Nov 18 19:32:39 2021 +0800
+
+    重构组织架构
+
+commit 8e88ddf1a905c0c0f02ab46a63b01ebe94c87148
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Nov 18 18:58:20 2021 +0800
+
+    add mime 准备走通整个流程
+
+commit da1f148566243923f86779c45d4013a206e64421
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Nov 18 17:12:07 2021 +0800
+
+    submit
+
+commit e2c26a7fd2532d8a753bbe98d5cc19bb4573a47e
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Nov 18 16:54:00 2021 +0800
+
+    每一次看见改动如此之大，就心神摇曳
+
+commit 23d2d6d02c336a2d2be2130f51eaeddb241cc98c
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Nov 18 15:07:00 2021 +0800
+
+    改名，添加 ResponseBase
+
+commit 98aa67e9c177cd98d02235022085134ec53b690f
+Author: unknown <yuekeyuan@tom.com>
+Date:   Thu Nov 18 14:09:16 2021 +0800
+
+    整理代码
+
+commit fb4814934785e9026da22e5ca1bdc9b58984baf2
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Nov 17 16:58:07 2021 +0800
+
+    解决动态调用返回值传入获取的问题
+
+commit aaaf089b55f8dde85561aa8d15cd84f695efc197
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Nov 17 01:05:25 2021 +0800
+
+    遇到难题了，这里需要把 Q_OBJECT 的 metaCall 改成 Q_GADGET 的
+
+commit 2faf9187d6e94de15e8fff8db0a447169a72b8dc
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Nov 17 00:29:40 2021 +0800
+
+    改名
+
+commit 321f6cdac69aef643ffa04774c3aa818f345d0eb
+Author: unknown <yuekeyuan@tom.com>
+Date:   Wed Nov 17 00:11:14 2021 +0800
+
+    第N次完成 function 的调用
+
+commit ee56c9f12182665678189657adb733888cf55f59
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Nov 16 19:52:11 2021 +0800
+
+    submit code
+
+commit 5c69e922e7a2b7e91aa40d545b3f80ad3dcde619
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Nov 16 19:28:12 2021 +0800
+
+    瞎写一通， 基本重新解决了返回值的问题的思考，嗯，还没有落在代码上实现
+
+commit 8bf3f7b8b95591574c35d8a182446d464830419a
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Nov 16 14:28:44 2021 +0800
+
+    add index controller
+
+commit b0ccecbf0dbd06d18fdbcdba5221b168c2ea5320
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Nov 16 11:09:51 2021 +0800
+
+    submit code
+
+commit d6ffe8d134f21e216ea303654a2aa3e9703d4766
+Author: unknown <yuekeyuan@tom.com>
+Date:   Tue Nov 16 00:56:25 2021 +0800
+
+    submit
+
+commit 8f60436d6db62c65c463f87ffdd9e9c4855dbf15
+Author: unknown <yuekeyuan@tom.com>
+Date:   Mon Nov 15 09:04:21 2021 +0800
+
+    add new demo http server
+
+commit 008d9eb079f1f4742fd298e86f762294eaa14d2a
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Nov 14 22:18:03 2021 +0800
+
+    分离 controller
+
+commit ae2887ba715b12400ff34353382f59221a255800
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Nov 14 20:37:19 2021 +0800
+
+    add admin controller
+
+commit 3a682ffde267dc0f43308a0a27192a3b77f039d6
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Nov 14 20:15:31 2021 +0800
+
+    submit code
+
+commit 8f50b533ea607c4dc3f428bc0787ed16afe5cb53
+Author: unknown <yuekeyuan@tom.com>
+Date:   Sun Nov 14 19:10:26 2021 +0800
+
+    initialize framework and code
+
+commit 57623eae8ffdd7fa09c18f7661bb1a1af83587ef
+Author: yuekeyuan <yuekeyuan@tom.com>
+Date:   Sun Nov 14 18:07:03 2021 +0800
+
+    Initial Commit
