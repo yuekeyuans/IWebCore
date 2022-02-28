@@ -1,0 +1,4 @@
+﻿#pragma once
+
+#include "IBeanPreProcessor.h"
+#include "IBeanInterface.h"

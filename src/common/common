@@ -1,0 +1,20 @@
+﻿#pragma once
+
+#include "common/application/IWebApplication.h"
+
+#include "common/argument/IArgumentParserInterface.h"
+#include "common/net/IMultiPart.h"
+#include "common/net/IRequest.h"
+#include "common/net/IResponse.h"
+#include "common/task/ITaskManage.h"
+
+#include "common/response/IByteArrayResponse.h"
+#include "common/response/IHtmlResponse.h"
+#include "common/response/IJsonResponse.h"
+#include "common/response/IPlainTextResponse.h"
+#include "common/response/IRedirectResponse.h"
+
+#include "common/response/IResponseWare.h"
+#include "common/response/IResponseWareRaw.h"
+
+

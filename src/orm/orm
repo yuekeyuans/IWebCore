@@ -1,0 +1,10 @@
+﻿#pragma once
+
+#include "orm/IOrmPreProcessor.h"
+#include "orm/model/IOrmTableModelInterface.h"
+
+#include "orm/clause/IOrmClause.h"
+#include "orm/clause/IOrmCondition.h"
+#include "orm/clause/IOrmQueryClause.h"
+#include "orm/database/IOrmDatabaseInterface.h"
+#include "orm/tableview/IOrmTableInterface.h"

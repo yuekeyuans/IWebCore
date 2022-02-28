@@ -1,0 +1,19 @@
+﻿{
+    "dataSource" : {
+        "sqlite" : {
+            "driverName" : "QSQLITE",
+            "databaseName" : "abcccc.db",
+            "connectionName" : "sqlite"
+        },
+
+        "mysql" : {
+            "driverName" : "QMYSQL",
+            "databaseName" : "testOrm",
+            "connectionName" : "mysql",
+            "port" : 3306,
+            "host" : "127.0.0.1",
+            "userName" : "root",
+            "password" : "yky00124578"
+        }
+    }
+}

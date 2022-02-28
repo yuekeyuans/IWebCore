@@ -1,0 +1,13 @@
+﻿#pragma once
+
+#include "IControllerManage.h"
+#include "IControllerInterface.h"
+#include "pp/IControllerPreProcessor.h"
+#include "pp/IDeleteMappingPreProcessor.h"
+#include "pp/IGetMappingPreProcessor.h"
+#include "pp/IPostMappingPreProcessor.h"
+#include "pp/IPutMappingPreProcessor.h"
+#include "pp/IStatusCodeMappingPreProcessor.h"
+#include "pp/IPatchMappingPreProcessor.h"
+#include "pp/IControlVariablePreProcessor.h"
+

@@ -1,0 +1,7 @@
+﻿#pragma once
+
+#include "log/IDebugInfo.h"
+#include "log/IWarningInfo.h"
+#include "log/IErrorInfo.h"
+#include "log/IFatalInfo.h"
+

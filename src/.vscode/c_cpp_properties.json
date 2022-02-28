@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/Qt/Qt5.14.2/5.14.2/msvc2017/include",
+                "C:/Qt/Qt5.14.2/5.14.2/msvc2017/include/QtCore",
+                "C:/Qt/Qt5.14.2/5.14.2/msvc2017/include/QtNetwork",
+                "E:/project/libs/boost/boost_1_77_0"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.17763.0",
+            "compilerPath": "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\VC\\Tools\\MSVC\\14.16.27023\\bin\\Hostx64\\x64\\cl.exe",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-msvc-x86"
+        }
+    ],
+    "version": 4
+}

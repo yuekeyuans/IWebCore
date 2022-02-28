@@ -1,0 +1,417 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Distribution Files">
+      <UniqueIdentifier>{B83CAF91-C7BF-462F-B76C-EA11631F866C}</UniqueIdentifier>
+      <Extensions>*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Distribution Files">
+      <UniqueIdentifier>{B83CAF91-C7BF-462F-B76C-EA11631F866C}</UniqueIdentifier>
+      <Extensions>*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="mapping\ByteArrayController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mapping\DefaultPathAndMethodMapping.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mapping\HttpController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process\response\IByteArrayResponse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\configuration\IConfigurationBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\configuration\IConfigurationInitializer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\controller\IControllerBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process\IControllerFunctionBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\controller\IControllerInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\controller\IControllerInterfaceImp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\controller\IControllerRouteNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\controller\IControllerStatusNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\IFileUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\common\IFunctionNode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process\response\IHtmlResponse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\biscuits\IHttpHeader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\biscuits\IHttpMethod.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\biscuits\IHttpMime.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\IHttpServer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process\IHttpSocketBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process\IHttpSocketRunable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\biscuits\IHttpStatus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\biscuits\IHttpVersion.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process\response\IJsonResponse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\IJsonUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\IJsonUtil_tojson.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\IMetaUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process\response\IPlainTextResponse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process\response\IRedirectResponse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\IRegexpUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process\IRequest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process\support\IRequestPreInterceptprInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process\support\IRequestPreProcessInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process\IResponse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process\response\IResponseBase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process\response\IResponseInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process\support\IResponsePostInterceptInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process\support\IResponsePostProcessInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process\response\IResponseRawData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\server\IServerInterface.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\ISocketUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\process\response\IStatusCodeResponse.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\base\ITicTacUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mapping\JsonController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mapping\RedirectController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mapping\TestBean.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mapping\TextController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="urlPattern\UrlPatternController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="mapping\ByteArrayController.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="mapping\DefaultPathAndMethodMapping.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="mapping\HttpController.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="..\..\src\bean\IBeanPreProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\process\response\IByteArrayResponse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\configuration\IConfigurationBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\configuration\IConfigurationInitializer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="..\..\src\configuration\IConfigurationPreProcessor.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="..\..\src\controller\pp\IControlControlMappingPreProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\controller\pp\IControlDeleteMappingPreProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\controller\pp\IControlGetMappingPreProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\controller\pp\IControlPostMappingPreProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\controller\pp\IControlPutMappingPreProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\controller\pp\IControlStatusCodeMappingPreProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="..\..\src\controller\IControllerBase.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="..\..\src\process\IControllerFunctionBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\controller\IControllerInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\controller\IControllerInterfaceImp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\controller\IControllerRouteNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\controller\IControllerStatusNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\IFileUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\common\IFunctionNode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\process\response\IHtmlResponse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\biscuits\IHttpHeader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\biscuits\IHttpMethod.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\biscuits\IHttpMime.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="..\..\src\server\IHttpServer.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="..\..\src\process\IHttpSocketBase.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <ClInclude Include="..\..\src\process\IHttpSocketRunable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\biscuits\IHttpStatus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\biscuits\IHttpVersion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\process\response\IJsonResponse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\IJsonUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\IJsonUtil_tojson.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\IMetaUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\process\response\IPlainTextResponse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\IPreProcessorUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\process\response\IRedirectResponse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\IRegexpUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\process\IRequest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\process\support\IRequestPreInterceptprInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\process\support\IRequestPreProcessInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\process\IResponse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\process\response\IResponseBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\process\response\IResponseInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\process\support\IResponsePostInterceptInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\process\support\IResponsePostProcessInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\process\response\IResponsePreProcessor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\process\response\IResponseRawData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\IServer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\server\IServerInterface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\ISocketUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\process\response\IStatusCodeResponse.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\base\ITicTacUtil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <QtMoc Include="mapping\JsonController.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="mapping\RedirectController.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="mapping\TestBean.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="mapping\TextController.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="urlPattern\UrlPatternController.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="debug\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="release\moc_predefs.h.cbt">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <QtRcc Include="resource.qrc">
+      <Filter>Resource Files</Filter>
+    </QtRcc>
+    <None Include="cpp.hint" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\project\cpp\IWeb\iweb2\src\IWebCore">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="E:\project\cpp\IWeb\iweb2\src\base\base">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="E:\project\cpp\IWeb\iweb2\src\bean\bean">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="E:\project\cpp\IWeb\iweb2\src\configuration\configuration">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="E:\project\cpp\IWeb\iweb2\src\controller\controller">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="E:\project\cpp\IWeb\iweb2\src\process\process">
+      <Filter>Distribution Files</Filter>
+    </None>
+    <None Include="E:\project\cpp\IWeb\iweb2\src\process\response\response">
+      <Filter>Distribution Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>

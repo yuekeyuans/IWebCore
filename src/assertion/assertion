@@ -1,0 +1,5 @@
+﻿#pragma once
+
+#include "IAssertInterface.h"
+#include "IAssertManage.h"
+#include "IAssertPreProcessor.h"
