@@ -2,6 +2,7 @@
 
 #include "IControllerManage.h"
 #include "IControllerInterface.h"
+#include "IControllerPathValidatorInterface.h"
 #include "pp/IControllerPreProcessor.h"
 #include "pp/IDeleteMappingPreProcessor.h"
 #include "pp/IGetMappingPreProcessor.h"

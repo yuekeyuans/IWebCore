@@ -11,6 +11,8 @@ class IStaticInitializeTaskUnit : public ITaskWare
 {
 public:
     IStaticInitializeTaskUnit() = default;
+
+    virtual QString taskFinishTip() final {return ""; }; // forbid to output message
     virtual void task() = 0;
 
 private:
@@ -33,7 +35,7 @@ typename IStaticInitializeTaskUnit<T, enabled>::IStaticInitializeTaskUnitPrivate
 template<typename T, bool enabled>
 IStaticInitializeTaskUnit<T, enabled>::IStaticInitializeTaskUnitPrivate::IStaticInitializeTaskUnitPrivate(){
     if(enabled){
-        auto inst = instance();
+        auto inst = T::instance();
         inst->task();
         inst->printTips();
     }

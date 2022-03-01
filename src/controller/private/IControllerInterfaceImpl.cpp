@@ -117,8 +117,6 @@ QVector<IUrlFunctionNode> IControllerInterfaceImpl::createFunctionMappingLeaves(
                                                                                 , const QMap<QString, QString>& clsInfo
                                                                                 , const QVector<QMetaMethod> &methods)
 {
-    static const QString IgnoreParamCheckPrefix = "";
-
     QVector<IUrlFunctionNode> ret;
 
     IUrlFunctionNode node;

@@ -14,6 +14,7 @@ INCLUDEPATH += E:/project/libs/boost/boost_1_77_0/
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
+        FiveCharaterUrlValidator.cpp \
         TestArgmentPaser.cpp \
         main.cpp \
         mapping/BeanParameterController.cpp \
@@ -42,6 +43,7 @@ RESOURCES += \
     resource.qrc
 
 HEADERS += \
+    FiveCharaterUrlValidator.h \
     TestArgmentPaser.h \
     mapping/BeanParameterController.h \
     mapping/BeanReturnController.h \
