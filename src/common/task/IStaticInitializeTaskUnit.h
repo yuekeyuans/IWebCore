@@ -1,0 +1,42 @@
+﻿#pragma once
+
+#include "base/IHeaderUtil.h"
+#include "common/task/ITaskManage.h"
+#include "common/task/ITaskWare.h"
+
+$PackageWebCoreBegin
+
+template<typename T, bool enabled=true>
+class IStaticInitializeTaskUnit : public ITaskWare
+{
+public:
+    IStaticInitializeTaskUnit() = default;
+    virtual void task() = 0;
+
+private:
+    class IStaticInitializeTaskUnitPrivate{
+    public:
+        IStaticInitializeTaskUnitPrivate();
+    };
+
+    static IStaticInitializeTaskUnitPrivate m_private;
+    virtual void* IStaticInitializeTaskUnitPrivateTouch(){
+        return &m_private;
+    }
+};
+
+
+template<typename T, bool enabled>
+typename IStaticInitializeTaskUnit<T, enabled>::IStaticInitializeTaskUnitPrivate
+    IStaticInitializeTaskUnit<T, enabled>::m_private;
+
+template<typename T, bool enabled>
+IStaticInitializeTaskUnit<T, enabled>::IStaticInitializeTaskUnitPrivate::IStaticInitializeTaskUnitPrivate(){
+    if(enabled){
+        auto inst = instance();
+        inst->task();
+        inst->printTips();
+    }
+}
+
+$PackageWebCoreEnd

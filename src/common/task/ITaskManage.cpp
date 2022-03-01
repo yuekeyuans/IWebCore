@@ -25,6 +25,8 @@ void ITaskManage::run(const QStringList& arguments)
     auto inst = instance();
     inst->m_isStarted = true;
 
+    inst->invokeFirstInvokers();
+
     inst->invokeArgumentParsers(arguments);
     inst->invokeConfigers();
 
@@ -32,6 +34,8 @@ void ITaskManage::run(const QStringList& arguments)
 
     inst->invokeControllers();
     inst->invokeBluePrint();
+
+    inst->invokeLastInvokers();
 }
 
 void ITaskManage::registerArgumentParser(ArgumentParserFunType fun)
@@ -40,7 +44,6 @@ void ITaskManage::registerArgumentParser(ArgumentParserFunType fun)
     if(inst->m_isStarted){
         $AssertFatal(defer_register_not_allowed, "registerConfiger")
     }
-
     inst->m_argumentParsers.append(fun);
 }
 
@@ -71,6 +74,16 @@ void ITaskManage::registerController(FunType fun)
         $AssertFatal(defer_register_not_allowed, "registerConfiger")
     }
     inst->m_controllers.append(fun);
+}
+
+void ITaskManage::registerFirstInvoker(ITaskManage::FunType fun)
+{
+
+}
+
+void ITaskManage::registerLastInvoker(ITaskManage::FunType fun)
+{
+
 }
 
 void ITaskManage::registerBluePrint(ITaskManage::FunType fun)
@@ -136,6 +149,24 @@ void ITaskManage::invokeBluePrint()
     }
 
     inst->m_blueprints.clear();
+}
+
+void ITaskManage::invokeFirstInvokers()
+{
+    auto inst = instance();
+    for(FunType fun : inst->m_firstInvokers){
+        fun();
+    }
+    inst->m_firstInvokers.clear();
+}
+
+void ITaskManage::invokeLastInvokers()
+{
+    auto inst = instance();
+    for(FunType fun : inst->m_lastInvokers){
+        fun();
+    }
+    inst->m_lastInvokers.clear();
 }
 
 

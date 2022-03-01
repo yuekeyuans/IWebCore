@@ -80,7 +80,7 @@ void IControllerManage::registerPathValidator(const QString &name, const QString
     inst->m_pathRegValidators[name] = regexp;
 }
 
-void IControllerManage::registerPathValidator(const QString &name, IControllerManage::ValidatorFun fun)
+void IControllerManage::registerPathValidator(const QString &name, ValidatorFun fun)
 {
     auto inst = instance();
     if(inst->m_pathFunValidators.contains(name) || inst->m_pathFunValidators.contains(name)){

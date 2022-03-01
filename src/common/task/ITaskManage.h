@@ -37,6 +37,9 @@ public:
     static void registerInitializer(FunType fun);
     static void registerController(FunType fun);
 
+    static void registerFirstInvoker(FunType fun);
+    static void registerLastInvoker(FunType fun);
+
     // 打印 信息
     static void registerBluePrint(FunType fun);
 
@@ -50,13 +53,18 @@ private:
     static void invokeInitializers();
     static void invokeBluePrint();
 
+    static void invokeFirstInvokers();
+    static void invokeLastInvokers();
+
 private:
     QList<ArgumentParserFunType> m_argumentParsers;
     QList<FunType> m_configurators;
     QList<FunType> m_initializers;
     QList<FunType> m_controllers;
-
     QList<FunType> m_blueprints;
+
+    QList<FunType> m_firstInvokers;
+    QList<FunType> m_lastInvokers;
 
     bool m_isStarted{ false };
 };

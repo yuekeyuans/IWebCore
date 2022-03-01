@@ -73,7 +73,10 @@ HEADERS += \
     $$PWD/common/task/IArgumentParserUnit.h \
     $$PWD/common/task/IConfigurationTaskUnit.h \
     $$PWD/common/task/IControllerTaskUnit.h \
+    $$PWD/common/task/IFirstInvokeTaskUnit.h \
     $$PWD/common/task/IInitializationTaskUnit.h \
+    $$PWD/common/task/ILastInvokeTaskUnit.h \
+    $$PWD/common/task/IStaticInitializeTaskUnit.h \
     $$PWD/common/task/ITaskManage.h \
     $$PWD/common/task/ITaskWare.h \
     $$PWD/common/task/defaultTask/IBluePrintControllerTask.h \
@@ -92,6 +95,7 @@ HEADERS += \
     $$PWD/biscuits/IHttpMime.h \
     $$PWD/biscuits/IHttpVersion.h \
     $$PWD/controller/IControllerManage.h \
+    $$PWD/controller/IControllerPathValidatorInterface.h \
     $$PWD/controller/IControllerRouteNode.h \
     $$PWD/controller/IStatusControllerInterface.h \
     $$PWD/controller/pp/IControlVariablePreProcessor.h \
@@ -212,7 +216,10 @@ SOURCES += \
     $$PWD/common/task/IArgumentParserUnit.cpp \
     $$PWD/common/task/IConfigurationTaskUnit.cpp \
     $$PWD/common/task/IControllerTaskUnit.cpp \
+    $$PWD/common/task/IFirstInvokeTaskUnit.cpp \
     $$PWD/common/task/IInitializationTaskUnit.cpp \
+    $$PWD/common/task/ILastInvokeTaskUnit.cpp \
+    $$PWD/common/task/IStaticInitializeTaskUnit.cpp \
     $$PWD/common/task/ITaskManage.cpp \
     $$PWD/common/task/ITaskWare.cpp \
     $$PWD/common/task/defaultTask/IBluePrintControllerTask.cpp \
@@ -228,6 +235,7 @@ SOURCES += \
     $$PWD/configuration/defaultConfiguration/IBannerConfiguration.cpp \
     $$PWD/controller/IControllerInterface.cpp \
     $$PWD/controller/IControllerManage.cpp \
+    $$PWD/controller/IControllerPathValidatorInterface.cpp \
     $$PWD/controller/IControllerRouteNode.cpp \
     $$PWD/controller/IStatusControllerInterface.cpp \
     $$PWD/controller/private/IControllerInterfaceImpl.cpp \
