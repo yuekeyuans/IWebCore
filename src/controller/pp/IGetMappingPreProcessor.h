@@ -5,7 +5,6 @@
 #define PP_CONTROLLER_JOIN(funName, type) \
     PP_STRING( iwebControllerFun$##funName##$##type)
 
-/// 当 只用一个参数的时候，匹配当前controller 对应的内容
 #define $GetMappingDeclare_1(funName)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "GET")  \
@@ -66,7 +65,6 @@
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 5), #url5)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 6), #url6)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 7), #url7)
-
 
 #define $GetMappingDeclare_9(funName, url1, url2, url3, url4, url5, url6, url7, url8)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
