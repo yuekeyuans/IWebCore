@@ -128,6 +128,7 @@ HEADERS += \
     $$PWD/orm/model/IOrmTableModelInterface.h \
     $$PWD/orm/pp/IOrmPreProcessor.h \
     $$PWD/orm/pp/IOrmTablePreProcessor.h \
+    $$PWD/orm/pp/IOrmViewPreProcessor.h \
     $$PWD/orm/private/IOrmConditionImpl.h \
     $$PWD/orm/ISqlQuery.h \
     $$PWD/orm/clause/IOrmClause.h \

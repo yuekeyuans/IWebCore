@@ -1,6 +1,9 @@
 ﻿#pragma once
 
 #include "orm/pp/IOrmPreProcessor.h"
+#include "orm/pp/IOrmTablePreProcessor.h"
+#include "orm/pp/IOrmViewPreProcessor.h"
+
 #include "orm/model/IOrmTableModelInterface.h"
 
 #include "orm/clause/IOrmClause.h"
