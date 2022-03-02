@@ -1,9 +1,9 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    demo \
+#    demo \
 #    src \
-#    test
+    test
 
 CONFIG += qt
 

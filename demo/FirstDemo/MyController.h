@@ -5,6 +5,8 @@
 
 class MyController : public IControllerInterface<MyController>
 {
+    Q_GADGET
+    $AsController(MyController)
 public:
     MyController() = default;
 
@@ -17,7 +19,7 @@ public:
     $GetMapping(fun3, /fun3)
     IJsonResponse fun3($Param(UserTable, userTable));
 
-    $GetMapping(fun4, /fun5)
+    $GetMapping(fun4, /fun4)
     IJsonResponse fun4();
 
     $GetMapping(fun5, /fun5)

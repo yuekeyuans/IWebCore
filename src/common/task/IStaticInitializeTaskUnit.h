@@ -35,7 +35,8 @@ typename IStaticInitializeTaskUnit<T, enabled>::IStaticInitializeTaskUnitPrivate
 template<typename T, bool enabled>
 IStaticInitializeTaskUnit<T, enabled>::IStaticInitializeTaskUnitPrivate::IStaticInitializeTaskUnitPrivate(){
     if(enabled){
-        auto inst = T::instance();
+//        auto inst = T::instance();
+        static auto inst = new T();
         inst->task();
         inst->printTips();
     }
