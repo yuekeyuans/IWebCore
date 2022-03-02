@@ -27,7 +27,6 @@ private:
     }
 };
 
-
 template<typename T, bool enabled>
 typename IStaticInitializeTaskUnit<T, enabled>::IStaticInitializeTaskUnitPrivate
     IStaticInitializeTaskUnit<T, enabled>::m_private;
@@ -35,10 +34,12 @@ typename IStaticInitializeTaskUnit<T, enabled>::IStaticInitializeTaskUnitPrivate
 template<typename T, bool enabled>
 IStaticInitializeTaskUnit<T, enabled>::IStaticInitializeTaskUnitPrivate::IStaticInitializeTaskUnitPrivate(){
     if(enabled){
-//        auto inst = T::instance();
-        static auto inst = new T();
-        inst->task();
-        inst->printTips();
+        static std::once_flag flag;
+        std::call_once(flag, []{
+            static auto inst = new T();
+            inst->task();
+            inst->printTips();
+        });
     }
 }
 

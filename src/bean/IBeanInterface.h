@@ -3,8 +3,6 @@
 #include "base/IHeaderUtil.h"
 #include "bean/IBeanWare.h"
 #include "common/task/IStaticInitializeTaskUnit.h"
-#include "common/support/IRegisterMetaTypeUnit.h"
-#include "common/support/IRegisterTypeUnit.h"
 #include "common/type/ITypeManage.h"
 
 $PackageWebCoreBegin
