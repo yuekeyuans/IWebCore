@@ -305,7 +305,7 @@ void IControllerInterfaceImpl::chechMethodSupportedReturnType(const IUrlFunction
         QMetaType::QJsonObject,
         QMetaType::QJsonValue,
         QMetaType::QByteArray,
-        QMetaType::QStringList,
+//        QMetaType::QStringList,
     };
 
     auto type = node.functionNode.funRetunType;

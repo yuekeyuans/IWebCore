@@ -17,9 +17,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 include(../../src/IWebCore.pri)
 SOURCES += \
+        MyController.cpp \
+        UserTable.cpp \
         main.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+HEADERS += \
+    MyController.h \
+    UserTable.h

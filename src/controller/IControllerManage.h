@@ -24,7 +24,7 @@ public:
 
     static void registerStatusFunctions(const QVector<IStatusFunctionNode>& statusNodes);
     static void registerUrlFunctions(const QVector<IUrlFunctionNode>& functionNodes);
-    static void registerPathValidator(const QString& name, const QString& regexp);  //注册validation
+    static void registerPathValidator(const QString& name, const QString& regexp);
     static void registerPathValidator(const QString& name, ValidatorFun fun);
 
     static void travalPrintUrlTree();
