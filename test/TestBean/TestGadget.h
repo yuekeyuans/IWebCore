@@ -14,6 +14,7 @@ public:
 private slots:
     void init();
     void test_Registration();
+    void test_typeManageRegistration();
     void test_method();
     void test_className();
     void test_clone();

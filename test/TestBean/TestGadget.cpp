@@ -2,7 +2,6 @@
 
 TestGadget::TestGadget()
 {
-
 }
 
 void TestGadget::init()
@@ -21,6 +20,11 @@ void TestGadget::test_Registration()
     }
     QTEST_ASSERT(names.contains("OneBean"));
     QTEST_ASSERT(names.contains("OneBean&"));
+}
+
+void TestGadget::test_typeManageRegistration()
+{
+    QTEST_ASSERT(ITypeManage::containBean("OneBean"));
 }
 
 void TestGadget::test_method()
