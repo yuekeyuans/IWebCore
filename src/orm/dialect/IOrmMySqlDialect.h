@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "orm/IOrmPreProcessor.h"
+#include "orm/pp/IOrmPreProcessor.h"
 #include "orm/dialect/IOrmDialectInterface.h"
 
 $PackageWebCoreBegin

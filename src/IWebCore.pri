@@ -126,8 +126,9 @@ HEADERS += \
     $$PWD/orm/dialect/IOrmDialectInterface.h \
     $$PWD/orm/dialect/IOrmDialectWare.h \
     $$PWD/orm/model/IOrmTableModelInterface.h \
+    $$PWD/orm/pp/IOrmPreProcessor.h \
+    $$PWD/orm/pp/IOrmTablePreProcessor.h \
     $$PWD/orm/private/IOrmConditionImpl.h \
-    $$PWD/orm/IOrmPreProcessor.h \
     $$PWD/orm/ISqlQuery.h \
     $$PWD/orm/clause/IOrmClause.h \
     $$PWD/orm/clause/IOrmCondition.h \

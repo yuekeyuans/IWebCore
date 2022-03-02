@@ -3,7 +3,7 @@
 #include "base/IHeaderUtil.h"
 #include "common/task/IInitializationTaskUnit.h"
 #include "orm/database/IOrmDatabaseWare.h"
-#include "orm/IOrmPreProcessor.h"
+#include "orm/pp/IOrmPreProcessor.h"
 
 $PackageWebCoreBegin
 
