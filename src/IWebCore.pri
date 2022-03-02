@@ -138,6 +138,7 @@ HEADERS += \
     $$PWD/orm/tableview/IOrmTableInfo.h \
     $$PWD/orm/tableview/IOrmTableInterface.h \
     $$PWD/orm/tableview/IOrmTableWare.h \
+    $$PWD/orm/tableview/IOrmViewInfo.h \
     $$PWD/orm/tableview/IOrmViewInterface.h \
     $$PWD/orm/tableview/IOrmViewWare.h \
     $$PWD/package/IPackagePreProcessor.h \
@@ -268,6 +269,7 @@ SOURCES += \
     $$PWD/orm/tableview/IOrmTableInfo.cpp \
     $$PWD/orm/tableview/IOrmTableInterface.cpp \
     $$PWD/orm/tableview/IOrmTableWare.cpp \
+    $$PWD/orm/tableview/IOrmViewInfo.cpp \
     $$PWD/orm/tableview/IOrmViewInterface.cpp \
     $$PWD/orm/tableview/IOrmViewWare.cpp \
     $$PWD/plugin/yaml/IYamlUtil.cpp \

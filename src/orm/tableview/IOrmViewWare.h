@@ -5,12 +5,15 @@
 
 $PackageWebCoreBegin
 
+class IOrmViewInfo;
+
 class IOrmViewWare : public IBeanWare
 {
 public:
     IOrmViewWare() = default;
+    virtual ~IOrmViewWare() = default;
 
-
+    virtual const IOrmViewInfo& getViewInfo();
 };
 
 $PackageWebCoreEnd
