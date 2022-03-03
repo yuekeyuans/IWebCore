@@ -15,13 +15,6 @@ public:
     QString getFieldTypeName(const QString& fieldName) const;
     QMetaType::Type getFieldTypeId(const QString& fieldName) const;
 
-private:
-    void load(const QMetaObject& meta);
-    void checkInfo(const QMap<QString, QString>& clsInfo);
-    void checkFieldTypes(const QMap<QString, QString>& clsInfo);
-    void checkDuplicatedPrimaryKey(const QMap<QString, QString>& clsInfo);
-    void checkAutoGenerateInfo(const QMap<QString, QString>& clsInfo);
-
 public:
     QString className;
     QString tableName;

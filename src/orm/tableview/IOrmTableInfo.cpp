@@ -5,9 +5,31 @@
 
 $PackageWebCoreBegin
 
+namespace IOrmTableInfoHelper{
+    using NotationFun = bool (*)(const QString& key, const QString& value, IOrmTableInfo& tableInfo);
+
+    void load(const QMetaObject& meta, IOrmTableInfo& tableInfo);
+
+
+    void obtainFieldInfo(const QMetaObject& staticMetaObject, IOrmTableInfo& tableInfo);
+
+    void obtainNotations(const QMap<QString, QString> clsInfo, IOrmTableInfo& tableInfo);
+    const QList<NotationFun>& getNotationFun();
+    bool setPrimaryKey(const QString& key, const QString& value, IOrmTableInfo& tableInfo);
+    bool setUniqueKeys(const QString& key, const QString& value, IOrmTableInfo& tableInfo);
+    bool setNotNullKeys(const QString& key, const QString& value, IOrmTableInfo& tableInfo);
+    bool setAutoGenerateKeys(const QString& key, const QString& value, IOrmTableInfo& tableInfo);
+    bool setSqlTypeKeys(const QString& key, const QString& value, IOrmTableInfo& tableInfo);
+
+    void checkInfo(const QMap<QString, QString>& clsInfo, const IOrmTableInfo& tableInfo);
+    void checkFieldTypes(const QMap<QString, QString>& clsInfo, const IOrmTableInfo& tableInfo);
+    void checkDuplicatedPrimaryKey(const QMap<QString, QString>& clsInfo, const IOrmTableInfo& tableInfo);
+    void checkAutoGenerateInfo(const QMap<QString, QString>& clsInfo, const IOrmTableInfo& tableInfo);
+}
+
 IOrmTableInfo::IOrmTableInfo(const QMetaObject &meta)
 {
-    load(meta);
+    IOrmTableInfoHelper::load(meta, *this);
 }
 
 QString IOrmTableInfo::getFieldSqlType(const QString& fieldName) const
@@ -33,56 +55,110 @@ QMetaType::Type IOrmTableInfo::getFieldTypeId(const QString &fieldName) const
     return fieldTypeIds[index];
 }
 
-void IOrmTableInfo::load(const QMetaObject &staticMetaObject)
+void IOrmTableInfoHelper::load(const QMetaObject &staticMetaObject, IOrmTableInfo& tableInfo)
 {
-
-    auto& m_tableInfo = *this;
     auto metaClassInfo = IMetaUtil::getMetaClassInfoMap(staticMetaObject);
+    tableInfo.className = staticMetaObject.className();
+    tableInfo.tableName = IMetaUtil::getMetaClassInfoByName(metaClassInfo, "orm_tableName");
 
-    m_tableInfo.className = staticMetaObject.className();
-    m_tableInfo.tableName = IMetaUtil::getMetaClassInfoByName(metaClassInfo, "orm_tableName");
+    obtainFieldInfo(staticMetaObject, tableInfo);
+    obtainNotations(metaClassInfo, tableInfo);
 
+    static const char* const Sql_AutoGenerateTypeClause = "autoIncrementType__";
+    if(!tableInfo.autoGenerateKey.isEmpty()){
+        QString name = QString(Sql_AutoGenerateTypeClause).append(tableInfo.autoGenerateKey);
+        tableInfo.autoGenerateType = metaClassInfo[name];
+    }
+
+    checkInfo(metaClassInfo, tableInfo);
+}
+
+void IOrmTableInfoHelper::obtainFieldInfo(const QMetaObject& staticMetaObject, IOrmTableInfo& tableInfo){
     auto metaProperties =IMetaUtil::getMetaProperties(staticMetaObject);
     for(const QMetaProperty& property : metaProperties){
-        m_tableInfo.fieldNames.append(property.name());
-        m_tableInfo.fieldTypeNames.append(property.typeName());
-        m_tableInfo.fieldTypeIds.append(QMetaType::Type(static_cast<int>(property.type())));
+        tableInfo.fieldNames.append(property.name());
+        tableInfo.fieldTypeNames.append(property.typeName());
+        tableInfo.fieldTypeIds.append(QMetaType::Type(static_cast<int>(property.type())));
     }
-
-    for(auto name : metaClassInfo.keys()){
-        if(name.startsWith(IConstantUtil::Sql_PrimayKeyClause)){
-            m_tableInfo.primaryKey = metaClassInfo[name];
-        }
-        if(name.startsWith(IConstantUtil::Sql_UniqueKeyClause)){
-            m_tableInfo.uniqueKeys.append(metaClassInfo[name]);
-        }
-        if(name.startsWith(IConstantUtil::Sql_NotNulKeyClause)){
-            m_tableInfo.notNullNKeys.append(metaClassInfo[name]);
-        }
-        if(name.startsWith(IConstantUtil::Sql_AutoGenerateKeyClause)){
-            m_tableInfo.autoGenerateKey = metaClassInfo[name];
-        }
-        if(name.startsWith(IConstantUtil::Sql_SqlTypeKeyClause)){
-            auto fieldName = name.mid(QString(IConstantUtil::Sql_SqlTypeKeyClause).length());
-            m_tableInfo.sqlType[fieldName] = metaClassInfo[name];
-        }
-    }
-
-    if(!m_tableInfo.autoGenerateKey.isEmpty()){
-        QString name = QString(IConstantUtil::Sql_AutoGenerateTypeClause).append(m_tableInfo.autoGenerateKey);
-        m_tableInfo.autoGenerateType = metaClassInfo[name];
-    }
-    m_tableInfo.checkInfo(metaClassInfo);
 }
 
-void IOrmTableInfo::checkInfo(const QMap<QString, QString> &clsInfo)
+void IOrmTableInfoHelper::obtainNotations(const QMap<QString, QString> clsInfo, IOrmTableInfo& tableInfo){
+    const auto& notationFun = getNotationFun();
+    for(const auto& name : clsInfo.keys()){
+        const auto& value = clsInfo[name];
+        for(auto fun : notationFun){
+            if(fun(name, value, tableInfo)){
+                break;
+            }
+        }
+    }
+}
+
+const QList<IOrmTableInfoHelper::NotationFun>& IOrmTableInfoHelper::getNotationFun(){
+    static QList<NotationFun> notationFun = {
+        IOrmTableInfoHelper::setPrimaryKey,
+        IOrmTableInfoHelper::setUniqueKeys,
+        IOrmTableInfoHelper::setNotNullKeys,
+        IOrmTableInfoHelper::setSqlTypeKeys,
+        IOrmTableInfoHelper::setAutoGenerateKeys
+    };
+    return notationFun;
+}
+
+bool IOrmTableInfoHelper::setPrimaryKey(const QString& key, const QString& value, IOrmTableInfo& tableInfo){
+    static const char* const Sql_PrimayKeyClause = "primaryKey__";
+    if(key.startsWith(Sql_PrimayKeyClause)){
+        tableInfo.primaryKey = value;
+        return true;
+    }
+    return false;
+}
+
+bool IOrmTableInfoHelper::setUniqueKeys(const QString& key, const QString& value, IOrmTableInfo& tableInfo){
+    static const char* const Sql_UniqueKeyClause = "uniqueKey__";
+    if(key.startsWith(Sql_UniqueKeyClause)){
+        tableInfo.uniqueKeys.append(value);
+        return true;
+    }
+    return false;
+}
+
+bool IOrmTableInfoHelper::setNotNullKeys(const QString& key, const QString& value, IOrmTableInfo& tableInfo){
+    static const char* const Sql_NotNulKeyClause = "notNullKey__";
+    if(key.startsWith(Sql_NotNulKeyClause)){
+        tableInfo.notNullNKeys.append(value);
+        return true;
+    }
+    return false;
+}
+
+bool IOrmTableInfoHelper::setSqlTypeKeys(const QString& key, const QString& value, IOrmTableInfo& tableInfo){
+    static const char* const Sql_AutoGenerateKeyClause = "autoIncrementKey__";
+    if(key.startsWith(Sql_AutoGenerateKeyClause)){
+        tableInfo.autoGenerateKey = value;
+        return true;
+    }
+    return false;
+}
+
+bool IOrmTableInfoHelper::setAutoGenerateKeys(const QString& key, const QString& value, IOrmTableInfo& tableInfo){
+    static const char* const Sql_SqlTypeKeyClause = "sqlType__";
+    if(key.startsWith(Sql_SqlTypeKeyClause)){
+        auto fieldName = key.mid(QString(Sql_SqlTypeKeyClause).length());
+        tableInfo.sqlType[fieldName] = value;
+        return true;
+    }
+    return false;
+}
+
+void IOrmTableInfoHelper::checkInfo(const QMap<QString, QString> &clsInfo, const IOrmTableInfo& tableInfo)
 {
-    checkFieldTypes(clsInfo);
-    checkDuplicatedPrimaryKey(clsInfo);
-    checkAutoGenerateInfo(clsInfo);
+    checkFieldTypes(clsInfo, tableInfo);
+    checkDuplicatedPrimaryKey(clsInfo, tableInfo);
+    checkAutoGenerateInfo(clsInfo, tableInfo);
 }
 
-void IOrmTableInfo::checkFieldTypes(const QMap<QString, QString> &clsInfo)
+void IOrmTableInfoHelper::checkFieldTypes(const QMap<QString, QString> &clsInfo, const IOrmTableInfo& tableInfo)
 {
     Q_UNUSED(clsInfo)
 
@@ -97,6 +173,7 @@ void IOrmTableInfo::checkFieldTypes(const QMap<QString, QString> &clsInfo)
         QMetaType::Double, QMetaType::Float,
         QMetaType::QDate, QMetaType::QTime, QMetaType::QDateTime,
     };
+    const auto& fieldTypeIds = tableInfo.fieldTypeIds;
     for(const auto& typeId : fieldTypeIds){
         if(!allowTypes.contains(typeId)){
             QString info = QString("this kind of type is not supported in table, please change to the supported type. \n"
@@ -106,7 +183,7 @@ void IOrmTableInfo::checkFieldTypes(const QMap<QString, QString> &clsInfo)
     }
 }
 
-void IOrmTableInfo::checkDuplicatedPrimaryKey(const QMap<QString, QString> &clsInfo)
+void IOrmTableInfoHelper::checkDuplicatedPrimaryKey(const QMap<QString, QString> &clsInfo, const IOrmTableInfo& tableInfo)
 {
     int index = 0;
     for(auto key : clsInfo.keys()){
@@ -115,37 +192,37 @@ void IOrmTableInfo::checkDuplicatedPrimaryKey(const QMap<QString, QString> &clsI
         }
     }
     if(index == 0){
-        QString info = className + " table has no primary key, please add a primary key";
+        QString info = tableInfo.className + " table has no primary key, please add a primary key";
         qFatal(info.toUtf8());
     }else if(index > 1){
-        QString info = className + " table has more than one primary key, one table can only has one primary key";
+        QString info = tableInfo.className + " table has more than one primary key, one table can only has one primary key";
         qFatal(info.toUtf8());
     }
-    auto pos = fieldNames.indexOf(primaryKey);
-    auto typeId = fieldTypeIds[pos];
+    auto pos = tableInfo.fieldNames.indexOf(tableInfo.primaryKey);
+    auto typeId = tableInfo.fieldTypeIds[pos];
     if(!IToeUtil::isPrimaryKeyType(typeId)){
-        QString info = className + " table has incorrect primary key annotated type. \n"
+        QString info = tableInfo.className + " table has incorrect primary key annotated type. \n"
                                    "the only allowed type is int, long, longlong/int64, QString\n"
-                                   "field:" + fieldNames[pos] + " type:" + fieldTypeNames[pos];
+                                   "field:" + tableInfo.fieldNames[pos] + " type:" + tableInfo.fieldTypeNames[pos];
         qFatal(info.toUtf8());
     }
     if(typeId != QMetaType::QString && typeId != QMetaType::LongLong){
         QString info = QString("primary key that is number type recommended is qlonglong/qint64 type.\n"
-                               "current is ").append(QMetaType::typeName(typeId)).append(" in class ").append(className);
+                               "current is ").append(QMetaType::typeName(typeId)).append(" in class ").append(tableInfo.className);
         qWarning() << info;
     }
 }
 
-void IOrmTableInfo::checkAutoGenerateInfo(const QMap<QString, QString> &clsInfo)
+void IOrmTableInfoHelper::checkAutoGenerateInfo(const QMap<QString, QString> &clsInfo, const IOrmTableInfo& tableInfo)
 {
     Q_UNUSED(clsInfo)
     static QList<QMetaType::Type> allowTypes = {
         QMetaType::Int, QMetaType::LongLong, QMetaType::QString
     };
 
-    if(!autoGenerateKey.isEmpty()){
-        if(autoGenerateKey != primaryKey){
-            QString info = className + " table: auto increment key must equal to primary key";
+    if(!tableInfo.autoGenerateKey.isEmpty()){
+        if(tableInfo.autoGenerateKey != tableInfo.primaryKey){
+            QString info = tableInfo.className + " table: auto increment key must equal to primary key";
             qFatal(info.toUtf8());
         }
     }
@@ -157,7 +234,7 @@ void IOrmTableInfo::checkAutoGenerateInfo(const QMap<QString, QString> &clsInfo)
         }
     }
     if(index >1){
-        QString info = className + " table: you can not have more than one increment note, please check";
+        QString info = tableInfo.className + " table: you can not have more than one increment note, please check";
         qFatal(info.toUtf8());
     }
 }

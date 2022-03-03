@@ -36,12 +36,7 @@ namespace IConstantUtil
     static const char* const UnImplimentedMethod = "unimplimented method, this will be implimented latter";
 
     ////////// sql
-    static const char* const Sql_PrimayKeyClause = "primaryKey__";
-    static const char* const Sql_UniqueKeyClause = "uniqueKey__";
-    static const char* const Sql_NotNulKeyClause = "notNullKey__";
-    static const char* const Sql_AutoGenerateKeyClause = "autoIncrementKey__";
-    static const char* const Sql_AutoGenerateTypeClause = "autoIncrementType__";
-    static const char* const Sql_SqlTypeKeyClause = "sqlType__";
+
 
     static const QMetaType::Type PrimaryKeyTypes[4] = {QMetaType::Int, QMetaType::Long, QMetaType::LongLong, QMetaType::QString};
 
