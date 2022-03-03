@@ -169,6 +169,7 @@ void IOrmTableInfoHelper::checkDuplicatedPrimaryKey(const QMap<QString, QString>
 void IOrmTableInfoHelper::checkAutoGenerateInfo(const QMap<QString, QString> &clsInfo, const IOrmTableInfo& tableInfo)
 {
     Q_UNUSED(clsInfo)
+    static const char* const Sql_AutoGenerateKeyClause = "autoIncrementKey__";
     static QList<QMetaType::Type> allowTypes = {
         QMetaType::Int, QMetaType::LongLong, QMetaType::QString
     };
@@ -182,7 +183,7 @@ void IOrmTableInfoHelper::checkAutoGenerateInfo(const QMap<QString, QString> &cl
 
     int index = 0;
     for(auto key : clsInfo.keys()){
-        if(key.startsWith("autoIncrementKey__")){
+        if(key.startsWith(Sql_AutoGenerateKeyClause)){
             index ++;
         }
     }

@@ -20,7 +20,7 @@ bool IOrmDialectWare::exec(QSqlDatabase &db, const QString &sql)
 bool IOrmDialectWare::insert(QSqlDatabase& db, IOrmTableWare& table, const QStringList &columns)
 {
     ISqlQuery query(db);
-    const auto info = table.getTableInfo();
+    const auto& info = table.getOrmEntityInfo();
     auto sql = getInsertSqlClause(info, columns);
     query.prepare(sql);
     for(const auto& col : columns){
@@ -50,7 +50,7 @@ bool IOrmDialectWare::insert(QSqlDatabase& db, IOrmTableWare& table, const QStri
 
 bool IOrmDialectWare::update(QSqlDatabase &db, const IOrmTableWare &table)
 {
-    const auto& info = table.getTableInfo();
+    const auto& info = table.getOrmEntityInfo();
     QStringList columns = info.fieldNames;
     columns.removeOne(info.primaryKey);
     auto sql = getUpdateSqlClause(info, columns);
@@ -68,7 +68,7 @@ bool IOrmDialectWare::update(QSqlDatabase &db, const IOrmTableWare &table, const
     if(columns.isEmpty()){
         return false;
     }
-    const auto& info = table.getTableInfo();
+    const auto& info = table.getOrmEntityInfo();
     const auto& pk = info.primaryKey;
     if(columns.contains(pk)){
         qFatal("error, update`s columns can`t contains primary key field");
@@ -113,7 +113,7 @@ bool IOrmDialectWare::update(QSqlDatabase &db, const IOrmTableInfo &info, const 
 
 bool IOrmDialectWare::deleted(QSqlDatabase &db, const IOrmTableWare &interface)
 {
-    const auto& info = interface.getTableInfo();
+    const auto& info = interface.getOrmEntityInfo();
     const auto& pk = info.primaryKey;
     QString sql = QString("DELETE FROM ").append(info.entityName).append(" WHERE ").append(pk)
             .append(" = :").append(pk);

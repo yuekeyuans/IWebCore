@@ -2,24 +2,9 @@
 
 $PackageWebCoreBegin
 
-IOrmViewInfo::IOrmViewInfo(const QMetaObject &meta)
+IOrmViewInfo::IOrmViewInfo(const QMetaObject &meta) : IOrmEntityInfoWare(meta)
 {
-
-}
-
-QString IOrmViewInfo::getFieldSqlType(const QString &fieldName) const
-{
-    return {};
-}
-
-QString IOrmViewInfo::getFieldTypeName(const QString &fieldName) const
-{
-    return {};
-}
-
-QMetaType::Type IOrmViewInfo::getFieldTypeId(const QString &fieldName) const
-{
-    return {};
+    // here currently do nothing.
 }
 
 $PackageWebCoreEnd

@@ -9,7 +9,7 @@ public: \
         static IOrmTableInfo m_tableInfo(staticMetaObject);  \
         return m_tableInfo; \
     }   \
-    virtual const IOrmTableInfo& getTableInfo() const final{   \
+    virtual const IOrmTableInfo& getOrmEntityInfo() const final{   \
         return tableInfo();  \
     }   \
 private:

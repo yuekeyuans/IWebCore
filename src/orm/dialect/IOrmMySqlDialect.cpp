@@ -58,7 +58,7 @@ QString IOrmMySqlDialect::getLimitString(quint64 start, quint64 count)
 bool IOrmMySqlDialect::insert(QSqlDatabase &db, IOrmTableWare &table, const QStringList &columns)
 {
     ISqlQuery query(db);
-    const auto info = table.getTableInfo();
+    const auto info = table.getOrmEntityInfo();
     auto sql = getInsertSqlClause(info, columns);
     query.prepare(sql);
 

@@ -1,18 +1,15 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
+#include "orm/tableview/IOrmEntityInfoWare.h"
 
 $PackageWebCoreBegin
 
-class IOrmViewInfo
+class IOrmViewInfo : public IOrmEntityInfoWare
 {
 public:
     IOrmViewInfo() = default;
     explicit IOrmViewInfo(const QMetaObject& meta);
-
-    QString getFieldSqlType(const QString& fieldName) const;
-    QString getFieldTypeName(const QString& fieldName) const;
-    QMetaType::Type getFieldTypeId(const QString& fieldName) const;
 
 };
 

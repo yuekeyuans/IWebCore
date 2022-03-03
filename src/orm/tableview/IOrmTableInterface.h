@@ -4,8 +4,11 @@
 #include "common/task/IStaticInitializeTaskUnit.h"
 #include "common/type/ITypeManage.h"
 #include "orm/tableview/IOrmTableWare.h"
+#include "orm/tableview/IOrmTableInfo.h"
 
 $PackageWebCoreBegin
+
+//class IOrmTableInfo;
 
 template<typename T, bool enabled = true>
 class IOrmTableInterface : public IOrmTableWare, public IStaticInitializeTaskUnit<T, enabled>
@@ -16,7 +19,7 @@ public:
 
 public:
     virtual void task() override;
-    virtual const IOrmTableInfo& getTableInfo() const = 0;
+    virtual const IOrmTableInfo& getOrmEntityInfo() const = 0;
 };
 
 template<typename T, bool enabled>

@@ -17,7 +17,7 @@ QString IOrmSqliteDialect::dialectType()
 bool IOrmSqliteDialect::insert(QSqlDatabase& db, IOrmTableWare& table, const QStringList &columns)
 {
     ISqlQuery query(db);
-    const auto info = table.getTableInfo();
+    const auto info = table.getOrmEntityInfo();
     auto sql = getInsertSqlClause(info, columns);
     query.prepare(sql);
 
@@ -84,7 +84,7 @@ QString IOrmSqliteDialect::getLimitString(quint64 start, quint64 count)
 
 QVariant IOrmSqliteDialect::getInsertedPrimaryKey(QSqlDatabase& db, IOrmTableWare &table, const QVariant& rowid)
 {
-    const auto& info = table.getTableInfo();
+    const auto& info = table.getOrmEntityInfo();
     ISqlQuery query(db);
     QString sql = "select " + info.primaryKey + " from " + info.entityName
             + " where rowid = :rowid";
