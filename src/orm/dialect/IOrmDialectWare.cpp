@@ -95,7 +95,7 @@ bool IOrmDialectWare::update(QSqlDatabase &db, const IOrmTableInfo &info, const 
     }
 
     ISqlQuery query(db);
-    QString sql = QString("UPDATE ").append(info.tableName).append(" SET ");
+    QString sql = QString("UPDATE ").append(info.entityName).append(" SET ");
     QStringList args;
     const auto& keys = map.keys();
     for(const auto key : keys){
@@ -115,7 +115,7 @@ bool IOrmDialectWare::deleted(QSqlDatabase &db, const IOrmTableWare &interface)
 {
     const auto& info = interface.getTableInfo();
     const auto& pk = info.primaryKey;
-    QString sql = QString("DELETE FROM ").append(info.tableName).append(" WHERE ").append(pk)
+    QString sql = QString("DELETE FROM ").append(info.entityName).append(" WHERE ").append(pk)
             .append(" = :").append(pk);
     ISqlQuery query(db);
     query.prepare(sql);
@@ -125,7 +125,7 @@ bool IOrmDialectWare::deleted(QSqlDatabase &db, const IOrmTableWare &interface)
 
 bool IOrmDialectWare::deleted(QSqlDatabase& db, const IOrmTableInfo& info, const IOrmCondition& condition)
 {
-    QString sql = "DELETE FROM " + info.tableName;
+    QString sql = "DELETE FROM " + info.entityName;
     auto whereCondition = condition.toSql();
     if(!whereCondition.isEmpty()){
         sql.append(' ').append(whereCondition);
@@ -138,7 +138,7 @@ bool IOrmDialectWare::deleted(QSqlDatabase& db, const IOrmTableInfo& info, const
 
 bool IOrmDialectWare::deleteByPrimaryKey(QSqlDatabase& db, const IOrmTableInfo &info, const QVariant &key)
 {
-    QString sql = QString("DELETE FROM ") + info.tableName + " WHERE ";
+    QString sql = QString("DELETE FROM ") + info.entityName + " WHERE ";
     sql.append(info.primaryKey).append(" = :").append(info.primaryKey);
     ISqlQuery query(db);
     query.prepare(sql);
@@ -148,7 +148,7 @@ bool IOrmDialectWare::deleteByPrimaryKey(QSqlDatabase& db, const IOrmTableInfo &
 
 bool IOrmDialectWare::findOne(ISqlQuery &query, const IOrmTableInfo &info, const IOrmCondition &condition)
 {
-    QString sql = "SELECT * FROM " + info.tableName;
+    QString sql = "SELECT * FROM " + info.entityName;
     auto where = condition.toSql();
     if(!where.isEmpty()){
         sql.append(' ').append(where);
@@ -161,7 +161,7 @@ bool IOrmDialectWare::findOne(ISqlQuery &query, const IOrmTableInfo &info, const
 bool IOrmDialectWare::findOneByPrimaryKey(ISqlQuery &query, const IOrmTableInfo &info, const QVariant &key)
 {
     const auto& pk = info.primaryKey;
-    QString sql = "SELECT * FROM " + info.tableName;
+    QString sql = "SELECT * FROM " + info.entityName;
     sql.append(" WHERE ").append(pk).append(" = :").append(pk);
     query.prepare(sql);
     query.bindValue(":"+ pk, key);
@@ -170,13 +170,13 @@ bool IOrmDialectWare::findOneByPrimaryKey(ISqlQuery &query, const IOrmTableInfo 
 
 bool IOrmDialectWare::findAll(ISqlQuery &query, const IOrmTableInfo &info)
 {
-    QString sql = "SELECT * FROM " + info.tableName;
+    QString sql = "SELECT * FROM " + info.entityName;
     return query.exec(sql);
 }
 
 bool IOrmDialectWare::findAll(ISqlQuery &query, const IOrmTableInfo &info, const IOrmCondition &condition)
 {
-    QString sql = "SELECT * FROM " + info.tableName;
+    QString sql = "SELECT * FROM " + info.entityName;
     QString where = condition.toSql();
     if(!where.isEmpty()){
         sql.append(' ').append(where);
@@ -189,7 +189,7 @@ bool IOrmDialectWare::findAll(ISqlQuery &query, const IOrmTableInfo &info, const
 QList<QMap<QString, QVariant> > IOrmDialectWare::findColumns(QSqlDatabase &db, const IOrmTableInfo &info, const QStringList &columns)
 {
     QString sql = "SELECT ";
-    sql.append(columns.join(", ")).append(" FROM ").append(info.tableName);
+    sql.append(columns.join(", ")).append(" FROM ").append(info.entityName);
     ISqlQuery query(db);
     auto result = query.exec(sql);
     if(!result){
@@ -201,7 +201,7 @@ QList<QMap<QString, QVariant> > IOrmDialectWare::findColumns(QSqlDatabase &db, c
 QList<QMap<QString, QVariant> > IOrmDialectWare::findColumns(QSqlDatabase &db, const IOrmTableInfo &info, const QStringList &columns, const IOrmCondition &condition)
 {
     QString sql = "SELECT ";
-    sql.append(columns.join(", ")).append(" FROM ").append(info.tableName);
+    sql.append(columns.join(", ")).append(" FROM ").append(info.entityName);
     if(condition.isValid()){
         sql.append(' ').append(condition.toSql());
     }
@@ -217,7 +217,7 @@ QList<QMap<QString, QVariant> > IOrmDialectWare::findColumns(QSqlDatabase &db, c
 
 size_t IOrmDialectWare::count(QSqlDatabase &db, const IOrmTableInfo &info)
 {
-    QString sql = QString("SELECT COUNT(1) FROM ") + info.tableName;
+    QString sql = QString("SELECT COUNT(1) FROM ") + info.entityName;
     ISqlQuery query(db);
     auto result = query.exec(sql);
     if(!result){
@@ -237,7 +237,7 @@ size_t IOrmDialectWare::count(QSqlDatabase &db, const IOrmTableInfo &info)
 size_t IOrmDialectWare::count(QSqlDatabase &db, const IOrmTableInfo &info, const IOrmCondition &condition)
 {
     Q_UNUSED(condition)
-    QString sql = QString("SELECT COUNT(1) FROM ") + info.tableName;
+    QString sql = QString("SELECT COUNT(1) FROM ") + info.entityName;
 
     auto where = condition.toSql();
     if(!where.isEmpty()){
@@ -259,14 +259,14 @@ size_t IOrmDialectWare::count(QSqlDatabase &db, const IOrmTableInfo &info, const
 
 bool IOrmDialectWare::clearTable(QSqlDatabase &db, const IOrmTableInfo &info)
 {
-    QString sql = "DELETE FROM " + info.tableName;
+    QString sql = "DELETE FROM " + info.entityName;
     ISqlQuery query(db);
     return query.exec(sql);
 }
 
 QString IOrmDialectWare::createTableSqlClause(const IOrmTableInfo& info)
 {
-    QString sql = QString("CREATE TABLE IF NOT EXISTS ").append(info.tableName);
+    QString sql = QString("CREATE TABLE IF NOT EXISTS ").append(info.entityName);
 
     QStringList fields;
     for (const auto &name : info.fieldNames) {
@@ -302,7 +302,7 @@ QVariant IOrmDialectWare::decorateValue(const IOrmTableInfo &info, const QString
 
 QString IOrmDialectWare::getUpdateSqlClause(const IOrmTableInfo &info, const QStringList &columns)
 {
-    QString sql = QString("UPDATE ").append(info.tableName).append(" SET ");
+    QString sql = QString("UPDATE ").append(info.entityName).append(" SET ");
     QStringList args;
     for(const auto& fd : columns){
         QString piece = fd + " = :" + fd;
@@ -318,7 +318,7 @@ QString IOrmDialectWare::getUpdateSqlClause(const IOrmTableInfo &info, const QSt
 QString IOrmDialectWare::getInsertSqlClause(const IOrmTableInfo& info, const QStringList &columns)
 {
     QString sql = "insert into ";
-    sql.append(info.tableName);
+    sql.append(info.entityName);
 
     QStringList keys;
     QStringList values;
@@ -335,7 +335,7 @@ QString IOrmDialectWare::getInsertSqlClause(const IOrmTableInfo& info, const QSt
 
 bool IOrmDialectWare::truncateTable(QSqlDatabase &db, const IOrmTableInfo &info)
 {
-    QString sql = "TRUNCATE TABLE " + info.tableName;
+    QString sql = "TRUNCATE TABLE " + info.entityName;
     ISqlQuery query(db);
     return query.exec(sql);
 }

@@ -17,12 +17,14 @@ private:
 #define $AsTable_1(klassName) \
     $AsBean(klassName) \
     PP_AS_TABLE_COMMON(klassName) \
-    Q_CLASSINFO("orm_tableName", #klassName) \
+    Q_CLASSINFO("orm_entityName", #klassName) \
+    Q_CLASSINFO("orm_entityType", PP_STRING(table))
 
 #define $AsTable_2(klassName, tableName) \
     $AsBean(klassName) \
     PP_AS_TABLE_COMMON(klassName)   \
-    Q_CLASSINFO("orm_tableName", #tableName) \
+    Q_CLASSINFO("orm_entityName", #tableName) \
+    Q_CLASSINFO("orm_entityType", PP_STRING(table))
 
 #define $AsTable_(N) $AsTable_##N
 #define $AsTable_EVAL(N) $AsTable_(N)

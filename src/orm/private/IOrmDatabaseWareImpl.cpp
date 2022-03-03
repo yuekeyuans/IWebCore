@@ -56,7 +56,7 @@ void IOrmDatabaseWareImpl::closeDatabase()
 void IOrmDatabaseWareImpl::registerTable(const IOrmTableInfo &info, const QString &sql)
 {
     checkTableInfo(info);
-    auto tableName = info.tableName;
+    auto tableName = info.entityName;
     if (m_existedTables.contains(tableName)) {
         return;
     }

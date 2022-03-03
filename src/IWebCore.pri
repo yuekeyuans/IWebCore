@@ -137,6 +137,7 @@ HEADERS += \
     $$PWD/orm/dialect/IOrmMySqlDialect.h \
     $$PWD/orm/dialect/IOrmSqliteDialect.h \
     $$PWD/orm/private/IOrmDatabaseWareImpl.h \
+    $$PWD/orm/tableview/IOrmEntityInfoWare.h \
     $$PWD/orm/tableview/IOrmTableInfo.h \
     $$PWD/orm/tableview/IOrmTableInterface.h \
     $$PWD/orm/tableview/IOrmTableWare.h \
@@ -268,6 +269,7 @@ SOURCES += \
     $$PWD/orm/dialect/IOrmMySqlDialect.cpp \
     $$PWD/orm/dialect/IOrmSqliteDialect.cpp \
     $$PWD/orm/private/IOrmDatabaseWareImpl.cpp \
+    $$PWD/orm/tableview/IOrmEntityInfoWare.cpp \
     $$PWD/orm/tableview/IOrmTableInfo.cpp \
     $$PWD/orm/tableview/IOrmTableInterface.cpp \
     $$PWD/orm/tableview/IOrmTableWare.cpp \

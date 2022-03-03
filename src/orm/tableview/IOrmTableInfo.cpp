@@ -8,11 +8,6 @@ $PackageWebCoreBegin
 namespace IOrmTableInfoHelper{
     using NotationFun = bool (*)(const QString& key, const QString& value, IOrmTableInfo& tableInfo);
 
-    void load(const QMetaObject& meta, IOrmTableInfo& tableInfo);
-
-
-    void obtainFieldInfo(const QMetaObject& staticMetaObject, IOrmTableInfo& tableInfo);
-
     void obtainNotations(const QMap<QString, QString> clsInfo, IOrmTableInfo& tableInfo);
     const QList<NotationFun>& getNotationFun();
     bool setPrimaryKey(const QString& key, const QString& value, IOrmTableInfo& tableInfo);
@@ -27,59 +22,11 @@ namespace IOrmTableInfoHelper{
     void checkAutoGenerateInfo(const QMap<QString, QString>& clsInfo, const IOrmTableInfo& tableInfo);
 }
 
-IOrmTableInfo::IOrmTableInfo(const QMetaObject &meta)
+IOrmTableInfo::IOrmTableInfo(const QMetaObject &meta) : IOrmEntityInfoWare(meta)
 {
-    IOrmTableInfoHelper::load(meta, *this);
-}
-
-QString IOrmTableInfo::getFieldSqlType(const QString& fieldName) const
-{
-    if(sqlType.contains(fieldName)){
-        return sqlType[fieldName];
-    }
-    return "";
-}
-
-QString IOrmTableInfo::getFieldTypeName(const QString& fieldName) const
-{
-    auto index = fieldNames.indexOf(fieldName);
-    return fieldTypeNames[index];
-}
-
-QMetaType::Type IOrmTableInfo::getFieldTypeId(const QString &fieldName) const
-{
-    auto index = fieldNames.indexOf(fieldName);
-    if(index == -1){
-        return QMetaType::UnknownType;
-    }
-    return fieldTypeIds[index];
-}
-
-void IOrmTableInfoHelper::load(const QMetaObject &staticMetaObject, IOrmTableInfo& tableInfo)
-{
-    auto metaClassInfo = IMetaUtil::getMetaClassInfoMap(staticMetaObject);
-    tableInfo.className = staticMetaObject.className();
-    tableInfo.tableName = IMetaUtil::getMetaClassInfoByName(metaClassInfo, "orm_tableName");
-
-    obtainFieldInfo(staticMetaObject, tableInfo);
-    obtainNotations(metaClassInfo, tableInfo);
-
-    static const char* const Sql_AutoGenerateTypeClause = "autoIncrementType__";
-    if(!tableInfo.autoGenerateKey.isEmpty()){
-        QString name = QString(Sql_AutoGenerateTypeClause).append(tableInfo.autoGenerateKey);
-        tableInfo.autoGenerateType = metaClassInfo[name];
-    }
-
-    checkInfo(metaClassInfo, tableInfo);
-}
-
-void IOrmTableInfoHelper::obtainFieldInfo(const QMetaObject& staticMetaObject, IOrmTableInfo& tableInfo){
-    auto metaProperties =IMetaUtil::getMetaProperties(staticMetaObject);
-    for(const QMetaProperty& property : metaProperties){
-        tableInfo.fieldNames.append(property.name());
-        tableInfo.fieldTypeNames.append(property.typeName());
-        tableInfo.fieldTypeIds.append(QMetaType::Type(static_cast<int>(property.type())));
-    }
+    auto clsInfo = IMetaUtil::getMetaClassInfoMap(meta);
+    IOrmTableInfoHelper::obtainNotations(clsInfo, *this);
+    IOrmTableInfoHelper::checkInfo(clsInfo, *this);
 }
 
 void IOrmTableInfoHelper::obtainNotations(const QMap<QString, QString> clsInfo, IOrmTableInfo& tableInfo){
@@ -91,6 +38,12 @@ void IOrmTableInfoHelper::obtainNotations(const QMap<QString, QString> clsInfo, 
                 break;
             }
         }
+    }
+
+    static const char* const Sql_AutoGenerateTypeClause = "autoIncrementType__";
+    if(!tableInfo.autoGenerateKey.isEmpty()){
+        QString name = QString(Sql_AutoGenerateTypeClause).append(tableInfo.autoGenerateKey);
+        tableInfo.autoGenerateType = clsInfo[name];
     }
 }
 

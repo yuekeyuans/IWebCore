@@ -18,12 +18,14 @@ private:
 #define $AsView_1(klassName) \
     $AsBean(klassName) \
     PP_AS_VIEW_COMMON(klassName) \
-    Q_CLASSINFO("orm_viewName", #klassName) \
+    Q_CLASSINFO("orm_entityName", #klassName) \
+    Q_CLASSINFO("orm_entityType", PP_STRING(view))
 
-#define $AsView_2(klassName, tableName) \
+#define $AsView_2(klassName, viewName) \
     $AsBean(klassName) \
     PP_AS_VIEW_COMMON(klassName)   \
-    Q_CLASSINFO("orm_viewName", #tableName) \
+    Q_CLASSINFO("orm_entityName", #viewName) \
+    Q_CLASSINFO("orm_entityType", PP_STRING(view))
 
 #define $AsView_(N) $AsView_##N
 #define $AsView_EVAL(N) $AsView_(N)

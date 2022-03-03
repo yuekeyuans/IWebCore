@@ -86,7 +86,7 @@ QVariant IOrmSqliteDialect::getInsertedPrimaryKey(QSqlDatabase& db, IOrmTableWar
 {
     const auto& info = table.getTableInfo();
     ISqlQuery query(db);
-    QString sql = "select " + info.primaryKey + " from " + info.tableName
+    QString sql = "select " + info.primaryKey + " from " + info.entityName
             + " where rowid = :rowid";
     query.prepare(sql);
     query.bindValue(":rowid", rowid);
