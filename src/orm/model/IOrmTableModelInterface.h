@@ -4,7 +4,7 @@
 #include "base/IConstantUtil.h"
 #include "orm/IOrmManage.h"
 #include "orm/ISqlQuery.h"
-#include "orm/tableview/IOrmTableWare.h"
+#include "orm/tableview/IOrmEntityWare.h"
 #include "orm/tableview/IOrmTableInfo.h"
 #include "orm/dialect/IOrmDialectWare.h"
 #include "orm/clause/IOrmQueryClause.h"
@@ -206,7 +206,7 @@ bool IOrmTableModelInterface<T, dbConnectionName>::deleted(QList<T> &tables)
     QSqlDatabase& db = getDatabase();
 
     QList<QVariant> args;
-    for(const IOrmTableWare& table : tables){
+    for(const IOrmEntityWare& table : tables){
         args << table.getFieldValue(pk);
     }
     IOrmCondition condition;

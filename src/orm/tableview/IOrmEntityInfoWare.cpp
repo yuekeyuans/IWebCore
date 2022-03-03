@@ -46,18 +46,18 @@ QMetaType::Type IOrmEntityInfoWare::getFieldTypeId(const QString &fieldName) con
     return fieldTypeIds[index];
 }
 
-IOrmTableInfo *IOrmEntityInfoWare::toTableInfo(bool *ok)
+const IOrmTableInfo& IOrmEntityInfoWare::toTableInfo(bool *ok) const
 {
-    auto ptr = dynamic_cast<IOrmTableInfo*>(this);
+    const auto& ptr = dynamic_cast<const IOrmTableInfo*>(this);
     IToeUtil::setOk(ok, ptr != nullptr);
-    return ptr;
+    return *ptr;
 }
 
-IOrmViewInfo *IOrmEntityInfoWare::toViewInfo(bool *ok)
+const IOrmViewInfo& IOrmEntityInfoWare::toViewInfo(bool *ok) const
 {
-    auto ptr = dynamic_cast<IOrmViewInfo*>(this);
+    auto ptr = dynamic_cast<const IOrmViewInfo*>(this);
     IToeUtil::setOk(ok, ptr != nullptr);
-    return ptr;
+    return *ptr;
 }
 
 void IOrmEntityInfoWareHelper::obtainFieldInfo(const QMetaObject& staticMetaObject, IOrmEntityInfoWare& tableInfo){

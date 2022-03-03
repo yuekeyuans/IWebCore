@@ -1,7 +1,9 @@
 ﻿#include "IOrmMySqlDialect.h"
 #include "orm/IOrmManage.h"
 #include "orm/tableview/IOrmTableInfo.h"
+#include "orm/tableview/IOrmEntityWare.h"
 #include "orm/tableview/IOrmTableWare.h"
+#include "orm/tableview/IOrmViewWare.h"
 
 $PackageWebCoreBegin
 
@@ -59,17 +61,17 @@ bool IOrmMySqlDialect::insert(QSqlDatabase &db, IOrmTableWare &table, const QStr
 {
     ISqlQuery query(db);
     const auto info = table.getOrmEntityInfo();
-    auto sql = getInsertSqlClause(info, columns);
+    auto sql = getInsertSqlClause(*info, columns);
     query.prepare(sql);
 
     bool isKeyInserted = false;
 
     for(const auto& fieldName : columns){
         auto originVale = table.getFieldValue(fieldName);
-        auto decoratedValue = decorateValue(info, fieldName, originVale);
+        auto decoratedValue = decorateValue(*info, fieldName, originVale);
         query.bindValue(":" + fieldName, decoratedValue);
-        if(info.primaryKey == fieldName && originVale.type() == QVariant::String){
-            table.setFieldValue(info.primaryKey, decoratedValue);
+        if(info->primaryKey == fieldName && originVale.type() == QVariant::String){
+            table.setFieldValue(info->primaryKey, decoratedValue);
             isKeyInserted = true;
         }
     }
@@ -79,9 +81,9 @@ bool IOrmMySqlDialect::insert(QSqlDatabase &db, IOrmTableWare &table, const QStr
         return result;
     }
 
-    if(!isKeyInserted && !info.autoGenerateKey.isEmpty()){
+    if(!isKeyInserted && !info->autoGenerateKey.isEmpty()){
         auto rowid = query.lastInsertId();
-        table.setFieldValue(info.autoGenerateKey, rowid);
+        table.setFieldValue(info->autoGenerateKey, rowid);
     }
     return result;
 }

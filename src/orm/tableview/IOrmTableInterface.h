@@ -17,7 +17,7 @@ public:
 
 public:
     virtual void task() override;
-    virtual const IOrmTableInfo& getOrmEntityInfo() const = 0;
+    virtual const IOrmTableInfo* getOrmEntityInfo() const = 0;
 };
 
 template<typename T, bool enabled>

@@ -1,18 +1,18 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "bean/IBeanWare.h"
-#include "IOrmEntityInfoWare.h"
-#include "IOrmTableInfo.h"
+#include "orm/tableview/IOrmEntityWare.h"
 
 $PackageWebCoreBegin
 
-class IOrmTableWare : public IBeanWare{
+class IOrmTableInfo;
+
+class IOrmTableWare : public IOrmEntityWare
+{
 public:
     IOrmTableWare() = default;
-    virtual ~IOrmTableWare() = default;
 
-    virtual const IOrmTableInfo& getOrmEntityInfo() const = 0;
+    virtual const IOrmTableInfo* getOrmEntityInfo() const override = 0;
 };
 
 $PackageWebCoreEnd

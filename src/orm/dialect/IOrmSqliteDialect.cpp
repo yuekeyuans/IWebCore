@@ -5,6 +5,7 @@
 #include "orm/tableview/IOrmTableInfo.h"
 #include "orm/ISqlQuery.h"
 #include "orm/IOrmManage.h"
+#include "orm/tableview/IOrmEntityWare.h"
 #include "orm/tableview/IOrmTableWare.h"
 
 $PackageWebCoreBegin
@@ -18,12 +19,12 @@ bool IOrmSqliteDialect::insert(QSqlDatabase& db, IOrmTableWare& table, const QSt
 {
     ISqlQuery query(db);
     const auto info = table.getOrmEntityInfo();
-    auto sql = getInsertSqlClause(info, columns);
+    auto sql = getInsertSqlClause(*info, columns);
     query.prepare(sql);
 
     for(const auto& fieldName : columns){
         auto originVale = table.getFieldValue(fieldName);
-        auto decoratedValue = decorateValue(info, fieldName, originVale);
+        auto decoratedValue = decorateValue(*info, fieldName, originVale);
         query.bindValue(":" + fieldName, decoratedValue);
     }
     auto result = query.exec();
@@ -31,10 +32,10 @@ bool IOrmSqliteDialect::insert(QSqlDatabase& db, IOrmTableWare& table, const QSt
         return result;
     }
 
-    if(!info.autoGenerateKey.isEmpty()){
+    if(!info->autoGenerateKey.isEmpty()){
         auto rowid = query.lastInsertId();
         auto key = getInsertedPrimaryKey(db, table, rowid);
-        table.setFieldValue(info.autoGenerateKey, key);
+        table.setFieldValue(info->autoGenerateKey, key);
     }
     return result;
 }
@@ -86,14 +87,13 @@ QVariant IOrmSqliteDialect::getInsertedPrimaryKey(QSqlDatabase& db, IOrmTableWar
 {
     const auto& info = table.getOrmEntityInfo();
     ISqlQuery query(db);
-    QString sql = "select " + info.primaryKey + " from " + info.entityName
+    QString sql = "select " + info->primaryKey + " from " + info->entityName
             + " where rowid = :rowid";
     query.prepare(sql);
     query.bindValue(":rowid", rowid);
     query.exec();
     return IOrmUtil::getVariant(query);
 }
-
 
 bool IOrmSqliteDialect::truncateTable(QSqlDatabase &db, const IOrmTableInfo &info)
 {

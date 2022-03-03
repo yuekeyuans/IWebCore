@@ -8,7 +8,9 @@
 $PackageWebCoreBegin
 
 class IOrmTableInfo;
+class IOrmEntityWare;
 class IOrmTableWare;
+class IOrmViewWare;
 
 class IOrmDialectWare
 {

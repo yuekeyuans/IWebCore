@@ -23,8 +23,8 @@ public:
     virtual QString getFieldTypeName(const QString& fieldName) const;
     virtual QMetaType::Type getFieldTypeId(const QString& fieldName) const;
 
-    IOrmTableInfo* toTableInfo(bool* ok /*=nullptr*/);
-    IOrmViewInfo*  toViewInfo(bool* ok /*=nullptr*/);
+    const IOrmTableInfo& toTableInfo(bool* ok /*=nullptr*/) const;
+    const IOrmViewInfo&  toViewInfo(bool* ok /*=nullptr*/) const;
 
 public:
     QString className;
