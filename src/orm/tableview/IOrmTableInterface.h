@@ -8,8 +8,6 @@
 
 $PackageWebCoreBegin
 
-//class IOrmTableInfo;
-
 template<typename T, bool enabled = true>
 class IOrmTableInterface : public IOrmTableWare, public IStaticInitializeTaskUnit<T, enabled>
 {

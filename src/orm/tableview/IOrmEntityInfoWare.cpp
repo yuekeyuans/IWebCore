@@ -1,5 +1,9 @@
 ﻿#include "IOrmEntityInfoWare.h"
 #include "base/IMetaUtil.h"
+#include "base/IToeUtil.h"
+
+#include "orm/tableview/IOrmTableInfo.h"
+#include "orm/tableview/IOrmViewInfo.h"
 
 $PackageWebCoreBegin
 
@@ -42,6 +46,19 @@ QMetaType::Type IOrmEntityInfoWare::getFieldTypeId(const QString &fieldName) con
     return fieldTypeIds[index];
 }
 
+IOrmTableInfo *IOrmEntityInfoWare::toTableInfo(bool *ok)
+{
+    auto ptr = dynamic_cast<IOrmTableInfo*>(this);
+    IToeUtil::setOk(ok, ptr != nullptr);
+    return ptr;
+}
+
+IOrmViewInfo *IOrmEntityInfoWare::toViewInfo(bool *ok)
+{
+    auto ptr = dynamic_cast<IOrmViewInfo*>(this);
+    IToeUtil::setOk(ok, ptr != nullptr);
+    return ptr;
+}
 
 void IOrmEntityInfoWareHelper::obtainFieldInfo(const QMetaObject& staticMetaObject, IOrmEntityInfoWare& tableInfo){
     auto metaProperties =IMetaUtil::getMetaProperties(staticMetaObject);

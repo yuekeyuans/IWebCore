@@ -4,6 +4,9 @@
 
 $PackageWebCoreBegin
 
+class IOrmTableInfo;
+class IOrmViewInfo;
+
 class IOrmEntityInfoWare    // TODO: the name may be should change.
 {
 public:
@@ -16,9 +19,12 @@ public:
     IOrmEntityInfoWare() = default;
     explicit IOrmEntityInfoWare(const QMetaObject& meta);
 
-    QString getFieldSqlType(const QString& fieldName) const;
-    QString getFieldTypeName(const QString& fieldName) const;
-    QMetaType::Type getFieldTypeId(const QString& fieldName) const;
+    virtual QString getFieldSqlType(const QString& fieldName) const;
+    virtual QString getFieldTypeName(const QString& fieldName) const;
+    virtual QMetaType::Type getFieldTypeId(const QString& fieldName) const;
+
+    IOrmTableInfo* toTableInfo(bool* ok /*=nullptr*/);
+    IOrmViewInfo*  toViewInfo(bool* ok /*=nullptr*/);
 
 public:
     QString className;
