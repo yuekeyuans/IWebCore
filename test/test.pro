@@ -5,6 +5,6 @@ SUBDIRS += \
 #    TestHttpBeanMapping \
 #    TestOrm \
     TestOrmTableAndView \
-    TestBean \
+#    TestBean \
 #    TestHttpMapping \
 #    TestConvertion

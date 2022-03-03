@@ -16,6 +16,7 @@ public:
 
 public:
     virtual void task() final;
+    virtual const IOrmViewInfo& getViewInfo() const override = 0;
 };
 
 template<typename T, bool enabled>

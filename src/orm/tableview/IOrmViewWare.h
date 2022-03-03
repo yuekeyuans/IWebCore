@@ -13,7 +13,7 @@ public:
     IOrmViewWare() = default;
     virtual ~IOrmViewWare() = default;
 
-    virtual const IOrmViewInfo& getViewInfo();
+    virtual const IOrmViewInfo& getViewInfo() const =0;
 };
 
 $PackageWebCoreEnd

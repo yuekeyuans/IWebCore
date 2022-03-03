@@ -23,6 +23,7 @@ SOURCES += \
         TableBean.cpp \
         TableModel.cpp \
         TestTable.cpp \
+        ViewBean.cpp \
         main.cpp
 
 # Default rules for deployment.
@@ -34,4 +35,5 @@ HEADERS += \
     SqliteDatabase.h \
     TableBean.h \
     TableModel.h \
-    TestTable.h
+    TestTable.h \
+    ViewBean.h

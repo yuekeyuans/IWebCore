@@ -9,7 +9,7 @@ class IOrmTableInfo
 
 public:
     IOrmTableInfo() = default;
-    IOrmTableInfo(const QMetaObject& meta);
+    explicit IOrmTableInfo(const QMetaObject& meta);
 
     QString getFieldSqlType(const QString& fieldName) const;
     QString getFieldTypeName(const QString& fieldName) const;
