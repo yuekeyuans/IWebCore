@@ -5,10 +5,12 @@
 #include "orm/clause/IOrmCondition.h"
 #include "orm/ISqlQuery.h"
 
+
 $PackageWebCoreBegin
 
 class IOrmTableInfo;
 class IOrmEntityWare;
+class IOrmEntityInfoWare;
 class IOrmTableWare;
 class IOrmViewWare;
 
@@ -48,8 +50,8 @@ public:
     virtual QList<QMap<QString, QVariant>> findColumns(QSqlDatabase& db, const IOrmTableInfo& info, const QStringList& columns);
     virtual QList<QMap<QString, QVariant>> findColumns(QSqlDatabase& db, const IOrmTableInfo& info, const QStringList& columns, const IOrmCondition& condition);
 
-    virtual size_t count(QSqlDatabase& db, const IOrmTableInfo& info);
-    virtual size_t count(QSqlDatabase& db, const IOrmTableInfo& info, const IOrmCondition& condition);
+    virtual size_t count(QSqlDatabase& db, const IOrmEntityInfoWare& info);
+    virtual size_t count(QSqlDatabase& db, const IOrmEntityInfoWare& info, const IOrmCondition& condition);
 
     virtual bool clearTable(QSqlDatabase& db, const IOrmTableInfo& info);
     virtual bool truncateTable(QSqlDatabase& db, const IOrmTableInfo& info);
@@ -75,7 +77,7 @@ template<class T>
 T IOrmDialectWare::findOne(QSqlDatabase& db, const IOrmCondition &condition)
 {
     ISqlQuery query(db);
-    auto result = findOne(query, T::tableInfo(), condition);
+    auto result = findOne(query, T::entityInfo(), condition);
     if(!result){
         return {};
     }
@@ -86,7 +88,7 @@ template<class T>
 T IOrmDialectWare::findOneByPrimaryKey(QSqlDatabase &db, const QVariant &key)
 {
     ISqlQuery query(db);
-    auto result = findOneByPrimaryKey(query, T::tableInfo(), key);
+    auto result = findOneByPrimaryKey(query, T::entityInfo(), key);
     if(!result){
         return {};
     }
@@ -97,7 +99,7 @@ template<class T>
 QList<T> IOrmDialectWare::findAll(QSqlDatabase &db)
 {
     ISqlQuery query(db);
-    auto result = findAll(query, T::tableInfo());
+    auto result = findAll(query, T::entityInfo());
     if(!result){
         return {};
     }
@@ -108,7 +110,7 @@ template<class T>
 QList<T> IOrmDialectWare::findAll(QSqlDatabase &db, const IOrmCondition &condition)
 {
     ISqlQuery query(db);
-    auto result = findAll(query, T::tableInfo(), condition);
+    auto result = findAll(query, T::entityInfo(), condition);
     if(!result){
         return {};
     }

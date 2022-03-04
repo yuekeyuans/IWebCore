@@ -6,12 +6,12 @@
 
 #define ABCD    \
 public: \
-    static const IOrmTableInfo& tableInfo() { \
+    static const IOrmTableInfo& entityInfo() { \
         static IOrmTableInfo m_tableInfo(staticMetaObject);  \
         return m_tableInfo; \
     }   \
     virtual const IOrmTableInfo& getTableInfo() const final{   \
-        return tableInfo();  \
+        return entityInfo();  \
     }   \
 private:
 

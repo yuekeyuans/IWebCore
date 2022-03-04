@@ -125,7 +125,9 @@ HEADERS += \
     $$PWD/orm/database/IOrmDatabaseWare.h \
     $$PWD/orm/dialect/IOrmDialectInterface.h \
     $$PWD/orm/dialect/IOrmDialectWare.h \
+    $$PWD/orm/model/IOrmEntityModeWare.h \
     $$PWD/orm/model/IOrmTableModelInterface.h \
+    $$PWD/orm/model/IOrmViewModelInterface.h \
     $$PWD/orm/pp/IOrmPreProcessor.h \
     $$PWD/orm/pp/IOrmTablePreProcessor.h \
     $$PWD/orm/pp/IOrmViewPreProcessor.h \
@@ -261,7 +263,9 @@ SOURCES += \
     $$PWD/orm/database/IOrmDatabaseWare.cpp \
     $$PWD/orm/dialect/IOrmDialectInterface.cpp \
     $$PWD/orm/dialect/IOrmDialectWare.cpp \
+    $$PWD/orm/model/IOrmEntityModeWare.cpp \
     $$PWD/orm/model/IOrmTableModelInterface.cpp \
+    $$PWD/orm/model/IOrmViewModelInterface.cpp \
     $$PWD/orm/private/IOrmConditionImpl.cpp \
     $$PWD/orm/ISqlQuery.cpp \
     $$PWD/orm/clause/IOrmClause.cpp \

@@ -41,7 +41,7 @@ protected:
 template<class T>
 void IOrmDatabaseWare::registerTable(const QString &sql)
 {
-    pimpl->registerTable(T::tableInfo(), sql);
+    pimpl->registerTable(T::entityInfo(), sql);
 }
 
 

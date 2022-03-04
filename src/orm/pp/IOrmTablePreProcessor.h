@@ -5,12 +5,12 @@
 
 #define PP_AS_TABLE_COMMON(klassName) \
 public: \
-    static const IOrmTableInfo& tableInfo() { \
+    static const IOrmTableInfo& entityInfo() { \
         static IOrmTableInfo m_tableInfo(staticMetaObject);  \
         return m_tableInfo; \
     }   \
     virtual const IOrmTableInfo* getOrmEntityInfo() const final{   \
-        return &tableInfo();  \
+        return &entityInfo();  \
     }   \
 private:
 

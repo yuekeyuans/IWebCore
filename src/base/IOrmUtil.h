@@ -94,7 +94,7 @@ template<class T>
 T IOrmUtil::getBean(QSqlQuery &query)
 {
     size_t count = 0;
-    const QStringList& validField = getFieldNames(query, T::tableInfo());
+    const QStringList& validField = getFieldNames(query, T::entityInfo());
 
     T t;
     while(query.next()){
@@ -109,7 +109,7 @@ T IOrmUtil::getBean(QSqlQuery &query)
 template<class T>
 QList<T> IOrmUtil::getBeans(QSqlQuery &query)
 {
-    const QStringList& validField = getFieldNames(query, T::tableInfo());
+    const QStringList& validField = getFieldNames(query, T::entityInfo());
 
     QList<T> beans;
     while(query.next()){
@@ -147,7 +147,7 @@ QMap<QString, QVariant> IOrmUtil::toMap(const T &t, bool *ok)
     IToeUtil::setOk(ok, true);
 
     QMap<QString, QVariant> ret;
-    const auto& info = T::tableInfo();
+    const auto& info = T::entityInfo();
     const auto& fields = IOrmUtil::getFieldNames(info);
     for(const auto& field : fields){
         ret[field] = t.getFieldValue(field);

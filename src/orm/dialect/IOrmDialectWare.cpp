@@ -223,7 +223,7 @@ QList<QMap<QString, QVariant> > IOrmDialectWare::findColumns(QSqlDatabase &db, c
     return IOrmUtil::getMapList(query);
 }
 
-size_t IOrmDialectWare::count(QSqlDatabase &db, const IOrmTableInfo &info)
+size_t IOrmDialectWare::count(QSqlDatabase &db, const IOrmEntityInfoWare &info)
 {
     QString sql = QString("SELECT COUNT(1) FROM ") + info.entityName;
     ISqlQuery query(db);
@@ -242,7 +242,7 @@ size_t IOrmDialectWare::count(QSqlDatabase &db, const IOrmTableInfo &info)
     return ret;
 }
 
-size_t IOrmDialectWare::count(QSqlDatabase &db, const IOrmTableInfo &info, const IOrmCondition &condition)
+size_t IOrmDialectWare::count(QSqlDatabase &db, const IOrmEntityInfoWare &info, const IOrmCondition &condition)
 {
     Q_UNUSED(condition)
     QString sql = QString("SELECT COUNT(1) FROM ") + info.entityName;
