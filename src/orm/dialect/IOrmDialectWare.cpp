@@ -26,18 +26,17 @@ bool IOrmDialectWare::exec(QSqlDatabase &db, const QString &sql)
 
 bool IOrmDialectWare::insert(QSqlDatabase& db, IOrmTableWare& table, const QStringList &columns)
 {
-    bool ok;
-    const auto info = table.getOrmEntityInfo()->toTableInfo(&ok);
-    auto sql = getInsertSqlClause(info, columns);
+    const auto info = table.getOrmEntityInfo();
+    auto sql = getInsertSqlClause(*info, columns);
 
     ISqlQuery query(db);
     query.prepare(sql);
     for(const auto& col : columns){
         auto originVale = table.getFieldValue(col);
-        auto decoratedValue = decorateValue(info, col, originVale);
+        auto decoratedValue = decorateValue(*info, col, originVale);
         query.bindValue(":" + col, decoratedValue);
 
-        if(col == info.autoGenerateKey && info.getFieldTypeId(col) == QMetaType::QString){
+        if(col == info->autoGenerateKey && info->getFieldTypeId(col) == QMetaType::QString){
             table.setFieldValue(col, decoratedValue);
         }
     }
@@ -47,10 +46,10 @@ bool IOrmDialectWare::insert(QSqlDatabase& db, IOrmTableWare& table, const QStri
     }
 
     // NOTE: here is different via orm framework.
-    if(!info.autoGenerateKey.isEmpty()){
-        auto key = info.getFieldTypeId(info.autoGenerateKey);
+    if(!info->autoGenerateKey.isEmpty()){
+        auto key = info->getFieldTypeId(info->autoGenerateKey);
         if(IToeUtil::isPrimaryKeyType(key)){
-            table.setFieldValue(info.autoGenerateKey, query.lastInsertId());
+            table.setFieldValue(info->autoGenerateKey, query.lastInsertId());
         }
     }
 
@@ -59,14 +58,14 @@ bool IOrmDialectWare::insert(QSqlDatabase& db, IOrmTableWare& table, const QStri
 
 bool IOrmDialectWare::update(QSqlDatabase &db, const IOrmTableWare &table)
 {
-    const auto& info = table.getOrmEntityInfo()->toTableInfo(nullptr);
-    QStringList columns = info.fieldNames;
-    columns.removeOne(info.primaryKey);
-    auto sql = getUpdateSqlClause(info, columns);
+    const auto& info = table.getOrmEntityInfo();
+    QStringList columns = info->fieldNames;
+    columns.removeOne(info->primaryKey);
+    auto sql = getUpdateSqlClause(*info, columns);
 
     ISqlQuery query(db);
     query.prepare(sql);
-    for(const auto& field : info.fieldNames){
+    for(const auto& field : info->fieldNames){
         query.bindValue(":" + field, table.getFieldValue(field));
     }
     return query.exec();
