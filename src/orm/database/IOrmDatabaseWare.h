@@ -1,14 +1,18 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "orm/IOrmManage.h"
 #include "orm/database/IOrmDataSource.h"
-#include "orm/private/IOrmDatabaseWareImpl.h"
 
 $PackageWebCoreBegin
 
 class IOrmTableInfo;
+class IOrmViewInfo;
 class IOrmDatabaseWareImpl;
+
+namespace IOrmDatabaseWareProxy{
+    void registerTable(std::shared_ptr<IOrmDatabaseWareImpl> pimpl, const IOrmTableInfo& info, const QString& sql);
+    void registerView(std::shared_ptr<IOrmDatabaseWareImpl> pimpl, const IOrmViewInfo& info, const QString& sq);
+}
 
 class IOrmDatabaseWare
 {
@@ -31,19 +35,27 @@ public:
     virtual void openDatabase();
     virtual void closeDatabase();
 
-    template<class T>
+    template<typename T>
     void registerTable(const QString& sql = "");
+
+    template<typename T>
+    void registerView(const QString& sql = "");
 
 protected:
     friend class IOrmDatabaseWareImpl;
     std::shared_ptr<IOrmDatabaseWareImpl> pimpl;
 };
 
-template<class T>
+template<typename T>
 void IOrmDatabaseWare::registerTable(const QString &sql)
 {
-    pimpl->registerTable(T::entityInfo(), sql);
+    IOrmDatabaseWareProxy::registerTable(pimpl, T::entityInfo(), sql);
 }
 
+template<typename T>
+void IOrmDatabaseWare::registerView(const QString &sql)
+{
+    IOrmDatabaseWareProxy::registerView(pimpl, T::entityInfo(), sql);
+}
 
 $PackageWebCoreEnd

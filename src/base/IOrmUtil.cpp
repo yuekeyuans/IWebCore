@@ -343,7 +343,7 @@ QStringList IOrmUtil::getStringList(QSqlQuery &query, bool *ok)
 }
 
 
-QStringList IOrmUtil::getFieldNames(const IOrmTableInfo &info, const QStringList &keys)
+QStringList IOrmUtil::getFieldNames(const IOrmEntityInfoWare &info, const QStringList &keys)
 {
     QStringList fields;
 
@@ -369,7 +369,7 @@ QStringList IOrmUtil::getFieldNames(const QVector<QMetaProperty> &props, const Q
     return fields;
 }
 
-QStringList IOrmUtil::getFieldNames(const IOrmTableInfo &info)
+QStringList IOrmUtil::getFieldNames(const IOrmEntityInfoWare &info)
 {
     return info.fieldNames;
 }
@@ -385,7 +385,7 @@ QStringList IOrmUtil::getFieldNames(const QSqlQuery &query)
     return fields;
 }
 
-QStringList IOrmUtil::getFieldNames(const QSqlQuery &query, const IOrmTableInfo &info)
+QStringList IOrmUtil::getFieldNames(const QSqlQuery &query, const IOrmEntityInfoWare &info)
 {
     const QSqlRecord& record = query.record();
     const QStringList& fields = info.fieldNames;

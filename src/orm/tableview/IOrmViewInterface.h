@@ -15,6 +15,8 @@ public:
     IOrmViewInterface() = default;
     virtual ~IOrmViewInterface() = default;
 
+    // NOTE: 目前没有对 View 进行的特殊操作，所有的操作在基类当中进行。
+
 public:
     virtual void task() final;
     virtual const IOrmViewInfo& getViewInfo() const override = 0;

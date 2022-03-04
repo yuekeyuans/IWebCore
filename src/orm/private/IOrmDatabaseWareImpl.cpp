@@ -1,6 +1,10 @@
 ﻿#include "IOrmDatabaseWareImpl.h"
+
+#include "assertion/IAssertPreProcessor.h"
 #include "orm/IOrmManage.h"
 #include "orm/tableview/IOrmTableInfo.h"
+#include "orm/tableview/IOrmViewInfo.h"
+
 
 $PackageWebCoreBegin
 
@@ -69,6 +73,22 @@ void IOrmDatabaseWareImpl::registerTable(const IOrmTableInfo &info, const QStrin
     m_tables.append(tableName);
 }
 
+void IOrmDatabaseWareImpl::registerView(const IOrmViewInfo &info, const QString &sql)
+{
+    checkViewInfo(info);
+    auto viewName = info.entityName;
+    if (m_existedViews.contains(viewName)) {
+        return;
+    }
+    QString createSql = sql;
+    if(sql.isEmpty()){
+        QString info = QString("orm view ").append(viewName).append(" not exist, and no view create sql exist");
+        $AssertFatal(orm_view_can_not_be_created, info)
+    }
+    execSql(createSql);
+    m_views.append(viewName);
+}
+
 void IOrmDatabaseWareImpl::execSql(const QString &sql)
 {
     QSqlQuery result = m_db.exec(sql);
@@ -78,6 +98,13 @@ void IOrmDatabaseWareImpl::execSql(const QString &sql)
 }
 
 void IOrmDatabaseWareImpl::checkTableInfo(const IOrmTableInfo &info)
+{
+    if(info.fieldNames.length() == 0){
+        qFatal("table has no argument");
+    }
+}
+
+void IOrmDatabaseWareImpl::checkViewInfo(const IOrmViewInfo &info)
 {
     if(info.fieldNames.length() == 0){
         qFatal("table has no argument");

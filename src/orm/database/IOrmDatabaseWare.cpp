@@ -1,5 +1,6 @@
 ﻿#include "IOrmDatabaseWare.h"
 #include "orm/tableview/IOrmTableInfo.h"
+#include "orm/private/IOrmDatabaseWareImpl.h"
 
 $PackageWebCoreBegin
 
@@ -63,6 +64,18 @@ void IOrmDatabaseWare::openDatabase()
 void IOrmDatabaseWare::closeDatabase()
 {
     pimpl->closeDatabase();
+}
+
+void IOrmDatabaseWareProxy::registerTable(std::shared_ptr<IOrmDatabaseWareImpl> pimpl
+                                          , const IOrmTableInfo &info, const QString &sql)
+{
+    pimpl->registerTable(info, sql);
+}
+
+void IOrmDatabaseWareProxy::registerView(std::shared_ptr<IOrmDatabaseWareImpl> pimpl
+                                         , const IOrmViewInfo &info, const QString &sql)
+{
+    pimpl->registerView(info, sql);
 }
 
 $PackageWebCoreEnd

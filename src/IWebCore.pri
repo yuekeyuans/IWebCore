@@ -11,6 +11,8 @@ HEADERS += \
     $$PWD/assertion/infos/ControllerFatalAssertion.h \
     $$PWD/assertion/infos/ControllerWarnAssertion.h \
     $$PWD/assertion/infos/DeferRegisterNotAllowedFatal.h \
+    $$PWD/assertion/infos/OrmFatalAssertion.h \
+    $$PWD/assertion/infos/OrmWarnAssertion.h \
     $$PWD/assertion/infos/configuration/ConfigurationMayNotInitializedAssert.h \
     $$PWD/base/IConstantUtil.h \
     $$PWD/base/IConvertUtil.h \
@@ -168,6 +170,8 @@ SOURCES += \
     $$PWD/assertion/infos/ControllerFatalAssertion.cpp \
     $$PWD/assertion/infos/ControllerWarnAssertion.cpp \
     $$PWD/assertion/infos/DeferRegisterNotAllowedFatal.cpp \
+    $$PWD/assertion/infos/OrmFatalAssertion.cpp \
+    $$PWD/assertion/infos/OrmWarnAssertion.cpp \
     $$PWD/assertion/infos/configuration/ConfigurationMayNotInitializedAssert.cpp \
     $$PWD/base/IConvertUtil.cpp \
     $$PWD/base/IFileUtil.cpp \

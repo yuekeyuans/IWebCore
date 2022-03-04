@@ -5,7 +5,8 @@
 
 $PackageWebCoreBegin
 
-class IOrmTableInfo;
+class IOrmEntityInfoWare;
+
 namespace IOrmUtil
 {
 // 单行单列 获取
@@ -74,11 +75,11 @@ namespace IOrmUtil
     QList<T> toBeans(const QList<QMap<QString, QVariant>>&list, bool*ok=nullptr);
 
 // util
-    QStringList getFieldNames(const IOrmTableInfo& info);
-    QStringList getFieldNames(const IOrmTableInfo& info, const QStringList& keys); // 求交集
+    QStringList getFieldNames(const IOrmEntityInfoWare& info);
+    QStringList getFieldNames(const IOrmEntityInfoWare& info, const QStringList& keys); // 求交集
     QStringList getFieldNames(const QVector<QMetaProperty>& props, const QStringList& keys);
     QStringList getFieldNames(const QSqlQuery& query);
-    QStringList getFieldNames(const QSqlQuery& query, const IOrmTableInfo& info);
+    QStringList getFieldNames(const QSqlQuery& query, const IOrmEntityInfoWare& info);
 };
 
 namespace  IConvertUtil{

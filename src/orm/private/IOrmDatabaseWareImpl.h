@@ -5,15 +5,22 @@
 
 $PackageWebCoreBegin
 
+class IOrmTableInfo;
+class IOrmViewInfo;
+
 class IOrmDatabaseWareImpl{
 public:
     IOrmDatabaseWareImpl() = default;
 
     bool openDatabase(IOrmDataSource& datasource);
     void closeDatabase();
+
     void registerTable(const IOrmTableInfo& info, const QString& sql);
+    void registerView(const IOrmViewInfo& info, const QString& sql);
+
     void execSql(const QString& sql);
     void checkTableInfo(const IOrmTableInfo& info);
+    void checkViewInfo(const IOrmViewInfo& info);
 public:
     QSqlDatabase m_db;
     IOrmDataSource m_dataSource;
