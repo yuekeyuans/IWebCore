@@ -12,6 +12,7 @@ extern const char DefaultDatabaseName[];
 template<typename T, const char * dbConnectionName = DefaultDatabaseName>
 class IOrmEntityModelWare
 {
+    $AsWare
 public:
     IOrmEntityModelWare() = default;
 
@@ -34,9 +35,6 @@ public:
     QSqlDatabase& getDatabase();
     IOrmDialectWare* getDialect();
     ISqlQuery getQuery();
-
-private:
-    virtual void pureVirtual() = 0;
 };
 
 template<typename T, const char* dbConnectionName>
@@ -46,7 +44,6 @@ bool IOrmEntityModelWare<T, dbConnectionName>::exec(const QString &sql)
     auto db = getDatabase();
     return dialect->exec(db, sql);
 }
-
 
 template<typename T, const char* dbConnectionName>
 ISqlQuery IOrmEntityModelWare<T, dbConnectionName>::execedQuery(const QString &sql)

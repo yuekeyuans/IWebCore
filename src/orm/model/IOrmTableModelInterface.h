@@ -16,6 +16,7 @@ $PackageWebCoreBegin
 template<typename T, const char * dbConnectionName = DefaultDatabaseName>
 class IOrmTableModelInterface : public IOrmEntityModelWare<T, dbConnectionName>
 {
+    $UseWare
 public:
     IOrmTableModelInterface() = default;
     virtual ~IOrmTableModelInterface() = default;
@@ -40,9 +41,6 @@ public:
 
     bool clearTable();
     bool truncateTable();
-
-private:
-    virtual void pureVirtual(){};
 
 protected:
     const QString connectionName {dbConnectionName};

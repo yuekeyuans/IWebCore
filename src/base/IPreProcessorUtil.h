@@ -17,6 +17,14 @@ public: \
     } \
 private:
 
+#define $AsWare \
+private:    \
+    virtual void pureVirtualWare() = 0;
+
+#define $UseWare \
+private:    \
+    virtual void pureVirtualWare() final {};
+
 #define $UseMetaRegistration(klassName) \
 public:     \
 static void web_core_init_registerMetaType() {  \

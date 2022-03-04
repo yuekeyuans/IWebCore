@@ -5,13 +5,12 @@
 $PackageWebCoreBegin
 
 template<typename T, const char * dbConnectionName = DefaultDatabaseName>
-class IOrmViewModelInterface
+class IOrmViewModelInterface : public IOrmEntityModelWare<T, dbConnectionName>
 {
+    $UseWare
 public:
     IOrmViewModelInterface() = default;
 
-private:
-    virtual void pureVirtual() = 0;
 };
 
 $PackageWebCoreEnd
