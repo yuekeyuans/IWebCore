@@ -9,6 +9,7 @@ $PackageWebCoreBegin
 template<typename T, bool enabled=true>
 class IStaticInitializeTaskUnit : public ITaskWare
 {
+    $UseWare
 public:
     IStaticInitializeTaskUnit() = default;
 

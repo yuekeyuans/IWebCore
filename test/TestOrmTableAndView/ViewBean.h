@@ -6,7 +6,6 @@ class ViewBean : public IOrmViewInterface<ViewBean>
 {
     Q_GADGET
     $AsView(ViewBean)
-
 public:
     static const IOrmViewInfo& viewInfo() {
         static IOrmViewInfo m_viewInfo(staticMetaObject);

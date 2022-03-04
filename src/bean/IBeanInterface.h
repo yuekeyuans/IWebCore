@@ -10,6 +10,7 @@ $PackageWebCoreBegin
 template<class T, bool enabled = true>
 class IBeanInterface : public IBeanWare, public IStaticInitializeTaskUnit<T, enabled>
 {
+    $UseWare
 public:
     IBeanInterface() = default;
     virtual ~IBeanInterface() = default;

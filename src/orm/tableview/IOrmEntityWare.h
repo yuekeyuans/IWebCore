@@ -8,6 +8,7 @@
 $PackageWebCoreBegin
 
 class IOrmEntityWare : public IBeanWare{
+
 public:
     IOrmEntityWare() = default;
     virtual ~IOrmEntityWare() = default;

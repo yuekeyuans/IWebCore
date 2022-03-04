@@ -9,6 +9,7 @@ class IOrmViewInfo;
 
 class IOrmEntityInfoWare    // TODO: the name may be should change.
 {
+    $AsWare
 public:
     enum EntityType{
         Table,

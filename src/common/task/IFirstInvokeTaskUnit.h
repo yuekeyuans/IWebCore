@@ -9,6 +9,7 @@ $PackageWebCoreBegin
 template<typename T, bool enabled>
 class IFirstInvokeTaskUnit : public ITaskWare
 {
+    $UseWare
 public:
     IFirstInvokeTaskUnit() = default;
     virtual void task() = 0;

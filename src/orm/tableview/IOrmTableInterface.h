@@ -11,6 +11,7 @@ $PackageWebCoreBegin
 template<typename T, bool enabled = true>
 class IOrmTableInterface : public IOrmTableWare, public IStaticInitializeTaskUnit<T, enabled>
 {
+    $UseWare
 public:
     IOrmTableInterface() = default;
     virtual ~IOrmTableInterface() = default;

@@ -23,7 +23,7 @@ private:    \
 
 #define $UseWare \
 private:    \
-    virtual void pureVirtualWare() final {};
+    virtual void pureVirtualWare() override {};
 
 #define $UseMetaRegistration(klassName) \
 public:     \

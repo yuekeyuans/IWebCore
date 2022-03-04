@@ -7,6 +7,7 @@ $PackageWebCoreBegin
 
 class IBeanWare : public IGadgetUnit
 {
+    $AsWare
 public:
     IBeanWare() = default;
     virtual ~IBeanWare() = default;

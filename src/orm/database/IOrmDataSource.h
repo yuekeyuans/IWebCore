@@ -12,6 +12,7 @@ class IOrmDataSource : public IBeanInterface<IOrmDataSource>
 {
     Q_GADGET
     $AsBean(IOrmDataSource)
+
 public:
     IOrmDataSource() = default;
 

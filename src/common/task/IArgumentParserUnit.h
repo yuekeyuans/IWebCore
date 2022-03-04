@@ -10,6 +10,7 @@ $PackageWebCoreBegin
 template<typename T, bool enabled=true>
 class IArgumentParserUnit : public ITaskWare
 {
+    $UseWare
 public:
     using FunType = void(*)(const QStringList&);
 

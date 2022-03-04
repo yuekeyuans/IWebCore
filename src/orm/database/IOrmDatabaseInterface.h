@@ -10,6 +10,7 @@ $PackageWebCoreBegin
 template<typename T, bool enabled = true>
 class IOrmDatabaseInterface : public IOrmDatabaseWare, public IInitializationTaskUnit<T, enabled>
 {
+    $UseWare
 public:
     IOrmDatabaseInterface() = default;
     virtual IOrmDataSource configDataSource() override = 0;

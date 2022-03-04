@@ -12,6 +12,7 @@ $PackageWebCoreBegin
 template<typename T, bool enabled=true>
 class IInitializationTaskUnit : public ITaskWare
 {
+    $UseWare
 protected:
     IInitializationTaskUnit() = default;
 

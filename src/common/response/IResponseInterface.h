@@ -17,6 +17,7 @@ class IRedirectResponse;
 template<typename T>
 class IResponseInterface : public IResponseWare, public IRegisterMetaTypeUnit<T>
 {
+    $UseWare
 public:
     using IResponseWare::operator[];
 

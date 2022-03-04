@@ -10,6 +10,7 @@ $PackageWebCoreBegin
 template<typename T, bool enabled=true>
 class IOrmViewInterface : public IOrmViewWare, public IStaticInitializeTaskUnit<T, enabled>
 {
+    $UseWare
 public:
     IOrmViewInterface() = default;
     virtual ~IOrmViewInterface() = default;

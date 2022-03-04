@@ -6,6 +6,7 @@ $PackageWebCoreBegin
 
 class ITaskWare
 {
+    $AsWare
 public:
     ITaskWare() = default;
 

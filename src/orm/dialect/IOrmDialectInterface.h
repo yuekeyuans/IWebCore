@@ -11,6 +11,7 @@ $PackageWebCoreBegin
 template<typename T, bool enabled = true>
 class IOrmDialectInterface : public IOrmDialectWare, public IRegisterInstanceUnit<T, enabled>
 {
+    $UseWare
 public:
     IOrmDialectInterface() = default;
     virtual ~IOrmDialectInterface() = default;

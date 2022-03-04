@@ -10,6 +10,7 @@ struct IResponseWareRaw;
 class IRedirectResponse;
 
 class IResponseWare{
+    $AsWare
 public:
     IResponseWare();
     virtual ~IResponseWare();

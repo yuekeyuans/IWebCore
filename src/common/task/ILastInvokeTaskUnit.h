@@ -9,6 +9,7 @@ $PackageWebCoreBegin
 template<typename T, bool enabled>
 class ILastInvokeTaskUnit : public ITaskWare
 {
+    $UseWare
 public:
     ILastInvokeTaskUnit() = default;
     virtual QString taskFinishTip();

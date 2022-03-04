@@ -12,6 +12,7 @@ class IOrmDatabaseWareImpl;
 
 class IOrmDatabaseWare
 {
+    $AsWare
 public:
     IOrmDatabaseWare();
     virtual ~IOrmDatabaseWare();
