@@ -6,7 +6,6 @@ $PackageWebCoreBegin
 
 namespace ITraitHelper
 {
-
     template<typename T, typename Enable = void>
     struct IsBean {
         enum { value = false};
@@ -23,7 +22,6 @@ namespace ITraitHelper
         };
     };
 
-    // TODO: 这里有一个细节需要思考， 就是 是否需要 把 char 归类到 number 类型，还是独立的一个类型
     template<typename T>
     struct IsChar { enum {value = false}; };
     template<> struct IsChar<char> { enum {value = true}; };
@@ -31,8 +29,8 @@ namespace ITraitHelper
 
     template<typename T>
     struct IsNumber{ enum { value = false}; };
-    template<> struct IsNumber<char> { enum {value = true}; };
-    template<> struct IsNumber<uchar> { enum {value = true}; };
+    template<> struct IsNumber<signed char> { enum {value = true}; };       // NOTE: 根据 c++ 安全编码， signed/unsigned char 是数字类型， char 本身作为字符类型。
+    template<> struct IsNumber<unsigned char> { enum {value = true}; };
     template<> struct IsNumber<short> { enum {value = true}; };
     template<> struct IsNumber<ushort> { enum {value = true}; };
     template<> struct IsNumber<int> { enum {value = true}; };

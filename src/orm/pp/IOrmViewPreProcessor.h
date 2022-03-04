@@ -2,16 +2,14 @@
 
 #include "orm/pp/IOrmPreProcessor.h"
 
-#define PP_AS_VIEW_COMMON(klassName)
-
-#define ABCD    \
+#define PP_AS_VIEW_COMMON(klassName)    \
 public: \
-    static const IOrmTableInfo& entityInfo() { \
-        static IOrmTableInfo m_tableInfo(staticMetaObject);  \
-        return m_tableInfo; \
+    static const IOrmViewInfo& entityInfo() { \
+        static IOrmViewInfo m_viewInfo(staticMetaObject);  \
+        return m_viewInfo; \
     }   \
-    virtual const IOrmTableInfo& getTableInfo() const final{   \
-        return entityInfo();  \
+    virtual const IOrmViewInfo* getOrmEntityInfo() const final{   \
+        return &entityInfo();  \
     }   \
 private:
 
