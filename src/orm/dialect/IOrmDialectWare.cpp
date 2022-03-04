@@ -154,7 +154,7 @@ bool IOrmDialectWare::deleteByPrimaryKey(QSqlDatabase& db, const IOrmTableInfo &
     return query.exec();
 }
 
-bool IOrmDialectWare::findOne(ISqlQuery &query, const IOrmTableInfo &info, const IOrmCondition &condition)
+bool IOrmDialectWare::findOne(ISqlQuery &query, const IOrmEntityInfoWare &info, const IOrmCondition &condition)
 {
     QString sql = "SELECT * FROM " + info.entityName;
     auto where = condition.toSql();
@@ -176,13 +176,13 @@ bool IOrmDialectWare::findOneByPrimaryKey(ISqlQuery &query, const IOrmTableInfo 
     return query.exec();
 }
 
-bool IOrmDialectWare::findAll(ISqlQuery &query, const IOrmTableInfo &info)
+bool IOrmDialectWare::findAll(ISqlQuery &query, const IOrmEntityInfoWare &info)
 {
     QString sql = "SELECT * FROM " + info.entityName;
     return query.exec(sql);
 }
 
-bool IOrmDialectWare::findAll(ISqlQuery &query, const IOrmTableInfo &info, const IOrmCondition &condition)
+bool IOrmDialectWare::findAll(ISqlQuery &query, const IOrmEntityInfoWare &info, const IOrmCondition &condition)
 {
     QString sql = "SELECT * FROM " + info.entityName;
     QString where = condition.toSql();
@@ -194,7 +194,7 @@ bool IOrmDialectWare::findAll(ISqlQuery &query, const IOrmTableInfo &info, const
     return query.exec();
 }
 
-QList<QMap<QString, QVariant> > IOrmDialectWare::findColumns(QSqlDatabase &db, const IOrmTableInfo &info, const QStringList &columns)
+QList<QMap<QString, QVariant> > IOrmDialectWare::findColumns(QSqlDatabase &db, const IOrmEntityInfoWare &info, const QStringList &columns)
 {
     QString sql = "SELECT ";
     sql.append(columns.join(", ")).append(" FROM ").append(info.entityName);
@@ -206,7 +206,7 @@ QList<QMap<QString, QVariant> > IOrmDialectWare::findColumns(QSqlDatabase &db, c
     return IOrmUtil::getMapList(query);
 }
 
-QList<QMap<QString, QVariant> > IOrmDialectWare::findColumns(QSqlDatabase &db, const IOrmTableInfo &info, const QStringList &columns, const IOrmCondition &condition)
+QList<QMap<QString, QVariant> > IOrmDialectWare::findColumns(QSqlDatabase &db, const IOrmEntityInfoWare &info, const QStringList &columns, const IOrmCondition &condition)
 {
     QString sql = "SELECT ";
     sql.append(columns.join(", ")).append(" FROM ").append(info.entityName);

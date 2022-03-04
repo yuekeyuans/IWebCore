@@ -20,73 +20,39 @@ public:
     IOrmTableModelInterface() = default;
     virtual ~IOrmTableModelInterface() = default;
 
-    // common exec
-    bool exec(const QString& sql);
-    ISqlQuery execedQuery(const QString& sql);
-
-    // insert
     bool insert(const QString& sql);
     bool insert(T& table, const QStringList& columns = {});
     bool insert(QList<T>& tables, const QStringList& columns = {});
 
-    // update
     bool update(const T& table);
     bool update(const QList<T>& tables);
     bool update(const T& table, const QStringList& columns);
     bool update(const QList<T>& tables, const QStringList& columns);
     bool update(const QMap<QString, QVariant>& map, const IOrmCondition& condition);
 
-    // delete
     bool deleted(T& table);
     bool deleted(const QString& sql);   // 直接使用 sql
     bool deleted(QList<T>& tables);
     bool deleted(const IOrmCondition& condition);
     bool deleteByPrimaryKey(const QVariant& variant);
 
-    // find
-    T findOne(const IOrmCondition& condition);
     T findOneByPriamaryKey(const QVariant& variant);
-    QList<T> findAll();
-    QList<T> findAll(const IOrmCondition& condition);
-    QList<QMap<QString, QVariant>> findColumns(const IOrmCondition& condition); // columns is all
-    QList<QMap<QString, QVariant>> findColumns(const QStringList& columns);
-    QList<QMap<QString, QVariant>> findColumns(const QStringList& columns, const IOrmCondition& condition);
 
-    // others
     bool clearTable();
     bool truncateTable();
 
-    T toObject(const QMap<QString, QVariant>& map);
-    T toObject(const QJsonObject& obj);
+private:
+    virtual void pureVirtual(){};
 
 protected:
     const QString connectionName {dbConnectionName};
 };
 
 template<typename T, const char* dbConnectionName>
-bool IOrmTableModelInterface<T, dbConnectionName>::exec(const QString &sql)
-{
-    auto dialect = getDialect();
-    auto db = getDatabase();
-    return dialect->exec(db, sql);
-}
-
-
-template<typename T, const char* dbConnectionName>
-ISqlQuery IOrmTableModelInterface<T, dbConnectionName>::execedQuery(const QString &sql)
-{
-    ISqlQuery query = getQuery();
-    query.exec(sql);
-    return query;
-}
-
-
-template<typename T, const char* dbConnectionName>
 bool IOrmTableModelInterface<T, dbConnectionName>::insert(const QString &sql)
 {
     return exec(sql);
 }
-
 
 template<typename T, const char* dbConnectionName>
 bool IOrmTableModelInterface<T, dbConnectionName>::insert(T &table, const QStringList& columns)
@@ -143,7 +109,6 @@ bool IOrmTableModelInterface<T, dbConnectionName>::update(const T &table, const 
     QSqlDatabase& db = getDatabase();
     return dialect->update(db, table, columns);
 }
-
 
 template<typename T, const char* dbConnectionName>
 bool IOrmTableModelInterface<T, dbConnectionName>::update(const QList<T> &tables, const QStringList &columns)
@@ -209,7 +174,6 @@ bool IOrmTableModelInterface<T, dbConnectionName>::deleted(const IOrmCondition &
     return dialect->deleted(db, T::entityInfo(), condition);
 }
 
-
 template<typename T, const char* dbConnectionName>
 bool IOrmTableModelInterface<T, dbConnectionName>::deleteByPrimaryKey(const QVariant &variant)
 {
@@ -218,67 +182,12 @@ bool IOrmTableModelInterface<T, dbConnectionName>::deleteByPrimaryKey(const QVar
     return dialect->deleteByPrimaryKey(db, T::entityInfo(), variant);
 }
 
-
-template<typename T, const char* dbConnectionName>
-T IOrmTableModelInterface<T, dbConnectionName>::findOne(const IOrmCondition &condition)
-{
-    IOrmDialectWare* dialect = getDialect();
-    QSqlDatabase& db = getDatabase();
-    return dialect->findOne<T>(db, condition);
-}
-
-// TODO: 这里的 key也可以改为 模板的。
-
 template<typename T, const char* dbConnectionName>
 T IOrmTableModelInterface<T, dbConnectionName>::findOneByPriamaryKey(const QVariant &key)
 {
     IOrmDialectWare* dialect = getDialect();
     QSqlDatabase& db = getDatabase();
     return dialect->findOneByPrimaryKey<T>(db, key);
-}
-
-
-template<typename T, const char* dbConnectionName>
-QList<T> IOrmTableModelInterface<T, dbConnectionName>::findAll()
-{
-    IOrmDialectWare* dialect = getDialect();
-    QSqlDatabase& db = getDatabase();
-    return dialect->findAll<T>(db);
-}
-
-
-template<typename T, const char* dbConnectionName>
-QList<T> IOrmTableModelInterface<T, dbConnectionName>::findAll(const IOrmCondition &condition)
-{
-    IOrmDialectWare* dialect = getDialect();
-    QSqlDatabase& db = getDatabase();
-    return dialect->findAll<T>(db, condition);
-}
-
-
-template<typename T, const char* dbConnectionName>
-QList<QMap<QString, QVariant>> IOrmTableModelInterface<T, dbConnectionName>::findColumns(const IOrmCondition &condition)
-{
-    IOrmDialectWare* dialect = getDialect();
-    QSqlDatabase& db = getDatabase();
-    return dialect->findColumns(db, T::entityInfo(), condition);
-}
-
-template<typename T, const char* dbConnectionName>
-QList<QMap<QString, QVariant>> IOrmTableModelInterface<T, dbConnectionName>::findColumns(const QStringList &columns)
-{
-    IOrmDialectWare* dialect = getDialect();
-    QSqlDatabase& db = getDatabase();
-    return dialect->findColumns(db, T::entityInfo(), columns);
-}
-
-
-template<typename T, const char* dbConnectionName>
-QList<QMap<QString, QVariant>> IOrmTableModelInterface<T, dbConnectionName>::findColumns(const QStringList &columns, const IOrmCondition &condition)
-{
-    IOrmDialectWare* dialect = getDialect();
-    QSqlDatabase& db = getDatabase();
-    return dialect->findColumns(db, T::entityInfo(), columns, condition);
 }
 
 template<typename T, const char* dbConnectionName>
@@ -289,27 +198,12 @@ bool IOrmTableModelInterface<T, dbConnectionName>::clearTable()
     return dialect->clearTable(db, T::entityInfo());
 }
 
-
 template<typename T, const char* dbConnectionName>
 bool IOrmTableModelInterface<T, dbConnectionName>::truncateTable()
 {
     IOrmDialectWare* dialect = getDialect();
     QSqlDatabase& db = getDatabase();
     return dialect->truncateTable(db, T::entityInfo());
-}
-
-
-template<typename T, const char* dbConnectionName>
-T IOrmTableModelInterface<T, dbConnectionName>::toObject(const QMap<QString, QVariant> &map)
-{
-    return T::toObject(map);
-}
-
-
-template<typename T, const char* dbConnectionName>
-T IOrmTableModelInterface<T, dbConnectionName>::toObject(const QJsonObject &obj)
-{
-    return T::toObject(obj);
 }
 
 $PackageWebCoreEnd

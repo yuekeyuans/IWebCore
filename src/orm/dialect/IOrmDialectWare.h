@@ -34,7 +34,7 @@ public:
 
     template<class T>
     T findOne(QSqlDatabase& db, const IOrmCondition& condition);
-    virtual bool findOne(ISqlQuery& db, const IOrmTableInfo& info, const IOrmCondition& condition);
+    virtual bool findOne(ISqlQuery& db, const IOrmEntityInfoWare& info, const IOrmCondition& condition);
 
     template<class T>
     T findOneByPrimaryKey(QSqlDatabase& db, const QVariant& key);
@@ -42,13 +42,13 @@ public:
 
     template<class T>
     QList<T> findAll(QSqlDatabase& db);
-    virtual bool findAll(ISqlQuery& query, const IOrmTableInfo& info);
+    virtual bool findAll(ISqlQuery& query, const IOrmEntityInfoWare& info);
 
     template<class T>
     QList<T> findAll(QSqlDatabase& db, const IOrmCondition& condition);
-    virtual bool findAll(ISqlQuery& query, const IOrmTableInfo& info, const IOrmCondition& condition);
-    virtual QList<QMap<QString, QVariant>> findColumns(QSqlDatabase& db, const IOrmTableInfo& info, const QStringList& columns);
-    virtual QList<QMap<QString, QVariant>> findColumns(QSqlDatabase& db, const IOrmTableInfo& info, const QStringList& columns, const IOrmCondition& condition);
+    virtual bool findAll(ISqlQuery& query, const IOrmEntityInfoWare& info, const IOrmCondition& condition);
+    virtual QList<QMap<QString, QVariant>> findColumns(QSqlDatabase& db, const IOrmEntityInfoWare& info, const QStringList& columns);
+    virtual QList<QMap<QString, QVariant>> findColumns(QSqlDatabase& db, const IOrmEntityInfoWare& info, const QStringList& columns, const IOrmCondition& condition);
 
     virtual size_t count(QSqlDatabase& db, const IOrmEntityInfoWare& info);
     virtual size_t count(QSqlDatabase& db, const IOrmEntityInfoWare& info, const IOrmCondition& condition);
