@@ -1,10 +1,10 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-    TestConfigurations \
-    TestHttpBeanMapping \
+#    TestConfigurations \
+#    TestHttpBeanMapping \
     TestOrm \
     TestOrmTableAndView \
     TestBean \
-    TestHttpMapping \
-    TestConvertion
+#    TestHttpMapping \
+#    TestConvertion

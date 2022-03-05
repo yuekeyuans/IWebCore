@@ -8,10 +8,9 @@ class MySqlDb : public IOrmDatabaseInterface<MySqlDb, false>
 {
     $AsDatabase(MySqlDb)
 public:
-    MySqlDb();
+    MySqlDb() = default;
 
 public:
     virtual IOrmDataSource configDataSource() final;
     virtual void registerEntities() final;
 };
-

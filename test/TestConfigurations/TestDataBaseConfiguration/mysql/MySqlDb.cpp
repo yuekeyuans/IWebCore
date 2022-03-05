@@ -3,11 +3,6 @@
 
 const char MySqlDbConnection[] = "mysql";
 
-MySqlDb::MySqlDb()
-{
-//    $ConstructDatabase(MySqlDb)
-}
-
 IOrmDataSource MySqlDb::configDataSource()
 {
     return IOrmManage::getDataSource("mysql");
