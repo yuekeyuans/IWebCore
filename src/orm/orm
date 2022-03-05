@@ -5,6 +5,7 @@
 #include "orm/pp/IOrmViewPreProcessor.h"
 
 #include "orm/model/IOrmTableModelInterface.h"
+#include "orm/model/IOrmViewModelInterface.h"
 
 #include "orm/clause/IOrmClause.h"
 #include "orm/clause/IOrmCondition.h"

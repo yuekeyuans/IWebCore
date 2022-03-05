@@ -23,7 +23,9 @@ SOURCES += \
         TableBean.cpp \
         TableModel.cpp \
         TestTable.cpp \
+        TestView.cpp \
         ViewBean.cpp \
+        ViewModel.cpp \
         main.cpp
 
 # Default rules for deployment.
@@ -36,4 +38,6 @@ HEADERS += \
     TableBean.h \
     TableModel.h \
     TestTable.h \
-    ViewBean.h
+    TestView.h \
+    ViewBean.h \
+    ViewModel.h

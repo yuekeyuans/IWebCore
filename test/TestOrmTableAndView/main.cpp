@@ -3,6 +3,7 @@
 #include <QtTest>
 
 #include "TestTable.h"
+#include "TestView.h"
 
 int main(int argc, char *argv[])
 {
@@ -11,6 +12,7 @@ int main(int argc, char *argv[])
     ITaskManage::run(argc, argv);
 
     $ITestClass(TestTable);
+    $ITestClass(TestView)
 
     $ITestEnd
 }
