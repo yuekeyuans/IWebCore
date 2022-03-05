@@ -14,7 +14,7 @@ void TestTable::test_demo()
 {
     OneTable table;
     qDebug() << table.toJson();
-    qDebug() << table.tableInfo().fieldNames;
+    qDebug() << table.entityInfo().fieldNames;
 
     OneTable tableB;
     qDebug() << tableB;
