@@ -23,7 +23,7 @@ IOrmDataSource MySqlWorldDatabase::configDataSource()
     return source;
 }
 
-void MySqlWorldDatabase::registerTables()
+void MySqlWorldDatabase::registerEntities()
 {
     registerTable<CityTable>();
     registerTable<CountryTable>();

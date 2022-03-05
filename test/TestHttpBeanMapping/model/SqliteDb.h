@@ -10,7 +10,7 @@ public:
 
     virtual IOrmDataSource configDataSource() final;
 
-    virtual void registerTables() final;
+    virtual void registerEntities() final;
 
 };
 

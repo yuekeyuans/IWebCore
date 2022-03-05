@@ -19,7 +19,7 @@ IOrmDataSource SqliteDb::configDataSource()
     return source;
 }
 
-void SqliteDb::registerTables()
+void SqliteDb::registerEntities()
 {
     registerTable<DataBean>();
 }

@@ -13,7 +13,7 @@ IOrmDataSource MySqlDb::configDataSource()
     return IOrmManage::getDataSource("mysql");
 }
 
-void MySqlDb::registerTables()
+void MySqlDb::registerEntities()
 {
     registerTable<DataBean>();
 }

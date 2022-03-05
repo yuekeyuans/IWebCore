@@ -19,7 +19,7 @@ IOrmDataSource MysqlDatabase::configDataSource()
     return source;
 }
 
-void MysqlDatabase::registerTables()
+void MysqlDatabase::registerEntities()
 {
     registerTable<PhoneBean>();
     registerTable<UserBean>();

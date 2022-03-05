@@ -10,5 +10,5 @@ class MysqlDatabase : public IOrmDatabaseInterface<MysqlDatabase>
 public:
     MysqlDatabase() = default;
     virtual IOrmDataSource configDataSource() final;
-    virtual void registerTables() final;
+    virtual void registerEntities() final;
 };

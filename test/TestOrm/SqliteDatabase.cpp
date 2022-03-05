@@ -10,7 +10,7 @@ SqliteDatabase::SqliteDatabase()
 //    $ConstructDatabase(SqliteDatabase)
 }
 
-void SqliteDatabase::registerTables()
+void SqliteDatabase::registerEntities()
 {
     registerTable<PhoneBean>();
     registerTable<UserBean>();

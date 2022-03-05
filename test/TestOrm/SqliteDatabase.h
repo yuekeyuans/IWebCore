@@ -10,5 +10,5 @@ class SqliteDatabase : public IOrmDatabaseInterface<SqliteDatabase>
 public:
     SqliteDatabase();
     virtual IOrmDataSource configDataSource() final;
-    virtual void registerTables() final;
+    virtual void registerEntities() final;
 };
