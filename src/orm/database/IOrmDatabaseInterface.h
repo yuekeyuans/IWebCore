@@ -14,7 +14,7 @@ class IOrmDatabaseInterface : public IOrmDatabaseWare, public IInitializationTas
 public:
     IOrmDatabaseInterface() = default;
     virtual IOrmDataSource configDataSource() override = 0;
-    virtual void registerTables() override  =0;
+    virtual void registerEntities() override  =0;
 
     virtual QString taskFinishTip() final;
     virtual void task() final;

@@ -10,6 +10,6 @@ public:
 
     virtual IOrmDataSource configDataSource() override;
 
-    virtual void registerTables() override;
+    virtual void registerEntities() override;
 };
 

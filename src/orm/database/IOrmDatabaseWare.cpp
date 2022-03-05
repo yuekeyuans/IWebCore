@@ -57,7 +57,7 @@ void IOrmDatabaseWare::openDatabase()
     if(!isDatabaseOpend()){
         auto dataSource = configDataSource();
         pimpl->openDatabase(dataSource);
-        registerTables();
+        registerEntities();
     }
 }
 

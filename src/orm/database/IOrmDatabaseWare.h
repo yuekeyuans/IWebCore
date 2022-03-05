@@ -23,7 +23,7 @@ public:
     virtual IOrmDataSource configDataSource() {return {};};
 //    virtual QSqlDatabase   createDataBase();
     virtual void           closeDataBase();
-    virtual void registerTables() =0;
+    virtual void registerEntities() =0;
 
     QSqlDatabase&           getDatabase() const;
     const QStringList&      getTables() const;
