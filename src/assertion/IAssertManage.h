@@ -4,6 +4,7 @@
 
 $PackageWebCoreBegin
 
+class IAssertDetail;
 extern const char FatalType[];
 extern const char WarningType[];
 
@@ -13,29 +14,6 @@ struct IAssertInfo {
     QString reason;
     QString solution;
 };
-
-
-class IAssertDetail{
-    Q_GADGET
-public:
-    enum Type{
-        File,
-        Class,
-        Function,
-        Line,
-        Parameter,
-        ReturnValue,
-    };
-    Q_ENUM(Type)
-
-    void setDetail(Type type, const QString& info);
-    QString& operator [](Type);
-    QString toString() const;
-
-private:
-    QMap<Type, QString> m_detailInfo;
-};
-
 
 class IAssertManage
 {

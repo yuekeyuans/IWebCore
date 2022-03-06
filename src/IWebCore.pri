@@ -6,6 +6,7 @@ QT -= gui
 PRECOMPILED_HEADER = $$PWD/base/IHeaderUtil.h
 
 HEADERS += \
+    $$PWD/assertion/IAssertDetail.h \
     $$PWD/assertion/IAssertJsonInterface.h \
     $$PWD/assertion/infos/ConfigurationAssertion.h \
     $$PWD/assertion/infos/ControllerFatalAssertion.h \
@@ -164,6 +165,7 @@ HEADERS += \
     $$PWD/test/ITestPreProcessor.h
 
 SOURCES += \
+    $$PWD/assertion/IAssertDetail.cpp \
     $$PWD/assertion/IAssertInfoList.cpp \
     $$PWD/assertion/IAssertJsonInterface.cpp \
     $$PWD/assertion/infos/ConfigurationAssertion.cpp \
