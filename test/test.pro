@@ -4,7 +4,7 @@ SUBDIRS += \
 #    TestConfigurations \
 #    TestHttpBeanMapping \
     TestOrm \
-    TestOrmTableAndView \
-    TestBean \
+#    TestOrmTableAndView \
+#    TestBean \
 #    TestHttpMapping \
 #    TestConvertion

@@ -1,5 +1,6 @@
 ﻿#include "IAssertManage.h"
-
+#include <iostream>
+#include <iomanip>
 #include "IAssertInfoList.h"
 #include "base/IToeUtil.h"
 
@@ -7,6 +8,14 @@ $PackageWebCoreBegin
 
 const char FatalType[] = "fatalType";
 const char WarningType[] = "warningType";
+
+namespace IAssertManageHelper{
+    void fatal(const IAssertInfo& info, const QString& extra);
+    void warn(const IAssertInfo& info, const QString& extra);
+    void coutInfo(const IAssertInfo& info, const QString& extra);
+    void coutInfo(const QString& tag);
+    void coutInfo(const QString& tag, const QString& msg);
+}
 
 IAssertManage::IAssertManage()
 {
@@ -42,18 +51,7 @@ void IAssertManage::fatal(const QString &name, const QString &extra)
     }
 
     auto info = inst->m_fatalInfos[key];
-    qDebug().noquote() << "fatal:" << endl
-                       << "\tkey:\t" << info.key  << endl
-                       << "\tdescribe:\t" <<info.description << endl
-                       << "\treason:\t" <<info.reason << endl
-                       << "\tsolution:\t" << info.solution;
-
-    if(!extra.isEmpty()){
-        qDebug().noquote() << "\textra:\t" << extra;
-    }
-    qDebug() << endl;
-
-    qFatal(info.reason.toUtf8());
+    IAssertManageHelper::fatal(info, extra);
 }
 
 void IAssertManage::warn(const QString &name, const QString &extra)
@@ -66,16 +64,48 @@ void IAssertManage::warn(const QString &name, const QString &extra)
     }
 
     auto info = inst->m_warnInfos[key];
-    qDebug().noquote() << "warning:" <<endl
-                       << "\tkey:\t" << info.key  << endl
-                       << "\tdescribe:\t" <<info.description << endl
-                       << "\treason:\t" <<info.reason << endl
-                       << "\tsolution:\t" << info.solution;
+    IAssertManageHelper::warn(info, extra);
+}
 
-    if(!extra.isEmpty()){
-        qDebug().noquote() << "\textra:\t" << extra;
+inline void IAssertManageHelper::fatal(const IAssertInfo& info, const QString& extra)
+{
+    IAssertManageHelper::coutInfo("Fatal");
+    IAssertManageHelper::coutInfo(info, extra);
+    qFatal(info.reason.toUtf8());
+}
+
+inline void IAssertManageHelper::warn(const IAssertInfo& info, const QString& extra){
+    IAssertManageHelper::coutInfo("Warn");
+    IAssertManageHelper::coutInfo(info, extra);
+}
+
+inline void IAssertManageHelper::coutInfo(const IAssertInfo& info, const QString& extra)
+{
+    if(!info.key.isEmpty()){
+        IAssertManageHelper::coutInfo("Tag", info.key);
     }
-    qDebug() << endl;
+    if(!info.description.isEmpty()){
+        IAssertManageHelper::coutInfo("Describe", info.description);
+    }
+    if(!info.reason.isEmpty()){
+        IAssertManageHelper::coutInfo("Reason", info.reason);
+    }
+    if(!info.solution.isEmpty()){
+        IAssertManageHelper::coutInfo("Solution", info.solution);
+    }
+    if(!extra.isEmpty()){
+        IAssertManageHelper::coutInfo("Extra", extra);
+    }
+}
+
+inline void IAssertManageHelper::coutInfo(const QString& tag)
+{
+    std::cout << tag.toStdString() << ":" << std::endl;
+}
+
+inline void IAssertManageHelper::coutInfo(const QString& tag, const QString& msg)
+{
+    std::cout << std::setw(8) << tag.toStdString() << ":" << std::setw(0) << msg.toStdString() << std::endl;
 }
 
 $PackageWebCoreEnd
