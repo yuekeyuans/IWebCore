@@ -4,7 +4,7 @@
 
 $PackageWebCoreBegin
 
-    class IAssertDetail{
+class IAssertDetail{
     Q_GADGET
 public:
     enum Type{
@@ -14,7 +14,8 @@ public:
         Line,
         Parameter,
         ReturnValue,
-        };
+        Reason
+    };
     Q_ENUM(Type)
 
     void setDetail(Type type, const QString& info);
