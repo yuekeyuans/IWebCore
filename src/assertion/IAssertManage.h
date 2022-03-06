@@ -14,10 +14,12 @@ struct IAssertInfo {
     QString solution;
 };
 
-struct IAssertDetail{
+
+class IAssertDetail{
     Q_GADGET
 public:
     enum Type{
+        File,
         Class,
         Function,
         Line,
@@ -28,11 +30,12 @@ public:
 
     void setDetail(Type type, const QString& info);
     QString& operator [](Type);
-    QString toString();
+    QString toString() const;
 
 private:
     QMap<Type, QString> m_detailInfo;
 };
+
 
 class IAssertManage
 {
@@ -45,7 +48,10 @@ public:
     static void registerWarnInfo(const IAssertInfo& info);
 
     static void fatal(const QString& name, const QString& extra = "");
+    static void fatal(const QString& name, const IAssertDetail& detail);
+
     static void warn(const QString& name, const QString& extra = "");
+    static void warn(const QString& name, const IAssertDetail& detail);
 
 private:
     QMap<QString, IAssertInfo> m_fatalInfos;

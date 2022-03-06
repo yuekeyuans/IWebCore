@@ -8,9 +8,6 @@
 #define $AsAssertion(klassName) \
     $UseInstance(klassName)
 
-// TODO: 这里的Assert 之后要加上部分信息，信息包括 函数名称， 行数， 文件名称等信息
-// 也加上 extra 信息
-
 #define $AssertFatal_1(key) \
         IAssertManage::fatal(PP_STRING(key));
 

@@ -30,7 +30,7 @@ QString &IAssertDetail::operator [](IAssertDetail::Type type)
     return m_detailInfo[type];
 }
 
-QString IAssertDetail::toString()
+QString IAssertDetail::toString() const
 {
     return IAssertManageHelper::detailToString(m_detailInfo);
 }
@@ -72,6 +72,12 @@ void IAssertManage::fatal(const QString &name, const QString &extra)
     IAssertManageHelper::fatal(info, extra);
 }
 
+void IAssertManage::fatal(const QString &name, const IAssertDetail &detail)
+{
+    const QString& extra = detail.toString();
+    fatal(name, extra);
+}
+
 void IAssertManage::warn(const QString &name, const QString &extra)
 {
     auto key = IToeUtil::trimQuote(name);
@@ -83,6 +89,12 @@ void IAssertManage::warn(const QString &name, const QString &extra)
 
     auto info = inst->m_warnInfos[key];
     IAssertManageHelper::warn(info, extra);
+}
+
+void IAssertManage::warn(const QString &name, const IAssertDetail &detail)
+{
+    const QString& extra = detail.toString();
+    warn(name, extra);
 }
 
 inline QString IAssertManageHelper::detailToString(const QMap<IAssertDetail::Type, QString>& info)
