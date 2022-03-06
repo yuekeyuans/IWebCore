@@ -14,10 +14,24 @@ struct IAssertInfo {
     QString solution;
 };
 
-// TODO: 预备上， 提供更多有用的调试信息
 struct IAssertDetail{
-    QString functionName;
-    QStringList infos;
+    Q_GADGET
+public:
+    enum Type{
+        Class,
+        Function,
+        Line,
+        Parameter,
+        ReturnValue,
+    };
+    Q_ENUM(Type)
+
+    void setDetail(Type type, const QString& info);
+    QString& operator [](Type);
+    QString toString();
+
+private:
+    QMap<Type, QString> m_detailInfo;
 };
 
 class IAssertManage

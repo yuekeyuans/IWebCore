@@ -10,11 +10,29 @@ const char FatalType[] = "fatalType";
 const char WarningType[] = "warningType";
 
 namespace IAssertManageHelper{
+
+    QString detailToString(const QMap<IAssertDetail::Type, QString>& info);
+
     void fatal(const IAssertInfo& info, const QString& extra);
     void warn(const IAssertInfo& info, const QString& extra);
     void coutInfo(const IAssertInfo& info, const QString& extra);
     void coutInfo(const QString& tag);
     void coutInfo(const QString& tag, const QString& msg);
+}
+
+void IAssertDetail::setDetail(IAssertDetail::Type type, const QString &info)
+{
+    m_detailInfo[type] = info;
+}
+
+QString &IAssertDetail::operator [](IAssertDetail::Type type)
+{
+    return m_detailInfo[type];
+}
+
+QString IAssertDetail::toString()
+{
+    return IAssertManageHelper::detailToString(m_detailInfo);
 }
 
 IAssertManage::IAssertManage()
@@ -65,6 +83,17 @@ void IAssertManage::warn(const QString &name, const QString &extra)
 
     auto info = inst->m_warnInfos[key];
     IAssertManageHelper::warn(info, extra);
+}
+
+inline QString IAssertManageHelper::detailToString(const QMap<IAssertDetail::Type, QString>& info)
+{
+    auto keys = info.keys();
+    QStringList ret;
+    for(auto key : keys){
+        QString name = QMetaEnum::fromType<IAssertDetail::Type>().valueToKey(key);
+        ret.append(name + ": " + info[key]);
+    }
+    return ret.join(", ");
 }
 
 inline void IAssertManageHelper::fatal(const IAssertInfo& info, const QString& extra)
