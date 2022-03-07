@@ -117,11 +117,11 @@ HEADERS += \
     $$PWD/assertion/IAssertInterface.h \
     $$PWD/assertion/IAssertManage.h \
     $$PWD/assertion/IAssertPreProcessor.h \
-    $$PWD/log/IDebugInfo.h \
-    $$PWD/log/IErrorInfo.h \
-    $$PWD/log/IFatalInfo.h \
-    $$PWD/log/ILogInfo.h \
-    $$PWD/log/IWarningInfo.h \
+#    $$PWD/log/IDebugInfo.h \
+#    $$PWD/log/IErrorInfo.h \
+#    $$PWD/log/IFatalInfo.h \
+#    $$PWD/log/ILogInfo.h \
+#    $$PWD/log/IWarningInfo.h \
     $$PWD/orm/IOrmManage.h \
     $$PWD/orm/database/IOrmDataSource.h \
     $$PWD/orm/database/IOrmDatabaseInterface.h \
@@ -258,11 +258,11 @@ SOURCES += \
     $$PWD/controller/private/IStatusControllerInterfaceImpl.cpp \
     $$PWD/assertion/IAssertInterface.cpp \
     $$PWD/assertion/IAssertManage.cpp \
-    $$PWD/log/IDebugInfo.cpp \
-    $$PWD/log/IErrorInfo.cpp \
-    $$PWD/log/IFatalInfo.cpp \
-    $$PWD/log/ILogInfo.cpp \
-    $$PWD/log/IWarningInfo.cpp \
+#    $$PWD/log/IDebugInfo.cpp \
+#    $$PWD/log/IErrorInfo.cpp \
+#    $$PWD/log/IFatalInfo.cpp \
+#    $$PWD/log/ILogInfo.cpp \
+#    $$PWD/log/IWarningInfo.cpp \
     $$PWD/orm/IOrmManage.cpp \
     $$PWD/orm/database/IOrmDataSource.cpp \
     $$PWD/orm/database/IOrmDatabaseInterface.cpp \
@@ -307,7 +307,7 @@ DISTFILES += \
     $$PWD/configuration/configuration \
     $$PWD/controller/controller \
     $$PWD/assertion/assertion \
-    $$PWD/log/log \
+#    $$PWD/log/log \
     $$PWD/orm/orm \
     $$PWD/process/process \
     $$PWD/test/test

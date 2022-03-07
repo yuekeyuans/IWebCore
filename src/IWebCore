@@ -3,7 +3,7 @@
 #include "assertion/assertion"
 #include "base/base"
 #include "bean/bean"
-#include "log/log"
+//#include "log/log"
 #include "configuration/configuration"
 #include "controller/controller"
 #include "common/common"

@@ -1,6 +1,6 @@
 ﻿#include "IStatusControllerInterfaceImpl.h"
 #include "base/IConstantUtil.h"
-#include "log/IFatalInfo.h"
+//#include "log/IFatalInfo.h"
 
 $PackageWebCoreBegin
 
