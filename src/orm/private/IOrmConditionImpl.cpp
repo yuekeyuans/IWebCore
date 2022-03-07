@@ -9,12 +9,11 @@ static const int         Sql_AndLength = 5;
 static const char* const Sql_OrString = " OR ";
 static const int         Sql_OrLength = 4;
 static const char* const Sql_NotString = " NOT ";
-static const char* const Sql_AndNotString = "AND NOT ";
+//static const char* const Sql_AndNotString = "AND NOT ";
 QAtomicInteger<quint16> IOrmConditionImpl::m_whereArgIndex = 0;
 
 IOrmConditionImpl::IOrmConditionImpl()
 {
-
 }
 
 QString IOrmConditionImpl::condLike(const QString &field, const QString &value, IOrmCondition::Relation relation)
