@@ -27,7 +27,6 @@ namespace IConstantUtil
     ////////// config
     static const char* const Config_Prefix = "iwebConfigWire__";
 
-    static const char* const StatusControllerPrefix = "iwebStatusFun$";
 
     //! char[] of new line.
     static const char* const NewLine = "\r\n";

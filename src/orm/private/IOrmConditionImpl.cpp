@@ -1,7 +1,6 @@
 ﻿#include "IOrmConditionImpl.h"
 #include "orm/ISqlQuery.h"
-#include "log/IWarningInfo.h"
-#include "log/IFatalInfo.h"
+#include "assertion/IAssertPreProcessor.h"
 
 $PackageWebCoreBegin
 
@@ -260,8 +259,10 @@ QString IOrmConditionImpl::toWhereClause() const
     }
 
     if(where.startsWith(Sql_OrString)){
-        $Warn().setMessage("your where sql start with OR, please check your code")
-                .setExtra("origin Sql", where).log();
+        IAssertDetail detail;
+        detail["origin sql"] = where;
+        $AssertWarning(where_sql_start_with_OR, detail);
+
         return QString("WHERE ").append(where.midRef(Sql_OrLength));
     }
 
@@ -320,15 +321,17 @@ QString IOrmConditionImpl::toWhereClausePrivate() const
 
     // 处理 or 开头的内容
     if(clause.startsWith(Sql_OrString)){
-        $Warn().setMessage("your where sql start with OR, please check your code")
-                .setExtra("origin Sql", clause).log();
+        IAssertDetail detail;
+        detail["origin Sql"] = clause;
+        $AssertWarning(where_sql_start_with_OR, detail)
         return clause;
     }
 
     // 处理 NOT 开头的内容
     if(clause.startsWith(Sql_NotString)){
-        $Fatal().setMessage("where clause can not start with NOT")
-                .setExtra("origin sql", clause).fatal();
+        IAssertDetail detail;
+        detail["origin Sql"] = clause;
+        $AssertWarning(where_sql_start_with_NOT, detail)
     }
     return clause;
 }
@@ -428,6 +431,5 @@ void IOrmConditionImpl::setRelationType(IOrmCondition::Relation relation)
 {
     this->m_relation = relation;
 }
-
 
 $PackageWebCoreEnd

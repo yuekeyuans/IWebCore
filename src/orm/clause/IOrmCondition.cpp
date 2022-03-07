@@ -7,8 +7,6 @@
 #include "orm/ISqlQuery.h"
 #include "orm/dialect/IOrmDialectWare.h"
 #include "orm/private/IOrmConditionImpl.h"
-#include "log/IWarningInfo.h"
-#include "log/IFatalInfo.h"
 
 $PackageWebCoreBegin
 

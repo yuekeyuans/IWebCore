@@ -3,32 +3,45 @@
 $PackageWebCoreBegin
 
 namespace IAssertDetailHelper{
-    QString detailToString(const QMap<IAssertDetail::Type, QString>& info);
+    QString detailToString(const QMap<IAssertDetail::Type, QString>& infoType
+                           , const QMap<QString, QString>& infoStrings);
 }
 
 void IAssertDetail::setDetail(IAssertDetail::Type type, const QString &info)
 {
-    m_detailInfo[type] = info;
+    m_detailInfoType[type] = info;
 }
 
 QString &IAssertDetail::operator [](IAssertDetail::Type type)
 {
-    return m_detailInfo[type];
+    return m_detailInfoType[type];
+}
+
+QString &IAssertDetail::operator [](const QString & key)
+{
+    return m_detailInfoStrings[key];
 }
 
 QString IAssertDetail::toString() const
 {
-    return IAssertDetailHelper::detailToString(m_detailInfo);
+    return IAssertDetailHelper::detailToString(m_detailInfoType, m_detailInfoStrings);
 }
 
-inline QString IAssertDetailHelper::detailToString(const QMap<IAssertDetail::Type, QString>& info)
+inline QString IAssertDetailHelper::detailToString(const QMap<IAssertDetail::Type, QString>& infoType
+                                                   , const QMap<QString, QString>& infoStrings)
 {
-    auto keys = info.keys();
+    auto keys = infoType.keys();
     QStringList ret;
     for(auto key : keys){
         QString name = QMetaEnum::fromType<IAssertDetail::Type>().valueToKey(key);
-        ret.append(name + ": " + info[key]);
+        ret.append(name + ": " + infoType[key]);
     }
+
+    auto stringKeys = infoStrings.keys();
+    for(auto key : stringKeys){
+        ret.append(key + ": " + infoStrings[key]);
+    }
+
     return ret.join(", ");
 }
 

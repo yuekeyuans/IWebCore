@@ -4,6 +4,7 @@
 #include "base/IPreProcessorUtil.h"
 #include "IAssertManage.h"
 #include "assertion/IAssertInfoList.h"
+#include "assertion/IAssertDetail.h"
 
 #define $AsAssertion(klassName) \
     $UseInstance(klassName)

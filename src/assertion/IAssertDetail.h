@@ -13,17 +13,19 @@ public:
         Function,
         Line,
         Parameter,
-        ReturnValue,
+        ReturnType,
         Reason
     };
     Q_ENUM(Type)
 
     void setDetail(Type type, const QString& info);
     QString& operator [](Type);
+    QString& operator [](const QString&);
     QString toString() const;
 
 private:
-    QMap<Type, QString> m_detailInfo;
+    QMap<Type, QString> m_detailInfoType;
+    QMap<QString, QString> m_detailInfoStrings;
 };
 
 $PackageWebCoreEnd
