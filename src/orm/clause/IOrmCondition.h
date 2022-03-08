@@ -12,7 +12,6 @@ class IOrmConditionImpl;
 class IOrmCondition
 {
 public:
-    // NOTE: 这里需要注意在同一语句中 and or 和 not 的优先级, 在写文档的时候需要写进去
     enum Relation : uint8_t{
         And_Type,
         Or_Type,
@@ -31,6 +30,7 @@ public:
     IOrmCondition();
     ~IOrmCondition() = default;
 
+public:
     IOrmCondition& where(const QString& clause);
 
     template<typename T>
@@ -70,24 +70,8 @@ public:
 
     IOrmCondition& whereFalse();
 
-    IOrmCondition& conditionAnd(IOrmCondition condition);
-
-    IOrmCondition& conditionOr(IOrmCondition condition);
-
-    IOrmCondition& conditionAndNot(IOrmCondition condition);
-
-    IOrmCondition& conditionOrNot(IOrmCondition condition);
-
-    static IOrmCondition& conditionNot(IOrmCondition& condition);
-
-    IOrmCondition& orderByAsc(const QString& field);
-
-    IOrmCondition& orderByDesc(const QString& field);
-
-    IOrmCondition& groupBy(const QString& field);
-
-    //! @note this is not field. its clause
-    IOrmCondition& having(const QString& clause);
+public:
+    IOrmCondition& having(const QString& clause);      //! @note this is not field. its clause
 
     template<typename T>
     IOrmCondition& havingIn(const QString& field, const QList<T>& range, Relation relation = And_Type);
@@ -122,10 +106,28 @@ public:
 
 //    IOrmCondition& havingIsNotNull(const QString& field, Relation relation = And_Type);
 
+public:
+    IOrmCondition& conditionAnd(IOrmCondition condition);
+
+    IOrmCondition& conditionOr(IOrmCondition condition);
+
+    IOrmCondition& conditionAndNot(IOrmCondition condition);
+
+    IOrmCondition& conditionOrNot(IOrmCondition condition);
+
+    static IOrmCondition& conditionNot(IOrmCondition& condition);
+
+    IOrmCondition& orderByAsc(const QString& field);
+
+    IOrmCondition& orderByDesc(const QString& field);
+
+    IOrmCondition& groupBy(const QString& field);
+
     IOrmCondition& limit(IOrmDialectWare* dialect, quint64 count);
 
     IOrmCondition& limit(IOrmDialectWare* dialect, quint64 start, quint64 count);
 
+public:
     QString toSql(Type types = IOrmCondition::Default) const;
 
     QString toWhereClause() const;

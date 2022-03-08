@@ -132,6 +132,61 @@ IOrmCondition &IOrmCondition::whereFalse()
     return *this;
 }
 
+IOrmCondition &IOrmCondition::having(const QString &clause)
+{
+    impl->appendHavingClause(clause);
+    return *this;
+}
+
+IOrmCondition &IOrmCondition::havingBetween(const QString &field, const QVariant &lowerBound, const QVariant &upperBound, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condBetween(field, QPair<QVariant, QVariant>{lowerBound, upperBound}, relation);
+    impl->appendHavingClause(sql);
+    return *this;
+}
+
+IOrmCondition &IOrmCondition::havingEqual(const QString &field, const QVariant &value, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condEqual(field, value, relation);
+    impl->appendHavingClause(sql);
+    return *this;
+}
+
+IOrmCondition &IOrmCondition::havingNotEqual(const QString &field, const QVariant &value, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condNotEqual(field, value, relation);
+    impl->appendHavingClause(sql);
+    return *this;
+}
+
+IOrmCondition &IOrmCondition::havingLessThan(const QString &field, const QVariant &value, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condLessThan(field, value, relation);
+    impl->appendHavingClause(sql);
+    return *this;
+}
+
+IOrmCondition &IOrmCondition::havingLessEqual(const QString &field, const QVariant &value, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condLessEqual(field, value, relation);
+    impl->appendHavingClause(sql);
+    return *this;
+}
+
+IOrmCondition &IOrmCondition::havingGreatThan(const QString &field, const QVariant &value, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condGreatThan(field, value, relation);
+    impl->appendHavingClause(sql);
+    return *this;
+}
+
+IOrmCondition &IOrmCondition::havingGreatEqual(const QString &field, const QVariant &value, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condGreatEqual(field, value, relation);
+    impl->appendHavingClause(sql);
+    return *this;
+}
+
 IOrmCondition &IOrmCondition::conditionAnd(IOrmCondition condition)
 {
     condition.impl->setRelation(And_Type);
@@ -191,61 +246,6 @@ IOrmCondition &IOrmCondition::orderByDesc(const QString &field)
 IOrmCondition &IOrmCondition::groupBy(const QString &field)
 {
     impl->appendGroupByClause(field);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::having(const QString &clause)
-{
-    impl->appendHavingClause(clause);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::havingBetween(const QString &field, const QVariant &lowerBound, const QVariant &upperBound, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condBetween(field, QPair<QVariant, QVariant>{lowerBound, upperBound}, relation);
-    impl->appendHavingClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::havingEqual(const QString &field, const QVariant &value, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condEqual(field, value, relation);
-    impl->appendHavingClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::havingNotEqual(const QString &field, const QVariant &value, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condNotEqual(field, value, relation);
-    impl->appendHavingClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::havingLessThan(const QString &field, const QVariant &value, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condLessThan(field, value, relation);
-    impl->appendHavingClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::havingLessEqual(const QString &field, const QVariant &value, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condLessEqual(field, value, relation);
-    impl->appendHavingClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::havingGreatThan(const QString &field, const QVariant &value, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condGreatThan(field, value, relation);
-    impl->appendHavingClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::havingGreatEqual(const QString &field, const QVariant &value, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condGreatEqual(field, value, relation);
-    impl->appendHavingClause(sql);
     return *this;
 }
 
