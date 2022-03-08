@@ -200,6 +200,13 @@ IOrmCondition &IOrmCondition::having(const QString &clause)
     return *this;
 }
 
+IOrmCondition &IOrmCondition::havingBetween(const QString &field, const QVariant &lowerBound, const QVariant &upperBound, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condBetween(field, QPair<QVariant, QVariant>{lowerBound, upperBound}, relation);
+    impl->appendHavingClause(sql);
+    return *this;
+}
+
 IOrmCondition &IOrmCondition::havingEqual(const QString &field, const QVariant &value, IOrmCondition::Relation relation)
 {
     auto sql = impl->condEqual(field, value, relation);

@@ -78,8 +78,7 @@ public:
 
     IOrmCondition& conditionOrNot(IOrmCondition condition);
 
-    static
-    IOrmCondition& conditionNot(IOrmCondition& condition);
+    static IOrmCondition& conditionNot(IOrmCondition& condition);
 
     IOrmCondition& orderByAsc(const QString& field);
 
@@ -95,6 +94,7 @@ public:
 
     template<typename T>
     IOrmCondition& havingBetween(const QString& field, const QPair<qint8, qint8>& range, Relation relation = And_Type);
+    IOrmCondition& havingBetween(const QString& field, const QVariant& lowerBound, const QVariant& upperBound, Relation relation = And_Type);
 
     IOrmCondition& havingEqual(const QString& field, const QVariant& value, Relation relation = And_Type);
 
