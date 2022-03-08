@@ -65,11 +65,9 @@ QSharedPointer<IResponseWare> IStatusCodeResponse::createStatusCodeInstance()
 
 void IStatusCodeResponseHelper::checkStatusCode(IHttpStatus status)
 {
-#ifdef _DEBUG
     if(IHttpStatus::UNKNOWN == status){
         qFatal("the status code from your code is not correct, please check it");
     }
-#endif
 }
 
 $PackageWebCoreEnd

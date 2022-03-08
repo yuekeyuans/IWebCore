@@ -43,10 +43,9 @@ void IAssertManage::registerWarnInfo(const IAssertInfo &info)
 
 void IAssertManage::fatal(const QString &name, const QString &extra)
 {
-#ifndef QT_DEBUG
     Q_UNUSED(name)
     Q_UNUSED(extra)
-#elif
+#ifdef QT_DEBUG
     auto key = IToeUtil::trimQuote(name);
 
     auto inst = instance();
@@ -62,10 +61,9 @@ void IAssertManage::fatal(const QString &name, const QString &extra)
 
 void IAssertManage::fatal(const QString &name, const IAssertDetail &detail)
 {
-#ifndef QT_DEBUG
     Q_UNUSED(name)
     Q_UNUSED(detail)
-#elif
+#ifdef QT_DEBUG
     const QString& extra = detail.toString();
     fatal(name, extra);
 #endif
@@ -73,10 +71,9 @@ void IAssertManage::fatal(const QString &name, const IAssertDetail &detail)
 
 void IAssertManage::warn(const QString &name, const QString &extra)
 {
-#ifndef QT_DEBUG
     Q_UNUSED(name)
     Q_UNUSED(extra)
-#elif
+#ifdef QT_DEBUG
     auto key = IToeUtil::trimQuote(name);
 
     auto inst = instance();
@@ -91,10 +88,9 @@ void IAssertManage::warn(const QString &name, const QString &extra)
 
 void IAssertManage::warn(const QString &name, const IAssertDetail &detail)
 {
-#ifndef QT_DEBUG
     Q_UNUSED(name)
     Q_UNUSED(detail)
-#elif
+#ifdef QT_DEBUG
     const QString& extra = detail.toString();
     warn(name, extra);
 #endif
@@ -102,10 +98,9 @@ void IAssertManage::warn(const QString &name, const IAssertDetail &detail)
 
 inline void IAssertManageHelper::fatal(const IAssertInfo& info, const QString& extra)
 {
-#ifndef QT_DEBUG
     Q_UNUSED(info)
     Q_UNUSED(extra)
-#elif
+#ifdef QT_DEBUG
     IAssertManageHelper::coutInfo("Fatal");
     IAssertManageHelper::coutInfo(info, extra);
     qFatal(info.reason.toUtf8());

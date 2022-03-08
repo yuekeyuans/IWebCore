@@ -8,6 +8,7 @@ $PackageWebCoreBegin
 class ISqlQuery;
 class IOrmDialectWare;
 class IOrmConditionImpl;
+
 class IOrmCondition
 {
 public:
@@ -31,6 +32,9 @@ public:
     ~IOrmCondition() = default;
 
     IOrmCondition& where(const QString& clause);
+
+//    template<typename T>
+//    IOrmCondition& whereIn(const QString& field, const QList<T>& range, Relation relation = And_Type);
 
     IOrmCondition& whereIn(const QString& field, const QList<qint8>& range, Relation relation = And_Type);
     IOrmCondition& whereIn(const QString& field, const QList<quint8>& range, Relation relation = And_Type);
@@ -214,7 +218,21 @@ private:
 };
 
 
-#define $Cdt IOrmCondition()
+//namespace IOrmConditionHelper{
+//    template<typename T>
+//    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<T>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
+//    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QStringList& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
 
+
+//}
+
+//template<typename T>
+//IOrmCondition& IOrmCondition::whereIn(const QString& field, const QList<T>& range, IOrmCondition::Relation relation)
+//{
+//    IOrmConditionHelper::whereIn(impl, field, range, relation);
+//    return *this;
+//}
+
+#define $Cdt IOrmCondition()
 
 $PackageWebCoreEnd
