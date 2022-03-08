@@ -20,114 +20,6 @@ IOrmCondition &IOrmCondition::where(const QString &clause)
     return *this;
 }
 
-IOrmCondition &IOrmCondition::whereBetween(const QString &field, const QPair<qint8, qint8>& range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condBetween(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereBetween(const QString &field, const QPair<quint8, quint8>& range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condBetween(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereBetween(const QString &field, const QPair<qint16, qint16>& range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condBetween(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereBetween(const QString &field, const QPair<quint16, quint16>& range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condBetween(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereBetween(const QString &field, const QPair<qint32, qint32>& range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condBetween(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereBetween(const QString &field, const QPair<quint32, quint32>& range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condBetween(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereBetween(const QString &field, const QPair<qint64, qint64>& range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condBetween(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereBetween(const QString &field, const QPair<quint64, quint64>& range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condBetween(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereBetween(const QString &field, const QPair<float, float>& range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condBetween(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereBetween(const QString &field, const QPair<double, double>& range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condBetween(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereBetween(const QString &field, const QPair<QString, QString>& range, IOrmCondition::Relation relation)
-{
-
-    auto sql = impl->condBetween(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereBetween(const QString &field, const QPair<QVariant, QVariant>& range, IOrmCondition::Relation relation)
-{
-
-    auto sql = impl->condBetween(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereBetween(const QString &field, const QPair<QDate, QDate>& range, IOrmCondition::Relation relation)
-{
-
-    auto sql = impl->condBetween(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereBetween(const QString &field, const QPair<QTime, QTime>& range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condBetween(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereBetween(const QString &field, const QPair<QDateTime, QDateTime>& range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condBetween(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
 IOrmCondition &IOrmCondition::whereBetween(const QString &field, QVariant lowerBound, QVariant upperBound, IOrmCondition::Relation relation)
 {
     auto sql = impl->condBetween(field, QPair<QVariant, QVariant>{lowerBound, upperBound}, relation);
@@ -724,6 +616,101 @@ void IOrmConditionHelper::whereIn(std::shared_ptr<IOrmConditionImpl> impl, const
 void IOrmConditionHelper::whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QStringList &range, IOrmCondition::Relation relation)
 {
     auto sql = impl->condIn(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+
+
+void IOrmConditionHelper::whereBetween(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QPair<qint8, qint8>& range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condBetween(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereBetween(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QPair<quint8, quint8>& range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condBetween(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereBetween(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QPair<qint16, qint16>& range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condBetween(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereBetween(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QPair<quint16, quint16>& range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condBetween(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereBetween(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QPair<qint32, qint32>& range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condBetween(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereBetween(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QPair<quint32, quint32>& range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condBetween(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereBetween(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QPair<qint64, qint64>& range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condBetween(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereBetween(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QPair<quint64, quint64>& range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condBetween(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereBetween(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QPair<float, float>& range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condBetween(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereBetween(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QPair<double, double>& range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condBetween(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereBetween(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QPair<QString, QString>& range, IOrmCondition::Relation relation)
+{
+
+    auto sql = impl->condBetween(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereBetween(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QPair<QVariant, QVariant>& range, IOrmCondition::Relation relation)
+{
+
+    auto sql = impl->condBetween(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereBetween(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QPair<QDate, QDate>& range, IOrmCondition::Relation relation)
+{
+
+    auto sql = impl->condBetween(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereBetween(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QPair<QTime, QTime>& range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condBetween(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereBetween(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QPair<QDateTime, QDateTime>& range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condBetween(field, range, relation);
     impl->appendWhereClause(sql);
 }
 
