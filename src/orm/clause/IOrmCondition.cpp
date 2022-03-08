@@ -20,118 +20,6 @@ IOrmCondition &IOrmCondition::where(const QString &clause)
     return *this;
 }
 
-IOrmCondition &IOrmCondition::whereIn(const QString &field, const QList<qint8> &range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condIn(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereIn(const QString &field, const QList<quint8> &range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condIn(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereIn(const QString &field, const QList<qint16> &range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condIn(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereIn(const QString &field, const QList<quint16> &range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condIn(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereIn(const QString &field, const QList<qint32> &range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condIn(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereIn(const QString &field, const QList<quint32> &range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condIn(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereIn(const QString &field, const QList<quint64> &range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condIn(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereIn(const QString &field, const QList<qint64> &range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condIn(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereIn(const QString &field, const QList<float> &range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condIn(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereIn(const QString &field, const QList<double> &range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condIn(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereIn(const QString &field, const QList<QString> &range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condIn(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereIn(const QString &field, const QList<QVariant> &range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condIn(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereIn(const QString &field, const QList<QDate> &range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condIn(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereIn(const QString &field, const QList<QTime> &range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condIn(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereIn(const QString &field, const QList<QDateTime> &range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condIn(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
-IOrmCondition &IOrmCondition::whereIn(const QString &field, const QStringList &range, IOrmCondition::Relation relation)
-{
-    auto sql = impl->condIn(field, range, relation);
-    impl->appendWhereClause(sql);
-    return *this;
-}
-
 IOrmCondition &IOrmCondition::whereBetween(const QString &field, const QPair<qint8, qint8>& range, IOrmCondition::Relation relation)
 {
     auto sql = impl->condBetween(field, range, relation);
@@ -741,5 +629,103 @@ bool IOrmCondition::isValid() const
 {
     return impl->isValid();
 }
+
+
+void IOrmConditionHelper::whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QList<qint8> &range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condIn(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QList<quint8> &range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condIn(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QList<qint16> &range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condIn(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QList<quint16> &range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condIn(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QList<qint32> &range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condIn(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QList<quint32> &range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condIn(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QList<quint64> &range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condIn(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QList<qint64> &range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condIn(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QList<float> &range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condIn(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QList<double> &range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condIn(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QList<QString> &range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condIn(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QList<QVariant> &range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condIn(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QList<QDate> &range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condIn(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QList<QTime> &range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condIn(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QList<QDateTime> &range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condIn(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
+void IOrmConditionHelper::whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString &field, const QStringList &range, IOrmCondition::Relation relation)
+{
+    auto sql = impl->condIn(field, range, relation);
+    impl->appendWhereClause(sql);
+}
+
 
 $PackageWebCoreEnd

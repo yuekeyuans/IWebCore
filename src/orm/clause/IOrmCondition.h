@@ -33,25 +33,25 @@ public:
 
     IOrmCondition& where(const QString& clause);
 
-//    template<typename T>
-//    IOrmCondition& whereIn(const QString& field, const QList<T>& range, Relation relation = And_Type);
+    template<typename T>
+    IOrmCondition& whereIn(const QString& field, const QList<T>& range, Relation relation = And_Type);
 
-    IOrmCondition& whereIn(const QString& field, const QList<qint8>& range, Relation relation = And_Type);
-    IOrmCondition& whereIn(const QString& field, const QList<quint8>& range, Relation relation = And_Type);
-    IOrmCondition& whereIn(const QString& field, const QList<qint16>& range, Relation relation = And_Type);
-    IOrmCondition& whereIn(const QString& field, const QList<quint16>& range, Relation relation = And_Type);
-    IOrmCondition& whereIn(const QString& field, const QList<qint32>& range, Relation relation = And_Type);
-    IOrmCondition& whereIn(const QString& field, const QList<quint32>& range, Relation relation = And_Type);
-    IOrmCondition& whereIn(const QString& field, const QList<quint64>& range, Relation relation = And_Type);
-    IOrmCondition& whereIn(const QString& field, const QList<qint64>& range, Relation relation = And_Type);
-    IOrmCondition& whereIn(const QString& field, const QList<float>& range, Relation relation = And_Type);
-    IOrmCondition& whereIn(const QString& field, const QList<double>& range, Relation relation = And_Type);
-    IOrmCondition& whereIn(const QString& field, const QList<QString>& range, Relation relation = And_Type);
-    IOrmCondition& whereIn(const QString& field, const QList<QVariant>& range, Relation relation = And_Type);
-    IOrmCondition& whereIn(const QString& field, const QList<QDate>& range, Relation relation = And_Type);
-    IOrmCondition& whereIn(const QString& field, const QList<QTime>& range, Relation relation = And_Type);
-    IOrmCondition& whereIn(const QString& field, const QList<QDateTime>& range, Relation relation = And_Type);
-    IOrmCondition& whereIn(const QString& field, const QStringList& range, Relation relation = And_Type);
+//    IOrmCondition& whereIn(const QString& field, const QList<qint8>& range, Relation relation = And_Type);
+//    IOrmCondition& whereIn(const QString& field, const QList<quint8>& range, Relation relation = And_Type);
+//    IOrmCondition& whereIn(const QString& field, const QList<qint16>& range, Relation relation = And_Type);
+//    IOrmCondition& whereIn(const QString& field, const QList<quint16>& range, Relation relation = And_Type);
+//    IOrmCondition& whereIn(const QString& field, const QList<qint32>& range, Relation relation = And_Type);
+//    IOrmCondition& whereIn(const QString& field, const QList<quint32>& range, Relation relation = And_Type);
+//    IOrmCondition& whereIn(const QString& field, const QList<quint64>& range, Relation relation = And_Type);
+//    IOrmCondition& whereIn(const QString& field, const QList<qint64>& range, Relation relation = And_Type);
+//    IOrmCondition& whereIn(const QString& field, const QList<float>& range, Relation relation = And_Type);
+//    IOrmCondition& whereIn(const QString& field, const QList<double>& range, Relation relation = And_Type);
+//    IOrmCondition& whereIn(const QString& field, const QList<QString>& range, Relation relation = And_Type);
+//    IOrmCondition& whereIn(const QString& field, const QList<QVariant>& range, Relation relation = And_Type);
+//    IOrmCondition& whereIn(const QString& field, const QList<QDate>& range, Relation relation = And_Type);
+//    IOrmCondition& whereIn(const QString& field, const QList<QTime>& range, Relation relation = And_Type);
+//    IOrmCondition& whereIn(const QString& field, const QList<QDateTime>& range, Relation relation = And_Type);
+//    IOrmCondition& whereIn(const QString& field, const QStringList& range, Relation relation = And_Type);
 
     IOrmCondition& whereBetween(const QString& field, const QPair<qint8, qint8>& range, Relation relation = And_Type);
     IOrmCondition& whereBetween(const QString& field, const QPair<quint8, quint8>& range, Relation relation = And_Type);
@@ -218,20 +218,31 @@ private:
 };
 
 
-//namespace IOrmConditionHelper{
-//    template<typename T>
-//    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<T>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
-//    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QStringList& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
+namespace IOrmConditionHelper{
+    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<qint8>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
+    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<quint8>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
+    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<qint16>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
+    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<quint16>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
+    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<qint32>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
+    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<quint32>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
+    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<quint64>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
+    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<qint64>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
+    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<float>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
+    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<double>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
+    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<QString>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
+    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<QVariant>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
+    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<QDate>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
+    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<QTime>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
+    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<QDateTime>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
+    void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QStringList& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
+}
 
-
-//}
-
-//template<typename T>
-//IOrmCondition& IOrmCondition::whereIn(const QString& field, const QList<T>& range, IOrmCondition::Relation relation)
-//{
-//    IOrmConditionHelper::whereIn(impl, field, range, relation);
-//    return *this;
-//}
+template<typename T>
+IOrmCondition& IOrmCondition::whereIn(const QString& field, const QList<T>& range, IOrmCondition::Relation relation)
+{
+    IOrmConditionHelper::whereIn(impl, field, range, relation);
+    return *this;
+}
 
 #define $Cdt IOrmCondition()
 
