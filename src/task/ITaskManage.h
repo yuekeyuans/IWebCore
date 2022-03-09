@@ -17,6 +17,8 @@
 
 $PackageWebCoreBegin
 
+class IMiddleWare;
+
 class ITaskManage
 {
     $UseInstance(ITaskManage)
@@ -36,6 +38,7 @@ public:
     static void registerConfigrator(FunType fun);
     static void registerInitializer(FunType fun);
     static void registerController(FunType fun);
+    static void registerMiddleWare(FunType fun);
 
     static void registerFirstInvoker(FunType fun);
     static void registerLastInvoker(FunType fun);
@@ -48,19 +51,22 @@ public:
 
 private:
     static void invokeArgumentParsers(const QStringList&);
-    static void invokeControllers();
     static void invokeConfigers();
     static void invokeInitializers();
-    static void invokeBluePrint();
+    static void invokeControllers();
+    static void invokeMiddleWares();
+
 
     static void invokeFirstInvokers();
     static void invokeLastInvokers();
 
+    static void invokeBluePrint();
 private:
     QList<ArgumentParserFunType> m_argumentParsers;
     QList<FunType> m_configurators;
     QList<FunType> m_initializers;
     QList<FunType> m_controllers;
+    QList<FunType> m_middleWares;
     QList<FunType> m_blueprints;
 
     QList<FunType> m_firstInvokers;

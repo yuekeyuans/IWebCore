@@ -33,6 +33,8 @@ void ITaskManage::run(const QStringList& arguments)
     inst->invokeInitializers();
 
     inst->invokeControllers();
+    inst->invokeMiddleWares();
+
     inst->invokeBluePrint();
 
     inst->invokeLastInvokers();
@@ -76,14 +78,31 @@ void ITaskManage::registerController(FunType fun)
     inst->m_controllers.append(fun);
 }
 
+void ITaskManage::registerMiddleWare(ITaskManage::FunType fun)
+{
+    auto inst = instance();
+    if(inst->m_isStarted){
+        $AssertFatal(defer_register_not_allowed, "registerConfiger")
+    }
+    inst->m_middleWares.append(fun);
+}
+
 void ITaskManage::registerFirstInvoker(ITaskManage::FunType fun)
 {
-
+    auto inst = instance();
+    if(inst->m_isStarted){
+        $AssertFatal(defer_register_not_allowed, "registerConfiger")
+    }
+    inst->m_firstInvokers.append(fun);
 }
 
 void ITaskManage::registerLastInvoker(ITaskManage::FunType fun)
 {
-
+    auto inst = instance();
+    if(inst->m_isStarted){
+        $AssertFatal(defer_register_not_allowed, "registerConfiger")
+    }
+    inst->m_lastInvokers.append(fun);
 }
 
 void ITaskManage::registerBluePrint(ITaskManage::FunType fun)
@@ -118,6 +137,15 @@ void ITaskManage::invokeControllers()
         fun();
     }
     inst->m_controllers.clear();
+}
+
+void ITaskManage::invokeMiddleWares()
+{
+    auto inst = instance();
+    for(auto fun : inst->m_middleWares){
+        fun();
+    }
+    inst->m_middleWares.clear();
 }
 
 void ITaskManage::invokeConfigers()
