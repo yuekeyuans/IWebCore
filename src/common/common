@@ -16,6 +16,4 @@
 #include "common/response/IResponseWare.h"
 #include "common/response/IResponseWareRaw.h"
 
-#include "task/ITaskManage.h"
-
 

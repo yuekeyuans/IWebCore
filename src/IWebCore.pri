@@ -320,4 +320,5 @@ DISTFILES += \
 #    $$PWD/log/log \
     $$PWD/orm/orm \
     $$PWD/process/process \
+    $$PWD/task/task \
     $$PWD/test/test
