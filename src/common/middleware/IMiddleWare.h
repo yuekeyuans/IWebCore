@@ -12,7 +12,7 @@ class IMiddleWare
 public:
     IMiddleWare() = default;
 
-    virtual bool match() = 0;
+    virtual bool match(IRequest& request, IResponse& response) = 0;
     virtual bool action(IRequest& request, IResponse& response) = 0;
 };
 

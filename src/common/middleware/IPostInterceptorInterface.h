@@ -11,7 +11,7 @@ class IPostInterceptorInterface : public IInterceptorWare
 public:
     IPostInterceptorInterface() = default;
 
-    virtual bool match() override = 0;
+    virtual bool match(IRequest& request, IResponse& response) override = 0;
     virtual bool action(IRequest& request, IResponse& response) override = 0;
 };
 
