@@ -13,7 +13,6 @@ IHttpProcesser::IHttpProcesser(qintptr handle)
 
 }
 
-// TODO: 这里将所有的错误处理放置在 IHttpSocketBase 当中
 // TODO: 刚刚看了一下，如果要实现 长连接，下面的模型需要再分离， 即把 socket 的输入输出和 处理函数函数分离，
 // 可以考虑使用异步处理
 void IHttpProcesser::run()
@@ -23,7 +22,6 @@ void IHttpProcesser::run()
         return ISocketUtil::processReadError(&socket);
     }
 
-    // 初始化
     IRequest request(socket);
     IResponse response(&request);
 

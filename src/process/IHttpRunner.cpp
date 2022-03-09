@@ -27,7 +27,6 @@ void IHttpRunner::runStatusFunction(IRequest &request, IResponse &response, ISta
     IHttpRunnerHelper::destroyParams(function->functionNode, params);
 }
 
-// TODO: 这里的 runUrlFunction 可以考虑 返回 一个 函数调用， 调用另外一个函数
 void IHttpRunner::runUrlFunction(IRequest &request, IResponse &response, IUrlFunctionNode *function)
 {
     IHttpRunnerHelper::ParamType params;

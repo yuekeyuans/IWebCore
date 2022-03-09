@@ -6,6 +6,7 @@ $PackageWebCoreBegin
 
 class IRequest;
 class IResponse;
+
 class IHttpProcesser : public QRunnable{
 
 public:
