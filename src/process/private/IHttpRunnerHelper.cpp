@@ -15,9 +15,9 @@
 #include "common/response/IJsonResponse.h"
 #include "common/response/IByteArrayResponse.h"
 #include "common/type/ITypeManage.h"
-#include "common/task/ITaskManage.h"
 #include "common/net/impl/IReqRespRaw.h"
 #include "process/private/IRequestBeanParamWiredHelper.h"
+#include "task/ITaskManage.h"
 
 $PackageWebCoreBegin
 

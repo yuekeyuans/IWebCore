@@ -1,9 +1,9 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "common/task/IStaticInitializeTaskUnit.h"
 #include "common/type/ITypeManage.h"
 #include "orm/tableview/IOrmViewWare.h"
+#include "task/IStaticInitializeTaskUnit.h"
 
 $PackageWebCoreBegin
 

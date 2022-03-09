@@ -17,7 +17,6 @@
 
 $PackageWebCoreBegin
 
-// TODO: 先写上之后再来优化
 bool IOrmDialectWare::exec(QSqlDatabase &db, const QString &sql)
 {
     ISqlQuery query(db);

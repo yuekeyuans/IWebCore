@@ -3,9 +3,9 @@
 #include "assertion/IAssertPreProcessor.h"
 #include "base/IFileUtil.h"
 #include "base/IJsonUtil.h"
-#include "common/task/ITaskManage.h"
 #include "configuration/IConfigurationManage.h"
 #include "plugin/yaml/IYamlUtil.h"
+#include "task/ITaskManage.h"
 
 $PackageWebCoreBegin
 

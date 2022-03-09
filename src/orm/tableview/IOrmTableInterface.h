@@ -1,10 +1,10 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "common/task/IStaticInitializeTaskUnit.h"
 #include "common/type/ITypeManage.h"
 #include "orm/tableview/IOrmTableWare.h"
 #include "orm/tableview/IOrmTableInfo.h"
+#include "task/IStaticInitializeTaskUnit.h"
 
 $PackageWebCoreBegin
 

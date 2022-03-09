@@ -2,8 +2,8 @@
 
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
-#include "common/task/ITaskManage.h"
-#include "common/task/ITaskWare.h"
+#include "task/ITaskManage.h"
+#include "task/ITaskWare.h"
 
 $PackageWebCoreBegin
 

@@ -2,7 +2,7 @@
 #include "assertion/IAssertPreProcessor.h"
 #include "configuration/IConfigurationManage.h"
 #include "controller/IControllerManage.h"
-#include "common/task/ITaskManage.h"
+#include "task/ITaskManage.h"
 
 $PackageWebCoreBegin
 

@@ -2,7 +2,7 @@
 
 #include "base/IHeaderUtil.h"
 #include "common/response/IResponseWare.h"
-#include "common/task/IInitializationTaskUnit.h"
+#include "task/IInitializationTaskUnit.h"
 
 $PackageWebCoreBegin
 

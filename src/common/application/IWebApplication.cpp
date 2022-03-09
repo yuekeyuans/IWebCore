@@ -1,7 +1,7 @@
 ﻿#include "IWebApplication.h"
 
-#include "common/task/ITaskManage.h"
 #include "configuration/IConfigurationManage.h"
+#include "task/ITaskManage.h"
 
 $PackageWebCoreBegin
 

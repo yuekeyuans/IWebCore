@@ -424,7 +424,7 @@ QList<QDate> IOrmUtil::getDateList(QSqlQuery &query, bool *ok)
     return dates;
 }
 
-// TODO: 这里用不到 dia'lect 的原因是 规定死 time 的格式，只能是这几种，就不需要dialect 配置了。
+// TODO: 这里用不到 dialect 的原因是 规定死 time 的格式，只能是这几种，就不需要dialect 配置了。
 QList<QTime> IOrmUtil::getTimeList(QSqlQuery &query, bool *ok)
 {
     QList<QTime> ret;
