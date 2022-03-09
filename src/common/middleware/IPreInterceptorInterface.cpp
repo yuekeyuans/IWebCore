@@ -1,6 +1,2 @@
-#include "IPreInterceptorInterface.h"
+﻿#include "IPreInterceptorInterface.h"
 
-IPreInterceptorInterface::IPreInterceptorInterface()
-{
-
-}

@@ -47,7 +47,10 @@ HEADERS += \
     $$PWD/common/middleware/IInterceptorWare.h \
     $$PWD/common/middleware/IMiddleWare.h \
     $$PWD/common/middleware/IPostInterceptorInterface.h \
+    $$PWD/common/middleware/IPostProcessorInterface.h \
     $$PWD/common/middleware/IPreInterceptorInterface.h \
+    $$PWD/common/middleware/IPreProcessorInterface.h \
+    $$PWD/common/middleware/IProcessorWare.h \
     $$PWD/common/net/ICookie.h \
     $$PWD/common/net/IMultiPart.h \
     $$PWD/common/net/IRequest.h \
@@ -215,7 +218,10 @@ SOURCES += \
     $$PWD/common/middleware/IInterceptorWare.cpp \
     $$PWD/common/middleware/IMiddleWare.cpp \
     $$PWD/common/middleware/IPostInterceptorInterface.cpp \
+    $$PWD/common/middleware/IPostProcessorInterface.cpp \
     $$PWD/common/middleware/IPreInterceptorInterface.cpp \
+    $$PWD/common/middleware/IPreProcessorInterface.cpp \
+    $$PWD/common/middleware/IProcessorWare.cpp \
     $$PWD/common/net/ICookie.cpp \
     $$PWD/common/net/IMultiPart.cpp \
     $$PWD/common/net/IRequest.cpp \
