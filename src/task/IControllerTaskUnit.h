@@ -14,7 +14,7 @@ class IControllerTaskUnit : public ITaskWare
 public:
     IControllerTaskUnit() = default;
     virtual QString taskFinishTip() final;
-    virtual void task() =0;
+    virtual void task() override = 0;
 
 private:
     class IControllerTaskUnitPrivate{
@@ -27,6 +27,7 @@ private:
         return &m_private;
     }
 };
+
 
 template<typename T, bool enabled>
 typename IControllerTaskUnit<T, enabled>::IControllerTaskUnitPrivate

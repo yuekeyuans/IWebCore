@@ -170,6 +170,7 @@ HEADERS += \
     $$PWD/task/IFirstInvokeTaskUnit.h \
     $$PWD/task/IInitializationTaskUnit.h \
     $$PWD/task/ILastInvokeTaskUnit.h \
+    $$PWD/task/IMiddleWareTaskUnit.h \
     $$PWD/task/IStaticInitializeTaskUnit.h \
     $$PWD/task/ITaskManage.h \
     $$PWD/task/ITaskWare.h \
@@ -318,6 +319,7 @@ SOURCES += \
     $$PWD/task/IFirstInvokeTaskUnit.cpp \
     $$PWD/task/IInitializationTaskUnit.cpp \
     $$PWD/task/ILastInvokeTaskUnit.cpp \
+    $$PWD/task/IMiddleWareTaskUnit.cpp \
     $$PWD/task/IStaticInitializeTaskUnit.cpp \
     $$PWD/task/ITaskManage.cpp \
     $$PWD/task/ITaskWare.cpp \

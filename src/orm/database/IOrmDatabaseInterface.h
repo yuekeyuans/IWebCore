@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
+#include "orm/IOrmManage.h"
 #include "orm/database/IOrmDatabaseWare.h"
 #include "orm/pp/IOrmPreProcessor.h"
 #include "task/IInitializationTaskUnit.h"
