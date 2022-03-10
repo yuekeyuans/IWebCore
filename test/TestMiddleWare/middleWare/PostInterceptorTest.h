@@ -11,4 +11,3 @@ public:
     virtual bool match(IRequest& request, IResponse& response) final;
     virtual bool action(IRequest& request, IResponse& response) final;
 };
-
