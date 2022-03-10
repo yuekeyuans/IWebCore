@@ -7,10 +7,17 @@
 
 $PackageWebCoreBegin
 
+//namespace IHttpProcessorHelper{
+//    bool preIntercept(IRequest& request, IResponse& response);
+//    bool preProcess(IRequest& request, IResponse& repsonse);
+
+//    bool postProcess(IRequest& request, IResponse& response);
+//    bool postIntercept(IRequest& request, IResponse& response);
+//}
+
 IHttpProcesser::IHttpProcesser(qintptr handle)
     :handle(handle)
 {
-
 }
 
 // TODO: 刚刚看了一下，如果要实现 长连接，下面的模型需要再分离， 即把 socket 的输入输出和 处理函数函数分离，

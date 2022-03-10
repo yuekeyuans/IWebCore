@@ -175,6 +175,56 @@ IStatusFunctionNode *IControllerManage::getStatusFunction(IHttpStatus status)
     return nullptr;
 }
 
+bool IControllerManage::preIntercept(IRequest &request, IResponse &response)
+{
+    auto inst = instance();
+    for(auto obj : inst->m_preInterceptors){
+        if(obj->match(request, response)
+            && obj->action(request, response)){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool IControllerManage::postIntercept(IRequest &request, IResponse &response)
+{
+    auto inst = instance();
+    for(auto obj : inst->m_postInterceptors){
+        if(obj->match(request, response)
+            && obj->action(request, response)){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool IControllerManage::preProcess(IRequest &request, IResponse &response)
+{
+    auto inst = instance();
+    for(auto obj : inst->m_preProcessors){
+        if(obj->match(request, response)
+            && obj->action(request, response)){
+            continue;
+//            return true;
+        }
+    }
+    return true;
+}
+
+bool IControllerManage::postProcess(IRequest &request, IResponse &response)
+{
+    auto inst = instance();
+    for(auto obj : inst->m_postProcessors){
+        if(obj->match(request, response)
+            && obj->action(request, response)){
+            continue;
+            //            return true;
+        }
+    }
+    return true;
+}
+
 QVector<IUrlFunctionNode *> IControllerManage::queryFunctionNodes(IControllerRouteNode *parentNode,
                                                              const QStringList &fragments, IHttpMethod method)
 {

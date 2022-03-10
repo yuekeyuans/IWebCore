@@ -41,8 +41,14 @@ public:
     static void travalPrintUrlTree();
     static QString queryPathRegValidator(const QString& path);
     static ValidatorFun queryPathFunValidator(const QString& path);
+
     static IUrlFunctionNode* getUrlFunction(IRequest& request);
     static IStatusFunctionNode* getStatusFunction(IHttpStatus status);
+
+    static bool preIntercept(IRequest& request, IResponse& response);
+    static bool postIntercept(IRequest& request, IResponse& response);
+    static bool preProcess(IRequest& request, IResponse& response);
+    static bool postProcess(IRequest& request, IResponse& response);
 
 private:
     static QVector<IUrlFunctionNode*> queryFunctionNodes(IControllerRouteNode* parentNode, const QStringList& fragments, IHttpMethod method);

@@ -4,7 +4,6 @@ PostInterceptorTest::PostInterceptorTest()
 {
 }
 
-
 bool PostInterceptorTest::match(IRequest &request, IResponse &response)
 {
     Q_UNUSED(request)
