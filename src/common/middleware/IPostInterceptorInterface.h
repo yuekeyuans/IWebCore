@@ -19,6 +19,7 @@ public:
     virtual void task() final;
 };
 
+
 template<typename T, bool enabled>
 void IPostInterceptorInterface<T, enabled>::task()
 {
@@ -26,7 +27,7 @@ void IPostInterceptorInterface<T, enabled>::task()
         static std::once_flag flag;
         std::call_once(flag, [](){
             auto inst = T::instance();
-            IControllerManage::registerInterceptor(inst);
+            IControllerManage::registerPostInterceptor(inst);
         });
     }
 }

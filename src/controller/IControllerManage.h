@@ -32,11 +32,13 @@ public:
     static void registerPathValidator(const QString& name, const QString& regexp);
     static void registerPathValidator(const QString& name, ValidatorFun fun);
 
-    static void registerProcessor(IProcessorWare* middleWare);
-    static void registerInterceptor(IInterceptorWare* middleWare);
+    // TODO: 这里需要考虑添加到 global 和 local 的两种情形，之后添加上来，作为 AOP 的一部分。
+    static void registerPreProcessor(IProcessorWare* middleWare);
+    static void registerPostProcessor(IProcessorWare* middleWare);
+    static void registerPreInterceptor(IInterceptorWare* middleWare);
+    static void registerPostInterceptor(IInterceptorWare* middleWare);
 
     static void travalPrintUrlTree();
-
     static QString queryPathRegValidator(const QString& path);
     static ValidatorFun queryPathFunValidator(const QString& path);
     static IUrlFunctionNode* getUrlFunction(IRequest& request);
@@ -56,8 +58,11 @@ private:
     QMap<QString, QString> m_pathRegValidators;
     QMap<QString, ValidatorFun> m_pathFunValidators;
 
-    QVector<IProcessorWare*> m_processors;
-    QVector<IInterceptorWare*> m_interceptors;
+    QVector<IProcessorWare*> m_preProcessors;
+    QVector<IProcessorWare*> m_postProcessors;
+
+    QVector<IInterceptorWare*> m_preInterceptors;
+    QVector<IInterceptorWare*> m_postInterceptors;
 };
 
 $PackageWebCoreEnd

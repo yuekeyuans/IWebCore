@@ -91,16 +91,28 @@ void IControllerManage::registerPathValidator(const QString &name, ValidatorFun 
     inst->m_pathFunValidators[name] = fun;
 }
 
-void IControllerManage::registerProcessor(IProcessorWare *middleWare)
+void IControllerManage::registerPreProcessor(IProcessorWare *middleWare)
 {
     auto inst = instance();
-    inst->m_processors.append(middleWare);
+    inst->m_preProcessors.append(middleWare);
 }
 
-void IControllerManage::registerInterceptor(IInterceptorWare *middleWare)
+void IControllerManage::registerPostProcessor(IProcessorWare *middleWare)
 {
     auto inst = instance();
-    inst->m_interceptors.append(middleWare);
+    inst->m_postProcessors.append(middleWare);
+}
+
+void IControllerManage::registerPreInterceptor(IInterceptorWare *middleWare)
+{
+    auto inst = instance();
+    inst->m_preInterceptors.append(middleWare);
+}
+
+void IControllerManage::registerPostInterceptor(IInterceptorWare *middleWare)
+{
+    auto inst = instance();
+    inst->m_postInterceptors.append(middleWare);
 }
 
 void IControllerManage::travalPrintUrlTree()
