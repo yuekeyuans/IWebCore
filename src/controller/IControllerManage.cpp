@@ -203,10 +203,8 @@ bool IControllerManage::preProcess(IRequest &request, IResponse &response)
 {
     auto inst = instance();
     for(auto obj : inst->m_preProcessors){
-        if(obj->match(request, response)
-            && obj->action(request, response)){
-            continue;
-//            return true;
+        if(obj->match(request, response)){
+            obj->action(request, response);
         }
     }
     return true;
@@ -216,10 +214,8 @@ bool IControllerManage::postProcess(IRequest &request, IResponse &response)
 {
     auto inst = instance();
     for(auto obj : inst->m_postProcessors){
-        if(obj->match(request, response)
-            && obj->action(request, response)){
-            continue;
-            //            return true;
+        if(obj->match(request, response)){
+            obj->action(request, response);
         }
     }
     return true;
