@@ -13,6 +13,7 @@ template<typename T, bool enabled=true>
 public:
     IPostInterceptorInterface() = default;
 
+    virtual QString name() override = 0;
     virtual bool match(IRequest& request, IResponse& response) override = 0;
     virtual bool action(IRequest& request, IResponse& response) override = 0;
 

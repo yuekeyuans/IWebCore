@@ -4,7 +4,7 @@
 
 class PostInterceptorTest : public IPostInterceptorInterface<PostInterceptorTest>
 {
-    $UseInstance(PostInterceptorTest)
+    $AsMiddleWare(PostInterceptorTest)
 public:
     PostInterceptorTest();
 

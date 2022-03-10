@@ -46,6 +46,7 @@ HEADERS += \
     $$PWD/common/argument/IArgumentParserInterface.h \
     $$PWD/common/middleware/IInterceptorWare.h \
     $$PWD/common/middleware/IMiddleWare.h \
+    $$PWD/common/middleware/IMiddleWarePreProcessor.h \
     $$PWD/common/middleware/IPostInterceptorInterface.h \
     $$PWD/common/middleware/IPostProcessorInterface.h \
     $$PWD/common/middleware/IPreInterceptorInterface.h \

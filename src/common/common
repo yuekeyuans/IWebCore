@@ -16,6 +16,7 @@
 #include "common/response/IResponseWare.h"
 #include "common/response/IResponseWareRaw.h"
 
+#include "common/middleware/IMiddleWarePreProcessor.h"
 #include "common/middleware/IPostInterceptorInterface.h"
 #include "common/middleware/IPostProcessorInterface.h"
 #include "common/middleware/IPreInterceptorInterface.h"

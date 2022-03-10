@@ -4,6 +4,11 @@ PostInterceptorTest::PostInterceptorTest()
 {
 }
 
+QString PostInterceptorTest::name()
+{
+
+}
+
 bool PostInterceptorTest::match(IRequest &request, IResponse &response)
 {
     Q_UNUSED(request)

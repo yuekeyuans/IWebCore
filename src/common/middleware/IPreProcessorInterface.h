@@ -13,6 +13,7 @@ class IPreProcessorInterface : public IProcessorWare, public IMiddleWareTaskUnit
 public:
     IPreProcessorInterface() = default;
 
+    virtual QString name() override = 0;
     virtual bool match(IRequest& request, IResponse& response) override = 0;
     virtual bool action(IRequest& request, IResponse& response) override = 0;
 
