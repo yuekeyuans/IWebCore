@@ -18,15 +18,14 @@ class IHttpSocketManage
 {
     $UseInstance(IHttpSocketManage)
 private:
-    IHttpSocketManage();
+    IHttpSocketManage() = default;
 
 public:
     static void addSocket(qintptr handle);
 
     static bool interceptStatusCode(IRequest& request, IResponse& response);
 
-    static void handleRequest(IRequest& request, IResponse& response);
-    static void handleOptionsRequest(IRequest& request, IResponse& response);
+//    static void handleOptionsRequest(IRequest& request, IResponse& response);
 
     /// 当 response 解析产生错误时调用
     static void processResponseError(IResponse& response, QTcpSocket** socket);

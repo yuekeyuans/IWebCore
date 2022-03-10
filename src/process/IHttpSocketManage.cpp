@@ -12,10 +12,6 @@
 
 $PackageWebCoreBegin
 
-IHttpSocketManage::IHttpSocketManage()
-{
-}
-
 void IHttpSocketManage::addSocket(qintptr handle)
 {
     auto runable = new IHttpProcesser(handle);
@@ -31,60 +27,60 @@ bool IHttpSocketManage::interceptStatusCode(IRequest &request, IResponse &respon
     return false;
 }
 
-void IHttpSocketManage::handleRequest(IRequest &request, IResponse &response)
-{
-    if(request.method() == IHttpMethod::OPTIONS){
-        return handleOptionsRequest(request, response);
-    }
+//void IHttpSocketManage::handleRequest(IRequest &request, IResponse &response)
+//{
+//    if(request.method() == IHttpMethod::OPTIONS){
+//        return handleOptionsRequest(request, response);
+//    }
 
-    auto function = IControllerManage::getUrlFunction(request);
-    if(function == nullptr){
-        request.setInvalid(IHttpStatus::NOT_FOND_404, request.url() + " " + IHttpMethodHelper::toString(request.method()) +  " has no function to handle");
-        return;
-    }
+//    auto function = IControllerManage::getUrlFunction(request);
+//    if(function == nullptr){
+//        request.setInvalid(IHttpStatus::NOT_FOND_404, request.url() + " " + IHttpMethodHelper::toString(request.method()) +  " has no function to handle");
+//        return;
+//    }
 
-    IHttpRunner::runUrlFunction(request, response, function);
-}
+//    IHttpRunner::runUrlFunction(request, response, function);
+//}
 
-void IHttpSocketManage::handleOptionsRequest(IRequest &request, IResponse &response)
-{
-    QStringList options;
-    options.append("OPTIONS");
+//void IHttpSocketManage::handleOptionsRequest(IRequest &request, IResponse &response)
+//{
+//    QStringList options;
+//    options.append("OPTIONS");
 
-    // the origin is equal to OPTIONS
-    auto raw = request.getRaw();
-    auto origin = raw->m_method;
+//    // the origin is equal to OPTIONS
+//    auto raw = request.getRaw();
+//    auto origin = raw->m_method;
 
-    raw->m_method = IHttpMethod::GET;
-    if(IControllerManage::getUrlFunction(request) != nullptr){
-        options.append("GET");
-        options.append("HEAD");
-    }
+//    raw->m_method = IHttpMethod::GET;
+//    if(IControllerManage::getUrlFunction(request) != nullptr){
+//        options.append("GET");
+//        options.append("HEAD");
+//    }
 
-    raw->m_method = IHttpMethod::PUT;
-    if(IControllerManage::getUrlFunction(request) != nullptr){
-        options.append("PUT");
-    }
+//    raw->m_method = IHttpMethod::PUT;
+//    if(IControllerManage::getUrlFunction(request) != nullptr){
+//        options.append("PUT");
+//    }
 
-    raw->m_method = IHttpMethod::POST;
-    if(IControllerManage::getUrlFunction(request) != nullptr){
-        options.append("POST");
-    }
+//    raw->m_method = IHttpMethod::POST;
+//    if(IControllerManage::getUrlFunction(request) != nullptr){
+//        options.append("POST");
+//    }
 
-    raw->m_method = IHttpMethod::DELETED;
-    if(IControllerManage::getUrlFunction(request) != nullptr){
-        options.append("DELETE");
-    }
+//    raw->m_method = IHttpMethod::DELETED;
+//    if(IControllerManage::getUrlFunction(request) != nullptr){
+//        options.append("DELETE");
+//    }
 
-    raw->m_method = IHttpMethod::PATCH;
-    if(IControllerManage::getUrlFunction(request) != nullptr){
-        options.append("PATCH");
-    }
+//    raw->m_method = IHttpMethod::PATCH;
+//    if(IControllerManage::getUrlFunction(request) != nullptr){
+//        options.append("PATCH");
+//    }
 
-    raw->m_method = origin;
+//    raw->m_method = origin;
 
-    return IHttpRunner::runOptionsFunction(request, response, options);
-}
+//    return IHttpRunner::runOptionsFunction(request, response, options);
+//}
 
 void IHttpSocketManage::processResponseError(IResponse &response, QTcpSocket **socket)
 {

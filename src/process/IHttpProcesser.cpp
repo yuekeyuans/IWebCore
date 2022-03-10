@@ -4,9 +4,16 @@
 #include "base/ITicTacUtil.h"
 #include "common/net/IRequest.h"
 #include "common/net/IResponse.h"
+#include "common/net/impl/IReqRespRaw.h"
 #include "controller/IControllerManage.h"
+#include "process/IHttpRunner.h"
 
 $PackageWebCoreBegin
+
+namespace IHttpProcessorHelper {
+    static void handleRequest(IRequest& request, IResponse& response);
+    static void handleOptionsRequest(IRequest& request, IResponse& response);
+}
 
 IHttpProcesser::IHttpProcesser(qintptr handle)
     :handle(handle)
@@ -36,7 +43,7 @@ void IHttpProcesser::run()
         }
         IControllerManage::preProcess(request, response);
 
-        IHttpSocketManage::handleRequest(request, response);
+        IHttpProcessorHelper::handleRequest(request, response);
 
         if(IControllerManage::postIntercept(request, response)){       // "current response is been post intercepted";
             break;
@@ -65,6 +72,54 @@ bool IHttpProcesser::isSocketAlive(IRequest &request)
     return false;
 }
 
+void IHttpProcessorHelper::handleRequest(IRequest& request, IResponse& response)
+{
+    if(request.method() == IHttpMethod::OPTIONS){
+        return handleOptionsRequest(request, response);
+    }
+
+    auto function = IControllerManage::getUrlFunction(request);
+    if(function == nullptr){
+        request.setInvalid(IHttpStatus::NOT_FOND_404, request.url() + " " + IHttpMethodHelper::toString(request.method()) +  " has no function to handle");
+        return;
+    }
+
+    IHttpRunner::runUrlFunction(request, response, function);
+}
+
+void IHttpProcessorHelper::handleOptionsRequest(IRequest& request, IResponse& response)
+{
+    static QMap<IHttpMethod, QString> mappings = {
+        {IHttpMethod::GET, "GET"},
+        {IHttpMethod::PUT, "PUT"},
+        {IHttpMethod::POST, "POST"},
+        {IHttpMethod::DELETED, "DELETE"},
+        {IHttpMethod::PATCH, "PATCH"},
+    };
+    static QList<IHttpMethod> keys = mappings.keys();
+
+    QStringList options;
+
+    auto raw = request.getRaw();
+    auto origin = raw->m_method;
+    for(auto key : keys){
+        raw->m_method = key;
+        if(IControllerManage::getUrlFunction(request) != nullptr){
+            options.append(mappings[key]);
+        }
+    }
+
+    if(options.contains("GET")){
+        options.append("HEAD");
+    }
+    if(!options.empty()){
+        options.append("OPTIONS");
+    }
+
+    raw->m_method = origin;
+
+    return IHttpRunner::runOptionsFunction(request, response, options);
+}
 
 $PackageWebCoreEnd
 
