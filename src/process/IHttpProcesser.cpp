@@ -89,17 +89,16 @@ void IHttpProcessorHelper::handleRequest(IRequest& request, IResponse& response)
 
 void IHttpProcessorHelper::handleOptionsRequest(IRequest& request, IResponse& response)
 {
-    static QMap<IHttpMethod, QString> mappings = {
+    static const QMap<IHttpMethod, const char* const> mappings = {
         {IHttpMethod::GET, "GET"},
         {IHttpMethod::PUT, "PUT"},
         {IHttpMethod::POST, "POST"},
         {IHttpMethod::DELETED, "DELETE"},
         {IHttpMethod::PATCH, "PATCH"},
     };
-    static QList<IHttpMethod> keys = mappings.keys();
+    static const QList<IHttpMethod> keys = mappings.keys();
 
     QStringList options;
-
     auto raw = request.getRaw();
     auto origin = raw->m_method;
     for(auto key : keys){
