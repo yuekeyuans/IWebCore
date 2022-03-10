@@ -5,15 +5,15 @@
 
 $PackageWebCoreBegin
 
-bool IRequestErrorPreIntercept::match(const IRequest &request)
-{
-    return !request.valid();
-}
+//bool IRequestErrorPreIntercept::match(const IRequest &request)
+//{
+//    return !request.valid();
+//}
 
-void IRequestErrorPreIntercept::intercept(IRequest &request, IResponse & response)
-{
-    Q_UNUSED(request)
-    response.respond();
-}
+//void IRequestErrorPreIntercept::intercept(IRequest &request, IResponse & response)
+//{
+//    Q_UNUSED(request)
+//    response.respond();
+//}
 
 $PackageWebCoreEnd

@@ -3,10 +3,6 @@
 #include "base/IMetaUtil.h"
 #include "base/ISocketUtil.h"
 #include "base/ITicTacUtil.h"
-#include "common/IRequestPreInterceptInterface.h"
-#include "common/IRequestPreProcessInterface.h"
-#include "common/IResponsePostInterceptInterface.h"
-#include "common/IResponsePostProcessInterface.h"
 #include "common/net/IResponse.h"
 #include "common/net/IRequest.h"
 #include "common/net/impl/IReqRespRaw.h"
@@ -18,63 +14,12 @@ $PackageWebCoreBegin
 
 IHttpSocketManage::IHttpSocketManage()
 {
-    do{
-        static std::once_flag flag;
-        std::call_once(flag, [&](){
-            preIntercepters.append(IRequestErrorPreIntercept::instance());
-        });
-    }while(0);
 }
 
 void IHttpSocketManage::addSocket(qintptr handle)
 {
     auto runable = new IHttpProcesser(handle);
     instance()->pool.start(runable);
-}
-
-bool IHttpSocketManage::preIntercept(IRequest &request, IResponse &response)
-{
-    for(auto intercept : instance()->preIntercepters){
-        if(intercept->match(request)){
-            intercept->intercept(request, response);
-            return true;
-        }
-    }
-    return false;
-}
-
-bool IHttpSocketManage::postIntercept(IRequest &request, IResponse &response)
-{
-    for(auto intercept : instance()->postIntercepters){
-        if(intercept->match(request, response)){
-            intercept->intercept(request, response);
-            return true;
-        }
-    }
-    return false;
-}
-
-/// 请求的预处理，比如 比如数据的校验， 解压， 头部的添加等内容
-void IHttpSocketManage::preProcess(IRequest &request, IResponse &response)
-{
-    for(auto processor : instance()->preProcessors){
-        if(!request.valid()){
-            return;
-        }
-
-        if(processor->match(request)){
-            processor->process(request, response);
-        }
-    }
-}
-
-void IHttpSocketManage::postProcess(IRequest &request, IResponse &response)
-{
-    for(auto processor : instance()->postProcessors){
-        if(processor->match(request, response)){
-            processor->process(request, response);
-        }
-    }
 }
 
 bool IHttpSocketManage::interceptStatusCode(IRequest &request, IResponse &response)
@@ -84,26 +29,6 @@ bool IHttpSocketManage::interceptStatusCode(IRequest &request, IResponse &respon
         IHttpRunner::runStatusFunction(request, response, function);
     }
     return false;
-}
-
-void IHttpSocketManage::registerPreInterceptor(IRequestPreInterceptorInterface *interceptor)
-{
-    instance()->preIntercepters.append(interceptor);
-}
-
-void IHttpSocketManage::registerPreProcesser(IRequestPreProcessInterface *processor)
-{
-    instance()->preProcessors.append(processor);
-}
-
-void IHttpSocketManage::registerPostProcessor(IResponsePostProcessInterface *processor)
-{
-    instance()->postProcessors.append(processor);
-}
-
-void IHttpSocketManage::registerPostInterceptor(IResponsePostInterceptInterface *interceptor)
-{
-    instance()->postIntercepters.append(interceptor);
 }
 
 void IHttpSocketManage::handleRequest(IRequest &request, IResponse &response)

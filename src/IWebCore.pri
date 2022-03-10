@@ -38,10 +38,6 @@ HEADERS += \
     $$PWD/biscuits/IHttpStatus.h \
     $$PWD/common/IInterceptInterface.h \
     $$PWD/common/IManage.h \
-    $$PWD/common/IRequestPreInterceptInterface.h \
-    $$PWD/common/IRequestPreProcessInterface.h \
-    $$PWD/common/IResponsePostInterceptInterface.h \
-    $$PWD/common/IResponsePostProcessInterface.h \
     $$PWD/common/application/IWebApplication.h \
     $$PWD/common/argument/IArgumentParserInterface.h \
     $$PWD/common/middleware/IInterceptorWare.h \
@@ -81,16 +77,6 @@ HEADERS += \
     $$PWD/common/support/IRegisterMetaTypeUnit.h \
     $$PWD/common/support/IRegisterTypeUnit.h \
     $$PWD/common/support/IThreadUnit.h \
-#    $$PWD/common/task/IArgumentParserUnit.h \
-#    $$PWD/common/task/IConfigurationTaskUnit.h \
-#    $$PWD/common/task/IControllerTaskUnit.h \
-#    $$PWD/common/task/IFirstInvokeTaskUnit.h \
-#    $$PWD/common/task/IInitializationTaskUnit.h \
-#    $$PWD/common/task/ILastInvokeTaskUnit.h \
-#    $$PWD/common/task/IStaticInitializeTaskUnit.h \
-#    $$PWD/common/task/ITaskManage.h \
-#    $$PWD/common/task/ITaskWare.h \
-#    $$PWD/common/task/defaultTask/IBluePrintControllerTask.h \
     $$PWD/common/type/ITypeManage.h \
     $$PWD/configuration/IConfigurationInstancePreProcessor.h \
     $$PWD/configuration/IConfigurationInterface.h \
@@ -211,10 +197,6 @@ SOURCES += \
     $$PWD/biscuits/IHttpStatus.cpp \
     $$PWD/common/IInterceptInterface.cpp \
     $$PWD/common/IManage.cpp \
-    $$PWD/common/IRequestPreInterceptInterface.cpp \
-    $$PWD/common/IRequestPreProcessInterface.cpp \
-    $$PWD/common/IResponsePostInterceptInterface.cpp \
-    $$PWD/common/IResponsePostProcessInterface.cpp \
     $$PWD/common/application/IWebApplication.cpp \
     $$PWD/common/argument/IArgumentParserInterface.cpp \
     $$PWD/common/middleware/IInterceptorWare.cpp \
@@ -249,16 +231,6 @@ SOURCES += \
     $$PWD/common/support/IRegisterMetaTypeUnit.cpp \
     $$PWD/common/support/IRegisterTypeUnit.cpp \
     $$PWD/common/support/IThreadUnit.cpp \
-#    $$PWD/common/task/IArgumentParserUnit.cpp \
-#    $$PWD/common/task/IConfigurationTaskUnit.cpp \
-#    $$PWD/common/task/IControllerTaskUnit.cpp \
-#    $$PWD/common/task/IFirstInvokeTaskUnit.cpp \
-#    $$PWD/common/task/IInitializationTaskUnit.cpp \
-#    $$PWD/common/task/ILastInvokeTaskUnit.cpp \
-#    $$PWD/common/task/IStaticInitializeTaskUnit.cpp \
-#    $$PWD/common/task/ITaskManage.cpp \
-#    $$PWD/common/task/ITaskWare.cpp \
-#    $$PWD/common/task/defaultTask/IBluePrintControllerTask.cpp \
     $$PWD/common/type/ITypeManage.cpp \
     $$PWD/configuration/IConfigurationInterface.cpp \
     $$PWD/configuration/IConfigurationManage.cpp \

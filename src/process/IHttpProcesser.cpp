@@ -4,16 +4,9 @@
 #include "base/ITicTacUtil.h"
 #include "common/net/IRequest.h"
 #include "common/net/IResponse.h"
+#include "controller/IControllerManage.h"
 
 $PackageWebCoreBegin
-
-//namespace IHttpProcessorHelper{
-//    bool preIntercept(IRequest& request, IResponse& response);
-//    bool preProcess(IRequest& request, IResponse& repsonse);
-
-//    bool postProcess(IRequest& request, IResponse& response);
-//    bool postIntercept(IRequest& request, IResponse& response);
-//}
 
 IHttpProcesser::IHttpProcesser(qintptr handle)
     :handle(handle)
@@ -38,21 +31,17 @@ void IHttpProcesser::run()
     }
 
     do {
-        // 再拦截请求，比如说静态路由
-        if( IHttpSocketManage::preIntercept(request, response)){
+        if( IControllerManage::preIntercept(request, response)){
             break;
         }
+        IControllerManage::preProcess(request, response);
 
-        // 预处理请求.
-        IHttpSocketManage::preProcess(request, response);
-
-        // 调用函数处理代码
         IHttpSocketManage::handleRequest(request, response);
 
-        // 后 自定义拦截
-        if(IHttpSocketManage::postIntercept(request, response)){       // "current response is been post intercepted";
+        if(IControllerManage::postIntercept(request, response)){       // "current response is been post intercepted";
             break;
         }
+        IControllerManage::postProcess(request, response);
 
         // 拦截 socket
         if(!response.valid() || response.status() != IHttpStatus::OK_200){
@@ -61,8 +50,6 @@ void IHttpProcesser::run()
             }
         }
 
-        // 后处理请求
-        IHttpSocketManage::postProcess(request, response);
     } while(0);
 
     // 响应

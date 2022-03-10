@@ -23,18 +23,7 @@ private:
 public:
     static void addSocket(qintptr handle);
 
-    static bool preIntercept(IRequest&request, IResponse& response);
-    static bool postIntercept(IRequest&request, IResponse& response);
-
-    static void preProcess(IRequest& request, IResponse& response);
-    static void postProcess(IRequest& request, IResponse& response);
-
     static bool interceptStatusCode(IRequest& request, IResponse& response);
-
-    static void registerPreInterceptor(IRequestPreInterceptorInterface *interceptor);
-    static void registerPreProcesser(IRequestPreProcessInterface* processor);
-    static void registerPostProcessor(IResponsePostProcessInterface* processor);
-    static void registerPostInterceptor(IResponsePostInterceptInterface *interceptor);
 
     static void handleRequest(IRequest& request, IResponse& response);
     static void handleOptionsRequest(IRequest& request, IResponse& response);
