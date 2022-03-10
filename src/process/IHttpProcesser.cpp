@@ -10,10 +10,6 @@
 
 $PackageWebCoreBegin
 
-namespace IHttpProcessorHelper {
-    static void handleRequest(IRequest& request, IResponse& response);
-}
-
 IHttpProcesser::IHttpProcesser(qintptr handle)
     :handle(handle)
 {
@@ -42,7 +38,7 @@ void IHttpProcesser::run()
         }
         IControllerManage::preProcess(request, response);
 
-        IHttpProcessorHelper::handleRequest(request, response);
+        IHttpRunner::handleRequest(request, response);
 
         if(IControllerManage::postIntercept(request, response)){
             break;
@@ -69,22 +65,6 @@ bool IHttpProcesser::isSocketAlive(IRequest &request)
 {
     Q_UNUSED(request)
     return false;
-}
-
-void IHttpProcessorHelper::handleRequest(IRequest& request, IResponse& response)
-{
-    if(request.method() == IHttpMethod::OPTIONS){
-        return IHttpRunner::runOptionsFunction(request, response);
-    }
-
-    auto function = IControllerManage::getUrlFunction(request);
-    if(function == nullptr){
-        QString info = request.url() + " " + IHttpMethodHelper::toString(request.method()) + " has no function to handle";
-        request.setInvalid(IHttpStatus::NOT_FOND_404, info);
-        return;
-    }
-
-    IHttpRunner::runUrlFunction(request, response, function);
 }
 
 $PackageWebCoreEnd

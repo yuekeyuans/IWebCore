@@ -8,10 +8,6 @@ $PackageWebCoreBegin
 
 class IResponse;
 class IRequest;
-class IResponsePostProcessInterface;
-class IResponsePostInterceptInterface;
-class IRequestPreInterceptorInterface;
-class IRequestPreProcessInterface;
 class IStatusPageInterface;
 
 class IHttpSocketManage
@@ -25,20 +21,12 @@ public:
 
     static bool interceptStatusCode(IRequest& request, IResponse& response);
 
-//    static void handleOptionsRequest(IRequest& request, IResponse& response);
+    static void processResponseError(IResponse& response, QTcpSocket** socket);     /// 当 response 解析产生错误时调用
 
-    /// 当 response 解析产生错误时调用
-    static void processResponseError(IResponse& response, QTcpSocket** socket);
-
-    // 当 没有发现处理函数时调用
-    static void processResponseNotFound(IResponse& response, QTcpSocket** socket);
+    static void processResponseNotFound(IResponse& response, QTcpSocket** socket);      // 当 没有发现处理函数时调用
 
 private:
     QThreadPool pool;
-    QVector<IRequestPreInterceptorInterface *> preIntercepters;
-    QVector<IRequestPreProcessInterface *> preProcessors;
-    QVector<IResponsePostInterceptInterface *> postIntercepters;
-    QVector<IResponsePostProcessInterface*> postProcessors;
 };
 
 $PackageWebCoreEnd

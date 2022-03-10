@@ -16,6 +16,8 @@ private:
     IHttpRunner() = default;
 
 public:
+    static void handleRequest(IRequest& request, IResponse& response);
+
     static void runStatusFunction(IRequest& request, IResponse& response, IStatusFunctionNode* function);
     static void runUrlFunction(IRequest& request, IResponse& response, IUrlFunctionNode* function);
     static void runOptionsFunction(IRequest& request, IResponse& response);

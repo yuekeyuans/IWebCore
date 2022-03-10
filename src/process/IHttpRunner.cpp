@@ -11,6 +11,22 @@
 
 $PackageWebCoreBegin
 
+void IHttpRunner::handleRequest(IRequest &request, IResponse &response)
+{
+    if(request.method() == IHttpMethod::OPTIONS){
+        return IHttpRunner::runOptionsFunction(request, response);
+    }
+
+    auto function = IControllerManage::getUrlFunction(request);
+    if(function == nullptr){
+        QString info = request.url() + " " + IHttpMethodHelper::toString(request.method()) + " has no function to handle";
+        request.setInvalid(IHttpStatus::NOT_FOND_404, info);
+        return;
+    }
+
+    IHttpRunner::runUrlFunction(request, response, function);
+}
+
 void IHttpRunner::runStatusFunction(IRequest &request, IResponse &response, IStatusFunctionNode *function)
 {
     Q_UNUSED(response)
