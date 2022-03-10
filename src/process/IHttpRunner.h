@@ -18,7 +18,7 @@ private:
 public:
     static void runStatusFunction(IRequest& request, IResponse& response, IStatusFunctionNode* function);
     static void runUrlFunction(IRequest& request, IResponse& response, IUrlFunctionNode* function);
-    static void runOptionsFunction(IRequest& request, IResponse& response, const QStringList& options);
+    static void runOptionsFunction(IRequest& request, IResponse& response);
 };
 
 $PackageWebCoreEnd
