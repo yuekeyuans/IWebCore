@@ -7,6 +7,11 @@
 
 #include "common/node/IUrlFunctionNode.h"
 #include "common/node/IStatusFunctionNode.h"
+
+#include "common/middleware/IMiddleWare.h"
+#include "common/middleware/IInterceptorWare.h"
+#include "common/middleware/IProcessorWare.h"
+
 #include "IControllerRouteNode.h"
 
 $PackageWebCoreBegin
@@ -26,6 +31,9 @@ public:
     static void registerUrlFunctions(const QVector<IUrlFunctionNode>& functionNodes);
     static void registerPathValidator(const QString& name, const QString& regexp);
     static void registerPathValidator(const QString& name, ValidatorFun fun);
+
+    static void registerProcessor(IProcessorWare* middleWare);
+    static void registerInterceptor(IInterceptorWare* middleWare);
 
     static void travalPrintUrlTree();
 
@@ -47,6 +55,9 @@ private:
     QMap<IHttpStatus, IStatusFunctionNode> m_statusMappings;
     QMap<QString, QString> m_pathRegValidators;
     QMap<QString, ValidatorFun> m_pathFunValidators;
+
+    QVector<IProcessorWare*> m_processors;
+    QVector<IInterceptorWare*> m_interceptors;
 };
 
 $PackageWebCoreEnd
