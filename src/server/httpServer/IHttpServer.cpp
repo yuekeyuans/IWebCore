@@ -1,5 +1,5 @@
 ﻿#include "IHttpServer.h"
-#include "process/IHttpSocketManage.h"
+#include "server/httpServer/IHttpServerManage.h"
 
 $PackageWebCoreBegin
 
@@ -37,7 +37,7 @@ void IHttpServer::setPort(int port)
 // 自定义的 事件循环里面，在 Linux 下面是 epoll, 在windows 下面是 IOCP.
 void IHttpServer::incomingConnection(qintptr handle)
 {
-    IHttpSocketManage::addSocket(handle);
+    IHttpServerManage::addSocket(handle);
 }
 
 $PackageWebCoreEnd

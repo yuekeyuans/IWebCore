@@ -1,0 +1,32 @@
+﻿#pragma once
+
+#include "base/IHeaderUtil.h"
+
+$PackageWebCoreBegin
+
+class IRequest;
+class IResponse;
+class IStatusFunctionNode;
+class IUrlFunctionNode;
+
+class IHttpServerRunable : public QRunnable
+{
+public:
+    IHttpServerRunable(qintptr handle);
+
+    virtual void run() final;
+
+private:
+    static void handleRequest(IRequest& request, IResponse& response);
+    static void runStatusFunction(IRequest& request, IResponse& response, IStatusFunctionNode* function);
+    static void runUrlFunction(IRequest& request, IResponse& response, IUrlFunctionNode* function);
+    static void runOptionsFunction(IRequest& request, IResponse& response);
+
+    static bool interceptStatusCode(IRequest& request, IResponse& response);
+
+private:
+    qintptr handle{0};
+    QTcpSocket* socket{nullptr};
+};
+
+$PackageWebCoreEnd

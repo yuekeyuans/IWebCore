@@ -150,6 +150,8 @@ HEADERS += \
     $$PWD/process/support/IRequestErrorPreIntercept.h \
     $$PWD/server/IServerInterface.h \
     $$PWD/server/httpServer/IHttpServer.h \
+    $$PWD/server/httpServer/IHttpServerManage.h \
+    $$PWD/server/httpServer/IHttpServerRunable.h \
     $$PWD/task/IArgumentParserUnit.h \
     $$PWD/task/IConfigurationTaskUnit.h \
     $$PWD/task/IControllerTaskUnit.h \
@@ -285,6 +287,8 @@ SOURCES += \
     $$PWD/process/support/IRequestErrorPreIntercept.cpp \
     $$PWD/server/IServerInterface.cpp \
     $$PWD/server/httpServer/IHttpServer.cpp \
+    $$PWD/server/httpServer/IHttpServerManage.cpp \
+    $$PWD/server/httpServer/IHttpServerRunable.cpp \
     $$PWD/task/IArgumentParserUnit.cpp \
     $$PWD/task/IConfigurationTaskUnit.cpp \
     $$PWD/task/IControllerTaskUnit.cpp \

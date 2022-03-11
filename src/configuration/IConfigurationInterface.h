@@ -31,6 +31,7 @@ private:
     friend class IRegisterInstanceUnit<T, enabled>;
 };
 
+
 template<typename T, bool enabled, const char *groupName>
 void IConfigurationInterface<T, enabled, groupName>::registerToBase() {
     auto inst = T::instance();

@@ -8,6 +8,7 @@ $PackageWebCoreBegin
 class IHttpServer : public IServerInterface, public QTcpServer
 {
     Q_GADGET
+    $UseInstance(IHttpServer)
     $UseConfig(IHttpSever)
 
     $OptionWireDeclare(QString, host, server.host)
