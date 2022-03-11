@@ -9,6 +9,8 @@ class IResponse;
 struct IStatusFunctionNode;
 struct IUrlFunctionNode;
 
+// TODO: 这里需要一个 IRequestErrorPreIntercept 拦截 valid() == false 的情形。
+
 class IHttpServerRunable : public QRunnable
 {
 public:

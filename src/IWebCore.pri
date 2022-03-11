@@ -144,7 +144,6 @@ HEADERS += \
     $$PWD/package/IPackagePreProcessor.h \
     $$PWD/plugin/yaml/IYamlUtil.h \
     $$PWD/plugin/yaml/Yaml.hpp \
-    $$PWD/process/support/IRequestErrorPreIntercept.h \
     $$PWD/server/IServerInterface.h \
     $$PWD/server/httpServer/IHttpServer.h \
     $$PWD/server/httpServer/IHttpServerManage.h \
@@ -278,7 +277,6 @@ SOURCES += \
     $$PWD/orm/tableview/IOrmViewWare.cpp \
     $$PWD/plugin/yaml/IYamlUtil.cpp \
     $$PWD/plugin/yaml/Yaml.cpp \
-    $$PWD/process/support/IRequestErrorPreIntercept.cpp \
     $$PWD/server/IServerInterface.cpp \
     $$PWD/server/httpServer/IHttpServer.cpp \
     $$PWD/server/httpServer/IHttpServerManage.cpp \
@@ -303,9 +301,7 @@ DISTFILES += \
     $$PWD/configuration/configuration \
     $$PWD/controller/controller \
     $$PWD/assertion/assertion \
-#    $$PWD/log/log \
     $$PWD/orm/orm \
-    $$PWD/process/process \
     $$PWD/server/server \
     $$PWD/task/task \
     $$PWD/test/test
