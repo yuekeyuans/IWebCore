@@ -15,7 +15,6 @@ class IHttpServerRunable : public QRunnable
 {
 public:
     IHttpServerRunable(qintptr handle);
-
     virtual void run() final;
 
 private:

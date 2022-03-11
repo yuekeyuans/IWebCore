@@ -112,11 +112,11 @@ QStringList handleOptionsRequest1(IRequest& request, IResponse& response)
 {
     Q_UNUSED(response)
     static const QMap<IHttpMethod, QString> mappings = {
-        {IHttpMethod::GET, "GET"},
-        {IHttpMethod::PUT, "PUT"},
-        {IHttpMethod::POST, "POST"},
-        {IHttpMethod::DELETED, "DELETE"},
-        {IHttpMethod::PATCH, "PATCH"},
+        {IHttpMethod::GET,      "GET"},
+        {IHttpMethod::PUT,      "PUT"},
+        {IHttpMethod::POST,     "POST"},
+        {IHttpMethod::DELETED,  "DELETE"},
+        {IHttpMethod::PATCH,    "PATCH"},
     };
     static const QList<IHttpMethod> keys = mappings.keys();
 
