@@ -14,9 +14,6 @@ public:
     virtual void run() final;
 
 private:
-    bool isSocketAlive(IRequest&);
-
-private:
     qintptr handle{0};
     QTcpSocket* socket{nullptr};
 };

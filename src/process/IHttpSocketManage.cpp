@@ -27,17 +27,5 @@ bool IHttpSocketManage::interceptStatusCode(IRequest &request, IResponse &respon
     return false;
 }
 
-void IHttpSocketManage::processResponseError(IResponse &response, QTcpSocket **socket)
-{
-    Q_UNUSED(response)
-    ISocketUtil::closeTcpSocket(socket);
-}
-
-void IHttpSocketManage::processResponseNotFound(IResponse &response, QTcpSocket **socket)
-{
-    Q_UNUSED(response);
-    Q_UNUSED(socket);
-}
-
 $PackageWebCoreEnd
 

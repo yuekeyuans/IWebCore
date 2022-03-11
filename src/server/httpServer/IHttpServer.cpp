@@ -13,13 +13,12 @@ bool IHttpServer::listen()
     QHostAddress address = host == "any" ? QHostAddress::Any : QHostAddress(host);
     auto result = QTcpServer::listen(address, port);
     if(result){
-        qDebug().noquote() << QString("server started at %1:%2").arg(address.toString()).arg(port) << endl;
+        QString info = QString("server started at %1:%2").arg(address.toString()).arg(port);
+        qDebug().noquote() << info;
     }else{
-        qDebug().noquote() << QString("fail to start server at %1:%2").arg(address.toString()).arg(port) << endl;
+        QString info = QString("fail to start server at %1:%2").arg(address.toString()).arg(port);
+        qDebug().noquote() << info;
     }
-
-    // TODO: 将来在这里可以设置 fd 的各种属性.
-    // auto fd = this->socketDescriptor();
 
     return result;
 }

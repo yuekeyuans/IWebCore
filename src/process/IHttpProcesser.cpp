@@ -16,7 +16,6 @@ IHttpProcesser::IHttpProcesser(qintptr handle)
 }
 
 // TODO: 刚刚看了一下，如果要实现 长连接，下面的模型需要再分离， 即把 socket 的输入输出和 处理函数函数分离，
-// 可以考虑使用异步处理
 void IHttpProcesser::run()
 {
     socket = ISocketUtil::createTcpSocket(handle);
@@ -61,11 +60,6 @@ void IHttpProcesser::run()
     ISocketUtil::closeTcpSocket(&socket);
 }
 
-bool IHttpProcesser::isSocketAlive(IRequest &request)
-{
-    Q_UNUSED(request)
-    return false;
-}
 
 $PackageWebCoreEnd
 

@@ -21,10 +21,6 @@ public:
 
     static bool interceptStatusCode(IRequest& request, IResponse& response);
 
-    static void processResponseError(IResponse& response, QTcpSocket** socket);     /// 当 response 解析产生错误时调用
-
-    static void processResponseNotFound(IResponse& response, QTcpSocket** socket);      // 当 没有发现处理函数时调用
-
 private:
     QThreadPool pool;
 };

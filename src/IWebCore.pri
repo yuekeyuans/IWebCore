@@ -148,9 +148,8 @@ HEADERS += \
     $$PWD/process/private/IHttpRunnerHelper.h \
     $$PWD/process/private/IRequestBeanParamWiredHelper.h \
     $$PWD/process/support/IRequestErrorPreIntercept.h \
-    $$PWD/server/IHttpServer.h \
-    $$PWD/server/IServer.h \
     $$PWD/server/IServerInterface.h \
+    $$PWD/server/httpServer/IHttpServer.h \
     $$PWD/task/IArgumentParserUnit.h \
     $$PWD/task/IConfigurationTaskUnit.h \
     $$PWD/task/IControllerTaskUnit.h \
@@ -284,8 +283,8 @@ SOURCES += \
     $$PWD/process/private/IHttpRunnerHelper.cpp \
     $$PWD/process/private/IRequestBeanParamWiredHelper.cpp \
     $$PWD/process/support/IRequestErrorPreIntercept.cpp \
-    $$PWD/server/IHttpServer.cpp \
     $$PWD/server/IServerInterface.cpp \
+    $$PWD/server/httpServer/IHttpServer.cpp \
     $$PWD/task/IArgumentParserUnit.cpp \
     $$PWD/task/IConfigurationTaskUnit.cpp \
     $$PWD/task/IControllerTaskUnit.cpp \
@@ -309,5 +308,6 @@ DISTFILES += \
 #    $$PWD/log/log \
     $$PWD/orm/orm \
     $$PWD/process/process \
+    $$PWD/server/server \
     $$PWD/task/task \
     $$PWD/test/test

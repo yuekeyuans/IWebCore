@@ -16,7 +16,6 @@ public:
         URL_METHOD_VERSION_INTERCEPT,
         REQUEST_HEAD_INTERCEPT,
         REQUEST_RESOLVE_FINISHED_INTERCEPT,
-
     };
 
     enum FunType{

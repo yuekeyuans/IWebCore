@@ -3,9 +3,13 @@
 #include "common/application/IWebApplication.h"
 
 #include "common/argument/IArgumentParserInterface.h"
+
 #include "common/net/IMultiPart.h"
 #include "common/net/IRequest.h"
 #include "common/net/IResponse.h"
+
+#include "common/cookie/ICookie.h"
+#include "common/session/ISession.h"
 
 #include "common/response/IByteArrayResponse.h"
 #include "common/response/IHtmlResponse.h"
