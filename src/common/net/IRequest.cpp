@@ -4,7 +4,6 @@
 #include "base/IJsonUtil.h"
 #include "base/IXmlUtil.h"
 #include "biscuits/IHttpHeader.h"
-#include "process/IHttpSocketManage.h"
 #include "common/net/impl/IRequestImpl.h"
 #include "common/net/impl/IReqRespRaw.h"
 #include "common/cookie/ICookie.h"

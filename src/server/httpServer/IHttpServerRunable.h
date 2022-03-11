@@ -6,8 +6,8 @@ $PackageWebCoreBegin
 
 class IRequest;
 class IResponse;
-class IStatusFunctionNode;
-class IUrlFunctionNode;
+struct IStatusFunctionNode;
+struct IUrlFunctionNode;
 
 class IHttpServerRunable : public QRunnable
 {

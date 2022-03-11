@@ -8,11 +8,8 @@
 #include "common/net/impl/IReqRespRaw.h"
 #include "common/net/impl/IResponseImpl.h"
 #include "common/response/IResponseWare.h"
-#include "process/IHttpSocketManage.h"
-
 
 $PackageWebCoreBegin
-
 
 IResponse::IResponse()
 {

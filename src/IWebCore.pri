@@ -142,9 +142,9 @@ HEADERS += \
     $$PWD/package/IPackagePreProcessor.h \
     $$PWD/plugin/yaml/IYamlUtil.h \
     $$PWD/plugin/yaml/Yaml.hpp \
-    $$PWD/process/IHttpProcesser.h \
-    $$PWD/process/IHttpRunner.h \
-    $$PWD/process/IHttpSocketManage.h \
+#    $$PWD/process/IHttpProcesser.h \
+#    $$PWD/process/IHttpRunner.h \
+#    $$PWD/process/IHttpSocketManage.h \
     $$PWD/process/private/IHttpRunnerHelper.h \
     $$PWD/process/private/IRequestBeanParamWiredHelper.h \
     $$PWD/process/support/IRequestErrorPreIntercept.h \
@@ -279,9 +279,9 @@ SOURCES += \
     $$PWD/orm/tableview/IOrmViewWare.cpp \
     $$PWD/plugin/yaml/IYamlUtil.cpp \
     $$PWD/plugin/yaml/Yaml.cpp \
-    $$PWD/process/IHttpProcesser.cpp \
-    $$PWD/process/IHttpRunner.cpp \
-    $$PWD/process/IHttpSocketManage.cpp \
+#    $$PWD/process/IHttpProcesser.cpp \
+#    $$PWD/process/IHttpRunner.cpp \
+#    $$PWD/process/IHttpSocketManage.cpp \
     $$PWD/process/private/IHttpRunnerHelper.cpp \
     $$PWD/process/private/IRequestBeanParamWiredHelper.cpp \
     $$PWD/process/support/IRequestErrorPreIntercept.cpp \
