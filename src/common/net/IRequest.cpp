@@ -7,8 +7,8 @@
 #include "process/IHttpSocketManage.h"
 #include "common/net/impl/IRequestImpl.h"
 #include "common/net/impl/IReqRespRaw.h"
-#include "common/net/ICookie.h"
-#include "common/net/ISession.h"
+#include "common/cookie/ICookie.h"
+#include "common/session/ISession.h"
 
 $PackageWebCoreBegin
 

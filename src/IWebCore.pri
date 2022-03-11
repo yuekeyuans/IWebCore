@@ -40,6 +40,7 @@ HEADERS += \
     $$PWD/common/IManage.h \
     $$PWD/common/application/IWebApplication.h \
     $$PWD/common/argument/IArgumentParserInterface.h \
+    $$PWD/common/cookie/ICookie.h \
     $$PWD/common/middleware/IInterceptorWare.h \
     $$PWD/common/middleware/IMiddleWare.h \
     $$PWD/common/middleware/IMiddleWarePreProcessor.h \
@@ -48,11 +49,9 @@ HEADERS += \
     $$PWD/common/middleware/IPreInterceptorInterface.h \
     $$PWD/common/middleware/IPreProcessorInterface.h \
     $$PWD/common/middleware/IProcessorWare.h \
-    $$PWD/common/net/ICookie.h \
     $$PWD/common/net/IMultiPart.h \
     $$PWD/common/net/IRequest.h \
     $$PWD/common/net/IResponse.h \
-    $$PWD/common/net/ISession.h \
     $$PWD/common/net/impl/IReqRespRaw.h \
     $$PWD/common/net/impl/IRequestImpl.h \
     $$PWD/common/net/impl/IResponseImpl.h \
@@ -71,6 +70,7 @@ HEADERS += \
     $$PWD/common/response/IResponseWareRaw.h \
     $$PWD/common/response/IStatusCodeResponse.h \
     $$PWD/common/response/response \
+    $$PWD/common/session/ISession.h \
     $$PWD/common/support/INoCopyUnit.h \
     $$PWD/common/support/IRegisterGadgetUnit.h \
     $$PWD/common/support/IRegisterInstanceUnit.h \
@@ -199,6 +199,7 @@ SOURCES += \
     $$PWD/common/IManage.cpp \
     $$PWD/common/application/IWebApplication.cpp \
     $$PWD/common/argument/IArgumentParserInterface.cpp \
+    $$PWD/common/cookie/ICookie.cpp \
     $$PWD/common/middleware/IInterceptorWare.cpp \
     $$PWD/common/middleware/IMiddleWare.cpp \
     $$PWD/common/middleware/IPostInterceptorInterface.cpp \
@@ -206,11 +207,9 @@ SOURCES += \
     $$PWD/common/middleware/IPreInterceptorInterface.cpp \
     $$PWD/common/middleware/IPreProcessorInterface.cpp \
     $$PWD/common/middleware/IProcessorWare.cpp \
-    $$PWD/common/net/ICookie.cpp \
     $$PWD/common/net/IMultiPart.cpp \
     $$PWD/common/net/IRequest.cpp \
     $$PWD/common/net/IResponse.cpp \
-    $$PWD/common/net/ISession.cpp \
     $$PWD/common/net/impl/IReqRespRaw.cpp \
     $$PWD/common/net/impl/IRequestImpl.cpp \
     $$PWD/common/net/impl/IResponseImpl.cpp \
@@ -225,6 +224,7 @@ SOURCES += \
     $$PWD/common/response/IResponseWare.cpp \
     $$PWD/common/response/IResponseWareRaw.cpp \
     $$PWD/common/response/IStatusCodeResponse.cpp \
+    $$PWD/common/session/ISession.cpp \
     $$PWD/common/support/INoCopyUnit.cpp \
     $$PWD/common/support/IRegisterGadgetUnit.cpp \
     $$PWD/common/support/IRegisterInstanceUnit.cpp \

@@ -7,8 +7,8 @@
 #include "biscuits/IHttpStatus.h"
 #include "biscuits/IHttpVersion.h"
 #include "common/net/IMultiPart.h"
-#include "common/net/ICookie.h"
-#include "common/net/ISession.h"
+#include "common/cookie/ICookie.h"
+#include "common/session/ISession.h"
 
 $PackageWebCoreBegin
 
