@@ -286,7 +286,14 @@ void *IControllerParamUtil::getParamOfSystem(const IFunctionParamNode& node, IRe
     if(node.paramTypeId == SystemTypes[0] || node.paramTypeId == SystemTypes[1]){
         return &request;
     }
-    return request.response();
+    if(node.paramTypeId == SystemTypes[2] || node.paramTypeId == SystemTypes[3]){
+        return request.response();
+    }
+    if(node.paramTypeId == SystemTypes[4] || node.paramTypeId == SystemTypes[5]){
+        return request.cookie();
+    }
+    return nullptr;
+
 }
 
 void *IControllerParamUtil::getParamOfMultipart(const IFunctionParamNode& node, IRequest &request)
@@ -501,6 +508,8 @@ void IControllerFunctionBaseImplHelper::initSystemTypes(){
         SystemTypes << QMetaType::type((nmspace + "IRequest&").toUtf8());
         SystemTypes << QMetaType::type((nmspace + "IResponse").toUtf8());
         SystemTypes << QMetaType::type((nmspace + "IResponse&").toUtf8());
+        SystemTypes << QMetaType::type((nmspace + "ICookie").toUtf8());
+        SystemTypes << QMetaType::type((nmspace + "ICookie&").toUtf8());
     });
 }
 

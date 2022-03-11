@@ -11,5 +11,8 @@ public:
 
     $GetMapping(index, /)
     QString index();
+
+    $GetMapping(cookie, /cookie)
+    QString cookie(ICookie& cookie);
 };
 

@@ -6,6 +6,11 @@
 
 $PackageWebCoreBegin
 
+IReqRespRaw::IReqRespRaw()
+{
+    m_cookie.raw = this;
+}
+
 bool IReqRespRaw::valid() const
 {
     return this->m_valid;

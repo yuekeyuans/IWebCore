@@ -41,6 +41,9 @@ HEADERS += \
     $$PWD/common/application/IWebApplication.h \
     $$PWD/common/argument/IArgumentParserInterface.h \
     $$PWD/common/cookie/ICookie.h \
+    $$PWD/common/cookie/ICookieInterface.h \
+    $$PWD/common/cookie/ICookiePostProcessor.h \
+    $$PWD/common/cookie/ICookiePreProcessor.h \
     $$PWD/common/middleware/IInterceptorWare.h \
     $$PWD/common/middleware/IMiddleWare.h \
     $$PWD/common/middleware/IMiddleWarePreProcessor.h \
@@ -197,6 +200,9 @@ SOURCES += \
     $$PWD/common/application/IWebApplication.cpp \
     $$PWD/common/argument/IArgumentParserInterface.cpp \
     $$PWD/common/cookie/ICookie.cpp \
+    $$PWD/common/cookie/ICookieInterface.cpp \
+    $$PWD/common/cookie/ICookiePostProcessor.cpp \
+    $$PWD/common/cookie/ICookiePreProcessor.cpp \
     $$PWD/common/middleware/IInterceptorWare.cpp \
     $$PWD/common/middleware/IMiddleWare.cpp \
     $$PWD/common/middleware/IPostInterceptorInterface.cpp \

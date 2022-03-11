@@ -438,8 +438,12 @@ void IControllerInterfaceImpl::checkMethodParamterWithSuffixProper(const IUrlFun
 void IControllerInterfaceImpl::checkMethodParamterWithSuffixSet(const IUrlFunctionNode &node)
 {
     static const QStringList externalTypes ={
-        "IRequest", "IResponse", "IMultiPart", "QJsonValue",
-        "IRequest&", "IResponse&", "IMultiPart&", "QJsonValue&"
+        "IRequest", "IRequest&",
+        "IResponse", "IResponse&",
+        "IMultiPart", "IMultiPart&",
+        "ICookie", "ICookie&",
+        "ISession", "ISession&"
+        "QJsonValue", "QJsonValue&"
     };
     if(node.ignoreParamCheck){
         return;

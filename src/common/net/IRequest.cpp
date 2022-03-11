@@ -50,7 +50,6 @@ IResponse *IRequest::response() const
 
 ICookie *IRequest::cookie() const
 {
-    qFatal(IConstantUtil::UnImplimentedMethod);
     return &raw->m_cookie;
 }
 

@@ -18,7 +18,7 @@ class IRequest;
 class IReqRespRaw
 {
 public:
-    IReqRespRaw() = default;
+    IReqRespRaw();
 
 public:
     bool valid() const;
@@ -52,6 +52,7 @@ public:
     QMap<QString, QByteArray> m_requestUrlParameters;
     QMap<QString, QByteArray> m_requestParamParameters;     // 特指 url 参数后面的内容
     QMap<QString, QByteArray> m_requestBodyParameters;  // 特指 url encoded
+    QMap<QString, QString> m_cookieParameters;
     QVector<IMultiPart> m_requestMultiParts;
     ICookie m_cookie;                                       // TODO: 这两个是否需要指针?
     ISession m_session;
@@ -69,6 +70,7 @@ public:
     QByteArray m_responseContent;
     IHttpMime m_responseMime{IHttpMime::UNKNOWN};
     QMap<QString, QString> m_responseHeaders;
+    QMap<QString, QString> m_responseCookies;
 };
 
 $PackageWebCoreEnd

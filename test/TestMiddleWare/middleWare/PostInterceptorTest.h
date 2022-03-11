@@ -2,7 +2,7 @@
 
 #include <IWebCore>
 
-class PostInterceptorTest : public IPostInterceptorInterface<PostInterceptorTest>
+class PostInterceptorTest : public IPostInterceptorInterface<PostInterceptorTest, false>
 {
     $AsMiddleWare(PostInterceptorTest)
 public:
