@@ -4,7 +4,7 @@
 #include "common/net/IResponse.h"
 #include "common/net/impl/IReqRespRaw.h"
 #include "controller/IControllerManage.h"
-#include "process/private/IControllerParamUtil.h"
+#include "controller/private/IControllerParamUtil.h"
 
 $PackageWebCoreBegin
 

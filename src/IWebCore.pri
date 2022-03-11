@@ -105,6 +105,8 @@ HEADERS += \
     $$PWD/controller/pp/IStatusCodeMappingPreProcessor.h \
     $$PWD/controller/pp/IStatusControllerPreProcessor.h \
     $$PWD/controller/private/IControllerInterfaceImpl.h \
+    $$PWD/controller/private/IControllerParamBeanUtil.h \
+    $$PWD/controller/private/IControllerParamUtil.h \
     $$PWD/controller/private/IDefaultStatusController.h \
     $$PWD/controller/private/IStatusControllerInterfaceImpl.h \
     $$PWD/assertion/IAssertInfoList.h \
@@ -142,11 +144,6 @@ HEADERS += \
     $$PWD/package/IPackagePreProcessor.h \
     $$PWD/plugin/yaml/IYamlUtil.h \
     $$PWD/plugin/yaml/Yaml.hpp \
-#    $$PWD/process/IHttpProcesser.h \
-#    $$PWD/process/IHttpRunner.h \
-#    $$PWD/process/IHttpSocketManage.h \
-    $$PWD/process/private/IControllerParamBeanUtil.h \
-    $$PWD/process/private/IControllerParamUtil.h \
     $$PWD/process/support/IRequestErrorPreIntercept.h \
     $$PWD/server/IServerInterface.h \
     $$PWD/server/httpServer/IHttpServer.h \
@@ -248,6 +245,8 @@ SOURCES += \
     $$PWD/controller/IControllerRouteNode.cpp \
     $$PWD/controller/IStatusControllerInterface.cpp \
     $$PWD/controller/private/IControllerInterfaceImpl.cpp \
+    $$PWD/controller/private/IControllerParamBeanUtil.cpp \
+    $$PWD/controller/private/IControllerParamUtil.cpp \
     $$PWD/controller/private/IDefaultStatusController.cpp \
     $$PWD/controller/private/IStatusControllerInterfaceImpl.cpp \
     $$PWD/assertion/IAssertInterface.cpp \
@@ -279,11 +278,6 @@ SOURCES += \
     $$PWD/orm/tableview/IOrmViewWare.cpp \
     $$PWD/plugin/yaml/IYamlUtil.cpp \
     $$PWD/plugin/yaml/Yaml.cpp \
-#    $$PWD/process/IHttpProcesser.cpp \
-#    $$PWD/process/IHttpRunner.cpp \
-#    $$PWD/process/IHttpSocketManage.cpp \
-    $$PWD/process/private/IControllerParamBeanUtil.cpp \
-    $$PWD/process/private/IControllerParamUtil.cpp \
     $$PWD/process/support/IRequestErrorPreIntercept.cpp \
     $$PWD/server/IServerInterface.cpp \
     $$PWD/server/httpServer/IHttpServer.cpp \

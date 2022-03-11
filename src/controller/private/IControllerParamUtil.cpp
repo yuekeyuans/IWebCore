@@ -16,7 +16,7 @@
 #include "common/response/IByteArrayResponse.h"
 #include "common/type/ITypeManage.h"
 #include "common/net/impl/IReqRespRaw.h"
-#include "process/private/IControllerParamBeanUtil.h"
+#include "controller/private/IControllerParamBeanUtil.h"
 #include "task/ITaskManage.h"
 
 $PackageWebCoreBegin
