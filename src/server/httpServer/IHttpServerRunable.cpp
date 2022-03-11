@@ -70,7 +70,6 @@ void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
     }
 
     runUrlFunction(request, response, function);
-
 }
 
 void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &response, IStatusFunctionNode *function)
@@ -89,7 +88,6 @@ void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &respons
     enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params);
 
     IHttpRunnerHelper::destroyParams(function->functionNode, params);
-
 }
 
 void IHttpServerRunable::runUrlFunction(IRequest &request, IResponse &response, IUrlFunctionNode *function)
@@ -108,7 +106,6 @@ void IHttpServerRunable::runUrlFunction(IRequest &request, IResponse &response, 
     IHttpRunnerHelper::resolveReturnValue(response, function->functionNode, params);
 
     IHttpRunnerHelper::destroyParams(function->functionNode, params);
-
 }
 
 QStringList handleOptionsRequest1(IRequest& request, IResponse& response)
@@ -126,7 +123,7 @@ QStringList handleOptionsRequest1(IRequest& request, IResponse& response)
     QStringList options;
     auto raw = request.getRaw();
     auto origin = raw->m_method;
-    for(auto key : keys){
+    for (auto key : keys) {
         raw->m_method = key;
         if(IControllerManage::getUrlFunction(request) != nullptr){
             options.append(mappings[key]);
@@ -150,9 +147,9 @@ void IHttpServerRunable::runOptionsFunction(IRequest &request, IResponse &respon
     QStringList  options = handleOptionsRequest1(request, response);
 
     response.setStatus(IHttpStatus::OK_200);
-    if(options.isEmpty()){
+    if(options.isEmpty()) {
         response.setHeader("Allow" , "NONE");
-    }else{
+    } else {
         response.setHeader("Allow" , options.join(", "));
     }
     response.setContent("");
