@@ -8,8 +8,11 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled=true>
-    class IPostInterceptorInterface : public IInterceptorWare, public IMiddleWareTaskUnit<T, enabled>
+class IPostInterceptorInterface : public IInterceptorWare, public IMiddleWareTaskUnit<T, enabled>
 {
+public:
+    using IMiddleWare::operator();
+
 public:
     IPostInterceptorInterface() = default;
 

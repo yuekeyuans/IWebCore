@@ -11,6 +11,9 @@ template<typename T, bool enabled=true>
 class IPreInterceptorInterface : public IInterceptorWare, public IMiddleWareTaskUnit<T, enabled>
 {
 public:
+    using IMiddleWare::operator();
+
+public:
     IPreInterceptorInterface() = default;
 
     virtual QString name() override = 0;

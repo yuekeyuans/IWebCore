@@ -11,6 +11,9 @@ template<typename T, bool enabled=true>
 class IPostProcessorInterface : public IProcessorWare, public IMiddleWareTaskUnit<T, enabled>
 {
 public:
+    using IMiddleWare::operator();
+
+public:
     IPostProcessorInterface() = default;
 
     virtual QString name() override = 0;

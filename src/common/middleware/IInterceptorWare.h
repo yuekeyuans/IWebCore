@@ -8,6 +8,9 @@ $PackageWebCoreBegin
 class IInterceptorWare : public IMiddleWare
 {
 public:
+    using IMiddleWare::operator();
+
+public:
     IInterceptorWare() = default;
 
     virtual QString name() override = 0;

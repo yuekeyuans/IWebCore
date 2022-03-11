@@ -8,6 +8,9 @@ $PackageWebCoreBegin
 class IProcessorWare : public IMiddleWare
 {
 public:
+    using IMiddleWare::operator();
+
+public:
     IProcessorWare() = default;
 
     virtual QString name() override = 0;

@@ -11,6 +11,9 @@ template<typename T, bool enabled=true>
 class IPreProcessorInterface : public IProcessorWare, public IMiddleWareTaskUnit<T, enabled>
 {
 public:
+    using IMiddleWare::operator();
+
+public:
     IPreProcessorInterface() = default;
 
     virtual QString name() override = 0;

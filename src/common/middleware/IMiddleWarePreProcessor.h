@@ -5,11 +5,17 @@
 
 #define $AsMiddleWare_1(klassName)    \
     $UseInstance(klassName) \
-    virtual QString name() final {return #klassName ; };
+public: \
+    using IMiddleWare::operator();  \
+    virtual QString name() final {return #klassName ; };    \
+private:
 
 #define $AsMiddleWare_2(klassName, middleWareName)    \
     $UseInstance(klassName) \
-    virtual QString name() final {return #middleWareName ; };
+public: \
+    using IMiddleWare::operator();  \
+    virtual QString name() final {return #middleWareName ; };   \
+private:
 
 #define $AsMiddleWare_(N) $AsMiddleWare_##N
 #define $AsMiddleWare_EVAL(N) $AsMiddleWare_(N)
