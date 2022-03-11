@@ -11,13 +11,13 @@ class IResponse;
 struct IFunctionParamNode;
 
 // 由于 bean 的装配比较复杂，代码再这里单写一份
-class IRequestBeanParamWiredHelper
+class IControllerParamBeanUtil
 {
 public:
     using ParamFun = void*(*)(IBeanWare*, IRequest&);
 
 public:
-    IRequestBeanParamWiredHelper() = default;
+    IControllerParamBeanUtil() = default;
 
     static void* getParamOfBean(const IFunctionParamNode& node, IRequest &request);
 

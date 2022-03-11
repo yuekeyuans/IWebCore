@@ -4,7 +4,7 @@
 #include "common/net/IResponse.h"
 #include "common/net/impl/IReqRespRaw.h"
 #include "controller/IControllerManage.h"
-#include "process/private/IHttpRunnerHelper.h"
+#include "process/private/IControllerParamUtil.h"
 
 $PackageWebCoreBegin
 
@@ -75,11 +75,11 @@ void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
 void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &response, IStatusFunctionNode *function)
 {
     Q_UNUSED(response)
-    IHttpRunnerHelper::ParamType params;
-    IHttpRunnerHelper::createParams(function->functionNode, params, request);
+    IControllerParamUtil::ParamType params;
+    IControllerParamUtil::createParams(function->functionNode, params, request);
 
     if(!request.valid()){   // unneeded, but write here for assurance
-        IHttpRunnerHelper::destroyParams(function->functionNode, params);
+        IControllerParamUtil::destroyParams(function->functionNode, params);
         return;
     }
 
@@ -87,25 +87,25 @@ void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &respons
     auto enclosingObject = function->functionNode.metaMethod.enclosingMetaObject();
     enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params);
 
-    IHttpRunnerHelper::destroyParams(function->functionNode, params);
+    IControllerParamUtil::destroyParams(function->functionNode, params);
 }
 
 void IHttpServerRunable::runUrlFunction(IRequest &request, IResponse &response, IUrlFunctionNode *function)
 {
-    IHttpRunnerHelper::ParamType params;
-    IHttpRunnerHelper::createParams(function->functionNode, params, request);
+    IControllerParamUtil::ParamType params;
+    IControllerParamUtil::createParams(function->functionNode, params, request);
 
     if(!request.valid()){           // 这里 request invalid 的情况产生于 数据转换的时候。
-        IHttpRunnerHelper::destroyParams(function->functionNode, params);
+        IControllerParamUtil::destroyParams(function->functionNode, params);
         return;
     }
 
     auto index = function->functionNode.metaMethod.methodIndex();
     auto enclosingObject = function->functionNode.metaMethod.enclosingMetaObject();
     enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params);
-    IHttpRunnerHelper::resolveReturnValue(response, function->functionNode, params);
+    IControllerParamUtil::resolveReturnValue(response, function->functionNode, params);
 
-    IHttpRunnerHelper::destroyParams(function->functionNode, params);
+    IControllerParamUtil::destroyParams(function->functionNode, params);
 }
 
 QStringList handleOptionsRequest1(IRequest& request, IResponse& response)

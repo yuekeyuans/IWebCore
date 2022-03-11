@@ -145,8 +145,8 @@ HEADERS += \
 #    $$PWD/process/IHttpProcesser.h \
 #    $$PWD/process/IHttpRunner.h \
 #    $$PWD/process/IHttpSocketManage.h \
-    $$PWD/process/private/IHttpRunnerHelper.h \
-    $$PWD/process/private/IRequestBeanParamWiredHelper.h \
+    $$PWD/process/private/IControllerParamBeanUtil.h \
+    $$PWD/process/private/IControllerParamUtil.h \
     $$PWD/process/support/IRequestErrorPreIntercept.h \
     $$PWD/server/IServerInterface.h \
     $$PWD/server/httpServer/IHttpServer.h \
@@ -282,8 +282,8 @@ SOURCES += \
 #    $$PWD/process/IHttpProcesser.cpp \
 #    $$PWD/process/IHttpRunner.cpp \
 #    $$PWD/process/IHttpSocketManage.cpp \
-    $$PWD/process/private/IHttpRunnerHelper.cpp \
-    $$PWD/process/private/IRequestBeanParamWiredHelper.cpp \
+    $$PWD/process/private/IControllerParamBeanUtil.cpp \
+    $$PWD/process/private/IControllerParamUtil.cpp \
     $$PWD/process/support/IRequestErrorPreIntercept.cpp \
     $$PWD/server/IServerInterface.cpp \
     $$PWD/server/httpServer/IHttpServer.cpp \

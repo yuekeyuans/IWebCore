@@ -1,4 +1,4 @@
-﻿#include "IHttpRunnerHelper.h"
+﻿#include "IControllerParamUtil.h"
 
 #include "assertion/IAssertPreProcessor.h"
 #include "base/IJsonUtil.h"
@@ -16,7 +16,7 @@
 #include "common/response/IByteArrayResponse.h"
 #include "common/type/ITypeManage.h"
 #include "common/net/impl/IReqRespRaw.h"
-#include "process/private/IRequestBeanParamWiredHelper.h"
+#include "process/private/IControllerParamBeanUtil.h"
 #include "task/ITaskManage.h"
 
 $PackageWebCoreBegin
@@ -66,7 +66,7 @@ void* convertParamToJson(const IFunctionParamNode &node, const QByteArray &conte
 
 }
 
-void IHttpRunnerHelper::createParams(const IFunctionNode& functionNode, ParamType& params, IRequest &request)
+void IControllerParamUtil::createParams(const IFunctionNode& functionNode, ParamType& params, IRequest &request)
 {
     for(int i=0; i<=10; i++){
         params[i] = nullptr;
@@ -79,22 +79,22 @@ void IHttpRunnerHelper::createParams(const IFunctionNode& functionNode, ParamTyp
     }
 }
 
-void *IHttpRunnerHelper::createReturnParam(int paramTypeId)
+void *IControllerParamUtil::createReturnParam(int paramTypeId)
 {
     return QMetaType::create(paramTypeId);
 }
 
-void *IHttpRunnerHelper::createArgParam(const IFunctionParamNode& node, IRequest &request)
+void *IControllerParamUtil::createArgParam(const IFunctionParamNode& node, IRequest &request)
 {
     static QVector<CreateParamFunType> funs = {
-        &IHttpRunnerHelper::getParamOfSystem,
-        &IHttpRunnerHelper::getParamOfMultipart,
-        &IHttpRunnerHelper::getParamOfCookie,
-        &IHttpRunnerHelper::getParamOfSession,
-        &IHttpRunnerHelper::getParamOfPrimitiveType,
-        &IHttpRunnerHelper::getParamOfStringType,
-        &IHttpRunnerHelper::getParamOfJsonType,
-        &IHttpRunnerHelper::getParamOfBean,
+        &IControllerParamUtil::getParamOfSystem,
+        &IControllerParamUtil::getParamOfMultipart,
+        &IControllerParamUtil::getParamOfCookie,
+        &IControllerParamUtil::getParamOfSession,
+        &IControllerParamUtil::getParamOfPrimitiveType,
+        &IControllerParamUtil::getParamOfStringType,
+        &IControllerParamUtil::getParamOfJsonType,
+        &IControllerParamUtil::getParamOfBean,
     };
 
     int length = JudgeTypes.length();
@@ -111,7 +111,7 @@ void *IHttpRunnerHelper::createArgParam(const IFunctionParamNode& node, IRequest
     return nullptr;
 }
 
-void IHttpRunnerHelper::destroyParams(const IFunctionNode& functionNode, void **params)
+void IControllerParamUtil::destroyParams(const IFunctionNode& functionNode, void **params)
 {
     destroyReturnParam(params[0], functionNode.funReturnTypeId);
 
@@ -120,22 +120,22 @@ void IHttpRunnerHelper::destroyParams(const IFunctionNode& functionNode, void **
     }
 }
 
-void IHttpRunnerHelper::destroyReturnParam(void *obj, int paramTypeId)
+void IControllerParamUtil::destroyReturnParam(void *obj, int paramTypeId)
 {
     QMetaType::destroy(paramTypeId, obj);
 }
 
-void IHttpRunnerHelper::destroyArgParam(const IFunctionParamNode& node, void *obj)
+void IControllerParamUtil::destroyArgParam(const IFunctionParamNode& node, void *obj)
 {
     static QVector<ReleaseParamFunType> funs = {
-        &IHttpRunnerHelper::releaseParamOfSystem,
-        &IHttpRunnerHelper::releaseParamOfMultipart,
-        &IHttpRunnerHelper::releaseParamOfCookie,
-        &IHttpRunnerHelper::releaseParamOfSession,
-        &IHttpRunnerHelper::releaseParamOfPrimitiveType,
-        &IHttpRunnerHelper::releaseParamOfStringType,
-        &IHttpRunnerHelper::releaseParamOfJsonType,
-        &IHttpRunnerHelper::releaseParamOfBean,
+        &IControllerParamUtil::releaseParamOfSystem,
+        &IControllerParamUtil::releaseParamOfMultipart,
+        &IControllerParamUtil::releaseParamOfCookie,
+        &IControllerParamUtil::releaseParamOfSession,
+        &IControllerParamUtil::releaseParamOfPrimitiveType,
+        &IControllerParamUtil::releaseParamOfStringType,
+        &IControllerParamUtil::releaseParamOfJsonType,
+        &IControllerParamUtil::releaseParamOfBean,
     };
 
     if(obj == nullptr){
@@ -155,7 +155,7 @@ void IHttpRunnerHelper::destroyArgParam(const IFunctionParamNode& node, void *ob
     qFatal(GiveColorSeeSee.toUtf8());
 }
 
-void IHttpRunnerHelper::resolveReturnValue(IResponse& response, const IFunctionNode& functionNode, ParamType &params)
+void IControllerParamUtil::resolveReturnValue(IResponse& response, const IFunctionNode& functionNode, ParamType &params)
 {
     QMetaType::Type typeId = functionNode.funReturnTypeId;
     QSharedPointer<IResponseWare> instance;
@@ -197,7 +197,7 @@ void IHttpRunnerHelper::resolveReturnValue(IResponse& response, const IFunctionN
     response.setContent(instance.data());
 }
 
-void IHttpRunnerHelper::wrapVoidReturnInstance(IResponse &response, const IFunctionNode &functionNode, ParamType &params)
+void IControllerParamUtil::wrapVoidReturnInstance(IResponse &response, const IFunctionNode &functionNode, ParamType &params)
 {
     Q_UNUSED(functionNode)
     Q_UNUSED(params)
@@ -211,7 +211,7 @@ void IHttpRunnerHelper::wrapVoidReturnInstance(IResponse &response, const IFunct
     }
 }
 
-QSharedPointer<IResponseWare> IHttpRunnerHelper::createStringReturnInstance(void **params)
+QSharedPointer<IResponseWare> IControllerParamUtil::createStringReturnInstance(void **params)
 {
     QSharedPointer<IResponseWare> instance;
     auto value = *static_cast<QString*>(params[0]);
@@ -225,14 +225,14 @@ QSharedPointer<IResponseWare> IHttpRunnerHelper::createStringReturnInstance(void
     return instance;
 }
 
-QSharedPointer<IResponseWare> IHttpRunnerHelper::createIntReturnInstance(void **params)
+QSharedPointer<IResponseWare> IControllerParamUtil::createIntReturnInstance(void **params)
 {
     auto instance = IStatusCodeResponse::createStatusCodeInstance();
     instance->setInstanceArg(params[0]);
     return instance;
 }
 
-QSharedPointer<IResponseWare> IHttpRunnerHelper::createJsonValueReturnInstance(void **params)
+QSharedPointer<IResponseWare> IControllerParamUtil::createJsonValueReturnInstance(void **params)
 {
     static const QString suffix = "QJsonValue";
     auto instance = IJsonResponse::createJsonInstance();
@@ -240,7 +240,7 @@ QSharedPointer<IResponseWare> IHttpRunnerHelper::createJsonValueReturnInstance(v
     return instance;
 }
 
-QSharedPointer<IResponseWare> IHttpRunnerHelper::createJsonObjectReturnInstance(void **params)
+QSharedPointer<IResponseWare> IControllerParamUtil::createJsonObjectReturnInstance(void **params)
 {
     static const QString suffix = "QJsonObject";
     auto instance = IJsonResponse::createJsonInstance();
@@ -248,7 +248,7 @@ QSharedPointer<IResponseWare> IHttpRunnerHelper::createJsonObjectReturnInstance(
     return instance;
 }
 
-QSharedPointer<IResponseWare> IHttpRunnerHelper::createJsonArrayReturnInstance(void **params)
+QSharedPointer<IResponseWare> IControllerParamUtil::createJsonArrayReturnInstance(void **params)
 {
     static const QString suffix = "QJsonArray";
     auto instance = IJsonResponse::createJsonInstance();
@@ -256,14 +256,14 @@ QSharedPointer<IResponseWare> IHttpRunnerHelper::createJsonArrayReturnInstance(v
     return instance;
 }
 
-QSharedPointer<IResponseWare> IHttpRunnerHelper::createByteArrayReturnInstance(void **params)
+QSharedPointer<IResponseWare> IControllerParamUtil::createByteArrayReturnInstance(void **params)
 {
     auto instance = IByteArrayResponse::createByteArrayInstance();
     instance->setInstanceArg(params[0]);
     return instance;
 }
 
-QSharedPointer<IResponseWare> IHttpRunnerHelper::createStringListReturnType(void **params)
+QSharedPointer<IResponseWare> IControllerParamUtil::createStringListReturnType(void **params)
 {
     auto value = static_cast<QStringList*>(params[0]);
     auto string = IConvertUtil::toString(*value);
@@ -273,7 +273,7 @@ QSharedPointer<IResponseWare> IHttpRunnerHelper::createStringListReturnType(void
 }
 
 // 这个地方应该是拷贝instance, 而不是 放置数据
-QSharedPointer<IResponseWare> IHttpRunnerHelper::createInterfaceReturnInstance(void **params)
+QSharedPointer<IResponseWare> IControllerParamUtil::createInterfaceReturnInstance(void **params)
 {
     auto value = static_cast<IResponseWare*>(params[0]);
     auto instance = value->createInstance();
@@ -281,7 +281,7 @@ QSharedPointer<IResponseWare> IHttpRunnerHelper::createInterfaceReturnInstance(v
     return instance;
 }
 
-void *IHttpRunnerHelper::getParamOfSystem(const IFunctionParamNode& node, IRequest &request)
+void *IControllerParamUtil::getParamOfSystem(const IFunctionParamNode& node, IRequest &request)
 {
     if(node.paramTypeId == SystemTypes[0] || node.paramTypeId == SystemTypes[1]){
         return &request;
@@ -289,7 +289,7 @@ void *IHttpRunnerHelper::getParamOfSystem(const IFunctionParamNode& node, IReque
     return request.response();
 }
 
-void *IHttpRunnerHelper::getParamOfMultipart(const IFunctionParamNode& node, IRequest &request)
+void *IControllerParamUtil::getParamOfMultipart(const IFunctionParamNode& node, IRequest &request)
 {
     auto& parts = request.getRaw()->m_requestMultiParts;
     for(auto& part : parts){
@@ -302,24 +302,24 @@ void *IHttpRunnerHelper::getParamOfMultipart(const IFunctionParamNode& node, IRe
     return nullptr;
 }
 
-void *IHttpRunnerHelper::getParamOfCookie(const IFunctionParamNode &node, IRequest &request)
+void *IControllerParamUtil::getParamOfCookie(const IFunctionParamNode &node, IRequest &request)
 {
     Q_UNUSED(node)
     return &request.getRaw()->m_cookie;
 }
 
-void *IHttpRunnerHelper::getParamOfSession(const IFunctionParamNode &node, IRequest &request)
+void *IControllerParamUtil::getParamOfSession(const IFunctionParamNode &node, IRequest &request)
 {
     Q_UNUSED(node)
     return request.session();
 }
 
-void *IHttpRunnerHelper::getParamOfBean(const IFunctionParamNode& node, IRequest &request)
+void *IControllerParamUtil::getParamOfBean(const IFunctionParamNode& node, IRequest &request)
 {
-    return IRequestBeanParamWiredHelper::getParamOfBean(node, request);
+    return IControllerParamBeanUtil::getParamOfBean(node, request);
 }
 
-void *IHttpRunnerHelper::getParamOfJsonType(const IFunctionParamNode& node, IRequest &request)
+void *IControllerParamUtil::getParamOfJsonType(const IFunctionParamNode& node, IRequest &request)
 {
     bool convertOk;
     QByteArray content;
@@ -340,7 +340,7 @@ void *IHttpRunnerHelper::getParamOfJsonType(const IFunctionParamNode& node, IReq
     return ptr;
 }
 
-void *IHttpRunnerHelper::getParamOfPrimitiveType(const IFunctionParamNode &node, IRequest &request)
+void *IControllerParamUtil::getParamOfPrimitiveType(const IFunctionParamNode &node, IRequest &request)
 {
     bool ok = true;
     const QString paramName = node.paramName;
@@ -406,7 +406,7 @@ void *IHttpRunnerHelper::getParamOfPrimitiveType(const IFunctionParamNode &node,
     return param;
 }
 
-void *IHttpRunnerHelper::getParamOfStringType(const IFunctionParamNode &node, IRequest &request)
+void *IControllerParamUtil::getParamOfStringType(const IFunctionParamNode &node, IRequest &request)
 {
     bool convertOk = true;
     QByteArray content;
@@ -429,31 +429,31 @@ void *IHttpRunnerHelper::getParamOfStringType(const IFunctionParamNode &node, IR
     return nullptr;
 }
 
-bool IHttpRunnerHelper::releaseParamOfSystem(const IFunctionParamNode& node, void *obj)
+bool IControllerParamUtil::releaseParamOfSystem(const IFunctionParamNode& node, void *obj)
 {
     Q_UNUSED(obj);
     return SystemTypes.contains(node.paramTypeId);
 }
 
-bool IHttpRunnerHelper::releaseParamOfMultipart(const IFunctionParamNode& node, void *obj)
+bool IControllerParamUtil::releaseParamOfMultipart(const IFunctionParamNode& node, void *obj)
 {
     Q_UNUSED(obj)
     return MultiPartTypes.contains(node.paramTypeId);
 }
 
-bool IHttpRunnerHelper::releaseParamOfCookie(const IFunctionParamNode &node, void *obj)
+bool IControllerParamUtil::releaseParamOfCookie(const IFunctionParamNode &node, void *obj)
 {
     Q_UNUSED(obj)
     return CookieTypes.contains(node.paramTypeId);
 }
 
-bool IHttpRunnerHelper::releaseParamOfSession(const IFunctionParamNode &node, void *obj)
+bool IControllerParamUtil::releaseParamOfSession(const IFunctionParamNode &node, void *obj)
 {
     Q_UNUSED(obj)
     return SessionTypes.contains(node.paramTypeId);
 }
 
-bool IHttpRunnerHelper::releaseParamOfBean(const IFunctionParamNode& node, void *obj)
+bool IControllerParamUtil::releaseParamOfBean(const IFunctionParamNode& node, void *obj)
 {
     if(node.paramTypeId >= QMetaType::User && ITypeManage::containBean(node.paramType)){
         QMetaType::destroy(node.paramTypeId, obj);
@@ -462,7 +462,7 @@ bool IHttpRunnerHelper::releaseParamOfBean(const IFunctionParamNode& node, void 
     return false;
 }
 
-bool IHttpRunnerHelper::releaseParamOfJsonType(const IFunctionParamNode& node, void *obj)
+bool IControllerParamUtil::releaseParamOfJsonType(const IFunctionParamNode& node, void *obj)
 {
     Q_UNUSED(obj)
     auto id = node.paramTypeId;
@@ -475,7 +475,7 @@ bool IHttpRunnerHelper::releaseParamOfJsonType(const IFunctionParamNode& node, v
     return false;
 }
 
-bool IHttpRunnerHelper::releaseParamOfPrimitiveType(const IFunctionParamNode &node, void *obj)
+bool IControllerParamUtil::releaseParamOfPrimitiveType(const IFunctionParamNode &node, void *obj)
 {
     if(PrimitiveTypes.contains(node.paramTypeId)){
         QMetaType::destroy(node.paramTypeId, obj);
@@ -484,7 +484,7 @@ bool IHttpRunnerHelper::releaseParamOfPrimitiveType(const IFunctionParamNode &no
     return false;
 }
 
-bool IHttpRunnerHelper::releaseParamOfStringType(const IFunctionParamNode &node, void *obj)
+bool IControllerParamUtil::releaseParamOfStringType(const IFunctionParamNode &node, void *obj)
 {
     if(node.paramTypeId == QMetaType::QString || node.paramTypeId == QMetaType::QByteArray){
         QMetaType::destroy(node.paramTypeId, obj);
@@ -581,7 +581,7 @@ void* IControllerFunctionBaseImplHelper::convertParamToJson(const IFunctionParam
     return param;
 }
 
-void IHttpRunnerHelper::task()
+void IControllerParamUtil::task()
 {
     IControllerFunctionBaseImplHelper::initSystemTypes();
     IControllerFunctionBaseImplHelper::initMultiPartTypes();

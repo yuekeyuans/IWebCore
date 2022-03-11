@@ -11,16 +11,16 @@ class IResponse;
 struct IFunctionNode;
 struct IFunctionParamNode;
 
-class IHttpRunnerHelper : public IInitializationTaskUnit<IHttpRunnerHelper>
+class IControllerParamUtil : public IInitializationTaskUnit<IControllerParamUtil>
 {
-    $UseInstance(IHttpRunnerHelper)
+    $UseInstance(IControllerParamUtil)
 public:
     using ParamType = void*[11];
     using CreateParamFunType = void*(*)(const IFunctionParamNode& node, IRequest& request);
     using ReleaseParamFunType = bool (*)(const IFunctionParamNode& node, void *obj);
 
 private:
-    IHttpRunnerHelper() = default;
+    IControllerParamUtil() = default;
 
 public:
     static void createParams(const IFunctionNode& functionNode, ParamType& params, IRequest& request);
