@@ -24,25 +24,20 @@ namespace IConstantUtil
     static const QString TimeFormat = "hh:mm:ss.zzz";
     static const QString DateTimeFormat = "yyyy-MM-dd hh:mm:ss.zzz";
 
-    ////////// config
-    static const char* const Config_Prefix = "iwebConfigWire__";
-
-
     //! char[] of new line.
     static const char* const NewLine = "\r\n";
 
     static const char* const InheritedMethod = "inherited method";
     static const char* const UnImplimentedMethod = "unimplimented method, this will be implimented latter";
 
-    ////////// sql
-
-
-    static const QMetaType::Type PrimaryKeyTypes[4] = {QMetaType::Int, QMetaType::Long, QMetaType::LongLong, QMetaType::QString};
-
     // length;
     static constexpr int Request_Url_Max_Length = (2048 + 35);  // 2083
     static constexpr int Request_Header_Max_Length = (1024 * 8); // 8K
     static constexpr int Request_Body_Max_Length   = (1024 * 1024 * 4);  // 4M
+
+    // configuration  暂时的
+    static constexpr bool ICookieEnabled = true;
+
 };
 
 $PackageWebCoreEnd

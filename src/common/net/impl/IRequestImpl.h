@@ -58,6 +58,7 @@ private:
     bool resolvePeerInfo();
     bool resolveFirstLine();
     bool resolveHeaders();
+    bool resolveCookies();
     bool resolveBody();
     bool resolveBodyContent();  // 解析body 的具体内容
     bool resolveMultipartFormData();

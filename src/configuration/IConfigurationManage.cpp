@@ -224,11 +224,12 @@ bool IConfigurationManageHelper::checkConfigValueType(QMetaType::Type type){
 }
 
 QVector<ConfigurationBean> IConfigurationManageHelper::generateConfigurationBean(const QMap<QString, QString>&clsInfo, const QVector<QMetaProperty> &props){
+    static const char* const Config_Prefix = "iwebConfigWire__";
     QVector<ConfigurationBean> configBeans;
 
     const auto& keys = clsInfo.keys();
     for(auto key : keys){
-        if(key.startsWith(IConstantUtil::Config_Prefix) && key.endsWith("_name")){
+        if(key.startsWith(Config_Prefix) && key.endsWith("_name")){
             ConfigurationBean bean;
             bean.name = clsInfo[key];
             configBeans.append(bean);
@@ -236,7 +237,7 @@ QVector<ConfigurationBean> IConfigurationManageHelper::generateConfigurationBean
     }
 
     for(auto& bean : configBeans){
-        const QString prefix = QString(IConstantUtil::Config_Prefix).append(bean.name);
+        const QString prefix = QString(Config_Prefix).append(bean.name);
         auto groupName = prefix + "_group";
         auto pathName  = prefix + "_path";
         auto optional  = prefix + "_option";

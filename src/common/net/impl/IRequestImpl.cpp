@@ -1,6 +1,7 @@
 ﻿#include "IRequestImpl.h"
 #include "assertion/IAssertPreProcessor.h"
 #include "base/IConstantUtil.h"
+#include "base/IHeaderUtil.h"
 #include "common/net/IRequest.h"
 #include "common/net/impl/IReqRespRaw.h"
 #include "configuration/IConfigurationManage.h"
@@ -257,6 +258,10 @@ void IRequestImpl::resolve()
         return;
     }
 
+    if(!resolveCookies()){
+        return;
+    }
+
     if(!resolveBody()){
         return;
     }
@@ -426,6 +431,31 @@ bool IRequestImpl::resolveHeaders()
     }
     raw->m_requestMime = IHttpMimeHelper::toMime(contentType());
 
+    return true;
+}
+
+// TODO: 这里有一个问题,就是 cookie 编码的问题，网络上是建议 cookie encode, 并且使用 base64 编码。
+// 这里为了方面使用，编码问题放在 middleWare 中进行，并且能够配置,这样，用户能够自我实现。
+bool IRequestImpl::resolveCookies()
+{
+    static const QByteArray splitString = "; ";
+
+    if(IConstantUtil::ICookieEnabled && raw->m_requestHeaders.contains(IHttpHeader::Cookie)){
+        const QString rawCookie = raw->m_requestHeaders[IHttpHeader::Cookie];
+
+        auto parts = rawCookie.split(splitString);
+        for(const auto& part : parts){
+            auto index = part.indexOf('=');
+            if(index<=0){
+                raw->setInvalid(IHttpStatus::BAD_REQUEST_400, "Cookie is not correct");
+                return false;
+            }
+
+            auto key = part.mid(0, index);
+            auto value = part.mid(index + 1);
+            raw->m_requestCookieParameters[key] = value;
+        }
+    }
     return true;
 }
 

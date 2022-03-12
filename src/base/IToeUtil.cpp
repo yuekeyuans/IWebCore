@@ -29,7 +29,8 @@ void IToeUtil::setOkAnd(bool *ok, bool value)
 
 bool IToeUtil::isPrimaryKeyType(QMetaType::Type type)
 {
-    const auto& pkTypes = IConstantUtil::PrimaryKeyTypes;
+    static const QMetaType::Type PrimaryKeyTypes[4] = {QMetaType::Int, QMetaType::Long, QMetaType::LongLong, QMetaType::QString};
+    const auto& pkTypes = PrimaryKeyTypes;
     auto it = std::find(std::begin(pkTypes), std::end(pkTypes), type);
     return it != std::end(pkTypes);
 }

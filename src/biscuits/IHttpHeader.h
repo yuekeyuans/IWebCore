@@ -11,6 +11,8 @@ struct IHttpHeader
     static const QString ContentType;
     static const QString ContentDisposition;
     static const QString ContentTransferEncoding;
+    static const QString Cookie;
+    static const QString SetCookie;
 };
 
 $PackageWebCoreEnd
