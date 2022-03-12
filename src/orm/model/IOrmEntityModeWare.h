@@ -4,19 +4,20 @@
 #include "orm/dialect/IOrmDialectWare.h"
 #include "orm/ISqlQuery.h"
 #include "orm/IOrmManage.h"
+#include "orm/model/IOrmEntityModelUnit.h"
 
 $PackageWebCoreBegin
 
 extern const char DefaultDatabaseName[];
 
 template<typename T, const char * dbConnectionName = DefaultDatabaseName>
-class IOrmEntityModelWare
+class IOrmEntityModelWare : public IOrmEntityModelUnit
 {
     $AsWare
 public:
     IOrmEntityModelWare() = default;
 
-    bool exec(const QString& sql);
+    virtual bool exec(const QString& sql) final;
     ISqlQuery execedQuery(const QString& sql);
 
     T findOne(const IOrmCondition& condition);
@@ -32,8 +33,8 @@ public:
     T toObject(const QMap<QString, QVariant>& map);
     T toObject(const QJsonObject& obj);
 
-    QSqlDatabase& getDatabase();
-    IOrmDialectWare* getDialect();
+    virtual QSqlDatabase& getDatabase() final;
+    virtual IOrmDialectWare* getDialect() final;
     ISqlQuery getQuery();
 };
 

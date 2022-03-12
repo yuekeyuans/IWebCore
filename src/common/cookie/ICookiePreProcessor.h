@@ -6,7 +6,7 @@
 
 $PackageWebCoreBegin
 
-class ICookiePreProcessor : public IPreProcessorInterface<ICookiePreProcessor>
+class ICookiePreProcessor : public IPreProcessorInterface<ICookiePreProcessor, false>
 {
     $AsMiddleWare(ICookiePreProcessor)
 public:

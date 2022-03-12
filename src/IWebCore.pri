@@ -42,7 +42,6 @@ HEADERS += \
     $$PWD/common/application/IWebApplication.h \
     $$PWD/common/argument/IArgumentParserInterface.h \
     $$PWD/common/cookie/ICookie.h \
-    $$PWD/common/cookie/ICookieInterface.h \
     $$PWD/common/cookie/ICookiePostProcessor.h \
     $$PWD/common/cookie/ICookiePreProcessor.h \
     $$PWD/common/middleware/IInterceptorWare.h \
@@ -124,6 +123,7 @@ HEADERS += \
     $$PWD/orm/dialect/IOrmDialectInterface.h \
     $$PWD/orm/dialect/IOrmDialectWare.h \
     $$PWD/orm/model/IOrmEntityModeWare.h \
+    $$PWD/orm/model/IOrmEntityModelUnit.h \
     $$PWD/orm/model/IOrmTableModelInterface.h \
     $$PWD/orm/model/IOrmViewModelInterface.h \
     $$PWD/orm/pp/IOrmPreProcessor.h \
@@ -202,7 +202,6 @@ SOURCES += \
     $$PWD/common/application/IWebApplication.cpp \
     $$PWD/common/argument/IArgumentParserInterface.cpp \
     $$PWD/common/cookie/ICookie.cpp \
-    $$PWD/common/cookie/ICookieInterface.cpp \
     $$PWD/common/cookie/ICookiePostProcessor.cpp \
     $$PWD/common/cookie/ICookiePreProcessor.cpp \
     $$PWD/common/middleware/IInterceptorWare.cpp \
@@ -265,6 +264,7 @@ SOURCES += \
     $$PWD/orm/dialect/IOrmDialectInterface.cpp \
     $$PWD/orm/dialect/IOrmDialectWare.cpp \
     $$PWD/orm/model/IOrmEntityModeWare.cpp \
+    $$PWD/orm/model/IOrmEntityModelUnit.cpp \
     $$PWD/orm/model/IOrmTableModelInterface.cpp \
     $$PWD/orm/model/IOrmViewModelInterface.cpp \
     $$PWD/orm/private/IOrmConditionImpl.cpp \
