@@ -2,7 +2,6 @@
 
 $PackageWebCoreBegin
 
-
 QByteArray ICodecUtil::toBase64(const QString &content)
 {
     return toBase64(content.toUtf8());
@@ -33,6 +32,51 @@ QByteArray ICodecUtil::fromBase64(const char *content)
     return fromBase64(QByteArray(content));
 }
 
+quint16 ICodecUtil::crc16(const QString &content)
+{
+    auto data = content.toStdString();
+    return qChecksum(data.c_str(), data.length());
+}
+
+QByteArray ICodecUtil::compress(const QString &content, int level)
+{
+    return qCompress(content.toUtf8(), level);
+}
+
+QByteArray ICodecUtil::compress(const QByteArray &content, int level)
+{
+    return qCompress(content, level);
+}
+
+QByteArray ICodecUtil::compress(const char *content, int level)
+{
+    return qCompress(content, level);
+}
+
+QByteArray ICodecUtil::uncompress(const QString &content)
+{
+    return uncompress(content.toUtf8());
+}
+
+QByteArray ICodecUtil::uncompress(const QByteArray &content)
+{
+    return qUncompress(content);
+}
+
+QByteArray ICodecUtil::uncompress(const char *content)
+{
+    return uncompress(QByteArray(content));
+}
+
+//QByteArray ICodecUtil::gzip(const QByteArray &content)
+//{
+
+//}
+
+//QByteArray ICodecUtil::ungzip(const QByteArray &content)
+//{
+
+//}
 
 unsigned char ToHex(unsigned char x)
 {
@@ -131,7 +175,5 @@ QString ICodecUtil::pathEncode(const QString &rawPath)
     }
     return strTemp;
 }
-
-
 
 $PackageWebCoreEnd
