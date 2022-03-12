@@ -63,7 +63,27 @@ QByteArray IResponseImpl::generateHeadersContent()
     for(auto key : headers.keys()){
         headersContent.append(key).append(": ").append(headers[key]).append(IConstantUtil::NewLine);
     }
+
+    if(IConstantUtil::ICookieEnabled){
+        auto cookieContent = generateCookieHeaders();
+        headersContent.append(cookieContent).append(IConstantUtil::NewLine);
+    }
+
     return headersContent;
+}
+
+QString IResponseImpl::generateCookieHeaders()
+{
+    QStringList contents;
+    const auto& cookies = raw->m_responseCookies;
+    for(auto cookie : cookies){
+        auto val = cookie.toHeaderString();
+        if(val.isEmpty()){
+            continue;
+        }
+        contents.push_back(val);
+    }
+    return contents.join(IConstantUtil::NewLine);
 }
 
 $PackageWebCoreEnd

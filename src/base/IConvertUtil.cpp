@@ -398,4 +398,14 @@ QVariant IConvertUtilHelper::toULong(ulong val)
     }
 }
 
+QString IConvertUtil::toUtcString(const QDateTime& dateTime)
+{
+    return dateTime.toUTC().toString();
+}
+
+QDateTime IConvertUtil::fromUtcString(const QString &utcTime)
+{
+    return QDateTime::fromString(utcTime);
+}
+
 $PackageWebCoreEnd

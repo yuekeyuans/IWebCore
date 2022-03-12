@@ -5,17 +5,34 @@ $PackageWebCoreBegin
 
 QStringList ICookie::keys()
 {
-    return raw->m_requestCookieParameters.keys();
+    const auto& cookies = raw->m_requestCookieParameters;
+    QStringList keys;
+    for(const auto& cookie : cookies){
+        keys.append(cookie.first);
+    }
+    return keys;
 }
 
 QStringList ICookie::values()
 {
-    return raw->m_requestCookieParameters.values();
+    const auto& cookies = raw->m_requestCookieParameters;
+    QStringList values;
+    for(const auto& cookie : cookies){
+        auto value = cookie.second;
+        if(!value.isEmpty()){
+            values.append(value);
+        }
+
+    }
+    return values;
 }
 
 void ICookie::setCookie(const QString &key, const QString &value)
 {
-    raw->m_responseCookies[key] = value;
+    ICookiePart part;
+    part.key = key;
+    part.value = value;
+    raw->m_responseCookies.append(part);
 }
 
 $PackageWebCoreEnd

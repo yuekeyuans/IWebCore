@@ -63,6 +63,9 @@ namespace  IConvertUtil
     QTime toTime(const QString& val, bool* ok=nullptr);
     QDateTime toDateTime(const QString& val, bool* ok=nullptr);
 
+    QString toUtcString(const QDateTime& dateTime);
+    QDateTime fromUtcString(const QString& utcTime);
+
 
 };
 

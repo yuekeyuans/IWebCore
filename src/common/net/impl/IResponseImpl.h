@@ -16,7 +16,9 @@ public:
     void write(const QByteArray& content);
     void flush();
     QByteArray generateFirstLine();
+
     QByteArray generateHeadersContent();
+    QString generateCookieHeaders();
 
 public:
     IReqRespRaw* raw{nullptr};

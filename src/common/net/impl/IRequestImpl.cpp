@@ -444,17 +444,19 @@ bool IRequestImpl::resolveCookies()
     if(IConstantUtil::ICookieEnabled && raw->m_requestHeaders.contains(IHttpHeader::Cookie)){
         const QString rawCookie = raw->m_requestHeaders[IHttpHeader::Cookie];
 
+        QString key, value;
         auto parts = rawCookie.split(splitString);
         for(const auto& part : parts){
+            key.clear();
+            value.clear();
             auto index = part.indexOf('=');
-            if(index<=0){
-                raw->setInvalid(IHttpStatus::BAD_REQUEST_400, "Cookie is not correct");
-                return false;
+            if(index<=0){       // 保证只有 key 的情形
+                auto key = part;
+            }else{
+                auto key = part.mid(0, index);
+                auto value = part.mid(index + 1);
             }
-
-            auto key = part.mid(0, index);
-            auto value = part.mid(index + 1);
-            raw->m_requestCookieParameters[key] = value;
+            raw->m_requestCookieParameters.append({key, value});
         }
     }
     return true;

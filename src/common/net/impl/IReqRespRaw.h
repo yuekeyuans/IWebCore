@@ -8,6 +8,7 @@
 #include "biscuits/IHttpVersion.h"
 #include "common/net/IMultiPart.h"
 #include "common/cookie/ICookie.h"
+#include "common/cookie/ICookiePart.h"
 #include "common/session/ISession.h"
 
 $PackageWebCoreBegin
@@ -52,8 +53,9 @@ public:
     QMap<QString, QByteArray> m_requestUrlParameters;
     QMap<QString, QByteArray> m_requestParamParameters;     // 特指 url 参数后面的内容
     QMap<QString, QByteArray> m_requestBodyParameters;  // 特指 url encoded
-    QMap<QString, QString> m_requestCookieParameters;
     QVector<IMultiPart> m_requestMultiParts;
+    QList<QPair<QString, QString>> m_requestCookieParameters;
+
     ICookie m_cookie;                                       // TODO: 这两个是否需要指针?
     ISession m_session;
 
@@ -70,7 +72,7 @@ public:
     QByteArray m_responseContent;
     IHttpMime m_responseMime{IHttpMime::UNKNOWN};
     QMap<QString, QString> m_responseHeaders;
-    QMap<QString, QString> m_responseCookies;
+    QList<ICookiePart> m_responseCookies;
 };
 
 $PackageWebCoreEnd
