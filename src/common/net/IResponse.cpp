@@ -98,6 +98,12 @@ IResponse &IResponse::setMime(IHttpMime mime)
     return *this;
 }
 
+IResponse &IResponse::addCookie(const ICookiePart &cookiePart)
+{
+    raw->m_responseCookies.append(cookiePart);
+    return *this;
+}
+
 IResponse &IResponse::appendContent(const QString &content)
 {
     raw->m_responseContent.append(content);

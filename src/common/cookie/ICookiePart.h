@@ -30,7 +30,7 @@ public:
     QString path;
 
     QDateTime expires {};
-    int maxAge {-1};
+    int maxAge {INT_MIN};
 
     bool secure {false};
     bool httpOnly {false};

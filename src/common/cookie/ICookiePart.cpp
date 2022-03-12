@@ -17,12 +17,21 @@ QString ICookiePart::toHeaderString()
         header.append('=').append(value);
     }
 
-    if(maxAge != -1){               // see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#browser_compatibility
+    if(!domain.isEmpty()){
+        header.append("; domain=").append(domain);
+    }
+
+    if(!path.isEmpty()){
+        header.append("; path=").append(path);
+    }
+
+    if(maxAge != INT_MIN){               // see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#browser_compatibility
         header.append("; Max-Age=").append(QString::number(maxAge));
     }
     if(expires.isValid()){
         header.append("; Expires=").append(IConvertUtil::toUtcString(expires)); // TODO:
     }
+
 
     if(sameSite != Lax){
         header.append("; SameSite=").append(QMetaEnum::fromType<ICookiePart::SameSiteType>().valueToKey(sameSite));

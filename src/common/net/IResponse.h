@@ -8,6 +8,7 @@
 #include "common/support/IRegisterMetaTypeUnit.h"
 #include "common/response/IResponseWareRaw.h"
 #include "common/response/IResponsePreProcessor.h"
+#include "common/cookie/ICookiePart.h"
 
 $PackageWebCoreBegin
 
@@ -40,6 +41,7 @@ public:
     IResponse& setHeader(const QString &key, const QString &value);
     IResponse& setStatus(IHttpStatus m_statusCode);
     IResponse& setMime(IHttpMime m_responseMime);
+    IResponse& addCookie(const ICookiePart& cookiePart);
 
     IResponse& appendContent(const QString& content);
     IResponse& appendContent(const QByteArray& content);
