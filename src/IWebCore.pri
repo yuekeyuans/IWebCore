@@ -15,6 +15,7 @@ HEADERS += \
     $$PWD/assertion/infos/OrmFatalAssertion.h \
     $$PWD/assertion/infos/OrmWarnAssertion.h \
     $$PWD/assertion/infos/configuration/ConfigurationMayNotInitializedAssert.h \
+    $$PWD/base/ICodecUtil.h \
     $$PWD/base/IConstantUtil.h \
     $$PWD/base/IConvertUtil.h \
     $$PWD/base/IFileUtil.h \
@@ -175,6 +176,7 @@ SOURCES += \
     $$PWD/assertion/infos/OrmFatalAssertion.cpp \
     $$PWD/assertion/infos/OrmWarnAssertion.cpp \
     $$PWD/assertion/infos/configuration/ConfigurationMayNotInitializedAssert.cpp \
+    $$PWD/base/ICodecUtil.cpp \
     $$PWD/base/IConvertUtil.cpp \
     $$PWD/base/IFileUtil.cpp \
     $$PWD/base/IHeaderUtil.cpp \

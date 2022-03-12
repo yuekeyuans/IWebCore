@@ -2,6 +2,7 @@
 #include "assertion/IAssertPreProcessor.h"
 #include "base/IConstantUtil.h"
 #include "base/IHeaderUtil.h"
+#include "base/ICodecUtil.h"
 #include "common/net/IRequest.h"
 #include "common/net/impl/IReqRespRaw.h"
 #include "configuration/IConfigurationManage.h"
@@ -561,7 +562,7 @@ void IRequestImpl::processMultiPartHeaders(IMultiPart &part, int start, int end)
 //        auto key = QString(QByteArray::fromPercentEncoding(args.first()));
 //        auto value = QString(QByteArray::fromPercentEncoding(args.last())).trimmed();
 //        part.headers[key] = value;
-        part.headers[IConvertUtil::urlDecode(args.first()).trimmed()] = IConvertUtil::urlDecode(args.last()).trimmed();
+        part.headers[ICodecUtil::urlDecode(args.first()).trimmed()] = ICodecUtil::urlDecode(args.last()).trimmed();
         posBegin = posEnd + 2;
         posEnd = raw->m_requestBody.indexOf("\r\n", posBegin);
     }

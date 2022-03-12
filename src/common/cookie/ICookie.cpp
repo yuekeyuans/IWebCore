@@ -5,12 +5,12 @@ $PackageWebCoreBegin
 
 QStringList ICookie::keys()
 {
-    return raw->m_cookieParameters.keys();
+    return raw->m_requestCookieParameters.keys();
 }
 
 QStringList ICookie::values()
 {
-    return raw->m_cookieParameters.values();
+    return raw->m_requestCookieParameters.values();
 }
 
 void ICookie::setCookie(const QString &key, const QString &value)

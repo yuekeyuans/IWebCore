@@ -1,5 +1,6 @@
 ﻿#include "IRedirectResponse.h"
 #include "base/IConvertUtil.h"
+#include "base/ICodecUtil.h"
 
 $PackageWebCoreBegin
 
@@ -89,14 +90,14 @@ void IRedirectResponse::updateLocationPath()
         return;
     }
     // 防止 非 acsii 字符，比如说汉字
-    auto path = IConvertUtil::pathEncode(redirectPath);
+    auto path = ICodecUtil::pathEncode(redirectPath);
     if(!attributes.isEmpty()){
         path.append('?');
         auto keys = attributes.keys();
         for(auto key : keys){
-            path.append(IConvertUtil::urlEncode(key))
+            path.append(ICodecUtil::urlEncode(key))
                     .append('=')
-                    .append(IConvertUtil::urlEncode(attributes[key]));
+                    .append(ICodecUtil::urlEncode(attributes[key]));
         }
     }
     raw->headers["Location"] = path;

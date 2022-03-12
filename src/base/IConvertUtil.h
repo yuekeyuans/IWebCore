@@ -63,13 +63,7 @@ namespace  IConvertUtil
     QTime toTime(const QString& val, bool* ok=nullptr);
     QDateTime toDateTime(const QString& val, bool* ok=nullptr);
 
-    QByteArray urlEncode(const QString& rawUrl);
-    QByteArray urlEncode(const QByteArray& rawUrl);
 
-    QByteArray urlDecode(const QString& rawUrl);
-    QByteArray urlDecode(const QByteArray& rawUrl);
-
-    QString pathEncode(const QString& rawPath);
 };
 
 $PackageWebCoreEnd
