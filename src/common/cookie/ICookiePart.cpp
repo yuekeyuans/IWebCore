@@ -32,7 +32,6 @@ QString ICookiePart::toHeaderString()
         header.append("; Expires=").append(IConvertUtil::toUtcString(expires)); // TODO:
     }
 
-
     if(sameSite != Lax){
         header.append("; SameSite=").append(QMetaEnum::fromType<ICookiePart::SameSiteType>().valueToKey(sameSite));
     }
