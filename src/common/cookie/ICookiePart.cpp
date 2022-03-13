@@ -18,11 +18,11 @@ QString ICookiePart::toHeaderString()
     }
 
     if(!domain.isEmpty()){
-        header.append("; domain=").append(domain);
+        header.append("; Domain=").append(domain);
     }
 
     if(!path.isEmpty()){
-        header.append("; path=").append(path);
+        header.append("; Path=").append(path);
     }
 
     if(maxAge != INT_MIN){               // see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#browser_compatibility

@@ -64,9 +64,6 @@ namespace  IConvertUtil
     QDateTime toDateTime(const QString& val, bool* ok=nullptr);
 
     QString toUtcString(const QDateTime& dateTime);
-    QDateTime fromUtcString(const QString& utcTime);
-
-
 };
 
 $PackageWebCoreEnd

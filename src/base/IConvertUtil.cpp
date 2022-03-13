@@ -400,17 +400,10 @@ QVariant IConvertUtilHelper::toULong(ulong val)
 
 QString IConvertUtil::toUtcString(const QDateTime& dateTime)
 {
-    static const QString format = "ddd MMM dd hh:mm:ss yyyy GMT";
+    static const QString format = "ddd, dd MMM yyyy hh:mm:ss";
     static const QLocale local = QLocale::English;
-    auto str = local.toString(dateTime, format);
-    qDebug() << dateTime.offsetFromUtc();
-//    auto str = dateTime.toUTC().toString(format);
+    auto str = local.toString(dateTime.toUTC(), format).append(" GMT");
     return str;
-}
-
-QDateTime IConvertUtil::fromUtcString(const QString &utcTime)
-{
-    return QDateTime::fromString(utcTime);
 }
 
 $PackageWebCoreEnd
