@@ -14,5 +14,8 @@ public:
 
     $GetMapping(cookie, /cookie)
     QString cookie(ICookie& cookie);
+
+    $GetMapping(json, /<name:short>/abc)
+    IJsonResponse json($Url(short, name));
 };
 
