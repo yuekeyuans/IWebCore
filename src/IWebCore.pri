@@ -51,7 +51,6 @@ HEADERS += \
     $$PWD/common/middleware/IPreInterceptorInterface.h \
     $$PWD/common/middleware/IPreProcessorInterface.h \
     $$PWD/common/middleware/IProcessorWare.h \
-    $$PWD/common/middleware/builtin/IServerNameMiddleWare.h \
     $$PWD/common/net/IMultiPart.h \
     $$PWD/common/net/IRequest.h \
     $$PWD/common/net/IResponse.h \
@@ -210,7 +209,6 @@ SOURCES += \
     $$PWD/common/middleware/IPreInterceptorInterface.cpp \
     $$PWD/common/middleware/IPreProcessorInterface.cpp \
     $$PWD/common/middleware/IProcessorWare.cpp \
-    $$PWD/common/middleware/builtin/IServerNameMiddleWare.cpp \
     $$PWD/common/net/IMultiPart.cpp \
     $$PWD/common/net/IRequest.cpp \
     $$PWD/common/net/IResponse.cpp \

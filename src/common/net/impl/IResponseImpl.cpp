@@ -48,6 +48,7 @@ QByteArray IResponseImpl::generateFirstLine()
 
 QByteArray IResponseImpl::generateHeadersContent()
 {
+    static const char* ServerInfo = "Server: IWebCore\r\n";
     auto& headers = raw->m_responseHeaders;
 
     auto len = raw->m_responseContent.length();
@@ -60,6 +61,10 @@ QByteArray IResponseImpl::generateHeadersContent()
     }
 
     QByteArray headersContent;
+    if(IConstantUtil::IServerNameMiddleWareEnabeld){
+        headersContent.append(ServerInfo);
+    }
+
     for(auto key : headers.keys()){
         headersContent.append(key).append(": ").append(headers[key]).append(IConstantUtil::NewLine);
     }
