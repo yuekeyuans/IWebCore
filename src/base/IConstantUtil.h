@@ -36,7 +36,9 @@ namespace IConstantUtil
     static constexpr int Request_Body_Max_Length   = (1024 * 1024 * 4);  // 4M
 
     // configuration  暂时的
-    static constexpr bool ICookieEnabled = true;
+    static constexpr bool IServerNameMiddleWareEnabeld = true;
+    static constexpr bool ICookiePluginEnabled = true;
+    static constexpr bool ICorsPluginEnabled = true;
 
 };
 

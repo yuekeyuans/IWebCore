@@ -8,4 +8,3 @@ SUBDIRS += \
 CONFIG += qt
 
 QT += widgets
-

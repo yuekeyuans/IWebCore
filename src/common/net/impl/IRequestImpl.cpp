@@ -441,7 +441,7 @@ bool IRequestImpl::resolveCookies()
 {
     static const QByteArray splitString = "; ";
 
-    if(IConstantUtil::ICookieEnabled && raw->m_requestHeaders.contains(IHttpHeader::Cookie)){
+    if(IConstantUtil::ICookiePluginEnabled && raw->m_requestHeaders.contains(IHttpHeader::Cookie)){
         const QString rawCookie = raw->m_requestHeaders[IHttpHeader::Cookie];
 
         QString key, value;

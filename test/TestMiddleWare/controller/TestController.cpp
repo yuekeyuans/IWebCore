@@ -2,7 +2,6 @@
 
 TestController::TestController()
 {
-
 }
 
 QString TestController::index()

@@ -41,7 +41,7 @@ QByteArray IResponseImpl::generateFirstLine()
     QByteArray firstLine;
     firstLine.append(IHttpVersionHelper::toString(raw->m_httpVersion)).append(" ")
         .append(IHttpStatusHelper::toString(raw->m_responseStatus)).append(" ")
-        .append(IHttpStatusHelper::toStringDescription(raw->m_responseStatus)).append("\r\n");
+        .append(IHttpStatusHelper::toStringDescription(raw->m_responseStatus)).append(IConstantUtil::NewLine);
 
     return firstLine;
 }
@@ -64,9 +64,11 @@ QByteArray IResponseImpl::generateHeadersContent()
         headersContent.append(key).append(": ").append(headers[key]).append(IConstantUtil::NewLine);
     }
 
-    if(IConstantUtil::ICookieEnabled){
+    if(IConstantUtil::ICookiePluginEnabled){
         auto cookieContent = generateCookieHeaders();
-        headersContent.append(cookieContent).append(IConstantUtil::NewLine);
+        if(!cookieContent.isEmpty()){
+            headersContent.append(cookieContent).append(IConstantUtil::NewLine);
+        }
     }
 
     return headersContent;
@@ -78,10 +80,9 @@ QString IResponseImpl::generateCookieHeaders()
     const auto& cookies = raw->m_responseCookies;
     for(auto cookie : cookies){
         auto val = cookie.toHeaderString();
-        if(val.isEmpty()){
-            continue;
+        if(!val.isEmpty()){
+            contents.push_back(val);
         }
-        contents.push_back(val);
     }
     return contents.join(IConstantUtil::NewLine);
 }
