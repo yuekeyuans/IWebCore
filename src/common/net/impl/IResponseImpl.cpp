@@ -48,35 +48,39 @@ QByteArray IResponseImpl::generateFirstLine()
 
 QByteArray IResponseImpl::generateHeadersContent()
 {
-    static const char* ServerInfo = "Server: IWebCore\r\n";
     auto& headers = raw->m_responseHeaders;
 
     auto len = raw->m_responseContent.length();
     if(len != 0){
         headers[IHttpHeader::ContentLength] = QString::number(len);
-
         if(!headers.contains(IHttpHeader::ContentType)){
             headers[IHttpHeader::ContentType] = IHttpMimeHelper::toString(raw->m_responseMime);
         }
     }
 
     QByteArray headersContent;
-    if(IConstantUtil::IServerNameMiddleWareEnabeld){
-        headersContent.append(ServerInfo);
-    }
-
     for(auto key : headers.keys()){
         headersContent.append(key).append(": ").append(headers[key]).append(IConstantUtil::NewLine);
+    }
+
+    generateExternalHeadersContent(headersContent);
+    return headersContent;
+}
+
+void IResponseImpl::generateExternalHeadersContent(QByteArray& content)
+{
+    static const char* ServerInfo = "Server: IWebCore\r\n";
+
+    if(IConstantUtil::IServerNameMiddleWareEnabeld){
+        content.append(ServerInfo);
     }
 
     if(IConstantUtil::ICookiePluginEnabled){
         auto cookieContent = generateCookieHeaders();
         if(!cookieContent.isEmpty()){
-            headersContent.append(cookieContent).append(IConstantUtil::NewLine);
+            content.append(cookieContent).append(IConstantUtil::NewLine);
         }
     }
-
-    return headersContent;
 }
 
 QString IResponseImpl::generateCookieHeaders()

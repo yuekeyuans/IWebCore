@@ -18,6 +18,7 @@ public:
     QByteArray generateFirstLine();
 
     QByteArray generateHeadersContent();
+    void generateExternalHeadersContent(QByteArray& content);
     QString generateCookieHeaders();
 
 public:
