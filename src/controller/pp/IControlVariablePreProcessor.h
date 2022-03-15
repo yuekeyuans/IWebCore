@@ -69,8 +69,8 @@ $PackageWebCoreEnd
     type name##_system
 
 // TODO: this will be supported latter. it call the value exist in attribute.
-//#define $Attr(type, name)   \
-//    type name##_attr
+#define $Attr(type, name)   \
+    type name##_attr
 
 // TODO: 这个也是之后支持， 表示这个参数是可选的， 相当于 spring 的 required = false
 #define $Optional(type, name)   \

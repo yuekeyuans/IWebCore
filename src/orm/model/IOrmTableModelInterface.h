@@ -20,6 +20,11 @@ class IOrmTableModelInterface : public IOrmEntityModelWare<T, dbConnectionName>
 {
     $UseWare
 public:
+    using IOrmEntityModelWare<T, dbConnectionName>::exec;
+    using IOrmEntityModelWare<T, dbConnectionName>::getDialect;
+    using IOrmEntityModelWare<T, dbConnectionName>::getDatabase;
+
+public:
     IOrmTableModelInterface() = default;
     virtual ~IOrmTableModelInterface() = default;
 
@@ -51,15 +56,15 @@ protected:
 template<typename T, const char* dbConnectionName>
 bool IOrmTableModelInterface<T, dbConnectionName>::insert(const QString &sql)
 {
-    return IOrmEntityModelUnit::exec(sql);
+    return exec(sql);
 }
 
 template<typename T, const char* dbConnectionName>
 bool IOrmTableModelInterface<T, dbConnectionName>::insert(T &table, const QStringList& columns)
 {
-    auto dialect = IOrmEntityModelUnit::getDialect();
+    auto dialect = getDialect();
     const auto& cols = columns.isEmpty() ?  T::entityInfo().fieldNames : columns;
-    auto db = IOrmEntityModelUnit::getDatabase();
+    auto db = getDatabase();
     return dialect->insert(db, table, cols);
 }
 
@@ -70,8 +75,8 @@ bool IOrmTableModelInterface<T, dbConnectionName>::insert(QList<T>& tables, cons
         return true;
     }
 
-    IOrmDialectWare* dialect = IOrmEntityModelUnit::getDialect();
-    QSqlDatabase& db = IOrmEntityModelUnit::getDatabase();
+    IOrmDialectWare* dialect = getDialect();
+    QSqlDatabase& db = getDatabase();
     const auto& cols = columns.isEmpty() ?  T::entityInfo().fieldNames : columns;
 
     db.transaction();
@@ -85,8 +90,8 @@ bool IOrmTableModelInterface<T, dbConnectionName>::insert(QList<T>& tables, cons
 template<typename T, const char* dbConnectionName>
 bool IOrmTableModelInterface<T, dbConnectionName>::update(const QList<T> &tables)
 {
-    IOrmDialectWare* dialect = IOrmEntityModelUnit::getDialect();
-    QSqlDatabase& db = IOrmEntityModelUnit::getDatabase();
+    IOrmDialectWare* dialect = getDialect();
+    QSqlDatabase& db = getDatabase();
     db.transaction();
     for(const auto table : tables){
         dialect->update(db, table);
@@ -97,24 +102,24 @@ bool IOrmTableModelInterface<T, dbConnectionName>::update(const QList<T> &tables
 template<typename T, const char* dbConnectionName>
 bool IOrmTableModelInterface<T, dbConnectionName>::update(const T &table)
 {
-    IOrmDialectWare* dialect = IOrmEntityModelUnit::getDialect();
-    QSqlDatabase& db = IOrmEntityModelUnit::getDatabase();
+    IOrmDialectWare* dialect = getDialect();
+    QSqlDatabase& db = getDatabase();
     return dialect->update(db, table);
 }
 
 template<typename T, const char* dbConnectionName>
 bool IOrmTableModelInterface<T, dbConnectionName>::update(const T &table, const QStringList &columns)
 {
-    IOrmDialectWare* dialect = IOrmEntityModelUnit::getDialect();
-    QSqlDatabase& db = IOrmEntityModelUnit::getDatabase();
+    IOrmDialectWare* dialect = getDialect();
+    QSqlDatabase& db = getDatabase();
     return dialect->update(db, table, columns);
 }
 
 template<typename T, const char* dbConnectionName>
 bool IOrmTableModelInterface<T, dbConnectionName>::update(const QList<T> &tables, const QStringList &columns)
 {
-    IOrmDialectWare* dialect = IOrmEntityModelUnit::getDialect();
-    QSqlDatabase& db = IOrmEntityModelUnit::getDatabase();
+    IOrmDialectWare* dialect = getDialect();
+    QSqlDatabase& db = getDatabase();
     db.transaction();
     for(const auto table : tables){
         dialect->update(db, table, columns);
@@ -126,22 +131,22 @@ bool IOrmTableModelInterface<T, dbConnectionName>::update(const QList<T> &tables
 template<typename T, const char* dbConnectionName>
 bool IOrmTableModelInterface<T, dbConnectionName>::update(const QMap<QString, QVariant> &map, const IOrmCondition &condition)
 {
-    IOrmDialectWare* dialect = IOrmEntityModelUnit::getDialect();
-    QSqlDatabase& db = IOrmEntityModelUnit::getDatabase();
+    IOrmDialectWare* dialect = getDialect();
+    QSqlDatabase& db = getDatabase();
     return dialect->update(db, T::entityInfo(), map, condition);
 }
 
 template<typename T, const char* dbConnectionName>
 bool IOrmTableModelInterface<T, dbConnectionName>::deleted(T &t){
-    IOrmDialectWare* dialect = IOrmEntityModelUnit::getDialect();
-    QSqlDatabase& db = IOrmEntityModelUnit::getDatabase();
+    IOrmDialectWare* dialect = getDialect();
+    QSqlDatabase& db = getDatabase();
     return dialect->deleted(db, t);
 }
 
 template<typename T, const char* dbConnectionName>
 bool IOrmTableModelInterface<T, dbConnectionName>::deleted(const QString &sql)
 {
-    return IOrmEntityModelUnit::exec(sql);
+    return exec(sql);
 }
 
 template<typename T, const char* dbConnectionName>
@@ -153,8 +158,8 @@ bool IOrmTableModelInterface<T, dbConnectionName>::deleted(QList<T> &tables)
 
     const IOrmTableInfo& info = T::entityInfo();
     const auto& pk = info.primaryKey;
-    IOrmDialectWare* dialect = IOrmEntityModelUnit::getDialect();
-    QSqlDatabase& db = IOrmEntityModelUnit::getDatabase();
+    IOrmDialectWare* dialect = getDialect();
+    QSqlDatabase& db = getDatabase();
 
     QList<QVariant> args;
     for(const IOrmEntityWare& table : tables){
@@ -169,40 +174,40 @@ bool IOrmTableModelInterface<T, dbConnectionName>::deleted(QList<T> &tables)
 template<typename T, const char* dbConnectionName>
 bool IOrmTableModelInterface<T, dbConnectionName>::deleted(const IOrmCondition &condition)
 {
-    auto dialect = IOrmEntityModelUnit::getDialect();
-    QSqlDatabase& db = IOrmEntityModelUnit::getDatabase();
+    auto dialect = getDialect();
+    QSqlDatabase& db = getDatabase();
     return dialect->deleted(db, T::entityInfo(), condition);
 }
 
 template<typename T, const char* dbConnectionName>
 bool IOrmTableModelInterface<T, dbConnectionName>::deleteByPrimaryKey(const QVariant &variant)
 {
-    IOrmDialectWare* dialect = IOrmEntityModelUnit::getDialect();
-    QSqlDatabase& db = IOrmEntityModelUnit::getDatabase();
+    IOrmDialectWare* dialect = getDialect();
+    QSqlDatabase& db = getDatabase();
     return dialect->deleteByPrimaryKey(db, T::entityInfo(), variant);
 }
 
 template<typename T, const char* dbConnectionName>
 T IOrmTableModelInterface<T, dbConnectionName>::findOneByPriamaryKey(const QVariant &key)
 {
-    IOrmDialectWare* dialect = IOrmEntityModelUnit::getDialect();
-    QSqlDatabase& db = IOrmEntityModelUnit::getDatabase();
+    IOrmDialectWare* dialect = getDialect();
+    QSqlDatabase& db = getDatabase();
     return dialect->findOneByPrimaryKey<T>(db, key);
 }
 
 template<typename T, const char* dbConnectionName>
 bool IOrmTableModelInterface<T, dbConnectionName>::clearTable()
 {
-    IOrmDialectWare* dialect = IOrmEntityModelUnit::getDialect();
-    QSqlDatabase& db = IOrmEntityModelUnit::getDatabase();
+    IOrmDialectWare* dialect = getDialect();
+    QSqlDatabase& db = getDatabase();
     return dialect->clearTable(db, T::entityInfo());
 }
 
 template<typename T, const char* dbConnectionName>
 bool IOrmTableModelInterface<T, dbConnectionName>::truncateTable()
 {
-    IOrmDialectWare* dialect = IOrmEntityModelUnit::getDialect();
-    QSqlDatabase& db = IOrmEntityModelUnit::getDatabase();
+    IOrmDialectWare* dialect = getDialect();
+    QSqlDatabase& db = getDatabase();
     return dialect->truncateTable(db, T::entityInfo());
 }
 

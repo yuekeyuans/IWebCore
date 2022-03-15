@@ -11,7 +11,6 @@ QString TestController::index()
 
 QString TestController::cookie(ICookie &cookie)
 {
-//    qDebug() << cookie.keys() << cookie.values();
-    cookie.setCookie("hello", "world", QDateTime::currentDateTime());
+    cookie.setCookie("hello", "world", 12000);
     return "cookie test";
 }
