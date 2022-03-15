@@ -11,15 +11,13 @@ $PackageWebCoreBegin
 extern const char DefaultDatabaseName[];
 
 template<typename T, const char * dbConnectionName = DefaultDatabaseName>
-class IOrmEntityModelWare  :  public IOrmEntityModelUnit
+class IOrmEntityModelWare  // :  public IOrmEntityModelUnit
 {
     $AsWare
 public:
     IOrmEntityModelWare() = default;
 
-    virtual bool exec(const QString& sql) override;
-    virtual QSqlDatabase& getDatabase() override;
-    virtual IOrmDialectWare* getDialect() override;
+    bool exec(const QString& sql);
 
     ISqlQuery execedQuery(const QString& sql);
 
@@ -36,6 +34,8 @@ public:
     T toObject(const QMap<QString, QVariant>& map);
     T toObject(const QJsonObject& obj);
 
+    QSqlDatabase& getDatabase();
+    IOrmDialectWare* getDialect();
     ISqlQuery getQuery();
 };
 
