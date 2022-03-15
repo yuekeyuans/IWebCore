@@ -122,7 +122,6 @@ HEADERS += \
     $$PWD/orm/dialect/IOrmDialectInterface.h \
     $$PWD/orm/dialect/IOrmDialectWare.h \
     $$PWD/orm/model/IOrmEntityModeWare.h \
-    $$PWD/orm/model/IOrmEntityModelUnit.h \
     $$PWD/orm/model/IOrmTableModelInterface.h \
     $$PWD/orm/model/IOrmViewModelInterface.h \
     $$PWD/orm/pp/IOrmPreProcessor.h \
@@ -262,7 +261,6 @@ SOURCES += \
     $$PWD/orm/dialect/IOrmDialectInterface.cpp \
     $$PWD/orm/dialect/IOrmDialectWare.cpp \
     $$PWD/orm/model/IOrmEntityModeWare.cpp \
-    $$PWD/orm/model/IOrmEntityModelUnit.cpp \
     $$PWD/orm/model/IOrmTableModelInterface.cpp \
     $$PWD/orm/model/IOrmViewModelInterface.cpp \
     $$PWD/orm/private/IOrmConditionImpl.cpp \

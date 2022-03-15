@@ -4,14 +4,13 @@
 #include "orm/dialect/IOrmDialectWare.h"
 #include "orm/ISqlQuery.h"
 #include "orm/IOrmManage.h"
-#include "orm/model/IOrmEntityModelUnit.h"
 
 $PackageWebCoreBegin
 
 extern const char DefaultDatabaseName[];
 
 template<typename T, const char * dbConnectionName = DefaultDatabaseName>
-class IOrmEntityModelWare  // :  public IOrmEntityModelUnit
+class IOrmEntityModelWare
 {
     $AsWare
 public:
