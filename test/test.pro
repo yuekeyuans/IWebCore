@@ -7,5 +7,5 @@ SUBDIRS += \
     TestOrm \
 #    TestOrmTableAndView \
 #    TestBean \
-#    TestHttpMapping \
+    TestHttpMapping \
 #    TestConvertion
