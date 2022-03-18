@@ -68,16 +68,6 @@ QByteArray ICodecUtil::uncompress(const char *content)
     return uncompress(QByteArray(content));
 }
 
-//QByteArray ICodecUtil::gzip(const QByteArray &content)
-//{
-
-//}
-
-//QByteArray ICodecUtil::ungzip(const QByteArray &content)
-//{
-
-//}
-
 unsigned char ToHex(unsigned char x)
 {
     return  x > 9 ? x + 55 : x + 48;

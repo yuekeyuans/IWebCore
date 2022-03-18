@@ -24,9 +24,6 @@ namespace ICodecUtil
     QByteArray uncompress(const QByteArray& content);
     QByteArray uncompress(const char* content);
 
-//    QByteArray gzip(const QByteArray& content);
-//    QByteArray ungzip(const QByteArray& content);
-
     QByteArray urlEncode(const QString& rawUrl);
     QByteArray urlEncode(const QByteArray& rawUrl);
 
