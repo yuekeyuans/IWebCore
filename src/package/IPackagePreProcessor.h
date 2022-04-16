@@ -10,12 +10,10 @@ namespace name1 {
 namespace name1 {   \
     namespace name2 {
 
-
 #define $PackageBegin_3(name1, name2, name3) \
 namespace name1 {   \
     namespace name2 {   \
         namespace name3
-
 
 #define $PackageBegin_4(name1, name2, name3, name4) \
 namespace name1 {   \
@@ -141,6 +139,7 @@ namespace name1 {   \
 #define $PackageEnd_EVAL(N) $PackageEnd_(N)
 #define $PackageEnd(...) PP_EXPAND( $PackageEnd_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
 
+
 // $PackageUsing
 #define $PackageUsing_1(name1) \
     using namespace name1;
@@ -174,7 +173,7 @@ namespace name1 {   \
 #define $PackageUsing(...) PP_EXPAND( $PackageUsing_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
 
 
-
+// IWebCore about
 #define $PackageWebCoreBegin \
     $PackageBegin(IWebCore)
 
