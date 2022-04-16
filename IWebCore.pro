@@ -5,6 +5,4 @@ SUBDIRS += \
 #    src \
     test
 
-CONFIG += qt
 
-QT += widgets
