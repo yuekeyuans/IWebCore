@@ -170,17 +170,5 @@ namespace name1 {   \
 
 #define $PackageUsing_(N) $PackageUsing_##N
 #define $PackageUsing_EVAL(N) $PackageUsing_(N)
-#define $PackageUsing(...) PP_EXPAND( $PackageUsing_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
+#define $PackageUsing(...) PP_EXPAND( $PackageUsing_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__))
 
-
-// IWebCore about
-#define $PackageWebCoreBegin \
-    $PackageBegin(IWebCore)
-
-#define $PackageWebCoreEnd \
-    $PackageEnd(IWebCore)
-
-#define $PackageWebCoreUsing \
-    $PackageUsing(IWebCore)
-
-#define $PackageWebCoreName ("IWebCore")

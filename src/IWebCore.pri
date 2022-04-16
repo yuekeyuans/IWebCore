@@ -24,6 +24,7 @@ HEADERS += \
     $$PWD/base/IJsonUtil_tojson.h \
     $$PWD/base/IMetaUtil.h \
     $$PWD/base/IOrmUtil.h \
+    $$PWD/base/IPackageUtil.h \
     $$PWD/base/IPreProcessorUtil.h \
     $$PWD/base/ISocketUtil.h \
     $$PWD/base/ITicTacUtil.h \
@@ -143,7 +144,6 @@ HEADERS += \
     $$PWD/orm/tableview/IOrmViewInfo.h \
     $$PWD/orm/tableview/IOrmViewInterface.h \
     $$PWD/orm/tableview/IOrmViewWare.h \
-    $$PWD/package/IPackagePreProcessor.h \
     $$PWD/plugin/yaml/IYamlUtil.h \
     $$PWD/plugin/yaml/Yaml.hpp \
     $$PWD/server/IServerInterface.h \

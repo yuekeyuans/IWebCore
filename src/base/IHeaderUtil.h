@@ -6,8 +6,19 @@
     #include <QtXml>
     #include <QtNetwork>
     #include <QtSql>
-    #include "package/IPackagePreProcessor.h"
+    #include "base/IPackageUtil.h"
     #include "assertion/IAssertInfoList.h"
+
+    #define $PackageWebCoreBegin \
+        $PackageBegin(IWebCore)
+
+    #define $PackageWebCoreEnd \
+        $PackageEnd(IWebCore)
+
+    #define $PackageWebCoreUsing \
+        $PackageUsing(IWebCore)
+
+    #define $PackageWebCoreName "IWebCore"
 
 #else
 
@@ -18,8 +29,21 @@
         #include <QtXml>
         #include <QtNetwork>
         #include <QtSql>
-        #include "package/IPackagePreProcessor.h"
+        #include "base/IPackagePreProcessor.h"
+
+        // IWebCore about
+        #define $PackageWebCoreBegin \
+            $PackageBegin(IWebCore)
+
+        #define $PackageWebCoreEnd \
+            $PackageEnd(IWebCore)
+
+        #define $PackageWebCoreUsing \
+            $PackageUsing(IWebCore)
+
+        #define $PackageWebCoreName ("IWebCore")
 
     #endif
+
 
 #endif

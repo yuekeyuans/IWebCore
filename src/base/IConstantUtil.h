@@ -4,10 +4,6 @@
 
 $PackageWebCoreBegin
 
-/*! @namespace IConstantUtil
- * @brief list some often used constants.
- *
- **/
 namespace IConstantUtil
 {
     // debugMode;
