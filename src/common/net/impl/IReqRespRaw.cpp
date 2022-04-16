@@ -1,4 +1,5 @@
 ﻿#include "IReqRespRaw.h"
+#include "base/IHeaderUtil.h"
 #include "base/IConstantUtil.h"
 #include "base/IToeUtil.h"
 #include "base/IJsonUtil.h"

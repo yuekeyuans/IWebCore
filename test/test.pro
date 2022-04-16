@@ -4,7 +4,7 @@ SUBDIRS += \
 #    TestConfigurations \
 #    TestHttpBeanMapping \
 #    TestMiddleWare \
-    TestOrm \
+#    TestOrm \
 #    TestOrmTableAndView \
 #    TestBean \
     TestHttpMapping \

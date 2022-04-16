@@ -1,7 +1,6 @@
 INCLUDEPATH += $$PWD
 
-QT += network sql
-QT -= gui
+QT += network sql xml
 
 PRECOMPILED_HEADER = $$PWD/base/IHeaderUtil.h
 

@@ -29,7 +29,7 @@
         #include <QtXml>
         #include <QtNetwork>
         #include <QtSql>
-        #include "base/IPackagePreProcessor.h"
+        #include "base/IPackageUtil.h"
 
         // IWebCore about
         #define $PackageWebCoreBegin \
