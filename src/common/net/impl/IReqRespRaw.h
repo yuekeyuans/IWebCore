@@ -7,7 +7,7 @@
 #include "biscuits/IHttpStatus.h"
 #include "biscuits/IHttpVersion.h"
 #include "common/net/IMultiPart.h"
-#include "common/cookie/ICookie.h"
+#include "common/cookie/ICookieJar.h"
 #include "common/cookie/ICookiePart.h"
 #include "common/session/ISession.h"
 
@@ -30,7 +30,6 @@ public:
     QDomNode&   getRequestXml(bool* ok=nullptr);
 
 public:
-//    qintptr m_socketHandle {};
     QTcpSocket* m_socket{nullptr};
     IResponse*  m_response {nullptr};
     IRequest*   m_request  {nullptr};
@@ -56,7 +55,7 @@ public:
     QVector<IMultiPart> m_requestMultiParts;
     QList<QPair<QString, QString>> m_requestCookieParameters;
 
-    ICookie m_cookie;                                       // TODO: 这两个是否需要指针?
+    ICookieJar m_cookie;                                       // TODO: 这两个是否需要指针?
     ISession m_session;
 
 private:

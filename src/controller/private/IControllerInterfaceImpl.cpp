@@ -98,7 +98,6 @@ QStringList IControllerInterfaceImpl::reformClsInfoArgs(const QMap<QString, QStr
     return ret;
 }
 
-
 QMap<QString, QString> IControllerInterfaceImpl::getStatusCodeInfos(QMap<QString, QString> clsInfos)
 {
     static const QString PREFIX = "iwebControllerStatusCode$";
@@ -441,7 +440,7 @@ void IControllerInterfaceImpl::checkMethodParamterWithSuffixSet(const IUrlFuncti
         "IRequest", "IRequest&",
         "IResponse", "IResponse&",
         "IMultiPart", "IMultiPart&",
-        "ICookie", "ICookie&",
+        "ICookieJar", "ICookieJar&",
         "ISession", "ISession&"
         "QJsonValue", "QJsonValue&"
     };
@@ -466,7 +465,7 @@ bool IControllerInterfaceImpHelper::isSpecialTypes(const QString& typeName)
         "IRequest",     "IRequest&",
         "IResponse",    "IResponse&",
         "IMultiPart",   "IMultiPart&",
-        "ICookie",      "ICookie&",
+        "ICookieJar",      "ICookieJar&",
         "ISession",     "ISession&"
     };
 

@@ -6,7 +6,7 @@
 #include "biscuits/IHttpHeader.h"
 #include "common/net/impl/IRequestImpl.h"
 #include "common/net/impl/IReqRespRaw.h"
-#include "common/cookie/ICookie.h"
+#include "common/cookie/ICookieJar.h"
 #include "common/session/ISession.h"
 
 $PackageWebCoreBegin
@@ -48,7 +48,7 @@ IResponse *IRequest::response() const
     return raw->m_response;
 }
 
-ICookie *IRequest::cookie() const
+ICookieJar *IRequest::cookie() const
 {
     return &raw->m_cookie;
 }

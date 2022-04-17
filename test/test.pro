@@ -2,8 +2,8 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
 #    TestConfigurations \
-#    TestHttpBeanMapping \
-#    TestMiddleWare \
+    TestHttpBeanMapping \
+    TestMiddleWare \
 #    TestOrm \
 #    TestOrmTableAndView \
 #    TestBean \

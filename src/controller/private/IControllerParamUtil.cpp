@@ -508,8 +508,8 @@ void IControllerFunctionBaseImplHelper::initSystemTypes(){
         SystemTypes << QMetaType::type((nmspace + "IRequest&").toUtf8());
         SystemTypes << QMetaType::type((nmspace + "IResponse").toUtf8());
         SystemTypes << QMetaType::type((nmspace + "IResponse&").toUtf8());
-        SystemTypes << QMetaType::type((nmspace + "ICookie").toUtf8());
-        SystemTypes << QMetaType::type((nmspace + "ICookie&").toUtf8());
+        SystemTypes << QMetaType::type((nmspace + "ICookieJar").toUtf8());
+        SystemTypes << QMetaType::type((nmspace + "ICookieJar&").toUtf8());
     });
 }
 

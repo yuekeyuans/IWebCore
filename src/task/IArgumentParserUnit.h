@@ -40,7 +40,8 @@ typename IArgumentParserUnit<T, enabled>::IArgumentParserUnitPrivate
     IArgumentParserUnit<T, enabled>::m_private;
 
 template<typename T, bool enabled>
-IArgumentParserUnit<T, enabled>::IArgumentParserUnitPrivate::IArgumentParserUnitPrivate(){
+IArgumentParserUnit<T, enabled>::IArgumentParserUnitPrivate::IArgumentParserUnitPrivate()
+{
     if(enabled){
         static std::once_flag flag;
         std::call_once(flag, [](){

@@ -9,7 +9,8 @@ class IWebApplication : public QCoreApplication
 public:
     IWebApplication(int argc, char** argv);
 
-    QStringList getArguments() const;
+private:
+    const QStringList& getArguments();
 
 private:
     QStringList m_arguments;

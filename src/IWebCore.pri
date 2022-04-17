@@ -41,7 +41,7 @@ HEADERS += \
     $$PWD/common/IManage.h \
     $$PWD/common/application/IWebApplication.h \
     $$PWD/common/argument/IArgumentParserInterface.h \
-    $$PWD/common/cookie/ICookie.h \
+    $$PWD/common/cookie/ICookieJar.h \
     $$PWD/common/cookie/ICookiePart.h \
     $$PWD/common/middleware/IInterceptorWare.h \
     $$PWD/common/middleware/IMiddleWare.h \
@@ -198,7 +198,7 @@ SOURCES += \
     $$PWD/common/IManage.cpp \
     $$PWD/common/application/IWebApplication.cpp \
     $$PWD/common/argument/IArgumentParserInterface.cpp \
-    $$PWD/common/cookie/ICookie.cpp \
+    $$PWD/common/cookie/ICookieJar.cpp \
     $$PWD/common/cookie/ICookiePart.cpp \
     $$PWD/common/middleware/IInterceptorWare.cpp \
     $$PWD/common/middleware/IMiddleWare.cpp \

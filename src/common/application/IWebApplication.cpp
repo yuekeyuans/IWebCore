@@ -17,7 +17,7 @@ IWebApplication::IWebApplication(int argc, char **argv) : QCoreApplication(argc,
     ITaskManage::run(m_arguments);
 }
 
-QStringList IWebApplication::getArguments() const
+const QStringList &IWebApplication::getArguments()
 {
     return m_arguments;
 }

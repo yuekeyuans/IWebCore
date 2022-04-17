@@ -4,8 +4,76 @@
 
 $PackageWebCoreBegin
 
-ICookiePart::ICookiePart()
+ICookiePart::ICookiePart(const QString &key, const QString &value, int maxAge, bool secure, bool httpOnly)
 {
+    this->key = key;
+    this->value = value;
+    this->maxAge = maxAge;
+    this->secure = secure;
+    this->httpOnly = httpOnly;
+}
+
+ICookiePart::ICookiePart(const QString &key, const QString &value, const QDateTime &expires, bool secure, bool httpOnly)
+{
+    this->key = key;
+    this->value = value;
+    this->expires = expires;
+    this->secure = secure;
+    this->httpOnly = httpOnly;
+}
+
+ICookiePart &ICookiePart::setKey(const QString &key)
+{
+    this->key = key;
+    return *this;
+}
+
+ICookiePart &ICookiePart::setValue(const QString &value)
+{
+    this->value = value;
+    return *this;
+}
+
+ICookiePart &ICookiePart::setDomain(const QString &domain)
+{
+    this->domain = domain;
+    return *this;
+}
+
+ICookiePart &ICookiePart::setPath(const QString &path)
+{
+    this->path = path;
+    return *this;
+}
+
+ICookiePart &ICookiePart::setExpires(const QDateTime &dateTime)
+{
+    this->expires = dateTime;
+    return *this;
+}
+
+ICookiePart &ICookiePart::setMaxAge(int maxAge)
+{
+    this->maxAge = maxAge;
+    return *this;
+}
+
+ICookiePart &ICookiePart::setSecure(bool secure)
+{
+    this->secure = secure;
+    return *this;
+}
+
+ICookiePart &ICookiePart::setHttpOnly(bool httpOnly)
+{
+    this->httpOnly = httpOnly;
+    return *this;
+}
+
+ICookiePart &ICookiePart::setSameSite(ICookiePart::SameSiteType sameSite)
+{
+    this->sameSite = sameSite;
+    return *this;
 }
 
 QString ICookiePart::toHeaderString()

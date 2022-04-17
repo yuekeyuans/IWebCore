@@ -15,7 +15,7 @@
 $PackageWebCoreBegin
 
 class IResponse;
-class ICookie;
+class ICookieJar;
 class ISession;
 class IRequestImpl;
 class IReqRespRaw;
@@ -32,7 +32,7 @@ public:
     const QString operator[](const QString&header) const;
 
     IResponse* response() const;
-    ICookie*   cookie() const;
+    ICookieJar*   cookie() const;
     ISession*  session() const;
     IReqRespRaw* getRaw() const;
 

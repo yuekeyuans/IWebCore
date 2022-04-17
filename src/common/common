@@ -8,7 +8,7 @@
 #include "common/net/IRequest.h"
 #include "common/net/IResponse.h"
 
-#include "common/cookie/ICookie.h"
+#include "common/cookie/ICookieJar.h"
 #include "common/session/ISession.h"
 
 #include "common/response/IByteArrayResponse.h"
