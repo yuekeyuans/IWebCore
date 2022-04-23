@@ -465,8 +465,9 @@ bool IControllerInterfaceImpHelper::isSpecialTypes(const QString& typeName)
         "IRequest",     "IRequest&",
         "IResponse",    "IResponse&",
         "IMultiPart",   "IMultiPart&",
-        "ICookieJar",      "ICookieJar&",
-        "ISessionJar",     "ISessionJar&"
+        "ICookieJar",   "ICookieJar&",
+        "ISessionJar",  "ISessionJar&",
+        "IHeaderJar",   "IHeaderJar&"
     };
 
     return specialExternalTypes.contains(typeName);

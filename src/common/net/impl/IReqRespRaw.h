@@ -10,6 +10,7 @@
 #include "common/cookie/ICookieJar.h"
 #include "common/cookie/ICookiePart.h"
 #include "common/session/ISessionJar.h"
+#include "common/header/IHeaderJar.h"
 
 $PackageWebCoreBegin
 
@@ -57,6 +58,8 @@ public:
 
     ICookieJar m_cookie;                                       // TODO: 这两个是否需要指针?
     ISessionJar m_session;
+    IHeaderJar m_header;
+
 
 private:
     QJsonValue m_requestJson;                   // json 和 dom 不一定使用，也可能是延后加载

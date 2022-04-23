@@ -59,6 +59,12 @@ ISessionJar *IRequest::session() const
     return &raw->m_session;
 }
 
+IHeaderJar *IRequest::header() const
+{
+    qFatal(IConstantUtil::UnImplimentedMethod);
+    return &raw->m_header;
+}
+
 IReqRespRaw *IRequest::getRaw() const
 {
     return raw;

@@ -17,6 +17,7 @@ $PackageWebCoreBegin
 class IResponse;
 class ICookieJar;
 class ISessionJar;
+class IHeaderJar;
 class IRequestImpl;
 class IReqRespRaw;
 
@@ -29,11 +30,12 @@ public:
     explicit IRequest(QTcpSocket* m_socket);
     ~IRequest();
 
-    const QString operator[](const QString&header) const;
+    const QString operator[](const QString&headerJar) const;
 
     IResponse* response() const;
-    ICookieJar*   cookie() const;
-    ISessionJar*  session() const;
+    ICookieJar* cookieJar() const;
+    ISessionJar* sessionJar() const;
+    IHeaderJar* headerJar() const;
     IReqRespRaw* getRaw() const;
 
 

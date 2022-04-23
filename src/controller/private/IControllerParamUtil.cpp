@@ -290,7 +290,7 @@ void *IControllerParamUtil::getParamOfSystem(const IFunctionParamNode& node, IRe
         return request.response();
     }
     if(node.paramTypeId == SystemTypes[4] || node.paramTypeId == SystemTypes[5]){
-        return request.cookie();
+        return request.cookieJar();
     }
     return nullptr;
 
@@ -318,7 +318,7 @@ void *IControllerParamUtil::getParamOfCookie(const IFunctionParamNode &node, IRe
 void *IControllerParamUtil::getParamOfSession(const IFunctionParamNode &node, IRequest &request)
 {
     Q_UNUSED(node)
-    return request.session();
+    return request.sessionJar();
 }
 
 void *IControllerParamUtil::getParamOfBean(const IFunctionParamNode& node, IRequest &request)
