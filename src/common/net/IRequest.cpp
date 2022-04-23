@@ -48,18 +48,18 @@ IResponse *IRequest::response() const
     return raw->m_response;
 }
 
-ICookieJar *IRequest::cookie() const
+ICookieJar *IRequest::cookieJar() const
 {
     return &raw->m_cookie;
 }
 
-ISessionJar *IRequest::session() const
+ISessionJar *IRequest::sessionJar() const
 {
     qFatal(IConstantUtil::UnImplimentedMethod);
     return &raw->m_session;
 }
 
-IHeaderJar *IRequest::header() const
+IHeaderJar *IRequest::headerJar() const
 {
     qFatal(IConstantUtil::UnImplimentedMethod);
     return &raw->m_header;
