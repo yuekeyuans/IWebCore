@@ -3,7 +3,7 @@
 
 $PackageWebCoreBegin
 
-QStringList ICookieJar::keys()
+QStringList ICookieJar::requestCookieKeys()
 {
     const auto& cookies = raw->m_requestCookieParameters;
     QStringList keys;
@@ -13,7 +13,7 @@ QStringList ICookieJar::keys()
     return keys;
 }
 
-QStringList ICookieJar::values()
+QStringList ICookieJar::requestCookieValues()
 {
     const auto& cookies = raw->m_requestCookieParameters;
     QStringList values;
@@ -27,12 +27,18 @@ QStringList ICookieJar::values()
     return values;
 }
 
-void ICookieJar::addCookie(const ICookiePart &cookiePart)
+void ICookieJar::deleteRequestCookie(const QString &key)
+{
+    ICookiePart part(key, "", -1);
+    raw->m_responseCookies.append(part);
+}
+
+void ICookieJar::addResponseCookie(const ICookiePart &cookiePart)
 {
     raw->m_responseCookies.append(cookiePart);
 }
 
-void ICookieJar::addCookie(const QString &key, const QString &value)
+void ICookieJar::addResponseCookie(const QString &key, const QString &value)
 {
     ICookiePart part;
     part.key = key;
@@ -40,13 +46,13 @@ void ICookieJar::addCookie(const QString &key, const QString &value)
     raw->m_responseCookies.append(part);
 }
 
-void ICookieJar::addCookie(const QString &key, const QString &value, int maxAge, bool secure, bool httpOnly)
+void ICookieJar::addResponseCookie(const QString &key, const QString &value, int maxAge, bool secure, bool httpOnly)
 {
     ICookiePart part(key, value, maxAge, secure, httpOnly);
     raw->m_responseCookies.append(part);
 }
 
-void ICookieJar::addCookie(const QString &key, const QString &value, const QDateTime &expires, bool secure, bool httpOnly)
+void ICookieJar::addResponseCookie(const QString &key, const QString &value, const QDateTime &expires, bool secure, bool httpOnly)
 {
     ICookiePart part(key, value, expires, secure, httpOnly);
     raw->m_responseCookies.append(part);

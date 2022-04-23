@@ -16,7 +16,7 @@ $PackageWebCoreBegin
 
 class IResponse;
 class ICookieJar;
-class ISession;
+class ISessionJar;
 class IRequestImpl;
 class IReqRespRaw;
 
@@ -33,7 +33,7 @@ public:
 
     IResponse* response() const;
     ICookieJar*   cookie() const;
-    ISession*  session() const;
+    ISessionJar*  session() const;
     IReqRespRaw* getRaw() const;
 
 

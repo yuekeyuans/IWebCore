@@ -43,6 +43,7 @@ HEADERS += \
     $$PWD/common/argument/IArgumentParserInterface.h \
     $$PWD/common/cookie/ICookieJar.h \
     $$PWD/common/cookie/ICookiePart.h \
+    $$PWD/common/header/IHeaderJar.h \
     $$PWD/common/middleware/IInterceptorWare.h \
     $$PWD/common/middleware/IMiddleWare.h \
     $$PWD/common/middleware/IMiddleWarePreProcessor.h \
@@ -72,7 +73,7 @@ HEADERS += \
     $$PWD/common/response/IResponseWareRaw.h \
     $$PWD/common/response/IStatusCodeResponse.h \
     $$PWD/common/response/response \
-    $$PWD/common/session/ISession.h \
+    $$PWD/common/session/ISessionJar.h \
     $$PWD/common/support/INoCopyUnit.h \
     $$PWD/common/support/IRegisterGadgetUnit.h \
     $$PWD/common/support/IRegisterInstanceUnit.h \
@@ -200,6 +201,7 @@ SOURCES += \
     $$PWD/common/argument/IArgumentParserInterface.cpp \
     $$PWD/common/cookie/ICookieJar.cpp \
     $$PWD/common/cookie/ICookiePart.cpp \
+    $$PWD/common/header/IHeaderJar.cpp \
     $$PWD/common/middleware/IInterceptorWare.cpp \
     $$PWD/common/middleware/IMiddleWare.cpp \
     $$PWD/common/middleware/IPostInterceptorInterface.cpp \
@@ -224,7 +226,7 @@ SOURCES += \
     $$PWD/common/response/IResponseWare.cpp \
     $$PWD/common/response/IResponseWareRaw.cpp \
     $$PWD/common/response/IStatusCodeResponse.cpp \
-    $$PWD/common/session/ISession.cpp \
+    $$PWD/common/session/ISessionJar.cpp \
     $$PWD/common/support/INoCopyUnit.cpp \
     $$PWD/common/support/IRegisterGadgetUnit.cpp \
     $$PWD/common/support/IRegisterInstanceUnit.cpp \

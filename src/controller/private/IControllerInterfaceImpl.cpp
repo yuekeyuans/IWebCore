@@ -441,7 +441,7 @@ void IControllerInterfaceImpl::checkMethodParamterWithSuffixSet(const IUrlFuncti
         "IResponse", "IResponse&",
         "IMultiPart", "IMultiPart&",
         "ICookieJar", "ICookieJar&",
-        "ISession", "ISession&"
+        "ISessionJar", "ISessionJar&"
         "QJsonValue", "QJsonValue&"
     };
     if(node.ignoreParamCheck){
@@ -466,7 +466,7 @@ bool IControllerInterfaceImpHelper::isSpecialTypes(const QString& typeName)
         "IResponse",    "IResponse&",
         "IMultiPart",   "IMultiPart&",
         "ICookieJar",      "ICookieJar&",
-        "ISession",     "ISession&"
+        "ISessionJar",     "ISessionJar&"
     };
 
     return specialExternalTypes.contains(typeName);

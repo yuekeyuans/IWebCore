@@ -9,7 +9,7 @@
 #include "common/net/IMultiPart.h"
 #include "common/cookie/ICookieJar.h"
 #include "common/cookie/ICookiePart.h"
-#include "common/session/ISession.h"
+#include "common/session/ISessionJar.h"
 
 $PackageWebCoreBegin
 
@@ -56,7 +56,7 @@ public:
     QList<QPair<QString, QString>> m_requestCookieParameters;
 
     ICookieJar m_cookie;                                       // TODO: 这两个是否需要指针?
-    ISession m_session;
+    ISessionJar m_session;
 
 private:
     QJsonValue m_requestJson;                   // json 和 dom 不一定使用，也可能是延后加载

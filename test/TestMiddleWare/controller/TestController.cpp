@@ -7,13 +7,13 @@ QString TestController::index()
 
 QString TestController::cookie(ICookieJar &cookie)
 {
-    cookie.addCookie("hello", "world", 12000);
+    cookie.addResponseCookie("hello", "world", 12000);
     return "cookie test";
 }
 
 QString TestController::testCookiePart(ICookieJar &cookie)
 {
     ICookiePart part;
-    cookie.addCookie(part);
+    cookie.addResponseCookie(part);
     return part.toHeaderString();
 }

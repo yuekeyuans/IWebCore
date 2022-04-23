@@ -538,8 +538,8 @@ void IControllerFunctionBaseImplHelper::initSessionTypes(){
     std::call_once(flag, [](){
 //        QString nmspace = QString($PackageWebCoreName).append("::");
         const QString nmspace = "";
-        MultiPartTypes << QMetaType::type((nmspace + "ISession").toUtf8());
-        MultiPartTypes << QMetaType::type((nmspace + "ISession&").toUtf8());
+        MultiPartTypes << QMetaType::type((nmspace + "ISessionJar").toUtf8());
+        MultiPartTypes << QMetaType::type((nmspace + "ISessionJar&").toUtf8());
     });
 }
 

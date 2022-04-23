@@ -7,12 +7,12 @@
 $PackageWebCoreBegin
 
 // TODO: this will be supported latter, not in this version. same as ICookie
-class ISession : public IRegisterMetaTypeUnit<ISession>
+class ISessionJar : public IRegisterMetaTypeUnit<ISessionJar>
 {
     Q_GADGET
-    $UseMetaRegistration(ISession)
+    $UseMetaRegistration(ISessionJar)
 public:
-    ISession() = default;
+    ISessionJar() = default;
 };
 
 $PackageWebCoreEnd

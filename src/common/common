@@ -9,7 +9,7 @@
 #include "common/net/IResponse.h"
 
 #include "common/cookie/ICookieJar.h"
-#include "common/session/ISession.h"
+#include "common/session/ISessionJar.h"
 
 #include "common/response/IByteArrayResponse.h"
 #include "common/response/IHtmlResponse.h"

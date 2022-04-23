@@ -7,7 +7,7 @@
 #include "common/net/impl/IRequestImpl.h"
 #include "common/net/impl/IReqRespRaw.h"
 #include "common/cookie/ICookieJar.h"
-#include "common/session/ISession.h"
+#include "common/session/ISessionJar.h"
 
 $PackageWebCoreBegin
 
@@ -53,7 +53,7 @@ ICookieJar *IRequest::cookie() const
     return &raw->m_cookie;
 }
 
-ISession *IRequest::session() const
+ISessionJar *IRequest::session() const
 {
     qFatal(IConstantUtil::UnImplimentedMethod);
     return &raw->m_session;
