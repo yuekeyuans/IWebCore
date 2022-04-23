@@ -38,7 +38,6 @@ public:
     IHeaderJar* headerJar() const;
     IReqRespRaw* getRaw() const;
 
-
     IHttpVersion version() const;
     IHttpCharset charset() const;   // do not call
     IHttpMime mime() const;
