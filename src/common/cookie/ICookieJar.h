@@ -18,6 +18,7 @@ class ICookieJar : IRegisterMetaTypeUnit<ICookieJar>
 public:
     ICookieJar() = default;
 
+public:
     QStringList requestCookieKeys();
     QStringList requestCookieValues();
 
