@@ -30,8 +30,9 @@ public:
     QJsonValue& getRequestJson(bool* ok=nullptr);
     QDomNode&   getRequestXml(bool* ok=nullptr);
 
+    // TODO: 将来所有的非 private 字段不要有 m_， 而所有的 private 字段 有 m_
 public:
-    QTcpSocket* m_socket{nullptr};
+    QTcpSocket* m_socket {nullptr};
     IResponse*  m_response {nullptr};
     IRequest*   m_request  {nullptr};
 
