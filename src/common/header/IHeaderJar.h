@@ -20,8 +20,6 @@ public:
     QString getRequestHeaderValue(const QString& key, bool* ok) const;
     const QMap<QString, QByteArray> requestHeaders() const;
 
-
-
     virtual bool isValid() const final;
 
 private:
