@@ -172,3 +172,11 @@ namespace name1 {   \
 #define $PackageUsing_EVAL(N) $PackageUsing_(N)
 #define $PackageUsing(...) PP_EXPAND( $PackageUsing_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__))
 
+#define $PackageWebCoreBegin \
+        $PackageBegin_1(IWebCore)
+
+#define $PackageWebCoreEnd \
+        $PackageEnd_1(IWebCore)
+
+#define $PackageWebCoreUsing \
+        $PackageUsing_1(IWebCore)
