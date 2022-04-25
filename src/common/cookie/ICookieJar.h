@@ -19,13 +19,20 @@ public:
     ICookieJar() = default;
 
 public:
-    QStringList requestCookieKeys();
-    QStringList requestCookieValues();
-
-    // response 相关
-
+    // request
+    QStringList requestCookieKeys() const;
+    QStringList requestCookieValues() const;
     void deleteRequestCookie(const QString& key);
+    bool hasRequestCookie(const QString& key) const;
+    QString getRequestCookieValue(const QString&key, bool* ok);
+    const QList<QPair<QString, QString>>& requestCookies() const;
 
+
+    // response
+    QStringList responseCookieKeys() const;
+    QStringList responseCookieValues() const;
+    void deleteResponseCookie(const QString& key);
+    bool hasResponseCookie(const QString& key) const;
 
     void addResponseCookie(const ICookiePart& cookiePart);
     void addResponseCookie(const QString& key, const QString& value);
