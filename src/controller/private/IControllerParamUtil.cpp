@@ -312,7 +312,7 @@ void *IControllerParamUtil::getParamOfMultipart(const IFunctionParamNode& node, 
 void *IControllerParamUtil::getParamOfCookie(const IFunctionParamNode &node, IRequest &request)
 {
     Q_UNUSED(node)
-    return &request.getRaw()->m_cookie;
+    return &request.getRaw()->m_cookieJar;
 }
 
 void *IControllerParamUtil::getParamOfSession(const IFunctionParamNode &node, IRequest &request)

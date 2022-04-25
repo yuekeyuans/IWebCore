@@ -75,6 +75,7 @@ HEADERS += \
     $$PWD/common/response/IStatusCodeResponse.h \
     $$PWD/common/response/response \
     $$PWD/common/session/ISessionJar.h \
+    $$PWD/common/support/IJarUnit.h \
     $$PWD/common/support/INoCopyUnit.h \
     $$PWD/common/support/IRegisterGadgetUnit.h \
     $$PWD/common/support/IRegisterInstanceUnit.h \
@@ -229,6 +230,7 @@ SOURCES += \
     $$PWD/common/response/IResponseWareRaw.cpp \
     $$PWD/common/response/IStatusCodeResponse.cpp \
     $$PWD/common/session/ISessionJar.cpp \
+    $$PWD/common/support/IJarUnit.cpp \
     $$PWD/common/support/INoCopyUnit.cpp \
     $$PWD/common/support/IRegisterGadgetUnit.cpp \
     $$PWD/common/support/IRegisterInstanceUnit.cpp \

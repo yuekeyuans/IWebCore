@@ -3,15 +3,15 @@
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
 #include "common/support/IRegisterMetaTypeUnit.h"
+#include "common/support/IJarUnit.h"
 #include "common/cookie/ICookiePart.h"
 #include <chrono>
 
 $PackageWebCoreBegin
 
 class IReqRespRaw;
-class ICookieJar;
 
-class ICookieJar : IRegisterMetaTypeUnit<ICookieJar>
+class ICookieJar : IRegisterMetaTypeUnit<ICookieJar>, public IJarUnit
 {
     Q_GADGET
     $UseMetaRegistration(ICookieJar)
@@ -39,7 +39,6 @@ public:
     ICookiePart& getResponseCookie(const QString& key, bool *ok);
     const ICookiePart& getResponseCookie(const QString& key, bool* ok) const;
 
-
     void addResponseCookie(const ICookiePart& cookiePart);
     void addResponseCookie(const QString& key, const QString& value);
 
@@ -49,6 +48,8 @@ public:
     void addResponseCookie(const QString& key, const QString& value, int maxAge, bool secure=false, bool httpOnly=false);
     void addResponseCookie(const QString& key, const QString& value, const QDateTime& expires, bool secure=false, bool httpOnly=false);
     void deleteResponseCookie(const QString& key);
+
+    virtual bool isValid() const final;
 
 private:
     friend class IReqRespRaw;

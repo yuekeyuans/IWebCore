@@ -170,4 +170,10 @@ void ICookieJar::deleteResponseCookie(const QString &key)
     }
 }
 
+// NOTE: 将来这里需要有更多的判定条件
+inline bool ICookieJar::isValid() const
+{
+    return raw != nullptr;
+}
+
 $PackageWebCoreEnd

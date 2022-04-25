@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include "base/IMetaUtil.h"
+
 #define PP_EXPAND(X) X    // for MSVC10 compatibility
 #define PP_JOIN(X, Y) X##Y
 #define PP_STRING(X) #X

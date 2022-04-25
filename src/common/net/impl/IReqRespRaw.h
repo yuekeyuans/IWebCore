@@ -57,10 +57,9 @@ public:
     QVector<IMultiPart> m_requestMultiParts;
     QList<QPair<QString, QString>> m_requestCookieParameters;
 
-    ICookieJar m_cookie;                                       // TODO: 这两个是否需要指针?
-    ISessionJar m_session;
-    IHeaderJar m_header;
-
+    IHeaderJar m_headerJar;
+    ICookieJar m_cookieJar;                                       // TODO: 这两个是否需要指针?
+    ISessionJar m_sessionJar;
 
 private:
     QJsonValue m_requestJson;                   // json 和 dom 不一定使用，也可能是延后加载

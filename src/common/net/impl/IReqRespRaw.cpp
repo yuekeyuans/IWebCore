@@ -9,7 +9,8 @@ $PackageWebCoreBegin
 
 IReqRespRaw::IReqRespRaw()
 {
-    m_cookie.raw = this;
+    m_headerJar.raw = this;
+    m_cookieJar.raw = this;
 }
 
 bool IReqRespRaw::valid() const

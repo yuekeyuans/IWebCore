@@ -50,19 +50,18 @@ IResponse *IRequest::response() const
 
 ICookieJar *IRequest::cookieJar() const
 {
-    return &raw->m_cookie;
+    return &raw->m_cookieJar;
 }
 
 ISessionJar *IRequest::sessionJar() const
 {
     qFatal(IConstantUtil::UnImplimentedMethod);
-    return &raw->m_session;
+    return &raw->m_sessionJar;
 }
 
 IHeaderJar *IRequest::headerJar() const
 {
-    qFatal(IConstantUtil::UnImplimentedMethod);
-    return &raw->m_header;
+    return &raw->m_headerJar;
 }
 
 IReqRespRaw *IRequest::getRaw() const
