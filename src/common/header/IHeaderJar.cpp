@@ -7,20 +7,28 @@ $PackageWebCoreBegin
 
 QStringList IHeaderJar::requestHeaderKeys()
 {
-    return raw->m_requestHeaders.keys();
+    QStringList ret;
+    for(const auto& pair : raw->m_requestHeaders){
+        if(ret.indexOf(pair.first)<0){
+            ret.append(pair.first);
+        }
+    }
+    return ret;
 }
 
 QString IHeaderJar::getRequestHeaderValue(const QString &key, bool *ok) const
 {
-    if(raw->m_requestHeaders.contains(key)){
-        IToeUtil::setOk(ok, true);
-        return raw->m_requestHeaders[key];
+    for(const auto& pair : raw->m_requestHeaders){
+        if(pair.first == key){
+            IToeUtil::setOk(ok, true);
+            return pair.second;
+        }
     }
     IToeUtil::setOk(ok, false);
     return "";
 }
 
-const QMap<QString, QByteArray> IHeaderJar::requestHeaders() const
+const QList<QPair<QString, QByteArray>>& IHeaderJar::requestHeaders() const
 {
     return raw->m_requestHeaders;
 }

@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
+#include "base/IMetaUtil.h"
 #include "common/support/IJarUnit.h"
 #include "common/support/IRegisterMetaTypeUnit.h"
 
@@ -18,7 +19,7 @@ public:
     // request
     QStringList requestHeaderKeys();
     QString getRequestHeaderValue(const QString& key, bool* ok) const;
-    const QMap<QString, QByteArray> requestHeaders() const;
+    const QList<QPair<QString, QByteArray>>& requestHeaders() const;
 
     virtual bool isValid() const final;
 
