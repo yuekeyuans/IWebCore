@@ -17,7 +17,7 @@ enum class IHttpMethod {
 namespace IHttpMethodHelper{
     QString toString(IHttpMethod);
     IHttpMethod toMethod(const QString&);
-    inline const QStringList& methodNames();
+    const QStringList& methodNames();
 };
 
 $PackageWebCoreEnd

@@ -27,7 +27,7 @@ QString IAssertDetail::toString() const
     return IAssertDetailHelper::detailToString(m_detailInfoType, m_detailInfoStrings);
 }
 
-inline QString IAssertDetailHelper::detailToString(const QMap<IAssertDetail::Type, QString>& infoType
+QString IAssertDetailHelper::detailToString(const QMap<IAssertDetail::Type, QString>& infoType
                                                    , const QMap<QString, QString>& infoStrings)
 {
     auto keys = infoType.keys();

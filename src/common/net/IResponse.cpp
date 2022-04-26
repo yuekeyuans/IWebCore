@@ -79,7 +79,7 @@ QByteArray &IResponse::operator[](const QString &header)
     return raw->m_responseHeaders.last().second;
 }
 
-inline IRequest *IResponse::request() const
+IRequest *IResponse::request() const
 {
     return raw->m_request;
 }
@@ -110,61 +110,61 @@ IResponse &IResponse::setHeader(const QString &key, const QString &value)
     return *this;
 }
 
-inline IResponse &IResponse::setStatus(IHttpStatus statusCode)
+IResponse &IResponse::setStatus(IHttpStatus statusCode)
 {
     raw->m_responseStatus = statusCode;
     return *this;
 }
 
-inline IResponse &IResponse::setMime(IHttpMime mime)
+IResponse &IResponse::setMime(IHttpMime mime)
 {
     raw->m_responseMime = mime;
     return *this;
 }
 
-inline IResponse &IResponse::addCookie(const ICookiePart &cookiePart)
+IResponse &IResponse::addCookie(const ICookiePart &cookiePart)
 {
     raw->m_responseCookies.append(cookiePart);
     return *this;
 }
 
-inline IResponse &IResponse::appendContent(const QString &content)
+IResponse &IResponse::appendContent(const QString &content)
 {
     raw->m_responseContent.append(content);
     return *this;
 }
 
-inline IResponse &IResponse::appendContent(const QByteArray &content)
+IResponse &IResponse::appendContent(const QByteArray &content)
 {
     raw->m_responseContent.append(content);
     return *this;
 }
 
-inline IResponse &IResponse::appendContent(const char *content)
+IResponse &IResponse::appendContent(const char *content)
 {
     raw->m_responseContent.append(content);
     return *this;
 }
 
-inline IResponse &IResponse::setContent(const QString &content)
+IResponse &IResponse::setContent(const QString &content)
 {
     raw->m_responseContent = content.toUtf8();
     return *this;
 }
 
-inline IResponse &IResponse::setContent(const QByteArray &content)
+IResponse &IResponse::setContent(const QByteArray &content)
 {
     raw->m_responseContent = content;
     return *this;
 }
 
-inline IResponse &IResponse::setContent(QByteArray &&content)
+IResponse &IResponse::setContent(QByteArray &&content)
 {
     std::swap(raw->m_responseContent, content);
     return *this;
 }
 
-inline IResponse &IResponse::setContent(const char *content)
+IResponse &IResponse::setContent(const char *content)
 {
     raw->m_responseContent = QByteArray(content);
     return *this;
@@ -198,42 +198,42 @@ IResponse& IResponse::setContent(IResponseWare *response)
     return *this;
 }
 
-inline IHttpVersion IResponse::version() const
+IHttpVersion IResponse::version() const
 {
     return raw->m_httpVersion;
 }
 
-inline IHttpMime IResponse::mime() const
+IHttpMime IResponse::mime() const
 {
     return raw->m_responseMime;
 }
 
-inline IHttpStatus IResponse::status() const
+IHttpStatus IResponse::status() const
 {
     return raw->m_responseStatus;
 }
 
-inline const QList<QPair<QString, QByteArray>>& IResponse::headers() const
+const QList<QPair<QString, QByteArray>>& IResponse::headers() const
 {
     return raw->m_responseHeaders;
 }
 
-inline const QByteArray &IResponse::content() const
+const QByteArray &IResponse::content() const
 {
     return raw->m_responseContent;
 }
 
-inline const QMap<QString, QVariant> &IResponse::attributes() const
+const QMap<QString, QVariant> &IResponse::attributes() const
 {
     return raw->m_attribute;
 }
 
-inline bool IResponse::hasAttribute(const QString &name) const
+bool IResponse::hasAttribute(const QString &name) const
 {
     return raw->m_attribute.contains(name);
 }
 
-inline void IResponse::setAttribute(const QString &name, const QVariant &value)
+void IResponse::setAttribute(const QString &name, const QVariant &value)
 {
     raw->m_attribute[name] = value;
 }
@@ -246,22 +246,22 @@ QVariant IResponse::getAttribute(const QString &name, const QVariant &defaultVal
     return defaultValue;
 }
 
-inline bool IResponse::respond()
+bool IResponse::respond()
 {
     return impl->respond();
 }
 
-inline bool IResponse::valid() const
+bool IResponse::valid() const
 {
     return raw->m_valid;
 }
 
-inline void IResponse::setInvalidIf(bool condition, IHttpStatus status, const QString &message) const
+void IResponse::setInvalidIf(bool condition, IHttpStatus status, const QString &message) const
 {
     raw->setInvalidIf(condition, status, message);
 }
 
-inline void IResponse::setInvalid(IHttpStatus status, const QString &message) const
+void IResponse::setInvalid(IHttpStatus status, const QString &message) const
 {
     raw->setInvalid(status, message);
 }

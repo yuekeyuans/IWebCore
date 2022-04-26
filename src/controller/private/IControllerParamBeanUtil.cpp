@@ -486,7 +486,7 @@ bool IControllerParamBeanUtil::isBeanResoveStrictMode()
     return isStrict;
 }
 
-inline QStringList &IControllerParamBeanUtil::getParameterSuffix()
+QStringList &IControllerParamBeanUtil::getParameterSuffix()
 {
     static QStringList suffix = {
         "_content", "_body",

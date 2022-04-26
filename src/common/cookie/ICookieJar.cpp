@@ -61,7 +61,7 @@ QString ICookieJar::getRequestCookieValue(const QString &key, bool *ok)
     return "";
 }
 
-inline const QList<QPair<QString, QString> > &ICookieJar::requestCookies() const
+const QList<QPair<QString, QString> > &ICookieJar::requestCookies() const
 {
     return raw->m_requestCookieParameters;
 }
@@ -86,12 +86,12 @@ QStringList ICookieJar::responseCookieValues() const
     return keys;
 }
 
-inline QList<ICookiePart> &ICookieJar::responseCookies()
+QList<ICookiePart> &ICookieJar::responseCookies()
 {
     return raw->m_responseCookies;
 }
 
-inline const QList<ICookiePart> &ICookieJar::responseCookies() const
+const QList<ICookiePart> &ICookieJar::responseCookies() const
 {
     return raw->m_responseCookies;
 }
@@ -133,7 +133,7 @@ const ICookiePart &ICookieJar::getResponseCookie(const QString &key, bool *ok) c
     return *cookies.end();
 }
 
-inline void ICookieJar::addResponseCookie(const ICookiePart &cookiePart)
+void ICookieJar::addResponseCookie(const ICookiePart &cookiePart)
 {
     raw->m_responseCookies.append(cookiePart);
 }
@@ -171,7 +171,7 @@ void ICookieJar::deleteResponseCookie(const QString &key)
 }
 
 // NOTE: 将来这里需要有更多的判定条件
-inline bool ICookieJar::isValid() const
+bool ICookieJar::isValid() const
 {
     return raw != nullptr;
 }

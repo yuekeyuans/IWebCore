@@ -68,8 +68,8 @@ private:
     void processMultiPartHeaders(IMultiPart& part, int start, int end);
     void processMultiPartBody(IMultiPart& part, int start, int end);
 
-    inline QList<QPair<int, int>> getBoundaries();
-    inline QByteArray getBoundaryParam(const QString& mime);
+    QList<QPair<int, int>> getBoundaries();
+    QByteArray getBoundaryParam(const QString& mime);
 
 public:
     IReqRespRaw* raw;

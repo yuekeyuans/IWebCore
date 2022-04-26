@@ -96,7 +96,7 @@ void IAssertManage::warn(const QString &name, const IAssertDetail &detail)
 #endif
 }
 
-inline void IAssertManageHelper::fatal(const IAssertInfo& info, const QString& extra)
+void IAssertManageHelper::fatal(const IAssertInfo& info, const QString& extra)
 {
     Q_UNUSED(info)
     Q_UNUSED(extra)
@@ -107,12 +107,12 @@ inline void IAssertManageHelper::fatal(const IAssertInfo& info, const QString& e
 #endif
 }
 
-inline void IAssertManageHelper::warn(const IAssertInfo& info, const QString& extra){
+void IAssertManageHelper::warn(const IAssertInfo& info, const QString& extra){
     IAssertManageHelper::coutInfo("Warn");
     IAssertManageHelper::coutInfo(info, extra);
 }
 
-inline void IAssertManageHelper::coutInfo(const IAssertInfo& info, const QString& extra)
+void IAssertManageHelper::coutInfo(const IAssertInfo& info, const QString& extra)
 {
     if(!info.key.isEmpty()){
         IAssertManageHelper::coutInfo("Tag", info.key);
@@ -131,12 +131,12 @@ inline void IAssertManageHelper::coutInfo(const IAssertInfo& info, const QString
     }
 }
 
-inline void IAssertManageHelper::coutInfo(const QString& tag)
+void IAssertManageHelper::coutInfo(const QString& tag)
 {
     std::cout << tag.toStdString() << ":" << std::endl;
 }
 
-inline void IAssertManageHelper::coutInfo(const QString& tag, const QString& msg)
+void IAssertManageHelper::coutInfo(const QString& tag, const QString& msg)
 {
     std::cout << std::setw(8) << tag.toStdString() << ":" << std::setw(0) << msg.toStdString() << std::endl;
 }
