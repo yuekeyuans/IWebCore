@@ -48,19 +48,17 @@ QByteArray IResponseImpl::generateFirstLine()
 
 QByteArray IResponseImpl::generateHeadersContent()
 {
-    auto& headers = raw->m_responseHeaders;
-
     auto len = raw->m_responseContent.length();
     if(len != 0){
-        headers[IHttpHeader::ContentLength] = QString::number(len);
-        if(!headers.contains(IHttpHeader::ContentType)){
-            headers[IHttpHeader::ContentType] = IHttpMimeHelper::toString(raw->m_responseMime);
+        raw->m_headerJar.addResponseHeader(IHttpHeader::ContentLength, QString::number(len));
+        if(!raw->m_headerJar.containResponseHeaderKey(IHttpHeader::ContentType)){
+            raw->m_headerJar.addResponseHeader(IHttpHeader::ContentType, IHttpMimeHelper::toString(raw->m_responseMime));
         }
     }
 
     QByteArray headersContent;
-    for(auto key : headers.keys()){
-        headersContent.append(key).append(": ").append(headers[key]).append(IConstantUtil::NewLine);
+    for(const auto& pair : raw->m_responseHeaders){
+        headersContent.append(pair.first).append(": ").append(pair.second).append(IConstantUtil::NewLine);
     }
 
     generateExternalHeadersContent(headersContent);

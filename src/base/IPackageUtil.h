@@ -180,3 +180,5 @@ namespace name1 {   \
 
 #define $PackageWebCoreUsing \
         $PackageUsing_1(IWebCore)
+
+#define $PackageWebCoreName "IWebCore"

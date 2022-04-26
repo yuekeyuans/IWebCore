@@ -158,15 +158,9 @@ QByteArray IRequestImpl::getBodyParameter(const QString &name, bool*ok) const
 QByteArray IRequestImpl::getHeaderParameter(const QString &name, bool* ok) const
 {
     static const QString suffix = "_header";
-
-    IToeUtil::setOk(ok, true);
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
-    if(raw->m_requestHeaders.contains(originName)){
-        return raw->m_requestHeaders[originName];
-    }
 
-    IToeUtil::setOk(ok, false);
-    return {};
+    return raw->m_headerJar.getRequestHeaderValue(originName, ok).toUtf8();
 }
 
 QByteArray IRequestImpl::getParamParameter(const QString &name, bool* ok) const
@@ -428,7 +422,7 @@ bool IRequestImpl::resolveHeaders()
 
         auto key = content.left(index);
         auto value = content.mid(index + 1).replace("\r\n", "").trimmed();  // NOTE: here should be optimized
-        raw->m_requestHeaders[key] = value;
+        raw->m_requestHeaders.append({key, value});
     }
     raw->m_requestMime = IHttpMimeHelper::toMime(contentType());
 
@@ -441,8 +435,9 @@ bool IRequestImpl::resolveCookies()
 {
     static const QByteArray splitString = "; ";
 
-    if(IConstantUtil::ICookiePluginEnabled && raw->m_requestHeaders.contains(IHttpHeader::Cookie)){
-        const QString rawCookie = raw->m_requestHeaders[IHttpHeader::Cookie];
+
+    if(IConstantUtil::ICookiePluginEnabled && raw->m_headerJar.containRequestHeaderKey(IHttpHeader::Cookie)){
+        const QString rawCookie = raw->m_headerJar.getRequestHeaderValue(IHttpHeader::Cookie, nullptr);
 
         QString key, value;
         auto parts = rawCookie.split(splitString);

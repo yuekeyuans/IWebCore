@@ -35,41 +35,39 @@ IRequest::~IRequest()
     }
 }
 
-const QString IRequest::operator[](const QString &header) const
+// TODO: 这个需要修改
+inline const QString IRequest::operator[](const QString &header) const
 {
-    if(raw->m_requestHeaders.contains(header)){
-        return raw->m_requestHeaders[header];
-    }
-    return "";
+    return raw->m_headerJar.getRequestHeaderValue(header, nullptr);
 }
 
-IResponse *IRequest::response() const
+inline IResponse *IRequest::response() const
 {
     return raw->m_response;
 }
 
-ICookieJar *IRequest::cookieJar() const
+inline ICookieJar *IRequest::cookieJar() const
 {
     return &raw->m_cookieJar;
 }
 
-ISessionJar *IRequest::sessionJar() const
+inline ISessionJar *IRequest::sessionJar() const
 {
     qFatal(IConstantUtil::UnImplimentedMethod);
     return &raw->m_sessionJar;
 }
 
-IHeaderJar *IRequest::headerJar() const
+inline IHeaderJar *IRequest::headerJar() const
 {
     return &raw->m_headerJar;
 }
 
-IReqRespRaw *IRequest::getRaw() const
+inline IReqRespRaw *IRequest::getRaw() const
 {
     return raw;
 }
 
-IHttpVersion IRequest::version() const
+inline IHttpVersion IRequest::version() const
 {
     return raw->m_httpVersion;
 }
@@ -80,27 +78,27 @@ IHttpCharset IRequest::charset() const
     return IHttpCharset::UTF_8;
 }
 
-IHttpMime IRequest::mime() const
+inline IHttpMime IRequest::mime() const
 {
     return raw->m_requestMime;
 }
 
-const QString &IRequest::url() const
+inline const QString &IRequest::url() const
 {
     return raw->m_url;
 }
 
-IHttpMethod IRequest::method() const
+inline IHttpMethod IRequest::method() const
 {
     return raw->m_method;
 }
 
-int IRequest::bodyContentLength() const
+inline int IRequest::bodyContentLength() const
 {
     return impl->contentLength();
 }
 
-QString IRequest::bodyContentType() const
+inline QString IRequest::bodyContentType() const
 {
     return impl->contentType();
 }
@@ -110,27 +108,32 @@ const QByteArray &IRequest::bodyContent() const
     return raw->m_requestBody;
 }
 
-const QMap<QString, QByteArray> &IRequest::headers() const
+inline QList<QPair<QString, QByteArray> > &IRequest::headers()
 {
     return raw->m_requestHeaders;
 }
 
-const QMap<QString, QByteArray> &IRequest::urlParameters() const
+inline const QList<QPair<QString, QByteArray>> &IRequest::headers() const
+{
+    return raw->m_requestHeaders;
+}
+
+inline const QMap<QString, QByteArray> &IRequest::urlParameters() const
 {
     return raw->m_requestUrlParameters;
 }
 
-const QMap<QString, QByteArray> &IRequest::paramParameters() const
+inline const QMap<QString, QByteArray> &IRequest::paramParameters() const
 {
     return raw->m_requestParamParameters;
 }
 
-const QMap<QString, QByteArray> &IRequest::bodyFormParameters() const
+inline const QMap<QString, QByteArray> &IRequest::bodyFormParameters() const
 {
     return raw->m_requestBodyParameters;
 }
 
-const QVector<IMultiPart> &IRequest::bodyMultiParts() const
+inline const QVector<IMultiPart> &IRequest::bodyMultiParts() const
 {
     return raw->m_requestMultiParts;
 }

@@ -126,7 +126,7 @@ void *IControllerParamBeanUtil::assambleBeanWareWithHeaders(IBeanWare *bean, IRe
 {
     const auto& parameters = request.headers();
 
-    if(checkKeyInQByteArrayMap(parameters, bean, request)){
+    if(checkKeyInListPair(parameters, bean, request)){
         bool convertOk;
         auto map = resolveBeanFieldAsMap(parameters, bean, request, &convertOk);
         if(convertOk){
@@ -264,6 +264,41 @@ void *IControllerParamBeanUtil::resolveBodyXml(IBeanWare *bean, IRequest &reques
     return bean;
 }
 
+QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QList<QPair<QString, QByteArray> > &list, IBeanWare *bean, IRequest &request, bool *ok)
+{
+    IToeUtil::setOk(ok, true);
+    QMap<QString, QVariant> map;
+
+    bool convertOk;
+    auto props = bean->getMetaProperties();
+    for(const auto& prop : props){
+        QByteArray value;
+        for(const auto& pair : list){
+            if(pair.first == prop.name()){
+                value = pair.second;
+            }
+        }
+
+        auto variant = IConvertUtil::toVariant(value, QMetaType::Type(prop.type()), &convertOk);
+        if(!convertOk){
+            if(bean->isIgnorableField(prop.propertyIndex())){
+                continue;
+            }
+            auto info = QString(prop.name()).append(" format not correct");
+            if(isBeanResoveStrictMode()){
+                IToeUtil::setOk(ok, false);
+                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info);
+                return map;
+            }
+            $AssertWarning(assamble_bean_when_bean_inner_parameter_not_found, info);
+            continue;
+        }
+
+        map[prop.name()] = variant;
+    }
+    return map;
+}
+
 QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QMap<QString, QByteArray> &raw
                                                                             , IBeanWare* bean, IRequest& request, bool* ok)
 {
@@ -391,6 +426,19 @@ bool IControllerParamBeanUtil::checkKeyInQByteArrayMap(const QMap<QString, QByte
     auto keys = map.keys();
     for(auto key : keys){
         newMap[key] = "";
+    }
+    return checkKeyInQStringMap(newMap, bean, request);
+}
+
+bool IControllerParamBeanUtil::checkKeyInListPair(const QList<QPair<QString, QByteArray> > &list, IBeanWare *bean, IRequest &request)
+{
+    if(IConstantUtil::ReleaseMode){
+        return true;
+    }
+
+    QMap<QString, QString> newMap;
+    for(const auto& pair : list){
+        newMap[pair.first] = "";
     }
     return checkKeyInQStringMap(newMap, bean, request);
 }
