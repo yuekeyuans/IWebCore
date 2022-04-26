@@ -53,17 +53,30 @@ IResponse &IResponse::operator<<(IResponseWare &response)
     return *this;
 }
 
-const QString IResponse::operator[](const QString &header) const
+// TODO: 这里需要将 QByteArray 类型改成 QString 类型。
+const QByteArray& IResponse::operator[](const QString &header) const
 {
-    if(raw->m_responseHeaders.contains(header)){
-        return raw->m_responseHeaders[header];
+    static QByteArray emptyValue;
+    auto it=raw->m_responseHeaders.begin();
+    for(; it!= raw->m_responseHeaders.end(); it++){
+        if(it->first == header){
+            return it->second;
+        }
     }
-    return "";
+    return emptyValue;
 }
 
-QString &IResponse::operator[](const QString &header)
+QByteArray &IResponse::operator[](const QString &header)
 {
-    return raw->m_responseHeaders[header];
+    auto it=raw->m_responseHeaders.begin();
+    for(; it!= raw->m_responseHeaders.end(); it++){
+        if(it->first == header){
+            return it->second;
+        }
+    }
+    QPair<QString, QByteArray> pair{header, ""};
+    raw->m_responseHeaders.append(pair);
+    return raw->m_responseHeaders.last().second;
 }
 
 IRequest *IResponse::request() const
@@ -82,7 +95,18 @@ IResponse &IResponse::setHeader(const QString &key, const QString &value)
         $AssertWarning(iresponse_setHeader_with_empty_value_or_key)
     }
 
-    raw->m_responseHeaders[key] = value;
+    auto it=raw->m_responseHeaders.begin();
+    for(; it!= raw->m_responseHeaders.end(); it++){
+        if(it->first == key){
+            break;
+        }
+    }
+
+    if(it!=raw->m_responseHeaders.end()){
+        it->second = value.toUtf8();
+    }else{
+        raw->m_responseHeaders.append({key, value.toUtf8()});
+    }
     return *this;
 }
 
@@ -161,15 +185,15 @@ IResponse& IResponse::setContent(IResponseWare *response)
     auto& headers = response->headers();
     auto keys = headers.keys();
     for(auto key : keys){
-        if(!raw->m_responseHeaders.contains(key)){
-            raw->m_responseHeaders[key] = headers[key];
+        if(!raw->m_headerJar.containResponseHeaderKey(key)){
+            raw->m_headerJar.addResponseHeader(key, headers[key]);
         }
     }
 
-    if((!raw->m_responseHeaders.contains(IHttpHeader::ContentType)
-         || raw->m_responseHeaders[IHttpHeader::ContentType] == "UNKNOWN")
+    if((!raw->m_headerJar.containResponseHeaderKey(IHttpHeader::ContentType)
+         || raw->m_headerJar.getResponseHeaderValue(IHttpHeader::ContentType, nullptr) == "UNKNOWN")
         && raw->m_responseMime != IHttpMime::UNKNOWN){
-        raw->m_responseHeaders[IHttpHeader::ContentType] = IHttpMimeHelper::toString(raw->m_responseMime);
+        raw->m_headerJar.addResponseHeader(IHttpHeader::ContentType, IHttpMimeHelper::toString(raw->m_responseMime));
     }
     return *this;
 }
@@ -189,7 +213,7 @@ IHttpStatus IResponse::status() const
     return raw->m_responseStatus;
 }
 
-const QMap<QString, QString>& IResponse::headers() const
+const QList<QPair<QString, QByteArray>>& IResponse::headers() const
 {
     return raw->m_responseHeaders;
 }

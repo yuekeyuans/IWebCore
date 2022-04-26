@@ -32,8 +32,8 @@ public:
     IResponse& operator<<(const char* content);
     IResponse& operator<<(IResponseWare* response);
     IResponse& operator<<(IResponseWare& response);
-    const QString operator[](const QString& header) const;
-    QString& operator[](const QString& header);
+    const QByteArray& operator[](const QString& header) const;
+    QByteArray& operator[](const QString& header);
 
     IRequest* request() const;
     IReqRespRaw* getRaw() const;
@@ -56,7 +56,7 @@ public:
     IHttpVersion version() const;
     IHttpMime mime() const;
     IHttpStatus status() const;
-    const QMap<QString, QString>& headers() const;
+    const QList<QPair<QString, QByteArray>>& headers() const;
     const QByteArray& content() const;
 
     const QMap<QString, QVariant>& attributes() const;;
