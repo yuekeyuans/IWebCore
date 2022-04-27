@@ -19,13 +19,14 @@ public:
     // request
     QStringList requestHeaderKeys();
     QString getRequestHeaderValue(const QString& key, bool* ok) const;
-    bool containRequestHeaderKey(const QString& key);
+    QStringList getRequestHeaderValues(const QString& key) const;
+    bool containRequestHeaderKey(const QString& key) const;
     const QList<QPair<QString, QByteArray>>& requestHeaders() const;
 
-
     // response
-    bool containResponseHeaderKey(const QString& key);
-    QString getResponseHeaderValue(const QString& key, bool* ok);
+    bool containResponseHeaderKey(const QString& key) const;
+    QString getResponseHeaderValue(const QString& key, bool* ok) const;
+    QStringList getResponseHeaderValues(const QString& key) const;
     void addResponseHeader(const QString& key, const QString& value);
 
     virtual bool isValid() const final;

@@ -28,6 +28,17 @@ QString IHeaderJar::getRequestHeaderValue(const QString &key, bool *ok) const
     return "";
 }
 
+QStringList IHeaderJar::getRequestHeaderValues(const QString &key) const
+{
+    QStringList ret;
+    for(const auto& pair : raw->m_requestHeaders){
+        if(pair.first == key){
+            ret.append(pair.second);
+        }
+    }
+    return ret;
+}
+
 bool IHeaderJar::containRequestHeaderKey(const QString &key)
 {
     for(const auto& pair : raw->m_requestHeaders){
@@ -53,7 +64,7 @@ bool IHeaderJar::containResponseHeaderKey(const QString &key)
     return false;
 }
 
-QString IHeaderJar::getResponseHeaderValue(const QString &key, bool* ok)
+QString IHeaderJar::getResponseHeaderValue(const QString &key, bool* ok) const
 {
     for(const auto& pair : raw->m_requestHeaders){
         if(pair.first == key){
@@ -63,6 +74,17 @@ QString IHeaderJar::getResponseHeaderValue(const QString &key, bool* ok)
     }
     IToeUtil::setOk(ok, false);
     return "";
+}
+
+QStringList IHeaderJar::getResponseHeaderValues(const QString &key) const
+{
+    QStringList ret;
+    for(const auto& pair : raw->m_responseHeaders){
+        if(pair.first == key){
+            ret.append(pair.second);
+        }
+    }
+    return ret;
 }
 
 void IHeaderJar::addResponseHeader(const QString &key, const QString &value)
