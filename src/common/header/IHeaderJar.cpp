@@ -26,6 +26,16 @@ QStringList IHeaderJar::requestHeaderKeys() const
     return ret;
 }
 
+bool IHeaderJar::containRequestHeaderKey(const QString &key) const
+{
+    for(const auto& pair : raw->m_requestHeaders){
+        if(pair.first == key){
+            return true;
+        }
+    }
+    return false;
+}
+
 QString IHeaderJar::getRequestHeaderValue(const QString &key, bool *ok) const
 {
     for(const auto& pair : raw->m_requestHeaders){
@@ -47,16 +57,6 @@ QStringList IHeaderJar::getRequestHeaderValues(const QString &key) const
         }
     }
     return ret;
-}
-
-bool IHeaderJar::containRequestHeaderKey(const QString &key) const
-{
-    for(const auto& pair : raw->m_requestHeaders){
-        if(pair.first == key){
-            return true;
-        }
-    }
-    return false;
 }
 
 const QList<QPair<QString, QString> > &IHeaderJar::responseHeaders() const
@@ -130,6 +130,18 @@ void IHeaderJar::setResponseHeader(const QString &key, const QString &value)
     }
 
     addResponseHeader(key, value);
+}
+
+void IHeaderJar::deleteReponseHeader(const QString &key)
+{
+    auto& header = raw->m_responseHeaders;
+    for(auto it=header.begin(); it!= header.end();){
+        if(it->first == key){
+            it = header.erase(it);
+        }else{
+            it++;
+        }
+    }
 }
 
 bool IHeaderJar::isValid() const
