@@ -8,7 +8,7 @@ class IJarUnit
 {
 public:
     IJarUnit() = default;
-    virtual bool isValid() const;
+    virtual bool isValid() const = 0;
 };
 
 $PackageWebCoreEnd

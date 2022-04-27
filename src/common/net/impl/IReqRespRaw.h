@@ -50,7 +50,7 @@ public:
     IHttpMime m_requestMime {IHttpMime::UNKNOWN};
 
     QByteArray m_requestBody;
-    QList<QPair<QString, QByteArray>> m_requestHeaders;
+    QList<QPair<QString, QString>> m_requestHeaders;
 
     QMap<QString, QByteArray> m_requestUrlParameters;
     QMap<QString, QByteArray> m_requestParamParameters;     // 特指 url 参数后面的内容
@@ -74,7 +74,7 @@ public:
     IHttpStatus m_responseStatus {IHttpStatus::UNKNOWN};
     QByteArray m_responseContent;
     IHttpMime m_responseMime{IHttpMime::UNKNOWN};
-    QList<QPair<QString, QByteArray>> m_responseHeaders;
+    QList<QPair<QString, QString>> m_responseHeaders;
     QList<ICookiePart> m_responseCookies;
 };
 

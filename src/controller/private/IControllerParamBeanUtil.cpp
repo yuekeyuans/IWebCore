@@ -264,7 +264,7 @@ void *IControllerParamBeanUtil::resolveBodyXml(IBeanWare *bean, IRequest &reques
     return bean;
 }
 
-QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QList<QPair<QString, QByteArray> > &list, IBeanWare *bean, IRequest &request, bool *ok)
+QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QList<QPair<QString, QString> > &list, IBeanWare *bean, IRequest &request, bool *ok)
 {
     IToeUtil::setOk(ok, true);
     QMap<QString, QVariant> map;
@@ -272,7 +272,7 @@ QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QL
     bool convertOk;
     auto props = bean->getMetaProperties();
     for(const auto& prop : props){
-        QByteArray value;
+        QString value;
         for(const auto& pair : list){
             if(pair.first == prop.name()){
                 value = pair.second;
@@ -430,7 +430,7 @@ bool IControllerParamBeanUtil::checkKeyInQByteArrayMap(const QMap<QString, QByte
     return checkKeyInQStringMap(newMap, bean, request);
 }
 
-bool IControllerParamBeanUtil::checkKeyInListPair(const QList<QPair<QString, QByteArray> > &list, IBeanWare *bean, IRequest &request)
+bool IControllerParamBeanUtil::checkKeyInListPair(const QList<QPair<QString, QString> > &list, IBeanWare *bean, IRequest &request)
 {
     if(IConstantUtil::ReleaseMode){
         return true;

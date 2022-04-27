@@ -20,6 +20,8 @@ namespace IConstantUtil
     static const QString TimeFormat = "hh:mm:ss.zzz";
     static const QString DateTimeFormat = "yyyy-MM-dd hh:mm:ss.zzz";
 
+    static const char* const ServerName = "IWebCore";
+
     //! char[] of new line.
     static const char* const NewLine = "\r\n";
 

@@ -3,10 +3,5 @@
 
 $PackageWebCoreBegin
 
-bool IJarUnit::isValid() const
-{
-    qFatal(IConstantUtil::UnImplimentedMethod);
-    return false;
-}
 
 $PackageWebCoreEnd

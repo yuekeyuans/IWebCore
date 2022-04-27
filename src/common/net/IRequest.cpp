@@ -108,12 +108,12 @@ const QByteArray &IRequest::bodyContent() const
     return raw->m_requestBody;
 }
 
-QList<QPair<QString, QByteArray> > &IRequest::headers()
+QList<QPair<QString, QString> > &IRequest::headers()
 {
     return raw->m_requestHeaders;
 }
 
-const QList<QPair<QString, QByteArray>> &IRequest::headers() const
+const QList<QPair<QString, QString>> &IRequest::headers() const
 {
     return raw->m_requestHeaders;
 }

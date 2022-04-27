@@ -48,8 +48,8 @@ public:
     QString bodyContentType() const;
     const QByteArray& bodyContent() const;
 
-    QList<QPair<QString, QByteArray>>& headers();
-    const QList<QPair<QString, QByteArray>>& headers() const;
+    QList<QPair<QString, QString>>& headers();
+    const QList<QPair<QString, QString>>& headers() const;
     const QMap<QString, QByteArray>& urlParameters() const;
     const QMap<QString, QByteArray>& paramParameters() const;
 

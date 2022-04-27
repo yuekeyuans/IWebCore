@@ -53,20 +53,19 @@ IResponse &IResponse::operator<<(IResponseWare &response)
     return *this;
 }
 
-// TODO: 这里需要将 QByteArray 类型改成 QString 类型。
-const QByteArray& IResponse::operator[](const QString &header) const
+QString IResponse::operator[](const QString &header) const
 {
-    static QByteArray emptyValue;
     auto it=raw->m_responseHeaders.begin();
     for(; it!= raw->m_responseHeaders.end(); it++){
         if(it->first == header){
             return it->second;
         }
     }
-    return emptyValue;
+
+    return "";
 }
 
-QByteArray &IResponse::operator[](const QString &header)
+QString &IResponse::operator[](const QString &header)
 {
     auto it=raw->m_responseHeaders.begin();
     for(; it!= raw->m_responseHeaders.end(); it++){
@@ -95,18 +94,7 @@ IResponse &IResponse::setHeader(const QString &key, const QString &value)
         $AssertWarning(iresponse_setHeader_with_empty_value_or_key)
     }
 
-    auto it=raw->m_responseHeaders.begin();
-    for(; it!= raw->m_responseHeaders.end(); it++){
-        if(it->first == key){
-            break;
-        }
-    }
-
-    if(it!=raw->m_responseHeaders.end()){
-        it->second = value.toUtf8();
-    }else{
-        raw->m_responseHeaders.append({key, value.toUtf8()});
-    }
+    raw->m_headerJar.setResponseHeader(key, value);
     return *this;
 }
 
@@ -187,13 +175,14 @@ IResponse& IResponse::setContent(IResponseWare *response)
     for(auto key : keys){
         if(!raw->m_headerJar.containResponseHeaderKey(key)){
             raw->m_headerJar.addResponseHeader(key, headers[key]);
+            // TODO: 这里可能有冲突，需要特殊处理掉
         }
     }
 
     if((!raw->m_headerJar.containResponseHeaderKey(IHttpHeader::ContentType)
          || raw->m_headerJar.getResponseHeaderValue(IHttpHeader::ContentType, nullptr) == "UNKNOWN")
         && raw->m_responseMime != IHttpMime::UNKNOWN){
-        raw->m_headerJar.addResponseHeader(IHttpHeader::ContentType, IHttpMimeHelper::toString(raw->m_responseMime));
+        raw->m_headerJar.setResponseHeader(IHttpHeader::ContentType, IHttpMimeHelper::toString(raw->m_responseMime));
     }
     return *this;
 }
@@ -213,7 +202,7 @@ IHttpStatus IResponse::status() const
     return raw->m_responseStatus;
 }
 
-const QList<QPair<QString, QByteArray>>& IResponse::headers() const
+const QList<QPair<QString, QString>>& IResponse::headers() const
 {
     return raw->m_responseHeaders;
 }

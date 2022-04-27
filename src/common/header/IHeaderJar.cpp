@@ -5,11 +5,21 @@
 
 $PackageWebCoreBegin
 
-QStringList IHeaderJar::requestHeaderKeys()
+const QList<QPair<QString, QString>>& IHeaderJar::requestHeaders() const
+{
+    return raw->m_requestHeaders;
+}
+
+QList<QPair<QString, QString> > &IHeaderJar::requestHeaders()
+{
+    return raw->m_requestHeaders;
+}
+
+QStringList IHeaderJar::requestHeaderKeys() const
 {
     QStringList ret;
     for(const auto& pair : raw->m_requestHeaders){
-        if(ret.indexOf(pair.first)<0){
+        if(!ret.contains(pair.first)){
             ret.append(pair.first);
         }
     }
@@ -39,7 +49,7 @@ QStringList IHeaderJar::getRequestHeaderValues(const QString &key) const
     return ret;
 }
 
-bool IHeaderJar::containRequestHeaderKey(const QString &key)
+bool IHeaderJar::containRequestHeaderKey(const QString &key) const
 {
     for(const auto& pair : raw->m_requestHeaders){
         if(pair.first == key){
@@ -49,12 +59,28 @@ bool IHeaderJar::containRequestHeaderKey(const QString &key)
     return false;
 }
 
-const QList<QPair<QString, QByteArray>>& IHeaderJar::requestHeaders() const
+const QList<QPair<QString, QString> > &IHeaderJar::responseHeaders() const
 {
-    return raw->m_requestHeaders;
+    return raw->m_responseHeaders;
 }
 
-bool IHeaderJar::containResponseHeaderKey(const QString &key)
+QList<QPair<QString, QString> > &IHeaderJar::responseHeaders()
+{
+    return raw->m_responseHeaders;
+}
+
+QStringList IHeaderJar::responseHeaderKeys() const
+{
+    QStringList ret;
+    for(const auto& pair : raw->m_responseHeaders){
+        if(!ret.contains(pair.first)){
+            ret.append(pair.first);
+        }
+    }
+    return ret;
+}
+
+bool IHeaderJar::containResponseHeaderKey(const QString &key) const
 {
     for(const auto& pair : raw->m_responseHeaders){
         if(pair.first == key){
@@ -87,9 +113,23 @@ QStringList IHeaderJar::getResponseHeaderValues(const QString &key) const
     return ret;
 }
 
+// NOTE: 注意这两者之间的差别， setReponseHeader是，如果有这个值，就替换， addResponseHeader 表示不管怎样，直接添加。
 void IHeaderJar::addResponseHeader(const QString &key, const QString &value)
 {
-    return raw->m_responseHeaders.append({key, value.toUtf8()});
+    return raw->m_responseHeaders.append({key, value});
+}
+
+void IHeaderJar::setResponseHeader(const QString &key, const QString &value)
+{
+    auto it=raw->m_responseHeaders.begin();
+    for(; it!=raw->m_responseHeaders.end(); it++){
+        if(it->first == key){
+            it->second = value;
+            return;
+        }
+    }
+
+    addResponseHeader(key, value);
 }
 
 bool IHeaderJar::isValid() const

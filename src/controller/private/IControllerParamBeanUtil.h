@@ -40,7 +40,7 @@ private:
     static void* resolveBodyJson(IBeanWare* bean, IRequest& request);
     static void* resolveBodyXml(IBeanWare* bean, IRequest& request);
 
-    static QMap<QString, QVariant> resolveBeanFieldAsMap(const QList<QPair<QString, QByteArray>>& list, IBeanWare* bean, IRequest&request, bool* ok);
+    static QMap<QString, QVariant> resolveBeanFieldAsMap(const QList<QPair<QString, QString>>& list, IBeanWare* bean, IRequest&request, bool* ok);
     static QMap<QString, QVariant> resolveBeanFieldAsMap(const QMap<QString, QByteArray>& map, IBeanWare* bean, IRequest& request, bool* ok);
     static QMap<QString, QVariant> resolveBeanFieldAsMap(const QVector<IMultiPart>& parts, IBeanWare* bean, IRequest& request, bool* ok);
 
@@ -48,7 +48,7 @@ private:
     static bool checkKeyInJsonAndBean(const QJsonObject& obj, IBeanWare* bean, IRequest& request);
     static bool checkKeyInMultiPart(const QVector<IMultiPart> &parts, IBeanWare* bean, IRequest& request);
     static bool checkKeyInQByteArrayMap(const QMap<QString, QByteArray>& map, IBeanWare* bean, IRequest& request);
-    static bool checkKeyInListPair(const QList<QPair<QString, QByteArray>>& list, IBeanWare* bean, IRequest& request);
+    static bool checkKeyInListPair(const QList<QPair<QString, QString>>& list, IBeanWare* bean, IRequest& request);
     static bool checkKeyInQStringMap(const QMap<QString, QString>& map, IBeanWare* bean, IRequest& request);
 
     // 获取 bean 处理方式， 是否是 strict 方式

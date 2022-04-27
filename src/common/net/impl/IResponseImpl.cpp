@@ -26,7 +26,7 @@ bool IResponseImpl::respond()
 
 void IResponseImpl::write(const QByteArray &content)
 {
-    if(content.length() != 0){
+    if(!content.isEmpty()){
         raw->m_socket->write(content);
     }
 }
@@ -50,9 +50,9 @@ QByteArray IResponseImpl::generateHeadersContent()
 {
     auto len = raw->m_responseContent.length();
     if(len != 0){
-        raw->m_headerJar.addResponseHeader(IHttpHeader::ContentLength, QString::number(len));
+        raw->m_headerJar.setResponseHeader(IHttpHeader::ContentLength, QString::number(len));
         if(!raw->m_headerJar.containResponseHeaderKey(IHttpHeader::ContentType)){
-            raw->m_headerJar.addResponseHeader(IHttpHeader::ContentType, IHttpMimeHelper::toString(raw->m_responseMime));
+            raw->m_headerJar.setResponseHeader(IHttpHeader::ContentType, IHttpMimeHelper::toString(raw->m_responseMime));
         }
     }
 
@@ -67,10 +67,8 @@ QByteArray IResponseImpl::generateHeadersContent()
 
 void IResponseImpl::generateExternalHeadersContent(QByteArray& content)
 {
-    static const char* ServerInfo = "Server: IWebCore\r\n";
-
     if(IConstantUtil::IServerNameMiddleWareEnabeld){
-        content.append(ServerInfo);
+        content.append("Server: ").append(IConstantUtil::ServerName).append(IConstantUtil::NewLine);
     }
 
     if(IConstantUtil::ICookiePluginEnabled){

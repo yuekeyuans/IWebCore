@@ -17,20 +17,29 @@ public:
     IHeaderJar() = default;
 
     // request
-    QStringList requestHeaderKeys();
+
+    const QList<QPair<QString, QString>>& requestHeaders() const;
+    QList<QPair<QString, QString>>& requestHeaders();
+
+    QStringList requestHeaderKeys() const;
     QString getRequestHeaderValue(const QString& key, bool* ok) const;
     QStringList getRequestHeaderValues(const QString& key) const;
     bool containRequestHeaderKey(const QString& key) const;
-    const QList<QPair<QString, QByteArray>>& requestHeaders() const;
 
     // response
+    const QList<QPair<QString, QString>>& responseHeaders() const;
+    QList<QPair<QString, QString>>& responseHeaders();
+
+    QStringList responseHeaderKeys() const;
     bool containResponseHeaderKey(const QString& key) const;
     QString getResponseHeaderValue(const QString& key, bool* ok) const;
     QStringList getResponseHeaderValues(const QString& key) const;
+
     void addResponseHeader(const QString& key, const QString& value);
+    void setResponseHeader(const QString& key, const QString& value);
+
 
     virtual bool isValid() const final;
-
 private:
     friend class IReqRespRaw;
     IReqRespRaw* raw{nullptr};
