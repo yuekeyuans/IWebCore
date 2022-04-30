@@ -23,5 +23,4 @@ private:
     IReqRespRaw* raw{nullptr};
 };
 
-
 $PackageWebCoreEnd
