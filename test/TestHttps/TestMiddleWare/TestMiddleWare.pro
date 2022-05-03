@@ -5,7 +5,7 @@ QT += core xml network sql
 CONFIG += c++11 console
 CONFIG -= app_bundle
 
-include(../../src/IWebCore.pri)
+include(../../../src/IWebCore.pri)
 
 DEFINES += QT_DEPRECATED_WARNINGS
 

@@ -5,7 +5,7 @@ QT -= gui
 CONFIG += c++14 console
 CONFIG -= app_bundle
 
-include(../../src/IWebCore.pri)
+include(../../../src/IWebCore.pri)
 
 INCLUDEPATH += E:/project/libs/boost/boost_1_77_0/
 

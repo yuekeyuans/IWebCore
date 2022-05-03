@@ -1,11 +1,9 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
+    TestCores \
+    TestHttps \
+    TestOrms    \
     TestConfigurations \
-    TestHttpBeanMapping \
-    TestMiddleWare \
-    TestOrm \
-    TestOrmTableAndView \
-    TestBean \
-    TestHttpMapping \
-    TestConvertion
+
+
