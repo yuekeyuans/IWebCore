@@ -46,6 +46,7 @@ void IDebugInterface::fatal(const QString &tag, const QStringList& extra)
     auto info = IDebugInterfaceProxy::getInfo(this->m_debugInfos, tag, ok);
     if(ok){
         IDebugInterfaceProxy::outputInfo(info, extra);
+        fatal(info.reason);
     }else{
         qFatal("error tag with debug");
     }
@@ -54,21 +55,21 @@ void IDebugInterface::fatal(const QString &tag, const QStringList& extra)
 void IDebugInterface::loadConfigs()
 {
     auto obj = jsonFormatedInfo();
-    static QMap<QString, QList<Info>&> map = {
-        {"debug", m_debugInfos},
-        {"warn", m_warnInfos},
-        {"error", m_errorInfos},
-        {"fatal", m_fatalInfos}
+    static const QMap<QString, QList<Info>*> map = {
+        {"debug", &m_debugInfos},
+        {"warn", &m_warnInfos},
+        {"error", &m_errorInfos},
+        {"fatal", &m_fatalInfos}
     };
 
     const auto& keys = map.keys();
     for(const QString key : keys){
         if(obj.contains(key)){
-            auto& infos = map[key];
+            auto infos = map[key];
             auto array = obj[key].toArray();
             for(auto value : array){
                 auto info = value.toObject();
-                infos.append({info["tag"].toString(), info["reason"].toString(), info["solution"].toString() });
+                infos->append({info["tag"].toString(), info["reason"].toString(), info["solution"].toString() });
             }
         }
     }

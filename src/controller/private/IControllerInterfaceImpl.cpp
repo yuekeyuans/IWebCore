@@ -8,6 +8,8 @@
 
 $PackageWebCoreBegin
 
+static IControllerInterfaceDebug $debug;
+
 namespace IControllerInterfaceImpHelper{
     bool isBeanType(const QString&);
     bool isSpecialTypes(const QString&);
@@ -89,7 +91,7 @@ QStringList IControllerInterfaceImpl::reformClsInfoArgs(const QMap<QString, QStr
         for(auto arg : tempArgs){
             arg = arg.trimmed();
             if(arg == "." || arg == ".."){
-                qFatal("url fragment should not contain . or ..");
+                $debug.fatal("UrlError");
             }
             if(!arg.trimmed().isEmpty()){
                 args.append(arg);
@@ -141,10 +143,7 @@ void IControllerInterfaceImpl::checkMappingOverloadFunctions(const QVector<QMeta
     QStringList names;
     for(const auto& method : methods){
         if(names.contains(method.name())){
-            QString info = method.name() + " function is overloaded or use default value in it`s arguments.\n"
-                                           "    the controller functions must not use overloaded function or default arguments.\n"
-                                           "    please check it again";
-            qFatal(info.toUtf8());
+            $debug.fatal("OverloadOrDefaultValueFunctionNotSupported", {"name:", method.name()});
         }
         names.append(method.name());
     }
@@ -163,10 +162,7 @@ void IControllerInterfaceImpl::checkMappingNameAndFunctionIsMatch(void *handler,
     for(const auto& info : infos){
         auto name = info.first();
         if(!methodNames.contains(name)){
-            QString info = name + " in $xxxMapping line error,\n"
-                                  " that it can`t match any function defined in controller,\n"
-                                  " please check your route definition";
-            qFatal(info.toUtf8());
+            $debug.fatal("MappingMismatchFatal", {"name:", name});
         }
     }
 }
@@ -222,18 +218,15 @@ void IControllerInterfaceImpl::chekcUrlErrorCommon(const QString &url)
         }
 
         if(!urlPieceReg.match(piece).hasMatch()){
-            QString info = "url has invalid character:\n\t" + url;
-            qFatal(info.toUtf8());
+            $debug.fatal("UrlInvalidCharacter", {"url", url});
         }
 
         if(piece == "." || piece == ".."){
-            QString info = "url can`t have . or .. (dot or dotdot) inside it: \n\t" + url;
-            qFatal(info.toUtf8());
+            $debug.fatal("UrlError", {"url:", url, "piece:", piece});
         }
 
         if(piece.contains(' ') || piece.contains('\t')){
-            QString info = "url can`t have blank inside it: \n\t" + url;
-            qFatal(info.toUtf8());
+            $debug.fatal("UrlBlankCharacter", {"url:", url});
         }
     }
 }

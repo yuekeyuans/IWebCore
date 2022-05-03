@@ -6,6 +6,6 @@
     static klassName s_debug;
 
 #define $Debug \
-auto a = []()->IWebCore::IDebugInterface*{  \
+auto a = []()->IDebugInterface*{  \
     return &s_debug;    \
 };
