@@ -4,5 +4,4 @@ SUBDIRS += \
     TestConfigCodeInitializer \
     TestConfigurationCodeConfig \
     TestConfigurationInterface \
-    TestDataBaseConfiguration \
-    TestYaml
+    TestDataBaseConfiguration
