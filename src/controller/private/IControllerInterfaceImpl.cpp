@@ -4,6 +4,8 @@
 #include "common/net/IResponse.h"
 #include "common/type/ITypeManage.h"
 
+#include "controller/private/IControllerInterfaceDebug.h"
+
 $PackageWebCoreBegin
 
 namespace IControllerInterfaceImpHelper{

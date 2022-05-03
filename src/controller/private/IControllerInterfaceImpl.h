@@ -21,7 +21,6 @@ private:
     void checkMappingUrlIsValid(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaMethod>& methods);
     void checkMappingMethodArgsIsValid(void* handler, const QMap<QString, QString>& clsInfo,  const QVector<QMetaMethod>& methods);
 
-
     // 检查 url 错误的。
     void chekcUrlErrorCommon(const QString& url);
     void CheckUrlErrorWildCard(const QString url);
@@ -34,7 +33,6 @@ private:
     void checkMethodBodyContentArgs(const IUrlFunctionNode& node);
     void checkMethodParamterWithSuffixProper(const IUrlFunctionNode& node);
     void checkMethodParamterWithSuffixSet(const IUrlFunctionNode& node);
-
 
     // 其他调用函数
     QVector<IUrlFunctionNode> createFunctionMappingLeaves(void* handler, const QStringList&, const QMap<QString, QString>& clsInfo, const QVector<QMetaMethod>&methods);

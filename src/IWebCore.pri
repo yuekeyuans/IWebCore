@@ -76,7 +76,8 @@ HEADERS += \
     $$PWD/common/response/response \
     $$PWD/common/session/ISessionJar.h \
     $$PWD/common/support/IJarUnit.h \
-    $$PWD/common/support/INoCopyUnit.h \
+    $$PWD/common/support/INoConstructUnit.h \
+    $$PWD/common/support/INoCopyMoveUnit.h \
     $$PWD/common/support/IRegisterGadgetUnit.h \
     $$PWD/common/support/IRegisterInstanceUnit.h \
     $$PWD/common/support/IRegisterMetaTypeUnit.h \
@@ -109,6 +110,7 @@ HEADERS += \
     $$PWD/controller/pp/IPutMappingPreProcessor.h \
     $$PWD/controller/pp/IStatusCodeMappingPreProcessor.h \
     $$PWD/controller/pp/IStatusControllerPreProcessor.h \
+    $$PWD/controller/private/IControllerInterfaceDebug.h \
     $$PWD/controller/private/IControllerInterfaceImpl.h \
     $$PWD/controller/private/IControllerParamBeanUtil.h \
     $$PWD/controller/private/IControllerParamUtil.h \
@@ -163,6 +165,8 @@ HEADERS += \
     $$PWD/task/ITaskManage.h \
     $$PWD/task/ITaskWare.h \
     $$PWD/task/defaultTask/IBluePrintControllerTask.h \
+    $$PWD/test/IDebugInterface.h \
+    $$PWD/test/IDebugPreProcessor.h \
     $$PWD/test/ITestPreProcessor.h
 
 SOURCES += \
@@ -231,7 +235,7 @@ SOURCES += \
     $$PWD/common/response/IStatusCodeResponse.cpp \
     $$PWD/common/session/ISessionJar.cpp \
     $$PWD/common/support/IJarUnit.cpp \
-    $$PWD/common/support/INoCopyUnit.cpp \
+    $$PWD/common/support/INoCopyMoveUnit.cpp \
     $$PWD/common/support/IRegisterGadgetUnit.cpp \
     $$PWD/common/support/IRegisterInstanceUnit.cpp \
     $$PWD/common/support/IRegisterMetaTypeUnit.cpp \
@@ -252,6 +256,7 @@ SOURCES += \
     $$PWD/controller/IControllerPathValidatorInterface.cpp \
     $$PWD/controller/IControllerRouteNode.cpp \
     $$PWD/controller/IStatusControllerInterface.cpp \
+    $$PWD/controller/private/IControllerInterfaceDebug.cpp \
     $$PWD/controller/private/IControllerInterfaceImpl.cpp \
     $$PWD/controller/private/IControllerParamBeanUtil.cpp \
     $$PWD/controller/private/IControllerParamUtil.cpp \
@@ -300,7 +305,8 @@ SOURCES += \
     $$PWD/task/IStaticInitializeTaskUnit.cpp \
     $$PWD/task/ITaskManage.cpp \
     $$PWD/task/ITaskWare.cpp \
-    $$PWD/task/defaultTask/IBluePrintControllerTask.cpp
+    $$PWD/task/defaultTask/IBluePrintControllerTask.cpp \
+    $$PWD/test/IDebugInterface.cpp
 
 DISTFILES += \
     $$PWD/IWebCore \

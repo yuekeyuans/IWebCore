@@ -1,11 +1,11 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "common/support/INoCopyUnit.h"
+#include "common/support/INoCopyMoveUnit.h"
 
 $PackageWebCoreBegin
 
-class IThreadUnit : INoCopyUnit
+class IThreadUnit : INoCopyMoveUnit
 {
 protected:
     IThreadUnit() = default;
