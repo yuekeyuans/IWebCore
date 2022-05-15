@@ -1,5 +1,5 @@
 ﻿#pragma once
 
-#include "server/IServerInterface.h"
-
-#include "httpServer/IHttpServer.h"
+#include "server/IHttpServer.h"
+#include "server/IHttpServerManage.h"
+#include "server/httpServer/IHttpServerRunable.h"

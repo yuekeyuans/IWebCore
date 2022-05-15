@@ -150,10 +150,11 @@ HEADERS += \
     $$PWD/orm/tableview/IOrmViewWare.h \
     $$PWD/plugin/yaml/IYamlUtil.h \
     $$PWD/plugin/yaml/Yaml.hpp \
+    $$PWD/server/IHttpServer.h \
+    $$PWD/server/IHttpServerManage.h \
     $$PWD/server/IServerInterface.h \
-    $$PWD/server/httpServer/IHttpServer.h \
-    $$PWD/server/httpServer/IHttpServerManage.h \
     $$PWD/server/httpServer/IHttpServerRunable.h \
+    $$PWD/server/httpServer/IMultiThreadServer.h \
     $$PWD/task/IArgumentParserUnit.h \
     $$PWD/task/IConfigurationTaskUnit.h \
     $$PWD/task/IControllerTaskUnit.h \
@@ -291,10 +292,11 @@ SOURCES += \
     $$PWD/orm/tableview/IOrmViewWare.cpp \
     $$PWD/plugin/yaml/IYamlUtil.cpp \
     $$PWD/plugin/yaml/Yaml.cpp \
+    $$PWD/server/IHttpServer.cpp \
+    $$PWD/server/IHttpServerManage.cpp \
     $$PWD/server/IServerInterface.cpp \
-    $$PWD/server/httpServer/IHttpServer.cpp \
-    $$PWD/server/httpServer/IHttpServerManage.cpp \
     $$PWD/server/httpServer/IHttpServerRunable.cpp \
+    $$PWD/server/httpServer/IMultiThreadServer.cpp \
     $$PWD/task/IArgumentParserUnit.cpp \
     $$PWD/task/IConfigurationTaskUnit.cpp \
     $$PWD/task/IControllerTaskUnit.cpp \

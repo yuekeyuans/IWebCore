@@ -21,7 +21,7 @@ private:
 
 private:
     $OptionWireDeclare(QString, host, server.host)
-    sQString host = "127.0.0.1";
+    QString host = "127.0.0.1";
 
     $OptionWireDeclare(int, port, server.port)
     int port = 8088;

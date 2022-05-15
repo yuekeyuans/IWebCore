@@ -1,5 +1,5 @@
 ﻿#include "IHttpServer.h"
-#include "server/httpServer/IHttpServerManage.h"
+#include "server/IHttpServerManage.h"
 
 $PackageWebCoreBegin
 
@@ -33,8 +33,6 @@ void IHttpServer::setPort(int port)
     this->port = port;
 }
 
-// TODO: 为了解决 C10K 问题，有一个简便的权宜之计, 就是在这里获取到 handle 之后，将 handle 放置在
-// 自定义的 事件循环里面，在 Linux 下面是 epoll, 在windows 下面是 IOCP.
 void IHttpServer::incomingConnection(qintptr handle)
 {
     IHttpServerManage::addSocket(handle);

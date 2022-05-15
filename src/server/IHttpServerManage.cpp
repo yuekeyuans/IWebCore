@@ -1,13 +1,18 @@
 ﻿#include "IHttpServerManage.h"
 #include "server/httpServer/IHttpServerRunable.h"
 
+#include "server/httpServer/IMultiThreadServer.h"
+
 $PackageWebCoreBegin
 
 void IHttpServerManage::addSocket(qintptr handle)
 {
-    auto inst = instance();
-    auto runable = new IHttpServerRunable(handle);
-    inst->pool.start(runable);
+    IMultiThreadServer::addSocket(handle);
+//#ifdef _MSC_VER
+
+//#else
+
+//#endif
 }
 
 $PackageWebCoreEnd

@@ -11,9 +11,6 @@ public:
     IHttpServerManage() = default;
 
     static void addSocket(qintptr handle);
-
-private:
-    QThreadPool pool;
 };
 
 $PackageWebCoreEnd
