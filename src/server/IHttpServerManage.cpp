@@ -1,18 +1,16 @@
 ﻿#include "IHttpServerManage.h"
-#include "server/httpServer/IHttpServerRunable.h"
-
-#include "server/httpServer/IMultiThreadServer.h"
+#include "server/multiThreadServer/IMultiThreadServer.h"
 
 $PackageWebCoreBegin
 
+IHttpServerManage::IHttpServerManage()
+{
+    m_server = QSharedPointer<IMultiThreadServer>::create();
+}
+
 void IHttpServerManage::addSocket(qintptr handle)
 {
-    IMultiThreadServer::addSocket(handle);
-//#ifdef _MSC_VER
-
-//#else
-
-//#endif
+    m_server->addSocket(handle);
 }
 
 $PackageWebCoreEnd

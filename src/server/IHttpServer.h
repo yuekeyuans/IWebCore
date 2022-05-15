@@ -1,20 +1,20 @@
 ﻿#pragma once
-#include "server/IServerInterface.h"
 #include "configuration/configuration"
 #include "base/IMetaUtil.h"
+#include "server/IHttpServerManage.h"
 
 $PackageWebCoreBegin
 
-class IHttpServer : public IServerInterface, public QTcpServer
+class IHttpServer : public QTcpServer
 {
     Q_GADGET
     $UseInstance(IHttpServer)
     $UseConfig(IHttpSever)
 public:
     IHttpServer();
-    virtual bool listen() final;
-    virtual void setHost(const QString &host) final;
-    virtual void setPort(int port) final;
+    bool listen();
+    void setHost(const QString &host);
+    void setPort(int port);
 
 private:
     virtual void incomingConnection(qintptr handle) final;
@@ -25,6 +25,9 @@ private:
 
     $OptionWireDeclare(int, port, server.port)
     int port = 8088;
+
+private:
+    IHttpServerManage m_serverManage;
 };
 
 $PackageWebCoreEnd

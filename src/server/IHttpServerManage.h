@@ -1,16 +1,19 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
+#include "IServerInterface.h"
 
 $PackageWebCoreBegin
 
 class IHttpServerManage
 {
-    $UseInstance(IHttpServerManage)
 public:
-    IHttpServerManage() = default;
+    IHttpServerManage();
 
-    static void addSocket(qintptr handle);
+    void addSocket(qintptr handle);
+
+private:
+    QSharedPointer<IServerInterface> m_server;
 };
 
 $PackageWebCoreEnd

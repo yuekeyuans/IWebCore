@@ -1,6 +1,6 @@
 TEMPLATE = subdirs
 
 SUBDIRS +=  \
-    TestHttpBeanMapping \
-#    TestHttpMapping \
+#    TestHttpBeanMapping \
+    TestHttpMapping \
 #    TestMiddleWare

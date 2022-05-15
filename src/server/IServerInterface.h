@@ -2,18 +2,15 @@
 
 #include "base/IHeaderUtil.h"
 
-#include <QtCore>
-#include <QtNetwork>
-
 $PackageWebCoreBegin
 
 class IServerInterface
 {
 public:
     IServerInterface() = default;
-    virtual bool listen() = 0;
-    virtual void setHost(const QString& host) = 0;
-    virtual void setPort(int port) = 0;
+    virtual ~IServerInterface() = default;
+
+    virtual void addSocket(qintptr handle) =0;
 };
 
 $PackageWebCoreEnd

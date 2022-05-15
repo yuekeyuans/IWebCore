@@ -3,7 +3,7 @@
 
 $PackageWebCoreBegin
 
-IHttpServer::IHttpServer() : IServerInterface(), QTcpServer()
+IHttpServer::IHttpServer() :  QTcpServer()
 {
     $ConstructConfig()
 }
@@ -11,7 +11,7 @@ IHttpServer::IHttpServer() : IServerInterface(), QTcpServer()
 bool IHttpServer::listen()
 {
     QHostAddress address = host == "any" ? QHostAddress::Any : QHostAddress(host);
-    auto result = QTcpServer::listen(address, port);
+    auto result = this->QTcpServer::listen(address, port);
     if(result){
         QString info = QString("server started at %1:%2").arg(address.toString()).arg(port);
         qDebug().noquote() << info;
@@ -35,7 +35,7 @@ void IHttpServer::setPort(int port)
 
 void IHttpServer::incomingConnection(qintptr handle)
 {
-    IHttpServerManage::addSocket(handle);
+    m_serverManage.addSocket(handle);
 }
 
 $PackageWebCoreEnd

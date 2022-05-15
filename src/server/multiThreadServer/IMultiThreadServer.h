@@ -1,16 +1,17 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
+#include "server/IServerInterface.h"
 
 $PackageWebCoreBegin
 
-class IMultiThreadServer
+class IMultiThreadServer : public IServerInterface
 {
     $UseInstance(IMultiThreadServer)
 public:
     IMultiThreadServer() = default;
 
-    static void addSocket(qintptr handle);
+    virtual void addSocket(qintptr handle) final;
 
 private:
     QThreadPool m_pool;

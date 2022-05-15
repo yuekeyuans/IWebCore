@@ -153,8 +153,9 @@ HEADERS += \
     $$PWD/server/IHttpServer.h \
     $$PWD/server/IHttpServerManage.h \
     $$PWD/server/IServerInterface.h \
-    $$PWD/server/httpServer/IHttpServerRunable.h \
-    $$PWD/server/httpServer/IMultiThreadServer.h \
+    $$PWD/server/multiThreadServer/IHttpServerRunable.h \
+    $$PWD/server/multiThreadServer/IMultiThreadServer.h \
+    $$PWD/server/quenedServer/IQueneServer.h \
     $$PWD/task/IArgumentParserUnit.h \
     $$PWD/task/IConfigurationTaskUnit.h \
     $$PWD/task/IControllerTaskUnit.h \
@@ -295,8 +296,9 @@ SOURCES += \
     $$PWD/server/IHttpServer.cpp \
     $$PWD/server/IHttpServerManage.cpp \
     $$PWD/server/IServerInterface.cpp \
-    $$PWD/server/httpServer/IHttpServerRunable.cpp \
-    $$PWD/server/httpServer/IMultiThreadServer.cpp \
+    $$PWD/server/multiThreadServer/IHttpServerRunable.cpp \
+    $$PWD/server/multiThreadServer/IMultiThreadServer.cpp \
+    $$PWD/server/quenedServer/IQueneServer.cpp \
     $$PWD/task/IArgumentParserUnit.cpp \
     $$PWD/task/IConfigurationTaskUnit.cpp \
     $$PWD/task/IControllerTaskUnit.cpp \
