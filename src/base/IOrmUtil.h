@@ -12,13 +12,19 @@ namespace IOrmUtil
 // 单行单列 获取
     int getInt(QSqlQuery& query, bool* ok=nullptr);
     uint getUint(QSqlQuery& query, bool* ok=nullptr);
+
     qulonglong getULongLong(QSqlQuery& query, bool* ok=nullptr);
     qlonglong getLongLong(QSqlQuery& query, bool* ok=nullptr);
+
     float getFloat(QSqlQuery& query, bool* ok=nullptr);
     double getDouble(QSqlQuery& query, bool* ok=nullptr);
+
     bool getBool(QSqlQuery& query, bool* ok=nullptr);
+
     QString getString(QSqlQuery& query, bool* ok=nullptr);
+
     QVariant getVariant(QSqlQuery& query, bool *ok=nullptr);
+
     QDate getDate(QSqlQuery& query, bool* ok=nullptr);
     QTime getTime(QSqlQuery& query, bool* ok=nullptr);
     QDateTime getDateTime(QSqlQuery& query, bool* ok=nullptr);
