@@ -29,11 +29,11 @@ HEADERS += \
     $$PWD/base/IToeUtil.h \
     $$PWD/base/ITraitHelper.h \
     $$PWD/base/IXmlUtil.h \
-    $$PWD/bean/IBeanInterface.h \
-    $$PWD/bean/IBeanPreProcessor.h \
-    $$PWD/bean/IBeanWare.h \
-    $$PWD/bean/IGadgetUnit.h \
-    $$PWD/bean/ITypeManage.h \
+    $$PWD/core/bean/IBeanInterface.h \
+    $$PWD/core/bean/IBeanPreProcessor.h \
+    $$PWD/core/bean/IBeanWare.h \
+    $$PWD/core/bean/IGadgetUnit.h \
+    $$PWD/core/bean/ITypeManage.h \
     $$PWD/biscuits/IHttpCharset.h \
     $$PWD/biscuits/IHttpHeader.h \
     $$PWD/biscuits/IHttpStatus.h \
@@ -203,10 +203,10 @@ SOURCES += \
     $$PWD/base/IToeUtil.cpp \
     $$PWD/base/ITraitHelper.cpp \
     $$PWD/base/IXmlUtil.cpp \
-    $$PWD/bean/IBeanInterface.cpp \
-    $$PWD/bean/IBeanWare.cpp \
-    $$PWD/bean/IGadgetUnit.cpp \
-    $$PWD/bean/ITypeManage.cpp \
+    $$PWD/core/bean/IBeanInterface.cpp \
+    $$PWD/core/bean/IBeanWare.cpp \
+    $$PWD/core/bean/IGadgetUnit.cpp \
+    $$PWD/core/bean/ITypeManage.cpp \
     $$PWD/common/IInterceptInterface.cpp \
     $$PWD/common/IManage.cpp \
     $$PWD/common/biscuits/IHttpCharset.cpp \
@@ -323,7 +323,7 @@ DISTFILES += \
     $$PWD/IWebCore \
     $$PWD/core/core \
     $$PWD/base/base \
-    $$PWD/bean/bean \
+    $$PWD/core/bean/bean \
     $$PWD/common/common \
     $$PWD/configuration/configuration \
     $$PWD/controller/controller \

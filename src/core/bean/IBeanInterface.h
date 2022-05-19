@@ -1,8 +1,8 @@
 ﻿#pragma once
 
+#include "IBeanWare.h"
+#include "ITypeManage.h"
 #include "base/IHeaderUtil.h"
-#include "bean/IBeanWare.h"
-#include "bean/ITypeManage.h"
 #include "task/IStaticInitializeTaskUnit.h"
 
 $PackageWebCoreBegin

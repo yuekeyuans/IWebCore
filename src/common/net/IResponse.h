@@ -2,7 +2,6 @@
 
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
-#include "bean/IBeanPreProcessor.h"
 #include "common/cookie/ICookiePart.h"
 #include "common/biscuits/IHttpStatus.h"
 #include "common/biscuits/IHttpVersion.h"
@@ -10,6 +9,7 @@
 #include "common/response/IResponseWareRaw.h"
 #include "common/response/IResponsePreProcessor.h"
 #include "common/support/IRegisterMetaTypeUnit.h"
+#include "core/bean/IBeanPreProcessor.h"
 
 $PackageWebCoreBegin
 

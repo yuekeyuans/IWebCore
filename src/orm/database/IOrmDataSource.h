@@ -4,8 +4,8 @@
 #include "base/IConvertUtil.h"
 #include "base/IMetaUtil.h"
 #include "base/IJsonUtil.h"
-#include "bean/IBeanInterface.h"
 #include "configuration/IConfigurationPreProcessor.h"
+#include "core/bean/IBeanInterface.h"
 
 $PackageWebCoreBegin
 

@@ -1,10 +1,10 @@
 ﻿#include "IControllerInterfaceImpl.h"
 
-#include "bean/ITypeManage.h"
 #include "common/net/IRequest.h"
 #include "common/net/IResponse.h"
 #include "controller/private/IControllerInterfaceDebug.h"
 #include "core/assertion/IAssertPreProcessor.h"
+#include "core/bean/ITypeManage.h"
 
 $PackageWebCoreBegin
 

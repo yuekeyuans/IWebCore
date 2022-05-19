@@ -1,7 +1,7 @@
 ﻿#pragma once
 
+#include "IGadgetUnit.h"
 #include "base/IHeaderUtil.h"
-#include "bean/IGadgetUnit.h"
 
 $PackageWebCoreBegin
 

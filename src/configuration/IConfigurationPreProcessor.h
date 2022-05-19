@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 #include "base/IPreProcessorUtil.h"
-#include "bean/IBeanPreProcessor.h"
 #include "configuration/IConfigurationWirePreProcessor.h"
+#include "core/bean/IBeanPreProcessor.h"
 
 #define $AsConfiguration(klassName) \
     $UseInstance(klassName)

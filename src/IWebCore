@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 #include "core/core"
+#include "core/bean/bean"
 #include "base/base"
-#include "bean/bean"
 #include "configuration/configuration"
 #include "controller/controller"
 #include "common/common"

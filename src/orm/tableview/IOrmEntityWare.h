@@ -1,9 +1,9 @@
 ﻿#pragma once
 
-#include "base/IHeaderUtil.h"
-#include "bean/IBeanWare.h"
 #include "IOrmEntityInfoWare.h"
 #include "IOrmTableInfo.h"
+#include "base/IHeaderUtil.h"
+#include "core/bean/IBeanWare.h"
 
 $PackageWebCoreBegin
 

@@ -3,7 +3,6 @@
 #include "base/IHeaderUtil.h"
 #include "base/IPreProcessorUtil.h"
 #include "base/IMetaUtil.h"
-#include "bean/IBeanPreProcessor.h"
 #include "common/biscuits/IHttpMethod.h"
 #include "common/biscuits/IHttpVersion.h"
 #include "common/biscuits/IHttpStatus.h"
@@ -11,6 +10,7 @@
 #include "common/biscuits/IHttpCharset.h"
 #include "common/net/IMultiPart.h"
 #include "common/support/IRegisterMetaTypeUnit.h"
+#include "core/bean/IBeanPreProcessor.h"
 
 $PackageWebCoreBegin
 

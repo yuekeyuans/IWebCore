@@ -2,9 +2,6 @@
 
 #include "base/IJsonUtil.h"
 #include "base/IToeUtil.h"
-#include "bean/IBeanWare.h"
-#include "bean/ITypeManage.h"
-
 #include "common/node/IFunctionNode.h"
 #include "common/net/IMultiPart.h"
 #include "common/net/IRequest.h"
@@ -18,6 +15,8 @@
 #include "common/net/impl/IReqRespRaw.h"
 #include "controller/private/IControllerParamBeanUtil.h"
 #include "core/assertion/IAssertPreProcessor.h"
+#include "core/bean/IBeanWare.h"
+#include "core/bean/ITypeManage.h"
 #include "task/ITaskManage.h"
 
 $PackageWebCoreBegin
