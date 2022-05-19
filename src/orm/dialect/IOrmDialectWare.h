@@ -1,10 +1,9 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "base/IOrmUtil.h"
+#include "orm/IOrmUtil.h"
 #include "orm/clause/IOrmCondition.h"
 #include "orm/ISqlQuery.h"
-
 
 $PackageWebCoreBegin
 

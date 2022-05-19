@@ -22,7 +22,6 @@ HEADERS += \
     $$PWD/base/IJsonUtil.h \
     $$PWD/base/IJsonUtil_tojson.h \
     $$PWD/base/IMetaUtil.h \
-    $$PWD/base/IOrmUtil.h \
     $$PWD/base/IPackageUtil.h \
     $$PWD/base/IPreProcessorUtil.h \
     $$PWD/base/ISocketUtil.h \
@@ -123,6 +122,7 @@ HEADERS += \
     $$PWD/assertion/IAssertManage.h \
     $$PWD/assertion/IAssertPreProcessor.h \
     $$PWD/orm/IOrmManage.h \
+    $$PWD/orm/IOrmUtil.h \
     $$PWD/orm/database/IOrmDataSource.h \
     $$PWD/orm/database/IOrmDatabaseInterface.h \
     $$PWD/orm/database/IOrmDatabaseWare.h \
@@ -190,7 +190,6 @@ SOURCES += \
     $$PWD/base/IJsonUtil_tojson.cpp \
     $$PWD/base/IJsonUtil_tojson_impl.cpp \
     $$PWD/base/IMetaUtil.cpp \
-    $$PWD/base/IOrmUtil.cpp \
     $$PWD/base/IPreProcessorUtil.cpp \
     $$PWD/base/ISocketUtil.cpp \
     $$PWD/base/ITicTacUtil.cpp \
@@ -269,6 +268,7 @@ SOURCES += \
     $$PWD/assertion/IAssertInterface.cpp \
     $$PWD/assertion/IAssertManage.cpp \
     $$PWD/orm/IOrmManage.cpp \
+    $$PWD/orm/IOrmUtil.cpp \
     $$PWD/orm/database/IOrmDataSource.cpp \
     $$PWD/orm/database/IOrmDatabaseInterface.cpp \
     $$PWD/orm/database/IOrmDatabaseWare.cpp \

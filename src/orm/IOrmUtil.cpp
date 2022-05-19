@@ -2,6 +2,7 @@
 #include "base/IToeUtil.h"
 #include "base/IConvertUtil.h"
 #include "base/IConstantUtil.h"
+#include "base/IJsonUtil.h"
 #include "orm/tableview/IOrmTableInfo.h"
 
 $PackageWebCoreBegin

@@ -2,6 +2,7 @@
 
 #include "assertion/IAssertPreProcessor.h"
 #include "base/IJsonUtil.h"
+#include "base/IToeUtil.h"
 #include "bean/IBeanWare.h"
 
 #include "common/node/IFunctionNode.h"

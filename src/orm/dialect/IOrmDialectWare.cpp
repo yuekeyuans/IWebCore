@@ -1,7 +1,7 @@
 ﻿#include "IOrmDialectWare.h"
 #include "base/IMetaUtil.h"
-#include "base/IOrmUtil.h"
 #include "base/IConstantUtil.h"
+#include "orm/IOrmUtil.h"
 #include "orm/IOrmManage.h"
 #include "orm/ISqlQuery.h"
 

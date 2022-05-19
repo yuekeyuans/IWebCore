@@ -3,6 +3,7 @@
 #include "base/IConvertUtil.h"
 #include "base/IJsonUtil.h"
 #include "base/IXmlUtil.h"
+#include "base/IToeUtil.h"
 #include "biscuits/IHttpHeader.h"
 #include "common/net/impl/IRequestImpl.h"
 #include "common/net/impl/IReqRespRaw.h"

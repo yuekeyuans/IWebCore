@@ -2,6 +2,7 @@
 
 #include "base/IConstantUtil.h"
 #include "base/IConvertUtil.h"
+#include "base/IJsonUtil.h"
 #include "base/IMetaUtil.h"
 
 $PackageWebCoreBegin

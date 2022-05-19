@@ -6,6 +6,7 @@
 #include "base/IMetaUtil.h"
 #include "base/IConstantUtil.h"
 #include "base/IConvertUtil.h"
+#include "base/IToeUtil.h"
 
 $PackageWebCoreBegin
 

@@ -1,8 +1,6 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "base/IJsonUtil.h"
-#include "base/IOrmUtil.h"
 
 $PackageWebCoreBegin
 
