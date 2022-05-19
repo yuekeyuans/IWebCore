@@ -3,7 +3,7 @@
 #include <iomanip>
 #include "IAssertInfoList.h"
 #include "base/IToeUtil.h"
-#include "assertion/IAssertDetail.h"
+#include "core/assertion/IAssertDetail.h"
 
 $PackageWebCoreBegin
 

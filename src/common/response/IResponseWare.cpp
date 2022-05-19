@@ -1,10 +1,9 @@
 ﻿#include "IResponseWare.h"
 
-#include "assertion/IAssertPreProcessor.h"
 #include "base/IConstantUtil.h"
 #include "common/response/IResponseWareRaw.h"
 #include "common/response/IRedirectResponse.h"
-
+#include "core/assertion/IAssertPreProcessor.h"
 
 $PackageWebCoreBegin
 

@@ -3,8 +3,8 @@
 #include "base/IHeaderUtil.h"
 #include "base/IPreProcessorUtil.h"
 #include "IAssertManage.h"
-#include "assertion/IAssertInfoList.h"
-#include "assertion/IAssertDetail.h"
+#include "core/assertion/IAssertInfoList.h"
+#include "core/assertion/IAssertDetail.h"
 
 #define $AsAssertion(klassName) \
     $UseInstance(klassName)

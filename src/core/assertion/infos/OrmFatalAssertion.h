@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "assertion/IAssertJsonInterface.h"
+#include "core/assertion/IAssertJsonInterface.h"
 $PackageWebCoreBegin
 
 class OrmFatalAssertion : public IFatalAssertJsonInterface<OrmFatalAssertion>

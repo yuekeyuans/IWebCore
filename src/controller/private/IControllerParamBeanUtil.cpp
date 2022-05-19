@@ -1,6 +1,5 @@
 ﻿#include "IControllerParamBeanUtil.h"
 
-#include "assertion/IAssertPreProcessor.h"
 #include "base/IConvertUtil.h"
 #include "base/IConstantUtil.h"
 #include "base/IToeUtil.h"
@@ -9,6 +8,7 @@
 #include "common/net/IRequest.h"
 #include "common/net/IResponse.h"
 #include "configuration/IConfigurationManage.h"
+#include "core/assertion/IAssertPreProcessor.h"
 
 $PackageWebCoreBegin
 

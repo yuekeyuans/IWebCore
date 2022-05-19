@@ -1,3 +1,4 @@
 ﻿#pragma once
 
+#include "core/application/IArgumentParserInterface.h"
 #include "core/application/IWebApplication.h"

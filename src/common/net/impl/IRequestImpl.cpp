@@ -1,5 +1,5 @@
 ﻿#include "IRequestImpl.h"
-#include "assertion/IAssertPreProcessor.h"
+
 #include "base/IConstantUtil.h"
 #include "base/IHeaderUtil.h"
 #include "base/ICodecUtil.h"
@@ -7,6 +7,7 @@
 #include "common/net/IRequest.h"
 #include "common/net/impl/IReqRespRaw.h"
 #include "configuration/IConfigurationManage.h"
+#include "core/assertion/IAssertPreProcessor.h"
 
 $PackageWebCoreBegin
 

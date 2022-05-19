@@ -1,7 +1,7 @@
 ﻿#include "ITaskManage.h"
 
-#include "assertion/IAssertPreProcessor.h"
 #include "configuration/IConfigurationManage.h"
+#include "core/assertion/IAssertPreProcessor.h"
 
 $PackageWebCoreBegin
 

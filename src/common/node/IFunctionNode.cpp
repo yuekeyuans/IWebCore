@@ -1,7 +1,7 @@
 ﻿#include "IFunctionNode.h"
 
 #include "base/IPackageUtil.h"
-#include "assertion/IAssertPreProcessor.h"
+#include "core/assertion/IAssertPreProcessor.h"
 
 $PackageWebCoreBegin
 

@@ -1,6 +1,5 @@
 ﻿#include <IWebCore>
 
-
 $EnableBeanResolveStrictMode(true)
 //$EnableBluePrint(true)
 int main(int argc, char *argv[])

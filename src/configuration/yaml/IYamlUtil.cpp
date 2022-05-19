@@ -2,7 +2,7 @@
 
 #include "Yaml.hpp"
 #include "base/IToeUtil.h"
-#include "assertion/IAssertPreProcessor.h"
+#include "core/assertion/IAssertPreProcessor.h"
 
 $PackageWebCoreBegin
 

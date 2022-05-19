@@ -1,7 +1,7 @@
 ﻿#include "IStatusControllerInterfaceImpl.h"
 
-#include "assertion/IAssertDetail.h"
-#include "assertion/IAssertPreProcessor.h"
+#include "core/assertion/IAssertDetail.h"
+#include "core/assertion/IAssertPreProcessor.h"
 
 $PackageWebCoreBegin
 

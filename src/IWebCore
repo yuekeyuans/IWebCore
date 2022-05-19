@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include "assertion/assertion"
 #include "core/core"
 #include "base/base"
 #include "bean/bean"

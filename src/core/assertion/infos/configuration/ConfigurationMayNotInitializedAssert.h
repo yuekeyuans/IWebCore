@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "assertion/IAssertInterface.h"
-#include "assertion/IAssertPreProcessor.h"
+#include "core/assertion/IAssertInterface.h"
+#include "core/assertion/IAssertPreProcessor.h"
 
 $PackageWebCoreBegin
 

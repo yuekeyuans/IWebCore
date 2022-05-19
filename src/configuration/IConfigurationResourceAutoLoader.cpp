@@ -1,10 +1,10 @@
 ﻿#include "IConfigurationResourceAutoLoader.h"
 
-#include "assertion/IAssertPreProcessor.h"
 #include "base/IFileUtil.h"
 #include "base/IJsonUtil.h"
 #include "configuration/IConfigurationManage.h"
 #include "configuration/yaml/IYamlUtil.h"
+#include "core/assertion/IAssertPreProcessor.h"
 #include "task/ITaskManage.h"
 
 $PackageWebCoreBegin

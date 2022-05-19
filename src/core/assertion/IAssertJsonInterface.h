@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "assertion/IAssertManage.h"
+#include "IAssertManage.h"
 #include "base/IHeaderUtil.h"
 #include "base/IJsonUtil.h"
 #include "common/support/IRegisterInstanceUnit.h"

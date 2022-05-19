@@ -1,10 +1,9 @@
 ﻿#include "IOrmDatabaseWareImpl.h"
 
-#include "assertion/IAssertPreProcessor.h"
+#include "core/assertion/IAssertPreProcessor.h"
 #include "orm/IOrmManage.h"
 #include "orm/tableview/IOrmTableInfo.h"
 #include "orm/tableview/IOrmViewInfo.h"
-
 
 $PackageWebCoreBegin
 

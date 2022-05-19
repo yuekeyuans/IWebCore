@@ -5,15 +5,15 @@ QT += network sql xml
 PRECOMPILED_HEADER = $$PWD/base/IHeaderUtil.h
 
 HEADERS += \
-    $$PWD/assertion/IAssertDetail.h \
-    $$PWD/assertion/IAssertJsonInterface.h \
-    $$PWD/assertion/infos/ConfigurationAssertion.h \
-    $$PWD/assertion/infos/ControllerFatalAssertion.h \
-    $$PWD/assertion/infos/ControllerWarnAssertion.h \
-    $$PWD/assertion/infos/DeferRegisterNotAllowedFatal.h \
-    $$PWD/assertion/infos/OrmFatalAssertion.h \
-    $$PWD/assertion/infos/OrmWarnAssertion.h \
-    $$PWD/assertion/infos/configuration/ConfigurationMayNotInitializedAssert.h \
+    $$PWD/core/assertion/IAssertDetail.h \
+    $$PWD/core/assertion/IAssertJsonInterface.h \
+    $$PWD/core/assertion/infos/ConfigurationAssertion.h \
+    $$PWD/core/assertion/infos/ControllerFatalAssertion.h \
+    $$PWD/core/assertion/infos/ControllerWarnAssertion.h \
+    $$PWD/core/assertion/infos/DeferRegisterNotAllowedFatal.h \
+    $$PWD/core/assertion/infos/OrmFatalAssertion.h \
+    $$PWD/core/assertion/infos/OrmWarnAssertion.h \
+    $$PWD/core/assertion/infos/configuration/ConfigurationMayNotInitializedAssert.h \
     $$PWD/base/ICodecUtil.h \
     $$PWD/base/IConstantUtil.h \
     $$PWD/base/IConvertUtil.h \
@@ -39,7 +39,6 @@ HEADERS += \
     $$PWD/biscuits/IHttpStatus.h \
     $$PWD/common/IInterceptInterface.h \
     $$PWD/common/IManage.h \
-    $$PWD/common/argument/IArgumentParserInterface.h \
     $$PWD/common/biscuits/IHttpCharset.h \
     $$PWD/common/biscuits/IHttpHeader.h \
     $$PWD/common/biscuits/IHttpMethod.h \
@@ -122,10 +121,11 @@ HEADERS += \
     $$PWD/controller/private/IControllerParamUtil.h \
     $$PWD/controller/private/IDefaultStatusController.h \
     $$PWD/controller/private/IStatusControllerInterfaceImpl.h \
-    $$PWD/assertion/IAssertInfoList.h \
-    $$PWD/assertion/IAssertInterface.h \
-    $$PWD/assertion/IAssertManage.h \
-    $$PWD/assertion/IAssertPreProcessor.h \
+    $$PWD/core/assertion/IAssertInfoList.h \
+    $$PWD/core/assertion/IAssertInterface.h \
+    $$PWD/core/assertion/IAssertManage.h \
+    $$PWD/core/assertion/IAssertPreProcessor.h \
+    $$PWD/core/application/IArgumentParserInterface.h \
     $$PWD/core/application/IWebApplication.h \
     $$PWD/orm/IOrmManage.h \
     $$PWD/orm/IOrmUtil.h \
@@ -179,16 +179,16 @@ HEADERS += \
     $$PWD/core/core
 
 SOURCES += \
-    $$PWD/assertion/IAssertDetail.cpp \
-    $$PWD/assertion/IAssertInfoList.cpp \
-    $$PWD/assertion/IAssertJsonInterface.cpp \
-    $$PWD/assertion/infos/ConfigurationAssertion.cpp \
-    $$PWD/assertion/infos/ControllerFatalAssertion.cpp \
-    $$PWD/assertion/infos/ControllerWarnAssertion.cpp \
-    $$PWD/assertion/infos/DeferRegisterNotAllowedFatal.cpp \
-    $$PWD/assertion/infos/OrmFatalAssertion.cpp \
-    $$PWD/assertion/infos/OrmWarnAssertion.cpp \
-    $$PWD/assertion/infos/configuration/ConfigurationMayNotInitializedAssert.cpp \
+    $$PWD/core/assertion/IAssertDetail.cpp \
+    $$PWD/core/assertion/IAssertInfoList.cpp \
+    $$PWD/core/assertion/IAssertJsonInterface.cpp \
+    $$PWD/core/assertion/infos/ConfigurationAssertion.cpp \
+    $$PWD/core/assertion/infos/ControllerFatalAssertion.cpp \
+    $$PWD/core/assertion/infos/ControllerWarnAssertion.cpp \
+    $$PWD/core/assertion/infos/DeferRegisterNotAllowedFatal.cpp \
+    $$PWD/core/assertion/infos/OrmFatalAssertion.cpp \
+    $$PWD/core/assertion/infos/OrmWarnAssertion.cpp \
+    $$PWD/core/assertion/infos/configuration/ConfigurationMayNotInitializedAssert.cpp \
     $$PWD/base/ICodecUtil.cpp \
     $$PWD/base/IConvertUtil.cpp \
     $$PWD/base/IFileUtil.cpp \
@@ -209,7 +209,6 @@ SOURCES += \
     $$PWD/bean/ITypeManage.cpp \
     $$PWD/common/IInterceptInterface.cpp \
     $$PWD/common/IManage.cpp \
-    $$PWD/common/argument/IArgumentParserInterface.cpp \
     $$PWD/common/biscuits/IHttpCharset.cpp \
     $$PWD/common/biscuits/IHttpHeader.cpp \
     $$PWD/common/biscuits/IHttpMethod.cpp \
@@ -271,8 +270,9 @@ SOURCES += \
     $$PWD/controller/private/IControllerParamUtil.cpp \
     $$PWD/controller/private/IDefaultStatusController.cpp \
     $$PWD/controller/private/IStatusControllerInterfaceImpl.cpp \
-    $$PWD/assertion/IAssertInterface.cpp \
-    $$PWD/assertion/IAssertManage.cpp \
+    $$PWD/core/assertion/IAssertInterface.cpp \
+    $$PWD/core/assertion/IAssertManage.cpp \
+    $$PWD/core/application/IArgumentParserInterface.cpp \
     $$PWD/core/application/IWebApplication.cpp \
     $$PWD/orm/IOrmManage.cpp \
     $$PWD/orm/IOrmUtil.cpp \
@@ -327,7 +327,7 @@ DISTFILES += \
     $$PWD/common/common \
     $$PWD/configuration/configuration \
     $$PWD/controller/controller \
-    $$PWD/assertion/assertion \
+    $$PWD/core/assertion/assertion \
     $$PWD/orm/orm \
     $$PWD/server/server \
     $$PWD/task/task \

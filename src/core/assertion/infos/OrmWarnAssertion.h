@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "assertion/IAssertJsonInterface.h"
+#include "core/assertion/IAssertJsonInterface.h"
 #include "base/IHeaderUtil.h"
 
 $PackageWebCoreBegin

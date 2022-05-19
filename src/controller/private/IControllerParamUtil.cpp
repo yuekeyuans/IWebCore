@@ -1,6 +1,5 @@
 ﻿#include "IControllerParamUtil.h"
 
-#include "assertion/IAssertPreProcessor.h"
 #include "base/IJsonUtil.h"
 #include "base/IToeUtil.h"
 #include "bean/IBeanWare.h"
@@ -18,6 +17,7 @@
 #include "common/response/IByteArrayResponse.h"
 #include "common/net/impl/IReqRespRaw.h"
 #include "controller/private/IControllerParamBeanUtil.h"
+#include "core/assertion/IAssertPreProcessor.h"
 #include "task/ITaskManage.h"
 
 $PackageWebCoreBegin

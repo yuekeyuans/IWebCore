@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "assertion/IAssertManage.h"
+#include "core/assertion/IAssertManage.h"
 #include "common/support/IRegisterInstanceUnit.h"
 
 $PackageWebCoreBegin

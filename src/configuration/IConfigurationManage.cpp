@@ -1,12 +1,11 @@
 ﻿#include "IConfigurationManage.h"
 
-#include "assertion/IAssertPreProcessor.h"
-
 #include "base/IJsonUtil.h"
 #include "base/IMetaUtil.h"
 #include "base/IConstantUtil.h"
 #include "base/IConvertUtil.h"
 #include "base/IToeUtil.h"
+#include "core/assertion/IAssertPreProcessor.h"
 
 $PackageWebCoreBegin
 
