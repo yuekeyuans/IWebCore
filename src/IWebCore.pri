@@ -39,7 +39,6 @@ HEADERS += \
     $$PWD/biscuits/IHttpStatus.h \
     $$PWD/common/IInterceptInterface.h \
     $$PWD/common/IManage.h \
-    $$PWD/common/application/IWebApplication.h \
     $$PWD/common/argument/IArgumentParserInterface.h \
     $$PWD/common/biscuits/IHttpCharset.h \
     $$PWD/common/biscuits/IHttpHeader.h \
@@ -127,6 +126,7 @@ HEADERS += \
     $$PWD/assertion/IAssertInterface.h \
     $$PWD/assertion/IAssertManage.h \
     $$PWD/assertion/IAssertPreProcessor.h \
+    $$PWD/core/application/IWebApplication.h \
     $$PWD/orm/IOrmManage.h \
     $$PWD/orm/IOrmUtil.h \
     $$PWD/orm/database/IOrmDataSource.h \
@@ -175,7 +175,8 @@ HEADERS += \
     $$PWD/task/defaultTask/IBluePrintControllerTask.h \
     $$PWD/test/IDebugInterface.h \
     $$PWD/test/IDebugPreProcessor.h \
-    $$PWD/test/ITestPreProcessor.h
+    $$PWD/test/ITestPreProcessor.h \
+    $$PWD/core/core
 
 SOURCES += \
     $$PWD/assertion/IAssertDetail.cpp \
@@ -208,7 +209,6 @@ SOURCES += \
     $$PWD/bean/ITypeManage.cpp \
     $$PWD/common/IInterceptInterface.cpp \
     $$PWD/common/IManage.cpp \
-    $$PWD/common/application/IWebApplication.cpp \
     $$PWD/common/argument/IArgumentParserInterface.cpp \
     $$PWD/common/biscuits/IHttpCharset.cpp \
     $$PWD/common/biscuits/IHttpHeader.cpp \
@@ -273,6 +273,7 @@ SOURCES += \
     $$PWD/controller/private/IStatusControllerInterfaceImpl.cpp \
     $$PWD/assertion/IAssertInterface.cpp \
     $$PWD/assertion/IAssertManage.cpp \
+    $$PWD/core/application/IWebApplication.cpp \
     $$PWD/orm/IOrmManage.cpp \
     $$PWD/orm/IOrmUtil.cpp \
     $$PWD/orm/database/IOrmDataSource.cpp \
@@ -320,6 +321,7 @@ SOURCES += \
 
 DISTFILES += \
     $$PWD/IWebCore \
+    $$PWD/core/core \
     $$PWD/base/base \
     $$PWD/bean/bean \
     $$PWD/common/common \
