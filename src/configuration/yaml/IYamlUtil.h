@@ -12,5 +12,4 @@ namespace IYamlUtil
     QJsonObject toJsonObject(const QString& content, bool* ok);
 };
 
-
 $PackageWebCoreEnd

@@ -93,6 +93,8 @@ HEADERS += \
     $$PWD/configuration/IConfigurationTaskInterface.h \
     $$PWD/configuration/IConfigurationWirePreProcessor.h \
     $$PWD/configuration/defaultConfiguration/IBannerConfiguration.h \
+    $$PWD/configuration/yaml/IYamlUtil.h \
+    $$PWD/configuration/yaml/Yaml.hpp \
     $$PWD/controller/IControllerInterface.h \
     $$PWD/biscuits/IHttpMethod.h \
     $$PWD/biscuits/IHttpMime.h \
@@ -148,8 +150,6 @@ HEADERS += \
     $$PWD/orm/tableview/IOrmViewInfo.h \
     $$PWD/orm/tableview/IOrmViewInterface.h \
     $$PWD/orm/tableview/IOrmViewWare.h \
-    $$PWD/plugin/yaml/IYamlUtil.h \
-    $$PWD/plugin/yaml/Yaml.hpp \
     $$PWD/server/IHttpServer.h \
     $$PWD/server/IHttpServerManage.h \
     $$PWD/server/IServerInterface.h \
@@ -253,6 +253,8 @@ SOURCES += \
     $$PWD/configuration/IConfigurationSystemPreProcessor.cpp \
     $$PWD/configuration/IConfigurationTaskInterface.cpp \
     $$PWD/configuration/defaultConfiguration/IBannerConfiguration.cpp \
+    $$PWD/configuration/yaml/IYamlUtil.cpp \
+    $$PWD/configuration/yaml/Yaml.cpp \
     $$PWD/controller/IControllerInterface.cpp \
     $$PWD/controller/IControllerManage.cpp \
     $$PWD/controller/IControllerPathValidatorInterface.cpp \
@@ -291,8 +293,6 @@ SOURCES += \
     $$PWD/orm/tableview/IOrmViewInfo.cpp \
     $$PWD/orm/tableview/IOrmViewInterface.cpp \
     $$PWD/orm/tableview/IOrmViewWare.cpp \
-    $$PWD/plugin/yaml/IYamlUtil.cpp \
-    $$PWD/plugin/yaml/Yaml.cpp \
     $$PWD/server/IHttpServer.cpp \
     $$PWD/server/IHttpServerManage.cpp \
     $$PWD/server/IServerInterface.cpp \

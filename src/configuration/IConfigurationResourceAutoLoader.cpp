@@ -4,7 +4,7 @@
 #include "base/IFileUtil.h"
 #include "base/IJsonUtil.h"
 #include "configuration/IConfigurationManage.h"
-#include "plugin/yaml/IYamlUtil.h"
+#include "configuration/yaml/IYamlUtil.h"
 #include "task/ITaskManage.h"
 
 $PackageWebCoreBegin
