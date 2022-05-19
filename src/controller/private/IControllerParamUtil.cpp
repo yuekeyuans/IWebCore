@@ -4,6 +4,7 @@
 #include "base/IJsonUtil.h"
 #include "base/IToeUtil.h"
 #include "bean/IBeanWare.h"
+#include "bean/ITypeManage.h"
 
 #include "common/node/IFunctionNode.h"
 #include "common/net/IMultiPart.h"
@@ -15,7 +16,6 @@
 #include "common/response/IStatusCodeResponse.h"
 #include "common/response/IJsonResponse.h"
 #include "common/response/IByteArrayResponse.h"
-#include "common/type/ITypeManage.h"
 #include "common/net/impl/IReqRespRaw.h"
 #include "controller/private/IControllerParamBeanUtil.h"
 #include "task/ITaskManage.h"

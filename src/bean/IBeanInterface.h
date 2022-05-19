@@ -2,7 +2,7 @@
 
 #include "base/IHeaderUtil.h"
 #include "bean/IBeanWare.h"
-#include "common/type/ITypeManage.h"
+#include "bean/ITypeManage.h"
 #include "task/IStaticInitializeTaskUnit.h"
 
 $PackageWebCoreBegin

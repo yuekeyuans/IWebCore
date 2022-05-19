@@ -33,6 +33,7 @@ HEADERS += \
     $$PWD/bean/IBeanPreProcessor.h \
     $$PWD/bean/IBeanWare.h \
     $$PWD/bean/IGadgetUnit.h \
+    $$PWD/bean/ITypeManage.h \
     $$PWD/biscuits/IHttpCharset.h \
     $$PWD/biscuits/IHttpHeader.h \
     $$PWD/biscuits/IHttpStatus.h \
@@ -88,7 +89,6 @@ HEADERS += \
     $$PWD/common/support/IRegisterMetaTypeUnit.h \
     $$PWD/common/support/IRegisterTypeUnit.h \
     $$PWD/common/support/IThreadUnit.h \
-    $$PWD/common/type/ITypeManage.h \
     $$PWD/configuration/IConfigurationInstancePreProcessor.h \
     $$PWD/configuration/IConfigurationInterface.h \
     $$PWD/configuration/IConfigurationManage.h \
@@ -205,6 +205,7 @@ SOURCES += \
     $$PWD/bean/IBeanInterface.cpp \
     $$PWD/bean/IBeanWare.cpp \
     $$PWD/bean/IGadgetUnit.cpp \
+    $$PWD/bean/ITypeManage.cpp \
     $$PWD/common/IInterceptInterface.cpp \
     $$PWD/common/IManage.cpp \
     $$PWD/common/application/IWebApplication.cpp \
@@ -251,7 +252,6 @@ SOURCES += \
     $$PWD/common/support/IRegisterMetaTypeUnit.cpp \
     $$PWD/common/support/IRegisterTypeUnit.cpp \
     $$PWD/common/support/IThreadUnit.cpp \
-    $$PWD/common/type/ITypeManage.cpp \
     $$PWD/configuration/IConfigurationInterface.cpp \
     $$PWD/configuration/IConfigurationManage.cpp \
     $$PWD/configuration/IConfigurationResourceAutoLoader.cpp \

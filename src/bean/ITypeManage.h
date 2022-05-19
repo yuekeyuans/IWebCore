@@ -2,6 +2,8 @@
 
 #include "base/IHeaderUtil.h"
 
+// TODO: 这个 文件在之后需要改名，应该和 bean 相关
+
 $PackageWebCoreBegin
 
 class ITypeManage
