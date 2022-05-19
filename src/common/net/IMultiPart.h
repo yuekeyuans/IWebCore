@@ -2,9 +2,9 @@
 
 #include "base/IHeaderUtil.h"
 #include "base/IPreProcessorUtil.h"
-#include "bean/IBeanPreProcessor.h"
-#include "biscuits/IHttpMime.h"
 #include "base/IMetaUtil.h"
+#include "bean/IBeanPreProcessor.h"
+#include "common/biscuits/IHttpMime.h"
 #include "common/support/IRegisterMetaTypeUnit.h"
 
 $PackageWebCoreBegin

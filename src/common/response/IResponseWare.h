@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "biscuits/IHttpMime.h"
-#include "biscuits/IHttpStatus.h"
+#include "common/biscuits/IHttpMime.h"
+#include "common/biscuits/IHttpStatus.h"
 
 $PackageWebCoreBegin
 

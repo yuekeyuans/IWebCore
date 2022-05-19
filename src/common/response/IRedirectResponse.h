@@ -2,7 +2,7 @@
 
 #include "IResponseInterface.h"
 #include "IResponsePreProcessor.h"
-#include "biscuits/IHttpStatus.h"
+#include "common/biscuits/IHttpStatus.h"
 
 $PackageWebCoreBegin
 

@@ -3,12 +3,13 @@
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
 #include "bean/IBeanPreProcessor.h"
-#include "biscuits/IHttpStatus.h"
-#include "biscuits/IHttpVersion.h"
-#include "common/support/IRegisterMetaTypeUnit.h"
+#include "common/cookie/ICookiePart.h"
+#include "common/biscuits/IHttpStatus.h"
+#include "common/biscuits/IHttpVersion.h"
+#include "common/biscuits/IHttpMime.h"
 #include "common/response/IResponseWareRaw.h"
 #include "common/response/IResponsePreProcessor.h"
-#include "common/cookie/ICookiePart.h"
+#include "common/support/IRegisterMetaTypeUnit.h"
 
 $PackageWebCoreBegin
 

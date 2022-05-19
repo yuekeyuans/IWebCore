@@ -3,11 +3,11 @@
 #include "base/IJsonUtil.h"
 #include "base/IXmlUtil.h"
 #include "base/IConvertUtil.h"
-#include "biscuits/IHttpHeader.h"
-#include "biscuits/IHttpVersion.h"
-#include "biscuits/IHttpMime.h"
-#include "biscuits/IHttpStatus.h"
-#include "biscuits/IHttpMethod.h"
+#include "common/biscuits/IHttpHeader.h"
+#include "common/biscuits/IHttpVersion.h"
+#include "common/biscuits/IHttpMime.h"
+#include "common/biscuits/IHttpStatus.h"
+#include "common/biscuits/IHttpMethod.h"
 #include "common/net/IMultiPart.h"
 
 $PackageWebCoreBegin

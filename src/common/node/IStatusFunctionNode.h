@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "biscuits/IHttpStatus.h"
+#include "common/biscuits/IHttpStatus.h"
 #include "common/node/IFunctionNode.h"
 
 $PackageWebCoreBegin

@@ -40,6 +40,12 @@ HEADERS += \
     $$PWD/common/IManage.h \
     $$PWD/common/application/IWebApplication.h \
     $$PWD/common/argument/IArgumentParserInterface.h \
+    $$PWD/common/biscuits/IHttpCharset.h \
+    $$PWD/common/biscuits/IHttpHeader.h \
+    $$PWD/common/biscuits/IHttpMethod.h \
+    $$PWD/common/biscuits/IHttpMime.h \
+    $$PWD/common/biscuits/IHttpStatus.h \
+    $$PWD/common/biscuits/IHttpVersion.h \
     $$PWD/common/cookie/ICookieJar.h \
     $$PWD/common/cookie/ICookiePart.h \
     $$PWD/common/header/IHeaderJar.h \
@@ -199,13 +205,16 @@ SOURCES += \
     $$PWD/bean/IBeanInterface.cpp \
     $$PWD/bean/IBeanWare.cpp \
     $$PWD/bean/IGadgetUnit.cpp \
-    $$PWD/biscuits/IHttpCharset.cpp \
-    $$PWD/biscuits/IHttpHeader.cpp \
-    $$PWD/biscuits/IHttpStatus.cpp \
     $$PWD/common/IInterceptInterface.cpp \
     $$PWD/common/IManage.cpp \
     $$PWD/common/application/IWebApplication.cpp \
     $$PWD/common/argument/IArgumentParserInterface.cpp \
+    $$PWD/common/biscuits/IHttpCharset.cpp \
+    $$PWD/common/biscuits/IHttpHeader.cpp \
+    $$PWD/common/biscuits/IHttpMethod.cpp \
+    $$PWD/common/biscuits/IHttpMime.cpp \
+    $$PWD/common/biscuits/IHttpStatus.cpp \
+    $$PWD/common/biscuits/IHttpVersion.cpp \
     $$PWD/common/cookie/ICookieJar.cpp \
     $$PWD/common/cookie/ICookiePart.cpp \
     $$PWD/common/header/IHeaderJar.cpp \
@@ -245,9 +254,6 @@ SOURCES += \
     $$PWD/common/type/ITypeManage.cpp \
     $$PWD/configuration/IConfigurationInterface.cpp \
     $$PWD/configuration/IConfigurationManage.cpp \
-    $$PWD/biscuits/IHttpMethod.cpp \
-    $$PWD/biscuits/IHttpMime.cpp \
-    $$PWD/biscuits/IHttpVersion.cpp \
     $$PWD/configuration/IConfigurationResourceAutoLoader.cpp \
     $$PWD/configuration/IConfigurationSystemPreProcessor.cpp \
     $$PWD/configuration/IConfigurationTaskInterface.cpp \

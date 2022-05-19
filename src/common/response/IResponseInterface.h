@@ -2,8 +2,8 @@
 
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
-#include "biscuits/IHttpStatus.h"
-#include "biscuits/IHttpMime.h"
+#include "common/biscuits/IHttpStatus.h"
+#include "common/biscuits/IHttpMime.h"
 #include "common/support/IRegisterMetaTypeUnit.h"
 
 #include "common/response/IResponseManage.h"

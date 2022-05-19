@@ -1,11 +1,11 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "biscuits/IHttpHeader.h"
-#include "biscuits/IHttpMethod.h"
-#include "biscuits/IHttpMime.h"
-#include "biscuits/IHttpStatus.h"
-#include "biscuits/IHttpVersion.h"
+#include "common/biscuits/IHttpHeader.h"
+#include "common/biscuits/IHttpMethod.h"
+#include "common/biscuits/IHttpMime.h"
+#include "common/biscuits/IHttpStatus.h"
+#include "common/biscuits/IHttpVersion.h"
 #include "common/net/IMultiPart.h"
 #include "common/cookie/ICookieJar.h"
 #include "common/cookie/ICookiePart.h"
