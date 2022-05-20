@@ -1,9 +1,9 @@
 ﻿#include "IBluePrintControllerTask.h"
 
-#include "controller/IControllerManage.h"
 #include "core/assertion/IAssertPreProcessor.h"
 #include "core/configuration/IConfigurationManage.h"
 #include "core/task/ITaskManage.h"
+#include "web/controller/IControllerManage.h"
 
 $PackageWebCoreBegin
 

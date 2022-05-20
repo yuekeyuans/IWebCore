@@ -98,29 +98,29 @@ HEADERS += \
     $$PWD/core/configuration/defaultConfiguration/IBannerConfiguration.h \
     $$PWD/core/configuration/yaml/IYamlUtil.h \
     $$PWD/core/configuration/yaml/Yaml.hpp \
-    $$PWD/controller/IControllerInterface.h \
     $$PWD/biscuits/IHttpMethod.h \
     $$PWD/biscuits/IHttpMime.h \
     $$PWD/biscuits/IHttpVersion.h \
-    $$PWD/controller/IControllerManage.h \
-    $$PWD/controller/IControllerPathValidatorInterface.h \
-    $$PWD/controller/IControllerRouteNode.h \
-    $$PWD/controller/IStatusControllerInterface.h \
-    $$PWD/controller/pp/IControlVariablePreProcessor.h \
-    $$PWD/controller/pp/IControllerPreProcessor.h \
-    $$PWD/controller/pp/IDeleteMappingPreProcessor.h \
-    $$PWD/controller/pp/IGetMappingPreProcessor.h \
-    $$PWD/controller/pp/IPatchMappingPreProcessor.h \
-    $$PWD/controller/pp/IPostMappingPreProcessor.h \
-    $$PWD/controller/pp/IPutMappingPreProcessor.h \
-    $$PWD/controller/pp/IStatusCodeMappingPreProcessor.h \
-    $$PWD/controller/pp/IStatusControllerPreProcessor.h \
-    $$PWD/controller/private/IControllerInterfaceDebug.h \
-    $$PWD/controller/private/IControllerInterfaceImpl.h \
-    $$PWD/controller/private/IControllerParamBeanUtil.h \
-    $$PWD/controller/private/IControllerParamUtil.h \
-    $$PWD/controller/private/IDefaultStatusController.h \
-    $$PWD/controller/private/IStatusControllerInterfaceImpl.h \
+    $$PWD/web/controller/IControllerInterface.h \
+    $$PWD/web/controller/IControllerManage.h \
+    $$PWD/web/controller/IControllerPathValidatorInterface.h \
+    $$PWD/web/controller/IControllerRouteNode.h \
+    $$PWD/web/controller/IStatusControllerInterface.h \
+    $$PWD/web/controller/pp/IControlVariablePreProcessor.h \
+    $$PWD/web/controller/pp/IControllerPreProcessor.h \
+    $$PWD/web/controller/pp/IDeleteMappingPreProcessor.h \
+    $$PWD/web/controller/pp/IGetMappingPreProcessor.h \
+    $$PWD/web/controller/pp/IPatchMappingPreProcessor.h \
+    $$PWD/web/controller/pp/IPostMappingPreProcessor.h \
+    $$PWD/web/controller/pp/IPutMappingPreProcessor.h \
+    $$PWD/web/controller/pp/IStatusCodeMappingPreProcessor.h \
+    $$PWD/web/controller/pp/IStatusControllerPreProcessor.h \
+    $$PWD/web/controller/private/IControllerInterfaceDebug.h \
+    $$PWD/web/controller/private/IControllerInterfaceImpl.h \
+    $$PWD/web/controller/private/IControllerParamBeanUtil.h \
+    $$PWD/web/controller/private/IControllerParamUtil.h \
+    $$PWD/web/controller/private/IDefaultStatusController.h \
+    $$PWD/web/controller/private/IStatusControllerInterfaceImpl.h \
     $$PWD/core/assertion/IAssertInfoList.h \
     $$PWD/core/assertion/IAssertInterface.h \
     $$PWD/core/assertion/IAssertManage.h \
@@ -258,17 +258,17 @@ SOURCES += \
     $$PWD/core/configuration/defaultConfiguration/IBannerConfiguration.cpp \
     $$PWD/core/configuration/yaml/IYamlUtil.cpp \
     $$PWD/core/configuration/yaml/Yaml.cpp \
-    $$PWD/controller/IControllerInterface.cpp \
-    $$PWD/controller/IControllerManage.cpp \
-    $$PWD/controller/IControllerPathValidatorInterface.cpp \
-    $$PWD/controller/IControllerRouteNode.cpp \
-    $$PWD/controller/IStatusControllerInterface.cpp \
-    $$PWD/controller/private/IControllerInterfaceDebug.cpp \
-    $$PWD/controller/private/IControllerInterfaceImpl.cpp \
-    $$PWD/controller/private/IControllerParamBeanUtil.cpp \
-    $$PWD/controller/private/IControllerParamUtil.cpp \
-    $$PWD/controller/private/IDefaultStatusController.cpp \
-    $$PWD/controller/private/IStatusControllerInterfaceImpl.cpp \
+    $$PWD/web/controller/IControllerInterface.cpp \
+    $$PWD/web/controller/IControllerManage.cpp \
+    $$PWD/web/controller/IControllerPathValidatorInterface.cpp \
+    $$PWD/web/controller/IControllerRouteNode.cpp \
+    $$PWD/web/controller/IStatusControllerInterface.cpp \
+    $$PWD/web/controller/private/IControllerInterfaceDebug.cpp \
+    $$PWD/web/controller/private/IControllerInterfaceImpl.cpp \
+    $$PWD/web/controller/private/IControllerParamBeanUtil.cpp \
+    $$PWD/web/controller/private/IControllerParamUtil.cpp \
+    $$PWD/web/controller/private/IDefaultStatusController.cpp \
+    $$PWD/web/controller/private/IStatusControllerInterfaceImpl.cpp \
     $$PWD/core/assertion/IAssertInterface.cpp \
     $$PWD/core/assertion/IAssertManage.cpp \
     $$PWD/core/application/IArgumentParserInterface.cpp \
@@ -325,7 +325,7 @@ DISTFILES += \
     $$PWD/core/bean/bean \
     $$PWD/web/common \
     $$PWD/core/configuration/configuration \
-    $$PWD/controller/controller \
+    $$PWD/web/controller/controller \
     $$PWD/core/assertion/assertion \
     $$PWD/orm/orm \
     $$PWD/web/server/server \

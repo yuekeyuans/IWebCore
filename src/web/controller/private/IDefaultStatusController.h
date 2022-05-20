@@ -2,8 +2,8 @@
 
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
-#include "controller/IStatusControllerInterface.h"
-#include "controller/pp/IStatusControllerPreProcessor.h"
+#include "web/controller/IStatusControllerInterface.h"
+#include "web/controller/pp/IStatusControllerPreProcessor.h"
 
 $PackageWebCoreBegin
 

@@ -1,5 +1,5 @@
 ﻿#include "IControllerInterface.h"
-#include "controller/private/IControllerInterfaceImpl.h"
+#include "web/controller/private/IControllerInterfaceImpl.h"
 
 $PackageWebCoreBegin
 

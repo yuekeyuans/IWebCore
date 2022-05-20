@@ -1,6 +1,5 @@
 ﻿#include "IControllerPathValidatorInterface.h"
-
-#include "controller/IControllerManage.h"
+#include "web/controller/IControllerManage.h"
 
 $PackageWebCoreBegin
 
