@@ -1,5 +1,4 @@
 ﻿#include "IHttpServer.h"
-#include "server/IHttpServerManage.h"
 
 $PackageWebCoreBegin
 

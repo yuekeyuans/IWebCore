@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "server/IServerInterface.h"
+#include "common/server/IServerInterface.h"
 
 $PackageWebCoreBegin
 

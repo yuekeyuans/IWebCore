@@ -1,7 +1,8 @@
 ﻿#pragma once
+
+#include "IHttpServerManage.h"
 #include "base/IMetaUtil.h"
 #include "core/configuration/configuration"
-#include "server/IHttpServerManage.h"
 
 $PackageWebCoreBegin
 

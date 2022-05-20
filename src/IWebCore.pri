@@ -156,12 +156,12 @@ HEADERS += \
     $$PWD/orm/tableview/IOrmViewInfo.h \
     $$PWD/orm/tableview/IOrmViewInterface.h \
     $$PWD/orm/tableview/IOrmViewWare.h \
-    $$PWD/server/IHttpServer.h \
-    $$PWD/server/IHttpServerManage.h \
-    $$PWD/server/IServerInterface.h \
-    $$PWD/server/multiThreadServer/IHttpServerRunable.h \
-    $$PWD/server/multiThreadServer/IMultiThreadServer.h \
-    $$PWD/server/quenedServer/IQueneServer.h \
+    $$PWD/common/server/IHttpServer.h \
+    $$PWD/common/server/IHttpServerManage.h \
+    $$PWD/common/server/IServerInterface.h \
+    $$PWD/common/server/multiThreadServer/IHttpServerRunable.h \
+    $$PWD/common/server/multiThreadServer/IMultiThreadServer.h \
+    $$PWD/common/server/quenedServer/IQueneServer.h \
     $$PWD/core/task/IArgumentParserUnit.h \
     $$PWD/core/task/IConfigurationTaskUnit.h \
     $$PWD/core/task/IControllerTaskUnit.h \
@@ -299,12 +299,12 @@ SOURCES += \
     $$PWD/orm/tableview/IOrmViewInfo.cpp \
     $$PWD/orm/tableview/IOrmViewInterface.cpp \
     $$PWD/orm/tableview/IOrmViewWare.cpp \
-    $$PWD/server/IHttpServer.cpp \
-    $$PWD/server/IHttpServerManage.cpp \
-    $$PWD/server/IServerInterface.cpp \
-    $$PWD/server/multiThreadServer/IHttpServerRunable.cpp \
-    $$PWD/server/multiThreadServer/IMultiThreadServer.cpp \
-    $$PWD/server/quenedServer/IQueneServer.cpp \
+    $$PWD/common/server/IHttpServer.cpp \
+    $$PWD/common/server/IHttpServerManage.cpp \
+    $$PWD/common/server/IServerInterface.cpp \
+    $$PWD/common/server/multiThreadServer/IHttpServerRunable.cpp \
+    $$PWD/common/server/multiThreadServer/IMultiThreadServer.cpp \
+    $$PWD/common/server/quenedServer/IQueneServer.cpp \
     $$PWD/core/task/IArgumentParserUnit.cpp \
     $$PWD/core/task/IConfigurationTaskUnit.cpp \
     $$PWD/core/task/IControllerTaskUnit.cpp \
@@ -328,5 +328,5 @@ DISTFILES += \
     $$PWD/controller/controller \
     $$PWD/core/assertion/assertion \
     $$PWD/orm/orm \
-    $$PWD/server/server \
+    $$PWD/common/server/server \
     $$PWD/core/task/task

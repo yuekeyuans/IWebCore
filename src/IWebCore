@@ -7,7 +7,7 @@
 #include "base/base"
 #include "controller/controller"
 #include "common/common"
+#include "common/server/server"
 #include "orm/orm"
-#include "server/server"
 
 $PackageWebCoreUsing
