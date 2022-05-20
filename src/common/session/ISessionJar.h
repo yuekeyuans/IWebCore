@@ -2,7 +2,7 @@
 
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
-#include "common/support/IRegisterMetaTypeUnit.h"
+#include "core/unit/IRegisterMetaTypeUnit.h"
 
 $PackageWebCoreBegin
 

@@ -1,9 +1,9 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "common/support/IRegisterInstanceUnit.h"
 #include "core/task/ITaskWare.h"
 #include "core/task/ITaskManage.h"
+#include "core/unit/IRegisterInstanceUnit.h"
 
 $PackageWebCoreBegin
 

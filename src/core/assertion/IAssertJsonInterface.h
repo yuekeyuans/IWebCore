@@ -3,7 +3,7 @@
 #include "IAssertManage.h"
 #include "base/IHeaderUtil.h"
 #include "base/IJsonUtil.h"
-#include "common/support/IRegisterInstanceUnit.h"
+#include "core/unit/IRegisterInstanceUnit.h"
 
 $PackageWebCoreBegin
 

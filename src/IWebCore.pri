@@ -79,14 +79,14 @@ HEADERS += \
     $$PWD/common/response/IStatusCodeResponse.h \
     $$PWD/common/response/response \
     $$PWD/common/session/ISessionJar.h \
-    $$PWD/common/support/IJarUnit.h \
-    $$PWD/common/support/INoConstructUnit.h \
-    $$PWD/common/support/INoCopyMoveUnit.h \
-    $$PWD/common/support/IRegisterGadgetUnit.h \
-    $$PWD/common/support/IRegisterInstanceUnit.h \
-    $$PWD/common/support/IRegisterMetaTypeUnit.h \
-    $$PWD/common/support/IRegisterTypeUnit.h \
-    $$PWD/common/support/IThreadUnit.h \
+    $$PWD/core/unit/IJarUnit.h \
+    $$PWD/core/unit/INoConstructUnit.h \
+    $$PWD/core/unit/INoCopyMoveUnit.h \
+    $$PWD/core/unit/IRegisterGadgetUnit.h \
+    $$PWD/core/unit/IRegisterInstanceUnit.h \
+    $$PWD/core/unit/IRegisterMetaTypeUnit.h \
+    $$PWD/core/unit/IRegisterTypeUnit.h \
+    $$PWD/core/unit/IThreadUnit.h \
     $$PWD/configuration/IConfigurationInstancePreProcessor.h \
     $$PWD/configuration/IConfigurationInterface.h \
     $$PWD/configuration/IConfigurationManage.h \
@@ -243,13 +243,13 @@ SOURCES += \
     $$PWD/common/response/IResponseWareRaw.cpp \
     $$PWD/common/response/IStatusCodeResponse.cpp \
     $$PWD/common/session/ISessionJar.cpp \
-    $$PWD/common/support/IJarUnit.cpp \
-    $$PWD/common/support/INoCopyMoveUnit.cpp \
-    $$PWD/common/support/IRegisterGadgetUnit.cpp \
-    $$PWD/common/support/IRegisterInstanceUnit.cpp \
-    $$PWD/common/support/IRegisterMetaTypeUnit.cpp \
-    $$PWD/common/support/IRegisterTypeUnit.cpp \
-    $$PWD/common/support/IThreadUnit.cpp \
+    $$PWD/core/unit/IJarUnit.cpp \
+    $$PWD/core/unit/INoCopyMoveUnit.cpp \
+    $$PWD/core/unit/IRegisterGadgetUnit.cpp \
+    $$PWD/core/unit/IRegisterInstanceUnit.cpp \
+    $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
+    $$PWD/core/unit/IRegisterTypeUnit.cpp \
+    $$PWD/core/unit/IThreadUnit.cpp \
     $$PWD/configuration/IConfigurationInterface.cpp \
     $$PWD/configuration/IConfigurationManage.cpp \
     $$PWD/configuration/IConfigurationResourceAutoLoader.cpp \

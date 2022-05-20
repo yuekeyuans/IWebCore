@@ -2,7 +2,7 @@
 
 #include "base/IHeaderUtil.h"
 #include "configuration/IConfigurationTaskInterface.h"
-#include "common/support/IRegisterInstanceUnit.h"
+#include "core/unit/IRegisterInstanceUnit.h"
 
 $PackageWebCoreBegin
 

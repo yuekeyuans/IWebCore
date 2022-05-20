@@ -9,8 +9,8 @@
 #include "common/biscuits/IHttpMime.h"
 #include "common/biscuits/IHttpCharset.h"
 #include "common/net/IMultiPart.h"
-#include "common/support/IRegisterMetaTypeUnit.h"
 #include "core/bean/IBeanPreProcessor.h"
+#include "core/unit/IRegisterMetaTypeUnit.h"
 
 $PackageWebCoreBegin
 

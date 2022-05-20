@@ -2,8 +2,8 @@
 
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
-#include "common/support/IRegisterMetaTypeUnit.h"
-#include "common/support/IJarUnit.h"
+#include "core/unit/IRegisterMetaTypeUnit.h"
+#include "core/unit/IJarUnit.h"
 
 $PackageWebCoreBegin
 

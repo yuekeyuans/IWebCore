@@ -4,8 +4,8 @@
 #include "base/IPreProcessorUtil.h"
 #include "base/IMetaUtil.h"
 #include "common/biscuits/IHttpMime.h"
-#include "common/support/IRegisterMetaTypeUnit.h"
 #include "core/bean/IBeanPreProcessor.h"
+#include "core/unit/IRegisterMetaTypeUnit.h"
 
 $PackageWebCoreBegin
 

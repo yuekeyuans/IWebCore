@@ -8,8 +8,8 @@
 #include "common/biscuits/IHttpMime.h"
 #include "common/response/IResponseWareRaw.h"
 #include "common/response/IResponsePreProcessor.h"
-#include "common/support/IRegisterMetaTypeUnit.h"
 #include "core/bean/IBeanPreProcessor.h"
+#include "core/unit/IRegisterMetaTypeUnit.h"
 
 $PackageWebCoreBegin
 

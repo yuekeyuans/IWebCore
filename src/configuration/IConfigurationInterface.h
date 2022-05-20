@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "common/support/IRegisterInstanceUnit.h"
 #include "configuration/IConfigurationManage.h"
+#include "core/unit/IRegisterInstanceUnit.h"
 
 $PackageWebCoreBegin
 

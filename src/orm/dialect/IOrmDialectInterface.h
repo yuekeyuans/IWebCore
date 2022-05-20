@@ -1,10 +1,9 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
+#include "core/unit/IRegisterInstanceUnit.h"
 #include "orm/dialect/IOrmDialectWare.h"
 #include "orm/IOrmManage.h"
-#include "common/support/IRegisterInstanceUnit.h"
-
 
 $PackageWebCoreBegin
 
@@ -30,9 +29,6 @@ private:
 
 private:
     friend class IRegisterInstanceUnit<T, enabled>;
-
 };
-
-
 
 $PackageWebCoreEnd
