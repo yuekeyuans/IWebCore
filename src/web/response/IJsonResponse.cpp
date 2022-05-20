@@ -1,6 +1,5 @@
 ﻿#include "IJsonResponse.h"
 #include "IResponseManage.h"
-#include "base/IJsonUtil.h"
 #include "IResponseWareRaw.h"
 
 $PackageWebCoreBegin
@@ -85,6 +84,5 @@ IJsonResponse operator"" _json(const char *str, size_t size)
     auto data = QString::fromLocal8Bit(str, static_cast<int>(size));
     return IJsonResponse(std::move(data));
 }
-
 
 $PackageWebCoreEnd

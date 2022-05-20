@@ -3,7 +3,8 @@
 #include <QtCore>
 #include "IResponseInterface.h"
 #include "IResponsePreProcessor.h"
-#include "base/IConvertUtil.h"
+//#include "base/IConvertUtil.h"
+#include "base/IJsonUtil.h"
 
 $PackageWebCoreBegin
 
