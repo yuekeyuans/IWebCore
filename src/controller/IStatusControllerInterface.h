@@ -2,10 +2,10 @@
 
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
-#include "configuration/IConfigurationManage.h"
 #include "common/node/IStatusFunctionNode.h"
 #include "controller/private/IStatusControllerInterfaceImpl.h"
 #include "controller/IControllerManage.h"
+#include "core/configuration/IConfigurationManage.h"
 #include "core/task/IControllerTaskUnit.h"
 
 $PackageWebCoreBegin

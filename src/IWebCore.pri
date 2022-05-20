@@ -87,17 +87,17 @@ HEADERS += \
     $$PWD/core/unit/IRegisterMetaTypeUnit.h \
     $$PWD/core/unit/IRegisterTypeUnit.h \
     $$PWD/core/unit/IThreadUnit.h \
-    $$PWD/configuration/IConfigurationInstancePreProcessor.h \
-    $$PWD/configuration/IConfigurationInterface.h \
-    $$PWD/configuration/IConfigurationManage.h \
-    $$PWD/configuration/IConfigurationPreProcessor.h \
-    $$PWD/configuration/IConfigurationResourceAutoLoader.h \
-    $$PWD/configuration/IConfigurationSystemPreProcessor.h \
-    $$PWD/configuration/IConfigurationTaskInterface.h \
-    $$PWD/configuration/IConfigurationWirePreProcessor.h \
-    $$PWD/configuration/defaultConfiguration/IBannerConfiguration.h \
-    $$PWD/configuration/yaml/IYamlUtil.h \
-    $$PWD/configuration/yaml/Yaml.hpp \
+    $$PWD/core/configuration/IConfigurationInstancePreProcessor.h \
+    $$PWD/core/configuration/IConfigurationInterface.h \
+    $$PWD/core/configuration/IConfigurationManage.h \
+    $$PWD/core/configuration/IConfigurationPreProcessor.h \
+    $$PWD/core/configuration/IConfigurationResourceAutoLoader.h \
+    $$PWD/core/configuration/IConfigurationSystemPreProcessor.h \
+    $$PWD/core/configuration/IConfigurationTaskInterface.h \
+    $$PWD/core/configuration/IConfigurationWirePreProcessor.h \
+    $$PWD/core/configuration/defaultConfiguration/IBannerConfiguration.h \
+    $$PWD/core/configuration/yaml/IYamlUtil.h \
+    $$PWD/core/configuration/yaml/Yaml.hpp \
     $$PWD/controller/IControllerInterface.h \
     $$PWD/biscuits/IHttpMethod.h \
     $$PWD/biscuits/IHttpMime.h \
@@ -250,14 +250,14 @@ SOURCES += \
     $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
     $$PWD/core/unit/IRegisterTypeUnit.cpp \
     $$PWD/core/unit/IThreadUnit.cpp \
-    $$PWD/configuration/IConfigurationInterface.cpp \
-    $$PWD/configuration/IConfigurationManage.cpp \
-    $$PWD/configuration/IConfigurationResourceAutoLoader.cpp \
-    $$PWD/configuration/IConfigurationSystemPreProcessor.cpp \
-    $$PWD/configuration/IConfigurationTaskInterface.cpp \
-    $$PWD/configuration/defaultConfiguration/IBannerConfiguration.cpp \
-    $$PWD/configuration/yaml/IYamlUtil.cpp \
-    $$PWD/configuration/yaml/Yaml.cpp \
+    $$PWD/core/configuration/IConfigurationInterface.cpp \
+    $$PWD/core/configuration/IConfigurationManage.cpp \
+    $$PWD/core/configuration/IConfigurationResourceAutoLoader.cpp \
+    $$PWD/core/configuration/IConfigurationSystemPreProcessor.cpp \
+    $$PWD/core/configuration/IConfigurationTaskInterface.cpp \
+    $$PWD/core/configuration/defaultConfiguration/IBannerConfiguration.cpp \
+    $$PWD/core/configuration/yaml/IYamlUtil.cpp \
+    $$PWD/core/configuration/yaml/Yaml.cpp \
     $$PWD/controller/IControllerInterface.cpp \
     $$PWD/controller/IControllerManage.cpp \
     $$PWD/controller/IControllerPathValidatorInterface.cpp \
@@ -324,7 +324,7 @@ DISTFILES += \
     $$PWD/base/base \
     $$PWD/core/bean/bean \
     $$PWD/common/common \
-    $$PWD/configuration/configuration \
+    $$PWD/core/configuration/configuration \
     $$PWD/controller/controller \
     $$PWD/core/assertion/assertion \
     $$PWD/orm/orm \

@@ -2,9 +2,9 @@
 
 #include "core/core"
 #include "core/bean/bean"
+#include "core/configuration/configuration"
 #include "core/task/task"
 #include "base/base"
-#include "configuration/configuration"
 #include "controller/controller"
 #include "common/common"
 #include "orm/orm"

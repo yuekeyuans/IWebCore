@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "base/IPreProcessorUtil.h"
-#include "configuration/IConfigurationPreProcessor.h"
+#include "core/configuration/IConfigurationPreProcessor.h"
 
 #define PP_CONTROLLER(klassName) \
 protected: \

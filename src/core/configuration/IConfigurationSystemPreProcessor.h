@@ -1,10 +1,9 @@
 ﻿#pragma once
 
+#include "IConfigurationManage.h"
 #include "base/IHeaderUtil.h"
 #include "base/IToeUtil.h"
 #include "base/IPreProcessorUtil.h"
-#include "configuration/IConfigurationManage.h"
-
 
 #define PP_SYSTEM_SETTING(klassName, path, value)   \
 class klassName \

@@ -6,8 +6,8 @@
 #include "base/IToeUtil.h"
 #include "common/net/IRequest.h"
 #include "common/net/impl/IReqRespRaw.h"
-#include "configuration/IConfigurationManage.h"
 #include "core/assertion/IAssertPreProcessor.h"
+#include "core/configuration/IConfigurationManage.h"
 
 $PackageWebCoreBegin
 

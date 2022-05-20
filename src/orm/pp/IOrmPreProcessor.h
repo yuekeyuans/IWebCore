@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "base/IPreProcessorUtil.h"
-#include "configuration/IConfigurationPreProcessor.h"
 #include "core/bean/IBeanPreProcessor.h"
+#include "core/configuration/IConfigurationPreProcessor.h"
 
 #define $Column(type, name) \
     static constexpr char const *field_##name = #name ; \

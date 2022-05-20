@@ -1,9 +1,9 @@
 ﻿#include "IConfigurationResourceAutoLoader.h"
 
+#include "IConfigurationManage.h"
+#include "yaml/IYamlUtil.h"
 #include "base/IFileUtil.h"
 #include "base/IJsonUtil.h"
-#include "configuration/IConfigurationManage.h"
-#include "configuration/yaml/IYamlUtil.h"
 #include "core/assertion/IAssertPreProcessor.h"
 
 $PackageWebCoreBegin
