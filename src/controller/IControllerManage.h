@@ -2,13 +2,13 @@
 
 #include "base/IHeaderUtil.h"
 #include "base/IPreProcessorUtil.h"
-#include "common/biscuits/IHttpMethod.h"
-#include "common/biscuits/IHttpStatus.h"
-#include "common/middleware/IMiddleWare.h"
-#include "common/middleware/IInterceptorWare.h"
-#include "common/middleware/IProcessorWare.h"
-#include "common/node/IUrlFunctionNode.h"
-#include "common/node/IStatusFunctionNode.h"
+#include "web/biscuits/IHttpMethod.h"
+#include "web/biscuits/IHttpStatus.h"
+#include "web/middleware/IMiddleWare.h"
+#include "web/middleware/IInterceptorWare.h"
+#include "web/middleware/IProcessorWare.h"
+#include "web/node/IUrlFunctionNode.h"
+#include "web/node/IStatusFunctionNode.h"
 
 #include "IControllerRouteNode.h"
 

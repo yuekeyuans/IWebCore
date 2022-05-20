@@ -2,7 +2,7 @@
 
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
-#include "common/node/IUrlFunctionNode.h"
+#include "web/node/IUrlFunctionNode.h"
 #include "core/task/IControllerTaskUnit.h"
 
 $PackageWebCoreBegin

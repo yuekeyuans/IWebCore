@@ -1,5 +1,5 @@
 ﻿//#pragma once
-//#include "common/IStatusPageInterface.h"
+//#include "web/IStatusPageInterface.h"
 //#include "base/IPreProcessorUtil.h"
 
 

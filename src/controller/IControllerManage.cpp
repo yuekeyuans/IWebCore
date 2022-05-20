@@ -1,8 +1,8 @@
 ﻿#include "IControllerManage.h"
-#include "common/net/IRequest.h"
+#include "web/net/IRequest.h"
 #include "base/IConvertUtil.h"
 #include "base/IMetaUtil.h"
-#include "common/net/impl/IReqRespRaw.h"
+#include "web/net/impl/IReqRespRaw.h"
 
 $PackageWebCoreBegin
 

@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <QtCore>
-#include "common/node/IUrlFunctionNode.h"
+#include "web/node/IUrlFunctionNode.h"
 
 $PackageWebCoreBegin
 

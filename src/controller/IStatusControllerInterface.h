@@ -2,7 +2,7 @@
 
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
-#include "common/node/IStatusFunctionNode.h"
+#include "web/node/IStatusFunctionNode.h"
 #include "controller/private/IStatusControllerInterfaceImpl.h"
 #include "controller/IControllerManage.h"
 #include "core/configuration/IConfigurationManage.h"

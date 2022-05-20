@@ -1,6 +1,6 @@
 ﻿#include "IDefaultStatusController.h"
-#include "common/net/IRequest.h"
-#include "common/net/IResponse.h"
+#include "web/net/IRequest.h"
+#include "web/net/IResponse.h"
 
 $PackageWebCoreBegin
 

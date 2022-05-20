@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "common/response/IResponseWare.h"
+#include "web/response/IResponseWare.h"
 #include "core/task/IInitializationTaskUnit.h"
 
 $PackageWebCoreBegin

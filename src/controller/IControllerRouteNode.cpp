@@ -1,6 +1,6 @@
 ﻿#include "IControllerRouteNode.h"
 #include "IControllerManage.h"
-#include "common/node/IUrlFunctionNode.h"
+#include "web/node/IUrlFunctionNode.h"
 
 $PackageWebCoreBegin
 

@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "base/IHeaderUtil.h"
-#include "common/node/IStatusFunctionNode.h"
+#include "web/node/IStatusFunctionNode.h"
 
 $PackageWebCoreBegin
 

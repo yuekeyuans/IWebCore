@@ -2,3 +2,7 @@
 
 #include "core/application/IArgumentParserInterface.h"
 #include "core/application/IWebApplication.h"
+
+#include "core/bean/bean"
+#include "core/configuration/configuration"
+#include "core/task/task"

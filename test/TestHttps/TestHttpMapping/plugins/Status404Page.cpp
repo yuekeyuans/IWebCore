@@ -1,5 +1,5 @@
 ﻿//#include "Status404Page.h"
-//#include "common/IResponse.h"
+//#include "web/IResponse.h"
 
 
 //Status404Page::Status404Page() : IStatusPageInterface()

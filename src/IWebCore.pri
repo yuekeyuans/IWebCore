@@ -37,48 +37,48 @@ HEADERS += \
     $$PWD/biscuits/IHttpCharset.h \
     $$PWD/biscuits/IHttpHeader.h \
     $$PWD/biscuits/IHttpStatus.h \
-    $$PWD/common/IInterceptInterface.h \
-    $$PWD/common/IManage.h \
-    $$PWD/common/biscuits/IHttpCharset.h \
-    $$PWD/common/biscuits/IHttpHeader.h \
-    $$PWD/common/biscuits/IHttpMethod.h \
-    $$PWD/common/biscuits/IHttpMime.h \
-    $$PWD/common/biscuits/IHttpStatus.h \
-    $$PWD/common/biscuits/IHttpVersion.h \
-    $$PWD/common/cookie/ICookieJar.h \
-    $$PWD/common/cookie/ICookiePart.h \
-    $$PWD/common/header/IHeaderJar.h \
-    $$PWD/common/middleware/IInterceptorWare.h \
-    $$PWD/common/middleware/IMiddleWare.h \
-    $$PWD/common/middleware/IMiddleWarePreProcessor.h \
-    $$PWD/common/middleware/IPostInterceptorInterface.h \
-    $$PWD/common/middleware/IPostProcessorInterface.h \
-    $$PWD/common/middleware/IPreInterceptorInterface.h \
-    $$PWD/common/middleware/IPreProcessorInterface.h \
-    $$PWD/common/middleware/IProcessorWare.h \
-    $$PWD/common/multipart/IMultiPartJar.h \
-    $$PWD/common/net/IMultiPart.h \
-    $$PWD/common/net/IRequest.h \
-    $$PWD/common/net/IResponse.h \
-    $$PWD/common/net/impl/IReqRespRaw.h \
-    $$PWD/common/net/impl/IRequestImpl.h \
-    $$PWD/common/net/impl/IResponseImpl.h \
-    $$PWD/common/node/IFunctionNode.h \
-    $$PWD/common/node/IStatusFunctionNode.h \
-    $$PWD/common/node/IUrlFunctionNode.h \
-    $$PWD/common/response/IByteArrayResponse.h \
-    $$PWD/common/response/IHtmlResponse.h \
-    $$PWD/common/response/IJsonResponse.h \
-    $$PWD/common/response/IPlainTextResponse.h \
-    $$PWD/common/response/IRedirectResponse.h \
-    $$PWD/common/response/IResponseInterface.h \
-    $$PWD/common/response/IResponseManage.h \
-    $$PWD/common/response/IResponsePreProcessor.h \
-    $$PWD/common/response/IResponseWare.h \
-    $$PWD/common/response/IResponseWareRaw.h \
-    $$PWD/common/response/IStatusCodeResponse.h \
-    $$PWD/common/response/response \
-    $$PWD/common/session/ISessionJar.h \
+    $$PWD/web/IInterceptInterface.h \
+    $$PWD/web/IManage.h \
+    $$PWD/web/biscuits/IHttpCharset.h \
+    $$PWD/web/biscuits/IHttpHeader.h \
+    $$PWD/web/biscuits/IHttpMethod.h \
+    $$PWD/web/biscuits/IHttpMime.h \
+    $$PWD/web/biscuits/IHttpStatus.h \
+    $$PWD/web/biscuits/IHttpVersion.h \
+    $$PWD/web/cookie/ICookieJar.h \
+    $$PWD/web/cookie/ICookiePart.h \
+    $$PWD/web/header/IHeaderJar.h \
+    $$PWD/web/middleware/IInterceptorWare.h \
+    $$PWD/web/middleware/IMiddleWare.h \
+    $$PWD/web/middleware/IMiddleWarePreProcessor.h \
+    $$PWD/web/middleware/IPostInterceptorInterface.h \
+    $$PWD/web/middleware/IPostProcessorInterface.h \
+    $$PWD/web/middleware/IPreInterceptorInterface.h \
+    $$PWD/web/middleware/IPreProcessorInterface.h \
+    $$PWD/web/middleware/IProcessorWare.h \
+    $$PWD/web/multipart/IMultiPartJar.h \
+    $$PWD/web/net/IMultiPart.h \
+    $$PWD/web/net/IRequest.h \
+    $$PWD/web/net/IResponse.h \
+    $$PWD/web/net/impl/IReqRespRaw.h \
+    $$PWD/web/net/impl/IRequestImpl.h \
+    $$PWD/web/net/impl/IResponseImpl.h \
+    $$PWD/web/node/IFunctionNode.h \
+    $$PWD/web/node/IStatusFunctionNode.h \
+    $$PWD/web/node/IUrlFunctionNode.h \
+    $$PWD/web/response/IByteArrayResponse.h \
+    $$PWD/web/response/IHtmlResponse.h \
+    $$PWD/web/response/IJsonResponse.h \
+    $$PWD/web/response/IPlainTextResponse.h \
+    $$PWD/web/response/IRedirectResponse.h \
+    $$PWD/web/response/IResponseInterface.h \
+    $$PWD/web/response/IResponseManage.h \
+    $$PWD/web/response/IResponsePreProcessor.h \
+    $$PWD/web/response/IResponseWare.h \
+    $$PWD/web/response/IResponseWareRaw.h \
+    $$PWD/web/response/IStatusCodeResponse.h \
+    $$PWD/web/response/response \
+    $$PWD/web/session/ISessionJar.h \
     $$PWD/core/unit/IJarUnit.h \
     $$PWD/core/unit/INoConstructUnit.h \
     $$PWD/core/unit/INoCopyMoveUnit.h \
@@ -156,12 +156,12 @@ HEADERS += \
     $$PWD/orm/tableview/IOrmViewInfo.h \
     $$PWD/orm/tableview/IOrmViewInterface.h \
     $$PWD/orm/tableview/IOrmViewWare.h \
-    $$PWD/common/server/IHttpServer.h \
-    $$PWD/common/server/IHttpServerManage.h \
-    $$PWD/common/server/IServerInterface.h \
-    $$PWD/common/server/multiThreadServer/IHttpServerRunable.h \
-    $$PWD/common/server/multiThreadServer/IMultiThreadServer.h \
-    $$PWD/common/server/quenedServer/IQueneServer.h \
+    $$PWD/web/server/IHttpServer.h \
+    $$PWD/web/server/IHttpServerManage.h \
+    $$PWD/web/server/IServerInterface.h \
+    $$PWD/web/server/multiThreadServer/IHttpServerRunable.h \
+    $$PWD/web/server/multiThreadServer/IMultiThreadServer.h \
+    $$PWD/web/server/quenedServer/IQueneServer.h \
     $$PWD/core/task/IArgumentParserUnit.h \
     $$PWD/core/task/IConfigurationTaskUnit.h \
     $$PWD/core/task/IControllerTaskUnit.h \
@@ -206,43 +206,43 @@ SOURCES += \
     $$PWD/core/bean/IBeanWare.cpp \
     $$PWD/core/bean/IGadgetUnit.cpp \
     $$PWD/core/bean/ITypeManage.cpp \
-    $$PWD/common/IInterceptInterface.cpp \
-    $$PWD/common/IManage.cpp \
-    $$PWD/common/biscuits/IHttpCharset.cpp \
-    $$PWD/common/biscuits/IHttpHeader.cpp \
-    $$PWD/common/biscuits/IHttpMethod.cpp \
-    $$PWD/common/biscuits/IHttpMime.cpp \
-    $$PWD/common/biscuits/IHttpStatus.cpp \
-    $$PWD/common/biscuits/IHttpVersion.cpp \
-    $$PWD/common/cookie/ICookieJar.cpp \
-    $$PWD/common/cookie/ICookiePart.cpp \
-    $$PWD/common/header/IHeaderJar.cpp \
-    $$PWD/common/middleware/IInterceptorWare.cpp \
-    $$PWD/common/middleware/IMiddleWare.cpp \
-    $$PWD/common/middleware/IPostInterceptorInterface.cpp \
-    $$PWD/common/middleware/IPostProcessorInterface.cpp \
-    $$PWD/common/middleware/IPreInterceptorInterface.cpp \
-    $$PWD/common/middleware/IPreProcessorInterface.cpp \
-    $$PWD/common/middleware/IProcessorWare.cpp \
-    $$PWD/common/multipart/IMultiPartJar.cpp \
-    $$PWD/common/net/IMultiPart.cpp \
-    $$PWD/common/net/IRequest.cpp \
-    $$PWD/common/net/IResponse.cpp \
-    $$PWD/common/net/impl/IReqRespRaw.cpp \
-    $$PWD/common/net/impl/IRequestImpl.cpp \
-    $$PWD/common/net/impl/IResponseImpl.cpp \
-    $$PWD/common/node/IFunctionNode.cpp \
-    $$PWD/common/response/IByteArrayResponse.cpp \
-    $$PWD/common/response/IHtmlResponse.cpp \
-    $$PWD/common/response/IJsonResponse.cpp \
-    $$PWD/common/response/IPlainTextResponse.cpp \
-    $$PWD/common/response/IRedirectResponse.cpp \
-    $$PWD/common/response/IResponseInterface.cpp \
-    $$PWD/common/response/IResponseManage.cpp \
-    $$PWD/common/response/IResponseWare.cpp \
-    $$PWD/common/response/IResponseWareRaw.cpp \
-    $$PWD/common/response/IStatusCodeResponse.cpp \
-    $$PWD/common/session/ISessionJar.cpp \
+    $$PWD/web/IInterceptInterface.cpp \
+    $$PWD/web/IManage.cpp \
+    $$PWD/web/biscuits/IHttpCharset.cpp \
+    $$PWD/web/biscuits/IHttpHeader.cpp \
+    $$PWD/web/biscuits/IHttpMethod.cpp \
+    $$PWD/web/biscuits/IHttpMime.cpp \
+    $$PWD/web/biscuits/IHttpStatus.cpp \
+    $$PWD/web/biscuits/IHttpVersion.cpp \
+    $$PWD/web/cookie/ICookieJar.cpp \
+    $$PWD/web/cookie/ICookiePart.cpp \
+    $$PWD/web/header/IHeaderJar.cpp \
+    $$PWD/web/middleware/IInterceptorWare.cpp \
+    $$PWD/web/middleware/IMiddleWare.cpp \
+    $$PWD/web/middleware/IPostInterceptorInterface.cpp \
+    $$PWD/web/middleware/IPostProcessorInterface.cpp \
+    $$PWD/web/middleware/IPreInterceptorInterface.cpp \
+    $$PWD/web/middleware/IPreProcessorInterface.cpp \
+    $$PWD/web/middleware/IProcessorWare.cpp \
+    $$PWD/web/multipart/IMultiPartJar.cpp \
+    $$PWD/web/net/IMultiPart.cpp \
+    $$PWD/web/net/IRequest.cpp \
+    $$PWD/web/net/IResponse.cpp \
+    $$PWD/web/net/impl/IReqRespRaw.cpp \
+    $$PWD/web/net/impl/IRequestImpl.cpp \
+    $$PWD/web/net/impl/IResponseImpl.cpp \
+    $$PWD/web/node/IFunctionNode.cpp \
+    $$PWD/web/response/IByteArrayResponse.cpp \
+    $$PWD/web/response/IHtmlResponse.cpp \
+    $$PWD/web/response/IJsonResponse.cpp \
+    $$PWD/web/response/IPlainTextResponse.cpp \
+    $$PWD/web/response/IRedirectResponse.cpp \
+    $$PWD/web/response/IResponseInterface.cpp \
+    $$PWD/web/response/IResponseManage.cpp \
+    $$PWD/web/response/IResponseWare.cpp \
+    $$PWD/web/response/IResponseWareRaw.cpp \
+    $$PWD/web/response/IStatusCodeResponse.cpp \
+    $$PWD/web/session/ISessionJar.cpp \
     $$PWD/core/unit/IJarUnit.cpp \
     $$PWD/core/unit/INoCopyMoveUnit.cpp \
     $$PWD/core/unit/IRegisterGadgetUnit.cpp \
@@ -299,12 +299,12 @@ SOURCES += \
     $$PWD/orm/tableview/IOrmViewInfo.cpp \
     $$PWD/orm/tableview/IOrmViewInterface.cpp \
     $$PWD/orm/tableview/IOrmViewWare.cpp \
-    $$PWD/common/server/IHttpServer.cpp \
-    $$PWD/common/server/IHttpServerManage.cpp \
-    $$PWD/common/server/IServerInterface.cpp \
-    $$PWD/common/server/multiThreadServer/IHttpServerRunable.cpp \
-    $$PWD/common/server/multiThreadServer/IMultiThreadServer.cpp \
-    $$PWD/common/server/quenedServer/IQueneServer.cpp \
+    $$PWD/web/server/IHttpServer.cpp \
+    $$PWD/web/server/IHttpServerManage.cpp \
+    $$PWD/web/server/IServerInterface.cpp \
+    $$PWD/web/server/multiThreadServer/IHttpServerRunable.cpp \
+    $$PWD/web/server/multiThreadServer/IMultiThreadServer.cpp \
+    $$PWD/web/server/quenedServer/IQueneServer.cpp \
     $$PWD/core/task/IArgumentParserUnit.cpp \
     $$PWD/core/task/IConfigurationTaskUnit.cpp \
     $$PWD/core/task/IControllerTaskUnit.cpp \
@@ -323,10 +323,10 @@ DISTFILES += \
     $$PWD/core/core \
     $$PWD/base/base \
     $$PWD/core/bean/bean \
-    $$PWD/common/common \
+    $$PWD/web/common \
     $$PWD/core/configuration/configuration \
     $$PWD/controller/controller \
     $$PWD/core/assertion/assertion \
     $$PWD/orm/orm \
-    $$PWD/common/server/server \
+    $$PWD/web/server/server \
     $$PWD/core/task/task

@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "base/IHeaderUtil.h"
-#include "common/biscuits/IHttpMethod.h"
+#include "web/biscuits/IHttpMethod.h"
 
 $PackageWebCoreBegin
 

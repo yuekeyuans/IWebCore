@@ -1,7 +1,7 @@
 ﻿#include "IControllerInterfaceImpl.h"
 
-#include "common/net/IRequest.h"
-#include "common/net/IResponse.h"
+#include "web/net/IRequest.h"
+#include "web/net/IResponse.h"
 #include "controller/private/IControllerInterfaceDebug.h"
 #include "core/assertion/IAssertPreProcessor.h"
 #include "core/bean/ITypeManage.h"

@@ -1,13 +1,10 @@
 ﻿#pragma once
 
 #include "core/core"
-#include "core/bean/bean"
-#include "core/configuration/configuration"
-#include "core/task/task"
 #include "base/base"
 #include "controller/controller"
-#include "common/common"
-#include "common/server/server"
+#include "web/common"
+#include "web/server/server"
 #include "orm/orm"
 
 $PackageWebCoreUsing
