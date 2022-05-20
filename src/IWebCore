@@ -9,6 +9,5 @@
 #include "common/common"
 #include "orm/orm"
 #include "server/server"
-#include "test/test"
 
 $PackageWebCoreUsing

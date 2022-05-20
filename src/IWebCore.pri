@@ -173,10 +173,9 @@ HEADERS += \
     $$PWD/core/task/ITaskManage.h \
     $$PWD/core/task/ITaskWare.h \
     $$PWD/core/task/defaultTask/IBluePrintControllerTask.h \
+    $$PWD/core/core \
     $$PWD/test/IDebugInterface.h \
-    $$PWD/test/IDebugPreProcessor.h \
-    $$PWD/test/ITestPreProcessor.h \
-    $$PWD/core/core
+    $$PWD/test/IDebugPreProcessor.h
 
 SOURCES += \
     $$PWD/core/assertion/IAssertDetail.cpp \
@@ -330,5 +329,4 @@ DISTFILES += \
     $$PWD/core/assertion/assertion \
     $$PWD/orm/orm \
     $$PWD/server/server \
-    $$PWD/core/task/task \
-    $$PWD/test/test
+    $$PWD/core/task/task
