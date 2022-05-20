@@ -1,6 +1,5 @@
 ﻿#include "IXmlUtil.h"
 
-
 $PackageWebCoreBegin
 
 QDomNode IXmlUtil::toXml(const QString &content, bool *ok)

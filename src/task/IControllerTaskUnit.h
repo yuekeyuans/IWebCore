@@ -54,5 +54,4 @@ IControllerTaskUnit<T, enabled>::IControllerTaskUnitPrivate::IControllerTaskUnit
     }
 }
 
-
 $PackageWebCoreEnd
