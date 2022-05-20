@@ -6,7 +6,7 @@
 #include "common/node/IStatusFunctionNode.h"
 #include "controller/private/IStatusControllerInterfaceImpl.h"
 #include "controller/IControllerManage.h"
-#include "task/IControllerTaskUnit.h"
+#include "core/task/IControllerTaskUnit.h"
 
 $PackageWebCoreBegin
 

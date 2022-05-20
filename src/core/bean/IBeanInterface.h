@@ -3,7 +3,7 @@
 #include "IBeanWare.h"
 #include "ITypeManage.h"
 #include "base/IHeaderUtil.h"
-#include "task/IStaticInitializeTaskUnit.h"
+#include "core/task/IStaticInitializeTaskUnit.h"
 
 $PackageWebCoreBegin
 

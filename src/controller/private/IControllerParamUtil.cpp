@@ -17,7 +17,7 @@
 #include "core/assertion/IAssertPreProcessor.h"
 #include "core/bean/IBeanWare.h"
 #include "core/bean/ITypeManage.h"
-#include "task/ITaskManage.h"
+#include "core/task/ITaskManage.h"
 
 $PackageWebCoreBegin
 
@@ -54,16 +54,16 @@ static QVector<int> BeanTypes;
 
 static QVector<QVector<int>> JudgeTypes;
 
-namespace IControllerFunctionBaseImplHelper{
-void initSystemTypes();
-void initMultiPartTypes();
-void initCookieTypes();
-void initSessionTypes();
-void initBeanTypes();
-void initJudgeTypes();
+namespace IControllerFunctionBaseImplHelper
+{
+    void initSystemTypes();
+    void initMultiPartTypes();
+    void initCookieTypes();
+    void initSessionTypes();
+    void initBeanTypes();
+    void initJudgeTypes();
 
-void* convertParamToJson(const IFunctionParamNode &node, const QByteArray &content, bool* ok);
-
+    void* convertParamToJson(const IFunctionParamNode &node, const QByteArray &content, bool* ok);
 }
 
 void IControllerParamUtil::createParams(const IFunctionNode& functionNode, ParamType& params, IRequest &request)

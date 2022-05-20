@@ -3,7 +3,7 @@
 #include "base/IHeaderUtil.h"
 #include "common/middleware/IProcessorWare.h"
 #include "controller/IControllerManage.h"
-#include "task/IMiddleWareTaskUnit.h"
+#include "core/task/IMiddleWareTaskUnit.h"
 
 $PackageWebCoreBegin
 

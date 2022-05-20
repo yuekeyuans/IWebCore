@@ -2,8 +2,8 @@
 
 #include "base/IHeaderUtil.h"
 #include "common/support/IRegisterInstanceUnit.h"
-#include "task/ITaskWare.h"
-#include "task/ITaskManage.h"
+#include "core/task/ITaskWare.h"
+#include "core/task/ITaskManage.h"
 
 $PackageWebCoreBegin
 

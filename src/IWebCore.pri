@@ -162,17 +162,17 @@ HEADERS += \
     $$PWD/server/multiThreadServer/IHttpServerRunable.h \
     $$PWD/server/multiThreadServer/IMultiThreadServer.h \
     $$PWD/server/quenedServer/IQueneServer.h \
-    $$PWD/task/IArgumentParserUnit.h \
-    $$PWD/task/IConfigurationTaskUnit.h \
-    $$PWD/task/IControllerTaskUnit.h \
-    $$PWD/task/IFirstInvokeTaskUnit.h \
-    $$PWD/task/IInitializationTaskUnit.h \
-    $$PWD/task/ILastInvokeTaskUnit.h \
-    $$PWD/task/IMiddleWareTaskUnit.h \
-    $$PWD/task/IStaticInitializeTaskUnit.h \
-    $$PWD/task/ITaskManage.h \
-    $$PWD/task/ITaskWare.h \
-    $$PWD/task/defaultTask/IBluePrintControllerTask.h \
+    $$PWD/core/task/IArgumentParserUnit.h \
+    $$PWD/core/task/IConfigurationTaskUnit.h \
+    $$PWD/core/task/IControllerTaskUnit.h \
+    $$PWD/core/task/IFirstInvokeTaskUnit.h \
+    $$PWD/core/task/IInitializationTaskUnit.h \
+    $$PWD/core/task/ILastInvokeTaskUnit.h \
+    $$PWD/core/task/IMiddleWareTaskUnit.h \
+    $$PWD/core/task/IStaticInitializeTaskUnit.h \
+    $$PWD/core/task/ITaskManage.h \
+    $$PWD/core/task/ITaskWare.h \
+    $$PWD/core/task/defaultTask/IBluePrintControllerTask.h \
     $$PWD/test/IDebugInterface.h \
     $$PWD/test/IDebugPreProcessor.h \
     $$PWD/test/ITestPreProcessor.h \
@@ -306,17 +306,17 @@ SOURCES += \
     $$PWD/server/multiThreadServer/IHttpServerRunable.cpp \
     $$PWD/server/multiThreadServer/IMultiThreadServer.cpp \
     $$PWD/server/quenedServer/IQueneServer.cpp \
-    $$PWD/task/IArgumentParserUnit.cpp \
-    $$PWD/task/IConfigurationTaskUnit.cpp \
-    $$PWD/task/IControllerTaskUnit.cpp \
-    $$PWD/task/IFirstInvokeTaskUnit.cpp \
-    $$PWD/task/IInitializationTaskUnit.cpp \
-    $$PWD/task/ILastInvokeTaskUnit.cpp \
-    $$PWD/task/IMiddleWareTaskUnit.cpp \
-    $$PWD/task/IStaticInitializeTaskUnit.cpp \
-    $$PWD/task/ITaskManage.cpp \
-    $$PWD/task/ITaskWare.cpp \
-    $$PWD/task/defaultTask/IBluePrintControllerTask.cpp \
+    $$PWD/core/task/IArgumentParserUnit.cpp \
+    $$PWD/core/task/IConfigurationTaskUnit.cpp \
+    $$PWD/core/task/IControllerTaskUnit.cpp \
+    $$PWD/core/task/IFirstInvokeTaskUnit.cpp \
+    $$PWD/core/task/IInitializationTaskUnit.cpp \
+    $$PWD/core/task/ILastInvokeTaskUnit.cpp \
+    $$PWD/core/task/IMiddleWareTaskUnit.cpp \
+    $$PWD/core/task/IStaticInitializeTaskUnit.cpp \
+    $$PWD/core/task/ITaskManage.cpp \
+    $$PWD/core/task/ITaskWare.cpp \
+    $$PWD/core/task/defaultTask/IBluePrintControllerTask.cpp \
     $$PWD/test/IDebugInterface.cpp
 
 DISTFILES += \
@@ -330,5 +330,5 @@ DISTFILES += \
     $$PWD/core/assertion/assertion \
     $$PWD/orm/orm \
     $$PWD/server/server \
-    $$PWD/task/task \
+    $$PWD/core/task/task \
     $$PWD/test/test

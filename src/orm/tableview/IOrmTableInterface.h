@@ -2,9 +2,9 @@
 
 #include "base/IHeaderUtil.h"
 #include "core/bean/ITypeManage.h"
+#include "core/task/IStaticInitializeTaskUnit.h"
 #include "orm/tableview/IOrmTableWare.h"
 #include "orm/tableview/IOrmTableInfo.h"
-#include "task/IStaticInitializeTaskUnit.h"
 
 $PackageWebCoreBegin
 

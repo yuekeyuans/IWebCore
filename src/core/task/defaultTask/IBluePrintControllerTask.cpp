@@ -3,7 +3,7 @@
 #include "configuration/IConfigurationManage.h"
 #include "controller/IControllerManage.h"
 #include "core/assertion/IAssertPreProcessor.h"
-#include "task/ITaskManage.h"
+#include "core/task/ITaskManage.h"
 
 $PackageWebCoreBegin
 
