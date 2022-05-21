@@ -1,7 +1,13 @@
 ﻿#pragma once
 
+#include "IAstInfo.h"
+#include "base/IJsonUtil.h"
+
 #define $AsAst(klassName)   \
-    klassName* instance(){  \
-        static klassName m_instance; \
-        return &m_instance; \
-    }
+public:     \
+    static klassName* instance(){   \
+        static klassName inst;  \
+        inst.load();    \
+        return &inst;   \
+    }   \
+private:

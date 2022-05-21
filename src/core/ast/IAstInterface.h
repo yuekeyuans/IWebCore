@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "IAstInfo.h"
+#include "IAstPreProcessor.h"
 #include "base/IHeaderUtil.h"
 
 $PackageWebCoreBegin
@@ -11,6 +12,7 @@ protected:
     IAstInterface() = default;
 
 public:
+    void load();
     virtual QString loadFromJsonString();
     virtual void loadFromFunction(); // TODO: 名字有点俗气
 

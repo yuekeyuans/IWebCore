@@ -33,6 +33,7 @@ HEADERS += \
     $$PWD/core/ast/IAstInfo.h \
     $$PWD/core/ast/IAstInterface.h \
     $$PWD/core/ast/IAstPreProcessor.h \
+    $$PWD/core/ast/IGlobalAst.h \
     $$PWD/core/bean/IBeanInterface.h \
     $$PWD/core/bean/IBeanPreProcessor.h \
     $$PWD/core/bean/IBeanWare.h \
@@ -64,6 +65,7 @@ HEADERS += \
     $$PWD/web/net/IResponse.h \
     $$PWD/web/net/impl/IReqRespRaw.h \
     $$PWD/web/net/impl/IRequestImpl.h \
+    $$PWD/web/net/impl/IResponseAst.h \
     $$PWD/web/net/impl/IResponseImpl.h \
     $$PWD/web/node/IFunctionNode.h \
     $$PWD/web/node/IStatusFunctionNode.h \
@@ -201,6 +203,7 @@ SOURCES += \
     $$PWD/base/IXmlUtil.cpp \
     $$PWD/core/ast/IAstInfo.cpp \
     $$PWD/core/ast/IAstInterface.cpp \
+    $$PWD/core/ast/IGlobalAst.cpp \
     $$PWD/core/bean/IBeanInterface.cpp \
     $$PWD/core/bean/IBeanWare.cpp \
     $$PWD/core/bean/IGadgetUnit.cpp \
@@ -230,6 +233,7 @@ SOURCES += \
     $$PWD/web/net/IResponse.cpp \
     $$PWD/web/net/impl/IReqRespRaw.cpp \
     $$PWD/web/net/impl/IRequestImpl.cpp \
+    $$PWD/web/net/impl/IResponseAst.cpp \
     $$PWD/web/net/impl/IResponseImpl.cpp \
     $$PWD/web/node/IFunctionNode.cpp \
     $$PWD/web/response/IByteArrayResponse.cpp \

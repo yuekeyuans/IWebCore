@@ -1,5 +1,7 @@
 ﻿#include "IAstInterface.h"
 
+#include "IGlobalAst.h"
+
 $PackageWebCoreBegin
 
 namespace IAstInterfaceHelper
@@ -8,7 +10,57 @@ namespace IAstInterfaceHelper
     QString getOutput(const QString& name, const QPair<QString, QString>& value, const IAstInfo& info);
 }
 
-IAstInterface::IAstInterface()
+void IAstInterface::load()
+{
+    static std::once_flag flag;
+    std::call_once(flag, [&](){
+        loadFromFunction();
+
+        auto value = this->loadFromJsonString();
+        if(!value.isEmpty()){
+            bool ok;
+            auto json = IJsonUtil::toJsonObject(value, &ok);
+            if(!ok){
+                IAstInfo info;
+                info.className = "IGlobalAst";
+                IGlobalAst::instance()->fatal("Assert_Load_Json_Error", info);
+            }
+
+            QStringList types = json.keys();
+            for(const auto& type : types){
+                auto obj = json[type].toObject();
+                auto keys = obj.keys();
+                for(const auto& key : keys){
+                    auto array = obj[key].toArray();
+                    if(array.size() == 1){
+                        if(type == "fatal"){
+                            addFatal(key, array.first().toString());
+                        }else if(type == "warn"){
+                            addWarn(key, array.first().toString());
+                        }else{
+                            addDebug(key, array.first().toString());
+                        }
+                    }else if(array.size() == 2){
+                        if(type == "fatal"){
+                            addFatal(key, array.first().toString(), array.last().toString());
+                        }else if(type == "warn"){
+                            addWarn(key, array.first().toString(), array.last().toString());
+                        }else{
+                            addDebug(key, array.first().toString(), array.last().toString());
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+QString IAstInterface::loadFromJsonString()
+{
+    return "";
+}
+
+void IAstInterface::loadFromFunction()
 {
 }
 
@@ -60,16 +112,6 @@ void IAstInterface::debug(const QString &name, const IAstInfo &info)
         auto str = IAstInterfaceHelper::getOutput(name, m_warn[name], info);
         qDebug().noquote() << str;
     }
-}
-
-QString IAstInterface::loadFromJsonString()
-{
-    return "";
-}
-
-void IAstInterface::loadFromFunction()
-{
-    // do nothing here;
 }
 
 void IAstInterface::addFatal(const QString &tag, const QString &info, const QString &solution)
