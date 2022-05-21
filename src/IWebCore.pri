@@ -30,6 +30,9 @@ HEADERS += \
     $$PWD/base/IToeUtil.h \
     $$PWD/base/ITraitHelper.h \
     $$PWD/base/IXmlUtil.h \
+    $$PWD/core/ast/IAstInfo.h \
+    $$PWD/core/ast/IAstInterface.h \
+    $$PWD/core/ast/IAstPreProcessor.h \
     $$PWD/core/bean/IBeanInterface.h \
     $$PWD/core/bean/IBeanPreProcessor.h \
     $$PWD/core/bean/IBeanWare.h \
@@ -167,7 +170,6 @@ HEADERS += \
     $$PWD/core/task/IStaticInitializeTaskUnit.h \
     $$PWD/core/task/ITaskManage.h \
     $$PWD/core/task/ITaskWare.h \
-    $$PWD/core/core \
     $$PWD/test/IDebugInterface.h \
     $$PWD/test/IDebugPreProcessor.h
 
@@ -197,6 +199,8 @@ SOURCES += \
     $$PWD/base/IToeUtil.cpp \
     $$PWD/base/ITraitHelper.cpp \
     $$PWD/base/IXmlUtil.cpp \
+    $$PWD/core/ast/IAstInfo.cpp \
+    $$PWD/core/ast/IAstInterface.cpp \
     $$PWD/core/bean/IBeanInterface.cpp \
     $$PWD/core/bean/IBeanWare.cpp \
     $$PWD/core/bean/IGadgetUnit.cpp \

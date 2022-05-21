@@ -29,4 +29,3 @@
 #define $AssertWarning_(N) $AssertWarning_##N
 #define $AssertWarning_EVAL(N) $AssertWarning_(N)
 #define $AssertWarning(...) PP_EXPAND( $AssertWarning_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
-
