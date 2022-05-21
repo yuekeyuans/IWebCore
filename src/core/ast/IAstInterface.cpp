@@ -10,7 +10,6 @@ namespace IAstInterfaceHelper
 
 IAstInterface::IAstInterface()
 {
-
 }
 
 void IAstInterface::fatal(const QString &name)

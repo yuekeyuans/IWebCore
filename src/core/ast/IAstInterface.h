@@ -7,9 +7,10 @@ $PackageWebCoreBegin
 
 class IAstInterface
 {
-public:
-    IAstInterface();
+protected:
+    IAstInterface() = default;
 
+public:
     virtual QString loadFromJsonString();
     virtual void loadFromFunction(); // TODO: 名字有点俗气
 
