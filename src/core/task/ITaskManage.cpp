@@ -27,7 +27,7 @@ void ITaskManage::run(const QStringList& arguments)
 
     inst->invokeFirstInvokers();
 
-    inst->invokeArgumentParsers(arguments);
+    inst->invokeArgumentTasks(arguments);
     inst->invokeConfigers();
 
     inst->invokeInitializers();
@@ -40,13 +40,13 @@ void ITaskManage::run(const QStringList& arguments)
     inst->invokeLastInvokers();
 }
 
-void ITaskManage::registerArgumentParser(ArgumentParserFunType fun)
+void ITaskManage::registerArgumentTask(ArgumentTaskFunType fun)
 {
     auto inst = instance();
     if(inst->m_isStarted){
         $AssertFatal(defer_register_not_allowed, "registerConfiger")
     }
-    inst->m_argumentParsers.append(fun);
+    inst->m_ArgumentTasks.append(fun);
 }
 
 void ITaskManage::registerConfigrator(ITaskManage::FunType fun)
@@ -121,13 +121,13 @@ void ITaskManage::registerAsyncTask(ITaskManage::FunType fun)
     });
 }
 
-void ITaskManage::invokeArgumentParsers(const QStringList& arguments)
+void ITaskManage::invokeArgumentTasks(const QStringList& arguments)
 {
     auto inst = instance();
-    for(auto fun : inst->m_argumentParsers){
+    for(auto fun : inst->m_ArgumentTasks){
         fun(arguments);
     }
-    inst->m_argumentParsers.clear();
+    inst->m_ArgumentTasks.clear();
 }
 
 void ITaskManage::invokeControllers()

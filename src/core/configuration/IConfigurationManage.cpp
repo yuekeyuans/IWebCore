@@ -11,7 +11,6 @@ $PackageWebCoreBegin
 
 const char SystemConfigurationGroup[] = "System";
 const char ApplicationConfigurationGroup[] = "Application";
-//const char UserConfigurationGroup[] = "User";
 
 struct ConfigurationBean{
     QString type;

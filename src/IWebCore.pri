@@ -5,6 +5,7 @@ QT += network sql xml
 PRECOMPILED_HEADER = $$PWD/base/IHeaderUtil.h
 
 HEADERS += \
+    $$PWD/core/application/IApplication.h \
     $$PWD/core/assertion/IAssertDetail.h \
     $$PWD/core/assertion/IAssertJsonInterface.h \
     $$PWD/core/assertion/infos/ConfigurationAssertion.h \
@@ -120,8 +121,7 @@ HEADERS += \
     $$PWD/core/assertion/IAssertInterface.h \
     $$PWD/core/assertion/IAssertManage.h \
     $$PWD/core/assertion/IAssertPreProcessor.h \
-    $$PWD/core/application/IArgumentParserInterface.h \
-    $$PWD/core/application/IWebApplication.h \
+    $$PWD/core/application/IArgumentTaskInterface.h \
     $$PWD/orm/IOrmManage.h \
     $$PWD/orm/IOrmUtil.h \
     $$PWD/orm/database/IOrmDataSource.h \
@@ -157,7 +157,7 @@ HEADERS += \
     $$PWD/web/server/multiThreadServer/IHttpServerRunable.h \
     $$PWD/web/server/multiThreadServer/IMultiThreadServer.h \
     $$PWD/web/server/quenedServer/IQueneServer.h \
-    $$PWD/core/task/IArgumentParserUnit.h \
+    $$PWD/core/task/IArgumentTaskUnit.h \
     $$PWD/core/task/IConfigurationTaskUnit.h \
     $$PWD/core/task/IControllerTaskUnit.h \
     $$PWD/core/task/IFirstInvokeTaskUnit.h \
@@ -172,6 +172,7 @@ HEADERS += \
     $$PWD/test/IDebugPreProcessor.h
 
 SOURCES += \
+    $$PWD/core/application/IApplication.cpp \
     $$PWD/core/assertion/IAssertDetail.cpp \
     $$PWD/core/assertion/IAssertInfoList.cpp \
     $$PWD/core/assertion/IAssertJsonInterface.cpp \
@@ -266,8 +267,7 @@ SOURCES += \
     $$PWD/web/controller/private/IStatusControllerInterfaceImpl.cpp \
     $$PWD/core/assertion/IAssertInterface.cpp \
     $$PWD/core/assertion/IAssertManage.cpp \
-    $$PWD/core/application/IArgumentParserInterface.cpp \
-    $$PWD/core/application/IWebApplication.cpp \
+    $$PWD/core/application/IArgumentTaskInterface.cpp \
     $$PWD/orm/IOrmManage.cpp \
     $$PWD/orm/IOrmUtil.cpp \
     $$PWD/orm/database/IOrmDataSource.cpp \
@@ -300,7 +300,7 @@ SOURCES += \
     $$PWD/web/server/multiThreadServer/IHttpServerRunable.cpp \
     $$PWD/web/server/multiThreadServer/IMultiThreadServer.cpp \
     $$PWD/web/server/quenedServer/IQueneServer.cpp \
-    $$PWD/core/task/IArgumentParserUnit.cpp \
+    $$PWD/core/task/IArgumentTaskUnit.cpp \
     $$PWD/core/task/IConfigurationTaskUnit.cpp \
     $$PWD/core/task/IControllerTaskUnit.cpp \
     $$PWD/core/task/IFirstInvokeTaskUnit.cpp \

@@ -2,7 +2,7 @@
 
 #include <IWebCore>
 
-class TestArgmentPaser : public IArgumentParserInterface<TestArgmentPaser, false>
+class TestArgmentPaser : public IArgumentTaskInterface<TestArgmentPaser, false>
 {
     $UseInstance(TestArgmentPaser)
 public:

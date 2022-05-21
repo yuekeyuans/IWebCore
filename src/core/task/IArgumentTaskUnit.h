@@ -8,15 +8,15 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled=true>
-class IArgumentParserUnit : public ITaskWare
+class IArgumentTaskUnit : public ITaskWare
 {
     $UseWare
 public:
     using FunType = void(*)(const QStringList&);
 
 public:
-    IArgumentParserUnit() = default;
-    virtual ~IArgumentParserUnit() = default;
+    IArgumentTaskUnit() = default;
+    virtual ~IArgumentTaskUnit() = default;
 
     virtual void task(const QStringList& arguements) = 0;
 
@@ -24,28 +24,28 @@ private:
     virtual void task() final {};  // 禁用 无参 task，并重新构造一个 有参的 task
 
 private:
-    class IArgumentParserUnitPrivate{
+    class IArgumentTaskUnitPrivate{
     public:
-        IArgumentParserUnitPrivate();
+        IArgumentTaskUnitPrivate();
     };
 
-    static IArgumentParserUnitPrivate m_private;
-    virtual IArgumentParserUnitPrivate* IArgumentParserUnitPrivateTouch(){
+    static IArgumentTaskUnitPrivate m_private;
+    virtual IArgumentTaskUnitPrivate* IArgumentTaskUnitPrivateTouch(){
         return &m_private;
     }
 };
 
 template<typename T, bool enabled>
-typename IArgumentParserUnit<T, enabled>::IArgumentParserUnitPrivate
-    IArgumentParserUnit<T, enabled>::m_private;
+typename IArgumentTaskUnit<T, enabled>::IArgumentTaskUnitPrivate
+    IArgumentTaskUnit<T, enabled>::m_private;
 
 template<typename T, bool enabled>
-IArgumentParserUnit<T, enabled>::IArgumentParserUnitPrivate::IArgumentParserUnitPrivate()
+IArgumentTaskUnit<T, enabled>::IArgumentTaskUnitPrivate::IArgumentTaskUnitPrivate()
 {
     if(enabled){
         static std::once_flag flag;
         std::call_once(flag, [](){
-            ITaskManage::registerArgumentParser([](const QStringList& arguments){
+            ITaskManage::registerArgumentTask([](const QStringList& arguments){
                 auto inst = T::instance();
                 inst->task(arguments);
                 inst->printTips();

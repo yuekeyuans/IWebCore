@@ -4,10 +4,10 @@
 
 $PackageWebCoreBegin
 
-class IWebApplication : public QCoreApplication
+class IApplication : public QCoreApplication
 {
 public:
-    IWebApplication(int argc, char** argv);
+    IApplication(int argc, char** argv);
 
 private:
     const QStringList& getArguments();

@@ -1,15 +1,15 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "core/task/IArgumentParserUnit.h"
+#include "core/task/IArgumentTaskUnit.h"
 
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true>
-class IArgumentParserInterface : public IArgumentParserUnit<T, enabled>
+class IArgumentTaskInterface : public IArgumentTaskUnit<T, enabled>
 {
 public:
-    IArgumentParserInterface() = default;
+    IArgumentTaskInterface() = default;
 
     virtual void task(const QStringList& arguements) = 0;
 };

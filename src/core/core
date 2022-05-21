@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "core/application/IArgumentParserInterface.h"
-#include "core/application/IWebApplication.h"
+#include "core/application/IArgumentTaskInterface.h"
+#include "core/application/IApplication.h"
 
 #include "core/bean/bean"
 #include "core/configuration/configuration"

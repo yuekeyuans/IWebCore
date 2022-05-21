@@ -1,28 +1,28 @@
-﻿#include "IWebApplication.h"
+﻿#include "IApplication.h"
 
 #include "core/configuration/IConfigurationManage.h"
 #include "core/task/ITaskManage.h"
 
 $PackageWebCoreBegin
 
-namespace IWebApplicationHelper {
+namespace IApplicationHelper {
     QStringList fromArguments(int argc, char** argv);
     void printBanner();
 }
 
-IWebApplication::IWebApplication(int argc, char **argv) : QCoreApplication(argc, argv)
+IApplication::IApplication(int argc, char **argv) : QCoreApplication(argc, argv)
 {
-    m_arguments = IWebApplicationHelper::fromArguments(argc, argv);
-    IWebApplicationHelper::printBanner();
+    m_arguments = IApplicationHelper::fromArguments(argc, argv);
+    IApplicationHelper::printBanner();
     ITaskManage::run(m_arguments);
 }
 
-const QStringList &IWebApplication::getArguments()
+const QStringList &IApplication::getArguments()
 {
     return m_arguments;
 }
 
-QStringList IWebApplicationHelper::fromArguments(int argc, char** argv){
+QStringList IApplicationHelper::fromArguments(int argc, char** argv){
     QStringList ret;
     for(int i=0; i<argc; i++){
         QString value = argv[i];
@@ -31,9 +31,9 @@ QStringList IWebApplicationHelper::fromArguments(int argc, char** argv){
     return ret;
 }
 
-void IWebApplicationHelper::printBanner(){
+void IApplicationHelper::printBanner(){
     auto value = IConfigurationManage::getBanner();
-    qDebug().noquote() << value;
+    qInfo().noquote() << value;
 }
 
 $PackageWebCoreEnd

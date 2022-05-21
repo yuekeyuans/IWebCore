@@ -24,7 +24,7 @@ class ITaskManage
     $UseInstance(ITaskManage)
 public:
     using FunType = std::function<void()>;
-    using ArgumentParserFunType = std::function<void(const QStringList&)>;
+    using ArgumentTaskFunType = std::function<void(const QStringList&)>;
 
 private:
     ITaskManage() = default;
@@ -34,7 +34,7 @@ public:
     static void run(int argc, char** argv);
     static void run(const QStringList& arguments);
 
-    static void registerArgumentParser(ArgumentParserFunType fun);
+    static void registerArgumentTask(ArgumentTaskFunType fun);
     static void registerConfigrator(FunType fun);
     static void registerInitializer(FunType fun);
     static void registerController(FunType fun);
@@ -50,7 +50,7 @@ public:
     static void registerAsyncTask(FunType fun);
 
 private:
-    static void invokeArgumentParsers(const QStringList&);
+    static void invokeArgumentTasks(const QStringList&);
     static void invokeConfigers();
     static void invokeInitializers();
     static void invokeControllers();
@@ -62,7 +62,7 @@ private:
 
     static void invokeBluePrint();
 private:
-    QList<ArgumentParserFunType> m_argumentParsers;
+    QList<ArgumentTaskFunType> m_ArgumentTasks;
     QList<FunType> m_configurators;
     QList<FunType> m_initializers;
     QList<FunType> m_controllers;
