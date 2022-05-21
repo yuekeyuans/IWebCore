@@ -20,12 +20,6 @@ QString ControllerWarnAssertion::getAssertInfo()
         "solution" : ""
     },
     {
-        "key" : "iresponse_setHeader_with_empty_value_or_key",
-        "reason": "",
-        "description" : "",
-        "solution" : ""
-    },
-    {
         "key" : "checkDumplicatedParameters_find_More_than_one_value",
         "reason": "",
         "description" : "",

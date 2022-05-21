@@ -6,7 +6,6 @@
 #include "web/net/impl/IReqRespRaw.h"
 #include "web/net/impl/IResponseImpl.h"
 #include "web/response/IResponseWare.h"
-#include "core/assertion/IAssertPreProcessor.h"
 
 $PackageWebCoreBegin
 
@@ -90,7 +89,7 @@ IReqRespRaw *IResponse::getRaw() const
 IResponse &IResponse::setHeader(const QString &key, const QString &value)
 {
     if(key.isEmpty() || value.isEmpty()){
-        $AssertWarning(iresponse_setHeader_with_empty_value_or_key)
+        $Ast->warn("iresponse_setHeader_with_empty_value_or_key");
     }
 
     raw->m_headerJar.setResponseHeader(key, value);

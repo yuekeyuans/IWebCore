@@ -1,6 +1,6 @@
 ﻿#include "IAstInterface.h"
-
 #include "IGlobalAst.h"
+#include "base/IMetaUtil.h"
 
 $PackageWebCoreBegin
 
@@ -10,7 +10,7 @@ namespace IAstInterfaceHelper
     QString getOutput(const QString& name, const QPair<QString, QString>& value, const IAstInfo& info);
 }
 
-void IAstInterface::load()
+void IAstInterface::load(const QString& klassName)
 {
     static std::once_flag flag;
     std::call_once(flag, [&](){
@@ -22,7 +22,7 @@ void IAstInterface::load()
             auto json = IJsonUtil::toJsonObject(value, &ok);
             if(!ok){
                 IAstInfo info;
-                info.className = "IGlobalAst";
+                info.className = klassName;
                 IGlobalAst::instance()->fatal("Assert_Load_Json_Error", info);
             }
 

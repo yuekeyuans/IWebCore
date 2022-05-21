@@ -2,14 +2,16 @@
 
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
+#include "core/bean/IBeanPreProcessor.h"
+#include "core/unit/IRegisterMetaTypeUnit.h"
 #include "web/cookie/ICookiePart.h"
 #include "web/biscuits/IHttpStatus.h"
 #include "web/biscuits/IHttpVersion.h"
 #include "web/biscuits/IHttpMime.h"
 #include "web/response/IResponseWareRaw.h"
 #include "web/response/IResponsePreProcessor.h"
-#include "core/bean/IBeanPreProcessor.h"
-#include "core/unit/IRegisterMetaTypeUnit.h"
+
+#include "web/net/impl/IResponseAst.h"
 
 $PackageWebCoreBegin
 
@@ -22,6 +24,7 @@ class IResponseImpl;
 class IResponse : private IRegisterMetaTypeUnit<IResponse>
 {
     Q_GADGET
+    $UseAst(IResponse)
     $UseMetaRegistration(IResponse)
 public:
     IResponse();

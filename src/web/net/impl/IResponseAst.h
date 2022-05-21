@@ -8,10 +8,12 @@ $PackageWebCoreBegin
 
 class IResponseAst : public IAstInterface
 {
+    Q_GADGET
     $AsAst(IResponseAst)
 public:
     IResponseAst();
 
+    virtual void loadFromFunction() final;
 };
 
 $PackageWebCoreEnd

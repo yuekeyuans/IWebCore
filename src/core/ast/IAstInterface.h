@@ -12,7 +12,7 @@ protected:
     IAstInterface() = default;
 
 public:
-    void load();
+    void load(const QString& klassName);
     virtual QString loadFromJsonString();
     virtual void loadFromFunction(); // TODO: 名字有点俗气
 

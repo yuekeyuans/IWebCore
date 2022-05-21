@@ -4,11 +4,11 @@
 #include "IAstPreProcessor.h"
 #include "base/IHeaderUtil.h"
 
-
 $PackageWebCoreBegin
 
 class IGlobalAst : public IAstInterface
 {
+    Q_GADGET
     $AsAst(IGlobalAst)
 public:
     IGlobalAst();
