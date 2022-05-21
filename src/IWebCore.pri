@@ -34,9 +34,6 @@ HEADERS += \
     $$PWD/core/bean/IBeanWare.h \
     $$PWD/core/bean/IGadgetUnit.h \
     $$PWD/core/bean/ITypeManage.h \
-    $$PWD/biscuits/IHttpCharset.h \
-    $$PWD/biscuits/IHttpHeader.h \
-    $$PWD/biscuits/IHttpStatus.h \
     $$PWD/web/IInterceptInterface.h \
     $$PWD/web/IManage.h \
     $$PWD/web/biscuits/IHttpCharset.h \
@@ -47,6 +44,7 @@ HEADERS += \
     $$PWD/web/biscuits/IHttpVersion.h \
     $$PWD/web/cookie/ICookieJar.h \
     $$PWD/web/cookie/ICookiePart.h \
+    $$PWD/web/core/defaultTask/IBluePrintControllerTask.h \
     $$PWD/web/header/IHeaderJar.h \
     $$PWD/web/middleware/IInterceptorWare.h \
     $$PWD/web/middleware/IMiddleWare.h \
@@ -98,9 +96,6 @@ HEADERS += \
     $$PWD/core/configuration/defaultConfiguration/IBannerConfiguration.h \
     $$PWD/core/configuration/yaml/IYamlUtil.h \
     $$PWD/core/configuration/yaml/Yaml.hpp \
-    $$PWD/biscuits/IHttpMethod.h \
-    $$PWD/biscuits/IHttpMime.h \
-    $$PWD/biscuits/IHttpVersion.h \
     $$PWD/web/controller/IControllerInterface.h \
     $$PWD/web/controller/IControllerManage.h \
     $$PWD/web/controller/IControllerPathValidatorInterface.h \
@@ -172,7 +167,6 @@ HEADERS += \
     $$PWD/core/task/IStaticInitializeTaskUnit.h \
     $$PWD/core/task/ITaskManage.h \
     $$PWD/core/task/ITaskWare.h \
-    $$PWD/core/task/defaultTask/IBluePrintControllerTask.h \
     $$PWD/core/core \
     $$PWD/test/IDebugInterface.h \
     $$PWD/test/IDebugPreProcessor.h
@@ -216,6 +210,7 @@ SOURCES += \
     $$PWD/web/biscuits/IHttpVersion.cpp \
     $$PWD/web/cookie/ICookieJar.cpp \
     $$PWD/web/cookie/ICookiePart.cpp \
+    $$PWD/web/core/defaultTask/IBluePrintControllerTask.cpp \
     $$PWD/web/header/IHeaderJar.cpp \
     $$PWD/web/middleware/IInterceptorWare.cpp \
     $$PWD/web/middleware/IMiddleWare.cpp \
@@ -315,7 +310,6 @@ SOURCES += \
     $$PWD/core/task/IStaticInitializeTaskUnit.cpp \
     $$PWD/core/task/ITaskManage.cpp \
     $$PWD/core/task/ITaskWare.cpp \
-    $$PWD/core/task/defaultTask/IBluePrintControllerTask.cpp \
     $$PWD/test/IDebugInterface.cpp
 
 DISTFILES += \
