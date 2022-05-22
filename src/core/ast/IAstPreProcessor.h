@@ -13,7 +13,15 @@ public:     \
     }   \
 private:
 
-#define $UseAst(klassName)  \
-private:    \
-    static klassName##Ast* $Ast;\
-private:
+#define $UseGlobalAst() \
+    $UseAst(IGlobalAst, $GlobalAst)
+
+#define $UseAst_1(klassName)  \
+    static klassName* $Ast = klassName::instance();
+
+#define $UseAst_2(klassName, name)  \
+    static klassName* name = klassName::instance();
+
+#define $UseAst_(N) $UseAst_##N
+#define $UseAst_EVAL(N) $UseAst_(N)
+#define $UseAst(...) PP_EXPAND( $UseAst_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )

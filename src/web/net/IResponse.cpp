@@ -1,6 +1,7 @@
 ﻿#include "IResponse.h"
 
 #include "base/IConstantUtil.h"
+#include "core/ast/IGlobalAst.h"
 #include "web/biscuits/IHttpHeader.h"
 #include "web/net/IRequest.h"
 #include "web/net/impl/IReqRespRaw.h"
@@ -10,7 +11,8 @@
 
 $PackageWebCoreBegin
 
-IResponseAst* $Ast = IResponseAst::instance();
+$UseGlobalAst();
+$UseAst(IResponseAst)
 
 IResponse::IResponse()
 {
