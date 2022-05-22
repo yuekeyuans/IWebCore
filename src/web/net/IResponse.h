@@ -11,8 +11,6 @@
 #include "web/response/IResponseWareRaw.h"
 #include "web/response/IResponsePreProcessor.h"
 
-#include "web/net/impl/IResponseAst.h"
-
 $PackageWebCoreBegin
 
 class IRequest;
@@ -20,11 +18,11 @@ class IResponseWare;
 class IRequestImpl;
 class IReqRespRaw;
 class IResponseImpl;
+class IResponseAst;
 
 class IResponse : private IRegisterMetaTypeUnit<IResponse>
 {
     Q_GADGET
-    $UseAst(IResponse)
     $UseMetaRegistration(IResponse)
 public:
     IResponse();

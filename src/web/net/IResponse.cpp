@@ -6,8 +6,11 @@
 #include "web/net/impl/IReqRespRaw.h"
 #include "web/net/impl/IResponseImpl.h"
 #include "web/response/IResponseWare.h"
+#include "web/net/impl/IResponseAst.h"
 
 $PackageWebCoreBegin
+
+IResponseAst* $Ast = IResponseAst::instance();
 
 IResponse::IResponse()
 {

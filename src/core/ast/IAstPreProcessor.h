@@ -15,5 +15,5 @@ private:
 
 #define $UseAst(klassName)  \
 private:    \
-    klassName##Ast* $Ast = klassName##Ast::instance();  \
+    static klassName##Ast* $Ast;\
 private:
