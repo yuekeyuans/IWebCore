@@ -1,11 +1,13 @@
 ﻿#include "IBluePrintControllerTask.h"
 
-#include "core/assertion/IAssertPreProcessor.h"
+#include "core/ast/IGlobalAst.h"
 #include "core/configuration/IConfigurationManage.h"
 #include "core/task/ITaskManage.h"
 #include "web/controller/IControllerManage.h"
 
 $PackageWebCoreBegin
+
+$UseGlobalAst()
 
 IBluePrintControllerTask::IBluePrintControllerTask()
 {
@@ -22,7 +24,7 @@ void IBluePrintControllerTask::registerTask()
         }
 
         if(!value.isBool()){
-            $AssertFatal(EnableBluePrint_param_error); // TODO: 这个必须被处理掉
+            $GlobalAst->fatal(IGlobalAst::EnableBluePrintParamError);
         }
         if(value.toBool()){
             IControllerManage::travalPrintUrlTree();

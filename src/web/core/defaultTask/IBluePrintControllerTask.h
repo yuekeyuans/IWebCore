@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
+#include "core/ast/IAstInterface.h"
 
 $PackageWebCoreBegin
 

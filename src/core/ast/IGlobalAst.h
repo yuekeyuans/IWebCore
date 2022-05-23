@@ -13,6 +13,7 @@ class IGlobalAst : public IAstInterface
 public:
     enum Type{
         UnImplimentedMethod,
+        EnableBluePrintParamError,
     };
     Q_ENUM(Type);
 public:

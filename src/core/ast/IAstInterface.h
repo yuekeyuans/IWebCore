@@ -29,9 +29,9 @@ public:
     void debug(const QString& name, const IAstInfo& info);
 
 protected:
-    void addFatal(const QString& tag, const QString& info, const QString& solution="");
-    void addWarn(const QString& tag, const QString& info, const QString& solution="");
-    void addDebug(const QString& tag, const QString& info, const QString& solution="");
+    void addFatal(const QString& tag, const QString& info="", const QString& solution="");
+    void addWarn(const QString& tag, const QString& info="", const QString& solution="");
+    void addDebug(const QString& tag, const QString& info="", const QString& solution="");
 
 private:
     QMap<QString, QPair<QString, QString>> m_fatal;

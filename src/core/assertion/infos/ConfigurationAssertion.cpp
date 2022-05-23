@@ -17,12 +17,6 @@ QString ConfigurationAssertion::getAssertInfo()
         "reason": "",
         "description" : "",
         "solution" : ""
-    },
-    {
-        "key" : "EnableBluePrint_param_error",
-        "reason": "$EnableBluePrint has parameter that is not bool type",
-        "description" : "",
-        "solution" : ""
     }
 ]
     )";
