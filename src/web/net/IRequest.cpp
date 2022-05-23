@@ -1,9 +1,9 @@
 ﻿#include "IRequest.h"
-#include "base/IConstantUtil.h"
 #include "base/IConvertUtil.h"
 #include "base/IJsonUtil.h"
 #include "base/IXmlUtil.h"
 #include "base/IToeUtil.h"
+#include "core/ast/IGlobalAst.h"
 #include "web/biscuits/IHttpHeader.h"
 #include "web/net/impl/IRequestImpl.h"
 #include "web/net/impl/IReqRespRaw.h"
@@ -11,6 +11,8 @@
 #include "web/session/ISessionJar.h"
 
 $PackageWebCoreBegin
+
+$UseGlobalAst()
 
 IRequest::IRequest()
 {
@@ -54,7 +56,7 @@ ICookieJar *IRequest::cookieJar() const
 
 ISessionJar *IRequest::sessionJar() const
 {
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    $GlobalAst->fatal(IGlobalAst::UnImplimentedMethod);
     return &raw->m_sessionJar;
 }
 
@@ -75,7 +77,7 @@ IHttpVersion IRequest::version() const
 
 IHttpCharset IRequest::charset() const
 {
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    $GlobalAst->fatal(IGlobalAst::UnImplimentedMethod);
     return IHttpCharset::UTF_8;
 }
 

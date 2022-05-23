@@ -11,7 +11,15 @@ class IGlobalAst : public IAstInterface
     Q_GADGET
     $AsAst(IGlobalAst)
 public:
-    IGlobalAst();
+    enum Type{
+        UnImplimentedMethod,
+    };
+    Q_ENUM(Type);
+public:
+    IGlobalAst() = default;
+    void fatal(Type type);
+    void fatal(const QString& name);
+    void fatal(const QString& name, const IAstInfo& info);
 
 public:
     virtual void loadFromFunction() final;
