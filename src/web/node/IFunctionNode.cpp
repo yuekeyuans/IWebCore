@@ -1,9 +1,11 @@
 ﻿#include "IFunctionNode.h"
 
 #include "base/IPackageUtil.h"
-#include "core/assertion/IAssertPreProcessor.h"
+#include "private/IFunctionNodeAst.h"
 
 $PackageWebCoreBegin
+
+$UseAst(IFunctionNodeAst)
 
 static const QString& nmspace = $PackageWebCoreName;
 
@@ -36,17 +38,19 @@ void IFunctionNodeHelper::assignBaseInfo(IFunctionNode& node, void* handle, QMet
     node.funExpression = IFunctionNodeHelper::createFunctionExpression(node);
 
     if(node.funReturnTypeId == QMetaType::UnknownType){
-        QString info = QString("return Type Not Defined in QMeta System. type: ").append(node.funRetunType)
+        IAstInfo info;
+        info.reason = QString("return Type Not Defined in QMeta System. type: ").append(node.funRetunType)
                            .append(", Function: ").append(node.funExpression);
-        $AssertFatal(controller_invalid_parameter_type, info)
+        $Ast->fatal("controller_invalid_parameter_type", info);
     }
 
     for(int i=0;i<node.funParamCount; i++){
         auto id = method.parameterType(i);
         if(id == QMetaType::UnknownType){
-            QString info = QString("parameter Type Not Defined in QMeta System. type: ").append(node.funParamTypes[i])
+            IAstInfo info;
+            info.reason = QString("parameter Type Not Defined in QMeta System. type: ").append(node.funParamTypes[i])
                                .append(", Function: ").append(node.funExpression);
-            $AssertFatal(controller_invalid_parameter_type, info);
+            $Ast->fatal("controller_invalid_parameter_type", info);
         }else{
             node.funParamTypeIds.append(QMetaType::Type(id));
         }

@@ -20,12 +20,6 @@ QString ControllerWarnAssertion::getAssertInfo()
         "solution" : ""
     },
     {
-        "key" : "checkDumplicatedParameters_find_More_than_one_value",
-        "reason": "",
-        "description" : "",
-        "solution" : ""
-    },
-    {
         "key" : "irequest_get_parameter_in_body_with_mime_text",
         "reason": "",
         "description" : "",

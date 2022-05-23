@@ -8,9 +8,12 @@ $PackageWebCoreBegin
 
 class IAstInterface
 {
+    Q_GADGET
 protected:
     IAstInterface() = default;
-
+    enum Type{
+    };
+    Q_ENUM(Type)
 public:
     void load(const QString& klassName);
     virtual QString loadFromJsonString();

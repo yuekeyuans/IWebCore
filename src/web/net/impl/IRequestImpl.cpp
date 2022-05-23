@@ -1,15 +1,17 @@
 ﻿#include "IRequestImpl.h"
 
+#include "IRequestAst.h"
 #include "base/IConstantUtil.h"
 #include "base/IHeaderUtil.h"
 #include "base/ICodecUtil.h"
 #include "base/IToeUtil.h"
 #include "web/net/IRequest.h"
 #include "web/net/impl/IReqRespRaw.h"
-#include "core/assertion/IAssertPreProcessor.h"
 #include "core/configuration/IConfigurationManage.h"
 
 $PackageWebCoreBegin
+
+$UseAst(IRequestAst)
 
 namespace IRequestImplHelper{
     bool isPathValid(const QString& path);
@@ -141,7 +143,7 @@ QByteArray IRequestImpl::getBodyParameter(const QString &name, bool*ok) const
         return getJsonData(originName, ok);
     case IHttpMime::TEXT_XML:
         IToeUtil::setOk(ok, false);
-        $AssertFatal(irequest_xml_currently_not_supported)
+        $Ast->fatal("irequest_xml_currently_not_supported");
         break;
     case IHttpMime::TEXT_PLAIN:
     case IHttpMime::TEXT_PLAIN_UTF8:
@@ -649,8 +651,9 @@ void IRequestImplHelper::checkDumplicatedParameters(const QList<QPair<QString, I
         }
 
         if(count >1){
-            QString info = name + " parameter exist more than one in (body, path, param, session, cookie), please check. name : " + name;
-            $AssertWarning(checkDumplicatedParameters_find_More_than_one_value, info)
+            IAstInfo info;
+            info.reason = name + " parameter exist more than one in (body, path, param, session, cookie), please check. name : " + name;
+            $Ast->fatal("checkDumplicatedParameters_find_More_than_one_value", info);
         }
     }
 }

@@ -7,19 +7,7 @@ QString ControllerFatalAssertion::getAssertInfo()
     return R"(
 [
     {
-        "key" : "controller_invalid_parameter_type",
-        "reason": "",
-        "description" : "",
-        "solution" : ""
-    },
-    {
         "key" : "irequest_getBodyParameter_with_invalid_mime",
-        "reason": "",
-        "description" : "",
-        "solution" : ""
-    },
-    {
-        "key" : "irequest_xml_currently_not_supported",
         "reason": "",
         "description" : "",
         "solution" : ""
