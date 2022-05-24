@@ -5,9 +5,11 @@
 #include "base/IConstantUtil.h"
 #include "base/IConvertUtil.h"
 #include "base/IToeUtil.h"
-#include "core/assertion/IAssertPreProcessor.h"
+#include "core/ast/IGlobalAst.h"
 
 $PackageWebCoreBegin
+
+$UseGlobalAst()
 
 const char SystemConfigurationGroup[] = "System";
 const char ApplicationConfigurationGroup[] = "Application";

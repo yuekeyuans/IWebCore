@@ -23,6 +23,7 @@ void IGlobalAst::loadFromFunction()
     addFatal("Assert_Load_Json_Error", "your json format is not correct");
     addFatal("UnImplimentedMethod", "this method is not implimented.");
     addFatal("EnableBluePrintParamError", "");
+    addFatal("ConfigurationMayNotInitialized", )
 }
 
 $PackageWebCoreEnd
