@@ -14,6 +14,8 @@ public:
     enum Type{
         UnImplimentedMethod,
         EnableBluePrintParamError,
+        ConfigurationMayNotInitialized,
+        ConfigurationMergeJsonValueError,
     };
     Q_ENUM(Type);
 public:

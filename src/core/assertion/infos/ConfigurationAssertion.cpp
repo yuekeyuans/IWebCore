@@ -11,12 +11,6 @@ QString ConfigurationAssertion::getAssertInfo()
         "reason": "",
         "description" : "",
         "solution" : ""
-    },
-    {
-        "key" : "merge_json_config_value_error",
-        "reason": "",
-        "description" : "",
-        "solution" : ""
     }
 ]
     )";

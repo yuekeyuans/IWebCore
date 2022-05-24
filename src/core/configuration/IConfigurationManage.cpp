@@ -138,7 +138,7 @@ QJsonValue IConfigurationManage::getValue(const QString &path, bool* ok, const Q
 
     auto inst = instance();
     if(!inst->m_isInited){
-        $AssertWarning(configuration_may_not_initialized)
+        $GlobalAst->fatal(IGlobalAst::ConfigurationMayNotInitialized);
     }
 
     if(!inst->m_configs.contains(group)){
@@ -168,7 +168,7 @@ void IConfigurationManage::getConfigBean(void *handler, const QMap<QString, QStr
     IToeUtil::setOk(ok, true);
     auto inst = instance();
     if(!inst->m_isInited){
-        $AssertWarning(configuration_may_not_initialized)
+        $GlobalAst->fatal(IGlobalAst::ConfigurationMayNotInitialized);
     }
 
     auto configBeans = IConfigurationManageHelper::generateConfigurationBean(clsInfo, props);
@@ -275,7 +275,7 @@ QJsonValue IConfigurationManageHelper::getMergeValue(const QString key, const QJ
         return destArray;
     } else if((destValue.isObject() || destValue.isArray()          // 其中有一方是 obj 或 array, 但另一方类型不同
                 || srcValue.isArray() || srcValue.isObject())){
-        $AssertFatal(merge_json_config_value_error)
+        $GlobalAst->fatal(IGlobalAst::ConfigurationMergeJsonValueError);
     }else{                                                          // 都是普通值类型， 新的替换旧的
         return source[key];
     }
