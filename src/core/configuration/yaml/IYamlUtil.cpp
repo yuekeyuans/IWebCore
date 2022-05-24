@@ -2,9 +2,11 @@
 
 #include "Yaml.hpp"
 #include "base/IToeUtil.h"
-#include "core/assertion/IAssertPreProcessor.h"
+#include "core/ast/IGlobalAst.h"
 
 $PackageWebCoreBegin
+
+$UseGlobalAst()
 
 namespace IYamlHelper{
     QJsonArray toArray(const Yaml::Node& node);
@@ -21,8 +23,9 @@ QJsonObject IYamlUtil::toJsonObject(const QString &content, bool* ok)
         Yaml::Parse(root, content.toStdString());
     } catch (Yaml::ParsingException e) {
         IToeUtil::setOk(ok, false);
-        QString info = e.what();
-        $AssertFatal(convert_yaml_fail_error, info)     // actually, it need not ok, but for compat, write here for future.
+        IAstInfo info;
+        info.reason = e.what();
+        $GlobalAst->fatal(IGlobalAst::ConfigurationCovertYamlFailError, info);    // actually, it need not ok, but for compat, write here for future.
     }
     if(root.IsMap()){
         return IYamlHelper::toObject(root);

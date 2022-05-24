@@ -12,7 +12,6 @@ HEADERS += \
     $$PWD/core/assertion/infos/ControllerFatalAssertion.h \
     $$PWD/core/assertion/infos/ControllerWarnAssertion.h \
     $$PWD/core/assertion/infos/DeferRegisterNotAllowedFatal.h \
-    $$PWD/core/assertion/infos/OrmFatalAssertion.h \
     $$PWD/core/assertion/infos/OrmWarnAssertion.h \
     $$PWD/base/ICodecUtil.h \
     $$PWD/base/IConstantUtil.h \
@@ -38,8 +37,10 @@ HEADERS += \
     $$PWD/core/bean/IBeanWare.h \
     $$PWD/core/bean/IGadgetUnit.h \
     $$PWD/core/bean/ITypeManage.h \
+    $$PWD/orm/IOrmAst.h \
     $$PWD/web/IInterceptInterface.h \
     $$PWD/web/IManage.h \
+    $$PWD/web/IWebAst.h \
     $$PWD/web/biscuits/IHttpCharset.h \
     $$PWD/web/biscuits/IHttpHeader.h \
     $$PWD/web/biscuits/IHttpMethod.h \
@@ -65,7 +66,6 @@ HEADERS += \
     $$PWD/web/net/impl/IReqRespRaw.h \
     $$PWD/web/net/impl/IRequestAst.h \
     $$PWD/web/net/impl/IRequestImpl.h \
-    $$PWD/web/net/impl/IResponseAst.h \
     $$PWD/web/net/impl/IResponseImpl.h \
     $$PWD/web/node/IFunctionNode.h \
     $$PWD/web/node/IStatusFunctionNode.h \
@@ -117,7 +117,6 @@ HEADERS += \
     $$PWD/web/controller/pp/IPutMappingPreProcessor.h \
     $$PWD/web/controller/pp/IStatusCodeMappingPreProcessor.h \
     $$PWD/web/controller/pp/IStatusControllerPreProcessor.h \
-    $$PWD/web/controller/private/IControllerInterfaceDebug.h \
     $$PWD/web/controller/private/IControllerInterfaceImpl.h \
     $$PWD/web/controller/private/IControllerParamBeanUtil.h \
     $$PWD/web/controller/private/IControllerParamUtil.h \
@@ -185,7 +184,6 @@ SOURCES += \
     $$PWD/core/assertion/infos/ControllerFatalAssertion.cpp \
     $$PWD/core/assertion/infos/ControllerWarnAssertion.cpp \
     $$PWD/core/assertion/infos/DeferRegisterNotAllowedFatal.cpp \
-    $$PWD/core/assertion/infos/OrmFatalAssertion.cpp \
     $$PWD/core/assertion/infos/OrmWarnAssertion.cpp \
     $$PWD/base/ICodecUtil.cpp \
     $$PWD/base/IConvertUtil.cpp \
@@ -208,8 +206,10 @@ SOURCES += \
     $$PWD/core/bean/IBeanWare.cpp \
     $$PWD/core/bean/IGadgetUnit.cpp \
     $$PWD/core/bean/ITypeManage.cpp \
+    $$PWD/orm/IOrmAst.cpp \
     $$PWD/web/IInterceptInterface.cpp \
     $$PWD/web/IManage.cpp \
+    $$PWD/web/IWebAst.cpp \
     $$PWD/web/biscuits/IHttpCharset.cpp \
     $$PWD/web/biscuits/IHttpHeader.cpp \
     $$PWD/web/biscuits/IHttpMethod.cpp \
@@ -234,7 +234,6 @@ SOURCES += \
     $$PWD/web/net/impl/IReqRespRaw.cpp \
     $$PWD/web/net/impl/IRequestAst.cpp \
     $$PWD/web/net/impl/IRequestImpl.cpp \
-    $$PWD/web/net/impl/IResponseAst.cpp \
     $$PWD/web/net/impl/IResponseImpl.cpp \
     $$PWD/web/node/IFunctionNode.cpp \
     $$PWD/web/node/private/IFunctionNodeAst.cpp \
@@ -269,7 +268,6 @@ SOURCES += \
     $$PWD/web/controller/IControllerPathValidatorInterface.cpp \
     $$PWD/web/controller/IControllerRouteNode.cpp \
     $$PWD/web/controller/IStatusControllerInterface.cpp \
-    $$PWD/web/controller/private/IControllerInterfaceDebug.cpp \
     $$PWD/web/controller/private/IControllerInterfaceImpl.cpp \
     $$PWD/web/controller/private/IControllerParamBeanUtil.cpp \
     $$PWD/web/controller/private/IControllerParamUtil.cpp \

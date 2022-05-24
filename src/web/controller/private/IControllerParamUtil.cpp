@@ -18,8 +18,11 @@
 #include "web/response/IJsonResponse.h"
 #include "web/response/IByteArrayResponse.h"
 #include "web/net/impl/IReqRespRaw.h"
+#include "web/IWebAst.h"
 
 $PackageWebCoreBegin
+
+$UseAst(IWebAst)
 
 // show me something that should not be wrong
 static const QString GiveColorSeeSee = QStringLiteral("浪额康康四辣锅削阔爱");
@@ -203,11 +206,11 @@ void IControllerParamUtil::wrapVoidReturnInstance(IResponse &response, const IFu
     Q_UNUSED(params)
     if(response.mime() == IHttpMime::UNKNOWN){
         response.setMime(IHttpMime::TEXT_PLAIN_UTF8);
-        $AssertWarning(process_void_return_with_request_not_set_mime_error)
+        $Ast->warn("process_void_return_with_request_not_set_mime_error");
     }
     if(response.status() == IHttpStatus::UNKNOWN){
         response.setStatus(IHttpStatus::OK_200);
-        $AssertWarning(process_void_return_with_request_not_set_status_error)
+        $Ast->warn("process_void_return_with_request_not_set_status_error");
     }
 }
 

@@ -1,9 +1,11 @@
 ﻿#include "ITaskManage.h"
 
-#include "core/assertion/IAssertPreProcessor.h"
 #include "core/configuration/IConfigurationManage.h"
+#include "core/ast/IGlobalAst.h"
 
 $PackageWebCoreBegin
+
+$UseGlobalAst()
 
 void ITaskManage::run()
 {
@@ -44,7 +46,7 @@ void ITaskManage::registerArgumentTask(ArgumentTaskFunType fun)
 {
     auto inst = instance();
     if(inst->m_isStarted){
-        $AssertFatal(defer_register_not_allowed, "registerConfiger")
+        $GlobalAst->fatal(IGlobalAst::TaskDeferRegisterNotAllowed,  "registerConfiger");
     }
     inst->m_ArgumentTasks.append(fun);
 }
@@ -53,7 +55,7 @@ void ITaskManage::registerConfigrator(ITaskManage::FunType fun)
 {
     auto inst = instance();
     if(inst->m_isStarted){
-        $AssertFatal(defer_register_not_allowed, "registerConfiger")
+        $GlobalAst->fatal(IGlobalAst::TaskDeferRegisterNotAllowed,  "registerConfiger");
     }
 
     inst->m_configurators.append(fun);
@@ -63,7 +65,7 @@ void ITaskManage::registerInitializer(ITaskManage::FunType fun)
 {
     auto inst = instance();
     if(inst->m_isStarted){
-        $AssertFatal(defer_register_not_allowed, "registerInitializer")
+        $GlobalAst->fatal(IGlobalAst::TaskDeferRegisterNotAllowed,  "registerInitializer");
     }
 
     inst->m_initializers.append(fun);
@@ -73,7 +75,7 @@ void ITaskManage::registerController(FunType fun)
 {
     auto inst = instance();
     if(inst->m_isStarted){
-        $AssertFatal(defer_register_not_allowed, "registerConfiger")
+        $GlobalAst->fatal(IGlobalAst::TaskDeferRegisterNotAllowed,  "registerConfiger");
     }
     inst->m_controllers.append(fun);
 }
@@ -82,7 +84,7 @@ void ITaskManage::registerMiddleWare(ITaskManage::FunType fun)
 {
     auto inst = instance();
     if(inst->m_isStarted){
-        $AssertFatal(defer_register_not_allowed, "registerConfiger")
+        $GlobalAst->fatal(IGlobalAst::TaskDeferRegisterNotAllowed,  "registerConfiger");
     }
     inst->m_middleWares.append(fun);
 }
@@ -91,7 +93,7 @@ void ITaskManage::registerFirstInvoker(ITaskManage::FunType fun)
 {
     auto inst = instance();
     if(inst->m_isStarted){
-        $AssertFatal(defer_register_not_allowed, "registerConfiger")
+        $GlobalAst->fatal(IGlobalAst::TaskDeferRegisterNotAllowed,  "registerConfiger");
     }
     inst->m_firstInvokers.append(fun);
 }
@@ -100,7 +102,7 @@ void ITaskManage::registerLastInvoker(ITaskManage::FunType fun)
 {
     auto inst = instance();
     if(inst->m_isStarted){
-        $AssertFatal(defer_register_not_allowed, "registerConfiger")
+        $GlobalAst->fatal(IGlobalAst::TaskDeferRegisterNotAllowed,  "registerConfiger");
     }
     inst->m_lastInvokers.append(fun);
 }
@@ -109,7 +111,7 @@ void ITaskManage::registerBluePrint(ITaskManage::FunType fun)
 {
     auto inst = instance();
     if(inst->m_isStarted){
-        $AssertFatal(defer_register_not_allowed, "registerInitializer")
+        $GlobalAst->fatal(IGlobalAst::TaskDeferRegisterNotAllowed,  "registerConfiger");
     }
     inst->m_blueprints.append(fun);
 }

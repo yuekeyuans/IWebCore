@@ -7,7 +7,6 @@
 #include "infos/ControllerWarnAssertion.h"
 #include "infos/DeferRegisterNotAllowedFatal.h"
 
-#include "infos/OrmFatalAssertion.h"
 #include "infos/OrmWarnAssertion.h"
 
 #endif
@@ -28,7 +27,6 @@ void IAssertInfoList::init()
         ControllerFatalAssertion::instance();
         ControllerWarnAssertion::instance();
         DeferRegisterNotAllowedFatal::instance();
-        OrmFatalAssertion::instance();
         OrmWarnAssertion::instance();
     });
 #endif

@@ -3,14 +3,16 @@
 #include "base/IConvertUtil.h"
 #include "base/IConstantUtil.h"
 #include "base/IToeUtil.h"
+#include "core/bean/IBeanWare.h"
+#include "core/configuration/IConfigurationManage.h"
 #include "web/node/IFunctionNode.h"
 #include "web/net/IRequest.h"
 #include "web/net/IResponse.h"
-#include "core/assertion/IAssertPreProcessor.h"
-#include "core/bean/IBeanWare.h"
-#include "core/configuration/IConfigurationManage.h"
+#include "web/IWebAst.h"
 
 $PackageWebCoreBegin
+
+$UseAst(IWebAst)
 
 void* IControllerParamBeanUtil::getParamOfBean(const IFunctionParamNode &node, IRequest &request)
 {
@@ -153,12 +155,13 @@ void *IControllerParamBeanUtil::assambleBeanWareWithMixed(IBeanWare *bean, IRequ
                 continue;
             }
 
-            QString info = QString( "bean inner parameter not found. name : ").append(prop.name());
+            IAstInfo info;
+            info.reason = QString( "bean inner parameter not found. name : ").append(prop.name());
             if(isBeanResoveStrictMode()){
-                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info);
+                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
                 return bean;
             }
-            $AssertWarning(assamble_bean_when_bean_inner_parameter_not_found, info);
+            $Ast->warn("assamble_bean_when_bean_inner_parameter_not_found", info);
             continue;
         }
 
@@ -167,12 +170,13 @@ void *IControllerParamBeanUtil::assambleBeanWareWithMixed(IBeanWare *bean, IRequ
             if(bean->isIgnorableField(prop.propertyIndex())){
                 continue;
             }
-            QString info = QString( "bean inner parameter format not correct. name : ").append(prop.name());
+            IAstInfo info;
+            info.reason = QString( "bean inner parameter format not correct. name : ").append(prop.name());
             if(isBeanResoveStrictMode()){
-                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info);
+                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
                 return bean;
             }
-            $AssertWarning(assamble_bean_when_bean_inner_parameter_not_found, info);
+            $Ast->warn("assamble_bean_when_bean_inner_parameter_not_found", info);
             continue;
         }
         map[prop.name()] = variant;
@@ -285,13 +289,15 @@ QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QL
             if(bean->isIgnorableField(prop.propertyIndex())){
                 continue;
             }
-            auto info = QString(prop.name()).append(" format not correct");
+            IAstInfo info;
+            info.reason = QString(prop.name()).append(" format not correct");
             if(isBeanResoveStrictMode()){
                 IToeUtil::setOk(ok, false);
-                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info);
+                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
                 return map;
             }
-            $AssertWarning(assamble_bean_when_bean_inner_parameter_not_found, info);
+
+            $Ast->warn("assamble_bean_when_bean_inner_parameter_not_found", info);
             continue;
         }
 
@@ -315,13 +321,14 @@ QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QM
             if(bean->isIgnorableField(prop.propertyIndex())){
                 continue;
             }
-            auto info = QString(prop.name()).append(" format not correct");
+            IAstInfo info;
+            info.reason = QString(prop.name()).append(" format not correct");
             if(isBeanResoveStrictMode()){
                 IToeUtil::setOk(ok, false);
-                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info);
+                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
                 return map;
             }
-            $AssertWarning(assamble_bean_when_bean_inner_parameter_not_found, info);
+            $Ast->warn("assamble_bean_when_bean_inner_parameter_not_found", info);
             continue;
         }
 
@@ -347,13 +354,15 @@ QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QV
                 if(bean->isIgnorableField(prop.propertyIndex())){
                     continue;
                 }
-                auto info = QString(prop.name()).append(" format not correct");
+                IAstInfo info;
+                info.reason = QString(prop.name()).append(" format not correct");
                 if(isBeanResoveStrictMode()){
                     IToeUtil::setOk(ok, false);
-                    request.setInvalid(IHttpStatus::BAD_REQUEST_400, info);
+                    request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
                     return map;
                 }
-                $AssertWarning(assamble_bean_when_bean_inner_parameter_not_found, info);
+
+                $Ast->warn("assamble_bean_when_bean_inner_parameter_not_found", info);
                 continue;
             }
             map[name] = variant;
@@ -375,13 +384,14 @@ bool IControllerParamBeanUtil::checkKeyInJsonAndBean(const QJsonObject &obj, IBe
         }
 
         if(!obj.contains(prop.name())){
-            QString info = QString("json do not contain pair :").append(prop.name());
+            IAstInfo info;
+            info.reason = QString("json do not contain pair :").append(prop.name());
             if(isBeanResoveStrictMode()){
-                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info);
+                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
                 return false;
 
             }
-            $AssertWarning(assamble_bean_when_bean_inner_parameter_not_found, info);
+            $Ast->warn("assamble_bean_when_bean_inner_parameter_not_found", info);
         }
     }
     return true;
@@ -405,12 +415,13 @@ bool IControllerParamBeanUtil::checkKeyInMultiPart(const QVector<IMultiPart> &pa
         }
 
         if(!multiPartNames.contains(prop.name())){
-            auto info = QString(prop.name()).append(" not found");
+            IAstInfo info;
+            info.reason = QString(prop.name()).append(" not found");
             if(isBeanResoveStrictMode()){
-                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info);
+                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
                 return false;
             }
-            $AssertWarning(assamble_bean_when_bean_inner_parameter_not_found, info);
+            $Ast->warn("assamble_bean_when_bean_inner_parameter_not_found", info);
             continue;
         }
     }
@@ -457,12 +468,13 @@ bool IControllerParamBeanUtil::checkKeyInQStringMap(const QMap<QString, QString>
         }
 
         if(!map.contains(prop.name())){
-            auto info = QString(prop.name()).append(" not found");
+            IAstInfo info;
+            info.reason = QString(prop.name()).append(" not found");
             if(isBeanResoveStrictMode()){
-                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info);
+                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
                 return false;
             }
-            $AssertWarning(assamble_bean_when_bean_inner_parameter_not_found, info);
+            $Ast->warn("assamble_bean_when_bean_inner_parameter_not_found", info);
             continue;
         }
     }

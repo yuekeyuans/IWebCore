@@ -1,17 +1,16 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "base/IJsonUtil.h"
 #include "core/ast/IAstInterface.h"
 
 $PackageWebCoreBegin
 
-class IResponseAst : public IAstInterface
+class IOrmAst : public IAstInterface
 {
     Q_GADGET
-    $AsAst(IResponseAst)
+    $AsAst(IOrmAst)
 public:
-    IResponseAst();
+    IOrmAst() = default;
 
     virtual void loadFromFunction() final;
 };

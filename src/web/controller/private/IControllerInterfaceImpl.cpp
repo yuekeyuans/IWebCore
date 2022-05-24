@@ -1,14 +1,13 @@
 ﻿#include "IControllerInterfaceImpl.h"
 
-#include "core/assertion/IAssertPreProcessor.h"
 #include "core/bean/ITypeManage.h"
-#include "web/controller/private/IControllerInterfaceDebug.h"
 #include "web/net/IRequest.h"
 #include "web/net/IResponse.h"
+#include "web/IWebAst.h"
 
 $PackageWebCoreBegin
 
-static IControllerInterfaceDebug $debug;
+$UseAst(IWebAst)
 
 namespace IControllerInterfaceImpHelper{
     bool isBeanType(const QString&);
@@ -91,7 +90,7 @@ QStringList IControllerInterfaceImpl::reformClsInfoArgs(const QMap<QString, QStr
         for(auto arg : tempArgs){
             arg = arg.trimmed();
             if(arg == "." || arg == ".."){
-                $debug.fatal("UrlError");
+                $Ast->fatal("UrlError");
             }
             if(!arg.trimmed().isEmpty()){
                 args.append(arg);
@@ -143,7 +142,9 @@ void IControllerInterfaceImpl::checkMappingOverloadFunctions(const QVector<QMeta
     QStringList names;
     for(const auto& method : methods){
         if(names.contains(method.name())){
-            $debug.fatal("OverloadOrDefaultValueFunctionNotSupported", {"name:", method.name()});
+            IAstInfo info;
+            info.reason = QString("name: ").append(method.name());
+            $Ast->fatal("OverloadOrDefaultValueFunctionNotSupported", info);
         }
         names.append(method.name());
     }
@@ -162,7 +163,9 @@ void IControllerInterfaceImpl::checkMappingNameAndFunctionIsMatch(void *handler,
     for(const auto& info : infos){
         auto name = info.first();
         if(!methodNames.contains(name)){
-            $debug.fatal("MappingMismatchFatal", {"name:", name});
+            IAstInfo info;
+            info.reason = QString("name: ").append(name);
+            $Ast->fatal("MappingMismatchFatal", info);
         }
     }
 }
@@ -218,15 +221,21 @@ void IControllerInterfaceImpl::chekcUrlErrorCommon(const QString &url)
         }
 
         if(!urlPieceReg.match(piece).hasMatch()){
-            $debug.fatal("UrlInvalidCharacter", {"url", url});
+            IAstInfo info;
+            info.reason = QString("url: ").append(url);
+            $Ast->fatal("UrlInvalidCharacter", info);
         }
 
         if(piece == "." || piece == ".."){
-            $debug.fatal("UrlError", {"url:", url, "piece:", piece});
+            IAstInfo info;
+            info.reason = QString("url: ").append(url).append(" piece: ").append(piece);
+            $Ast->fatal("UrlError", info);
         }
 
         if(piece.contains(' ') || piece.contains('\t')){
-            $debug.fatal("UrlBlankCharacter", {"url:", url});
+            IAstInfo info;
+            info.reason = QString("url: ").append(url);
+            $Ast->fatal("UrlBlankCharacter", info);
         }
     }
 }
@@ -357,15 +366,17 @@ void IControllerInterfaceImpl::checkMethodSupportedParamArgType(const IUrlFuncti
             bool isSupportedType = IControllerInterfaceImpHelper::isSpecialTypes(typeName)
                                    || IControllerInterfaceImpHelper::isBeanType(typeName);
             if(!isSupportedType){
-                QString info = QString("At Function: ").append(node.functionNode.funExpression)
+                IAstInfo info;
+                info.reason = QString("At Function: ").append(node.functionNode.funExpression)
                                    .append(" At Param: ").append(typeName);
-                $AssertFatal(controller_check_param_Type_has_unsupported_user_defined_type, info)
+                $Ast->fatal("controller_check_param_Type_has_unsupported_user_defined_type", info);
             }
         } else{
             if(!allowType.contains(typeId)){
-                QString info = QString("At Function: ").append(node.functionNode.funExpression)
+                IAstInfo info;
+                info.reason = QString("At Function: ").append(node.functionNode.funExpression)
                                    .append(" At Param: ").append(typeName);
-                $AssertFatal(controller_check_param_Type_has_unsupported_inner_type, info)
+                $Ast->fatal("controller_check_param_Type_has_unsupported_inner_type", info);
             }
         }
     }
@@ -422,8 +433,9 @@ void IControllerInterfaceImpl::checkMethodParamterWithSuffixProper(const IUrlFun
     if(node.httpMethod == IHttpMethod::GET){
         for(const auto& param : argNodes){
             if(param.paramName.endsWith("_body") || param.paramName.endsWith("_content")){
-                QString info = QString("At Function: ").append(node.functionNode.funExpression).append(" Parameter: ").append(param.paramName);
-                $AssertFatal(controller_method_get_but_want_body_content, info);
+                IAstInfo info;
+                info.reason = QString("At Function: ").append(node.functionNode.funExpression).append(" Parameter: ").append(param.paramName);
+                $Ast->fatal("controller_method_get_but_want_body_content", info);
             }
         }
     }
@@ -446,9 +458,10 @@ void IControllerInterfaceImpl::checkMethodParamterWithSuffixSet(const IUrlFuncti
     for(auto param : nodes){
         if(!externalTypes.contains(param.paramType)){
             if(!IControllerInterfaceImpHelper::isParamNameWithSuffix(param.paramName)){
-                QString info = QString("At Function: ").append(node.functionNode.funExpression)
+                IAstInfo info;
+                info.reason = QString("At Function: ").append(node.functionNode.funExpression)
                                    .append(" At Param: ").append(param.paramName);
-                $AssertWarning(irequest_controller_function_with_param_not_marked, info)
+                $Ast->fatal("irequest_controller_function_with_param_not_marked", info);
             }
         }
     }

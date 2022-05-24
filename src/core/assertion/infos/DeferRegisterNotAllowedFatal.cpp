@@ -4,7 +4,7 @@ $PackageWebCoreBegin
 
 QString DeferRegisterNotAllowedFatal::getKey()
 {
-    return "defer_register_not_allowed";
+    return "";
 }
 
 QString DeferRegisterNotAllowedFatal::getReason()

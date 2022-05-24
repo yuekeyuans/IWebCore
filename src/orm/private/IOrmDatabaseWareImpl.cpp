@@ -1,11 +1,13 @@
 ﻿#include "IOrmDatabaseWareImpl.h"
 
-#include "core/assertion/IAssertPreProcessor.h"
 #include "orm/IOrmManage.h"
+#include "orm/IOrmAst.h"
 #include "orm/tableview/IOrmTableInfo.h"
 #include "orm/tableview/IOrmViewInfo.h"
 
 $PackageWebCoreBegin
+
+$UseAst(IOrmAst)
 
 bool IOrmDatabaseWareImpl::openDatabase(IOrmDataSource &datasource)
 {
@@ -81,8 +83,9 @@ void IOrmDatabaseWareImpl::registerView(const IOrmViewInfo &info, const QString 
     }
     QString createSql = sql;
     if(sql.isEmpty()){
-        QString info = QString("orm view ").append(viewName).append(" not exist, and no view create sql exist");
-        $AssertFatal(orm_view_can_not_be_created, info)
+        IAstInfo info;
+        info.reason = QString("orm view ").append(viewName).append(" not exist, and no view create sql exist");
+        $Ast->fatal("orm_view_can_not_be_created", info);
     }
     execSql(createSql);
     m_views.append(viewName);
@@ -109,6 +112,5 @@ void IOrmDatabaseWareImpl::checkViewInfo(const IOrmViewInfo &info)
         qFatal("table has no argument");
     }
 }
-
 
 $PackageWebCoreEnd

@@ -3,10 +3,11 @@
 #include "base/IConstantUtil.h"
 #include "web/response/IResponseWareRaw.h"
 #include "web/response/IRedirectResponse.h"
-#include "core/assertion/IAssertPreProcessor.h"
+#include "web/IWebAst.h"
 
 $PackageWebCoreBegin
 
+$UseAst(IWebAst)
 
 IResponseWare::IResponseWare() : raw(new IResponseWareRaw())
 {
@@ -61,7 +62,7 @@ void IResponseWare::setStatus(IHttpStatus statusCode)
 void IResponseWare::setHeader(const QString &key, const QString &value)
 {
     if(key.isEmpty() || value.isEmpty()){
-        $AssertWarning(iresponse_setHeader_with_empty_value_or_key);
+        $Ast->fatal("iresponse_setHeader_with_empty_value_or_key");
         return;
     }
     raw->headers[key] = value;

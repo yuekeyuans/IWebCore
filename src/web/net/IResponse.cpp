@@ -6,12 +6,12 @@
 #include "web/net/impl/IReqRespRaw.h"
 #include "web/net/impl/IResponseImpl.h"
 #include "web/response/IResponseWare.h"
-#include "web/net/impl/IResponseAst.h"
+#include "web/IWebAst.h"
 
 $PackageWebCoreBegin
 
 $UseGlobalAst();
-$UseAst(IResponseAst)
+$UseAst(IWebAst)
 
 IResponse::IResponse()
 {

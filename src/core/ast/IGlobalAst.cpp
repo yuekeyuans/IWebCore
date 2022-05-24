@@ -8,6 +8,20 @@ void IGlobalAst::fatal(IGlobalAst::Type type)
     this->IAstInterface::fatal(name);
 }
 
+void IGlobalAst::fatal(IGlobalAst::Type type, const IAstInfo &info)
+{
+    QString name = QMetaEnum::fromType<IGlobalAst::Type>().valueToKey(type);
+    this->IAstInterface::fatal(name, info);
+}
+
+void IGlobalAst::fatal(IGlobalAst::Type type, const QString &reason)
+{
+    IAstInfo info;
+    info.reason = reason;
+    QString name = QMetaEnum::fromType<IGlobalAst::Type>().valueToKey(type);
+    this->IAstInterface::fatal(name, info);
+}
+
 void IGlobalAst::fatal(const QString &name)
 {
     this->IAstInterface::fatal(name);
@@ -15,6 +29,13 @@ void IGlobalAst::fatal(const QString &name)
 
 void IGlobalAst::fatal(const QString &name, const IAstInfo &info)
 {
+    this->IAstInterface::fatal(name, info);
+}
+
+void IGlobalAst::fatal(const QString &name, const QString &reason)
+{
+    IAstInfo info;
+    info.reason = reason;
     this->IAstInterface::fatal(name, info);
 }
 
@@ -30,6 +51,10 @@ void IGlobalAst::loadFromFunction()
              , "change your code, or ignore this warning");
 
     addFatal("ConfigurationMergeJsonValueError");
+    addFatal("ConfigurationCovertYamlFailError");
+    addFatal("ConfigurationResolveJsonError");
+
+    addFatal("TaskDeferRegisterNotAllowed");
 }
 
 $PackageWebCoreEnd

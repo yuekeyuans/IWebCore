@@ -7,7 +7,7 @@ QString ConfigurationAssertion::getAssertInfo()
     return R"(
 [
     {
-        "key" : "configuration_json_resolve_fatal",
+        "key" : "",
         "reason": "",
         "description" : "",
         "solution" : ""

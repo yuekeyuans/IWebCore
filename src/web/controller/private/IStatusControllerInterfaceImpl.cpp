@@ -1,9 +1,10 @@
 ﻿#include "IStatusControllerInterfaceImpl.h"
 
-#include "core/assertion/IAssertDetail.h"
-#include "core/assertion/IAssertPreProcessor.h"
+#include "web/IWebAst.h"
 
 $PackageWebCoreBegin
+
+$UseAst(IWebAst)
 
 static const char* const StatusControllerPrefix = "iwebStatusFun$";
 
@@ -26,30 +27,19 @@ QVector<IStatusFunctionNode> IStatusControllerInterfaceImpl::generateStatusFunct
         auto statusName = clsInfo[key];
         auto status = IHttpStatusHelper::toStatus(statusName);
         if(status == IHttpStatus::UNKNOWN){
-
-            IAssertDetail detail;
-            detail[IAssertDetail::Function] = funName;
-            detail["statusName"] = statusName;
-            $AssertFatal(error_in_register_status_with_code, detail)
-
-//            $Fatal().setMessage("there exist error in register status code class.")
-//                    .setExtra("funName", funName)
-//                    .setExtra("statusName", statusName)
-//                    .fatal();
+            IAstInfo info;
+            info.function= funName;
+            info.reason = QString("statusName: ").append(statusName);
+            $Ast->fatal("error_in_register_status_with_code", info);
         }
 
         auto methodIter = std::find_if(methods.begin(), methods.end(), [=](const QMetaMethod& method){
             return method.name() == funName;
         });
         if(methodIter == methods.end()){
-            IAssertDetail detail;
-            detail[IAssertDetail::Function] = funName;
-            $AssertFatal(error_register_status_with_no_function, detail)
-
-
-//            $Fatal().setMessage("In define Status Intercept, can not find a certain function")
-//                    .setExtra("certain funName", funName)
-//                    .fatal();
+            IAstInfo info;
+            info.function = funName;
+            $Ast->fatal("error_register_status_with_no_function", info);
         }
         QMetaMethod method = *methodIter;
 
@@ -74,20 +64,20 @@ void IStatusControllerInterfaceImpl::checkStatusNodes(const QVector<IStatusFunct
 void IStatusControllerInterfaceImpl::checkStatusType(const IStatusFunctionNode &node)
 {
     if(node.httpStatus == IHttpStatus::OK_200){
-        IAssertDetail detail;
-        detail[IAssertDetail::Function] = node.functionNode.funExpression;
-        detail["curStatus"] = IHttpStatusHelper::toString(node.httpStatus);
-        $AssertFatal(register_status_not_allow_200_ok, detail)
+        IAstInfo info;
+        info.function = node.functionNode.funExpression;
+        info.reason = QString("curStatus: ").append(IHttpStatusHelper::toString(node.httpStatus));
+        $Ast->fatal("register_status_not_allow_200_ok", info);
     }
 }
 
 void IStatusControllerInterfaceImpl::checkReturnType(const IStatusFunctionNode &node)
 {
     if(node.functionNode.funReturnTypeId != QMetaType::Void){
-        IAssertDetail detail;
-        detail[IAssertDetail::Function] = node.functionNode.funExpression;
-        detail[IAssertDetail::ReturnType] = node.functionNode.funRetunType;
-        $AssertFatal(register_status_function_must_return_void, detail)
+        IAstInfo info;
+        info.function = node.functionNode.funExpression;
+        info.returnType = node.functionNode.funRetunType;
+        $Ast->fatal("register_status_function_must_return_void", info);
     }
 }
 
@@ -104,9 +94,9 @@ void IStatusControllerInterfaceImpl::checkInputArgs(const IStatusFunctionNode &n
     for(auto type : node.functionNode.funParamTypes){
         types.append(type);
     }
-    IAssertDetail detail;
-    detail[IAssertDetail::Parameter] = types.join(", ");
-    $AssertFatal(register_status_param_must_be_specific, detail)
+    IAstInfo info;
+    info.paramterType = types.join(", ");
+    $Ast->fatal("register_status_param_must_be_specific", info);
 }
 
 $PackageWebCoreEnd

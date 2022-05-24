@@ -1,8 +1,10 @@
 ﻿#include "IOrmConditionImpl.h"
 #include "orm/ISqlQuery.h"
-#include "core/assertion/IAssertPreProcessor.h"
+#include "orm/IOrmAst.h"
 
 $PackageWebCoreBegin
+
+$UseAst(IOrmAst)
 
 static const char* const Sql_AndString= " AND ";
 static const int         Sql_AndLength = 5;
@@ -258,10 +260,9 @@ QString IOrmConditionImpl::toWhereClause() const
     }
 
     if(where.startsWith(Sql_OrString)){
-        IAssertDetail detail;
-        detail["origin sql"] = where;
-        $AssertWarning(where_sql_start_with_OR, detail);
-
+        IAstInfo info;
+        info.reason = QString("OriginSql: ").append(where);
+        $Ast->warn("where_sql_start_with_OR");
         return QString("WHERE ").append(where.midRef(Sql_OrLength));
     }
 
@@ -320,17 +321,17 @@ QString IOrmConditionImpl::toWhereClausePrivate() const
 
     // 处理 or 开头的内容
     if(clause.startsWith(Sql_OrString)){
-        IAssertDetail detail;
-        detail["origin Sql"] = clause;
-        $AssertWarning(where_sql_start_with_OR, detail)
+        IAstInfo info;
+        info.reason = QString("originSql:").append(clause);
+        $Ast->warn("where_sql_start_with_OR", info);
         return clause;
     }
 
     // 处理 NOT 开头的内容
     if(clause.startsWith(Sql_NotString)){
-        IAssertDetail detail;
-        detail["origin Sql"] = clause;
-        $AssertWarning(where_sql_start_with_NOT, detail)
+        IAstInfo info;
+        info.reason = QString("originSql:").append(clause);
+        $Ast->warn("where_sql_start_with_NOT", info);
     }
     return clause;
 }
