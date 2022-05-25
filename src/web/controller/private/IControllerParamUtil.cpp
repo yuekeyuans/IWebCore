@@ -2,7 +2,6 @@
 
 #include "base/IJsonUtil.h"
 #include "base/IToeUtil.h"
-#include "core/assertion/IAssertPreProcessor.h"
 #include "core/bean/IBeanWare.h"
 #include "core/bean/ITypeManage.h"
 #include "core/task/ITaskManage.h"

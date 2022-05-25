@@ -6,13 +6,6 @@ PRECOMPILED_HEADER = $$PWD/base/IHeaderUtil.h
 
 HEADERS += \
     $$PWD/core/application/IApplication.h \
-    $$PWD/core/assertion/IAssertDetail.h \
-    $$PWD/core/assertion/IAssertJsonInterface.h \
-    $$PWD/core/assertion/infos/ConfigurationAssertion.h \
-    $$PWD/core/assertion/infos/ControllerFatalAssertion.h \
-    $$PWD/core/assertion/infos/ControllerWarnAssertion.h \
-    $$PWD/core/assertion/infos/DeferRegisterNotAllowedFatal.h \
-    $$PWD/core/assertion/infos/OrmWarnAssertion.h \
     $$PWD/base/ICodecUtil.h \
     $$PWD/base/IConstantUtil.h \
     $$PWD/base/IConvertUtil.h \
@@ -122,10 +115,6 @@ HEADERS += \
     $$PWD/web/controller/private/IControllerParamUtil.h \
     $$PWD/web/controller/private/IDefaultStatusController.h \
     $$PWD/web/controller/private/IStatusControllerInterfaceImpl.h \
-    $$PWD/core/assertion/IAssertInfoList.h \
-    $$PWD/core/assertion/IAssertInterface.h \
-    $$PWD/core/assertion/IAssertManage.h \
-    $$PWD/core/assertion/IAssertPreProcessor.h \
     $$PWD/core/application/IArgumentTaskInterface.h \
     $$PWD/orm/IOrmManage.h \
     $$PWD/orm/IOrmUtil.h \
@@ -177,14 +166,6 @@ HEADERS += \
 
 SOURCES += \
     $$PWD/core/application/IApplication.cpp \
-    $$PWD/core/assertion/IAssertDetail.cpp \
-    $$PWD/core/assertion/IAssertInfoList.cpp \
-    $$PWD/core/assertion/IAssertJsonInterface.cpp \
-    $$PWD/core/assertion/infos/ConfigurationAssertion.cpp \
-    $$PWD/core/assertion/infos/ControllerFatalAssertion.cpp \
-    $$PWD/core/assertion/infos/ControllerWarnAssertion.cpp \
-    $$PWD/core/assertion/infos/DeferRegisterNotAllowedFatal.cpp \
-    $$PWD/core/assertion/infos/OrmWarnAssertion.cpp \
     $$PWD/base/ICodecUtil.cpp \
     $$PWD/base/IConvertUtil.cpp \
     $$PWD/base/IFileUtil.cpp \
@@ -273,8 +254,6 @@ SOURCES += \
     $$PWD/web/controller/private/IControllerParamUtil.cpp \
     $$PWD/web/controller/private/IDefaultStatusController.cpp \
     $$PWD/web/controller/private/IStatusControllerInterfaceImpl.cpp \
-    $$PWD/core/assertion/IAssertInterface.cpp \
-    $$PWD/core/assertion/IAssertManage.cpp \
     $$PWD/core/application/IArgumentTaskInterface.cpp \
     $$PWD/orm/IOrmManage.cpp \
     $$PWD/orm/IOrmUtil.cpp \
