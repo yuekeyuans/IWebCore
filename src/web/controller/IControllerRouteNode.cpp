@@ -10,67 +10,52 @@ $UseAssert(IWebAssert)
 IControllerRouteNode::IControllerRouteNode(IControllerRouteNode*parent, const QString& nodeName)
 {
     this->parentNode = parent;
+
+    leavesMap = {
+        {IHttpMethod::GET,      &this->getMethodLeaf },
+        {IHttpMethod::POST,     &this->postMethodLeaf },
+        {IHttpMethod::PUT,      &this->putMethodLeaf },
+        {IHttpMethod::DELETED,  &this->deleteMethodLeaf },
+        {IHttpMethod::PATCH,    &this->patchMethodLeaf },
+        {IHttpMethod::HEAD,     &this->getMethodLeaf}
+    };
+
     evaluateNode(nodeName);
 }
 
 IUrlFunctionNode* IControllerRouteNode::setLeaf(const IUrlFunctionNode &leafNode)
 {
-    QMap<IHttpMethod, IUrlFunctionNode**> map = {
-        {IHttpMethod::GET,      &this->getMethodLeaf },
-        {IHttpMethod::POST,     &this->postMethodLeaf },
-        {IHttpMethod::PUT,      &this->putMethodLeaf },
-        {IHttpMethod::DELETED,  &this->deleteMethodLeaf },
-        {IHttpMethod::PATCH,    &this->patchMethodLeaf }
-    };
-
-    auto ptr = map[leafNode.httpMethod];
+    auto ptr = leavesMap[leafNode.httpMethod];
     if(*ptr != nullptr){
-        auto leaf = new IUrlFunctionNode(leafNode);
-        leaf->parentNode = this;
-        *ptr = leaf;
-    }else{
-        qFatal("registration can`t match the leaf or the leaf already exist");
+        delete *ptr;
+        *ptr = nullptr;
+        $Ast->warn("register_the_same_url");
     }
+
+    auto leaf = new IUrlFunctionNode(leafNode);
+    leaf->parentNode = this;
+    *ptr = leaf;
+
     return nullptr;
 }
 
 // @see https://hc.apache.org/httpclient-legacy/methods/head.html
 IUrlFunctionNode* IControllerRouteNode::getLeaf(IHttpMethod method)
 {
-    switch (method) {
-    case IHttpMethod::GET:
-        return this->getMethodLeaf;
-    case IHttpMethod::PUT:
-        return this->putMethodLeaf;
-    case IHttpMethod::POST:
-        return this->postMethodLeaf;
-    case IHttpMethod::DELETED:
-        return this->deleteMethodLeaf;
-    case IHttpMethod::PATCH:
-        return this->patchMethodLeaf;
-    case IHttpMethod::HEAD:
-        return this->getMethodLeaf;                     // @see IResponse::respond
-    case IHttpMethod::OPTIONS:
-        break;                                          // @see IHttpSocketBase::handleOptionsRequest
-    default:
+    if(method == IHttpMethod::OPTIONS){
         return nullptr;
     }
-    return nullptr;
+
+    return *leavesMap[method];
 }
 
-IUrlFunctionNode *IControllerRouteNode::removeLeaf(IHttpMethod method)
+void IControllerRouteNode::removeLeaf(IHttpMethod method)
 {
-    QMap<IHttpMethod, IUrlFunctionNode**> map = {
-        {IHttpMethod::GET,      &this->getMethodLeaf },
-        {IHttpMethod::POST,     &this->postMethodLeaf },
-        {IHttpMethod::PUT,      &this->putMethodLeaf },
-        {IHttpMethod::DELETED,  &this->deleteMethodLeaf },
-        {IHttpMethod::PATCH,    &this->patchMethodLeaf }
-    };
-
-    auto leaf = *map[method];
-    *map[method] = nullptr;
-    return leaf;
+    auto ptr = leavesMap[method];
+    if(*ptr != nullptr){
+        delete *ptr;
+        *ptr = nullptr;
+    }
 }
 
 void IControllerRouteNode::addChildNode(const IControllerRouteNode& node)

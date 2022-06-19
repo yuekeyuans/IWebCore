@@ -25,7 +25,7 @@ public:
 
     IUrlFunctionNode* setLeaf(const IUrlFunctionNode& leaf);
     IUrlFunctionNode* getLeaf(IHttpMethod method);
-    IUrlFunctionNode* removeLeaf(IHttpMethod method);
+    void removeLeaf(IHttpMethod method);
 
     void addChildNode(const IControllerRouteNode& node);
     QVector<IControllerRouteNode*> getChildNodes(const QString nodeName);
@@ -53,6 +53,8 @@ public:
     ValidateFun funValidator;               // 使用 函数 验证数据是否正确
 
     QList<IControllerRouteNode> children;
+
+    QMap<IHttpMethod, IUrlFunctionNode**> leavesMap;
     IUrlFunctionNode *getMethodLeaf{nullptr};
     IUrlFunctionNode *putMethodLeaf{nullptr};
     IUrlFunctionNode *postMethodLeaf{nullptr};
