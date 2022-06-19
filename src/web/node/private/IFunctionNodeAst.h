@@ -1,14 +1,14 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "core/ast/IAstInterface.h"
+#include "core/asset/IAssetInterface.h"
 
 $PackageWebCoreBegin
 
-class IFunctionNodeAst : public IAstInterface
+class IFunctionNodeAst : public IAssetInterface
 {
     Q_GADGET
-    $AsAst(IFunctionNodeAst)
+    $AsAsset(IFunctionNodeAst)
 public:
     IFunctionNodeAst() = default;
 

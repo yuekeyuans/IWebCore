@@ -7,7 +7,7 @@
 
 $PackageWebCoreBegin
 
-$UseAst(IOrmAst)
+$UseAsset(IOrmAst)
 
 bool IOrmDatabaseWareImpl::openDatabase(IOrmDataSource &datasource)
 {
@@ -83,7 +83,7 @@ void IOrmDatabaseWareImpl::registerView(const IOrmViewInfo &info, const QString 
     }
     QString createSql = sql;
     if(sql.isEmpty()){
-        IAstInfo info;
+        IAssetInfo info;
         info.reason = QString("orm view ").append(viewName).append(" not exist, and no view create sql exist");
         $Ast->fatal("orm_view_can_not_be_created", info);
     }

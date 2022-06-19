@@ -21,7 +21,7 @@
 
 $PackageWebCoreBegin
 
-$UseAst(IWebAst)
+$UseAsset(IWebAst)
 
 // show me something that should not be wrong
 static const QString GiveColorSeeSee = QStringLiteral("浪额康康四辣锅削阔爱");

@@ -12,7 +12,7 @@
 
 $PackageWebCoreBegin
 
-$UseAst(IWebAst)
+$UseAsset(IWebAst)
 
 void* IControllerParamBeanUtil::getParamOfBean(const IFunctionParamNode &node, IRequest &request)
 {
@@ -155,7 +155,7 @@ void *IControllerParamBeanUtil::assambleBeanWareWithMixed(IBeanWare *bean, IRequ
                 continue;
             }
 
-            IAstInfo info;
+            IAssetInfo info;
             info.reason = QString( "bean inner parameter not found. name : ").append(prop.name());
             if(isBeanResoveStrictMode()){
                 request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
@@ -170,7 +170,7 @@ void *IControllerParamBeanUtil::assambleBeanWareWithMixed(IBeanWare *bean, IRequ
             if(bean->isIgnorableField(prop.propertyIndex())){
                 continue;
             }
-            IAstInfo info;
+            IAssetInfo info;
             info.reason = QString( "bean inner parameter format not correct. name : ").append(prop.name());
             if(isBeanResoveStrictMode()){
                 request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
@@ -289,7 +289,7 @@ QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QL
             if(bean->isIgnorableField(prop.propertyIndex())){
                 continue;
             }
-            IAstInfo info;
+            IAssetInfo info;
             info.reason = QString(prop.name()).append(" format not correct");
             if(isBeanResoveStrictMode()){
                 IToeUtil::setOk(ok, false);
@@ -321,7 +321,7 @@ QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QM
             if(bean->isIgnorableField(prop.propertyIndex())){
                 continue;
             }
-            IAstInfo info;
+            IAssetInfo info;
             info.reason = QString(prop.name()).append(" format not correct");
             if(isBeanResoveStrictMode()){
                 IToeUtil::setOk(ok, false);
@@ -354,7 +354,7 @@ QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QV
                 if(bean->isIgnorableField(prop.propertyIndex())){
                     continue;
                 }
-                IAstInfo info;
+                IAssetInfo info;
                 info.reason = QString(prop.name()).append(" format not correct");
                 if(isBeanResoveStrictMode()){
                     IToeUtil::setOk(ok, false);
@@ -384,7 +384,7 @@ bool IControllerParamBeanUtil::checkKeyInJsonAndBean(const QJsonObject &obj, IBe
         }
 
         if(!obj.contains(prop.name())){
-            IAstInfo info;
+            IAssetInfo info;
             info.reason = QString("json do not contain pair :").append(prop.name());
             if(isBeanResoveStrictMode()){
                 request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
@@ -415,7 +415,7 @@ bool IControllerParamBeanUtil::checkKeyInMultiPart(const QVector<IMultiPart> &pa
         }
 
         if(!multiPartNames.contains(prop.name())){
-            IAstInfo info;
+            IAssetInfo info;
             info.reason = QString(prop.name()).append(" not found");
             if(isBeanResoveStrictMode()){
                 request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
@@ -468,7 +468,7 @@ bool IControllerParamBeanUtil::checkKeyInQStringMap(const QMap<QString, QString>
         }
 
         if(!map.contains(prop.name())){
-            IAstInfo info;
+            IAssetInfo info;
             info.reason = QString(prop.name()).append(" not found");
             if(isBeanResoveStrictMode()){
                 request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);

@@ -4,10 +4,10 @@
 
 $PackageWebCoreBegin
 
-class IAstInfo
+class IAssetInfo
 {
 public:
-    IAstInfo() = default;
+    IAssetInfo() = default;
 
     operator QString() const;
 

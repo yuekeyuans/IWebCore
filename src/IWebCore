@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "core/core"
+#include "core/core.h"
 #include "base/base"
 #include "web/common"
 #include "orm/orm"

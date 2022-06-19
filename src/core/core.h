@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "core/application/IArgumentTaskInterface.h"
 #include "core/application/IApplication.h"

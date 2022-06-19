@@ -2,11 +2,11 @@
 
 #include "Yaml.hpp"
 #include "base/IToeUtil.h"
-#include "core/ast/IGlobalAst.h"
+#include "core/asset/IGlobalAsset.h"
 
 $PackageWebCoreBegin
 
-$UseGlobalAst()
+$UseGlobalAsset()
 
 namespace IYamlHelper{
     QJsonArray toArray(const Yaml::Node& node);
@@ -23,9 +23,9 @@ QJsonObject IYamlUtil::toJsonObject(const QString &content, bool* ok)
         Yaml::Parse(root, content.toStdString());
     } catch (Yaml::ParsingException e) {
         IToeUtil::setOk(ok, false);
-        IAstInfo info;
+        IAssetInfo info;
         info.reason = e.what();
-        $GlobalAst->fatal(IGlobalAst::ConfigurationCovertYamlFailError, info);    // actually, it need not ok, but for compat, write here for future.
+        $GlobalAsset->fatal(IGlobalAsset::ConfigurationCovertYamlFailError, info);    // actually, it need not ok, but for compat, write here for future.
     }
     if(root.IsMap()){
         return IYamlHelper::toObject(root);

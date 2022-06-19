@@ -4,7 +4,7 @@
 
 $PackageWebCoreBegin
 
-$UseAst(IWebAst)
+$UseAsset(IWebAst)
 
 static const char* const StatusControllerPrefix = "iwebStatusFun$";
 
@@ -27,7 +27,7 @@ QVector<IStatusFunctionNode> IStatusControllerInterfaceImpl::generateStatusFunct
         auto statusName = clsInfo[key];
         auto status = IHttpStatusHelper::toStatus(statusName);
         if(status == IHttpStatus::UNKNOWN){
-            IAstInfo info;
+            IAssetInfo info;
             info.function= funName;
             info.reason = QString("statusName: ").append(statusName);
             $Ast->fatal("error_in_register_status_with_code", info);
@@ -37,7 +37,7 @@ QVector<IStatusFunctionNode> IStatusControllerInterfaceImpl::generateStatusFunct
             return method.name() == funName;
         });
         if(methodIter == methods.end()){
-            IAstInfo info;
+            IAssetInfo info;
             info.function = funName;
             $Ast->fatal("error_register_status_with_no_function", info);
         }
@@ -64,7 +64,7 @@ void IStatusControllerInterfaceImpl::checkStatusNodes(const QVector<IStatusFunct
 void IStatusControllerInterfaceImpl::checkStatusType(const IStatusFunctionNode &node)
 {
     if(node.httpStatus == IHttpStatus::OK_200){
-        IAstInfo info;
+        IAssetInfo info;
         info.function = node.functionNode.funExpression;
         info.reason = QString("curStatus: ").append(IHttpStatusHelper::toString(node.httpStatus));
         $Ast->fatal("register_status_not_allow_200_ok", info);
@@ -74,7 +74,7 @@ void IStatusControllerInterfaceImpl::checkStatusType(const IStatusFunctionNode &
 void IStatusControllerInterfaceImpl::checkReturnType(const IStatusFunctionNode &node)
 {
     if(node.functionNode.funReturnTypeId != QMetaType::Void){
-        IAstInfo info;
+        IAssetInfo info;
         info.function = node.functionNode.funExpression;
         info.returnType = node.functionNode.funRetunType;
         $Ast->fatal("register_status_function_must_return_void", info);
@@ -94,7 +94,7 @@ void IStatusControllerInterfaceImpl::checkInputArgs(const IStatusFunctionNode &n
     for(auto type : node.functionNode.funParamTypes){
         types.append(type);
     }
-    IAstInfo info;
+    IAssetInfo info;
     info.paramterType = types.join(", ");
     $Ast->fatal("register_status_param_must_be_specific", info);
 }

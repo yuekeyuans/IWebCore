@@ -1,10 +1,10 @@
 ﻿#pragma once
 
-#include "IAstInfo.h"
+#include "IAssetInfo.h"
 #include "base/IJsonUtil.h"
 #include "base/IMetaUtil.h"
 
-#define $AsAst(klassName)   \
+#define $AsAsset(klassName)   \
 public:     \
     static klassName* instance(){   \
         static klassName inst;  \
@@ -13,15 +13,15 @@ public:     \
     }   \
 private:
 
-#define $UseGlobalAst() \
-    $UseAst(IGlobalAst, $GlobalAst)
+#define $UseGlobalAsset() \
+    $UseAsset(IGlobalAsset, $GlobalAsset)
 
-#define $UseAst_1(klassName)  \
+#define $UseAsset_1(klassName)  \
     static klassName* $Ast = klassName::instance();
 
-#define $UseAst_2(klassName, name)  \
+#define $UseAsset_2(klassName, name)  \
     static klassName* name = klassName::instance();
 
-#define $UseAst_(N) $UseAst_##N
-#define $UseAst_EVAL(N) $UseAst_(N)
-#define $UseAst(...) PP_EXPAND( $UseAst_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
+#define $UseAsset_(N) $UseAsset_##N
+#define $UseAsset_EVAL(N) $UseAsset_(N)
+#define $UseAsset(...) PP_EXPAND( $UseAsset_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )

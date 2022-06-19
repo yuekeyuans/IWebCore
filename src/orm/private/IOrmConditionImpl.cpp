@@ -4,7 +4,7 @@
 
 $PackageWebCoreBegin
 
-$UseAst(IOrmAst)
+$UseAsset(IOrmAst)
 
 static const char* const Sql_AndString= " AND ";
 static const int         Sql_AndLength = 5;
@@ -260,7 +260,7 @@ QString IOrmConditionImpl::toWhereClause() const
     }
 
     if(where.startsWith(Sql_OrString)){
-        IAstInfo info;
+        IAssetInfo info;
         info.reason = QString("OriginSql: ").append(where);
         $Ast->warn("where_sql_start_with_OR");
         return QString("WHERE ").append(where.midRef(Sql_OrLength));
@@ -321,7 +321,7 @@ QString IOrmConditionImpl::toWhereClausePrivate() const
 
     // 处理 or 开头的内容
     if(clause.startsWith(Sql_OrString)){
-        IAstInfo info;
+        IAssetInfo info;
         info.reason = QString("originSql:").append(clause);
         $Ast->warn("where_sql_start_with_OR", info);
         return clause;
@@ -329,7 +329,7 @@ QString IOrmConditionImpl::toWhereClausePrivate() const
 
     // 处理 NOT 开头的内容
     if(clause.startsWith(Sql_NotString)){
-        IAstInfo info;
+        IAssetInfo info;
         info.reason = QString("originSql:").append(clause);
         $Ast->warn("where_sql_start_with_NOT", info);
     }

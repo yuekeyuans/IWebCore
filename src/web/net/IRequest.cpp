@@ -3,7 +3,7 @@
 #include "base/IJsonUtil.h"
 #include "base/IXmlUtil.h"
 #include "base/IToeUtil.h"
-#include "core/ast/IGlobalAst.h"
+#include "core/asset/IGlobalAsset.h"
 #include "web/biscuits/IHttpHeader.h"
 #include "web/net/impl/IRequestImpl.h"
 #include "web/net/impl/IReqRespRaw.h"
@@ -12,7 +12,7 @@
 
 $PackageWebCoreBegin
 
-$UseGlobalAst()
+$UseGlobalAsset()
 
 IRequest::IRequest()
 {
@@ -56,7 +56,7 @@ ICookieJar *IRequest::cookieJar() const
 
 ISessionJar *IRequest::sessionJar() const
 {
-    $GlobalAst->fatal(IGlobalAst::UnImplimentedMethod);
+    $GlobalAsset->fatal(IGlobalAsset::UnImplimentedMethod);
     return &raw->m_sessionJar;
 }
 
@@ -77,7 +77,7 @@ IHttpVersion IRequest::version() const
 
 IHttpCharset IRequest::charset() const
 {
-    $GlobalAst->fatal(IGlobalAst::UnImplimentedMethod);
+    $GlobalAsset->fatal(IGlobalAsset::UnImplimentedMethod);
     return IHttpCharset::UTF_8;
 }
 

@@ -21,15 +21,16 @@ HEADERS += \
     $$PWD/base/IToeUtil.h \
     $$PWD/base/ITraitHelper.h \
     $$PWD/base/IXmlUtil.h \
-    $$PWD/core/ast/IAstInfo.h \
-    $$PWD/core/ast/IAstInterface.h \
-    $$PWD/core/ast/IAstPreProcessor.h \
-    $$PWD/core/ast/IGlobalAst.h \
+    $$PWD/core/asset/IAssetInfo.h \
+    $$PWD/core/asset/IAssetInterface.h \
+    $$PWD/core/asset/IAstPreProcessor.h \
+    $$PWD/core/asset/IGlobalAsset.h \
     $$PWD/core/bean/IBeanInterface.h \
     $$PWD/core/bean/IBeanPreProcessor.h \
     $$PWD/core/bean/IBeanWare.h \
     $$PWD/core/bean/IGadgetUnit.h \
     $$PWD/core/bean/ITypeManage.h \
+    $$PWD/core/core.h \
     $$PWD/orm/IOrmAst.h \
     $$PWD/web/IInterceptInterface.h \
     $$PWD/web/IManage.h \
@@ -180,9 +181,9 @@ SOURCES += \
     $$PWD/base/IToeUtil.cpp \
     $$PWD/base/ITraitHelper.cpp \
     $$PWD/base/IXmlUtil.cpp \
-    $$PWD/core/ast/IAstInfo.cpp \
-    $$PWD/core/ast/IAstInterface.cpp \
-    $$PWD/core/ast/IGlobalAst.cpp \
+    $$PWD/core/asset/IAssetInfo.cpp \
+    $$PWD/core/asset/IAssetInterface.cpp \
+    $$PWD/core/asset/IGlobalAsset.cpp \
     $$PWD/core/bean/IBeanInterface.cpp \
     $$PWD/core/bean/IBeanWare.cpp \
     $$PWD/core/bean/IGadgetUnit.cpp \
@@ -301,9 +302,9 @@ SOURCES += \
 
 DISTFILES += \
     $$PWD/IWebCore \
-    $$PWD/core/core \
     $$PWD/base/base \
     $$PWD/core/bean/bean \
+    $$PWD/core/core.h \
     $$PWD/web/common \
     $$PWD/core/configuration/configuration \
     $$PWD/web/controller/controller \

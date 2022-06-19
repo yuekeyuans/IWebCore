@@ -1,8 +1,8 @@
-﻿#include "IAstInfo.h"
+﻿#include "IAssetInfo.h"
 
 $PackageWebCoreBegin
 
-IAstInfo::operator QString() const
+IAssetInfo::operator QString() const
 {
     QString ret;
     if(!file.isEmpty()){
