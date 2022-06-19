@@ -1,8 +1,11 @@
 ﻿#include "IControllerRouteNode.h"
 #include "IControllerManage.h"
+#include "web/IWebAssert.h"
 #include "web/node/IUrlFunctionNode.h"
 
 $PackageWebCoreBegin
+
+$UseAssert(IWebAssert)
 
 IControllerRouteNode::IControllerRouteNode(IControllerRouteNode*parent, const QString& nodeName)
 {
@@ -20,15 +23,14 @@ IUrlFunctionNode* IControllerRouteNode::setLeaf(const IUrlFunctionNode &leafNode
         {IHttpMethod::PATCH,    &this->patchMethodLeaf }
     };
 
-    auto leaf = new IUrlFunctionNode(leafNode);
-    leaf->parentNode = this;
-    for(auto key : map.keys()){
-        if(leaf->httpMethod == key && *map[key] == nullptr){
-            *map[key] = leaf;
-            return leaf;
-        }
+    auto ptr = map[leafNode.httpMethod];
+    if(*ptr != nullptr){
+        auto leaf = new IUrlFunctionNode(leafNode);
+        leaf->parentNode = this;
+        *ptr = leaf;
+    }else{
+        qFatal("registration can`t match the leaf or the leaf already exist");
     }
-    qFatal("registration can`t match the leaf or the leaf already exist");
     return nullptr;
 }
 
@@ -54,6 +56,21 @@ IUrlFunctionNode* IControllerRouteNode::getLeaf(IHttpMethod method)
         return nullptr;
     }
     return nullptr;
+}
+
+IUrlFunctionNode *IControllerRouteNode::removeLeaf(IHttpMethod method)
+{
+    QMap<IHttpMethod, IUrlFunctionNode**> map = {
+        {IHttpMethod::GET,      &this->getMethodLeaf },
+        {IHttpMethod::POST,     &this->postMethodLeaf },
+        {IHttpMethod::PUT,      &this->putMethodLeaf },
+        {IHttpMethod::DELETED,  &this->deleteMethodLeaf },
+        {IHttpMethod::PATCH,    &this->patchMethodLeaf }
+    };
+
+    auto leaf = *map[method];
+    *map[method] = nullptr;
+    return leaf;
 }
 
 void IControllerRouteNode::addChildNode(const IControllerRouteNode& node)
@@ -114,6 +131,19 @@ IControllerRouteNode *IControllerRouteNode::getOrAppendChildNode(const QString &
         this->addChildNode(childNode);
     }
 
+    for(auto& child : children){
+        if(child.fragment == nodeName){
+            return &child;
+        }
+    }
+    return nullptr;
+}
+
+IControllerRouteNode *IControllerRouteNode::getChildNode(const QString &nodeName)
+{
+    if(!this->contains(nodeName)){
+        return nullptr;
+    }
     for(auto& child : children){
         if(child.fragment == nodeName){
             return &child;

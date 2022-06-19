@@ -25,11 +25,14 @@ public:
 
     IUrlFunctionNode* setLeaf(const IUrlFunctionNode& leaf);
     IUrlFunctionNode* getLeaf(IHttpMethod method);
+    IUrlFunctionNode* removeLeaf(IHttpMethod method);
 
     void addChildNode(const IControllerRouteNode& node);
     QVector<IControllerRouteNode*> getChildNodes(const QString nodeName);
     QVector<IControllerRouteNode*> getParentNodes();
     IControllerRouteNode* getOrAppendChildNode(const QString& nodeName);
+    IControllerRouteNode* getChildNode(const QString& nodeName);
+
     void travelPrint(int space=0) const;
 
 private:

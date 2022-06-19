@@ -47,10 +47,11 @@ void IControllerManage::registerStatusFunctions(const QVector<IStatusFunctionNod
     }
 }
 
-void IControllerManage::registerUrlFunctions(const QVector<IUrlFunctionNode> &functionLeaves)
+/// 注册 url 处理
+void IControllerManage::registerUrlFunctions(const QVector<IUrlFunctionNode> &functionNodes)
 {
     auto inst = instance();
-    for(auto& leaf : functionLeaves){
+    for(auto& leaf : functionNodes){
         auto fragments = leaf.url.split("/");
         auto nodePtr = inst->m_urlMapppings.get();
         for(auto it=fragments.begin(); it!= fragments.end(); ++it){
@@ -60,6 +61,33 @@ void IControllerManage::registerUrlFunctions(const QVector<IUrlFunctionNode> &fu
         }
         auto newLeaf = nodePtr->setLeaf(leaf);
         checkUrlDuplicateName(newLeaf);
+    }
+}
+
+/// 反注册 url 处理 ， 即卸载 url 处理过程
+void IControllerManage::unRegisterUrlFunctions(const QVector<IUrlFunctionNode> &functionNodes)
+{
+    auto inst = instance();
+    for(auto& leaf : functionNodes){
+        auto fragments = leaf.url.split("/");
+        auto nodePtr = inst->m_urlMapppings.get();
+
+        QList<IControllerRouteNode*> nodes;
+        nodes.append(nodePtr);
+        for(auto it=fragments.begin(); it!= fragments.end(); ++it){
+            if(!it->isEmpty()){
+                nodePtr = nodePtr->getChildNode(*it);
+                if(nodePtr == nullptr){
+                    return;                  // 结束处理，因为灭有相对应的内容
+                }
+
+                nodes.prepend(nodePtr);
+            }
+        }
+        for(auto node : nodes){
+            node->getLeaf(leaf.httpMethod);
+        }
+
     }
 }
 

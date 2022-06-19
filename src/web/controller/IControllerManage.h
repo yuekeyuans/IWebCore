@@ -26,7 +26,10 @@ public:
     using ValidatorFun = bool (*)(const QString&);
 
     static void registerStatusFunctions(const QVector<IStatusFunctionNode>& statusNodes);
+
     static void registerUrlFunctions(const QVector<IUrlFunctionNode>& functionNodes);
+    static void unRegisterUrlFunctions(const QVector<IUrlFunctionNode>& functionNodes);
+
     static void registerPathValidator(const QString& name, const QString& regexp);
     static void registerPathValidator(const QString& name, ValidatorFun fun);
 
