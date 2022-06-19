@@ -3,11 +3,11 @@
 #include "base/IConstantUtil.h"
 #include "web/response/IResponseWareRaw.h"
 #include "web/response/IRedirectResponse.h"
-#include "web/IWebAst.h"
+#include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAst)
+$UseAssert(IWebAssert)
 
 IResponseWare::IResponseWare() : raw(new IResponseWareRaw())
 {

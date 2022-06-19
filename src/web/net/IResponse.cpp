@@ -6,12 +6,12 @@
 #include "web/net/impl/IReqRespRaw.h"
 #include "web/net/impl/IResponseImpl.h"
 #include "web/response/IResponseWare.h"
-#include "web/IWebAst.h"
+#include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
 
 $UseGlobalAssert();
-$UseAssert(IWebAst)
+$UseAssert(IWebAssert)
 
 IResponse::IResponse()
 {

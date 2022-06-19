@@ -5,12 +5,12 @@
 
 $PackageWebCoreBegin
 
-class IRequestAst : public IAssertInterface
+class IRequestAssert : public IAssertInterface
 {
     Q_GADGET
-    $AsAssert(IRequestAst)
+    $AsAssert(IRequestAssert)
 public:
-    IRequestAst() = default;
+    IRequestAssert() = default;
 
     virtual void loadFromFunction() final;
 };

@@ -18,7 +18,6 @@ class IResponseWare;
 class IRequestImpl;
 class IReqRespRaw;
 class IResponseImpl;
-class IResponseAst;
 
 class IResponse : private IRegisterMetaTypeUnit<IResponse>
 {

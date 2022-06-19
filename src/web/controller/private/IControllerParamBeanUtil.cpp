@@ -8,11 +8,11 @@
 #include "web/node/IFunctionNode.h"
 #include "web/net/IRequest.h"
 #include "web/net/IResponse.h"
-#include "web/IWebAst.h"
+#include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAst)
+$UseAssert(IWebAssert)
 
 void* IControllerParamBeanUtil::getParamOfBean(const IFunctionParamNode &node, IRequest &request)
 {

@@ -1,8 +1,8 @@
-﻿#include "IWebAst.h"
+﻿#include "IWebAssert.h"
 
 $PackageWebCoreBegin
 
-void IWebAst::loadFromFunction()
+void IWebAssert::loadFromFunction()
 {
     addWarn("iresponse_setHeader_with_empty_value_or_key", "");
     addWarn("assamble_bean_when_bean_inner_parameter_not_found");

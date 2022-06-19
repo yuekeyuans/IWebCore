@@ -5,12 +5,12 @@
 
 $PackageWebCoreBegin
 
-class IWebAst : public IAssertInterface
+class IFunctionNodeAssert : public IAssertInterface
 {
     Q_GADGET
-    $AsAssert(IWebAst)
+    $AsAssert(IFunctionNodeAssert)
 public:
-    IWebAst() = default;
+    IFunctionNodeAssert() = default;
 
     virtual void loadFromFunction() final;
 };

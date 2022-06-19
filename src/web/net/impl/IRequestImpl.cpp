@@ -1,6 +1,6 @@
 ﻿#include "IRequestImpl.h"
 
-#include "IRequestAst.h"
+#include "IRequestAssert.h"
 #include "base/IConstantUtil.h"
 #include "base/IHeaderUtil.h"
 #include "base/ICodecUtil.h"
@@ -11,7 +11,7 @@
 
 $PackageWebCoreBegin
 
-$UseAssert(IRequestAst)
+$UseAssert(IRequestAssert)
 
 namespace IRequestImplHelper{
     bool isPathValid(const QString& path);

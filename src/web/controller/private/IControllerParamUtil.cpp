@@ -17,11 +17,11 @@
 #include "web/response/IJsonResponse.h"
 #include "web/response/IByteArrayResponse.h"
 #include "web/net/impl/IReqRespRaw.h"
-#include "web/IWebAst.h"
+#include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAst)
+$UseAssert(IWebAssert)
 
 // show me something that should not be wrong
 static const QString GiveColorSeeSee = QStringLiteral("浪额康康四辣锅削阔爱");

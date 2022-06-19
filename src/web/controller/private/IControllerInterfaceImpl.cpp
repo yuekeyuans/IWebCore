@@ -3,11 +3,11 @@
 #include "core/bean/ITypeManage.h"
 #include "web/net/IRequest.h"
 #include "web/net/IResponse.h"
-#include "web/IWebAst.h"
+#include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAst)
+$UseAssert(IWebAssert)
 
 namespace IControllerInterfaceImpHelper{
     bool isBeanType(const QString&);

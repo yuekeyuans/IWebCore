@@ -1,8 +1,8 @@
-﻿#include "IRequestAst.h"
+﻿#include "IRequestAssert.h"
 
 $PackageWebCoreBegin
 
-void IRequestAst::loadFromFunction()
+void IRequestAssert::loadFromFunction()
 {
     addFatal("irequest_xml_currently_not_supported", "");
     addFatal("checkDumplicatedParameters_find_More_than_one_value", "");

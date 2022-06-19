@@ -1,8 +1,8 @@
-﻿#include "IFunctionNodeAst.h"
+﻿#include "IFunctionNodeAssert.h"
 
 $PackageWebCoreBegin
 
-void IFunctionNodeAst::loadFromFunction()
+void IFunctionNodeAssert::loadFromFunction()
 {
     addFatal("controller_invalid_parameter_type", "");
 }

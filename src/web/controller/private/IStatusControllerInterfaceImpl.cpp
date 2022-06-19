@@ -1,10 +1,10 @@
 ﻿#include "IStatusControllerInterfaceImpl.h"
 
-#include "web/IWebAst.h"
+#include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAst)
+$UseAssert(IWebAssert)
 
 static const char* const StatusControllerPrefix = "iwebStatusFun$";
 
