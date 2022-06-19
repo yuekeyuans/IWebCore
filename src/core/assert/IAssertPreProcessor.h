@@ -1,10 +1,10 @@
 ﻿#pragma once
 
-#include "IAssetInfo.h"
+#include "IAssertInfo.h"
 #include "base/IJsonUtil.h"
 #include "base/IMetaUtil.h"
 
-#define $AsAsset(klassName)   \
+#define $AsAssert(klassName)   \
 public:     \
     static klassName* instance(){   \
         static klassName inst;  \
@@ -13,15 +13,15 @@ public:     \
     }   \
 private:
 
-#define $UseGlobalAsset() \
-    $UseAsset(IGlobalAsset, $GlobalAsset)
+#define $UseGlobalAssert() \
+    $UseAssert(IGlobalAssert, $GlobalAssert)
 
-#define $UseAsset_1(klassName)  \
+#define $UseAssert_1(klassName)  \
     static klassName* $Ast = klassName::instance();
 
-#define $UseAsset_2(klassName, name)  \
+#define $UseAssert_2(klassName, name)  \
     static klassName* name = klassName::instance();
 
-#define $UseAsset_(N) $UseAsset_##N
-#define $UseAsset_EVAL(N) $UseAsset_(N)
-#define $UseAsset(...) PP_EXPAND( $UseAsset_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
+#define $UseAssert_(N) $UseAssert_##N
+#define $UseAssert_EVAL(N) $UseAssert_(N)
+#define $UseAssert(...) PP_EXPAND( $UseAssert_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )

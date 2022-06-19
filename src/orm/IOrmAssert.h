@@ -1,16 +1,16 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "core/asset/IAssetInterface.h"
+#include "core/assert/IAssertInterface.h"
 
 $PackageWebCoreBegin
 
-class IOrmAsset : public IAssetInterface
+class IOrmAssert : public IAssertInterface
 {
     Q_GADGET
-    $AsAsset(IOrmAsset)
+    $AsAssert(IOrmAssert)
 public:
-    IOrmAsset() = default;
+    IOrmAssert() = default;
 
     virtual void loadFromFunction() final;
 };

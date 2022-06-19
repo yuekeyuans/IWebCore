@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "core/asset/IAssetInterface.h"
+#include "core/assert/IAssertInterface.h"
 
 $PackageWebCoreBegin
 

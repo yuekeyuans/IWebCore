@@ -5,11 +5,11 @@
 #include "base/IConstantUtil.h"
 #include "base/IConvertUtil.h"
 #include "base/IToeUtil.h"
-#include "core/asset/IGlobalAsset.h"
+#include "core/assert/IGlobalAssert.h"
 
 $PackageWebCoreBegin
 
-$UseGlobalAsset()
+$UseGlobalAssert()
 
 const char SystemConfigurationGroup[] = "System";
 const char ApplicationConfigurationGroup[] = "Application";
@@ -138,7 +138,7 @@ QJsonValue IConfigurationManage::getValue(const QString &path, bool* ok, const Q
 
     auto inst = instance();
     if(!inst->m_isInited){
-        $GlobalAsset->fatal(IGlobalAsset::ConfigurationMayNotInitialized);
+        $GlobalAssert->fatal(IGlobalAssert::ConfigurationMayNotInitialized);
     }
 
     if(!inst->m_configs.contains(group)){
@@ -168,7 +168,7 @@ void IConfigurationManage::getConfigBean(void *handler, const QMap<QString, QStr
     IToeUtil::setOk(ok, true);
     auto inst = instance();
     if(!inst->m_isInited){
-        $GlobalAsset->fatal(IGlobalAsset::ConfigurationMayNotInitialized);
+        $GlobalAssert->fatal(IGlobalAssert::ConfigurationMayNotInitialized);
     }
 
     auto configBeans = IConfigurationManageHelper::generateConfigurationBean(clsInfo, props);
@@ -275,7 +275,7 @@ QJsonValue IConfigurationManageHelper::getMergeValue(const QString key, const QJ
         return destArray;
     } else if((destValue.isObject() || destValue.isArray()          // 其中有一方是 obj 或 array, 但另一方类型不同
                 || srcValue.isArray() || srcValue.isObject())){
-        $GlobalAsset->fatal(IGlobalAsset::ConfigurationMergeJsonValueError);
+        $GlobalAssert->fatal(IGlobalAssert::ConfigurationMergeJsonValueError);
     }else{                                                          // 都是普通值类型， 新的替换旧的
         return source[key];
     }

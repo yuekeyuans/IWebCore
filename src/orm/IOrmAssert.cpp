@@ -1,4 +1,4 @@
-﻿#include "IOrmAsset.h"
+﻿#include "IOrmAssert.h"
 
 $PackageWebCoreBegin
 

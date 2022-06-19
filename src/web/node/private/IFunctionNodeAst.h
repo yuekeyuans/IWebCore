@@ -1,14 +1,14 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "core/asset/IAssetInterface.h"
+#include "core/assert/IAssertInterface.h"
 
 $PackageWebCoreBegin
 
-class IFunctionNodeAst : public IAssetInterface
+class IFunctionNodeAst : public IAssertInterface
 {
     Q_GADGET
-    $AsAsset(IFunctionNodeAst)
+    $AsAssert(IFunctionNodeAst)
 public:
     IFunctionNodeAst() = default;
 

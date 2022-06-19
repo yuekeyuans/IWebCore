@@ -4,11 +4,11 @@
 #include "yaml/IYamlUtil.h"
 #include "base/IFileUtil.h"
 #include "base/IJsonUtil.h"
-#include "core/asset/IGlobalAsset.h"
+#include "core/assert/IGlobalAssert.h"
 
 $PackageWebCoreBegin
 
-$UseGlobalAsset()
+$UseGlobalAssert()
 
 // 具体执行者
 namespace Loader{
@@ -120,9 +120,9 @@ QJsonObject Loader::parseJsonFile(const QString& path)
     QString content = IFileUtil::readFile(path);
     obj = IJsonUtil::toJsonObject(content, &convertOk);
     if(!convertOk){
-        IAssetInfo info;
+        IAssertInfo info;
         info.reason = path;
-        $GlobalAsset->fatal(IGlobalAsset::ConfigurationResolveJsonError, info);
+        $GlobalAssert->fatal(IGlobalAssert::ConfigurationResolveJsonError, info);
     }
     return obj;
 }
@@ -134,9 +134,9 @@ QJsonObject Loader::parseYamlFile(const QString& path){
     QString content = IFileUtil::readFile(path);
     obj = IYamlUtil::toJsonObject(content, &convertOk);
     if(!convertOk){
-        IAssetInfo info;
+        IAssertInfo info;
         info.reason = path;
-        $GlobalAsset->fatal(IGlobalAsset::ConfigurationResolveJsonError, info);
+        $GlobalAssert->fatal(IGlobalAssert::ConfigurationResolveJsonError, info);
     }
     return obj;
 }

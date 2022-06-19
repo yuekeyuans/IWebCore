@@ -11,7 +11,7 @@
 
 $PackageWebCoreBegin
 
-$UseAsset(IRequestAst)
+$UseAssert(IRequestAst)
 
 namespace IRequestImplHelper{
     bool isPathValid(const QString& path);
@@ -651,7 +651,7 @@ void IRequestImplHelper::checkDumplicatedParameters(const QList<QPair<QString, I
         }
 
         if(count >1){
-            IAssetInfo info;
+            IAssertInfo info;
             info.reason = name + " parameter exist more than one in (body, path, param, session, cookie), please check. name : " + name;
             $Ast->fatal("checkDumplicatedParameters_find_More_than_one_value", info);
         }

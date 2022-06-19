@@ -7,7 +7,7 @@
 
 $PackageWebCoreBegin
 
-$UseAsset(IWebAst)
+$UseAssert(IWebAst)
 
 IResponseWare::IResponseWare() : raw(new IResponseWareRaw())
 {

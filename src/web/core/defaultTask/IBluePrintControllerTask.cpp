@@ -1,13 +1,13 @@
 ﻿#include "IBluePrintControllerTask.h"
 
-#include "core/asset/IGlobalAsset.h"
+#include "core/assert/IGlobalAssert.h"
 #include "core/configuration/IConfigurationManage.h"
 #include "core/task/ITaskManage.h"
 #include "web/controller/IControllerManage.h"
 
 $PackageWebCoreBegin
 
-$UseGlobalAsset()
+$UseGlobalAssert()
 
 IBluePrintControllerTask::IBluePrintControllerTask()
 {
@@ -24,7 +24,7 @@ void IBluePrintControllerTask::registerTask()
         }
 
         if(!value.isBool()){
-            $GlobalAsset->fatal(IGlobalAsset::EnableBluePrintParamError);
+            $GlobalAssert->fatal(IGlobalAssert::EnableBluePrintParamError);
         }
         if(value.toBool()){
             IControllerManage::travalPrintUrlTree();

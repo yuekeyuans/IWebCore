@@ -4,10 +4,10 @@
 
 $PackageWebCoreBegin
 
-class IAssetInfo
+class IAssertInfo
 {
 public:
-    IAssetInfo() = default;
+    IAssertInfo() = default;
 
     operator QString() const;
 

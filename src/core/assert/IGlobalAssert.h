@@ -1,15 +1,15 @@
 ﻿#pragma once
 
-#include "IAssetInterface.h"
-#include "IAstPreProcessor.h"
+#include "IAssertInterface.h"
+#include "IAssertPreProcessor.h"
 #include "base/IHeaderUtil.h"
 
 $PackageWebCoreBegin
 
-class IGlobalAsset : public IAssetInterface
+class IGlobalAssert : public IAssertInterface
 {
     Q_GADGET
-    $AsAsset(IGlobalAsset)
+    $AsAssert(IGlobalAssert)
 public:
     enum Type{
         UnImplimentedMethod,
@@ -22,13 +22,13 @@ public:
     };
     Q_ENUM(Type);
 public:
-    IGlobalAsset() = default;
+    IGlobalAssert() = default;
     void fatal(Type type);
-    void fatal(Type type, const IAssetInfo& info);
+    void fatal(Type type, const IAssertInfo& info);
     void fatal(Type type, const QString& reason);
 
     void fatal(const QString& name);
-    void fatal(const QString& name, const IAssetInfo& info);
+    void fatal(const QString& name, const IAssertInfo& info);
     void fatal(const QString& name, const QString& reason);
 
 public:

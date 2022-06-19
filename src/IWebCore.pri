@@ -21,10 +21,10 @@ HEADERS += \
     $$PWD/base/IToeUtil.h \
     $$PWD/base/ITraitHelper.h \
     $$PWD/base/IXmlUtil.h \
-    $$PWD/core/asset/IAssetInfo.h \
-    $$PWD/core/asset/IAssetInterface.h \
-    $$PWD/core/asset/IAstPreProcessor.h \
-    $$PWD/core/asset/IGlobalAsset.h \
+    $$PWD/core/assert/IAssertInfo.h \
+    $$PWD/core/assert/IAssertInterface.h \
+    $$PWD/core/assert/IAssertPreProcessor.h \
+    $$PWD/core/assert/IGlobalAssert.h \
     $$PWD/core/bean/IBeanInterface.h \
     $$PWD/core/bean/IBeanPreProcessor.h \
     $$PWD/core/bean/IBeanWare.h \
@@ -181,9 +181,9 @@ SOURCES += \
     $$PWD/base/IToeUtil.cpp \
     $$PWD/base/ITraitHelper.cpp \
     $$PWD/base/IXmlUtil.cpp \
-    $$PWD/core/asset/IAssetInfo.cpp \
-    $$PWD/core/asset/IAssetInterface.cpp \
-    $$PWD/core/asset/IGlobalAsset.cpp \
+    $$PWD/core/assert/IAssertInfo.cpp \
+    $$PWD/core/assert/IAssertInterface.cpp \
+    $$PWD/core/assert/IGlobalAssert.cpp \
     $$PWD/core/bean/IBeanInterface.cpp \
     $$PWD/core/bean/IBeanWare.cpp \
     $$PWD/core/bean/IGadgetUnit.cpp \

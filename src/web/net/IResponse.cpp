@@ -1,6 +1,6 @@
 ﻿#include "IResponse.h"
 
-#include "core/asset/IGlobalAsset.h"
+#include "core/assert/IGlobalAssert.h"
 #include "web/biscuits/IHttpHeader.h"
 #include "web/net/IRequest.h"
 #include "web/net/impl/IReqRespRaw.h"
@@ -10,8 +10,8 @@
 
 $PackageWebCoreBegin
 
-$UseGlobalAsset();
-$UseAsset(IWebAst)
+$UseGlobalAssert();
+$UseAssert(IWebAst)
 
 IResponse::IResponse()
 {

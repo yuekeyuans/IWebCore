@@ -7,7 +7,7 @@
 
 $PackageWebCoreBegin
 
-$UseAsset(IWebAst)
+$UseAssert(IWebAst)
 
 namespace IControllerInterfaceImpHelper{
     bool isBeanType(const QString&);
@@ -142,7 +142,7 @@ void IControllerInterfaceImpl::checkMappingOverloadFunctions(const QVector<QMeta
     QStringList names;
     for(const auto& method : methods){
         if(names.contains(method.name())){
-            IAssetInfo info;
+            IAssertInfo info;
             info.reason = QString("name: ").append(method.name());
             $Ast->fatal("OverloadOrDefaultValueFunctionNotSupported", info);
         }
@@ -163,7 +163,7 @@ void IControllerInterfaceImpl::checkMappingNameAndFunctionIsMatch(void *handler,
     for(const auto& info : infos){
         auto name = info.first();
         if(!methodNames.contains(name)){
-            IAssetInfo info;
+            IAssertInfo info;
             info.reason = QString("name: ").append(name);
             $Ast->fatal("MappingMismatchFatal", info);
         }
@@ -221,19 +221,19 @@ void IControllerInterfaceImpl::chekcUrlErrorCommon(const QString &url)
         }
 
         if(!urlPieceReg.match(piece).hasMatch()){
-            IAssetInfo info;
+            IAssertInfo info;
             info.reason = QString("url: ").append(url);
             $Ast->fatal("UrlInvalidCharacter", info);
         }
 
         if(piece == "." || piece == ".."){
-            IAssetInfo info;
+            IAssertInfo info;
             info.reason = QString("url: ").append(url).append(" piece: ").append(piece);
             $Ast->fatal("UrlError", info);
         }
 
         if(piece.contains(' ') || piece.contains('\t')){
-            IAssetInfo info;
+            IAssertInfo info;
             info.reason = QString("url: ").append(url);
             $Ast->fatal("UrlBlankCharacter", info);
         }
@@ -366,14 +366,14 @@ void IControllerInterfaceImpl::checkMethodSupportedParamArgType(const IUrlFuncti
             bool isSupportedType = IControllerInterfaceImpHelper::isSpecialTypes(typeName)
                                    || IControllerInterfaceImpHelper::isBeanType(typeName);
             if(!isSupportedType){
-                IAssetInfo info;
+                IAssertInfo info;
                 info.reason = QString("At Function: ").append(node.functionNode.funExpression)
                                    .append(" At Param: ").append(typeName);
                 $Ast->fatal("controller_check_param_Type_has_unsupported_user_defined_type", info);
             }
         } else{
             if(!allowType.contains(typeId)){
-                IAssetInfo info;
+                IAssertInfo info;
                 info.reason = QString("At Function: ").append(node.functionNode.funExpression)
                                    .append(" At Param: ").append(typeName);
                 $Ast->fatal("controller_check_param_Type_has_unsupported_inner_type", info);
@@ -433,7 +433,7 @@ void IControllerInterfaceImpl::checkMethodParamterWithSuffixProper(const IUrlFun
     if(node.httpMethod == IHttpMethod::GET){
         for(const auto& param : argNodes){
             if(param.paramName.endsWith("_body") || param.paramName.endsWith("_content")){
-                IAssetInfo info;
+                IAssertInfo info;
                 info.reason = QString("At Function: ").append(node.functionNode.funExpression).append(" Parameter: ").append(param.paramName);
                 $Ast->fatal("controller_method_get_but_want_body_content", info);
             }
@@ -458,7 +458,7 @@ void IControllerInterfaceImpl::checkMethodParamterWithSuffixSet(const IUrlFuncti
     for(auto param : nodes){
         if(!externalTypes.contains(param.paramType)){
             if(!IControllerInterfaceImpHelper::isParamNameWithSuffix(param.paramName)){
-                IAssetInfo info;
+                IAssertInfo info;
                 info.reason = QString("At Function: ").append(node.functionNode.funExpression)
                                    .append(" At Param: ").append(param.paramName);
                 $Ast->fatal("irequest_controller_function_with_param_not_marked", info);

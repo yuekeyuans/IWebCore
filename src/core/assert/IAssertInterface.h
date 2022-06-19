@@ -1,29 +1,29 @@
 ﻿#pragma once
 
-#include "IAssetInfo.h"
-#include "IAstPreProcessor.h"
+#include "IAssertInfo.h"
+#include "IAssertPreProcessor.h"
 #include "base/IHeaderUtil.h"
 
 $PackageWebCoreBegin
 
-class IAssetInterface
+class IAssertInterface
 {
     Q_GADGET
 protected:
-    IAssetInterface() = default;
+    IAssertInterface() = default;
 public:
     void load(const QString& klassName);
     virtual QString loadFromJsonString();
     virtual void loadFromFunction(); // TODO: 名字有点俗气
 
     void fatal(const QString& name);
-    void fatal(const QString& name, const IAssetInfo& info);
+    void fatal(const QString& name, const IAssertInfo& info);
 
     void warn(const QString& name);
-    void warn(const QString& name, const IAssetInfo& info);
+    void warn(const QString& name, const IAssertInfo& info);
 
     void debug(const QString& name);
-    void debug(const QString& name, const IAssetInfo& info);
+    void debug(const QString& name, const IAssertInfo& info);
 
 protected:
     void addFatal(const QString& tag, const QString& info="", const QString& solution="");

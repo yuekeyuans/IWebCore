@@ -1,16 +1,16 @@
-﻿#include "IAssetInterface.h"
-#include "IGlobalAsset.h"
+﻿#include "IAssertInterface.h"
+#include "IGlobalAssert.h"
 #include "base/IMetaUtil.h"
 
 $PackageWebCoreBegin
 
-namespace IAssetInterfaceHelper
+namespace IAssertInterfaceHelper
 {
     QString getOutput(const QString& name, const QPair<QString, QString>& value);
-    QString getOutput(const QString& name, const QPair<QString, QString>& value, const IAssetInfo& info);
+    QString getOutput(const QString& name, const QPair<QString, QString>& value, const IAssertInfo& info);
 }
 
-void IAssetInterface::load(const QString& klassName)
+void IAssertInterface::load(const QString& klassName)
 {
     static std::once_flag flag;
     std::call_once(flag, [&](){
@@ -21,9 +21,9 @@ void IAssetInterface::load(const QString& klassName)
             bool ok;
             auto json = IJsonUtil::toJsonObject(value, &ok);
             if(!ok){
-                IAssetInfo info;
+                IAssertInfo info;
                 info.className = klassName;
-                IGlobalAsset::instance()->fatal("Assert_Load_Json_Error", info);
+                IGlobalAssert::instance()->fatal("Assert_Load_Json_Error", info);
             }
 
             QStringList types = json.keys();
@@ -55,66 +55,66 @@ void IAssetInterface::load(const QString& klassName)
     });
 }
 
-QString IAssetInterface::loadFromJsonString()
+QString IAssertInterface::loadFromJsonString()
 {
     return "";
 }
 
-void IAssetInterface::loadFromFunction()
+void IAssertInterface::loadFromFunction()
 {
 }
 
-void IAssetInterface::fatal(const QString &name)
+void IAssertInterface::fatal(const QString &name)
 {
     if(m_fatal.contains(name)){
-        auto str = IAssetInterfaceHelper::getOutput(name, m_fatal[name]);
+        auto str = IAssertInterfaceHelper::getOutput(name, m_fatal[name]);
         qDebug().noquote() << str;
         qFatal(str.toUtf8());
     }
 }
 
-void IAssetInterface::fatal(const QString &name, const IAssetInfo &info)
+void IAssertInterface::fatal(const QString &name, const IAssertInfo &info)
 {
     if(m_fatal.contains(name)){
-        auto str = IAssetInterfaceHelper::getOutput(name, m_fatal[name], info);
+        auto str = IAssertInterfaceHelper::getOutput(name, m_fatal[name], info);
         qDebug().noquote() << str;
         qFatal(str.toUtf8());
     }
 }
 
-void IAssetInterface::warn(const QString &name)
+void IAssertInterface::warn(const QString &name)
 {
     if(m_warn.contains(name)){
-        auto str = IAssetInterfaceHelper::getOutput(name, m_warn[name]);
+        auto str = IAssertInterfaceHelper::getOutput(name, m_warn[name]);
         qWarning().noquote() << str;
     }
 }
 
-void IAssetInterface::warn(const QString &name, const IAssetInfo &info)
+void IAssertInterface::warn(const QString &name, const IAssertInfo &info)
 {
     if(m_warn.contains(name)){
-        auto str = IAssetInterfaceHelper::getOutput(name, m_warn[name], info);
+        auto str = IAssertInterfaceHelper::getOutput(name, m_warn[name], info);
         qWarning().noquote() << str;
     }
 }
 
-void IAssetInterface::debug(const QString &name)
+void IAssertInterface::debug(const QString &name)
 {
     if(m_warn.contains(name)){
-        auto str = IAssetInterfaceHelper::getOutput(name, m_warn[name]);
+        auto str = IAssertInterfaceHelper::getOutput(name, m_warn[name]);
         qDebug().noquote() << str;
     }
 }
 
-void IAssetInterface::debug(const QString &name, const IAssetInfo &info)
+void IAssertInterface::debug(const QString &name, const IAssertInfo &info)
 {
     if(m_warn.contains(name)){
-        auto str = IAssetInterfaceHelper::getOutput(name, m_warn[name], info);
+        auto str = IAssertInterfaceHelper::getOutput(name, m_warn[name], info);
         qDebug().noquote() << str;
     }
 }
 
-void IAssetInterface::addFatal(const QString &tag, const QString &info, const QString &solution)
+void IAssertInterface::addFatal(const QString &tag, const QString &info, const QString &solution)
 {
     if(m_fatal.contains(tag)){
         auto info = QString("tag, already exist, please check your code. tag: ").append(tag);
@@ -123,7 +123,7 @@ void IAssetInterface::addFatal(const QString &tag, const QString &info, const QS
     m_fatal[tag] = {info, solution};
 }
 
-void IAssetInterface::addWarn(const QString &tag, const QString &info, const QString &solution)
+void IAssertInterface::addWarn(const QString &tag, const QString &info, const QString &solution)
 {
     if(m_warn.contains(tag)){
         auto info = QString("tag, already exist, please check your code. tag: ").append(tag);
@@ -132,7 +132,7 @@ void IAssetInterface::addWarn(const QString &tag, const QString &info, const QSt
     m_warn[tag] = {info, solution};
 }
 
-void IAssetInterface::addDebug(const QString &tag, const QString &info, const QString &solution)
+void IAssertInterface::addDebug(const QString &tag, const QString &info, const QString &solution)
 {
     if(m_debug.contains(tag)){
         auto info = QString("tag, already exist, please check your code. tag: ").append(tag);
@@ -141,7 +141,7 @@ void IAssetInterface::addDebug(const QString &tag, const QString &info, const QS
     m_debug[tag] = {info, solution};
 }
 
-QString IAssetInterfaceHelper::getOutput(const QString& name, const QPair<QString, QString>& value)
+QString IAssertInterfaceHelper::getOutput(const QString& name, const QPair<QString, QString>& value)
 {
     QString ret;
     ret.append("[TAG] ").append(name);
@@ -154,7 +154,7 @@ QString IAssetInterfaceHelper::getOutput(const QString& name, const QPair<QStrin
     return ret;
 }
 
-QString IAssetInterfaceHelper::getOutput(const QString& name, const QPair<QString, QString>& value, const IAssetInfo& info)
+QString IAssertInterfaceHelper::getOutput(const QString& name, const QPair<QString, QString>& value, const IAssertInfo& info)
 {
     auto ret = getOutput(name, value);
     ret.append(info);
