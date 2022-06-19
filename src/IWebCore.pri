@@ -31,7 +31,7 @@ HEADERS += \
     $$PWD/core/bean/IGadgetUnit.h \
     $$PWD/core/bean/ITypeManage.h \
     $$PWD/core/core.h \
-    $$PWD/orm/IOrmAst.h \
+    $$PWD/orm/IOrmAssert.h \
     $$PWD/web/IInterceptInterface.h \
     $$PWD/web/IManage.h \
     $$PWD/web/IWebAst.h \
@@ -188,7 +188,7 @@ SOURCES += \
     $$PWD/core/bean/IBeanWare.cpp \
     $$PWD/core/bean/IGadgetUnit.cpp \
     $$PWD/core/bean/ITypeManage.cpp \
-    $$PWD/orm/IOrmAst.cpp \
+    $$PWD/orm/IOrmAssert.cpp \
     $$PWD/web/IInterceptInterface.cpp \
     $$PWD/web/IManage.cpp \
     $$PWD/web/IWebAst.cpp \

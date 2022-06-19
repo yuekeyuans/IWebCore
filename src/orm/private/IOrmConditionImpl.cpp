@@ -1,6 +1,6 @@
 ﻿#include "IOrmConditionImpl.h"
 #include "orm/ISqlQuery.h"
-#include "orm/IOrmAst.h"
+#include "orm/IOrmAssert.h"
 
 $PackageWebCoreBegin
 

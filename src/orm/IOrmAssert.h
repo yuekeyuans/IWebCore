@@ -5,12 +5,12 @@
 
 $PackageWebCoreBegin
 
-class IOrmAst : public IAssetInterface
+class IOrmAsset : public IAssetInterface
 {
     Q_GADGET
-    $AsAsset(IOrmAst)
+    $AsAsset(IOrmAsset)
 public:
-    IOrmAst() = default;
+    IOrmAsset() = default;
 
     virtual void loadFromFunction() final;
 };

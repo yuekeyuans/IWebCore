@@ -1,8 +1,8 @@
-﻿#include "IOrmAst.h"
+﻿#include "IOrmAsset.h"
 
 $PackageWebCoreBegin
 
-void IOrmAst::loadFromFunction()
+void IOrmAssert::loadFromFunction()
 {
 
     addFatal("orm_view_can_not_be_created"
