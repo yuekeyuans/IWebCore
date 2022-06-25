@@ -4,7 +4,7 @@
 $EnableBluePrint(false)
 int main(int argc, char *argv[])
 {
-    IWebApplication app(argc, argv);
+    IApplication app(argc, argv);
 
     IHttpServer server;
     server.listen();

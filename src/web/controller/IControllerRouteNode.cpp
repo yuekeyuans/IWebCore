@@ -11,32 +11,24 @@ IControllerRouteNode::IControllerRouteNode(IControllerRouteNode*parent, const QS
 {
     this->parentNode = parent;
 
-    leavesMap = {
-        {IHttpMethod::GET,      &this->getMethodLeaf },
-        {IHttpMethod::POST,     &this->postMethodLeaf },
-        {IHttpMethod::PUT,      &this->putMethodLeaf },
-        {IHttpMethod::DELETED,  &this->deleteMethodLeaf },
-        {IHttpMethod::PATCH,    &this->patchMethodLeaf },
-        {IHttpMethod::HEAD,     &this->getMethodLeaf}
-    };
-
     evaluateNode(nodeName);
 }
 
 IUrlFunctionNode* IControllerRouteNode::setLeaf(const IUrlFunctionNode &leafNode)
 {
-    auto ptr = leavesMap[leafNode.httpMethod];
-    if(*ptr != nullptr){
-        delete *ptr;
-        *ptr = nullptr;
+    auto& ptr = getLeafRef(leafNode.httpMethod);
+    if(ptr != nullptr){
+        qDebug() << ptr;
+        delete ptr;
+        ptr = nullptr;
         $Ast->warn("register_the_same_url");
     }
 
     auto leaf = new IUrlFunctionNode(leafNode);
     leaf->parentNode = this;
-    *ptr = leaf;
+    ptr = leaf;
 
-    return nullptr;
+    return leaf;
 }
 
 // @see https://hc.apache.org/httpclient-legacy/methods/head.html
@@ -46,15 +38,15 @@ IUrlFunctionNode* IControllerRouteNode::getLeaf(IHttpMethod method)
         return nullptr;
     }
 
-    return *leavesMap[method];
+    return getLeafRef(method);
 }
 
 void IControllerRouteNode::removeLeaf(IHttpMethod method)
 {
-    auto ptr = leavesMap[method];
-    if(*ptr != nullptr){
-        delete *ptr;
-        *ptr = nullptr;
+    auto& ptr = getLeafRef(method);
+    if(ptr != nullptr){
+        delete ptr;
+        ptr = nullptr;
     }
 }
 
@@ -165,6 +157,29 @@ void IControllerRouteNode::travelPrint(int space) const
     if(space == 0){
         qDebug() << "=============== url mapping end ==============";
     }
+}
+
+IControllerRouteNode::IUrlFunctionNodeStar &IControllerRouteNode::getLeafRef(IHttpMethod method)
+{
+    switch (method) {
+    case IHttpMethod::GET:
+        return getMethodLeaf;
+    case IHttpMethod::POST:
+        return postMethodLeaf;
+    case IHttpMethod::PUT:
+        return putMethodLeaf;
+    case IHttpMethod::DELETED:
+        return deleteMethodLeaf;
+    case IHttpMethod::PATCH:
+        return patchMethodLeaf;
+    case IHttpMethod::HEAD:
+        return getMethodLeaf;
+    case IHttpMethod::OPTIONS:
+        qFatal("options should not go here");
+    default:
+        qFatal("unknown method, this warning should not present");
+    }
+    return getMethodLeaf;
 }
 
 bool IControllerRouteNode::contains(const QString& nodeName)

@@ -185,7 +185,7 @@ IUrlFunctionNode *IControllerManage::getUrlFunction(IRequest &request)
     if(nodes.length() == 0){
         return nullptr;
     }else if(nodes.length() > 1){
-        auto info = url + " : " + IHttpMethodHelper::toString(method) + "matched multi-functions, please check";
+        auto info = url + " : " + IHttpMethodHelper::toString(method) + " matched multi-functions, please check";
         qFatal(info.toUtf8());
     }
 

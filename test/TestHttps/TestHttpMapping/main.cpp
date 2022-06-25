@@ -1,7 +1,7 @@
 ﻿#include <IWebCore>
 
 $EnableBeanResolveStrictMode(true)
-//$EnableBluePrint(true)
+$EnableBluePrint(true)
 int main(int argc, char *argv[])
 {
     IApplication a(argc, argv);

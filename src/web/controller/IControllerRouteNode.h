@@ -10,6 +10,7 @@ class IControllerRouteNode
 {
 private:
     using ValidateFun = bool (*)(const QString&);
+    using IUrlFunctionNodeStar = IUrlFunctionNode*;
 
 public:
     enum NodeType{
@@ -36,6 +37,7 @@ public:
     void travelPrint(int space=0) const;
 
 private:
+    IUrlFunctionNodeStar& getLeafRef(IHttpMethod method);
     bool contains(const QString& nodeName);
     void evaluateNode(const QString& nodeName);
     bool evaluatePlainText(const QString& nodeName);
@@ -54,7 +56,7 @@ public:
 
     QList<IControllerRouteNode> children;
 
-    QMap<IHttpMethod, IUrlFunctionNode**> leavesMap;
+//    QMap<IHttpMethod, IUrlFunctionNode**> leavesMap;
     IUrlFunctionNode *getMethodLeaf{nullptr};
     IUrlFunctionNode *putMethodLeaf{nullptr};
     IUrlFunctionNode *postMethodLeaf{nullptr};
