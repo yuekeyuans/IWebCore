@@ -6,7 +6,6 @@ $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-
 void IControllerInterfaceProxy::registerController(void *handler, const QMap<QString, QString> &clsInfo, const QVector<QMetaMethod> &methods)
 {
     IControllerInterfaceImpl::checkUrlMappings(handler, clsInfo, methods);

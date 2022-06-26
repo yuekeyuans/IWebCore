@@ -2,9 +2,9 @@
 
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
+#include "core/task/IControllerTaskUnit.h"
 #include "web/controller/IControllerManage.h"
 #include "web/node/IUrlFunctionNode.h"
-#include "core/task/IControllerTaskUnit.h"
 
 $PackageWebCoreBegin
 
@@ -23,10 +23,10 @@ class IControllerInterface : public IControllerTaskUnit<T, enabled>
 public:
     IControllerInterface() = default;
     virtual ~IControllerInterface() = default;
-    virtual void task() final;
 
-    void registerController();
-    void unRegisterController();
+    virtual void task() final;
+    virtual void registerController() final;
+    virtual void unRegisterController() final;
 };
 
 template<typename T, bool enabled>

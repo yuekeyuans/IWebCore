@@ -24,9 +24,8 @@ protected:
 
 public:
     virtual void task() final;
-
-    void registerController();
-    void unRegisterController();
+    virtual void registerController() final;
+    virtual void unRegisterController() final;
 };
 
 template<typename T, bool enabled>

@@ -16,6 +16,9 @@ public:
     virtual QString taskFinishTip() final;
     virtual void task() override = 0;
 
+    virtual void registerController() = 0;
+    virtual void unRegisterController() = 0;
+
 private:
     class IControllerTaskUnitPrivate{
     public:

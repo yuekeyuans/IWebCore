@@ -3,13 +3,9 @@
 #include "base/IPreProcessorUtil.h"
 #include "core/configuration/IConfigurationPreProcessor.h"
 
-#define PP_CONTROLLER(klassName) \
-private:
-
 #define $AsController_1(klassName) \
     $UseConfig(klassName) \
     $UseInstance(klassName) \
-    PP_CONTROLLER(klassName)    \
 private:
 
 #define $AsController_2(klassName, path) \
