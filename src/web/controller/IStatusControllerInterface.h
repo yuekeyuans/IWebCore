@@ -13,6 +13,9 @@ namespace IStatusControllerInterfaceProxy
 {
     void registerController(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaMethod>&methods);
     void registerError();
+
+    void unRegisterController(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaMethod>&methods);
+    void unRegisterError();
 }
 
 template<typename T, bool enabled = true>
@@ -48,7 +51,13 @@ void IStatusControllerInterface<T, enabled>::registerController()
 template<typename T, bool enabled>
 void IStatusControllerInterface<T, enabled>::unRegisterController()
 {
-    // TODO:
+    if(this != T::instance()){
+        IStatusControllerInterfaceProxy::unRegisterError();
+    }
+
+    auto clsInfo = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
+    auto methods = IMetaUtil::getMetaMethods(T::staticMetaObject);
+    IStatusControllerInterfaceProxy::unRegisterController(this, clsInfo, methods);
 }
 
 $PackageWebCoreEnd

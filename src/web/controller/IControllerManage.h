@@ -26,6 +26,7 @@ public:
     using ValidatorFun = bool (*)(const QString&);
 
     static void registerStatusFunctions(const QVector<IStatusFunctionNode>& statusNodes);
+    static void unRegisterStatusFunctions(const QVector<IStatusFunctionNode>& statusNodes);
 
     static void registerUrlFunctions(const QVector<IUrlFunctionNode>& functionNodes);
     static void unRegisterUrlFunctions(const QVector<IUrlFunctionNode>& functionNodes);

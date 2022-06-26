@@ -47,6 +47,11 @@ void IControllerManage::registerStatusFunctions(const QVector<IStatusFunctionNod
     }
 }
 
+void IControllerManage::unRegisterStatusFunctions(const QVector<IStatusFunctionNode> &statusNodes)
+{
+    // TODO:
+}
+
 /// 注册 url 处理
 void IControllerManage::registerUrlFunctions(const QVector<IUrlFunctionNode> &functionNodes)
 {
