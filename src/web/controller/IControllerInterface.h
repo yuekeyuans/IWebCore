@@ -2,6 +2,7 @@
 
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
+#include "web/controller/IControllerManage.h"
 #include "web/node/IUrlFunctionNode.h"
 #include "core/task/IControllerTaskUnit.h"
 
@@ -11,6 +12,9 @@ namespace IControllerInterfaceImplProxy{
     void checkUrlMappings(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaMethod>& methods);
     QVector<IUrlFunctionNode> createMappingLeaves(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaMethod>& methods);
     void checkStatusCodes(void *handler, const QMap<QString, QString> &clsInfo, const QVector<QMetaMethod> &methods);
+
+    void registerError();
+
 };
 
 template<typename T, bool enabled = true>
@@ -21,32 +25,31 @@ public:
     virtual ~IControllerInterface() = default;
     virtual void task() final;
 
-protected:
-    virtual void registerControllerFun(void *handler, const QMap<QString, QString> &clsInfo,
-                                const QVector<QMetaMethod> &methods) = 0;
-
-private:
     void registerController();
     void unRegisterController();
-
 };
 
 template<typename T, bool enabled>
 void IControllerInterface<T, enabled>::task()
 {
-    auto inst = T::instance();
-    auto clsInfo = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
-    auto methods = IMetaUtil::getMetaMethods(T::staticMetaObject);
-    registerControllerFun(inst, clsInfo, methods);
+    registerController();
 }
 
 template<typename T, bool enabled>
 void IControllerInterface<T, enabled>::registerController()
 {
-    auto inst = T::instance();
+    if(this != T::instance()){
+        IControllerInterfaceImplProxy::registerError();
+    }
+
     auto clsInfo = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
     auto methods = IMetaUtil::getMetaMethods(T::staticMetaObject);
-    registerControllerFun(inst, clsInfo, methods);
+    IControllerInterfaceImplProxy::checkUrlMappings(this, clsInfo, methods);
+
+    auto functionNodes = IControllerInterfaceImplProxy::createMappingLeaves(this, clsInfo, methods);
+    if(!functionNodes.empty()){
+        IControllerManage::registerUrlFunctions(functionNodes);
+    }
 }
 
 template<typename T, bool enabled>

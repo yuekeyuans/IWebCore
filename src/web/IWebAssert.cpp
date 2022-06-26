@@ -26,7 +26,12 @@ void IWebAssert::loadFromFunction()
     addFatal("register_status_function_must_return_void", "In define Status Intercept, return type must be void");
     addFatal("register_status_param_must_be_specific", "In define Status Intercept, the parameter type must be IRequest& and IResponse&");
 
+    addFatal("register_controller_do_not_use_singleton", "when you register a controller, you should use controller singleton, do not intialize your own instance");
+
+
     addWarn("register_the_same_url", "registration can`t match the leaf or the leaf already exist");
+
+
 
     addWarn("process_void_return_with_request_not_set_mime_error");
     addWarn("process_void_return_with_request_not_set_status_error");

@@ -4,14 +4,6 @@
 #include "core/configuration/IConfigurationPreProcessor.h"
 
 #define PP_CONTROLLER(klassName) \
-protected: \
-    virtual void registerControllerFun(void *handler, const QMap<QString, QString> &clsInfo, const QVector<QMetaMethod> &methods) final {    \
-        IControllerInterfaceImplProxy::checkUrlMappings(handler, clsInfo, methods);  \
-        auto functionNodes = IControllerInterfaceImplProxy::createMappingLeaves(handler, clsInfo, methods);  \
-        if(!functionNodes.empty()){ \
-            IControllerManage::registerUrlFunctions(functionNodes); \
-        }   \
-    }   \
 private:
 
 #define $AsController_1(klassName) \
