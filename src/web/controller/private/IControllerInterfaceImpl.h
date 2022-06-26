@@ -12,8 +12,6 @@ public:
     static void checkUrlMappings(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaMethod>& methods);
     static QVector<IUrlFunctionNode> createMappingLeaves(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaMethod>& methods);
 
-    static void checkStatusCodes(void *handler, const QMap<QString, QString> &clsInfo, const QVector<QMetaMethod> &methods);
-
 private:
     // 大的检查项目
     void checkMappingOverloadFunctions(const QVector<QMetaMethod>& methods);

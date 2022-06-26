@@ -53,11 +53,10 @@ QVector<IStatusFunctionNode> IStatusControllerInterfaceImpl::generateStatusFunct
 
 void IStatusControllerInterfaceImpl::checkStatusNodes(const QVector<IStatusFunctionNode> &nodes)
 {
-    auto inst = instance();
     for(const auto& node : nodes){
-        inst->checkStatusType(node);
-        inst->checkReturnType(node);
-        inst->checkInputArgs(node);
+        checkStatusType(node);
+        checkReturnType(node);
+        checkInputArgs(node);
     }
 }
 

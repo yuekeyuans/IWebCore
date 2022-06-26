@@ -4,11 +4,16 @@
 #include "base/IMetaUtil.h"
 #include "core/configuration/IConfigurationManage.h"
 #include "core/task/IControllerTaskUnit.h"
-#include "web/controller/private/IStatusControllerInterfaceImpl.h"
 #include "web/controller/IControllerManage.h"
 #include "web/node/IStatusFunctionNode.h"
 
 $PackageWebCoreBegin
+
+namespace IStatusControllerInterfaceProxy
+{
+    void registerController(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaMethod>&methods);
+    void registerError();
+}
 
 template<typename T, bool enabled = true>
 class IStatusControllerInterface : public IControllerTaskUnit<T, enabled>
@@ -19,16 +24,33 @@ protected:
 
 public:
     virtual void task() final;
-    virtual void registerControllerFun(void* handler, const QMap<QString, QString>& clsInfo,
-                                const QVector<QMetaMethod>& methods) = 0;
+
+    void registerController();
+    void unRegisterController();
 };
 
 template<typename T, bool enabled>
-void IStatusControllerInterface<T, enabled>::task(){
-    auto inst = T::instance();
+void IStatusControllerInterface<T, enabled>::task()
+{
+    registerController();
+}
+
+template<typename T, bool enabled>
+void IStatusControllerInterface<T, enabled>::registerController()
+{
+    if(this != T::instance()){
+        IStatusControllerInterfaceProxy::registerError();
+    }
+
     auto clsInfo = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
     auto methods = IMetaUtil::getMetaMethods(T::staticMetaObject);
-    registerControllerFun(inst, clsInfo, methods);
+    IStatusControllerInterfaceProxy::registerController(this, clsInfo, methods);
+}
+
+template<typename T, bool enabled>
+void IStatusControllerInterface<T, enabled>::unRegisterController()
+{
+    // TODO:
 }
 
 $PackageWebCoreEnd

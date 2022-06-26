@@ -40,14 +40,6 @@ QVector<IUrlFunctionNode> IControllerInterfaceImpl::createMappingLeaves(
     return ret;
 }
 
-void IControllerInterfaceImpl::checkStatusCodes(void *handler, const QMap<QString, QString> &clsInfo
-                                                , const QVector<QMetaMethod> &methods)
-{
-    Q_UNUSED(handler)
-    Q_UNUSED(clsInfo)
-    Q_UNUSED(methods)
-}
-
 QVector<QStringList> IControllerInterfaceImpl::getMethodMappingInfo(const QMap<QString, QString> &clsInfo)
 {
     static const QString CONTROLLER_INFO_PREFIX = "iwebControllerFun$";

@@ -6,12 +6,6 @@
     PP_STRING( iwebStatusFun$##funName##$##type)
 
 #define PP_STATUS_CONTROLLER(klassName) \
-public: \
-    virtual void registerControllerFun(void *handler, const QMap<QString, QString> &clsInfo, const QVector<QMetaMethod> &methods) final {    \
-        auto nodes = IStatusControllerInterfaceImpl::generateStatusFunctionNodes(handler, clsInfo, methods);    \
-        IStatusControllerInterfaceImpl::checkStatusNodes(nodes);    \
-        IControllerManage::registerStatusFunctions(nodes);  \
-    }   \
 private:
 
 #define $StatusMapping(funName, status) \
