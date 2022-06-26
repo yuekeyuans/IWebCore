@@ -161,9 +161,7 @@ HEADERS += \
     $$PWD/core/task/IMiddleWareTaskUnit.h \
     $$PWD/core/task/IStaticInitializeTaskUnit.h \
     $$PWD/core/task/ITaskManage.h \
-    $$PWD/core/task/ITaskWare.h \
-    $$PWD/test/IDebugInterface.h \
-    $$PWD/test/IDebugPreProcessor.h
+    $$PWD/core/task/ITaskWare.h
 
 SOURCES += \
     $$PWD/core/application/IApplication.cpp \
@@ -297,8 +295,7 @@ SOURCES += \
     $$PWD/core/task/IMiddleWareTaskUnit.cpp \
     $$PWD/core/task/IStaticInitializeTaskUnit.cpp \
     $$PWD/core/task/ITaskManage.cpp \
-    $$PWD/core/task/ITaskWare.cpp \
-    $$PWD/test/IDebugInterface.cpp
+    $$PWD/core/task/ITaskWare.cpp
 
 DISTFILES += \
     $$PWD/IWebCore \
