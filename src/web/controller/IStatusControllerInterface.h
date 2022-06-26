@@ -18,11 +18,10 @@ namespace IStatusControllerInterfaceProxy
 template<typename T, bool enabled = true>
 class IStatusControllerInterface : public IControllerTaskUnit<T, enabled>
 {
-protected:
+public:
     IStatusControllerInterface() = default;
     virtual ~IStatusControllerInterface() = default;
 
-public:
     virtual void task() final;
     virtual void registerController() final;
     virtual void unRegisterController() final;
