@@ -22,7 +22,7 @@ public:
 
 public:
     IControllerRouteNode() = default;
-    explicit IControllerRouteNode(IControllerRouteNode* parent, const QString& nodeName);
+    explicit IControllerRouteNode(IControllerRouteNode* parent, const QString& fragment);
 
     bool isEmpty();
     IUrlFunctionNode* setLeaf(const IUrlFunctionNode& leaf);
@@ -34,8 +34,8 @@ public:
 
     QVector<IControllerRouteNode*> getChildNodes(const QString nodeName);
     QVector<IControllerRouteNode*> getParentNodes();
-    IControllerRouteNode* getOrAppendChildNode(const QString& nodeName);
-    IControllerRouteNode* getChildNode(const QString& nodeName);
+    IControllerRouteNode* getOrAppendChildNode(const QString& fragment);
+    IControllerRouteNode* getChildNode(const QString& fragment);
 
     void travelPrint(int space=0) const;
 
@@ -43,8 +43,8 @@ public:
 
 private:
     IUrlFunctionNodeStar& getLeafRef(IHttpMethod method);
-    bool contains(const QString& nodeName);
-    void evaluateNode(const QString& nodeName);
+    bool containFragment(const QString& fragment);
+    void evaluateNode(const QString& fragment);
     bool evaluatePlainText(const QString& nodeName);
     bool evaluateTypeEmptyNode(const QString& nodeName);
     bool evaluateNameOnlyNode(const QString& nodeName);

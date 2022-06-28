@@ -7,11 +7,10 @@ $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-IControllerRouteNode::IControllerRouteNode(IControllerRouteNode* parent, const QString& nodeName)
+IControllerRouteNode::IControllerRouteNode(IControllerRouteNode* parent, const QString& fragment)
 {
     this->parentNode = parent;
-
-    evaluateNode(nodeName);
+    evaluateNode(fragment);
 }
 
 bool IControllerRouteNode::isEmpty()
@@ -126,28 +125,25 @@ QVector<IControllerRouteNode *> IControllerRouteNode::getParentNodes()
     return parentNodes;
 }
 
-IControllerRouteNode *IControllerRouteNode::getOrAppendChildNode(const QString &nodeName)
+IControllerRouteNode *IControllerRouteNode::getOrAppendChildNode(const QString &fragment)
 {
-    if(!this->contains(nodeName)){
-        IControllerRouteNode childNode(this, nodeName);
+    if(!this->containFragment(fragment)){
+        IControllerRouteNode childNode(this, fragment);
         this->addChildNode(childNode);
     }
 
     for(auto& child : children){
-        if(child.fragment == nodeName){
+        if(child.fragment == fragment){
             return &child;
         }
     }
     return nullptr;
 }
 
-IControllerRouteNode *IControllerRouteNode::getChildNode(const QString &nodeName)
+IControllerRouteNode *IControllerRouteNode::getChildNode(const QString &fragment)
 {
-    if(!this->contains(nodeName)){
-        return nullptr;
-    }
     for(auto& child : children){
-        if(child.fragment == nodeName){
+        if(child.fragment == fragment){
             return &child;
         }
     }
@@ -216,10 +212,10 @@ IControllerRouteNode::IUrlFunctionNodeStar &IControllerRouteNode::getLeafRef(IHt
     return getMethodLeaf;
 }
 
-bool IControllerRouteNode::contains(const QString& nodeName)
+bool IControllerRouteNode::containFragment(const QString& fragment)
 {
     for(const auto& child : children){
-        if(child.fragment == nodeName){
+        if(child.fragment == fragment){
             return true;
         }
     }
@@ -227,7 +223,7 @@ bool IControllerRouteNode::contains(const QString& nodeName)
 }
 
 
-void IControllerRouteNode::evaluateNode(const QString &nodeName)
+void IControllerRouteNode::evaluateNode(const QString &fragment)
 {
     using FunType = bool (IControllerRouteNode::*)(const QString&);
     static FunType funs[] = {
@@ -239,10 +235,10 @@ void IControllerRouteNode::evaluateNode(const QString &nodeName)
         &IControllerRouteNode::evaluateUnMatchedNode
     };
 
-    this->fragment = nodeName;
+    this->fragment = fragment;
     this->type = NodeType::REGEXP_MATCH;
     for(const auto& fun : funs){
-        if(std::mem_fn(fun)(this, nodeName) == true){
+        if(std::mem_fn(fun)(this, fragment) == true){
             break;
         }
     }

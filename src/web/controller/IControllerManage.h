@@ -30,6 +30,7 @@ public:
 
     static void registerUrlFunctions(const QVector<IUrlFunctionNode>& functionNodes);
     static void unRegisterUrlFunctions(const QVector<IUrlFunctionNode>& functionNodes);
+    static bool containUrlPath(const QString& url, IHttpMethod method);
 
     static void registerPathValidator(const QString& name, const QString& regexp);
     static void registerPathValidator(const QString& name, ValidatorFun fun);
@@ -45,6 +46,7 @@ public:
     static ValidatorFun queryPathFunValidator(const QString& path);
 
     static IUrlFunctionNode* getUrlFunction(IRequest& request);
+    static IUrlFunctionNode* getUrlFunction(const QString& path, IHttpMethod method);
     static IStatusFunctionNode* getStatusFunction(IHttpStatus status);
 
     static bool preIntercept(IRequest& request, IResponse& response);

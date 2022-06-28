@@ -92,6 +92,12 @@ void IControllerManage::unRegisterUrlFunctions(const QVector<IUrlFunctionNode> &
     }
 }
 
+bool IControllerManage::containUrlPath(const QString &url, IHttpMethod method)
+{
+    auto node = getUrlFunction(url, method);
+    return node != nullptr;
+}
+
 void IControllerManage::registerPathValidator(const QString &name, const QString &regexp)
 {
     auto inst = instance();
@@ -171,6 +177,19 @@ IUrlFunctionNode *IControllerManage::getUrlFunction(IRequest &request)
 {
     const QString &url = request.url();
     IHttpMethod method = request.method();
+    auto node = getUrlFunction(url, method);
+
+    auto fragments = url.split("/");
+    if(fragments.first().isEmpty()){
+        fragments.pop_front();
+    }
+
+    request.getRaw()->m_requestUrlParameters = getPathVariable(node->parentNode, fragments);
+    return node;
+}
+
+IUrlFunctionNode *IControllerManage::getUrlFunction(const QString &url, IHttpMethod method)
+{
     auto nodePtr = instance()->m_urlMapppings.get();
 
     if(url == "/"){
@@ -190,9 +209,7 @@ IUrlFunctionNode *IControllerManage::getUrlFunction(IRequest &request)
         qFatal(info.toUtf8());
     }
 
-    auto node = nodes.first();
-    request.getRaw()->m_requestUrlParameters = (getPathVariable(node->parentNode, fragments));
-    return node;
+    return nodes.first();
 }
 
 IStatusFunctionNode *IControllerManage::getStatusFunction(IHttpStatus status)

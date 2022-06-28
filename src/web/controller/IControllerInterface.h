@@ -45,6 +45,7 @@ void IControllerInterface<T, enabled>::registerController()
     auto clsInfo = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
     auto methods = IMetaUtil::getMetaMethods(T::staticMetaObject);
     IControllerInterfaceProxy::registerController(this, clsInfo, methods);
+    qDebug() << "controller registered";
 }
 
 template<typename T, bool enabled>
