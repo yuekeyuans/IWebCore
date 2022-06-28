@@ -69,7 +69,6 @@ void IControllerManage::registerUrlFunctions(const QVector<IUrlFunctionNode> &fu
     }
 }
 
-/// 反注册 url 处理 ， 即卸载 url 处理过程
 void IControllerManage::unRegisterUrlFunctions(const QVector<IUrlFunctionNode> &functionNodes)
 {
     auto inst = instance();
@@ -77,22 +76,19 @@ void IControllerManage::unRegisterUrlFunctions(const QVector<IUrlFunctionNode> &
         auto fragments = leaf.url.split("/");
         auto nodePtr = inst->m_urlMapppings.get();
 
-        QList<IControllerRouteNode*> nodes;
-        nodes.append(nodePtr);
-        for(auto it=fragments.begin(); it!= fragments.end(); ++it){
-            if(!it->isEmpty()){
-                nodePtr = nodePtr->getChildNode(*it);
-                if(nodePtr == nullptr){
-                    return;                  // 结束处理，因为灭有相对应的内容
-                }
-
-                nodes.prepend(nodePtr);
+        for(const auto& fragment : fragments){
+            nodePtr = nodePtr->getChildNode(fragment);
+            if(nodePtr == nullptr){
+                return;                  // 结束处理，因为没有相对应的内容
             }
         }
-        for(auto node : nodes){
-            node->getLeaf(leaf.httpMethod);
-        }
 
+        nodePtr->removeLeaf(leaf.httpMethod);
+        while(nodePtr != nullptr && nodePtr->parentNode != nullptr && nodePtr->isEmpty()){
+            auto parent = nodePtr->parentNode;
+            parent->removeChildNode(*nodePtr);
+            nodePtr = parent;
+        }
     }
 }
 

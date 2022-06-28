@@ -57,6 +57,7 @@ void IControllerInterface<T, enabled>::unRegisterController()
     auto clsInfo = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
     auto methods = IMetaUtil::getMetaMethods(T::staticMetaObject);
     IControllerInterfaceProxy::unRegisterController(this, clsInfo, methods);
+    qDebug() << "controller unRegistered";
 }
 
 $PackageWebCoreEnd

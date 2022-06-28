@@ -1,0 +1,13 @@
+﻿#include <IWebCore>
+#include "HelloController.h"
+
+int main(int argc, char *argv[])
+{
+    IApplication a(argc, argv);
+
+    HelloController::instance()->unRegisterController();
+    IHttpServer server;
+    server.listen();
+
+    return a.exec();
+}

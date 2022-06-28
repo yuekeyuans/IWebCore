@@ -7,8 +7,6 @@ CONFIG -= app_bundle
 
 include(../../../src/IWebCore.pri)
 
-INCLUDEPATH += E:/project/libs/boost/boost_1_77_0/
-
 DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \

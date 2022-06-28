@@ -24,17 +24,22 @@ public:
     IControllerRouteNode() = default;
     explicit IControllerRouteNode(IControllerRouteNode* parent, const QString& nodeName);
 
+    bool isEmpty();
     IUrlFunctionNode* setLeaf(const IUrlFunctionNode& leaf);
     IUrlFunctionNode* getLeaf(IHttpMethod method);
     void removeLeaf(IHttpMethod method);
 
     void addChildNode(const IControllerRouteNode& node);
+    void removeChildNode(const IControllerRouteNode& node);
+
     QVector<IControllerRouteNode*> getChildNodes(const QString nodeName);
     QVector<IControllerRouteNode*> getParentNodes();
     IControllerRouteNode* getOrAppendChildNode(const QString& nodeName);
     IControllerRouteNode* getChildNode(const QString& nodeName);
 
     void travelPrint(int space=0) const;
+
+    bool operator==(const IControllerRouteNode& node);
 
 private:
     IUrlFunctionNodeStar& getLeafRef(IHttpMethod method);
@@ -56,7 +61,6 @@ public:
 
     QList<IControllerRouteNode> children;
 
-//    QMap<IHttpMethod, IUrlFunctionNode**> leavesMap;
     IUrlFunctionNode *getMethodLeaf{nullptr};
     IUrlFunctionNode *putMethodLeaf{nullptr};
     IUrlFunctionNode *postMethodLeaf{nullptr};

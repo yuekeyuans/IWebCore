@@ -7,18 +7,38 @@ $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-IControllerRouteNode::IControllerRouteNode(IControllerRouteNode*parent, const QString& nodeName)
+IControllerRouteNode::IControllerRouteNode(IControllerRouteNode* parent, const QString& nodeName)
 {
     this->parentNode = parent;
 
     evaluateNode(nodeName);
 }
 
+bool IControllerRouteNode::isEmpty()
+{
+    if(!children.isEmpty()){
+        return false;
+    }
+
+    auto funs = {
+        getMethodLeaf,
+        putMethodLeaf,
+        postMethodLeaf,
+        deleteMethodLeaf,
+        patchMethodLeaf
+    };
+    for(auto fun : funs){
+        if(fun != nullptr){
+            return false;
+        }
+    }
+    return true;
+}
+
 IUrlFunctionNode* IControllerRouteNode::setLeaf(const IUrlFunctionNode &leafNode)
 {
     auto& ptr = getLeafRef(leafNode.httpMethod);
     if(ptr != nullptr){
-        qDebug() << ptr;
         delete ptr;
         ptr = nullptr;
         $Ast->warn("register_the_same_url");
@@ -67,6 +87,11 @@ void IControllerRouteNode::addChildNode(const IControllerRouteNode& node)
         }
     }
     children.insert(index, node);
+}
+
+void IControllerRouteNode::removeChildNode(const IControllerRouteNode &node)
+{
+    children.removeOne(node);
 }
 
 QVector<IControllerRouteNode *> IControllerRouteNode::getChildNodes(const QString nodeName)
@@ -157,6 +182,15 @@ void IControllerRouteNode::travelPrint(int space) const
     if(space == 0){
         qDebug() << "=============== url mapping end ==============";
     }
+}
+
+bool IControllerRouteNode::operator==(const IControllerRouteNode &node)
+{
+    if(this->name != node.name || type != node.type || fragment != node.fragment || children != node.children){
+        return false;
+    }
+
+    return true;
 }
 
 IControllerRouteNode::IUrlFunctionNodeStar &IControllerRouteNode::getLeafRef(IHttpMethod method)
