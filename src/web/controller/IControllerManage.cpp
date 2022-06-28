@@ -49,7 +49,12 @@ void IControllerManage::registerStatusFunctions(const QVector<IStatusFunctionNod
 
 void IControllerManage::unRegisterStatusFunctions(const QVector<IStatusFunctionNode> &statusNodes)
 {
-    // TODO:
+    auto inst = instance();
+    for(const auto& node : statusNodes){
+        if(inst->m_statusMappings.contains(node.httpStatus)){
+            inst->m_statusMappings.remove(node.httpStatus);
+        }
+    }
 }
 
 /// 注册 url 处理
@@ -92,6 +97,7 @@ void IControllerManage::unRegisterUrlFunctions(const QVector<IUrlFunctionNode> &
     }
 }
 
+// TODO: 这里的 url 应该是 raw url, 即 可以是  /<hello>/<world> 这种形式的url
 bool IControllerManage::containUrlPath(const QString &url, IHttpMethod method)
 {
     auto node = getUrlFunction(url, method);
