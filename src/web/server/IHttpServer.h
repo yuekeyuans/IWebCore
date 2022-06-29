@@ -3,6 +3,9 @@
 #include "IHttpServerManage.h"
 #include "base/IMetaUtil.h"
 #include "core/configuration/configuration"
+#include "web/biscuits/IHttpMethod.h"
+#include "web/net/IRequest.h"
+#include "web/net/IResponse.h"
 
 $PackageWebCoreBegin
 
@@ -11,11 +14,29 @@ class IHttpServer : public QTcpServer
     Q_GADGET
     $UseInstance(IHttpServer)
     $UseConfig(IHttpSever)
+
+public:
+        using ProcessFunctor = std::function<void(const IRequest& req, IResponse& resp)>;
+
 public:
     IHttpServer();
     bool listen();
     void setHost(const QString &host);
     void setPort(int port);
+
+public:
+
+    // TODO: 这一个需要更深的思考，就是如何快速拦截，并且方便拦截
+    void staticServe(const QString& path, const QString& prefix="");
+    void staticServe(std::function<bool(const QString&)> judge);    // 传入一个函数
+
+    void get(const QString& path, ProcessFunctor functor);
+    void post(const QString& path, ProcessFunctor functor);
+    void put(const QString& path, ProcessFunctor functor);
+    void deletes(const QString& path, ProcessFunctor functor);
+    void patch(const QString& path, ProcessFunctor functor);
+
+    void serve(IHttpMethod method, const QString& path, ProcessFunctor);
 
 private:
     virtual void incomingConnection(qintptr handle) final;
