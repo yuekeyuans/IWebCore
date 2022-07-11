@@ -11,6 +11,7 @@
 #include "web/node/IStatusFunctionNode.h"
 
 #include "IControllerRouteNode.h"
+#include "IControllerFileNode.h"
 
 $PackageWebCoreBegin
 class IRequest;
@@ -25,12 +26,16 @@ private:
 public:
     using ValidatorFun = bool (*)(const QString&);
 
+    // TODO: 考虑 将函数换一些好用的名字
     static void registerStatusFunctions(const QVector<IStatusFunctionNode>& statusNodes);
     static void unRegisterStatusFunctions(const QVector<IStatusFunctionNode>& statusNodes);
 
     static void registerUrlFunctions(const QVector<IUrlFunctionNode>& functionNodes);
     static void unRegisterUrlFunctions(const QVector<IUrlFunctionNode>& functionNodes);
     static bool containUrlPath(const QString& url, IHttpMethod method);
+
+    static void registerStaticFiles(const QString& path, const QString& prefix);
+//    static void unRegisterStaticFiles();
 
     static void registerPathValidator(const QString& name, const QString& regexp);
     static void registerPathValidator(const QString& name, ValidatorFun fun);
@@ -48,6 +53,8 @@ public:
     static IUrlFunctionNode* getUrlFunction(IRequest& request);
     static IUrlFunctionNode* getUrlFunction(const QString& path, IHttpMethod method);
     static IStatusFunctionNode* getStatusFunction(IHttpStatus status);
+    static QString getStaticFilePath(const IRequest& request);
+
 
     static bool preIntercept(IRequest& request, IResponse& response);
     static bool postIntercept(IRequest& request, IResponse& response);
@@ -64,6 +71,8 @@ private:
 
 private:
     std::shared_ptr<IControllerRouteNode> m_urlMapppings;
+    std::shared_ptr<IControllerFileNode> m_fileMappings;
+
     QMap<IHttpStatus, IStatusFunctionNode> m_statusMappings;
     QMap<QString, QString> m_pathRegValidators;
     QMap<QString, ValidatorFun> m_pathFunValidators;

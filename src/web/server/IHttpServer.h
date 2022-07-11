@@ -16,7 +16,7 @@ class IHttpServer : public QTcpServer
     $UseConfig(IHttpSever)
 
 public:
-        using ProcessFunctor = std::function<void(const IRequest& req, IResponse& resp)>;
+    using ProcessFunctor = std::function<void(const IRequest& req, IResponse& resp)>;
 
 public:
     IHttpServer();
@@ -25,10 +25,8 @@ public:
     void setPort(int port);
 
 public:
-
-    // TODO: 这一个需要更深的思考，就是如何快速拦截，并且方便拦截
-    void staticServe(const QString& path, const QString& prefix="");
-    void staticServe(std::function<bool(const QString&)> judge);    // 传入一个函数
+    void serveStatic(const QString& path, const QString& prefix="");
+//    void serveStatic(std::function<bool(const QString&)> judge);    // 传入一个函数
 
     void get(const QString& path, ProcessFunctor functor);
     void post(const QString& path, ProcessFunctor functor);

@@ -62,6 +62,13 @@ void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
         return runOptionsFunction(request, response);
     }
 
+    auto path = IControllerManage::getStaticFilePath(request);
+    if(!path.isEmpty()){
+        qDebug() << path;
+        // serve;
+    }
+
+
     auto function = IControllerManage::getUrlFunction(request);
     if(function == nullptr){
         QString info = request.url() + " " + IHttpMethodHelper::toString(request.method()) + " has no function to handle";

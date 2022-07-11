@@ -27,8 +27,11 @@ namespace IControllerManageHelper {
     bool isQStringValue(const QString& value);
 }
 
-IControllerManage::IControllerManage() : m_urlMapppings(new IControllerRouteNode)
+IControllerManage::IControllerManage()
 {
+    m_urlMapppings = std::make_shared<IControllerRouteNode>();
+    m_fileMappings = std::make_shared<IControllerFileNode>();
+
     static std::once_flag flag;
     std::call_once(flag, [&](){
         IControllerManageHelper::registerCommonTypes(); // this won't be compile in Qt5 gcc
@@ -102,6 +105,13 @@ bool IControllerManage::containUrlPath(const QString &url, IHttpMethod method)
 {
     auto node = getUrlFunction(url, method);
     return node != nullptr;
+}
+
+void IControllerManage::registerStaticFiles(const QString &path, const QString &prefix)
+{
+    auto inst = instance();
+    inst->m_fileMappings->mountFilesToServer(path, prefix);
+
 }
 
 void IControllerManage::registerPathValidator(const QString &name, const QString &regexp)
@@ -185,6 +195,10 @@ IUrlFunctionNode *IControllerManage::getUrlFunction(IRequest &request)
     IHttpMethod method = request.method();
     auto node = getUrlFunction(url, method);
 
+    if(node == nullptr){
+        return nullptr;
+    }
+
     auto fragments = url.split("/");
     if(fragments.first().isEmpty()){
         fragments.pop_front();
@@ -225,6 +239,12 @@ IStatusFunctionNode *IControllerManage::getStatusFunction(IHttpStatus status)
         return &inst->m_statusMappings[status];
     }
     return nullptr;
+}
+
+QString IControllerManage::getStaticFilePath(const IRequest &request)
+{
+    auto inst = instance();
+    return inst->m_fileMappings->getFilePath(request.url());
 }
 
 bool IControllerManage::preIntercept(IRequest &request, IResponse &response)

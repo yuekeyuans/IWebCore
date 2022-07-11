@@ -1,4 +1,6 @@
 ﻿#include "IHttpServer.h"
+#include "base/IConstantUtil.h"
+#include "web/controller/IControllerManage.h"
 
 $PackageWebCoreBegin
 
@@ -32,14 +34,9 @@ void IHttpServer::setPort(int port)
     this->port = port;
 }
 
-void IHttpServer::staticServe(const QString &path, const QString &prefix)
+void IHttpServer::serveStatic(const QString &path, const QString &prefix)
 {
-
-}
-
-void IHttpServer::staticServe(std::function<bool (const QString &)> judge)
-{
-
+    IControllerManage::registerStaticFiles(path, prefix);
 }
 
 void IHttpServer::get(const QString &path, IHttpServer::ProcessFunctor functor)
@@ -72,6 +69,7 @@ void IHttpServer::serve(IHttpMethod method, const QString &path, IHttpServer::Pr
     Q_UNUSED(method)
     Q_UNUSED(path)
     Q_UNUSED(functor)
+    qFatal(IConstantUtil::UnImplimentedMethod);
     // TODO:
 }
 

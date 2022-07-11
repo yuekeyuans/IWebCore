@@ -4,5 +4,5 @@ SUBDIRS +=  \
 #    TestHttpBeanMapping \
 #    TestHttpMapping \
 #    TestMiddleWare \
- \#    TestHttpStaticFileSerice1
-    TestHttpRegistration
+    TestHttpStaticFileSerice1   \
+#    TestHttpRegistration
