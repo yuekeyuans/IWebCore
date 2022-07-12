@@ -109,9 +109,13 @@ bool IControllerManage::containUrlPath(const QString &url, IHttpMethod method)
 
 void IControllerManage::registerStaticFiles(const QString &path, const QString &prefix)
 {
-    auto inst = instance();
-    inst->m_fileMappings->mountFilesToServer(path, prefix);
+    QDir dir(path);
+    if(!dir.exists()){
+        qFatal("dir not exist");
+    }
 
+    auto inst = instance();
+    inst->m_fileMappings->mountFilesToServer(dir.absolutePath(), prefix);
 }
 
 void IControllerManage::registerPathValidator(const QString &name, const QString &regexp)

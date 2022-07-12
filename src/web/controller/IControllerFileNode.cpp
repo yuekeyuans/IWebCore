@@ -33,7 +33,8 @@ QString IControllerFileNode::getFilePath(const QString &url) const
 
         const auto& path = pair.second;
         auto filePath =  QString(url).replace(prefix, "").prepend(path);
-        if(QFile(filePath).exists()){
+        QFileInfo fileInfo(filePath);
+        if(fileInfo.exists() && fileInfo.isFile()){
             return filePath;
         }
     }
