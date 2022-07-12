@@ -1,37 +1,32 @@
 ﻿#include "IFileUtil.h"
+#include "IToeUtil.h"
 
 $PackageWebCoreBegin
 int meaningless;
-
-/*!
- * read and return content of QFile file. if fails return empty string.
- * \param file
- * \return
- */
-QString IFileUtil::readFile(QFile &file)
-{
-    if(file.open(QFile::ReadOnly | QFile::Text)){
-        return file.readAll();
-    }
-    return "";
-}
-
-/**
- * read and return file of path.
- * @see QString IFileUtil::readFile(QFile& file)
- * @param path
- * @return
- */
-QString IFileUtil::readFile(const QString &path)
-{
-    QFile file(path);
-    return readFile(file);
-}
 
 bool IFileUtil::isFileExist(const QString &path)
 {
     QFileInfo fileInfo(path);
     return fileInfo.exists() && fileInfo.isFile();
+}
+
+QString IFileUtil::readFileAsString(const QString &path, bool *ok)
+{
+    return readFileAsByteArray(path, ok);
+}
+
+QByteArray IFileUtil::readFileAsByteArray(const QString &path, bool *ok)
+{
+    QFile file(path);
+    if(file.open(QFile::ReadOnly)){
+        IToeUtil::setOk(ok, true);
+        auto content = file.readAll();
+        file.close();
+        return content;
+    }
+
+    IToeUtil::setOk(ok, false);
+    return {};
 }
 
 $PackageWebCoreEnd

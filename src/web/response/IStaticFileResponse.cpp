@@ -1,4 +1,5 @@
 ﻿#include "IStaticFileResponse.h"
+#include "base/IFileUtil.h"
 
 $PackageWebCoreBegin
 
@@ -41,6 +42,7 @@ bool IStaticFileResponse::matchConvertString(const QString &str)
 void IStaticFileResponse::updateDelayedResponse()
 {
     QFile file(m_fileName);
+
     if(file.open(QFile::ReadOnly)){
         this->setContent(file.readAll());
         file.close();

@@ -117,7 +117,7 @@ QJsonObject Loader::parseJsonFile(const QString& path)
     QJsonObject obj;
 
     bool convertOk = true;
-    QString content = IFileUtil::readFile(path);
+    QString content = IFileUtil::readFileAsString(path);
     obj = IJsonUtil::toJsonObject(content, &convertOk);
     if(!convertOk){
         IAssertInfo info;
@@ -131,7 +131,7 @@ QJsonObject Loader::parseYamlFile(const QString& path){
     QJsonObject obj;
 
     bool convertOk;
-    QString content = IFileUtil::readFile(path);
+    QString content = IFileUtil::readFileAsString(path);
     obj = IYamlUtil::toJsonObject(content, &convertOk);
     if(!convertOk){
         IAssertInfo info;
