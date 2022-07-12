@@ -5,6 +5,7 @@
 #include "web/net/IRequest.h"
 #include "web/net/IResponse.h"
 #include "web/net/impl/IReqRespRaw.h"
+#include "web/response/IStaticFileResponse.h"
 
 $PackageWebCoreBegin
 
@@ -62,21 +63,24 @@ void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
         return runOptionsFunction(request, response);
     }
 
+    // process as static file server first
     auto path = IControllerManage::getStaticFilePath(request);
     if(!path.isEmpty()){
-        qDebug() << path;
-        // serve;
-    }
-
-
-    auto function = IControllerManage::getUrlFunction(request);
-    if(function == nullptr){
-        QString info = request.url() + " " + IHttpMethodHelper::toString(request.method()) + " has no function to handle";
-        request.setInvalid(IHttpStatus::NOT_FOND_404, info);
+        processInStaticFileMode(request, response, path);
         return;
     }
 
-    runUrlFunction(request, response, function);
+    // process as dynamic server then
+    auto function = IControllerManage::getUrlFunction(request);
+    if(function != nullptr){
+        processInDynamicUrlFunctionMode(request, response, function);
+        return;
+    }
+
+    // process as not found last
+    QString info = request.url() + " " + IHttpMethodHelper::toString(request.method()) + " has no function to handle";
+    request.setInvalid(IHttpStatus::NOT_FOND_404, info);
+    return;
 }
 
 void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &response, IStatusFunctionNode *function)
@@ -97,7 +101,7 @@ void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &respons
     IControllerParamUtil::destroyParams(function->functionNode, params);
 }
 
-void IHttpServerRunable::runUrlFunction(IRequest &request, IResponse &response, IUrlFunctionNode *function)
+void IHttpServerRunable::processInDynamicUrlFunctionMode(IRequest &request, IResponse &response, IUrlFunctionNode *function)
 {
     IControllerParamUtil::ParamType params;
     IControllerParamUtil::createParams(function->functionNode, params, request);
@@ -113,6 +117,13 @@ void IHttpServerRunable::runUrlFunction(IRequest &request, IResponse &response, 
     IControllerParamUtil::resolveReturnValue(response, function->functionNode, params);
 
     IControllerParamUtil::destroyParams(function->functionNode, params);
+}
+
+void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &response, const QString &path)
+{
+    Q_UNUSED(request)
+    IStaticFileResponse staticFileReponse(path);
+    response.setContent(&staticFileReponse);
 }
 
 QStringList handleOptionsRequest1(IRequest& request, IResponse& response)

@@ -28,4 +28,10 @@ QString IFileUtil::readFile(const QString &path)
     return readFile(file);
 }
 
+bool IFileUtil::isFileExist(const QString &path)
+{
+    QFileInfo fileInfo(path);
+    return fileInfo.exists() && fileInfo.isFile();
+}
+
 $PackageWebCoreEnd

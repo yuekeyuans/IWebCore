@@ -76,6 +76,7 @@ HEADERS += \
     $$PWD/web/response/IResponsePreProcessor.h \
     $$PWD/web/response/IResponseWare.h \
     $$PWD/web/response/IResponseWareRaw.h \
+    $$PWD/web/response/IStaticFileResponse.h \
     $$PWD/web/response/IStatusCodeResponse.h \
     $$PWD/web/response/response \
     $$PWD/web/session/ISessionJar.h \
@@ -228,6 +229,7 @@ SOURCES += \
     $$PWD/web/response/IResponseManage.cpp \
     $$PWD/web/response/IResponseWare.cpp \
     $$PWD/web/response/IResponseWareRaw.cpp \
+    $$PWD/web/response/IStaticFileResponse.cpp \
     $$PWD/web/response/IStatusCodeResponse.cpp \
     $$PWD/web/session/ISessionJar.cpp \
     $$PWD/core/unit/IJarUnit.cpp \

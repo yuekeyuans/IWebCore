@@ -162,6 +162,8 @@ IResponse &IResponse::setContent(const char *content)
 
 IResponse& IResponse::setContent(IResponseWare *response)
 {
+    response->updateDelayedResponse();
+
     std::swap(raw->m_responseContent, response->content());
 
     if(raw->m_responseStatus == IHttpStatus::UNKNOWN){

@@ -20,7 +20,10 @@ public:
 private:
     static void handleRequest(IRequest& request, IResponse& response);
     static void runStatusFunction(IRequest& request, IResponse& response, IStatusFunctionNode* function);
-    static void runUrlFunction(IRequest& request, IResponse& response, IUrlFunctionNode* function);
+
+    static void processInDynamicUrlFunctionMode(IRequest& request, IResponse& response, IUrlFunctionNode* function);
+    static void processInStaticFileMode(IRequest& request, IResponse& response, const QString& path);
+
     static void runOptionsFunction(IRequest& request, IResponse& response);
 
     static bool interceptStatusCode(IRequest& request, IResponse& response);

@@ -106,21 +106,27 @@ void IResponseWare::redirectTo(IRedirectResponse &&redirectResponse)
     std::swap(this->raw, redirectResponse.raw);
 }
 
-QSharedPointer<IResponseWare> IResponseWare::createInstance(){
-    qFatal(IConstantUtil::InheritedMethod);
-    return nullptr;
-}
-
 bool IResponseWare::canConvertFromString()
 {
     return false;
 }
 
-bool IResponseWare::matchConvertString(const QString &){
+bool IResponseWare::matchConvertString(const QString &)
+{
     qFatal(IConstantUtil::InheritedMethod);
     return false;
 }
 
+void IResponseWare::updateDelayedResponse()
+{
+    // do nothing here;
+}
+
+QSharedPointer<IResponseWare> IResponseWare::createInstance()\
+{
+    qFatal(IConstantUtil::InheritedMethod);
+    return nullptr;
+}
 
 
 $PackageWebCoreEnd
