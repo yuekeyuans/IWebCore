@@ -53,6 +53,10 @@ enum class IHttpMime{
     AUDIO_AMR_WB                            , // "audio/AMR-WB",
     AUDIO_AMR_WB_PLUS                       , // "audio/amr-wb+",
     AUDIO_MP4                               , // "audio/mp4",
+    AUDIO_MP3                               , // "audio/mp3",
+    AUDIO_MP2                               , // "audio/mp2",
+    AUDIO_BASIC                             , // "audio/basic",
+    AUDIO_X_WMA                             , // "audio/x-ms-wma"        // 编码 wma 文件
 
     //VIDEO 12
     VIDEO_FLV              					, // "video/x-flv";
@@ -67,6 +71,8 @@ enum class IHttpMime{
     VIDEO_3GPP                              , // "video/3gpp",
     VIDEO_3GPP2                             , // "video/3gpp2",
     VIDEO_RAW                               , // "video/raw",
+    VIDEO_X_WMV                             , // "video/x-ms-wmv",
+    VIEDO_X_M4V                             , // "video/x-m4v",
 
     //APPLICATION  17
     APPLICATION_MSWORD                      , // "application/msword";
@@ -110,6 +116,7 @@ namespace IHttpMimeHelper
 {
     QString toString(IHttpMime);
     IHttpMime toMime(const QString &);
+    IHttpMime getMimeBySuffix(const QString& suffix);
     const QStringList &getMimeList();
     const QStringList &getMimeSuffixes();
 };

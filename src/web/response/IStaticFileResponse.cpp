@@ -41,12 +41,13 @@ bool IStaticFileResponse::matchConvertString(const QString &str)
 
 void IStaticFileResponse::updateDelayedResponse()
 {
-    QFile file(m_fileName);
-
-    if(file.open(QFile::ReadOnly)){
-        this->setContent(file.readAll());
-        file.close();
+    if(!IFileUtil::isFileExist(m_fileName)){
+        // TODO: 这个应该是什么状态？ 是 redirect 还是报错
     }
+
+    QFileInfo fileInfo(m_fileName);
+    raw->mime = IHttpMimeHelper::getMimeBySuffix(fileInfo.suffix());
+    this->setContent(IFileUtil::readFileAsByteArray(m_fileName));
 }
 
 QSharedPointer<IResponseWare> IStaticFileResponse::createInstance()
