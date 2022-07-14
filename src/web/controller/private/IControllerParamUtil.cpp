@@ -203,7 +203,7 @@ void IControllerParamUtil::wrapVoidReturnInstance(IResponse &response, const IFu
 {
     Q_UNUSED(functionNode)
     Q_UNUSED(params)
-    if(response.mime() == "UNKNOWN"){
+    if(response.mime() == IHttpMimeHelper::MIME_UNKNOWN_STRING){
         response.setMime(IHttpMime::TEXT_PLAIN_UTF8);
         $Ast->warn("process_void_return_with_request_not_set_mime_error");
     }

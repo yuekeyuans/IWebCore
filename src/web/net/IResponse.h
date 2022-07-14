@@ -40,8 +40,10 @@ public:
     IReqRespRaw* getRaw() const;
 
     IResponse& setHeader(const QString &key, const QString &value);
-    IResponse& setStatus(IHttpStatus m_statusCode);
-    IResponse& setMime(IHttpMime m_responseMime);
+    IResponse& setStatus(IHttpStatus statusCode);
+    IResponse& setStatus(int statusCode);
+    IResponse& setMime(IHttpMime mime);
+    IResponse& setMime(const QString mime);
     IResponse& addCookie(const ICookiePart& cookiePart);
 
     IResponse& appendContent(const QString& content);

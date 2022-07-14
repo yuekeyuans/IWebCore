@@ -106,9 +106,22 @@ IResponse &IResponse::setStatus(IHttpStatus statusCode)
     return *this;
 }
 
+// NOTE: 这里是强转， 也就是说，任何一个数据都可以被设置进来。
+IResponse &IResponse::setStatus(int statusCode)
+{
+    raw->m_responseStatus = IHttpStatus(statusCode);
+    return *this;
+}
+
 IResponse &IResponse::setMime(IHttpMime mime)
 {
     raw->m_responseMime = IHttpMimeHelper::toString(mime);
+    return *this;
+}
+
+IResponse &IResponse::setMime(const QString mime)
+{
+    raw->m_responseMime = mime;
     return *this;
 }
 
@@ -170,7 +183,7 @@ IResponse& IResponse::setContent(IResponseWare *response)
         raw->m_responseStatus = response->status();
     }
 
-    if(raw->m_responseMime == "UNKNOWN"){
+    if(raw->m_responseMime == IHttpMimeHelper::MIME_UNKNOWN_STRING){
         raw->m_responseMime = response->mime();
     }
 
@@ -185,7 +198,7 @@ IResponse& IResponse::setContent(IResponseWare *response)
 
     if((!raw->m_headerJar.containResponseHeaderKey(IHttpHeader::ContentType)
          || raw->m_headerJar.getResponseHeaderValue(IHttpHeader::ContentType, nullptr) == "UNKNOWN")
-        && raw->m_responseMime != "UNKNOWN"){
+        && raw->m_responseMime != IHttpMimeHelper::MIME_UNKNOWN_STRING){
         raw->m_headerJar.setResponseHeader(IHttpHeader::ContentType, raw->m_responseMime);
     }
     return *this;

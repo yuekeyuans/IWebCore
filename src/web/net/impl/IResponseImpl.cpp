@@ -2,7 +2,6 @@
 #include "base/IConstantUtil.h"
 #include "web/net/impl/IReqRespRaw.h"
 
-
 $PackageWebCoreBegin
 
 IResponseImpl::IResponseImpl(IReqRespRaw *raw)

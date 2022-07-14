@@ -8,23 +8,23 @@ $PackageWebCoreBegin
 struct IResponseWareRaw
 {
 public:
-    void setMime(IHttpMime mime){
-        this->mimeString = IHttpMimeHelper::toString(mime);
-    }
+    void setMime(IHttpMime mime);
+    void setMime(const QString& mime);
 
-    void setMime(const QString& mime){
-        this->mimeString = mime;
-    }
-
-
-    /// the mime of unknown means this value (or return value) must be reinitialized,
-    /// otherwise the error will occurred
-//    IHttpMime mime{IHttpMime::UNKNOWN};
-    QString mimeString{};   // when mime is unknown and mimeString is not empty ,mimeString take effect.
+public:
+    QString mimeString{"UNKNOWN"};   // when mime is unknown and mimeString is not empty ,mimeString take effect.
 
     IHttpStatus statusCode {IHttpStatus::OK_200};
     QMap<QString, QString> headers;
     QByteArray content{};
 };
+
+inline void IResponseWareRaw::setMime(IHttpMime mime){
+    this->mimeString = IHttpMimeHelper::toString(mime);
+}
+
+inline void IResponseWareRaw::setMime(const QString &mime){
+    this->mimeString = mime;
+}
 
 $PackageWebCoreEnd
