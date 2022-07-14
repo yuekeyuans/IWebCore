@@ -1,6 +1,10 @@
 ﻿#include "IHttpMime.h"
+#include "core/assert/IAssertPreProcessor.h"
+#include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
+
+$UseAssert(IWebAssert)
 
 namespace{
 
@@ -253,6 +257,12 @@ QString IHttpMimeHelper::getSuffixMime(const QString &suffix)
 
 void IHttpMimeHelper::registerSuffixMime(const QString &suffix, const QString &mime)
 {
+    if(getSystemSuffixMimeMap().keys().contains(suffix.toLower())){
+        IAssertInfo info;
+        info.reason = QString("suffix: ").append(suffix).append(" mime: ").append(mime);
+        $Ast->fatal("http_mime_already_exist", info);
+    }
+
     if(!mimeSuffixes.contains(suffix)){
         mimeSuffixes.append(suffix);
         mimeNames.append(mime);
