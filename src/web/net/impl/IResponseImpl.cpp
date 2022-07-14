@@ -52,11 +52,7 @@ QByteArray IResponseImpl::generateHeadersContent()
     if(len != 0){
         raw->m_headerJar.setResponseHeader(IHttpHeader::ContentLength, QString::number(len));
         if(!raw->m_headerJar.containResponseHeaderKey(IHttpHeader::ContentType)){
-            QString contentType = IHttpMimeHelper::toString(raw->m_responseMime);
-//            if(raw->m_responseMime == IHttpMime::UNKNOWN && ){
-
-//            }
-            raw->m_headerJar.setResponseHeader(IHttpHeader::ContentType, contentType);
+            raw->m_headerJar.setResponseHeader(IHttpHeader::ContentType, raw->m_responseMime);
         }
     }
 

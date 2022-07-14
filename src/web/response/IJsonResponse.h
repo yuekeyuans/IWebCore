@@ -43,7 +43,7 @@ private:
 template<typename T>
 IJsonResponse::IJsonResponse(const T& value)
 {
-    raw->mime = IHttpMime::APPLICATION_JSON_UTF8;
+    raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
     auto jsonValue = IConvertUtil::toJsonValue(value);
     raw->content = IJsonUtil::toString(jsonValue).toUtf8();
 }

@@ -8,30 +8,30 @@ const QString IJsonResponse::prefix {"$json:"};
 
 IJsonResponse::IJsonResponse() : IResponseInterface()
 {
-    raw->mime = IHttpMime::APPLICATION_JSON_UTF8; // this must be initialized, the only return type;
+    raw->setMime(IHttpMime::APPLICATION_JSON_UTF8); // this must be initialized, the only return type;
 }
 
 IJsonResponse::IJsonResponse(const QString& value) : IResponseInterface()
 {
-    raw->mime = IHttpMime::APPLICATION_JSON_UTF8;
+    raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
     raw->content = value.toUtf8();
 }
 
 IJsonResponse::IJsonResponse(const QJsonValue &value) : IResponseInterface()
 {
-    raw->mime = IHttpMime::APPLICATION_JSON_UTF8;
+    raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
     raw->content = IJsonUtil::toString(value).toUtf8();
 }
 
 IJsonResponse::IJsonResponse(const QJsonArray &array) : IResponseInterface()
 {
-    raw->mime = IHttpMime::APPLICATION_JSON_UTF8;
+    raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
     raw->content = IJsonUtil::toString(array).toUtf8();
 }
 
 IJsonResponse::IJsonResponse(const QJsonObject &object) : IResponseInterface()
 {
-    raw->mime = IHttpMime::APPLICATION_JSON_UTF8;
+    raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
     raw->content = IJsonUtil::toString(object).toUtf8();
 }
 

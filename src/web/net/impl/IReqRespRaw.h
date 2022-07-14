@@ -73,7 +73,7 @@ public:
     // response
     IHttpStatus m_responseStatus {IHttpStatus::UNKNOWN};
     QByteArray m_responseContent;
-    IHttpMime m_responseMime{IHttpMime::UNKNOWN};
+    QString m_responseMime{"UNKNOWN"};
 
     QList<QPair<QString, QString>> m_responseHeaders;
     QList<ICookiePart> m_responseCookies;

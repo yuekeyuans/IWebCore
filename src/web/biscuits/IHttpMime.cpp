@@ -2,28 +2,10 @@
 
 $PackageWebCoreBegin
 
-QString IHttpMimeHelper::toString(IHttpMime mime)
-{
-    if(mime == IHttpMime::UNKNOWN){
-        return "UNKNOWN";
-    }
-    return getMimeList()[static_cast<int>(mime)];
-}
+namespace{
 
-IHttpMime IHttpMimeHelper::toMime(const QString &string)
-{
-    static int lastLength = getMimeList().length() -1;
-    auto type = string.split(";").first().toLower().trimmed();
-    auto index = getMimeList().indexOf(type);
-    if(index == -1 || index == lastLength){
-        return IHttpMime::UNKNOWN;
-    }
-    return static_cast<IHttpMime>(index);
-}
-
-const QStringList &IHttpMimeHelper::getMimeList(){
-    const static QStringList mimes = {
-        // TEXT  15
+    static const QStringList mimes = {
+        // TEXT  16
         "text/plain",                                               // TEXT_PLAIN
         "text/plain; charset=UTF-8",                                // TEXT_PLAIN_UTF8
         "text/html",                                                // TEXT_HTML
@@ -55,7 +37,7 @@ const QStringList &IHttpMimeHelper::getMimeList(){
         "image/webp",                                               // IMAGE_WEBP
         "image/x-icon",                                             // IMAGE_X_ICON
 
-        //AUDIO 15
+        //AUDIO 19
         "audio/midi",                                               // AUDIO_MIDI
         "audio/mpeg",           // 编码 MP3， mp2, mpga              // AUDIO_MPEG
         "audio/x-wav",          // 编码 *.wav 文件                   // AUDIO_X_WAV
@@ -76,8 +58,7 @@ const QStringList &IHttpMimeHelper::getMimeList(){
         "audio/basic",                                              // AUDIO_BASIC
         "audio/x-ms-wma",                                           // AUDIO_X_WMA
 
-
-        //VIDEO 12
+        //VIDEO 14
         "video/x-flv",                                              // VIDEO_FLV
         "video/mpeg",          // mpeg mpg                          // VIDEO_MPEG
         "video/parityfec",                                          // VIDEO_PARITYFEC
@@ -93,7 +74,7 @@ const QStringList &IHttpMimeHelper::getMimeList(){
         "video/x-ms-wmv",                                           // VIDEO_X_WMV
         "video/x-m4v",                                              // VIDEO_X_M4V
 
-        //APPLICATION  17
+        //APPLICATION  18
         "application/msword",                                       // APPLICATION_MSWORD
         "application/rtf",                                          // APPLICATION_RTF
         "application/vnd.ms-excel",                                 // APPLICATION_EXCEL
@@ -127,126 +108,157 @@ const QStringList &IHttpMimeHelper::getMimeList(){
         "multipart/signed",                                         // MULTIPART_SIGNED
         "multipart/vocie-message",                                  // MULTIPART_VOICE_MESSAGE
 
-        "UNKNOWN",                                                  // UNKNOWN
+        // UNKOWN
+        "UNKNOWN"                                                   // UNKNOWN
     };
-    return mimes;
+
+    static const QMap<QString, IHttpMime> suffixMimePair = {
+        // TEXT
+        {"txt", IHttpMime::TEXT_PLAIN_UTF8},
+
+        {"xhtml", IHttpMime::TEXT_HTML_UTF8},
+        {"html", IHttpMime::TEXT_HTML_UTF8},
+        {"htm", IHttpMime::TEXT_HTML_UTF8},
+
+        {"css", IHttpMime::TEXT_CSS},
+
+        {"xml", IHttpMime::TEXT_XML},
+        {"xql", IHttpMime::TEXT_XML},
+        {"xsd", IHttpMime::TEXT_XML},
+        {"xslt", IHttpMime::TEXT_XML},
+        {"cml", IHttpMime::TEXT_XML},
+        {"dcd", IHttpMime::TEXT_XML},
+        {"ent", IHttpMime::TEXT_XML},
+        {"mtx", IHttpMime::TEXT_XML},
+        {"rdf", IHttpMime::TEXT_XML},
+        {"tsd", IHttpMime::TEXT_XML},
+        {"wsdl", IHttpMime::TEXT_XML},
+        //    {"xq", IHttpMime::TEXT_XML},
+        //    {"xquery", IHttpMime::TEXT_XML},
+        {"xsl", IHttpMime::TEXT_XML},
+        {"biz", IHttpMime::TEXT_XML},
+        //    {"svg", IHttpMime::TEXT_XML},
+        {"vxml", IHttpMime::TEXT_XML},
+        {"vml", IHttpMime::TEXT_XML},
+        {"tld", IHttpMime::TEXT_XML},
+        {"math", IHttpMime::TEXT_XML},
+
+        // IMAGE
+        {"png",  IHttpMime::IMAGE_PNG},
+        {"jpg",  IHttpMime::IMAGE_JPEG},
+        {"jpeg",  IHttpMime::IMAGE_JPEG},
+        {"jpe",  IHttpMime::IMAGE_JPEG},
+        {"jfif",  IHttpMime::IMAGE_JPEG},
+        {"bmp",  IHttpMime::IMAGE_BMP},
+        {"cgm",  IHttpMime::IMAGE_CGM},
+        {"ief",  IHttpMime::IMAGE_IEF},
+        {"tif",  IHttpMime::IMAGE_TIFF},
+        {"tiff",  IHttpMime::IMAGE_TIFF},
+        {"webp",  IHttpMime::IMAGE_WEBP},
+        {"ico",  IHttpMime::IMAGE_X_ICON},
+        {"svg",  IHttpMime::IMAGE_SVG_XML},
+        {"gif",  IHttpMime::IMAGE_GIF},
+
+        //AUDIO
+        {"mpga", IHttpMime::AUDIO_MPEG},
+        {"aac", IHttpMime::AUDIO_AAC},
+        {"ac3", IHttpMime::AUDIO_AC3},
+        {"amr", IHttpMime::AUDIO_AMR},
+        {"ogg", IHttpMime::AUDIO_OGG},
+        {"wav", IHttpMime::AUDIO_WAV},
+        {"3gpp", IHttpMime::AUDIO_3GPP},
+        {"rmi", IHttpMime::AUDIO_MIDI},
+        {"mid", IHttpMime::AUDIO_MIDI},
+        {"midi", IHttpMime::AUDIO_MIDI},
+        {"webm", IHttpMime::AUDIO_WEBM},
+        {"3gp2", IHttpMime::AUDIO_3GPP2},
+        {"aif", IHttpMime::AUDIO_X_AIFF},
+        {"aiff", IHttpMime::AUDIO_X_AIFF},
+        {"aifc", IHttpMime::AUDIO_X_AIFF},
+        {"mid", IHttpMime::AUDIO_MIDI},
+        {"midi", IHttpMime::AUDIO_MIDI},
+
+        {"au", IHttpMime::AUDIO_BASIC},
+        {"snd", IHttpMime::AUDIO_BASIC},
+        {"wax", IHttpMime::AUDIO_X_WAV},
+        {"mp3", IHttpMime::AUDIO_MP3},
+        {"mp2", IHttpMime::AUDIO_MP2},
+        {"midi", IHttpMime::AUDIO_MIDI},
+        {"wma", IHttpMime::AUDIO_X_WMA},
+
+        // VIDEO
+        {"flv", IHttpMime::VIDEO_FLV},
+        {"mp4", IHttpMime::VIDEO_MP4},
+        {"mpg", IHttpMime::VIDEO_MPEG},
+        {"mp2v", IHttpMime::VIDEO_MPEG},
+        {"mpeg", IHttpMime::VIDEO_MPEG},
+        {"mps", IHttpMime::VIDEO_MPEG},
+        {"avi", IHttpMime::VIDEO_X_MSVIDEO},
+        {"3gp", IHttpMime::VIDEO_3GPP},
+        {"m4v", IHttpMime::VIEDO_X_M4V},
+        {"wmv", IHttpMime::VIDEO_X_WMV},
+        {"webm", IHttpMime::VIDEO_WEBM},
+        {"mov", IHttpMime::VIDEO_QUICKTIME},
+
+        // APPLICATION
+        {"json", IHttpMime::APPLICATION_JSON},
+        {"js", IHttpMime::APPLICATION_JAVASCRIPT},
+        {"bin", IHttpMime::APPLICATION_OCTET_STREAM}
+    };
+
+    static QStringList mimeSuffixes;
+
+    static QStringList mimeNames;
 }
 
-static const QMap<QString, IHttpMime> suffixMimePair = {
-    // TEXT
-    {"txt", IHttpMime::TEXT_PLAIN_UTF8},
-
-    {"xhtml", IHttpMime::TEXT_HTML_UTF8},
-    {"html", IHttpMime::TEXT_HTML_UTF8},
-    {"htm", IHttpMime::TEXT_HTML_UTF8},
-    {"htx", IHttpMime::TEXT_HTML_UTF8},
-    {"plg", IHttpMime::TEXT_HTML_UTF8},
-
-    {"css", IHttpMime::TEXT_CSS},
-
-    {"xml", IHttpMime::TEXT_XML},
-    {"xql", IHttpMime::TEXT_XML},
-    {"xsd", IHttpMime::TEXT_XML},
-    {"xslt", IHttpMime::TEXT_XML},
-    {"cml", IHttpMime::TEXT_XML},
-    {"dcd", IHttpMime::TEXT_XML},
-    {"ent", IHttpMime::TEXT_XML},
-    {"mtx", IHttpMime::TEXT_XML},
-    {"rdf", IHttpMime::TEXT_XML},
-    {"tsd", IHttpMime::TEXT_XML},
-    {"wsdl", IHttpMime::TEXT_XML},
-    {"xq", IHttpMime::TEXT_XML},
-    {"xquery", IHttpMime::TEXT_XML},
-    {"xsl", IHttpMime::TEXT_XML},
-    {"biz", IHttpMime::TEXT_XML},
-//    {"svg", IHttpMime::TEXT_XML},
-    {"vxml", IHttpMime::TEXT_XML},
-    {"vml", IHttpMime::TEXT_XML},
-    {"tld", IHttpMime::TEXT_XML},
-    {"math", IHttpMime::TEXT_XML},
-
-    // IMAGE
-    {"png",  IHttpMime::IMAGE_PNG},
-    {"jpg",  IHttpMime::IMAGE_JPEG},
-    {"jpeg",  IHttpMime::IMAGE_JPEG},
-    {"jpe",  IHttpMime::IMAGE_JPEG},
-    {"jfif",  IHttpMime::IMAGE_JPEG},
-    {"bmp",  IHttpMime::IMAGE_BMP},
-    {"cgm",  IHttpMime::IMAGE_CGM},
-    {"ief",  IHttpMime::IMAGE_IEF},
-    {"tif",  IHttpMime::IMAGE_TIFF},
-    {"tiff",  IHttpMime::IMAGE_TIFF},
-    {"webp",  IHttpMime::IMAGE_WEBP},
-    {"ico",  IHttpMime::IMAGE_X_ICON},
-    {"svg",  IHttpMime::IMAGE_SVG_XML},
-    {"gif",  IHttpMime::IMAGE_GIF},
-
-    //AUDIO
-
-    //    {"mp4", IHttpMime::AUDIO_MP4},
-    {"mpga", IHttpMime::AUDIO_MPEG},
-    {"aac", IHttpMime::AUDIO_AAC},
-    {"ac3", IHttpMime::AUDIO_AC3},
-    {"amr", IHttpMime::AUDIO_AMR},
-    {"ogg", IHttpMime::AUDIO_OGG},
-    {"wav", IHttpMime::AUDIO_WAV},
-    {"3gpp", IHttpMime::AUDIO_3GPP},
-    {"rmi", IHttpMime::AUDIO_MIDI},
-    {"mid", IHttpMime::AUDIO_MIDI},
-    {"midi", IHttpMime::AUDIO_MIDI},
-    {"webm", IHttpMime::AUDIO_WEBM},
-    {"3gp2", IHttpMime::AUDIO_3GPP2},
-    {"aif", IHttpMime::AUDIO_X_AIFF},
-    {"aiff", IHttpMime::AUDIO_X_AIFF},
-    {"aifc", IHttpMime::AUDIO_X_AIFF},
-    {"mid", IHttpMime::AUDIO_MIDI},
-    {"midi", IHttpMime::AUDIO_MIDI},
-
-    {"au", IHttpMime::AUDIO_BASIC},
-    {"snd", IHttpMime::AUDIO_BASIC},
-    {"wax", IHttpMime::AUDIO_X_WAV},
-    {"mp3", IHttpMime::AUDIO_MP3},
-    {"mp2", IHttpMime::AUDIO_MP2},
-    {"midi", IHttpMime::AUDIO_MIDI},
-    {"wma", IHttpMime::AUDIO_X_WMA},
-
-    // VIDEO
-    {"flv", IHttpMime::VIDEO_FLV},
-    {"mp4", IHttpMime::VIDEO_MP4},
-    {"mpg", IHttpMime::VIDEO_MPEG},
-    {"mp2v", IHttpMime::VIDEO_MPEG},
-    {"mpeg", IHttpMime::VIDEO_MPEG},
-    {"mps", IHttpMime::VIDEO_MPEG},
-    {"avi", IHttpMime::VIDEO_X_MSVIDEO},
-    {"3gp", IHttpMime::VIDEO_3GPP},
-    {"m4v", IHttpMime::VIEDO_X_M4V},
-    {"wmv", IHttpMime::VIDEO_X_WMV},
-    {"webm", IHttpMime::VIDEO_WEBM},
-    {"mov", IHttpMime::VIDEO_QUICKTIME},
-
-    // APPLICATION
-    {"json", IHttpMime::APPLICATION_JSON},
-    {"js", IHttpMime::APPLICATION_JAVASCRIPT},
-    {"bin", IHttpMime::APPLICATION_OCTET_STREAM}
-};
-
-
-const QStringList &IHttpMimeHelper::getMimeSuffixes()
+QString IHttpMimeHelper::toString(IHttpMime mime)
 {
-    const static QStringList mimeSuffixes = {
-        // TODO: may be unused
-    };
-    return mimeSuffixes;
+    if(mime == IHttpMime::UNKNOWN){
+        return "UNKNOWN";
+    }
+    return mimes[static_cast<int>(mime)];
 }
 
-IHttpMime IHttpMimeHelper::getMimeBySuffix(const QString &suffix)
+IHttpMime IHttpMimeHelper::toMime(const QString &string)
+{
+    static int lastLength = mimes.length() -1;
+    auto type = string.split(";").first().toLower().trimmed();
+    auto index = mimes.indexOf(type);
+    if(index == -1 || index == lastLength){
+        return IHttpMime::UNKNOWN;
+    }
+    return static_cast<IHttpMime>(index);
+}
+
+QString IHttpMimeHelper::getSuffixMime(const QString &suffix)
 {
     static QStringList keys = suffixMimePair.keys();
     if(keys.contains(suffix.toLower())){
-        return suffixMimePair[suffix.toLower()];
+        return IHttpMimeHelper::toString(suffixMimePair[suffix.toLower()]);
     }
-    return IHttpMime::UNKNOWN;
+
+    auto index = mimeSuffixes.indexOf(suffix);
+    if(index >= 0){
+        return mimeNames[index];
+    }
+
+    return "UNKNOWN";
 }
 
+void IHttpMimeHelper::registerSuffixMime(const QString &suffix, const QString &mime)
+{
+    if(!mimeSuffixes.contains(suffix)){
+        mimeSuffixes.append(suffix);
+        mimeNames.append(mime);
+    }
+}
+
+void IHttpMimeHelper::registerSuffixMime(const QMap<QString, QString> &map)
+{
+    auto keys = map.keys();
+    for(const auto& key : keys){
+        registerSuffixMime(key, map[key]);
+    }
+}
 
 $PackageWebCoreEnd

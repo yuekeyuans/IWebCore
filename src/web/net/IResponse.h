@@ -55,7 +55,7 @@ public:
     IResponse& setContent(IResponseWare *response);
 
     IHttpVersion version() const;
-    IHttpMime mime() const;
+    QString mime() const;
     IHttpStatus status() const;
     const QList<QPair<QString, QString>>& headers() const;
     const QByteArray& content() const;

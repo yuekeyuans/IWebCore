@@ -108,7 +108,7 @@ IResponse &IResponse::setStatus(IHttpStatus statusCode)
 
 IResponse &IResponse::setMime(IHttpMime mime)
 {
-    raw->m_responseMime = mime;
+    raw->m_responseMime = IHttpMimeHelper::toString(mime);
     return *this;
 }
 
@@ -170,7 +170,7 @@ IResponse& IResponse::setContent(IResponseWare *response)
         raw->m_responseStatus = response->status();
     }
 
-    if(raw->m_responseMime == IHttpMime::UNKNOWN){
+    if(raw->m_responseMime == "UNKNOWN"){
         raw->m_responseMime = response->mime();
     }
 
@@ -185,8 +185,8 @@ IResponse& IResponse::setContent(IResponseWare *response)
 
     if((!raw->m_headerJar.containResponseHeaderKey(IHttpHeader::ContentType)
          || raw->m_headerJar.getResponseHeaderValue(IHttpHeader::ContentType, nullptr) == "UNKNOWN")
-        && raw->m_responseMime != IHttpMime::UNKNOWN){
-        raw->m_headerJar.setResponseHeader(IHttpHeader::ContentType, IHttpMimeHelper::toString(raw->m_responseMime));
+        && raw->m_responseMime != "UNKNOWN"){
+        raw->m_headerJar.setResponseHeader(IHttpHeader::ContentType, raw->m_responseMime);
     }
     return *this;
 }
@@ -196,7 +196,7 @@ IHttpVersion IResponse::version() const
     return raw->m_httpVersion;
 }
 
-IHttpMime IResponse::mime() const
+QString IResponse::mime() const
 {
     return raw->m_responseMime;
 }

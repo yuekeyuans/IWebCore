@@ -5,7 +5,7 @@
 $PackageWebCoreBegin
 
 enum class IHttpMime{
-    //TEXT  15
+    //TEXT  16
     TEXT_PLAIN      			= 0			, // "text/plain";
     TEXT_PLAIN_UTF8							, // "text/plain; charset=UTF-8";
     TEXT_HTML                               , // "text/html";
@@ -37,7 +37,7 @@ enum class IHttpMime{
     IMAGE_WEBP                              , // "image/webp",
     IMAGE_X_ICON                            , // "image/x-icon",
 
-    //AUDIO 15
+    //AUDIO 19
     AUDIO_MIDI                              , // "audio/midi",
     AUDIO_MPEG                              , // "audio/mpeg",           // 编码 MP3， mp2, mpga
     AUDIO_X_WAV                             , // "audio/x-wav",          // 编码 *.wav 文件
@@ -58,7 +58,7 @@ enum class IHttpMime{
     AUDIO_BASIC                             , // "audio/basic",
     AUDIO_X_WMA                             , // "audio/x-ms-wma"        // 编码 wma 文件
 
-    //VIDEO 12
+    //VIDEO 14
     VIDEO_FLV              					, // "video/x-flv";
     VIDEO_MPEG                              , // "video/mpeg",          // mpeg mpg
     VIDEO_PARITYFEC                         , // "video/parityfec",
@@ -74,7 +74,7 @@ enum class IHttpMime{
     VIDEO_X_WMV                             , // "video/x-ms-wmv",
     VIEDO_X_M4V                             , // "video/x-m4v",
 
-    //APPLICATION  17
+    //APPLICATION  18
     APPLICATION_MSWORD                      , // "application/msword";
     APPLICATION_RTF                         , // "application/rtf";
     APPLICATION_EXCEL                       , // "application/vnd.ms-excel";
@@ -116,9 +116,10 @@ namespace IHttpMimeHelper
 {
     QString toString(IHttpMime);
     IHttpMime toMime(const QString &);
-    IHttpMime getMimeBySuffix(const QString& suffix);
-    const QStringList &getMimeList();
-    const QStringList &getMimeSuffixes();
+
+    QString getSuffixMime(const QString& suffix);
+    void registerSuffixMime(const QString& suffix, const QString& mime);
+    void registerSuffixMime(const QMap<QString, QString>& map);
 };
 
 $PackageWebCoreEnd

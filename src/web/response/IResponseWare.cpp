@@ -24,9 +24,9 @@ QString &IResponseWare::operator[](const QString &header)
     return raw->headers[header];
 }
 
-IHttpMime IResponseWare::mime() const
+QString IResponseWare::mime() const
 {
-    return raw->mime;
+    return raw->mimeString;
 }
 
 IHttpStatus IResponseWare::status() const
@@ -51,7 +51,7 @@ const QMap<QString, QString>& IResponseWare::headers() const
 
 void IResponseWare::setMime(IHttpMime mime)
 {
-    raw->mime = mime;
+    raw->setMime(mime);
 }
 
 void IResponseWare::setStatus(IHttpStatus statusCode)

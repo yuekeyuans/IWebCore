@@ -7,18 +7,18 @@ const QString IHtmlResponse::m_matcherPrefix{"$html:"};
 
 IHtmlResponse::IHtmlResponse() : IResponseInterface()
 {
-    raw->mime = IHttpMime::TEXT_HTML_UTF8;
+    raw->setMime(IHttpMime::TEXT_HTML_UTF8);
 }
 
 IHtmlResponse::IHtmlResponse(const char *data)
 {
-    raw->mime = IHttpMime::TEXT_HTML_UTF8;
+    raw->setMime(IHttpMime::TEXT_HTML_UTF8);
     raw->content = QByteArray(data);
 }
 
 IHtmlResponse::IHtmlResponse(const QString &data)
 {
-    raw->mime = IHttpMime::TEXT_HTML_UTF8;
+    raw->setMime(IHttpMime::TEXT_HTML_UTF8);
     raw->content = data.toUtf8();
 }
 
@@ -29,7 +29,7 @@ IHtmlResponse::IHtmlResponse(IRedirectResponse &&redirectResponse)
 
 void IHtmlResponse::setInstanceArg(QString &&data)
 {
-    raw->mime = IHttpMime::TEXT_HTML_UTF8;
+    raw->setMime(IHttpMime::TEXT_HTML_UTF8);
     raw->content = data.mid(m_matcherPrefix.length()).toUtf8();
 }
 

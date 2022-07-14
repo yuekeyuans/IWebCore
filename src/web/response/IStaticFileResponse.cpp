@@ -46,7 +46,7 @@ void IStaticFileResponse::updateDelayedResponse()
     }
 
     QFileInfo fileInfo(m_fileName);
-    raw->mime = IHttpMimeHelper::getMimeBySuffix(fileInfo.suffix());
+    raw->setMime(IHttpMimeHelper::getSuffixMime(fileInfo.suffix()));
     this->setContent(IFileUtil::readFileAsByteArray(m_fileName));
 }
 

@@ -7,25 +7,25 @@ const QString IPlainTextResponse::m_matcherPrefix {"$text:"};
 
 IPlainTextResponse::IPlainTextResponse()
 {
-    raw->mime = IHttpMime::TEXT_PLAIN_UTF8;
+    raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
 IPlainTextResponse::IPlainTextResponse(const QString &value)
 {
     raw->content = value.toUtf8();
-    raw->mime = IHttpMime::TEXT_PLAIN_UTF8;
+    raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
 IPlainTextResponse::IPlainTextResponse(QString &&value)
 {
     raw->content = value.toUtf8();
-    raw->mime = IHttpMime::TEXT_PLAIN_UTF8;
+    raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
 IPlainTextResponse::IPlainTextResponse(const char *data)
 {
     raw->content = QByteArray(data);
-    raw->mime = IHttpMime::TEXT_PLAIN_UTF8;
+    raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
 IPlainTextResponse::IPlainTextResponse(IRedirectResponse &&redirectResponse)
@@ -35,7 +35,7 @@ IPlainTextResponse::IPlainTextResponse(IRedirectResponse &&redirectResponse)
 
 void IPlainTextResponse::setInstanceArg(QString &&data)
 {
-    raw->mime = IHttpMime::TEXT_PLAIN_UTF8;
+    raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
     if(data.startsWith(m_matcherPrefix)){
         raw->content = data.mid(m_matcherPrefix.length()).toUtf8();
     }else{

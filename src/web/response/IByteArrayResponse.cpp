@@ -6,19 +6,19 @@ const QString IByteArrayResponse::m_matcherPrefix = "$bytes:";
 
 IByteArrayResponse::IByteArrayResponse()
 {
-    raw->mime = IHttpMime::APPLICATION_OCTET_STREAM;
+    raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
 }
 
 IByteArrayResponse::IByteArrayResponse(QByteArray &array)
 {
     raw->content = array;
-    raw->mime = IHttpMime::APPLICATION_OCTET_STREAM;
+    raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
 }
 
 IByteArrayResponse::IByteArrayResponse(QByteArray &&array)
 {
     std::swap(raw->content, array);
-    raw->mime = IHttpMime::APPLICATION_OCTET_STREAM;
+    raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
 }
 
 IByteArrayResponse::IByteArrayResponse(IRedirectResponse &&redirectResponse)

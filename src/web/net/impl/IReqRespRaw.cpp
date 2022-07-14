@@ -54,7 +54,7 @@ QDomNode &IReqRespRaw::getRequestXml(bool *ok)
 void IReqRespRaw::setInvalid(IHttpStatus status, const QString &message)
 {
     this->m_valid = false;
-    this->m_responseMime = IHttpMime::TEXT_PLAIN_UTF8;
+    this->m_responseMime = IHttpMimeHelper::toString(IHttpMime::TEXT_PLAIN_UTF8);
     this->m_responseStatus = status;
 
     QString tip = IHttpStatusHelper::toString(status).append(" - ")
