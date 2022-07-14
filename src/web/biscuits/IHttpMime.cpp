@@ -134,8 +134,6 @@ const QStringList &IHttpMimeHelper::getMimeList(){
 
 static const QMap<QString, IHttpMime> suffixMimePair = {
     // TEXT
-    {"sor", IHttpMime::TEXT_PLAIN_UTF8},
-    {"sol", IHttpMime::TEXT_PLAIN_UTF8},
     {"txt", IHttpMime::TEXT_PLAIN_UTF8},
 
     {"xhtml", IHttpMime::TEXT_HTML_UTF8},
@@ -227,7 +225,9 @@ static const QMap<QString, IHttpMime> suffixMimePair = {
     {"mov", IHttpMime::VIDEO_QUICKTIME},
 
     // APPLICATION
-
+    {"json", IHttpMime::APPLICATION_JSON},
+    {"js", IHttpMime::APPLICATION_JAVASCRIPT},
+    {"bin", IHttpMime::APPLICATION_OCTET_STREAM}
 };
 
 
@@ -241,8 +241,11 @@ const QStringList &IHttpMimeHelper::getMimeSuffixes()
 
 IHttpMime IHttpMimeHelper::getMimeBySuffix(const QString &suffix)
 {
-    // TODO:
-    return IHttpMime::TEXT_PLAIN_UTF8;
+    static QStringList keys = suffixMimePair.keys();
+    if(keys.contains(suffix.toLower())){
+        return suffixMimePair[suffix.toLower()];
+    }
+    return IHttpMime::UNKNOWN;
 }
 
 
