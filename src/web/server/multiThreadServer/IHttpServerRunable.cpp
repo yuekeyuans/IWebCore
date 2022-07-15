@@ -63,24 +63,22 @@ void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
         return runOptionsFunction(request, response);
     }
 
-    // process as static file server first
-    auto path = IControllerManage::getStaticFilePath(request);
-    if(!path.isEmpty()){
-        processInStaticFileMode(request, response, path);
-        return;
-    }
-
-    // process as dynamic server then
+    // process as dynamic server first
     auto function = IControllerManage::getUrlFunction(request);
     if(function != nullptr){
         processInDynamicUrlFunctionMode(request, response, function);
         return;
     }
 
+    // process as static file server then
+    auto path = IControllerManage::getStaticFilePath(request);
+    if(!path.isEmpty()){
+        processInStaticFileMode(request, response, path);
+        return;
+    }
+
     // process as not found last
-    QString info = request.url() + " " + IHttpMethodHelper::toString(request.method()) + " has no function to handle";
-    request.setInvalid(IHttpStatus::NOT_FOND_404, info);
-    return;
+    processInNotFoundMode(request, response);
 }
 
 void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &response, IStatusFunctionNode *function)
@@ -124,6 +122,13 @@ void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &r
     Q_UNUSED(request)
     IStaticFileResponse staticFileReponse(path);
     response.setContent(&staticFileReponse);
+}
+
+void IHttpServerRunable::processInNotFoundMode(IRequest &request, IResponse &response)
+{
+    QString info = request.url() + " " + IHttpMethodHelper::toString(request.method()) + " has no function to handle";
+    request.setInvalid(IHttpStatus::NOT_FOND_404, info);
+    return;
 }
 
 QStringList handleOptionsRequest1(IRequest& request, IResponse& response)

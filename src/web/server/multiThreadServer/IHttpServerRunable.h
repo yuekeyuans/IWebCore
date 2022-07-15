@@ -23,6 +23,7 @@ private:
 
     static void processInDynamicUrlFunctionMode(IRequest& request, IResponse& response, IUrlFunctionNode* function);
     static void processInStaticFileMode(IRequest& request, IResponse& response, const QString& path);
+    static void processInNotFoundMode(IRequest& request, IResponse& response);
 
     static void runOptionsFunction(IRequest& request, IResponse& response);
 

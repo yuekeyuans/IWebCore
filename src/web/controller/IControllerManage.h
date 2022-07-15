@@ -55,7 +55,6 @@ public:
     static IStatusFunctionNode* getStatusFunction(IHttpStatus status);
     static QString getStaticFilePath(const IRequest& request);
 
-
     static bool preIntercept(IRequest& request, IResponse& response);
     static bool postIntercept(IRequest& request, IResponse& response);
     static bool preProcess(IRequest& request, IResponse& response);
