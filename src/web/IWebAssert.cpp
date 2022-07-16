@@ -7,6 +7,8 @@ void IWebAssert::loadFromFunction()
     addWarn("iresponse_setHeader_with_empty_value_or_key", "");
     addWarn("assamble_bean_when_bean_inner_parameter_not_found");
 
+    addFatal("controller_invalid_parameter_type", "");
+
     addFatal("UrlError", "url fragment should not contain . or ..", "please remove . or .. in url");
     addFatal("UrlBlankCharacter", "url has invalid character");
     addFatal("UrlInvalidCharacter",  "url has invalid character");

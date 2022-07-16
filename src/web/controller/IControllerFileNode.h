@@ -13,7 +13,7 @@ public:
     void mountFilesToServer(const QString& path, const QString& prefix);
 
 private:
-    QVector<QPair<QString, QString>> m_nodes;
+    QHash<QString, QString> m_urlFileHash;
 };
 
 $PackageWebCoreEnd

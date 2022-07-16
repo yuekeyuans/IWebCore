@@ -29,4 +29,30 @@ QByteArray IFileUtil::readFileAsByteArray(const QString &path, bool *ok)
     return {};
 }
 
+QString IFileUtil::normalizeFilePath(QString path, bool*ok)
+{
+    if(path.contains('\\')){
+        path.replace('\\', '/');
+    }
+
+    while(path.contains("//")){
+        path.replace("//", "/");
+    }
+
+    if(path.contains("../")){               // 预防路径中出现 ../ 的情况
+        auto pieces = path.split("/");
+        auto index = pieces.indexOf("..");
+        if(index == 0){
+            IToeUtil::setOk(ok, false);
+            return path;
+        }
+        pieces.removeAt(index);
+        pieces.removeAt(index-1);
+        path = pieces.join("/");
+    }
+
+    IToeUtil::setOk(ok, true);
+    return path;
+}
+
 $PackageWebCoreEnd

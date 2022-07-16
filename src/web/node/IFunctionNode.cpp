@@ -1,11 +1,11 @@
 ﻿#include "IFunctionNode.h"
 
 #include "base/IPackageUtil.h"
-#include "private/IFunctionNodeAssert.h"
+#include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IFunctionNodeAssert)
+$UseAssert(IWebAssert)
 
 static const QString& nmspace = $PackageWebCoreName;
 

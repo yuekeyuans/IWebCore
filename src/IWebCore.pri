@@ -65,7 +65,6 @@ HEADERS += \
     $$PWD/web/node/IFunctionNode.h \
     $$PWD/web/node/IStatusFunctionNode.h \
     $$PWD/web/node/IUrlFunctionNode.h \
-    $$PWD/web/node/private/IFunctionNodeAssert.h \
     $$PWD/web/response/IByteArrayResponse.h \
     $$PWD/web/response/IHtmlResponse.h \
     $$PWD/web/response/IJsonResponse.h \
@@ -219,7 +218,6 @@ SOURCES += \
     $$PWD/web/net/impl/IRequestImpl.cpp \
     $$PWD/web/net/impl/IResponseImpl.cpp \
     $$PWD/web/node/IFunctionNode.cpp \
-    $$PWD/web/node/private/IFunctionNodeAssert.cpp \
     $$PWD/web/response/IByteArrayResponse.cpp \
     $$PWD/web/response/IHtmlResponse.cpp \
     $$PWD/web/response/IJsonResponse.cpp \
