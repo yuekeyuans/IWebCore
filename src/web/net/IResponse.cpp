@@ -27,7 +27,7 @@ IResponse::IResponse(IRequest *request)
 
 IResponse &IResponse::operator<<(const QString &content)
 {
-    raw->m_responseContent.append(content.toUtf8());
+    raw->m_responseContent.append(content);
     return *this;
 }
 
@@ -151,31 +151,32 @@ IResponse &IResponse::appendContent(const char *content)
 
 IResponse &IResponse::setContent(const QString &content)
 {
-    raw->m_responseContent = content.toUtf8();
+    raw->m_responseContent.setContent(content);
     return *this;
 }
 
 IResponse &IResponse::setContent(const QByteArray &content)
 {
-    raw->m_responseContent = content;
+    raw->m_responseContent.setContent(content);
     return *this;
 }
 
 IResponse &IResponse::setContent(QByteArray &&content)
 {
-    std::swap(raw->m_responseContent, content);
+    raw->m_responseContent.setContent(std::forward<QByteArray&&>(content));
     return *this;
 }
 
 IResponse &IResponse::setContent(const char *content)
 {
-    raw->m_responseContent = QByteArray(content);
+    raw->m_responseContent.setContent(content);
     return *this;
 }
 
 IResponse& IResponse::setContent(IResponseWare *response)
 {
     response->updateDelayedResponse();
+    std::swap(raw->m_responseContent, response->getContent());
 
 //    std::swap(raw->m_responseContent, response->content());
 
@@ -224,10 +225,10 @@ const QList<QPair<QString, QString>>& IResponse::headers() const
     return raw->m_responseHeaders;
 }
 
-const QByteArray &IResponse::content() const
-{
-    return raw->m_responseContent;
-}
+//const QByteArray &IResponse::content() const
+//{
+//    return raw->m_responseContent;
+//}
 
 const QMap<QString, QVariant> &IResponse::attributes() const
 {

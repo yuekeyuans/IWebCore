@@ -25,7 +25,7 @@ public:
     virtual QSharedPointer<IResponseWare> createInstance() final;
 
 private:
-    QString m_fileName;
+//    QString m_fileName;
     static const QString m_matcherPrefix;
 };
 

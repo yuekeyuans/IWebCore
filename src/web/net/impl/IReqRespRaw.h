@@ -9,8 +9,9 @@
 #include "web/net/IMultiPart.h"
 #include "web/cookie/ICookieJar.h"
 #include "web/cookie/ICookiePart.h"
-#include "web/session/ISessionJar.h"
 #include "web/header/IHeaderJar.h"
+#include "web/response/IResponseContent.h"
+#include "web/session/ISessionJar.h"
 
 $PackageWebCoreBegin
 
@@ -72,11 +73,14 @@ private:
 public:
     // response
     IHttpStatus m_responseStatus {IHttpStatus::UNKNOWN};
-    QByteArray m_responseContent;
+
     QString m_responseMime{"UNKNOWN"};
 
     QList<QPair<QString, QString>> m_responseHeaders;
     QList<ICookiePart> m_responseCookies;
+
+    IResponseContent m_responseContent;
+    //    QByteArray m_responseContent;
 };
 
 $PackageWebCoreEnd

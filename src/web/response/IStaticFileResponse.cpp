@@ -11,12 +11,12 @@ IStaticFileResponse::IStaticFileResponse()
 
 IStaticFileResponse::IStaticFileResponse(const char *data)
 {
-    m_fileName = QString(data);
+    raw->setFileContent(data);
 }
 
 IStaticFileResponse::IStaticFileResponse(const QString &data)
 {
-    m_fileName = data;
+    raw->setFileContent(data);
 }
 
 IStaticFileResponse::IStaticFileResponse(IWebCore::IRedirectResponse &&redirectResponse)
@@ -26,7 +26,7 @@ IStaticFileResponse::IStaticFileResponse(IWebCore::IRedirectResponse &&redirectR
 
 void IStaticFileResponse::setInstanceArg(QString &&data)
 {
-    m_fileName = data.mid(m_matcherPrefix.length()).toUtf8();
+    raw->setFileContent(data.mid(m_matcherPrefix.length()));
 }
 
 bool IStaticFileResponse::canConvertFromString()
@@ -41,13 +41,13 @@ bool IStaticFileResponse::matchConvertString(const QString &str)
 
 void IStaticFileResponse::updateDelayedResponse()
 {
-    if(!IFileUtil::isFileExist(m_fileName)){
-        // TODO: 这个应该是什么状态？ 是 redirect 还是报错
-    }
+//    if(!IFileUtil::isFileExist(m_fileName)){
+//        // TODO: 这个应该是什么状态？ 是 redirect 还是报错
+//    }
 
-    QFileInfo fileInfo(m_fileName);
-    raw->setMime(IHttpMimeHelper::getSuffixMime(fileInfo.suffix()));
-    this->setContent(IFileUtil::readFileAsByteArray(m_fileName));
+//    QFileInfo fileInfo(m_fileName);
+//    raw->setMime(IHttpMimeHelper::getSuffixMime(fileInfo.suffix()));
+//    this->setContent(IFileUtil::readFileAsByteArray(m_fileName));
 }
 
 QSharedPointer<IResponseWare> IStaticFileResponse::createInstance()

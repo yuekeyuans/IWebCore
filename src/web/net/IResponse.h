@@ -60,7 +60,7 @@ public:
     QString mime() const;
     IHttpStatus status() const;
     const QList<QPair<QString, QString>>& headers() const;
-    const QByteArray& content() const;
+//    const QByteArray& content() const;
 
     const QMap<QString, QVariant>& attributes() const;
     bool hasAttribute(const QString& name) const;;

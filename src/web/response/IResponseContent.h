@@ -16,9 +16,19 @@ public:
         File
     };
 
-
 public:
     int length();
+    void append(const QString& content);
+    void append(const QByteArray& content);
+    void append(const char* content);
+
+    void setContent(QString&& content);
+    void setContent(const QString& content);
+    void setContent(QByteArray&& content);
+    void setContent(const QByteArray& content);
+    void setContent(const char* content);
+
+    QByteArray getAsBytes();
 
 public:
     Type type{Type::Bytes};

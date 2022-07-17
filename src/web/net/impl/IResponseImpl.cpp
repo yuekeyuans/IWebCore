@@ -16,7 +16,7 @@ bool IResponseImpl::respond()
     write(IConstantUtil::NewLine);
 
     if(raw->m_responseContent.length() != 0 && raw->m_method != IHttpMethod::HEAD){       // 处理 head 方法
-        write(raw->m_responseContent);
+        write(raw->m_responseContent.getAsBytes());
     }
 
     flush();

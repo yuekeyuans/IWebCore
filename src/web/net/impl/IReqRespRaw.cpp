@@ -60,7 +60,7 @@ void IReqRespRaw::setInvalid(IHttpStatus status, const QString &message)
     QString tip = IHttpStatusHelper::toString(status).append(" - ")
                       .append(IHttpStatusHelper::toStringDescription(status)).append(": ")
                       .append(message).append(IConstantUtil::NewLine);
-    this->m_responseContent = tip.toUtf8();
+    this->m_responseContent.setContent(tip);
 }
 
 $PackageWebCoreEnd

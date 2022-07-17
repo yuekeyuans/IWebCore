@@ -3,11 +3,13 @@
 #include "base/IHeaderUtil.h"
 #include "web/biscuits/IHttpMime.h"
 #include "web/biscuits/IHttpStatus.h"
+#include "IResponseContent.h"
 
 $PackageWebCoreBegin
 
 struct IResponseWareRaw;
 class IRedirectResponse;
+
 
 class IResponseWare{
     $AsWare
@@ -20,6 +22,9 @@ public:
     QString mime() const;
     IHttpStatus status() const;
     size_t contentLength() const;
+
+    IResponseContent& getContent();
+
 //    QByteArray& content();   // TODO: need const constrait?
     const QMap<QString, QString>& headers() const;
 
