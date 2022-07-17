@@ -8,7 +8,9 @@ $UseAssert(IWebAssert)
 
 namespace IControllerFileNodeHelper{
     void mountStaticFileToServer(QHash<QString, QString>& hash, const QString& path, const QString& prefix);
+
     void mountFirstPageToServer(QHash<QString, QString>& hash, const QString& path, const QString& prefix);
+    bool mountFilePageToServer(QHash<QString, QString>& hash, const QString& filePath, const QString& url);
 
     bool enabled {false};
 }
@@ -62,17 +64,8 @@ void IControllerFileNodeHelper::mountStaticFileToServer(QHash<QString, QString>&
         }
 
         auto url = IFileUtil::joinPath(prefix, entry.fileName());
-        if(!hash.contains(url)){
-            hash[url] = entry.absoluteFilePath();
-            continue;
-        }
-
-        // abort
-        IAssertInfo info;
-        info.reason = QString("url: ").append(url)
-                          .append(" path1: ").append(entry.absoluteFilePath()).append(" path2: ").append(hash[url]);
-        $Ast->fatal("register_the_same_url", info);
-
+        auto filePath = entry.absoluteFilePath();
+        mountFilePageToServer(hash, filePath, url);
     }
 }
 
@@ -82,21 +75,29 @@ void IControllerFileNodeHelper::mountFirstPageToServer(QHash<QString, QString>& 
         "index.html", "index.htm", "default.html", "default.html", "home.html", "home.htm"
     };
 
-    bool alreadyExist = hash.contains(prefix);
     for(const auto& name : names){
         auto pagePath = IFileUtil::joinPath(path, name);
-        if(QFileInfo(pagePath).exists()){
-            if(!alreadyExist){
-                hash[prefix] = pagePath;        // 按照 names 排序
-                return;
-            }
-
-            IAssertInfo info;
-            info.reason = QString("url: ").append(prefix)
-                              .append(" path1: ").append(pagePath).append(" path2: ").append(hash[prefix]);
-            $Ast->fatal("register_the_same_url", info);
+        if(mountFilePageToServer(hash, pagePath, prefix)){
+            return;
         }
     }
+}
+
+bool IControllerFileNodeHelper::mountFilePageToServer(QHash<QString, QString>& hash, const QString& filePath, const QString& url)
+{
+    bool alreadyExist = hash.contains(url);
+    if(QFileInfo(filePath).exists()){
+        if(!alreadyExist){
+            hash[url] = filePath;
+            return true;
+        }
+
+        IAssertInfo info;
+        info.reason = QString("url: ").append(url)
+                          .append(" path1: ").append(filePath).append(" path2: ").append(hash[url]);
+        $Ast->fatal("register_the_same_url", info);
+    }
+    return false;
 }
 
 $PackageWebCoreEnd
