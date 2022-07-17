@@ -8,12 +8,16 @@ class IControllerFileNode
 public:
     IControllerFileNode() = default;
     bool isUrlExist(const QString& url) const;
-    QString getFilePath(const QString& url) const;
+    QString getFilePath(const QString& url) const ;
 
-    void mountFilesToServer(const QString& path, const QString& prefix="/");
+    void mountFilesToServer(const QString& dir, const QString& prefix="/");
 
 private:
-    QHash<QString, QString> m_urlFileHash;
+    QString getUnRegisteredFilePath(QString url) const;
+
+private:
+    mutable QHash<QString, QString> m_urlFileHash;
+    QMap<QString, QString> m_urlPrefixMap;
 };
 
 $PackageWebCoreEnd

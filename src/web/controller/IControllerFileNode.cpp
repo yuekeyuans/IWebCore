@@ -7,45 +7,52 @@ $PackageWebCoreBegin
 $UseAssert(IWebAssert)
 
 namespace IControllerFileNodeHelper{
-    void mountStaticFileToServer(QHash<QString, QString>& hash, const QString& path, const QString& prefix);
 
+    void mountFilesToServer(QHash<QString, QString>& hash, const QString& path, const QString& prefix);
     void mountFirstPageToServer(QHash<QString, QString>& hash, const QString& path, const QString& prefix);
     bool mountFilePageToServer(QHash<QString, QString>& hash, const QString& filePath, const QString& url);
 
     bool enabled {false};
 }
 
-
 bool IControllerFileNode::isUrlExist(const QString &url) const
 {
-    if(IControllerFileNodeHelper::enabled){
-        return m_urlFileHash.contains(url);
-    }
-    return false;
+    return IControllerFileNodeHelper::enabled && m_urlFileHash.contains(url);
 }
 
 QString IControllerFileNode::getFilePath(const QString &url) const
 {
-    if(IControllerFileNodeHelper::enabled && isUrlExist(url)){
+    if(isUrlExist(url)){
         return m_urlFileHash[url];
     }
-    return {};
+
+    return getUnRegisteredFilePath(url);   // 理论上再监测一层， 方便于计算
 }
 
-void IControllerFileNode::mountFilesToServer(const QString &path, const QString &prefix)
+void IControllerFileNode::mountFilesToServer(const QString &dir, const QString &prefix)
 {
-    if(path.startsWith(":/")){
-        // TODO:
-    }else{
-        IControllerFileNodeHelper::mountStaticFileToServer(m_urlFileHash, path, prefix);
-//        IControllerFileNodeHelper::watcher.addPath(path);
-//        IControllerFileNodeHelper::watcher.
-    }
+    IControllerFileNodeHelper::mountFilesToServer(m_urlFileHash, dir, prefix);
 
     IControllerFileNodeHelper::enabled = true;
 }
 
-void IControllerFileNodeHelper::mountStaticFileToServer(QHash<QString, QString>& hash, const QString &path, const QString &prefix)
+QString IControllerFileNode::getUnRegisteredFilePath(QString url) const
+{
+    auto keys = m_urlPrefixMap.keys();
+    for(const auto& path : keys){
+        auto prefix = m_urlPrefixMap[path];
+        if(url.startsWith(prefix)){
+            auto filePath = IFileUtil::joinPath(path, url.replace(prefix, ""));
+            if(QFileInfo(filePath).exists()){
+                m_urlFileHash[url] = filePath;          // NOTE: 这里线程不安全，但是理论上没啥问题，因为他可以请求不成功
+                return filePath;
+            }
+        }
+    }
+    return {};
+}
+
+void IControllerFileNodeHelper::mountFilesToServer(QHash<QString, QString>& hash, const QString &path, const QString &prefix)
 {
     QDir dir(path);
     if(!dir.exists() || dir.isEmpty()){
@@ -59,7 +66,7 @@ void IControllerFileNodeHelper::mountStaticFileToServer(QHash<QString, QString>&
     for(const auto& entry : entries){
         if(entry.isDir()){
             auto newPrefix = IFileUtil::joinPath(prefix, entry.fileName());
-            mountStaticFileToServer(hash, entry.absoluteFilePath(), newPrefix);
+            mountFilesToServer(hash, entry.absoluteFilePath(), newPrefix);
             continue;
         }
 

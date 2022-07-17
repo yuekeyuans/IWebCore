@@ -35,7 +35,7 @@ QByteArray ICodecUtil::fromBase64(const char *content)
 quint16 ICodecUtil::crc16(const QString &content)
 {
     auto data = content.toStdString();
-    return qChecksum(data.c_str(), data.length());
+    return qChecksum(data.c_str(), static_cast<uint>(data.length()));
 }
 
 QByteArray ICodecUtil::compress(const QString &content, int level)

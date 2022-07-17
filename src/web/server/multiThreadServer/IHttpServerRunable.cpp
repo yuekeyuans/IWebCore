@@ -126,6 +126,7 @@ void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &r
 
 void IHttpServerRunable::processInNotFoundMode(IRequest &request, IResponse &response)
 {
+    Q_UNUSED(response)
     QString info = request.url() + " " + IHttpMethodHelper::toString(request.method()) + " has no function to handle";
     request.setInvalid(IHttpStatus::NOT_FOND_404, info);
     return;
