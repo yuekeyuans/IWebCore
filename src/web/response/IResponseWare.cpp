@@ -68,19 +68,19 @@ void IResponseWare::setHeader(const QString &key, const QString &value)
     raw->headers[key] = value;
 }
 
-void IResponseWare::setContent(const QByteArray& bytes)
+void IResponseWare::setContent(const QByteArray& content)
 {
-    raw->content = bytes;
+    raw->setContent(content);
 }
 
 void IResponseWare::setContent(const QString& content)
 {
-    raw->content = content.toUtf8();
+    raw->setContent(content);
 }
 
 void IResponseWare::setContent(const char *content)
 {
-    raw->content = content;
+    raw->setContent(content);
 }
 
 void IResponseWare::setInstanceArg(QString &&)

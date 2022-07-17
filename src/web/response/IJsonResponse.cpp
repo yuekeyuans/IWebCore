@@ -14,25 +14,25 @@ IJsonResponse::IJsonResponse() : IResponseInterface()
 IJsonResponse::IJsonResponse(const QString& value) : IResponseInterface()
 {
     raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    raw->content = value.toUtf8();
+    raw->setContent(value);
 }
 
 IJsonResponse::IJsonResponse(const QJsonValue &value) : IResponseInterface()
 {
     raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    raw->content = IJsonUtil::toString(value).toUtf8();
+    raw->setContent(IJsonUtil::toString(value));
 }
 
 IJsonResponse::IJsonResponse(const QJsonArray &array) : IResponseInterface()
 {
     raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    raw->content = IJsonUtil::toString(array).toUtf8();
+    raw->setContent(IJsonUtil::toString(array));
 }
 
 IJsonResponse::IJsonResponse(const QJsonObject &object) : IResponseInterface()
 {
     raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    raw->content = IJsonUtil::toString(object).toUtf8();
+    raw->setContent(IJsonUtil::toString(object));
 }
 
 IJsonResponse::IJsonResponse(IRedirectResponse &&redirectResponse)
@@ -42,20 +42,20 @@ IJsonResponse::IJsonResponse(IRedirectResponse &&redirectResponse)
 
 void IJsonResponse::setInstanceArg(QString &&value)
 {
-    raw->content = value.midRef(prefix.length()).toUtf8();
+    raw->setContent(value.mid(prefix.length()));
 }
 
 void IJsonResponse::setInstanceArg(void *arg, const QString &type)
 {
     if(type == "QJsonObject"){
         auto value = *static_cast<QJsonObject*>(arg);
-        raw->content = IJsonUtil::toString(value).toUtf8();
+        raw->setContent(IJsonUtil::toString(value));
     }else if(type == "QJsonArray"){
         auto value = *static_cast<QJsonArray*>(arg);
-        raw->content = IJsonUtil::toString(value).toUtf8();
+        raw->setContent(IJsonUtil::toString(value));
     }else if(type == "QJsonValue"){
         auto value = *static_cast<QJsonValue*>(arg);
-        raw->content = IJsonUtil::toString(value).toUtf8();
+        raw->setContent(IJsonUtil::toString(value));
     }
 }
 

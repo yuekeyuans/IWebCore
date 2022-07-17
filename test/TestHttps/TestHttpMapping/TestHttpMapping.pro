@@ -26,6 +26,7 @@ SOURCES += \
         mapping/PostTextParameterRequest.cpp \
         mapping/RedirectController.cpp \
         mapping/ReqRespOperatorOverrideController.cpp \
+        mapping/StaticFileController.cpp \
         mapping/TestBean.cpp \
         mapping/TextReturnController.cpp \
         mapping/XmlParameterController.cpp \
@@ -33,7 +34,7 @@ SOURCES += \
         urlPattern/UrlPatternController.cpp \
         urlPattern/UrlPatternController2.cpp
 
-QMAKE_CXXFLAGS_RELEASE += -O3       # Release -O3
+#QMAKE_CXXFLAGS_RELEASE += -O3       # Release -O3
 
 RESOURCES += \
     resource.qrc
@@ -54,6 +55,7 @@ HEADERS += \
     mapping/PostTextParameterRequest.h \
     mapping/RedirectController.h \
     mapping/ReqRespOperatorOverrideController.h \
+    mapping/StaticFileController.h \
     mapping/TestBean.h \
     mapping/TextReturnController.h \
     mapping/XmlParameterController.h \

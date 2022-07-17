@@ -13,13 +13,13 @@ IHtmlResponse::IHtmlResponse() : IResponseInterface()
 IHtmlResponse::IHtmlResponse(const char *data)
 {
     raw->setMime(IHttpMime::TEXT_HTML_UTF8);
-    raw->content = QByteArray(data);
+    raw->setContent(data);
 }
 
 IHtmlResponse::IHtmlResponse(const QString &data)
 {
     raw->setMime(IHttpMime::TEXT_HTML_UTF8);
-    raw->content = data.toUtf8();
+    raw->setContent(data);
 }
 
 IHtmlResponse::IHtmlResponse(IRedirectResponse &&redirectResponse)
@@ -30,7 +30,7 @@ IHtmlResponse::IHtmlResponse(IRedirectResponse &&redirectResponse)
 void IHtmlResponse::setInstanceArg(QString &&data)
 {
     raw->setMime(IHttpMime::TEXT_HTML_UTF8);
-    raw->content = data.mid(m_matcherPrefix.length()).toUtf8();
+    raw->setContent(data.mid(m_matcherPrefix.length()));
 }
 
 bool IHtmlResponse::canConvertFromString()

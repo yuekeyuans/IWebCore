@@ -11,7 +11,7 @@ IByteArrayResponse::IByteArrayResponse()
 
 IByteArrayResponse::IByteArrayResponse(QByteArray &array)
 {
-    raw->content = array;
+    raw->setContent(array);
     raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
 }
 
@@ -28,7 +28,7 @@ IByteArrayResponse::IByteArrayResponse(IRedirectResponse &&redirectResponse)
 
 void IByteArrayResponse::setInstanceArg(QString &&value)
 {
-    raw->content = value.midRef(m_matcherPrefix.length()).toUtf8();
+    raw->setContent(value.mid(m_matcherPrefix.length()));
 }
 
 void IByteArrayResponse::setInstanceArg(void *arg, const QString &)

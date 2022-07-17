@@ -8,6 +8,12 @@ $PackageWebCoreBegin
 struct IResponseWareRaw
 {
 public:
+    enum ContentType{
+        Bytes,
+        String,
+        File
+    };
+public:
     void setMime(IHttpMime mime);
     void setMime(const QString& mime);
 
@@ -24,8 +30,13 @@ public:
     QString mimeString{"UNKNOWN"};   // when mime is unknown and mimeString is not empty ,mimeString take effect.
 
     IHttpStatus statusCode {IHttpStatus::OK_200};
+
     QMap<QString, QString> headers;
-    QByteArray content{};
+
+    ContentType contentType;
+    QByteArray contentBytes{};
+    QString contentFile;
+    QString contentString;
 };
 
 inline void IResponseWareRaw::setMime(IHttpMime mime){

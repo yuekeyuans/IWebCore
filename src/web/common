@@ -12,9 +12,9 @@
 #include "web/response/IJsonResponse.h"
 #include "web/response/IPlainTextResponse.h"
 #include "web/response/IRedirectResponse.h"
-
 #include "web/response/IResponseWare.h"
 #include "web/response/IResponseWareRaw.h"
+#include "web/response/IStaticFileResponse.h"
 
 #include "web/middleware/IMiddleWarePreProcessor.h"
 #include "web/middleware/IPostInterceptorInterface.h"

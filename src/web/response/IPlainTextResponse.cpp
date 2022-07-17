@@ -12,19 +12,19 @@ IPlainTextResponse::IPlainTextResponse()
 
 IPlainTextResponse::IPlainTextResponse(const QString &value)
 {
-    raw->content = value.toUtf8();
+    raw->setContent(value);
     raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
 IPlainTextResponse::IPlainTextResponse(QString &&value)
 {
-    raw->content = value.toUtf8();
+    raw->setContent(value);
     raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
 IPlainTextResponse::IPlainTextResponse(const char *data)
 {
-    raw->content = QByteArray(data);
+    raw->setContent(QByteArray(data));
     raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
@@ -37,9 +37,9 @@ void IPlainTextResponse::setInstanceArg(QString &&data)
 {
     raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
     if(data.startsWith(m_matcherPrefix)){
-        raw->content = data.mid(m_matcherPrefix.length()).toUtf8();
+        raw->setContent(data.mid(m_matcherPrefix.length()));
     }else{
-        raw->content = data.toUtf8();
+        raw->setContent(data);
     }
 }
 
@@ -51,7 +51,7 @@ void IPlainTextResponse::setInstanceArg(void *param, const QString &)
 
 void IPlainTextResponse::setInstanceStringArg(const QString &arg)
 {
-    raw->content = arg.toUtf8();
+    raw->setContent(arg);
 }
 
 IPlainTextResponse operator"" _text(const char* str, size_t size)

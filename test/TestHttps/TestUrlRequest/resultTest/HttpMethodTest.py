@@ -18,7 +18,7 @@ class HttpMethodTest(unittest.TestCase):
     def test_Options(self):
         url = genUrl("/controller/fun")
         resp = requests.options(url)
-        self.assertEqual(resp.headers["Allow"], "OPTIONS, GET, HEAD, PUT")
+        self.assertEqual(resp.headers["Allow"], "GET, PUT, HEAD, OPTIONS")
     
     def test_head(self):
         url = genUrl("/controller/fun")
