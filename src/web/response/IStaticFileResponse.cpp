@@ -39,17 +39,6 @@ bool IStaticFileResponse::matchConvertString(const QString &str)
     return str.startsWith(m_matcherPrefix);
 }
 
-void IStaticFileResponse::updateDelayedResponse()
-{
-//    if(!IFileUtil::isFileExist(m_fileName)){
-//        // TODO: 这个应该是什么状态？ 是 redirect 还是报错
-//    }
-
-//    QFileInfo fileInfo(m_fileName);
-//    raw->setMime(IHttpMimeHelper::getSuffixMime(fileInfo.suffix()));
-//    this->setContent(IFileUtil::readFileAsByteArray(m_fileName));
-}
-
 QSharedPointer<IResponseWare> IStaticFileResponse::createInstance()
 {
     return QSharedPointer<IResponseWare>(new IStaticFileResponse);

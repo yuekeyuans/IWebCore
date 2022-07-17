@@ -44,8 +44,6 @@ public:
     virtual bool canConvertFromString();
     virtual bool matchConvertString(const QString&);
 
-    virtual void updateDelayedResponse();      // 这个一般不需要重载， 遇到延迟计算 reponse 的情况才需要重载
-
     virtual QSharedPointer<IResponseWare> createInstance();
 
 protected:

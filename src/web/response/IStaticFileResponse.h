@@ -20,7 +20,6 @@ public:
     virtual void setInstanceArg(QString &&data) final;
     virtual bool canConvertFromString() final;
     virtual bool matchConvertString(const QString &str) final;
-    virtual void updateDelayedResponse() final;
 
     virtual QSharedPointer<IResponseWare> createInstance() final;
 

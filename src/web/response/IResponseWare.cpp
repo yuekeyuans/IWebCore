@@ -125,11 +125,6 @@ bool IResponseWare::matchConvertString(const QString &)
     return false;
 }
 
-void IResponseWare::updateDelayedResponse()
-{
-    // do nothing here;
-}
-
 QSharedPointer<IResponseWare> IResponseWare::createInstance()\
 {
     qFatal(IConstantUtil::InheritedMethod);
