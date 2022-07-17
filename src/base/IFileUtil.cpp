@@ -1,13 +1,21 @@
 ﻿#include "IFileUtil.h"
 #include "IToeUtil.h"
+#include "sys/stat.h"
 
 $PackageWebCoreBegin
 int meaningless;
 
+// TODO: 需要加速
 bool IFileUtil::isFileExist(const QString &path)
 {
-    QFileInfo fileInfo(path);
-    return fileInfo.exists() && fileInfo.isFile();
+    if(path.startsWith(":")){
+        QFileInfo fileInfo(path);
+        return fileInfo.exists() && fileInfo.isFile();
+    }
+
+    auto name = path.toStdString();
+    struct stat buffer;
+    return stat(name.c_str(), &buffer) == 0;
 }
 
 QString IFileUtil::readFileAsString(const QString &path, bool *ok)

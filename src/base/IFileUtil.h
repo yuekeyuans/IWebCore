@@ -18,7 +18,6 @@ namespace IFileUtil {
 
     template<typename T, typename...Args>
     QString joinPath(const T&first, const Args&...rest);
-
 }
 
 template<typename T>

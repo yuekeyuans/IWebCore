@@ -23,7 +23,12 @@ bool IControllerFileNode::isUrlExist(const QString &url) const
 QString IControllerFileNode::getFilePath(const QString &url) const
 {
     if(isUrlExist(url)){
-        return m_urlFileHash[url];
+        auto path = m_urlFileHash[url];
+        if(IFileUtil::isFileExist(path)){
+            return path;
+        }
+
+         m_urlFileHash.remove(url);
     }
 
     return getUnRegisteredFilePath(url);   // 理论上再监测一层， 方便于计算
