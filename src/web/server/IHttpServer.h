@@ -25,8 +25,7 @@ public:
     void setPort(int port);
 
 public:
-    void serveStatic(const QString& path, const QString& prefix="");
-//    void serveStatic(std::function<bool(const QString&)> judge);    // 传入一个函数
+    void serveStatic(const QString& path, const QString& prefix="/");
 
     void get(const QString& path, ProcessFunctor functor);
     void post(const QString& path, ProcessFunctor functor);

@@ -10,7 +10,7 @@ public:
     bool isUrlExist(const QString& url) const;
     QString getFilePath(const QString& url) const;
 
-    void mountFilesToServer(const QString& path, const QString& prefix);
+    void mountFilesToServer(const QString& path, const QString& prefix="/");
 
 private:
     QHash<QString, QString> m_urlFileHash;
