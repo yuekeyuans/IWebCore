@@ -1,37 +1,55 @@
 ﻿#include "IResponseWareRaw.h"
 
-void IWebCore::IResponseWareRaw::setContent(const QString &content)
+void IWebCore::IResponseWareRaw::setContent(QString &&value)
 {
-    contentType = ContentType::String;
-    this->contentString = content;
+    content.type = IResponseContent::String;
+    std::swap(content.contentString, value);
 }
 
-void IWebCore::IResponseWareRaw::setContent(const QByteArray &content)
+void IWebCore::IResponseWareRaw::setContent(const QString &value)
 {
-    contentType = ContentType::Bytes;
-    this->contentBytes = content;
+    content.type = IResponseContent::String;
+    content.contentString = value;
 }
 
-void IWebCore::IResponseWareRaw::setContent(const char *content)
+void IWebCore::IResponseWareRaw::setContent(QByteArray &&value)
 {
-    contentType = ContentType::Bytes;
-    contentBytes = QByteArray(content);
+    content.type = IResponseContent::Bytes;
+    std::swap(content.contentBytes, value);
 }
 
-void IWebCore::IResponseWareRaw::setContent(const QFileInfo &content)
+void IWebCore::IResponseWareRaw::setContent(const QByteArray &value)
 {
-    contentType = ContentType::File;
-    contentFile = content.absoluteFilePath();
+    content.type = IResponseContent::Bytes;
+    content.contentBytes = value;
+}
+
+void IWebCore::IResponseWareRaw::setContent(const char *value)
+{
+    content.type = IResponseContent::Bytes;
+    content.contentBytes = QByteArray(value);
+}
+
+void IWebCore::IResponseWareRaw::setContent(const QFileInfo &value)
+{
+    content.type = IResponseContent::File;
+    content.contentFilePath = value.absoluteFilePath();
 }
 
 void IWebCore::IResponseWareRaw::setContent(const QFile &file)
 {
-    contentType = ContentType::File;
-    contentFile = QFileInfo(file).absoluteFilePath();
+    content.type = IResponseContent::File;
+    content.contentFilePath = QFileInfo(file).absoluteFilePath();
 }
 
 void IWebCore::IResponseWareRaw::setFileContent(const QString &filePath)
 {
-    contentType = ContentType::File;
-    contentFile = filePath;
+    content.type = IResponseContent::File;
+    content.contentFilePath = filePath;
+}
+
+// TODO: 这里计算 将 QString 和 QByteArray 长度等同
+int IWebCore::IResponseWareRaw::getContentLength()
+{
+    return content.length();
 }

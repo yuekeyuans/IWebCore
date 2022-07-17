@@ -70,6 +70,7 @@ HEADERS += \
     $$PWD/web/response/IJsonResponse.h \
     $$PWD/web/response/IPlainTextResponse.h \
     $$PWD/web/response/IRedirectResponse.h \
+    $$PWD/web/response/IResponseContent.h \
     $$PWD/web/response/IResponseInterface.h \
     $$PWD/web/response/IResponseManage.h \
     $$PWD/web/response/IResponsePreProcessor.h \
@@ -223,6 +224,7 @@ SOURCES += \
     $$PWD/web/response/IJsonResponse.cpp \
     $$PWD/web/response/IPlainTextResponse.cpp \
     $$PWD/web/response/IRedirectResponse.cpp \
+    $$PWD/web/response/IResponseContent.cpp \
     $$PWD/web/response/IResponseInterface.cpp \
     $$PWD/web/response/IResponseManage.cpp \
     $$PWD/web/response/IResponseWare.cpp \

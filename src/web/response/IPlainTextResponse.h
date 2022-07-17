@@ -42,7 +42,7 @@ template<class T>
 IPlainTextResponse::IPlainTextResponse(const T& value){
     raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
     auto textValue = IConvertUtil::toString(value);
-    raw->content = textValue.toUtf8();
+    raw->setContent(textValue);
 }
 
 IPlainTextResponse operator"" _text(const char* str, size_t size);

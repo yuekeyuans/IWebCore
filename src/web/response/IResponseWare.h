@@ -20,7 +20,7 @@ public:
     QString mime() const;
     IHttpStatus status() const;
     size_t contentLength() const;
-    QByteArray& content();   // TODO: need const constrait?
+//    QByteArray& content();   // TODO: need const constrait?
     const QMap<QString, QString>& headers() const;
 
     void setMime(IHttpMime);

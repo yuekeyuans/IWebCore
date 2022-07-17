@@ -17,7 +17,7 @@ IByteArrayResponse::IByteArrayResponse(QByteArray &array)
 
 IByteArrayResponse::IByteArrayResponse(QByteArray &&array)
 {
-    std::swap(raw->content, array);
+    raw->setContent(array);
     raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
 }
 
@@ -34,7 +34,7 @@ void IByteArrayResponse::setInstanceArg(QString &&value)
 void IByteArrayResponse::setInstanceArg(void *arg, const QString &)
 {
     auto value = *static_cast<QByteArray*>(arg);
-    std::swap(value, raw->content);
+    raw->setContent(std::move(value));
 }
 
 bool IByteArrayResponse::canConvertFromString()

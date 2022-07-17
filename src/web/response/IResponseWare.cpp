@@ -36,13 +36,16 @@ IHttpStatus IResponseWare::status() const
 
 size_t IResponseWare::contentLength() const
 {
-    return raw->content.length();
+    return raw->getContentLength();
 }
 
-QByteArray& IResponseWare::content()
-{
-    return raw->content;
-}
+// TODO:
+//QByteArray& IResponseWare::content()
+//{
+//    static QByteArray a;
+//    return  a;
+////    return raw->content;
+//}
 
 const QMap<QString, QString>& IResponseWare::headers() const
 {

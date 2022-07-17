@@ -45,7 +45,7 @@ IJsonResponse::IJsonResponse(const T& value)
 {
     raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
     auto jsonValue = IConvertUtil::toJsonValue(value);
-    raw->content = IJsonUtil::toString(jsonValue).toUtf8();
+    raw->setContent(IJsonUtil::toString(jsonValue));
 }
 
 IJsonResponse operator"" _json(const char* str, size_t size);
