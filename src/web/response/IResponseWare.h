@@ -21,11 +21,9 @@ public:
 
     QString mime() const;
     IHttpStatus status() const;
-//    size_t contentLength() const;
 
     IResponseContent& getContent();
 
-//    QByteArray& content();   // TODO: need const constrait?
     const QMap<QString, QString>& headers() const;
 
     void setMime(IHttpMime);

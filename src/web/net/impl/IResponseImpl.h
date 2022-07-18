@@ -17,7 +17,7 @@ public:
     void flush();
     QByteArray generateFirstLine();
 
-    QByteArray generateHeadersContent();
+    QByteArray generateHeadersContent(int contentSize); // 丑，但是好用啊
     void generateExternalHeadersContent(QByteArray& content);
     QString generateCookieHeaders();
 

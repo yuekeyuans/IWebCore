@@ -14,6 +14,8 @@ from resultTest.PostMethodTest import PostMethodTest
 from resultTest.BeanReturnControllerTest import BeanReturnControllerTest
 from resultTest.BeanParameterControllerTest import BeanParameterControllerTest;
 from resultTest.ReqRespOperatorOverrideControllerTest import ReqRespOperatorOverrideControllerTest
+from resultTest.StaticFileReturnTest import StaticFileReturnTest
+
 
 testCases = [
     ByteArrayReturnTest, RedirectUrlReturnTest, 
@@ -21,7 +23,8 @@ testCases = [
     DefaultPathReturnTest, PostTextParameterTest,
     TextReturnTest, PostMultiPartTest, 
     HttpMethodTest, BeanReturnControllerTest,
-    BeanParameterControllerTest, ReqRespOperatorOverrideControllerTest
+    BeanParameterControllerTest, ReqRespOperatorOverrideControllerTest, HtmlReturnTest,
+    StaticFileReturnTest
     ]
 
 if __name__ == '__main__':

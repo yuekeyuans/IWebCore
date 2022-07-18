@@ -11,11 +11,11 @@ IResponseImpl::IResponseImpl(IReqRespRaw *raw)
 
 bool IResponseImpl::respond()
 {
-    write(generateFirstLine());
-    write(generateHeadersContent());
-    write(IConstantUtil::NewLine);
-
     const auto& content = raw->m_responseContent.getAsBytes();
+
+    write(generateFirstLine());
+    write(generateHeadersContent(content.size()));
+    write(IConstantUtil::NewLine);
 
     if(content.length() != 0 && raw->m_method != IHttpMethod::HEAD){       // 处理 head 方法
         write(content);
@@ -47,11 +47,10 @@ QByteArray IResponseImpl::generateFirstLine()
     return firstLine;
 }
 
-QByteArray IResponseImpl::generateHeadersContent()
+QByteArray IResponseImpl::generateHeadersContent(int contentSize)
 {
-    auto len = raw->m_responseContent.getAsBytes().length();
-    if(len != 0){
-        raw->m_headerJar.setResponseHeader(IHttpHeader::ContentLength, QString::number(len));
+    if(contentSize != 0){
+        raw->m_headerJar.setResponseHeader(IHttpHeader::ContentLength, QString::number(contentSize));
         if(!raw->m_headerJar.containResponseHeaderKey(IHttpHeader::ContentType)){
             raw->m_headerJar.setResponseHeader(IHttpHeader::ContentType, raw->m_responseMime);
         }

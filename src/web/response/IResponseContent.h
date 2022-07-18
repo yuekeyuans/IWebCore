@@ -17,7 +17,6 @@ public:
     };
 
 public:
-//    int length();
     void append(const QString& content);
     void append(const QByteArray& content);
     void append(const char* content);
@@ -36,10 +35,9 @@ public:
     QByteArray contentBytes;
     QString contentFilePath;
 
-
     //extend
     // TODO: 这个内容是以后使用的， 目的是返回一部分内容
-    std::array<int, 2> anc{-1, -1};
+//    std::array<int, 2> anc{-1, -1};
 };
 
 $PackageWebCoreEnd
