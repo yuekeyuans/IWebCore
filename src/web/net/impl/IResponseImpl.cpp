@@ -15,8 +15,10 @@ bool IResponseImpl::respond()
     write(generateHeadersContent());
     write(IConstantUtil::NewLine);
 
-    if(raw->m_responseContent.length() != 0 && raw->m_method != IHttpMethod::HEAD){       // 处理 head 方法
-        write(raw->m_responseContent.getAsBytes());
+    const auto& content = raw->m_responseContent.getAsBytes();
+
+    if(content.length() != 0 && raw->m_method != IHttpMethod::HEAD){       // 处理 head 方法
+        write(content);
     }
 
     flush();
@@ -47,7 +49,7 @@ QByteArray IResponseImpl::generateFirstLine()
 
 QByteArray IResponseImpl::generateHeadersContent()
 {
-    auto len = raw->m_responseContent.length();
+    auto len = raw->m_responseContent.getAsBytes().length();
     if(len != 0){
         raw->m_headerJar.setResponseHeader(IHttpHeader::ContentLength, QString::number(len));
         if(!raw->m_headerJar.containResponseHeaderKey(IHttpHeader::ContentType)){

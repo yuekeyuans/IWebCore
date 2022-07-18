@@ -3,18 +3,18 @@
 
 $PackageWebCoreBegin
 
-int IResponseContent::length()
-{
-    switch (type) {
-    case String:
-        return contentString.length();
-    case Bytes:
-        return contentBytes.length();
-    case File:
-        return QFileInfo(contentFilePath).size();
-    }
-    return 0;
-}
+//int IResponseContent::length()
+//{
+//    switch (type) {
+//    case String:
+//        return contentString.toUtf8().length();
+//    case Bytes:
+//        return contentBytes.length();
+//    case File:
+//        return QFileInfo(contentFilePath).size();
+//    }
+//    return 0;
+//}
 
 void IResponseContent::append(const QString &content)
 {

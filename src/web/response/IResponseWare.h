@@ -21,7 +21,7 @@ public:
 
     QString mime() const;
     IHttpStatus status() const;
-    size_t contentLength() const;
+//    size_t contentLength() const;
 
     IResponseContent& getContent();
 

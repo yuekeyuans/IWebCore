@@ -34,10 +34,10 @@ IHttpStatus IResponseWare::status() const
     return raw->statusCode;
 }
 
-size_t IResponseWare::contentLength() const
-{
-    return raw->getContentLength();
-}
+//size_t IResponseWare::contentLength() const
+//{
+//    return raw->getContentLength();
+//}
 
 IResponseContent &IResponseWare::getContent()
 {

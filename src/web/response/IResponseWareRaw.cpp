@@ -49,7 +49,7 @@ void IWebCore::IResponseWareRaw::setFileContent(const QString &filePath)
 }
 
 // TODO: 这里计算 将 QString 和 QByteArray 长度等同
-int IWebCore::IResponseWareRaw::getContentLength()
-{
-    return content.length();
-}
+//int IWebCore::IResponseWareRaw::getContentLength()
+//{
+//    return content.length();
+//}
