@@ -8,8 +8,9 @@ from resultTest.BeanReturnControllerTest import BeanReturnControllerTest
 from resultTest.BeanParameterControllerTest import BeanParameterControllerTest
 from resultTest.ReqRespOperatorOverrideControllerTest import ReqRespOperatorOverrideControllerTest
 from resultTest.PostMultiPartTest import PostMultiPartTest
+from resultTest.StaticFileReturnTest import StaticFileReturnTest
 
-cases = [PostMultiPartTest]
+cases = [StaticFileReturnTest]
 if __name__ == "__main__":
     suites = unittest.TestSuite()
     for case in cases:
