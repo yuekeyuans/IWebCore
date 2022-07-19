@@ -17,3 +17,16 @@ IStaticFileResponse StaticFileController::getFile2()
     auto file = QFileInfo(path).absolutePath() + "/demoImage.png";
     return file;
 }
+
+IStaticFileResponse StaticFileController::getFile3()
+{
+    return "TestHttpMapping.exe"_file;
+}
+
+IStaticFileResponse StaticFileController::getFile4()
+{
+    auto path = IApplication::applicationDirPath() + "/TestHttpMapping.exe";
+    IStaticFileResponse response;
+    response.setFilePath(path);
+    return response;
+}

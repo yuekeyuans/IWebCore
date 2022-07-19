@@ -29,9 +29,9 @@ public:
     void setMime(IHttpMime);
     void setStatus(IHttpStatus statusCode);
     void setHeader(const QString& key, const QString& value);
-    void setContent(const QByteArray& bytes);
-    void setContent(const QString& content);
-    void setContent(const char* content);
+    virtual void setContent(const QByteArray& bytes);
+    virtual void setContent(const QString& content);
+    virtual void setContent(const char* content);
 
     void redirectTo(IRedirectResponse&& redirectResponse);
 
