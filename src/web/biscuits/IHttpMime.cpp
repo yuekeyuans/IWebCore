@@ -211,7 +211,8 @@ namespace{
             // APPLICATION
             {"json", IHttpMime::APPLICATION_JSON},
             {"js", IHttpMime::APPLICATION_JAVASCRIPT},
-            {"bin", IHttpMime::APPLICATION_OCTET_STREAM}
+            {"bin", IHttpMime::APPLICATION_OCTET_STREAM},
+            {"exe", IHttpMime::APPLICATION_OCTET_STREAM}
         };
         return suffixMimePair;
     };
@@ -242,6 +243,10 @@ IHttpMime IHttpMimeHelper::toMime(const QString &string)
 
 QString IHttpMimeHelper::getSuffixMime(const QString &suffix)
 {
+    if(suffix.isEmpty()){
+        return "UNKNOWN";
+    }
+
     static QStringList keys = getSystemSuffixMimeMap().keys();
     if(keys.contains(suffix.toLower())){
         return IHttpMimeHelper::toString(getSystemSuffixMimeMap()[suffix.toLower()]);
@@ -252,7 +257,7 @@ QString IHttpMimeHelper::getSuffixMime(const QString &suffix)
         return mimeNames[index];
     }
 
-    return IHttpMimeHelper::MIME_UNKNOWN_STRING;
+    return getMimeStringList()[int(IHttpMime::APPLICATION_OCTET_STREAM)];
 }
 
 void IHttpMimeHelper::registerSuffixMime(const QString &suffix, const QString &mime)

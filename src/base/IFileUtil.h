@@ -18,6 +18,8 @@ namespace IFileUtil {
 
     template<typename T, typename...Args>
     QString joinPath(const T&first, const Args&...rest);
+
+    QString getFileSuffix(const QString& path);
 }
 
 template<typename T>

@@ -63,4 +63,13 @@ QString IFileUtil::normalizeFilePath(QString path, bool*ok)
     return path;
 }
 
+QString IFileUtil::getFileSuffix(const QString &path)
+{
+    auto index = path.lastIndexOf(".");
+    if(index>0){
+        return path.mid(index+1);
+    }
+    return {};
+}
+
 $PackageWebCoreEnd
