@@ -55,6 +55,9 @@ public:
     static IStatusFunctionNode* getStatusFunction(IHttpStatus status);
     static QString getStaticFilePath(const IRequest& request);
 
+    static void setDefaultStaticDir(const QString& prefix);
+    static QString getDefaultStaticDir();
+
     static bool preIntercept(IRequest& request, IResponse& response);
     static bool postIntercept(IRequest& request, IResponse& response);
     static bool preProcess(IRequest& request, IResponse& response);
@@ -71,6 +74,8 @@ private:
 private:
     std::shared_ptr<IControllerRouteNode> m_urlMapppings;
     std::shared_ptr<IControllerFileNode> m_fileMappings;
+
+    QString m_staticFilePrefix {};      // static served file dir;
 
     QMap<IHttpStatus, IStatusFunctionNode> m_statusMappings;
     QMap<QString, QString> m_pathRegValidators;

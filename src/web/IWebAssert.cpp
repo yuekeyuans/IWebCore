@@ -31,6 +31,9 @@ void IWebAssert::loadFromFunction()
     addFatal("register_controller_do_not_use_singleton", "when you register a controller, you should use controller singleton, do not intialize your own instance");
     addFatal("unregister_controller_do_not_use_singleton", "when you unregister a controller, you should use controller singleton, do not intialize your own instance");
 
+    addFatal("static_file_dir_not_exist", "your registered default static file dir not exist, please check");
+    addFatal("static_file_dir_aleady_exist", "your registered default static file alreay exist, please check");
+
     addFatal("http_mime_already_exist", "user register mime already exist, please duplicated this mime");
 
     addWarn("register_the_same_url", "registration can`t match the leaf or the leaf already exist");

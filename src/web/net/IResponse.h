@@ -55,6 +55,7 @@ public:
     IResponse& setContent(QByteArray&& content);
     IResponse& setContent(const char* content);
     IResponse& setContent(IResponseWare *response);
+    IResponse& setContent(IResponseWare& response);
 
     IHttpVersion version() const;
     QString mime() const;

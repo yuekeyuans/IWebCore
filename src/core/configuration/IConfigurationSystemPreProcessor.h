@@ -24,6 +24,9 @@ static klassName* system_setting_ ## klassName ## _instance = klassName::instanc
 #define $EnableConfigFile(fileName) \
     PP_SYSTEM_SETTING(EnableFileClass, PP_FILE, fileName)
 
+#define $EnableDefaultStaticDir(prefix) \
+    PP_SYSTEM_SETTING(EnableDefaultStaticFilePrefix, PP_DEFAULT_STATIC_DIR, prefix)
+
 #define $EnableBluePrint(boolValue) \
     PP_SYSTEM_SETTING(EnableBluePrint, SYSTEM_BLUE_PRINT, boolValue)
 

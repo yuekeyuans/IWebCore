@@ -39,3 +39,8 @@ void StaticFileController::getFile5(IResponse &response)
     fileResponse.setFilePath(path);
     response.setContent(fileResponse);
 }
+
+IStaticFileResponse StaticFileController::getConfigFile()
+{
+    return "config.json";
+}

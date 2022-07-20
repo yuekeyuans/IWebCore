@@ -34,9 +34,15 @@ void IHttpServer::setPort(int port)
     this->port = port;
 }
 
-void IHttpServer::serveStatic(const QString &path, const QString &prefix)
+void IHttpServer::setDefaultStaticDir(const QString &dir)
 {
-    IControllerManage::registerStaticFiles(path, prefix);
+
+    IControllerManage::setDefaultStaticDir(dir);
+}
+
+void IHttpServer::serveStatic(const QString &dir, const QString &prefix)
+{
+    IControllerManage::registerStaticFiles(dir, prefix);
 }
 
 void IHttpServer::get(const QString &path, IHttpServer::ProcessFunctor functor)

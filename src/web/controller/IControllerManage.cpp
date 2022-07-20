@@ -1,10 +1,15 @@
 ﻿#include "IControllerManage.h"
+#include "core/configuration/IConfigurationManage.h"
 #include "web/net/IRequest.h"
 #include "base/IConvertUtil.h"
 #include "base/IMetaUtil.h"
 #include "web/net/impl/IReqRespRaw.h"
+#include "web/IWebAssert.h"
+
 
 $PackageWebCoreBegin
+
+$UseAssert(IWebAssert)
 
 namespace IControllerManageHelper {
     void registerCommonTypes();
@@ -249,6 +254,49 @@ QString IControllerManage::getStaticFilePath(const IRequest &request)
 {
     auto inst = instance();
     return inst->m_fileMappings->getFilePath(request.url());
+}
+
+void IControllerManage::setDefaultStaticDir(const QString &dirPath)
+{
+    auto inst = instance();
+
+    bool ok;
+    auto value = IConfigurationManage::getStringValue("PP_DEFAULT_STATIC_DIR", &ok, SystemConfigurationGroup);
+    if(!ok || value.isEmpty()){
+        value = inst->m_staticFilePrefix;
+    }
+
+    if(!value.isEmpty()){
+        IAssertInfo info;
+        info.reason = QString("old: ").append(value).append(" new: ").append(dirPath);
+        $Ast->fatal("static_file_dir_aleady_exist", info);
+    }
+
+    QDir dir(dirPath);
+    if(!dir.exists()){
+        IAssertInfo info;
+        info.reason = QString("path: ").append(dirPath);
+        $Ast->fatal("static_file_dir_not_exist", info);
+    }
+
+    inst->m_staticFilePrefix = dir.absolutePath().append("/");
+}
+
+QString IControllerManage::getDefaultStaticDir()
+{
+    auto inst = instance();
+
+    bool ok;
+    auto value = IConfigurationManage::getStringValue("PP_DEFAULT_STATIC_DIR", &ok, SystemConfigurationGroup);
+    if(ok && !value.isEmpty()){
+        inst->m_staticFilePrefix = value;       // 优先设置项。
+    }
+
+    if(inst->m_staticFilePrefix.isEmpty()){
+        inst->m_staticFilePrefix = ":/";
+    }
+
+    return inst->m_staticFilePrefix;
 }
 
 bool IControllerManage::preIntercept(IRequest &request, IResponse &response)

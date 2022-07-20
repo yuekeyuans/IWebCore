@@ -25,5 +25,7 @@ public:
     $GetMapping(getFile5, getFile5)
     void getFile5(IResponse& response);
 
+    $GetMapping(getConfigFile, getConfigFile)
+    IStaticFileResponse getConfigFile();
 };
 

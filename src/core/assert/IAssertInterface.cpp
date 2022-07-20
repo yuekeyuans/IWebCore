@@ -148,7 +148,7 @@ QString IAssertInterfaceHelper::getOutput(const QString& name, const QPair<QStri
     if(!value.first.isEmpty()){
         ret.append(" [INFO] ").append(value.first);
     }
-    if(!value.first.isEmpty()){
+    if(!value.second.isEmpty()){
         ret.append(" [SOLUTION] ").append(value.second);
     }
     return ret;

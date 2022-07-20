@@ -202,6 +202,11 @@ IResponse& IResponse::setContent(IResponseWare *response)
     return *this;
 }
 
+IResponse &IResponse::setContent(IResponseWare &response)
+{
+    return setContent(&response);
+}
+
 IHttpVersion IResponse::version() const
 {
     return raw->m_httpVersion;
