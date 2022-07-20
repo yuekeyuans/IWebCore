@@ -26,6 +26,9 @@ IAssertInfo::operator QString() const
     if(!parameterName.isEmpty()){
         ret.append(" [PARAMETER_NAME] ").append(parameterName);
     }
+    if(!reason.isEmpty()){
+        ret.append(" [REASON] ").append(reason);
+    }
 
     return ret;
 }

@@ -77,7 +77,7 @@ void IAssertInterface::fatal(const QString &name, const IAssertInfo &info)
 {
     if(m_fatal.contains(name)){
         auto str = IAssertInterfaceHelper::getOutput(name, m_fatal[name], info);
-        qDebug().noquote() << str;
+//        qDebug().noquote() << str;
         qFatal(str.toUtf8());
     }
 }

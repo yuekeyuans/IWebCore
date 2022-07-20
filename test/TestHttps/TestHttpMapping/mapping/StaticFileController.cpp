@@ -28,5 +28,14 @@ IStaticFileResponse StaticFileController::getFile4()
     auto path = IApplication::applicationDirPath() + "/TestHttpMapping.exe";
     IStaticFileResponse response;
     response.setFilePath(path);
+    response.enableContentDisposition();
     return response;
+}
+
+void StaticFileController::getFile5(IResponse &response)
+{
+    auto path = IApplication::applicationDirPath() + "/TestHttpMapping.exe";
+    IStaticFileResponse fileResponse;
+    fileResponse.setFilePath(path);
+    response.setContent(&fileResponse);
 }

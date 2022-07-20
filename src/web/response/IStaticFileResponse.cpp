@@ -1,10 +1,26 @@
 ﻿#include "IStaticFileResponse.h"
 #include "base/IFileUtil.h"
+#include "base/ICodecUtil.h"
 #include "web/biscuits/IHttpMime.h"
 
 $PackageWebCoreBegin
 
 const QString IStaticFileResponse::m_matcherPrefix{"$file:"};
+
+namespace IStaticFileResponseHelper
+{
+    QString getContentDisposition(const QString& filePath);
+}
+
+void IStaticFileResponse::enableContentDisposition(bool enabled)
+{
+    m_enableContentDisposition = true;
+
+    if(raw->content.type == IResponseContent::File && !raw->content.contentFilePath.isEmpty()){
+        raw->headers["Content-Disposition"]
+            = IStaticFileResponseHelper::getContentDisposition(raw->content.contentFilePath);
+    }
+}
 
 IStaticFileResponse::IStaticFileResponse()
 {
@@ -15,6 +31,12 @@ IStaticFileResponse::IStaticFileResponse(const char *data)
     auto suffix = IFileUtil::getFileSuffix(data);
     raw->setMime(IHttpMimeHelper::getSuffixMime(suffix));
     raw->setFileContent(data);
+
+    if(m_enableContentDisposition &&raw->content.type == IResponseContent::File
+        && !raw->content.contentFilePath.isEmpty()){
+        raw->headers["Content-Disposition"]
+            = IStaticFileResponseHelper::getContentDisposition(raw->content.contentFilePath);
+    }
 }
 
 IStaticFileResponse::IStaticFileResponse(const QString &data)
@@ -22,6 +44,12 @@ IStaticFileResponse::IStaticFileResponse(const QString &data)
     auto suffix = IFileUtil::getFileSuffix(data);
     raw->setMime(IHttpMimeHelper::getSuffixMime(suffix));
     raw->setFileContent(data);
+
+    if(m_enableContentDisposition && raw->content.type == IResponseContent::File
+        && !raw->content.contentFilePath.isEmpty()){
+        raw->headers["Content-Disposition"]
+            = IStaticFileResponseHelper::getContentDisposition(raw->content.contentFilePath);
+    }
 }
 
 IStaticFileResponse::IStaticFileResponse(IWebCore::IRedirectResponse &&redirectResponse)
@@ -36,8 +64,13 @@ void IStaticFileResponse::setFilePath(const QString &path)
         auto suffix = IFileUtil::getFileSuffix(path);
         raw->setMime(IHttpMimeHelper::getSuffixMime(suffix));
     }
-
     raw->setFileContent(path);
+
+    if(m_enableContentDisposition && raw->content.type == IResponseContent::File
+        && !raw->content.contentFilePath.isEmpty()){
+        raw->headers["Content-Disposition"]
+            = IStaticFileResponseHelper::getContentDisposition(raw->content.contentFilePath);
+    }
 }
 
 void IStaticFileResponse::setContent(const QByteArray &bytes)
@@ -86,6 +119,12 @@ IStaticFileResponse operator"" _file(const char* str, size_t size)
 
     IStaticFileResponse response(name);
     return response;
+}
+
+QString IStaticFileResponseHelper::getContentDisposition(const QString& filePath)
+{
+    auto fileName  = QFileInfo(filePath).fileName();
+    return QString("attachment;filename=").append(ICodecUtil::urlEncode(fileName));
 }
 
 $PackageWebCoreEnd

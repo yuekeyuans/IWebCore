@@ -11,7 +11,7 @@ from resultTest.PostMultiPartTest import PostMultiPartTest
 from resultTest.StaticFileReturnTest import StaticFileReturnTest
 
 cases = [StaticFileReturnTest]
-if __name__ == "__main__":
+if __name__ == "__main__":                                               
     suites = unittest.TestSuite()
     for case in cases:
             suite = unittest.TestLoader().loadTestsFromTestCase(case)

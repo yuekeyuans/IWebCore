@@ -19,8 +19,11 @@ public:
     $GetMapping(getFile3, getFile3)
     IStaticFileResponse getFile3();
 
-
     $GetMapping(getFile4, getFile4)
     IStaticFileResponse getFile4();
+
+    $GetMapping(getFile5, getFile5)
+    void getFile5(IResponse& response);
+
 };
 
