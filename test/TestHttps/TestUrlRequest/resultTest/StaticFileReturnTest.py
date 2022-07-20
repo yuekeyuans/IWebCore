@@ -19,8 +19,14 @@ class StaticFileReturnTest(unittest.TestCase):
         self.assertEqual(resp.headers["Content-Type"], "image/png")
         self.assertNotEqual(len(resp.content), 0)
         
-        
     def testGetImage3(self):
+        url = genUrl("/staticFile/getFile5")
+        resp = requests.get(url)
+        self.assertEqual(resp.headers["Content-Type"], "application/octet-stream")
+        self.assertNotEqual(len(resp.content), 0)
+        
+        
+    def testGetImage4(self):
         url = genUrl("/staticFile/getFile4")
         resp = requests.get(url)
         self.assertEqual(resp.headers["Content-Type"], "application/octet-stream")
@@ -29,11 +35,8 @@ class StaticFileReturnTest(unittest.TestCase):
         self.assertEqual(resp.headers["Content-Disposition"], "attachment;filename=TestHttpMapping.exe")
         self.assertNotEqual(len(resp.content), 0)
         
-    def testGetImage4(self):
+    def testGetImage5(self):
         url = genUrl("/staticFile/getFile5")
         resp = requests.get(url)
-        self.assertEqual(resp.headers["Content-Type"], "application/octet-stream")
-        
-        # print(resp.headers["Content-Disposition"]);
-        # self.assertEqual(resp.headers["Content-Disposition"], "attachment;filename=TestHttpMapping.exe")
+        self.assertEqual(resp.headers["Content-Type"], "application/octet-stream") 
         self.assertNotEqual(len(resp.content), 0)
