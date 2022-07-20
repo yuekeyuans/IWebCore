@@ -20,10 +20,10 @@ class StaticFileReturnTest(unittest.TestCase):
         self.assertNotEqual(len(resp.content), 0)
         
     def testGetImage3(self):
-        url = genUrl("/staticFile/getFile5")
+        url = genUrl("/staticFile/getFile3")
         resp = requests.get(url)
         self.assertEqual(resp.headers["Content-Type"], "application/octet-stream")
-        self.assertNotEqual(len(resp.content), 0)
+        self.assertEqual(len(resp.content), 0)      # 因为位置不对，所以这里数据为 0
         
         
     def testGetImage4(self):

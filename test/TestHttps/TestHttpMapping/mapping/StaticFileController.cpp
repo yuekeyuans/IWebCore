@@ -37,5 +37,5 @@ void StaticFileController::getFile5(IResponse &response)
     auto path = IApplication::applicationDirPath() + "/TestHttpMapping.exe";
     IStaticFileResponse fileResponse;
     fileResponse.setFilePath(path);
-    response.setContent(&fileResponse);
+    response.setContent(fileResponse);
 }
