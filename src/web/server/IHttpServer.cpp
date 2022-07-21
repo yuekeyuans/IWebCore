@@ -47,36 +47,35 @@ void IHttpServer::serveStatic(const QString &dir, const QString &prefix)
 
 void IHttpServer::get(const QString &path, IHttpServer::ProcessFunctor functor)
 {
-    serve(IHttpMethod::GET, path, functor);
+    serveDynamic(IHttpMethod::GET, path, functor);
 }
 
 void IHttpServer::post(const QString &path, IHttpServer::ProcessFunctor functor)
 {
-    serve(IHttpMethod::GET, path, functor);
+    serveDynamic(IHttpMethod::GET, path, functor);
 }
 
 void IHttpServer::put(const QString &path, IHttpServer::ProcessFunctor functor)
 {
-    serve(IHttpMethod::GET, path, functor);
+    serveDynamic(IHttpMethod::GET, path, functor);
 }
 
 void IHttpServer::deletes(const QString &path, IHttpServer::ProcessFunctor functor)
 {
-    serve(IHttpMethod::GET, path, functor);
+    serveDynamic(IHttpMethod::GET, path, functor);
 }
 
 void IHttpServer::patch(const QString &path, IHttpServer::ProcessFunctor functor)
 {
-    serve(IHttpMethod::GET, path, functor);
+    serveDynamic(IHttpMethod::GET, path, functor);
 }
 
-void IHttpServer::serve(IHttpMethod method, const QString &path, IHttpServer::ProcessFunctor functor)
+void IHttpServer::serveDynamic(IHttpMethod method, const QString &path, IHttpServer::ProcessFunctor functor)
 {
-    Q_UNUSED(method)
-    Q_UNUSED(path)
-    Q_UNUSED(functor)
-    qFatal(IConstantUtil::UnImplimentedMethod);
-    // TODO:
+    IUrlFunctionNode function;
+
+    QVector<IUrlFunctionNode> funs = {};
+    IControllerManage::registerUrlFunctions(funs);
 }
 
 void IHttpServer::incomingConnection(qintptr handle)

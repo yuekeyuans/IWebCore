@@ -27,6 +27,7 @@ namespace IConstantUtil
 
     static const char* const InheritedMethod = "inherited method";
     static const char* const UnImplimentedMethod = "unimplimented method, this will be implimented latter";
+    static const char* const UnVisibleMethod = "This method change visiblity to unvisible, if you see this, it means you call it illegally";
 
     // length;
     static constexpr int Request_Url_Max_Length = (2048 + 35);  // 2083

@@ -9,10 +9,11 @@ $UseAssert(IWebAssert)
 
 static const QString& nmspace = $PackageWebCoreName;
 
-namespace IFunctionNodeHelper{
-void assignBaseInfo(IFunctionNode& node, void* handle, QMetaMethod method);
-QString createFunctionExpression(IFunctionNode& node);
-void createFunctionParamNodes(IFunctionNode& node);
+namespace IFunctionNodeHelper
+{
+    void assignBaseInfo(IFunctionNode& node, void* handle, QMetaMethod method);
+    QString createFunctionExpression(IFunctionNode& node);
+    void createFunctionParamNodes(IFunctionNode& node);
 };
 
 IFunctionNode IFunctionNode::fromMetaMethod(void *handle, QMetaMethod method)

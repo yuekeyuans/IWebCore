@@ -33,8 +33,7 @@ public:
     void put(const QString& path, ProcessFunctor functor);
     void deletes(const QString& path, ProcessFunctor functor);
     void patch(const QString& path, ProcessFunctor functor);
-
-    void serve(IHttpMethod method, const QString& path, ProcessFunctor);
+    void serveDynamic(IHttpMethod method, const QString& path, ProcessFunctor);
 
 private:
     virtual void incomingConnection(qintptr handle) final;

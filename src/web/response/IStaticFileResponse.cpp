@@ -1,6 +1,7 @@
 ﻿#include "IStaticFileResponse.h"
-#include "base/IFileUtil.h"
 #include "base/ICodecUtil.h"
+#include "base/IConstantUtil.h"
+#include "base/IFileUtil.h"
 #include "web/biscuits/IHttpMime.h"
 #include "web/controller/IControllerManage.h"
 
@@ -51,19 +52,19 @@ void IStaticFileResponse::setFilePath(const QString &path)
 void IStaticFileResponse::setContent(const QByteArray &bytes)
 {
     Q_UNUSED(bytes);
-    // 覆盖文件
+    qFatal(IConstantUtil::UnVisibleMethod);
 }
 
 void IStaticFileResponse::setContent(const QString &content)
 {
     Q_UNUSED(content);
-    // 覆盖文件
+    qFatal(IConstantUtil::UnVisibleMethod);
 }
 
 void IStaticFileResponse::setContent(const char *content)
 {
     Q_UNUSED(content);
-    // 覆盖文件
+    qFatal(IConstantUtil::UnVisibleMethod);
 }
 
 void IStaticFileResponse::setInstanceArg(QString &&data)
