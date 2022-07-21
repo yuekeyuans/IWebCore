@@ -5,7 +5,6 @@
 $PackageWebCoreBegin
 int meaningless;
 
-// TODO: 需要加速
 bool IFileUtil::isFileExist(const QString &path)
 {
     if(path.startsWith(":")){
