@@ -5,7 +5,8 @@
 #include "base/IToeUtil.h"
 #include "core/bean/IBeanWare.h"
 #include "core/configuration/IConfigurationManage.h"
-#include "web/node/IFunctionNode.h"
+#include "web/node/IMethodNode.h"
+#include "web/node/IParamNode.h"
 #include "web/net/IRequest.h"
 #include "web/net/IResponse.h"
 #include "web/IWebAssert.h"
@@ -14,7 +15,7 @@ $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-void* IControllerParamBeanUtil::getParamOfBean(const IFunctionParamNode &node, IRequest &request)
+void* IControllerParamBeanUtil::getParamOfBean(const IParamNode &node, IRequest &request)
 {
     auto ptr = QMetaType::create(node.paramTypeId);
     auto beanWare = static_cast<IBeanWare*>(ptr);

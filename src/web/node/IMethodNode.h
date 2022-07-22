@@ -1,15 +1,10 @@
 ﻿#pragma once
 #include "base/IHeaderUtil.h"
+#include "IParamNode.h"
 
 $PackageWebCoreBegin
 
-struct IFunctionParamNode{
-    int paramTypeId;
-    QString paramType;
-    QString paramName;
-};
-
-struct IFunctionNode
+struct IMethodNode
 {
     void* handler{nullptr};
     int funParamCount{0};
@@ -20,10 +15,10 @@ struct IFunctionNode
     QList<QByteArray> funParamNames;
     QList<QByteArray> funParamTypes;
     QList<QMetaType::Type> funParamTypeIds;
-    QVector<IFunctionParamNode> funParamNodes;
+    QVector<IParamNode> funParamNodes;
 
     QString funExpression;
-    static IFunctionNode fromMetaMethod(void* handle, QMetaMethod method);
+    static IMethodNode fromMetaMethod(void* handle, QMetaMethod method);
 };
 
 $PackageWebCoreEnd

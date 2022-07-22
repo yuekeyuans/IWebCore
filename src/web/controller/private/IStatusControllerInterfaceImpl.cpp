@@ -45,7 +45,7 @@ QVector<IStatusFunctionNode> IStatusControllerInterfaceImpl::generateStatusFunct
 
         IStatusFunctionNode node;
         node.httpStatus = status;
-        node.functionNode = IFunctionNode::fromMetaMethod(handle,method);
+        node.functionNode = IMethodNode::fromMetaMethod(handle,method);
         nodes.append(node);
     }
     return nodes;

@@ -8,7 +8,8 @@ $PackageWebCoreBegin
 class IBeanWare;
 class IRequest;
 class IResponse;
-struct IFunctionParamNode;
+
+struct IParamNode;
 
 // 由于 bean 的装配比较复杂，代码再这里单写一份
 class IControllerParamBeanUtil
@@ -19,7 +20,7 @@ public:
 public:
     IControllerParamBeanUtil() = default;
 
-    static void* getParamOfBean(const IFunctionParamNode& node, IRequest &request);
+    static void* getParamOfBean(const IParamNode& node, IRequest &request);
 
 private:
     static void* assamleBeanWareWithContent(IBeanWare* bean, IRequest& request);

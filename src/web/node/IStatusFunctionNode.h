@@ -1,13 +1,13 @@
 ﻿#pragma once
 
 #include "web/biscuits/IHttpStatus.h"
-#include "web/node/IFunctionNode.h"
+#include "web/node/IMethodNode.h"
 
 $PackageWebCoreBegin
 
 struct IStatusFunctionNode{
     IHttpStatus httpStatus;
-    IFunctionNode functionNode;
+    IMethodNode functionNode;
 };
 
 $PackageWebCoreEnd

@@ -2,7 +2,7 @@
 
 #include "base/IHeaderUtil.h"
 #include "web/biscuits/IHttpMethod.h"
-#include "web/node/IFunctionNode.h"
+#include "web/node/IMethodNode.h"
 
 $PackageWebCoreBegin
 
@@ -12,7 +12,7 @@ struct IUrlFunctionNode{
     QString url;
     IHttpMethod httpMethod;
 
-    IFunctionNode functionNode;
+    IMethodNode functionNode;
 };
 
 $PackageWebCoreEnd

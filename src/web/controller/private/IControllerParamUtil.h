@@ -8,31 +8,31 @@ $PackageWebCoreBegin
 
 class IRequest;
 class IResponse;
-struct IFunctionNode;
-struct IFunctionParamNode;
+struct IMethodNode;
+struct IParamNode;
 
 class IControllerParamUtil : public IInitializationTaskUnit<IControllerParamUtil>
 {
     $UseInstance(IControllerParamUtil)
 public:
     using ParamType = void*[11];
-    using CreateParamFunType = void*(*)(const IFunctionParamNode& node, IRequest& request);
-    using ReleaseParamFunType = bool (*)(const IFunctionParamNode& node, void *obj);
+    using CreateParamFunType = void*(*)(const IParamNode& node, IRequest& request);
+    using ReleaseParamFunType = bool (*)(const IParamNode& node, void *obj);
 
 private:
     IControllerParamUtil() = default;
 
 public:
-    static void createParams(const IFunctionNode& functionNode, ParamType& params, IRequest& request);
+    static void createParams(const IMethodNode& functionNode, ParamType& params, IRequest& request);
     static void *createReturnParam(int paramTypeId);
-    static void *createArgParam(const IFunctionParamNode&node, IRequest& request);
+    static void *createArgParam(const IParamNode&node, IRequest& request);
 
-    static void destroyParams(const IFunctionNode& functionNode, void **params);
+    static void destroyParams(const IMethodNode& functionNode, void **params);
     static void destroyReturnParam(void *obj, int paramTypeId);
-    static void destroyArgParam(const IFunctionParamNode& node, void *obj);
-    static void resolveReturnValue(IResponse& response, const IFunctionNode& functionNode, ParamType &params);
+    static void destroyArgParam(const IParamNode& node, void *obj);
+    static void resolveReturnValue(IResponse& response, const IMethodNode& functionNode, ParamType &params);
 
-    static void wrapVoidReturnInstance(IResponse& response, const IFunctionNode& functionNode, ParamType &params);
+    static void wrapVoidReturnInstance(IResponse& response, const IMethodNode& functionNode, ParamType &params);
     static QSharedPointer<IResponseWare> createStringReturnInstance(void** params);
     static QSharedPointer<IResponseWare> createIntReturnInstance(void** params);
     static QSharedPointer<IResponseWare> createJsonValueReturnInstance(void** params);
@@ -42,23 +42,23 @@ public:
     static QSharedPointer<IResponseWare> createStringListReturnType(void** params);
     static QSharedPointer<IResponseWare> createInterfaceReturnInstance(void** params);
 
-    static void* getParamOfSystem(const IFunctionParamNode& node, IRequest& request);
-    static void* getParamOfMultipart(const IFunctionParamNode& node, IRequest& request);
-    static void* getParamOfCookie(const IFunctionParamNode& node, IRequest& request);
-    static void* getParamOfSession(const IFunctionParamNode& node, IRequest& request);
-    static void* getParamOfBean(const IFunctionParamNode& node, IRequest& request);
-    static void* getParamOfJsonType(const IFunctionParamNode& node, IRequest& request);
-    static void* getParamOfPrimitiveType(const IFunctionParamNode& node, IRequest& request);
-    static void* getParamOfStringType(const IFunctionParamNode& node, IRequest& request);
+    static void* getParamOfSystem(const IParamNode& node, IRequest& request);
+    static void* getParamOfMultipart(const IParamNode& node, IRequest& request);
+    static void* getParamOfCookie(const IParamNode& node, IRequest& request);
+    static void* getParamOfSession(const IParamNode& node, IRequest& request);
+    static void* getParamOfBean(const IParamNode& node, IRequest& request);
+    static void* getParamOfJsonType(const IParamNode& node, IRequest& request);
+    static void* getParamOfPrimitiveType(const IParamNode& node, IRequest& request);
+    static void* getParamOfStringType(const IParamNode& node, IRequest& request);
 
-    static bool releaseParamOfSystem(const IFunctionParamNode& node, void *obj);
-    static bool releaseParamOfMultipart(const IFunctionParamNode& node, void *obj);
-    static bool releaseParamOfCookie(const IFunctionParamNode& node, void *obj);
-    static bool releaseParamOfSession(const IFunctionParamNode& node, void *obj);
-    static bool releaseParamOfBean(const IFunctionParamNode& node, void *obj);
-    static bool releaseParamOfJsonType(const IFunctionParamNode& node, void *obj);
-    static bool releaseParamOfPrimitiveType(const IFunctionParamNode& node, void *obj);
-    static bool releaseParamOfStringType(const IFunctionParamNode& node, void *obj);
+    static bool releaseParamOfSystem(const IParamNode& node, void *obj);
+    static bool releaseParamOfMultipart(const IParamNode& node, void *obj);
+    static bool releaseParamOfCookie(const IParamNode& node, void *obj);
+    static bool releaseParamOfSession(const IParamNode& node, void *obj);
+    static bool releaseParamOfBean(const IParamNode& node, void *obj);
+    static bool releaseParamOfJsonType(const IParamNode& node, void *obj);
+    static bool releaseParamOfPrimitiveType(const IParamNode& node, void *obj);
+    static bool releaseParamOfStringType(const IParamNode& node, void *obj);
 
 public:
     virtual void task() final;

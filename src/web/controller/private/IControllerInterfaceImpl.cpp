@@ -119,7 +119,7 @@ QVector<IUrlFunctionNode> IControllerInterfaceImpl::createFunctionMappingLeaves(
     node.httpMethod = IHttpMethodHelper::toMethod(info[1]);
     for(auto& method : methods){
         if(method.name() == funName){
-            node.functionNode = IFunctionNode::fromMetaMethod(handler, method);
+            node.functionNode = IMethodNode::fromMetaMethod(handler, method);
         }
     }
     for(auto i=2; i<info.length(); i++){

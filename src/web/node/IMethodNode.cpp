@@ -1,4 +1,4 @@
-﻿#include "IFunctionNode.h"
+﻿#include "IMethodNode.h"
 
 #include "base/IPackageUtil.h"
 #include "web/IWebAssert.h"
@@ -9,24 +9,24 @@ $UseAssert(IWebAssert)
 
 static const QString& nmspace = $PackageWebCoreName;
 
-namespace IFunctionNodeHelper
+namespace IMethodNodeHelper
 {
-    void assignBaseInfo(IFunctionNode& node, void* handle, QMetaMethod method);
-    QString createFunctionExpression(IFunctionNode& node);
-    void createFunctionParamNodes(IFunctionNode& node);
+    void assignBaseInfo(IMethodNode& node, void* handle, QMetaMethod method);
+    QString createFunctionExpression(IMethodNode& node);
+    void createFunctionParamNodes(IMethodNode& node);
 };
 
-IFunctionNode IFunctionNode::fromMetaMethod(void *handle, QMetaMethod method)
+IMethodNode IMethodNode::fromMetaMethod(void *handle, QMetaMethod method)
 {
-    IFunctionNode node;
+    IMethodNode node;
 
-    IFunctionNodeHelper::assignBaseInfo(node, handle, method);
-    IFunctionNodeHelper::createFunctionParamNodes(node);
+    IMethodNodeHelper::assignBaseInfo(node, handle, method);
+    IMethodNodeHelper::createFunctionParamNodes(node);
 
     return node;
 }
 
-void IFunctionNodeHelper::assignBaseInfo(IFunctionNode& node, void* handle, QMetaMethod method)
+void IMethodNodeHelper::assignBaseInfo(IMethodNode& node, void* handle, QMetaMethod method)
 {
     node.handler = handle;
     node.metaMethod = method;
@@ -36,7 +36,7 @@ void IFunctionNodeHelper::assignBaseInfo(IFunctionNode& node, void* handle, QMet
     node.funParamTypes = method.parameterTypes();
     node.funRetunType = method.typeName();
     node.funReturnTypeId = QMetaType::Type(method.returnType());
-    node.funExpression = IFunctionNodeHelper::createFunctionExpression(node);
+    node.funExpression = IMethodNodeHelper::createFunctionExpression(node);
 
     if(node.funReturnTypeId == QMetaType::UnknownType){
         IAssertInfo info;
@@ -58,7 +58,7 @@ void IFunctionNodeHelper::assignBaseInfo(IFunctionNode& node, void* handle, QMet
     }
 }
 
-QString IFunctionNodeHelper::createFunctionExpression(IFunctionNode& node)
+QString IMethodNodeHelper::createFunctionExpression(IMethodNode& node)
 {
     QString expression;
     expression.append(node.funRetunType).append(' ');
@@ -76,10 +76,10 @@ QString IFunctionNodeHelper::createFunctionExpression(IFunctionNode& node)
     return expression;
 }
 
-void IFunctionNodeHelper::createFunctionParamNodes(IFunctionNode& node)
+void IMethodNodeHelper::createFunctionParamNodes(IMethodNode& node)
 {
     for(int i=0; i<node.funParamCount; i++){
-        IFunctionParamNode paramNode;
+        IParamNode paramNode;
         paramNode.paramName = node.funParamNames[i];
         paramNode.paramTypeId = node.funParamTypeIds[i];
         paramNode.paramType = node.funParamTypes[i];
