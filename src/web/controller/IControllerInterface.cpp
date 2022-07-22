@@ -12,7 +12,7 @@ void IControllerInterfaceProxy::registerController(void *handler, const QMap<QSt
 
     auto functionNodes = IControllerInterfaceImpl::createMappingLeaves(handler, clsInfo, methods);
     if(!functionNodes.empty()){
-        IControllerManage::registerUrlFunctionNodes(functionNodes);
+        IControllerManage::registerUrlActionNodes(functionNodes);
     }
 }
 
@@ -27,7 +27,7 @@ void IControllerInterfaceProxy::unRegisterController(void *handler, const QMap<Q
 
     auto functionNodes = IControllerInterfaceImpl::createMappingLeaves(handler, clsInfo, methods);
     if(!functionNodes.empty()){
-        IControllerManage::unRegisterUrlFunctionNodes(functionNodes);
+        IControllerManage::unRegisterUrlActionNodes(functionNodes);
     }
 }
 

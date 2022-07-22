@@ -1,17 +1,17 @@
 ﻿#pragma once
 #include "base/IHeaderUtil.h"
-#include "web/node/IStatusFunctionNode.h"
+#include "web/node/IStatusActionNode.h"
 
 $PackageWebCoreBegin
 
 namespace IStatusControllerInterfaceImpl
 {
-    QVector<IStatusFunctionNode> generateStatusFunctionNodes(void* handle, QMap<QString, QString>clsInfo, QVector<QMetaMethod> methods);
-    void checkStatusNodes(const QVector<IStatusFunctionNode>& nodes);
+    QVector<IStatusActionNode> generateStatusFunctionNodes(void* handle, QMap<QString, QString>clsInfo, QVector<QMetaMethod> methods);
+    void checkStatusNodes(const QVector<IStatusActionNode>& nodes);
 
-    void checkStatusType(const IStatusFunctionNode& node);
-    void checkReturnType(const IStatusFunctionNode& node);
-    void checkInputArgs(const IStatusFunctionNode& node);
+    void checkStatusType(const IStatusActionNode& node);
+    void checkReturnType(const IStatusActionNode& node);
+    void checkInputArgs(const IStatusActionNode& node);
 };
 
 $PackageWebCoreEnd

@@ -5,9 +5,9 @@
 
 $PackageWebCoreBegin
 
-struct IStatusFunctionNode{
+struct IStatusActionNode{
     IHttpStatus httpStatus;
-    IMethodNode functionNode;
+    IMethodNode methodNode;
 };
 
 $PackageWebCoreEnd

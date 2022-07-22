@@ -81,22 +81,22 @@ void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
     processInNotFoundMode(request, response);
 }
 
-void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &response, IStatusFunctionNode *function)
+void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &response, IStatusActionNode *function)
 {
     Q_UNUSED(response)
     IControllerParamUtil::ParamType params;
-    IControllerParamUtil::createParams(function->functionNode, params, request);
+    IControllerParamUtil::createParams(function->methodNode, params, request);
 
     if(!request.valid()){   // unneeded, but write here for assurance
-        IControllerParamUtil::destroyParams(function->functionNode, params);
+        IControllerParamUtil::destroyParams(function->methodNode, params);
         return;
     }
 
-    auto index = function->functionNode.metaMethod.methodIndex();
-    auto enclosingObject = function->functionNode.metaMethod.enclosingMetaObject();
+    auto index = function->methodNode.metaMethod.methodIndex();
+    auto enclosingObject = function->methodNode.metaMethod.enclosingMetaObject();
     enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params);
 
-    IControllerParamUtil::destroyParams(function->functionNode, params);
+    IControllerParamUtil::destroyParams(function->methodNode, params);
 }
 
 void IHttpServerRunable::processInDynamicUrlFunctionMode(IRequest &request, IResponse &response, IUrlActionNode *function)

@@ -13,7 +13,7 @@ void IStatusControllerInterfaceProxy::registerController(void *handler, const QM
 
     if(nodes.isEmpty()){
         IStatusControllerInterfaceImpl::checkStatusNodes(nodes);
-        IControllerManage::registerStatusFunctions(nodes);
+        IControllerManage::registerStatusActionNodes(nodes);
     }
 }
 
@@ -28,7 +28,7 @@ void IStatusControllerInterfaceProxy::unRegisterController(void *handler, const 
 
     if(nodes.isEmpty()){
         IStatusControllerInterfaceImpl::checkStatusNodes(nodes);
-        IControllerManage::unRegisterStatusFunctions(nodes);
+        IControllerManage::unRegisterStatusActionNodes(nodes);
     }
 }
 

@@ -8,7 +8,7 @@
 #include "web/middleware/IInterceptorWare.h"
 #include "web/middleware/IProcessorWare.h"
 #include "web/node/IUrlActionNode.h"
-#include "web/node/IStatusFunctionNode.h"
+#include "web/node/IStatusActionNode.h"
 
 #include "IControllerRouteNode.h"
 #include "IControllerFileNode.h"
@@ -27,14 +27,17 @@ public:
     using ValidatorFun = bool (*)(const QString&);
 
     // TODO: 考虑 将函数换一些好用的名字
-    static void registerStatusFunctions(const QVector<IStatusFunctionNode>& statusNodes);
-    static void unRegisterStatusFunctions(const QVector<IStatusFunctionNode>& statusNodes);
+    static void registerStatusActionNode(IStatusActionNode node);
+    static void registerStatusActionNodes(const QVector<IStatusActionNode>& statusNodes);
 
-    static void registerUrlFunctionNode(IUrlActionNode node);
-    static void registerUrlFunctionNodes(const QVector<IUrlActionNode>& functionNodes);
+    static void unRegisterStatusActionNode(const IStatusActionNode& node);
+    static void unRegisterStatusActionNodes(const QVector<IStatusActionNode>& statusNodes);
 
-    static void unRegisterUrlFunctionNode(IUrlActionNode node);
-    static void unRegisterUrlFunctionNodes(const QVector<IUrlActionNode>& functionNodes);
+    static void registerUrlActionNode(IUrlActionNode node);
+    static void registerUrlActionNodes(const QVector<IUrlActionNode>& functionNodes);
+
+    static void unRegisterUrlActionNode(IUrlActionNode node);
+    static void unRegisterUrlActionNodes(const QVector<IUrlActionNode>& functionNodes);
     static bool containUrlPath(const QString& url, IHttpMethod method);
 
     static void registerStaticFiles(const QString& path, const QString& prefix);
@@ -54,7 +57,7 @@ public:
 
     static IUrlActionNode* getUrlFunction(IRequest& request);
     static IUrlActionNode* getUrlFunction(const QString& path, IHttpMethod method);
-    static IStatusFunctionNode* getStatusFunction(IHttpStatus status);
+    static IStatusActionNode* getStatusFunction(IHttpStatus status);
     static QString getStaticFilePath(const IRequest& request);
 
     static void setDefaultStaticDir(const QString& prefix);
@@ -79,7 +82,7 @@ private:
 
     QString m_staticFilePrefix {};      // static served file dir;
 
-    QMap<IHttpStatus, IStatusFunctionNode> m_statusMappings;
+    QMap<IHttpStatus, IStatusActionNode> m_statusMappings;
     QMap<QString, QString> m_pathRegValidators;
     QMap<QString, ValidatorFun> m_pathFunValidators;
 

@@ -64,7 +64,7 @@ HEADERS += \
     $$PWD/web/net/impl/IResponseImpl.h \
     $$PWD/web/node/IMethodNode.h \
     $$PWD/web/node/IParamNode.h \
-    $$PWD/web/node/IStatusFunctionNode.h \
+    $$PWD/web/node/IStatusActionNode.h \
     $$PWD/web/node/IUrlActionNode.h \
     $$PWD/web/response/IByteArrayResponse.h \
     $$PWD/web/response/IHtmlResponse.h \

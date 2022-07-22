@@ -8,10 +8,10 @@ $UseAssert(IWebAssert)
 
 static const char* const StatusControllerPrefix = "iwebStatusFun$";
 
-QVector<IStatusFunctionNode> IStatusControllerInterfaceImpl::generateStatusFunctionNodes(void *handle, QMap<QString, QString> clsInfo, QVector<QMetaMethod> methods)
+QVector<IStatusActionNode> IStatusControllerInterfaceImpl::generateStatusFunctionNodes(void *handle, QMap<QString, QString> clsInfo, QVector<QMetaMethod> methods)
 {
     QStringList funNames;
-    QVector<IStatusFunctionNode> nodes;
+    QVector<IStatusActionNode> nodes;
     const auto& keys = clsInfo.keys();
     for(auto key : keys){
         if(key.startsWith(StatusControllerPrefix)){
@@ -43,15 +43,15 @@ QVector<IStatusFunctionNode> IStatusControllerInterfaceImpl::generateStatusFunct
         }
         QMetaMethod method = *methodIter;
 
-        IStatusFunctionNode node;
+        IStatusActionNode node;
         node.httpStatus = status;
-        node.functionNode = IMethodNode::fromMetaMethod(handle,method);
+        node.methodNode = IMethodNode::fromMetaMethod(handle,method);
         nodes.append(node);
     }
     return nodes;
 }
 
-void IStatusControllerInterfaceImpl::checkStatusNodes(const QVector<IStatusFunctionNode> &nodes)
+void IStatusControllerInterfaceImpl::checkStatusNodes(const QVector<IStatusActionNode> &nodes)
 {
     for(const auto& node : nodes){
         checkStatusType(node);
@@ -60,37 +60,37 @@ void IStatusControllerInterfaceImpl::checkStatusNodes(const QVector<IStatusFunct
     }
 }
 
-void IStatusControllerInterfaceImpl::checkStatusType(const IStatusFunctionNode &node)
+void IStatusControllerInterfaceImpl::checkStatusType(const IStatusActionNode &node)
 {
     if(node.httpStatus == IHttpStatus::OK_200){
         IAssertInfo info;
-        info.function = node.functionNode.funExpression;
+        info.function = node.methodNode.funExpression;
         info.reason = QString("curStatus: ").append(IHttpStatusHelper::toString(node.httpStatus));
         $Ast->fatal("register_status_not_allow_200_ok", info);
     }
 }
 
-void IStatusControllerInterfaceImpl::checkReturnType(const IStatusFunctionNode &node)
+void IStatusControllerInterfaceImpl::checkReturnType(const IStatusActionNode &node)
 {
-    if(node.functionNode.funReturnTypeId != QMetaType::Void){
+    if(node.methodNode.funReturnTypeId != QMetaType::Void){
         IAssertInfo info;
-        info.function = node.functionNode.funExpression;
-        info.returnType = node.functionNode.funRetunType;
+        info.function = node.methodNode.funExpression;
+        info.returnType = node.methodNode.funRetunType;
         $Ast->fatal("register_status_function_must_return_void", info);
     }
 }
 
-void IStatusControllerInterfaceImpl::checkInputArgs(const IStatusFunctionNode &node)
+void IStatusControllerInterfaceImpl::checkInputArgs(const IStatusActionNode &node)
 {
-    if(node.functionNode.funParamCount == 2){
-        if(node.functionNode.funParamTypes.contains("IRequest&")
-                && node.functionNode.funParamTypes.contains("IResponse&") ){
+    if(node.methodNode.funParamCount == 2){
+        if(node.methodNode.funParamTypes.contains("IRequest&")
+                && node.methodNode.funParamTypes.contains("IResponse&") ){
             return;
         }
     }
 
     QStringList types;
-    for(auto type : node.functionNode.funParamTypes){
+    for(auto type : node.methodNode.funParamTypes){
         types.append(type);
     }
     IAssertInfo info;

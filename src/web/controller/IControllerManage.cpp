@@ -44,28 +44,38 @@ IControllerManage::IControllerManage()
     });
 }
 
-void IControllerManage::registerStatusFunctions(const QVector<IStatusFunctionNode> &statusNodes)
+void IControllerManage::registerStatusActionNode(IStatusActionNode node)
 {
     auto inst = instance();
+    if(inst->m_statusMappings.contains(node.httpStatus)){
+        qDebug() << "override of status mapping";
+    }
+    inst->m_statusMappings[node.httpStatus] = node;
+}
+
+void IControllerManage::registerStatusActionNodes(const QVector<IStatusActionNode> &statusNodes)
+{
     for(const auto& node : statusNodes){
-        if(inst->m_statusMappings.contains(node.httpStatus)){
-            qDebug() << "override of status mapping";
-        }
-        inst->m_statusMappings[node.httpStatus] = node;
+        registerStatusActionNode(node);
     }
 }
 
-void IControllerManage::unRegisterStatusFunctions(const QVector<IStatusFunctionNode> &statusNodes)
+void IControllerManage::unRegisterStatusActionNode(const IStatusActionNode &node)
 {
     auto inst = instance();
-    for(const auto& node : statusNodes){
-        if(inst->m_statusMappings.contains(node.httpStatus)){
-            inst->m_statusMappings.remove(node.httpStatus);
-        }
+    if(inst->m_statusMappings.contains(node.httpStatus)){
+        inst->m_statusMappings.remove(node.httpStatus);
     }
 }
 
-void IControllerManage::registerUrlFunctionNode(IUrlActionNode node)
+void IControllerManage::unRegisterStatusActionNodes(const QVector<IStatusActionNode> &statusNodes)
+{
+    for(const auto& node : statusNodes){
+        unRegisterStatusActionNode(node);
+    }
+}
+
+void IControllerManage::registerUrlActionNode(IUrlActionNode node)
 {
     auto inst = instance();
     auto fragments = node.url.split("/");
@@ -80,14 +90,14 @@ void IControllerManage::registerUrlFunctionNode(IUrlActionNode node)
 
 }
 
-void IControllerManage::registerUrlFunctionNodes(const QVector<IUrlActionNode> &functionNodes)
+void IControllerManage::registerUrlActionNodes(const QVector<IUrlActionNode> &functionNodes)
 {
     for(auto& node : functionNodes){
-        registerUrlFunctionNode(node);
+        registerUrlActionNode(node);
     }
 }
 
-void IControllerManage::unRegisterUrlFunctionNode(IUrlActionNode node)
+void IControllerManage::unRegisterUrlActionNode(IUrlActionNode node)
 {
     auto inst = instance();
     auto fragments = node.url.split("/");
@@ -108,10 +118,10 @@ void IControllerManage::unRegisterUrlFunctionNode(IUrlActionNode node)
     }
 }
 
-void IControllerManage::unRegisterUrlFunctionNodes(const QVector<IUrlActionNode> &functionNodes)
+void IControllerManage::unRegisterUrlActionNodes(const QVector<IUrlActionNode> &functionNodes)
 {
     for(auto& node : functionNodes){
-        unRegisterUrlFunctionNode(node);
+        unRegisterUrlActionNode(node);
     }
 }
 
@@ -251,7 +261,7 @@ IUrlActionNode *IControllerManage::getUrlFunction(const QString &url, IHttpMetho
     return nodes.first();
 }
 
-IStatusFunctionNode *IControllerManage::getStatusFunction(IHttpStatus status)
+IStatusActionNode *IControllerManage::getStatusFunction(IHttpStatus status)
 {
     auto inst = instance();
     if(inst->m_statusMappings.contains(status)){

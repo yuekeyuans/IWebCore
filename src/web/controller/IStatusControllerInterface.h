@@ -5,7 +5,7 @@
 #include "core/configuration/IConfigurationManage.h"
 #include "core/task/IControllerTaskUnit.h"
 #include "web/controller/IControllerManage.h"
-#include "web/node/IStatusFunctionNode.h"
+#include "web/node/IStatusActionNode.h"
 
 $PackageWebCoreBegin
 
