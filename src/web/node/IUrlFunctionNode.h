@@ -11,6 +11,7 @@ struct IUrlFunctionNode{
     bool  ignoreParamCheck{false};
     QString url;
     IHttpMethod httpMethod;
+
     IFunctionNode functionNode;
 };
 

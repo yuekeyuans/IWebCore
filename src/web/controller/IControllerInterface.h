@@ -4,7 +4,6 @@
 #include "base/IMetaUtil.h"
 #include "core/task/IControllerTaskUnit.h"
 #include "web/controller/IControllerManage.h"
-#include "web/node/IUrlFunctionNode.h"
 
 $PackageWebCoreBegin
 

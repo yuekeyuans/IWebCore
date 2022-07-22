@@ -65,43 +65,53 @@ void IControllerManage::unRegisterStatusFunctions(const QVector<IStatusFunctionN
     }
 }
 
-/// 注册 url 处理
-void IControllerManage::registerUrlFunctions(const QVector<IUrlFunctionNode> &functionNodes)
+void IControllerManage::registerUrlFunctionNode(IUrlFunctionNode node)
 {
     auto inst = instance();
-    for(auto& leaf : functionNodes){
-        auto fragments = leaf.url.split("/");
-        auto nodePtr = inst->m_urlMapppings.get();
-        for(auto it=fragments.begin(); it!= fragments.end(); ++it){
-            if(!it->isEmpty()){     // this step to guarantee the root element to settle properly
-                nodePtr = nodePtr->getOrAppendChildNode(*it);
-            }
+    auto fragments = node.url.split("/");
+    auto nodePtr = inst->m_urlMapppings.get();
+    for(auto it=fragments.begin(); it!= fragments.end(); ++it){
+        if(!it->isEmpty()){     // this step to guarantee the root element to settle properly
+            nodePtr = nodePtr->getOrAppendChildNode(*it);
         }
-        auto newLeaf = nodePtr->setLeaf(leaf);
-        checkUrlDuplicateName(newLeaf);
+    }
+    auto newLeaf = nodePtr->setLeaf(node);
+    checkUrlDuplicateName(newLeaf);
+
+}
+
+void IControllerManage::registerUrlFunctionNodes(const QVector<IUrlFunctionNode> &functionNodes)
+{
+    for(auto& node : functionNodes){
+        registerUrlFunctionNode(node);
     }
 }
 
-void IControllerManage::unRegisterUrlFunctions(const QVector<IUrlFunctionNode> &functionNodes)
+void IControllerManage::unRegisterUrlFunctionNode(IUrlFunctionNode node)
 {
     auto inst = instance();
-    for(auto& leaf : functionNodes){
-        auto fragments = leaf.url.split("/");
-        auto nodePtr = inst->m_urlMapppings.get();
+    auto fragments = node.url.split("/");
+    auto nodePtr = inst->m_urlMapppings.get();
 
-        for(const auto& fragment : fragments){
-            nodePtr = nodePtr->getChildNode(fragment);
-            if(nodePtr == nullptr){
-                return;                  // 结束处理，因为没有相对应的内容
-            }
+    for(const auto& fragment : fragments){
+        nodePtr = nodePtr->getChildNode(fragment);
+        if(nodePtr == nullptr){
+            return;                  // 结束处理，因为没有相对应的内容
         }
+    }
 
-        nodePtr->removeLeaf(leaf.httpMethod);
-        while(nodePtr != nullptr && nodePtr->parentNode != nullptr && nodePtr->isEmpty()){
-            auto parent = nodePtr->parentNode;
-            parent->removeChildNode(*nodePtr);
-            nodePtr = parent;
-        }
+    nodePtr->removeLeaf(node.httpMethod);
+    while(nodePtr != nullptr && nodePtr->parentNode != nullptr && nodePtr->isEmpty()){
+        auto parent = nodePtr->parentNode;
+        parent->removeChildNode(*nodePtr);
+        nodePtr = parent;
+    }
+}
+
+void IControllerManage::unRegisterUrlFunctionNodes(const QVector<IUrlFunctionNode> &functionNodes)
+{
+    for(auto& node : functionNodes){
+        unRegisterUrlFunctionNode(node);
     }
 }
 

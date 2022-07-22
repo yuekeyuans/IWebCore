@@ -72,10 +72,12 @@ void IHttpServer::patch(const QString &path, IHttpServer::ProcessFunctor functor
 
 void IHttpServer::serveDynamic(IHttpMethod method, const QString &path, IHttpServer::ProcessFunctor functor)
 {
+    Q_UNUSED(path)
+    Q_UNUSED(functor)
     IUrlFunctionNode function;
 
     QVector<IUrlFunctionNode> funs = {};
-    IControllerManage::registerUrlFunctions(funs);
+    IControllerManage::registerUrlFunctionNodes(funs);
 }
 
 void IHttpServer::incomingConnection(qintptr handle)

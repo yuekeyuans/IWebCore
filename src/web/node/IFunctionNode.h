@@ -23,7 +23,6 @@ struct IFunctionNode
     QVector<IFunctionParamNode> funParamNodes;
 
     QString funExpression;
-
     static IFunctionNode fromMetaMethod(void* handle, QMetaMethod method);
 };
 

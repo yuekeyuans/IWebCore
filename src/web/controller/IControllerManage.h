@@ -30,12 +30,14 @@ public:
     static void registerStatusFunctions(const QVector<IStatusFunctionNode>& statusNodes);
     static void unRegisterStatusFunctions(const QVector<IStatusFunctionNode>& statusNodes);
 
-    static void registerUrlFunctions(const QVector<IUrlFunctionNode>& functionNodes);
-    static void unRegisterUrlFunctions(const QVector<IUrlFunctionNode>& functionNodes);
+    static void registerUrlFunctionNode(IUrlFunctionNode node);
+    static void registerUrlFunctionNodes(const QVector<IUrlFunctionNode>& functionNodes);
+
+    static void unRegisterUrlFunctionNode(IUrlFunctionNode node);
+    static void unRegisterUrlFunctionNodes(const QVector<IUrlFunctionNode>& functionNodes);
     static bool containUrlPath(const QString& url, IHttpMethod method);
 
     static void registerStaticFiles(const QString& path, const QString& prefix);
-//    static void unRegisterStaticFiles();
 
     static void registerPathValidator(const QString& name, const QString& regexp="/");
     static void registerPathValidator(const QString& name, ValidatorFun fun);
