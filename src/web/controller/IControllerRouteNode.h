@@ -4,13 +4,13 @@
 
 $PackageWebCoreBegin
 
-struct IUrlFunctionNode;
+struct IUrlActionNode;
 
 class IControllerRouteNode
 {
 private:
     using ValidateFun = bool (*)(const QString&);
-    using IUrlFunctionNodeStar = IUrlFunctionNode*;
+    using IUrlActionNodeStar = IUrlActionNode*;
 
 public:
     enum NodeType{
@@ -25,8 +25,8 @@ public:
     explicit IControllerRouteNode(IControllerRouteNode* parent, const QString& fragment);
 
     bool isEmpty();
-    IUrlFunctionNode* setLeaf(const IUrlFunctionNode& leaf);
-    IUrlFunctionNode* getLeaf(IHttpMethod method);
+    IUrlActionNode* setLeaf(const IUrlActionNode& leaf);
+    IUrlActionNode* getLeaf(IHttpMethod method);
     void removeLeaf(IHttpMethod method);
 
     void addChildNode(const IControllerRouteNode& node);
@@ -42,7 +42,7 @@ public:
     bool operator==(const IControllerRouteNode& node);
 
 private:
-    IUrlFunctionNodeStar& getLeafRef(IHttpMethod method);
+    IUrlActionNodeStar& getLeafRef(IHttpMethod method);
     bool containFragment(const QString& fragment);
     void evaluateNode(const QString& fragment);
     bool evaluatePlainText(const QString& nodeName);
@@ -61,11 +61,11 @@ public:
 
     QList<IControllerRouteNode> children;
 
-    IUrlFunctionNode *getMethodLeaf{nullptr};
-    IUrlFunctionNode *putMethodLeaf{nullptr};
-    IUrlFunctionNode *postMethodLeaf{nullptr};
-    IUrlFunctionNode *deleteMethodLeaf{nullptr};
-    IUrlFunctionNode *patchMethodLeaf{nullptr};
+    IUrlActionNode *getMethodLeaf{nullptr};
+    IUrlActionNode *putMethodLeaf{nullptr};
+    IUrlActionNode *postMethodLeaf{nullptr};
+    IUrlActionNode *deleteMethodLeaf{nullptr};
+    IUrlActionNode *patchMethodLeaf{nullptr};
     IControllerRouteNode* parentNode{nullptr};
 };
 

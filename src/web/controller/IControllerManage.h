@@ -7,7 +7,7 @@
 #include "web/middleware/IMiddleWare.h"
 #include "web/middleware/IInterceptorWare.h"
 #include "web/middleware/IProcessorWare.h"
-#include "web/node/IUrlFunctionNode.h"
+#include "web/node/IUrlActionNode.h"
 #include "web/node/IStatusFunctionNode.h"
 
 #include "IControllerRouteNode.h"
@@ -30,11 +30,11 @@ public:
     static void registerStatusFunctions(const QVector<IStatusFunctionNode>& statusNodes);
     static void unRegisterStatusFunctions(const QVector<IStatusFunctionNode>& statusNodes);
 
-    static void registerUrlFunctionNode(IUrlFunctionNode node);
-    static void registerUrlFunctionNodes(const QVector<IUrlFunctionNode>& functionNodes);
+    static void registerUrlFunctionNode(IUrlActionNode node);
+    static void registerUrlFunctionNodes(const QVector<IUrlActionNode>& functionNodes);
 
-    static void unRegisterUrlFunctionNode(IUrlFunctionNode node);
-    static void unRegisterUrlFunctionNodes(const QVector<IUrlFunctionNode>& functionNodes);
+    static void unRegisterUrlFunctionNode(IUrlActionNode node);
+    static void unRegisterUrlFunctionNodes(const QVector<IUrlActionNode>& functionNodes);
     static bool containUrlPath(const QString& url, IHttpMethod method);
 
     static void registerStaticFiles(const QString& path, const QString& prefix);
@@ -52,8 +52,8 @@ public:
     static QString queryPathRegValidator(const QString& path);
     static ValidatorFun queryPathFunValidator(const QString& path);
 
-    static IUrlFunctionNode* getUrlFunction(IRequest& request);
-    static IUrlFunctionNode* getUrlFunction(const QString& path, IHttpMethod method);
+    static IUrlActionNode* getUrlFunction(IRequest& request);
+    static IUrlActionNode* getUrlFunction(const QString& path, IHttpMethod method);
     static IStatusFunctionNode* getStatusFunction(IHttpStatus status);
     static QString getStaticFilePath(const IRequest& request);
 
@@ -66,11 +66,11 @@ public:
     static bool postProcess(IRequest& request, IResponse& response);
 
 private:
-    static QVector<IUrlFunctionNode*> queryFunctionNodes(IControllerRouteNode* parentNode, const QStringList& fragments, IHttpMethod method);
+    static QVector<IUrlActionNode*> queryFunctionNodes(IControllerRouteNode* parentNode, const QStringList& fragments, IHttpMethod method);
     static QMap<QString, QByteArray> getPathVariable(void* node, const QStringList& fragments);
 
     // 这里实现 url 时 需要防止  /<name>/<name>/  这种重复类型的 url
-    static bool checkUrlDuplicateName(const IUrlFunctionNode* node);
+    static bool checkUrlDuplicateName(const IUrlActionNode* node);
     void preRegisterPathValidator();
 
 private:

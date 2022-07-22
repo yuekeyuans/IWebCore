@@ -99,22 +99,22 @@ void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &respons
     IControllerParamUtil::destroyParams(function->functionNode, params);
 }
 
-void IHttpServerRunable::processInDynamicUrlFunctionMode(IRequest &request, IResponse &response, IUrlFunctionNode *function)
+void IHttpServerRunable::processInDynamicUrlFunctionMode(IRequest &request, IResponse &response, IUrlActionNode *function)
 {
     IControllerParamUtil::ParamType params;
-    IControllerParamUtil::createParams(function->functionNode, params, request);
+    IControllerParamUtil::createParams(function->methodNode, params, request);
 
     if(!request.valid()){           // 这里 request invalid 的情况产生于 数据转换的时候。
-        IControllerParamUtil::destroyParams(function->functionNode, params);
+        IControllerParamUtil::destroyParams(function->methodNode, params);
         return;
     }
 
-    auto index = function->functionNode.metaMethod.methodIndex();
-    auto enclosingObject = function->functionNode.metaMethod.enclosingMetaObject();
+    auto index = function->methodNode.metaMethod.methodIndex();
+    auto enclosingObject = function->methodNode.metaMethod.enclosingMetaObject();
     enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params);
-    IControllerParamUtil::resolveReturnValue(response, function->functionNode, params);
+    IControllerParamUtil::resolveReturnValue(response, function->methodNode, params);
 
-    IControllerParamUtil::destroyParams(function->functionNode, params);
+    IControllerParamUtil::destroyParams(function->methodNode, params);
 }
 
 void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &response, const QString &path)

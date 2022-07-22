@@ -7,7 +7,7 @@ $PackageWebCoreBegin
 class IRequest;
 class IResponse;
 struct IStatusFunctionNode;
-struct IUrlFunctionNode;
+struct IUrlActionNode;
 
 // TODO: 这里需要一个 IRequestErrorPreIntercept 拦截 valid() == false 的情形。
 
@@ -21,7 +21,7 @@ private:
     static void handleRequest(IRequest& request, IResponse& response);
     static void runStatusFunction(IRequest& request, IResponse& response, IStatusFunctionNode* function);
 
-    static void processInDynamicUrlFunctionMode(IRequest& request, IResponse& response, IUrlFunctionNode* function);
+    static void processInDynamicUrlFunctionMode(IRequest& request, IResponse& response, IUrlActionNode* function);
     static void processInStaticFileMode(IRequest& request, IResponse& response, const QString& path);
     static void processInNotFoundMode(IRequest& request, IResponse& response);
 

@@ -1,7 +1,7 @@
 ﻿#include "IControllerRouteNode.h"
 #include "IControllerManage.h"
 #include "web/IWebAssert.h"
-#include "web/node/IUrlFunctionNode.h"
+#include "web/node/IUrlActionNode.h"
 
 $PackageWebCoreBegin
 
@@ -34,7 +34,7 @@ bool IControllerRouteNode::isEmpty()
     return true;
 }
 
-IUrlFunctionNode* IControllerRouteNode::setLeaf(const IUrlFunctionNode &leafNode)
+IUrlActionNode* IControllerRouteNode::setLeaf(const IUrlActionNode &leafNode)
 {
     auto& ptr = getLeafRef(leafNode.httpMethod);
     if(ptr != nullptr){
@@ -43,7 +43,7 @@ IUrlFunctionNode* IControllerRouteNode::setLeaf(const IUrlFunctionNode &leafNode
         $Ast->warn("register_the_same_url");
     }
 
-    auto leaf = new IUrlFunctionNode(leafNode);
+    auto leaf = new IUrlActionNode(leafNode);
     leaf->parentNode = this;
     ptr = leaf;
 
@@ -51,7 +51,7 @@ IUrlFunctionNode* IControllerRouteNode::setLeaf(const IUrlFunctionNode &leafNode
 }
 
 // @see https://hc.apache.org/httpclient-legacy/methods/head.html
-IUrlFunctionNode* IControllerRouteNode::getLeaf(IHttpMethod method)
+IUrlActionNode* IControllerRouteNode::getLeaf(IHttpMethod method)
 {
     if(method == IHttpMethod::OPTIONS){
         return nullptr;
@@ -156,12 +156,12 @@ void IControllerRouteNode::travelPrint(int space) const
         qDebug() << "============== url mapping begin =============";
     }
 
-    auto print = [](IUrlFunctionNode* leaf, int space){
+    auto print = [](IUrlActionNode* leaf, int space){
         if(leaf == nullptr) return;
         qDebug().noquote()<< QString().fill(' ', 4* space + 2)
                           << leaf->url
                           << IHttpMethodHelper::toString(leaf->httpMethod)
-                          << "<==" << leaf->functionNode.funExpression;
+                          << "<==" << leaf->methodNode.funExpression;
     };
 
     qDebug().noquote() << QString().fill(' ', 4* space) << (this->fragment.isEmpty() ? "/" :this->fragment);
@@ -189,7 +189,7 @@ bool IControllerRouteNode::operator==(const IControllerRouteNode &node)
     return true;
 }
 
-IControllerRouteNode::IUrlFunctionNodeStar &IControllerRouteNode::getLeafRef(IHttpMethod method)
+IControllerRouteNode::IUrlActionNodeStar &IControllerRouteNode::getLeafRef(IHttpMethod method)
 {
     switch (method) {
     case IHttpMethod::GET:

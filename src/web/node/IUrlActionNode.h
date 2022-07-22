@@ -6,13 +6,13 @@
 
 $PackageWebCoreBegin
 
-struct IUrlFunctionNode{
+struct IUrlActionNode{
     void* parentNode{nullptr};
     bool  ignoreParamCheck{false};
     QString url;
     IHttpMethod httpMethod;
 
-    IMethodNode functionNode;
+    IMethodNode methodNode;
 };
 
 $PackageWebCoreEnd

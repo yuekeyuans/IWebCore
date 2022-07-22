@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <QtCore>
-#include "web/node/IUrlFunctionNode.h"
+#include "web/node/IUrlActionNode.h"
 
 $PackageWebCoreBegin
 
@@ -10,7 +10,7 @@ class IControllerInterfaceImpl
     $UseInstance(IControllerInterfaceImpl);
 public:
     static void checkUrlMappings(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaMethod>& methods);
-    static QVector<IUrlFunctionNode> createMappingLeaves(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaMethod>& methods);
+    static QVector<IUrlActionNode> createMappingLeaves(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaMethod>& methods);
 
 private:
     // 大的检查项目
@@ -24,16 +24,16 @@ private:
     void CheckUrlErrorWildCard(const QString url);
 
     // 检查 函数参数的问题
-    void chechMethodSupportedReturnType(const IUrlFunctionNode& node);
-    void checkMethodSupportedParamArgType(const IUrlFunctionNode& node);
-    void checkMethodArgNameIntegrality(const IUrlFunctionNode& node);
-    void checkMethodOfReturnVoid(const IUrlFunctionNode& node);
-    void checkMethodBodyContentArgs(const IUrlFunctionNode& node);
-    void checkMethodParamterWithSuffixProper(const IUrlFunctionNode& node);
-    void checkMethodParamterWithSuffixSet(const IUrlFunctionNode& node);
+    void chechMethodSupportedReturnType(const IUrlActionNode& node);
+    void checkMethodSupportedParamArgType(const IUrlActionNode& node);
+    void checkMethodArgNameIntegrality(const IUrlActionNode& node);
+    void checkMethodOfReturnVoid(const IUrlActionNode& node);
+    void checkMethodBodyContentArgs(const IUrlActionNode& node);
+    void checkMethodParamterWithSuffixProper(const IUrlActionNode& node);
+    void checkMethodParamterWithSuffixSet(const IUrlActionNode& node);
 
     // 其他调用函数
-    QVector<IUrlFunctionNode> createFunctionMappingLeaves(void* handler, const QStringList&, const QMap<QString, QString>& clsInfo, const QVector<QMetaMethod>&methods);
+    QVector<IUrlActionNode> createFunctionMappingLeaves(void* handler, const QStringList&, const QMap<QString, QString>& clsInfo, const QVector<QMetaMethod>&methods);
     QVector<QStringList> getMethodMappingInfo(const QMap<QString, QString>&clsInfo);
     QStringList reformClsInfoArgs(const QMap<QString, QString>&, const QStringList &rootPathArgs);
     QMap<QString, QString> getStatusCodeInfos(QMap<QString, QString> clsInfos);

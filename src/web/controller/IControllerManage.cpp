@@ -65,7 +65,7 @@ void IControllerManage::unRegisterStatusFunctions(const QVector<IStatusFunctionN
     }
 }
 
-void IControllerManage::registerUrlFunctionNode(IUrlFunctionNode node)
+void IControllerManage::registerUrlFunctionNode(IUrlActionNode node)
 {
     auto inst = instance();
     auto fragments = node.url.split("/");
@@ -80,14 +80,14 @@ void IControllerManage::registerUrlFunctionNode(IUrlFunctionNode node)
 
 }
 
-void IControllerManage::registerUrlFunctionNodes(const QVector<IUrlFunctionNode> &functionNodes)
+void IControllerManage::registerUrlFunctionNodes(const QVector<IUrlActionNode> &functionNodes)
 {
     for(auto& node : functionNodes){
         registerUrlFunctionNode(node);
     }
 }
 
-void IControllerManage::unRegisterUrlFunctionNode(IUrlFunctionNode node)
+void IControllerManage::unRegisterUrlFunctionNode(IUrlActionNode node)
 {
     auto inst = instance();
     auto fragments = node.url.split("/");
@@ -108,7 +108,7 @@ void IControllerManage::unRegisterUrlFunctionNode(IUrlFunctionNode node)
     }
 }
 
-void IControllerManage::unRegisterUrlFunctionNodes(const QVector<IUrlFunctionNode> &functionNodes)
+void IControllerManage::unRegisterUrlFunctionNodes(const QVector<IUrlActionNode> &functionNodes)
 {
     for(auto& node : functionNodes){
         unRegisterUrlFunctionNode(node);
@@ -208,7 +208,7 @@ IControllerManage::ValidatorFun IControllerManage::queryPathFunValidator(const Q
     return nullptr;
 }
 
-IUrlFunctionNode *IControllerManage::getUrlFunction(IRequest &request)
+IUrlActionNode *IControllerManage::getUrlFunction(IRequest &request)
 {
     const QString &url = request.url();
     IHttpMethod method = request.method();
@@ -227,7 +227,7 @@ IUrlFunctionNode *IControllerManage::getUrlFunction(IRequest &request)
     return node;
 }
 
-IUrlFunctionNode *IControllerManage::getUrlFunction(const QString &url, IHttpMethod method)
+IUrlActionNode *IControllerManage::getUrlFunction(const QString &url, IHttpMethod method)
 {
     auto nodePtr = instance()->m_urlMapppings.get();
 
@@ -240,7 +240,7 @@ IUrlFunctionNode *IControllerManage::getUrlFunction(const QString &url, IHttpMet
         fragments.pop_front();
     }
 
-    QVector<IUrlFunctionNode*> nodes =  queryFunctionNodes(nodePtr, fragments, method);
+    QVector<IUrlActionNode*> nodes =  queryFunctionNodes(nodePtr, fragments, method);
     if(nodes.length() == 0){
         return nullptr;
     }else if(nodes.length() > 1){
@@ -355,10 +355,10 @@ bool IControllerManage::postProcess(IRequest &request, IResponse &response)
     return true;
 }
 
-QVector<IUrlFunctionNode *> IControllerManage::queryFunctionNodes(IControllerRouteNode *parentNode,
+QVector<IUrlActionNode *> IControllerManage::queryFunctionNodes(IControllerRouteNode *parentNode,
                                                              const QStringList &fragments, IHttpMethod method)
 {
-    QVector<IUrlFunctionNode*> ret;
+    QVector<IUrlActionNode*> ret;
     auto childNodes = parentNode->getChildNodes(fragments.first());
     if(fragments.length() == 1){
         for(const auto& val : childNodes){
@@ -398,7 +398,7 @@ QMap<QString, QByteArray> IControllerManage::getPathVariable(void* node, const Q
     return ret;
 }
 
-bool IControllerManage::checkUrlDuplicateName(const IUrlFunctionNode *node)
+bool IControllerManage::checkUrlDuplicateName(const IUrlActionNode *node)
 {
     QStringList names;
     auto parent = static_cast<IControllerRouteNode*>(node->parentNode);
