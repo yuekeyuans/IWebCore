@@ -62,6 +62,7 @@ HEADERS += \
     $$PWD/web/net/impl/IRequestAssert.h \
     $$PWD/web/net/impl/IRequestImpl.h \
     $$PWD/web/net/impl/IResponseImpl.h \
+    $$PWD/web/node/IFunctionNode.h \
     $$PWD/web/node/IMethodNode.h \
     $$PWD/web/node/IParamNode.h \
     $$PWD/web/node/IStatusActionNode.h \
@@ -219,6 +220,7 @@ SOURCES += \
     $$PWD/web/net/impl/IRequestAssert.cpp \
     $$PWD/web/net/impl/IRequestImpl.cpp \
     $$PWD/web/net/impl/IResponseImpl.cpp \
+    $$PWD/web/node/IFunctionNode.cpp \
     $$PWD/web/node/IMethodNode.cpp \
     $$PWD/web/node/IParamNode.cpp \
     $$PWD/web/response/IByteArrayResponse.cpp \
