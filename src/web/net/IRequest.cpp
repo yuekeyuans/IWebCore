@@ -5,6 +5,7 @@
 #include "base/IJsonUtil.h"
 #include "base/IXmlUtil.h"
 #include "base/IToeUtil.h"
+#include "base/ISocketUtil.h"
 #include "core/assert/IGlobalAssert.h"
 #include "web/biscuits/IHttpHeader.h"
 #include "web/net/impl/IRequestImpl.h"
@@ -23,6 +24,7 @@ IRequest::IRequest()
 
 IRequest::IRequest(QTcpSocket *socket)
 {
+    m_socket = socket;
     raw = new IReqRespRaw;
     raw->m_request = this;
     raw->m_socket = socket;
@@ -32,6 +34,8 @@ IRequest::IRequest(QTcpSocket *socket)
 
 IRequest::~IRequest()
 {
+    ISocketUtil::closeTcpSocket(m_socket);
+
     if(raw != nullptr){
         delete raw;
         raw = nullptr;

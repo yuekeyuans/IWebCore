@@ -18,6 +18,8 @@ namespace ISocketUtil
 
     void writeToSocket(QTcpSocket** socket, const char* content);
 
+    void closeTcpSocket(QTcpSocket* socket);
+
     /// 关闭tcp接口
     void closeTcpSocket(QTcpSocket** socket);
 };

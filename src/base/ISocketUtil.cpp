@@ -9,19 +9,6 @@ QTcpSocket *ISocketUtil::createTcpSocket(qintptr handle)
     return socket;
 }
 
-// use ** to guard that the caller`s socket set to nullptr;
-void ISocketUtil::closeTcpSocket(QTcpSocket **socket)
-{
-    if(*socket != nullptr){
-        if((*socket)->isWritable()){
-            (*socket)->flush();
-        }
-        (*socket)->close();
-        delete (*socket);
-        *socket = nullptr;
-    }
-}
-
 void ISocketUtil::processReadError(QTcpSocket **socket)
 {
     closeTcpSocket(socket);
@@ -43,6 +30,27 @@ void ISocketUtil::handleInternalError(QTcpSocket **socket)
 {
     // TODO:
     handleNotFoundError(socket);
+}
+
+void ISocketUtil::closeTcpSocket(QTcpSocket *socket)
+{
+    qDebug() << "CLOSE TCP SOCKET";
+    if(socket != nullptr && socket->isOpen()){
+        socket->close();
+    }
+}
+
+ use ** to guard that the caller`s socket set to nullptr;
+void ISocketUtil::closeTcpSocket(QTcpSocket **socket)
+{
+    if(*socket != nullptr){
+        if((*socket)->isWritable()){
+            (*socket)->flush();
+        }
+        (*socket)->close();
+        delete (*socket);
+        *socket = nullptr;
+    }
 }
 
 

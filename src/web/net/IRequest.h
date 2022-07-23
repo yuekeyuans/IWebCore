@@ -80,6 +80,7 @@ public:
     void setInvalid(IHttpStatus status, const QString& message) const;
 
 private:
+    QTcpSocket* m_socket{nullptr};
     IRequestImpl* impl{nullptr};
     IReqRespRaw*  raw{nullptr};
 };
