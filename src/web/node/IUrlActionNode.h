@@ -22,7 +22,7 @@ public:
 
     Type type {Method};
     IMethodNode methodNode;
-//    IFunctionNode functionNode;
+    IFunctionNode functionNode;
 };
 
 $PackageWebCoreEnd
