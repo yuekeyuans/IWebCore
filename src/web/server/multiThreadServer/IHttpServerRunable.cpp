@@ -11,13 +11,15 @@ $PackageWebCoreBegin
 
 IHttpServerRunable::IHttpServerRunable(qintptr handle) : handle{handle}
 {
+
 }
 
 void IHttpServerRunable::run()
 {
+    // TODO: socket 在这里内存泄露!!!
     socket = ISocketUtil::createTcpSocket(handle);
     if(!socket->waitForReadyRead()){        // TODO: 这里使用 epoll 后可以省略.
-        return ISocketUtil::processReadError(&socket);
+        return;
     }
 
     IRequest request(socket);
@@ -52,9 +54,8 @@ void IHttpServerRunable::run()
 
     // 响应
     if(!response.respond()){
-        return ISocketUtil::handleInternalError(&socket);
+        return ISocketUtil::handleInternalError(socket);
     }
-    ISocketUtil::closeTcpSocket(&socket);
 }
 
 void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
