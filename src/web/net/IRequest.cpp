@@ -7,6 +7,7 @@
 #include "base/IToeUtil.h"
 #include "base/ISocketUtil.h"
 #include "core/assert/IGlobalAssert.h"
+#include "web/IWebAssert.h"
 #include "web/biscuits/IHttpHeader.h"
 #include "web/net/impl/IRequestImpl.h"
 #include "web/net/impl/IReqRespRaw.h"
@@ -15,11 +16,13 @@
 
 $PackageWebCoreBegin
 
+$UseAssert(IWebAssert)
 $UseGlobalAssert()
+
 
 IRequest::IRequest()
 {
-    qFatal(IConstantUtil::UnCallableMethod);
+    $Ast->fatal("IRequest_IResponse_CREATE_ERROR");
 }
 
 IRequest::IRequest(qintptr handle)
@@ -53,6 +56,28 @@ IRequest::~IRequest()
     delete m_socket;
     delete raw;
     delete impl;
+}
+
+IRequest::IRequest(const IRequest &)
+{
+    $Ast->fatal("IRequest_IResponse_COPY_MOVE_ERROR");
+}
+
+IRequest &IRequest::operator=(const IRequest &)
+{
+    $Ast->fatal("IRequest_IResponse_COPY_MOVE_ERROR");
+    return *this;
+}
+
+IRequest::IRequest(IRequest &&)
+{
+    $Ast->fatal("IRequest_IResponse_COPY_MOVE_ERROR");
+}
+
+IRequest &IRequest::operator=(IRequest &&)
+{
+    $Ast->fatal("IRequest_IResponse_COPY_MOVE_ERROR");
+    return *this;
 }
 
 // TODO: 这个需要修改

@@ -29,7 +29,7 @@ void IHttpServerRunable::run()
     }
 }
 
-void IHttpServerRunable::runContent(IRequest request)
+void IHttpServerRunable::runContent(IRequest& request)
 {
     IResponse response(&request);
 

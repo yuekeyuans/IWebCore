@@ -4,6 +4,9 @@ $PackageWebCoreBegin
 
 void IWebAssert::loadFromFunction()
 {
+    addFatal("IRequest_IResponse_COPY_MOVE_ERROR", "IRequest and IResponse can not be copied or moved. It meanse operator=() can not be called and when you pass IRequest or IResposne, you must use (const) reference or pointer to refer to IRequest/IResposne. like IRequest&/IResposne& (or with const as prefix)");
+    addFatal("IRequest_IResponse_CREATE_ERROR", "IRequest or IResponse can not be created by user. It must be created by framework itself");
+
     addWarn("iresponse_setHeader_with_empty_value_or_key", "");
     addWarn("assamble_bean_when_bean_inner_parameter_not_found");
 

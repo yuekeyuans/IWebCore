@@ -3,20 +3,20 @@
 #include "base/IConstantUtil.h"
 #include "core/assert/IGlobalAssert.h"
 #include "web/biscuits/IHttpHeader.h"
+#include "web/IWebAssert.h"
 #include "web/net/IRequest.h"
 #include "web/net/impl/IReqRespRaw.h"
 #include "web/net/impl/IResponseImpl.h"
 #include "web/response/IResponseWare.h"
-#include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
 
-$UseGlobalAssert();
 $UseAssert(IWebAssert)
+$UseGlobalAssert();
 
 IResponse::IResponse()
 {
-    qFatal(IConstantUtil::UnCallableMethod);
+    $Ast->fatal("IRequest_IResponse_CREATE_ERROR");
 }
 
 IResponse::IResponse(IRequest *request)
@@ -29,6 +29,28 @@ IResponse::IResponse(IRequest *request)
 IResponse::~IResponse()
 {
     delete impl;
+}
+
+IResponse::IResponse(const IResponse &)
+{
+    $Ast->fatal("IRequest_IResponse_COPY_MOVE_ERROR");
+}
+
+IResponse &IResponse::operator=(const IResponse &)
+{
+    $Ast->fatal("IRequest_IResponse_COPY_MOVE_ERROR");
+    return *this;
+}
+
+IResponse::IResponse(IResponse &&)
+{
+    $Ast->fatal("IRequest_IResponse_COPY_MOVE_ERROR");
+}
+
+IResponse &IResponse::operator=(IResponse &&)
+{
+    $Ast->fatal("IRequest_IResponse_COPY_MOVE_ERROR");
+    return *this;
 }
 
 IResponse &IResponse::operator<<(const QString &content)

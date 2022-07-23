@@ -28,6 +28,11 @@ public:
     explicit IResponse(IRequest* response);
     ~IResponse();
 
+    IResponse(const IResponse&);
+    IResponse& operator=(const IResponse&);
+    IResponse(IResponse &&);
+    IResponse &operator=(IResponse &&);
+
     IResponse& operator<<(const QString& content);
     IResponse& operator<<(const QByteArray& content);
     IResponse& operator<<(const char* content);

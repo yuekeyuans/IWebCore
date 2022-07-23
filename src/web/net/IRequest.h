@@ -31,6 +31,11 @@ public:
     explicit IRequest(QTcpSocket* m_socket);
     ~IRequest();
 
+    IRequest(const IRequest &);
+    IRequest &operator=(const IRequest &);
+    IRequest(IRequest&&);
+    IRequest& operator=(IRequest&&);
+
     const QString operator[](const QString&headerJar) const;
 
     IResponse* response() const;
