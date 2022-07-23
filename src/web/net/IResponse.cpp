@@ -21,9 +21,14 @@ IResponse::IResponse()
 
 IResponse::IResponse(IRequest *request)
 {
-    this->raw = request->getRaw();
+    raw = request->getRaw();
     raw->m_response = this;
     impl = new IResponseImpl(raw);
+}
+
+IResponse::~IResponse()
+{
+    delete impl;
 }
 
 IResponse &IResponse::operator<<(const QString &content)
@@ -227,11 +232,6 @@ const QList<QPair<QString, QString>>& IResponse::headers() const
 {
     return raw->m_responseHeaders;
 }
-
-//const QByteArray &IResponse::content() const
-//{
-//    return raw->m_responseContent;
-//}
 
 const QMap<QString, QVariant> &IResponse::attributes() const
 {

@@ -31,9 +31,9 @@ void ISocketUtil::closeTcpSocket(QTcpSocket *socket)
 {
 //    static QAtomicInt cnt{0};
 //    qDebug() << "socket closed" << cnt ++;
-    if(socket != nullptr && socket->isOpen()){
+//    if(socket != nullptr && socket->isOpen()){
         socket->close();
-    }
+//    }
 }
 
 $PackageWebCoreEnd

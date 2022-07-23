@@ -22,12 +22,27 @@ IRequest::IRequest()
     qFatal(IConstantUtil::UnCallableMethod);
 }
 
+IRequest::IRequest(qintptr handle)
+{
+    m_socket = ISocketUtil::createTcpSocket(handle);
+    raw = new IReqRespRaw;
+    raw->m_request = this;
+    raw->m_socket = m_socket;
+    impl = new IRequestImpl(raw);
+
+    if(!m_socket->waitForReadyRead()){      // TODO: 这里可能存在错误
+        setInvalid(IHttpStatus::REQUEST_TIMEOUT_408, "request open failed");
+    }else{
+        impl->resolve();
+    }
+}
+
 IRequest::IRequest(QTcpSocket *socket)
 {
     m_socket = socket;
     raw = new IReqRespRaw;
     raw->m_request = this;
-    raw->m_socket = socket;
+    raw->m_socket = m_socket;
     impl = new IRequestImpl(raw);
     impl->resolve();
 }
@@ -35,11 +50,9 @@ IRequest::IRequest(QTcpSocket *socket)
 IRequest::~IRequest()
 {
     ISocketUtil::closeTcpSocket(m_socket);
-
-    if(raw != nullptr){
-        delete raw;
-        raw = nullptr;
-    }
+    delete m_socket;
+    delete raw;
+    delete impl;
 }
 
 // TODO: 这个需要修改

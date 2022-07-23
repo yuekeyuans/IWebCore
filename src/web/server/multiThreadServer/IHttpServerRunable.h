@@ -15,9 +15,12 @@ class IHttpServerRunable : public QRunnable
 {
 public:
     IHttpServerRunable(qintptr handle);
+    IHttpServerRunable(QTcpSocket* socket);
     virtual void run() final;
 
 private:
+    static void runContent(IRequest req);   // TODO:  需要重命名
+
     static void handleRequest(IRequest& request, IResponse& response);
     static void runStatusFunction(IRequest& request, IResponse& response, IStatusActionNode* function);
 
@@ -30,8 +33,8 @@ private:
     static bool interceptStatusCode(IRequest& request, IResponse& response);
 
 private:
-    qintptr handle{0};
-    QTcpSocket* socket{nullptr};
+    qintptr m_handle{0};
+    QTcpSocket* m_socket{nullptr};
 };
 
 $PackageWebCoreEnd

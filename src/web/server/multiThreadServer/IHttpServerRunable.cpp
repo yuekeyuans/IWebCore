@@ -9,20 +9,28 @@
 
 $PackageWebCoreBegin
 
-IHttpServerRunable::IHttpServerRunable(qintptr handle) : handle{handle}
+IHttpServerRunable::IHttpServerRunable(qintptr handle) : m_handle{handle}
 {
 
 }
 
+IHttpServerRunable::IHttpServerRunable(QTcpSocket *socket) : m_socket(socket)
+{
+}
+
 void IHttpServerRunable::run()
 {
-    // TODO: socket 在这里内存泄露!!!
-    socket = ISocketUtil::createTcpSocket(handle);
-    if(!socket->waitForReadyRead()){        // TODO: 这里使用 epoll 后可以省略.
-        return;
+    if(m_socket != nullptr){
+        IRequest request(m_socket);
+        runContent(request);
+    }else{
+        IRequest request(m_handle);
+        runContent(request);
     }
+}
 
-    IRequest request(socket);
+void IHttpServerRunable::runContent(IRequest request)
+{
     IResponse response(&request);
 
     if(!request.valid()){
@@ -53,8 +61,10 @@ void IHttpServerRunable::run()
     } while(0);
 
     // 响应
+
     if(!response.respond()){
-        return ISocketUtil::handleInternalError(socket);
+        // TODO:
+        //        return ISocketUtil::handleInternalError(socket);
     }
 }
 

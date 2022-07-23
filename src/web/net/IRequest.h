@@ -27,6 +27,7 @@ class IRequest : private IRegisterMetaTypeUnit<IRequest>
     $UseMetaRegistration(IRequest)
 public:
     IRequest();
+    explicit IRequest(qintptr handle);
     explicit IRequest(QTcpSocket* m_socket);
     ~IRequest();
 
