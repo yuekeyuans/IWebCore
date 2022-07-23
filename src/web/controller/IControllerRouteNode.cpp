@@ -161,7 +161,7 @@ void IControllerRouteNode::travelPrint(int space) const
         qDebug().noquote()<< QString().fill(' ', 4* space + 2)
                           << leaf->url
                           << IHttpMethodHelper::toString(leaf->httpMethod)
-                          << "<==" << leaf->methodNode.funExpression;
+                          << "<==" << leaf->methodNode.expression;
     };
 
     qDebug().noquote() << QString().fill(' ', 4* space) << (this->fragment.isEmpty() ? "/" :this->fragment);

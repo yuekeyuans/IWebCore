@@ -303,8 +303,8 @@ void IControllerInterfaceImpl::chechMethodSupportedReturnType(const IUrlActionNo
 //        QMetaType::QStringList,
     };
 
-    auto type = node.methodNode.funRetunType;
-    auto id = node.methodNode.funReturnTypeId;
+    auto type = node.methodNode.returnTypeName;
+    auto id = node.methodNode.returnTypeId;
     if(id == QMetaType::UnknownType){
         auto errorInfo = info + "the error take place in Function : " + node.methodNode.funName;
         qFatal(errorInfo.toUtf8());
@@ -347,9 +347,9 @@ void IControllerInterfaceImpl::checkMethodSupportedParamArgType(const IUrlAction
         QMetaType::QJsonValue,
     };
 
-    const auto& types = node.methodNode.funParamTypes;
-    const auto& typeIds = node.methodNode.funParamTypeIds;
-    const auto& count = node.methodNode.funParamCount;
+    const auto& types = node.methodNode.paramTypeNames;
+    const auto& typeIds = node.methodNode.paramTypeIds;
+    const auto& count = node.methodNode.paramCount;
     for(int i=0; i<count; i++) {
         QString typeName = types[i];
         auto typeId = typeIds[i];
@@ -359,14 +359,14 @@ void IControllerInterfaceImpl::checkMethodSupportedParamArgType(const IUrlAction
                                    || IControllerInterfaceImpHelper::isBeanType(typeName);
             if(!isSupportedType){
                 IAssertInfo info;
-                info.reason = QString("At Function: ").append(node.methodNode.funExpression)
+                info.reason = QString("At Function: ").append(node.methodNode.expression)
                                    .append(" At Param: ").append(typeName);
                 $Ast->fatal("controller_check_param_Type_has_unsupported_user_defined_type", info);
             }
         } else{
             if(!allowType.contains(typeId)){
                 IAssertInfo info;
-                info.reason = QString("At Function: ").append(node.methodNode.funExpression)
+                info.reason = QString("At Function: ").append(node.methodNode.expression)
                                    .append(" At Param: ").append(typeName);
                 $Ast->fatal("controller_check_param_Type_has_unsupported_inner_type", info);
             }
@@ -379,7 +379,7 @@ void IControllerInterfaceImpl::checkMethodArgNameIntegrality(const IUrlActionNod
     static const  QString info = "the controller function`s parameter should always define it`s name, the name can`t be omitted,\n\t"
                           "the error happened in Function : ";
 
-    auto names = node.methodNode.funParamNames;
+    auto names = node.methodNode.paramNames;
     for(auto& name : names){
         if(name.isEmpty()){
             auto funInfo = info + node.methodNode.funName;
@@ -390,11 +390,11 @@ void IControllerInterfaceImpl::checkMethodArgNameIntegrality(const IUrlActionNod
 
 void IControllerInterfaceImpl::checkMethodOfReturnVoid(const IUrlActionNode &node)
 {
-    if(node.methodNode.funReturnTypeId != QMetaType::Void){
+    if(node.methodNode.returnTypeId != QMetaType::Void){
         return;
     }
 
-    auto types = node.methodNode.funParamTypes;
+    auto types = node.methodNode.paramTypeNames;
     if(!types.contains("IResponse") && !types.contains("IResponse&")){
         QString info = "mapping function that return void should include IResponse in side function parameters\n"
                     "at Function : " + node.methodNode.funName;
@@ -405,10 +405,10 @@ void IControllerInterfaceImpl::checkMethodOfReturnVoid(const IUrlActionNode &nod
 // 检查特殊的引用
 void IControllerInterfaceImpl::checkMethodBodyContentArgs(const IUrlActionNode &node)
 {
-    const auto& types = node.methodNode.funParamTypes;
+    const auto& types = node.methodNode.paramTypeNames;
     auto index = types.indexOf("QJsonValue&");
     if(index != -1){
-        auto name = node.methodNode.funParamNames[index];
+        auto name = node.methodNode.paramNames[index];
         if(!name.endsWith("_content")){
             QString info = "QJsonValue& can`t be used except in $Body expression\n"
                            "at Function : " + node.methodNode.funName;
@@ -419,14 +419,14 @@ void IControllerInterfaceImpl::checkMethodBodyContentArgs(const IUrlActionNode &
 
 void IControllerInterfaceImpl::checkMethodParamterWithSuffixProper(const IUrlActionNode &node)
 {
-    const auto& argNodes = node.methodNode.funParamNodes;
+    const auto& argNodes = node.methodNode.paramNodes;
 
     // get 中不能调用 body 的参数。
     if(node.httpMethod == IHttpMethod::GET){
         for(const auto& param : argNodes){
             if(param.paramName.endsWith("_body") || param.paramName.endsWith("_content")){
                 IAssertInfo info;
-                info.reason = QString("At Function: ").append(node.methodNode.funExpression).append(" Parameter: ").append(param.paramName);
+                info.reason = QString("At Function: ").append(node.methodNode.expression).append(" Parameter: ").append(param.paramName);
                 $Ast->fatal("controller_method_get_but_want_body_content", info);
             }
         }
@@ -446,12 +446,12 @@ void IControllerInterfaceImpl::checkMethodParamterWithSuffixSet(const IUrlAction
     if(node.ignoreParamCheck){
         return;
     }
-    const auto& nodes = node.methodNode.funParamNodes;
+    const auto& nodes = node.methodNode.paramNodes;
     for(auto param : nodes){
         if(!externalTypes.contains(param.paramType)){
             if(!IControllerInterfaceImpHelper::isParamNameWithSuffix(param.paramName)){
                 IAssertInfo info;
-                info.reason = QString("At Function: ").append(node.methodNode.funExpression)
+                info.reason = QString("At Function: ").append(node.methodNode.expression)
                                    .append(" At Param: ").append(param.paramName);
                 $Ast->fatal("irequest_controller_function_with_param_not_marked", info);
             }

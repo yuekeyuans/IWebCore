@@ -75,10 +75,10 @@ void IControllerParamUtil::createParams(const IMethodNode& functionNode, ParamTy
         params[i] = nullptr;
     }
 
-    params[0] = createReturnParam(functionNode.funReturnTypeId);
+    params[0] = createReturnParam(functionNode.returnTypeId);
 
-    for(int i=0; i<functionNode.funParamCount; i++){
-        params[i + 1] = createArgParam(functionNode.funParamNodes[i], request);
+    for(int i=0; i<functionNode.paramCount; i++){
+        params[i + 1] = createArgParam(functionNode.paramNodes[i], request);
     }
 }
 
@@ -116,10 +116,10 @@ void *IControllerParamUtil::createArgParam(const IParamNode& node, IRequest &req
 
 void IControllerParamUtil::destroyParams(const IMethodNode& functionNode, void **params)
 {
-    destroyReturnParam(params[0], functionNode.funReturnTypeId);
+    destroyReturnParam(params[0], functionNode.returnTypeId);
 
-    for(int i=0; i<functionNode.funParamCount; i++){
-        destroyArgParam(functionNode.funParamNodes[i], params[i+1]);
+    for(int i=0; i<functionNode.paramCount; i++){
+        destroyArgParam(functionNode.paramNodes[i], params[i+1]);
     }
 }
 
@@ -160,7 +160,7 @@ void IControllerParamUtil::destroyArgParam(const IParamNode& node, void *obj)
 
 void IControllerParamUtil::resolveReturnValue(IResponse& response, const IMethodNode& functionNode, ParamType &params)
 {
-    QMetaType::Type typeId = functionNode.funReturnTypeId;
+    QMetaType::Type typeId = functionNode.returnTypeId;
     QSharedPointer<IResponseWare> instance;
 
     switch (typeId) {
@@ -189,7 +189,7 @@ void IControllerParamUtil::resolveReturnValue(IResponse& response, const IMethod
         instance = createStringListReturnType(params);
         break;
     default:
-        auto type = functionNode.funRetunType;
+        auto type = functionNode.returnTypeName;
         if(type.startsWith("I") && type.endsWith("Response")){
             instance = createInterfaceReturnInstance(params);
         }else{

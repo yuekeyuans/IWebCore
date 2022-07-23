@@ -3,6 +3,7 @@
 #include "base/IHeaderUtil.h"
 #include "web/biscuits/IHttpMethod.h"
 #include "web/node/IMethodNode.h"
+#include "web/node/IFunctionNode.h"
 
 $PackageWebCoreBegin
 
@@ -21,6 +22,7 @@ public:
 
     Type type {Method};
     IMethodNode methodNode;
+//    IFunctionNode functionNode;
 };
 
 $PackageWebCoreEnd

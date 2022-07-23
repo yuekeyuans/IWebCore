@@ -64,7 +64,7 @@ void IStatusControllerInterfaceImpl::checkStatusType(const IStatusActionNode &no
 {
     if(node.httpStatus == IHttpStatus::OK_200){
         IAssertInfo info;
-        info.function = node.methodNode.funExpression;
+        info.function = node.methodNode.expression;
         info.reason = QString("curStatus: ").append(IHttpStatusHelper::toString(node.httpStatus));
         $Ast->fatal("register_status_not_allow_200_ok", info);
     }
@@ -72,25 +72,25 @@ void IStatusControllerInterfaceImpl::checkStatusType(const IStatusActionNode &no
 
 void IStatusControllerInterfaceImpl::checkReturnType(const IStatusActionNode &node)
 {
-    if(node.methodNode.funReturnTypeId != QMetaType::Void){
+    if(node.methodNode.returnTypeId != QMetaType::Void){
         IAssertInfo info;
-        info.function = node.methodNode.funExpression;
-        info.returnType = node.methodNode.funRetunType;
+        info.function = node.methodNode.expression;
+        info.returnType = node.methodNode.returnTypeName;
         $Ast->fatal("register_status_function_must_return_void", info);
     }
 }
 
 void IStatusControllerInterfaceImpl::checkInputArgs(const IStatusActionNode &node)
 {
-    if(node.methodNode.funParamCount == 2){
-        if(node.methodNode.funParamTypes.contains("IRequest&")
-                && node.methodNode.funParamTypes.contains("IResponse&") ){
+    if(node.methodNode.paramCount == 2){
+        if(node.methodNode.paramTypeNames.contains("IRequest&")
+                && node.methodNode.paramTypeNames.contains("IResponse&") ){
             return;
         }
     }
 
     QStringList types;
-    for(auto type : node.methodNode.funParamTypes){
+    for(auto type : node.methodNode.paramTypeNames){
         types.append(type);
     }
     IAssertInfo info;

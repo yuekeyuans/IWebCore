@@ -7,12 +7,11 @@
 
 $PackageWebCoreBegin
 
-
-// this mean static function, static member function, lambda function that is void(IRequest&, IResponse)
-
 struct IFunctionNode
 {
     std::function<void(IRequest&,  IResponse&)> function;
+
+    int returnTypeId {QMetaType::Void};
 
     int funParamCount{0};
     QVector<IParamNode> funParamNodes;

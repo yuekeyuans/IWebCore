@@ -7,17 +7,22 @@ $PackageWebCoreBegin
 struct IMethodNode
 {
     void* handler{nullptr};
-    int funParamCount{0};
-    QMetaMethod metaMethod;
-    QString funName;
-    QString funRetunType;
-    QMetaType::Type funReturnTypeId {QMetaType::UnknownType};
-    QList<QByteArray> funParamNames;
-    QList<QByteArray> funParamTypes;
-    QList<QMetaType::Type> funParamTypeIds;
-    QVector<IParamNode> funParamNodes;
 
-    QString funExpression;
+    QMetaMethod metaMethod;
+
+    QString funName;
+
+    QString returnTypeName;
+    QMetaType::Type returnTypeId {QMetaType::UnknownType};
+
+    int paramCount{0};
+    QList<QByteArray> paramNames;
+    QList<QByteArray> paramTypeNames;
+    QList<QMetaType::Type> paramTypeIds;
+
+    QVector<IParamNode> paramNodes;
+
+    QString expression;
     static IMethodNode fromMetaMethod(void* handle, QMetaMethod method);
 };
 

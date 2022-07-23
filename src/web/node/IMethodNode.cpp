@@ -31,29 +31,29 @@ void IMethodNodeHelper::assignBaseInfo(IMethodNode& node, void* handle, QMetaMet
     node.handler = handle;
     node.metaMethod = method;
     node.funName = method.name();
-    node.funParamCount = method.parameterCount();
-    node.funParamNames = method.parameterNames();
-    node.funParamTypes = method.parameterTypes();
-    node.funRetunType = method.typeName();
-    node.funReturnTypeId = QMetaType::Type(method.returnType());
-    node.funExpression = IMethodNodeHelper::createFunctionExpression(node);
+    node.paramCount = method.parameterCount();
+    node.paramNames = method.parameterNames();
+    node.paramTypeNames = method.parameterTypes();
+    node.returnTypeName = method.typeName();
+    node.returnTypeId = QMetaType::Type(method.returnType());
+    node.expression = IMethodNodeHelper::createFunctionExpression(node);
 
-    if(node.funReturnTypeId == QMetaType::UnknownType){
+    if(node.returnTypeId == QMetaType::UnknownType){
         IAssertInfo info;
-        info.reason = QString("return Type Not Defined in QMeta System. type: ").append(node.funRetunType)
-                           .append(", Function: ").append(node.funExpression);
+        info.reason = QString("return Type Not Defined in QMeta System. type: ").append(node.returnTypeName)
+                           .append(", Function: ").append(node.expression);
         $Ast->fatal("controller_invalid_parameter_type", info);
     }
 
-    for(int i=0;i<node.funParamCount; i++){
+    for(int i=0;i<node.paramCount; i++){
         auto id = method.parameterType(i);
         if(id == QMetaType::UnknownType){
             IAssertInfo info;
-            info.reason = QString("parameter Type Not Defined in QMeta System. type: ").append(node.funParamTypes[i])
-                               .append(", Function: ").append(node.funExpression);
+            info.reason = QString("parameter Type Not Defined in QMeta System. type: ").append(node.paramTypeNames[i])
+                               .append(", Function: ").append(node.expression);
             $Ast->fatal("controller_invalid_parameter_type", info);
         }else{
-            node.funParamTypeIds.append(QMetaType::Type(id));
+            node.paramTypeIds.append(QMetaType::Type(id));
         }
     }
 }
@@ -61,14 +61,14 @@ void IMethodNodeHelper::assignBaseInfo(IMethodNode& node, void* handle, QMetaMet
 QString IMethodNodeHelper::createFunctionExpression(IMethodNode& node)
 {
     QString expression;
-    expression.append(node.funRetunType).append(' ');
+    expression.append(node.returnTypeName).append(' ');
     expression.append(node.funName).append("(");
 
     QStringList args;
 
-    for(int i=0; i<node.funParamCount; i++){
+    for(int i=0; i<node.paramCount; i++){
         QString arg;
-        arg.append(node.funParamTypes[i]).append(' ').append(node.funParamNames[i]);
+        arg.append(node.paramTypeNames[i]).append(' ').append(node.paramNames[i]);
         args.append(arg);
     }
 
@@ -78,12 +78,12 @@ QString IMethodNodeHelper::createFunctionExpression(IMethodNode& node)
 
 void IMethodNodeHelper::createFunctionParamNodes(IMethodNode& node)
 {
-    for(int i=0; i<node.funParamCount; i++){
+    for(int i=0; i<node.paramCount; i++){
         IParamNode paramNode;
-        paramNode.paramName = node.funParamNames[i];
-        paramNode.paramTypeId = node.funParamTypeIds[i];
-        paramNode.paramType = node.funParamTypes[i];
-        node.funParamNodes.append(paramNode);
+        paramNode.paramName = node.paramNames[i];
+        paramNode.paramTypeId = node.paramTypeIds[i];
+        paramNode.paramType = node.paramTypeNames[i];
+        node.paramNodes.append(paramNode);
     }
 }
 
