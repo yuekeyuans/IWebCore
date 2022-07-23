@@ -82,15 +82,15 @@ void IStatusControllerInterfaceImpl::checkReturnType(const IStatusActionNode &no
 
 void IStatusControllerInterfaceImpl::checkInputArgs(const IStatusActionNode &node)
 {
-    if(node.methodNode.paramCount == 2){
-        if(node.methodNode.paramTypeNames.contains("IRequest&")
-                && node.methodNode.paramTypeNames.contains("IResponse&") ){
+    const auto& typeNames = node.methodNode.getParamTypeNames();
+    if(node.methodNode.getParamCount() == 2){
+        if(typeNames.contains("IRequest&") && typeNames.contains("IResponse&") ){
             return;
         }
     }
 
     QStringList types;
-    for(auto type : node.methodNode.paramTypeNames){
+    for(auto type : typeNames){
         types.append(type);
     }
     IAssertInfo info;

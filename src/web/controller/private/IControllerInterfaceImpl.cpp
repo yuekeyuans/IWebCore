@@ -347,11 +347,11 @@ void IControllerInterfaceImpl::checkMethodSupportedParamArgType(const IUrlAction
         QMetaType::QJsonValue,
     };
 
-    const auto& types = node.methodNode.paramTypeNames;
-    const auto& typeIds = node.methodNode.paramTypeIds;
-    const auto& count = node.methodNode.paramCount;
+    const auto& typeNames = node.methodNode.getParamTypeNames();
+    const auto& typeIds = node.methodNode.getParamTypeIds();
+    const auto& count = node.methodNode.getParamCount();
     for(int i=0; i<count; i++) {
-        QString typeName = types[i];
+        QString typeName = typeNames[i];
         auto typeId = typeIds[i];
 
         if(typeId >= QMetaType::User){
@@ -379,8 +379,8 @@ void IControllerInterfaceImpl::checkMethodArgNameIntegrality(const IUrlActionNod
     static const  QString info = "the controller function`s parameter should always define it`s name, the name can`t be omitted,\n\t"
                           "the error happened in Function : ";
 
-    auto names = node.methodNode.paramNames;
-    for(auto& name : names){
+    auto paramNames = node.methodNode.getParamNames();
+    for(auto& name : paramNames){
         if(name.isEmpty()){
             auto funInfo = info + node.methodNode.funName;
             qFatal(funInfo.toUtf8());
@@ -394,8 +394,8 @@ void IControllerInterfaceImpl::checkMethodOfReturnVoid(const IUrlActionNode &nod
         return;
     }
 
-    auto types = node.methodNode.paramTypeNames;
-    if(!types.contains("IResponse") && !types.contains("IResponse&")){
+    auto typeNames = node.methodNode.getParamTypeNames();
+    if(!typeNames.contains("IResponse") && !typeNames.contains("IResponse&")){
         QString info = "mapping function that return void should include IResponse in side function parameters\n"
                     "at Function : " + node.methodNode.funName;
         qFatal(info.toUtf8());
@@ -405,10 +405,12 @@ void IControllerInterfaceImpl::checkMethodOfReturnVoid(const IUrlActionNode &nod
 // 检查特殊的引用
 void IControllerInterfaceImpl::checkMethodBodyContentArgs(const IUrlActionNode &node)
 {
-    const auto& types = node.methodNode.paramTypeNames;
-    auto index = types.indexOf("QJsonValue&");
+    const auto& typeNames = node.methodNode.getParamTypeNames();
+
+    auto index = typeNames.indexOf("QJsonValue&");
     if(index != -1){
-        auto name = node.methodNode.paramNames[index];
+        const auto& paramNames = node.methodNode.getParamNames();
+        auto name = paramNames[index];
         if(!name.endsWith("_content")){
             QString info = "QJsonValue& can`t be used except in $Body expression\n"
                            "at Function : " + node.methodNode.funName;
@@ -448,7 +450,7 @@ void IControllerInterfaceImpl::checkMethodParamterWithSuffixSet(const IUrlAction
     }
     const auto& nodes = node.methodNode.paramNodes;
     for(auto param : nodes){
-        if(!externalTypes.contains(param.paramType)){
+        if(!externalTypes.contains(param.paramTypeName)){
             if(!IControllerInterfaceImpHelper::isParamNameWithSuffix(param.paramName)){
                 IAssertInfo info;
                 info.reason = QString("At Function: ").append(node.methodNode.expression)

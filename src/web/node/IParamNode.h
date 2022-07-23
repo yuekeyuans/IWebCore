@@ -7,7 +7,7 @@ $PackageWebCoreBegin
 struct IParamNode
 {
     int paramTypeId;
-    QString paramType;
+    QString paramTypeName;
     QString paramName;
 };
 

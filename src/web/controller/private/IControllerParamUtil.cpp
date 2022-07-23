@@ -77,7 +77,7 @@ void IControllerParamUtil::createParams(const IMethodNode& functionNode, ParamTy
 
     params[0] = createReturnParam(functionNode.returnTypeId);
 
-    for(int i=0; i<functionNode.paramCount; i++){
+    for(int i=0; i<functionNode.getParamCount(); i++){
         params[i + 1] = createArgParam(functionNode.paramNodes[i], request);
     }
 }
@@ -118,7 +118,7 @@ void IControllerParamUtil::destroyParams(const IMethodNode& functionNode, void *
 {
     destroyReturnParam(params[0], functionNode.returnTypeId);
 
-    for(int i=0; i<functionNode.paramCount; i++){
+    for(int i=0; i<functionNode.getParamCount(); i++){
         destroyArgParam(functionNode.paramNodes[i], params[i+1]);
     }
 }
@@ -338,7 +338,7 @@ void *IControllerParamUtil::getParamOfJsonType(const IParamNode& node, IRequest 
     }else{
         content = request.getParameter(node.paramName, &convertOk);
         if(!convertOk){
-            request.setInvalid(IHttpStatus::BAD_REQUEST_400, "convert to json fail. At " + node.paramType + " " + node.paramName);
+            request.setInvalid(IHttpStatus::BAD_REQUEST_400, "convert to json fail. At " + node.paramTypeName + " " + node.paramName);
             return nullptr;
         }
     }
@@ -465,7 +465,7 @@ bool IControllerParamUtil::releaseParamOfSession(const IParamNode &node, void *o
 
 bool IControllerParamUtil::releaseParamOfBean(const IParamNode& node, void *obj)
 {
-    if(node.paramTypeId >= QMetaType::User && ITypeManage::containBean(node.paramType)){
+    if(node.paramTypeId >= QMetaType::User && ITypeManage::containBean(node.paramTypeName)){
         QMetaType::destroy(node.paramTypeId, obj);
         return true;
     }
