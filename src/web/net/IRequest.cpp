@@ -1,5 +1,7 @@
 ﻿#include "IRequest.h"
+
 #include "base/IConvertUtil.h"
+#include "base/IConstantUtil.h"
 #include "base/IJsonUtil.h"
 #include "base/IXmlUtil.h"
 #include "base/IToeUtil.h"
@@ -16,9 +18,7 @@ $UseGlobalAssert()
 
 IRequest::IRequest()
 {
-    raw = new IReqRespRaw;
-    raw->m_request = this;
-    impl = new IRequestImpl(raw);
+    qFatal(IConstantUtil::UnCallableMethod);
 }
 
 IRequest::IRequest(QTcpSocket *socket)

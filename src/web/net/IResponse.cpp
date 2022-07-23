@@ -1,5 +1,6 @@
 ﻿#include "IResponse.h"
 
+#include "base/IConstantUtil.h"
 #include "core/assert/IGlobalAssert.h"
 #include "web/biscuits/IHttpHeader.h"
 #include "web/net/IRequest.h"
@@ -15,7 +16,7 @@ $UseAssert(IWebAssert)
 
 IResponse::IResponse()
 {
-    qFatal("this construct should not be called anywhere");
+    qFatal(IConstantUtil::UnCallableMethod);
 }
 
 IResponse::IResponse(IRequest *request)
