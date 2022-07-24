@@ -20,7 +20,6 @@ $PackageWebCoreBegin
 $UseAssert(IWebAssert)
 $UseGlobalAssert()
 
-
 IRequest::IRequest()
 {
     $Ast->fatal("IRequest_IResponse_CREATE_ERROR");
@@ -28,13 +27,13 @@ IRequest::IRequest()
 
 IRequest::IRequest(qintptr handle)
 {
-    m_socket = ISocketUtil::createTcpSocket(handle);
+    auto socket = ISocketUtil::createTcpSocket(handle);
     raw = new IReqRespRaw;
     raw->m_request = this;
-    raw->m_socket = m_socket;
+    raw->m_socket = socket;
     impl = new IRequestImpl(raw);
 
-    if(!m_socket->waitForReadyRead()){      // TODO: 这里可能存在错误
+    if(!impl->waitSocketForReadyRead()){      // TODO: 这里可能存在错误
         setInvalid(IHttpStatus::REQUEST_TIMEOUT_408, "request open failed");
     }else{
         impl->resolve();
@@ -45,30 +44,30 @@ IRequest::IRequest(QTcpSocket *socket)
 {
 //    m_socket = socket;
 
-    auto descriptor = socket->socketDescriptor();
-    socket->reset();
-    delete socket;
+//    auto descriptor = socket->socketDescriptor();
+//    socket->reset();
+//    delete socket;
 
-    m_socket = ISocketUtil::createTcpSocket(descriptor);
-
+//    m_socket = ISocketUtil::createTcpSocket(descriptor);
 
     raw = new IReqRespRaw;
     raw->m_request = this;
-    raw->m_socket = m_socket;
+    raw->m_socket = socket;
     impl = new IRequestImpl(raw);
     impl->resolve();
 }
 
 IRequest::~IRequest()
 {
-    bool ok;
-    auto connection = getHeaderParameter("Connection", &ok);
-    if(ok && connection.contains("keep-alive")){
-        IHttpServerManage::addSocket(m_socket);
-    }else{
-        ISocketUtil::closeTcpSocket(m_socket);
-        delete m_socket;
-    }
+//    bool ok;
+//    auto connection = getHeaderParameter("Connection", &ok);
+//    if(ok && connection.contains("keep-alive")){
+//        qDebug() << connection;
+//        IHttpServerManage::addSocket(raw->m_socket);
+//    }else{
+        ISocketUtil::closeTcpSocket(raw->m_socket);
+        delete raw->m_socket;
+//    }
 
     delete raw;
     delete impl;

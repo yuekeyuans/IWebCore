@@ -81,6 +81,7 @@ HEADERS += \
     $$PWD/web/response/IStaticFileResponse.h \
     $$PWD/web/response/IStatusCodeResponse.h \
     $$PWD/web/response/response \
+    $$PWD/web/server/multiThreadServer/ITcpSocket.h \
     $$PWD/web/session/ISessionJar.h \
     $$PWD/core/unit/IJarUnit.h \
     $$PWD/core/unit/INoConstructUnit.h \
@@ -235,6 +236,7 @@ SOURCES += \
     $$PWD/web/response/IResponseWareRaw.cpp \
     $$PWD/web/response/IStaticFileResponse.cpp \
     $$PWD/web/response/IStatusCodeResponse.cpp \
+    $$PWD/web/server/multiThreadServer/ITcpSocket.cpp \
     $$PWD/web/session/ISessionJar.cpp \
     $$PWD/core/unit/IJarUnit.cpp \
     $$PWD/core/unit/INoCopyMoveUnit.cpp \

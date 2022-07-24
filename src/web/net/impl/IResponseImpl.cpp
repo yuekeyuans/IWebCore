@@ -28,13 +28,20 @@ bool IResponseImpl::respond()
 void IResponseImpl::write(const QByteArray &content)
 {
     if(!content.isEmpty()){
-        raw->m_socket->write(content);
+        QMetaObject::invokeMethod((raw->m_socket)
+                                      , std::bind(static_cast<qint64(QTcpSocket::*)(const QByteArray &)>( &QTcpSocket::write )
+                                      , (raw->m_socket), content ));
+
+//        raw->m_socket->write(content);
     }
 }
 
 void IResponseImpl::flush()
 {
-    raw->m_socket->flush();
+    QMetaObject::invokeMethod((raw->m_socket)
+                                  , std::bind(static_cast<bool(QTcpSocket::*)()>( &QTcpSocket::flush )
+                                            , (raw->m_socket)));
+//    raw->m_socket->flush();
 }
 
 QByteArray IResponseImpl::generateFirstLine()
