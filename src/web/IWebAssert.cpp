@@ -12,6 +12,8 @@ void IWebAssert::loadFromFunction()
 
     addFatal("controller_invalid_parameter_type", "");
 
+    addFatal("register_to_controllerManage_error", "you can not register anything when server is on");
+
     addFatal("UrlError", "url fragment should not contain . or ..", "please remove . or .. in url");
     addFatal("UrlBlankCharacter", "url has invalid character");
     addFatal("UrlInvalidCharacter",  "url has invalid character");

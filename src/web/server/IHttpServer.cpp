@@ -15,15 +15,23 @@ IHttpServer::IHttpServer() :  QTcpServer()
     $ConstructConfig()
 }
 
-bool IHttpServer::listen()
+bool IHttpServer::listen(const QHostAddress &address_, quint16 port_)
 {
-    QHostAddress address = host == "any" ? QHostAddress::Any : QHostAddress(host);
-    auto result = this->QTcpServer::listen(address, port);
+    auto newAdress = address_;
+    auto newPort = port_;
+    if(address_.isNull()){
+        newAdress = host == "any" ? QHostAddress::Any : QHostAddress(host);
+    }
+    if(port_ == 0){
+        newPort = port;
+    }
+
+    auto result = this->QTcpServer::listen(newAdress, newPort);
     if(result){
-        QString info = QString("server started at %1:%2").arg(address.toString()).arg(port);
+        QString info = QString("server started at %1:%2").arg(newAdress.toString()).arg(newPort);
         qDebug().noquote() << info;
     }else{
-        QString info = QString("fail to start server at %1:%2").arg(address.toString()).arg(port);
+        QString info = QString("fail to start server at %1:%2").arg(newAdress.toString()).arg(newPort);
         qDebug().noquote() << info;
     }
 

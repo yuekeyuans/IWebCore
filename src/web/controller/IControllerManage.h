@@ -26,6 +26,8 @@ private:
 public:
     using ValidatorFun = bool (*)(const QString&);
 
+    static void setIsServerStarted(bool);
+
     // TODO: 考虑 将函数换一些好用的名字
     static void registerStatusActionNode(IStatusActionNode node);
     static void registerStatusActionNodes(const QVector<IStatusActionNode>& statusNodes);
@@ -76,7 +78,10 @@ private:
     static bool checkUrlDuplicateName(const IUrlActionNode* node);
     void preRegisterPathValidator();
 
+    static void checkRegisterAvalible();    // 检查是否能够注册
+
 private:
+    bool m_isServerStarted{false};
     std::shared_ptr<IControllerRouteNode> m_urlMapppings;
     std::shared_ptr<IControllerFileNode> m_fileMappings;
 

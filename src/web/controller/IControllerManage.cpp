@@ -6,7 +6,6 @@
 #include "web/net/impl/IReqRespRaw.h"
 #include "web/IWebAssert.h"
 
-
 $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
@@ -44,8 +43,16 @@ IControllerManage::IControllerManage()
     });
 }
 
+void IControllerManage::setIsServerStarted(bool value)
+{
+    auto inst = instance();
+    inst->m_isServerStarted = value;
+}
+
 void IControllerManage::registerStatusActionNode(IStatusActionNode node)
 {
+    checkRegisterAvalible();
+
     auto inst = instance();
     if(inst->m_statusMappings.contains(node.httpStatus)){
         qDebug() << "override of status mapping";
@@ -62,6 +69,8 @@ void IControllerManage::registerStatusActionNodes(const QVector<IStatusActionNod
 
 void IControllerManage::unRegisterStatusActionNode(const IStatusActionNode &node)
 {
+    checkRegisterAvalible();
+
     auto inst = instance();
     if(inst->m_statusMappings.contains(node.httpStatus)){
         inst->m_statusMappings.remove(node.httpStatus);
@@ -77,6 +86,8 @@ void IControllerManage::unRegisterStatusActionNodes(const QVector<IStatusActionN
 
 void IControllerManage::registerUrlActionNode(IUrlActionNode node)
 {
+    checkRegisterAvalible();
+
     auto inst = instance();
     auto fragments = node.url.split("/");
     auto nodePtr = inst->m_urlMapppings.get();
@@ -99,6 +110,8 @@ void IControllerManage::registerUrlActionNodes(const QVector<IUrlActionNode> &fu
 
 void IControllerManage::unRegisterUrlActionNode(IUrlActionNode node)
 {
+    checkRegisterAvalible();
+
     auto inst = instance();
     auto fragments = node.url.split("/");
     auto nodePtr = inst->m_urlMapppings.get();
@@ -134,6 +147,8 @@ bool IControllerManage::containUrlPath(const QString &url, IHttpMethod method)
 
 void IControllerManage::registerStaticFiles(const QString &path, const QString &prefix)
 {
+    checkRegisterAvalible();
+
     QDir dir(path);
     if(!dir.exists()){
         qFatal("dir not exist");
@@ -145,6 +160,8 @@ void IControllerManage::registerStaticFiles(const QString &path, const QString &
 
 void IControllerManage::registerPathValidator(const QString &name, const QString &regexp)
 {
+    checkRegisterAvalible();
+
     auto inst = instance();
     QRegularExpression exp(regexp);
     if(!exp.isValid()){
@@ -162,6 +179,8 @@ void IControllerManage::registerPathValidator(const QString &name, const QString
 
 void IControllerManage::registerPathValidator(const QString &name, ValidatorFun fun)
 {
+    checkRegisterAvalible();
+
     auto inst = instance();
     if(inst->m_pathFunValidators.contains(name) || inst->m_pathFunValidators.contains(name)){
         auto info = name + " validator already registered";
@@ -173,24 +192,32 @@ void IControllerManage::registerPathValidator(const QString &name, ValidatorFun 
 
 void IControllerManage::registerPreProcessor(IProcessorWare *middleWare)
 {
+    checkRegisterAvalible();
+
     auto inst = instance();
     inst->m_preProcessors.append(middleWare);
 }
 
 void IControllerManage::registerPostProcessor(IProcessorWare *middleWare)
 {
+    checkRegisterAvalible();
+
     auto inst = instance();
     inst->m_postProcessors.append(middleWare);
 }
 
 void IControllerManage::registerPreInterceptor(IInterceptorWare *middleWare)
 {
+    checkRegisterAvalible();
+
     auto inst = instance();
     inst->m_preInterceptors.append(middleWare);
 }
 
 void IControllerManage::registerPostInterceptor(IInterceptorWare *middleWare)
 {
+    checkRegisterAvalible();
+
     auto inst = instance();
     inst->m_postInterceptors.append(middleWare);
 }
@@ -465,6 +492,14 @@ void IControllerManage::preRegisterPathValidator()
 
     for(auto key : validatorFunMap.keys()){
         m_pathFunValidators[key] = validatorFunMap[key];
+    }
+}
+
+void IControllerManage::checkRegisterAvalible()
+{
+    auto inst = instance();
+    if(inst->m_isServerStarted){
+        $Ast->fatal("register_to_controllerManage_error");
     }
 }
 

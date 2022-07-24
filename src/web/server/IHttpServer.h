@@ -19,7 +19,7 @@ public:
 
 public:
     IHttpServer();
-    bool listen();
+    bool listen(const QHostAddress &address = QHostAddress::Null, quint16 port = 0);
     void setHost(const QString &host);
     void setPort(int port);
 
