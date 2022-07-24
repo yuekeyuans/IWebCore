@@ -7,6 +7,7 @@
 #include "core/task/ITaskManage.h"
 #include "web/controller/private/IControllerParamBeanUtil.h"
 #include "web/node/IMethodNode.h"
+#include "web/node/IFunctionNode.h"
 #include "web/node/IParamNode.h"
 #include "web/net/IMultiPart.h"
 #include "web/net/IRequest.h"
@@ -69,7 +70,7 @@ namespace IControllerFunctionBaseImplHelper
     void* convertParamToJson(const IParamNode &node, const QByteArray &content, bool* ok);
 }
 
-void IControllerParamUtil::createParams(const IMethodNode& functionNode, ParamType& params, IRequest &request)
+void IControllerParamUtil::createParams(const IFunctionNode &functionNode, IControllerParamUtil::ParamType &params, IRequest &request)
 {
     for(int i=0; i<=10; i++){
         params[i] = nullptr;
@@ -77,8 +78,21 @@ void IControllerParamUtil::createParams(const IMethodNode& functionNode, ParamTy
 
     params[0] = createReturnParam(functionNode.returnTypeId);
 
-    for(int i=0; i<functionNode.getParamCount(); i++){
-        params[i + 1] = createArgParam(functionNode.paramNodes[i], request);
+    for(int i=0; i<functionNode.funParamCount; i++){
+        params[i + 1] = createArgParam(functionNode.funParamNodes[i], request);
+    }
+}
+
+void IControllerParamUtil::createParams(const IMethodNode& methodNode, ParamType& params, IRequest &request)
+{
+    for(int i=0; i<=10; i++){
+        params[i] = nullptr;
+    }
+
+    params[0] = createReturnParam(methodNode.returnTypeId);
+
+    for(int i=0; i<methodNode.getParamCount(); i++){
+        params[i + 1] = createArgParam(methodNode.paramNodes[i], request);
     }
 }
 
@@ -114,12 +128,21 @@ void *IControllerParamUtil::createArgParam(const IParamNode& node, IRequest &req
     return nullptr;
 }
 
-void IControllerParamUtil::destroyParams(const IMethodNode& functionNode, void **params)
+void IControllerParamUtil::destroyParams(const IFunctionNode &node, void **params)
 {
-    destroyReturnParam(params[0], functionNode.returnTypeId);
+    destroyReturnParam(params[0], node.returnTypeId);
 
-    for(int i=0; i<functionNode.getParamCount(); i++){
-        destroyArgParam(functionNode.paramNodes[i], params[i+1]);
+    for(int i=0; i<node.funParamCount; i++){
+        destroyArgParam(node.funParamNodes[i], params[i+1]);
+    }
+}
+
+void IControllerParamUtil::destroyParams(const IMethodNode& node, void **params)
+{
+    destroyReturnParam(params[0], node.returnTypeId);
+
+    for(int i=0; i<node.getParamCount(); i++){
+        destroyArgParam(node.paramNodes[i], params[i+1]);
     }
 }
 

@@ -2,8 +2,13 @@
 #include "base/IConstantUtil.h"
 #include "web/controller/IControllerManage.h"
 #include "web/server/IHttpServerManage.h"
+#include "web/node/IUrlActionNode.h"
 
 $PackageWebCoreBegin
+
+namespace IHttpServerHelper{
+    IUrlActionNode generateUrlActionNode(IHttpMethod method, const QString& path, IHttpServer::ProcessFunctor functor);
+}
 
 IHttpServer::IHttpServer() :  QTcpServer()
 {
@@ -73,14 +78,24 @@ void IHttpServer::patch(const QString &path, IHttpServer::ProcessFunctor functor
 
 void IHttpServer::serveDynamic(IHttpMethod method, const QString &path, IHttpServer::ProcessFunctor functor)
 {
-    Q_UNUSED(method)
-    Q_UNUSED(path)
-    Q_UNUSED(functor)
+    auto node = IHttpServerHelper::generateUrlActionNode(method, path, functor);
+    IControllerManage::registerUrlActionNode(node);
 }
 
 void IHttpServer::incomingConnection(qintptr handle)
 {
     IHttpServerManage::addSocket(handle);
+}
+
+IUrlActionNode IHttpServerHelper::generateUrlActionNode(IHttpMethod method, const QString& path, IHttpServer::ProcessFunctor functor)
+{
+    IUrlActionNode node;
+    node.url = path;
+    node.httpMethod = method;
+    node.type = IUrlActionNode::Function;
+    node.functionNode = IFunctionNode::createFunctionNode(functor);
+
+    return node;
 }
 
 $PackageWebCoreEnd

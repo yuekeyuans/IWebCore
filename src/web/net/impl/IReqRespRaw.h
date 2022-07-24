@@ -71,7 +71,7 @@ private:
 
 public:
     // response
-    IHttpStatus m_responseStatus {IHttpStatus::UNKNOWN};
+    IHttpStatus m_responseStatus {IHttpStatus::OK_200};
 
     QString m_responseMime{"UNKNOWN"};
 

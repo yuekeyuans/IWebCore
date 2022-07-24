@@ -9,6 +9,10 @@ $PackageWebCoreBegin
 
 struct IFunctionNode
 {
+public:
+    static IFunctionNode createFunctionNode(std::function<void(const IRequest&, IResponse&)>);
+
+public:
     std::function<void(IRequest&,  IResponse&)> function;
 
     int returnTypeId {QMetaType::Void};

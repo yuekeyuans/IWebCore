@@ -24,7 +24,9 @@ private:
     static void handleRequest(IRequest& request, IResponse& response);
     static void runStatusFunction(IRequest& request, IResponse& response, IStatusActionNode* function);
 
-    static void processInDynamicUrlFunctionMode(IRequest& request, IResponse& response, IUrlActionNode* function);
+
+    static void processInFunctionMode(IRequest& request, IResponse& response, IUrlActionNode* node);
+    static void processInMethodMode(IRequest& request, IResponse& response, IUrlActionNode* node);
     static void processInStaticFileMode(IRequest& request, IResponse& response, const QString& path);
     static void processInNotFoundMode(IRequest& request, IResponse& response);
 

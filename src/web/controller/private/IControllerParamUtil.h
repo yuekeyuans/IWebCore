@@ -9,6 +9,7 @@ $PackageWebCoreBegin
 class IRequest;
 class IResponse;
 struct IMethodNode;
+struct IFunctionNode;
 struct IParamNode;
 
 class IControllerParamUtil : public IInitializationTaskUnit<IControllerParamUtil>
@@ -23,11 +24,13 @@ private:
     IControllerParamUtil() = default;
 
 public:
-    static void createParams(const IMethodNode& functionNode, ParamType& params, IRequest& request);
+    static void createParams(const IFunctionNode& functionNode, ParamType& params, IRequest& request);
+    static void createParams(const IMethodNode& methodNode, ParamType& params, IRequest& request);
     static void *createReturnParam(int paramTypeId);
     static void *createArgParam(const IParamNode&node, IRequest& request);
 
-    static void destroyParams(const IMethodNode& functionNode, void **params);
+    static void destroyParams(const IFunctionNode& node, void** params);
+    static void destroyParams(const IMethodNode& node, void **params);
     static void destroyReturnParam(void *obj, int paramTypeId);
     static void destroyArgParam(const IParamNode& node, void *obj);
     static void resolveReturnValue(IResponse& response, const IMethodNode& functionNode, ParamType &params);
