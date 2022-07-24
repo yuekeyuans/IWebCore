@@ -60,8 +60,6 @@ void IHttpServerRunable::runContent(IRequest& request)
 
     } while(0);
 
-    // 响应
-
     if(!response.respond()){
         // TODO:
         //        return ISocketUtil::handleInternalError(socket);
@@ -75,14 +73,14 @@ void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
     }
 
     // process as dynamic server first
-    auto function = IControllerManage::getUrlFunction(request);
+    auto function = IControllerManage::getUrlActionNode(request);
     if(function != nullptr){
         processInDynamicUrlFunctionMode(request, response, function);
         return;
     }
 
     // process as static file server then
-    auto path = IControllerManage::getStaticFilePath(request);
+    auto path = IControllerManage::getStaticFileActionPath(request);
     if(!path.isEmpty()){
         processInStaticFileMode(request, response, path);
         return;
@@ -160,7 +158,7 @@ QStringList handleOptionsRequest1(IRequest& request, IResponse& response)
     auto origin = raw->m_method;
     for (auto key : keys) {
         raw->m_method = key;
-        if(IControllerManage::getUrlFunction(request) != nullptr){
+        if(IControllerManage::getUrlActionNode(request) != nullptr){
             options.append(mappings[key]);
         }
     }
@@ -192,7 +190,7 @@ void IHttpServerRunable::runOptionsFunction(IRequest &request, IResponse &respon
 
 bool IHttpServerRunable::interceptStatusCode(IRequest &request, IResponse &response)
 {
-    auto function = IControllerManage::getStatusFunction(response.status());
+    auto function = IControllerManage::getStatusActionNode(response.status());
     if(function != nullptr){
         runStatusFunction(request, response, function);
     }

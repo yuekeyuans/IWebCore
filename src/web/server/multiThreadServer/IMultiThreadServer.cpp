@@ -10,5 +10,12 @@ void IMultiThreadServer::addSocket(qintptr handle)
     inst->m_pool.start(runable);
 }
 
+void IMultiThreadServer::addSocket(QTcpSocket *socket)
+{
+    auto inst = instance();
+    auto runable = new IHttpServerRunable(socket);
+    inst->m_pool.start(runable);
+}
+
 $PackageWebCoreEnd
 

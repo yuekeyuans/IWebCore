@@ -10,7 +10,14 @@ IHttpServerManage::IHttpServerManage()
 
 void IHttpServerManage::addSocket(qintptr handle)
 {
-    m_server->addSocket(handle);
+    auto inst = instance();
+    inst->m_server->addSocket(handle);
+}
+
+void IHttpServerManage::addSocket(QTcpSocket *socket)
+{
+    auto inst = instance();
+    inst->m_server->addSocket(socket);
 }
 
 $PackageWebCoreEnd

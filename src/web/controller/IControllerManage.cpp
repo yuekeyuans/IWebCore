@@ -128,7 +128,7 @@ void IControllerManage::unRegisterUrlActionNodes(const QVector<IUrlActionNode> &
 // TODO: 这里的 url 应该是 raw url, 即 可以是  /<hello>/<world> 这种形式的url
 bool IControllerManage::containUrlPath(const QString &url, IHttpMethod method)
 {
-    auto node = getUrlFunction(url, method);
+    auto node = getUrlActionNode(url, method);
     return node != nullptr;
 }
 
@@ -218,11 +218,11 @@ IControllerManage::ValidatorFun IControllerManage::queryPathFunValidator(const Q
     return nullptr;
 }
 
-IUrlActionNode *IControllerManage::getUrlFunction(IRequest &request)
+IUrlActionNode *IControllerManage::getUrlActionNode(IRequest &request)
 {
     const QString &url = request.url();
     IHttpMethod method = request.method();
-    auto node = getUrlFunction(url, method);
+    auto node = getUrlActionNode(url, method);
 
     if(node == nullptr){
         return nullptr;
@@ -237,7 +237,7 @@ IUrlActionNode *IControllerManage::getUrlFunction(IRequest &request)
     return node;
 }
 
-IUrlActionNode *IControllerManage::getUrlFunction(const QString &url, IHttpMethod method)
+IUrlActionNode *IControllerManage::getUrlActionNode(const QString &url, IHttpMethod method)
 {
     auto nodePtr = instance()->m_urlMapppings.get();
 
@@ -261,7 +261,7 @@ IUrlActionNode *IControllerManage::getUrlFunction(const QString &url, IHttpMetho
     return nodes.first();
 }
 
-IStatusActionNode *IControllerManage::getStatusFunction(IHttpStatus status)
+IStatusActionNode *IControllerManage::getStatusActionNode(IHttpStatus status)
 {
     auto inst = instance();
     if(inst->m_statusMappings.contains(status)){
@@ -270,7 +270,7 @@ IStatusActionNode *IControllerManage::getStatusFunction(IHttpStatus status)
     return nullptr;
 }
 
-QString IControllerManage::getStaticFilePath(const IRequest &request)
+QString IControllerManage::getStaticFileActionPath(const IRequest &request)
 {
     auto inst = instance();
     return inst->m_fileMappings->getFilePath(request.url());

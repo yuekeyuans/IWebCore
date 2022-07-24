@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include "IHttpServerManage.h"
 #include "base/IMetaUtil.h"
 #include "core/configuration/configuration"
 #include "web/biscuits/IHttpMethod.h"
@@ -44,9 +43,6 @@ private:
 
     $OptionWireDeclare(int, port, server.port)
     int port = 8088;
-
-private:
-    IHttpServerManage m_serverManage;
 };
 
 $PackageWebCoreEnd

@@ -55,10 +55,10 @@ public:
     static QString queryPathRegValidator(const QString& path);
     static ValidatorFun queryPathFunValidator(const QString& path);
 
-    static IUrlActionNode* getUrlFunction(IRequest& request);
-    static IUrlActionNode* getUrlFunction(const QString& path, IHttpMethod method);
-    static IStatusActionNode* getStatusFunction(IHttpStatus status);
-    static QString getStaticFilePath(const IRequest& request);
+    static IUrlActionNode* getUrlActionNode(IRequest& request);
+    static IUrlActionNode* getUrlActionNode(const QString& path, IHttpMethod method);
+    static IStatusActionNode* getStatusActionNode(IHttpStatus status);
+    static QString getStaticFileActionPath(const IRequest& request);
 
     static void setDefaultStaticDir(const QString& prefix);
     static QString getDefaultStaticDir();

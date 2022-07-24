@@ -11,6 +11,7 @@ public:
     virtual ~IServerInterface() = default;
 
     virtual void addSocket(qintptr handle) =0;
+    virtual void addSocket(QTcpSocket* socket) = 0;
 };
 
 $PackageWebCoreEnd

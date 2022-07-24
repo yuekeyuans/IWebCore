@@ -7,10 +7,13 @@ $PackageWebCoreBegin
 
 class IHttpServerManage
 {
-public:
+    $UseInstance(IHttpServerManage)
+private:
     IHttpServerManage();
 
-    void addSocket(qintptr handle);
+public:
+    static void addSocket(qintptr handle);
+    static void addSocket(QTcpSocket* socket);
 
 private:
     QSharedPointer<IServerInterface> m_server;

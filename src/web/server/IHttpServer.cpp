@@ -1,6 +1,7 @@
 ﻿#include "IHttpServer.h"
 #include "base/IConstantUtil.h"
 #include "web/controller/IControllerManage.h"
+#include "web/server/IHttpServerManage.h"
 
 $PackageWebCoreBegin
 
@@ -75,14 +76,11 @@ void IHttpServer::serveDynamic(IHttpMethod method, const QString &path, IHttpSer
     Q_UNUSED(method)
     Q_UNUSED(path)
     Q_UNUSED(functor)
-//    IUrlActionNode node;
-
-//    IControllerManage::registerUrlActionNode(node);
 }
 
 void IHttpServer::incomingConnection(qintptr handle)
 {
-    m_serverManage.addSocket(handle);
+    IHttpServerManage::addSocket(handle);
 }
 
 $PackageWebCoreEnd

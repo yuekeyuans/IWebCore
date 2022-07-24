@@ -9,10 +9,11 @@
 #include "core/assert/IGlobalAssert.h"
 #include "web/IWebAssert.h"
 #include "web/biscuits/IHttpHeader.h"
+#include "web/cookie/ICookieJar.h"
 #include "web/net/impl/IRequestImpl.h"
 #include "web/net/impl/IReqRespRaw.h"
-#include "web/cookie/ICookieJar.h"
 #include "web/session/ISessionJar.h"
+#include "web/server/IHttpServerManage.h"
 
 $PackageWebCoreBegin
 
@@ -42,7 +43,15 @@ IRequest::IRequest(qintptr handle)
 
 IRequest::IRequest(QTcpSocket *socket)
 {
-    m_socket = socket;
+//    m_socket = socket;
+
+    auto descriptor = socket->socketDescriptor();
+    socket->reset();
+    delete socket;
+
+    m_socket = ISocketUtil::createTcpSocket(descriptor);
+
+
     raw = new IReqRespRaw;
     raw->m_request = this;
     raw->m_socket = m_socket;
@@ -52,8 +61,15 @@ IRequest::IRequest(QTcpSocket *socket)
 
 IRequest::~IRequest()
 {
-    ISocketUtil::closeTcpSocket(m_socket);
-    delete m_socket;
+    bool ok;
+    auto connection = getHeaderParameter("Connection", &ok);
+    if(ok && connection.contains("keep-alive")){
+        IHttpServerManage::addSocket(m_socket);
+    }else{
+        ISocketUtil::closeTcpSocket(m_socket);
+        delete m_socket;
+    }
+
     delete raw;
     delete impl;
 }
