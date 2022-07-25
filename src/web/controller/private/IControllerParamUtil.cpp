@@ -297,7 +297,6 @@ void *IControllerParamUtil::getParamOfSystem(const IParamNode& node, IRequest &r
         return request.cookieJar();
     }
     return nullptr;
-
 }
 
 void *IControllerParamUtil::getParamOfMultipart(const IParamNode& node, IRequest &request)
