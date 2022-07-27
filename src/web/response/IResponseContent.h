@@ -19,6 +19,7 @@ public:
 public:
     void append(const QString& content);
     void append(const QByteArray& content);
+    void append(QByteArray&& content);
     void append(const char* content);
 
     void setContent(QString&& content);

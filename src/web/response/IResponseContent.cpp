@@ -32,6 +32,26 @@ void IResponseContent::append(const QByteArray &content)
     }
 }
 
+void IResponseContent::append(QByteArray &&content)
+{
+    switch (type) {
+    case Bytes:{
+        if(contentBytes.isEmpty()){
+            contentBytes = std::move(content);
+        }else{
+            contentBytes.append(std::forward<QByteArray>(content));
+        }
+    }
+        break;
+    case String:
+        contentString.append(content);
+        break;
+    default:
+        // NOTE: 理论上这里应该报错，但是又不太合逻辑，再等等，再想想
+        return;
+    }
+}
+
 void IResponseContent::append(const char *content)
 {
     append(QByteArray(content));
