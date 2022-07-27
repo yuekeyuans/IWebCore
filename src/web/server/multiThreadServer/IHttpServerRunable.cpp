@@ -33,7 +33,6 @@ void IHttpServerRunable::run()
 void IHttpServerRunable::process(IRequest& request)
 {
     IResponse response(&request);
-
     if(!request.valid()){
         response.respond();
         return;

@@ -39,8 +39,8 @@ public:         // 这些东西先抽象出来，等到改变 socket 的时候�
 
     void flushSocket();
 
+    // TODO: 理论上这些函数都应该返回一个状态值， 为了预防端口被关闭的情况, 也为了预防数据发送过慢或者其他出错的情况
     bool waitSocketForReadyRead(int time = 30000);
-
     QByteArray readSocketLine(qint64 cnt=0);
     QByteArray readSocket(qint64 length);
     bool canSocketReadLine();

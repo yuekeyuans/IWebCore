@@ -346,9 +346,9 @@ QList<QPair<QString, IRequestImpl::FunType>> IRequestImpl::parameterResolverMap(
 
 bool IRequestImpl::resolvePeerInfo()
 {
-//    raw->peerName = raw->m_socket->peerName();
-//    raw->peerPort = raw->m_socket->peerPort();
-//    raw->peerAddress = raw->m_socket->peerAddress();
+    raw->peerName = raw->m_socket->peerName();
+    raw->peerPort = raw->m_socket->peerPort();
+    raw->peerAddress = raw->m_socket->peerAddress();
     return true;
 }
 
@@ -358,12 +358,13 @@ bool IRequestImpl::resolveFirstLine()
         raw->setInvalid(IHttpStatus::BAD_REQUEST_400, "can't read from socket");
         return false;
     }
-
     auto line = raw->readSocketLine(IConstantUtil::Request_Url_Max_Length);
+
     if(line.length() == 0){
         raw->setInvalid(IHttpStatus::BAD_REQUEST_400, "can't read from socket");
         return false;
     }
+
     if(line.length() >=IConstantUtil::Request_Url_Max_Length){
          raw->setInvalid(IHttpStatus::BAD_REQUEST_400, "request url is too long");
          return false;
@@ -664,6 +665,5 @@ QString IRequestImplHelper::getOriginName(const QString& name, const QString& su
     }
     return name;
 }
-
 
 $PackageWebCoreEnd
