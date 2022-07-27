@@ -265,42 +265,6 @@ void IRequestImpl::resolve()
     }
 }
 
-bool IRequestImpl::waitSocketForReadyRead(int time)
-{
-    bool ret;
-    QMetaObject::invokeMethod((raw->m_socket)
-                                  , std::bind(static_cast<bool(QTcpSocket::*)(int)>( &QTcpSocket::waitForReadyRead)
-                                            , (raw->m_socket), time), Qt::DirectConnection, &ret);
-    return ret;
-}
-
-QByteArray IRequestImpl::readSocketLine(qint64 cnt)
-{
-    QByteArray ret;
-    QMetaObject::invokeMethod((raw->m_socket)
-                                  , std::bind(static_cast<QByteArray(QTcpSocket::*)(qint64)>( &QTcpSocket::readLine )
-                                            , (raw->m_socket), cnt), Qt::DirectConnection, &ret);
-    return ret;
-}
-
-QByteArray IRequestImpl::readSocket(qint64 length)
-{
-    QByteArray ret;
-    QMetaObject::invokeMethod((raw->m_socket)
-                                  , std::bind(static_cast<QByteArray(QTcpSocket::*)(qint64)>( &QTcpSocket::read )
-                                            , (raw->m_socket), length), Qt::DirectConnection, &ret);
-    return ret;
-}
-
-bool IRequestImpl::canSocketReadLine()
-{
-    bool ret;
-    QMetaObject::invokeMethod((raw->m_socket)
-                                  , std::bind(static_cast<bool(QTcpSocket::*)() const>( &QTcpSocket::canReadLine)
-                                  ,(raw->m_socket)), Qt::DirectConnection, &ret);
-    return ret;
-}
-
 QByteArray IRequestImpl::getFormUrlValue(const QString &name, bool* ok) const
 {
     IToeUtil::setOk(ok, true);
@@ -390,12 +354,12 @@ bool IRequestImpl::resolvePeerInfo()
 
 bool IRequestImpl::resolveFirstLine()
 {
-    if(!canSocketReadLine()){
+    if(!raw->canSocketReadLine()){
         raw->setInvalid(IHttpStatus::BAD_REQUEST_400, "can't read from socket");
         return false;
     }
 
-    auto line = readSocketLine(IConstantUtil::Request_Url_Max_Length);
+    auto line = raw->readSocketLine(IConstantUtil::Request_Url_Max_Length);
     if(line.length() == 0){
         raw->setInvalid(IHttpStatus::BAD_REQUEST_400, "can't read from socket");
         return false;
@@ -445,7 +409,7 @@ bool IRequestImpl::resolveHeaders()
     int totalCount = 0;
 
     QByteArray content;
-    while((content = readSocketLine()) != "\r\n"){
+    while((content = raw->readSocketLine()) != "\r\n"){
 
         totalCount += content.length();
         if(totalCount > IConstantUtil::Request_Header_Max_Length){  // check header length;
@@ -513,7 +477,7 @@ bool IRequestImpl::resolveBody()
         return false;
     }
 
-    raw->m_requestBody = readSocket(length);
+    raw->m_requestBody = raw->readSocket(length);
     if(raw->m_requestBody.length() != length){
         raw->setInvalid(IHttpStatus::BAD_REQUEST_400, "the request body`s length is not equal to length provided by Content-Length header");
         return false;

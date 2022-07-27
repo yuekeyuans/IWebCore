@@ -47,15 +47,6 @@ public:
 
     bool checkParamDuplicatedNameError(const QString &name) const;
 
-    // TODO: 临时解决办法
-public:
-    bool waitSocketForReadyRead(int time = 30000);
-
-private:
-    QByteArray readSocketLine(qint64 cnt=0);
-    QByteArray readSocket(qint64 length);
-    bool canSocketReadLine();
-
 private:
     // get
     QByteArray getFormUrlValue(const QString &name, bool* ok) const;

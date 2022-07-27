@@ -13,8 +13,6 @@ public:
 
     bool respond();
 
-    void write(const QByteArray& content);
-    void flush();
     QByteArray generateFirstLine();
 
     QByteArray generateHeadersContent(int contentSize); // 丑，但是好用啊

@@ -13,35 +13,16 @@ bool IResponseImpl::respond()
 {
     const auto& content = raw->m_responseContent.getAsBytes();
 
-    write(generateFirstLine());
-    write(generateHeadersContent(content.size()));
-    write(IConstantUtil::NewLine);
+    raw->writeSocket(generateFirstLine());
+    raw->writeSocket(generateHeadersContent(content.size()));
+    raw->writeSocket(IConstantUtil::NewLine);
 
     if(content.length() != 0 && raw->m_method != IHttpMethod::HEAD){       // 处理 head 方法
-        write(content);
+        raw->writeSocket(content);
     }
 
-    flush();
+    raw->flushSocket();
     return true;
-}
-
-void IResponseImpl::write(const QByteArray &content)
-{
-    if(!content.isEmpty()){
-        QMetaObject::invokeMethod((raw->m_socket)
-                                      , std::bind(static_cast<qint64(QTcpSocket::*)(const QByteArray &)>( &QTcpSocket::write )
-                                      , (raw->m_socket), content ));
-
-//        raw->m_socket->write(content);
-    }
-}
-
-void IResponseImpl::flush()
-{
-    QMetaObject::invokeMethod((raw->m_socket)
-                                  , std::bind(static_cast<bool(QTcpSocket::*)()>( &QTcpSocket::flush )
-                                            , (raw->m_socket)));
-//    raw->m_socket->flush();
 }
 
 QByteArray IResponseImpl::generateFirstLine()

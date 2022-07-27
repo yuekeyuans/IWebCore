@@ -13,9 +13,27 @@ IReqRespRaw::IReqRespRaw()
     m_cookieJar.raw = this;
 }
 
+IReqRespRaw::IReqRespRaw(IRequest *request, QTcpSocket *socket)
+{
+    m_request = request;
+    m_socket = socket;
+}
+
 bool IReqRespRaw::valid() const
 {
     return this->m_valid;
+}
+
+void IReqRespRaw::setInvalid(IHttpStatus status, const QString &message)
+{
+    this->m_valid = false;
+    this->m_responseMime = IHttpMimeHelper::toString(IHttpMime::TEXT_PLAIN_UTF8);
+    this->m_responseStatus = status;
+
+    QString tip = IHttpStatusHelper::toString(status).append(" - ")
+                      .append(IHttpStatusHelper::toStringDescription(status)).append(": ")
+                      .append(message).append(IConstantUtil::NewLine);
+    this->m_responseContent.setContent(tip);
 }
 
 void IReqRespRaw::setInvalidIf(bool condition, IHttpStatus status, const QString &message)
@@ -51,16 +69,39 @@ QDomNode &IReqRespRaw::getRequestXml(bool *ok)
     return m_requestXml;
 }
 
-void IReqRespRaw::setInvalid(IHttpStatus status, const QString &message)
+void IReqRespRaw::writeSocket(const QByteArray &content)
 {
-    this->m_valid = false;
-    this->m_responseMime = IHttpMimeHelper::toString(IHttpMime::TEXT_PLAIN_UTF8);
-    this->m_responseStatus = status;
+    m_socket->write(content);
+}
 
-    QString tip = IHttpStatusHelper::toString(status).append(" - ")
-                      .append(IHttpStatusHelper::toStringDescription(status)).append(": ")
-                      .append(message).append(IConstantUtil::NewLine);
-    this->m_responseContent.setContent(tip);
+void IReqRespRaw::writeSocket(QByteArray &&content)
+{
+    m_socket->write(std::forward<QByteArray>(content));
+}
+
+void IReqRespRaw::flushSocket()
+{
+    m_socket->flush();
+}
+
+bool IReqRespRaw::waitSocketForReadyRead(int time)
+{
+    return m_socket->waitForReadyRead(time);
+}
+
+QByteArray IReqRespRaw::readSocketLine(qint64 cnt)
+{
+    return m_socket->readLine(cnt);
+}
+
+QByteArray IReqRespRaw::readSocket(qint64 length)
+{
+    return m_socket->read(length);
+}
+
+bool IReqRespRaw::canSocketReadLine()
+{
+    return m_socket->canReadLine();
 }
 
 $PackageWebCoreEnd

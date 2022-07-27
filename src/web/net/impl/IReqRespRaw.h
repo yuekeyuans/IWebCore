@@ -22,6 +22,7 @@ class IReqRespRaw
 {
 public:
     IReqRespRaw();
+    IReqRespRaw(IRequest* request, QTcpSocket* socket);
 
 public:
     bool valid() const;
@@ -30,6 +31,19 @@ public:
 
     QJsonValue& getRequestJson(bool* ok=nullptr);
     QDomNode&   getRequestXml(bool* ok=nullptr);
+
+
+public:         // 这些东西先抽象出来，等到改变 socket 的时候就相对依赖小一点
+    void writeSocket(const QByteArray& content);
+    void writeSocket(QByteArray&& content);
+
+    void flushSocket();
+
+    bool waitSocketForReadyRead(int time = 30000);
+
+    QByteArray readSocketLine(qint64 cnt=0);
+    QByteArray readSocket(qint64 length);
+    bool canSocketReadLine();
 
 public:
     QTcpSocket* m_socket {nullptr};
@@ -79,7 +93,6 @@ public:
     QList<ICookiePart> m_responseCookies;
 
     IResponseContent m_responseContent;
-    //    QByteArray m_responseContent;
 };
 
 $PackageWebCoreEnd

@@ -28,12 +28,10 @@ IRequest::IRequest()
 IRequest::IRequest(qintptr handle)
 {
     auto socket = ISocketUtil::createTcpSocket(handle);
-    raw = new IReqRespRaw;
-    raw->m_request = this;
-    raw->m_socket = socket;
+    raw = new IReqRespRaw(this, socket);
     impl = new IRequestImpl(raw);
 
-    if(!impl->waitSocketForReadyRead()){      // TODO: 这里可能存在错误
+    if(!raw->waitSocketForReadyRead()){      // TODO: 这里可能存在错误
         setInvalid(IHttpStatus::REQUEST_TIMEOUT_408, "request open failed");
     }else{
         impl->resolve();

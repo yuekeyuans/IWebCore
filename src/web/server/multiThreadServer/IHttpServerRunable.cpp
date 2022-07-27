@@ -16,6 +16,7 @@ IHttpServerRunable::IHttpServerRunable(qintptr handle) : m_handle{handle}
 
 IHttpServerRunable::IHttpServerRunable(QTcpSocket *socket) : m_socket(socket)
 {
+
 }
 
 void IHttpServerRunable::run()
