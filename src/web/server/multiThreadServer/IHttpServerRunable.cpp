@@ -22,14 +22,14 @@ void IHttpServerRunable::run()
 {
     if(m_socket != nullptr){
         IRequest request(m_socket);
-        runContent(request);
+        process(request);
     }else{
         IRequest request(m_handle);
-        runContent(request);
+        process(request);
     }
 }
 
-void IHttpServerRunable::runContent(IRequest& request)
+void IHttpServerRunable::process(IRequest& request)
 {
     IResponse response(&request);
 

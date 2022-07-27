@@ -23,6 +23,7 @@ public:
 
 public:
     IReqRespRaw* raw{nullptr};
+    bool m_responded{false};
 };
 
 $PackageWebCoreEnd
