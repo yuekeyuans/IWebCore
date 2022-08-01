@@ -19,7 +19,7 @@ public:
     virtual void run() final;
 
 private:
-    static void process(IRequest& req);   // TODO:  需要重命名
+    static void runRequest(IRequest& req);
 
     static void handleRequest(IRequest& request, IResponse& response);
     static void runStatusFunction(IRequest& request, IResponse& response, IStatusActionNode* function);
