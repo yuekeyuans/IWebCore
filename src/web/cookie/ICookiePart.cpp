@@ -97,7 +97,7 @@ QString ICookiePart::toHeaderString()
         header.append("; Max-Age=").append(QString::number(maxAge));
     }
     if(expires.isValid()){
-        header.append("; Expires=").append(IConvertUtil::toUtcString(expires)); // TODO:
+        header.append("; Expires=").append(IConvertUtil::toUtcString(expires));
     }
 
     if(sameSite != Lax){

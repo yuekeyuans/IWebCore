@@ -61,8 +61,7 @@ void IHttpServerRunable::runRequest(IRequest& request)
     } while(0);
 
     if(!response.respond()){
-        // TODO:
-        //        return ISocketUtil::handleInternalError(socket);
+        return ISocketUtil::handleInternalError(request.getRaw()->m_socket);
     }
 }
 
