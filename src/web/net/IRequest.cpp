@@ -31,7 +31,7 @@ IRequest::IRequest(qintptr handle)
     raw = new IReqRespRaw(this, socket);
     impl = new IRequestImpl(raw);
 
-    if(!raw->waitSocketForReadyRead()){      // TODO: 这里可能存在错误
+    if(!raw->waitSocketForReadyRead()){
         setInvalid(IHttpStatus::REQUEST_TIMEOUT_408, "request open failed");
     }else{
         impl->resolve();
@@ -93,7 +93,6 @@ IRequest &IRequest::operator=(IRequest &&)
     return *this;
 }
 
-// TODO: 这个需要修改
 const QString IRequest::operator[](const QString &header) const
 {
     return raw->m_headerJar.getRequestHeaderValue(header, nullptr);

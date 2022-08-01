@@ -34,9 +34,6 @@ $PackageWebCoreEnd
 #define $IgnoreParamWarn(...) PP_EXPAND( $IgnoreParamWarn_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
 
 
-
-// TODO: 这些 后缀可以考虑 以 $body $url 这种方式结尾.
-
 // special dealing
 #define $Mixed(type, name)  \
     type name##_mixed
