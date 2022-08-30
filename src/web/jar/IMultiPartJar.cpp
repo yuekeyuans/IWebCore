@@ -9,7 +9,7 @@ IMultiPartJar::IMultiPartJar()
 
 bool IMultiPartJar::isValid() const
 {
-    return true;
+    return raw != nullptr;
 }
 
 $PackageWebCoreEnd

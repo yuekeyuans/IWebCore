@@ -7,8 +7,6 @@
 
 $PackageWebCoreBegin
 
-class IReqRespRaw;
-
 class IMultiPartJar : public IJarUnit, IRegisterMetaTypeUnit<IMultiPartJar>
 {
     Q_GADGET
@@ -17,10 +15,6 @@ public:
     IMultiPartJar();
 
     virtual bool isValid() const final;
-
-private:
-    friend class IReqRespRaw;
-    IReqRespRaw* raw{nullptr};
 };
 
 $PackageWebCoreEnd

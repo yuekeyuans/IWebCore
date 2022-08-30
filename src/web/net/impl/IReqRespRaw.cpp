@@ -11,6 +11,7 @@ IReqRespRaw::IReqRespRaw()
 {
     m_headerJar.setReqRespRaw(this);
     m_cookieJar.setReqRespRaw(this);
+    m_multiPartJar.setReqRespRaw(this);
     m_sessionJar.setReqRespRaw(this);
 }
 

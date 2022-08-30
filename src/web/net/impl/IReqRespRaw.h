@@ -11,6 +11,8 @@
 #include "web/jar/ICookiePart.h"
 #include "web/jar/IHeaderJar.h"
 #include "web/jar/ISessionJar.h"
+#include "web/jar/IMultiPartJar.h"
+
 #include "web/response/IResponseContent.h"
 
 $PackageWebCoreBegin
@@ -74,6 +76,7 @@ public:
 
     IHeaderJar m_headerJar;
     ICookieJar m_cookieJar;                                       // TODO: 这两个是否需要指针?
+    IMultiPartJar m_multiPartJar;
     ISessionJar m_sessionJar;
 
 private:
