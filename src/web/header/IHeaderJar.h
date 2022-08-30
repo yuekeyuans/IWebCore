@@ -7,9 +7,7 @@
 
 $PackageWebCoreBegin
 
-class IReqRespRaw;
-
-class IHeaderJar : IRegisterMetaTypeUnit<IHeaderJar>, public IJarUnit
+class IHeaderJar : public IJarUnit, IRegisterMetaTypeUnit<IHeaderJar>
 {
     Q_GADGET
     $UseMetaRegistration(IHeaderJar)
@@ -42,10 +40,6 @@ public:
     void deleteReponseHeader(const QString& key);
 
     virtual bool isValid() const final;
-
-private:
-    friend class IReqRespRaw;
-    IReqRespRaw* raw{nullptr};
 };
 
 

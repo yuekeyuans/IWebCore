@@ -9,11 +9,12 @@ $PackageWebCoreBegin
 
 IReqRespRaw::IReqRespRaw()
 {
-    m_headerJar.raw = this;
-    m_cookieJar.raw = this;
+    m_headerJar.setReqRespRaw(this);
+    m_cookieJar.setReqRespRaw(this);
+    m_sessionJar.setReqRespRaw(this);
 }
 
-IReqRespRaw::IReqRespRaw(IRequest *request, QTcpSocket *socket)
+IReqRespRaw::IReqRespRaw(IRequest *request, QTcpSocket *socket) : IReqRespRaw()
 {
     m_request = request;
     m_socket = socket;

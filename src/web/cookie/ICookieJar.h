@@ -9,9 +9,7 @@
 
 $PackageWebCoreBegin
 
-class IReqRespRaw;
-
-class ICookieJar : IRegisterMetaTypeUnit<ICookieJar>, public IJarUnit
+class ICookieJar : public IJarUnit, IRegisterMetaTypeUnit<ICookieJar>
 {
     Q_GADGET
     $UseMetaRegistration(ICookieJar)
@@ -19,8 +17,6 @@ public:
     ICookieJar() = default;
 
 public:
-
-
     // request
     const QList<QPair<QString, QString>>& requestCookies() const;
     QList<QPair<QString, QString>>& requestCookies();
@@ -52,10 +48,6 @@ public:
     void deleteResponseCookie(const QString& key);  // NOTE: 这个不是必须的,而且可能引起歧义.
 
     virtual bool isValid() const final;
-
-private:
-    friend class IReqRespRaw;
-    IReqRespRaw* raw{nullptr};
 };
 
 template<typename T>
