@@ -14,9 +14,10 @@ class ICookieJar : public IJarUnit, IRegisterMetaTypeUnit<ICookieJar>
     Q_GADGET
     $UseMetaRegistration(ICookieJar)
 public:
-    ICookieJar() = default;
+    using IJarUnit::IJarUnit;
 
 public:
+    ICookieJar();
     // request
     const QList<QPair<QString, QString>>& requestCookies() const;
     QList<QPair<QString, QString>>& requestCookies();

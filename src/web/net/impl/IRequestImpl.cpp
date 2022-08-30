@@ -5,9 +5,10 @@
 #include "base/IHeaderUtil.h"
 #include "base/ICodecUtil.h"
 #include "base/IToeUtil.h"
+#include "core/configuration/IConfigurationManage.h"
 #include "web/net/IRequest.h"
 #include "web/net/impl/IReqRespRaw.h"
-#include "core/configuration/IConfigurationManage.h"
+#include "web/jar/IHeaderJar.h"
 
 $PackageWebCoreBegin
 
@@ -163,7 +164,7 @@ QByteArray IRequestImpl::getHeaderParameter(const QString &name, bool* ok) const
     static const QString suffix = "_header";
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
 
-    return raw->m_headerJar.getRequestHeaderValue(originName, ok).toUtf8();
+    return raw->m_headerJar->getRequestHeaderValue(originName, ok).toUtf8();
 }
 
 QByteArray IRequestImpl::getParamParameter(const QString &name, bool* ok) const
@@ -440,8 +441,8 @@ bool IRequestImpl::resolveCookies()
     static const QByteArray splitString = "; ";
 
 
-    if(IConstantUtil::ICookiePluginEnabled && raw->m_headerJar.containRequestHeaderKey(IHttpHeader::Cookie)){
-        const QString rawCookie = raw->m_headerJar.getRequestHeaderValue(IHttpHeader::Cookie, nullptr);
+    if(IConstantUtil::ICookiePluginEnabled && raw->m_headerJar->containRequestHeaderKey(IHttpHeader::Cookie)){
+        const QString rawCookie = raw->m_headerJar->getRequestHeaderValue(IHttpHeader::Cookie, nullptr);
 
         QString key, value;
         auto parts = rawCookie.split(splitString);

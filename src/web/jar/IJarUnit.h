@@ -9,15 +9,16 @@ class IReqRespRaw;
 class IJarUnit
 {
 public:
-    IJarUnit() = default;
+    inline IJarUnit(IReqRespRaw* raw);
     virtual bool isValid() const = 0;
-
-public:
-    void setReqRespRaw(IReqRespRaw* raw);
 
 protected:
     friend class IReqRespRaw;
     IReqRespRaw* raw{nullptr};
 };
+
+IJarUnit::IJarUnit(IReqRespRaw* raw){
+    this->raw = raw;
+}
 
 $PackageWebCoreEnd

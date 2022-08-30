@@ -7,12 +7,7 @@
 #include "web/biscuits/IHttpStatus.h"
 #include "web/biscuits/IHttpVersion.h"
 #include "web/net/IMultiPart.h"
-#include "web/jar/ICookieJar.h"
 #include "web/jar/ICookiePart.h"
-#include "web/jar/IHeaderJar.h"
-#include "web/jar/ISessionJar.h"
-#include "web/jar/IMultiPartJar.h"
-
 #include "web/response/IResponseContent.h"
 
 $PackageWebCoreBegin
@@ -20,11 +15,17 @@ $PackageWebCoreBegin
 class IResponse;
 class IRequest;
 
+class IHeaderJar;
+class ICookieJar;
+class ISessionJar;
+class IMultiPartJar;
+
 class IReqRespRaw
 {
 public:
     IReqRespRaw();
     IReqRespRaw(IRequest* request, QTcpSocket* socket);
+    ~IReqRespRaw();
 
 public:
     bool valid() const;
@@ -74,10 +75,10 @@ public:
     QVector<IMultiPart> m_requestMultiParts;
     QList<QPair<QString, QString>> m_requestCookieParameters;
 
-    IHeaderJar m_headerJar;
-    ICookieJar m_cookieJar;                                       // TODO: 这两个是否需要指针?
-    IMultiPartJar m_multiPartJar;
-    ISessionJar m_sessionJar;
+    IHeaderJar* m_headerJar{nullptr};
+    ICookieJar* m_cookieJar{nullptr};                                       // TODO: 这两个是否需要指针?
+    IMultiPartJar* m_multiPartJar{nullptr};
+    ISessionJar* m_sessionJar{nullptr};
 
 private:
     QJsonValue m_requestJson;                   // json 和 dom 不一定使用，也可能是延后加载

@@ -12,8 +12,10 @@ class IHeaderJar : public IJarUnit, IRegisterMetaTypeUnit<IHeaderJar>
     Q_GADGET
     $UseMetaRegistration(IHeaderJar)
 public:
-    IHeaderJar() = default;
+    using IJarUnit::IJarUnit;
 
+public:
+    IHeaderJar();
     // request
     const QList<QPair<QString, QString>>& requestHeaders() const;
     QList<QPair<QString, QString>>& requestHeaders();

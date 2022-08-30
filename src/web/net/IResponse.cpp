@@ -7,6 +7,7 @@
 #include "web/net/IRequest.h"
 #include "web/net/impl/IReqRespRaw.h"
 #include "web/net/impl/IResponseImpl.h"
+#include "web/jar/IHeaderJar.h"
 #include "web/response/IResponseWare.h"
 
 $PackageWebCoreBegin
@@ -124,7 +125,7 @@ IResponse &IResponse::setHeader(const QString &key, const QString &value)
         $Ast->warn("iresponse_setHeader_with_empty_value_or_key");
     }
 
-    raw->m_headerJar.setResponseHeader(key, value);
+    raw->m_headerJar->setResponseHeader(key, value);
     return *this;
 }
 
@@ -216,16 +217,16 @@ IResponse& IResponse::setContent(IResponseWare *response)
     auto& headers = response->headers();
     auto keys = headers.keys();
     for(auto key : keys){
-        if(!raw->m_headerJar.containResponseHeaderKey(key)){
-            raw->m_headerJar.addResponseHeader(key, headers[key]);
+        if(!raw->m_headerJar->containResponseHeaderKey(key)){
+            raw->m_headerJar->addResponseHeader(key, headers[key]);
             // TODO: 这里可能有冲突，需要特殊处理掉
         }
     }
 
-    if((!raw->m_headerJar.containResponseHeaderKey(IHttpHeader::ContentType)
-         || raw->m_headerJar.getResponseHeaderValue(IHttpHeader::ContentType, nullptr) == "UNKNOWN")
+    if((!raw->m_headerJar->containResponseHeaderKey(IHttpHeader::ContentType)
+         || raw->m_headerJar->getResponseHeaderValue(IHttpHeader::ContentType, nullptr) == "UNKNOWN")
         && raw->m_responseMime != IHttpMimeHelper::MIME_UNKNOWN_STRING){
-        raw->m_headerJar.setResponseHeader(IHttpHeader::ContentType, raw->m_responseMime);
+        raw->m_headerJar->setResponseHeader(IHttpHeader::ContentType, raw->m_responseMime);
     }
     return *this;
 }

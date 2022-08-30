@@ -1,6 +1,7 @@
 ﻿#include "IResponseImpl.h"
 #include "base/IConstantUtil.h"
 #include "web/net/impl/IReqRespRaw.h"
+#include "web/jar/IHeaderJar.h"
 
 $PackageWebCoreBegin
 
@@ -38,9 +39,9 @@ QByteArray IResponseImpl::generateFirstLine()
 QByteArray IResponseImpl::generateHeadersContent(int contentSize)
 {
     if(contentSize != 0){
-        raw->m_headerJar.setResponseHeader(IHttpHeader::ContentLength, QString::number(contentSize));
-        if(!raw->m_headerJar.containResponseHeaderKey(IHttpHeader::ContentType)){
-            raw->m_headerJar.setResponseHeader(IHttpHeader::ContentType, raw->m_responseMime);
+        raw->m_headerJar->setResponseHeader(IHttpHeader::ContentLength, QString::number(contentSize));
+        if(!raw->m_headerJar->containResponseHeaderKey(IHttpHeader::ContentType)){
+            raw->m_headerJar->setResponseHeader(IHttpHeader::ContentType, raw->m_responseMime);
         }
     }
 

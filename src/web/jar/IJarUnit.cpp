@@ -4,10 +4,4 @@
 $PackageWebCoreBegin
 
 
-void IJarUnit::setReqRespRaw(IReqRespRaw *raw)
-{
-    this->raw = raw;
-}
-
-
 $PackageWebCoreEnd

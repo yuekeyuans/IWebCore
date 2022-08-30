@@ -13,6 +13,7 @@
 #include "web/net/impl/IReqRespRaw.h"
 #include "web/jar/ICookieJar.h"
 #include "web/jar/ISessionJar.h"
+#include "web/jar/IHeaderJar.h"
 #include "web/server/IHttpServerManage.h"
 
 $PackageWebCoreBegin
@@ -95,7 +96,7 @@ IRequest &IRequest::operator=(IRequest &&)
 
 const QString IRequest::operator[](const QString &header) const
 {
-    return raw->m_headerJar.getRequestHeaderValue(header, nullptr);
+    return raw->m_headerJar->getRequestHeaderValue(header, nullptr);
 }
 
 IResponse *IRequest::response() const
@@ -105,18 +106,18 @@ IResponse *IRequest::response() const
 
 ICookieJar *IRequest::cookieJar() const
 {
-    return &raw->m_cookieJar;
+    return raw->m_cookieJar;
 }
 
 ISessionJar *IRequest::sessionJar() const
 {
     $GlobalAssert->fatal(IGlobalAssert::UnImplimentedMethod);
-    return &raw->m_sessionJar;
+    return raw->m_sessionJar;
 }
 
 IHeaderJar *IRequest::headerJar() const
 {
-    return &raw->m_headerJar;
+    return raw->m_headerJar;
 }
 
 IReqRespRaw *IRequest::getRaw() const

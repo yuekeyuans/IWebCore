@@ -5,20 +5,34 @@
 #include "base/IJsonUtil.h"
 #include "base/IXmlUtil.h"
 
+#include "web/jar/ICookieJar.h"
+#include "web/jar/IHeaderJar.h"
+#include "web/jar/ISessionJar.h"
+#include "web/jar/IMultiPartJar.h"
+
+
 $PackageWebCoreBegin
 
 IReqRespRaw::IReqRespRaw()
 {
-    m_headerJar.setReqRespRaw(this);
-    m_cookieJar.setReqRespRaw(this);
-    m_multiPartJar.setReqRespRaw(this);
-    m_sessionJar.setReqRespRaw(this);
+    m_headerJar = new IHeaderJar(this);
+    m_cookieJar = new ICookieJar(this);
+    m_multiPartJar = new IMultiPartJar(this);
+    m_sessionJar = new ISessionJar(this);
 }
 
 IReqRespRaw::IReqRespRaw(IRequest *request, QTcpSocket *socket) : IReqRespRaw()
 {
     m_request = request;
     m_socket = socket;
+}
+
+IReqRespRaw::~IReqRespRaw()
+{
+    IToeUtil::deletePointer(m_headerJar);
+    IToeUtil::deletePointer(m_cookieJar);
+    IToeUtil::deletePointer(m_multiPartJar);
+    IToeUtil::deletePointer(m_sessionJar);
 }
 
 bool IReqRespRaw::valid() const

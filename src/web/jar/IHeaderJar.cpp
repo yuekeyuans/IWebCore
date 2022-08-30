@@ -2,8 +2,16 @@
 
 #include "base/IToeUtil.h"
 #include "web/net/impl/IReqRespRaw.h"
+#include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
+
+$UseAssert(IWebAssert)
+
+IHeaderJar::IHeaderJar() : IJarUnit(nullptr)
+{
+    $Ast->fatal("IHeaderJar_CREATE_ERROR");
+}
 
 const QList<QPair<QString, QString>>& IHeaderJar::requestHeaders() const
 {

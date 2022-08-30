@@ -12,8 +12,10 @@ class IMultiPartJar : public IJarUnit, IRegisterMetaTypeUnit<IMultiPartJar>
     Q_GADGET
     $UseMetaRegistration(IMultiPartJar)
 public:
-    IMultiPartJar();
+    using IJarUnit::IJarUnit;
 
+public:
+    IMultiPartJar();
     virtual bool isValid() const final;
 };
 

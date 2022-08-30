@@ -1,9 +1,16 @@
 ﻿#include "ICookieJar.h"
 #include "web/net/impl/IReqRespRaw.h"
-
+#include "web/IWebAssert.h"
 #include "base/IToeUtil.h"
 
 $PackageWebCoreBegin
+
+$UseAssert(IWebAssert)
+
+ICookieJar::ICookieJar() : IJarUnit(nullptr)
+{
+    $Ast->fatal("ICookieJar_CREATE_ERROR");
+}
 
 const QList<QPair<QString, QString> > &ICookieJar::requestCookies() const
 {
