@@ -42,10 +42,13 @@ HEADERS += \
     $$PWD/web/biscuits/IHttpStatus.h \
     $$PWD/web/biscuits/IHttpVersion.h \
     $$PWD/web/controller/IControllerFileNode.h \
-    $$PWD/web/cookie/ICookieJar.h \
-    $$PWD/web/cookie/ICookiePart.h \
     $$PWD/web/core/defaultTask/IBluePrintControllerTask.h \
-    $$PWD/web/header/IHeaderJar.h \
+    $$PWD/web/jar/ICookieJar.h \
+    $$PWD/web/jar/ICookiePart.h \
+    $$PWD/web/jar/IHeaderJar.h \
+    $$PWD/web/jar/IJarUnit.h \
+    $$PWD/web/jar/IMultiPartJar.h \
+    $$PWD/web/jar/ISessionJar.h \
     $$PWD/web/middleware/IInterceptorWare.h \
     $$PWD/web/middleware/IMiddleWare.h \
     $$PWD/web/middleware/IMiddleWarePreProcessor.h \
@@ -54,7 +57,6 @@ HEADERS += \
     $$PWD/web/middleware/IPreInterceptorInterface.h \
     $$PWD/web/middleware/IPreProcessorInterface.h \
     $$PWD/web/middleware/IProcessorWare.h \
-    $$PWD/web/multipart/IMultiPartJar.h \
     $$PWD/web/net/IMultiPart.h \
     $$PWD/web/net/IRequest.h \
     $$PWD/web/net/IResponse.h \
@@ -82,8 +84,6 @@ HEADERS += \
     $$PWD/web/response/IStatusCodeResponse.h \
     $$PWD/web/response/response \
     $$PWD/web/server/multiThreadServer/ITcpSocket.h \
-    $$PWD/web/session/ISessionJar.h \
-    $$PWD/core/unit/IJarUnit.h \
     $$PWD/core/unit/INoConstructUnit.h \
     $$PWD/core/unit/INoCopyMoveUnit.h \
     $$PWD/core/unit/IRegisterGadgetUnit.h \
@@ -202,10 +202,13 @@ SOURCES += \
     $$PWD/web/biscuits/IHttpStatus.cpp \
     $$PWD/web/biscuits/IHttpVersion.cpp \
     $$PWD/web/controller/IControllerFileNode.cpp \
-    $$PWD/web/cookie/ICookieJar.cpp \
-    $$PWD/web/cookie/ICookiePart.cpp \
     $$PWD/web/core/defaultTask/IBluePrintControllerTask.cpp \
-    $$PWD/web/header/IHeaderJar.cpp \
+    $$PWD/web/jar/ICookieJar.cpp \
+    $$PWD/web/jar/ICookiePart.cpp \
+    $$PWD/web/jar/IHeaderJar.cpp \
+    $$PWD/web/jar/IJarUnit.cpp \
+    $$PWD/web/jar/IMultiPartJar.cpp \
+    $$PWD/web/jar/ISessionJar.cpp \
     $$PWD/web/middleware/IInterceptorWare.cpp \
     $$PWD/web/middleware/IMiddleWare.cpp \
     $$PWD/web/middleware/IPostInterceptorInterface.cpp \
@@ -213,7 +216,6 @@ SOURCES += \
     $$PWD/web/middleware/IPreInterceptorInterface.cpp \
     $$PWD/web/middleware/IPreProcessorInterface.cpp \
     $$PWD/web/middleware/IProcessorWare.cpp \
-    $$PWD/web/multipart/IMultiPartJar.cpp \
     $$PWD/web/net/IMultiPart.cpp \
     $$PWD/web/net/IRequest.cpp \
     $$PWD/web/net/IResponse.cpp \
@@ -237,8 +239,6 @@ SOURCES += \
     $$PWD/web/response/IStaticFileResponse.cpp \
     $$PWD/web/response/IStatusCodeResponse.cpp \
     $$PWD/web/server/multiThreadServer/ITcpSocket.cpp \
-    $$PWD/web/session/ISessionJar.cpp \
-    $$PWD/core/unit/IJarUnit.cpp \
     $$PWD/core/unit/INoCopyMoveUnit.cpp \
     $$PWD/core/unit/IRegisterGadgetUnit.cpp \
     $$PWD/core/unit/IRegisterInstanceUnit.cpp \

@@ -4,8 +4,8 @@
 #include "web/net/IRequest.h"
 #include "web/net/IResponse.h"
 
-#include "web/cookie/ICookieJar.h"
-#include "web/session/ISessionJar.h"
+#include "web/jar/ICookieJar.h"
+#include "web/jar/ISessionJar.h"
 
 #include "web/response/IByteArrayResponse.h"
 #include "web/response/IHtmlResponse.h"

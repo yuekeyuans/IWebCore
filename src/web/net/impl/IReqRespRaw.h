@@ -7,11 +7,11 @@
 #include "web/biscuits/IHttpStatus.h"
 #include "web/biscuits/IHttpVersion.h"
 #include "web/net/IMultiPart.h"
-#include "web/cookie/ICookieJar.h"
-#include "web/cookie/ICookiePart.h"
-#include "web/header/IHeaderJar.h"
+#include "web/jar/ICookieJar.h"
+#include "web/jar/ICookiePart.h"
+#include "web/jar/IHeaderJar.h"
+#include "web/jar/ISessionJar.h"
 #include "web/response/IResponseContent.h"
-#include "web/session/ISessionJar.h"
 
 $PackageWebCoreBegin
 

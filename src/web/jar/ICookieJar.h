@@ -2,9 +2,9 @@
 
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
-#include "web/cookie/ICookiePart.h"
 #include "core/unit/IRegisterMetaTypeUnit.h"
-#include "core/unit/IJarUnit.h"
+#include "web/jar/ICookiePart.h"
+#include "web/jar/IJarUnit.h"
 #include <chrono>
 
 $PackageWebCoreBegin

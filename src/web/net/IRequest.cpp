@@ -9,10 +9,10 @@
 #include "core/assert/IGlobalAssert.h"
 #include "web/IWebAssert.h"
 #include "web/biscuits/IHttpHeader.h"
-#include "web/cookie/ICookieJar.h"
 #include "web/net/impl/IRequestImpl.h"
 #include "web/net/impl/IReqRespRaw.h"
-#include "web/session/ISessionJar.h"
+#include "web/jar/ICookieJar.h"
+#include "web/jar/ISessionJar.h"
 #include "web/server/IHttpServerManage.h"
 
 $PackageWebCoreBegin

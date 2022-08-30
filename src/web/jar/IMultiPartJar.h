@@ -3,13 +3,13 @@
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
 #include "core/unit/IRegisterMetaTypeUnit.h"
-#include "core/unit/IJarUnit.h"
+#include "web/jar/IJarUnit.h"
 
 $PackageWebCoreBegin
 
 class IReqRespRaw;
 
-class IMultiPartJar : IRegisterMetaTypeUnit<IMultiPartJar>, public IJarUnit
+class IMultiPartJar : public IJarUnit, IRegisterMetaTypeUnit<IMultiPartJar>
 {
     Q_GADGET
     $UseMetaRegistration(IMultiPartJar)

@@ -4,10 +4,10 @@
 #include "base/IMetaUtil.h"
 #include "core/bean/IBeanPreProcessor.h"
 #include "core/unit/IRegisterMetaTypeUnit.h"
-#include "web/cookie/ICookiePart.h"
 #include "web/biscuits/IHttpStatus.h"
 #include "web/biscuits/IHttpVersion.h"
 #include "web/biscuits/IHttpMime.h"
+#include "web/jar/ICookiePart.h"
 #include "web/response/IResponseWareRaw.h"
 #include "web/response/IResponsePreProcessor.h"
 
