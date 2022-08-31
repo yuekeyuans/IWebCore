@@ -1,12 +1,18 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
+#include "base/IMetaUtil.h"
+#include "base/IPreProcessorUtil.h"
+#include "core/unit/IRegisterMetaTypeUnit.h"
 
 $PackageWebCoreBegin
 
-class ICookiePart
+// TODO: 这里 cookiePart 是否能够像  IMultiPart 一样注入到 函数参数当中？
+
+class ICookiePart : public IRegisterMetaTypeUnit<ICookiePart>
 {
     Q_GADGET
+    $UseMetaRegistration(ICookiePart);
 public:
     enum SameSiteType{
         Lax,
@@ -55,12 +61,10 @@ public:
     SameSiteType sameSite{Lax};
 };
 
-
 template<typename T>
 ICookiePart::ICookiePart(const QString &key, const QString &value, std::chrono::duration<T> duration, bool secure, bool httpOnly)
     : ICookiePart(key, value,std::chrono::duration_cast<std::chrono::seconds>(duration).count(), secure, httpOnly)
 {
 }
-
 
 $PackageWebCoreEnd

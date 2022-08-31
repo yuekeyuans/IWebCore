@@ -1,11 +1,10 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "base/IPreProcessorUtil.h"
 #include "base/IMetaUtil.h"
-#include "web/biscuits/IHttpMime.h"
-#include "core/bean/IBeanPreProcessor.h"
+#include "base/IPreProcessorUtil.h"
 #include "core/unit/IRegisterMetaTypeUnit.h"
+#include "web/biscuits/IHttpMime.h"
 
 $PackageWebCoreBegin
 
