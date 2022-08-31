@@ -130,12 +130,6 @@ IHttpVersion IRequest::version() const
     return raw->m_httpVersion;
 }
 
-//IHttpCharset IRequest::charset() const
-//{
-//    $GlobalAssert->fatal(IGlobalAssert::UnImplimentedMethod);
-//    return IHttpCharset::UTF_8;
-//}
-
 IHttpMime IRequest::mime() const
 {
     return raw->m_requestMime;

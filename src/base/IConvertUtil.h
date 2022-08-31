@@ -4,10 +4,6 @@
 
 $PackageWebCoreBegin
 
-/*!
- * @namespace IConvertUtil
- * @brief Utils for convert one type to another type.
- */
 namespace  IConvertUtil
 {
     bool toBool(bool value, bool *ok = nullptr);

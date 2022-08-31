@@ -12,7 +12,7 @@ ISessionJar::ISessionJar() : IJarUnit(nullptr)
 
 bool ISessionJar::isValid() const
 {
-    return raw !=nullptr;
+    return m_raw !=nullptr;
 }
 
 $PackageWebCoreEnd

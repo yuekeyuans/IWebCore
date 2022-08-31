@@ -3,13 +3,13 @@
 #include "base/IHeaderUtil.h"
 #include "base/IPreProcessorUtil.h"
 #include "base/IMetaUtil.h"
+#include "core/unit/IRegisterMetaTypeUnit.h"
 #include "web/biscuits/IHttpMethod.h"
 #include "web/biscuits/IHttpVersion.h"
 #include "web/biscuits/IHttpStatus.h"
 #include "web/biscuits/IHttpMime.h"
 #include "web/biscuits/IHttpCharset.h"
 #include "web/net/IMultiPart.h"
-#include "core/unit/IRegisterMetaTypeUnit.h"
 
 $PackageWebCoreBegin
 
@@ -44,7 +44,6 @@ public:
     IReqRespRaw* getRaw() const;
 
     IHttpVersion version() const;
-//    IHttpCharset charset() const;   // do not call
     IHttpMime mime() const;
     const QString& url() const;
     IHttpMethod method() const;

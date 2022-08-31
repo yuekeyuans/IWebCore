@@ -14,17 +14,17 @@ ICookieJar::ICookieJar() : IJarUnit(nullptr)
 
 const QList<QPair<QString, QString> > &ICookieJar::requestCookies() const
 {
-    return raw->m_requestCookieParameters;
+    return m_raw->m_requestCookieParameters;
 }
 
 QList<QPair<QString, QString> > &ICookieJar::requestCookies()
 {
-    return raw->m_requestCookieParameters;
+    return m_raw->m_requestCookieParameters;
 }
 
 QStringList ICookieJar::requestCookieKeys() const
 {
-    const auto& cookies = raw->m_requestCookieParameters;
+    const auto& cookies = m_raw->m_requestCookieParameters;
     QStringList keys;
     for(const auto& cookie : cookies){
         keys.append(cookie.first);
@@ -34,7 +34,7 @@ QStringList ICookieJar::requestCookieKeys() const
 
 bool ICookieJar::containRequestCookie(const QString &key) const
 {
-    for(const auto& pair  : raw->m_requestCookieParameters){
+    for(const auto& pair  : m_raw->m_requestCookieParameters){
         if(pair.first == key){
             return true;
         }
@@ -44,7 +44,7 @@ bool ICookieJar::containRequestCookie(const QString &key) const
 
 QString ICookieJar::getRequestCookieValue(const QString &key, bool *ok)
 {
-    for(const auto& pair  : raw->m_requestCookieParameters){
+    for(const auto& pair  : m_raw->m_requestCookieParameters){
         if(pair.first == key){
             IToeUtil::setOk(ok, true);
             return pair.second;
@@ -66,17 +66,17 @@ void ICookieJar::deleteRequestCookie(const QString &key)
 
 QList<ICookiePart> &ICookieJar::responseCookies()
 {
-    return raw->m_responseCookies;
+    return m_raw->m_responseCookies;
 }
 
 const QList<ICookiePart> &ICookieJar::responseCookies() const
 {
-    return raw->m_responseCookies;
+    return m_raw->m_responseCookies;
 }
 
 QStringList ICookieJar::responseCookieKeys() const
 {
-    const auto& cookies = raw->m_responseCookies;
+    const auto& cookies = m_raw->m_responseCookies;
     QStringList keys;
     for(const auto& part : cookies){
         keys.append(part.key);
@@ -86,7 +86,7 @@ QStringList ICookieJar::responseCookieKeys() const
 
 bool ICookieJar::hasResponseCookie(const QString &key) const
 {
-    const auto& cookies = raw->m_responseCookies;
+    const auto& cookies = m_raw->m_responseCookies;
     for(const auto& part : cookies){
         if(part.key == key){
             return true;
@@ -97,7 +97,7 @@ bool ICookieJar::hasResponseCookie(const QString &key) const
 
 ICookiePart &ICookieJar::getResponseCookie(const QString &key, bool *ok)
 {
-    auto& cookies = raw->m_responseCookies;
+    auto& cookies = m_raw->m_responseCookies;
     for(auto it=cookies.begin(); it!=cookies.end(); it++){
         if(it->key == key){
             IToeUtil::setOk(ok, true);
@@ -110,7 +110,7 @@ ICookiePart &ICookieJar::getResponseCookie(const QString &key, bool *ok)
 
 const ICookiePart &ICookieJar::getResponseCookie(const QString &key, bool *ok) const
 {
-    auto& cookies = raw->m_responseCookies;
+    auto& cookies = m_raw->m_responseCookies;
     for(auto it=cookies.begin(); it!=cookies.end(); it++){
         if(it->key == key){
             IToeUtil::setOk(ok, true);
@@ -123,7 +123,7 @@ const ICookiePart &ICookieJar::getResponseCookie(const QString &key, bool *ok) c
 
 void ICookieJar::addResponseCookie(const ICookiePart &cookiePart)
 {
-    raw->m_responseCookies.append(cookiePart);
+    m_raw->m_responseCookies.append(cookiePart);
 }
 
 void ICookieJar::addResponseCookie(const QString &key, const QString &value)
@@ -131,24 +131,24 @@ void ICookieJar::addResponseCookie(const QString &key, const QString &value)
     ICookiePart part;
     part.key = key;
     part.value = value;
-    raw->m_responseCookies.append(part);
+    m_raw->m_responseCookies.append(part);
 }
 
 void ICookieJar::addResponseCookie(const QString &key, const QString &value, int maxAge, bool secure, bool httpOnly)
 {
     ICookiePart part(key, value, maxAge, secure, httpOnly);
-    raw->m_responseCookies.append(part);
+    m_raw->m_responseCookies.append(part);
 }
 
 void ICookieJar::addResponseCookie(const QString &key, const QString &value, const QDateTime &expires, bool secure, bool httpOnly)
 {
     ICookiePart part(key, value, expires, secure, httpOnly);
-    raw->m_responseCookies.append(part);
+    m_raw->m_responseCookies.append(part);
 }
 
 void ICookieJar::deleteResponseCookie(const QString &key)
 {
-    auto& cookies = raw->m_responseCookies;
+    auto& cookies = m_raw->m_responseCookies;
     for(auto it=cookies.begin(); it!= cookies.end();){
         if(it->key == key){
             it = cookies.erase(it);
@@ -160,7 +160,7 @@ void ICookieJar::deleteResponseCookie(const QString &key)
 
 bool ICookieJar::isValid() const
 {
-    return raw != nullptr;
+    return m_raw != nullptr;
 }
 
 $PackageWebCoreEnd

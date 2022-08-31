@@ -3,7 +3,6 @@
 #include "base/IHeaderUtil.h"
 #include "core/task/ITaskWare.h"
 #include "core/task/ITaskManage.h"
-#include "core/unit/IRegisterInstanceUnit.h"
 
 $PackageWebCoreBegin
 
