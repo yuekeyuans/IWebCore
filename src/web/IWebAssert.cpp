@@ -10,6 +10,7 @@ void IWebAssert::loadFromFunction()
     addFatal("ICookieJar_CREATE_ERROR", "ICookieJar can not be create by user");
     addFatal("IMultiPartJar_CREATE_ERROR", "IMultiPartJar can not be create by user");
     addFatal("ISessionJar_CREATE_ERROR", "ISessionJar can not be create by user");
+    addFatal("IReqResp_CREATE_ERROR", "IReqResp can not be create by user");
 
     addWarn("iresponse_setHeader_with_empty_value_or_key", "");
     addWarn("assamble_bean_when_bean_inner_parameter_not_found");

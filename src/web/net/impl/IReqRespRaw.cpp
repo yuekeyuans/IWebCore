@@ -9,30 +9,34 @@
 #include "web/jar/IHeaderJar.h"
 #include "web/jar/ISessionJar.h"
 #include "web/jar/IMultiPartJar.h"
-
+#include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
 
+$UseAssert(IWebAssert)
+
 IReqRespRaw::IReqRespRaw()
 {
-    m_headerJar = new IHeaderJar(this);
-    m_cookieJar = new ICookieJar(this);
-    m_multiPartJar = new IMultiPartJar(this);
-    m_sessionJar = new ISessionJar(this);
+    $Ast->fatal("IReqResp_CREATE_ERROR");
 }
 
 IReqRespRaw::IReqRespRaw(IRequest *request, QTcpSocket *socket) : IReqRespRaw()
 {
     m_request = request;
     m_socket = socket;
+
+    m_headerJar = new IHeaderJar(this);
+    m_cookieJar = new ICookieJar(this);
+    m_multiPartJar = new IMultiPartJar(this);
+    m_sessionJar = new ISessionJar(this);
 }
 
 IReqRespRaw::~IReqRespRaw()
 {
-    IToeUtil::deletePointer(m_headerJar);
-    IToeUtil::deletePointer(m_cookieJar);
-    IToeUtil::deletePointer(m_multiPartJar);
-    IToeUtil::deletePointer(m_sessionJar);
+    delete m_headerJar;
+    delete m_cookieJar;
+    delete m_multiPartJar;
+    delete m_sessionJar;
 }
 
 bool IReqRespRaw::valid() const

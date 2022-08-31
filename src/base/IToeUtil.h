@@ -14,31 +14,7 @@ namespace IToeUtil
     bool isFalsy(const QString& value);
     bool isTruthy(const QString& value);
 
-    template<typename T>
-    void deletePointer(T* ptr);
-
-    template<typename T, int N>
-    void deletePointer(T ptr[N]);
-
     QString trimQuote(const QString& content);
 };
-
-template<typename T>
-void IToeUtil::deletePointer(T *ptr)
-{
-    if(ptr != nullptr){
-        delete ptr;
-        ptr = nullptr;
-    }
-}
-
-template<typename T, int N>
-void IToeUtil::deletePointer(T ptr[N] )
-{
-    if(ptr != nullptr){
-        delete [] ptr;
-        ptr = nullptr;
-    }
-}
 
 $PackageWebCoreEnd
