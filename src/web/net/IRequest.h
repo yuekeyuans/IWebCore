@@ -9,7 +9,6 @@
 #include "web/biscuits/IHttpMime.h"
 #include "web/biscuits/IHttpCharset.h"
 #include "web/net/IMultiPart.h"
-#include "core/bean/IBeanPreProcessor.h"
 #include "core/unit/IRegisterMetaTypeUnit.h"
 
 $PackageWebCoreBegin
@@ -45,7 +44,7 @@ public:
     IReqRespRaw* getRaw() const;
 
     IHttpVersion version() const;
-    IHttpCharset charset() const;   // do not call
+//    IHttpCharset charset() const;   // do not call
     IHttpMime mime() const;
     const QString& url() const;
     IHttpMethod method() const;
