@@ -1,8 +1,8 @@
 TEMPLATE = subdirs
 
 SUBDIRS +=  \
-#    TestHttpBeanMapping \
+    TestHttpBeanMapping \
     TestHttpMapping \
-#    TestMiddleWare \
+    TestMiddleWare \
     TestHttpStaticFileSerice1   \
-#    TestHttpRegistration
+    TestHttpRegistration
