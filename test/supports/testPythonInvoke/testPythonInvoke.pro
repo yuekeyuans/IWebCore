@@ -2,7 +2,7 @@
 
 QT -= gui
 
-QT += test
+QT += testlib
 
 CONFIG += c++11 console
 CONFIG -= app_bundle

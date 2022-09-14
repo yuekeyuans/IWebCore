@@ -1,8 +1,10 @@
-#include <QCoreApplication>
+﻿#include <IWebCore>
+#include "core/test/ITestManage.h"
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication a(argc, argv);
+    Q_UNUSED(argc)
+    Q_UNUSED(argv)
 
-    return a.exec();
+    ITestManage::invokeAllTestClass();
 }

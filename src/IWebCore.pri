@@ -1,6 +1,6 @@
 INCLUDEPATH += $$PWD
 
-QT += network sql xml
+QT += network sql xml testlib
 
 PRECOMPILED_HEADER = $$PWD/base/IHeaderUtil.h
 
@@ -31,6 +31,10 @@ HEADERS += \
     $$PWD/core/bean/IGadgetUnit.h \
     $$PWD/core/bean/ITypeManage.h \
     $$PWD/core/core.h \
+    $$PWD/core/test/ITestInterface.h \
+    $$PWD/core/test/ITestManage.h \
+    $$PWD/core/test/ITestPreProcessor.h \
+    $$PWD/core/test/ITestTaskUnit.h \
     $$PWD/orm/IOrmAssert.h \
     $$PWD/web/IInterceptInterface.h \
     $$PWD/web/IManage.h \
@@ -191,6 +195,7 @@ SOURCES += \
     $$PWD/core/bean/IBeanWare.cpp \
     $$PWD/core/bean/IGadgetUnit.cpp \
     $$PWD/core/bean/ITypeManage.cpp \
+    $$PWD/core/test/ITestManage.cpp \
     $$PWD/orm/IOrmAssert.cpp \
     $$PWD/web/IInterceptInterface.cpp \
     $$PWD/web/IManage.cpp \
