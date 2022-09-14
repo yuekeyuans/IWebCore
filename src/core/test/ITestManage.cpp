@@ -2,6 +2,11 @@
 
 #include <QtTest>
 
+ITestManage *ITestManage::instance(){
+    static ITestManage inst;
+    return & inst;
+}
+
 void ITestManage::registerTestClass(QObject *obj)
 {
     if(obj != nullptr){
