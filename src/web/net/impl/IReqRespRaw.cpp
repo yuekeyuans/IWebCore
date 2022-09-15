@@ -20,7 +20,7 @@ IReqRespRaw::IReqRespRaw()
     $Ast->fatal("IReqResp_CREATE_ERROR");
 }
 
-IReqRespRaw::IReqRespRaw(IRequest *request, QTcpSocket *socket) : IReqRespRaw()
+IReqRespRaw::IReqRespRaw(IRequest *request, QTcpSocket *socket)
 {
     m_request = request;
     m_socket = socket;
