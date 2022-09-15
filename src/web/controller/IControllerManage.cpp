@@ -260,7 +260,10 @@ IUrlActionNode *IControllerManage::getUrlActionNode(IRequest &request)
         fragments.pop_front();
     }
 
-    request.getRaw()->m_requestUrlParameters = getPathVariable(node->parentNode, fragments);
+    if(url != "/"){
+        request.getRaw()->m_requestUrlParameters = getPathVariable(node->parentNode, fragments);
+    }
+
     return node;
 }
 
