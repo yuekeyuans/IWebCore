@@ -13,4 +13,3 @@ class TestCase : public ITestInterface<TestCase>
 public:
     TestCase();
 };
-

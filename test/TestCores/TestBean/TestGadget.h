@@ -5,9 +5,10 @@
 
 #include "OneBean.h"
 
-class TestGadget : public QObject
+class TestGadget : public ITestInterface<TestGadget>
 {
     Q_OBJECT
+    $AsTest(TestGadget)
 public:
     TestGadget();
 

@@ -3,12 +3,10 @@
 #include <IWebCore>
 #include <QtTest>
 
-/**
- * @brief 测试 QList, QVector, QMap 中 bean 的构造。
- */
-class TestBeanListMapConvertion : public QObject
+class TestBeanListMapConvertion : public ITestInterface<TestBeanListMapConvertion>
 {
     Q_OBJECT
+    $AsTest(TestBeanListMapConvertion)
 public:
     TestBeanListMapConvertion() = default;
 

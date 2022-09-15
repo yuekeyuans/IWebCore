@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "core/test/ITestTaskUnit.h"
+#include "core/test/ITestPreProcessor.h"
 
 $PackageWebCoreBegin
 

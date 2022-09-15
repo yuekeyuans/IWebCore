@@ -5,9 +5,10 @@
 
 #include "OneTable.h"
 
-class TestTable : public QObject
+class TestTable : public ITestInterface<TestTable>
 {
     Q_OBJECT
+    $AsTest(TestTable)
 public:
     TestTable();
 

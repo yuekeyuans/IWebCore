@@ -3,14 +3,9 @@
 #include <IWebCore>
 #include <QtTest>
 
-#include "TestBeanListMapConvertion.h"
-
-
 int main(int argc, char *argv[])
 {
-    $ITestBegin
-
-    $ITestClass(TestBeanListMapConvertion)
-
-    $ITestEnd
+    Q_UNUSED(argc)
+    Q_UNUSED(argv)
+    ITestManage::invokeAllTestClass();
 }

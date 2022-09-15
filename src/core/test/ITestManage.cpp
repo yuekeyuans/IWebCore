@@ -21,3 +21,5 @@ void ITestManage::invokeAllTestClass()
         QTest::qExec(obj);
     }
 }
+
+

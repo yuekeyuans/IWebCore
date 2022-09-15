@@ -1,14 +1,9 @@
 ﻿#include <IWebCore>
 #include <QtTest>
 
-#include "TestGadget.h"
-#include "TestTable.h"
-
 int main(int argc, char** argv){
-    $ITestBegin
+    Q_UNUSED(argc)
+    Q_UNUSED(argv)
 
-    $ITestClass(TestGadget)
-    $ITestClass(TestTable)
-
-    $ITestEnd
+    ITestManage::invokeAllTestClass();
 }
