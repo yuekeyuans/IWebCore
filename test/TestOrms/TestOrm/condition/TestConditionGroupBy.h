@@ -3,9 +3,10 @@
 #include <QtTest>
 #include <IWebCore>
 
-class TestConditionGroupBy : public QObject
+class TestConditionGroupBy : public ITestInterface<TestConditionGroupBy>
 {
     Q_OBJECT
+    $AsTest(TestConditionGroupBy)
 public:
     TestConditionGroupBy();
 private slots:

@@ -4,9 +4,10 @@
 #include "PhoneBean.h"
 #include "PhoneModel.h"
 
-class TestOrmUpdate : public QObject
+class TestOrmUpdate : public ITestInterface<TestOrmUpdate>
 {
     Q_OBJECT
+    $AsTest(TestOrmUpdate)
 public:
     TestOrmUpdate();
     ~TestOrmUpdate() = default;

@@ -5,9 +5,10 @@
 #include "ViewBean.h"
 #include "ViewModel.h"
 
-class TestView : public QObject
+class TestView : public ITestInterface<TestView>
 {
     Q_OBJECT
+    $AsTest(TestView)
 public:
     TestView();
 

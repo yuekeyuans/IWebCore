@@ -5,9 +5,10 @@
 #include "UserBean.h"
 #include "UserModel.h"
 
-class TestOrmBool : public QObject
+class TestOrmBool : public ITestInterface<TestOrmBool>
 {
     Q_OBJECT
+    $AsTest(TestOrmBool)
 public:
     TestOrmBool();
     ~TestOrmBool() = default;

@@ -7,9 +7,10 @@
 
 #include "world/CountryModel.h"
 
-class TestConditionWhere : public QObject
+class TestConditionWhere : public ITestInterface<TestConditionWhere>
 {
     Q_OBJECT
+    $AsTest(TestConditionWhere)
 public:
     TestConditionWhere();
 

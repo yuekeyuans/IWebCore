@@ -5,9 +5,10 @@
 
 #include "TableModel.h"
 
-class TestTable : public QObject
+class TestTable : public ITestInterface<TestTable>
 {
     Q_OBJECT
+    $AsTest(TestTable)
 public:
     TestTable();
 

@@ -3,9 +3,10 @@
 #include <QtTest>
 #include <IWebCore>
 
-class TestConditionLimit : public QObject
+class TestConditionLimit : public ITestInterface<TestConditionLimit>
 {
     Q_OBJECT
+    $AsTest(TestConditionLimit)
 public:
     TestConditionLimit();
 

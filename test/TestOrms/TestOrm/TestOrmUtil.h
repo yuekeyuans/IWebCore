@@ -3,9 +3,10 @@
 #include <IWebCore>
 #include <QtTest>
 
-class TestOrmUtil : public QObject
+class TestOrmUtil : public ITestInterface<TestOrmUtil, false>
 {
     Q_OBJECT
+    $AsTest(TestOrmUtil)
 public:
     TestOrmUtil();
 

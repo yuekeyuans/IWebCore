@@ -3,9 +3,10 @@
 #include <QtTest>
 #include <IWebCore>
 
-class TestConditionHaving : public QObject
+class TestConditionHaving : public ITestInterface<TestConditionHaving>
 {
     Q_OBJECT
+    $AsTest(TestConditionHaving)
 public:
     TestConditionHaving();
 

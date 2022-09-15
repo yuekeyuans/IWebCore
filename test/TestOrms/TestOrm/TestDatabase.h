@@ -2,9 +2,10 @@
 
 #include <IWebCore>
 
-class TestDatabase : public QObject
+class TestDatabase : public ITestInterface<TestDatabase>
 {
     Q_OBJECT
+    $AsTest(TestDatabase)
 public:
     TestDatabase();
     ~TestDatabase();

@@ -5,9 +5,10 @@
 #include "UserBean.h"
 #include "UserModel.h"
 
-class TestOrmDateTime : public QObject
+class TestOrmDateTime : public ITestInterface<TestOrmDateTime>
 {
     Q_OBJECT
+    $AsTest(TestOrmDateTime)
 public:
     TestOrmDateTime();
     ~TestOrmDateTime() = default;

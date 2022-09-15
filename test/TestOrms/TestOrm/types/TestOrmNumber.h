@@ -5,9 +5,10 @@
 #include "NumberBean.h"
 #include "NumberModel.h"
 
-class TestOrmNumber : public QObject
+class TestOrmNumber : public ITestInterface<TestOrmNumber>
 {
     Q_OBJECT
+    $AsTest(TestOrmNumber)
 public:
     TestOrmNumber();
     ~TestOrmNumber() = default;

@@ -1,10 +1,11 @@
 ﻿#pragma once
 
-#include <QObject>
+#include <IWebCore>
 
-class TestOrmPrimaryKey : public QObject
+class TestOrmPrimaryKey : public ITestInterface<TestOrmPrimaryKey, false>
 {
     Q_OBJECT
+    $AsTest(TestOrmPrimaryKey)
 public:
     TestOrmPrimaryKey();
     ~TestOrmPrimaryKey() = default;

@@ -4,9 +4,10 @@
 #include <QtTest>
 #include "PhoneModel.h"
 
-class TestOrm : public QObject
+class TestOrm : public ITestInterface<TestOrm>
 {
     Q_OBJECT
+    $AsTest(TestOrm)
 public:
     TestOrm();
     ~TestOrm();

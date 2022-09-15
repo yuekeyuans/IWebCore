@@ -5,11 +5,13 @@
 #include "PhoneBean.h"
 #include "SqliteModel.h"
 
-class TestSqliteOnlyDatbase : public QObject
+class TestSqliteOnlyDatbase : public ITestInterface<TestSqliteOnlyDatbase>
 {
     Q_OBJECT
+    $AsTest(TestSqliteOnlyDatbase)
 public:
     TestSqliteOnlyDatbase();
+
 private slots:
     void init();
     void test1();

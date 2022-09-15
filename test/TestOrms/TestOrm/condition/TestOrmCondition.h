@@ -5,10 +5,10 @@
 #include "PhoneBean.h"
 #include "PhoneModel.h"
 
-class TestOrmCondition : public QObject
+class TestOrmCondition : public ITestInterface<TestOrmCondition>
 {
     Q_OBJECT
-
+    $AsTest(TestOrmCondition)
 public:
     TestOrmCondition();
     ~TestOrmCondition();
