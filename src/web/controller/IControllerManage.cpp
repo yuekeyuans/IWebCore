@@ -138,13 +138,6 @@ void IControllerManage::unRegisterUrlActionNodes(const QVector<IUrlActionNode> &
     }
 }
 
-// TODO: 这里的 url 应该是 raw url, 即 可以是  /<hello>/<world> 这种形式的url
-bool IControllerManage::containUrlPath(const QString &url, IHttpMethod method)
-{
-    auto node = getUrlActionNode(url, method);
-    return node != nullptr;
-}
-
 void IControllerManage::registerStaticFiles(const QString &path, const QString &prefix)
 {
     checkRegisterAvalible();
@@ -249,26 +242,7 @@ IUrlActionNode *IControllerManage::getUrlActionNode(IRequest &request)
 {
     const QString &url = request.url();
     IHttpMethod method = request.method();
-    auto node = getUrlActionNode(url, method);
 
-    if(node == nullptr){
-        return nullptr;
-    }
-
-    auto fragments = url.split("/");
-    if(fragments.first().isEmpty()){
-        fragments.pop_front();
-    }
-
-    if(url != "/"){
-        request.getRaw()->m_requestUrlParameters = getPathVariable(node->parentNode, fragments);
-    }
-
-    return node;
-}
-
-IUrlActionNode *IControllerManage::getUrlActionNode(const QString &url, IHttpMethod method)
-{
     auto nodePtr = instance()->m_urlMapppings.get();
 
     if(url == "/"){
@@ -288,7 +262,9 @@ IUrlActionNode *IControllerManage::getUrlActionNode(const QString &url, IHttpMet
         qFatal(info.toUtf8());
     }
 
-    return nodes.first();
+    auto node = nodes.first();
+    request.getRaw()->m_requestUrlParameters = getPathVariable(node->parentNode, fragments);
+    return node;
 }
 
 IStatusActionNode *IControllerManage::getStatusActionNode(IHttpStatus status)

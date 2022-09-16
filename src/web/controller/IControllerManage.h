@@ -40,7 +40,6 @@ public:
 
     static void unRegisterUrlActionNode(IUrlActionNode node);
     static void unRegisterUrlActionNodes(const QVector<IUrlActionNode>& functionNodes);
-    static bool containUrlPath(const QString& url, IHttpMethod method);
 
     static void registerStaticFiles(const QString& path, const QString& prefix);
 
@@ -58,7 +57,8 @@ public:
     static ValidatorFun queryPathFunValidator(const QString& path);
 
     static IUrlActionNode* getUrlActionNode(IRequest& request);
-    static IUrlActionNode* getUrlActionNode(const QString& path, IHttpMethod method);
+//    static IUrlActionNode* getUrlActionNode(const QString& path, IHttpMethod method);
+
     static IStatusActionNode* getStatusActionNode(IHttpStatus status);
     static QString getStaticFileActionPath(const IRequest& request);
 
