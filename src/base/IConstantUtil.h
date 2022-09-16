@@ -43,6 +43,31 @@ namespace IConstantUtil
     static constexpr bool ICookiePluginEnabled = true;
     static constexpr bool ICorsPluginEnabled = true;
 
+
+    inline void deprecateWarning();
 };
+
+void IConstantUtil::deprecateWarning(){
+    Q_UNUSED(DebugMode)
+    Q_UNUSED(ReleaseMode)
+
+    Q_UNUSED(ServerName)
+    Q_UNUSED(NewLine)
+    Q_UNUSED(InheritedMethod)
+    Q_UNUSED(UnImplimentedMethod)
+    Q_UNUSED(UnVisibleMethod)
+
+    Q_UNUSED(UnCallableMethod)
+    Q_UNUSED(MasterServer)
+    Q_UNUSED(Request_Url_Max_Length)
+    Q_UNUSED(Request_Header_Max_Length)
+    Q_UNUSED(Request_Body_Max_Length)
+
+    Q_UNUSED(IServerNameMiddleWareEnabeld)
+    Q_UNUSED(ICookiePluginEnabled)
+    Q_UNUSED(ICorsPluginEnabled)
+
+    qFatal("this function is used for deprecate warnings above, do not call this");
+}
 
 $PackageWebCoreEnd
