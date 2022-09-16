@@ -3,6 +3,9 @@
 
 $PackageWebCoreBegin
 
+const char* MasterServer = "MasterServer";
+
+
 IHttpServerManage::IHttpServerManage()
 {
     m_server = QSharedPointer<IMultiThreadServer>::create();

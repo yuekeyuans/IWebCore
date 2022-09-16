@@ -173,6 +173,7 @@ HEADERS += \
     $$PWD/core/task/ITaskWare.h
 
 SOURCES += \
+    $$PWD/base/IConstantUtil.cpp \
     $$PWD/core/application/IApplication.cpp \
     $$PWD/base/ICodecUtil.cpp \
     $$PWD/base/IConvertUtil.cpp \

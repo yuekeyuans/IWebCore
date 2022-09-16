@@ -5,6 +5,8 @@
 
 $PackageWebCoreBegin
 
+extern const char* MasterServer;
+
 class IHttpServerManage
 {
     $UseInstance(IHttpServerManage)

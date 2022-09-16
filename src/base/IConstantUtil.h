@@ -20,20 +20,23 @@ namespace IConstantUtil
     static const QString TimeFormat = "hh:mm:ss.zzz";
     static const QString DateTimeFormat = "yyyy-MM-dd hh:mm:ss.zzz";
 
-    static const char* const ServerName = "IWebCore";
+    static constexpr char ServerName[] = "IWebCore";
 
     //! char[] of new line.
-    static const char* const NewLine = "\r\n";
+    static constexpr char NewLine[] = "\r\n";
 
-    static const char* const InheritedMethod = "inherited method";
-    static const char* const UnImplimentedMethod = "unimplimented method, this will be implimented latter";
-    static const char* const UnVisibleMethod = "This method change visiblity to unvisible, if you see this, it means you call it illegally";
-    static const char* const UnCallableMethod = "This method can not be called anywhere.";
+    static constexpr char InheritedMethod[] = "inherited method";
+    static constexpr char UnImplimentedMethod[] = "unimplimented method, this will be implimented latter";
+    static constexpr char UnVisibleMethod[] = "This method change visiblity to unvisible, if you see this, it means you call it illegally";
+    static constexpr char UnCallableMethod[] = "This method can not be called anywhere.";
+
+    static constexpr char MasterServer[] = "MasterServer";
 
     // length;
     static constexpr int Request_Url_Max_Length = (2048 + 35);  // 2083
     static constexpr int Request_Header_Max_Length = (1024 * 8); // 8K
     static constexpr int Request_Body_Max_Length   = (1024 * 1024 * 4);  // 4M
+
 
     // configuration  暂时的
     static constexpr bool IServerNameMiddleWareEnabeld = true;

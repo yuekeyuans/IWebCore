@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "base/IConstantUtil.h"
 #include "base/IMetaUtil.h"
 #include "core/configuration/configuration"
 #include "web/biscuits/IHttpMethod.h"
@@ -8,6 +9,7 @@
 
 $PackageWebCoreBegin
 
+//template<const char* name = IConstantUtil::MasterServer>
 class IHttpServer : public QTcpServer
 {
     Q_GADGET
