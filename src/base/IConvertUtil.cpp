@@ -366,7 +366,6 @@ QVariant IConvertUtil::toVariant(const QString &value, QMetaType::Type destType,
     case QMetaType::QJsonObject:
         return IConvertUtil::toJsonObject(value, ok);
 
-    // TODO: 这里备注一下，有部分的 class 中间 的 QDate 相关的类型没有检查，这个需要仔细检查一遍
     case QMetaType::QDate:
         return IConvertUtil::toDate(value, ok);
     case QMetaType::QTime:
