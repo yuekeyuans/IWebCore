@@ -17,6 +17,11 @@ public: \
     } \
 private:
 
+#define $UseDataPtr(klass)   \
+private:    \
+    Q_DECLARE_PRIVATE(klass);    \
+    std::shared_ptr<klass##Private> d_ptr;
+
 #define $AsWare \
 private:    \
     virtual void pureVirtualWare() = 0;
@@ -101,3 +106,4 @@ private:
 private:    \
     void* operator new(size_t) noexcept {return nullptr;};  \
     void operator delete(void*){};  \
+
