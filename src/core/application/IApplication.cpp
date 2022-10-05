@@ -26,12 +26,6 @@ IApplication* IApplicationPrivate::m_master = nullptr;
 
 IApplication::IApplication(int argc, char **argv) : QCoreApplication(argc, argv), d_ptr(new IApplicationPrivate)
 {
-    static bool isInitialized = false;
-    if(isInitialized){
-        $Ast->fatal("IApplication_should_not_created_twice");
-    }
-    isInitialized = true;
-
     Q_D(IApplication);
     d->m_master = this;
     d->m_arguments = IApplicationHelper::fromArguments(argc, argv);

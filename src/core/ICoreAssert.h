@@ -12,7 +12,7 @@ class ICoreAssert : public IAssertInterface
 public:
     ICoreAssert() = default;
 
-public:
+private:
     virtual void loadFromFunction() final;
 };
 

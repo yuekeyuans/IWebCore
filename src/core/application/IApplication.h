@@ -13,7 +13,7 @@ class IApplication : public QCoreApplication
 public:
     IApplication(int argc, char** argv);
 
-    IApplication* theInstance();
+    static IApplication* theInstance();
 
 private:
     std::shared_ptr<IApplicationPrivate> d_ptr;
