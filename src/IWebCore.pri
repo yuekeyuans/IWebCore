@@ -5,6 +5,7 @@ QT += network sql xml testlib
 PRECOMPILED_HEADER = $$PWD/base/IHeaderUtil.h
 
 HEADERS += \
+    $$PWD/core/ICoreAssert.h \
     $$PWD/core/application/IApplication.h \
     $$PWD/base/ICodecUtil.h \
     $$PWD/base/IConstantUtil.h \
@@ -174,6 +175,7 @@ HEADERS += \
 
 SOURCES += \
     $$PWD/base/IConstantUtil.cpp \
+    $$PWD/core/ICoreAssert.cpp \
     $$PWD/core/application/IApplication.cpp \
     $$PWD/base/ICodecUtil.cpp \
     $$PWD/base/IConvertUtil.cpp \

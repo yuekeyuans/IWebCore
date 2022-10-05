@@ -94,3 +94,10 @@ public:\
         return fieldNames;  \
     }   \
 private:
+
+
+// create on stack only
+#define Q_CREATE_ON_STACK_ONLY \
+private:    \
+    void* operator new(size_t) noexcept {return nullptr;};  \
+    void operator delete(void*){};  \

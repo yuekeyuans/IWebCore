@@ -2,24 +2,50 @@
 
 #include "core/configuration/IConfigurationManage.h"
 #include "core/task/ITaskManage.h"
+#include "core/ICoreAssert.h"
 
 $PackageWebCoreBegin
+
+$UseAssert(ICoreAssert)
 
 namespace IApplicationHelper {
     QStringList fromArguments(int argc, char** argv);
     void printBanner();
 }
 
-IApplication::IApplication(int argc, char **argv) : QCoreApplication(argc, argv)
+class IApplicationPrivate{
+
+public:
+    QStringList m_arguments;
+
+public:
+    static IApplication* m_master;
+};
+
+IApplication* IApplicationPrivate::m_master = nullptr;
+
+IApplication::IApplication(int argc, char **argv) : QCoreApplication(argc, argv), d_ptr(new IApplicationPrivate)
 {
-    m_arguments = IApplicationHelper::fromArguments(argc, argv);
+    static bool isInitialized = false;
+    if(isInitialized){
+        $Ast->fatal("IApplication_should_not_created_twice");
+    }
+    isInitialized = true;
+
+    Q_D(IApplication);
+    d->m_master = this;
+    d->m_arguments = IApplicationHelper::fromArguments(argc, argv);
     IApplicationHelper::printBanner();
-    ITaskManage::run(m_arguments);
+    ITaskManage::run(d->m_arguments);
 }
 
-const QStringList &IApplication::getArguments()
+IApplication *IApplication::theInstance()
 {
-    return m_arguments;
+    if(IApplicationPrivate::m_master == nullptr){
+        $Ast->fatal("IApplication_not_created");
+    }
+
+    return IApplicationPrivate::m_master;
 }
 
 QStringList IApplicationHelper::fromArguments(int argc, char** argv){
