@@ -9,7 +9,9 @@ QString CookieJarController::addResponseCookie1(ICookieJar& jar)
 
 QString CookieJarController::hasResponseCookie(ICookieJar &jar)
 {
-    jar.hasResponseCookie()
-    jar.addResponseCookie("hello", "world");
-    return "hello world";
+    if(jar.containRequestCookieKey("hello")){
+        return "exist";
+    }else{
+        return "not exist";
+    }
 }

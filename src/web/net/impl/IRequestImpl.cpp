@@ -451,10 +451,10 @@ bool IRequestImpl::resolveCookies()
             value.clear();
             auto index = part.indexOf('=');
             if(index<=0){       // 保证只有 key 的情形
-                auto key = part;
+                key = part;
             }else{
-                auto key = part.mid(0, index);
-                auto value = part.mid(index + 1);
+                key = part.mid(0, index);
+                value = part.mid(index + 1);
             }
             raw->m_requestCookieParameters.append({key, value});
         }

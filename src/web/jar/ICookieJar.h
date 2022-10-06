@@ -18,6 +18,7 @@ public:
 
 public:
     ICookieJar();
+
     // request
     QList<QPair<QString, QString>>& requestCookies();
     const QList<QPair<QString, QString>>& requestCookies() const;
@@ -47,7 +48,6 @@ public:
     void addResponseCookie(const QString& key, const QString& value);
     void addResponseCookie(const QString& key, const QString& value, int maxAge, bool secure=false, bool httpOnly=false);
     void addResponseCookie(const QString& key, const QString& value, const QDateTime& expires, bool secure=false, bool httpOnly=false);
-
 
     virtual bool isValid() const final;
 };
