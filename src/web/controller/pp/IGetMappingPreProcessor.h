@@ -5,10 +5,11 @@
 #define PP_CONTROLLER_JOIN(funName, type) \
     PP_STRING( iwebControllerFun$##funName##$##type)
 
+// 思考, 这里如何更好的映射 根目录，除了 Get(a, /) 之外?
 #define $GetMappingDeclare_1(funName)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "GET")  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), "/")
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #funName)
 
 #define $GetMappingDeclare_2(funName, url1)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \

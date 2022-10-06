@@ -20,7 +20,7 @@ private:
 #define $UseDataPtr(klass)   \
 private:    \
     Q_DECLARE_PRIVATE(klass);    \
-    std::shared_ptr<klass##Private> d_ptr;
+    std::shared_ptr<klass##Private> d_ptr {nullptr};
 
 #define $AsWare \
 private:    \

@@ -25,6 +25,8 @@ public:
 public:
     ICookiePart() = default;
 
+    ICookiePart(const QString& key, const QString& value);
+
     template<typename T>
     explicit ICookiePart(const QString& key, const QString& value, std::chrono::duration<T> duration, bool secure=false, bool httpOnly=false);
 

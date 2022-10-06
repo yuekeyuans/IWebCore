@@ -8,7 +8,7 @@
 #define $PutMappingDeclare_1(funName)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "PUT")  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), "/")
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #funName)
 
 #define $PutMappingDeclare_2(funName, url1)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \

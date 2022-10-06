@@ -477,7 +477,7 @@ bool IControllerInterfaceImpHelper::isSpecialTypes(const QString& typeName)
 
 bool IControllerInterfaceImpHelper::isBeanType(const QString& typeName)
 {
-    return ITypeManage::containBean(typeName);
+    return IBeanTypeManage::containBean(typeName);
 }
 
 bool IControllerInterfaceImpHelper::isParamNameWithSuffix(const QString& paramName)

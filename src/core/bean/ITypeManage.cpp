@@ -2,26 +2,39 @@
 
 $PackageWebCoreBegin
 
-void ITypeManage::registerBeanType(const QString &typeName)
+class IBeanTypeManagePrivate
+{
+public:
+    QStringList m_beanNames;
+    QStringList m_nameSpaces;
+};
+
+
+IBeanTypeManage::IBeanTypeManage()
+    : d_ptr(std::make_shared<IBeanTypeManagePrivate>())
+{
+}
+
+void IBeanTypeManage::registerBeanType(const QString &typeName)
 {
     auto name = typeName.split(' ').last();
     auto inst = instance();
-    inst->m_beanNames.append(name);
+    inst->d_ptr->m_beanNames.append(name);
 }
 
-void ITypeManage::registerNamespace(const QString &nmspace)
+void IBeanTypeManage::registerNamespace(const QString &nmspace)
 {
     auto inst = instance();
-    inst->m_nameSpaces.append(nmspace);
+    inst->d_ptr->m_nameSpaces.append(nmspace);
 }
 
 // 这一个不能够完全判断一个 typeName 就是一个bean, 也会有出错的时候，但是忽略掉。
-bool ITypeManage::containBean(const QString &typeName)
+bool IBeanTypeManage::containBean(const QString &typeName)
 {
 
     auto inst = instance();
     QString name = typeName;
-    const auto& beanNames = inst->m_beanNames;
+    const auto& beanNames = inst->d_ptr->m_beanNames;
     if(typeName.endsWith("&")){
         name = typeName.mid(0, typeName.length() -1);
     }

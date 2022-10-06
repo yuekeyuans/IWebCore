@@ -465,7 +465,7 @@ bool IControllerParamUtil::releaseParamOfSession(const IParamNode &node, void *o
 
 bool IControllerParamUtil::releaseParamOfBean(const IParamNode& node, void *obj)
 {
-    if(node.paramTypeId >= QMetaType::User && ITypeManage::containBean(node.paramTypeName)){
+    if(node.paramTypeId >= QMetaType::User && IBeanTypeManage::containBean(node.paramTypeName)){
         QMetaType::destroy(node.paramTypeId, obj);
         return true;
     }
@@ -554,7 +554,7 @@ void IControllerFunctionBaseImplHelper::initBeanTypes(){
             if(name.isEmpty()){
                 break;
             }
-            if(ITypeManage::containBean(name)){
+            if(IBeanTypeManage::containBean(name)){
                 BeanTypes << id;
             }
         }

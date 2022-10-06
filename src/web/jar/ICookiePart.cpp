@@ -4,6 +4,12 @@
 
 $PackageWebCoreBegin
 
+ICookiePart::ICookiePart(const QString &key, const QString &value)
+{
+    this->key = key;
+    this->value = value;
+}
+
 ICookiePart::ICookiePart(const QString &key, const QString &value, int maxAge, bool secure, bool httpOnly)
 {
     this->key = key;

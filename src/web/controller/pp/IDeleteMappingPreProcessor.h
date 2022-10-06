@@ -8,7 +8,7 @@
 #define $DeleteMappingDeclare_1(funName)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "DELETE")  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), "/")
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #funName)
 
 #define $DeleteMappingDeclare_2(funName, url1)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \

@@ -3,7 +3,7 @@
 #include "core/application/IArgumentTaskInterface.h"
 #include "core/application/IApplication.h"
 
-#include "core/bean/bean"
+#include "core/bean/IBeanInterface.h"
 #include "core/configuration/configuration"
 #include "core/task/task"
 #include "core/test/ITestInterface.h"

@@ -24,7 +24,7 @@ public:
 
 IApplication* IApplicationPrivate::m_master = nullptr;
 
-IApplication::IApplication(int argc, char **argv) : QCoreApplication(argc, argv), d_ptr(new IApplicationPrivate)
+IApplication::IApplication(int argc, char **argv) : QCoreApplication(argc, argv), d_ptr(std::make_shared<IApplicationPrivate>())
 {
     Q_D(IApplication);
     d->m_master = this;

@@ -7,10 +7,6 @@
 
 $PackageWebCoreBegin
 
-/**
- * @brief IGadgetUnit::className get class name
- * @return class name
- */
 const QString& IGadgetUnit::className() const
 {
     qFatal(IConstantUtil::InheritedMethod);

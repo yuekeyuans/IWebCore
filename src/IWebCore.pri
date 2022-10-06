@@ -194,8 +194,6 @@ SOURCES += \
     $$PWD/core/assert/IAssertInfo.cpp \
     $$PWD/core/assert/IAssertInterface.cpp \
     $$PWD/core/assert/IGlobalAssert.cpp \
-    $$PWD/core/bean/IBeanInterface.cpp \
-    $$PWD/core/bean/IBeanWare.cpp \
     $$PWD/core/bean/IGadgetUnit.cpp \
     $$PWD/core/bean/ITypeManage.cpp \
     $$PWD/core/test/ITestManage.cpp \
@@ -304,21 +302,12 @@ SOURCES += \
     $$PWD/web/server/multiThreadServer/IHttpServerRunable.cpp \
     $$PWD/web/server/multiThreadServer/IMultiThreadServer.cpp \
     $$PWD/web/server/quenedServer/IQueneServer.cpp \
-    $$PWD/core/task/IArgumentTaskUnit.cpp \
-    $$PWD/core/task/IConfigurationTaskUnit.cpp \
-    $$PWD/core/task/IControllerTaskUnit.cpp \
-    $$PWD/core/task/IFirstInvokeTaskUnit.cpp \
-    $$PWD/core/task/IInitializationTaskUnit.cpp \
-    $$PWD/core/task/ILastInvokeTaskUnit.cpp \
-    $$PWD/core/task/IMiddleWareTaskUnit.cpp \
-    $$PWD/core/task/IStaticInitializeTaskUnit.cpp \
     $$PWD/core/task/ITaskManage.cpp \
     $$PWD/core/task/ITaskWare.cpp
 
 DISTFILES += \
     $$PWD/IWebCore \
     $$PWD/base/base \
-    $$PWD/core/bean/bean \
     $$PWD/core/core.h \
     $$PWD/web/common \
     $$PWD/core/configuration/configuration \
