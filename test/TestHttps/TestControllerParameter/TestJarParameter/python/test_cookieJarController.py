@@ -14,6 +14,11 @@ class TestClass:
         print(res.cookies["hello"])
         
     def test_hasResponseCookie(self):
-        pass
+        url = wrapUrl("cookie/hasRequestCookie")
+        res = requests.get(url, cookies= {"hello": "world"});
+        assert res.text == "exist"
+        
+        res2 = requests.get(url, cookies={"world":"12"})
+        assert res2.text == "not exist"    
     
     

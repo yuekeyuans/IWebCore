@@ -1,4 +1,5 @@
 ﻿#include "IJsonUtil_tojson.h"
+#include "base/IConvertUtil.h"
 
 $PackageWebCoreBegin
 
@@ -99,6 +100,14 @@ QJsonValue IJsonUtil::_objectToJson(const QMap<QString, T>& map){
     for(auto key : keys){
         obj[key] = _objectToJson(map[key]);
     }
+    return obj;
+}
+
+template<class T, class P>
+QJsonValue IJsonUtil::_objectToJson(const QPair<T, P> &pair)
+{
+    QJsonObject obj;
+    obj[IConvertUtil::toString(pair.first)] = _objectToJson(pair.second);
     return obj;
 }
 

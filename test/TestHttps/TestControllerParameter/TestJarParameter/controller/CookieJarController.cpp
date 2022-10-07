@@ -1,13 +1,12 @@
 ﻿#include "CookieJarController.h"
 
-
-QString CookieJarController::addResponseCookie1(ICookieJar& jar)
+QString CookieJarController::requestCookies(ICookieJar &jar)
 {
-    jar.addResponseCookie("hello", "world");
-    return "hello world";
+    auto map = jar.requestCookies();
+    return IJsonUtil::toString(map);
 }
 
-QString CookieJarController::hasResponseCookie(ICookieJar &jar)
+QString CookieJarController::hasRequestCookie(ICookieJar &jar)
 {
     if(jar.containRequestCookieKey("hello")){
         return "exist";
@@ -15,3 +14,10 @@ QString CookieJarController::hasResponseCookie(ICookieJar &jar)
         return "not exist";
     }
 }
+
+QString CookieJarController::addResponseCookie1(ICookieJar& jar)
+{
+    jar.addResponseCookie("hello", "world");
+    return "hello world";
+}
+

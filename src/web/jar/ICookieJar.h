@@ -20,7 +20,6 @@ public:
     ICookieJar();
 
     // request
-    QList<QPair<QString, QString>>& requestCookies();
     const QList<QPair<QString, QString>>& requestCookies() const;
     ICookiePart getRequestCookie(const QString& key, bool *ok);
 

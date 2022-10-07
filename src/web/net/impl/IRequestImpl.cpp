@@ -434,8 +434,6 @@ bool IRequestImpl::resolveHeaders()
     return true;
 }
 
-// TODO: 这里有一个问题,就是 cookie 编码的问题，网络上是建议 cookie encode, 并且使用 base64 编码。
-// 这里为了方面使用，编码问题放在 middleWare 中进行，并且能够配置,这样，用户能够自我实现。
 bool IRequestImpl::resolveCookies()
 {
     static const QByteArray splitString = "; ";
@@ -445,11 +443,12 @@ bool IRequestImpl::resolveCookies()
         const QString rawCookie = raw->m_headerJar->getRequestHeaderValue(IHttpHeader::Cookie, nullptr);
 
         QString key, value;
+        int index;
         auto parts = rawCookie.split(splitString);
         for(const auto& part : parts){
             key.clear();
             value.clear();
-            auto index = part.indexOf('=');
+            index = part.indexOf('=');
             if(index<=0){       // 保证只有 key 的情形
                 key = part;
             }else{

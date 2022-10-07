@@ -11,6 +11,12 @@ namespace IJsonUtil
 
 QJsonValue _objectToJson(const QString& value);
 
+QJsonValue _objectToJson(int value);
+
+QJsonValue _objectToJson(float value);
+
+QJsonValue _objectToJson(double value);
+
 QJsonValue _objectToJson(bool value);
 
 template<class T>
@@ -42,6 +48,9 @@ QJsonValue _objectToJson(const std::array<T, N>& sequence);
 
 template<class T>
 QJsonValue _objectToJson(const QMap<QString, T>& map);
+
+template<class T, class P>
+QJsonValue _objectToJson(const QPair<T, P>& pair);
 
 template<class T>
 QJsonValue _objectToJson(const QMap<QString, T>& map);

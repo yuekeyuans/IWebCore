@@ -12,11 +12,6 @@ ICookieJar::ICookieJar() : IJarUnit(nullptr)
     $Ast->fatal("ICookieJar_CREATE_ERROR");
 }
 
-QList<QPair<QString, QString> > &ICookieJar::requestCookies()
-{
-    return m_raw->m_requestCookieParameters;
-}
-
 const QList<QPair<QString, QString> > &ICookieJar::requestCookies() const
 {
     return m_raw->m_requestCookieParameters;
