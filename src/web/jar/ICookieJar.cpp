@@ -17,7 +17,7 @@ const QList<QPair<QString, QString> > &ICookieJar::requestCookies() const
     return m_raw->m_requestCookieParameters;
 }
 
-ICookiePart ICookieJar::getRequestCookie(const QString &key, bool *ok)
+ICookiePart ICookieJar::getRequestCookie(const QString &key, bool *ok) const
 {
     auto& cookies = m_raw->m_requestCookieParameters;
     for(const auto& pair : cookies){

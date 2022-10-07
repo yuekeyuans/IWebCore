@@ -6,6 +6,16 @@ QString CookieJarController::requestCookies(ICookieJar &jar)
     return IJsonUtil::toString(map);
 }
 
+QString CookieJarController::getRequestCookie(const ICookieJar &jar)
+{
+    bool ok;
+    auto cookie = jar.getRequestCookie("hello", &ok);
+    if(ok){
+        return cookie.key + " " + cookie.value;
+    }
+    return "not exist";
+}
+
 QString CookieJarController::hasRequestCookie(ICookieJar &jar)
 {
     if(jar.containRequestCookieKey("hello")){
