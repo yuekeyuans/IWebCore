@@ -31,6 +31,20 @@ ICookiePart ICookieJar::getRequestCookie(const QString &key, bool *ok) const
     return {};
 }
 
+QList<ICookiePart> ICookieJar::getRequestCookies(const QString &key) const
+{
+    QList<ICookiePart> ret;
+
+    auto& cookies = m_raw->m_requestCookieParameters;
+    for(const auto& pair : cookies){
+        if(pair.first == key){
+            ret.append({pair.first, pair.second});
+        }
+    }
+
+    return ret;
+}
+
 QStringList ICookieJar::requestCookieKeys() const
 {
     const auto& cookies = m_raw->m_requestCookieParameters;
@@ -63,11 +77,22 @@ QString ICookieJar::getRequestCookieValue(const QString &key, bool *ok)
     return "";
 }
 
-void ICookieJar::deleteRequestCookie(const QString &key)
+QStringList ICookieJar::getRequestCookieValues(const QString &key)
 {
-    bool ok;
-    auto value = getRequestCookieValue(key, &ok);
-    if(ok){
+    QStringList ret;
+
+    for(const auto& pair  : m_raw->m_requestCookieParameters){
+        if(pair.first == key){
+            ret.append(pair.second);
+        }
+    }
+    return ret;
+}
+
+void ICookieJar::deleteRequestCookies(const QString &key)
+{
+    auto values = getRequestCookieValues(key);
+    for(const auto& value : values){
         ICookiePart part(key, value, -1);
         addResponseCookie(part);
     }

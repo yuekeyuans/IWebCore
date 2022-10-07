@@ -24,12 +24,14 @@ public:
     // request
     const QList<QPair<QString, QString>>& requestCookies() const;
     ICookiePart getRequestCookie(const QString& key, bool *ok) const;
+    QList<ICookiePart> getRequestCookies(const QString& key) const;
 
     QStringList requestCookieKeys() const;
     bool containRequestCookieKey(const QString& key) const;
-    QString getRequestCookieValue(const QString&key, bool* ok);
+    QString getRequestCookieValue(const QString& key, bool* ok);
+    QStringList getRequestCookieValues(const QString& key);
 
-    void deleteRequestCookie(const QString& key);
+    void deleteRequestCookies(const QString& key);
 
     // response
     QList<ICookiePart>& responseCookies();
