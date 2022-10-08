@@ -17,19 +17,21 @@ const QList<QPair<QString, QString> > &ICookieJar::requestCookies() const
     return m_raw->m_requestCookieParameters;
 }
 
-// this function is used to return the first cookie-part, but when not one part found, the *ok is false
+// this function is used to return one cookie-part, but when not one part found, the *ok is false
 ICookiePart ICookieJar::getRequestCookie(const QString &key, bool& ok) const
 {
     ICookiePart cookie;
+    int count = 0;
+
     auto& cookies = m_raw->m_requestCookieParameters;
     for(const auto& pair : cookies){
         if(pair.first == key){
-            IToeUtil::setOk(ok, true);
+            count ++;
             cookie = {pair.first, pair.second};
         }
     }
 
-    IToeUtil::setOk(ok, false);
+    IToeUtil::setOk(ok, count == 1);
     return cookie;
 }
 
@@ -67,16 +69,19 @@ bool ICookieJar::containRequestCookieKey(const QString &key) const
     return false;
 }
 
-QString ICookieJar::getRequestCookieValue(const QString &key, bool *ok)
+QString ICookieJar::getRequestCookieValue(const QString &key, bool &ok)
 {
+    QString ret;
+
+    int count{0};
     for(const auto& pair  : m_raw->m_requestCookieParameters){
         if(pair.first == key){
-            IToeUtil::setOk(ok, true);
-            return pair.second;
+            count ++;
+            ret = pair.second;
         }
     }
-    IToeUtil::setOk(ok, false);
-    return "";
+    IToeUtil::setOk(ok, count == 1);
+    return ret;
 }
 
 QStringList ICookieJar::getRequestCookieValues(const QString &key)

@@ -26,7 +26,7 @@ public:
 
     QStringList requestCookieKeys() const;
     bool containRequestCookieKey(const QString& key) const;
-    QString getRequestCookieValue(const QString& key, bool* ok);
+    QString getRequestCookieValue(const QString& key, bool& ok);
     QStringList getRequestCookieValues(const QString& key);
 
     void deleteRequestCookies(const QString& key);
