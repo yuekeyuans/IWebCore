@@ -9,8 +9,6 @@
 
 $PackageWebCoreBegin
 
-// TODO:  cookie 理论上会有多个相同名称的值，所以这里需要特殊处理
-
 class ICookieJar : public IJarUnit, IRegisterMetaTypeUnit<ICookieJar>
 {
     Q_GADGET
@@ -23,7 +21,7 @@ public:
 
     // request
     const QList<QPair<QString, QString>>& requestCookies() const;
-    ICookiePart getRequestCookie(const QString& key, bool *ok) const;
+    ICookiePart getRequestCookie(const QString& key, bool& ok) const;
     QList<ICookiePart> getRequestCookies(const QString& key) const;
 
     QStringList requestCookieKeys() const;

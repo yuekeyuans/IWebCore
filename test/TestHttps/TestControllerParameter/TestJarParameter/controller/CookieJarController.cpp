@@ -9,7 +9,7 @@ QString CookieJarController::requestCookies(ICookieJar &jar)
 QString CookieJarController::getRequestCookie(const ICookieJar &jar)
 {
     bool ok;
-    auto cookie = jar.getRequestCookie("hello", &ok);
+    auto cookie = jar.getRequestCookie("hello", ok);
     if(ok){
         return cookie.key + " " + cookie.value;
     }

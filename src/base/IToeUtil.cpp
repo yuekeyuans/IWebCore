@@ -1,8 +1,19 @@
 ﻿#include "IToeUtil.h"
 #include "IConstantUtil.h"
 
-
 $PackageWebCoreBegin
+
+void IToeUtil::setOk(bool &ok, bool value)
+{
+    ok = value;
+}
+
+void IToeUtil::setOk(bool *ok, bool value)
+{
+    if(ok != nullptr){
+        *ok = value;
+    }
+}
 
 void IToeUtil::setOk(bool condition, bool *ok, bool value)
 {
@@ -13,10 +24,10 @@ void IToeUtil::setOk(bool condition, bool *ok, bool value)
     }
 }
 
-void IToeUtil::setOk(bool *ok, bool value)
+void IToeUtil::setOk(bool condition, bool &ok, bool value)
 {
-    if(ok != nullptr){
-        *ok = value;
+    if(condition){
+        ok = value;
     }
 }
 
@@ -25,6 +36,37 @@ void IToeUtil::setOkAnd(bool *ok, bool value)
     if(ok != nullptr){
         *ok &= value;
     }
+}
+
+
+void IToeUtil::setOkAnd(bool &ok, bool value)
+{
+    ok &= value;
+}
+
+
+void IToeUtil::setOkOr(bool *ok, bool value)
+{
+    if(ok != nullptr){
+        *ok |= value;
+    }
+}
+
+void IToeUtil::setOkOr(bool &ok, bool value)
+{
+    ok |= value;
+}
+
+void IToeUtil::setOkXor(bool *ok, bool value)
+{
+    if(ok != nullptr){
+        *ok ^= value;
+    }
+}
+
+void IToeUtil::setOkXor(bool &ok, bool value)
+{
+    ok ^= value;
 }
 
 bool IToeUtil::isPrimaryKeyType(QMetaType::Type type)
@@ -71,6 +113,5 @@ QString IToeUtil::trimQuote(const QString &content)
     }
     return content;
 }
-
 
 $PackageWebCoreEnd
