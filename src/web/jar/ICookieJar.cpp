@@ -100,7 +100,7 @@ void ICookieJar::deleteRequestCookies(const QString &key)
 {
     auto values = getRequestCookieValues(key);
     for(const auto& value : values){
-        ICookiePart part(key, value, -1);
+        ICookiePart part(key, value, 0);
         addResponseCookie(part);
     }
 }

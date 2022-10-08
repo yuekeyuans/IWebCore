@@ -57,6 +57,16 @@ QString CookieJarController::hasRequestCookie(ICookieJar &jar)
     }
 }
 
+QString CookieJarController::deleteRequestCookie(ICookieJar &jar)
+{
+    if(jar.containRequestCookieKey("hello")){
+        jar.deleteRequestCookies("hello");
+        return "deleted";
+    }else{
+        return "not exist";
+    }
+}
+
 QString CookieJarController::addResponseCookie1(ICookieJar& jar)
 {
     jar.addResponseCookie("hello", "world");

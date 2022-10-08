@@ -27,6 +27,9 @@ public:
     $GetMapping(hasRequestCookie)
     QString hasRequestCookie(ICookieJar& jar);
 
+    $GetMapping(deleteRequestCookie)
+    QString deleteRequestCookie(ICookieJar& jar);
+
     $GetMapping(addResponseCookie1)        
     QString addResponseCookie1(ICookieJar& jar);
 };
