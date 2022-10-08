@@ -13,7 +13,13 @@ public:
     QString requestCookies(ICookieJar& jar);
 
     $GetMapping(getRequestCookie)
-    QString getRequestCookie(const ICookieJar& jar);
+    QString getRequestCookie(ICookieJar& jar);
+
+    $GetMapping(getRequestCookies)
+    QString getRequestCookies(const ICookieJar& jar);
+
+    $GetMapping(getRequestCookieValues)
+    QString getRequestCookieValues(const ICookieJar& jar);
 
     $GetMapping(hasRequestCookie)
     QString hasRequestCookie(ICookieJar& jar);

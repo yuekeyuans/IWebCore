@@ -69,7 +69,7 @@ bool ICookieJar::containRequestCookieKey(const QString &key) const
     return false;
 }
 
-QString ICookieJar::getRequestCookieValue(const QString &key, bool &ok)
+QString ICookieJar::getRequestCookieValue(const QString &key, bool &ok) const
 {
     QString ret;
 
@@ -84,7 +84,7 @@ QString ICookieJar::getRequestCookieValue(const QString &key, bool &ok)
     return ret;
 }
 
-QStringList ICookieJar::getRequestCookieValues(const QString &key)
+QStringList ICookieJar::getRequestCookieValues(const QString &key) const
 {
     QStringList ret;
 

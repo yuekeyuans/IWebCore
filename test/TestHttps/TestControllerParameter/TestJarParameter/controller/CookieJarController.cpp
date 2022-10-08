@@ -6,13 +6,34 @@ QString CookieJarController::requestCookies(ICookieJar &jar)
     return IJsonUtil::toString(map);
 }
 
-QString CookieJarController::getRequestCookie(const ICookieJar &jar)
+QString CookieJarController::getRequestCookie(ICookieJar &jar)
 {
     bool ok;
     auto cookie = jar.getRequestCookie("hello", ok);
-    if(ok){
-        return cookie.key + " " + cookie.value;
+    if(!ok){
+        return "exist error";
     }
+    return cookie.toHeaderString();
+}
+
+QString CookieJarController::getRequestCookies(const ICookieJar &jar)
+{
+    QStringList ret;
+    auto cookies = jar.getRequestCookies("hello");
+    for(const auto& cookie : cookies){
+        ret.append(cookie.toHeaderString());
+    }
+    return ret.join(", ");
+}
+
+QString CookieJarController::getRequestCookieValues(const ICookieJar &jar)
+{
+    QString key = "hello";
+    auto cookies = jar.getRequestCookieValues("hello");
+    if(!cookies.isEmpty()){
+        return key + " " + cookies.join(", ");
+    }
+
     return "not exist";
 }
 

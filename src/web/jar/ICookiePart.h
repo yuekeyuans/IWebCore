@@ -45,7 +45,7 @@ public:
     ICookiePart& setHttpOnly(bool httpOnly);
     ICookiePart& setSameSite(SameSiteType sameSite);
 
-    QString toHeaderString();
+    QString toHeaderString() const;
 
     bool isValid();
 

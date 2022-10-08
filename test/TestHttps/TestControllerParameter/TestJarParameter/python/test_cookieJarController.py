@@ -23,7 +23,7 @@ class TestClass:
         assert res2.text == "not exist"    
     
     def test_getRequestCookie(self):
-        url = wrapUrl("cookie/getRequestCookie")
+        url = wrapUrl("cookie/getRequestCookieValues")
         res = requests.get(url, cookies= {"hello" : "world"})
         assert res.text == "hello world"
         

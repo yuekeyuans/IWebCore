@@ -82,7 +82,7 @@ ICookiePart &ICookiePart::setSameSite(ICookiePart::SameSiteType sameSite)
     return *this;
 }
 
-QString ICookiePart::toHeaderString()
+QString ICookiePart::toHeaderString() const
 {
     QString header;
     header.append(IHttpHeader::SetCookie).append(": ")
