@@ -18,6 +18,9 @@ public:
     $GetMapping(getRequestCookies)
     QString getRequestCookies(const ICookieJar& jar);
 
+    $GetMapping(getRequestCookieValue)
+    QString getRequestCookieValue(const ICookieJar& jar);
+
     $GetMapping(getRequestCookieValues)
     QString getRequestCookieValues(const ICookieJar& jar);
 

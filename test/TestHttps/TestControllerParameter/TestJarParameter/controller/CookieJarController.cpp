@@ -26,6 +26,17 @@ QString CookieJarController::getRequestCookies(const ICookieJar &jar)
     return ret.join(", ");
 }
 
+QString CookieJarController::getRequestCookieValue(const ICookieJar &jar)
+{
+    bool ok;
+    auto cookie = jar.getRequestCookieValue("hello", ok);
+    if(!ok){
+        return "cookie error";
+    }
+
+    return cookie;
+}
+
 QString CookieJarController::getRequestCookieValues(const ICookieJar &jar)
 {
     QString key = "hello";
