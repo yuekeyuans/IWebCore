@@ -83,8 +83,8 @@
 //    return "hello world";
 //}
 
-QString CookieJarController::cookiePartTest(ICookiePart part)
+QString CookieJarController::cookiePartTest(ICookiePart hello)
 {
-    return "hello world";
+    return hello.value;
 }
 

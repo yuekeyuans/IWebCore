@@ -40,7 +40,7 @@ static QVector<int> PrimitiveTypes = {
 };
 
 static QVector<int> MultiPartTypes;
-static QVector<int> CookieTypes;
+static QVector<int> CookiePartTypes;
 static QVector<int> SessionTypes;
 
 static QVector<int> JsonTypes = {
@@ -62,7 +62,7 @@ namespace IControllerFunctionBaseImplHelper
 {
     void initSystemTypes();
     void initMultiPartTypes();
-    void initCookieTypes();
+    void initCookiePartTypes();
     void initSessionTypes();
     void initBeanTypes();
     void initJudgeTypes();
@@ -93,7 +93,7 @@ void *IControllerParamUtil::createArgParam(const IParamNode& node, IRequest &req
     static QVector<CreateParamFunType> funs = {
         &IControllerParamUtil::getParamOfSystem,
         &IControllerParamUtil::getParamOfMultipart,
-        &IControllerParamUtil::getParamOfCookie,
+        &IControllerParamUtil::getParamOfCookiePart,
         &IControllerParamUtil::getParamOfSession,
         &IControllerParamUtil::getParamOfPrimitiveType,
         &IControllerParamUtil::getParamOfStringType,
@@ -134,7 +134,7 @@ void IControllerParamUtil::destroyArgParam(const IParamNode& node, void *obj)
     static QVector<ReleaseParamFunType> funs = {
         &IControllerParamUtil::releaseParamOfSystem,
         &IControllerParamUtil::releaseParamOfMultipart,
-        &IControllerParamUtil::releaseParamOfCookie,
+        &IControllerParamUtil::releaseParamOfCookiePart,
         &IControllerParamUtil::releaseParamOfSession,
         &IControllerParamUtil::releaseParamOfPrimitiveType,
         &IControllerParamUtil::releaseParamOfStringType,
@@ -312,10 +312,29 @@ void *IControllerParamUtil::getParamOfMultipart(const IParamNode& node, IRequest
     return nullptr;
 }
 
-void *IControllerParamUtil::getParamOfCookie(const IParamNode &node, IRequest &request)
+void *IControllerParamUtil::getParamOfCookiePart(const IParamNode &node, IRequest &request)
 {
-    Q_UNUSED(node)
-    return &request.getRaw()->m_cookieJar;
+    ICookiePart* part{nullptr};
+
+    auto& cookies = request.getRaw()->m_requestCookieParameters;
+    int count {0};
+    for(auto& cookie : cookies){
+        if(cookie.first == node.paramName){
+            if(count == 0){
+                part = new ICookiePart(cookie.first, cookie.second);
+            }
+            count ++;
+        }
+    }
+
+    if(count == 0){
+        request.setInvalid(IHttpStatus::BAD_REQUEST_400, "ICookiePart does not have name " + node.paramName);
+    }else if(count > 1){
+        delete part;
+        part = nullptr;
+        request.setInvalid(IHttpStatus::BAD_REQUEST_400, "ICookiePart has more than one key, name: " + node.paramName);
+    }
+    return part;
 }
 
 void *IControllerParamUtil::getParamOfSession(const IParamNode &node, IRequest &request)
@@ -451,10 +470,15 @@ bool IControllerParamUtil::releaseParamOfMultipart(const IParamNode& node, void 
     return MultiPartTypes.contains(node.paramTypeId);
 }
 
-bool IControllerParamUtil::releaseParamOfCookie(const IParamNode &node, void *obj)
+// TODO:
+bool IControllerParamUtil::releaseParamOfCookiePart(const IParamNode &node, void *obj)
 {
-    Q_UNUSED(obj)
-    return CookieTypes.contains(node.paramTypeId);
+    if(obj != nullptr){
+        auto part = static_cast<ICookiePart*>(obj);
+        delete part;
+        part = nullptr;
+    }
+    return true;
 }
 
 bool IControllerParamUtil::releaseParamOfSession(const IParamNode &node, void *obj)
@@ -523,16 +547,17 @@ void IControllerFunctionBaseImplHelper::initMultiPartTypes(){
         const QString nmspace = "";
         MultiPartTypes << QMetaType::type((nmspace + "IMultiPart").toUtf8());
         MultiPartTypes << QMetaType::type((nmspace + "IMultiPart&").toUtf8());
+        qDebug() << MultiPartTypes;
     });
 }
 
-void IControllerFunctionBaseImplHelper::initCookieTypes(){
+void IControllerFunctionBaseImplHelper::initCookiePartTypes(){
     static std::once_flag flag;
     std::call_once(flag, [](){
 //        QString nmspace = QString($PackageWebCoreName).append("::");
         const QString nmspace = "";
-        MultiPartTypes << QMetaType::type((nmspace + "ICookie").toUtf8());
-        MultiPartTypes << QMetaType::type((nmspace + "ICookie&").toUtf8());
+        CookiePartTypes << QMetaType::type((nmspace + "ICookiePart").toUtf8());
+        CookiePartTypes << QMetaType::type((nmspace + "ICookiePart&").toUtf8());
     });
 }
 
@@ -566,7 +591,7 @@ void IControllerFunctionBaseImplHelper::initJudgeTypes(){
     std::call_once(flag, [](){
         JudgeTypes << SystemTypes;
         JudgeTypes << MultiPartTypes;
-        JudgeTypes << CookieTypes;
+        JudgeTypes << CookiePartTypes;
         JudgeTypes << SessionTypes;
         JudgeTypes << PrimitiveTypes;
         JudgeTypes << StringTypes;
@@ -597,6 +622,7 @@ void IControllerParamUtil::task()
 {
     IControllerFunctionBaseImplHelper::initSystemTypes();
     IControllerFunctionBaseImplHelper::initMultiPartTypes();
+    IControllerFunctionBaseImplHelper::initCookiePartTypes();
     IControllerFunctionBaseImplHelper::initBeanTypes();
     IControllerFunctionBaseImplHelper::initJudgeTypes();
 }

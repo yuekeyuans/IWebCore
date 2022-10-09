@@ -45,7 +45,7 @@ public:
 
     static void* getParamOfSystem(const IParamNode& node, IRequest& request);
     static void* getParamOfMultipart(const IParamNode& node, IRequest& request);
-    static void* getParamOfCookie(const IParamNode& node, IRequest& request);
+    static void* getParamOfCookiePart(const IParamNode& node, IRequest& request);
     static void* getParamOfSession(const IParamNode& node, IRequest& request);
     static void* getParamOfBean(const IParamNode& node, IRequest& request);
     static void* getParamOfJsonType(const IParamNode& node, IRequest& request);
@@ -54,7 +54,7 @@ public:
 
     static bool releaseParamOfSystem(const IParamNode& node, void *obj);
     static bool releaseParamOfMultipart(const IParamNode& node, void *obj);
-    static bool releaseParamOfCookie(const IParamNode& node, void *obj);
+    static bool releaseParamOfCookiePart(const IParamNode& node, void *obj);
     static bool releaseParamOfSession(const IParamNode& node, void *obj);
     static bool releaseParamOfBean(const IParamNode& node, void *obj);
     static bool releaseParamOfJsonType(const IParamNode& node, void *obj);

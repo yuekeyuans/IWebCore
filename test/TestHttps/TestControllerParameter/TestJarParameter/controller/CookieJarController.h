@@ -48,7 +48,7 @@ public:
 /////////////////////////////////////
 
     $GetMapping(cookiePartTest)
-    QString cookiePartTest(ICookiePart part);
+    QString cookiePartTest(ICookiePart hello);
 
 
 
