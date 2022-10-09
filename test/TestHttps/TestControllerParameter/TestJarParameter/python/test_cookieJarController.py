@@ -58,7 +58,6 @@ class TestClass:
     def test_getRequestCookieValues(self):
         pass
     
-    
     def test_deleteRequestCookieKey(self):
         url = wrapUrl("cookie/deleteRequestCookie")
         headers = {"Cookie" : "hello=world; hello=yuekeyuan"}
@@ -70,6 +69,11 @@ class TestClass:
 #-----------------------------------------------------------------
 # response
 #-----------------------------------------------------------------
+
+    def test_responseCookies(self):
+        url = wrapUrl("cookie/responseCookies")
+        res = requests.get(url)
+        assert "hello=world" in res.headers.values();
 
     
     def test_addResponseCookie1(self):

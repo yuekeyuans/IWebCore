@@ -9,6 +9,10 @@ class CookieJarController : public IControllerInterface<CookieJarController>
 public:
     CookieJarController() = default;
 
+/////////////////////////////////////
+// request
+/////////////////////////////////////
+
     $GetMapping(requestCookies)
     QString requestCookies(ICookieJar& jar);
 
@@ -30,6 +34,12 @@ public:
     $GetMapping(deleteRequestCookie)
     QString deleteRequestCookie(ICookieJar& jar);
 
+/////////////////////////////////////
+// response
+/////////////////////////////////////
     $GetMapping(addResponseCookie1)        
     QString addResponseCookie1(ICookieJar& jar);
+
+    $GetMapping(responseCookies)
+    QString responseCookies(ICookieJar& jar);
 };

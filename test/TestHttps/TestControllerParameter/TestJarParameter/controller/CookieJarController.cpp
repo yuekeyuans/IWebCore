@@ -67,9 +67,19 @@ QString CookieJarController::deleteRequestCookie(ICookieJar &jar)
     }
 }
 
+QString CookieJarController::responseCookies(ICookieJar &jar)
+{
+    jar.addResponseCookie("hello", "world");
+//    jar.addResponseCookie("yue", "keyuan", 100);
+
+    auto cookies = jar.responseCookies();
+    return cookies.first().toHeaderString();
+}
+
 QString CookieJarController::addResponseCookie1(ICookieJar& jar)
 {
     jar.addResponseCookie("hello", "world");
     return "hello world";
 }
+
 
