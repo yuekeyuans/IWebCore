@@ -435,28 +435,32 @@ void IControllerInterfaceImpl::checkMethodParamterWithSuffixProper(const IUrlAct
     }
 }
 
+// 检测是否可以添加后缀类型
 void IControllerInterfaceImpl::checkMethodParamterWithSuffixSet(const IUrlActionNode &node)
 {
     static const QStringList externalTypes ={
-        "IRequest", "IRequest&",
-        "IResponse", "IResponse&",
-        "IMultiPart", "IMultiPart&",
-        "ICookieJar", "ICookieJar&",
-        "ISessionJar", "ISessionJar&"
-        "QJsonValue", "QJsonValue&"
+        "IRequest",     "IRequest&",
+        "IResponse",    "IResponse&",
+        "IMultiPart",   "IMultiPart&",
+        "ICookieJar",   "ICookieJar&",
+        "ICookiePart",  "ICookiePart&"
+        "ISessionJar",  "ISessionJar&"
+        "QJsonValue",   "QJsonValue&"
     };
     if(node.ignoreParamCheck){
         return;
     }
     const auto& nodes = node.methodNode.paramNodes;
     for(auto param : nodes){
-        if(!externalTypes.contains(param.paramTypeName)){
-            if(!IControllerInterfaceImpHelper::isParamNameWithSuffix(param.paramName)){
-                IAssertInfo info;
-                info.reason = QString("At Function: ").append(node.methodNode.expression)
-                                   .append(" At Param: ").append(param.paramName);
-                $Ast->fatal("irequest_controller_function_with_param_not_marked", info);
-            }
+        if(externalTypes.contains(param.paramTypeName)){
+            continue;
+        }
+
+        if(!IControllerInterfaceImpHelper::isParamNameWithSuffix(param.paramName)){
+            IAssertInfo info;
+            info.reason = QString("At Function: ").append(node.methodNode.expression)
+                              .append(" At Param: ").append(param.paramName);
+            $Ast->fatal("irequest_controller_function_with_param_not_marked", info);
         }
     }
 }
@@ -468,6 +472,7 @@ bool IControllerInterfaceImpHelper::isSpecialTypes(const QString& typeName)
         "IResponse",    "IResponse&",
         "IMultiPart",   "IMultiPart&",
         "ICookieJar",   "ICookieJar&",
+        "ICookiePart",  "ICookiePart&"
         "ISessionJar",  "ISessionJar&",
         "IHeaderJar",   "IHeaderJar&"
     };
