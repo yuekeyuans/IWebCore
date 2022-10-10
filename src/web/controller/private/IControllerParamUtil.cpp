@@ -70,7 +70,7 @@ namespace IControllerFunctionBaseImplHelper
     void* convertParamToJson(const IParamNode &node, const QByteArray &content, bool* ok);
 }
 
-void IControllerParamUtil::createParams(const IMethodNode& methodNode, ParamType& params, IRequest &request)
+void IControllerParamUtil::createArguments(const IMethodNode& methodNode, ParamType& params, IRequest &request)
 {
     for(int i=0; i<=10; i++){
         params[i] = nullptr;
@@ -115,7 +115,7 @@ void *IControllerParamUtil::createArgParam(const IParamNode& node, IRequest &req
     return nullptr;
 }
 
-void IControllerParamUtil::destroyParams(const IMethodNode& node, void **params)
+void IControllerParamUtil::destroyArguments(const IMethodNode& node, void **params)
 {
     destroyReturnParam(params[0], node.returnTypeId);
 

@@ -24,11 +24,11 @@ private:
     IControllerParamUtil() = default;
 
 public:
-    static void createParams(const IMethodNode& methodNode, ParamType& params, IRequest& request);
+    static void createArguments(const IMethodNode& methodNode, ParamType& params, IRequest& request);
     static void *createReturnParam(int paramTypeId);
     static void *createArgParam(const IParamNode&node, IRequest& request);
 
-    static void destroyParams(const IMethodNode& node, void **params);
+    static void destroyArguments(const IMethodNode& node, void **params);
     static void destroyReturnParam(void *obj, int paramTypeId);
     static void destroyArgParam(const IParamNode& node, void *obj);
     static void resolveReturnValue(IResponse& response, const IMethodNode& functionNode, ParamType &params);

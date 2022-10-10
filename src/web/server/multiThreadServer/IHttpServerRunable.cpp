@@ -97,10 +97,10 @@ void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &respons
 {
     Q_UNUSED(response)
     IControllerParamUtil::ParamType params;
-    IControllerParamUtil::createParams(function->methodNode, params, request);
+    IControllerParamUtil::createArguments(function->methodNode, params, request);
 
     if(!request.valid()){   // unneeded, but write here for assurance
-        IControllerParamUtil::destroyParams(function->methodNode, params);
+        IControllerParamUtil::destroyArguments(function->methodNode, params);
         return;
     }
 
@@ -108,7 +108,7 @@ void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &respons
     auto enclosingObject = function->methodNode.metaMethod.enclosingMetaObject();
     enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params);
 
-    IControllerParamUtil::destroyParams(function->methodNode, params);
+    IControllerParamUtil::destroyArguments(function->methodNode, params);
 }
 
 void IHttpServerRunable::processInFunctionMode(IRequest &request, IResponse &response, IUrlActionNode *node)
@@ -119,10 +119,10 @@ void IHttpServerRunable::processInFunctionMode(IRequest &request, IResponse &res
 void IHttpServerRunable::processInMethodMode(IRequest &request, IResponse &response, IUrlActionNode *node)
 {
     IControllerParamUtil::ParamType params;
-    IControllerParamUtil::createParams(node->methodNode, params, request);
+    IControllerParamUtil::createArguments(node->methodNode, params, request);
 
     if(!request.valid()){           // 这里 request invalid 的情况产生于 数据转换的时候。
-        IControllerParamUtil::destroyParams(node->methodNode, params);
+        IControllerParamUtil::destroyArguments(node->methodNode, params);
         return;
     }
 
@@ -131,7 +131,7 @@ void IHttpServerRunable::processInMethodMode(IRequest &request, IResponse &respo
     enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params);
     IControllerParamUtil::resolveReturnValue(response, node->methodNode, params);
 
-    IControllerParamUtil::destroyParams(node->methodNode, params);
+    IControllerParamUtil::destroyArguments(node->methodNode, params);
 }
 
 void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &response, const QString &path)
