@@ -78,8 +78,12 @@ bool IControllerParamUtil::createArguments(const IMethodNode& methodNode, ParamT
 
     params[0] = createReturnParam(methodNode.returnTypeId);
 
+    bool ok;
     for(int i=0; i<methodNode.getParamCount(); i++){
-        params[i + 1] = createArgParam(methodNode.paramNodes[i], request);
+        params[i + 1] = createArgParam(methodNode.paramNodes[i], request, ok);
+        if(!ok){
+            return false;
+        }
     }
 
     return true;
@@ -141,7 +145,7 @@ void *IControllerParamUtil::createReturnParam(int paramTypeId)
     return QMetaType::create(paramTypeId);
 }
 
-void *IControllerParamUtil::createArgParam(const IParamNode& node, IRequest &request)
+void *IControllerParamUtil::createArgParam(const IParamNode& node, IRequest &request, bool& ok)
 {
     static QVector<CreateParamFunType> funs = {
         &IControllerParamUtil::getParamOfSystem,
@@ -154,10 +158,12 @@ void *IControllerParamUtil::createArgParam(const IParamNode& node, IRequest &req
         &IControllerParamUtil::getParamOfBean,
     };
 
+    IToeUtil::setOk(ok, true);
+
     int length = JudgeTypes.length();
     for(int i=0; i<length; i++){
         if(JudgeTypes[i].contains(node.paramTypeId)){
-            auto val = funs[i](node, request);
+            auto val = funs[i](node, request, ok);
             if(val == nullptr && request.valid()){  //意思是正常返回参数，单参数值是 nullptr, 这种情况不正常
                 qFatal(GiveColorSeeSee.toUtf8());       // TODO: 这个逻辑不对
             }
@@ -203,7 +209,7 @@ void IControllerParamUtil::destroyArgParam(const IParamNode& node, void *obj)
     qFatal(GiveColorSeeSee.toUtf8());
 }
 
-void *IControllerParamUtil::getParamOfSystem(const IParamNode& node, IRequest &request)
+void *IControllerParamUtil::getParamOfSystem(const IParamNode& node, IRequest &request, bool& ok)
 {
     if(node.paramTypeId == SystemTypes[0] || node.paramTypeId == SystemTypes[1]){
         return &request;
@@ -214,10 +220,12 @@ void *IControllerParamUtil::getParamOfSystem(const IParamNode& node, IRequest &r
     if(node.paramTypeId == SystemTypes[4] || node.paramTypeId == SystemTypes[5]){
         return request.cookieJar();
     }
+
+    IToeUtil::setOk(ok, false);
     return nullptr;
 }
 
-void *IControllerParamUtil::getParamOfMultipart(const IParamNode& node, IRequest &request)
+void *IControllerParamUtil::getParamOfMultipart(const IParamNode& node, IRequest &request, bool& ok)
 {
     auto& parts = request.getRaw()->m_requestMultiParts;
     for(auto& part : parts){
@@ -225,12 +233,12 @@ void *IControllerParamUtil::getParamOfMultipart(const IParamNode& node, IRequest
             return &part;
         }
     }
-
+    IToeUtil::setOk(ok, false);
     request.setInvalid(IHttpStatus::BAD_REQUEST_400, "multipart content do not have content name " + node.paramName);
     return nullptr;
 }
 
-void *IControllerParamUtil::getParamOfCookiePart(const IParamNode &node, IRequest &request)
+void *IControllerParamUtil::getParamOfCookiePart(const IParamNode &node, IRequest &request, bool& ok)
 {
     ICookiePart* part{nullptr};
 
@@ -255,18 +263,18 @@ void *IControllerParamUtil::getParamOfCookiePart(const IParamNode &node, IReques
     return part;
 }
 
-void *IControllerParamUtil::getParamOfSession(const IParamNode &node, IRequest &request)
+void *IControllerParamUtil::getParamOfSession(const IParamNode &node, IRequest &request, bool& ok)
 {
     Q_UNUSED(node)
     return request.sessionJar();
 }
 
-void *IControllerParamUtil::getParamOfBean(const IParamNode& node, IRequest &request)
+void *IControllerParamUtil::getParamOfBean(const IParamNode& node, IRequest &request, bool& ok)
 {
     return IControllerParamBeanUtil::getParamOfBean(node, request);
 }
 
-void *IControllerParamUtil::getParamOfJsonType(const IParamNode& node, IRequest &request)
+void *IControllerParamUtil::getParamOfJsonType(const IParamNode& node, IRequest &request, bool& ok)
 {
     bool convertOk;
     QByteArray content;
@@ -287,7 +295,7 @@ void *IControllerParamUtil::getParamOfJsonType(const IParamNode& node, IRequest 
     return ptr;
 }
 
-void *IControllerParamUtil::getParamOfPrimitiveType(const IParamNode &node, IRequest &request)
+void *IControllerParamUtil::getParamOfPrimitiveType(const IParamNode &node, IRequest &request, bool&)
 {
     bool ok = true;
     const QString paramName = node.paramName;
@@ -353,7 +361,7 @@ void *IControllerParamUtil::getParamOfPrimitiveType(const IParamNode &node, IReq
     return param;
 }
 
-void *IControllerParamUtil::getParamOfStringType(const IParamNode &node, IRequest &request)
+void *IControllerParamUtil::getParamOfStringType(const IParamNode &node, IRequest &request, bool& ok)
 {
     bool convertOk = true;
     QByteArray content;
