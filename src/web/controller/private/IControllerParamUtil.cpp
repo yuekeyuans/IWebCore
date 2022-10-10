@@ -29,8 +29,13 @@ $UseAssert(IWebAssert)
 static const QString GiveColorSeeSee = QStringLiteral("浪额康康四辣锅削阔爱");
 
 static QVector<int> SystemTypes;
+static QVector<int> MultiPartTypes;
+static QVector<int> CookiePartTypes;
+static QVector<int> SessionTypes;
+static QVector<int> BeanTypes;
+static QVector<QVector<int>> JudgeTypes;
 
-static QVector<int> PrimitiveTypes = {
+static const QVector<int> PrimitiveTypes = {
     QMetaType::Bool,
     QMetaType::Short, QMetaType::UShort,
     QMetaType::Int, QMetaType::UInt,
@@ -39,34 +44,19 @@ static QVector<int> PrimitiveTypes = {
     QMetaType::Float, QMetaType::Double
 };
 
-static QVector<int> MultiPartTypes;
-static QVector<int> CookiePartTypes;
-static QVector<int> SessionTypes;
-
-static QVector<int> JsonTypes = {
+static const QVector<int> JsonTypes = {
     QMetaType::QJsonValue,
     QMetaType::QJsonArray,
     QMetaType::QJsonObject
 };
 
-static QVector<int> StringTypes = {
+static const QVector<int> StringTypes = {
     QMetaType::QString,
     QMetaType::QByteArray
 };
 
-static QVector<int> BeanTypes;
-
-static QVector<QVector<int>> JudgeTypes;
-
 namespace IControllerFunctionBaseImplHelper
 {
-    void initSystemTypes();
-    void initMultiPartTypes();
-    void initCookiePartTypes();
-    void initSessionTypes();
-    void initBeanTypes();
-    void initJudgeTypes();
-
     void* convertParamToJson(const IParamNode &node, const QByteArray &content, bool* ok);
 }
 
@@ -547,7 +537,7 @@ QSharedPointer<IResponseWare> IControllerParamUtil::createInterfaceReturnInstanc
     return instance;
 }
 
-void IControllerFunctionBaseImplHelper::initSystemTypes(){
+void IControllerParamUtil::initSystemTypes(){
     static std::once_flag flag;
     std::call_once(flag, [](){
         QString nmspace = QString($PackageWebCoreName).append("::");
@@ -560,7 +550,7 @@ void IControllerFunctionBaseImplHelper::initSystemTypes(){
     });
 }
 
-void IControllerFunctionBaseImplHelper::initMultiPartTypes(){
+void IControllerParamUtil::initMultiPartTypes(){
     static std::once_flag flag;
     std::call_once(flag, [](){
 //        QString nmspace = QString($PackageWebCoreName).append("::");
@@ -571,7 +561,7 @@ void IControllerFunctionBaseImplHelper::initMultiPartTypes(){
     });
 }
 
-void IControllerFunctionBaseImplHelper::initCookiePartTypes(){
+void IControllerParamUtil::initCookiePartTypes(){
     static std::once_flag flag;
     std::call_once(flag, [](){
 //        QString nmspace = QString($PackageWebCoreName).append("::");
@@ -581,7 +571,7 @@ void IControllerFunctionBaseImplHelper::initCookiePartTypes(){
     });
 }
 
-void IControllerFunctionBaseImplHelper::initSessionTypes(){
+void IControllerParamUtil::initSessionTypes(){
     static std::once_flag flag;
     std::call_once(flag, [](){
 //        QString nmspace = QString($PackageWebCoreName).append("::");
@@ -591,7 +581,7 @@ void IControllerFunctionBaseImplHelper::initSessionTypes(){
     });
 }
 
-void IControllerFunctionBaseImplHelper::initBeanTypes(){
+void IControllerParamUtil::initBeanTypes(){
     static std::once_flag flag;
     std::call_once(flag, [](){
         for(int id=QMetaType::User; ; id++){
@@ -606,7 +596,7 @@ void IControllerFunctionBaseImplHelper::initBeanTypes(){
     });
 }
 
-void IControllerFunctionBaseImplHelper::initJudgeTypes(){
+void IControllerParamUtil::initJudgeTypes(){
     static std::once_flag flag;
     std::call_once(flag, [](){
         JudgeTypes << SystemTypes;
@@ -640,11 +630,11 @@ void* IControllerFunctionBaseImplHelper::convertParamToJson(const IParamNode &no
 
 void IControllerParamUtil::task()
 {
-    IControllerFunctionBaseImplHelper::initSystemTypes();
-    IControllerFunctionBaseImplHelper::initMultiPartTypes();
-    IControllerFunctionBaseImplHelper::initCookiePartTypes();
-    IControllerFunctionBaseImplHelper::initBeanTypes();
-    IControllerFunctionBaseImplHelper::initJudgeTypes();
+    IControllerParamUtil::initSystemTypes();
+    IControllerParamUtil::initMultiPartTypes();
+    IControllerParamUtil::initCookiePartTypes();
+    IControllerParamUtil::initBeanTypes();
+    IControllerParamUtil::initJudgeTypes();
 }
 
 $PackageWebCoreEnd

@@ -66,6 +66,14 @@ private:
     static QSharedPointer<IResponseWare> createInterfaceReturnInstance(void** params);
 
 private:
+    static void initSystemTypes();
+    static void initMultiPartTypes();
+    static void initCookiePartTypes();
+    static void initSessionTypes();
+    static void initBeanTypes();
+    static void initJudgeTypes();
+
+private:
     virtual void task() final;
     friend class IInitializationTaskUnit<IControllerParamUtil>;
 };
