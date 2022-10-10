@@ -84,4 +84,23 @@ class TestClass:
         print(res.text)
         print(res.cookies["hello"])
         
+    def test_cookiePartTest(self):
+        url = wrapUrl("cookie/cookiePartTest")
+        res = requests.get(url, cookies= {"hello" : "world"})
+        assert res.text == "world"
+        
+        res = requests.get(url)
+        print(res.text)
+        assert res.status_code == 400
+        
+    def test_cookiePartTest(self):
+        url = wrapUrl("cookie/cookiePartRefTest")
+        res = requests.get(url, cookies= {"hello" : "world"})
+        assert res.text == "world"
+        
+        res = requests.get(url)
+        print(res.text)
+        assert res.status_code == 400
+
+
 
