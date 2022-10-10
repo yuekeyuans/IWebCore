@@ -97,9 +97,8 @@ void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &respons
 {
     Q_UNUSED(response)
     IControllerParamUtil::ParamType params;
-    IControllerParamUtil::createArguments(function->methodNode, params, request);
-
-    if(!request.valid()){   // unneeded, but write here for assurance
+    bool ok = IControllerParamUtil::createArguments(function->methodNode, params, request);
+    if(!ok){
         IControllerParamUtil::destroyArguments(function->methodNode, params);
         return;
     }
@@ -119,9 +118,8 @@ void IHttpServerRunable::processInFunctionMode(IRequest &request, IResponse &res
 void IHttpServerRunable::processInMethodMode(IRequest &request, IResponse &response, IUrlActionNode *node)
 {
     IControllerParamUtil::ParamType params;
-    IControllerParamUtil::createArguments(node->methodNode, params, request);
-
-    if(!request.valid()){           // 这里 request invalid 的情况产生于 数据转换的时候。
+    auto ok = IControllerParamUtil::createArguments(node->methodNode, params, request);
+    if(!ok){
         IControllerParamUtil::destroyArguments(node->methodNode, params);
         return;
     }

@@ -15,6 +15,7 @@ struct IParamNode;
 class IControllerParamUtil : public IInitializationTaskUnit<IControllerParamUtil>
 {
     $UseInstance(IControllerParamUtil)
+    Q_DISABLE_COPY_MOVE(IControllerParamUtil)
 public:
     using ParamType = void*[11];
     using CreateParamFunType = void*(*)(const IParamNode& node, IRequest& request);
@@ -24,25 +25,17 @@ private:
     IControllerParamUtil() = default;
 
 public:
-    static void createArguments(const IMethodNode& methodNode, ParamType& params, IRequest& request);
-    static void *createReturnParam(int paramTypeId);
-    static void *createArgParam(const IParamNode&node, IRequest& request);
-
+    static bool createArguments(const IMethodNode& methodNode, ParamType& params, IRequest& request);
     static void destroyArguments(const IMethodNode& node, void **params);
-    static void destroyReturnParam(void *obj, int paramTypeId);
-    static void destroyArgParam(const IParamNode& node, void *obj);
     static void resolveReturnValue(IResponse& response, const IMethodNode& functionNode, ParamType &params);
 
-    static void wrapVoidReturnInstance(IResponse& response, const IMethodNode& functionNode, ParamType &params);
-    static QSharedPointer<IResponseWare> createStringReturnInstance(void** params);
-    static QSharedPointer<IResponseWare> createIntReturnInstance(void** params);
-    static QSharedPointer<IResponseWare> createJsonValueReturnInstance(void** params);
-    static QSharedPointer<IResponseWare> createJsonObjectReturnInstance(void** params);
-    static QSharedPointer<IResponseWare> createJsonArrayReturnInstance(void** params);
-    static QSharedPointer<IResponseWare> createByteArrayReturnInstance(void** params);
-    static QSharedPointer<IResponseWare> createStringListReturnType(void** params);
-    static QSharedPointer<IResponseWare> createInterfaceReturnInstance(void** params);
+private:
+    static void *createReturnParam(int paramTypeId);
+    static void *createArgParam(const IParamNode&node, IRequest& request);
+    static void destroyReturnParam(void *obj, int paramTypeId);
+    static void destroyArgParam(const IParamNode& node, void *obj);
 
+private:
     static void* getParamOfSystem(const IParamNode& node, IRequest& request);
     static void* getParamOfMultipart(const IParamNode& node, IRequest& request);
     static void* getParamOfCookiePart(const IParamNode& node, IRequest& request);
@@ -60,6 +53,17 @@ public:
     static bool releaseParamOfJsonType(const IParamNode& node, void *obj);
     static bool releaseParamOfPrimitiveType(const IParamNode& node, void *obj);
     static bool releaseParamOfStringType(const IParamNode& node, void *obj);
+
+private:
+    static void wrapVoidReturnInstance(IResponse& response, const IMethodNode& functionNode, ParamType &params);
+    static QSharedPointer<IResponseWare> createStringReturnInstance(void** params);
+    static QSharedPointer<IResponseWare> createIntReturnInstance(void** params);
+    static QSharedPointer<IResponseWare> createJsonValueReturnInstance(void** params);
+    static QSharedPointer<IResponseWare> createJsonObjectReturnInstance(void** params);
+    static QSharedPointer<IResponseWare> createJsonArrayReturnInstance(void** params);
+    static QSharedPointer<IResponseWare> createByteArrayReturnInstance(void** params);
+    static QSharedPointer<IResponseWare> createStringListReturnType(void** params);
+    static QSharedPointer<IResponseWare> createInterfaceReturnInstance(void** params);
 
 public:
     virtual void task() final;

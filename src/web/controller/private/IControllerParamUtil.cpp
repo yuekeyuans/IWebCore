@@ -70,7 +70,7 @@ namespace IControllerFunctionBaseImplHelper
     void* convertParamToJson(const IParamNode &node, const QByteArray &content, bool* ok);
 }
 
-void IControllerParamUtil::createArguments(const IMethodNode& methodNode, ParamType& params, IRequest &request)
+bool IControllerParamUtil::createArguments(const IMethodNode& methodNode, ParamType& params, IRequest &request)
 {
     for(int i=0; i<=10; i++){
         params[i] = nullptr;
@@ -81,38 +81,8 @@ void IControllerParamUtil::createArguments(const IMethodNode& methodNode, ParamT
     for(int i=0; i<methodNode.getParamCount(); i++){
         params[i + 1] = createArgParam(methodNode.paramNodes[i], request);
     }
-}
 
-void *IControllerParamUtil::createReturnParam(int paramTypeId)
-{
-    return QMetaType::create(paramTypeId);
-}
-
-void *IControllerParamUtil::createArgParam(const IParamNode& node, IRequest &request)
-{
-    static QVector<CreateParamFunType> funs = {
-        &IControllerParamUtil::getParamOfSystem,
-        &IControllerParamUtil::getParamOfMultipart,
-        &IControllerParamUtil::getParamOfCookiePart,
-        &IControllerParamUtil::getParamOfSession,
-        &IControllerParamUtil::getParamOfPrimitiveType,
-        &IControllerParamUtil::getParamOfStringType,
-        &IControllerParamUtil::getParamOfJsonType,
-        &IControllerParamUtil::getParamOfBean,
-    };
-
-    int length = JudgeTypes.length();
-    for(int i=0; i<length; i++){
-        if(JudgeTypes[i].contains(node.paramTypeId)){
-            auto val = funs[i](node, request);
-            if(val == nullptr && request.valid()){  //意思是正常返回参数，单参数值是 nullptr, 这种情况不正常
-                qFatal(GiveColorSeeSee.toUtf8());       // TODO: 这个逻辑不对
-            }
-            return val;
-        }
-    }
-    qFatal(GiveColorSeeSee.toUtf8());
-    return nullptr;
+    return true;
 }
 
 void IControllerParamUtil::destroyArguments(const IMethodNode& node, void **params)
@@ -122,41 +92,6 @@ void IControllerParamUtil::destroyArguments(const IMethodNode& node, void **para
     for(int i=0; i<node.getParamCount(); i++){
         destroyArgParam(node.paramNodes[i], params[i+1]);
     }
-}
-
-void IControllerParamUtil::destroyReturnParam(void *obj, int paramTypeId)
-{
-    QMetaType::destroy(paramTypeId, obj);
-}
-
-void IControllerParamUtil::destroyArgParam(const IParamNode& node, void *obj)
-{
-    static QVector<ReleaseParamFunType> funs = {
-        &IControllerParamUtil::releaseParamOfSystem,
-        &IControllerParamUtil::releaseParamOfMultipart,
-        &IControllerParamUtil::releaseParamOfCookiePart,
-        &IControllerParamUtil::releaseParamOfSession,
-        &IControllerParamUtil::releaseParamOfPrimitiveType,
-        &IControllerParamUtil::releaseParamOfStringType,
-        &IControllerParamUtil::releaseParamOfJsonType,
-        &IControllerParamUtil::releaseParamOfBean,
-    };
-
-    if(obj == nullptr){
-        return;
-    }
-
-    int length = JudgeTypes.length();
-    for(int i=0; i<length; i++){
-        if(JudgeTypes[i].contains(node.paramTypeId)){
-            auto val = funs[i](node, obj);
-            if(val == false){
-                qFatal(GiveColorSeeSee.toUtf8());
-            }
-            return;
-        }
-    }
-    qFatal(GiveColorSeeSee.toUtf8());
 }
 
 void IControllerParamUtil::resolveReturnValue(IResponse& response, const IMethodNode& functionNode, ParamType &params)
@@ -201,88 +136,71 @@ void IControllerParamUtil::resolveReturnValue(IResponse& response, const IMethod
     response.setContent(instance.data());
 }
 
-void IControllerParamUtil::wrapVoidReturnInstance(IResponse &response, const IMethodNode &functionNode, ParamType &params)
+void *IControllerParamUtil::createReturnParam(int paramTypeId)
 {
-    Q_UNUSED(functionNode)
-    Q_UNUSED(params)
-    if(response.mime() == IHttpMimeHelper::MIME_UNKNOWN_STRING){
-        response.setMime(IHttpMime::TEXT_PLAIN_UTF8);
-        $Ast->warn("process_void_return_with_request_not_set_mime_error");
+    return QMetaType::create(paramTypeId);
+}
+
+void *IControllerParamUtil::createArgParam(const IParamNode& node, IRequest &request)
+{
+    static QVector<CreateParamFunType> funs = {
+        &IControllerParamUtil::getParamOfSystem,
+        &IControllerParamUtil::getParamOfMultipart,
+        &IControllerParamUtil::getParamOfCookiePart,
+        &IControllerParamUtil::getParamOfSession,
+        &IControllerParamUtil::getParamOfPrimitiveType,
+        &IControllerParamUtil::getParamOfStringType,
+        &IControllerParamUtil::getParamOfJsonType,
+        &IControllerParamUtil::getParamOfBean,
+    };
+
+    int length = JudgeTypes.length();
+    for(int i=0; i<length; i++){
+        if(JudgeTypes[i].contains(node.paramTypeId)){
+            auto val = funs[i](node, request);
+            if(val == nullptr && request.valid()){  //意思是正常返回参数，单参数值是 nullptr, 这种情况不正常
+                qFatal(GiveColorSeeSee.toUtf8());       // TODO: 这个逻辑不对
+            }
+            return val;
+        }
     }
-    if(response.status() == IHttpStatus::UNKNOWN){
-        response.setStatus(IHttpStatus::OK_200);
-        $Ast->warn("process_void_return_with_request_not_set_status_error");
+    qFatal(GiveColorSeeSee.toUtf8());
+    return nullptr;
+}
+
+void IControllerParamUtil::destroyReturnParam(void *obj, int paramTypeId)
+{
+    QMetaType::destroy(paramTypeId, obj);
+}
+
+void IControllerParamUtil::destroyArgParam(const IParamNode& node, void *obj)
+{
+    static QVector<ReleaseParamFunType> funs = {
+        &IControllerParamUtil::releaseParamOfSystem,
+        &IControllerParamUtil::releaseParamOfMultipart,
+        &IControllerParamUtil::releaseParamOfCookiePart,
+        &IControllerParamUtil::releaseParamOfSession,
+        &IControllerParamUtil::releaseParamOfPrimitiveType,
+        &IControllerParamUtil::releaseParamOfStringType,
+        &IControllerParamUtil::releaseParamOfJsonType,
+        &IControllerParamUtil::releaseParamOfBean,
+    };
+
+    if(obj == nullptr){
+        return;
     }
-}
 
-QSharedPointer<IResponseWare> IControllerParamUtil::createStringReturnInstance(void **params)
-{
-    QSharedPointer<IResponseWare> instance;
-    auto value = *static_cast<QString*>(params[0]);
-    IResponseWare* response;
-    if(value.startsWith("$") && (response = IResponseManage::convertMatch(value)) != nullptr){
-        instance = response->createInstance();
-    }else{
-        instance = IPlainTextResponse::createIPlainTexInstance();
+    int length = JudgeTypes.length();
+    for(int i=0; i<length; i++){
+        if(JudgeTypes[i].contains(node.paramTypeId)){
+            auto val = funs[i](node, obj);
+            if(val == false){
+                qFatal(GiveColorSeeSee.toUtf8());
+            }
+            return;
+        }
     }
-    instance->setInstanceArg(std::move(value)); // 这一个是使用 QString 传入参数，其他的全部使用 void* 传入
-    return instance;
-}
-
-QSharedPointer<IResponseWare> IControllerParamUtil::createIntReturnInstance(void **params)
-{
-    auto instance = IStatusCodeResponse::createStatusCodeInstance();
-    instance->setInstanceArg(params[0]);
-    return instance;
-}
-
-QSharedPointer<IResponseWare> IControllerParamUtil::createJsonValueReturnInstance(void **params)
-{
-    static const QString suffix = "QJsonValue";
-    auto instance = IJsonResponse::createJsonInstance();
-    instance->setInstanceArg(params[0], suffix);
-    return instance;
-}
-
-QSharedPointer<IResponseWare> IControllerParamUtil::createJsonObjectReturnInstance(void **params)
-{
-    static const QString suffix = "QJsonObject";
-    auto instance = IJsonResponse::createJsonInstance();
-    instance->setInstanceArg(params[0], suffix);
-    return instance;
-}
-
-QSharedPointer<IResponseWare> IControllerParamUtil::createJsonArrayReturnInstance(void **params)
-{
-    static const QString suffix = "QJsonArray";
-    auto instance = IJsonResponse::createJsonInstance();
-    instance->setInstanceArg(params[0], suffix);
-    return instance;
-}
-
-QSharedPointer<IResponseWare> IControllerParamUtil::createByteArrayReturnInstance(void **params)
-{
-    auto instance = IByteArrayResponse::createByteArrayInstance();
-    instance->setInstanceArg(params[0]);
-    return instance;
-}
-
-QSharedPointer<IResponseWare> IControllerParamUtil::createStringListReturnType(void **params)
-{
-    auto value = static_cast<QStringList*>(params[0]);
-    auto string = IConvertUtil::toString(*value);
-    auto instance = IPlainTextResponse::createIPlainTexInstance();
-    instance->setInstanceArg(std::move(string));
-    return instance;
-}
-
-// 这个地方应该是拷贝instance, 而不是 放置数据
-QSharedPointer<IResponseWare> IControllerParamUtil::createInterfaceReturnInstance(void **params)
-{
-    auto value = static_cast<IResponseWare*>(params[0]);
-    auto instance = value->createInstance();
-    instance->setInstanceCopy(value);
-    return instance;
+    qFatal(GiveColorSeeSee.toUtf8());
 }
 
 void *IControllerParamUtil::getParamOfSystem(const IParamNode& node, IRequest &request)
@@ -473,6 +391,7 @@ bool IControllerParamUtil::releaseParamOfMultipart(const IParamNode& node, void 
 // TODO:
 bool IControllerParamUtil::releaseParamOfCookiePart(const IParamNode &node, void *obj)
 {
+    Q_UNUSED(node)
     if(obj != nullptr){
         auto part = static_cast<ICookiePart*>(obj);
         delete part;
@@ -525,6 +444,90 @@ bool IControllerParamUtil::releaseParamOfStringType(const IParamNode &node, void
         return true;
     }
     return false;
+}
+
+void IControllerParamUtil::wrapVoidReturnInstance(IResponse &response, const IMethodNode &functionNode, ParamType &params)
+{
+    Q_UNUSED(functionNode)
+    Q_UNUSED(params)
+    if(response.mime() == IHttpMimeHelper::MIME_UNKNOWN_STRING){
+        response.setMime(IHttpMime::TEXT_PLAIN_UTF8);
+        $Ast->warn("process_void_return_with_request_not_set_mime_error");
+    }
+    if(response.status() == IHttpStatus::UNKNOWN){
+        response.setStatus(IHttpStatus::OK_200);
+        $Ast->warn("process_void_return_with_request_not_set_status_error");
+    }
+}
+
+QSharedPointer<IResponseWare> IControllerParamUtil::createStringReturnInstance(void **params)
+{
+    QSharedPointer<IResponseWare> instance;
+    auto value = *static_cast<QString*>(params[0]);
+    IResponseWare* response;
+    if(value.startsWith("$") && (response = IResponseManage::convertMatch(value)) != nullptr){
+        instance = response->createInstance();
+    }else{
+        instance = IPlainTextResponse::createIPlainTexInstance();
+    }
+    instance->setInstanceArg(std::move(value)); // 这一个是使用 QString 传入参数，其他的全部使用 void* 传入
+    return instance;
+}
+
+QSharedPointer<IResponseWare> IControllerParamUtil::createIntReturnInstance(void **params)
+{
+    auto instance = IStatusCodeResponse::createStatusCodeInstance();
+    instance->setInstanceArg(params[0]);
+    return instance;
+}
+
+QSharedPointer<IResponseWare> IControllerParamUtil::createJsonValueReturnInstance(void **params)
+{
+    static const QString suffix = "QJsonValue";
+    auto instance = IJsonResponse::createJsonInstance();
+    instance->setInstanceArg(params[0], suffix);
+    return instance;
+}
+
+QSharedPointer<IResponseWare> IControllerParamUtil::createJsonObjectReturnInstance(void **params)
+{
+    static const QString suffix = "QJsonObject";
+    auto instance = IJsonResponse::createJsonInstance();
+    instance->setInstanceArg(params[0], suffix);
+    return instance;
+}
+
+QSharedPointer<IResponseWare> IControllerParamUtil::createJsonArrayReturnInstance(void **params)
+{
+    static const QString suffix = "QJsonArray";
+    auto instance = IJsonResponse::createJsonInstance();
+    instance->setInstanceArg(params[0], suffix);
+    return instance;
+}
+
+QSharedPointer<IResponseWare> IControllerParamUtil::createByteArrayReturnInstance(void **params)
+{
+    auto instance = IByteArrayResponse::createByteArrayInstance();
+    instance->setInstanceArg(params[0]);
+    return instance;
+}
+
+QSharedPointer<IResponseWare> IControllerParamUtil::createStringListReturnType(void **params)
+{
+    auto value = static_cast<QStringList*>(params[0]);
+    auto string = IConvertUtil::toString(*value);
+    auto instance = IPlainTextResponse::createIPlainTexInstance();
+    instance->setInstanceArg(std::move(string));
+    return instance;
+}
+
+// 这个地方应该是拷贝instance, 而不是 放置数据
+QSharedPointer<IResponseWare> IControllerParamUtil::createInterfaceReturnInstance(void **params)
+{
+    auto value = static_cast<IResponseWare*>(params[0]);
+    auto instance = value->createInstance();
+    instance->setInstanceCopy(value);
+    return instance;
 }
 
 void IControllerFunctionBaseImplHelper::initSystemTypes(){
