@@ -96,6 +96,5 @@ QString CookieJarController::cookiePartRefTest(const ICookiePart &hello)
 
 QString CookieJarController::cookieValueTest($Cookie (const QString&, hello))
 {
-    hello.end();
-    return "";
+    return hello;
 }

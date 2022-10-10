@@ -316,9 +316,9 @@ void *IControllerParamUtil::getParamOfCookiePart(const IParamNode &node, IReques
 {
     ICookiePart* part{nullptr};
 
-    auto& cookies = request.getRaw()->m_requestCookieParameters;
+    const auto& cookies = request.getRaw()->m_requestCookieParameters;
     int count {0};
-    for(auto& cookie : cookies){
+    for(const auto& cookie : cookies){
         if(cookie.first == node.paramName){
             if(count == 0){
                 part = new ICookiePart(cookie.first, cookie.second);

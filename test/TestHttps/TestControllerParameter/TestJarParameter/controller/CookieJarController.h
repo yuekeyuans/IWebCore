@@ -57,6 +57,7 @@ public:
 // cookie value
 //////////////////////////////////////////
 
+    $GetMapping(cookieValueTest)
     QString cookieValueTest($Cookie(const QString&, hello));
 
 };

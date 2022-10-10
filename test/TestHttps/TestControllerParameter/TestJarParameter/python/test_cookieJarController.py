@@ -101,6 +101,15 @@ class TestClass:
         res = requests.get(url)
         print(res.text)
         assert res.status_code == 400
+        
+    def test_cookieValueTest(self):
+        url = wrapUrl("cookie/cookieValueTest")
+        res = requests.get(url, cookies={"hello" : "world"})
+        assert res.text == "world"
+        
+        headers = {"Cookie" : "hello=world; hello=yuekeyuan"}
+        res = requests.get(url, headers=headers)
+        assert res.status_code == 400
 
 
 
