@@ -188,11 +188,22 @@ QByteArray IRequestImpl::getCookieParameter(const QString &name, bool* ok) const
     IToeUtil::setOk(ok, true);
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
 
-    Q_UNUSED(originName)
+    QByteArray ret;
+    const auto& cookies = raw->m_requestCookieParameters;
+    int count{0};
+    for(const auto& cookie : cookies){
+        if(cookie.first == originName){
+            if(count == 0){
+                ret = cookie.second.toUtf8();
+            }
+            count ++;
+        }
+    }
 
-    qFatal("cookie current not supported");
-    IToeUtil::setOk(ok, false);
-    return {};
+    if(count != 1){
+        IToeUtil::setOk(ok, false);
+    }
+    return ret;
 }
 
 QByteArray IRequestImpl::getSessionParameter(const QString &name, bool* ok) const
@@ -337,7 +348,7 @@ QList<QPair<QString, IRequestImpl::FunType>> IRequestImpl::parameterResolverMap(
         {"_url",        &IRequestImpl::getUrlParameter},
         {"_header",     &IRequestImpl::getHeaderParameter},
 //        {"_content",    &IRequestImpl::getContentParameter },     // 这里并不包含 _content, 因为解析时 _content 的解析和其他的解析冲突
-        //        {"_cookie",     &IRequestImpl::getCookieParameter},
+        {"_cookie",     &IRequestImpl::getCookieParameter},
         //        {"_session",    &IRequestImpl::getSessionParameter},
         {"_app",        &IRequestImpl::getAppParameter},
         {"_system",     &IRequestImpl::getSystemParameter}

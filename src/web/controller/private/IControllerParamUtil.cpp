@@ -221,7 +221,7 @@ void *IControllerParamUtil::getParamOfSystem(const IParamNode& node, IRequest &r
         return request.cookieJar();
     }
 
-    IToeUtil::setOk(ok, false);
+    IToeUtil::setOk(ok, false);  // this impossible
     return nullptr;
 }
 
@@ -233,8 +233,9 @@ void *IControllerParamUtil::getParamOfMultipart(const IParamNode& node, IRequest
             return &part;
         }
     }
-    IToeUtil::setOk(ok, false);
     request.setInvalid(IHttpStatus::BAD_REQUEST_400, "multipart content do not have content name " + node.paramName);
+
+    IToeUtil::setOk(ok, false);
     return nullptr;
 }
 
@@ -255,10 +256,13 @@ void *IControllerParamUtil::getParamOfCookiePart(const IParamNode &node, IReques
 
     if(count == 0){
         request.setInvalid(IHttpStatus::BAD_REQUEST_400, "ICookiePart does not have name " + node.paramName);
+        IToeUtil::setOk(ok, false);
     }else if(count > 1){
         delete part;
         part = nullptr;
         request.setInvalid(IHttpStatus::BAD_REQUEST_400, "ICookiePart has more than one key, name: " + node.paramName);
+        IToeUtil::setOk(ok, false);
+        return part;
     }
     return part;
 }
@@ -266,16 +270,19 @@ void *IControllerParamUtil::getParamOfCookiePart(const IParamNode &node, IReques
 void *IControllerParamUtil::getParamOfSession(const IParamNode &node, IRequest &request, bool& ok)
 {
     Q_UNUSED(node)
+    Q_UNUSED(ok)
     return request.sessionJar();
 }
 
 void *IControllerParamUtil::getParamOfBean(const IParamNode& node, IRequest &request, bool& ok)
 {
+    Q_UNUSED(ok)
     return IControllerParamBeanUtil::getParamOfBean(node, request);
 }
 
 void *IControllerParamUtil::getParamOfJsonType(const IParamNode& node, IRequest &request, bool& ok)
 {
+
     bool convertOk;
     QByteArray content;
     if(node.paramName.endsWith("_content")){
@@ -284,6 +291,7 @@ void *IControllerParamUtil::getParamOfJsonType(const IParamNode& node, IRequest 
         content = request.getParameter(node.paramName, &convertOk);
         if(!convertOk){
             request.setInvalid(IHttpStatus::BAD_REQUEST_400, "convert to json fail. At " + node.paramTypeName + " " + node.paramName);
+            IToeUtil::setOk(ok, false);
             return nullptr;
         }
     }
@@ -291,13 +299,13 @@ void *IControllerParamUtil::getParamOfJsonType(const IParamNode& node, IRequest 
     auto ptr = IControllerFunctionBaseImplHelper::convertParamToJson(node, content, &convertOk);
     if(!convertOk){
         request.setInvalidIf(!convertOk, IHttpStatus::BAD_REQUEST_400, node.paramName + " can`t be converted to json type");
+        IToeUtil::setOk(ok, false);
     }
     return ptr;
 }
 
-void *IControllerParamUtil::getParamOfPrimitiveType(const IParamNode &node, IRequest &request, bool&)
+void *IControllerParamUtil::getParamOfPrimitiveType(const IParamNode &node, IRequest &request, bool& ok)
 {
-    bool ok = true;
     const QString paramName = node.paramName;
 
     QString content;
@@ -308,6 +316,7 @@ void *IControllerParamUtil::getParamOfPrimitiveType(const IParamNode &node, IReq
     }
     if(!ok || content.isEmpty()){
         request.setInvalid(IHttpStatus::BAD_REQUEST_400, paramName + " is empty to convert to any type");
+        IToeUtil::setOk(ok, false);
         return nullptr;
     }
 
@@ -358,21 +367,21 @@ void *IControllerParamUtil::getParamOfPrimitiveType(const IParamNode &node, IReq
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to double");
         break;
     }
+
     return param;
 }
 
 void *IControllerParamUtil::getParamOfStringType(const IParamNode &node, IRequest &request, bool& ok)
 {
-    bool convertOk = true;
     QByteArray content;
 
     if(node.paramName.endsWith("_content")){
         content = request.bodyContent();
     }else{
-        content = request.getParameter(node.paramName, &convertOk);
+        content = request.getParameter(node.paramName, &ok);
     }
 
-    if(convertOk){
+    if(ok){
         if(node.paramTypeId == QMetaType::QString){
             QString value = QString(content);
             return QMetaType::create(QMetaType::QString, &value);

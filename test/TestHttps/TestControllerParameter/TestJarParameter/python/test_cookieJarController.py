@@ -107,9 +107,9 @@ class TestClass:
         res = requests.get(url, cookies={"hello" : "world"})
         assert res.text == "world"
         
-        headers = {"Cookie" : "hello=world; hello=yuekeyuan"}
-        res = requests.get(url, headers=headers)
-        assert res.status_code == 400
+        # headers = {"Cookie" : "hello=world; hello=yuekeyuan"}
+        # res = requests.get(url, headers=headers)
+        # assert res.status_code == 400
 
 
 
