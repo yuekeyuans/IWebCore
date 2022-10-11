@@ -147,20 +147,14 @@ void *IControllerParamUtil::createArgParam(const IParamNode& node, IRequest &req
     };
 
     IToeUtil::setOk(ok, true);
-
     static int length = JudgeTypes.length();
     for(int i=0; i<length; i++){
         if(JudgeTypes[i].contains(node.paramTypeId)){
             return funs[i](node, request, ok);
-
-//            if(val == nullptr && request.valid()) {  //意思是正常返回参数，单参数值是 nullptr, 这种情况不正常
-//                qFatal(GiveColorSeeSee.toUtf8());
-//            }
-//            return val;
         }
     }
 
-    IToeUtil::setOk(ok, false);
+    qFatal("error");
     return nullptr;
 }
 
@@ -226,8 +220,8 @@ void *IControllerParamUtil::getParamOfSystem(const IParamNode& node, IRequest &r
 void *IControllerParamUtil::getParamOfMultipart(const IParamNode& node, IRequest &request, bool& ok)
 {
     auto& parts = request.getRaw()->m_requestMultiParts;
-    for(auto& part : parts){
-        if(part.name == node.paramName){
+    for(auto& part : parts) {
+        if(part.name == node.paramName) {
             return &part;
         }
     }
@@ -274,44 +268,32 @@ void *IControllerParamUtil::getParamOfBean(const IParamNode& node, IRequest &req
 
 void *IControllerParamUtil::getParamOfJsonType(const IParamNode& node, IRequest &request, bool& ok)
 {
-
-    bool convertOk;
-    QByteArray content;
-    if(node.paramName.endsWith("_content")){
-        content = request.bodyContent();
-    }else{
-        content = request.getParameter(node.paramName, &convertOk);
-        if(!convertOk){
-            request.setInvalid(IHttpStatus::BAD_REQUEST_400, "convert to json fail. At " + node.paramTypeName + " " + node.paramName);
-            IToeUtil::setOk(ok, false);
-            return nullptr;
-        }
+    const auto& content = node.paramName.endsWith("_content")
+                              ? request.bodyContent() : request.getParameter(node.paramName, &ok);
+    if(!ok){
+        request.setInvalid(IHttpStatus::BAD_REQUEST_400, "convert to json fail. At " + node.paramTypeName + " " + node.paramName);
+        return nullptr;
     }
 
-    auto ptr = IControllerFunctionBaseImplHelper::convertParamToJson(node, content, &convertOk);
-    if(!convertOk){
-        request.setInvalidIf(!convertOk, IHttpStatus::BAD_REQUEST_400, node.paramName + " can`t be converted to json type");
-        IToeUtil::setOk(ok, false);
+    auto ptr = IControllerFunctionBaseImplHelper::convertParamToJson(node, content, &ok);
+    if(!ok){
+        request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, node.paramName + " can`t be converted to json type");
     }
     return ptr;
 }
 
 void *IControllerParamUtil::getParamOfPrimitiveType(const IParamNode &node, IRequest &request, bool& ok)
-{
-    const QString paramName = node.paramName;
+{    
+    const auto& content = node.paramName.endsWith("_content")
+                              ? request.bodyContent() : request.getParameter(node.paramName, &ok);
 
-    QString content;
-    if(node.paramName.endsWith("_content")){
-        content = request.bodyContent();
-    }else{
-        content = request.getParameter(paramName, &ok);
-    }
     if(!ok || content.isEmpty()){
-        request.setInvalid(IHttpStatus::BAD_REQUEST_400, paramName + " is empty to convert to any type");
+        request.setInvalid(IHttpStatus::BAD_REQUEST_400, node.paramName + " is empty to convert to any type");
         IToeUtil::setOk(ok, false);
         return nullptr;
     }
 
+    const QString& paramName = node.paramName;
     auto param = QMetaType::create(node.paramTypeId);
     switch (node.paramTypeId) {
     case QMetaType::Bool :
@@ -365,13 +347,8 @@ void *IControllerParamUtil::getParamOfPrimitiveType(const IParamNode &node, IReq
 
 void *IControllerParamUtil::getParamOfStringType(const IParamNode &node, IRequest &request, bool& ok)
 {
-    QByteArray content;
-
-    if(node.paramName.endsWith("_content")){
-        content = request.bodyContent();
-    }else{
-        content = request.getParameter(node.paramName, &ok);
-    }
+    const auto& content = node.paramName.endsWith("_content") ? request.bodyContent()
+                                                  : request.getParameter(node.paramName, &ok);
 
     if(ok){
         if(node.paramTypeId == QMetaType::QString){
@@ -382,7 +359,6 @@ void *IControllerParamUtil::getParamOfStringType(const IParamNode &node, IReques
         }
     }
 
-    IToeUtil::setOk(ok, false);
     request.setInvalid(IHttpStatus::BAD_REQUEST_400, "param of string not exist, name: " + node.paramName);
     return nullptr;
 }
