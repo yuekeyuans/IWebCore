@@ -45,8 +45,8 @@ private:
     static void* getParamOfPrimitiveType(const IParamNode& node, IRequest& request, bool& ok);
     static void* getParamOfStringType(const IParamNode& node, IRequest& request, bool& ok);
 
-    static bool releaseParamOfSystem(const IParamNode& node, void *obj);
-    static bool releaseParamOfMultipart(const IParamNode& node, void *obj);
+    static constexpr bool releaseParamOfSystem(const IParamNode& node, void *obj);
+    static constexpr bool releaseParamOfMultipart(const IParamNode& node, void *obj);
     static bool releaseParamOfCookiePart(const IParamNode& node, void *obj);
 //    static bool releaseParamOfSession(const IParamNode& node, void *obj);
     static bool releaseParamOfBean(const IParamNode& node, void *obj);
