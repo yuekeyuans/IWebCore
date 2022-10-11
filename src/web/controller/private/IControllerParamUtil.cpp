@@ -379,7 +379,9 @@ void *IControllerParamUtil::getParamOfStringType(const IParamNode &node, IReques
             return QMetaType::create(QMetaType::QByteArray, &content);
         }
     }
-    request.setInvalid(IHttpStatus::BAD_REQUEST_400, "param of string not exist");
+
+    IToeUtil::setOk(ok, false);
+    request.setInvalid(IHttpStatus::BAD_REQUEST_400, "param of string not exist, name: " + node.paramName);
     return nullptr;
 }
 
