@@ -31,7 +31,6 @@ static const QString GiveColorSeeSee = QStringLiteral("浪额康康四辣锅削�
 static QVector<int> SystemTypes;
 static QVector<int> MultiPartTypes;
 static QVector<int> CookiePartTypes;
-static QVector<int> SessionTypes;
 static QVector<int> BeanTypes;
 static QVector<QVector<int>> JudgeTypes;
 
@@ -141,7 +140,7 @@ void *IControllerParamUtil::createArgParam(const IParamNode& node, IRequest &req
         &IControllerParamUtil::getParamOfSystem,
         &IControllerParamUtil::getParamOfMultipart,
         &IControllerParamUtil::getParamOfCookiePart,
-        &IControllerParamUtil::getParamOfSession,
+//        &IControllerParamUtil::getParamOfSession,
         &IControllerParamUtil::getParamOfPrimitiveType,
         &IControllerParamUtil::getParamOfStringType,
         &IControllerParamUtil::getParamOfJsonType,
@@ -150,17 +149,19 @@ void *IControllerParamUtil::createArgParam(const IParamNode& node, IRequest &req
 
     IToeUtil::setOk(ok, true);
 
-    int length = JudgeTypes.length();
+    static int length = JudgeTypes.length();
     for(int i=0; i<length; i++){
         if(JudgeTypes[i].contains(node.paramTypeId)){
             auto val = funs[i](node, request, ok);
-            if(val == nullptr && request.valid()){  //意思是正常返回参数，单参数值是 nullptr, 这种情况不正常
-                qFatal(GiveColorSeeSee.toUtf8());       // TODO: 这个逻辑不对
+
+            if(val == nullptr && request.valid()) {  //意思是正常返回参数，单参数值是 nullptr, 这种情况不正常
+                qFatal(GiveColorSeeSee.toUtf8());
             }
             return val;
         }
     }
-    qFatal(GiveColorSeeSee.toUtf8());
+
+    IToeUtil::setOk(ok, false);
     return nullptr;
 }
 
@@ -175,7 +176,7 @@ void IControllerParamUtil::destroyArgParam(const IParamNode& node, void *obj)
         &IControllerParamUtil::releaseParamOfSystem,
         &IControllerParamUtil::releaseParamOfMultipart,
         &IControllerParamUtil::releaseParamOfCookiePart,
-        &IControllerParamUtil::releaseParamOfSession,
+//        &IControllerParamUtil::releaseParamOfSession,
         &IControllerParamUtil::releaseParamOfPrimitiveType,
         &IControllerParamUtil::releaseParamOfStringType,
         &IControllerParamUtil::releaseParamOfJsonType,
@@ -199,19 +200,28 @@ void IControllerParamUtil::destroyArgParam(const IParamNode& node, void *obj)
     qFatal(GiveColorSeeSee.toUtf8());
 }
 
+// "IRequest", "IResponse", "ICookieJar", "IMultiPartJar", "IHeaderJar", "ISessionJar"
 void *IControllerParamUtil::getParamOfSystem(const IParamNode& node, IRequest &request, bool& ok)
 {
-    if(node.paramTypeId == SystemTypes[0] || node.paramTypeId == SystemTypes[1]){
-        return &request;
-    }
-    if(node.paramTypeId == SystemTypes[2] || node.paramTypeId == SystemTypes[3]){
-        return request.response();
-    }
-    if(node.paramTypeId == SystemTypes[4] || node.paramTypeId == SystemTypes[5]){
-        return request.cookieJar();
-    }
+    Q_UNUSED(ok)
+    auto index = SystemTypes.indexOf(node.paramTypeId);
 
-    IToeUtil::setOk(ok, false);  // this impossible
+    switch (index / 2) {
+    case 0:
+        return &request;
+    case 1:
+        return request.response();
+    case 2:
+        return request.cookieJar();
+    case 3:
+        return request.multiPartJar();
+    case 4:
+        return request.headerJar();
+    case 5:
+        return request.sessionJar();
+    default:
+        qFatal("error");
+    }
     return nullptr;
 }
 
@@ -223,9 +233,9 @@ void *IControllerParamUtil::getParamOfMultipart(const IParamNode& node, IRequest
             return &part;
         }
     }
-    request.setInvalid(IHttpStatus::BAD_REQUEST_400, "multipart content do not have content name " + node.paramName);
 
     IToeUtil::setOk(ok, false);
+    request.setInvalid(IHttpStatus::BAD_REQUEST_400, "multipart content do not have content name " + node.paramName);
     return nullptr;
 }
 
@@ -244,25 +254,26 @@ void *IControllerParamUtil::getParamOfCookiePart(const IParamNode &node, IReques
         }
     }
 
-    if(count == 0){
-        request.setInvalid(IHttpStatus::BAD_REQUEST_400, "ICookiePart does not have name " + node.paramName);
-        IToeUtil::setOk(ok, false);
-    }else if(count > 1){
-        delete part;
-        part = nullptr;
-        request.setInvalid(IHttpStatus::BAD_REQUEST_400, "ICookiePart has more than one key, name: " + node.paramName);
-        IToeUtil::setOk(ok, false);
+    if(count == 1){
         return part;
     }
-    return part;
+
+    if(count == 0){
+        request.setInvalid(IHttpStatus::BAD_REQUEST_400, "ICookiePart does not have name " + node.paramName);
+    }else if(count > 1){
+        delete part;
+        request.setInvalid(IHttpStatus::BAD_REQUEST_400, "ICookiePart has more than one key, name: " + node.paramName);
+    }
+    IToeUtil::setOk(ok, false);
+    return nullptr;
 }
 
-void *IControllerParamUtil::getParamOfSession(const IParamNode &node, IRequest &request, bool& ok)
-{
-    Q_UNUSED(node)
-    Q_UNUSED(ok)
-    return request.sessionJar();
-}
+//void *IControllerParamUtil::getParamOfSession(const IParamNode &node, IRequest &request, bool& ok)
+//{
+//    Q_UNUSED(node)
+//    Q_UNUSED(ok)
+//    return request.sessionJar();
+//}
 
 void *IControllerParamUtil::getParamOfBean(const IParamNode& node, IRequest &request, bool& ok)
 {
@@ -409,12 +420,6 @@ bool IControllerParamUtil::releaseParamOfCookiePart(const IParamNode &node, void
     return true;
 }
 
-bool IControllerParamUtil::releaseParamOfSession(const IParamNode &node, void *obj)
-{
-    Q_UNUSED(obj)
-    return SessionTypes.contains(node.paramTypeId);
-}
-
 bool IControllerParamUtil::releaseParamOfBean(const IParamNode& node, void *obj)
 {
     if(node.paramTypeId >= QMetaType::User && IBeanTypeManage::containBean(node.paramTypeName)){
@@ -539,16 +544,20 @@ QSharedPointer<IResponseWare> IControllerParamUtil::createInterfaceReturnInstanc
     return instance;
 }
 
+
 void IControllerParamUtil::initSystemTypes(){
+    static const QStringList SystemTypeNames = {
+        "IRequest", "IResponse", "ICookieJar", "IMultiPartJar", "IHeaderJar", "ISessionJar"
+    };
+
     static std::once_flag flag;
     std::call_once(flag, [](){
         QString nmspace = QString($PackageWebCoreName).append("::");
-        SystemTypes << QMetaType::type((nmspace + "IRequest").toUtf8());
-        SystemTypes << QMetaType::type((nmspace + "IRequest&").toUtf8());
-        SystemTypes << QMetaType::type((nmspace + "IResponse").toUtf8());
-        SystemTypes << QMetaType::type((nmspace + "IResponse&").toUtf8());
-        SystemTypes << QMetaType::type((nmspace + "ICookieJar").toUtf8());
-        SystemTypes << QMetaType::type((nmspace + "ICookieJar&").toUtf8());
+
+        for(const auto& name : SystemTypeNames){
+            SystemTypes << QMetaType::type((nmspace + name).toUtf8());
+            SystemTypes << QMetaType::type((nmspace + name + "&").toUtf8());
+        }
     });
 }
 
@@ -573,16 +582,6 @@ void IControllerParamUtil::initCookiePartTypes(){
     });
 }
 
-void IControllerParamUtil::initSessionTypes(){
-    static std::once_flag flag;
-    std::call_once(flag, [](){
-//        QString nmspace = QString($PackageWebCoreName).append("::");
-        const QString nmspace = "";
-        MultiPartTypes << QMetaType::type((nmspace + "ISessionJar").toUtf8());
-        MultiPartTypes << QMetaType::type((nmspace + "ISessionJar&").toUtf8());
-    });
-}
-
 void IControllerParamUtil::initBeanTypes(){
     static std::once_flag flag;
     std::call_once(flag, [](){
@@ -604,7 +603,6 @@ void IControllerParamUtil::initJudgeTypes(){
         JudgeTypes << SystemTypes;
         JudgeTypes << MultiPartTypes;
         JudgeTypes << CookiePartTypes;
-        JudgeTypes << SessionTypes;
         JudgeTypes << PrimitiveTypes;
         JudgeTypes << StringTypes;
         JudgeTypes << JsonTypes;

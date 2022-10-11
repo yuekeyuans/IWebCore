@@ -17,6 +17,7 @@ class IResponse;
 class ICookieJar;
 class ISessionJar;
 class IHeaderJar;
+class IMultiPartJar;
 class IRequestImpl;
 class IReqRespRaw;
 
@@ -41,6 +42,7 @@ public:
     ICookieJar* cookieJar() const;
     ISessionJar* sessionJar() const;
     IHeaderJar* headerJar() const;
+    IMultiPartJar* multiPartJar() const;
     IReqRespRaw* getRaw() const;
 
     IHttpVersion version() const;

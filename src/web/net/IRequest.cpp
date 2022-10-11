@@ -120,6 +120,11 @@ IHeaderJar *IRequest::headerJar() const
     return raw->m_headerJar;
 }
 
+IMultiPartJar *IRequest::multiPartJar() const
+{
+    return raw->m_multiPartJar;
+}
+
 IReqRespRaw *IRequest::getRaw() const
 {
     return raw;
