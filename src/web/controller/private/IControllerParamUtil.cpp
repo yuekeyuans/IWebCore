@@ -363,14 +363,14 @@ void *IControllerParamUtil::getParamOfStringType(const IParamNode &node, IReques
     return nullptr;
 }
 
-constexpr bool IControllerParamUtil::releaseParamOfSystem(const IParamNode& node, void *obj)
+bool IControllerParamUtil::releaseParamOfSystem(const IParamNode& node, void *obj)
 {
     Q_UNUSED(node)
     Q_UNUSED(obj)
     return true;
 }
 
-constexpr bool IControllerParamUtil::releaseParamOfMultipart(const IParamNode& node, void *obj)
+bool IControllerParamUtil::releaseParamOfMultipart(const IParamNode& node, void *obj)
 {
     Q_UNUSED(node)
     Q_UNUSED(obj)
