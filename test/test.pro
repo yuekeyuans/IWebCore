@@ -2,7 +2,7 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
 #    TestCores \
-#    TestHttps \
-    TestOrms    \
+    TestHttps \
+#    TestOrms    \
 #    TestConfigurations \
 #    supports
