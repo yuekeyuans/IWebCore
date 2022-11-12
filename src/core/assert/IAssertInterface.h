@@ -34,6 +34,9 @@ private:
     QMap<QString, QPair<QString, QString>> m_fatal;
     QMap<QString, QPair<QString, QString>> m_warn;
     QMap<QString, QPair<QString, QString>> m_debug;
+
+private:
+    std::once_flag flag;
 };
 
 $PackageWebCoreEnd

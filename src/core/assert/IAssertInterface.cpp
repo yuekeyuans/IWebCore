@@ -12,7 +12,6 @@ namespace IAssertInterfaceHelper
 
 void IAssertInterface::load(const QString& klassName)
 {
-    static std::once_flag flag;
     std::call_once(flag, [&](){
         loadFromFunction();
 

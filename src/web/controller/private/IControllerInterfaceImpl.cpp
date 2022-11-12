@@ -150,10 +150,13 @@ void IControllerInterfaceImpl::checkMappingNameAndFunctionIsMatch(void *handler,
     for(const auto& method : methods){
         methodNames.append(method.name());
     }
-
     auto infos = getMethodMappingInfo(clsInfo);
-    for(const auto& info : infos){
-        auto name = info.first();
+    QStringList infoNames;
+    for(const auto& infoName : infos){
+        infoNames.append (infoName.first ());
+    }
+
+    for(const auto& name : infoNames){
         if(!methodNames.contains(name)){
             IAssertInfo info;
             info.reason = QString("name: ").append(name);
