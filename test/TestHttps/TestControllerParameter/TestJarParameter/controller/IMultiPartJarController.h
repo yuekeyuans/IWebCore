@@ -2,7 +2,7 @@
 
 #include <IWebCore>
 
-class IMultiPartJarController : public IControllerInterface<IMultiPartJarController, true>
+class IMultiPartJarController : public IControllerInterface<IMultiPartJarController, false>
 {
     Q_GADGET
     $AsController (IMultiPartJarController, multipart)

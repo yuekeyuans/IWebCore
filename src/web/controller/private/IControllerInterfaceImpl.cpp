@@ -446,9 +446,10 @@ void IControllerInterfaceImpl::checkMethodParamterWithSuffixSet(const IUrlAction
         "IResponse",    "IResponse&",
         "IMultiPart",   "IMultiPart&",
         "ICookieJar",   "ICookieJar&",
-        "ICookiePart",  "ICookiePart&"
-        "ISessionJar",  "ISessionJar&"
-        "QJsonValue",   "QJsonValue&"
+        "ICookiePart",  "ICookiePart&",
+        "IHeaderJar",   "IHeaderJar&",
+        "ISessionJar",  "ISessionJar&",
+        "QJsonValue",   "QJsonValue&",
     };
     if(node.ignoreParamCheck){
         return;
