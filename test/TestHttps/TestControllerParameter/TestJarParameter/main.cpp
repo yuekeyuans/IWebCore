@@ -10,5 +10,4 @@ int main(int argc, char *argv[])
 
     ITestManage::invokeAllTestClass();
     return app.exec();
-
 }

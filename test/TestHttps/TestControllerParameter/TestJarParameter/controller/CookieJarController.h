@@ -2,7 +2,7 @@
 
 #include <IWebCore>
 
-class CookieJarController : public IControllerInterface<CookieJarController>
+class CookieJarController : public IControllerInterface<CookieJarController, false>
 {
     Q_GADGET
     $AsController(CookieJarController, cookie)

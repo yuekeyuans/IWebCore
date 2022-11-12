@@ -88,6 +88,9 @@ private:
     bool isXmlInited    {false};
 
 public:
+    const IMultiPart m_invalidMultiPart{};      // TODO: 先写在这里，等一下chonggou
+
+public:
     // response
     IHttpStatus m_responseStatus {IHttpStatus::OK_200};
 

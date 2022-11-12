@@ -8,7 +8,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 include(../../../../src/IWebCore.pri)
 SOURCES += \
         controller/CookieJarController.cpp \
+        controller/IMultiPartJarController.cpp \
+        controller/ISessionJarController.cpp \
         main.cpp
 
 HEADERS += \
-    controller/CookieJarController.h
+    controller/CookieJarController.h \
+    controller/IMultiPartJarController.h \
+    controller/ISessionJarController.h

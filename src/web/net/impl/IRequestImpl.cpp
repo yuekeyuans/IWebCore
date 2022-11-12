@@ -473,6 +473,7 @@ bool IRequestImpl::resolveCookies()
 }
 
 // NOTE: this kind of resolve is not safe in keep-alive mode.
+// TODO: whether GET method can reslove multipart data?
 bool IRequestImpl::resolveBody()
 {
     if(raw->m_method == IHttpMethod::GET) { // when get, do not resolve.

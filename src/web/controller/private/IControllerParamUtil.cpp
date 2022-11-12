@@ -507,7 +507,6 @@ QSharedPointer<IResponseWare> IControllerParamUtil::createInterfaceReturnInstanc
     return instance;
 }
 
-
 void IControllerParamUtil::initSystemTypes(){
     static const QStringList SystemTypeNames = {
         "IRequest", "IResponse", "ICookieJar", "IMultiPartJar", "IHeaderJar", "ISessionJar"

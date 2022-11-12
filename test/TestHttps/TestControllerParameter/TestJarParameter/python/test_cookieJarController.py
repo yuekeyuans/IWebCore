@@ -3,6 +3,7 @@ import pytest
 from util import wrapUrl
 import requests
 
+@pytest.mark.skip
 class TestClass:
     
     # request
