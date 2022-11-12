@@ -8,6 +8,7 @@
 
 $PackageWebCoreBegin
 
+class IMultiPartJar;
 class IMultiPart : public IRegisterMetaTypeUnit<IMultiPart>
 {
     Q_GADGET
@@ -35,8 +36,9 @@ public:
     IHttpMime mime {IHttpMime::UNKNOWN};
     TransferEncoding encoding{BIT_7};
 
-public:
+private:
     static const IMultiPart InvalidMulitPart;
+    friend class IMultiPartJar;
 };
 
 $PackageWebCoreEnd

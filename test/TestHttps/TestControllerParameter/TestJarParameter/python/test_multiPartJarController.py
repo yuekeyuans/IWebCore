@@ -30,6 +30,14 @@ class TestMultiPartController:
         res = requests.post(url, files=files)
         assert res.text == str(os.path.getsize("./test_multiPartJarController.py"))
 
+        files = [
+            ('file_3', open('./test_multiPartJarController.py', 'rb')),
+            ('file_2', open('./main.py', 'rb')),
+        ]
+
+        res = requests.post(url, files=files)
+        assert res.text != str(os.path.getsize("./test_multiPartJarController.py"))
+
     def test_testFileMultiPartJarNotExist(self):
         url = wrapUrl("multipart/testFileMultiPartJarNotExist")
 
