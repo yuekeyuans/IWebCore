@@ -71,9 +71,4 @@ QVector<IMultiPart> IMultiPartJar::getRequestFileMultiParts() const
     return ret;
 }
 
-bool IMultiPartJar::isValid() const
-{
-    return m_raw != nullptr;
-}
-
 $PackageWebCoreEnd

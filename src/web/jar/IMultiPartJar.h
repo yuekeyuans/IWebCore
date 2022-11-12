@@ -26,10 +26,6 @@ public:
 
     const QVector<IMultiPart>& getRequestMultiParts() const;
     QVector<IMultiPart> getRequestFileMultiParts() const;
-
-    // TODO: 暂时支持这么多函数，其他的可以考虑后续支持
-
-    virtual bool isValid() const final;
 };
 
 $PackageWebCoreEnd
