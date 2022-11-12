@@ -3,6 +3,8 @@
 
 $PackageWebCoreBegin
 
+const IMultiPart IMultiPart::InvalidMulitPart;
+
 // @see https://www.jianshu.com/p/fdb8a1d4893e
 // header 当中不能直接传入中文编码，需要进行转码 ||| 好像可以直接传输中文字符进来，
 // 具体的支持还需要看 浏览器能否支持，否则还是需要字符编码的。
@@ -46,6 +48,14 @@ void IMultiPart::resolveHeaders()
             qFatal("error, and this will be removed latter to see whether other type of value");
         }
     }
+}
+
+bool IMultiPart::isValid() const
+{
+    if(!name.isEmpty () && !content.isEmpty ()){
+        return true;
+    }
+    return false;
 }
 
 $PackageWebCoreEnd

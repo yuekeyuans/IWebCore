@@ -51,7 +51,7 @@ const IMultiPart &IMultiPartJar::getRequestMultiPart(const QString &name, bool *
     }
 
     IToeUtil::setOk (ok, false);
-    return m_raw->m_invalidMultiPart;
+    return IMultiPart::InvalidMulitPart;
 }
 
 const QVector<IMultiPart> &IMultiPartJar::getRequestMultiParts() const

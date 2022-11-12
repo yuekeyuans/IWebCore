@@ -21,7 +21,9 @@ public:
 
 public:
     IMultiPart();
+
     void resolveHeaders();
+    bool isValid() const;
 
 public:
     QMap<QString, QString> headers;
@@ -32,6 +34,9 @@ public:
     QByteArray content;
     IHttpMime mime {IHttpMime::UNKNOWN};
     TransferEncoding encoding{BIT_7};
+
+public:
+    static const IMultiPart InvalidMulitPart;
 };
 
 $PackageWebCoreEnd
