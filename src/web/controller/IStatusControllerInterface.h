@@ -14,10 +14,12 @@ struct IControllerInfo;
 
 namespace IStatusControllerInterfaceProxy
 {
-    void registerController(const IControllerInfo& info);
+    void registerController(void* handler, const QString& className,
+                            const QMap<QString, QString>& classMap, const QVector<QMetaMethod>& methods);
     void registerError();
 
-    void unRegisterController(const IControllerInfo& info);
+    void unRegisterController(void* handler, const QString& className,
+                              const QMap<QString, QString>& classMap, const QVector<QMetaMethod>& methods);
     void unRegisterError();
 }
 
@@ -46,12 +48,10 @@ void IStatusControllerInterface<T, enabled>::registerController()
         IStatusControllerInterfaceProxy::registerError();
     }
 
-    IControllerInfo info;
-    info.handler = this;
-    info.className = IMetaUtil::getMetaClassName (T::staticMetaObject);
-    info.clsInfo = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
-    info.methods = IMetaUtil::getMetaMethods(T::staticMetaObject);
-    IStatusControllerInterfaceProxy::registerController(info);
+    auto className = IMetaUtil::getMetaClassName (T::staticMetaObject);
+    auto classInfo = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
+    auto classMethods = IMetaUtil::getMetaMethods(T::staticMetaObject);
+    IStatusControllerInterfaceProxy::registerController(this, className, classInfo, classMethods);
 }
 
 template<typename T, bool enabled>
@@ -61,12 +61,10 @@ void IStatusControllerInterface<T, enabled>::unRegisterController()
         IStatusControllerInterfaceProxy::unRegisterError();
     }
 
-    IControllerInfo info;
-    info.handler = this;
-    info.className = IMetaUtil::getMetaClassName (T::staticMetaObject);
-    info.clsInfo = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
-    info.methods = IMetaUtil::getMetaMethods(T::staticMetaObject);
-    IStatusControllerInterfaceProxy::unRegisterController(info);
+    auto className = IMetaUtil::getMetaClassName (T::staticMetaObject);
+    auto classInfo = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
+    auto classMethods = IMetaUtil::getMetaMethods(T::staticMetaObject);
+    IStatusControllerInterfaceProxy::unRegisterController(this, className, classInfo, classMethods);
 }
 
 $PackageWebCoreEnd

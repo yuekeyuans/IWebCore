@@ -20,7 +20,7 @@ namespace IControllerInterfaceImpHelper{
 void IControllerInterfaceImpl::checkUrlMappings(const IControllerInfo& info)
 {
     auto inst = instance();
-    inst->checkMappingOverloadFunctions(info.methods);
+    inst->checkMappingOverloadFunctions(info.classMethods);
     inst->checkMappingNameAndFunctionIsMatch(info);
     inst->checkMappingUrlIsValid(info);
     inst->checkMappingMethodArgsIsValid(info);
@@ -31,7 +31,7 @@ QVector<IUrlActionNode> IControllerInterfaceImpl::createMappingLeaves(const ICon
     QVector<IUrlActionNode> ret;
 
     auto inst = instance();
-    auto argsList = inst->getMethodMappingInfo(info.clsInfo);
+    auto argsList = inst->getMethodMappingInfo(info.classInfo);
     for(const auto& args : argsList){
         ret.append(inst->createFunctionMappingLeaves(info, args));
     }
@@ -111,9 +111,9 @@ QVector<IUrlActionNode> IControllerInterfaceImpl::createFunctionMappingLeaves(co
 
     IUrlActionNode node;
     auto funName = args.first();
-    node.ignoreParamCheck = IControllerInterfaceImpHelper::isIgnoreParamCheckFunction(funName, info.clsInfo);
+    node.ignoreParamCheck = IControllerInterfaceImpHelper::isIgnoreParamCheckFunction(funName, info.classInfo);
     node.httpMethod = IHttpMethodHelper::toMethod(args[1]);
-    for(const auto& method : info.methods){
+    for(const auto& method : info.classMethods){
         if(method.name() == funName){
             node.methodNode = IMethodNode::fromMetaMethod(info.handler, info.className, method);
         }
@@ -141,10 +141,10 @@ void IControllerInterfaceImpl::checkMappingOverloadFunctions(const QVector<QMeta
 void IControllerInterfaceImpl::checkMappingNameAndFunctionIsMatch(const IControllerInfo& info)
 {
     QStringList methodNames;
-    for(const auto& method : info.methods){
+    for(const auto& method : info.classMethods){
         methodNames.append(method.name());
     }
-    auto infos = getMethodMappingInfo(info.clsInfo);
+    auto infos = getMethodMappingInfo(info.classInfo);
     QStringList infoNames;
     for(const auto& infoName : infos){
         infoNames.append (infoName.first ());
@@ -161,7 +161,7 @@ void IControllerInterfaceImpl::checkMappingNameAndFunctionIsMatch(const IControl
 
 void IControllerInterfaceImpl::checkMappingUrlIsValid(const IControllerInfo &info)
 {
-    auto infos = getMethodMappingInfo(info.clsInfo);
+    auto infos = getMethodMappingInfo(info.classInfo);
     for(auto info : infos){
         std::for_each(info.begin() + 2, info.end(), [&](const QString& url){
             chekcUrlErrorCommon(url);

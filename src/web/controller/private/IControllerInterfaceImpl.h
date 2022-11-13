@@ -5,7 +5,7 @@
 
 $PackageWebCoreBegin
 
-class IControllerInfo;
+struct IControllerInfo;
 
 class IControllerInterfaceImpl
 {

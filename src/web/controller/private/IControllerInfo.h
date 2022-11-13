@@ -7,11 +7,10 @@ $PackageWebCoreBegin
 struct IControllerInfo
 {
     void* handler;
+
     QString className;
-
-    QMap<QString, QString> clsInfo;
-    QVector<QMetaMethod> methods;
-
+    QMap<QString, QString> classInfo;
+    QVector<QMetaMethod> classMethods;
 };
 
 $PackageWebCoreEnd

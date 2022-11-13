@@ -13,19 +13,19 @@ QVector<IStatusActionNode> IStatusControllerInterfaceImpl::generateStatusFunctio
 {
     QStringList funNames;
     QVector<IStatusActionNode> nodes;
-    const auto& keys = info.clsInfo.keys();
+    const auto& keys = info.classInfo.keys();
     for(auto key : keys){
         if(key.startsWith(StatusControllerPrefix)){
-            funNames.append(info.clsInfo[key]);
+            funNames.append(info.classInfo[key]);
         }
     }
 
     for(const auto funName : funNames){
         QString key = QString(StatusControllerPrefix).append(funName).append('$').append("Status");
-        if(!info.clsInfo.contains(key)){
+        if(!info.classInfo.contains(key)){
             continue;
         }
-        auto statusName = info.clsInfo[key];
+        auto statusName = info.classInfo[key];
         auto status = IHttpStatusHelper::toStatus(statusName);
         if(status == IHttpStatus::UNKNOWN){
             IAssertInfo astInfo;
@@ -34,10 +34,10 @@ QVector<IStatusActionNode> IStatusControllerInterfaceImpl::generateStatusFunctio
             $Ast->fatal("error_in_register_status_with_code", astInfo);
         }
 
-        auto methodIter = std::find_if(info.methods.begin(), info.methods.end(), [=](const QMetaMethod& method){
+        auto methodIter = std::find_if(info.classMethods.begin(), info.classMethods.end(), [=](const QMetaMethod& method){
             return method.name() == funName;
         });
-        if(methodIter == info.methods.end()){
+        if(methodIter == info.classMethods.end()){
             IAssertInfo astInfo;
             astInfo.function = funName;
             $Ast->fatal("error_register_status_with_no_function", astInfo);
