@@ -1,9 +1,7 @@
-#pragma once
-
+﻿#pragma once
 
 class ISessionJarController
 {
 public:
     ISessionJarController();
 };
-

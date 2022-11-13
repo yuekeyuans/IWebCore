@@ -4,7 +4,7 @@
 #include "base/IMetaUtil.h"
 #include "core/unit/IRegisterMetaTypeUnit.h"
 #include "web/jar/IJarUnit.h"
-#include "web/net/IMultiPart.h"
+#include "web/jar/IMultiPart.h"
 
 $PackageWebCoreBegin
 

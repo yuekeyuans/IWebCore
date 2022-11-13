@@ -2,7 +2,7 @@
 
 #include <IWebCore>
 
-class HeaderJarController : public IControllerInterface<HeaderJarController, true>
+class HeaderJarController : public IControllerInterface<HeaderJarController, false>
 {
     Q_GADGET
     $AsController (HeaderJarController, header)
@@ -10,8 +10,6 @@ public:
     HeaderJarController() = default;
 
 public:
-
-    // test get
     $GetMapping (getHeaderJar)
     QString getHeaderJar(IHeaderJar jar);
 
@@ -20,7 +18,5 @@ public:
 
     $GetMapping (testAddResponseHeader)
     QString testAddResponseHeader(IHeaderJar& jar);
-    // test set
-
 };
 

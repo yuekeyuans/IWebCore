@@ -6,7 +6,7 @@
 #include "web/biscuits/IHttpMime.h"
 #include "web/biscuits/IHttpStatus.h"
 #include "web/biscuits/IHttpVersion.h"
-#include "web/net/IMultiPart.h"
+#include "web/jar/IMultiPart.h"
 #include "web/jar/ICookiePart.h"
 #include "web/response/IResponseContent.h"
 

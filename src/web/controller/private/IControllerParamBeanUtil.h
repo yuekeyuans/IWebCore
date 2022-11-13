@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "web/net/IMultiPart.h"
+#include "web/jar/IMultiPart.h"
 
 $PackageWebCoreBegin
 

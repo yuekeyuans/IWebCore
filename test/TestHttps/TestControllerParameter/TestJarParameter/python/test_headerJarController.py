@@ -4,6 +4,7 @@ import requests
 import os
 import json
 
+@pytest.mark.skip
 class TestHeaderJarController:
 
     def test_headerJar(self):

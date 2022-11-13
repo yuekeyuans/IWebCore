@@ -53,6 +53,7 @@ HEADERS += \
     $$PWD/web/jar/ICookiePart.h \
     $$PWD/web/jar/IHeaderJar.h \
     $$PWD/web/jar/IJarUnit.h \
+    $$PWD/web/jar/IMultiPart.h \
     $$PWD/web/jar/IMultiPartJar.h \
     $$PWD/web/jar/ISessionJar.h \
     $$PWD/web/middleware/IInterceptorWare.h \
@@ -63,7 +64,6 @@ HEADERS += \
     $$PWD/web/middleware/IPreInterceptorInterface.h \
     $$PWD/web/middleware/IPreProcessorInterface.h \
     $$PWD/web/middleware/IProcessorWare.h \
-    $$PWD/web/net/IMultiPart.h \
     $$PWD/web/net/IRequest.h \
     $$PWD/web/net/IResponse.h \
     $$PWD/web/net/impl/IReqRespRaw.h \
@@ -215,6 +215,7 @@ SOURCES += \
     $$PWD/web/jar/ICookiePart.cpp \
     $$PWD/web/jar/IHeaderJar.cpp \
     $$PWD/web/jar/IJarUnit.cpp \
+    $$PWD/web/jar/IMultiPart.cpp \
     $$PWD/web/jar/IMultiPartJar.cpp \
     $$PWD/web/jar/ISessionJar.cpp \
     $$PWD/web/middleware/IInterceptorWare.cpp \
@@ -224,7 +225,6 @@ SOURCES += \
     $$PWD/web/middleware/IPreInterceptorInterface.cpp \
     $$PWD/web/middleware/IPreProcessorInterface.cpp \
     $$PWD/web/middleware/IProcessorWare.cpp \
-    $$PWD/web/net/IMultiPart.cpp \
     $$PWD/web/net/IRequest.cpp \
     $$PWD/web/net/IResponse.cpp \
     $$PWD/web/net/impl/IReqRespRaw.cpp \
