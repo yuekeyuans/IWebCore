@@ -5,7 +5,6 @@
 #include "core/configuration/IConfigurationManage.h"
 #include "core/task/IControllerTaskUnit.h"
 #include "web/controller/IControllerManage.h"
-#include "web/controller/private/IControllerInfo.h"
 #include "web/node/IStatusActionNode.h"
 
 $PackageWebCoreBegin
@@ -15,11 +14,11 @@ struct IControllerInfo;
 namespace IStatusControllerInterfaceProxy
 {
     void registerController(void* handler, const QString& className,
-                            const QMap<QString, QString>& classMap, const QVector<QMetaMethod>& methods);
+                            const QMap<QString, QString>& classInfo, const QVector<QMetaMethod>& methods);
     void registerError();
 
     void unRegisterController(void* handler, const QString& className,
-                              const QMap<QString, QString>& classMap, const QVector<QMetaMethod>& methods);
+                              const QMap<QString, QString>& classInfo, const QVector<QMetaMethod>& methods);
     void unRegisterError();
 }
 

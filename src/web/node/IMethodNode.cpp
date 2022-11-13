@@ -84,7 +84,7 @@ void IMethodNodeHelper::createFunctionExpression(IMethodNode& node)
 {
     QString expression;
     expression.append(node.returnTypeName).append(' ');
-    expression.append(node.funName).append("(");
+    expression.append(node.className).append("::").append(node.funName).append("(");
 
     QStringList args;
     for(const auto& param : node.paramNodes){

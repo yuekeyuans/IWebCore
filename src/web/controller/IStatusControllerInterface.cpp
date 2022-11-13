@@ -1,6 +1,7 @@
 ﻿#include "IStatusControllerInterface.h"
 
 #include "web/IWebAssert.h"
+#include "web/controller/private/IControllerInfo.h"
 #include "web/controller/private/IStatusControllerInterfaceImpl.h"
 
 $PackageWebCoreBegin
