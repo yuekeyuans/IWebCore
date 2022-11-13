@@ -10,9 +10,4 @@ ISessionJar::ISessionJar() : IJarUnit(nullptr)
     $Ast->fatal("ISessionJar_CREATE_ERROR");
 }
 
-bool ISessionJar::isValid() const
-{
-    return m_raw !=nullptr;
-}
-
 $PackageWebCoreEnd

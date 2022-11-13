@@ -7,7 +7,8 @@
 
 $PackageWebCoreBegin
 
-// TODO: this will be supported latter, not in this version. same as ICookie
+// TODO: Session 在框架当中应该如何支持？ SessionJar 又是个啥？
+
 class ISessionJar : public IJarUnit, IRegisterMetaTypeUnit<ISessionJar>
 {
     Q_GADGET
@@ -17,7 +18,14 @@ public:
 
 public:
     ISessionJar();
-    virtual bool isValid() const final;
+
+    // 在后面使用 hook?, hook 如何定义，可以定义多少？ 如何替换?
+//    QString getValueAsString(const QString& key);
+    //....
+
+private:
+
+    QString m_sessionId;
 };
 
 $PackageWebCoreEnd
