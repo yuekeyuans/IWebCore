@@ -40,8 +40,6 @@ public:
     void setResponseHeader(const QString& key, const QString& value);
 
     void deleteReponseHeader(const QString& key);
-
-    virtual bool isValid() const final;
 };
 
 $PackageWebCoreEnd

@@ -9,5 +9,5 @@ SUBDIRS += \
 #    OrmDemo \
 #    DbDemo
 #    Editor
- \#    miniDemo
+#    miniDemo
     HelloWorld

@@ -152,9 +152,4 @@ void IHeaderJar::deleteReponseHeader(const QString &key)
     }
 }
 
-bool IHeaderJar::isValid() const
-{
-    return m_raw != nullptr;
-}
-
 $PackageWebCoreEnd
