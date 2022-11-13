@@ -5,19 +5,21 @@
 
 $PackageWebCoreBegin
 
+class IControllerInfo;
+
 class IControllerInterfaceImpl
 {
     $UseInstance(IControllerInterfaceImpl);
 public:
-    static void checkUrlMappings(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaMethod>& methods);
-    static QVector<IUrlActionNode> createMappingLeaves(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaMethod>& methods);
+    static void checkUrlMappings(const IControllerInfo& info);
+    static QVector<IUrlActionNode> createMappingLeaves(const IControllerInfo& info);
 
 private:
     // 大的检查项目
     void checkMappingOverloadFunctions(const QVector<QMetaMethod>& methods);
-    void checkMappingNameAndFunctionIsMatch(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaMethod>& methods);
-    void checkMappingUrlIsValid(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaMethod>& methods);
-    void checkMappingMethodArgsIsValid(void* handler, const QMap<QString, QString>& clsInfo,  const QVector<QMetaMethod>& methods);
+    void checkMappingNameAndFunctionIsMatch(const IControllerInfo& info);
+    void checkMappingUrlIsValid(const IControllerInfo& info);
+    void checkMappingMethodArgsIsValid(const IControllerInfo& info);
 
     // 检查 url 错误的。
     void chekcUrlErrorCommon(const QString& url);
@@ -33,7 +35,7 @@ private:
     void checkMethodParamterWithSuffixSet(const IUrlActionNode& node);
 
     // 其他调用函数
-    QVector<IUrlActionNode> createFunctionMappingLeaves(void* handler, const QStringList&, const QMap<QString, QString>& clsInfo, const QVector<QMetaMethod>&methods);
+    QVector<IUrlActionNode> createFunctionMappingLeaves(const IControllerInfo& info, const QStringList& args);
     QVector<QStringList> getMethodMappingInfo(const QMap<QString, QString>&clsInfo);
     QStringList reformClsInfoArgs(const QMap<QString, QString>&, const QStringList &rootPathArgs);
     QMap<QString, QString> getStatusCodeInfos(QMap<QString, QString> clsInfos);

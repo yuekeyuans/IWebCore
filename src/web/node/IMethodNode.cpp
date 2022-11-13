@@ -1,6 +1,7 @@
 ﻿#include "IMethodNode.h"
 
 #include "base/IPackageUtil.h"
+#include "web/controller/private/IControllerInfo.h"
 #include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
@@ -16,11 +17,11 @@ namespace IMethodNodeHelper
     void createFunctionParamNodes(IMethodNode& node, QMetaMethod method);
 };
 
-IMethodNode IMethodNode::fromMetaMethod(void *handle, QMetaMethod method)
+IMethodNode IMethodNode::fromMetaMethod(void *handler, const QString &className, const QMetaMethod &method)
 {
     IMethodNode node;
-
-    IMethodNodeHelper::assignBaseInfo(node, handle, method);
+    node.className = className;
+    IMethodNodeHelper::assignBaseInfo(node, handler, method);
     IMethodNodeHelper::createFunctionParamNodes(node, method);
     IMethodNodeHelper::createFunctionExpression(node);
 

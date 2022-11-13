@@ -4,10 +4,12 @@
 
 $PackageWebCoreBegin
 
+struct IControllerInfo;
+
 struct IMethodNode
 {
 public:
-    static IMethodNode fromMetaMethod(void* handle, QMetaMethod method);
+    static IMethodNode fromMetaMethod(void* handler, const QString& className, const QMetaMethod& method);
     int getParamCount() const;
     QStringList getParamNames() const;
     QStringList getParamTypeNames() const;
@@ -19,6 +21,7 @@ public:
     void* handler{nullptr};
 
     QMetaMethod metaMethod;
+    QString className;
     QString funName;
     QString expression;
 

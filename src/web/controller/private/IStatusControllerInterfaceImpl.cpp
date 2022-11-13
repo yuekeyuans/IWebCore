@@ -1,5 +1,6 @@
 ﻿#include "IStatusControllerInterfaceImpl.h"
 
+#include "web/controller/private/IControllerInfo.h"
 #include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
@@ -8,44 +9,44 @@ $UseAssert(IWebAssert)
 
 static const char* const StatusControllerPrefix = "iwebStatusFun$";
 
-QVector<IStatusActionNode> IStatusControllerInterfaceImpl::generateStatusFunctionNodes(void *handle, QMap<QString, QString> clsInfo, QVector<QMetaMethod> methods)
+QVector<IStatusActionNode> IStatusControllerInterfaceImpl::generateStatusFunctionNodes(const IControllerInfo &info)
 {
     QStringList funNames;
     QVector<IStatusActionNode> nodes;
-    const auto& keys = clsInfo.keys();
+    const auto& keys = info.clsInfo.keys();
     for(auto key : keys){
         if(key.startsWith(StatusControllerPrefix)){
-            funNames.append(clsInfo[key]);
+            funNames.append(info.clsInfo[key]);
         }
     }
 
     for(const auto funName : funNames){
         QString key = QString(StatusControllerPrefix).append(funName).append('$').append("Status");
-        if(!clsInfo.contains(key)){
+        if(!info.clsInfo.contains(key)){
             continue;
         }
-        auto statusName = clsInfo[key];
+        auto statusName = info.clsInfo[key];
         auto status = IHttpStatusHelper::toStatus(statusName);
         if(status == IHttpStatus::UNKNOWN){
-            IAssertInfo info;
-            info.function= funName;
-            info.reason = QString("statusName: ").append(statusName);
-            $Ast->fatal("error_in_register_status_with_code", info);
+            IAssertInfo astInfo;
+            astInfo.function= funName;
+            astInfo.reason = QString("statusName: ").append(statusName);
+            $Ast->fatal("error_in_register_status_with_code", astInfo);
         }
 
-        auto methodIter = std::find_if(methods.begin(), methods.end(), [=](const QMetaMethod& method){
+        auto methodIter = std::find_if(info.methods.begin(), info.methods.end(), [=](const QMetaMethod& method){
             return method.name() == funName;
         });
-        if(methodIter == methods.end()){
-            IAssertInfo info;
-            info.function = funName;
-            $Ast->fatal("error_register_status_with_no_function", info);
+        if(methodIter == info.methods.end()){
+            IAssertInfo astInfo;
+            astInfo.function = funName;
+            $Ast->fatal("error_register_status_with_no_function", astInfo);
         }
         QMetaMethod method = *methodIter;
 
         IStatusActionNode node;
         node.httpStatus = status;
-        node.methodNode = IMethodNode::fromMetaMethod(handle,method);
+        node.methodNode = IMethodNode::fromMetaMethod(info.handler, info.className, method);
         nodes.append(node);
     }
     return nodes;

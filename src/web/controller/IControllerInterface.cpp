@@ -6,11 +6,11 @@ $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-void IControllerInterfaceProxy::registerController(void *handler, const QMap<QString, QString> &clsInfo, const QVector<QMetaMethod> &methods)
+void IControllerInterfaceProxy::registerController(const IControllerInfo& info)
 {
-    IControllerInterfaceImpl::checkUrlMappings(handler, clsInfo, methods);
+    IControllerInterfaceImpl::checkUrlMappings(info);
 
-    auto functionNodes = IControllerInterfaceImpl::createMappingLeaves(handler, clsInfo, methods);
+    auto functionNodes = IControllerInterfaceImpl::createMappingLeaves(info);
     if(!functionNodes.empty()){
         IControllerManage::registerUrlActionNodes(functionNodes);
     }
@@ -21,11 +21,11 @@ void IControllerInterfaceProxy::registerError()
     $Ast->fatal("register_controller_do_not_use_singleton");
 }
 
-void IControllerInterfaceProxy::unRegisterController(void *handler, const QMap<QString, QString> &clsInfo, const QVector<QMetaMethod> &methods)
+void IControllerInterfaceProxy::unRegisterController(const IControllerInfo& info)
 {
-    IControllerInterfaceImpl::checkUrlMappings(handler, clsInfo, methods);
+    IControllerInterfaceImpl::checkUrlMappings(info);
 
-    auto functionNodes = IControllerInterfaceImpl::createMappingLeaves(handler, clsInfo, methods);
+    auto functionNodes = IControllerInterfaceImpl::createMappingLeaves(info);
     if(!functionNodes.empty()){
         IControllerManage::unRegisterUrlActionNodes(functionNodes);
     }
@@ -35,5 +35,7 @@ void IControllerInterfaceProxy::unRegisterError()
 {
     $Ast->fatal("unregister_controller_do_not_use_singleton");
 }
+
+
 
 $PackageWebCoreEnd

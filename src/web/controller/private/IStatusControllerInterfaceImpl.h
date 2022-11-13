@@ -4,9 +4,10 @@
 
 $PackageWebCoreBegin
 
+struct IControllerInfo;
 namespace IStatusControllerInterfaceImpl
 {
-    QVector<IStatusActionNode> generateStatusFunctionNodes(void* handle, QMap<QString, QString>clsInfo, QVector<QMetaMethod> methods);
+    QVector<IStatusActionNode> generateStatusFunctionNodes(const IControllerInfo& info);
     void checkStatusNodes(const QVector<IStatusActionNode>& nodes);
 
     void checkStatusType(const IStatusActionNode& node);

@@ -1,6 +1,7 @@
 ﻿#include "IControllerInterfaceImpl.h"
 
 #include "core/bean/ITypeManage.h"
+#include "web/controller/private/IControllerInfo.h"
 #include "web/net/IRequest.h"
 #include "web/net/IResponse.h"
 #include "web/IWebAssert.h"
@@ -16,27 +17,24 @@ namespace IControllerInterfaceImpHelper{
     bool isIgnoreParamCheckFunction(const QString& funName, const QMap<QString, QString>& clsInfo);
 }
 
-void IControllerInterfaceImpl::checkUrlMappings(void *handler, const QMap<QString, QString> &clsInfo
-                                                , const QVector<QMetaMethod> &methods)
+void IControllerInterfaceImpl::checkUrlMappings(const IControllerInfo& info)
 {
     auto inst = instance();
-    inst->checkMappingOverloadFunctions(methods);
-    inst->checkMappingNameAndFunctionIsMatch(handler, clsInfo, methods);
-    inst->checkMappingUrlIsValid(handler, clsInfo, methods);
-    inst->checkMappingMethodArgsIsValid(handler, clsInfo, methods);
+    inst->checkMappingOverloadFunctions(info.methods);
+    inst->checkMappingNameAndFunctionIsMatch(info);
+    inst->checkMappingUrlIsValid(info);
+    inst->checkMappingMethodArgsIsValid(info);
 }
 
-QVector<IUrlActionNode> IControllerInterfaceImpl::createMappingLeaves(
-        void* handler, const QMap<QString, QString> &clsInfo,
-        const QVector<QMetaMethod>& methods)
+QVector<IUrlActionNode> IControllerInterfaceImpl::createMappingLeaves(const IControllerInfo& info)
 {
     QVector<IUrlActionNode> ret;
 
     auto inst = instance();
-    auto infoList = inst->getMethodMappingInfo(clsInfo);
-    std::for_each(infoList.begin(), infoList.end(), [&](const QStringList& info){
-        ret.append(inst->createFunctionMappingLeaves(handler, info, clsInfo, methods));
-    });
+    auto argsList = inst->getMethodMappingInfo(info.clsInfo);
+    for(const auto& args : argsList){
+        ret.append(inst->createFunctionMappingLeaves(info, args));
+    }
     return ret;
 }
 
@@ -107,23 +105,21 @@ QMap<QString, QString> IControllerInterfaceImpl::getStatusCodeInfos(QMap<QString
     return ret;
 }
 
-QVector<IUrlActionNode> IControllerInterfaceImpl::createFunctionMappingLeaves(void *handler, const QStringList &info
-                                                                                , const QMap<QString, QString>& clsInfo
-                                                                                , const QVector<QMetaMethod> &methods)
+QVector<IUrlActionNode> IControllerInterfaceImpl::createFunctionMappingLeaves(const IControllerInfo &info, const QStringList &args)
 {
     QVector<IUrlActionNode> ret;
 
     IUrlActionNode node;
-    auto funName = info.first();
-    node.ignoreParamCheck = IControllerInterfaceImpHelper::isIgnoreParamCheckFunction(funName, clsInfo);
-    node.httpMethod = IHttpMethodHelper::toMethod(info[1]);
-    for(auto& method : methods){
+    auto funName = args.first();
+    node.ignoreParamCheck = IControllerInterfaceImpHelper::isIgnoreParamCheckFunction(funName, info.clsInfo);
+    node.httpMethod = IHttpMethodHelper::toMethod(args[1]);
+    for(const auto& method : info.methods){
         if(method.name() == funName){
-            node.methodNode = IMethodNode::fromMetaMethod(handler, method);
+            node.methodNode = IMethodNode::fromMetaMethod(info.handler, info.className, method);
         }
     }
-    for(auto i=2; i<info.length(); i++){
-        node.url = info[i].trimmed().isEmpty() ? "/" : info[i];  // exclude empty url
+    for(auto i=2; i<args.length(); i++){
+        node.url = args[i].trimmed().isEmpty() ? "/" : args[i];  // exclude empty url
         ret.append(node);
     }
     return ret;
@@ -142,15 +138,13 @@ void IControllerInterfaceImpl::checkMappingOverloadFunctions(const QVector<QMeta
     }
 }
 
-void IControllerInterfaceImpl::checkMappingNameAndFunctionIsMatch(void *handler, const QMap<QString, QString> &clsInfo
-                                                                  , const QVector<QMetaMethod> &methods)
+void IControllerInterfaceImpl::checkMappingNameAndFunctionIsMatch(const IControllerInfo& info)
 {
-    Q_UNUSED(handler)
     QStringList methodNames;
-    for(const auto& method : methods){
+    for(const auto& method : info.methods){
         methodNames.append(method.name());
     }
-    auto infos = getMethodMappingInfo(clsInfo);
+    auto infos = getMethodMappingInfo(info.clsInfo);
     QStringList infoNames;
     for(const auto& infoName : infos){
         infoNames.append (infoName.first ());
@@ -165,12 +159,9 @@ void IControllerInterfaceImpl::checkMappingNameAndFunctionIsMatch(void *handler,
     }
 }
 
-void IControllerInterfaceImpl::checkMappingUrlIsValid(void *handler, const QMap<QString, QString> &clsInfo
-                                                      , const QVector<QMetaMethod> &methods)
+void IControllerInterfaceImpl::checkMappingUrlIsValid(const IControllerInfo &info)
 {
-    Q_UNUSED(handler)
-    Q_UNUSED(methods);
-    auto infos = getMethodMappingInfo(clsInfo);
+    auto infos = getMethodMappingInfo(info.clsInfo);
     for(auto info : infos){
         std::for_each(info.begin() + 2, info.end(), [&](const QString& url){
             chekcUrlErrorCommon(url);
@@ -179,8 +170,7 @@ void IControllerInterfaceImpl::checkMappingUrlIsValid(void *handler, const QMap<
     }
 }
 
-void IControllerInterfaceImpl::checkMappingMethodArgsIsValid(void *handler, const QMap<QString, QString> &clsInfo
-                                                             , const QVector<QMetaMethod> &methods)
+void IControllerInterfaceImpl::checkMappingMethodArgsIsValid(const IControllerInfo& info)
 {
     using CheckFunType = void (IControllerInterfaceImpl::*)(const IUrlActionNode&);
     static QList<CheckFunType> funs = {
@@ -193,7 +183,7 @@ void IControllerInterfaceImpl::checkMappingMethodArgsIsValid(void *handler, cons
         &IControllerInterfaceImpl::checkMethodParamterWithSuffixSet,
     };
 
-    auto leaves = createMappingLeaves(handler, clsInfo, methods);
+    auto leaves = createMappingLeaves(info);
     for(auto& leaf : leaves){
         for(auto& fun : funs){
             std::mem_fn(fun)(this, leaf);
