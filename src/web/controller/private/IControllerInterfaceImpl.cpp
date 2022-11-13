@@ -464,7 +464,7 @@ void IControllerInterfaceImpl::checkMethodParamterWithSuffixSet(const IUrlAction
             IAssertInfo info;
             info.reason = QString("At Function: ").append(node.methodNode.expression)
                               .append(" At Param: ").append(param.paramName);
-            $Ast->fatal("irequest_controller_function_with_param_not_marked", info);
+            $Ast->warn("irequest_controller_function_with_param_not_marked", info);
         }
     }
 }

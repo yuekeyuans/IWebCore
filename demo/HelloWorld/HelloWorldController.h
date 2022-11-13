@@ -12,4 +12,7 @@ public:
 
     $GetMapping (world)
     QString world();
+
+    $GetMapping (Abc)
+    QString Abc(int a, int b);
 };

@@ -12,7 +12,7 @@ static const QString& nmspace = $PackageWebCoreName;
 namespace IMethodNodeHelper
 {
     void assignBaseInfo(IMethodNode& node, void* handle, QMetaMethod method);
-    QString createFunctionExpression(IMethodNode& node);
+    void createFunctionExpression(IMethodNode& node);
     void createFunctionParamNodes(IMethodNode& node, QMetaMethod method);
 };
 
@@ -22,6 +22,7 @@ IMethodNode IMethodNode::fromMetaMethod(void *handle, QMetaMethod method)
 
     IMethodNodeHelper::assignBaseInfo(node, handle, method);
     IMethodNodeHelper::createFunctionParamNodes(node, method);
+    IMethodNodeHelper::createFunctionExpression(node);
 
     return node;
 }
@@ -68,7 +69,6 @@ void IMethodNodeHelper::assignBaseInfo(IMethodNode& node, void* handle, QMetaMet
     node.funName = method.name();
     node.returnTypeName = method.typeName();
     node.returnTypeId = QMetaType::Type(method.returnType());
-    node.expression = IMethodNodeHelper::createFunctionExpression(node);
 
     // return type
     if(node.returnTypeId == QMetaType::UnknownType){
@@ -79,7 +79,7 @@ void IMethodNodeHelper::assignBaseInfo(IMethodNode& node, void* handle, QMetaMet
     }
 }
 
-QString IMethodNodeHelper::createFunctionExpression(IMethodNode& node)
+void IMethodNodeHelper::createFunctionExpression(IMethodNode& node)
 {
     QString expression;
     expression.append(node.returnTypeName).append(' ');
@@ -92,7 +92,7 @@ QString IMethodNodeHelper::createFunctionExpression(IMethodNode& node)
     }
 
     expression.append(args.join(", ")).append(")");
-    return expression;
+    node.expression = expression;
 }
 
 void IMethodNodeHelper::createFunctionParamNodes(IMethodNode& node, QMetaMethod method)
