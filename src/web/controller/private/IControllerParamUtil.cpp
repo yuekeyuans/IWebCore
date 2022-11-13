@@ -530,7 +530,6 @@ void IControllerParamUtil::initMultiPartTypes(){
         const QString nmspace = "";
         MultiPartTypes << QMetaType::type((nmspace + "IMultiPart").toUtf8());
         MultiPartTypes << QMetaType::type((nmspace + "IMultiPart&").toUtf8());
-        qDebug() << MultiPartTypes;
     });
 }
 

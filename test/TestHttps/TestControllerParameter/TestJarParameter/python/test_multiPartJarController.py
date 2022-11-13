@@ -3,6 +3,7 @@ from util import wrapUrl
 import requests
 import os
 
+@pytest.mark.skip
 class TestMultiPartController:
     
     def test_testFileMultiPartJar(self):

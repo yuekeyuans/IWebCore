@@ -5,8 +5,9 @@ SUBDIRS += \
 #    controllerDemo \
 #    configurationDemo \
 #    Demo \
-    FirstDemo \
+#    FirstDemo \
 #    OrmDemo \
 #    DbDemo
 #    Editor
-#    miniDemo
+ \#    miniDemo
+    HelloWorld
