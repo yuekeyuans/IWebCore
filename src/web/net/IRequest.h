@@ -17,6 +17,7 @@ class ICookieJar;
 class ISessionJar;
 class IHeaderJar;
 class IMultiPartJar;
+class ISessionJar;
 class IRequestImpl;
 class IReqRespRaw;
 

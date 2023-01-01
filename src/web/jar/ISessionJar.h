@@ -7,23 +7,23 @@
 
 $PackageWebCoreBegin
 
-// TODO: Session 在框架当中应该如何支持？ SessionJar 又是个啥？
-
+class ISessionWare;
 class ISessionJar : public IJarUnit, IRegisterMetaTypeUnit<ISessionJar>
 {
     Q_GADGET
     $UseMetaRegistration(ISessionJar)
 public:
-    using IJarUnit::IJarUnit;
+    ISessionJar();
+    ISessionJar(IReqRespRaw* m_raw);
 
 public:
-    ISessionJar();
-
+    bool isValid() const override;
     QVariant value(const QString key);
     void setValue(const QString key, QVariant);
 
 private:
-    QString m_sessionId;
+    ISessionWare* m_sessionWare{};
+    QString m_sessionId{};
 };
 
 $PackageWebCoreEnd

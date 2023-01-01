@@ -111,7 +111,6 @@ ICookieJar *IRequest::cookieJar() const
 
 ISessionJar *IRequest::sessionJar() const
 {
-    $GlobalAssert->fatal(IGlobalAssert::UnImplimentedMethod);
     return raw->m_sessionJar;
 }
 

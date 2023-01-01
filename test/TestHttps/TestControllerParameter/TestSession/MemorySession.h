@@ -18,14 +18,15 @@ public:
 
     virtual QString createSession() final;
     virtual void destroySession(const QString& sessionId) final;
-    virtual bool isSessionExist(const QString& sessionId) final;
+    virtual bool isSessionExist(const QString& sessionId) const final;
     virtual void updateSession(const QString& key) final;
+    virtual QString getSessionId(IReqRespRaw*) const final;
 
 private:
-    std::map<QString, QMap<QString, QVariant>> m_sessions{};
+    std::unordered_map<QString, QMap<QString, QVariant>> m_sessions{};
     std::array<std::set<QString>, IConstantUtil::Session_Expiration> m_sessionRing{};
     int m_index{0};
 
-    QReadWriteLock m_lock;
+    mutable QReadWriteLock m_lock;
 };
 

@@ -4,6 +4,7 @@
 
 $PackageWebCoreBegin
 
+class IReqRespRaw;
 class ISessionWare
 {
 public:
@@ -15,9 +16,11 @@ public:
 
     virtual QString createSession() = 0;
     virtual void destroySession(const QString& sessionId) = 0;
-    virtual bool isSessionExist(const QString& sessionId) = 0;
+    virtual bool isSessionExist(const QString& sessionId) const = 0;
 
     virtual void updateSession(const QString& key) = 0; // 这个用于 session 更新
+
+    virtual QString getSessionId(IReqRespRaw* raw) const = 0;
 };
 
 $PackageWebCoreEnd

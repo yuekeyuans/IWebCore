@@ -1,4 +1,5 @@
 ﻿#include "MemorySession.h"
+#include "web/net/impl/IReqRespRaw.h"
 
 MemorySession::MemorySession()
 {
@@ -39,7 +40,7 @@ void MemorySession::destroySession(const QString &sessionId)
     m_lock.unlock();
 }
 
-bool MemorySession::isSessionExist(const QString &sessionId)
+bool MemorySession::isSessionExist(const QString &sessionId) const
 {
     m_lock.lockForRead();
     return m_sessions.find (sessionId) != m_sessions.end ();
@@ -60,4 +61,12 @@ void MemorySession::updateSession(const QString &key)
 
     m_sessionRing[m_index].insert (key);
     m_lock.unlock();
+}
+
+QString MemorySession::getSessionId(IReqRespRaw *raw) const
+{
+    if(raw->m_attribute.contains("sessionId")){
+        return raw->m_attribute["sessionId"].toString();
+    }
+    return {};
 }
