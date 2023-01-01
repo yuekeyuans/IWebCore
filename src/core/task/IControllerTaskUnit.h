@@ -13,6 +13,8 @@ class IControllerTaskUnit : public ITaskWare
     $UseWare
 public:
     IControllerTaskUnit() = default;
+    virtual ~IControllerTaskUnit() = default;
+
     virtual QString taskFinishTip() final;
     virtual void task() override = 0;
 

@@ -28,7 +28,7 @@ public:
     virtual bool update(QSqlDatabase& db, const IOrmTableWare& table, const QStringList& columns);
     virtual bool update(QSqlDatabase& db, const IOrmTableInfo& info, const QMap<QString, QVariant> &map, const IOrmCondition &condition);
 
-    virtual bool deleted(QSqlDatabase& db, const IOrmTableWare& interface);
+    virtual bool deleted(QSqlDatabase& db, const IOrmTableWare& interface_);
     virtual bool deleted(QSqlDatabase& db, const IOrmTableInfo& info, const IOrmCondition& condition);
     virtual bool deleteByPrimaryKey(QSqlDatabase& db, const IOrmTableInfo& info, const QVariant& key);
 

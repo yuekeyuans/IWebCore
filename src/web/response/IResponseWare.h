@@ -37,7 +37,7 @@ public:
 
     virtual void setInstanceArg(QString &&data); // 强制使用右值引用，为了在代码当中保持参数传入 std::move 增强标记性
     virtual void setInstanceArg(void *arg, const QString &tag = "");
-    virtual void setInstanceCopy(IResponseWare* interface);
+    virtual void setInstanceCopy(IResponseWare* interface_);
 
     virtual bool canConvertFromString();
     virtual bool matchConvertString(const QString&);

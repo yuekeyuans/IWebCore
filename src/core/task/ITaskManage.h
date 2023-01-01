@@ -38,6 +38,7 @@ public:
     static void registerInitializer(FunType fun);
     static void registerController(FunType fun);
     static void registerMiddleWare(FunType fun);
+    static void registerSessionInterface(FunType fun);
 
     static void registerFirstInvoker(FunType fun);
     static void registerLastInvoker(FunType fun);
@@ -60,6 +61,7 @@ private:
     static void invokeLastInvokers();
 
     static void invokeBluePrint();
+    static void invokeSessions();
 private:
     QList<ArgumentTaskFunType> m_ArgumentTasks;
     QList<FunType> m_configurators;
@@ -67,6 +69,7 @@ private:
     QList<FunType> m_controllers;
     QList<FunType> m_middleWares;
     QList<FunType> m_blueprints;
+    QList<FunType> m_sessions;      // NOTE: 理论上这只有一个的
 
     QList<FunType> m_firstInvokers;
     QList<FunType> m_lastInvokers;

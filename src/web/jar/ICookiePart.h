@@ -7,8 +7,6 @@
 
 $PackageWebCoreBegin
 
-// TODO: 这里 cookiePart 是否能够像  IMultiPart 一样注入到 函数参数当中？
-
 class ICookiePart : public IRegisterMetaTypeUnit<ICookiePart>
 {
     Q_GADGET

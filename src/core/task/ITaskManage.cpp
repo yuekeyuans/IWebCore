@@ -28,6 +28,7 @@ void ITaskManage::run(const QStringList& arguments)
     inst->m_isStarted = true;
 
     inst->invokeFirstInvokers();
+    inst->invokeSessions ();
 
     inst->invokeArgumentTasks(arguments);
     inst->invokeConfigers();
@@ -87,6 +88,15 @@ void ITaskManage::registerMiddleWare(ITaskManage::FunType fun)
         $GlobalAssert->fatal(IGlobalAssert::TaskDeferRegisterNotAllowed,  "registerConfiger");
     }
     inst->m_middleWares.append(fun);
+}
+
+void ITaskManage::registerSessionInterface(ITaskManage::FunType fun)
+{
+    auto inst = instance();
+    if(inst->m_isStarted){
+        $GlobalAssert->fatal(IGlobalAssert::TaskDeferRegisterNotAllowed,  "registerConfiger");
+    }
+    inst->m_sessions.append(fun);
 }
 
 void ITaskManage::registerFirstInvoker(ITaskManage::FunType fun)
@@ -179,6 +189,16 @@ void ITaskManage::invokeBluePrint()
     }
 
     inst->m_blueprints.clear();
+}
+
+void ITaskManage::invokeSessions()
+{
+    auto inst = instance();
+    for(FunType fun : inst->m_sessions){
+        fun();
+    }
+
+    inst->m_sessions.clear();
 }
 
 void ITaskManage::invokeFirstInvokers()

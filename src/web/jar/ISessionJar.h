@@ -19,12 +19,10 @@ public:
 public:
     ISessionJar();
 
-    // 在后面使用 hook?, hook 如何定义，可以定义多少？ 如何替换?
-//    QString getValueAsString(const QString& key);
-    //....
+    QVariant value(const QString key);
+    void setValue(const QString key, QVariant);
 
 private:
-
     QString m_sessionId;
 };
 

@@ -8,7 +8,6 @@
 #include "web/biscuits/IHttpVersion.h"
 #include "web/biscuits/IHttpStatus.h"
 #include "web/biscuits/IHttpMime.h"
-#include "web/biscuits/IHttpCharset.h"
 #include "web/jar/IMultiPart.h"
 
 $PackageWebCoreBegin

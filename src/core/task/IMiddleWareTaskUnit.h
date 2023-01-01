@@ -6,7 +6,6 @@
 
 $PackageWebCoreBegin
 
-// TODO: 看一看这个可需要移动?
 template<typename T, bool enabled=true>
 class IMiddleWareTaskUnit : public ITaskWare
 {

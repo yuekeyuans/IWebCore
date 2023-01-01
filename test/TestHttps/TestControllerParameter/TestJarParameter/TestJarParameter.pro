@@ -6,6 +6,7 @@ CONFIG -= app_bundle
 DEFINES += QT_DEPRECATED_WARNINGS
 
 include(../../../../src/IWebCore.pri)
+
 SOURCES += \
         controller/CookieJarController.cpp \
         controller/HeaderJarController.cpp \

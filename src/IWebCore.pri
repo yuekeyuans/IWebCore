@@ -40,7 +40,6 @@ HEADERS += \
     $$PWD/web/IInterceptInterface.h \
     $$PWD/web/IManage.h \
     $$PWD/web/IWebAssert.h \
-    $$PWD/web/biscuits/IHttpCharset.h \
     $$PWD/web/biscuits/IHttpHeader.h \
     $$PWD/web/biscuits/IHttpMethod.h \
     $$PWD/web/biscuits/IHttpMime.h \
@@ -172,7 +171,11 @@ HEADERS += \
     $$PWD/core/task/IMiddleWareTaskUnit.h \
     $$PWD/core/task/IStaticInitializeTaskUnit.h \
     $$PWD/core/task/ITaskManage.h \
-    $$PWD/core/task/ITaskWare.h
+    $$PWD/core/task/ITaskWare.h \
+    $$PWD/web/session/ISessionInterface.h \
+    $$PWD/web/session/ISessionManager.h \
+    $$PWD/web/session/ISessionTaskUnit.h \
+    $$PWD/web/session/ISessionWare.h
 
 SOURCES += \
     $$PWD/base/IConstantUtil.cpp \
@@ -202,7 +205,6 @@ SOURCES += \
     $$PWD/web/IInterceptInterface.cpp \
     $$PWD/web/IManage.cpp \
     $$PWD/web/IWebAssert.cpp \
-    $$PWD/web/biscuits/IHttpCharset.cpp \
     $$PWD/web/biscuits/IHttpHeader.cpp \
     $$PWD/web/biscuits/IHttpMethod.cpp \
     $$PWD/web/biscuits/IHttpMime.cpp \
@@ -305,7 +307,11 @@ SOURCES += \
     $$PWD/web/server/multiThreadServer/IMultiThreadServer.cpp \
     $$PWD/web/server/quenedServer/IQueneServer.cpp \
     $$PWD/core/task/ITaskManage.cpp \
-    $$PWD/core/task/ITaskWare.cpp
+    $$PWD/core/task/ITaskWare.cpp \
+    $$PWD/web/session/ISessionInterface.cpp \
+    $$PWD/web/session/ISessionManager.cpp \
+    $$PWD/web/session/ISessionTaskUnit.cpp \
+    $$PWD/web/session/ISessionWare.cpp
 
 DISTFILES += \
     $$PWD/IWebCore \
