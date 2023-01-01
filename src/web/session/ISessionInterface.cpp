@@ -4,9 +4,9 @@
 
 $PackageWebCoreBegin
 
-void ISessionInterfaceProxy::registerSession(void *ptr)
+void ISessionInterfaceProxy::registerSession(ISessionWare *ptr)
 {
-    ISessionManager::instance()->registerSessionWare (reinterpret_cast<ISessionWare*>(ptr));
+    ISessionManager::instance()->registerSessionWare (ptr);
 }
 
 $PackageWebCoreEnd

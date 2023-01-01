@@ -16,7 +16,7 @@ private:
 public:
     bool isSessionValid();
     void registerSessionWare(ISessionWare*);
-    ISessionWare* getSessionInterface();
+    ISessionWare* getSessionWare();
 
 protected:
     virtual void timerEvent(QTimerEvent *event) final;

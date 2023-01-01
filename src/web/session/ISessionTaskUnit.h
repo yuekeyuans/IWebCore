@@ -51,7 +51,6 @@ ISessionTaskUnit<T, enabled>::ISessionTaskUnitPrivate::ISessionTaskUnitPrivate()
             ITaskManage::registerSessionInterface ([](){
                 auto inst = T::instance();
                 inst->task();
-                inst->printTips();
             });
         });
     }

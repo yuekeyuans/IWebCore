@@ -14,13 +14,13 @@ ISessionJar::ISessionJar() : IJarUnit(nullptr)
 
 QVariant ISessionJar::value(const QString key)
 {
-    auto session = ISessionManager::instance ()->getSessionInterface ();
+    auto session = ISessionManager::instance ()->getSessionWare();
     return session->getSessionValue (m_sessionId, key);
 }
 
 void ISessionJar::setValue(const QString key, QVariant value)
 {
-    auto session = ISessionManager::instance ()->getSessionInterface ();
+    auto session = ISessionManager::instance ()->getSessionWare();
     session->setSessionValue (m_sessionId, key, std::move(value));
 }
 

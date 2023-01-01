@@ -37,6 +37,8 @@ namespace IConstantUtil
     static constexpr int Request_Header_Max_Length = (1024 * 8); // 8K
     static constexpr int Request_Body_Max_Length   = (1024 * 1024 * 4);  // 4M
 
+    // session
+    static constexpr int Session_Expiration = 30;
 
     // configuration  暂时的
     static constexpr bool IServerNameMiddleWareEnabeld = true;
@@ -62,6 +64,8 @@ void IConstantUtil::deprecateWarning(){
     Q_UNUSED(Request_Url_Max_Length)
     Q_UNUSED(Request_Header_Max_Length)
     Q_UNUSED(Request_Body_Max_Length)
+
+    Q_UNUSED(Session_Expiration)
 
     Q_UNUSED(IServerNameMiddleWareEnabeld)
     Q_UNUSED(ICookiePluginEnabled)

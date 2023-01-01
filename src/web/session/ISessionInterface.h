@@ -9,7 +9,7 @@ $PackageWebCoreBegin
 
 namespace ISessionInterfaceProxy
 {
-    void registerSession(void*);
+    void registerSession(ISessionWare*);
 }
 
 template<typename T, bool enabled=true>
@@ -26,7 +26,10 @@ public:
 template<typename T, bool enabled>
 void ISessionInterface<T, enabled>::task ()
 {
-    registerSession ();
+    static std::once_flag flag;
+    std::call_once(flag, [&](){
+        registerSession ();
+    });
 }
 
 template<typename T, bool enabled>

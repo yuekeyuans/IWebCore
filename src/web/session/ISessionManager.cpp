@@ -19,7 +19,7 @@ void ISessionManager::registerSessionWare(ISessionWare *sessionWare)
     }
 }
 
-ISessionWare *ISessionManager::getSessionInterface()
+ISessionWare *ISessionManager::getSessionWare()
 {
     return m_sessionWare;
 }
