@@ -25,5 +25,7 @@ private:
     std::map<QString, QMap<QString, QVariant>> m_sessions{};
     std::array<std::set<QString>, IConstantUtil::Session_Expiration> m_sessionRing{};
     int m_index{0};
+
+    QReadWriteLock m_lock;
 };
 
