@@ -7,3 +7,4 @@ SUBDIRS +=  \
 #    TestMiddleWare \
 #    TestHttpStaticFileSerice1   \
 #    TestHttpRegistration
+    TestHttpListener
