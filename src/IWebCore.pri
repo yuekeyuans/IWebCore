@@ -109,7 +109,7 @@ HEADERS += \
     $$PWD/core/configuration/IConfigurationInterface.h \
     $$PWD/core/configuration/IConfigurationManage.h \
     $$PWD/core/configuration/IConfigurationPreProcessor.h \
-    $$PWD/core/configuration/IConfigurationResourceAutoLoader.h \
+#    $$PWD/core/configuration/IConfigurationResourceAutoLoader.h \
     $$PWD/core/configuration/IConfigurationSystemPreProcessor.h \
     $$PWD/core/configuration/IConfigurationTaskInterface.h \
     $$PWD/core/configuration/IConfigurationWirePreProcessor.h \
@@ -259,7 +259,7 @@ SOURCES += \
     $$PWD/core/unit/IRegisterTypeUnit.cpp \
     $$PWD/core/configuration/IConfigurationInterface.cpp \
     $$PWD/core/configuration/IConfigurationManage.cpp \
-    $$PWD/core/configuration/IConfigurationResourceAutoLoader.cpp \
+#    $$PWD/core/configuration/IConfigurationResourceAutoLoader.cpp \
     $$PWD/core/configuration/IConfigurationSystemPreProcessor.cpp \
     $$PWD/core/configuration/IConfigurationTaskInterface.cpp \
     $$PWD/core/configuration/defaultConfiguration/IBannerConfiguration.cpp \
