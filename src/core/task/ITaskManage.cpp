@@ -2,7 +2,8 @@
 
 #include "core/configuration/IConfigurationManage.h"
 #include "core/assert/IGlobalAssert.h"
-#include "core/task/ITaskNode.h"
+#include "core/task/ITaskWare.h"
+#include "core/task/ITaskCatagory.h"
 
 $PackageWebCoreBegin
 
@@ -28,22 +29,22 @@ void ITaskManage::run(const QStringList& arguments)
     auto inst = instance();
     inst->m_arguments = arguments;
 
-    inst->execTaskCatagories();
+//    inst->execTaskCatagories();
     inst->execTaskNodes();
 
     // clean the content
-    inst->m_taskNodes.clear();
+    inst->m_taskWares.clear();
     inst->m_catagories.clear();
     inst->m_isTaskFinished = true;
 }
 
-void ITaskManage::addTaskNode(const ITaskNode &node)
+void ITaskManage::addTaskWare(ITaskWare *node)
 {
     if(m_isTaskFinished){
 
     }
 
-    m_taskNodes.append(node);
+    m_taskWares.append(node);
 }
 
 void ITaskManage::addTaskCatagory(ITaskCatagory *catagory)
@@ -51,31 +52,13 @@ void ITaskManage::addTaskCatagory(ITaskCatagory *catagory)
     m_catagories.append(catagory);
 }
 
-void ITaskManage::execTaskCatagories()
-{
-    QList<ITaskNode> cataNodes;
-    for(const auto& node : m_taskNodes){
-        if(node.mode == ITaskNode::Mode::Catagory){
-            cataNodes.append(node);
-        }
-    }
-
-    // TODO: here we sort cataNodes, temp skip this step
-
-    for(auto node : cataNodes){
-        node.function();
-    }
-}
-
 void ITaskManage::execTaskNodes()
 {
-    for(const auto& node : m_taskNodes){
-        if(node.mode == ITaskNode::Mode::Task){
-            for(auto& cata : m_catagories){
-                if(cata->getName() == node.catagory){
-                    cata->addTaskInfo(node);
-                    break;
-                }
+    for(const auto& node : m_taskWares){
+        for(auto& cata : m_catagories){
+            if(cata->getName() == node->catagory()){
+                cata->addTask(node);
+                break;
             }
         }
     }

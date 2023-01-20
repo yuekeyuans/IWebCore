@@ -3,9 +3,12 @@
 #include "base/IHeaderUtil.h"
 #include "base/IPreProcessorUtil.h"
 #include "core/task/ITaskCatagory.h"
-#include "core/task/ITaskNode.h"
+//#include "core/task/ITaskNode.h"
 
 $PackageWebCoreBegin
+
+class ITaskWare;
+class ITaskCatagory;
 
 class ITaskManage
 {
@@ -22,15 +25,15 @@ public:
     static void run(int argc, char** argv);
     static void run(const QStringList& arguments);
 
-    void addTaskNode(const ITaskNode& node);
+    void addTaskWare(ITaskWare* node);
     void addTaskCatagory(ITaskCatagory*);
 
 private:
-    void execTaskCatagories();
+//    void execTaskCatagories();
     void execTaskNodes();
 
 private:
-    QList<ITaskNode> m_taskNodes;
+    QList<ITaskWare*> m_taskWares;
     QList<ITaskCatagory*> m_catagories;
     bool m_isTaskFinished{false};
     QStringList m_arguments;

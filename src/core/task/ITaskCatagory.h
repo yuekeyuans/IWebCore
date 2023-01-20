@@ -1,10 +1,10 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "core/task/ITaskNode.h"
 
 $PackageWebCoreBegin
 
+class ITaskWare;
 class ITaskManage;
 
 class ITaskCatagory
@@ -18,11 +18,11 @@ public:
     virtual QStringList getOrders(){ return {}; };
 
 private:
-    void addTaskInfo(const ITaskNode&);
+    void addTask(ITaskWare*);
     void execTaskNodes();
 
 private:
-    QList<ITaskNode> m_taskNodes;
+    QList<ITaskWare*> m_taskWares;
 
 private:
     friend class ITaskManage;

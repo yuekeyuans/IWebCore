@@ -18,8 +18,5 @@ public:
 template<typename T, bool enabled>
 void ResourceTaskInterface<T, enabled>::registerToBase()
 {
-//    qDebug() << "register this class to basic";
-auto node = T::instance()->toTaskNode();
-ITaskManage::instance()->addTaskNode(node);
-
+    ITaskManage::instance()->addTaskWare(T::instance());
 }

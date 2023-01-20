@@ -34,7 +34,7 @@ HEADERS += \
     $$PWD/core/core.h \
     $$PWD/core/task/ITaskCatagory.h \
     $$PWD/core/task/ITaskCatagoryInterface.h \
-    $$PWD/core/task/ITaskNode.h \
+#    $$PWD/core/task/ITaskNode.h \
 #    $$PWD/core/task/unit/IArgumentTaskUnit.h \
 #    $$PWD/core/task/unit/IConfigurationTaskUnit.h \
 #    $$PWD/core/task/unit/IControllerTaskUnit.h \
@@ -204,7 +204,7 @@ SOURCES += \
     $$PWD/core/bean/ITypeManage.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \
     $$PWD/core/task/ITaskCatagoryInterface.cpp \
-    $$PWD/core/task/ITaskNode.cpp \
+#    $$PWD/core/task/ITaskNode.cpp \
     $$PWD/core/test/ITestManage.cpp \
 #    $$PWD/orm/IOrmAssert.cpp \
 #    $$PWD/web/IInterceptInterface.cpp \
