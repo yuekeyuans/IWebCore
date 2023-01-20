@@ -105,7 +105,6 @@ HEADERS += \
     $$PWD/core/unit/IRegisterInstanceUnit.h \
     $$PWD/core/unit/IRegisterMetaTypeUnit.h \
     $$PWD/core/unit/IRegisterTypeUnit.h \
-    $$PWD/core/unit/IThreadUnit.h \
     $$PWD/core/configuration/IConfigurationInstancePreProcessor.h \
     $$PWD/core/configuration/IConfigurationInterface.h \
     $$PWD/core/configuration/IConfigurationManage.h \
@@ -258,7 +257,6 @@ SOURCES += \
     $$PWD/core/unit/IRegisterInstanceUnit.cpp \
     $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
     $$PWD/core/unit/IRegisterTypeUnit.cpp \
-    $$PWD/core/unit/IThreadUnit.cpp \
     $$PWD/core/configuration/IConfigurationInterface.cpp \
     $$PWD/core/configuration/IConfigurationManage.cpp \
     $$PWD/core/configuration/IConfigurationResourceAutoLoader.cpp \
