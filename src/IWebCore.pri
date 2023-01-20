@@ -32,6 +32,16 @@ HEADERS += \
     $$PWD/core/bean/IGadgetUnit.h \
     $$PWD/core/bean/ITypeManage.h \
     $$PWD/core/core.h \
+    $$PWD/core/task/ITaskCatagory.h \
+    $$PWD/core/task/ITaskInfo.h \
+    $$PWD/core/task/unit/IArgumentTaskUnit.h \
+    $$PWD/core/task/unit/IConfigurationTaskUnit.h \
+    $$PWD/core/task/unit/IControllerTaskUnit.h \
+    $$PWD/core/task/unit/IFirstInvokeTaskUnit.h \
+    $$PWD/core/task/unit/IInitializationTaskUnit.h \
+    $$PWD/core/task/unit/ILastInvokeTaskUnit.h \
+    $$PWD/core/task/unit/IMiddleWareTaskUnit.h \
+    $$PWD/core/task/unit/IStaticInitializeTaskUnit.h \
     $$PWD/core/test/ITestInterface.h \
     $$PWD/core/test/ITestManage.h \
     $$PWD/core/test/ITestPreProcessor.h \
@@ -162,14 +172,6 @@ HEADERS += \
     $$PWD/web/server/multiThreadServer/IHttpServerRunable.h \
     $$PWD/web/server/multiThreadServer/IMultiThreadServer.h \
     $$PWD/web/server/quenedServer/IQueneServer.h \
-    $$PWD/core/task/IArgumentTaskUnit.h \
-    $$PWD/core/task/IConfigurationTaskUnit.h \
-    $$PWD/core/task/IControllerTaskUnit.h \
-    $$PWD/core/task/IFirstInvokeTaskUnit.h \
-    $$PWD/core/task/IInitializationTaskUnit.h \
-    $$PWD/core/task/ILastInvokeTaskUnit.h \
-    $$PWD/core/task/IMiddleWareTaskUnit.h \
-    $$PWD/core/task/IStaticInitializeTaskUnit.h \
     $$PWD/core/task/ITaskManage.h \
     $$PWD/core/task/ITaskWare.h \
     $$PWD/web/session/ISessionInterface.h \
@@ -200,6 +202,8 @@ SOURCES += \
     $$PWD/core/assert/IGlobalAssert.cpp \
     $$PWD/core/bean/IGadgetUnit.cpp \
     $$PWD/core/bean/ITypeManage.cpp \
+    $$PWD/core/task/ITaskCatagory.cpp \
+    $$PWD/core/task/ITaskInfo.cpp \
     $$PWD/core/test/ITestManage.cpp \
     $$PWD/orm/IOrmAssert.cpp \
     $$PWD/web/IInterceptInterface.cpp \

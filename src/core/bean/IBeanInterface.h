@@ -4,7 +4,7 @@
 #include "ITypeManage.h"
 #include "base/IHeaderUtil.h"
 #include "core/bean/IBeanPreProcessor.h"
-#include "core/task/IStaticInitializeTaskUnit.h"
+#include "core/task/unit/IStaticInitializeTaskUnit.h"
 
 $PackageWebCoreBegin
 

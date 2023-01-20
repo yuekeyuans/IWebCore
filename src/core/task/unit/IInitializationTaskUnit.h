@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "ITaskWare.h"
-#include "ITaskManage.h"
+#include "core/task/ITaskWare.h"
+#include "core/task/ITaskManage.h"
 #include "base/IHeaderUtil.h"
 
 $PackageWebCoreBegin
