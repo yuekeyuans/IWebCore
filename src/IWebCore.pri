@@ -34,14 +34,14 @@ HEADERS += \
     $$PWD/core/core.h \
     $$PWD/core/task/ITaskCatagory.h \
     $$PWD/core/task/ITaskNode.h \
-    $$PWD/core/task/unit/IArgumentTaskUnit.h \
-    $$PWD/core/task/unit/IConfigurationTaskUnit.h \
-    $$PWD/core/task/unit/IControllerTaskUnit.h \
-    $$PWD/core/task/unit/IFirstInvokeTaskUnit.h \
-    $$PWD/core/task/unit/IInitializationTaskUnit.h \
-    $$PWD/core/task/unit/ILastInvokeTaskUnit.h \
-    $$PWD/core/task/unit/IMiddleWareTaskUnit.h \
-    $$PWD/core/task/unit/IStaticInitializeTaskUnit.h \
+#    $$PWD/core/task/unit/IArgumentTaskUnit.h \
+#    $$PWD/core/task/unit/IConfigurationTaskUnit.h \
+#    $$PWD/core/task/unit/IControllerTaskUnit.h \
+#    $$PWD/core/task/unit/IFirstInvokeTaskUnit.h \
+#    $$PWD/core/task/unit/IInitializationTaskUnit.h \
+#    $$PWD/core/task/unit/ILastInvokeTaskUnit.h \
+#    $$PWD/core/task/unit/IMiddleWareTaskUnit.h \
+#    $$PWD/core/task/unit/IStaticInitializeTaskUnit.h \
     $$PWD/core/test/ITestInterface.h \
     $$PWD/core/test/ITestManage.h \
     $$PWD/core/test/ITestPreProcessor.h \
