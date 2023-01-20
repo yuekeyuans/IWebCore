@@ -23,6 +23,7 @@ public:
     static void run(const QStringList& arguments);
 
     void addTaskNode(const ITaskNode& node);
+    void addTaskCatagory(ITaskCatagory*);
 
 private:
     void execTaskCatagories();
@@ -30,7 +31,7 @@ private:
 
 private:
     QList<ITaskNode> m_taskNodes;
-    QList<ITaskCatagory> m_catagories;
+    QList<ITaskCatagory*> m_catagories;
     bool m_isTaskFinished{false};
     QStringList m_arguments;
 };

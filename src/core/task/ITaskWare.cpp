@@ -27,9 +27,7 @@ ITaskNode ITaskWare::toTaskNode()
     node.name = name();
     node.orders = orders();
     node.catagory = catagory();
-    node.function = [=](){
-        return std::bind(std::mem_fn(&ITaskWare::task), this);
-    };
+    node.function = std::bind(std::mem_fn(&ITaskWare::task), this);
 
     return node;
 }

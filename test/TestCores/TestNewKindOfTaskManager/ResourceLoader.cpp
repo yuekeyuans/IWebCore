@@ -17,10 +17,10 @@ QStringList ResourceLoader::orders()
 
 void ResourceLoader::task()
 {
-
+    qDebug() << "hello world";
 }
 
 QString ResourceLoader::catagory()
 {
-    return {};
+    return "resource";
 }

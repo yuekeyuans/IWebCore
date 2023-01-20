@@ -22,7 +22,7 @@ public:
 public:
     void printTips();
 
-private:
+public:
     ITaskNode toTaskNode();
 };
 

@@ -46,6 +46,11 @@ void ITaskManage::addTaskNode(const ITaskNode &node)
     m_taskNodes.append(node);
 }
 
+void ITaskManage::addTaskCatagory(ITaskCatagory *catagory)
+{
+    m_catagories.append(catagory);
+}
+
 void ITaskManage::execTaskCatagories()
 {
     QList<ITaskNode> cataNodes;
@@ -67,8 +72,8 @@ void ITaskManage::execTaskNodes()
     for(const auto& node : m_taskNodes){
         if(node.mode == ITaskNode::Mode::Task){
             for(auto& cata : m_catagories){
-                if(cata.getName() == node.catagory){
-                    cata.addTaskInfo(node);
+                if(cata->getName() == node.catagory){
+                    cata->addTaskInfo(node);
                     break;
                 }
             }
@@ -76,7 +81,7 @@ void ITaskManage::execTaskNodes()
     }
 
     for(auto& node : m_catagories){
-        node.execTaskNodes();
+        node->execTaskNodes();
     }
 }
 

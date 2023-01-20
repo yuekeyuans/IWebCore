@@ -12,6 +12,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 include(../../../src/IWebCore.pri)
 
 SOURCES += \
+        ResourceCatagory.cpp \
         ResourceLoader.cpp \
         ResourceTaskInterface.cpp \
         main.cpp
@@ -22,5 +23,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    ResourceCatagory.h \
     ResourceLoader.h \
     ResourceTaskInterface.h

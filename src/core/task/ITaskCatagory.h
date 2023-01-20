@@ -14,7 +14,7 @@ public:
     virtual ~ITaskCatagory() = default;
 
 public:
-    virtual QString getName() {return "";};
+    virtual QString getName() = 0;
     virtual QStringList getOrders(){ return {}; };
 
 private:
