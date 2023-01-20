@@ -12,9 +12,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 include(../../../src/IWebCore.pri)
 
 SOURCES += \
+        ResourceLoader.cpp \
+        ResourceTaskInterface.cpp \
         main.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+HEADERS += \
+    ResourceLoader.h \
+    ResourceTaskInterface.h

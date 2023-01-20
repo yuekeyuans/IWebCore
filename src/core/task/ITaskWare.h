@@ -19,7 +19,6 @@ public:
     virtual QString catagory() = 0;
     virtual ITaskNode::Mode mode();
 
-
 public:
     void printTips();
 
