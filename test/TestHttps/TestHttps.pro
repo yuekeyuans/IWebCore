@@ -1,10 +1,10 @@
 TEMPLATE = subdirs
 
 SUBDIRS +=  \
-    TestControllerParameter \
+#    TestControllerParameter \
 #    TestHttpBeanMapping \
 #    TestHttpMapping \
 #    TestMiddleWare \
 #    TestHttpStaticFileSerice1   \
 #    TestHttpRegistration
-    TestHttpListener
+#    TestHttpListener

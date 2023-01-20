@@ -4,7 +4,7 @@
 
 $PackageWebCoreBegin
 
-struct ITaskInfo
+struct ITaskNode
 {
 public:
     using FunType = std::function<void()>;

@@ -1,22 +1,31 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "core/task/ITaskInfo.h"
+#include "core/task/ITaskNode.h"
 
 $PackageWebCoreBegin
+
+class ITaskManage;
 
 class ITaskCatagory
 {
 public:
-    ITaskCatagory();
-    QString getName() const;
+    ITaskCatagory() = default;
+    virtual ~ITaskCatagory() = default;
+
+public:
+    virtual QString getName() {return "";};
+    virtual QStringList getOrders(){ return {}; };
 
 private:
-    void addTaskInfo(const ITaskInfo&);
+    void addTaskInfo(const ITaskNode&);
+    void execTaskNodes();
 
 private:
-    QString m_name;
-    QList<ITaskInfo> m_taskInfos;
+    QList<ITaskNode> m_taskNodes;
+
+private:
+    friend class ITaskManage;
 };
 
 $PackageWebCoreEnd

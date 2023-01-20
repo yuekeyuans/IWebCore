@@ -41,9 +41,14 @@ void IGlobalAssert::fatal(const QString &name, const QString &reason)
 
 void IGlobalAssert::loadFromFunction()
 {
+    /// global
     addFatal("Assert_Load_Json_Error", "your json format is not correct");
     addFatal("UnImplimentedMethod", "this method is not implimented.");
+
+    /// macro
     addFatal("EnableBluePrintParamError", "");
+
+    /// configuration
     addFatal("ConfigurationMayNotInitialized"
              , "the configuration will complete at the begin of main. "
                "when you use configuration when configuration not complete, "
@@ -54,7 +59,9 @@ void IGlobalAssert::loadFromFunction()
     addFatal("ConfigurationCovertYamlFailError");
     addFatal("ConfigurationResolveJsonError");
 
+    /// task
     addFatal("TaskDeferRegisterNotAllowed");
+    addFatal("TaskShouldNotBeRegistered");
 }
 
 $PackageWebCoreEnd

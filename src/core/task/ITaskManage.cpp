@@ -2,6 +2,7 @@
 
 #include "core/configuration/IConfigurationManage.h"
 #include "core/assert/IGlobalAssert.h"
+#include "core/task/ITaskNode.h"
 
 $PackageWebCoreBegin
 
@@ -25,198 +26,58 @@ void ITaskManage::run(int argc, char **argv)
 void ITaskManage::run(const QStringList& arguments)
 {
     auto inst = instance();
-    inst->m_isStarted = true;
+    inst->m_arguments = arguments;
 
-    inst->invokeFirstInvokers();
-    inst->invokeSessions ();
+    inst->execTaskCatagories();
+    inst->execTaskNodes();
 
-    inst->invokeArgumentTasks(arguments);
-    inst->invokeConfigers();
-
-    inst->invokeInitializers();
-
-    inst->invokeControllers();
-    inst->invokeMiddleWares();
-
-    inst->invokeBluePrint();
-
-    inst->invokeLastInvokers();
+    // clean the content
+    inst->m_taskNodes.clear();
+    inst->m_catagories.clear();
+    inst->m_isTaskFinished = true;
 }
 
-void ITaskManage::registerArgumentTask(ArgumentTaskFunType fun)
+void ITaskManage::addTaskNode(const ITaskNode &node)
 {
-    auto inst = instance();
-    if(inst->m_isStarted){
-        $GlobalAssert->fatal(IGlobalAssert::TaskDeferRegisterNotAllowed,  "registerConfiger");
-    }
-    inst->m_ArgumentTasks.append(fun);
-}
+    if(m_isTaskFinished){
 
-void ITaskManage::registerConfigrator(ITaskManage::FunType fun)
-{
-    auto inst = instance();
-    if(inst->m_isStarted){
-        $GlobalAssert->fatal(IGlobalAssert::TaskDeferRegisterNotAllowed,  "registerConfiger");
     }
 
-    inst->m_configurators.append(fun);
+    m_taskNodes.append(node);
 }
 
-void ITaskManage::registerInitializer(ITaskManage::FunType fun)
+void ITaskManage::execTaskCatagories()
 {
-    auto inst = instance();
-    if(inst->m_isStarted){
-        $GlobalAssert->fatal(IGlobalAssert::TaskDeferRegisterNotAllowed,  "registerInitializer");
+    QList<ITaskNode> cataNodes;
+    for(const auto& node : m_taskNodes){
+        if(node.mode == ITaskNode::Mode::Catagory){
+            cataNodes.append(node);
+        }
     }
 
-    inst->m_initializers.append(fun);
-}
+    // TODO: here we sort cataNodes, temp skip this step
 
-void ITaskManage::registerController(FunType fun)
-{
-    auto inst = instance();
-    if(inst->m_isStarted){
-        $GlobalAssert->fatal(IGlobalAssert::TaskDeferRegisterNotAllowed,  "registerConfiger");
+    for(auto node : cataNodes){
+        node.function();
     }
-    inst->m_controllers.append(fun);
 }
 
-void ITaskManage::registerMiddleWare(ITaskManage::FunType fun)
+void ITaskManage::execTaskNodes()
 {
-    auto inst = instance();
-    if(inst->m_isStarted){
-        $GlobalAssert->fatal(IGlobalAssert::TaskDeferRegisterNotAllowed,  "registerConfiger");
-    }
-    inst->m_middleWares.append(fun);
-}
-
-void ITaskManage::registerSessionInterface(ITaskManage::FunType fun)
-{
-    auto inst = instance();
-    if(inst->m_isStarted){
-        $GlobalAssert->fatal(IGlobalAssert::TaskDeferRegisterNotAllowed,  "registerConfiger");
-    }
-    inst->m_sessions.append(fun);
-}
-
-void ITaskManage::registerFirstInvoker(ITaskManage::FunType fun)
-{
-    auto inst = instance();
-    if(inst->m_isStarted){
-        $GlobalAssert->fatal(IGlobalAssert::TaskDeferRegisterNotAllowed,  "registerConfiger");
-    }
-    inst->m_firstInvokers.append(fun);
-}
-
-void ITaskManage::registerLastInvoker(ITaskManage::FunType fun)
-{
-    auto inst = instance();
-    if(inst->m_isStarted){
-        $GlobalAssert->fatal(IGlobalAssert::TaskDeferRegisterNotAllowed,  "registerConfiger");
-    }
-    inst->m_lastInvokers.append(fun);
-}
-
-void ITaskManage::registerBluePrint(ITaskManage::FunType fun)
-{
-    auto inst = instance();
-    if(inst->m_isStarted){
-        $GlobalAssert->fatal(IGlobalAssert::TaskDeferRegisterNotAllowed,  "registerConfiger");
-    }
-    inst->m_blueprints.append(fun);
-}
-
-void ITaskManage::registerAsyncTask(ITaskManage::FunType fun)
-{
-    QTimer::singleShot(0, [=](){
-        fun();
-    });
-}
-
-void ITaskManage::invokeArgumentTasks(const QStringList& arguments)
-{
-    auto inst = instance();
-    for(auto fun : inst->m_ArgumentTasks){
-        fun(arguments);
-    }
-    inst->m_ArgumentTasks.clear();
-}
-
-void ITaskManage::invokeControllers()
-{
-    auto inst = instance();
-    for(auto fun : inst->m_controllers){
-        fun();
-    }
-    inst->m_controllers.clear();
-}
-
-void ITaskManage::invokeMiddleWares()
-{
-    auto inst = instance();
-    for(auto fun : inst->m_middleWares){
-        fun();
-    }
-    inst->m_middleWares.clear();
-}
-
-void ITaskManage::invokeConfigers()
-{
-    auto inst = instance();
-    for(FunType fun : inst->m_configurators){
-        fun();
+    for(const auto& node : m_taskNodes){
+        if(node.mode == ITaskNode::Mode::Task){
+            for(auto& cata : m_catagories){
+                if(cata.getName() == node.catagory){
+                    cata.addTaskInfo(node);
+                    break;
+                }
+            }
+        }
     }
 
-    inst->m_configurators.clear();
-    IConfigurationManage::instance()->m_isInited = true;
-}
-
-void ITaskManage::invokeInitializers()
-{
-    auto inst = instance();
-    for(FunType fun : inst->m_initializers){
-        fun();
+    for(auto& node : m_catagories){
+        node.execTaskNodes();
     }
-
-    inst->m_initializers.clear();
-}
-
-void ITaskManage::invokeBluePrint()
-{
-    auto inst = instance();
-    for(FunType fun : inst->m_blueprints){
-        fun();
-    }
-
-    inst->m_blueprints.clear();
-}
-
-void ITaskManage::invokeSessions()
-{
-    auto inst = instance();
-    for(FunType fun : inst->m_sessions){
-        fun();
-    }
-
-    inst->m_sessions.clear();
-}
-
-void ITaskManage::invokeFirstInvokers()
-{
-    auto inst = instance();
-    for(FunType fun : inst->m_firstInvokers){
-        fun();
-    }
-    inst->m_firstInvokers.clear();
-}
-
-void ITaskManage::invokeLastInvokers()
-{
-    auto inst = instance();
-    for(FunType fun : inst->m_lastInvokers){
-        fun();
-    }
-    inst->m_lastInvokers.clear();
 }
 
 $PackageWebCoreEnd

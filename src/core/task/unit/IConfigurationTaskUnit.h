@@ -35,11 +35,11 @@ IConfigurationTaskUnit<T, enabled>::IConfigurationTaskUnitPrivate::IConfiguratio
     if(enabled){
         static std::once_flag flag;
         std::call_once(flag, [](){
-            ITaskManage::registerConfigrator([](){
-                auto inst = T::instance();
-                inst->task();
-                inst->printTips();
-            });
+//            ITaskManage::registerConfigrator([](){
+//                auto inst = T::instance();
+//                inst->task();
+//                inst->printTips();
+//            });
         });
     }
 }

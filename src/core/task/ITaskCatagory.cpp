@@ -2,18 +2,18 @@
 
 $PackageWebCoreBegin
 
-ITaskCatagory::ITaskCatagory()
+void ITaskCatagory::addTaskInfo(const ITaskNode& info)
 {
+    m_taskNodes.append(info);
 }
 
-QString ITaskCatagory::getName() const
+void ITaskCatagory::execTaskNodes()
 {
-    return m_name;
-}
+    // TODO: first is sort node, skip this and this will be complete latter.
 
-void ITaskCatagory::addTaskInfo(const ITaskInfo & info)
-{
-    m_taskInfos.append(info);
+    for(auto& node : m_taskNodes){
+        node.function();
+    }
 }
 
 $PackageWebCoreEnd
