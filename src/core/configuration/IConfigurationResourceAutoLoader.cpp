@@ -24,11 +24,6 @@ namespace Loader{
     QJsonObject parseYamlFile(const QString& path);
 }
 
-QString IConfigurationResourceAutoLoader::taskFinishTip()
-{
-    return "Auto Load Resource Task Finish";
-}
-
 void IConfigurationResourceAutoLoader::task()
 {
     loadSystemEnvironment();
@@ -54,7 +49,6 @@ void IConfigurationResourceAutoLoader::loadYaml()
 void Loader::loadSystemEnvironment(){
     auto obj = getSystemEnvironment();
     IConfigurationManage::registerConfiguration(SystemConfigurationGroup, obj);
-    qDebug() << "Load SystemEnvironment";
 }
 
 void Loader::loadJson(){

@@ -13,6 +13,7 @@ void ITaskCatagory::execTaskNodes()
     // TODO: first is sort node, skip this and this will be complete latter.
     for(auto& node : m_taskWares){
         node->task();
+        node->printTips();
     }
 }
 

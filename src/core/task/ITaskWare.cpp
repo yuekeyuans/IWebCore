@@ -2,16 +2,16 @@
 
 $PackageWebCoreBegin
 
-QString ITaskWare::taskFinishTip()
+QStringList ITaskWare::orders()
 {
-    return "";
+    return {};
 }
 
 void ITaskWare::printTips()
 {
-    QString tip = taskFinishTip();
+    QString tip = QString("`").append(name()).append("` in catagory `").append(catagory()).append("` finished");
     if(!tip.isEmpty()){
-        qDebug().noquote() << QStringLiteral("[√]\t") << tip;
+        qDebug().noquote() << QStringLiteral("[√]  ") << tip;
     }
 }
 

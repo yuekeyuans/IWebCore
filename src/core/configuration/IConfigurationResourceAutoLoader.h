@@ -11,12 +11,12 @@ $PackageWebCoreBegin
  */
 class IConfigurationResourceAutoLoader : public IConfigurationTaskInterface<IConfigurationResourceAutoLoader>
 {
+    Q_GADGET
     $UseInstance(IConfigurationResourceAutoLoader)
 private:
     IConfigurationResourceAutoLoader() = default;
 
 public:
-    virtual QString taskFinishTip() final;
     virtual void task() final;
 
 private:
