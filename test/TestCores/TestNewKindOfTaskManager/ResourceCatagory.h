@@ -6,9 +6,10 @@
 class ResourceCatagory : public ITaskCatagoryInterface<ResourceCatagory>
 {
     $UseInstance(ResourceCatagory)
-public:
-    ResourceCatagory();
+private:
+    ResourceCatagory() = default;
 
-    virtual QString name() final;
+public:
+    virtual QString name() const final;
 };
 

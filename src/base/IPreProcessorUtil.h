@@ -30,6 +30,8 @@ private:    \
 private:    \
     virtual void pureVirtualWare() override {};
 
+#define $AsCatagory(klassName)  $UseInstance(klassName)
+
 #define $UseMetaRegistration(klassName) \
 public:     \
 static void web_core_init_registerMetaType() {  \

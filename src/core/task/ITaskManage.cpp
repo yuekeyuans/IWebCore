@@ -29,7 +29,6 @@ void ITaskManage::run(const QStringList& arguments)
     auto inst = instance();
     inst->m_arguments = arguments;
 
-//    inst->execTaskCatagories();
     inst->execTaskNodes();
 
     inst->m_taskWares.clear();
@@ -60,6 +59,10 @@ void ITaskManage::execTaskNodes()
                 break;
             }
         }
+    }
+
+    for(const auto& node : m_catagories){
+        node->printTaskInfo();
     }
 
     for(auto& node : m_catagories){

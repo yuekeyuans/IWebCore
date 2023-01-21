@@ -43,6 +43,9 @@ HEADERS += \
 #    $$PWD/core/task/unit/ILastInvokeTaskUnit.h \
 #    $$PWD/core/task/unit/IMiddleWareTaskUnit.h \
 #    $$PWD/core/task/unit/IStaticInitializeTaskUnit.h \
+    $$PWD/core/task/default/IBannerTask.h \
+    $$PWD/core/task/default/IStartupTaskCatagory.h \
+    $$PWD/core/task/default/IStartupTaskInterface.h \
     $$PWD/core/test/ITestInterface.h \
     $$PWD/core/test/ITestManage.h \
     $$PWD/core/test/ITestPreProcessor.h \
@@ -205,6 +208,9 @@ SOURCES += \
     $$PWD/core/configuration/IConfigurationCatagory.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \
     $$PWD/core/task/ITaskCatagoryInterface.cpp \
+    $$PWD/core/task/default/IBannerTask.cpp \
+    $$PWD/core/task/default/IStartupTaskCatagory.cpp \
+    $$PWD/core/task/default/IStartupTaskInterface.cpp \
     $$PWD/core/test/ITestManage.cpp \
 #    $$PWD/orm/IOrmAssert.cpp \
 #    $$PWD/web/IInterceptInterface.cpp \

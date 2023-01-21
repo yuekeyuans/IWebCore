@@ -6,12 +6,13 @@
 class ResourceLoader : public ResourceTaskInterface<ResourceLoader>
 {
     $UseInstance(ResourceLoader)
-public:
-    ResourceLoader();
+private:
+    ResourceLoader() = default;
 
-    virtual QString name() final;
-    virtual QStringList orders() final;
+public:
+    virtual QString name() const final;
+    virtual QStringList orders() const final;
+    virtual QString catagory() const final;
     virtual void task() final;
-    virtual QString catagory() final;
 };
 

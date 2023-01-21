@@ -14,12 +14,13 @@ public:
     virtual ~ITaskCatagory() = default;
 
 public:
-    virtual QString name() = 0;
-    virtual QStringList orders();
+    virtual QString name() const = 0;
+    virtual QStringList orders() const;
 
 private:
     void addTask(ITaskWare*);
-    void execTaskNodes();
+    void execTaskNodes() const;
+    void printTaskInfo() const;
 
 private:
     QList<ITaskWare*> m_taskWares;

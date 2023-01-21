@@ -1,11 +1,6 @@
 ﻿#include "ResourceCatagory.h"
 
-ResourceCatagory::ResourceCatagory()
-{
-
-}
-
-QString ResourceCatagory::name()
+QString ResourceCatagory::name() const
 {
     return "resource";
 }

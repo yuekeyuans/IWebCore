@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
+
 $PackageWebCoreBegin
 
 class ITaskWare
@@ -10,11 +11,10 @@ public:
     ITaskWare() = default;
 
 public:
-    virtual QString name() = 0;
+    virtual QString name() const = 0;
     virtual void task() = 0;
-    virtual QString catagory() = 0;
-    virtual QStringList orders();
-    virtual void printTips();
+    virtual QString catagory() const = 0;
+    virtual QStringList orders() const;
 };
 
 $PackageWebCoreEnd

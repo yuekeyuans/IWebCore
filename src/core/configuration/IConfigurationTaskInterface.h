@@ -19,8 +19,8 @@ public:
     virtual void registerToBase() final;
 
 protected:
-    virtual QString name() override;
-    virtual QString catagory() final;
+    virtual QString name() const override;
+    virtual QString catagory() const final;
 };
 
 template<typename T, bool enabled>
@@ -30,13 +30,13 @@ void IConfigurationTaskInterface<T, enabled>::registerToBase()
 }
 
 template<typename T, bool enabled>
-QString IConfigurationTaskInterface<T, enabled>::name()
+QString IConfigurationTaskInterface<T, enabled>::name() const
 {
     return IMetaUtil::getMetaClassName(T::staticMetaObject);
 }
 
 template<typename T, bool enabled>
-QString IConfigurationTaskInterface<T, enabled>::catagory()
+QString IConfigurationTaskInterface<T, enabled>::catagory() const
 {
     return "Configuration";
 }

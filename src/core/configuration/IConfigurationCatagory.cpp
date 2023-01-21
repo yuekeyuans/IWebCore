@@ -2,12 +2,7 @@
 
 $PackageWebCoreBegin
 
-IConfigurationCatagory::IConfigurationCatagory()
-{
-
-}
-
-QString IWebCore::IConfigurationCatagory::name()
+QString IWebCore::IConfigurationCatagory::name() const
 {
     return "Configuration";
 }

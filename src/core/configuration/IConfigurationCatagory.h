@@ -9,10 +9,10 @@ class IConfigurationCatagory : public ITaskCatagoryInterface<IConfigurationCatag
 {
     $UseInstance(IConfigurationCatagory)
 public:
-    IConfigurationCatagory();
+    IConfigurationCatagory() = default;
 
 public:
-    virtual QString name() final;
+    virtual QString name() const final;
 };
 
 $PackageWebCoreEnd

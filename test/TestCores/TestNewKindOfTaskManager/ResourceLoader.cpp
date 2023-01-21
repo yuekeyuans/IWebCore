@@ -1,26 +1,21 @@
 ﻿#include "ResourceLoader.h"
 
-ResourceLoader::ResourceLoader()
-{
-
-}
-
-QString ResourceLoader::name()
+QString ResourceLoader::name() const
 {
     return "Resource loader";
 }
 
-QStringList ResourceLoader::orders()
+QStringList ResourceLoader::orders() const
 {
     return {};
+}
+
+QString ResourceLoader::catagory() const
+{
+    return "resource";
 }
 
 void ResourceLoader::task()
 {
     qDebug() << "hello world";
-}
-
-QString ResourceLoader::catagory()
-{
-    return "resource";
 }
