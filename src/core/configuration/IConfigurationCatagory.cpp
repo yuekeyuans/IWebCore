@@ -7,7 +7,7 @@ IConfigurationCatagory::IConfigurationCatagory()
 
 }
 
-QString IWebCore::IConfigurationCatagory::getName()
+QString IWebCore::IConfigurationCatagory::name()
 {
     return "Configuration";
 }

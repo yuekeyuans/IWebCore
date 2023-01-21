@@ -14,9 +14,7 @@ public:
     virtual void task() = 0;
     virtual QString catagory() = 0;
     virtual QStringList orders();
-
-public:
-    void printTips();
+    virtual void printTips();
 };
 
 $PackageWebCoreEnd

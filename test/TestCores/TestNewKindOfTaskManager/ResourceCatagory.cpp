@@ -5,7 +5,7 @@ ResourceCatagory::ResourceCatagory()
 
 }
 
-QString ResourceCatagory::getName()
+QString ResourceCatagory::name()
 {
     return "resource";
 }

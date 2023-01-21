@@ -9,6 +9,6 @@ class ResourceCatagory : public ITaskCatagoryInterface<ResourceCatagory>
 public:
     ResourceCatagory();
 
-    virtual QString getName() final;
+    virtual QString name() final;
 };
 

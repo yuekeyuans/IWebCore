@@ -29,7 +29,6 @@ public:
     void addTaskCatagory(ITaskCatagory*);
 
 private:
-//    void execTaskCatagories();
     void execTaskNodes();
 
 private:

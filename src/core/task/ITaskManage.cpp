@@ -11,8 +11,7 @@ $UseGlobalAssert()
 
 void ITaskManage::run()
 {
-    QStringList arguments;
-    run(arguments);
+    run({});
 }
 
 void ITaskManage::run(int argc, char **argv)
@@ -21,6 +20,7 @@ void ITaskManage::run(int argc, char **argv)
     for(int i=0; i<argc; i++){
         arguments << QString(argv[i]);
     }
+
     run(arguments);
 }
 
@@ -32,7 +32,6 @@ void ITaskManage::run(const QStringList& arguments)
 //    inst->execTaskCatagories();
     inst->execTaskNodes();
 
-    // clean the content
     inst->m_taskWares.clear();
     inst->m_catagories.clear();
     inst->m_isTaskFinished = true;
@@ -41,7 +40,7 @@ void ITaskManage::run(const QStringList& arguments)
 void ITaskManage::addTaskWare(ITaskWare *node)
 {
     if(m_isTaskFinished){
-
+        $GlobalAssert->fatal("TaskShouldNotBeRegistered");
     }
 
     m_taskWares.append(node);
@@ -56,7 +55,7 @@ void ITaskManage::execTaskNodes()
 {
     for(const auto& node : m_taskWares){
         for(auto& cata : m_catagories){
-            if(cata->getName() == node->catagory()){
+            if(cata->name() == node->catagory()){
                 cata->addTask(node);
                 break;
             }

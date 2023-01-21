@@ -12,7 +12,7 @@ public:
     IConfigurationCatagory();
 
 public:
-    virtual QString getName() final;
+    virtual QString name() final;
 };
 
 $PackageWebCoreEnd

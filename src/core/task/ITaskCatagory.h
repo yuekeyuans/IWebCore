@@ -14,8 +14,8 @@ public:
     virtual ~ITaskCatagory() = default;
 
 public:
-    virtual QString getName() = 0;
-    virtual QStringList getOrders(){ return {}; };
+    virtual QString name() = 0;
+    virtual QStringList orders();
 
 private:
     void addTask(ITaskWare*);

@@ -61,7 +61,7 @@ void IGlobalAssert::loadFromFunction()
 
     /// task
     addFatal("TaskDeferRegisterNotAllowed");
-    addFatal("TaskShouldNotBeRegistered");
+    addFatal("TaskShouldNotBeRegistered", "task can not be registered when the task run finished");
 }
 
 $PackageWebCoreEnd

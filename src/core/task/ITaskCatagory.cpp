@@ -3,6 +3,11 @@
 
 $PackageWebCoreBegin
 
+QStringList ITaskCatagory::orders()
+{
+    return {};
+}
+
 void ITaskCatagory::addTask(ITaskWare *ware)
 {
     m_taskWares.append(ware);
