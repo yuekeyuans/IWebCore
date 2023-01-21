@@ -16,21 +16,10 @@ namespace ISortUnitHelper{
 
 struct ISortUnit
 {
-    enum SortFlag{
-        First,
-        Last,
-        Before,
-        After,
-        Higher,
-        Lower
-    };
-
 public:
     virtual QStringList orders() const;
 
 private:
-
-
     template<typename T>
     static QVector<T*> sort(const QList<T*>&);
 };
@@ -43,18 +32,32 @@ QVector<T *> ISortUnit::sort(const QList<T *>& values)
     return ISortUnitHelper::toSortList(values, strList);
 }
 
-
 template<typename T>
 QList<QPair<QString, QStringList> > ISortUnitHelper::getMaps(const QList<T *>& values)
 {
-    return {};
+    QList<QPair<QString, QStringList>> sortPairs;
+    for(const T* val : values){
+        sortPairs.append({val->name(), val->orders()});
+    }
+
+    return sortPairs;
 }
 
 
 template<typename T>
-QList<T *> ISortUnitHelper::toSortList(const QList<T *> &, const QStringList &)
+QList<T *> ISortUnitHelper::toSortList(const QList<T *> &list, const QStringList &orders)
 {
-    return {};
+    QList<T*> ret;
+
+    for(const auto& order : orders){
+        for(auto val : list){
+            if(val->name() == order){
+                ret.append(val);
+            }
+        }
+    }
+
+    return ret;
 }
 
 $PackageWebCoreEnd
