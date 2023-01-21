@@ -1,13 +1,14 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
+#include "core/unit/ISortUnit.h"
 
 $PackageWebCoreBegin
 
 class ITaskWare;
 class ITaskManage;
 
-class ITaskCatagory
+class ITaskCatagory : public ISortUnit
 {
 public:
     ITaskCatagory() = default;
@@ -15,7 +16,6 @@ public:
 
 public:
     virtual QString name() const = 0;
-    virtual QStringList orders() const;
 
 private:
     void addTask(ITaskWare*);

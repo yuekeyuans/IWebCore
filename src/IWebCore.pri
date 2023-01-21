@@ -33,6 +33,7 @@ HEADERS += \
     $$PWD/core/bean/ITypeManage.h \
     $$PWD/core/configuration/IConfigurationCatagory.h \
     $$PWD/core/core.h \
+    $$PWD/core/service/ISortService.h \
     $$PWD/core/task/ITaskCatagory.h \
     $$PWD/core/task/ITaskCatagoryInterface.h \
 #    $$PWD/core/task/unit/IArgumentTaskUnit.h \
@@ -180,7 +181,8 @@ HEADERS += \
 #    $$PWD/web/session/ISessionInterface.h \
 #    $$PWD/web/session/ISessionManager.h \
 #    $$PWD/web/session/ISessionTaskUnit.h \
-#    $$PWD/web/session/ISessionWare.h
+ \#    $$PWD/web/session/ISessionWare.h
+    $$PWD/core/unit/ISortUnit.h
 
 SOURCES += \
     $$PWD/base/IConstantUtil.cpp \
@@ -206,6 +208,7 @@ SOURCES += \
     $$PWD/core/bean/IGadgetUnit.cpp \
     $$PWD/core/bean/ITypeManage.cpp \
     $$PWD/core/configuration/IConfigurationCatagory.cpp \
+    $$PWD/core/service/ISortService.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \
     $$PWD/core/task/ITaskCatagoryInterface.cpp \
     $$PWD/core/task/default/IBannerTask.cpp \
@@ -321,7 +324,8 @@ SOURCES += \
 #    $$PWD/web/session/ISessionInterface.cpp \
 #    $$PWD/web/session/ISessionManager.cpp \
 #    $$PWD/web/session/ISessionTaskUnit.cpp \
-#    $$PWD/web/session/ISessionWare.cpp
+ \#    $$PWD/web/session/ISessionWare.cpp
+    $$PWD/core/unit/ISortUnit.cpp
 
 DISTFILES += \
     $$PWD/IWebCore \
