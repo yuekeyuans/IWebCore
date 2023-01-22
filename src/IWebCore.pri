@@ -21,7 +21,6 @@ HEADERS += \
     $$PWD/base/ITraitHelper.h \
     $$PWD/base/IXmlUtil.h \
     $$PWD/core/application/IApplication.h \
-    $$PWD/core/application/IArgumentTaskInterface.h \
     $$PWD/core/ICoreAssert.h \
     $$PWD/core/assert/IAssertInfo.h \
     $$PWD/core/assert/IAssertInterface.h \
@@ -52,7 +51,6 @@ HEADERS += \
     $$PWD/core/task/default/IStartupTaskInterface.h \
     $$PWD/core/task/ITaskManage.h \
     $$PWD/core/task/ITaskWare.h \
-#    $$PWD/core/task/unit/IArgumentTaskUnit.h \
 #    $$PWD/core/task/unit/IConfigurationTaskUnit.h \
 #    $$PWD/core/task/unit/IControllerTaskUnit.h \
 #    $$PWD/core/task/unit/IFirstInvokeTaskUnit.h \
@@ -201,7 +199,6 @@ SOURCES += \
     $$PWD/base/IXmlUtil.cpp \
     $$PWD/core/ICoreAssert.cpp \
     $$PWD/core/application/IApplication.cpp \
-    $$PWD/core/application/IArgumentTaskInterface.cpp \
     $$PWD/core/assert/IAssertInfo.cpp \
     $$PWD/core/assert/IAssertInterface.cpp \
     $$PWD/core/assert/IGlobalAssert.cpp \
