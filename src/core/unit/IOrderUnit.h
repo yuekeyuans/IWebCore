@@ -12,14 +12,18 @@ namespace IOrderUnitHelper{
 
 struct IOrderUnit
 {
-    enum class Family{
-        System,
-        Application,
+    // TODO: 这个应该也不是一个好设计，因为没有办法实现。
+    enum class Priority{
+        Most,
+        High,
+        Common,
+        Low,
+        Least
     };
 
 public:
     virtual QStringList orders() const;
-    virtual Family family() const;
+    virtual Priority priority() const;
 
 private:
     template<typename T>
@@ -42,7 +46,6 @@ static QList<QPair<QString, QStringList>> toSortMap(const QList<T *>& values)
 
     return sortPairs;
 }
-
 
 template<typename T>
 static QList<T *> toSortList(const QList<T *> &list, const QStringList &orders)

@@ -7,9 +7,9 @@ QStringList IOrderUnit::orders() const
     return {};
 }
 
-IOrderUnit::Family IOrderUnit::family() const
+IOrderUnit::Priority IOrderUnit::priority() const
 {
-    return Family::Application;
+    return Priority::Common;
 }
 
 namespace IOrderUnitHelper

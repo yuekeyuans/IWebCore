@@ -14,9 +14,9 @@ QStringList IStartupTaskCatagory::orders() const
     };
 }
 
-IOrderUnit::Family IStartupTaskCatagory::family() const
+IOrderUnit::Priority IStartupTaskCatagory::family() const
 {
-    return Family::System;
+    return Priority::Most;
 }
 
 $PackageWebCoreEnd

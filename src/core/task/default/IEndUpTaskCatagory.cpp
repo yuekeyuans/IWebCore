@@ -14,9 +14,9 @@ QStringList IEndupTaskCatagory::orders() const
     };
 }
 
-IOrderUnit::Family IEndupTaskCatagory::family() const
+IOrderUnit::Priority IEndupTaskCatagory::family() const
 {
-    return Family::System;
+    return Priority::Most;
 }
 
 $PackageWebCoreEnd
