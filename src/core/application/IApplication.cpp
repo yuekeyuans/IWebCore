@@ -10,7 +10,6 @@ $UseAssert(ICoreAssert)
 
 namespace IApplicationHelper {
     QStringList fromArguments(int argc, char** argv);
-    void printBanner();
 }
 
 class IApplicationPrivate{
@@ -29,7 +28,6 @@ IApplication::IApplication(int argc, char **argv) : QCoreApplication(argc, argv)
     Q_D(IApplication);
     d->m_master = this;
     d->m_arguments = IApplicationHelper::fromArguments(argc, argv);
-    IApplicationHelper::printBanner();
     ITaskManage::run(d->m_arguments);
 }
 
@@ -49,11 +47,6 @@ QStringList IApplicationHelper::fromArguments(int argc, char** argv){
         ret.append(value);
     }
     return ret;
-}
-
-void IApplicationHelper::printBanner(){
-    auto value = IConfigurationManage::getBanner();
-    qInfo().noquote() << value;
 }
 
 $PackageWebCoreEnd

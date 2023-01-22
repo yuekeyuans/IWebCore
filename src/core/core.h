@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include "core/application/IArgumentTaskInterface.h"
 #include "core/application/IApplication.h"
 
 #include "core/bean/IBeanInterface.h"

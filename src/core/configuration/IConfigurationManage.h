@@ -33,7 +33,7 @@ public:
     static QJsonValue getSystemValue(const QString& path, bool*ok);
     static QJsonValue getApplicationValue(const QString& path, bool*ok);
     static QJsonValue getValue(const QString& path, bool* ok, const QString& group);
-    static QString    getBanner();
+
     template<typename T>
     static T getBean(const QString& path, bool*ok, const QString& group = ApplicationConfigurationGroup);
     static void getConfigBean(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaProperty>&props, bool*ok);

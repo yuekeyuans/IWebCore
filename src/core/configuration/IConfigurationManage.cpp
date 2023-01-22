@@ -156,13 +156,6 @@ QJsonValue IConfigurationManage::getValue(const QString &path, bool* ok, const Q
     return {};
 }
 
-QString IConfigurationManage::getBanner()
-{
-    auto inst = instance();
-    auto value = IJsonUtil::getJsonValue(inst->m_configs[SystemConfigurationGroup], "banner");
-    return value.toString();
-}
-
 void IConfigurationManage::getConfigBean(void *handler, const QMap<QString, QString> &clsInfo, const QVector<QMetaProperty> &props, bool *ok)
 {
     IToeUtil::setOk(ok, true);
