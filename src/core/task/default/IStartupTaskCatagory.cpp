@@ -14,4 +14,9 @@ QStringList IStartupTaskCatagory::orders() const
     };
 }
 
+IOrderUnit::Family IStartupTaskCatagory::family() const
+{
+    return Family::System;
+}
+
 $PackageWebCoreEnd

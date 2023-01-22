@@ -46,6 +46,8 @@ HEADERS += \
     $$PWD/core/task/default/IBannerTask.h \
     $$PWD/core/task/default/IConfigurationTaskCatagory.h \
     $$PWD/core/task/default/IConfigurationTaskInterface.h \
+    $$PWD/core/task/default/IEndupTaskCatagory.h \
+    $$PWD/core/task/default/IEndupTaskInterface.h \
     $$PWD/core/task/default/IStartupTaskCatagory.h \
     $$PWD/core/task/default/IStartupTaskInterface.h \
     $$PWD/core/task/ITaskManage.h \
@@ -213,6 +215,8 @@ SOURCES += \
     $$PWD/core/task/ITaskCatagoryInterface.cpp \
     $$PWD/core/task/default/IBannerTask.cpp \
     $$PWD/core/task/default/IConfigurationTaskCatagory.cpp \
+    $$PWD/core/task/default/IEndupTaskCatagory.cpp \
+    $$PWD/core/task/default/IEndupTaskInterface.cpp \
     $$PWD/core/task/default/IStartupTaskCatagory.cpp \
     $$PWD/core/task/ITaskManage.cpp \
     $$PWD/core/task/ITaskWare.cpp \

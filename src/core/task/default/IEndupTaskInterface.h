@@ -9,10 +9,10 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled=true>
-class IStartupTaskInterface : public ITaskWare, public IRegisterInstanceUnit<T, enabled>
+class IEndupTaskInterface : public ITaskWare, public IRegisterInstanceUnit<T, enabled>
 {
 public:
-    IStartupTaskInterface() = default;
+    IEndupTaskInterface() = default;
 
 public:
     virtual void task() = 0;
@@ -24,25 +24,25 @@ public:
 };
 
 template<typename T, bool enabled>
-QString IStartupTaskInterface<T, enabled>::name() const
+QString IEndupTaskInterface<T, enabled>::name() const
 {
     return IMetaUtil::getMetaClassName(T::staticMetaObject);
 }
 
 template<typename T, bool enabled>
-QStringList IStartupTaskInterface<T, enabled>::orders() const
+QStringList IEndupTaskInterface<T, enabled>::orders() const
 {
     return {};
 }
 
 template<typename T, bool enabled>
-QString IStartupTaskInterface<T, enabled>::catagory() const
+QString IEndupTaskInterface<T, enabled>::catagory() const
 {
-    return "StartUp";
+    return "EndUp";
 }
 
 template<typename T, bool enabled>
-void IStartupTaskInterface<T, enabled>::registerToBase()
+void IEndupTaskInterface<T, enabled>::registerToBase()
 {
     ITaskManage::instance()->addTaskWare(T::instance());
 }

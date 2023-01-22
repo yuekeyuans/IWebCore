@@ -7,6 +7,11 @@ QStringList IOrderUnit::orders() const
     return {};
 }
 
+IOrderUnit::Family IOrderUnit::family() const
+{
+    return Family::Application;
+}
+
 namespace IOrderUnitHelper
 {
     QMap<QString, QStringList> toMap(const QList<QPair<QString, QStringList> > &);

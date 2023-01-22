@@ -5,16 +5,17 @@
 
 $PackageWebCoreBegin
 
-class IStartupTaskCatagory : public ITaskCatagoryInterface<IStartupTaskCatagory>
+class IEndupTaskCatagory : public ITaskCatagoryInterface<IEndupTaskCatagory>
 {
-    $AsCatagory(IStartupTaskCatagory)
+    $AsCatagory(IEndupTaskCatagory)
 public:
-    IStartupTaskCatagory() = default;
+    IEndupTaskCatagory() = default;
 
 public:
     virtual QString name() const final;
     virtual QStringList orders() const final;
     virtual Family family() const final;
+
 };
 
 $PackageWebCoreEnd

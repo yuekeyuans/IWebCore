@@ -12,8 +12,14 @@ namespace IOrderUnitHelper{
 
 struct IOrderUnit
 {
+    enum class Family{
+        System,
+        Application,
+    };
+
 public:
     virtual QStringList orders() const;
+    virtual Family family() const;
 
 private:
     template<typename T>
