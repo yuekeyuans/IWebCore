@@ -1,14 +1,14 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "core/unit/ISortUnit.h"
+#include "core/unit/IOrderUnit.h"
 
 $PackageWebCoreBegin
 
 class ITaskWare;
 class ITaskManage;
 
-class ITaskCatagory : public ISortUnit
+class ITaskCatagory : public IOrderUnit
 {
 public:
     ITaskCatagory() = default;

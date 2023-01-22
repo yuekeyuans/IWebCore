@@ -4,7 +4,7 @@
 
 $PackageWebCoreBegin
 
-namespace ISortUnitHelper{
+namespace IOrderUnitHelper{
     template<typename T>
     QList<QPair<QString, QStringList>> getMaps(const QList<T*>&);
 
@@ -14,7 +14,7 @@ namespace ISortUnitHelper{
     QStringList sort(const QList<QPair<QString, QStringList>>&);
 };
 
-struct ISortUnit
+struct IOrderUnit
 {
 public:
     virtual QStringList orders() const;
@@ -25,15 +25,15 @@ private:
 };
 
 template<typename T>
-QVector<T *> ISortUnit::sort(const QList<T *>& values)
+QVector<T *> IOrderUnit::sort(const QList<T *>& values)
 {
-    auto list = ISortUnitHelper::getMaps(values);
-    auto strList = ISortUnitHelper::sort(list);
-    return ISortUnitHelper::toSortList(values, strList);
+    auto list = IOrderUnitHelper::getMaps(values);
+    auto strList = IOrderUnitHelper::sort(list);
+    return IOrderUnitHelper::toSortList(values, strList);
 }
 
 template<typename T>
-QList<QPair<QString, QStringList> > ISortUnitHelper::getMaps(const QList<T *>& values)
+QList<QPair<QString, QStringList> > IOrderUnitHelper::getMaps(const QList<T *>& values)
 {
     QList<QPair<QString, QStringList>> sortPairs;
     for(const T* val : values){
@@ -45,7 +45,7 @@ QList<QPair<QString, QStringList> > ISortUnitHelper::getMaps(const QList<T *>& v
 
 
 template<typename T>
-QList<T *> ISortUnitHelper::toSortList(const QList<T *> &list, const QStringList &orders)
+QList<T *> IOrderUnitHelper::toSortList(const QList<T *> &list, const QStringList &orders)
 {
     QList<T*> ret;
 

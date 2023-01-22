@@ -22,6 +22,7 @@ HEADERS += \
     $$PWD/base/IToeUtil.h \
     $$PWD/base/ITraitHelper.h \
     $$PWD/base/IXmlUtil.h \
+    $$PWD/core/application/IArgumentTaskInterface.h \
     $$PWD/core/assert/IAssertInfo.h \
     $$PWD/core/assert/IAssertInterface.h \
     $$PWD/core/assert/IAssertPreProcessor.h \
@@ -105,6 +106,7 @@ HEADERS += \
 #    $$PWD/web/server/multiThreadServer/ITcpSocket.h \
     $$PWD/core/unit/INoConstructUnit.h \
     $$PWD/core/unit/INoCopyMoveUnit.h \
+    $$PWD/core/unit/IOrderUnit.h  \
     $$PWD/core/unit/IRegisterGadgetUnit.h \
     $$PWD/core/unit/IRegisterInstanceUnit.h \
     $$PWD/core/unit/IRegisterMetaTypeUnit.h \
@@ -139,7 +141,6 @@ HEADERS += \
 #    $$PWD/web/controller/private/IControllerParamUtil.h \
 #    $$PWD/web/controller/private/IDefaultStatusController.h \
 #    $$PWD/web/controller/private/IStatusControllerInterfaceImpl.h \
-    $$PWD/core/application/IArgumentTaskInterface.h \
 #    $$PWD/orm/IOrmManage.h \
 #    $$PWD/orm/IOrmUtil.h \
 #    $$PWD/orm/database/IOrmDataSource.h \
@@ -180,8 +181,7 @@ HEADERS += \
 #    $$PWD/web/session/ISessionInterface.h \
 #    $$PWD/web/session/ISessionManager.h \
 #    $$PWD/web/session/ISessionTaskUnit.h \
- \#    $$PWD/web/session/ISessionWare.h
-    $$PWD/core/unit/ISortUnit.h
+#    $$PWD/web/session/ISessionWare.h  \
 
 SOURCES += \
     $$PWD/base/IConstantUtil.cpp \
@@ -201,6 +201,7 @@ SOURCES += \
     $$PWD/base/IToeUtil.cpp \
     $$PWD/base/ITraitHelper.cpp \
     $$PWD/base/IXmlUtil.cpp \
+    $$PWD/core/application/IArgumentTaskInterface.cpp \
     $$PWD/core/assert/IAssertInfo.cpp \
     $$PWD/core/assert/IAssertInterface.cpp \
     $$PWD/core/assert/IGlobalAssert.cpp \
@@ -262,6 +263,7 @@ SOURCES += \
 #    $$PWD/web/response/IStatusCodeResponse.cpp \
 #    $$PWD/web/server/multiThreadServer/ITcpSocket.cpp \
     $$PWD/core/unit/INoCopyMoveUnit.cpp \
+    $$PWD/core/unit/IOrderUnit.cpp  \
     $$PWD/core/unit/IRegisterGadgetUnit.cpp \
     $$PWD/core/unit/IRegisterInstanceUnit.cpp \
     $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
@@ -284,7 +286,6 @@ SOURCES += \
 #    $$PWD/web/controller/private/IControllerParamUtil.cpp \
 #    $$PWD/web/controller/private/IDefaultStatusController.cpp \
 #    $$PWD/web/controller/private/IStatusControllerInterfaceImpl.cpp \
-    $$PWD/core/application/IArgumentTaskInterface.cpp \
 #    $$PWD/orm/IOrmManage.cpp \
 #    $$PWD/orm/IOrmUtil.cpp \
 #    $$PWD/orm/database/IOrmDataSource.cpp \
@@ -322,8 +323,7 @@ SOURCES += \
 #    $$PWD/web/session/ISessionInterface.cpp \
 #    $$PWD/web/session/ISessionManager.cpp \
 #    $$PWD/web/session/ISessionTaskUnit.cpp \
- \#    $$PWD/web/session/ISessionWare.cpp
-    $$PWD/core/unit/ISortUnit.cpp
+#    $$PWD/web/session/ISessionWare.cpp  \
 
 DISTFILES += \
     $$PWD/IWebCore \

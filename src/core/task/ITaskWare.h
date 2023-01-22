@@ -1,11 +1,11 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "core/unit/ISortUnit.h"
+#include "core/unit/IOrderUnit.h"
 
 $PackageWebCoreBegin
 
-class ITaskWare : public ISortUnit
+class ITaskWare : public IOrderUnit
 {
     $AsWare
 public:
