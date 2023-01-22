@@ -32,10 +32,26 @@ HEADERS += \
     $$PWD/core/bean/IBeanWare.h \
     $$PWD/core/bean/IGadgetUnit.h \
     $$PWD/core/bean/ITypeManage.h \
+    $$PWD/core/configuration/IConfigurationInstancePreProcessor.h \
+    $$PWD/core/configuration/IConfigurationInterface.h \
+    $$PWD/core/configuration/IConfigurationManage.h \
+    $$PWD/core/configuration/IConfigurationPreProcessor.h \
+    $$PWD/core/configuration/IConfigurationResourceAutoLoader.h \
+    $$PWD/core/configuration/IConfigurationSystemPreProcessor.h \
+    $$PWD/core/configuration/IConfigurationTaskInterface.h \
+    $$PWD/core/configuration/IConfigurationWirePreProcessor.h \
+    $$PWD/core/configuration/defaultConfiguration/IBannerConfiguration.h \
+    $$PWD/core/configuration/yaml/IYamlUtil.h \
+    $$PWD/core/configuration/yaml/Yaml.hpp \
     $$PWD/core/configuration/IConfigurationCatagory.h \
     $$PWD/core/core.h \
     $$PWD/core/task/ITaskCatagory.h \
     $$PWD/core/task/ITaskCatagoryInterface.h \
+    $$PWD/core/task/default/IBannerTask.h \
+    $$PWD/core/task/default/IStartupTaskCatagory.h \
+    $$PWD/core/task/default/IStartupTaskInterface.h \
+    $$PWD/core/task/ITaskManage.h \
+    $$PWD/core/task/ITaskWare.h \
 #    $$PWD/core/task/unit/IArgumentTaskUnit.h \
 #    $$PWD/core/task/unit/IConfigurationTaskUnit.h \
 #    $$PWD/core/task/unit/IControllerTaskUnit.h \
@@ -44,13 +60,17 @@ HEADERS += \
 #    $$PWD/core/task/unit/ILastInvokeTaskUnit.h \
 #    $$PWD/core/task/unit/IMiddleWareTaskUnit.h \
 #    $$PWD/core/task/unit/IStaticInitializeTaskUnit.h \
-    $$PWD/core/task/default/IBannerTask.h \
-    $$PWD/core/task/default/IStartupTaskCatagory.h \
-    $$PWD/core/task/default/IStartupTaskInterface.h \
     $$PWD/core/test/ITestInterface.h \
     $$PWD/core/test/ITestManage.h \
     $$PWD/core/test/ITestPreProcessor.h \
     $$PWD/core/test/ITestTaskUnit.h \
+    $$PWD/core/unit/INoConstructUnit.h \
+    $$PWD/core/unit/INoCopyMoveUnit.h \
+    $$PWD/core/unit/IOrderUnit.h  \
+    $$PWD/core/unit/IRegisterGadgetUnit.h \
+    $$PWD/core/unit/IRegisterInstanceUnit.h \
+    $$PWD/core/unit/IRegisterMetaTypeUnit.h \
+    $$PWD/core/unit/IRegisterTypeUnit.h \
 #    $$PWD/orm/IOrmAssert.h \
 #    $$PWD/web/IInterceptInterface.h \
 #    $$PWD/web/IManage.h \
@@ -104,24 +124,6 @@ HEADERS += \
 #    $$PWD/web/response/IStatusCodeResponse.h \
 #    $$PWD/web/response/response \
 #    $$PWD/web/server/multiThreadServer/ITcpSocket.h \
-    $$PWD/core/unit/INoConstructUnit.h \
-    $$PWD/core/unit/INoCopyMoveUnit.h \
-    $$PWD/core/unit/IOrderUnit.h  \
-    $$PWD/core/unit/IRegisterGadgetUnit.h \
-    $$PWD/core/unit/IRegisterInstanceUnit.h \
-    $$PWD/core/unit/IRegisterMetaTypeUnit.h \
-    $$PWD/core/unit/IRegisterTypeUnit.h \
-    $$PWD/core/configuration/IConfigurationInstancePreProcessor.h \
-    $$PWD/core/configuration/IConfigurationInterface.h \
-    $$PWD/core/configuration/IConfigurationManage.h \
-    $$PWD/core/configuration/IConfigurationPreProcessor.h \
-    $$PWD/core/configuration/IConfigurationResourceAutoLoader.h \
-    $$PWD/core/configuration/IConfigurationSystemPreProcessor.h \
-    $$PWD/core/configuration/IConfigurationTaskInterface.h \
-    $$PWD/core/configuration/IConfigurationWirePreProcessor.h \
-    $$PWD/core/configuration/defaultConfiguration/IBannerConfiguration.h \
-    $$PWD/core/configuration/yaml/IYamlUtil.h \
-    $$PWD/core/configuration/yaml/Yaml.hpp \
 #    $$PWD/web/controller/IControllerInterface.h \
 #    $$PWD/web/controller/IControllerManage.h \
 #    $$PWD/web/controller/IControllerPathValidatorInterface.h \
@@ -176,8 +178,6 @@ HEADERS += \
 #    $$PWD/web/server/multiThreadServer/IHttpServerRunable.h \
 #    $$PWD/web/server/multiThreadServer/IMultiThreadServer.h \
 #    $$PWD/web/server/quenedServer/IQueneServer.h \
-    $$PWD/core/task/ITaskManage.h \
-    $$PWD/core/task/ITaskWare.h \
 #    $$PWD/web/session/ISessionInterface.h \
 #    $$PWD/web/session/ISessionManager.h \
 #    $$PWD/web/session/ISessionTaskUnit.h \
@@ -207,13 +207,29 @@ SOURCES += \
     $$PWD/core/assert/IGlobalAssert.cpp \
     $$PWD/core/bean/IGadgetUnit.cpp \
     $$PWD/core/bean/ITypeManage.cpp \
+    $$PWD/core/configuration/IConfigurationInterface.cpp \
+    $$PWD/core/configuration/IConfigurationManage.cpp \
+    $$PWD/core/configuration/IConfigurationResourceAutoLoader.cpp \
+    $$PWD/core/configuration/IConfigurationSystemPreProcessor.cpp \
+    $$PWD/core/configuration/IConfigurationTaskInterface.cpp \
+    $$PWD/core/configuration/defaultConfiguration/IBannerConfiguration.cpp \
+    $$PWD/core/configuration/yaml/IYamlUtil.cpp \
+    $$PWD/core/configuration/yaml/Yaml.cpp \
     $$PWD/core/configuration/IConfigurationCatagory.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \
     $$PWD/core/task/ITaskCatagoryInterface.cpp \
     $$PWD/core/task/default/IBannerTask.cpp \
     $$PWD/core/task/default/IStartupTaskCatagory.cpp \
     $$PWD/core/task/default/IStartupTaskInterface.cpp \
+    $$PWD/core/task/ITaskManage.cpp \
+    $$PWD/core/task/ITaskWare.cpp \
     $$PWD/core/test/ITestManage.cpp \
+    $$PWD/core/unit/INoCopyMoveUnit.cpp \
+    $$PWD/core/unit/IOrderUnit.cpp  \
+    $$PWD/core/unit/IRegisterGadgetUnit.cpp \
+    $$PWD/core/unit/IRegisterInstanceUnit.cpp \
+    $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
+    $$PWD/core/unit/IRegisterTypeUnit.cpp \
 #    $$PWD/orm/IOrmAssert.cpp \
 #    $$PWD/web/IInterceptInterface.cpp \
 #    $$PWD/web/IManage.cpp \
@@ -262,20 +278,6 @@ SOURCES += \
 #    $$PWD/web/response/IStaticFileResponse.cpp \
 #    $$PWD/web/response/IStatusCodeResponse.cpp \
 #    $$PWD/web/server/multiThreadServer/ITcpSocket.cpp \
-    $$PWD/core/unit/INoCopyMoveUnit.cpp \
-    $$PWD/core/unit/IOrderUnit.cpp  \
-    $$PWD/core/unit/IRegisterGadgetUnit.cpp \
-    $$PWD/core/unit/IRegisterInstanceUnit.cpp \
-    $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
-    $$PWD/core/unit/IRegisterTypeUnit.cpp \
-    $$PWD/core/configuration/IConfigurationInterface.cpp \
-    $$PWD/core/configuration/IConfigurationManage.cpp \
-    $$PWD/core/configuration/IConfigurationResourceAutoLoader.cpp \
-    $$PWD/core/configuration/IConfigurationSystemPreProcessor.cpp \
-    $$PWD/core/configuration/IConfigurationTaskInterface.cpp \
-    $$PWD/core/configuration/defaultConfiguration/IBannerConfiguration.cpp \
-    $$PWD/core/configuration/yaml/IYamlUtil.cpp \
-    $$PWD/core/configuration/yaml/Yaml.cpp \
 #    $$PWD/web/controller/IControllerInterface.cpp \
 #    $$PWD/web/controller/IControllerManage.cpp \
 #    $$PWD/web/controller/IControllerPathValidatorInterface.cpp \
@@ -318,8 +320,6 @@ SOURCES += \
 #    $$PWD/web/server/multiThreadServer/IHttpServerRunable.cpp \
 #    $$PWD/web/server/multiThreadServer/IMultiThreadServer.cpp \
 #    $$PWD/web/server/quenedServer/IQueneServer.cpp \
-    $$PWD/core/task/ITaskManage.cpp \
-    $$PWD/core/task/ITaskWare.cpp \
 #    $$PWD/web/session/ISessionInterface.cpp \
 #    $$PWD/web/session/ISessionManager.cpp \
 #    $$PWD/web/session/ISessionTaskUnit.cpp \
