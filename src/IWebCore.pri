@@ -5,8 +5,6 @@ QT += network sql xml testlib
 PRECOMPILED_HEADER = $$PWD/base/IHeaderUtil.h
 
 HEADERS += \
-    $$PWD/core/ICoreAssert.h \
-    $$PWD/core/application/IApplication.h \
     $$PWD/base/ICodecUtil.h \
     $$PWD/base/IConstantUtil.h \
     $$PWD/base/IConvertUtil.h \
@@ -22,7 +20,9 @@ HEADERS += \
     $$PWD/base/IToeUtil.h \
     $$PWD/base/ITraitHelper.h \
     $$PWD/base/IXmlUtil.h \
+    $$PWD/core/application/IApplication.h \
     $$PWD/core/application/IArgumentTaskInterface.h \
+    $$PWD/core/ICoreAssert.h \
     $$PWD/core/assert/IAssertInfo.h \
     $$PWD/core/assert/IAssertInterface.h \
     $$PWD/core/assert/IAssertPreProcessor.h \
@@ -185,8 +185,6 @@ HEADERS += \
 
 SOURCES += \
     $$PWD/base/IConstantUtil.cpp \
-    $$PWD/core/ICoreAssert.cpp \
-    $$PWD/core/application/IApplication.cpp \
     $$PWD/base/ICodecUtil.cpp \
     $$PWD/base/IConvertUtil.cpp \
     $$PWD/base/IFileUtil.cpp \
@@ -201,6 +199,8 @@ SOURCES += \
     $$PWD/base/IToeUtil.cpp \
     $$PWD/base/ITraitHelper.cpp \
     $$PWD/base/IXmlUtil.cpp \
+    $$PWD/core/ICoreAssert.cpp \
+    $$PWD/core/application/IApplication.cpp \
     $$PWD/core/application/IArgumentTaskInterface.cpp \
     $$PWD/core/assert/IAssertInfo.cpp \
     $$PWD/core/assert/IAssertInterface.cpp \
