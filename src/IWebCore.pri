@@ -39,7 +39,6 @@ HEADERS += \
     $$PWD/core/configuration/IConfigurationSystemPreProcessor.h \
     $$PWD/core/configuration/IConfigurationTaskInterface.h \
     $$PWD/core/configuration/IConfigurationWirePreProcessor.h \
-    $$PWD/core/configuration/defaultConfiguration/IBannerConfiguration.h \
     $$PWD/core/configuration/yaml/IYamlUtil.h \
     $$PWD/core/configuration/yaml/Yaml.hpp \
     $$PWD/core/configuration/IConfigurationCatagory.h \
@@ -209,7 +208,6 @@ SOURCES += \
     $$PWD/core/configuration/IConfigurationResourceAutoLoader.cpp \
     $$PWD/core/configuration/IConfigurationSystemPreProcessor.cpp \
     $$PWD/core/configuration/IConfigurationTaskInterface.cpp \
-    $$PWD/core/configuration/defaultConfiguration/IBannerConfiguration.cpp \
     $$PWD/core/configuration/yaml/IYamlUtil.cpp \
     $$PWD/core/configuration/yaml/Yaml.cpp \
     $$PWD/core/configuration/IConfigurationCatagory.cpp \
