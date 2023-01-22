@@ -37,15 +37,15 @@ HEADERS += \
     $$PWD/core/configuration/IConfigurationPreProcessor.h \
     $$PWD/core/configuration/IConfigurationResourceAutoLoader.h \
     $$PWD/core/configuration/IConfigurationSystemPreProcessor.h \
-    $$PWD/core/configuration/IConfigurationTaskInterface.h \
     $$PWD/core/configuration/IConfigurationWirePreProcessor.h \
     $$PWD/core/configuration/yaml/IYamlUtil.h \
     $$PWD/core/configuration/yaml/Yaml.hpp \
-    $$PWD/core/configuration/IConfigurationCatagory.h \
     $$PWD/core/core.h \
     $$PWD/core/task/ITaskCatagory.h \
     $$PWD/core/task/ITaskCatagoryInterface.h \
     $$PWD/core/task/default/IBannerTask.h \
+    $$PWD/core/task/default/IConfigurationTaskCatagory.h \
+    $$PWD/core/task/default/IConfigurationTaskInterface.h \
     $$PWD/core/task/default/IStartupTaskCatagory.h \
     $$PWD/core/task/default/IStartupTaskInterface.h \
     $$PWD/core/task/ITaskManage.h \
@@ -207,15 +207,13 @@ SOURCES += \
     $$PWD/core/configuration/IConfigurationManage.cpp \
     $$PWD/core/configuration/IConfigurationResourceAutoLoader.cpp \
     $$PWD/core/configuration/IConfigurationSystemPreProcessor.cpp \
-    $$PWD/core/configuration/IConfigurationTaskInterface.cpp \
     $$PWD/core/configuration/yaml/IYamlUtil.cpp \
     $$PWD/core/configuration/yaml/Yaml.cpp \
-    $$PWD/core/configuration/IConfigurationCatagory.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \
     $$PWD/core/task/ITaskCatagoryInterface.cpp \
     $$PWD/core/task/default/IBannerTask.cpp \
+    $$PWD/core/task/default/IConfigurationTaskCatagory.cpp \
     $$PWD/core/task/default/IStartupTaskCatagory.cpp \
-    $$PWD/core/task/default/IStartupTaskInterface.cpp \
     $$PWD/core/task/ITaskManage.cpp \
     $$PWD/core/task/ITaskWare.cpp \
     $$PWD/core/test/ITestManage.cpp \

@@ -10,7 +10,7 @@ QString IStartupTaskCatagory::name() const
 QStringList IStartupTaskCatagory::orders() const
 {
     return {
-        "First"
+        "Index 0"
     };
 }
 

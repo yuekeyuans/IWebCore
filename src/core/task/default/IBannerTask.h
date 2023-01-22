@@ -8,7 +8,7 @@ $PackageWebCoreBegin
 class IBannerTask : public IStartupTaskInterface<IBannerTask>
 {
     Q_GADGET
-    $UseInstance(IBannerTask)
+    $AsTask(IBannerTask)
 public:
     IBannerTask() = default;
 

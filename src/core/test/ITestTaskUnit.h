@@ -9,7 +9,6 @@ $PackageWebCoreBegin
 template<typename T, bool enabled>
 class ITestTaskUnit : public ITaskWare
 {
-    $UseWare
 public:
     ITestTaskUnit() = default;
     virtual ~ITestTaskUnit() = default;

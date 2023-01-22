@@ -22,15 +22,9 @@ private:    \
     Q_DECLARE_PRIVATE(klass);    \
     std::shared_ptr<klass##Private> d_ptr {nullptr};
 
-#define $AsWare \
-private:    \
-    virtual void pureVirtualWare() = 0;
-
-#define $UseWare \
-private:    \
-    virtual void pureVirtualWare() override {};
-
 #define $AsCatagory(klassName)  $UseInstance(klassName)
+
+#define $AsTask(klassName)  $UseInstance(klassName)
 
 #define $UseMetaRegistration(klassName) \
 public:     \

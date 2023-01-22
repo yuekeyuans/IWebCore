@@ -7,7 +7,6 @@
 template<typename T, bool enabled=true>
 class ResourceTaskInterface : public ITaskWare, public IRegisterInstanceUnit<T, true>
 {
-    $UseWare
 public:
     ResourceTaskInterface() = default;
 

@@ -7,9 +7,9 @@ $PackageWebCoreBegin
 
 class ITaskWare : public IOrderUnit
 {
-    $AsWare
 public:
     ITaskWare() = default;
+    virtual ~ITaskWare() = default;
 
 public:
     virtual QString name() const = 0;

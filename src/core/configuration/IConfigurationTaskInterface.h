@@ -11,7 +11,6 @@ $PackageWebCoreBegin
 template<typename T, bool enabled = true>
 class IConfigurationTaskInterface : public ITaskWare, public IRegisterInstanceUnit<T, enabled>
 {
-    $UseWare
 public:
     IConfigurationTaskInterface() = default;
 

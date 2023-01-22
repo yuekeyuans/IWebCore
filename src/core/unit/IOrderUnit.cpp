@@ -47,7 +47,7 @@ void IOrderUnitHelper::checkError(const QList<QPair<QString, QStringList> > &pai
 
 void IOrderUnitHelper::checkFirst(const QMap<QString, QStringList>& map)
 {
-    Q_UNUSED(map)
+
 }
 
 void IOrderUnitHelper::checkLast(const QMap<QString, QStringList>& map)
