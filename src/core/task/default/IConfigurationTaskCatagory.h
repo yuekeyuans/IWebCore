@@ -7,7 +7,6 @@ $PackageWebCoreBegin
 
 class IConfigurationTaskCatagory : public ITaskCatagoryInterface<IConfigurationTaskCatagory>
 {
-    Q_GADGET
     Q_DISABLE_COPY_MOVE(IConfigurationTaskCatagory)
     $AsCatagory(IConfigurationTaskCatagory)
 private:

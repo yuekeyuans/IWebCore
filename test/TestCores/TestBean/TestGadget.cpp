@@ -1,4 +1,5 @@
 ﻿#include "TestGadget.h"
+#include "core/bean/IBeanTypeManage.h"
 
 TestGadget::TestGadget()
 {
@@ -24,7 +25,7 @@ void TestGadget::test_Registration()
 
 void TestGadget::test_typeManageRegistration()
 {
-    QTEST_ASSERT(ITypeManage::containBean("OneBean"));
+    QTEST_ASSERT(IBeanTypeManage::containBean("OneBean"));
 }
 
 void TestGadget::test_method()

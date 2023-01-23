@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "IBeanWare.h"
-#include "ITypeManage.h"
+#include "IBeanTypeManage.h"
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
 #include "core/bean/IBeanPreProcessor.h"

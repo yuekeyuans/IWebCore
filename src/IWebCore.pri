@@ -28,9 +28,9 @@ HEADERS += \
     $$PWD/core/assert/IGlobalAssert.h \
     $$PWD/core/bean/IBeanInterface.h \
     $$PWD/core/bean/IBeanPreProcessor.h \
+    $$PWD/core/bean/IBeanTypeManage.h \
     $$PWD/core/bean/IBeanWare.h \
     $$PWD/core/bean/IGadgetUnit.h \
-    $$PWD/core/bean/ITypeManage.h \
     $$PWD/core/configuration/IConfigurationInstancePreProcessor.h \
     $$PWD/core/configuration/IConfigurationInterface.h \
     $$PWD/core/configuration/IConfigurationManage.h \
@@ -203,8 +203,8 @@ SOURCES += \
     $$PWD/core/assert/IAssertInfo.cpp \
     $$PWD/core/assert/IAssertInterface.cpp \
     $$PWD/core/assert/IGlobalAssert.cpp \
+    $$PWD/core/bean/IBeanTypeManage.cpp \
     $$PWD/core/bean/IGadgetUnit.cpp \
-    $$PWD/core/bean/ITypeManage.cpp \
     $$PWD/core/configuration/IConfigurationInterface.cpp \
     $$PWD/core/configuration/IConfigurationManage.cpp \
     $$PWD/core/configuration/IConfigurationResourceAutoLoader.cpp \

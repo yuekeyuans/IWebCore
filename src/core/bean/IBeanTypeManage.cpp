@@ -1,4 +1,4 @@
-﻿#include "ITypeManage.h"
+﻿#include "IBeanTypeManage.h"
 
 $PackageWebCoreBegin
 
