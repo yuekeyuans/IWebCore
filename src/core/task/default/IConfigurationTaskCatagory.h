@@ -14,8 +14,7 @@ public:
 
 public:
     virtual QString name() const final;
-    virtual QStringList orders() const final;
-    virtual Priority family() const final;
+    virtual double order() const final;
 };
 
 $PackageWebCoreEnd

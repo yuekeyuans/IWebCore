@@ -8,6 +8,11 @@ void ITaskCatagory::addTask(ITaskWare *ware)
     m_taskWares.append(ware);
 }
 
+void ITaskCatagory::sortTask()
+{
+    m_taskWares = IOrderUnit::sortUnit(m_taskWares);
+}
+
 void ITaskCatagory::execTaskNodes() const
 {
     // TODO: first is sort node, skip this and this will be complete latter.

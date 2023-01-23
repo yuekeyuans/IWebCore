@@ -19,6 +19,7 @@ public:
 
 private:
     void addTask(ITaskWare*);
+    void sortTask();
     void execTaskNodes() const;
     void printTaskInfo() const;
 

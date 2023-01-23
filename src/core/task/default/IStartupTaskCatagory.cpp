@@ -7,16 +7,9 @@ QString IStartupTaskCatagory::name() const
     return "StartUp";
 }
 
-QStringList IStartupTaskCatagory::orders() const
+double IStartupTaskCatagory::order() const
 {
-    return {
-        "Index 0"
-    };
-}
-
-IOrderUnit::Priority IStartupTaskCatagory::family() const
-{
-    return Priority::High;
+    return 0;
 }
 
 $PackageWebCoreEnd

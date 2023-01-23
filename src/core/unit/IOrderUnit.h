@@ -4,67 +4,36 @@
 
 $PackageWebCoreBegin
 
-namespace IOrderUnitHelper{
-    template<typename T>
-    QList<T*> sort(const QList<T*>&);
-    QStringList sort(const QMap<QString, QStringList>&);
-};
-
+/**
+ * @brief The IOrderUnit struct
+ * 对, 设计 又被改掉了, 现在改成直接使用数字作为 order 顺序，有一点是，数字是double 类型，可以通过这个来映射对象之间的相互关系
+ */
 struct IOrderUnit
 {
-    enum class Priority{
-        High,
-        Low,
-    };
+public:
+    virtual QString name() const = 0;
+    virtual double order() const;
 
 public:
-    virtual QStringList orders() const;
-    virtual Priority priority() const;
-
-private:
     template<typename T>
-    static QList<T*> sort(const QList<T*>&);
+    static QList<T*> sortUnit(QList<T*> values);
+
+    static QList<IOrderUnit *> sortUnit(QList<IOrderUnit *> values);
 };
 
 template<typename T>
-QList<T *> IOrderUnit::sort(const QList<T *>& values)
-{
-    return IOrderUnitHelper::sort(values);
-}
-
-template<typename T>
-static QList<QPair<QString, QStringList>> toSortMap(const QList<T *>& values)
-{
-    QList<QPair<QString, QStringList>> sortPairs;
-    for(const T* val : values){
-        sortPairs.append({val->name(), val->orders()});
+QList<T*> IOrderUnit::sortUnit(QList<T*> values){
+    QList<IOrderUnit*> temp;
+    for(auto val : values){
+        temp.append(static_cast<IOrderUnit*>(val));
     }
-
-    return sortPairs;
-}
-
-template<typename T>
-static QList<T *> toSortList(const QList<T *> &list, const QStringList &orders)
-{
-    QList<T*> ret;
-
-    for(const auto& order : orders){
-        for(auto val : list){
-            if(val->name() == order){
-                ret.append(val);
-            }
-        }
+    temp = sortUnit(temp);
+    values.clear();
+    for(auto val : temp){
+        values.append(dynamic_cast<T*>(val));
     }
-
-    return ret;
+    return values;
 }
 
-template<typename T>
-QList<T*> IOrderUnitHelper::sort(const QList<T*>& values)
-{
-    auto map = toSortMap(values);
-    auto result = IOrderUnitHelper::sort(map);
-    return toSortList(values, result);
-}
 
 $PackageWebCoreEnd

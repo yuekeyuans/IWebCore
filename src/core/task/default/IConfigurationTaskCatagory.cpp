@@ -7,16 +7,9 @@ QString IConfigurationTaskCatagory::name() const
     return "Configuration";
 }
 
-QStringList IConfigurationTaskCatagory::orders() const
+double IConfigurationTaskCatagory::order() const
 {
-    return {
-        "Index 1"
-    };
-}
-
-IOrderUnit::Priority IConfigurationTaskCatagory::family() const
-{
-    return Priority::High;
+    return  1;
 }
 
 $PackageWebCoreEnd

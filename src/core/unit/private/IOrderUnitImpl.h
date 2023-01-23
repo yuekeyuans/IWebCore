@@ -1,11 +1,10 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-//#include "core/unit/IOrderUnit.h"
 
 $PackageWebCoreBegin
 
-class IOrderUnit;
+struct IOrderUnit;
 class IOrderUnitImpl
 {
     $UseInstance(IOrderUnitImpl)
@@ -19,6 +18,7 @@ private:
     template<typename T>
     QList<IOrderUnit*> toOrderUnitList(const QList<T*>& );
 
+    QList<IOrderUnit*> sortUnit(QList<IOrderUnit*>);
 };
 
 template<typename T>

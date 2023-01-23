@@ -18,8 +18,8 @@ public:
     virtual void task() = 0;
 
     virtual QString name() const override;
-    virtual QStringList orders() const override;
-    virtual QString catagory()  const final;
+    virtual double order() const override;
+    virtual QString catagory() const final;
     virtual void registerToBase() final;
 };
 
@@ -30,9 +30,9 @@ QString IStartupTaskInterface<T, enabled>::name() const
 }
 
 template<typename T, bool enabled>
-QStringList IStartupTaskInterface<T, enabled>::orders() const
+double IStartupTaskInterface<T, enabled>::order() const
 {
-    return {};
+    return 50;
 }
 
 template<typename T, bool enabled>

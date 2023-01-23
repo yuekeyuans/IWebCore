@@ -7,16 +7,10 @@ QString IEndupTaskCatagory::name() const
     return "EndUp";
 }
 
-QStringList IEndupTaskCatagory::orders() const
+double IEndupTaskCatagory::order() const
 {
-    return {
-        "Index -1"
-    };
+    return 100;
 }
 
-IOrderUnit::Priority IEndupTaskCatagory::family() const
-{
-    return Priority::High;
-}
 
 $PackageWebCoreEnd

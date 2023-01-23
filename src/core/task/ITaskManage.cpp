@@ -52,6 +52,8 @@ void ITaskManage::addTaskCatagory(ITaskCatagory *catagory)
 
 void ITaskManage::execTaskNodes()
 {
+    m_catagories = IOrderUnit::sortUnit(m_catagories);
+
     for(const auto& node : m_taskWares){
         for(auto& cata : m_catagories){
             if(cata->name() == node->catagory()){
@@ -62,6 +64,7 @@ void ITaskManage::execTaskNodes()
     }
 
     for(const auto& node : m_catagories){
+        node->sortTask();
         node->printTaskInfo();
     }
 
