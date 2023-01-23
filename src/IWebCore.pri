@@ -222,7 +222,6 @@ SOURCES += \
     $$PWD/core/task/ITaskWare.cpp \
     $$PWD/core/test/ITestManage.cpp \
     $$PWD/core/unit/INoCopyMoveUnit.cpp \
-    $$PWD/core/unit/IOrderUnit.cpp  \
     $$PWD/core/unit/IRegisterGadgetUnit.cpp \
     $$PWD/core/unit/IRegisterInstanceUnit.cpp \
     $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \

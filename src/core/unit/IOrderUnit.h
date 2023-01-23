@@ -4,10 +4,6 @@
 
 $PackageWebCoreBegin
 
-/**
- * @brief The IOrderUnit struct
- * 对, 设计 又被改掉了, 现在改成直接使用数字作为 order 顺序，有一点是，数字是double 类型，可以通过这个来映射对象之间的相互关系
- */
 struct IOrderUnit
 {
 public:
@@ -19,6 +15,11 @@ public:
     static void sortUnit(QList<T*>& values);
 };
 
+inline double IOrderUnit::order() const
+{
+    return 50;
+}
+
 template<typename T>
 void IOrderUnit::sortUnit(QList<T*>& values){
     std::sort(values.begin(), values.end(), [](T* lhs, T* rhs) -> bool{
@@ -29,6 +30,5 @@ void IOrderUnit::sortUnit(QList<T*>& values){
         return lhs->name() < rhs->name();
     });
 }
-
 
 $PackageWebCoreEnd
