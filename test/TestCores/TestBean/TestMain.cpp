@@ -2,8 +2,11 @@
 #include <QtTest>
 
 int main(int argc, char** argv){
-    Q_UNUSED(argc)
-    Q_UNUSED(argv)
+
+    IApplication app(argc, argv);
+
 
     ITestManage::invokeAllTestClass();
+
+    return app.exec();
 }
