@@ -12,7 +12,6 @@ extern const char DefaultDatabaseName[];
 template<typename T, const char * dbConnectionName = DefaultDatabaseName>
 class IOrmEntityModelWare
 {
-    $AsWare
 public:
     IOrmEntityModelWare() = default;
 

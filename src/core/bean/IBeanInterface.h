@@ -3,6 +3,7 @@
 #include "IBeanWare.h"
 #include "ITypeManage.h"
 #include "base/IHeaderUtil.h"
+#include "base/IMetaUtil.h"
 #include "core/bean/IBeanPreProcessor.h"
 #include "core/task/unit/IStaticInitializeTaskUnit.h"
 
@@ -16,9 +17,22 @@ public:
     virtual ~IBeanInterface() = default;
 
 public:
+    virtual QString name() const override;
+    virtual QString catagory() const override;
     virtual void task() final;
 };
 
+template <typename T, bool enabled>
+QString IBeanInterface<T, enabled>::name() const
+{
+    return IMetaUtil::getMetaClassName(T::staticMetaObject);
+}
+
+template<typename T, bool enabled>
+QString IBeanInterface<T, enabled>::catagory() const
+{
+    return "Bean";
+}
 
 template<typename T, bool enabled>
 void IBeanInterface<T, enabled>::task()

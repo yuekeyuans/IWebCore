@@ -16,7 +16,6 @@ namespace IOrmDatabaseWareProxy{
 
 class IOrmDatabaseWare
 {
-    $AsWare
 public:
     IOrmDatabaseWare();
     virtual ~IOrmDatabaseWare();

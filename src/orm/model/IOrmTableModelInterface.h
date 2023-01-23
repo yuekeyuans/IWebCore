@@ -18,7 +18,6 @@ $PackageWebCoreBegin
 template<typename T, const char * dbConnectionName = DefaultDatabaseName>
 class IOrmTableModelInterface : public IOrmEntityModelWare<T, dbConnectionName>
 {
-    $UseWare
 public:
     using IOrmEntityModelWare<T, dbConnectionName>::exec;
     using IOrmEntityModelWare<T, dbConnectionName>::getDialect;

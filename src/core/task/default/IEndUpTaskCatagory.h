@@ -7,6 +7,7 @@ $PackageWebCoreBegin
 
 class IEndupTaskCatagory : public ITaskCatagoryInterface<IEndupTaskCatagory>
 {
+    Q_DISABLE_COPY_MOVE(IEndupTaskCatagory)
     $AsCatagory(IEndupTaskCatagory)
 public:
     IEndupTaskCatagory() = default;

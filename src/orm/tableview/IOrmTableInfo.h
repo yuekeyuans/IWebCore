@@ -7,7 +7,6 @@ $PackageWebCoreBegin
 
 class IOrmTableInfo : public IOrmEntityInfoWare
 {
-    $UseWare
 public:
     IOrmTableInfo() = default;
     explicit IOrmTableInfo(const QMetaObject& meta);

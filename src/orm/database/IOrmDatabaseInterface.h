@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
-#include "core/task/unit/IInitializationTaskUnit.h"
+#include "core/unit/IRegisterInstanceUnit.h"
 #include "orm/IOrmManage.h"
 #include "orm/database/IOrmDatabaseWare.h"
 #include "orm/pp/IOrmPreProcessor.h"
@@ -9,9 +9,8 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true>
-class IOrmDatabaseInterface : public IOrmDatabaseWare, public IInitializationTaskUnit<T, enabled>
+class IOrmDatabaseInterface : public IOrmDatabaseWare, public IRegisterInstanceUnit<IOrderUnit, enabled>
 {
-    $UseWare
 public:
     IOrmDatabaseInterface() = default;
     virtual IOrmDataSource configDataSource() override = 0;
@@ -21,22 +20,22 @@ public:
     virtual void task() final;
 };
 
-template<typename T, bool enabled>
-QString IOrmDatabaseInterface<T, enabled>::taskFinishTip(){
-    IOrmDataSource datasource = getDataSource();
-    QString tip = "Database";
-    if(!datasource.className().isEmpty()){
-        tip.append(" At Class: ").append(datasource.className()).append(",");
-    }
-    if(!datasource.connectionName.isEmpty()){
-        tip.append(" At Connection: ").append(datasource.connectionName).append(",");
-    }
-    if(!datasource.databaseName.isEmpty()){
-        tip.append(" At Db: ").append(datasource.databaseName).append(",");
-    }
-    tip.append(" Opened");
-    return tip;
-}
+//template<typename T, bool enabled>
+//QString IOrmDatabaseInterface<T, enabled>::taskFinishTip(){
+//    IOrmDataSource datasource = getDataSource();
+//    QString tip = "Database";
+//    if(!datasource.className().isEmpty()){
+//        tip.append(" At Class: ").append(datasource.className()).append(",");
+//    }
+//    if(!datasource.connectionName.isEmpty()){
+//        tip.append(" At Connection: ").append(datasource.connectionName).append(",");
+//    }
+//    if(!datasource.databaseName.isEmpty()){
+//        tip.append(" At Db: ").append(datasource.databaseName).append(",");
+//    }
+//    tip.append(" Opened");
+//    return tip;
+//}
 
 template<typename T, bool enabled>
 void IOrmDatabaseInterface<T, enabled>::task()

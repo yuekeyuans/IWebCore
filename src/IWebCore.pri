@@ -48,11 +48,11 @@ HEADERS += \
     $$PWD/core/task/default/IConfigurationTaskInterface.h \
     $$PWD/core/task/default/IEndupTaskCatagory.h \
     $$PWD/core/task/default/IEndupTaskInterface.h \
+    $$PWD/core/task/default/IInitializationTaskCatagory.h \
     $$PWD/core/task/default/IStartupTaskCatagory.h \
     $$PWD/core/task/default/IStartupTaskInterface.h \
     $$PWD/core/task/ITaskManage.h \
     $$PWD/core/task/ITaskWare.h \
-#    $$PWD/core/task/unit/IConfigurationTaskUnit.h \
 #    $$PWD/core/task/unit/IControllerTaskUnit.h \
 #    $$PWD/core/task/unit/IFirstInvokeTaskUnit.h \
 #    $$PWD/core/task/unit/IInitializationTaskUnit.h \
@@ -70,7 +70,36 @@ HEADERS += \
     $$PWD/core/unit/IRegisterInstanceUnit.h \
     $$PWD/core/unit/IRegisterMetaTypeUnit.h \
     $$PWD/core/unit/IRegisterTypeUnit.h \
-#    $$PWD/orm/IOrmAssert.h \
+    $$PWD/orm/IOrmAssert.h \
+    $$PWD/orm/IOrmManage.h \
+    $$PWD/orm/IOrmUtil.h \
+    $$PWD/orm/database/IOrmDataSource.h \
+    $$PWD/orm/database/IOrmDatabaseInterface.h \
+    $$PWD/orm/database/IOrmDatabaseWare.h \
+    $$PWD/orm/dialect/IOrmDialectInterface.h \
+    $$PWD/orm/dialect/IOrmDialectWare.h \
+    $$PWD/orm/model/IOrmEntityModeWare.h \
+    $$PWD/orm/model/IOrmTableModelInterface.h \
+    $$PWD/orm/model/IOrmViewModelInterface.h \
+    $$PWD/orm/pp/IOrmPreProcessor.h \
+    $$PWD/orm/pp/IOrmTablePreProcessor.h \
+    $$PWD/orm/pp/IOrmViewPreProcessor.h \
+    $$PWD/orm/private/IOrmConditionImpl.h \
+    $$PWD/orm/ISqlQuery.h \
+    $$PWD/orm/clause/IOrmClause.h \
+    $$PWD/orm/clause/IOrmCondition.h \
+    $$PWD/orm/clause/IOrmQueryClause.h \
+    $$PWD/orm/dialect/IOrmMySqlDialect.h \
+    $$PWD/orm/dialect/IOrmSqliteDialect.h \
+    $$PWD/orm/private/IOrmDatabaseWareImpl.h \
+    $$PWD/orm/tableview/IOrmEntityInfoWare.h \
+    $$PWD/orm/tableview/IOrmEntityWare.h \
+    $$PWD/orm/tableview/IOrmTableInfo.h \
+    $$PWD/orm/tableview/IOrmTableInterface.h \
+    $$PWD/orm/tableview/IOrmTableWare.h \
+    $$PWD/orm/tableview/IOrmViewInfo.h \
+    $$PWD/orm/tableview/IOrmViewInterface.h \
+    $$PWD/orm/tableview/IOrmViewWare.h \
 #    $$PWD/web/IInterceptInterface.h \
 #    $$PWD/web/IManage.h \
 #    $$PWD/web/IWebAssert.h \
@@ -142,35 +171,6 @@ HEADERS += \
 #    $$PWD/web/controller/private/IControllerParamUtil.h \
 #    $$PWD/web/controller/private/IDefaultStatusController.h \
 #    $$PWD/web/controller/private/IStatusControllerInterfaceImpl.h \
-#    $$PWD/orm/IOrmManage.h \
-#    $$PWD/orm/IOrmUtil.h \
-#    $$PWD/orm/database/IOrmDataSource.h \
-#    $$PWD/orm/database/IOrmDatabaseInterface.h \
-#    $$PWD/orm/database/IOrmDatabaseWare.h \
-#    $$PWD/orm/dialect/IOrmDialectInterface.h \
-#    $$PWD/orm/dialect/IOrmDialectWare.h \
-#    $$PWD/orm/model/IOrmEntityModeWare.h \
-#    $$PWD/orm/model/IOrmTableModelInterface.h \
-#    $$PWD/orm/model/IOrmViewModelInterface.h \
-#    $$PWD/orm/pp/IOrmPreProcessor.h \
-#    $$PWD/orm/pp/IOrmTablePreProcessor.h \
-#    $$PWD/orm/pp/IOrmViewPreProcessor.h \
-#    $$PWD/orm/private/IOrmConditionImpl.h \
-#    $$PWD/orm/ISqlQuery.h \
-#    $$PWD/orm/clause/IOrmClause.h \
-#    $$PWD/orm/clause/IOrmCondition.h \
-#    $$PWD/orm/clause/IOrmQueryClause.h \
-#    $$PWD/orm/dialect/IOrmMySqlDialect.h \
-#    $$PWD/orm/dialect/IOrmSqliteDialect.h \
-#    $$PWD/orm/private/IOrmDatabaseWareImpl.h \
-#    $$PWD/orm/tableview/IOrmEntityInfoWare.h \
-#    $$PWD/orm/tableview/IOrmEntityWare.h \
-#    $$PWD/orm/tableview/IOrmTableInfo.h \
-#    $$PWD/orm/tableview/IOrmTableInterface.h \
-#    $$PWD/orm/tableview/IOrmTableWare.h \
-#    $$PWD/orm/tableview/IOrmViewInfo.h \
-#    $$PWD/orm/tableview/IOrmViewInterface.h \
-#    $$PWD/orm/tableview/IOrmViewWare.h \
 #    $$PWD/web/server/IHttpServer.h \
 #    $$PWD/web/server/IHttpServerManage.h \
 #    $$PWD/web/server/IServerInterface.h \
@@ -217,6 +217,7 @@ SOURCES += \
     $$PWD/core/task/default/IConfigurationTaskCatagory.cpp \
     $$PWD/core/task/default/IEndupTaskCatagory.cpp \
     $$PWD/core/task/default/IEndupTaskInterface.cpp \
+    $$PWD/core/task/default/IInitializationTaskCatagory.cpp \
     $$PWD/core/task/default/IStartupTaskCatagory.cpp \
     $$PWD/core/task/ITaskManage.cpp \
     $$PWD/core/task/ITaskWare.cpp \
@@ -226,7 +227,33 @@ SOURCES += \
     $$PWD/core/unit/IRegisterInstanceUnit.cpp \
     $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
     $$PWD/core/unit/IRegisterTypeUnit.cpp \
-#    $$PWD/orm/IOrmAssert.cpp \
+    $$PWD/orm/IOrmAssert.cpp \
+    $$PWD/orm/IOrmManage.cpp \
+    $$PWD/orm/IOrmUtil.cpp \
+    $$PWD/orm/database/IOrmDataSource.cpp \
+    $$PWD/orm/database/IOrmDatabaseInterface.cpp \
+    $$PWD/orm/database/IOrmDatabaseWare.cpp \
+    $$PWD/orm/dialect/IOrmDialectInterface.cpp \
+    $$PWD/orm/dialect/IOrmDialectWare.cpp \
+    $$PWD/orm/model/IOrmEntityModeWare.cpp \
+    $$PWD/orm/model/IOrmTableModelInterface.cpp \
+    $$PWD/orm/model/IOrmViewModelInterface.cpp \
+    $$PWD/orm/private/IOrmConditionImpl.cpp \
+    $$PWD/orm/ISqlQuery.cpp \
+    $$PWD/orm/clause/IOrmClause.cpp \
+    $$PWD/orm/clause/IOrmCondition.cpp \
+    $$PWD/orm/clause/IOrmQueryClause.cpp \
+    $$PWD/orm/dialect/IOrmMySqlDialect.cpp \
+    $$PWD/orm/dialect/IOrmSqliteDialect.cpp \
+    $$PWD/orm/private/IOrmDatabaseWareImpl.cpp \
+    $$PWD/orm/tableview/IOrmEntityInfoWare.cpp \
+    $$PWD/orm/tableview/IOrmEntityWare.cpp \
+    $$PWD/orm/tableview/IOrmTableInfo.cpp \
+    $$PWD/orm/tableview/IOrmTableInterface.cpp \
+    $$PWD/orm/tableview/IOrmTableWare.cpp \
+    $$PWD/orm/tableview/IOrmViewInfo.cpp \
+    $$PWD/orm/tableview/IOrmViewInterface.cpp \
+    $$PWD/orm/tableview/IOrmViewWare.cpp \
 #    $$PWD/web/IInterceptInterface.cpp \
 #    $$PWD/web/IManage.cpp \
 #    $$PWD/web/IWebAssert.cpp \
@@ -284,32 +311,6 @@ SOURCES += \
 #    $$PWD/web/controller/private/IControllerParamUtil.cpp \
 #    $$PWD/web/controller/private/IDefaultStatusController.cpp \
 #    $$PWD/web/controller/private/IStatusControllerInterfaceImpl.cpp \
-#    $$PWD/orm/IOrmManage.cpp \
-#    $$PWD/orm/IOrmUtil.cpp \
-#    $$PWD/orm/database/IOrmDataSource.cpp \
-#    $$PWD/orm/database/IOrmDatabaseInterface.cpp \
-#    $$PWD/orm/database/IOrmDatabaseWare.cpp \
-#    $$PWD/orm/dialect/IOrmDialectInterface.cpp \
-#    $$PWD/orm/dialect/IOrmDialectWare.cpp \
-#    $$PWD/orm/model/IOrmEntityModeWare.cpp \
-#    $$PWD/orm/model/IOrmTableModelInterface.cpp \
-#    $$PWD/orm/model/IOrmViewModelInterface.cpp \
-#    $$PWD/orm/private/IOrmConditionImpl.cpp \
-#    $$PWD/orm/ISqlQuery.cpp \
-#    $$PWD/orm/clause/IOrmClause.cpp \
-#    $$PWD/orm/clause/IOrmCondition.cpp \
-#    $$PWD/orm/clause/IOrmQueryClause.cpp \
-#    $$PWD/orm/dialect/IOrmMySqlDialect.cpp \
-#    $$PWD/orm/dialect/IOrmSqliteDialect.cpp \
-#    $$PWD/orm/private/IOrmDatabaseWareImpl.cpp \
-#    $$PWD/orm/tableview/IOrmEntityInfoWare.cpp \
-#    $$PWD/orm/tableview/IOrmEntityWare.cpp \
-#    $$PWD/orm/tableview/IOrmTableInfo.cpp \
-#    $$PWD/orm/tableview/IOrmTableInterface.cpp \
-#    $$PWD/orm/tableview/IOrmTableWare.cpp \
-#    $$PWD/orm/tableview/IOrmViewInfo.cpp \
-#    $$PWD/orm/tableview/IOrmViewInterface.cpp \
-#    $$PWD/orm/tableview/IOrmViewWare.cpp \
 #    $$PWD/web/server/IHttpServer.cpp \
 #    $$PWD/web/server/IHttpServerManage.cpp \
 #    $$PWD/web/server/IServerInterface.cpp \

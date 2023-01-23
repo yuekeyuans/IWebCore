@@ -15,7 +15,6 @@ class IOrmViewWare;
 
 class IOrmDialectWare
 {
-    $AsWare
 public:
     IOrmDialectWare() = default;
     virtual ~IOrmDialectWare() = default;
