@@ -16,4 +16,9 @@ void IBannerTask::task()
     qDebug() << BANNER;
 }
 
+double IBannerTask::order() const
+{
+    return 0;
+}
+
 $PackageWebCoreEnd

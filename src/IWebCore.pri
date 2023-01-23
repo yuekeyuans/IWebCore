@@ -180,8 +180,7 @@ HEADERS += \
 #    $$PWD/web/session/ISessionInterface.h \
 #    $$PWD/web/session/ISessionManager.h \
 #    $$PWD/web/session/ISessionTaskUnit.h \
- \#    $$PWD/web/session/ISessionWare.h  \
-    $$PWD/core/unit/private/IOrderUnitImpl.h
+#    $$PWD/web/session/ISessionWare.h
 
 SOURCES += \
     $$PWD/base/IConstantUtil.cpp \
@@ -321,8 +320,7 @@ SOURCES += \
 #    $$PWD/web/session/ISessionInterface.cpp \
 #    $$PWD/web/session/ISessionManager.cpp \
 #    $$PWD/web/session/ISessionTaskUnit.cpp \
- \#    $$PWD/web/session/ISessionWare.cpp  \
-    $$PWD/core/unit/private/IOrderUnitImpl.cpp
+#    $$PWD/web/session/ISessionWare.cpp
 
 DISTFILES += \
     $$PWD/IWebCore \
