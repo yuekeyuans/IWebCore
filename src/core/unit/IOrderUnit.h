@@ -17,22 +17,17 @@ public:
 public:
     template<typename T>
     static void sortUnit(QList<T*>& values);
-
-    static QList<IOrderUnit *> sortUnit(QList<IOrderUnit *> values);
 };
 
 template<typename T>
 void IOrderUnit::sortUnit(QList<T*>& values){
-    QList<IOrderUnit*> temp;
-    for(auto val : values){
-        temp.append(static_cast<IOrderUnit*>(val));
-    }
+    std::sort(values.begin(), values.end(), [](T* lhs, T* rhs) -> bool{
+        if(lhs->order() != rhs->order()){
+            return lhs->order() < rhs->order();
+        }
 
-    temp = sortUnit(temp);
-    values.clear();
-    for(auto val : temp){
-        values.append(dynamic_cast<T*>(val));
-    }
+        return lhs->name() < rhs->name();
+    });
 }
 
 
