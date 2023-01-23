@@ -9,7 +9,7 @@ QStringList IOrderUnit::orders() const
 
 IOrderUnit::Priority IOrderUnit::priority() const
 {
-    return Priority::Common;
+    return Priority::Low;
 }
 
 namespace IOrderUnitHelper

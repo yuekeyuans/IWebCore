@@ -12,13 +12,9 @@ namespace IOrderUnitHelper{
 
 struct IOrderUnit
 {
-    // TODO: 这个应该也不是一个好设计，因为没有办法实现。
     enum class Priority{
-        Most,
         High,
-        Common,
         Low,
-        Least
     };
 
 public:

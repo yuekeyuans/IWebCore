@@ -16,7 +16,7 @@ QStringList IStartupTaskCatagory::orders() const
 
 IOrderUnit::Priority IStartupTaskCatagory::family() const
 {
-    return Priority::Most;
+    return Priority::High;
 }
 
 $PackageWebCoreEnd
