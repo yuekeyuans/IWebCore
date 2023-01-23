@@ -20,8 +20,6 @@ private:
 
 public:
     static void run();
-    static void run(int argc, char** argv);
-    static void run(const QStringList& arguments);
 
     void addTaskWare(ITaskWare* node);
     void addTaskCatagory(ITaskCatagory*);

@@ -11,24 +11,7 @@ $UseGlobalAssert()
 
 void ITaskManage::run()
 {
-    run({});
-}
-
-void ITaskManage::run(int argc, char **argv)
-{
-    QStringList arguments;
-    for(int i=0; i<argc; i++){
-        arguments << QString(argv[i]);
-    }
-
-    run(arguments);
-}
-
-void ITaskManage::run(const QStringList& arguments)
-{
     auto inst = instance();
-    inst->m_arguments = arguments;
-
     inst->execTaskNodes();
 
     inst->m_taskWares.clear();
@@ -52,7 +35,7 @@ void ITaskManage::addTaskCatagory(ITaskCatagory *catagory)
 
 void ITaskManage::execTaskNodes()
 {
-    m_catagories = IOrderUnit::sortUnit(m_catagories);
+    IOrderUnit::sortUnit(m_catagories);
 
     for(const auto& node : m_taskWares){
         for(auto& cata : m_catagories){

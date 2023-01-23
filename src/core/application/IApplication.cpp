@@ -28,7 +28,7 @@ IApplication::IApplication(int argc, char **argv) : QCoreApplication(argc, argv)
     Q_D(IApplication);
     d->m_master = this;
     d->m_arguments = IApplicationHelper::fromArguments(argc, argv);
-    ITaskManage::run(d->m_arguments);
+    ITaskManage::run();
 }
 
 IApplication *IApplication::theInstance()
@@ -38,6 +38,12 @@ IApplication *IApplication::theInstance()
     }
 
     return IApplicationPrivate::m_master;
+}
+
+QStringList IApplication::arguments()
+{
+    auto d_ptr = IApplication::theInstance()->d_func();
+    return d_ptr->m_arguments;
 }
 
 QStringList IApplicationHelper::fromArguments(int argc, char** argv){

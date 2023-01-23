@@ -16,23 +16,23 @@ public:
 
 public:
     template<typename T>
-    static QList<T*> sortUnit(QList<T*> values);
+    static void sortUnit(QList<T*>& values);
 
     static QList<IOrderUnit *> sortUnit(QList<IOrderUnit *> values);
 };
 
 template<typename T>
-QList<T*> IOrderUnit::sortUnit(QList<T*> values){
+void IOrderUnit::sortUnit(QList<T*>& values){
     QList<IOrderUnit*> temp;
     for(auto val : values){
         temp.append(static_cast<IOrderUnit*>(val));
     }
+
     temp = sortUnit(temp);
     values.clear();
     for(auto val : temp){
         values.append(dynamic_cast<T*>(val));
     }
-    return values;
 }
 
 
