@@ -2,8 +2,7 @@
 #include <QtTest>
 
 $EnableCatagory(Test)
-$DisableTask(Test, TestGadget)
-
+$DisableTest(TestGadget, TestTable)
 int main(int argc, char** argv){
     IApplication app(argc, argv);
     return app.exec();
