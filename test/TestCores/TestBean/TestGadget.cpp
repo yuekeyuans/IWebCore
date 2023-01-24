@@ -3,10 +3,6 @@
 
 #include "OneBean.h"
 
-TestGadget::TestGadget()
-{
-}
-
 void TestGadget::init()
 {
 }

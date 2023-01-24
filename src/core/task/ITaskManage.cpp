@@ -35,6 +35,9 @@ void ITaskManage::addTaskCatagory(ITaskCatagory *catagory)
 
 void ITaskManage::execTaskNodes()
 {
+    checkCatagoryExceed();
+    checkTaskExceed();
+
     IOrderUnit::sortUnit(m_catagories);
 
     for(const auto& node : m_taskWares){
@@ -56,6 +59,28 @@ void ITaskManage::execTaskNodes()
     for(auto& node : m_catagories){
         if(node->isCatagoryEnabled()){
             node->execTaskNodes();
+        }
+    }
+}
+
+void ITaskManage::checkCatagoryExceed()
+{
+    for(const auto& cata : m_catagories){
+        if(cata->order() < 0 || cata->order() > 100){
+            IAssertInfo info;
+            info.reason = QString("Catagory: ").append(cata->name());
+            $GlobalAssert->warn("CatagoryRangeExceed", info);
+        }
+    }
+}
+
+void ITaskManage::checkTaskExceed()
+{
+    for(const auto& task : m_taskWares){
+        if(task->order() < 0 || task->order() > 100){
+            IAssertInfo info;
+            info.reason = QString("Task: ").append(task->name());
+            $GlobalAssert->warn("TaskRangeExceed", info);
         }
     }
 }

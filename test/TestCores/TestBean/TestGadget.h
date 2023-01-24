@@ -8,7 +8,7 @@ class TestGadget : public ITestTaskInterface<TestGadget>
     Q_OBJECT
     $AsTest(TestGadget)
 public:
-    TestGadget();
+    TestGadget() = default;
 
 private slots:
     void init();

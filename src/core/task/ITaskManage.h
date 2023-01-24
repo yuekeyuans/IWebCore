@@ -26,6 +26,8 @@ public:
 
 private:
     void execTaskNodes();
+    void checkCatagoryExceed();
+    void checkTaskExceed();
 
 private:
     QList<ITaskWare*> m_taskWares;
