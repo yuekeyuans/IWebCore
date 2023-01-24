@@ -7,7 +7,7 @@ class OneBean : public IBeanInterface<OneBean>
     Q_GADGET
     $AsBean(OneBean)
 public:
-    OneBean();
+    OneBean() = default;
 
     $BeanField(int, id);
 

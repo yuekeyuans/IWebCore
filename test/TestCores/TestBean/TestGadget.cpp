@@ -1,6 +1,8 @@
 ﻿#include "TestGadget.h"
 #include "core/bean/IBeanTypeManage.h"
 
+#include "OneBean.h"
+
 TestGadget::TestGadget()
 {
 }

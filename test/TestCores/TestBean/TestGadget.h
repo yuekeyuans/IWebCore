@@ -3,8 +3,6 @@
 #include <IWebCore>
 #include <QtTest>
 
-#include "OneBean.h"
-
 class TestGadget : public ITestInterface<TestGadget>
 {
     Q_OBJECT
