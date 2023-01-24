@@ -36,6 +36,7 @@ static klassName* system_setting_ ## klassName ## _instance = klassName::instanc
 #define $EnableSqlInfoPrint(boolValue) \
     PP_SYSTEM_SETTING(EnableSqlInfoPrint, ENABLE_SQL_PRINT_INFO, boolValue)
 
+// begin task
 #define $EnableCatagory(catagoryName) \
     PP_SYSTEM_SETTING(EnableCatagory_##catagoryName, CATAGORY_ENABLE_STATE_##catagoryName, true)
 
@@ -47,5 +48,12 @@ static klassName* system_setting_ ## klassName ## _instance = klassName::instanc
 
 #define $DisableTask(catagoryName, taskName) \
     PP_SYSTEM_SETTING(DisableTask_##catagoryName##_##taskName, TASK_ENABLE_STATE_##catagoryName##_##taskName, false)
+// end task
 
-
+// begin test
+/**
+TODO: Test 支持, 为 Test 添加宏
+    $EnableTest(test1, test2, test3...)
+    $DisableTest(test, test2, test3...)
+*/
+// end test
