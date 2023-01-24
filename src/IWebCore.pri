@@ -59,8 +59,9 @@ HEADERS += \
 #    $$PWD/core/task/unit/ILastInvokeTaskUnit.h \
 #    $$PWD/core/task/unit/IMiddleWareTaskUnit.h \
 #    $$PWD/core/task/unit/IStaticInitializeTaskUnit.h \
+    $$PWD/core/task/default/ITestInvokeTask.h \
     $$PWD/core/task/default/ITestTaskCatagory.h \
-    $$PWD/core/test/ITestInterface.h \
+    $$PWD/core/test/ITestTaskInterface.h \
     $$PWD/core/test/ITestManage.h \
     $$PWD/core/test/ITestPreProcessor.h \
     $$PWD/core/unit/INoConstructUnit.h \
@@ -221,6 +222,7 @@ SOURCES += \
     $$PWD/core/task/default/IStartupTaskCatagory.cpp \
     $$PWD/core/task/ITaskManage.cpp \
     $$PWD/core/task/ITaskWare.cpp \
+    $$PWD/core/task/default/ITestInvokeTask.cpp \
     $$PWD/core/task/default/ITestTaskCatagory.cpp \
     $$PWD/core/test/ITestManage.cpp \
     $$PWD/core/unit/INoCopyMoveUnit.cpp \

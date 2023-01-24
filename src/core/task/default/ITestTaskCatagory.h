@@ -14,6 +14,7 @@ private:
 public:
     virtual QString name() const final;
     virtual double order() const final;
+    virtual bool isCatagoryDefaultEnabled() const;
 };
 
 $PackageWebCoreEnd

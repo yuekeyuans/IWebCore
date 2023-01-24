@@ -3,7 +3,7 @@
 #include <IWebCore>
 #include <QtTest>
 
-class TestGadget : public ITestInterface<TestGadget>
+class TestGadget : public ITestTaskInterface<TestGadget>
 {
     Q_OBJECT
     $AsTest(TestGadget)

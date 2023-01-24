@@ -11,10 +11,10 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled =true>
-class ITestInterface: public ITaskWare , public IRegisterInstanceUnit<T, enabled>, public QObject
+class ITestTaskInterface: public ITaskWare , public IRegisterInstanceUnit<T, enabled>, public QObject
 {
 public:
-    ITestInterface() = default;
+    ITestTaskInterface() = default;
 
 public:
     virtual QString name() const override;
@@ -24,25 +24,25 @@ public:
 };
 
 template<typename T, bool enabled>
-QString ITestInterface<T, enabled>::name() const
+QString ITestTaskInterface<T, enabled>::name() const
 {
     return IMetaUtil::getMetaClassName(T::staticMetaObject);
 }
 
 template<typename T, bool enabled>
-QString ITestInterface<T, enabled>::catagory() const
+QString ITestTaskInterface<T, enabled>::catagory() const
 {
     return "Test";
 }
 
 template<typename T, bool enabled>
-void ITestInterface<T, enabled>::registerToBase()
+void ITestTaskInterface<T, enabled>::registerToBase()
 {
     ITaskManage::instance()->addTaskWare(T::instance());
 }
 
 template<typename T, bool enabled>
-void ITestInterface<T, enabled>::task()
+void ITestTaskInterface<T, enabled>::task()
 {
     ITestManage::registerTestClass(T::instance());
 }
