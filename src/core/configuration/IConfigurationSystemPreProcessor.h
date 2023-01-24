@@ -41,3 +41,11 @@ static klassName* system_setting_ ## klassName ## _instance = klassName::instanc
 
 #define $DisableCatagory(catagoryName) \
     PP_SYSTEM_SETTING(DisableCatagory_##catagoryName, CATAGORY_ENABLE_STATE_##catagoryName, false)
+
+#define $EnableTask(catagoryName, taskName) \
+    PP_SYSTEM_SETTING(EnableTask_##catagoryName##_##taskName, TASK_ENABLE_STATE_##catagoryName##_##taskName, false)
+
+#define $DisableTask(catagoryName, taskName) \
+    PP_SYSTEM_SETTING(DisableTask_##catagoryName##_##taskName, TASK_ENABLE_STATE_##catagoryName##_##taskName, false)
+
+

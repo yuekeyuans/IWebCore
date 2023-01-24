@@ -34,6 +34,9 @@ void ITaskCatagory::sortTask()
 void ITaskCatagory::execTaskNodes() const
 {
     for(auto& node : m_taskWares){
+        if(!node->isTaskEnabled()){
+            continue;
+        }
         node->task();
     }
 }
@@ -41,8 +44,11 @@ void ITaskCatagory::execTaskNodes() const
 void ITaskCatagory::printTaskInfo() const
 {
     qDebug() << endl << "Catagory: " << name() << ", order: " << order();
-
     for(const auto& node : m_taskWares){
+        if(!node->isTaskEnabled()){
+            continue;
+        }
+
         QString tip = QString("`").append(node->name()).append("` registered.");
         if(!tip.isEmpty()){
             qDebug().noquote() << "    " << QStringLiteral("[√]  ") << tip << " order: " << node->order();
