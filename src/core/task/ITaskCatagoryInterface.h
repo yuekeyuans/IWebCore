@@ -10,6 +10,7 @@ $PackageWebCoreBegin
 template<typename T, bool enabled=true>
 class ITaskCatagoryInterface : public ITaskCatagory, public IRegisterInstanceUnit<T, enabled>
 {
+    Q_DISABLE_COPY_MOVE(ITaskCatagoryInterface)
 public:
     ITaskCatagoryInterface() = default;
 

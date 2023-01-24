@@ -4,6 +4,7 @@
 #include "base/IMetaUtil.h"
 #include "core/test/ITestPreProcessor.h"
 #include "core/task/ITaskWare.h"
+#include "core/task/ITaskManage.h"
 #include "core/test/ITestManage.h"
 #include "core/unit/IRegisterInstanceUnit.h"
 
@@ -37,13 +38,13 @@ QString ITestInterface<T, enabled>::catagory() const
 template<typename T, bool enabled>
 void ITestInterface<T, enabled>::registerToBase()
 {
-    ITestManage::registerTestClass(T::instance());
+    ITaskManage::instance()->addTaskWare(T::instance());
 }
 
 template<typename T, bool enabled>
 void ITestInterface<T, enabled>::task()
 {
-
+    ITestManage::registerTestClass(T::instance());
 }
 
 $PackageWebCoreEnd
