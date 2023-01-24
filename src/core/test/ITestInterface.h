@@ -43,7 +43,7 @@ void ITestInterface<T, enabled>::registerToBase()
 template<typename T, bool enabled>
 void ITestInterface<T, enabled>::task()
 {
-    // TODO: 移植到这里
+
 }
 
 $PackageWebCoreEnd

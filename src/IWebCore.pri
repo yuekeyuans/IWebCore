@@ -62,7 +62,6 @@ HEADERS += \
     $$PWD/core/test/ITestInterface.h \
     $$PWD/core/test/ITestManage.h \
     $$PWD/core/test/ITestPreProcessor.h \
-    $$PWD/core/test/ITestTaskUnit.h \
     $$PWD/core/unit/INoConstructUnit.h \
     $$PWD/core/unit/INoCopyMoveUnit.h \
     $$PWD/core/unit/IOrderUnit.h  \
