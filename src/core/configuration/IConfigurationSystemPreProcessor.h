@@ -35,3 +35,9 @@ static klassName* system_setting_ ## klassName ## _instance = klassName::instanc
 
 #define $EnableSqlInfoPrint(boolValue) \
     PP_SYSTEM_SETTING(EnableSqlInfoPrint, ENABLE_SQL_PRINT_INFO, boolValue)
+
+#define $EnableCatagory(catagoryName) \
+    PP_SYSTEM_SETTING(EnableCatagory_##catagoryName, CATAGORY_ENABLE_STATE_##catagoryName, true)
+
+#define $DisableCatagory(catagoryName) \
+    PP_SYSTEM_SETTING(DisableCatagory_##catagoryName, CATAGORY_ENABLE_STATE_##catagoryName, false)

@@ -41,7 +41,7 @@ public:
 private:
     friend class ITaskManage;
     QMap<QString, QJsonObject> m_configs;
-    bool m_isInited {false};
+//    bool m_isInited {false};
 };
 
 template<typename T>

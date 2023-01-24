@@ -47,12 +47,16 @@ void ITaskManage::execTaskNodes()
     }
 
     for(const auto& node : m_catagories){
-        node->sortTask();
-        node->printTaskInfo();
+        if(node->isCatagoryEnabled()){
+            node->sortTask();
+            node->printTaskInfo();
+        }
     }
 
     for(auto& node : m_catagories){
-        node->execTaskNodes();
+        if(node->isCatagoryEnabled()){
+            node->execTaskNodes();
+        }
     }
 }
 

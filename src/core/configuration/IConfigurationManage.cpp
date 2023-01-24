@@ -137,9 +137,9 @@ QJsonValue IConfigurationManage::getValue(const QString &path, bool* ok, const Q
     IToeUtil::setOk(ok, true);
 
     auto inst = instance();
-    if(!inst->m_isInited){
-        $GlobalAssert->fatal(IGlobalAssert::ConfigurationMayNotInitialized);
-    }
+//    if(!inst->m_isInited){
+//        $GlobalAssert->fatal(IGlobalAssert::ConfigurationMayNotInitialized);
+//    }
 
     if(!inst->m_configs.contains(group)){
         IToeUtil::setOk(ok, false);
@@ -160,9 +160,9 @@ void IConfigurationManage::getConfigBean(void *handler, const QMap<QString, QStr
 {
     IToeUtil::setOk(ok, true);
     auto inst = instance();
-    if(!inst->m_isInited){
-        $GlobalAssert->fatal(IGlobalAssert::ConfigurationMayNotInitialized);
-    }
+//    if(!inst->m_isInited){
+//        $GlobalAssert->fatal(IGlobalAssert::ConfigurationMayNotInitialized);
+//    }
 
     auto configBeans = IConfigurationManageHelper::generateConfigurationBean(clsInfo, props);
     for(auto it = configBeans.begin(); it != configBeans.end(); it++){

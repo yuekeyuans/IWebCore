@@ -1,7 +1,25 @@
 ﻿#include "ITaskCatagory.h"
 #include "core/task/ITaskWare.h"
+#include "core/configuration/IConfigurationManage.h"
 
 $PackageWebCoreBegin
+
+bool ITaskCatagory::isCatagoryDefaultEnabled() const
+{
+    return true;
+}
+
+bool ITaskCatagory::isCatagoryEnabled() const
+{
+    bool ok;
+    auto path = QString("CATAGORY_ENABLE_STATE_").append(name());
+    auto value = IConfigurationManage::getSystemValue(path, &ok);
+    if(!ok){
+        return isCatagoryDefaultEnabled();
+    }
+
+    return value.toBool();
+}
 
 void ITaskCatagory::addTask(ITaskWare *ware)
 {
