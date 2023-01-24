@@ -7,6 +7,7 @@ $PackageWebCoreBegin
 template<class T, bool enabled = true>
 class IRegisterInstanceUnit
 {
+    Q_DISABLE_COPY_MOVE(IRegisterInstanceUnit)
 protected:
     IRegisterInstanceUnit() = default;
     virtual ~IRegisterInstanceUnit() = default;

@@ -72,6 +72,7 @@ HEADERS += \
     $$PWD/core/unit/IRegisterTypeUnit.h \
     $$PWD/orm/IOrmAssert.h \
     $$PWD/orm/IOrmManage.h \
+    $$PWD/orm/IOrmTaskCatagory.h \
     $$PWD/orm/IOrmUtil.h \
     $$PWD/orm/database/IOrmDataSource.h \
     $$PWD/orm/database/IOrmDatabaseInterface.h \
@@ -212,7 +213,6 @@ SOURCES += \
     $$PWD/core/configuration/yaml/IYamlUtil.cpp \
     $$PWD/core/configuration/yaml/Yaml.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \
-    $$PWD/core/task/ITaskCatagoryInterface.cpp \
     $$PWD/core/task/default/IBannerTask.cpp \
     $$PWD/core/task/default/IConfigurationTaskCatagory.cpp \
     $$PWD/core/task/default/IEndupTaskCatagory.cpp \
@@ -229,6 +229,7 @@ SOURCES += \
     $$PWD/core/unit/IRegisterTypeUnit.cpp \
     $$PWD/orm/IOrmAssert.cpp \
     $$PWD/orm/IOrmManage.cpp \
+    $$PWD/orm/IOrmTaskCatagory.cpp \
     $$PWD/orm/IOrmUtil.cpp \
     $$PWD/orm/database/IOrmDataSource.cpp \
     $$PWD/orm/database/IOrmDatabaseInterface.cpp \
