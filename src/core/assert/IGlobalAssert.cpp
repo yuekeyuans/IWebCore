@@ -64,6 +64,7 @@ void IGlobalAssert::loadFromFunction()
     addFatal("TaskShouldNotBeRegistered", "task can not be registered when the task run finished");
     addWarn("CatagoryRangeExceed", "catagory range ought to be in 0 and 100");
     addWarn("TaskRangeExceed", "catagory range ought to be in 0 and 100");
+    addWarn("TaskWithErrorCatagory", "this task`s catagory does not exist, please check your code");
 }
 
 $PackageWebCoreEnd

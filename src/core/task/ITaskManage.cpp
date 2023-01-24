@@ -40,13 +40,18 @@ void ITaskManage::execTaskNodes()
 
     IOrderUnit::sortUnit(m_catagories);
 
-    for(const auto& node : m_taskWares){
+    for(auto it = m_taskWares.begin(); it!= m_taskWares.end(); it++){
         for(auto& cata : m_catagories){
-            if(cata->name() == node->catagory()){
-                cata->addTask(node);
+            if(cata->name() == (*it)->catagory()){
+                cata->addTask(*it);
+                it = m_taskWares.erase(it);
                 break;
             }
         }
+    }
+
+    if(!m_taskWares.isEmpty()){
+        checkTaskWareErrorCatagory();
     }
 
     for(const auto& node : m_catagories){
@@ -82,6 +87,15 @@ void ITaskManage::checkTaskExceed()
             info.reason = QString("Task: ").append(task->name());
             $GlobalAssert->warn("TaskRangeExceed", info);
         }
+    }
+}
+
+void ITaskManage::checkTaskWareErrorCatagory()
+{
+    for(const auto& task : m_taskWares){
+        IAssertInfo info;
+        info.reason = QStringLiteral("Task: ").append(task->name()).append("  Catagory:").append(task->catagory());
+        $GlobalAssert->warn("TaskWithErrorCatagory", info);
     }
 }
 
