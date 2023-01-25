@@ -5,7 +5,7 @@
 #include "UserBean.h"
 #include "UserModel.h"
 
-class TestOrmBool : public ITestInterface<TestOrmBool>
+class TestOrmBool : public ITestTaskInterface<TestOrmBool>
 {
     Q_OBJECT
     $AsTest(TestOrmBool)

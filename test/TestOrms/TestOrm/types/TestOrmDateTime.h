@@ -5,7 +5,7 @@
 #include "UserBean.h"
 #include "UserModel.h"
 
-class TestOrmDateTime : public ITestInterface<TestOrmDateTime>
+class TestOrmDateTime : public ITestTaskInterface<TestOrmDateTime>
 {
     Q_OBJECT
     $AsTest(TestOrmDateTime)

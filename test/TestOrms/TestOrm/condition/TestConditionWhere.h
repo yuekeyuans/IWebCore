@@ -7,7 +7,7 @@
 
 #include "world/CountryModel.h"
 
-class TestConditionWhere : public ITestInterface<TestConditionWhere>
+class TestConditionWhere : public ITestTaskInterface<TestConditionWhere>
 {
     Q_OBJECT
     $AsTest(TestConditionWhere)

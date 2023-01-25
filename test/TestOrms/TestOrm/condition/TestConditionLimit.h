@@ -3,7 +3,7 @@
 #include <QtTest>
 #include <IWebCore>
 
-class TestConditionLimit : public ITestInterface<TestConditionLimit>
+class TestConditionLimit : public ITestTaskInterface<TestConditionLimit>
 {
     Q_OBJECT
     $AsTest(TestConditionLimit)

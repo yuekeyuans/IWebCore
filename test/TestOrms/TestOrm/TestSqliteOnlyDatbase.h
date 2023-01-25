@@ -5,7 +5,7 @@
 #include "PhoneBean.h"
 #include "SqliteModel.h"
 
-class TestSqliteOnlyDatbase : public ITestInterface<TestSqliteOnlyDatbase>
+class TestSqliteOnlyDatbase : public ITestTaskInterface<TestSqliteOnlyDatbase>
 {
     Q_OBJECT
     $AsTest(TestSqliteOnlyDatbase)

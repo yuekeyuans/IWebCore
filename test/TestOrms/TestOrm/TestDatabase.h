@@ -2,7 +2,8 @@
 
 #include <IWebCore>
 
-class TestDatabase : public ITestInterface<TestDatabase>
+$EnableCatagory(Test)
+class TestDatabase : public ITestTaskInterface<TestDatabase>
 {
     Q_OBJECT
     $AsTest(TestDatabase)

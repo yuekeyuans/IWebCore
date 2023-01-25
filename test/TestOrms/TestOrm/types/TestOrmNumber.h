@@ -5,7 +5,7 @@
 #include "NumberBean.h"
 #include "NumberModel.h"
 
-class TestOrmNumber : public ITestInterface<TestOrmNumber>
+class TestOrmNumber : public ITestTaskInterface<TestOrmNumber>
 {
     Q_OBJECT
     $AsTest(TestOrmNumber)

@@ -2,7 +2,7 @@
 
 #include <IWebCore>
 
-class TestOrmPrimaryKey : public ITestInterface<TestOrmPrimaryKey, false>
+class TestOrmPrimaryKey : public ITestTaskInterface<TestOrmPrimaryKey, false>
 {
     Q_OBJECT
     $AsTest(TestOrmPrimaryKey)

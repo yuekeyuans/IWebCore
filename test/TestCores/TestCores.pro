@@ -1,6 +1,6 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-#    TestBean \
+    TestBean \
     TestConvertion \
-#    TestNewKindOfTaskManager
+    TestNewKindOfTaskManager

@@ -5,7 +5,7 @@
 
 #include "TableModel.h"
 
-class TestTable : public ITestInterface<TestTable>
+class TestTable : public ITestTaskInterface<TestTable>
 {
     Q_OBJECT
     $AsTest(TestTable)

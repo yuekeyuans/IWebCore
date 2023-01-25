@@ -3,7 +3,7 @@
 #include <IWebCore>
 #include <QtTest>
 
-class TestOrmUtil : public ITestInterface<TestOrmUtil, false>
+class TestOrmUtil : public ITestTaskInterface<TestOrmUtil, false>
 {
     Q_OBJECT
     $AsTest(TestOrmUtil)

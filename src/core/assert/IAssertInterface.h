@@ -14,7 +14,7 @@ protected:
 public:
     void load(const QString& klassName);
     virtual QString loadFromJsonString();
-    virtual void loadFromFunction(); // TODO: 名字有点俗气
+    virtual void loadFromFunction();
 
     void fatal(const QString& name);
     void fatal(const QString& name, const IAssertInfo& info);

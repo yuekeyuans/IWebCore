@@ -2,7 +2,6 @@
 
 int main(int argc, char** argv)
 {
-    ITaskManage::run(argc, argv);
-
-    ITestManage::invokeAllTestClass();
+    IApplication app(argc, argv);
+    return app.exec();
 }

@@ -3,7 +3,7 @@
 #include <IWebCore>
 #include <QtTest>
 
-class TestConditionOrderBy : public ITestInterface<TestConditionOrderBy>
+class TestConditionOrderBy : public ITestTaskInterface<TestConditionOrderBy>
 {
     Q_OBJECT
     $AsTest(TestConditionOrderBy)

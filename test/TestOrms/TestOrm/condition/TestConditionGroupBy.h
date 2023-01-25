@@ -3,7 +3,7 @@
 #include <QtTest>
 #include <IWebCore>
 
-class TestConditionGroupBy : public ITestInterface<TestConditionGroupBy>
+class TestConditionGroupBy : public ITestTaskInterface<TestConditionGroupBy>
 {
     Q_OBJECT
     $AsTest(TestConditionGroupBy)

@@ -6,6 +6,7 @@ extern const char SqliteConnectionName[];
 
 class SqliteDatabase : public IOrmDatabaseInterface<SqliteDatabase>
 {
+    Q_GADGET
     $AsDatabase(SqliteDatabase)
 public:
     SqliteDatabase();

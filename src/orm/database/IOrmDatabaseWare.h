@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
+#include "core/task/ITaskWare.h"
 #include "orm/database/IOrmDataSource.h"
 
 $PackageWebCoreBegin
@@ -14,7 +15,7 @@ namespace IOrmDatabaseWareProxy{
     void registerView(std::shared_ptr<IOrmDatabaseWareImpl> pimpl, const IOrmViewInfo& info, const QString& sq);
 }
 
-class IOrmDatabaseWare
+class IOrmDatabaseWare : public ITaskWare
 {
 public:
     IOrmDatabaseWare();

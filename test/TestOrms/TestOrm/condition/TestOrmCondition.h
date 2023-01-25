@@ -5,7 +5,7 @@
 #include "PhoneBean.h"
 #include "PhoneModel.h"
 
-class TestOrmCondition : public ITestInterface<TestOrmCondition>
+class TestOrmCondition : public ITestTaskInterface<TestOrmCondition>
 {
     Q_OBJECT
     $AsTest(TestOrmCondition)

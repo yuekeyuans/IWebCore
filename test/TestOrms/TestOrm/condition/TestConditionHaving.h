@@ -3,7 +3,7 @@
 #include <QtTest>
 #include <IWebCore>
 
-class TestConditionHaving : public ITestInterface<TestConditionHaving>
+class TestConditionHaving : public ITestTaskInterface<TestConditionHaving>
 {
     Q_OBJECT
     $AsTest(TestConditionHaving)

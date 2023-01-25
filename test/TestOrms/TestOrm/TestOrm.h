@@ -4,7 +4,7 @@
 #include <QtTest>
 #include "PhoneModel.h"
 
-class TestOrm : public ITestInterface<TestOrm>
+class TestOrm : public ITestTaskInterface<TestOrm>
 {
     Q_OBJECT
     $AsTest(TestOrm)
