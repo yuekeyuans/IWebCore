@@ -4,7 +4,9 @@
 #include "world/CityTable.h"
 #include "MySqlWorldDatabase.h"
 
-class CityModel : public IOrmTableModelInterface<CityTable, MySqlWorldConnectionName>
+extern const char SqliteConnectionName[];
+
+class CityModel : public IOrmTableModelInterface<CityTable, SqliteConnectionName>
 {
     Q_GADGET
 public:

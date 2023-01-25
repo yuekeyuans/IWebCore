@@ -2,6 +2,8 @@
 
 #include <IWebCore>
 
+
+
 class CityTable : public IOrmTableInterface<CityTable>
 {
     Q_GADGET

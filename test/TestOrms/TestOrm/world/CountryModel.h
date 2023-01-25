@@ -4,7 +4,9 @@
 #include "world/CountryTable.h"
 #include "MySqlWorldDatabase.h"
 
-class CountryModel : public IOrmTableModelInterface<CountryTable, MySqlWorldConnectionName>
+extern const char SqliteConnectionName[];
+
+class CountryModel : public IOrmTableModelInterface<CountryTable, SqliteConnectionName>
 {
 public:
     CountryModel();

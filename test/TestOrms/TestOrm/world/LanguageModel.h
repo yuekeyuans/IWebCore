@@ -3,7 +3,9 @@
 #include <IWebCore>
 #include "LanguageTable.h"
 
-class LanguageModel : public IOrmTableModelInterface<LanguageTable>
+extern const char SqliteConnectionName[];
+
+class LanguageModel : public IOrmTableModelInterface<LanguageModel, SqliteConnectionName>
 {
 public:
     LanguageModel();

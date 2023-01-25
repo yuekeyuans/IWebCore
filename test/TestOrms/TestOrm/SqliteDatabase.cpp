@@ -2,6 +2,9 @@
 #include "PhoneBean.h"
 #include "types/UserBean.h"
 #include "types/NumberBean.h"
+#include "world/CityTable.h"
+#include "world/CountryTable.h"
+#include "world/LanguageModel.h"
 
 const char SqliteConnectionName[] = "sqlite";
 
@@ -15,6 +18,10 @@ void SqliteDatabase::registerEntities()
     registerTable<PhoneBean>();
     registerTable<UserBean>();
     registerTable<NumberBean>();
+
+    registerTable<CityTable>();
+    registerTable<CountryTable>();
+    registerTable<LanguageTable>();
 }
 
 
