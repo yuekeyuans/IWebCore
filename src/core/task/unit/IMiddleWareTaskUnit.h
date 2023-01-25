@@ -9,7 +9,6 @@ $PackageWebCoreBegin
 template<typename T, bool enabled=true>
 class IMiddleWareTaskUnit : public ITaskWare
 {
-    $UseWare
 public:
     IMiddleWareTaskUnit() = default;
     virtual QString taskFinishTip() final;

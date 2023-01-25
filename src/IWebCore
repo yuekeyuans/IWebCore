@@ -2,7 +2,7 @@
 
 #include "core/core.h"
 #include "base/base"
-//#include "web/common"
+#include "web/common"
 #include "orm/orm"
 
 $PackageWebCoreUsing

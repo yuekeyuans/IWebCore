@@ -10,7 +10,6 @@ $PackageWebCoreBegin
 template<typename T, bool enabled=true>
 class ISessionTaskUnit : public ITaskWare
 {
-    $UseWare
 public:
     ISessionTaskUnit() = default;
     virtual ~ISessionTaskUnit() = default;

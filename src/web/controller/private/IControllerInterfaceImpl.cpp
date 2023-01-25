@@ -1,6 +1,6 @@
 ﻿#include "IControllerInterfaceImpl.h"
 
-#include "core/bean/ITypeManage.h"
+#include "core/bean/IBeanTypeManage.h"
 #include "web/controller/private/IControllerInfo.h"
 #include "web/net/IRequest.h"
 #include "web/net/IResponse.h"

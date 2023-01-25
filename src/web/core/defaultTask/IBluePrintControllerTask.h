@@ -1,19 +1,19 @@
-﻿#pragma once
+﻿//#pragma once
 
-#include "base/IHeaderUtil.h"
-#include "core/assert/IAssertInterface.h"
+//#include "base/IHeaderUtil.h"
+//#include "core/assert/IAssertInterface.h"
 
-$PackageWebCoreBegin
+//$PackageWebCoreBegin
 
-class IBluePrintControllerTask
-{
-    $UseInstance(IBluePrintControllerTask);
-private:
-    IBluePrintControllerTask();
+//class IBluePrintControllerTask
+//{
+//    $UseInstance(IBluePrintControllerTask);
+//private:
+//    IBluePrintControllerTask();
 
-    void registerTask();
-};
+//    void registerTask();
+//};
 
-static IBluePrintControllerTask* task = IBluePrintControllerTask::instance();
+//static IBluePrintControllerTask* task = IBluePrintControllerTask::instance();
 
-$PackageWebCoreEnd
+//$PackageWebCoreEnd

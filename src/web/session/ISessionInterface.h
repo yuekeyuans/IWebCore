@@ -1,9 +1,10 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
+#include "base/IMetaUtil.h"
+#include "core/unit/IRegisterInstanceUnit.h"
 #include "web/session/ISessionTaskUnit.h"
 #include "web/session/ISessionWare.h"
-//#include "web/session/ISessionManager.h"
 
 $PackageWebCoreBegin
 
@@ -13,15 +14,43 @@ namespace ISessionInterfaceProxy
 }
 
 template<typename T, bool enabled=true>
-class ISessionInterface : public ISessionTaskUnit<T, enabled>, public ISessionWare
+class ISessionInterface : public ISessionWare, public IRegisterInstanceUnit<T, enabled>
 {
 public:
     ISessionInterface() = default;
-    virtual ~ISessionInterface() = default;
 
+public:
+    virtual QString name() const override;
+    virtual double order() const override;
+    virtual QString catagory() const final;
+    virtual void registerToBase() final;
     virtual void task() final;
     virtual void registerSession() final;
 };
+
+template<typename T, bool enabled>
+QString ISessionInterface<T, enabled>::name() const
+{
+    return IMetaUtil::getMetaClassName(T::staticMetaObject);
+}
+
+template<typename T, bool enabled>
+double ISessionInterface<T, enabled>::order() const
+{
+    return 49;
+}
+
+template<typename T, bool enabled>
+QString ISessionInterface<T, enabled>::catagory() const
+{
+    return "Controller";
+}
+
+template<typename T, bool enabled>
+void ISessionInterface<T, enabled>::registerToBase()
+{
+    // TODO:
+}
 
 template<typename T, bool enabled>
 void ISessionInterface<T, enabled>::task ()

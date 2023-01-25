@@ -3,7 +3,7 @@
 #include "base/IJsonUtil.h"
 #include "base/IToeUtil.h"
 #include "core/bean/IBeanWare.h"
-#include "core/bean/ITypeManage.h"
+#include "core/bean/IBeanTypeManage.h"
 #include "core/task/ITaskManage.h"
 #include "web/controller/private/IControllerParamBeanUtil.h"
 #include "web/jar/IMultiPart.h"

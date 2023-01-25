@@ -2,6 +2,8 @@
 
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
+#include "core/task/ITaskWare.h"
+#include "core/unit/IRegisterInstanceUnit.h"
 #include "core/task/unit/IControllerTaskUnit.h"
 #include "web/controller/IControllerManage.h"
 
@@ -21,16 +23,30 @@ namespace IControllerInterfaceProxy
 };
 
 template<typename T, bool enabled = true>
-class IControllerInterface : public IControllerTaskUnit<T, enabled>
+class IControllerInterface : public ITaskWare, public IRegisterInstanceUnit<T, enabled>
 {
 public:
     IControllerInterface() = default;
-    virtual ~IControllerInterface() = default;
 
+public:
+    virtual QString name() const override;
+    virtual QString catagory() const final;
     virtual void task() final;
     virtual void registerController() final;
     virtual void unRegisterController() final;
 };
+
+template<typename T, bool enabled>
+QString IControllerInterface<T, enabled>::name() const
+{
+    return IMetaUtil::getMetaClassName(T::staticMetaObject);
+}
+
+template<typename T, bool enabled>
+QString IControllerInterface<T, enabled>::catagory() const
+{
+    return "Controller";
+}
 
 template<typename T, bool enabled>
 void IControllerInterface<T, enabled>::task()

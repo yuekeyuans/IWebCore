@@ -1,36 +1,36 @@
-﻿#include "IBluePrintControllerTask.h"
+﻿//#include "IBluePrintControllerTask.h"
 
-#include "core/assert/IGlobalAssert.h"
-#include "core/configuration/IConfigurationManage.h"
-#include "core/task/ITaskManage.h"
-#include "web/controller/IControllerManage.h"
+//#include "core/assert/IGlobalAssert.h"
+//#include "core/configuration/IConfigurationManage.h"
+//#include "core/task/ITaskManage.h"
+//#include "web/controller/IControllerManage.h"
 
-$PackageWebCoreBegin
+//$PackageWebCoreBegin
 
-$UseGlobalAssert()
+//$UseGlobalAssert()
 
-IBluePrintControllerTask::IBluePrintControllerTask()
-{
-    registerTask();
-}
+//IBluePrintControllerTask::IBluePrintControllerTask()
+//{
+//    registerTask();
+//}
 
-void IBluePrintControllerTask::registerTask()
-{
-    static auto task = [](){
-        bool convertOk;
-        auto value = IConfigurationManage::getValue("SYSTEM_BLUE_PRINT", &convertOk, SystemConfigurationGroup);
-        if(!convertOk){
-            return;
-        }
+//void IBluePrintControllerTask::registerTask()
+//{
+//    static auto task = [](){
+//        bool convertOk;
+//        auto value = IConfigurationManage::getValue("SYSTEM_BLUE_PRINT", &convertOk, SystemConfigurationGroup);
+//        if(!convertOk){
+//            return;
+//        }
 
-        if(!value.isBool()){
-            $GlobalAssert->fatal(IGlobalAssert::EnableBluePrintParamError);
-        }
-        if(value.toBool()){
-            IControllerManage::travalPrintUrlTree();
-        }
-    };
-    ITaskManage::registerBluePrint(task);
-}
+//        if(!value.isBool()){
+//            $GlobalAssert->fatal(IGlobalAssert::EnableBluePrintParamError);
+//        }
+//        if(value.toBool()){
+//            IControllerManage::travalPrintUrlTree();
+//        }
+//    };
+////    ITaskManage::registerBluePrint(task);
+//}
 
-$PackageWebCoreEnd
+//$PackageWebCoreEnd

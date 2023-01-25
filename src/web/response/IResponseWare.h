@@ -10,9 +10,8 @@ $PackageWebCoreBegin
 struct IResponseWareRaw;
 class IRedirectResponse;
 
-
-class IResponseWare{
-    $AsWare
+class IResponseWare
+{
 public:
     IResponseWare();
     virtual ~IResponseWare();
