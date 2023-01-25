@@ -12,7 +12,7 @@ $UseGlobalAssert()
 void ITaskManage::run()
 {
     auto inst = instance();
-    inst->execTaskNodes();
+    inst->invokeTaskCatagories();
 
     inst->m_taskWares.clear();
     inst->m_catagories.clear();
@@ -33,26 +33,12 @@ void ITaskManage::addTaskCatagory(ITaskCatagory *catagory)
     m_catagories.append(catagory);
 }
 
-void ITaskManage::execTaskNodes()
+void ITaskManage::invokeTaskCatagories()
 {
     checkCatagoryExceed();
     checkTaskExceed();
 
-    IOrderUnit::sortUnit(m_catagories);
-
-    for(auto it = m_taskWares.begin(); it!= m_taskWares.end(); it++){
-        for(auto& cata : m_catagories){
-            if(cata->name() == (*it)->catagory()){
-                cata->addTask(*it);
-                it = m_taskWares.erase(it);
-                break;
-            }
-        }
-    }
-
-    if(!m_taskWares.isEmpty()){
-        checkTaskWareErrorCatagory();
-    }
+    mergetTasksToCatagores();
 
     for(const auto& node : m_catagories){
         if(node->isCatagoryEnabled()){
@@ -90,12 +76,31 @@ void ITaskManage::checkTaskExceed()
     }
 }
 
-void ITaskManage::checkTaskWareErrorCatagory()
+void ITaskManage::mergetTasksToCatagores()
 {
-    for(const auto& task : m_taskWares){
-        IAssertInfo info;
-        info.reason = QStringLiteral("Task: ").append(task->name()).append("  Catagory:").append(task->catagory());
-        $GlobalAssert->warn("TaskWithErrorCatagory", info);
+    IOrderUnit::sortUnit(m_catagories);
+
+    QList<ITaskWare*> wares;
+    for(auto task : m_taskWares){
+        for(auto& cata : m_catagories){
+            if(cata->name() == task->catagory()){
+                cata->addTask(task);
+                wares.append(task);
+                break;
+            }
+        }
+    }
+
+    if(m_catagories.length() != m_taskWares.length()){
+        for(auto task : wares){
+            m_taskWares.removeOne(task);
+        }
+
+        for(auto task: m_taskWares){
+            IAssertInfo info;
+            info.reason = QString("Task: ").append(task->name()).append(" have wrong catagory that not exist: ").append(task->catagory());
+            $GlobalAssert->warn("TaskWithErrorCatagory", info);
+        }
     }
 }
 

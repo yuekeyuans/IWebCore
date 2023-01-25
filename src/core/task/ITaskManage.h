@@ -25,10 +25,10 @@ public:
     void addTaskCatagory(ITaskCatagory*);
 
 private:
-    void execTaskNodes();
+    void invokeTaskCatagories();
     void checkCatagoryExceed();
     void checkTaskExceed();
-    void checkTaskWareErrorCatagory();
+    void mergetTasksToCatagores();
 
 private:
     QList<ITaskWare*> m_taskWares;
