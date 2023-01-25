@@ -3,7 +3,7 @@
 #include <IWebCore>
 #include <QtTest>
 
-class TestBeanListMapConvertion : public ITestInterface<TestBeanListMapConvertion>
+class TestBeanListMapConvertion : public ITestTaskInterface<TestBeanListMapConvertion>
 {
     Q_OBJECT
     $AsTest(TestBeanListMapConvertion)
