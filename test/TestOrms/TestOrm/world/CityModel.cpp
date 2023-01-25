@@ -2,5 +2,4 @@
 
 CityModel::CityModel()
 {
-//    this->connectionName = "world";
 }

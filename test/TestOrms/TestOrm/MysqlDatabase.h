@@ -4,7 +4,7 @@
 
 extern const char MySqlDatabaseConnectionName[];
 
-class MysqlDatabase : public IOrmDatabaseInterface<MysqlDatabase>
+class MysqlDatabase : public IOrmDatabaseInterface<MysqlDatabase, false>
 {
     Q_GADGET
     $AsDatabase(MysqlDatabase)

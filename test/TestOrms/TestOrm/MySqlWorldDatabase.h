@@ -4,7 +4,12 @@
 
 extern const char MySqlWorldConnectionName[];
 
-class MySqlWorldDatabase : public IOrmDatabaseInterface<MySqlWorldDatabase>
+/**
+ * @brief The MySqlWorldDatabase class
+ * 本电脑上没有安装 mysql, 所以 disable 掉，其实原理都一样
+ */
+
+class MySqlWorldDatabase : public IOrmDatabaseInterface<MySqlWorldDatabase, false>
 {
     Q_GADGET
     $AsDatabase(MySqlWorldDatabase)
