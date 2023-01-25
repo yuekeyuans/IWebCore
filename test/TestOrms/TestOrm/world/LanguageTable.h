@@ -9,6 +9,7 @@ class LanguageTable : public IOrmTableInterface<LanguageTable>
 public:
     LanguageTable();
 
+    $PrimaryKey(CountryCode)
     $Column(QString, CountryCode)
     $Column(QString, language)
     $Column(QString, IsOffical)
