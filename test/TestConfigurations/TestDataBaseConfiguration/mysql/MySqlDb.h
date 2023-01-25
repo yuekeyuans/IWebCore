@@ -6,6 +6,7 @@ extern const char MySqlDbConnection[];
 
 class MySqlDb : public IOrmDatabaseInterface<MySqlDb, false>
 {
+    Q_GADGET
     $AsDatabase(MySqlDb)
 public:
     MySqlDb() = default;

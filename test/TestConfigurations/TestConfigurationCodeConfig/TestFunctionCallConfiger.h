@@ -3,9 +3,10 @@
 #include <IWebCore>
 #include <QtTest>
 
-class TestFunctionCallConfiger : public QObject
+class TestFunctionCallConfiger : public ITestTaskInterface<TestFunctionCallConfiger>
 {
     Q_OBJECT
+    $AsTest(TestFunctionCallConfiger)
 public:
     TestFunctionCallConfiger() = default;
 
@@ -15,7 +16,7 @@ public:
 
     $BoolConfiger(enabled, services._0.enabled);
 
-    $StringConfiger(name, services._1.name);
+//    $StringConfiger(name, services._1.name);
 
 private slots:
     void test_1();

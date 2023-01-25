@@ -4,9 +4,10 @@
 #include <QtTest>
 #include <DataBean.h>
 
-class TestConfig : public QObject
+class TestConfig : public ITestTaskInterface<TestConfig>
 {
     Q_OBJECT
+    $AsTest(TestConfig)
 public:
     TestConfig();
 

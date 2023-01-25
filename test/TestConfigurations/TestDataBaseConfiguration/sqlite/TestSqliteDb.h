@@ -5,9 +5,10 @@
 #include "DataBean.h"
 #include "sqlite/SqliteModel.h"
 
-class TestSqliteDb : public QObject
+class TestSqliteDb : public ITestTaskInterface<TestSqliteDb>
 {
     Q_OBJECT
+    $AsTest(TestSqliteDb)
 public:
     TestSqliteDb();
 

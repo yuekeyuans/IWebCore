@@ -3,9 +3,10 @@
 #include <IWebCore>
 #include <QtTest>
 
-class TestConfig : public QObject
+class TestConfig : public ITestTaskInterface<TestConfig>
 {
     Q_OBJECT
+    $AsTest(TestConfig)
 public:
     TestConfig();
 

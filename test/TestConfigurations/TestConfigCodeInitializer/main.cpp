@@ -2,13 +2,9 @@
 #include <QtTest>
 #include "TestConfig.h"
 
+$EnableCatagory(Test)
 int main(int argc, char *argv[])
 {
-    $ITestBegin
-
-    ITaskManage::run(argc, argv);
-
-    $ITestClass(TestConfig)
-
-    $ITestEnd
+    IApplication app(argc, argv);
+    return app.exec();
 }

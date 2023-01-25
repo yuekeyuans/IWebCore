@@ -6,16 +6,10 @@
 #include "mysql/MySqlDb.h"
 #include "mysql/TestMySqlDb.h"
 
+$EnableCatagory(Test)
+$DisableTest(TestMySqlDb);
 int main(int argc, char *argv[])
 {
-    $ITestBegin
-    ITaskManage::run(argc, argv);
-
-//    $RegisterDatabase(SqliteDb)
-//    $RegisterDatabase(MySqlDb)
-
-    $ITestClass(TestSqliteDb)
-//    $ITestClass(TestMySqlDb)
-
-    $ITestEnd
+    IApplication app(argc, argv);
+    return app.exec();
 }

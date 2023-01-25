@@ -5,9 +5,10 @@
 #include "DataBean.h"
 #include "mysql/MySqlModel.h"
 
-class TestMySqlDb : public QObject
+class TestMySqlDb : public ITestTaskInterface<TestMySqlDb>
 {
     Q_OBJECT
+    $AsTest(TestMySqlDb)
 public:
     TestMySqlDb();
 

@@ -4,15 +4,10 @@
 #include "TestConfig.h"
 #include "TestFunctionCallConfiger.h"
 
-
+$EnableCatagory(Test)
 $EnableConfigFile("abc.tt");
 int main(int argc, char *argv[])
 {
-    $ITestBegin
-    ITaskManage::run(argc, argv);
-
-    $ITestClass(TestConfig);
-    $ITestClass(TestFunctionCallConfiger)
-
-    $ITestEnd
+    IApplication app(argc, argv);
+    return app.exec();
 }
