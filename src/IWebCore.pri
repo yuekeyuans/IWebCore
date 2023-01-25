@@ -30,7 +30,6 @@ HEADERS += \
     $$PWD/core/bean/IBeanPreProcessor.h \
     $$PWD/core/bean/IBeanTypeManage.h \
     $$PWD/core/bean/IBeanWare.h \
-    $$PWD/core/bean/IGadgetUnit.h \
     $$PWD/core/configuration/IConfigurationInstancePreProcessor.h \
     $$PWD/core/configuration/IConfigurationInterface.h \
     $$PWD/core/configuration/IConfigurationManage.h \
@@ -64,6 +63,7 @@ HEADERS += \
     $$PWD/core/test/ITestTaskInterface.h \
     $$PWD/core/test/ITestManage.h \
     $$PWD/core/test/ITestPreProcessor.h \
+    $$PWD/core/unit/IGadgetUnit.h \
     $$PWD/core/unit/INoConstructUnit.h \
     $$PWD/core/unit/INoCopyMoveUnit.h \
     $$PWD/core/unit/IOrderUnit.h  \
@@ -206,7 +206,6 @@ SOURCES += \
     $$PWD/core/assert/IAssertInterface.cpp \
     $$PWD/core/assert/IGlobalAssert.cpp \
     $$PWD/core/bean/IBeanTypeManage.cpp \
-    $$PWD/core/bean/IGadgetUnit.cpp \
     $$PWD/core/configuration/IConfigurationInterface.cpp \
     $$PWD/core/configuration/IConfigurationManage.cpp \
     $$PWD/core/configuration/IConfigurationResourceAutoLoader.cpp \
@@ -225,6 +224,7 @@ SOURCES += \
     $$PWD/core/task/default/ITestInvokeTask.cpp \
     $$PWD/core/task/default/ITestTaskCatagory.cpp \
     $$PWD/core/test/ITestManage.cpp \
+    $$PWD/core/unit/IGadgetUnit.cpp \
     $$PWD/core/unit/INoCopyMoveUnit.cpp \
     $$PWD/core/unit/IRegisterGadgetUnit.cpp \
     $$PWD/core/unit/IRegisterInstanceUnit.cpp \
