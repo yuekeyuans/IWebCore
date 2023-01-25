@@ -253,10 +253,8 @@ SOURCES += \
     $$PWD/orm/tableview/IOrmEntityInfoWare.cpp \
     $$PWD/orm/tableview/IOrmEntityWare.cpp \
     $$PWD/orm/tableview/IOrmTableInfo.cpp \
-    $$PWD/orm/tableview/IOrmTableInterface.cpp \
     $$PWD/orm/tableview/IOrmTableWare.cpp \
     $$PWD/orm/tableview/IOrmViewInfo.cpp \
-    $$PWD/orm/tableview/IOrmViewInterface.cpp \
     $$PWD/orm/tableview/IOrmViewWare.cpp \
 #    $$PWD/web/IInterceptInterface.cpp \
 #    $$PWD/web/IManage.cpp \
