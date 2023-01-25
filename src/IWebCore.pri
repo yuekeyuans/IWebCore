@@ -329,11 +329,11 @@ SOURCES += \
 DISTFILES += \
     $$PWD/IWebCore \
     $$PWD/base/base \
-    $$PWD/core/core.h \
-#    $$PWD/web/common \
-    $$PWD/core/configuration/configuration \
-#    $$PWD/web/controller/controller \
     $$PWD/core/assertion/assertion \
-#    $$PWD/orm/orm \
+    $$PWD/core/core.h \
+    $$PWD/core/configuration/configuration \
+    $$PWD/core/task/task \
+    $$PWD/orm/orm \
+#    $$PWD/web/common \
+#    $$PWD/web/controller/controller \
 #    $$PWD/web/server/server \
-    $$PWD/core/task/task

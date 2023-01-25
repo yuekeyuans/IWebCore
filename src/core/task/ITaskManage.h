@@ -26,15 +26,17 @@ public:
 
 private:
     void invokeTaskCatagories();
+
+private:
     void checkCatagoryExceed();
     void checkTaskExceed();
     void mergetTasksToCatagores();
+    void execEachCatagory();
 
 private:
     QList<ITaskWare*> m_taskWares;
     QList<ITaskCatagory*> m_catagories;
     bool m_isTaskFinished{false};
-    QStringList m_arguments;
 };
 
 $PackageWebCoreEnd

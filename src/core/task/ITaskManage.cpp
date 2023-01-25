@@ -39,19 +39,7 @@ void ITaskManage::invokeTaskCatagories()
     checkTaskExceed();
 
     mergetTasksToCatagores();
-
-    for(const auto& node : m_catagories){
-        if(node->isCatagoryEnabled()){
-            node->sortTask();
-            node->printTaskInfo();
-        }
-    }
-
-    for(auto& node : m_catagories){
-        if(node->isCatagoryEnabled()){
-            node->execTaskNodes();
-        }
-    }
+    execEachCatagory();
 }
 
 void ITaskManage::checkCatagoryExceed()
@@ -100,6 +88,23 @@ void ITaskManage::mergetTasksToCatagores()
             IAssertInfo info;
             info.reason = QString("Task: ").append(task->name()).append(" have wrong catagory that not exist: ").append(task->catagory());
             $GlobalAssert->warn("TaskWithErrorCatagory", info);
+        }
+    }
+}
+
+void ITaskManage::execEachCatagory()
+{
+
+    for(const auto& node : m_catagories){
+        if(node->isCatagoryEnabled()){
+            node->sortTask();
+            node->printTaskInfo();
+        }
+    }
+
+    for(auto& node : m_catagories){
+        if(node->isCatagoryEnabled()){
+            node->execTaskNodes();
         }
     }
 }
