@@ -1,5 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS +=  \
-    TestOrm \
-#    TestOrmTableAndView \
+#    TestOrm \
+    TestOrmTableAndView

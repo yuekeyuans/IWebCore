@@ -14,6 +14,7 @@ public:
     IOrmViewWare() = default;
     virtual ~IOrmViewWare() = default;
 
+public:
     virtual const IOrmViewInfo* getOrmEntityInfo() const override = 0;
 };
 

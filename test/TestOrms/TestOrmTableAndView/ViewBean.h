@@ -6,7 +6,6 @@ class ViewBean : public IOrmViewInterface<ViewBean>
 {
     Q_GADGET
     $AsView(ViewBean)
-
 public:
     ViewBean();
 

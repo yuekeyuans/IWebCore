@@ -5,7 +5,7 @@
 #include "ViewBean.h"
 #include "ViewModel.h"
 
-class TestView : public ITestInterface<TestView>
+class TestView : public ITestTaskInterface<TestView>
 {
     Q_OBJECT
     $AsTest(TestView)

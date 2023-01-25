@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "base/IHeaderUtil.h"
+#include "base/IMetaUtil.h"
 #include "core/bean/IBeanTypeManage.h"
 #include "core/task/unit/IStaticInitializeTaskUnit.h"
 #include "orm/tableview/IOrmViewWare.h"
@@ -14,12 +15,24 @@ public:
     IOrmViewInterface() = default;
     virtual ~IOrmViewInterface() = default;
 
-    // NOTE: 目前没有对 View 进行的特殊操作，所有的操作在基类当中进行。
-
 public:
+    virtual QString name() const override;
+    virtual QString catagory() const final;
     virtual void task() final;
     virtual const IOrmViewInfo* getOrmEntityInfo() const override = 0;
 };
+
+template<typename T, bool enabled>
+QString IOrmViewInterface<T, enabled>::name() const
+{
+    return IMetaUtil::getMetaClassName(T::staticMetaObject);
+}
+
+template<typename T, bool enabled>
+QString IOrmViewInterface<T, enabled>::catagory() const
+{
+    return "Orm";
+}
 
 template<typename T, bool enabled>
 void IOrmViewInterface<T, enabled>::task(){
