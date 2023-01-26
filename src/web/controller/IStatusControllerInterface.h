@@ -3,7 +3,10 @@
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
 #include "core/configuration/IConfigurationManage.h"
-#include "core/task/unit/IControllerTaskUnit.h"
+#include "core/task/ITaskWare.h"
+#include "core/task/ITaskManage.h"
+//#include "core/task/unit/IControllerTaskUnit.h"
+#include "core/unit/IRegisterInstanceUnit.h"
 #include "web/controller/IControllerManage.h"
 #include "web/node/IStatusActionNode.h"
 
@@ -12,13 +15,18 @@ $PackageWebCoreBegin
 struct IControllerInfo;
 
 template<typename T, bool enabled = true>
-class IStatusControllerInterface : public IControllerTaskUnit<T, enabled>
+class IStatusControllerInterface : public ITaskWare, public IRegisterInstanceUnit<T, enabled>
 {
 public:
     IStatusControllerInterface() = default;
     virtual ~IStatusControllerInterface() = default;
 
+    virtual QString name() const override;
+    virtual QString catagory() const override;
+    virtual void registerToBase();
     virtual void task() final;
+
+public:
     virtual void registerController() final;
     virtual void unRegisterController() final;
 };
@@ -34,6 +42,23 @@ namespace IStatusControllerInterfaceProxy
     void unRegisterError();
 }
 
+template<typename T, bool enabled>
+QString IStatusControllerInterface<T, enabled>::name() const
+{
+    return IMetaUtil::getMetaClassName(T::staticMetaObject);
+}
+
+template<typename T, bool enabled>
+QString IStatusControllerInterface<T, enabled>::catagory() const
+{
+    return "Controller";
+}
+
+template<typename T, bool enabled>
+void IStatusControllerInterface<T, enabled>::registerToBase()
+{
+    ITaskManage::addTaskCatagory(T::instance());
+}
 
 template<typename T, bool enabled>
 void IStatusControllerInterface<T, enabled>::task()

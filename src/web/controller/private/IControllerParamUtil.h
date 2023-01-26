@@ -12,7 +12,7 @@ struct IMethodNode;
 struct IFunctionNode;
 struct IParamNode;
 
-class IControllerParamUtil : public IInitializationTaskUnit<IControllerParamUtil>
+class IControllerParamUtil // : public IInitializationTaskUnit<IControllerParamUtil>
 {
     $UseInstance(IControllerParamUtil)
     Q_DISABLE_COPY_MOVE(IControllerParamUtil)
