@@ -11,17 +11,6 @@ $PackageWebCoreBegin
 
 struct IControllerInfo;
 
-namespace IStatusControllerInterfaceProxy
-{
-    void registerController(void* handler, const QString& className,
-                            const QMap<QString, QString>& classInfo, const QVector<QMetaMethod>& methods);
-    void registerError();
-
-    void unRegisterController(void* handler, const QString& className,
-                              const QMap<QString, QString>& classInfo, const QVector<QMetaMethod>& methods);
-    void unRegisterError();
-}
-
 template<typename T, bool enabled = true>
 class IStatusControllerInterface : public IControllerTaskUnit<T, enabled>
 {
@@ -33,6 +22,18 @@ public:
     virtual void registerController() final;
     virtual void unRegisterController() final;
 };
+
+namespace IStatusControllerInterfaceProxy
+{
+    void registerController(void* handler, const QString& className,
+                            const QMap<QString, QString>& classInfo, const QVector<QMetaMethod>& methods);
+    void registerError();
+
+    void unRegisterController(void* handler, const QString& className,
+                              const QMap<QString, QString>& classInfo, const QVector<QMetaMethod>& methods);
+    void unRegisterError();
+}
+
 
 template<typename T, bool enabled>
 void IStatusControllerInterface<T, enabled>::task()
