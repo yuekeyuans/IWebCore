@@ -103,7 +103,6 @@ HEADERS += \
     $$PWD/orm/tableview/IOrmViewInterface.h \
     $$PWD/orm/tableview/IOrmViewWare.h \
     $$PWD/web/IInterceptInterface.h \
-    $$PWD/web/IManage.h \
     $$PWD/web/IWebAssert.h \
     $$PWD/web/biscuits/IHttpHeader.h \
     $$PWD/web/biscuits/IHttpMethod.h \
@@ -257,7 +256,6 @@ SOURCES += \
     $$PWD/orm/tableview/IOrmViewInfo.cpp \
     $$PWD/orm/tableview/IOrmViewWare.cpp \
     $$PWD/web/IInterceptInterface.cpp \
-    $$PWD/web/IManage.cpp \
     $$PWD/web/IWebAssert.cpp \
     $$PWD/web/biscuits/IHttpHeader.cpp \
     $$PWD/web/biscuits/IHttpMethod.cpp \

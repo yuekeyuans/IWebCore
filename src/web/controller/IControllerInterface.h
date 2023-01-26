@@ -3,6 +3,7 @@
 #include "base/IHeaderUtil.h"
 #include "base/IMetaUtil.h"
 #include "core/task/ITaskWare.h"
+#include "core/task/ITaskManage.h"
 #include "core/unit/IRegisterInstanceUnit.h"
 #include "core/task/unit/IControllerTaskUnit.h"
 #include "web/controller/IControllerManage.h"
@@ -10,6 +11,23 @@
 $PackageWebCoreBegin
 
 struct IControllerInfo;
+
+template<typename T, bool enabled = true>
+class IControllerInterface : public ITaskWare, public IRegisterInstanceUnit<T, enabled>
+{
+public:
+    IControllerInterface() = default;
+
+public:
+    virtual QString name() const override;
+    virtual QString catagory() const final;
+    virtual void task() final;
+    virtual void registerToBase();
+
+    virtual void registerController() final;
+    virtual void unRegisterController() final;
+};
+
 
 namespace IControllerInterfaceProxy
 {
@@ -22,20 +40,6 @@ namespace IControllerInterfaceProxy
     void unRegisterError();
 };
 
-template<typename T, bool enabled = true>
-class IControllerInterface : public ITaskWare, public IRegisterInstanceUnit<T, enabled>
-{
-public:
-    IControllerInterface() = default;
-
-public:
-    virtual QString name() const override;
-    virtual QString catagory() const final;
-    virtual void task() final;
-    virtual void registerController() final;
-    virtual void unRegisterController() final;
-};
-
 template<typename T, bool enabled>
 QString IControllerInterface<T, enabled>::name() const
 {
@@ -46,6 +50,12 @@ template<typename T, bool enabled>
 QString IControllerInterface<T, enabled>::catagory() const
 {
     return "Controller";
+}
+
+template<typename T, bool enabled>
+void IControllerInterface<T, enabled>::registerToBase()
+{
+    ITaskManage::instance()->addTaskWare(T::instance());
 }
 
 template<typename T, bool enabled>

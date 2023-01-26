@@ -57,7 +57,7 @@ QString IStatusControllerInterface<T, enabled>::catagory() const
 template<typename T, bool enabled>
 void IStatusControllerInterface<T, enabled>::registerToBase()
 {
-    ITaskManage::addTaskCatagory(T::instance());
+    ITaskManage::instance()->addTaskWare(T::instance());
 }
 
 template<typename T, bool enabled>

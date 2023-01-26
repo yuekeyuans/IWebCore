@@ -11,7 +11,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         FiveCharaterUrlValidator.cpp \
-        TestArgmentPaser.cpp \
         main.cpp \
         mapping/BeanParameterController.cpp \
         mapping/BeanReturnController.cpp \
@@ -41,7 +40,6 @@ RESOURCES += \
 
 HEADERS += \
     FiveCharaterUrlValidator.h \
-    TestArgmentPaser.h \
     mapping/BeanParameterController.h \
     mapping/BeanReturnController.h \
     mapping/ByteArrayReturnController.h \

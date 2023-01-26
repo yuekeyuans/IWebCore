@@ -1,11 +1,11 @@
-﻿#pragma once
+﻿//#pragma once
 
-#include <IWebCore>
+//#include <IWebCore>
 
-class FiveCharaterUrlValidator : public IControllerPathValidatorInterface<FiveCharaterUrlValidator>
-{
-    $UseInstance(FiveCharaterUrlValidator)
-public:
-    FiveCharaterUrlValidator() = default;
-    virtual void task() override;
-};
+//class FiveCharaterUrlValidator : public IControllerPathValidatorInterface<FiveCharaterUrlValidator>
+//{
+//    $UseInstance(FiveCharaterUrlValidator)
+//public:
+//    FiveCharaterUrlValidator() = default;
+//    virtual void task() override;
+//};

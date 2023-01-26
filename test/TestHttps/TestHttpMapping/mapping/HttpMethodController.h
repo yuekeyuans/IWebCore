@@ -6,7 +6,7 @@ class HttpMethodController : public IControllerInterface<HttpMethodController>
 {
     Q_GADGET
     $AsController(HttpMethodController, controller)
-public:
+private:
     HttpMethodController();
 
     $GetMapping(testGet, fun)
