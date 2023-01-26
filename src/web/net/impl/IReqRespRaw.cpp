@@ -11,6 +11,8 @@
 #include "web/jar/IMultiPartJar.h"
 #include "web/IWebAssert.h"
 
+#include "web/session/ISessionManager.h"
+
 $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
@@ -28,7 +30,10 @@ IReqRespRaw::IReqRespRaw(IRequest *request, QTcpSocket *socket)
     m_headerJar = new IHeaderJar(this);
     m_cookieJar = new ICookieJar(this);
     m_multiPartJar = new IMultiPartJar(this);
-    m_sessionJar = new ISessionJar(this);
+
+    if(ISessionManager::instance()->getSessionWare() != nullptr){
+        m_sessionJar = new ISessionJar(this);
+    }
 }
 
 IReqRespRaw::~IReqRespRaw()

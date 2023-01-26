@@ -8,11 +8,6 @@
 
 $PackageWebCoreBegin
 
-namespace ISessionInterfaceProxy
-{
-    void registerSession(ISessionWare*);
-}
-
 template<typename T, bool enabled=true>
 class ISessionInterface : public ISessionWare, public IRegisterInstanceUnit<T, enabled>
 {
@@ -27,6 +22,11 @@ public:
     virtual void task() final;
     virtual void registerSession() final;
 };
+
+namespace ISessionInterfaceProxy
+{
+    void registerSession(ISessionWare*);
+}
 
 template<typename T, bool enabled>
 QString ISessionInterface<T, enabled>::name() const
