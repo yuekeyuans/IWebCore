@@ -1,15 +1,13 @@
 ﻿#pragma once
 
 
-#include <QtCore>
-#include <IWebCore>
+#include <IControllerInterface>
 #include "TestBean.h"
 
 class JsonReturnController : public IControllerInterface<JsonReturnController>
 {
     Q_GADGET
-    $AsController(JsonReturnController);
-
+    $AsController(JsonReturnController)
 public:
     JsonReturnController();
 

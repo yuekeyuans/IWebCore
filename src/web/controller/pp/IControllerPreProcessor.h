@@ -4,7 +4,6 @@
 #include "core/configuration/IConfigurationPreProcessor.h"
 
 #define $AsController_1(klassName) \
-    $UseConfig(klassName) \
     $UseInstance(klassName) \
 private:
 

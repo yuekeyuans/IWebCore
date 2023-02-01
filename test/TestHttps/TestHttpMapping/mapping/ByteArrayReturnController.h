@@ -1,11 +1,11 @@
 ﻿#pragma once
 
-#include <IWebCore>
+#include <IControllerInterface>
 
 class ByteArrayReturnController : public IControllerInterface<ByteArrayReturnController>
 {
     Q_GADGET
-    $AsController(ByteArrayReturnController);
+    $AsController(ByteArrayReturnController)
 public:
     ByteArrayReturnController() = default;
 

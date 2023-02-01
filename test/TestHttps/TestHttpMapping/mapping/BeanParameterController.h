@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include <IWebCore>
+#include <IControllerInterface>
 #include "mapping/TestBean.h"
 
 class A{};

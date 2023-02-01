@@ -1,6 +1,5 @@
 ﻿#include "BeanParameterController.h"
 
-
 QString BeanParameterController::testBean($Param(TestBean, bean))
 {
     return bean_param;

@@ -324,8 +324,13 @@ SOURCES += \
     $$PWD/web/session/ISessionTaskUnit.cpp \
     $$PWD/web/session/ISessionWare.cpp
 
+HEADERS += \
+    $$PWD/IWebCore   \
+    $$PWD/IControllerInterface \
+    $$PWD/IApplication
+
 DISTFILES += \
-    $$PWD/IWebCore \
+#    $$PWD/IWebCore \
     $$PWD/base/base \
     $$PWD/core/assertion/assertion \
     $$PWD/core/core.h \

@@ -1,7 +1,6 @@
 ﻿#pragma once
 
-#include <QtCore>
-#include <IWebCore>
+#include <IControllerInterface>
 
 // all kind of text
 class PostTextParameterRequest : public IControllerInterface<PostTextParameterRequest>

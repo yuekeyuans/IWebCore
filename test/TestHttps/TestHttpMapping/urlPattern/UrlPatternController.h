@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include <IWebCore>
+#include <IControllerInterface>
 
 class UrlPatternController : public IControllerInterface<UrlPatternController, false>
 {

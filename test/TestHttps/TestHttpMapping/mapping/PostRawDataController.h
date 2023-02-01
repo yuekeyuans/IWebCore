@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include <IWebCore>
+#include <IControllerInterface>
 
 // used for accept raw data
 class PostRawDataController : public IControllerInterface<PostRawDataController>

@@ -1,7 +1,6 @@
 ﻿#pragma once
 
-#include <QtCore>
-#include <IWebCore>
+#include <IControllerInterface>
 
 class RedirectController : public IControllerInterface<RedirectController>
 {

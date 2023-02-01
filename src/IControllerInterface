@@ -1,0 +1,15 @@
+﻿#pragma once
+
+#include "web/controller/IControllerInterface.h"
+
+#include "web/controller/pp/IControlVariablePreProcessor.h"
+#include "web/controller/pp/IControllerPreProcessor.h"
+#include "web/controller/pp/IDeleteMappingPreProcessor.h"
+#include "web/controller/pp/IGetMappingPreProcessor.h"
+#include "web/controller/pp/IPatchMappingPreProcessor.h"
+#include "web/controller/pp/IPostMappingPreProcessor.h"
+#include "web/controller/pp/IPutMappingPreProcessor.h"
+#include "web/controller/pp/IStatusCodeMappingPreProcessor.h"
+#include "web/controller/pp/IStatusControllerPreProcessor.h"
+
+using namespace IWebCore;

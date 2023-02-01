@@ -1,0 +1,6 @@
+﻿#pragma once
+
+#include "core/application/IApplication.h"
+#include "core/configuration/IConfigurationSystemPreProcessor.h"
+
+$PackageWebCoreUsing
