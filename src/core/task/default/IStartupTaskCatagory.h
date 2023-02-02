@@ -7,12 +7,11 @@ $PackageWebCoreBegin
 
 class IStartupTaskCatagory : public ITaskCatagoryInterface<IStartupTaskCatagory>
 {
-    Q_DISABLE_COPY_MOVE(IStartupTaskCatagory)
     $AsCatagory(IStartupTaskCatagory)
-public:
+private:
     IStartupTaskCatagory() = default;
 
-public:
+private:
     virtual QString name() const final;
     virtual double order() const final;
 };

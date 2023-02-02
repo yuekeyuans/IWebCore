@@ -10,7 +10,6 @@ $PackageWebCoreBegin
 class ITestInvokeTask : public ITaskWare, public IRegisterInstanceUnit<ITestInvokeTask>
 {
     Q_GADGET
-    Q_DISABLE_COPY_MOVE(ITestInvokeTask)
     $AsTask(ITestInvokeTask)
 private:
     ITestInvokeTask() = default;

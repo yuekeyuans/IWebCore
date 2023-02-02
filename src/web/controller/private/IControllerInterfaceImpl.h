@@ -10,6 +10,10 @@ struct IControllerInfo;
 class IControllerInterfaceImpl
 {
     $UseInstance(IControllerInterfaceImpl);
+
+private:
+    IControllerInterfaceImpl() = default;
+
 public:
     static void checkUrlMappings(const IControllerInfo& info);
     static QVector<IUrlActionNode> createMappingLeaves(const IControllerInfo& info);

@@ -9,10 +9,10 @@ class IBeanTypeManage
 {
     $UseInstance(IBeanTypeManage)
     $UseDataPtr(IBeanTypeManage)
-    Q_DISABLE_COPY_MOVE(IBeanTypeManage)
-public:
+private:
     IBeanTypeManage();
 
+public:
     static void registerBeanType(const QString& typeName);
     static void registerNamespace(const QString& nmspace);
     static bool containBean(const QString& typeName);

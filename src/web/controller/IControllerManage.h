@@ -17,7 +17,6 @@ $PackageWebCoreBegin
 class IRequest;
 class IControllerManage
 {
-    Q_DISABLE_COPY(IControllerManage)
     $UseInstance(IControllerManage)
 private:
     IControllerManage();

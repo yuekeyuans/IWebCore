@@ -15,7 +15,6 @@ struct IParamNode;
 class IControllerParamUtil // : public IInitializationTaskUnit<IControllerParamUtil>
 {
     $UseInstance(IControllerParamUtil)
-    Q_DISABLE_COPY_MOVE(IControllerParamUtil)
 public:
     using ParamType = void*[11];
     using CreateParamFunType = void*(*)(const IParamNode& node, IRequest& request, bool& ok);

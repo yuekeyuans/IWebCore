@@ -9,10 +9,10 @@ class IBannerTask : public IStartupTaskInterface<IBannerTask>
 {
     Q_GADGET
     $AsTask(IBannerTask)
-public:
+private:
     IBannerTask() = default;
 
-public:
+private:
     virtual void task() final;
     virtual double order() const final;
 };

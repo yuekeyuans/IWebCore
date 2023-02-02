@@ -7,7 +7,6 @@ $PackageWebCoreBegin
 
 class IInitializationTaskCatagory : public ITaskCatagoryInterface<IInitializationTaskCatagory>
 {
-    Q_DISABLE_COPY_MOVE(IInitializationTaskCatagory)
     $AsCatagory(IInitializationTaskCatagory)
 private:
     IInitializationTaskCatagory() = default;

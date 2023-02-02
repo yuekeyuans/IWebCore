@@ -9,13 +9,18 @@
 #define PP_ARG_N(_1, _2, _3, _4, _5, _6, _7, _8, _9, N, ...) N
 #define PP_RSEQ_N() 9, 8, 7, 6, 5, 4, 3, 2, 1, 0
 
+#define $UseBareInstance(klassName) \
+    public: \
+        static klassName* instance(){ \
+            static klassName m_instance; \
+            return &m_instance; \
+        } \
+    private:
+
 #define $UseInstance(klassName) \
-public: \
-    static klassName* instance(){ \
-        static klassName m_instance; \
-        return &m_instance; \
-    } \
-private:
+    Q_DISABLE_COPY_MOVE(klassName)\
+    $UseBareInstance(klassName)
+
 
 #define $UseDataPtr(klass)   \
 private:    \

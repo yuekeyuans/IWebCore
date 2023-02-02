@@ -13,7 +13,6 @@ class ITaskManage;
 
 class IConfigurationManage
 {
-    Q_DISABLE_COPY_MOVE(IConfigurationManage);
     $UseInstance(IConfigurationManage)
 private:
     IConfigurationManage() = default;
