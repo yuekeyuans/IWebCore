@@ -43,15 +43,22 @@ void ITaskCatagory::execTaskNodes() const
 
 void ITaskCatagory::printTaskInfo() const
 {
-    qDebug() << endl << "Catagory: " << name() << ", order: " << order();
+    bool ok;
+    ok = IConfigurationManage::getSystemValue("SYSTEM_ENABLE_TASK_OUTPUT", &ok).toBool() && ok;
+    if(ok){
+        qDebug() << endl << "Catagory: " << name() << ", order: " << order();
+    }
+
     for(const auto& node : m_taskWares){
         if(!node->isTaskEnabled()){
             continue;
         }
 
-        QString tip = QString("`").append(node->name()).append("` registered.");
-        if(!tip.isEmpty()){
-            qDebug().noquote() << "    " << QStringLiteral("[√]  ") << tip << " order: " << node->order();
+        if(ok){
+            QString tip = QString("`").append(node->name()).append("` registered.");
+            if(!tip.isEmpty()){
+                qDebug().noquote() << "    " << QStringLiteral("[√]  ") << tip << " order: " << node->order();
+            }
         }
     }
 }

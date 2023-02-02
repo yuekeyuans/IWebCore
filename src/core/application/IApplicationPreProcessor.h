@@ -110,3 +110,7 @@
     $DisableTest_8(testKlass1, testKlass2, testKlass3, testKlass4, testKlass5, testKlass6, testKlass7, testKlass8) \
     $DisableTask(Test, testKlass9)
 // end test
+
+// enable taskManage to output something. default do not output anything
+#define $EnableTaskOutput \
+    PP_SYSTEM_SETTING(EnableTaskOutputSettingKlass, SYSTEM_ENABLE_TASK_OUTPUT, true)

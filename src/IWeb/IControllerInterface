@@ -2,6 +2,15 @@
 
 #include "web/controller/IControllerInterface.h"
 
+// response
+#include "web/response/IResponseInterface.h"
+#include "web/response/IRedirectResponse.h"
+#include "web/response/IJsonResponse.h"
+#include "web/response/IByteArrayResponse.h"
+#include "web/response/IPlainTextResponse.h"
+#include "web/response/IHtmlResponse.h"
+
+// preprocessor
 #include "web/controller/pp/IControlVariablePreProcessor.h"
 #include "web/controller/pp/IControllerPreProcessor.h"
 #include "web/controller/pp/IDeleteMappingPreProcessor.h"

@@ -5,7 +5,6 @@ QT += network sql xml testlib
 PRECOMPILED_HEADER = $$PWD/core/base/IHeaderUtil.h
 
 HEADERS += \
-    $$PWD/IWeb/IHttpServer \
     $$PWD/core/base/ICodecUtil.h \
     $$PWD/core/base/IConstantUtil.h \
     $$PWD/core/base/IConvertUtil.h \
@@ -107,6 +106,7 @@ HEADERS += \
     $$PWD/web/IControllerTaskCatagory.h \
     $$PWD/web/IInterceptInterface.h \
     $$PWD/web/IWebAssert.h \
+    $$PWD/web/IWebSystemPreProcessor.h \
     $$PWD/web/biscuits/IHttpHeader.h \
     $$PWD/web/biscuits/IHttpMethod.h \
     $$PWD/web/biscuits/IHttpMime.h \
@@ -328,11 +328,12 @@ SOURCES += \
 
 HEADERS += \
     $$PWD/IWebCore   \
+    $$PWD/IWeb/IWeb  \
     $$PWD/IWeb/IControllerInterface \
+    $$PWD/IWeb/IHttpServer \
     $$PWD/ICore/IApplication
 
 DISTFILES += \
-#    $$PWD/IWebCore \
     $$PWD/core/base/base \
     $$PWD/core/assertion/assertion \
     $$PWD/core/core.h \

@@ -98,7 +98,10 @@ void ITaskManage::execEachCatagory()
     for(const auto& node : m_catagories){
         if(node->isCatagoryEnabled()){
             node->sortTask();
-            node->printTaskInfo();
+            bool ok;
+            if(IConfigurationManage::getSystemValue("SYSTEM_ENABLE_TASK_OUTPUT", &ok).toBool() && ok){
+               node->printTaskInfo();
+            }
         }
     }
 

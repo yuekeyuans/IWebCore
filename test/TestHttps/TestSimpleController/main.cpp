@@ -1,7 +1,7 @@
 ﻿#include <ICore/IApplication>
-#include <IWeb/IHttpServer>
+#include <IWeb/IWeb>
 
-$DisableCatagory(Test)
+//$EnableTaskOutput
 int main(int argc, char *argv[])
 {
     IApplication a(argc, argv);
