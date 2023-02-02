@@ -1,7 +1,7 @@
 ﻿
 #include <IWebCore>
 
-$EnableBluePrint(true)
+//$EnableBluePrint(true)
 int main(int argc, char *argv[])
 {
     IApplication app(argc, argv);

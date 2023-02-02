@@ -327,8 +327,8 @@ SOURCES += \
 
 HEADERS += \
     $$PWD/IWebCore   \
-    $$PWD/IControllerInterface \
-    $$PWD/IApplication
+    $$PWD/api/IControllerInterface \
+    $$PWD/api/IApplication
 
 DISTFILES += \
 #    $$PWD/IWebCore \

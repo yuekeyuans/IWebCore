@@ -1,8 +1,8 @@
 ﻿#include <IWebCore>
 
-$EnableBeanResolveStrictMode(true)
+//$EnableBeanResolveStrictMode(true)
 //$EnableBluePrint(true)
-$EnableDefaultStaticDir("C:/ProgramData/Microsoft/Windows/OneSettings/")
+//$EnableDefaultStaticDir("C:/ProgramData/Microsoft/Windows/OneSettings/")
 
 int main(int argc, char *argv[])
 {

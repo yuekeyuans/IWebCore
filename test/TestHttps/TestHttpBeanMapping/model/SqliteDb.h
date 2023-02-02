@@ -4,6 +4,7 @@
 
 class SqliteDb : public IOrmDatabaseInterface<SqliteDb>
 {
+    Q_GADGET
     $AsDatabase(SqliteDb)
 public:
     SqliteDb();
