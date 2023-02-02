@@ -1,9 +1,9 @@
 ﻿#pragma once
 
-#include "base/IHeaderUtil.h"
-#include "base/IConvertUtil.h"
-#include "base/IMetaUtil.h"
-#include "base/IJsonUtil.h"
+#include "core/base/IHeaderUtil.h"
+#include "core/base/IConvertUtil.h"
+#include "core/base/IMetaUtil.h"
+#include "core/base/IJsonUtil.h"
 #include "core/bean/IBeanInterface.h"
 #include "core/configuration/IConfigurationPreProcessor.h"
 

@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "base/IPreProcessorUtil.h"
+#include "core/base/IPreProcessorUtil.h"
 
 #define PP_STATUS_JOIN(funName, type) \
     PP_STRING( iwebStatusFun$##funName##$##type)

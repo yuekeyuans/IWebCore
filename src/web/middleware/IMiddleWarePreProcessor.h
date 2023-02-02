@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "base/IHeaderUtil.h"
-#include "base/IPreProcessorUtil.h"
+#include "core/base/IHeaderUtil.h"
+#include "core/base/IPreProcessorUtil.h"
 
 #define $AsMiddleWare_1(klassName)    \
     $UseInstance(klassName) \

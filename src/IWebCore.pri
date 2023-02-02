@@ -2,24 +2,24 @@ INCLUDEPATH += $$PWD
 
 QT += network sql xml testlib
 
-PRECOMPILED_HEADER = $$PWD/base/IHeaderUtil.h
+PRECOMPILED_HEADER = $$PWD/core/base/IHeaderUtil.h
 
 HEADERS += \
-    $$PWD/base/ICodecUtil.h \
-    $$PWD/base/IConstantUtil.h \
-    $$PWD/base/IConvertUtil.h \
-    $$PWD/base/IFileUtil.h \
-    $$PWD/base/IHeaderUtil.h \
-    $$PWD/base/IJsonUtil.h \
-    $$PWD/base/IJsonUtil_tojson.h \
-    $$PWD/base/IMetaUtil.h \
-    $$PWD/base/IPackageUtil.h \
-    $$PWD/base/IPreProcessorUtil.h \
-    $$PWD/base/ISocketUtil.h \
-    $$PWD/base/ITicTacUtil.h \
-    $$PWD/base/IToeUtil.h \
-    $$PWD/base/ITraitHelper.h \
-    $$PWD/base/IXmlUtil.h \
+    $$PWD/core/base/ICodecUtil.h \
+    $$PWD/core/base/IConstantUtil.h \
+    $$PWD/core/base/IConvertUtil.h \
+    $$PWD/core/base/IFileUtil.h \
+    $$PWD/core/base/IHeaderUtil.h \
+    $$PWD/core/base/IJsonUtil.h \
+    $$PWD/core/base/IJsonUtil_tojson.h \
+    $$PWD/core/base/IMetaUtil.h \
+    $$PWD/core/base/IPackageUtil.h \
+    $$PWD/core/base/IPreProcessorUtil.h \
+    $$PWD/core/base/ISocketUtil.h \
+    $$PWD/core/base/ITicTacUtil.h \
+    $$PWD/core/base/IToeUtil.h \
+    $$PWD/core/base/ITraitHelper.h \
+    $$PWD/core/base/IXmlUtil.h \
     $$PWD/core/application/IApplication.h \
     $$PWD/core/ICoreAssert.h \
     $$PWD/core/application/IApplicationPreProcessor.h \
@@ -186,21 +186,21 @@ HEADERS += \
     $$PWD/web/session/ISessionWare.h
 
 SOURCES += \
-    $$PWD/base/IConstantUtil.cpp \
-    $$PWD/base/ICodecUtil.cpp \
-    $$PWD/base/IConvertUtil.cpp \
-    $$PWD/base/IFileUtil.cpp \
-    $$PWD/base/IHeaderUtil.cpp \
-    $$PWD/base/IJsonUtil.cpp \
-    $$PWD/base/IJsonUtil_tojson.cpp \
-    $$PWD/base/IJsonUtil_tojson_impl.cpp \
-    $$PWD/base/IMetaUtil.cpp \
-    $$PWD/base/IPreProcessorUtil.cpp \
-    $$PWD/base/ISocketUtil.cpp \
-    $$PWD/base/ITicTacUtil.cpp \
-    $$PWD/base/IToeUtil.cpp \
-    $$PWD/base/ITraitHelper.cpp \
-    $$PWD/base/IXmlUtil.cpp \
+    $$PWD/core/base/IConstantUtil.cpp \
+    $$PWD/core/base/ICodecUtil.cpp \
+    $$PWD/core/base/IConvertUtil.cpp \
+    $$PWD/core/base/IFileUtil.cpp \
+    $$PWD/core/base/IHeaderUtil.cpp \
+    $$PWD/core/base/IJsonUtil.cpp \
+    $$PWD/core/base/IJsonUtil_tojson.cpp \
+    $$PWD/core/base/IJsonUtil_tojson_impl.cpp \
+    $$PWD/core/base/IMetaUtil.cpp \
+    $$PWD/core/base/IPreProcessorUtil.cpp \
+    $$PWD/core/base/ISocketUtil.cpp \
+    $$PWD/core/base/ITicTacUtil.cpp \
+    $$PWD/core/base/IToeUtil.cpp \
+    $$PWD/core/base/ITraitHelper.cpp \
+    $$PWD/core/base/IXmlUtil.cpp \
     $$PWD/core/ICoreAssert.cpp \
     $$PWD/core/application/IApplication.cpp \
     $$PWD/core/assert/IAssertInfo.cpp \
@@ -332,7 +332,7 @@ HEADERS += \
 
 DISTFILES += \
 #    $$PWD/IWebCore \
-    $$PWD/base/base \
+    $$PWD/core/base/base \
     $$PWD/core/assertion/assertion \
     $$PWD/core/core.h \
     $$PWD/core/configuration/configuration \

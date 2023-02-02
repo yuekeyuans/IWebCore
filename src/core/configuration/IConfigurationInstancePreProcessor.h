@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "base/IPreProcessorUtil.h"
+#include "core/base/IPreProcessorUtil.h"
 
 #define IConfigInstance_2(klassName, configGroup)                                       \
 class klassName                                                                         \

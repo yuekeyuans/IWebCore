@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "base/IHeaderUtil.h"
-#include "base/IMetaUtil.h"
+#include "core/base/IHeaderUtil.h"
+#include "core/base/IMetaUtil.h"
 #include "core/unit/IRegisterInstanceUnit.h"
 #include "web/session/ISessionTaskUnit.h"
 #include "web/session/ISessionWare.h"

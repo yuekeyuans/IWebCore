@@ -1,6 +1,6 @@
 ﻿#include "IResponseWare.h"
 
-#include "base/IConstantUtil.h"
+#include "core/base/IConstantUtil.h"
 #include "web/response/IResponseWareRaw.h"
 #include "web/response/IRedirectResponse.h"
 #include "web/IWebAssert.h"

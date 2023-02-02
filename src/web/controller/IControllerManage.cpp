@@ -1,8 +1,8 @@
 ﻿#include "IControllerManage.h"
 #include "core/configuration/IConfigurationManage.h"
 #include "web/net/IRequest.h"
-#include "base/IConvertUtil.h"
-#include "base/IMetaUtil.h"
+#include "core/base/IConvertUtil.h"
+#include "core/base/IMetaUtil.h"
 #include "web/net/impl/IReqRespRaw.h"
 #include "web/IWebAssert.h"
 

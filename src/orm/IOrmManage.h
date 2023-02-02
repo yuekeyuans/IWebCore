@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "base/IPreProcessorUtil.h"
+#include "core/base/IPreProcessorUtil.h"
 
 #include "orm/database/IOrmDataSource.h"
 #include "orm/dialect/IOrmDialectWare.h"

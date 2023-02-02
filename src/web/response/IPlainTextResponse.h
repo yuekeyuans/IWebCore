@@ -1,8 +1,8 @@
 ﻿#pragma once
-#include "base/IHeaderUtil.h"
+#include "core/base/IHeaderUtil.h"
 #include "IResponseInterface.h"
 #include "IResponsePreProcessor.h"
-#include "base/IConvertUtil.h"
+#include "core/base/IConvertUtil.h"
 
 $PackageWebCoreBegin
 

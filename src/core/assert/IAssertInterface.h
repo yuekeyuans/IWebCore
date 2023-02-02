@@ -2,7 +2,7 @@
 
 #include "IAssertInfo.h"
 #include "IAssertPreProcessor.h"
-#include "base/IHeaderUtil.h"
+#include "core/base/IHeaderUtil.h"
 
 $PackageWebCoreBegin
 

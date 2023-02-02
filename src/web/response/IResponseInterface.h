@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "base/IHeaderUtil.h"
-#include "base/IMetaUtil.h"
+#include "core/base/IHeaderUtil.h"
+#include "core/base/IMetaUtil.h"
 #include "web/biscuits/IHttpStatus.h"
 #include "web/biscuits/IHttpMime.h"
 #include "web/response/IResponseManage.h"

@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "base/IHeaderUtil.h"
-#include "base/IConstantUtil.h"
+#include "core/base/IHeaderUtil.h"
+#include "core/base/IConstantUtil.h"
 #include "orm/IOrmManage.h"
 #include "orm/ISqlQuery.h"
 #include "orm/model/IOrmEntityModeWare.h"

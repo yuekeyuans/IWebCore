@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "base/IHeaderUtil.h"
+#include "core/base/IHeaderUtil.h"
 #include "ITraitHelper.h"
 #include <type_traits>
 #include <deque>

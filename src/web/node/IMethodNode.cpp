@@ -1,6 +1,6 @@
 ﻿#include "IMethodNode.h"
 
-#include "base/IPackageUtil.h"
+#include "core/base/IPackageUtil.h"
 #include "web/controller/private/IControllerInfo.h"
 #include "web/IWebAssert.h"
 

@@ -1,6 +1,6 @@
 ﻿#include "IOrmEntityInfoWare.h"
-#include "base/IMetaUtil.h"
-#include "base/IToeUtil.h"
+#include "core/base/IMetaUtil.h"
+#include "core/base/IToeUtil.h"
 
 #include "orm/tableview/IOrmTableInfo.h"
 #include "orm/tableview/IOrmViewInfo.h"

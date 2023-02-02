@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "base/IPreProcessorUtil.h"
+#include "core/base/IPreProcessorUtil.h"
 #include "core/bean/IBeanPreProcessor.h"
 #include "core/configuration/IConfigurationPreProcessor.h"
 

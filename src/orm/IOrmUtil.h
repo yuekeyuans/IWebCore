@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "base/IHeaderUtil.h"
-#include "base/IToeUtil.h"
+#include "core/base/IHeaderUtil.h"
+#include "core/base/IToeUtil.h"
 
 $PackageWebCoreBegin
 

@@ -1,7 +1,7 @@
 ﻿#include "IControllerParamUtil.h"
 
-#include "base/IJsonUtil.h"
-#include "base/IToeUtil.h"
+#include "core/base/IJsonUtil.h"
+#include "core/base/IToeUtil.h"
 #include "core/bean/IBeanWare.h"
 #include "core/bean/IBeanTypeManage.h"
 #include "core/task/ITaskManage.h"

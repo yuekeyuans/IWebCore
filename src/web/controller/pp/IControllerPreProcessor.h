@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "base/IPreProcessorUtil.h"
+#include "core/base/IPreProcessorUtil.h"
 #include "core/configuration/IConfigurationPreProcessor.h"
 
 #define $AsController_1(klassName) \

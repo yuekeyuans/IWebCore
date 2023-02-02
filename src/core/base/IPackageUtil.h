@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "base/IPreProcessorUtil.h"
+#include "core/base/IPreProcessorUtil.h"
 
 // $PackageBegin
 #define $PackageBegin_1(name1) \

@@ -1,8 +1,8 @@
 ﻿#include "IOrmUtil.h"
-#include "base/IToeUtil.h"
-#include "base/IConvertUtil.h"
-#include "base/IConstantUtil.h"
-#include "base/IJsonUtil.h"
+#include "core/base/IToeUtil.h"
+#include "core/base/IConvertUtil.h"
+#include "core/base/IConstantUtil.h"
+#include "core/base/IJsonUtil.h"
 #include "orm/tableview/IOrmTableInfo.h"
 
 $PackageWebCoreBegin

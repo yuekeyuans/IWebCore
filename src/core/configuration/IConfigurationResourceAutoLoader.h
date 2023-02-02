@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "IConfigurationTaskInterface.h"
-#include "base/IHeaderUtil.h"
+#include "core/base/IHeaderUtil.h"
 #include "core/unit/IRegisterInstanceUnit.h"
 
 $PackageWebCoreBegin

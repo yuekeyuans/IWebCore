@@ -2,8 +2,8 @@
 
 #include "IConfigurationManage.h"
 #include "yaml/IYamlUtil.h"
-#include "base/IFileUtil.h"
-#include "base/IJsonUtil.h"
+#include "core/base/IFileUtil.h"
+#include "core/base/IJsonUtil.h"
 #include "core/assert/IGlobalAssert.h"
 
 $PackageWebCoreBegin

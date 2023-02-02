@@ -1,8 +1,6 @@
 ﻿#include "IConstantUtil.h"
-#include "base/IPackageUtil.h"
 
 namespace IConstantUtil{
-
 
 extern const char ServerName[] = "IWebCore";
 const char MasterServer[] = "masterServer";

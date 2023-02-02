@@ -1,7 +1,7 @@
 ﻿#include "IStaticFileResponse.h"
-#include "base/ICodecUtil.h"
-#include "base/IConstantUtil.h"
-#include "base/IFileUtil.h"
+#include "core/base/ICodecUtil.h"
+#include "core/base/IConstantUtil.h"
+#include "core/base/IFileUtil.h"
 #include "web/biscuits/IHttpMime.h"
 #include "web/controller/IControllerManage.h"
 

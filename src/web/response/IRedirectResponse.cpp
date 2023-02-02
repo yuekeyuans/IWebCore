@@ -1,6 +1,6 @@
 ﻿#include "IRedirectResponse.h"
-#include "base/IConvertUtil.h"
-#include "base/ICodecUtil.h"
+#include "core/base/IConvertUtil.h"
+#include "core/base/ICodecUtil.h"
 
 $PackageWebCoreBegin
 

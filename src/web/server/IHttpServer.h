@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "base/IConstantUtil.h"
-#include "base/IMetaUtil.h"
+#include "core/base/IConstantUtil.h"
+#include "core/base/IMetaUtil.h"
 #include "core/configuration/configuration"
 #include "web/biscuits/IHttpMethod.h"
 #include "web/net/IRequest.h"

@@ -1,6 +1,6 @@
 ﻿#include "IOrmTableInfo.h"
 
-#include "base/IConstantUtil.h"
+#include "core/base/IConstantUtil.h"
 #include "orm/IOrmManage.h"
 
 $PackageWebCoreBegin

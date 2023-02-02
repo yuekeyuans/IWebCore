@@ -1,10 +1,10 @@
 ﻿#include "IConfigurationManage.h"
 
-#include "base/IJsonUtil.h"
-#include "base/IMetaUtil.h"
-#include "base/IConstantUtil.h"
-#include "base/IConvertUtil.h"
-#include "base/IToeUtil.h"
+#include "core/base/IJsonUtil.h"
+#include "core/base/IMetaUtil.h"
+#include "core/base/IConstantUtil.h"
+#include "core/base/IConvertUtil.h"
+#include "core/base/IToeUtil.h"
 #include "core/assert/IGlobalAssert.h"
 
 $PackageWebCoreBegin

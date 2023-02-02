@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "base/IHeaderUtil.h"
-#include "base/IPreProcessorUtil.h"
+#include "core/base/IHeaderUtil.h"
+#include "core/base/IPreProcessorUtil.h"
 #include "web/biscuits/IHttpMethod.h"
 #include "web/biscuits/IHttpStatus.h"
 #include "web/middleware/IMiddleWare.h"

@@ -1,8 +1,8 @@
 ﻿
 #pragma once
 
-#include "base/IPreProcessorUtil.h"
-#include "base/IMetaUtil.h"
+#include "core/base/IPreProcessorUtil.h"
+#include "core/base/IMetaUtil.h"
 #include "web/response/IResponseWareRaw.h"
 
 #define PP_AS_RESPONSE(klassName) \

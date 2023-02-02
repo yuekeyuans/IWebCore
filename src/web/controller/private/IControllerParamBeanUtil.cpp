@@ -1,8 +1,8 @@
 ﻿#include "IControllerParamBeanUtil.h"
 
-#include "base/IConvertUtil.h"
-#include "base/IConstantUtil.h"
-#include "base/IToeUtil.h"
+#include "core/base/IConvertUtil.h"
+#include "core/base/IConstantUtil.h"
+#include "core/base/IToeUtil.h"
 #include "core/bean/IBeanWare.h"
 #include "core/configuration/IConfigurationManage.h"
 #include "web/node/IMethodNode.h"

@@ -1,5 +1,5 @@
 ﻿#include "IResponseContent.h"
-#include "base/IFileUtil.h"
+#include "core/base/IFileUtil.h"
 
 $PackageWebCoreBegin
 

@@ -1,9 +1,9 @@
 ﻿#include "IGadgetUnit.h"
 
-#include "base/IConstantUtil.h"
-#include "base/IConvertUtil.h"
-#include "base/IJsonUtil.h"
-#include "base/IMetaUtil.h"
+#include "core/base/IConstantUtil.h"
+#include "core/base/IConvertUtil.h"
+#include "core/base/IJsonUtil.h"
+#include "core/base/IMetaUtil.h"
 
 $PackageWebCoreBegin
 

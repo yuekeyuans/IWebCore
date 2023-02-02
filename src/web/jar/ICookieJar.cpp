@@ -1,7 +1,7 @@
 ﻿#include "ICookieJar.h"
 #include "web/net/impl/IReqRespRaw.h"
 #include "web/IWebAssert.h"
-#include "base/IToeUtil.h"
+#include "core/base/IToeUtil.h"
 
 $PackageWebCoreBegin
 

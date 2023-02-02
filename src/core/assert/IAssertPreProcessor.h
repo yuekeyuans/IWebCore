@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 #include "IAssertInfo.h"
-#include "base/IJsonUtil.h"
-#include "base/IMetaUtil.h"
+#include "core/base/IJsonUtil.h"
+#include "core/base/IMetaUtil.h"
 
 #define $AsAssert(klassName)   \
 public:     \

@@ -2,7 +2,7 @@
 
 #include "core/task/ITaskManage.h"
 #include "core/task/ITaskWare.h"
-#include "base/IHeaderUtil.h"
+#include "core/base/IHeaderUtil.h"
 
 $PackageWebCoreBegin
 
