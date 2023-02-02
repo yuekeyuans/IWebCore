@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "api/IControllerInterface"
+#include "IWeb/IControllerInterface"
 
 class TestController : public IControllerInterface<TestController>
 {
