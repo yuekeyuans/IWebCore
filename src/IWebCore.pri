@@ -22,6 +22,7 @@ HEADERS += \
     $$PWD/base/IXmlUtil.h \
     $$PWD/core/application/IApplication.h \
     $$PWD/core/ICoreAssert.h \
+    $$PWD/core/application/IApplicationPreProcessor.h \
     $$PWD/core/assert/IAssertInfo.h \
     $$PWD/core/assert/IAssertInterface.h \
     $$PWD/core/assert/IAssertPreProcessor.h \
