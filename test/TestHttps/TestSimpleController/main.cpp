@@ -1,7 +1,7 @@
 ﻿#include <ICore/IApplication>
 #include <IWeb/IWeb>
 
-$EnableTaskOutput
+//$EnableTaskOutput
 int main(int argc, char *argv[])
 {
     IApplication a(argc, argv);
