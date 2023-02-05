@@ -38,7 +38,7 @@ private:
     static void* getParamOfSystem(const IParamNode& node, IRequest& request, bool& ok);
     static void* getParamOfMultipart(const IParamNode& node, IRequest& request, bool& ok);
     static void* getParamOfCookiePart(const IParamNode& node, IRequest& request, bool& ok);
-//    static void* getParamOfSession(const IParamNode& node, IRequest& request, bool& ok);
+    static void* getParamOfSession(const IParamNode& node, IRequest& request, bool& ok);
     static void* getParamOfBean(const IParamNode& node, IRequest& request, bool& ok);
     static void* getParamOfJsonType(const IParamNode& node, IRequest& request, bool& ok);
     static void* getParamOfPrimitiveType(const IParamNode& node, IRequest& request, bool& ok);
@@ -47,7 +47,6 @@ private:
     static bool releaseParamOfSystem(const IParamNode& node, void *obj);
     static bool releaseParamOfMultipart(const IParamNode& node, void *obj);
     static bool releaseParamOfCookiePart(const IParamNode& node, void *obj);
-//    static bool releaseParamOfSession(const IParamNode& node, void *obj);
     static bool releaseParamOfBean(const IParamNode& node, void *obj);
     static bool releaseParamOfJsonType(const IParamNode& node, void *obj);
     static bool releaseParamOfPrimitiveType(const IParamNode& node, void *obj);
