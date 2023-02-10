@@ -331,7 +331,8 @@ HEADERS += \
     $$PWD/IWeb/IWeb  \
     $$PWD/IWeb/IControllerInterface \
     $$PWD/IWeb/IHttpServer \
-    $$PWD/ICore/IApplication
+    $$PWD/ICore/IApplication \
+    $$PWD/ICore/ITest
 
 DISTFILES += \
     $$PWD/core/base/base \

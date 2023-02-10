@@ -5,7 +5,7 @@
 #include "core/task/ITaskWare.h"
 #include "core/task/ITaskManage.h"
 #include "core/unit/IRegisterInstanceUnit.h"
-#include "core/task/unit/IControllerTaskUnit.h"
+//#include "core/task/unit/IControllerTaskUnit.h"
 #include "web/controller/IControllerManage.h"
 
 $PackageWebCoreBegin

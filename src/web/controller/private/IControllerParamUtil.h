@@ -2,7 +2,6 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "web/response/IResponseWare.h"
-#include "core/task/unit/IInitializationTaskUnit.h"
 
 $PackageWebCoreBegin
 
@@ -72,7 +71,7 @@ private:
 
 private:
     virtual void task() final;
-    friend class IInitializationTaskUnit<IControllerParamUtil>;
+//    friend class IInitializationTaskUnit<IControllerParamUtil>;
 };
 
 $PackageWebCoreEnd

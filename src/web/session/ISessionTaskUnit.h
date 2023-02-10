@@ -47,10 +47,10 @@ ISessionTaskUnit<T, enabled>::ISessionTaskUnitPrivate::ISessionTaskUnitPrivate()
     if(enabled){
         static std::once_flag flag;
         std::call_once(flag, [](){
-            ITaskManage::registerSessionInterface ([](){
-                auto inst = T::instance();
-                inst->task();
-            });
+//            ITaskManage::registerSessionInterface ([](){
+//                auto inst = T::instance();
+//                inst->task();
+//            });
         });
     }
 }

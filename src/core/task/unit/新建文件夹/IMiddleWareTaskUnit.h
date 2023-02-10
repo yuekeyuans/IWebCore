@@ -41,11 +41,11 @@ IMiddleWareTaskUnit<T, enabled>::IMiddleWareTaskUnitPrivate::IMiddleWareTaskUnit
     if(enabled){
         static std::once_flag flag;
         std::call_once(flag, [](){
-            ITaskManage::registerMiddleWare([](){
-                auto inst = T::instance();
-                inst->task();
-                inst->printTips();
-            });
+//            ITaskManage::registerMiddleWare([](){
+//                auto inst = T::instance();
+//                inst->task();
+//                inst->printTips();
+//            });
         });
     }
 }

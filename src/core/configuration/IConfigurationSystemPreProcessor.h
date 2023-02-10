@@ -4,6 +4,8 @@
 #include "core/base/IToeUtil.h"
 #include "core/base/IPreProcessorUtil.h"
 
+#include <iostream>
+
 #define PP_SYSTEM_SETTING(klassName, path, value)   \
 class klassName \
 {   \
@@ -18,4 +20,4 @@ public: \
         return &inst;   \
     }   \
 };  \
-static klassName* system_setting_ ## klassName ## _instance = klassName::instance();
+static const klassName* system_setting_ ## klassName ## _instance = klassName::instance();
