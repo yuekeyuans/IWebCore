@@ -28,8 +28,14 @@ namespace IConfigurationManageHelper {
     QVector<ConfigurationBean> generateConfigurationBean(const QMap<QString, QString>&clsInfo, const QVector<QMetaProperty> &props);
 
     QJsonValue getMergeValue(const QString key, const QJsonObject &dest, const QJsonObject &source);
-    QJsonObject mergeJsonObject(const QJsonObject &dest, const QJsonObject &source);
-    QJsonObject addJsonValue(const QJsonObject& root, const QString& path, const QJsonValue value);
+    void mergeJsonObject(QJsonObject &dest, const QJsonObject &source);
+    void addJsonValue(QJsonObject& root, const QString& path, const QJsonValue value);
+}
+
+IConfigurationManage::IConfigurationManage()
+{
+    //    setSystemValue("CONFIG_TEST_PYTHON_INPUT_PATH", ":/test/python/");
+    //    setSystemValue("CONFIG_TEST_PYTHON_OUTPUT_PATH", "./.python");
 }
 
 void IConfigurationManage::registerConfiguration(QString group, const QJsonObject& obj)
@@ -118,8 +124,8 @@ QString IConfigurationManage::getStringValue(const QString &path, bool *ok, cons
 void IConfigurationManage::setValue(const QString& path, const QJsonValue& value, const QString& group)
 {
     auto inst = instance();
-    auto obj = inst->m_configs[group];
-    inst->m_configs[group] = IConfigurationManageHelper::addJsonValue(obj, path, value);
+    auto& obj = inst->m_configs[group];
+    IConfigurationManageHelper::addJsonValue(obj, path, value);
 }
 
 QJsonValue IConfigurationManage::getSystemValue(const QString &path, bool*ok)
@@ -264,21 +270,19 @@ QJsonValue IConfigurationManageHelper::getMergeValue(const QString key, const QJ
     return destValue;
 }
 
-QJsonObject IConfigurationManageHelper::mergeJsonObject(const QJsonObject &dest, const QJsonObject &source)
+void IConfigurationManageHelper::mergeJsonObject(QJsonObject &dest, const QJsonObject &source)
 {
-    QJsonObject ret = dest;
     auto keys = source.keys();
     for(auto key : keys){
         if(dest.contains(key)){
-            ret[key] = getMergeValue(key, dest, source);
+            dest[key] = getMergeValue(key, dest, source);
         }else{
-            ret[key] = source[key];
+            dest[key] = source[key];
         }
     }
-    return ret;
 }
 
-QJsonObject IConfigurationManageHelper::addJsonValue(const QJsonObject& root, const QString& path, const QJsonValue value)
+void IConfigurationManageHelper::addJsonValue(QJsonObject& root, const QString& path, const QJsonValue value)
 {
     auto pieces = path.split('.');
     if(pieces.isEmpty() || pieces.first().startsWith("_")){

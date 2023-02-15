@@ -15,7 +15,7 @@ class IConfigurationManage
 {
     $UseInstance(IConfigurationManage)
 private:
-    IConfigurationManage() = default;
+    IConfigurationManage();
 
 public:
     static void registerConfiguration(QString group, const QJsonObject& obj);
@@ -36,7 +36,6 @@ public:
     template<typename T>
     static T getBean(const QString& path, bool*ok, const QString& group = ApplicationConfigurationGroup);
     static void getConfigBean(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaProperty>&props, bool*ok);
-
 private:
     friend class ITaskManage;
     QMap<QString, QJsonObject> m_configs;

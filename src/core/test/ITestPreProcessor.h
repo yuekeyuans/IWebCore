@@ -4,3 +4,5 @@
 
 #define $AsTest(klassName)  \
     $UseInstance(klassName)
+
+#define $EnableTestScript()

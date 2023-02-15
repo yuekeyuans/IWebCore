@@ -12,9 +12,19 @@ DEFINES += QT_DEPRECATED_WARNINGS
 include(../../../src/IWebCore.pri)
 
 SOURCES += \
-        main.cpp
+        main.cpp \
+        python/IScriptUtil.cpp
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES += \
+    python/TestDemo.py
+
+RESOURCES += \
+    python.qrc
+
+HEADERS += \
+    python/IScriptUtil.h
