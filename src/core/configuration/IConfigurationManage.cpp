@@ -42,8 +42,7 @@ void IConfigurationManage::registerConfiguration(QString group, const QJsonObjec
 {
     auto inst = instance();
     if(inst->m_configs.contains(group)){
-        auto originValue = inst->m_configs[group];
-        inst->m_configs[group] = IConfigurationManageHelper::mergeJsonObject(originValue, obj);
+        IConfigurationManageHelper::mergeJsonObject(inst->m_configs[group], obj);
     }else{
         inst->m_configs[group] = obj;
     }
@@ -253,7 +252,8 @@ QJsonValue IConfigurationManageHelper::getMergeValue(const QString key, const QJ
     QJsonValue srcValue = source[key];
     if(destValue.isObject() && source[key].isObject()){             // object 合并
         QJsonObject destObj = destValue.toObject();
-        return mergeJsonObject(destObj, srcValue.toObject());
+        mergeJsonObject(destObj, srcValue.toObject());
+        return destObj;
     }else if(destValue.isArray() && source[key].isArray()){         // array 合并
         QJsonArray destArray = destValue.toArray();
         QJsonArray sourceArray = srcValue.toArray();
