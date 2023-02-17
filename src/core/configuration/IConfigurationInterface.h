@@ -6,6 +6,7 @@
 
 $PackageWebCoreBegin
 
+
 /**
  * 系统 配置， 是指 环境变量 和 框架运行使用的 变量， 比如说是否使用 session, 等内容
  * 而 Application 变量，则是指 用户自定义并且使用的变量, 比如说 数据库配置等内容
