@@ -1,6 +1,6 @@
 ﻿#include "ITaskCatagory.h"
 #include "core/task/ITaskWare.h"
-#include "core/configuration/IConfigurationManage.h"
+#include "core/configuration/IContextManage.h"
 
 $PackageWebCoreBegin
 
@@ -13,7 +13,7 @@ bool ITaskCatagory::isCatagoryEnabled() const
 {
     bool ok;
     auto path = QString("CATAGORY_ENABLE_STATE_").append(name());
-    auto value = IConfigurationManage::getSystemValue(path, &ok);
+    auto value = IContextManage::getSystemValue(path, &ok);
     if(!ok){
         return isCatagoryDefaultEnabled();
     }
@@ -44,7 +44,7 @@ void ITaskCatagory::execTaskNodes() const
 void ITaskCatagory::printTaskInfo() const
 {
     bool ok;
-    ok = IConfigurationManage::getSystemValue("SYSTEM_ENABLE_TASK_OUTPUT", &ok).toBool() && ok;
+    ok = IContextManage::getSystemValue("SYSTEM_ENABLE_TASK_OUTPUT", &ok).toBool() && ok;
     if(ok){
         qDebug() << endl << "Catagory: " << name() << ", order: " << order();
     }

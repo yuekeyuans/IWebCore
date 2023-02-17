@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "IConfigurationManage.h"
+#include "IContextManage.h"
 #include "IConfigurationInterface.h"
 #include "IConfigurationPreProcessor.h"
 #include "IConfigurationSystemPreProcessor.h"

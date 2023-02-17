@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "IConfigurationManage.h"
+#include "IContextManage.h"
 #include "core/base/IHeaderUtil.h"
 #include "core/unit/IRegisterInstanceUnit.h"
 
@@ -37,7 +37,7 @@ void IConfigurationInterface<T, enabled, groupName>::registerToBase() {
     auto inst = T::instance();
     QString group = inst->getGroupName();
     QJsonObject obj = inst->getConfigure();
-    IConfigurationManage::registerConfiguration(group, obj);
+    IContextManage::registerConfiguration(group, obj);
 }
 
 template<typename T, const char* name>

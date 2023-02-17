@@ -13,7 +13,7 @@
         auto clsInfo = IMetaUtil::getMetaClassInfoMap(staticMetaObject);    \
         auto props = IMetaUtil::getMetaProperties(staticMetaObject);    \
         bool ok;    \
-        IConfigurationManage::getConfigBean(this, clsInfo, props, &ok);    \
+        IContextManage::getConfigBean(this, clsInfo, props, &ok);    \
     }
 
 #define $ConstructConfig() \

@@ -4,7 +4,7 @@
 #include "core/base/IConstantUtil.h"
 #include "core/base/IToeUtil.h"
 #include "core/bean/IBeanWare.h"
-#include "core/configuration/IConfigurationManage.h"
+#include "core/configuration/IContextManage.h"
 #include "web/node/IMethodNode.h"
 #include "web/node/IParamNode.h"
 #include "web/net/IRequest.h"
@@ -489,7 +489,7 @@ bool IControllerParamBeanUtil::isBeanResoveStrictMode()
     static std::once_flag flag;
     std::call_once(flag, [](){
         bool ok;
-        auto value = IConfigurationManage::getSystemValue("BEAN_RESOLVE_IS_STRICT_MODE", &ok);
+        auto value = IContextManage::getSystemValue("BEAN_RESOLVE_IS_STRICT_MODE", &ok);
         if(!ok || !value.isBool()){
             isStrict = true;
         }else{

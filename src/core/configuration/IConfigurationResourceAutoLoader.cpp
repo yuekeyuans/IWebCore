@@ -1,6 +1,6 @@
 ﻿#include "IConfigurationResourceAutoLoader.h"
 
-#include "IConfigurationManage.h"
+#include "IContextManage.h"
 #include "yaml/IYamlUtil.h"
 #include "core/base/IFileUtil.h"
 #include "core/base/IJsonUtil.h"
@@ -48,14 +48,14 @@ void IConfigurationResourceAutoLoader::loadYaml()
 
 void Loader::loadSystemEnvironment(){
     auto obj = getSystemEnvironment();
-    IConfigurationManage::registerConfiguration(SystemConfigurationGroup, obj);
+    IContextManage::registerConfiguration(SystemConfigurationGroup, obj);
 }
 
 void Loader::loadJson(){
     auto paths = getJsonPaths();
     for(auto path : paths){
         auto obj = parseJsonFile(path);
-        IConfigurationManage::registerConfiguration(ApplicationConfigurationGroup, obj);
+        IContextManage::registerConfiguration(ApplicationConfigurationGroup, obj);
         qDebug() << "Load Configuration:\t" << path;
     }
 }
@@ -64,7 +64,7 @@ void Loader::loadYaml(){
     auto paths = getYamlPaths();
     for(auto path : paths){
         auto obj = parseYamlFile(path);
-        IConfigurationManage::registerConfiguration(ApplicationConfigurationGroup, obj);
+        IContextManage::registerConfiguration(ApplicationConfigurationGroup, obj);
         qDebug() << "Load Configuration:\t" << path;
     }
 }

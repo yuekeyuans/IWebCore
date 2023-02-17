@@ -2,7 +2,7 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IMetaUtil.h"
-#include "core/configuration/IConfigurationManage.h"
+#include "core/configuration/IContextManage.h"
 #include "core/task/ITaskWare.h"
 #include "core/task/ITaskManage.h"
 //#include "core/task/unit/IControllerTaskUnit.h"

@@ -1,4 +1,4 @@
-﻿#include "IConfigurationManage.h"
+﻿#include "IContextManage.h"
 
 #include "core/base/IJsonUtil.h"
 #include "core/base/IMetaUtil.h"
@@ -32,13 +32,13 @@ namespace IConfigurationManageHelper {
     void addJsonValue(QJsonObject& root, const QString& path, const QJsonValue value);
 }
 
-IConfigurationManage::IConfigurationManage()
+IContextManage::IContextManage()
 {
     //    setSystemValue("CONFIG_TEST_PYTHON_INPUT_PATH", ":/test/python/");
     //    setSystemValue("CONFIG_TEST_PYTHON_OUTPUT_PATH", "./.python");
 }
 
-void IConfigurationManage::registerConfiguration(QString group, const QJsonObject& obj)
+void IContextManage::registerConfiguration(QString group, const QJsonObject& obj)
 {
     auto inst = instance();
     if(inst->m_configs.contains(group)){
@@ -48,17 +48,17 @@ void IConfigurationManage::registerConfiguration(QString group, const QJsonObjec
     }
 }
 
-void IConfigurationManage::setSystemValue(const QString &path, const QJsonValue &value)
+void IContextManage::setSystemValue(const QString &path, const QJsonValue &value)
 {
     return setValue(path, value, SystemConfigurationGroup);
 }
 
-void IConfigurationManage::setApplicationValue(const QString &path, const QJsonValue &value)
+void IContextManage::setApplicationValue(const QString &path, const QJsonValue &value)
 {
     return setValue(path, value, ApplicationConfigurationGroup);
 }
 
-bool IConfigurationManage::getBoolValue(const QString &path, bool *ok, const QString &group)
+bool IContextManage::getBoolValue(const QString &path, bool *ok, const QString &group)
 {
     IToeUtil::setOk(ok, true);
     bool convertOk;
@@ -71,7 +71,7 @@ bool IConfigurationManage::getBoolValue(const QString &path, bool *ok, const QSt
     return false;
 }
 
-int IConfigurationManage::getIntValue(const QString &path, bool *ok, const QString &group)
+int IContextManage::getIntValue(const QString &path, bool *ok, const QString &group)
 {
     IToeUtil::setOk(ok, true);
     bool convertOk;
@@ -84,7 +84,7 @@ int IConfigurationManage::getIntValue(const QString &path, bool *ok, const QStri
     return 0;
 }
 
-double IConfigurationManage::getDoubleValue(const QString &path, bool *ok, const QString &group)
+double IContextManage::getDoubleValue(const QString &path, bool *ok, const QString &group)
 {
     IToeUtil::setOk(ok, true);
     bool convertOk;
@@ -97,7 +97,7 @@ double IConfigurationManage::getDoubleValue(const QString &path, bool *ok, const
     return 0;
 }
 
-QString IConfigurationManage::getStringValue(const QString &path, bool *ok, const QString &group)
+QString IContextManage::getStringValue(const QString &path, bool *ok, const QString &group)
 {
     IToeUtil::setOk(ok, true);
     bool convertOk;
@@ -120,24 +120,24 @@ QString IConfigurationManage::getStringValue(const QString &path, bool *ok, cons
     return "";
 }
 
-void IConfigurationManage::setValue(const QString& path, const QJsonValue& value, const QString& group)
+void IContextManage::setValue(const QString& path, const QJsonValue& value, const QString& group)
 {
     auto inst = instance();
     auto& obj = inst->m_configs[group];
     IConfigurationManageHelper::addJsonValue(obj, path, value);
 }
 
-QJsonValue IConfigurationManage::getSystemValue(const QString &path, bool*ok)
+QJsonValue IContextManage::getSystemValue(const QString &path, bool*ok)
 {
     return getValue(path, ok, SystemConfigurationGroup);
 }
 
-QJsonValue IConfigurationManage::getApplicationValue(const QString &path, bool *ok)
+QJsonValue IContextManage::getApplicationValue(const QString &path, bool *ok)
 {
     return getValue(path, ok, ApplicationConfigurationGroup);
 }
 
-QJsonValue IConfigurationManage::getValue(const QString &path, bool* ok, const QString &group)
+QJsonValue IContextManage::getValue(const QString &path, bool* ok, const QString &group)
 {
     IToeUtil::setOk(ok, true);
 
@@ -157,7 +157,7 @@ QJsonValue IConfigurationManage::getValue(const QString &path, bool* ok, const Q
     return {};
 }
 
-void IConfigurationManage::getConfigBean(void *handler, const QMap<QString, QString> &clsInfo, const QVector<QMetaProperty> &props, bool *ok)
+void IContextManage::getConfigBean(void *handler, const QMap<QString, QString> &clsInfo, const QVector<QMetaProperty> &props, bool *ok)
 {
     IToeUtil::setOk(ok, true);
     auto inst = instance();

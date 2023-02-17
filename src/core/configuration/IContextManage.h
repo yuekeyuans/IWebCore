@@ -11,11 +11,11 @@ extern const char ApplicationConfigurationGroup[];
 
 class ITaskManage;
 
-class IConfigurationManage
+class IContextManage
 {
-    $UseInstance(IConfigurationManage)
+    $UseInstance(IContextManage)
 private:
-    IConfigurationManage();
+    IContextManage();
 
 public:
     static void registerConfiguration(QString group, const QJsonObject& obj);
@@ -42,7 +42,7 @@ private:
 };
 
 template<typename T>
-T IConfigurationManage::getBean(const QString &path, bool* ok, const QString &group)
+T IContextManage::getBean(const QString &path, bool* ok, const QString &group)
 {
     auto value = getValue(path, ok, group);
     auto bean = T::fromJson(value.toObject());

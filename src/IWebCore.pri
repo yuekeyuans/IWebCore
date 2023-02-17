@@ -33,11 +33,11 @@ HEADERS += \
     $$PWD/core/bean/IBeanWare.h \
     $$PWD/core/configuration/IConfigurationInstancePreProcessor.h \
     $$PWD/core/configuration/IConfigurationInterface.h \
-    $$PWD/core/configuration/IConfigurationManage.h \
     $$PWD/core/configuration/IConfigurationPreProcessor.h \
     $$PWD/core/configuration/IConfigurationResourceAutoLoader.h \
     $$PWD/core/configuration/IConfigurationSystemPreProcessor.h \
     $$PWD/core/configuration/IConfigurationWirePreProcessor.h \
+    $$PWD/core/configuration/IContextManage.h \
     $$PWD/core/configuration/yaml/IYamlUtil.h \
     $$PWD/core/configuration/yaml/Yaml.hpp \
     $$PWD/core/core.h \
@@ -209,9 +209,9 @@ SOURCES += \
     $$PWD/core/assert/IGlobalAssert.cpp \
     $$PWD/core/bean/IBeanTypeManage.cpp \
     $$PWD/core/configuration/IConfigurationInterface.cpp \
-    $$PWD/core/configuration/IConfigurationManage.cpp \
     $$PWD/core/configuration/IConfigurationResourceAutoLoader.cpp \
     $$PWD/core/configuration/IConfigurationSystemPreProcessor.cpp \
+    $$PWD/core/configuration/IContextManage.cpp \
     $$PWD/core/configuration/yaml/IYamlUtil.cpp \
     $$PWD/core/configuration/yaml/Yaml.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \

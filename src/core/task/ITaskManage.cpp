@@ -1,6 +1,6 @@
 ﻿#include "ITaskManage.h"
 
-#include "core/configuration/IConfigurationManage.h"
+#include "core/configuration/IContextManage.h"
 #include "core/assert/IGlobalAssert.h"
 #include "core/task/ITaskWare.h"
 #include "core/task/ITaskCatagory.h"
@@ -99,7 +99,7 @@ void ITaskManage::execEachCatagory()
         if(node->isCatagoryEnabled()){
             node->sortTask();
             bool ok;
-            if(IConfigurationManage::getSystemValue("SYSTEM_ENABLE_TASK_OUTPUT", &ok).toBool() && ok){
+            if(IContextManage::getSystemValue("SYSTEM_ENABLE_TASK_OUTPUT", &ok).toBool() && ok){
                node->printTaskInfo();
             }
         }

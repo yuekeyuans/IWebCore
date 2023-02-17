@@ -1,6 +1,6 @@
 ﻿#include "ISqlQuery.h"
 #include "core/base/IConvertUtil.h"
-#include "core/configuration/IConfigurationManage.h"
+#include "core/configuration/IContextManage.h"
 #include "orm/IOrmManage.h"
 
 $PackageWebCoreBegin
@@ -55,7 +55,7 @@ bool ISqlQuery::isEnableSqlPrint()
     static std::once_flag flag;
     std::call_once(flag, [](){
         bool ok;
-        auto value = IConfigurationManage::getSystemValue("ENABLE_SQL_PRINT_INFO", &ok);
+        auto value = IContextManage::getSystemValue("ENABLE_SQL_PRINT_INFO", &ok);
         if(!ok || !value.isBool()){
             isEnabled = true;
         }else{

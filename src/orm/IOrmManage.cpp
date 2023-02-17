@@ -1,6 +1,6 @@
 ﻿#include "IOrmManage.h"
 #include "core/base/IConvertUtil.h"
-#include "core/configuration/IConfigurationManage.h"
+#include "core/configuration/IContextManage.h"
 #include "orm/dialect/IOrmDialectWare.h"
 #include "orm/database/IOrmDatabaseWare.h"
 
@@ -88,7 +88,7 @@ IOrmDataSource IOrmManage::getDataSource(const QString &name)
 {
     auto path = QString("dataSource.").append(name);
     bool convertOk;
-    auto bean = IConfigurationManage::getBean<IOrmDataSource>(path, &convertOk);
+    auto bean = IContextManage::getBean<IOrmDataSource>(path, &convertOk);
     if(!convertOk){
         qFatal("datasource config error");
     }
