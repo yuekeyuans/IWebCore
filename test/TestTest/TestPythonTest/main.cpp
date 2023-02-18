@@ -3,8 +3,8 @@
 
 #include "python/IScriptUtil.h"
 
-//$EnableTaskOutput
-//$EnableCatagory(Test)
+$EnableTaskOutput
+$EnableCatagory(Test)
 
 int main(int argc, char *argv[])
 {

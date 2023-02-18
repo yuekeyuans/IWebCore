@@ -13,7 +13,7 @@ public: \
     klassName(){    \
         QString key = IToeUtil::trimQuote( #path ); \
         QJsonValue val = QJsonValue(value); \
-        IConfigurationManage::setSystemValue(key, val); \
+        IContextManage::setSystemValue(key, val); \
     }   \
     static klassName* instance(){   \
         static klassName inst;  \
