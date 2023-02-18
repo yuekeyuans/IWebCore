@@ -22,7 +22,7 @@ public:
 
     static void setSystemConfig(const QString& path, const QJsonValue& value);
     static void setApplicationConfig(const QString& path, const QJsonValue& value);
-    static void setConfig(const QString& path, const QJsonValue& value, const QString& group);
+    static void setConfig(const QJsonValue& value, const QString& group, const QString& path = "");
 
     static QJsonValue getSystemConfig(const QString& path, bool*ok);
     static QJsonValue getApplicationConfig(const QString& path, bool*ok);

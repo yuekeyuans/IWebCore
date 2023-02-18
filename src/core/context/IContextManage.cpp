@@ -50,12 +50,12 @@ void IContextManage::registerConfiguration(QString group, const QJsonObject& obj
 
 void IContextManage::setSystemConfig(const QString &path, const QJsonValue &value)
 {
-    return setConfig(path, value, SystemConfigurationGroup);
+    return setConfig(value, SystemConfigurationGroup, path);
 }
 
 void IContextManage::setApplicationConfig(const QString &path, const QJsonValue &value)
 {
-    return setConfig(path, value, ApplicationConfigurationGroup);
+    return setConfig(value, ApplicationConfigurationGroup, path);
 }
 
 QJsonValue IContextManage::getSystemConfig(const QString &path, bool*ok)
@@ -150,14 +150,12 @@ QString IContextManage::getConfigAsString(const QString &path, bool *ok, const Q
     return "";
 }
 
-void IContextManage::setConfig(const QString& path, const QJsonValue& value, const QString& group)
+void IContextManage::setConfig(const QJsonValue& value, const QString& group, const QString& path)
 {
     auto inst = instance();
     auto& obj = inst->m_configs[group];
     IConfigurationManageHelper::addJsonValue(obj, path, value);
 }
-
-
 
 void IContextManage::getConfigBean(void *handler, const QMap<QString, QString> &clsInfo, const QVector<QMetaProperty> &props, bool *ok)
 {
