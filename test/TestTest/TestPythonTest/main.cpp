@@ -8,6 +8,8 @@ $EnableCatagory(Test)
 
 int main(int argc, char *argv[])
 {
+    qDebug() << "hello world";
+
     IApplication app(argc, argv);
 
     IScriptUtil::copyScript();

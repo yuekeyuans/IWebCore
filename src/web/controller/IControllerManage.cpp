@@ -1,5 +1,5 @@
 ﻿#include "IControllerManage.h"
-#include "core/configuration/IContextManage.h"
+#include "core/context/IContextManage.h"
 #include "web/net/IRequest.h"
 #include "core/base/IConvertUtil.h"
 #include "core/base/IMetaUtil.h"
@@ -287,7 +287,7 @@ void IControllerManage::setDefaultStaticDir(const QString &dirPath)
     auto inst = instance();
 
     bool ok;
-    auto value = IContextManage::getStringValue("PP_DEFAULT_STATIC_DIR", &ok, SystemConfigurationGroup);
+    auto value = IContextManage::getConfigAsString("PP_DEFAULT_STATIC_DIR", &ok, SystemConfigurationGroup);
     if(!ok || value.isEmpty()){
         value = inst->m_staticFilePrefix;
     }
@@ -313,7 +313,7 @@ QString IControllerManage::getDefaultStaticDir()
     auto inst = instance();
 
     bool ok;
-    auto value = IContextManage::getStringValue("PP_DEFAULT_STATIC_DIR", &ok, SystemConfigurationGroup);
+    auto value = IContextManage::getConfigAsString("PP_DEFAULT_STATIC_DIR", &ok, SystemConfigurationGroup);
     if(ok && !value.isEmpty()){
         inst->m_staticFilePrefix = value;       // 优先设置项。
     }

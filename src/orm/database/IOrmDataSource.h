@@ -5,7 +5,7 @@
 #include "core/base/IMetaUtil.h"
 #include "core/base/IJsonUtil.h"
 #include "core/bean/IBeanInterface.h"
-#include "core/configuration/IConfigurationPreProcessor.h"
+#include "core/context/IConfigurationPreProcessor.h"
 
 $PackageWebCoreBegin
 

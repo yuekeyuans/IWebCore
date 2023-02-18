@@ -1,7 +1,7 @@
 ﻿//#include "IBluePrintControllerTask.h"
 
 //#include "core/assert/IGlobalAssert.h"
-//#include "core/configuration/IConfigurationManage.h"
+//#include "core/context/IConfigurationManage.h"
 //#include "core/task/ITaskManage.h"
 //#include "web/controller/IControllerManage.h"
 

@@ -31,15 +31,15 @@ HEADERS += \
     $$PWD/core/bean/IBeanPreProcessor.h \
     $$PWD/core/bean/IBeanTypeManage.h \
     $$PWD/core/bean/IBeanWare.h \
-    $$PWD/core/configuration/IConfigurationInstancePreProcessor.h \
-    $$PWD/core/configuration/IConfigurationInterface.h \
-    $$PWD/core/configuration/IConfigurationPreProcessor.h \
-    $$PWD/core/configuration/IConfigurationResourceAutoLoader.h \
-    $$PWD/core/configuration/IConfigurationSystemPreProcessor.h \
-    $$PWD/core/configuration/IConfigurationWirePreProcessor.h \
-    $$PWD/core/configuration/IContextManage.h \
-    $$PWD/core/configuration/yaml/IYamlUtil.h \
-    $$PWD/core/configuration/yaml/Yaml.hpp \
+    $$PWD/core/context/IConfigurationInstancePreProcessor.h \
+    $$PWD/core/context/IConfigurationInterface.h \
+    $$PWD/core/context/IConfigurationPreProcessor.h \
+    $$PWD/core/context/IConfigurationResourceAutoLoader.h \
+    $$PWD/core/context/IConfigurationSystemPreProcessor.h \
+    $$PWD/core/context/IConfigurationWirePreProcessor.h \
+    $$PWD/core/context/IContextManage.h \
+    $$PWD/core/context/yaml/IYamlUtil.h \
+    $$PWD/core/context/yaml/Yaml.hpp \
     $$PWD/core/core.h \
     $$PWD/core/task/ITaskCatagory.h \
     $$PWD/core/task/ITaskCatagoryInterface.h \
@@ -208,12 +208,12 @@ SOURCES += \
     $$PWD/core/assert/IAssertInterface.cpp \
     $$PWD/core/assert/IGlobalAssert.cpp \
     $$PWD/core/bean/IBeanTypeManage.cpp \
-    $$PWD/core/configuration/IConfigurationInterface.cpp \
-    $$PWD/core/configuration/IConfigurationResourceAutoLoader.cpp \
-    $$PWD/core/configuration/IConfigurationSystemPreProcessor.cpp \
-    $$PWD/core/configuration/IContextManage.cpp \
-    $$PWD/core/configuration/yaml/IYamlUtil.cpp \
-    $$PWD/core/configuration/yaml/Yaml.cpp \
+    $$PWD/core/context/IConfigurationInterface.cpp \
+    $$PWD/core/context/IConfigurationResourceAutoLoader.cpp \
+    $$PWD/core/context/IConfigurationSystemPreProcessor.cpp \
+    $$PWD/core/context/IContextManage.cpp \
+    $$PWD/core/context/yaml/IYamlUtil.cpp \
+    $$PWD/core/context/yaml/Yaml.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \
     $$PWD/core/task/default/IBannerTask.cpp \
     $$PWD/core/task/default/IConfigurationTaskCatagory.cpp \
@@ -338,7 +338,7 @@ DISTFILES += \
     $$PWD/core/base/base \
     $$PWD/core/assertion/assertion \
     $$PWD/core/core.h \
-    $$PWD/core/configuration/configuration \
+    $$PWD/core/context/configuration \
     $$PWD/core/task/task \
     $$PWD/orm/orm \
     $$PWD/web/common \

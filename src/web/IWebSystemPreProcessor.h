@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "core/configuration/IConfigurationSystemPreProcessor.h"
+#include "core/context/IConfigurationSystemPreProcessor.h"
 
 // default server
 

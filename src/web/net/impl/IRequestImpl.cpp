@@ -5,7 +5,7 @@
 #include "core/base/IHeaderUtil.h"
 #include "core/base/ICodecUtil.h"
 #include "core/base/IToeUtil.h"
-#include "core/configuration/IContextManage.h"
+#include "core/context/IContextManage.h"
 #include "web/net/IRequest.h"
 #include "web/net/impl/IReqRespRaw.h"
 #include "web/jar/IHeaderJar.h"
@@ -228,7 +228,7 @@ QByteArray IRequestImpl::getAppParameter(const QString &name, bool* ok) const
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
 
     bool convertOk;
-    auto value = IContextManage::getApplicationValue(originName, &convertOk);
+    auto value = IContextManage::getApplicationConfig(originName, &convertOk);
     if(convertOk){
         return IConvertUtil::toByteArray(value);
     }
@@ -245,7 +245,7 @@ QByteArray IRequestImpl::getSystemParameter(const QString &name, bool* ok) const
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
 
     bool convertOk;
-    auto value = IContextManage::getSystemValue(originName, &convertOk);
+    auto value = IContextManage::getSystemConfig(originName, &convertOk);
     if(convertOk){
         return IConvertUtil::toByteArray(value);
     }

@@ -1,6 +1,6 @@
 ﻿#include "IOrmManage.h"
 #include "core/base/IConvertUtil.h"
-#include "core/configuration/IContextManage.h"
+#include "core/context/IContextManage.h"
 #include "orm/dialect/IOrmDialectWare.h"
 #include "orm/database/IOrmDatabaseWare.h"
 
