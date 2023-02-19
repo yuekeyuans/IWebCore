@@ -48,14 +48,14 @@ void IConfigurationResourceAutoLoader::loadYaml()
 
 void Loader::loadSystemEnvironment(){
     auto obj = getSystemEnvironment();
-    IContextManage::registerConfiguration(SystemConfigurationGroup, obj);
+    IContextManage::setSystemConfig(obj);
 }
 
 void Loader::loadJson(){
     auto paths = getJsonPaths();
     for(auto path : paths){
         auto obj = parseJsonFile(path);
-        IContextManage::registerConfiguration(ApplicationConfigurationGroup, obj);
+        IContextManage::setApplicationConfig(obj);
         qDebug() << "Load Configuration:\t" << path;
     }
 }
@@ -64,7 +64,7 @@ void Loader::loadYaml(){
     auto paths = getYamlPaths();
     for(auto path : paths){
         auto obj = parseYamlFile(path);
-        IContextManage::registerConfiguration(ApplicationConfigurationGroup, obj);
+        IContextManage::setApplicationConfig(obj);
         qDebug() << "Load Configuration:\t" << path;
     }
 }

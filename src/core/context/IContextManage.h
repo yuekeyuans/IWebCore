@@ -18,10 +18,10 @@ private:
     IContextManage();
 
 public:
-    static void registerConfiguration(QString group, const QJsonObject& obj);
+//    static void registerConfiguration(QString group, const QJsonObject& obj);
 
-    static void setSystemConfig(const QString& path, const QJsonValue& value);
-    static void setApplicationConfig(const QString& path, const QJsonValue& value);
+    static void setSystemConfig(const QJsonValue& value, const QString& path="");
+    static void setApplicationConfig(const QJsonValue& value, const QString& path="");
     static void setConfig(const QJsonValue& value, const QString& group, const QString& path = "");
 
     static QJsonValue getSystemConfig(const QString& path, bool*ok);

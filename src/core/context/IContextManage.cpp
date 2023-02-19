@@ -29,7 +29,7 @@ namespace IConfigurationManageHelper {
 
     QJsonValue getMergeValue(const QString key, const QJsonObject &dest, const QJsonObject &source);
     void mergeJsonObject(QJsonObject &dest, const QJsonObject &source);
-    void addJsonValue(QJsonObject& root, const QString& path, const QJsonValue value);
+    void addJsonValue(QJsonObject& dest, const QJsonValue& from, const QString& path="");
 }
 
 IContextManage::IContextManage()
@@ -38,22 +38,22 @@ IContextManage::IContextManage()
 //        setSystemConfig("CONFIG_TEST_PYTHON_OUTPUT_PATH", "./.python");
 }
 
-void IContextManage::registerConfiguration(QString group, const QJsonObject& obj)
-{
-    auto inst = instance();
-    if(inst->m_configs.contains(group)){
-        IConfigurationManageHelper::mergeJsonObject(inst->m_configs[group], obj);
-    }else{
-        inst->m_configs[group] = obj;
-    }
-}
+//void IContextManage::registerConfiguration(QString group, const QJsonObject& obj)
+//{
+//    auto inst = instance();
+//    if(inst->m_configs.contains(group)){
+//        IConfigurationManageHelper::mergeJsonObject(inst->m_configs[group], obj);
+//    }else{
+//        inst->m_configs[group] = obj;
+//    }
+//}
 
-void IContextManage::setSystemConfig(const QString &path, const QJsonValue &value)
+void IContextManage::setSystemConfig(const QJsonValue &value, const QString &path)
 {
     return setConfig(value, SystemConfigurationGroup, path);
 }
 
-void IContextManage::setApplicationConfig(const QString &path, const QJsonValue &value)
+void IContextManage::setApplicationConfig(const QJsonValue &value, const QString &path)
 {
     return setConfig(value, ApplicationConfigurationGroup, path);
 }
@@ -154,7 +154,7 @@ void IContextManage::setConfig(const QJsonValue& value, const QString& group, co
 {
     auto inst = instance();
     auto& obj = inst->m_configs[group];
-    IConfigurationManageHelper::addJsonValue(obj, path, value);
+    IConfigurationManageHelper::addJsonValue(obj, value, path);
 }
 
 void IContextManage::getConfigBean(void *handler, const QMap<QString, QString> &clsInfo, const QVector<QMetaProperty> &props, bool *ok)
@@ -282,28 +282,31 @@ void IConfigurationManageHelper::mergeJsonObject(QJsonObject &dest, const QJsonO
     }
 }
 
-void IConfigurationManageHelper::addJsonValue(QJsonObject& root, const QString& path, const QJsonValue value)
+void IConfigurationManageHelper::addJsonValue(QJsonObject& root, const QJsonValue& value, const QString& path)
 {
-    auto pieces = path.split('.');
-    if(pieces.isEmpty() || pieces.first().startsWith("_")){
-        qFatal("error");    // NOTE: 这个是一个错误，之后在 fatalAssert;
-    }
-
     QJsonValue curValue = value;
-    for(auto it=pieces.crbegin(); it!=pieces.crend(); it++){
-        if(it->startsWith('_')){   // 不判断第几个，只说明这是一个 index.
-            QJsonArray array;
-            array.push_back(curValue);
-            curValue = array;
-        }else{
-            QJsonObject obj;
-            obj[*it] = curValue;
-            curValue = obj;
+
+    if(!path.isEmpty()){
+        auto pieces = path.split('.');
+        if(pieces.isEmpty() || pieces.first().startsWith("_")){
+            $GlobalAssert->fatal("ContextAddPathInvalid");
+        }
+
+        for(auto it=pieces.crbegin(); it!=pieces.crend(); it++){
+            if(it->startsWith('_')){   // 不判断第几个，只说明这是一个 index.
+                QJsonArray array;
+                array.push_back(curValue);
+                curValue = array;
+            }else{
+                QJsonObject obj;
+                obj[*it] = curValue;
+                curValue = obj;
+            }
         }
     }
 
     return IConfigurationManageHelper::mergeJsonObject(root, curValue.toObject());
-};
+}
 
 
 $PackageWebCoreEnd

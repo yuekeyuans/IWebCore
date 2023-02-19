@@ -48,7 +48,7 @@ void IGlobalAssert::loadFromFunction()
     /// macro
     addFatal("EnableBluePrintParamError", "");
 
-    /// configuration
+    /// context
     addFatal("ConfigurationMayNotInitialized"
              , "the configuration will complete at the begin of main. "
                "when you use configuration when configuration not complete, "
@@ -58,6 +58,7 @@ void IGlobalAssert::loadFromFunction()
     addFatal("ConfigurationMergeJsonValueError");
     addFatal("ConfigurationCovertYamlFailError");
     addFatal("ConfigurationResolveJsonError");
+    addFatal("ContextAddPathInvalid");
 
     /// task
     addFatal("TaskDeferRegisterNotAllowed");
