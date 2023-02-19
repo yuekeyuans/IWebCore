@@ -17,13 +17,13 @@ class IContextManage
 private:
     IContextManage();
 
+    // TODO: 这里遇到一个问题，就是 config 允不允许在程序全面启动之后再注册任何的数据？ 这个理论上不允许，但有没有后门需要留下，防止用户确实有这个需求？
 public:
-//    static void registerConfiguration(QString group, const QJsonObject& obj);
-
     static void setSystemConfig(const QJsonValue& value, const QString& path="");
     static void setApplicationConfig(const QJsonValue& value, const QString& path="");
     static void setConfig(const QJsonValue& value, const QString& group, const QString& path = "");
 
+public:
     static QJsonValue getSystemConfig(const QString& path, bool*ok);
     static QJsonValue getApplicationConfig(const QString& path, bool*ok);
     static QJsonValue getConfig(const QString& path, bool* ok, const QString& group);
