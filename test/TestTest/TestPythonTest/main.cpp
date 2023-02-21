@@ -15,6 +15,5 @@ int main(int argc, char *argv[])
     IScriptUtil::copyScript();
     IScriptUtil::execScript();
 
-
     return app.exec();
 }

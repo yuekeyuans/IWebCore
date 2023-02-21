@@ -25,5 +25,4 @@ private:
     static void loadYaml();
 };
 
-
 $PackageWebCoreEnd
