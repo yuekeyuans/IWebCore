@@ -28,7 +28,8 @@ public:
     static QString getConfigAsString(const QString& path, bool* ok=nullptr, const QString& group=ApplicationConfigurationGroup);
 
 private:
-    static void addConfig(const QJsonValue& value, const QString& group, const QString& path = "");
+    static void addConfig(const QJsonValue& value, const QString& group, const QString& path);
+    static void removeConfig(const QString& group, const QString& path);
 
 public:
     template<typename T>

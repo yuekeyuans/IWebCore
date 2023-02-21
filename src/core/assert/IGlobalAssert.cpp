@@ -59,6 +59,8 @@ void IGlobalAssert::loadFromFunction()
     addFatal("ConfigurationCovertYamlFailError");
     addFatal("ConfigurationResolveJsonError");
     addFatal("ContextAddPathInvalid");
+    addFatal("ContextRemovePathInvalid", "remove path can not be empty");
+    addFatal("ContextResolvePathInvalid", "path can not be resolved to match the context");
 
     /// task
     addFatal("TaskDeferRegisterNotAllowed");

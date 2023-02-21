@@ -30,6 +30,9 @@ namespace IConfigurationManageHelper {
     QJsonValue getMergeValue(const QString key, const QJsonObject &dest, const QJsonObject &source);
     void mergeJsonObject(QJsonObject &dest, const QJsonObject &source);
     void addJsonValue(QJsonObject& dest, const QJsonValue& from, const QString& path="");
+
+    QJsonValue getRemovedValue(QJsonValue val, QStringList pieces);
+    void removeJsonValue(QJsonObject& dest, const QString& path);
 }
 
 IContextManage::IContextManage()
@@ -37,16 +40,6 @@ IContextManage::IContextManage()
 //        setSystemConfig("CONFIG_TEST_PYTHON_INPUT_PATH", ":/test/python/");
 //        setSystemConfig("CONFIG_TEST_PYTHON_OUTPUT_PATH", "./.python");
 }
-
-//void IContextManage::setSystemConfig(const QJsonValue &value, const QString &path)
-//{
-//    return setConfig(value, SystemConfigurationGroup, path);
-//}
-
-//void IContextManage::setApplicationConfig(const QJsonValue &value, const QString &path)
-//{
-//    return setConfig(value, ApplicationConfigurationGroup, path);
-//}
 
 QJsonValue IContextManage::getSystemConfig(const QString &path, bool*ok)
 {
@@ -145,6 +138,13 @@ void IContextManage::addConfig(const QJsonValue& value, const QString& group, co
     auto inst = instance();
     auto& obj = inst->m_configs[group];
     IConfigurationManageHelper::addJsonValue(obj, value, path);
+}
+
+void IContextManage::removeConfig(const QString &group, const QString &path)
+{
+    auto inst = instance();
+    auto& obj = inst->m_configs[group];
+    IConfigurationManageHelper::removeJsonValue(obj, path);
 }
 
 void IContextManage::getConfigBean(void *handler, const QMap<QString, QString> &clsInfo, const QVector<QMetaProperty> &props, bool *ok)
@@ -296,6 +296,63 @@ void IConfigurationManageHelper::addJsonValue(QJsonObject& root, const QJsonValu
     }
 
     return IConfigurationManageHelper::mergeJsonObject(root, curValue.toObject());
+}
+
+
+QJsonValue IConfigurationManageHelper::getRemovedValue(QJsonValue val, QStringList pieces)
+{
+    if(pieces.isEmpty()){
+        qFatal("this should not appear");
+        return {};
+    }
+
+    auto piece = pieces.first();
+    pieces.pop_front();
+
+    if(piece.startsWith("_")){
+        if(!val.isArray()){
+            $GlobalAssert->fatal("ContextResolvePathInvalid");
+            return val;
+        }
+        bool ok;
+        auto index = IConvertUtil::toInt(piece.remove(0, 1), &ok);
+        if(!ok){
+            $GlobalAssert->fatal("ContextResolvePathInvalid");
+        }
+        if(val.toArray().size() <= index){
+            $GlobalAssert->fatal("ContextResolvePathInvalid");
+        }
+
+        auto array = val.toArray();
+        if(pieces.isEmpty()){
+            array.removeAt(index);
+        }else{
+            array[index] = getRemovedValue(array[index], pieces);
+        }
+        return array;
+
+    }else{
+        if(!val.isObject()){
+            $GlobalAssert->fatal("ContextResolvePathInvalid");
+        }
+        auto obj = val.toObject();
+        if(pieces.isEmpty()){
+            obj.remove(piece);
+        }else{
+            obj[piece] = getRemovedValue(obj[piece], pieces);
+        }
+    }
+}
+
+// 删除如何设置
+void IConfigurationManageHelper::removeJsonValue(QJsonObject &dest, const QString &path)
+{
+    auto pieces = path.split('.');
+    if(pieces.isEmpty() || pieces.first().startsWith("_")){
+        $GlobalAssert->fatal("ContextRemovePathInvalid");
+    }
+
+    return getRemovedValue(dest, pieces);
 }
 
 
