@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "IContextManage.h"
+#include "core/context/IContextWritter.h"
 #include "core/base/IToeUtil.h"
 #include "core/base/IPreProcessorUtil.h"
 
@@ -13,7 +13,7 @@ public: \
     klassName(){    \
         QString key = IToeUtil::trimQuote( #path ); \
         QJsonValue val = QJsonValue(value); \
-        IContextManage::setSystemConfig(val, key); \
+        IContextWritter::addSystemConfig(val, key); \
     }   \
     static klassName* instance(){   \
         static klassName inst;  \

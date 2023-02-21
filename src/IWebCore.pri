@@ -38,6 +38,7 @@ HEADERS += \
     $$PWD/core/context/IConfigurationSystemPreProcessor.h \
     $$PWD/core/context/IConfigurationWirePreProcessor.h \
     $$PWD/core/context/IContextManage.h \
+    $$PWD/core/context/IContextWritter.h \
     $$PWD/core/context/yaml/IYamlUtil.h \
     $$PWD/core/context/yaml/Yaml.hpp \
     $$PWD/core/core.h \
@@ -212,6 +213,7 @@ SOURCES += \
     $$PWD/core/context/IConfigurationResourceAutoLoader.cpp \
     $$PWD/core/context/IConfigurationSystemPreProcessor.cpp \
     $$PWD/core/context/IContextManage.cpp \
+    $$PWD/core/context/IContextWritter.cpp \
     $$PWD/core/context/yaml/IYamlUtil.cpp \
     $$PWD/core/context/yaml/Yaml.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \

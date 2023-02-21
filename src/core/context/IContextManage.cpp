@@ -38,25 +38,15 @@ IContextManage::IContextManage()
 //        setSystemConfig("CONFIG_TEST_PYTHON_OUTPUT_PATH", "./.python");
 }
 
-//void IContextManage::registerConfiguration(QString group, const QJsonObject& obj)
+//void IContextManage::setSystemConfig(const QJsonValue &value, const QString &path)
 //{
-//    auto inst = instance();
-//    if(inst->m_configs.contains(group)){
-//        IConfigurationManageHelper::mergeJsonObject(inst->m_configs[group], obj);
-//    }else{
-//        inst->m_configs[group] = obj;
-//    }
+//    return setConfig(value, SystemConfigurationGroup, path);
 //}
 
-void IContextManage::setSystemConfig(const QJsonValue &value, const QString &path)
-{
-    return setConfig(value, SystemConfigurationGroup, path);
-}
-
-void IContextManage::setApplicationConfig(const QJsonValue &value, const QString &path)
-{
-    return setConfig(value, ApplicationConfigurationGroup, path);
-}
+//void IContextManage::setApplicationConfig(const QJsonValue &value, const QString &path)
+//{
+//    return setConfig(value, ApplicationConfigurationGroup, path);
+//}
 
 QJsonValue IContextManage::getSystemConfig(const QString &path, bool*ok)
 {
@@ -150,7 +140,7 @@ QString IContextManage::getConfigAsString(const QString &path, bool *ok, const Q
     return "";
 }
 
-void IContextManage::setConfig(const QJsonValue& value, const QString& group, const QString& path)
+void IContextManage::addConfig(const QJsonValue& value, const QString& group, const QString& path)
 {
     auto inst = instance();
     auto& obj = inst->m_configs[group];
