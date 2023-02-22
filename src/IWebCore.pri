@@ -38,6 +38,7 @@ HEADERS += \
     $$PWD/core/context/IConfigurationSystemPreProcessor.h \
     $$PWD/core/context/IConfigurationWirePreProcessor.h \
     $$PWD/core/context/IContextManage.h \
+    $$PWD/core/context/IContextTaskInterface.h \
     $$PWD/core/context/IContextWritter.h \
     $$PWD/core/context/default/IConfigYamlConfigTask.h \
     $$PWD/core/context/default/IContextDefaultConfigTask.h \
@@ -211,6 +212,7 @@ SOURCES += \
     $$PWD/core/context/IConfigurationInterface.cpp \
     $$PWD/core/context/IConfigurationResourceAutoLoader.cpp \
     $$PWD/core/context/IConfigurationSystemPreProcessor.cpp \
+    $$PWD/core/context/IConfigurationTaskInterface.cpp \
     $$PWD/core/context/IContextManage.cpp \
     $$PWD/core/context/IContextWritter.cpp \
     $$PWD/core/context/default/IConfigYamlConfigTask.cpp \
