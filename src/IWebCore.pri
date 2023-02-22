@@ -39,14 +39,19 @@ HEADERS += \
     $$PWD/core/context/IConfigurationWirePreProcessor.h \
     $$PWD/core/context/IContextManage.h \
     $$PWD/core/context/IContextWritter.h \
+    $$PWD/core/context/default/IConfigYamlConfigTask.h \
+    $$PWD/core/context/default/IContextDefaultConfigTask.h \
+    $$PWD/core/context/default/IContextJsonConfigTask.h \
+    $$PWD/core/context/default/IContextSystemVariableTask.h \
+    $$PWD/core/context/default/IContextTomlConfigTask.h \
     $$PWD/core/context/yaml/IYamlUtil.h \
     $$PWD/core/context/yaml/Yaml.hpp \
     $$PWD/core/core.h \
     $$PWD/core/task/ITaskCatagory.h \
     $$PWD/core/task/ITaskCatagoryInterface.h \
     $$PWD/core/task/default/IBannerTask.h \
-    $$PWD/core/task/default/IConfigurationTaskCatagory.h \
-    $$PWD/core/task/default/IConfigurationTaskInterface.h \
+    $$PWD/core/task/default/IContextTaskCatagory.h \
+    $$PWD/core/task/default/IContextTaskInterface.h \
     $$PWD/core/task/default/IEndupTaskCatagory.h \
     $$PWD/core/task/default/IEndupTaskInterface.h \
     $$PWD/core/task/default/IInitializationTaskCatagory.h \
@@ -54,12 +59,6 @@ HEADERS += \
     $$PWD/core/task/default/IStartupTaskInterface.h \
     $$PWD/core/task/ITaskManage.h \
     $$PWD/core/task/ITaskWare.h \
-#    $$PWD/core/task/unit/IControllerTaskUnit.h \
-#    $$PWD/core/task/unit/IFirstInvokeTaskUnit.h \
-#    $$PWD/core/task/unit/IInitializationTaskUnit.h \
-#    $$PWD/core/task/unit/ILastInvokeTaskUnit.h \
-#    $$PWD/core/task/unit/IMiddleWareTaskUnit.h \
-#    $$PWD/core/task/unit/IStaticInitializeTaskUnit.h \
     $$PWD/core/task/default/ITestInvokeTask.h \
     $$PWD/core/task/default/ITestTaskCatagory.h \
     $$PWD/core/test/ITestTaskInterface.h \
@@ -214,11 +213,16 @@ SOURCES += \
     $$PWD/core/context/IConfigurationSystemPreProcessor.cpp \
     $$PWD/core/context/IContextManage.cpp \
     $$PWD/core/context/IContextWritter.cpp \
+    $$PWD/core/context/default/IConfigYamlConfigTask.cpp \
+    $$PWD/core/context/default/IContextDefaultConfigTask.cpp \
+    $$PWD/core/context/default/IContextJsonConfigTask.cpp \
+    $$PWD/core/context/default/IContextSystemVariableTask.cpp \
+    $$PWD/core/context/default/IContextTomlConfigTask.cpp \
     $$PWD/core/context/yaml/IYamlUtil.cpp \
     $$PWD/core/context/yaml/Yaml.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \
     $$PWD/core/task/default/IBannerTask.cpp \
-    $$PWD/core/task/default/IConfigurationTaskCatagory.cpp \
+    $$PWD/core/task/default/IContextTaskCatagory.cpp \
     $$PWD/core/task/default/IEndupTaskCatagory.cpp \
     $$PWD/core/task/default/IEndupTaskInterface.cpp \
     $$PWD/core/task/default/IInitializationTaskCatagory.cpp \
