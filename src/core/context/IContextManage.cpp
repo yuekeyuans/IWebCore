@@ -23,7 +23,7 @@ struct ConfigurationBean{
     QString group {ApplicationConfigurationGroup};
 };
 
-namespace IConfigurationManageHelper {
+namespace IContextManageHelper {
     bool checkConfigValueType(QMetaType::Type type);
     QVector<ConfigurationBean> generateConfigurationBean(const QMap<QString, QString>&clsInfo, const QVector<QMetaProperty> &props);
 
@@ -32,7 +32,7 @@ namespace IConfigurationManageHelper {
     void addJsonValue(QJsonObject& dest, const QJsonValue& from, const QString& path="");
 
     QJsonValue getRemovedValue(QJsonValue val, QStringList pieces);
-    void removeJsonValue(QJsonObject& dest, const QString& path);
+    QJsonObject removeJsonValue(QJsonObject& dest, const QString& path);
 }
 
 IContextManage::IContextManage()
@@ -137,21 +137,21 @@ void IContextManage::addConfig(const QJsonValue& value, const QString& group, co
 {
     auto inst = instance();
     auto& obj = inst->m_configs[group];
-    IConfigurationManageHelper::addJsonValue(obj, value, path);
+    IContextManageHelper::addJsonValue(obj, value, path);
 }
 
 void IContextManage::removeConfig(const QString &group, const QString &path)
 {
     auto inst = instance();
     auto& obj = inst->m_configs[group];
-    IConfigurationManageHelper::removeJsonValue(obj, path);
+    inst->m_configs[group] = IContextManageHelper::removeJsonValue(obj, path);
 }
 
 void IContextManage::getConfigBean(void *handler, const QMap<QString, QString> &clsInfo, const QVector<QMetaProperty> &props, bool *ok)
 {
     IToeUtil::setOk(ok, true);
     auto inst = instance();
-    auto configBeans = IConfigurationManageHelper::generateConfigurationBean(clsInfo, props);
+    auto configBeans = IContextManageHelper::generateConfigurationBean(clsInfo, props);
     for(auto it = configBeans.begin(); it != configBeans.end(); it++){
 
         if(!inst->m_configs.contains(it->group)){
@@ -180,7 +180,7 @@ void IContextManage::getConfigBean(void *handler, const QMap<QString, QString> &
 }
 
 
-bool IConfigurationManageHelper::checkConfigValueType(QMetaType::Type type){
+bool IContextManageHelper::checkConfigValueType(QMetaType::Type type){
     static const QList<QMetaType::Type> validTypes = {
         QMetaType::Bool,
         QMetaType::QString,
@@ -201,7 +201,7 @@ bool IConfigurationManageHelper::checkConfigValueType(QMetaType::Type type){
     return result;
 }
 
-QVector<ConfigurationBean> IConfigurationManageHelper::generateConfigurationBean(const QMap<QString, QString>&clsInfo, const QVector<QMetaProperty> &props){
+QVector<ConfigurationBean> IContextManageHelper::generateConfigurationBean(const QMap<QString, QString>&clsInfo, const QVector<QMetaProperty> &props){
     static const char* const Config_Prefix = "iwebConfigWire__";
     QVector<ConfigurationBean> configBeans;
 
@@ -231,12 +231,12 @@ QVector<ConfigurationBean> IConfigurationManageHelper::generateConfigurationBean
         auto prop = IMetaUtil::getMetaPropertyByName(props, bean.name);
         bean.type = prop.typeName();
         bean.typeId = QMetaType::Type(prop.type());
-        IConfigurationManageHelper::checkConfigValueType(bean.typeId);
+        IContextManageHelper::checkConfigValueType(bean.typeId);
     }
     return configBeans;
 }
 
-QJsonValue IConfigurationManageHelper::getMergeValue(const QString key, const QJsonObject &dest, const QJsonObject &source)
+QJsonValue IContextManageHelper::getMergeValue(const QString key, const QJsonObject &dest, const QJsonObject &source)
 {
     QJsonValue destValue = dest[key];
     QJsonValue srcValue = source[key];
@@ -260,7 +260,7 @@ QJsonValue IConfigurationManageHelper::getMergeValue(const QString key, const QJ
     return destValue;
 }
 
-void IConfigurationManageHelper::mergeJsonObject(QJsonObject &dest, const QJsonObject &source)
+void IContextManageHelper::mergeJsonObject(QJsonObject &dest, const QJsonObject &source)
 {
     auto keys = source.keys();
     for(auto key : keys){
@@ -272,7 +272,7 @@ void IConfigurationManageHelper::mergeJsonObject(QJsonObject &dest, const QJsonO
     }
 }
 
-void IConfigurationManageHelper::addJsonValue(QJsonObject& root, const QJsonValue& value, const QString& path)
+void IContextManageHelper::addJsonValue(QJsonObject& root, const QJsonValue& value, const QString& path)
 {
     QJsonValue curValue = value;
 
@@ -295,11 +295,11 @@ void IConfigurationManageHelper::addJsonValue(QJsonObject& root, const QJsonValu
         }
     }
 
-    return IConfigurationManageHelper::mergeJsonObject(root, curValue.toObject());
+    return IContextManageHelper::mergeJsonObject(root, curValue.toObject());
 }
 
 
-QJsonValue IConfigurationManageHelper::getRemovedValue(QJsonValue val, QStringList pieces)
+QJsonValue IContextManageHelper::getRemovedValue(QJsonValue val, QStringList pieces)
 {
     if(pieces.isEmpty()){
         qFatal("this should not appear");
@@ -345,14 +345,14 @@ QJsonValue IConfigurationManageHelper::getRemovedValue(QJsonValue val, QStringLi
 }
 
 // 删除如何设置
-void IConfigurationManageHelper::removeJsonValue(QJsonObject &dest, const QString &path)
+QJsonObject IContextManageHelper::removeJsonValue(QJsonObject &dest, const QString &path)
 {
     auto pieces = path.split('.');
     if(pieces.isEmpty() || pieces.first().startsWith("_")){
         $GlobalAssert->fatal("ContextRemovePathInvalid");
     }
 
-    return getRemovedValue(dest, pieces);
+    return IContextManageHelper::getRemovedValue(dest, pieces).toObject();
 }
 
 
