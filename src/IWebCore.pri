@@ -350,4 +350,4 @@ DISTFILES += \
     $$PWD/orm/orm \
     $$PWD/web/common \
     $$PWD/web/controller/controller \
-    $$PWD/web/server/server \
+    $$PWD/web/server/server
