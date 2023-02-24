@@ -11,8 +11,8 @@ $PackageWebCoreBegin
 
 $UseGlobalAssert()
 
-const char SystemConfigurationGroup[] = "System";
-const char ApplicationConfigurationGroup[] = "Application";
+extern const char SystemConfigurationGroup[] = "System";
+extern const char ApplicationConfigurationGroup[] = "Application";
 
 struct ConfigurationBean{
     QString type;
@@ -53,7 +53,126 @@ QJsonValue IContextManage::getApplicationConfig(const QString &path, bool *ok)
 
 bool IContextManage::getSystemConfigAsBool(const QString &path, bool *ok)
 {
+    IToeUtil::setOk(ok, true);
+    bool convertOk;
+    auto value = getConfig(path, &convertOk, SystemConfigurationGroup);
+    if(convertOk){
+        return IConvertUtil::toBool(value, ok);
+    }
 
+    IToeUtil::setOkAnd(ok, convertOk);
+    return false;
+}
+
+int IContextManage::getSystemConfigAsInt(const QString &path, bool *ok)
+{
+    IToeUtil::setOk(ok, true);
+    bool convertOk;
+    auto value = getConfig(path, &convertOk, SystemConfigurationGroup);
+    if(convertOk){
+        return IConvertUtil::toInt(value, ok);
+    }
+
+    IToeUtil::setOkAnd(ok, convertOk);
+    return false;
+}
+
+double IContextManage::getSystemConfigAsDouble(const QString &path, bool *ok)
+{
+    IToeUtil::setOk(ok, true);
+    bool convertOk;
+    auto value = getConfig(path, &convertOk, SystemConfigurationGroup);
+    if(convertOk){
+        return IConvertUtil::toDouble(value, ok);
+    }
+
+    IToeUtil::setOkAnd(ok, convertOk);
+    return false;
+}
+
+QString IContextManage::getSystemConfigAsString(const QString &path, bool *ok)
+{
+    IToeUtil::setOk(ok, true);
+    bool convertOk;
+
+    auto value = getConfig(path, &convertOk, SystemConfigurationGroup);
+    if(!convertOk || value.isArray() || value.isObject() || value.isNull() || value.isUndefined()){
+        IToeUtil::setOk(ok, false);
+        return "";
+    }
+    IToeUtil::setOkAnd(ok, convertOk);
+
+    if(value.isDouble()){
+        return QString::number(value.toDouble());
+    }else if(value.isBool()){
+        return IConvertUtil::toString(value.toBool());
+    }else if(value.isString()){
+        return value.toString();
+    }
+    IToeUtil::setOk(ok, false);
+    return "";
+}
+
+bool IContextManage::getApplicationConfigAsBool(const QString &path, bool *ok)
+{
+    IToeUtil::setOk(ok, true);
+    bool convertOk;
+    auto value = getConfig(path, &convertOk, ApplicationConfigurationGroup);
+    if(convertOk){
+        return IConvertUtil::toBool(value, ok);
+    }
+
+    IToeUtil::setOkAnd(ok, convertOk);
+    return false;
+}
+
+int IContextManage::getApplicationConfigAsInt(const QString &path, bool *ok)
+{
+    IToeUtil::setOk(ok, true);
+    bool convertOk;
+    auto value = getConfig(path, &convertOk, ApplicationConfigurationGroup);
+    if(convertOk){
+        return IConvertUtil::toInt(value, ok);
+    }
+
+    IToeUtil::setOkAnd(ok, convertOk);
+    return false;
+}
+
+double IContextManage::getApplicationConfigAsDouble(const QString &path, bool *ok)
+{
+    IToeUtil::setOk(ok, true);
+    bool convertOk;
+    auto value = getConfig(path, &convertOk, ApplicationConfigurationGroup);
+    if(convertOk){
+        return IConvertUtil::toDouble(value, ok);
+    }
+
+    IToeUtil::setOkAnd(ok, convertOk);
+    return false;
+}
+
+QString IContextManage::getApplicationConfigAsString(const QString &path, bool *ok)
+{
+    IToeUtil::setOk(ok, true);
+    bool convertOk;
+
+    auto value = getConfig(path, &convertOk, ApplicationConfigurationGroup);
+    if(!convertOk || value.isArray() || value.isObject() || value.isNull() || value.isUndefined()){
+        IToeUtil::setOk(ok, false);
+        return "";
+    }
+    IToeUtil::setOkAnd(ok, convertOk);
+
+    if(value.isDouble()){
+        return QString::number(value.toDouble());
+    }else if(value.isBool()){
+        return IConvertUtil::toString(value.toBool());
+    }else if(value.isString()){
+        return value.toString();
+    }
+    IToeUtil::setOk(ok, false);
+    return "";
 }
 
 //bool IContextManage::getConfigAsBool(const QString &path, bool *ok, const QString &group)
@@ -347,7 +466,9 @@ QJsonValue IContextManageHelper::getRemovedValue(QJsonValue val, QStringList pie
         }else{
             obj[piece] = getRemovedValue(obj[piece], pieces);
         }
+        return obj;
     }
+    return val;
 }
 
 // 删除如何设置

@@ -5,10 +5,6 @@
 
 $PackageWebCoreBegin
 
-extern const char SystemConfigurationGroup[];
-extern const char ApplicationConfigurationGroup[];
-
-
 class ITaskManage;
 
 class IContextManage
@@ -44,7 +40,7 @@ private:
 
 public:
     template<typename T>
-    static T getBean(const QString& path, bool*ok, const QString& group = ApplicationConfigurationGroup);
+    static T getBean(const QString& path, bool*ok);
     static void getConfigBean(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaProperty>&props, bool*ok);
 
 private:
@@ -54,9 +50,9 @@ private:
 };
 
 template<typename T>
-T IContextManage::getBean(const QString &path, bool* ok, const QString &group)
+T IContextManage::getBean(const QString &path, bool* ok)
 {
-    auto value = getConfig(path, ok, group);
+    auto value = getApplicationConfig(path, ok);
     auto bean = T::fromJson(value.toObject());
     return bean;
 }
