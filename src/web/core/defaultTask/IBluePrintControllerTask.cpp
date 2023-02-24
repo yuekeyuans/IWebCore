@@ -18,7 +18,7 @@
 //{
 //    static auto task = [](){
 //        bool convertOk;
-//        auto value = IConfigurationManage::getValue("SYSTEM_BLUE_PRINT", &convertOk, SystemConfigurationGroup);
+//        auto value = IConfigurationManage::getValue("SYSTEM_BLUE_PRINT", &convertOk, SystemContextGroup);
 //        if(!convertOk){
 //            return;
 //        }

@@ -38,13 +38,14 @@ HEADERS += \
     $$PWD/core/context/IConfigurationSystemPreProcessor.h \
     $$PWD/core/context/IConfigurationWirePreProcessor.h \
     $$PWD/core/context/IContextManage.h \
+    $$PWD/core/context/IContextPreProcessor.h \
     $$PWD/core/context/IContextTaskInterface.h \
     $$PWD/core/context/IContextWritter.h \
-    $$PWD/core/context/default/IConfigYamlConfigTask.h \
     $$PWD/core/context/default/IContextDefaultConfigTask.h \
     $$PWD/core/context/default/IContextJsonConfigTask.h \
     $$PWD/core/context/default/IContextSystemVariableTask.h \
     $$PWD/core/context/default/IContextTomlConfigTask.h \
+    $$PWD/core/context/default/IContextYamlConfigTask.h \
     $$PWD/core/context/yaml/IYamlUtil.h \
     $$PWD/core/context/yaml/Yaml.hpp \
     $$PWD/core/core.h \
@@ -214,11 +215,11 @@ SOURCES += \
     $$PWD/core/context/IConfigurationTaskInterface.cpp \
     $$PWD/core/context/IContextManage.cpp \
     $$PWD/core/context/IContextWritter.cpp \
-    $$PWD/core/context/default/IConfigYamlConfigTask.cpp \
     $$PWD/core/context/default/IContextDefaultConfigTask.cpp \
     $$PWD/core/context/default/IContextJsonConfigTask.cpp \
     $$PWD/core/context/default/IContextSystemVariableTask.cpp \
     $$PWD/core/context/default/IContextTomlConfigTask.cpp \
+    $$PWD/core/context/default/IContextYamlConfigTask.cpp \
     $$PWD/core/context/yaml/IYamlUtil.cpp \
     $$PWD/core/context/yaml/Yaml.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \

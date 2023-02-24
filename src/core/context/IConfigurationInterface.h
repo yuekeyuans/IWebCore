@@ -48,7 +48,7 @@
 //using IApplicationConfigurationInterface = IConfigurationInterface<T, enabled, ApplicationConfigurationGroup>;
 
 //template<typename T, bool enabled = true>
-//using ISystemConfigurationInterface = IConfigurationInterface<T, enabled, SystemConfigurationGroup>;
+//using ISystemConfigurationInterface = IConfigurationInterface<T, enabled, SystemContextGroup>;
 
 ////template<typename T, bool enabled = true>
 ////using IUserConfigurationInterface = IConfigurationInterface<T, enabled, UserConfigurationGroup>;

@@ -11,8 +11,8 @@ $PackageWebCoreBegin
 
 $UseGlobalAssert()
 
-extern const char SystemConfigurationGroup[] = "System";
-extern const char ApplicationConfigurationGroup[] = "Application";
+extern const char SystemContextGroup[] = "System";
+extern const char ApplicationContextGroup[] = "Application";
 
 struct ConfigurationBean{
     QString type;
@@ -20,7 +20,7 @@ struct ConfigurationBean{
     QString path;
     bool optional {false};
     QMetaType::Type typeId {QMetaType::UnknownType};
-    QString group {ApplicationConfigurationGroup};
+    QString group {ApplicationContextGroup};
 };
 
 namespace IContextManageHelper {
@@ -43,19 +43,19 @@ IContextManage::IContextManage()
 
 QJsonValue IContextManage::getSystemConfig(const QString &path, bool*ok)
 {
-    return getConfig(path, ok, SystemConfigurationGroup);
+    return getConfig(path, ok, SystemContextGroup);
 }
 
 QJsonValue IContextManage::getApplicationConfig(const QString &path, bool *ok)
 {
-    return getConfig(path, ok, ApplicationConfigurationGroup);
+    return getConfig(path, ok, ApplicationContextGroup);
 }
 
 bool IContextManage::getSystemConfigAsBool(const QString &path, bool *ok)
 {
     IToeUtil::setOk(ok, true);
     bool convertOk;
-    auto value = getConfig(path, &convertOk, SystemConfigurationGroup);
+    auto value = getConfig(path, &convertOk, SystemContextGroup);
     if(convertOk){
         return IConvertUtil::toBool(value, ok);
     }
@@ -68,7 +68,7 @@ int IContextManage::getSystemConfigAsInt(const QString &path, bool *ok)
 {
     IToeUtil::setOk(ok, true);
     bool convertOk;
-    auto value = getConfig(path, &convertOk, SystemConfigurationGroup);
+    auto value = getConfig(path, &convertOk, SystemContextGroup);
     if(convertOk){
         return IConvertUtil::toInt(value, ok);
     }
@@ -81,7 +81,7 @@ double IContextManage::getSystemConfigAsDouble(const QString &path, bool *ok)
 {
     IToeUtil::setOk(ok, true);
     bool convertOk;
-    auto value = getConfig(path, &convertOk, SystemConfigurationGroup);
+    auto value = getConfig(path, &convertOk, SystemContextGroup);
     if(convertOk){
         return IConvertUtil::toDouble(value, ok);
     }
@@ -95,7 +95,7 @@ QString IContextManage::getSystemConfigAsString(const QString &path, bool *ok)
     IToeUtil::setOk(ok, true);
     bool convertOk;
 
-    auto value = getConfig(path, &convertOk, SystemConfigurationGroup);
+    auto value = getConfig(path, &convertOk, SystemContextGroup);
     if(!convertOk || value.isArray() || value.isObject() || value.isNull() || value.isUndefined()){
         IToeUtil::setOk(ok, false);
         return "";
@@ -117,7 +117,7 @@ bool IContextManage::getApplicationConfigAsBool(const QString &path, bool *ok)
 {
     IToeUtil::setOk(ok, true);
     bool convertOk;
-    auto value = getConfig(path, &convertOk, ApplicationConfigurationGroup);
+    auto value = getConfig(path, &convertOk, ApplicationContextGroup);
     if(convertOk){
         return IConvertUtil::toBool(value, ok);
     }
@@ -130,7 +130,7 @@ int IContextManage::getApplicationConfigAsInt(const QString &path, bool *ok)
 {
     IToeUtil::setOk(ok, true);
     bool convertOk;
-    auto value = getConfig(path, &convertOk, ApplicationConfigurationGroup);
+    auto value = getConfig(path, &convertOk, ApplicationContextGroup);
     if(convertOk){
         return IConvertUtil::toInt(value, ok);
     }
@@ -143,7 +143,7 @@ double IContextManage::getApplicationConfigAsDouble(const QString &path, bool *o
 {
     IToeUtil::setOk(ok, true);
     bool convertOk;
-    auto value = getConfig(path, &convertOk, ApplicationConfigurationGroup);
+    auto value = getConfig(path, &convertOk, ApplicationContextGroup);
     if(convertOk){
         return IConvertUtil::toDouble(value, ok);
     }
@@ -157,7 +157,7 @@ QString IContextManage::getApplicationConfigAsString(const QString &path, bool *
     IToeUtil::setOk(ok, true);
     bool convertOk;
 
-    auto value = getConfig(path, &convertOk, ApplicationConfigurationGroup);
+    auto value = getConfig(path, &convertOk, ApplicationContextGroup);
     if(!convertOk || value.isArray() || value.isObject() || value.isNull() || value.isUndefined()){
         IToeUtil::setOk(ok, false);
         return "";
