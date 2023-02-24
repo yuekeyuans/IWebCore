@@ -1,6 +1,10 @@
-#include "IContextJsonConfigTask.h"
+﻿#include "IContextJsonConfigTask.h"
 
-IContextJsonConfigTask::IContextJsonConfigTask()
+$PackageWebCoreBegin
+
+void IContextJsonConfigTask::task()
 {
 
 }
+
+$PackageWebCoreEnd

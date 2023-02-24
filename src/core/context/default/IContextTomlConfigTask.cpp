@@ -1,6 +1,10 @@
-#include "IContextTomlConfigTask.h"
+﻿#include "IContextTomlConfigTask.h"
 
-IContextTomlConfigTask::IContextTomlConfigTask()
+$PackageWebCoreBegin
+
+void IContextTomlConfigTask::task()
 {
 
 }
+
+$PackageWebCoreEnd

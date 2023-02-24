@@ -1,9 +1,18 @@
-#pragma once
+﻿#pragma once
 
+#include "core/base/IHeaderUtil.h"
+#include "core/context/IContextTaskInterface.h"
 
-class IContextSystemVariableTask
+$PackageWebCoreBegin
+
+class IContextSystemVariableTask : public IContextTaskInterface<IContextSystemVariableTask>
 {
-public:
+    Q_GADGET
+    $AsContext(IContextSystemVariableTask)
+private:
     IContextSystemVariableTask();
+
+public:
+    virtual void task() final;
 };
 

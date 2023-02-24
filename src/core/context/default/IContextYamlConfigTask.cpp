@@ -2,7 +2,6 @@
 
 $PackageWebCoreBegin
 
-
 void IContextYamlConfigTask::task()
 {
     qDebug() << "task created";

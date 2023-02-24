@@ -1,6 +1,10 @@
-#include "IContextDefaultConfigTask.h"
+﻿#include "IContextDefaultConfigTask.h"
 
-IContextDefaultConfigTask::IContextDefaultConfigTask()
+$PackageWebCoreBegin
+
+void IContextDefaultConfigTask::task()
 {
-
+    qDebug() << name();
 }
+
+$PackageWebCoreEnd

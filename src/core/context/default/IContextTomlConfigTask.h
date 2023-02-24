@@ -1,9 +1,18 @@
-#pragma once
+﻿#pragma once
 
+#include "core/base/IHeaderUtil.h"
+#include "core/context/IContextTaskInterface.h"
 
-class IContextTomlConfigTask
+$PackageWebCoreBegin
+
+class IContextTomlConfigTask : public IContextTaskInterface<IContextTomlConfigTask>
 {
-public:
+    Q_GADGET
+    $AsContext(IContextTomlConfigTask)
+private:
     IContextTomlConfigTask();
+
+public:
+    virtual void task() final;
 };
 

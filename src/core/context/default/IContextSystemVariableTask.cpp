@@ -1,6 +1,10 @@
-#include "IContextSystemVariableTask.h"
+﻿#include "IContextSystemVariableTask.h"
 
-IContextSystemVariableTask::IContextSystemVariableTask()
+$PackageWebCoreBegin
+
+void IContextSystemVariableTask::task()
 {
 
 }
+
+$PackageWebCoreEnd

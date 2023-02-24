@@ -1,9 +1,19 @@
-#pragma once
+﻿#pragma once
 
+#include "core/base/IHeaderUtil.h"
+#include "core/context/IContextTaskInterface.h"
 
-class IContextDefaultConfigTask
+$PackageWebCoreBegin
+
+class IContextDefaultConfigTask : public IContextTaskInterface<IContextDefaultConfigTask>
 {
+    Q_GADGET
+    $AsContext(IContextDefaultConfigTask)
+private:
+    IContextDefaultConfigTask() = default;
+
 public:
-    IContextDefaultConfigTask();
+    virtual void task() final;
 };
 
+$PackageWebCoreEnd
