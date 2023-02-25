@@ -10,9 +10,10 @@ class IContextTomlConfigTask : public IContextTaskInterface<IContextTomlConfigTa
     Q_GADGET
     $AsContext(IContextTomlConfigTask)
 private:
-    IContextTomlConfigTask();
+    IContextTomlConfigTask() = default;
 
 public:
     virtual void task() final;
 };
 
+$PackageWebCoreEnd

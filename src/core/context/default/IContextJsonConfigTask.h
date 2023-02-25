@@ -8,7 +8,7 @@ $PackageWebCoreBegin
 class IContextJsonConfigTask : public IContextTaskInterface<IContextJsonConfigTask>
 {
     Q_GADGET
-    $AsContext(IContextTaskInterface)
+    $AsContext(IContextJsonConfigTask)
 private:
     IContextJsonConfigTask() = default;
 

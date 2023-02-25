@@ -10,9 +10,11 @@ class IContextSystemVariableTask : public IContextTaskInterface<IContextSystemVa
     Q_GADGET
     $AsContext(IContextSystemVariableTask)
 private:
-    IContextSystemVariableTask();
+    IContextSystemVariableTask() = default;
 
 public:
     virtual void task() final;
 };
+
+$PackageWebCoreEnd
 
