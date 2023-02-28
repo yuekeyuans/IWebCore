@@ -4,7 +4,7 @@ $PackageWebCoreBegin
 
 void IContextTomlConfigTask::task()
 {
-
+    qDebug() << "task executed";
 }
 
 $PackageWebCoreEnd

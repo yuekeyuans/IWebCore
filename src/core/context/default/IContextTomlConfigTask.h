@@ -12,7 +12,7 @@ class IContextTomlConfigTask : public IContextTaskInterface<IContextTomlConfigTa
 private:
     IContextTomlConfigTask() = default;
 
-public:
+private:
     virtual void task() final;
 };
 
