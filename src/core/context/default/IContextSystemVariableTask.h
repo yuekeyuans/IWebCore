@@ -14,6 +14,12 @@ private:
 
 public:
     virtual void task() final;
+
+private:
+    void loadSystemEnvironment();
+    QJsonObject getSystemEnvironment();
+
+
 };
 
 $PackageWebCoreEnd
