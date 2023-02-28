@@ -14,6 +14,11 @@ private:
 
 public:
     virtual void task() final;
+
+private:
+    void loadYaml();
+    QStringList getYamlPaths();
+    QJsonObject parseYamlFile(const QString& path);
 };
 
 $PackageWebCoreEnd

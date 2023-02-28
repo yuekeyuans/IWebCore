@@ -14,6 +14,11 @@ private:
 
 public:
     virtual void task() final;
+
+private:
+    void loadJson();
+    QStringList getJsonPaths();
+    QJsonObject parseJsonFile(const QString& path);
 };
 
 $PackageWebCoreEnd
