@@ -1,5 +1,0 @@
-﻿#pragma once
-
-#include "IContextManage.h"
-#include "IConfigurationPreProcessor.h"
-#include "IConfigurationSystemPreProcessor.h"

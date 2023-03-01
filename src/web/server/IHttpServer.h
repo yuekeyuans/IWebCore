@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "core/base/IConstantUtil.h"
-#include "core/context/configuration"
 #include "web/biscuits/IHttpMethod.h"
 #include "web/net/IRequest.h"
 #include "web/net/IResponse.h"
@@ -12,8 +11,6 @@ class IHttpServer : public QTcpServer
 {
     Q_GADGET
     $UseInstance(IHttpServer)
-    $UseConfig(IHttpSever)
-
 public:
     using ProcessFunctor = std::function<void(const IRequest& req, IResponse& resp)>;
 

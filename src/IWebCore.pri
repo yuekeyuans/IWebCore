@@ -31,12 +31,10 @@ HEADERS += \
     $$PWD/core/bean/IBeanPreProcessor.h \
     $$PWD/core/bean/IBeanTypeManage.h \
     $$PWD/core/bean/IBeanWare.h \
-    $$PWD/core/context/IConfigurationPreProcessor.h \
-    $$PWD/core/context/IConfigurationSystemPreProcessor.h \
-    $$PWD/core/context/IConfigurationWirePreProcessor.h \
     $$PWD/core/context/IContextManage.h \
     $$PWD/core/context/IContextPreProcessor.h \
     $$PWD/core/context/IContextTaskInterface.h \
+    $$PWD/core/context/IContextWirePreProcessor.h \
     $$PWD/core/context/IContextWritter.h \
     $$PWD/core/context/default/IContextDefaultConfigTask.h \
     $$PWD/core/context/default/IContextJsonConfigTask.h \
@@ -206,7 +204,6 @@ SOURCES += \
     $$PWD/core/assert/IAssertInterface.cpp \
     $$PWD/core/assert/IGlobalAssert.cpp \
     $$PWD/core/bean/IBeanTypeManage.cpp \
-    $$PWD/core/context/IConfigurationSystemPreProcessor.cpp \
     $$PWD/core/context/IConfigurationTaskInterface.cpp \
     $$PWD/core/context/IContextManage.cpp \
     $$PWD/core/context/IContextWritter.cpp \
@@ -341,7 +338,6 @@ DISTFILES += \
     $$PWD/core/base/base \
     $$PWD/core/assertion/assertion \
     $$PWD/core/core.h \
-    $$PWD/core/context/configuration \
     $$PWD/core/task/task \
     $$PWD/orm/orm \
     $$PWD/web/common \

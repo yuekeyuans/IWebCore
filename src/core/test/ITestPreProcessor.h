@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "core/context/IConfigurationSystemPreProcessor.h"
+#include "core/base/IPreProcessorUtil.h"
 
 #define $AsTest(klassName)  \
     $UseInstance(klassName)
