@@ -12,7 +12,6 @@ namespace IHttpServerHelper{
 
 IHttpServer::IHttpServer() :  QTcpServer()
 {
-    $ConstructConfig()
 }
 
 bool IHttpServer::listen(const QHostAddress &address_, quint16 port_)

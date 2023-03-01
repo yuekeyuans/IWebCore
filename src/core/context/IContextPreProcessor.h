@@ -7,6 +7,11 @@
 #define $AsContext(klassName)   \
     $UseInstance(klassName)
 
+#define $UseContext(klassName)  \
+private:    \
+    static void loadContext(klassName*) {}; \
+private:
+
 
 #define PP_SYSTEM_SETTING(klassName, path, value)   \
 class klassName \
