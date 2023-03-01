@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include "IConfigurationPreProcessor.h"
 #include "core/base/IHeaderUtil.h"
 
 $PackageWebCoreBegin
