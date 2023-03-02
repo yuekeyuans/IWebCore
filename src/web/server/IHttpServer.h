@@ -3,6 +3,7 @@
 #include "core/base/IConstantUtil.h"
 #include "core/context/IContextPreProcessor.h"
 #include "core/context/IContextWirePreProcessor.h"
+#include "core/context/IContextImport.h"
 #include "web/biscuits/IHttpMethod.h"
 #include "web/net/IRequest.h"
 #include "web/net/IResponse.h"
@@ -42,8 +43,11 @@ private:
     $OptionWireDeclare(QString, host, server.host)
     QString host = "127.0.0.1";
 
-    $OptionWireDeclare(int, port, server.port)
-    int port = 8088;
+//    $OptionWireDeclare(int, port, server.port)
+//    int port = 8088;
+
+    static constexpr char path[] ="abc";
+    IContextImport<ushort, path> port;
 };
 
 $PackageWebCoreEnd
