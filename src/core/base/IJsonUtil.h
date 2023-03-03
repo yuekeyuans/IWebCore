@@ -57,7 +57,7 @@ namespace IJsonUtil
     QJsonValue toJsonValue(T value){
         return IJsonUtil::_objectToJson(value);
     }
-};
+}
 
 namespace IConvertUtil {
     using IJsonUtil::toJsonValue;

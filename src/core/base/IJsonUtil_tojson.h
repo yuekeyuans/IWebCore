@@ -66,7 +66,7 @@ template<class T>
 typename std::enable_if<ITraitHelper::IsBean<T>::value, QJsonValue>::type
 _objectToJson(const T& value);
 
-};
+}
 
 $PackageWebCoreEnd
 

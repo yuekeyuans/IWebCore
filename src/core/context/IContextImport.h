@@ -2,13 +2,16 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IConvertUtil.h"
+#include "core/base/IJsonUtil.h"
 #include "core/context/IContextManage.h"
+
 
 $PackageWebCoreBegin
 
 template<typename T>
 class IContextImport
 {
+    Q_DISABLE_COPY_MOVE(IContextImport)
 public:
     explicit IContextImport(QString path, T value = {});
     ~IContextImport() = default;
@@ -17,23 +20,35 @@ public:
     void setValue(T value);
     const T& value() const;
 
+public:
     T& operator =(T value);
-
     bool operator !=(const T& value) const;
     bool operator <(const T& vlaue) const;
     bool operator >(const T& value) const;
-
     operator T() const;
-
     operator *();
+
+private:    // only run  in stack
+    void* operator new[] (std::size_t size) = delete;
+    void* operator new[] (std::size_t size, const std::nothrow_t& nothrow_value) = delete;
+    void* operator new[] (std::size_t size, void* ptr) = delete;
+    void* operator new(std::size_t) = delete;
+    void* operator new(std::size_t, void*) = delete;
+    void* operator new (std::size_t size, const std::nothrow_t& nothrow_value) throw() = delete;
+
+    void operator delete[] (void* ptr) throw() = delete;
+    void operator delete[] (void* ptr, const std::nothrow_t& nothrow_constant) throw() = delete;
+    void operator delete[] (void* ptr, void* voidptr2) throw() = delete;
+    void operator delete( void * ) = delete;
+    void operator delete( void *, size_t ) = delete;
 
 private:
     T& get() const;
 
 private:
     mutable T m_data {};
-    mutable QString m_path;
     mutable std::atomic_bool m_isLoaded{false};
+    const QString m_path;
 };
 
 template<typename T>
@@ -85,12 +100,6 @@ IContextImport<T>::operator T() const
     return get();
 }
 
-//template<typename T>
-//IContextImport<T>::operator T &() const
-//{
-//    return get();
-//}
-
 template<typename T>
 IContextImport<T>::operator *()
 {
@@ -104,18 +113,30 @@ T &IContextImport<T>::get() const
         bool ok;
         auto value = IContextManage::getApplicationConfig(m_path, &ok);
         if(ok){
-            m_data = {};
+            m_data = T{};
             qDebug() << "data is ok" << value;
-            m_isLoaded = true;
         }else{
-            qDebug() << "fail to load data";
+            qDebug() << "fail to load data" << m_path;
         }
+        m_isLoaded = true;
     }
 
     return m_data;
 }
 
-template<const char* path>
-using ImportInt = IContextImport<int>;
+using $Char = IContextImport<char>;
+using $UChar = IContextImport<uchar>;
+using $Short = IContextImport<short>;
+using $UShort = IContextImport<ushort>;
+using $Int = IContextImport<int>;
+using $UInt = IContextImport<uint>;
+using $Long = IContextImport<long>;
+using $ULong = IContextImport<ulong>;
+using $LongLong = IContextImport<long long>;
+using $ULongLong = IContextImport<qulonglong>;
+using $Float = IContextImport<float>;
+using $Double = IContextImport<double>;
+using $LongDouble = IContextImport<long double>;
+using $QString = IContextImport<QString>;
 
 $PackageWebCoreEnd
