@@ -6,12 +6,11 @@
 
 $PackageWebCoreBegin
 
-template<typename T, const char* path>
+template<typename T>
 class IContextImport
 {
 public:
-    IContextImport() = default;
-    IContextImport(const T& value);
+    explicit IContextImport(QString path, T value = {});
     ~IContextImport() = default;
 
 public:
@@ -25,7 +24,6 @@ public:
     bool operator >(const T& value) const;
 
     operator T() const;
-//    operator T&() const;
 
     operator *();
 
@@ -34,76 +32,77 @@ private:
 
 private:
     mutable T m_data {};
+    mutable QString m_path;
     mutable std::atomic_bool m_isLoaded{false};
 };
 
-template<typename T, const char *path>
-IContextImport<T, path>::IContextImport(const T &value)
+template<typename T>
+IContextImport<T>::IContextImport(QString path, T value)
+    : m_path(std::move(path)), m_data(std::move(value))
 {
-    m_data = value;
 }
 
-template<typename T, const char *path>
-void IContextImport<T, path>::setValue(T value)
+template<typename T>
+void IContextImport<T>::setValue(T value)
 {
     m_data = std::move(value);
 }
 
-template<typename T, const char *path>
-const T &IContextImport<T, path>::value() const
+template<typename T>
+const T &IContextImport<T>::value() const
 {
     return get();
 }
 
-template<typename T, const char *path>
-T &IContextImport<T, path>::operator =(T value)
+template<typename T>
+T &IContextImport<T>::operator =(T value)
 {
     m_data = value;
     return m_data;
 }
 
-template<typename T, const char *path>
-bool IContextImport<T, path>::operator !=(const T &value) const
+template<typename T>
+bool IContextImport<T>::operator !=(const T &value) const
 {
     return get() != value;
 }
 
-template<typename T, const char *path>
-bool IContextImport<T, path>::operator <(const T &value) const
+template<typename T>
+bool IContextImport<T>::operator <(const T &value) const
 {
     return get() < value;
 }
 
-template<typename T, const char *path>
-bool IContextImport<T, path>::operator >(const T &value) const
+template<typename T>
+bool IContextImport<T>::operator >(const T &value) const
 {
     return get() > value;
 }
 
-template<typename T, const char *path>
-IContextImport<T, path>::operator T() const
+template<typename T>
+IContextImport<T>::operator T() const
 {
     return get();
 }
 
-//template<typename T, const char *path>
-//IContextImport<T, path>::operator T &() const
+//template<typename T>
+//IContextImport<T>::operator T &() const
 //{
 //    return get();
 //}
 
-template<typename T, const char *path>
-IContextImport<T, path>::operator *()
+template<typename T>
+IContextImport<T>::operator *()
 {
     return get();
 }
 
-template<typename T, const char *path>
-T &IContextImport<T, path>::get() const
+template<typename T>
+T &IContextImport<T>::get() const
 {
     if(!m_isLoaded){
         bool ok;
-        auto value = IContextManage::getApplicationConfig(path, &ok);
+        auto value = IContextManage::getApplicationConfig(m_path, &ok);
         if(ok){
             m_data = {};
             qDebug() << "data is ok" << value;
@@ -117,6 +116,6 @@ T &IContextImport<T, path>::get() const
 }
 
 template<const char* path>
-using ImportInt = IContextImport<int, path>;
+using ImportInt = IContextImport<int>;
 
 $PackageWebCoreEnd

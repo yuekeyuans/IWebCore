@@ -46,8 +46,7 @@ private:
 //    $OptionWireDeclare(int, port, server.port)
 //    int port = 8088;
 
-    static constexpr char path[] ="abc";
-    IContextImport<ushort, path> port;
+    IContextImport<ushort> port{"abc.def", 8088};
 };
 
 $PackageWebCoreEnd
