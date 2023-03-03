@@ -53,7 +53,7 @@ private:
 
 template<typename T>
 IContextImport<T>::IContextImport(QString path, T value)
-    : m_path(std::move(path)), m_data(std::move(value))
+    :  m_data(std::move(value)), m_path(std::move(path))
 {
 }
 
@@ -113,7 +113,7 @@ T &IContextImport<T>::get() const
         bool ok;
         auto value = IContextManage::getApplicationConfig(m_path, &ok);
         if(ok){
-            m_data = T{};
+            m_data = IJsonUtil::fromJson<T>(value, &ok);
             qDebug() << "data is ok" << value;
         }else{
             qDebug() << "fail to load data" << m_path;
@@ -124,8 +124,8 @@ T &IContextImport<T>::get() const
     return m_data;
 }
 
-using $Char = IContextImport<char>;
-using $UChar = IContextImport<uchar>;
+//using $Char = IContextImport<char>;
+//using $UChar = IContextImport<uchar>;
 using $Short = IContextImport<short>;
 using $UShort = IContextImport<ushort>;
 using $Int = IContextImport<int>;
@@ -137,6 +137,8 @@ using $ULongLong = IContextImport<qulonglong>;
 using $Float = IContextImport<float>;
 using $Double = IContextImport<double>;
 using $LongDouble = IContextImport<long double>;
+
+using $Bool = IContextImport<bool>;
 using $QString = IContextImport<QString>;
 
 $PackageWebCoreEnd

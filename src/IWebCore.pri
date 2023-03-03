@@ -11,6 +11,7 @@ HEADERS += \
     $$PWD/core/base/IFileUtil.h \
     $$PWD/core/base/IHeaderUtil.h \
     $$PWD/core/base/IJsonUtil.h \
+    $$PWD/core/base/IJsonUtil_fromjson.h \
     $$PWD/core/base/IJsonUtil_tojson.h \
     $$PWD/core/base/IMetaUtil.h \
     $$PWD/core/base/IPackageUtil.h \

@@ -58,9 +58,30 @@ short IConvertUtil::toShort(const QString &value, bool *ok, int base)
     return std::mem_fn(&QString::toShort)(value, ok, base);
 }
 
+short IConvertUtil::toShort(const QJsonValue &value, bool *ok)
+{
+    int val = toInt(value, ok);
+    if(ok && val >= std::numeric_limits<short>::min() && val <= std::numeric_limits<short>::max()){
+        return static_cast<short>(val);
+    }
+
+    IToeUtil::setOk(ok, false);
+    return {};
+}
+
 ushort IConvertUtil::toUShort(const QString &value, bool *ok, int base)
 {
     return std::mem_fn(&QString::toUShort)(value, ok, base);
+}
+
+ushort IConvertUtil::toUShort(const QJsonValue &value, bool *ok)
+{
+    uint val = toUInt(value, ok);
+    if(ok && val >= std::numeric_limits<ushort>::min() && val <= std::numeric_limits<ushort>::max()){
+        return static_cast<ushort>(val);
+    }
+    IToeUtil::setOk(ok, false);
+    return {};
 }
 
 int IConvertUtil::toInt(const QString &value, bool *ok, int base)
@@ -88,6 +109,23 @@ int IConvertUtil::toInt(const QJsonValue &value, bool *ok)
 uint IConvertUtil::toUInt(const QString &value, bool *ok, int base)
 {
     return std::mem_fn(&QString::toUInt)(value, ok, base);
+}
+
+uint IConvertUtil::toUInt(const QJsonValue &value, bool *ok)
+{
+    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
+        IToeUtil::setOk(ok, false);
+        return 0;
+    }
+
+    IToeUtil::setOk(ok, true);
+    if(value.isDouble()){
+        return toUInt(value.toString(), ok);
+    }else if(value.isString()){
+        return toInt(value.toString(), ok);
+    }
+    IToeUtil::setOk(ok, false);
+    return {};
 }
 
 long IConvertUtil::toLong(const QString &value, bool *ok, int base)
@@ -225,6 +263,27 @@ QString IConvertUtil::toString(const QTime &time)
 {
     return time.toString(IConstantUtil::TimeFormat);
 }
+
+//QString IConvertUtil::toString(const QJsonArray &json)
+//{
+//    return QString(QJsonDocument(json).toJson(QJsonDocument::Compact));
+//}
+
+//QString IConvertUtil::toString(const QJsonObject &json)
+//{
+//    return QString(QJsonDocument(json).toJson(QJsonDocument::Compact));
+//}
+
+//QString IConvertUtil::toString(const QJsonValue &json)
+//{
+//    if(json.isObject()){
+//        return toString(json.toObject());
+//    }else if(json.isArray()){
+//        return toString(json.toArray());
+//    }else{
+//        return json.toString();
+//    }
+//}
 
 QDate IConvertUtil::toDate(const QString &val, bool* ok)
 {
@@ -405,5 +464,6 @@ QString IConvertUtil::toUtcString(const QDateTime& dateTime)
     auto str = local.toString(dateTime.toUTC(), format).append(" GMT");
     return str;
 }
+
 
 $PackageWebCoreEnd

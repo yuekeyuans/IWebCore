@@ -11,10 +11,13 @@ namespace  IConvertUtil
     bool toBool(const QJsonValue& value, bool *ok=nullptr);
 
     short  toShort(const QString& value, bool *ok=nullptr, int base=10);
+    short toShort(const QJsonValue& value, bool* ok);
     ushort toUShort(const QString& value, bool *ok=nullptr, int base=10);
+    ushort toUShort(const QJsonValue& value, bool* ok);
     int toInt(const QString& value, bool *ok=nullptr, int base=10);
-    int toInt(const QJsonValue& value, bool *ok=nullptr);
+    int toInt(const QJsonValue& value, bool *ok);
     uint toUInt(const QString& value, bool *ok=nullptr, int base=10);
+    uint toUInt(const QJsonValue& value, bool* ok);
     long toLong(const QString& value, bool *ok=nullptr, int base=10);
     ulong toULong(const QString& value, bool *ok=nullptr, int base=10);
     qlonglong toLongLong(const QString& value, bool *ok=nullptr, int base=10);
@@ -39,6 +42,10 @@ namespace  IConvertUtil
     QString toString(const QDateTime& datetime);
     QString toString(const QTime& time);
 
+//    QString toString(const QJsonObject &json);
+//    QString toString(const QJsonArray &json);
+//    QString toString(const QJsonValue &json);
+
     QByteArray toByteArray(const QString& value);
     QByteArray toByteArray(const QByteArray& value);
 
@@ -58,6 +65,6 @@ namespace  IConvertUtil
     QDateTime toDateTime(const QString& val, bool* ok=nullptr);
 
     QString toUtcString(const QDateTime& dateTime);
-};
+}
 
 $PackageWebCoreEnd

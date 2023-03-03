@@ -40,15 +40,8 @@ private:
     virtual void incomingConnection(qintptr handle) final;
 
 private:
-//    $OptionWireDeclare(QString, host, server.host)
-//    QString host = "127.0.0.1";
-
-    $QString host{"host", "127.0.0.1"};
-
-//    $OptionWireDeclare(int, port, server.port)
-//    int port = 8088;
-
-    $UShort port{"abc.def", 8088};
+    $QString host{"http.host", "127.0.0.1"};
+    $UShort port{"http.port", 8088};
 };
 
 $PackageWebCoreEnd
