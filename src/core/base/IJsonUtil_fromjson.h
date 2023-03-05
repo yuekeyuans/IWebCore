@@ -38,9 +38,10 @@ inline ushort IJsonUtil::fromJson<ushort>(QJsonValue value, bool* ok){
 template<>
 inline QString IJsonUtil::fromJson<QString>(QJsonValue json, bool* ok){
     Q_UNUSED(ok)
-    return IJsonUtil::toString(json);
+    Q_UNUSED(json)
+//    return IJsonUtil::toString(json);
 //    return IConvertUtil::toString(value, ok);
-//  return "127.0.0.2";
+  return "127.0.0.2";
 }
 
 $PackageWebCoreEnd
