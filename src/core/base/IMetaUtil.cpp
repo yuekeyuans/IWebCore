@@ -3,7 +3,7 @@
 
 $PackageWebCoreBegin
 
-int IMetaUtil::getMetaTypeId(const QString &name)
+$InLine int IMetaUtil::getMetaTypeId(const QString &name)
 {
     for(int index=QMetaType::User; ;index++){
         QString typeName = QMetaType::typeName(index);
@@ -17,22 +17,22 @@ int IMetaUtil::getMetaTypeId(const QString &name)
     return QMetaType::type(name.toUtf8());
 }
 
-QString IMetaUtil::getMetaTypeName(int id)
+$InLine QString IMetaUtil::getMetaTypeName(int id)
 {
     return QMetaType::typeName(id);
 }
 
-QString IMetaUtil::getMetaClassName(const QMetaObject &meta)
+$InLine QString IMetaUtil::getMetaClassName(const QMetaObject &meta)
 {
     return meta.className();
 }
 
-QString IMetaUtil::getMetaClassName(const QMetaObject *meta)
+$InLine QString IMetaUtil::getMetaClassName(const QMetaObject *meta)
 {
     return meta->className();
 }
 
-QMap<QString, QString> IMetaUtil::getMetaClassInfoMap(const QMetaObject& meta)
+$InLine QMap<QString, QString> IMetaUtil::getMetaClassInfoMap(const QMetaObject& meta)
 {
     QMap<QString, QString> ret;
     int count = meta.classInfoCount();
@@ -43,7 +43,7 @@ QMap<QString, QString> IMetaUtil::getMetaClassInfoMap(const QMetaObject& meta)
     return ret;
 }
 
-QMap<QString, QString> IMetaUtil::getMetaClassInfoMap(const QMetaObject* meta)
+$InLine QMap<QString, QString> IMetaUtil::getMetaClassInfoMap(const QMetaObject* meta)
 {
     QMap<QString, QString> ret;
     int count = meta->classInfoCount();
@@ -55,21 +55,21 @@ QMap<QString, QString> IMetaUtil::getMetaClassInfoMap(const QMetaObject* meta)
 }
 
 // no recomended,
-QString IMetaUtil::getMetaClassInfoByName(const QMetaObject &meta, const QString &name, const QString &defaultVal)
+$InLine QString IMetaUtil::getMetaClassInfoByName(const QMetaObject &meta, const QString &name, const QString &defaultVal)
 {
     auto metaClsInfo = getMetaClassInfoMap(meta);
     return getMetaClassInfoByName(metaClsInfo, name, defaultVal);
 }
 
 // no recomended
-QString IMetaUtil::getMetaClassInfoByName(const QMetaObject *meta, const QString &name, const QString &defaultVal)
+$InLine QString IMetaUtil::getMetaClassInfoByName(const QMetaObject *meta, const QString &name, const QString &defaultVal)
 {
     auto metaClsInfo = getMetaClassInfoMap(meta);
     return getMetaClassInfoByName(metaClsInfo, name, defaultVal);
 }
 
 // recommend
-QString IMetaUtil::getMetaClassInfoByName(const QMap<QString, QString> &map, const QString &name, const QString &defaultVal)
+$InLine QString IMetaUtil::getMetaClassInfoByName(const QMap<QString, QString> &map, const QString &name, const QString &defaultVal)
 {
     if(map.contains(name)){
         return map[name];
@@ -77,18 +77,18 @@ QString IMetaUtil::getMetaClassInfoByName(const QMap<QString, QString> &map, con
     return defaultVal;
 }
 
-QMetaProperty IMetaUtil::getMetaPropertyByName(const QMetaObject& meta, QString name)
+$InLine QMetaProperty IMetaUtil::getMetaPropertyByName(const QMetaObject& meta, QString name)
 {
     return getMetaPropertyByName(&meta, name);
 }
 
-QMetaProperty IMetaUtil::getMetaPropertyByName(const QMetaObject *meta, QString name)
+$InLine QMetaProperty IMetaUtil::getMetaPropertyByName(const QMetaObject *meta, QString name)
 {
     auto props = getMetaProperties(meta);
     return getMetaPropertyByName(props, name);
 }
 
-QMetaProperty IMetaUtil::getMetaPropertyByName(const QVector<QMetaProperty> &props, QString name)
+$InLine QMetaProperty IMetaUtil::getMetaPropertyByName(const QVector<QMetaProperty> &props, QString name)
 {
     auto it = std::find_if(props.begin(), props.end(), [=](const QMetaProperty& prop){
         return prop.name() == name;
@@ -99,7 +99,7 @@ QMetaProperty IMetaUtil::getMetaPropertyByName(const QVector<QMetaProperty> &pro
     return {};
 }
 
-QStringList IMetaUtil::getIgnoredFields(const QMetaObject &meta)
+$InLine QStringList IMetaUtil::getIgnoredFields(const QMetaObject &meta)
 {
     QStringList ignoredFields;
     static const QString prefix = "iwebcore_bean_field_ignorable_";
@@ -113,7 +113,7 @@ QStringList IMetaUtil::getIgnoredFields(const QMetaObject &meta)
     return ignoredFields;
 }
 
-QVector<int> IMetaUtil::getIgnoredFieldIndexes(const QMetaObject &meta)
+$InLine QVector<int> IMetaUtil::getIgnoredFieldIndexes(const QMetaObject &meta)
 {
     static const QString prefix = "iwebcore_bean_field_ignorable_";
 
@@ -159,12 +159,12 @@ QVector<int> IMetaUtil::getIgnoredFieldIndexes(const QMetaObject &meta)
 //    return ret;
 //}
 
-QVector<QMetaMethod> IMetaUtil::getMetaMethods(const QMetaObject &meta)
+$InLine QVector<QMetaMethod> IMetaUtil::getMetaMethods(const QMetaObject &meta)
 {
     return getMetaMethods(&meta);
 }
 
-QVector<QMetaMethod> IMetaUtil::getMetaMethods(const QMetaObject *meta)
+$InLine QVector<QMetaMethod> IMetaUtil::getMetaMethods(const QMetaObject *meta)
 {
     QVector<QMetaMethod> ret;
     auto count = meta->methodCount();
@@ -174,7 +174,7 @@ QVector<QMetaMethod> IMetaUtil::getMetaMethods(const QMetaObject *meta)
     return ret;
 }
 
-QVector<QMetaProperty> IMetaUtil::getMetaProperties(const QMetaObject &meta)
+$InLine QVector<QMetaProperty> IMetaUtil::getMetaProperties(const QMetaObject &meta)
 {
     QVector<QMetaProperty> ret;
     auto count = meta.propertyCount();
@@ -184,7 +184,7 @@ QVector<QMetaProperty> IMetaUtil::getMetaProperties(const QMetaObject &meta)
     return ret;
 }
 
-QVector<QMetaProperty> IMetaUtil::getMetaProperties(const QMetaObject *meta)
+$InLine QVector<QMetaProperty> IMetaUtil::getMetaProperties(const QMetaObject *meta)
 {
     QVector<QMetaProperty> ret;
     auto count = meta->propertyCount();
@@ -194,12 +194,12 @@ QVector<QMetaProperty> IMetaUtil::getMetaProperties(const QMetaObject *meta)
     return ret;
 }
 
-QStringList IMetaUtil::getMetaPropertyNames(const QMetaObject &meta)
+$InLine QStringList IMetaUtil::getMetaPropertyNames(const QMetaObject &meta)
 {
     return getMetaPropertyMap(meta).keys();
 }
 
-QMap<QString, QMetaProperty> IMetaUtil::getMetaPropertyMap(const QMetaObject &meta)
+$InLine QMap<QString, QMetaProperty> IMetaUtil::getMetaPropertyMap(const QMetaObject &meta)
 {
     QMap<QString, QMetaProperty> ret;
     auto count = meta.propertyCount();
@@ -210,7 +210,7 @@ QMap<QString, QMetaProperty> IMetaUtil::getMetaPropertyMap(const QMetaObject &me
     return ret;
 }
 
-QMap<QString, QMetaProperty> IMetaUtil::getMetaPropertyMap(const QMetaObject *meta)
+$InLine QMap<QString, QMetaProperty> IMetaUtil::getMetaPropertyMap(const QMetaObject *meta)
 {
     QMap<QString, QMetaProperty> ret;
     auto count = meta->propertyCount();
@@ -221,7 +221,7 @@ QMap<QString, QMetaProperty> IMetaUtil::getMetaPropertyMap(const QMetaObject *me
     return ret;
 }
 
-QMap<QString, QVariant> IMetaUtil::toVariantMap(const void *handler, const QMetaObject &meta)
+$InLine QMap<QString, QVariant> IMetaUtil::toVariantMap(const void *handler, const QMetaObject &meta)
 {
     QMap<QString, QVariant> map;
     auto props = getMetaProperties(meta);
@@ -231,7 +231,7 @@ QMap<QString, QVariant> IMetaUtil::toVariantMap(const void *handler, const QMeta
     return map;
 }
 
-QMap<QString, QVariant> IMetaUtil::toVariantMap(const void *handler, const QMetaObject *meta)
+$InLine QMap<QString, QVariant> IMetaUtil::toVariantMap(const void *handler, const QMetaObject *meta)
 {
     QMap<QString, QVariant> map;
     auto props = getMetaProperties(meta);
@@ -241,20 +241,20 @@ QMap<QString, QVariant> IMetaUtil::toVariantMap(const void *handler, const QMeta
     return map;
 }
 
-void IMetaUtil::fromJsonObject(void *handler, const QMetaObject &meta, const QJsonObject &obj)
+$InLine void IMetaUtil::fromJsonObject(void *handler, const QMetaObject &meta, const QJsonObject &obj)
 {
     auto map = IConvertUtil::toMap(obj);
     return fromVariantMap(handler, meta, map);
 }
 
-void IMetaUtil::fromJsonObject(void *handler, const QMetaObject *meta, const QJsonObject &obj)
+$InLine void IMetaUtil::fromJsonObject(void *handler, const QMetaObject *meta, const QJsonObject &obj)
 {
     auto map = IConvertUtil::toMap(obj);
     return fromVariantMap(handler, meta, map);
 }
 
 
-void IMetaUtil::fromVariantMap(void *handler, const QMetaObject &meta, const QMap<QString, QVariant> &map)
+$InLine void IMetaUtil::fromVariantMap(void *handler, const QMetaObject &meta, const QMap<QString, QVariant> &map)
 {
     auto props = getMetaProperties(meta);
     for(const auto& prop : props){
@@ -265,7 +265,7 @@ void IMetaUtil::fromVariantMap(void *handler, const QMetaObject &meta, const QMa
     }
 }
 
-void IMetaUtil::fromVariantMap(void *handler, const QMetaObject *meta, const QMap<QString, QVariant> &map)
+$InLine void IMetaUtil::fromVariantMap(void *handler, const QMetaObject *meta, const QMap<QString, QVariant> &map)
 {
     auto props = getMetaProperties(meta);
     for(const auto& prop : props){
@@ -276,7 +276,7 @@ void IMetaUtil::fromVariantMap(void *handler, const QMetaObject *meta, const QMa
     }
 }
 
-bool IMetaUtil::writeProperty(const QMetaProperty &prop, void *handler, const QVariant &value)
+$InLine bool IMetaUtil::writeProperty(const QMetaProperty &prop, void *handler, const QVariant &value)
 {
     Q_ASSERT(!QString(prop.name()).isEmpty());
     if(prop.isWritable()){
@@ -286,7 +286,7 @@ bool IMetaUtil::writeProperty(const QMetaProperty &prop, void *handler, const QV
     return false;
 }
 
-QVariant IMetaUtil::readProperty(const QMetaProperty &prop, const void *handler)
+$InLine QVariant IMetaUtil::readProperty(const QMetaProperty &prop, const void *handler)
 {
     return prop.readOnGadget(handler);
 }

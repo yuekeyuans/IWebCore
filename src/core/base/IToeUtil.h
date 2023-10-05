@@ -26,73 +26,10 @@ namespace IToeUtil
     bool isTruthy(const QString& value);
 
     QString trimQuote(const QString& content);
-};
-
-inline void IToeUtil::setOk(bool &ok, bool value)
-{
-    ok = value;
 }
-
-inline void IToeUtil::setOk(bool *ok, bool value)
-{
-    if(ok != nullptr){
-        *ok = value;
-    }
-}
-
-inline void IToeUtil::setOk(bool condition, bool *ok, bool value)
-{
-    if(condition){
-        if(ok != nullptr){
-            *ok = value;
-        }
-    }
-}
-
-inline void IToeUtil::setOk(bool condition, bool &ok, bool value)
-{
-    if(condition){
-        ok = value;
-    }
-}
-
-inline void IToeUtil::setOkAnd(bool *ok, bool value)
-{
-    if(ok != nullptr){
-        *ok &= value;
-    }
-}
-
-
-inline void IToeUtil::setOkAnd(bool &ok, bool value)
-{
-    ok &= value;
-}
-
-
-inline void IToeUtil::setOkOr(bool *ok, bool value)
-{
-    if(ok != nullptr){
-        *ok |= value;
-    }
-}
-
-inline void IToeUtil::setOkOr(bool &ok, bool value)
-{
-    ok |= value;
-}
-
-inline void IToeUtil::setOkXor(bool *ok, bool value)
-{
-    if(ok != nullptr){
-        *ok ^= value;
-    }
-}
-
-inline void IToeUtil::setOkXor(bool &ok, bool value)
-{
-    ok ^= value;
-}
-
 
 $PackageWebCoreEnd
+
+#ifdef $UseInLineMode
+    #include "IToeUtil.cpp"
+#endif

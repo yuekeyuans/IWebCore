@@ -33,3 +33,6 @@ $PackageWebCoreEnd
         qDebug().noquote() << std::chrono::duration_cast<std::chrono::microseconds>(timeTac - timeTic).count() * 1.0 / 1000  << timeTip;  \
     }while(0);
 
+#ifdef $UseInLineMode
+    #include "ITicTacUtil.cpp"
+#endif

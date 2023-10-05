@@ -6,32 +6,30 @@ class IBeanTypeManagePrivate
 {
 public:
     QStringList m_beanNames;
-    QStringList m_nameSpaces;
+//    QStringList m_nameSpaces;
 };
 
-
-IBeanTypeManage::IBeanTypeManage()
+$InLine IBeanTypeManage::IBeanTypeManage()
     : d_ptr(std::make_shared<IBeanTypeManagePrivate>())
 {
 }
 
-void IBeanTypeManage::registerBeanType(const QString &typeName)
+$InLine void IBeanTypeManage::registerBeanType(const QString &typeName)
 {
     auto name = typeName.split(' ').last();
     auto inst = instance();
     inst->d_ptr->m_beanNames.append(name);
 }
 
-void IBeanTypeManage::registerNamespace(const QString &nmspace)
-{
-    auto inst = instance();
-    inst->d_ptr->m_nameSpaces.append(nmspace);
-}
+//$InLine void IBeanTypeManage::registerNamespace(const QString &nmspace)
+//{
+//    auto inst = instance();
+//    inst->d_ptr->m_nameSpaces.append(nmspace);
+//}
 
 // 这一个不能够完全判断一个 typeName 就是一个bean, 也会有出错的时候，但是忽略掉。
-bool IBeanTypeManage::containBean(const QString &typeName)
+$InLine bool IBeanTypeManage::containBean(const QString &typeName)
 {
-
     auto inst = instance();
     QString name = typeName;
     const auto& beanNames = inst->d_ptr->m_beanNames;
@@ -49,6 +47,5 @@ bool IBeanTypeManage::containBean(const QString &typeName)
     }
     return false;
 }
-
 
 $PackageWebCoreEnd

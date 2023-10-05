@@ -43,6 +43,7 @@ namespace IConstantUtil
     static constexpr bool IServerNameMiddleWareEnabeld = true;
     static constexpr bool ICookiePluginEnabled = true;
     static constexpr bool ICorsPluginEnabled = true;
+    static constexpr double IDefaultOrderValue = 50;
 
 
     void deprecateWarning();

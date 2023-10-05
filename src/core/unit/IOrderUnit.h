@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "core/base/IConstantUtil.h"
 
 $PackageWebCoreBegin
 
@@ -17,7 +18,7 @@ public:
 
 inline double IOrderUnit::order() const
 {
-    return 50;
+    return IConstantUtil::IDefaultOrderValue;
 }
 
 template<typename T>

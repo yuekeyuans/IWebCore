@@ -1,6 +1,5 @@
 ﻿#include "IFileUtil.h"
 #include "IToeUtil.h"
-#include <filesystem>
 
 $PackageWebCoreBegin
 

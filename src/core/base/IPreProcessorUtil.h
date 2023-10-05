@@ -119,3 +119,24 @@ private:    \
 #else
     #define $InLine
 #endif
+
+#define $DeclareInit(klassName) \
+private:    \
+    class klassName ## InitPrivate{ \
+    public: \
+        klassName ## InitPrivate(); \
+    };  \
+    static klassName ## InitPrivate m_private;  \
+    virtual void* klassName ## InitPrivateTouch(){  \
+        return &m_private;  \
+    }
+
+#define $UseInit(klassName) \
+    template<typename T, bool enabled>  \
+    typename klassName <T, enabled>:: \
+             klassName ## InitPrivate \
+             klassName <T, enabled>::m_private;    \
+    template<typename T, bool enabled>  \
+             klassName<T, enabled>:: \
+             klassName ## InitPrivate ::     \
+             klassName ## InitPrivate ()
