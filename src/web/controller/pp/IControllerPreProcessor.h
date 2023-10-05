@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "core/base/IPreProcessorUtil.h"
-#include "core/context/IConfigurationPreProcessor.h"
+#include "core/context/IContextPreProcessor.h"
 
 #define $AsController_1(klassName) \
     $UseInstance(klassName) \

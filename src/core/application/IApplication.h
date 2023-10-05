@@ -11,7 +11,8 @@ class IApplication : public QCoreApplication
     Q_DISABLE_COPY_MOVE(IApplication)
     Q_CREATE_ON_STACK_ONLY
 public:
-    IApplication(int argc, char** argv);
+    IApplication();
+    explicit IApplication(int argc, char** argv);
     static IApplication* theInstance();
     static QStringList arguments();
 };

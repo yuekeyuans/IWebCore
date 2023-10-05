@@ -26,7 +26,7 @@ public:
     bool operator <(const T& vlaue) const;
     bool operator >(const T& value) const;
     operator T() const;
-    operator *();
+//    operator *();
 
 private:    // only run  in stack
     void* operator new[] (std::size_t size) = delete;
@@ -100,11 +100,11 @@ IContextImport<T>::operator T() const
     return get();
 }
 
-template<typename T>
-IContextImport<T>::operator *()
-{
-    return get();
-}
+//template<typename T>
+//IContextImport<T>::operator *()
+//{
+//    return get();
+//}
 
 template<typename T>
 T &IContextImport<T>::get() const
