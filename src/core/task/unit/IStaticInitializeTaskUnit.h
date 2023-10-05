@@ -9,7 +9,7 @@ $PackageWebCoreBegin
 template<typename T, bool enabled=true>
 class IStaticInitializeTaskUnit : public ITaskWare
 {
-    $DeclareInit(IStaticInitializeTaskUnit)
+    $AsRegistray(IStaticInitializeTaskUnit)
 public:
     IStaticInitializeTaskUnit() = default;
 
@@ -17,7 +17,7 @@ public:
     virtual void task() = 0;
 };
 
-$UseInit(IStaticInitializeTaskUnit)
+$UseRegistray(IStaticInitializeTaskUnit)
 {
     if(enabled){
         static std::once_flag flag;

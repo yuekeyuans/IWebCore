@@ -120,7 +120,7 @@ private:    \
     #define $InLine
 #endif
 
-#define $DeclareInit(klassName) \
+#define $AsRegistray(klassName) \
 private:    \
     class klassName ## InitPrivate{ \
     public: \
@@ -131,7 +131,7 @@ private:    \
         return &m_private;  \
     }
 
-#define $UseInit(klassName) \
+#define $UseRegistray(klassName) \
     template<typename T, bool enabled>  \
     typename klassName <T, enabled>:: \
              klassName ## InitPrivate \
