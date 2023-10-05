@@ -184,7 +184,6 @@ HEADERS += \
     $$PWD/web/session/ISessionWare.h
 
 SOURCES += \
-    $$PWD/core/base/IConstantUtil.cpp \
     $$PWD/core/base/ICodecUtil.cpp \
     $$PWD/core/base/IConvertUtil.cpp \
     $$PWD/core/base/IFileUtil.cpp \

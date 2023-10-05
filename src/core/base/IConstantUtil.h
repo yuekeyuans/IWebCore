@@ -6,7 +6,6 @@ $PackageWebCoreBegin
 
 namespace IConstantUtil
 {
-    // debugMode;
 #ifdef QT_DEBUG
     static constexpr bool DebugMode = true;
     static constexpr bool ReleaseMode = false;
@@ -46,10 +45,10 @@ namespace IConstantUtil
     static constexpr bool ICorsPluginEnabled = true;
 
 
-    inline void deprecateWarning();
-};
+    void deprecateWarning();
+}
 
-void IConstantUtil::deprecateWarning(){
+inline void IConstantUtil::deprecateWarning(){
     Q_UNUSED(DebugMode)
     Q_UNUSED(ReleaseMode)
 

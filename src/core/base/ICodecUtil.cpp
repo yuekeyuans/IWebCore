@@ -2,78 +2,12 @@
 
 $PackageWebCoreBegin
 
-QByteArray ICodecUtil::toBase64(const QString &content)
-{
-    return toBase64(content.toUtf8());
-}
-
-QByteArray ICodecUtil::toBase64(const QByteArray& content)
-{
-    return content.toBase64();
-}
-
-QByteArray ICodecUtil::toBase64(const char *content)
-{
-    return toBase64(QByteArray(content));
-}
-
-QByteArray ICodecUtil::fromBase64(const QString &content)
-{
-    return fromBase64(content.toUtf8());
-}
-
-QByteArray ICodecUtil::fromBase64(const QByteArray &content)
-{
-    return QByteArray::fromBase64(content);
-}
-
-QByteArray ICodecUtil::fromBase64(const char *content)
-{
-    return fromBase64(QByteArray(content));
-}
-
-quint16 ICodecUtil::crc16(const QString &content)
-{
-    auto data = content.toStdString();
-    return qChecksum(data.c_str(), static_cast<uint>(data.length()));
-}
-
-QByteArray ICodecUtil::compress(const QString &content, int level)
-{
-    return qCompress(content.toUtf8(), level);
-}
-
-QByteArray ICodecUtil::compress(const QByteArray &content, int level)
-{
-    return qCompress(content, level);
-}
-
-QByteArray ICodecUtil::compress(const char *content, int level)
-{
-    return qCompress(content, level);
-}
-
-QByteArray ICodecUtil::uncompress(const QString &content)
-{
-    return uncompress(content.toUtf8());
-}
-
-QByteArray ICodecUtil::uncompress(const QByteArray &content)
-{
-    return qUncompress(content);
-}
-
-QByteArray ICodecUtil::uncompress(const char *content)
-{
-    return uncompress(QByteArray(content));
-}
-
-unsigned char ToHex(unsigned char x)
+$InLine static unsigned char ToHex(unsigned char x)
 {
     return  x > 9 ? x + 55 : x + 48;
 }
 
-unsigned char FromHex(unsigned char x)
+$InLine static unsigned char FromHex(unsigned char x)
 {
     unsigned char y{0};
     if (x >= 'A' && x <= 'Z') y = x - 'A' + 10;
@@ -83,13 +17,13 @@ unsigned char FromHex(unsigned char x)
     return y;
 }
 
-QByteArray ICodecUtil::urlEncode(const QString &rawUrl)
+$InLine QByteArray ICodecUtil::urlEncode(const QString &rawUrl)
 {
     QByteArray str = rawUrl.toUtf8();
     return urlEncode(str);
 }
 
-QByteArray ICodecUtil::urlEncode(const QByteArray &str)
+$InLine QByteArray ICodecUtil::urlEncode(const QByteArray &str)
 {
     QByteArray strTemp;
     uint length = str.length();
@@ -113,13 +47,13 @@ QByteArray ICodecUtil::urlEncode(const QByteArray &str)
     return strTemp;
 }
 
-QByteArray ICodecUtil::urlDecode(const QString &rawUrl)
+$InLine QByteArray ICodecUtil::urlDecode(const QString &rawUrl)
 {
     QByteArray str = rawUrl.toLocal8Bit();
     return urlDecode(str);
 }
 
-QByteArray ICodecUtil::urlDecode(const QByteArray &str)
+$InLine QByteArray ICodecUtil::urlDecode(const QByteArray &str)
 {
     QByteArray strTemp;
     uint length = str.length();
@@ -138,7 +72,7 @@ QByteArray ICodecUtil::urlDecode(const QByteArray &str)
     return strTemp;
 }
 
-QString ICodecUtil::pathEncode(const QString &rawPath)
+$InLine QString ICodecUtil::pathEncode(const QString &rawPath)
 {
     QByteArray strTemp;
     QByteArray str = rawPath.toLocal8Bit();
