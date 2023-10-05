@@ -20,19 +20,22 @@ public:
         ConfigurationCovertYamlFailError,
         TaskDeferRegisterNotAllowed,
     };
-    Q_ENUM(Type);
+    Q_ENUM(Type)
 public:
     IGlobalAssert() = default;
+
+public:
+    using IAssertInterface::fatal;
     void fatal(Type type);
     void fatal(Type type, const IAssertInfo& info);
     void fatal(Type type, const QString& reason);
 
-    void fatal(const QString& name);
-    void fatal(const QString& name, const IAssertInfo& info);
-    void fatal(const QString& name, const QString& reason);
-
 public:
-    virtual void loadFromFunction() final;
+    virtual void loadAssert() final;
 };
 
 $PackageWebCoreEnd
+
+#ifdef $UseInLineMode
+    #include "IGlobalAssert.cpp"
+#endif

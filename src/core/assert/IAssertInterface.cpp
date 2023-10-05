@@ -10,60 +10,7 @@ namespace IAssertInterfaceHelper
     QString getOutput(const QString& name, const QPair<QString, QString>& value, const IAssertInfo& info);
 }
 
-void IAssertInterface::load(const QString& klassName)
-{
-    std::call_once(flag, [&](){
-        loadFromFunction();
-
-        auto value = this->loadFromJsonString();
-        if(!value.isEmpty()){
-            bool ok;
-            auto json = IJsonUtil::toJsonObject(value, &ok);
-            if(!ok){
-                IAssertInfo info;
-                info.className = klassName;
-                IGlobalAssert::instance()->fatal("Assert_Load_Json_Error", info);
-            }
-
-            QStringList types = json.keys();
-            for(const auto& type : types){
-                auto obj = json[type].toObject();
-                auto keys = obj.keys();
-                for(const auto& key : keys){
-                    auto array = obj[key].toArray();
-                    if(array.size() == 1){
-                        if(type == "fatal"){
-                            addFatal(key, array.first().toString());
-                        }else if(type == "warn"){
-                            addWarn(key, array.first().toString());
-                        }else{
-                            addDebug(key, array.first().toString());
-                        }
-                    }else if(array.size() == 2){
-                        if(type == "fatal"){
-                            addFatal(key, array.first().toString(), array.last().toString());
-                        }else if(type == "warn"){
-                            addWarn(key, array.first().toString(), array.last().toString());
-                        }else{
-                            addDebug(key, array.first().toString(), array.last().toString());
-                        }
-                    }
-                }
-            }
-        }
-    });
-}
-
-QString IAssertInterface::loadFromJsonString()
-{
-    return "";
-}
-
-void IAssertInterface::loadFromFunction()
-{
-}
-
-void IAssertInterface::fatal(const QString &name)
+$InLine void IAssertInterface::fatal(const QString &name)
 {
     if(m_fatal.contains(name)){
         auto str = IAssertInterfaceHelper::getOutput(name, m_fatal[name]);
@@ -72,7 +19,7 @@ void IAssertInterface::fatal(const QString &name)
     }
 }
 
-void IAssertInterface::fatal(const QString &name, const IAssertInfo &info)
+$InLine void IAssertInterface::fatal(const QString &name, const IAssertInfo &info)
 {
     if(m_fatal.contains(name)){
         auto str = IAssertInterfaceHelper::getOutput(name, m_fatal[name], info);
@@ -80,7 +27,7 @@ void IAssertInterface::fatal(const QString &name, const IAssertInfo &info)
     }
 }
 
-void IAssertInterface::warn(const QString &name)
+$InLine void IAssertInterface::warn(const QString &name)
 {
     if(m_warn.contains(name)){
         auto str = IAssertInterfaceHelper::getOutput(name, m_warn[name]);
@@ -88,7 +35,7 @@ void IAssertInterface::warn(const QString &name)
     }
 }
 
-void IAssertInterface::warn(const QString &name, const IAssertInfo &info)
+$InLine void IAssertInterface::warn(const QString &name, const IAssertInfo &info)
 {
     if(m_warn.contains(name)){
         auto str = IAssertInterfaceHelper::getOutput(name, m_warn[name], info);
@@ -96,7 +43,7 @@ void IAssertInterface::warn(const QString &name, const IAssertInfo &info)
     }
 }
 
-void IAssertInterface::debug(const QString &name)
+$InLine void IAssertInterface::debug(const QString &name)
 {
     if(m_warn.contains(name)){
         auto str = IAssertInterfaceHelper::getOutput(name, m_warn[name]);
@@ -104,7 +51,7 @@ void IAssertInterface::debug(const QString &name)
     }
 }
 
-void IAssertInterface::debug(const QString &name, const IAssertInfo &info)
+$InLine void IAssertInterface::debug(const QString &name, const IAssertInfo &info)
 {
     if(m_warn.contains(name)){
         auto str = IAssertInterfaceHelper::getOutput(name, m_warn[name], info);
@@ -112,7 +59,7 @@ void IAssertInterface::debug(const QString &name, const IAssertInfo &info)
     }
 }
 
-void IAssertInterface::addFatal(const QString &tag, const QString &info, const QString &solution)
+$InLine void IAssertInterface::addFatal(const QString &tag, const QString &info, const QString &solution)
 {
     if(m_fatal.contains(tag)){
         auto info = QString("tag, already exist, please check your code. tag: ").append(tag);
@@ -121,7 +68,7 @@ void IAssertInterface::addFatal(const QString &tag, const QString &info, const Q
     m_fatal[tag] = {info, solution};
 }
 
-void IAssertInterface::addWarn(const QString &tag, const QString &info, const QString &solution)
+$InLine void IAssertInterface::addWarn(const QString &tag, const QString &info, const QString &solution)
 {
     if(m_warn.contains(tag)){
         auto info = QString("tag, already exist, please check your code. tag: ").append(tag);
@@ -130,7 +77,7 @@ void IAssertInterface::addWarn(const QString &tag, const QString &info, const QS
     m_warn[tag] = {info, solution};
 }
 
-void IAssertInterface::addDebug(const QString &tag, const QString &info, const QString &solution)
+$InLine void IAssertInterface::addDebug(const QString &tag, const QString &info, const QString &solution)
 {
     if(m_debug.contains(tag)){
         auto info = QString("tag, already exist, please check your code. tag: ").append(tag);
@@ -139,7 +86,7 @@ void IAssertInterface::addDebug(const QString &tag, const QString &info, const Q
     m_debug[tag] = {info, solution};
 }
 
-QString IAssertInterfaceHelper::getOutput(const QString& name, const QPair<QString, QString>& value)
+$InLine QString IAssertInterfaceHelper::getOutput(const QString& name, const QPair<QString, QString>& value)
 {
     QString ret;
     ret.append("[TAG] ").append(name);
@@ -152,7 +99,7 @@ QString IAssertInterfaceHelper::getOutput(const QString& name, const QPair<QStri
     return ret;
 }
 
-QString IAssertInterfaceHelper::getOutput(const QString& name, const QPair<QString, QString>& value, const IAssertInfo& info)
+$InLine QString IAssertInterfaceHelper::getOutput(const QString& name, const QPair<QString, QString>& value, const IAssertInfo& info)
 {
     auto ret = getOutput(name, value);
     ret.append(info);

@@ -12,7 +12,7 @@ class IRequestAssert : public IAssertInterface
 public:
     IRequestAssert() = default;
 
-    virtual void loadFromFunction() final;
+    virtual void loadAssert() final;
 };
 
 $PackageWebCoreEnd

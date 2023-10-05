@@ -8,7 +8,10 @@
 public:     \
     static klassName* instance(){   \
         static klassName inst;  \
-        inst.load(IMetaUtil::getMetaClassName(klassName::staticMetaObject));    \
+        static std::once_flag flag;     \
+        std::call_once(flag, [&](){ \
+                inst.loadAssert();    \
+        }); \
         return &inst;   \
     }   \
 private:

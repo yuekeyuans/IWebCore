@@ -2,7 +2,7 @@
 
 $PackageWebCoreBegin
 
-void IOrmAssert::loadFromFunction()
+void IOrmAssert::loadAssert()
 {
 
     addFatal("orm_view_can_not_be_created"

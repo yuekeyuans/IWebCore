@@ -2,19 +2,19 @@
 
 $PackageWebCoreBegin
 
-void IGlobalAssert::fatal(IGlobalAssert::Type type)
+$InLine void IGlobalAssert::fatal(IGlobalAssert::Type type)
 {
     QString name = QMetaEnum::fromType<IGlobalAssert::Type>().valueToKey(type);
     this->IAssertInterface::fatal(name);
 }
 
-void IGlobalAssert::fatal(IGlobalAssert::Type type, const IAssertInfo &info)
+$InLine void IGlobalAssert::fatal(IGlobalAssert::Type type, const IAssertInfo &info)
 {
     QString name = QMetaEnum::fromType<IGlobalAssert::Type>().valueToKey(type);
     this->IAssertInterface::fatal(name, info);
 }
 
-void IGlobalAssert::fatal(IGlobalAssert::Type type, const QString &reason)
+$InLine void IGlobalAssert::fatal(IGlobalAssert::Type type, const QString &reason)
 {
     IAssertInfo info;
     info.reason = reason;
@@ -22,24 +22,7 @@ void IGlobalAssert::fatal(IGlobalAssert::Type type, const QString &reason)
     this->IAssertInterface::fatal(name, info);
 }
 
-void IGlobalAssert::fatal(const QString &name)
-{
-    this->IAssertInterface::fatal(name);
-}
-
-void IGlobalAssert::fatal(const QString &name, const IAssertInfo &info)
-{
-    this->IAssertInterface::fatal(name, info);
-}
-
-void IGlobalAssert::fatal(const QString &name, const QString &reason)
-{
-    IAssertInfo info;
-    info.reason = reason;
-    this->IAssertInterface::fatal(name, info);
-}
-
-void IGlobalAssert::loadFromFunction()
+$InLine void IGlobalAssert::loadAssert()
 {
     // IApplication
     addFatal("IApplication_not_created", "you can not get any IApplication instance when IApplication not created");

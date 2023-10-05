@@ -2,7 +2,7 @@
 
 $PackageWebCoreBegin
 
-void IWebAssert::loadFromFunction()
+void IWebAssert::loadAssert()
 {
     addFatal("IRequest_IResponse_COPY_MOVE_ERROR", "IRequest and IResponse can not be copied or moved. It meanse operator=() can not be called and when you pass IRequest or IResposne, you must use (const) reference or pointer to refer to IRequest/IResposne. like IRequest&/IResposne& (or with const as prefix)");
     addFatal("IRequest_IResponse_CREATE_ERROR", "IRequest or IResponse can not be created by user. It must be created by framework itself");

@@ -7,9 +7,6 @@ $PackageWebCoreBegin
 struct IAssertInfo
 {
 public:
-    IAssertInfo() = default;
-
-public:
     operator QString() const;
 
 public:

@@ -12,7 +12,7 @@ class IOrmAssert : public IAssertInterface
 public:
     IOrmAssert() = default;
 
-    virtual void loadFromFunction() final;
+    virtual void loadAssert() final;
 };
 
 $PackageWebCoreEnd

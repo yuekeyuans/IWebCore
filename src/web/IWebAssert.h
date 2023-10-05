@@ -12,7 +12,7 @@ class IWebAssert : public IAssertInterface
 public:
     IWebAssert() = default;
 
-    virtual void loadFromFunction() final;
+    virtual void loadAssert() final;
 };
 
 $PackageWebCoreEnd
