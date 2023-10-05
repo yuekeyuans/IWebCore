@@ -13,8 +13,11 @@ class IApplication : public QCoreApplication
 public:
     IApplication();
     explicit IApplication(int argc, char** argv);
-    static IApplication* theInstance();
-    static QStringList arguments();
+    ~IApplication() = default;
+
+public:
+    static const IApplication* theInstance();
+    static const QStringList& arguments();
 };
 
 #define iApp IApplication::theInstance();

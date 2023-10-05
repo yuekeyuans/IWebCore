@@ -3,7 +3,6 @@
 #define PP_EXPAND(X) X    // for MSVC10 compatibility
 #define PP_JOIN(X, Y) X##Y
 #define PP_STRING(X) #X
-
 #define PP_NARG(...) PP_EXPAND( PP_NARG_(__VA_ARGS__, PP_RSEQ_N()) )
 #define PP_NARG_(...) PP_EXPAND( PP_ARG_N(__VA_ARGS__) )
 #define PP_ARG_N(_1, _2, _3, _4, _5, _6, _7, _8, _9, N, ...) N
@@ -26,6 +25,8 @@
 private:    \
     Q_DECLARE_PRIVATE(klass);    \
     std::shared_ptr<klass##Private> d_ptr {nullptr};
+
+#define Q_DEC
 
 #define $AsCatagory(klassName)  $UseInstance(klassName)
 
@@ -108,3 +109,13 @@ private:    \
     void* operator new(size_t) noexcept {return nullptr;};  \
     void operator delete(void*){};  \
 
+// support for inline directory
+#ifdef UseInLineMode
+    #define $UseInLineMode
+#endif
+
+#ifdef $UseInLineMode
+    #define $InLine inline
+#else
+    #define $InLine
+#endif

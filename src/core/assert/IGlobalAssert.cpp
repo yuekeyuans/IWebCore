@@ -41,6 +41,9 @@ void IGlobalAssert::fatal(const QString &name, const QString &reason)
 
 void IGlobalAssert::loadFromFunction()
 {
+    // IApplication
+    addFatal("IApplication_not_created", "you can not get any IApplication instance when IApplication not created");
+
     /// global
     addFatal("Assert_Load_Json_Error", "your json format is not correct");
     addFatal("UnImplimentedMethod", "this method is not implimented.");

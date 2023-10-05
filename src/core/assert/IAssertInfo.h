@@ -4,11 +4,12 @@
 
 $PackageWebCoreBegin
 
-class IAssertInfo
+struct IAssertInfo
 {
 public:
     IAssertInfo() = default;
 
+public:
     operator QString() const;
 
 public:
@@ -23,3 +24,7 @@ public:
 };
 
 $PackageWebCoreEnd
+
+#ifdef $UseInLineMode
+    #include "IAssertInfo.cpp"
+#endif

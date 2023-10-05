@@ -22,7 +22,6 @@ HEADERS += \
     $$PWD/core/base/ITraitHelper.h \
     $$PWD/core/base/IXmlUtil.h \
     $$PWD/core/application/IApplication.h \
-    $$PWD/core/ICoreAssert.h \
     $$PWD/core/application/IApplicationPreProcessor.h \
     $$PWD/core/assert/IAssertInfo.h \
     $$PWD/core/assert/IAssertInterface.h \
@@ -200,7 +199,6 @@ SOURCES += \
     $$PWD/core/base/IToeUtil.cpp \
     $$PWD/core/base/ITraitHelper.cpp \
     $$PWD/core/base/IXmlUtil.cpp \
-    $$PWD/core/ICoreAssert.cpp \
     $$PWD/core/application/IApplication.cpp \
     $$PWD/core/assert/IAssertInfo.cpp \
     $$PWD/core/assert/IAssertInterface.cpp \
