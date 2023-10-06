@@ -17,8 +17,7 @@ public:
     virtual ~IBeanInterface() = default;
 
 public:
-    virtual QString name() const final;
-    virtual QString catagory() const final;
+    virtual QString name() const;
     virtual void task() final;
 };
 
@@ -26,12 +25,6 @@ template <typename T, bool enabled>
 QString IBeanInterface<T, enabled>::name() const
 {
     return IMetaUtil::getMetaClassName(T::staticMetaObject);
-}
-
-template<typename T, bool enabled>
-QString IBeanInterface<T, enabled>::catagory() const
-{
-    return "Bean";
 }
 
 template<typename T, bool enabled>
