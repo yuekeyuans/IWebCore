@@ -17,8 +17,8 @@ public:
     virtual ~IBeanInterface() = default;
 
 public:
-    virtual QString name() const override;
-    virtual QString catagory() const override;
+    virtual QString name() const final;
+    virtual QString catagory() const final;
     virtual void task() final;
 };
 
