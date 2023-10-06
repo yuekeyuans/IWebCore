@@ -17,3 +17,8 @@ private:
 };
 
 $PackageWebCoreEnd
+
+#ifdef $UseInLineMode
+    #include "IStartupTaskCatagory.cpp"
+#endif
+

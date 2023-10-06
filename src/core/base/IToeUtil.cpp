@@ -69,7 +69,6 @@ $InLine void IToeUtil::setOkXor(bool &ok, bool value)
     ok ^= value;
 }
 
-
 $InLine bool IToeUtil::isPrimaryKeyType(QMetaType::Type type)
 {
     static const QMetaType::Type PrimaryKeyTypes[4] = {QMetaType::Int, QMetaType::Long, QMetaType::LongLong, QMetaType::QString};

@@ -22,8 +22,8 @@ $UseRegistray(IStaticInitializeTaskUnit)
     if(enabled){
         static std::once_flag flag;
         std::call_once(flag, []{
-            static auto inst = new T();
-            inst->task();
+            T inst;
+            inst.task();
         });
     }
 }

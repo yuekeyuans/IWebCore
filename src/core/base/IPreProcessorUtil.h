@@ -110,14 +110,18 @@ private:    \
     void operator delete(void*){};  \
 
 // support for inline directory
-#ifdef UseInLineMode
-    #define $UseInLineMode
+#ifndef $UseInLineMode
+    #ifdef UseInLineMode
+        #define $UseInLineMode
+    #endif
 #endif
 
-#ifdef $UseInLineMode
-    #define $InLine inline
-#else
-    #define $InLine
+#ifndef $InLine
+    #ifdef $UseInLineMode
+        #define $InLine inline
+    #else
+        #define $InLine
+    #endif
 #endif
 
 #define $AsRegistray(klassName) \

@@ -9,7 +9,7 @@ class OneBean : public IBeanInterface<OneBean>
 public:
     OneBean() = default;
 
-    $BeanField(int, id);
+    $BeanField(int, id)
 
     $BeanFieldDeclare(QString, name)
     QString name = "yuekeyuan";

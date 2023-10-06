@@ -37,7 +37,6 @@ HEADERS += \
     $$PWD/core/context/IContextTaskInterface.h \
     $$PWD/core/context/IContextWirePreProcessor.h \
     $$PWD/core/context/IContextWritter.h \
-    $$PWD/core/context/default/IContextDefaultConfigTask.h \
     $$PWD/core/context/default/IContextJsonConfigTask.h \
     $$PWD/core/context/default/IContextSystemVariableTask.h \
     $$PWD/core/context/default/IContextTomlConfigTask.h \
@@ -207,7 +206,6 @@ SOURCES += \
     $$PWD/core/context/IContextImport.cpp \
     $$PWD/core/context/IContextManage.cpp \
     $$PWD/core/context/IContextWritter.cpp \
-    $$PWD/core/context/default/IContextDefaultConfigTask.cpp \
     $$PWD/core/context/default/IContextJsonConfigTask.cpp \
     $$PWD/core/context/default/IContextSystemVariableTask.cpp \
     $$PWD/core/context/default/IContextTomlConfigTask.cpp \

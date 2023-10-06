@@ -1,12 +1,13 @@
 ﻿#pragma once
+
 #include "core/base/IHeaderUtil.h"
 
 $PackageWebCoreBegin
 
 namespace IToeUtil
 {
-    void setOk(bool* ok, bool value);
     void setOk(bool& ok, bool value);
+    void setOk(bool* ok, bool value);
 
     void setOk(bool condition, bool* ok, bool value);
     void setOk(bool condition, bool& ok, bool value);

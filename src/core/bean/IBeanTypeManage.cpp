@@ -6,7 +6,6 @@ class IBeanTypeManagePrivate
 {
 public:
     QStringList m_beanNames;
-//    QStringList m_nameSpaces;
 };
 
 $InLine IBeanTypeManage::IBeanTypeManage()
@@ -21,18 +20,11 @@ $InLine void IBeanTypeManage::registerBeanType(const QString &typeName)
     inst->d_ptr->m_beanNames.append(name);
 }
 
-//$InLine void IBeanTypeManage::registerNamespace(const QString &nmspace)
-//{
-//    auto inst = instance();
-//    inst->d_ptr->m_nameSpaces.append(nmspace);
-//}
-
-// 这一个不能够完全判断一个 typeName 就是一个bean, 也会有出错的时候，但是忽略掉。
 $InLine bool IBeanTypeManage::containBean(const QString &typeName)
 {
     auto inst = instance();
     QString name = typeName;
-    const auto& beanNames = inst->d_ptr->m_beanNames;
+    const QStringList& beanNames = inst->d_ptr->m_beanNames;
     if(typeName.endsWith("&")){
         name = typeName.mid(0, typeName.length() -1);
     }
