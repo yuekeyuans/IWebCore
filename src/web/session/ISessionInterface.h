@@ -3,7 +3,6 @@
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IMetaUtil.h"
 #include "core/task/unit/IManagedTaskWareUnit.h"
-#include "web/session/ISessionTaskUnit.h"
 #include "web/session/ISessionWare.h"
 
 $PackageWebCoreBegin

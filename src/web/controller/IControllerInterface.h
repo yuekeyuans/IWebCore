@@ -13,7 +13,7 @@ $PackageWebCoreBegin
 struct IControllerInfo;
 
 template<typename T, bool enabled = true>
-class IControllerInterface : public ITaskWare, public IManagedTaskWareUnit<T, enabled>
+class IControllerInterface : public IManagedTaskWareUnit<T, enabled>
 {
 public:
     IControllerInterface() = default;

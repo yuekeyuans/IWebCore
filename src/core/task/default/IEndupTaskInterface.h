@@ -2,14 +2,13 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IMetaUtil.h"
-#include "core/task/ITaskWare.h"
 #include "core/task/ITaskManage.h"
 #include "core/task/unit/IManagedTaskWareUnit.h"
 
 $PackageWebCoreBegin
 
 template<typename T, bool enabled=true>
-class IEndupTaskInterface : public ITaskWare, public IManagedTaskWareUnit<T, enabled>
+class IEndupTaskInterface : public IManagedTaskWareUnit<T, enabled>
 {
 public:
     IEndupTaskInterface() = default;

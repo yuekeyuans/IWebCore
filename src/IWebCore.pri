@@ -181,7 +181,6 @@ HEADERS += \
     $$PWD/web/server/quenedServer/IQueneServer.h \
     $$PWD/web/session/ISessionInterface.h \
     $$PWD/web/session/ISessionManager.h \
-    $$PWD/web/session/ISessionTaskUnit.h \
     $$PWD/web/session/ISessionWare.h
 
 SOURCES += \
@@ -322,7 +321,6 @@ SOURCES += \
     $$PWD/web/server/quenedServer/IQueneServer.cpp \
     $$PWD/web/session/ISessionInterface.cpp \
     $$PWD/web/session/ISessionManager.cpp \
-    $$PWD/web/session/ISessionTaskUnit.cpp \
     $$PWD/web/session/ISessionWare.cpp
 
 HEADERS += \

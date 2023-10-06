@@ -16,23 +16,7 @@ public:
 
 public:
     virtual void task() = 0;
-
-public:
-    virtual QString name() const override;
-    virtual QString catagory() const override;
 };
-
-template<typename T, bool enabled>
-QString IDirectTaskUnit<T, enabled>::name() const
-{
-    return "hello";
-}
-
-template<typename T, bool enabled>
-QString IDirectTaskUnit<T, enabled>::catagory() const
-{
-    return "IDirectTaskUnit";
-}
 
 $UseTaskUnit(IDirectTaskUnit)
 {
