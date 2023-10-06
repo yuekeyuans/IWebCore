@@ -26,12 +26,6 @@ private:    \
     Q_DECLARE_PRIVATE(klass);    \
     std::shared_ptr<klass##Private> d_ptr {nullptr};
 
-#define Q_DEC
-
-#define $AsCatagory(klassName)  $UseInstance(klassName)
-
-#define $AsTask(klassName)  $UseInstance(klassName)
-
 #define $UseMetaRegistration(klassName) \
 public:     \
 static void web_core_init_registerMetaType() {  \
@@ -40,68 +34,6 @@ static void web_core_init_registerMetaType() {  \
     IMetaUtil::registerMetaType<klassName>(baseName, fullName); \
 }   \
 private:
-
-#define $UseGadget(klassName)   \
-public:\
-    virtual const QString& className() const final {    \
-        static const QString clsName = staticMetaObject.className();    \
-        return clsName; \
-    }   \
-    virtual QMetaObject getMetaObject() const final{    \
-        return staticMetaObject;    \
-    }   \
-    virtual const QVector<QMetaMethod>& getMetaMethods() const final{  \
-        static auto methods =  IMetaUtil::getMetaMethods(staticMetaObject); \
-        return methods; \
-    }   \
-    virtual const QMap<QString, QString>& getMetaClassInfos() const final{ \
-        static auto clsInfos = IMetaUtil::getMetaClassInfoMap(staticMetaObject);    \
-        return clsInfos;    \
-    }   \
-    virtual QMetaProperty getMetaProperty(const QString& name) const final {   \
-        return IMetaUtil::getMetaPropertyByName(staticMetaObject, name);    \
-    }   \
-    virtual const QVector<QMetaProperty>& getMetaProperties() const final {    \
-        static auto props = IMetaUtil::getMetaProperties(staticMetaObject);  \
-        return props;   \
-    }   \
-    virtual QVariant getFieldValue(const QString& name) const final {   \
-        const auto& property = getMetaProperty(name);  \
-        return IMetaUtil::readProperty(property, this); \
-    }   \
-    virtual void setFieldValue(const QString& name, const QVariant& value) final{     \
-        const auto& property = getMetaProperty(name);  \
-        IMetaUtil::writeProperty(property, this, value);    \
-    }   \
-    virtual QJsonObject toJson() const final{   \
-        auto map = IMetaUtil::toVariantMap(this, staticMetaObject); \
-        return IConvertUtil::toJsonObject(map); \
-    }   \
-    virtual QMap<QString, QVariant> toVariantMap() const final{ \
-        return IMetaUtil::toVariantMap(this, staticMetaObject); \
-    }   \
-    virtual const QStringList& getIgnorableFieldNames() const override{ \
-        static QStringList ignoredFields = IMetaUtil::getIgnoredFields(staticMetaObject);   \
-        return ignoredFields;   \
-    }   \
-    virtual const QVector<int>& getIgnorableFieldIndexes() const override{  \
-        static QVector<int> ignoredFields = IMetaUtil::getIgnoredFieldIndexes(staticMetaObject);   \
-        return ignoredFields;   \
-    }   \
-    virtual bool isIgnorableField(const QString& name) const override{  \
-        static const QStringList ignoredFields = getIgnorableFieldNames();  \
-        return ignoredFields.contains(name);    \
-    }   \
-    virtual bool isIgnorableField(int index) const override{    \
-        static const QVector<int> ignoredFields = getIgnorableFieldIndexes();   \
-        return ignoredFields.contains(index);   \
-    }   \
-    virtual const QStringList& getMetaFieldNames() const override{  \
-        static QStringList fieldNames = IMetaUtil::getMetaPropertyNames(staticMetaObject);  \
-        return fieldNames;  \
-    }   \
-private:
-
 
 // create on stack only
 #define Q_CREATE_ON_STACK_ONLY \
@@ -123,24 +55,3 @@ private:    \
         #define $InLine
     #endif
 #endif
-
-#define $AsTaskUnit(klassName) \
-private:    \
-    class klassName ## InitPrivate{ \
-    public: \
-        klassName ## InitPrivate(); \
-    };  \
-    static klassName ## InitPrivate m_private;  \
-    virtual void* klassName ## InitPrivateTouch(){  \
-        return &m_private;  \
-    }
-
-#define $UseTaskUnit(klassName) \
-    template<typename T, bool enabled>  \
-    typename klassName <T, enabled>:: \
-             klassName ## InitPrivate \
-             klassName <T, enabled>::m_private;    \
-    template<typename T, bool enabled>  \
-             klassName<T, enabled>:: \
-             klassName ## InitPrivate ::     \
-             klassName ## InitPrivate ()

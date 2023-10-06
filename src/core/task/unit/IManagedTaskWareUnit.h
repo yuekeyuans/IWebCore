@@ -3,14 +3,15 @@
 #include "core/base/IHeaderUtil.h"
 #include "core/task/ITaskWare.h"
 #include "core/task/ITaskManage.h"
+#include "core/task/ITaskPreProcessor.h"
 
 $PackageWebCoreBegin
 
 template<class T, bool enabled = true>
 class IManagedTaskWareUnit : public ITaskWare
 {
-    Q_DISABLE_COPY_MOVE(IManagedTaskWareUnit)
     $AsTaskUnit(IManagedTaskWareUnit)
+    Q_DISABLE_COPY_MOVE(IManagedTaskWareUnit)
 protected:
     IManagedTaskWareUnit() = default;
     virtual ~IManagedTaskWareUnit() = default;

@@ -46,6 +46,7 @@ HEADERS += \
     $$PWD/core/core.h \
     $$PWD/core/task/ITaskCatagory.h \
     $$PWD/core/task/ITaskCatagoryInterface.h \
+    $$PWD/core/task/ITaskPreProcessor.h \
     $$PWD/core/task/default/IBannerTask.h \
     $$PWD/core/task/default/IContextTaskCatagory.h \
     $$PWD/core/task/default/IEndupTaskCatagory.h \

@@ -1,14 +1,12 @@
 ﻿#pragma once
 
-#include "core/task/ITaskManage.h"
-#include "core/task/ITaskWare.h"
 #include "core/base/IHeaderUtil.h"
-#include "core/base/ITraitHelper.h"
+#include "core/task/ITaskPreProcessor.h"
 
 $PackageWebCoreBegin
 
 template<typename T, bool enabled=true>
-class IDirectTaskUnit : public ITaskWare
+class IDirectTaskUnit
 {
     $AsTaskUnit(IDirectTaskUnit)
 public:

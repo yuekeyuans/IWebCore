@@ -2,6 +2,7 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/task/ITaskCatagory.h"
+#include "core/task/ITaskPreProcessor.h"
 
 $PackageWebCoreBegin
 

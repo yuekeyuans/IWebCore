@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
-#include "core/task/ITaskWare.h"
 #include "core/task/unit/IManagedTaskWareUnit.h"
 
 $PackageWebCoreBegin

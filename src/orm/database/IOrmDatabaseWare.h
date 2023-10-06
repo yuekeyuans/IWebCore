@@ -20,7 +20,7 @@ class IOrmDatabaseWare : public ITaskWare
 public:
     IOrmDatabaseWare();
     virtual ~IOrmDatabaseWare();
-    virtual IOrmDataSource configDataSource() {return {};};
+    virtual IOrmDataSource configDataSource() {return {};}
 //    virtual QSqlDatabase   createDataBase();
     virtual void           closeDataBase();
     virtual void registerEntities() =0;

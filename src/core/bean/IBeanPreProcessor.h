@@ -2,10 +2,72 @@
 
 #include "core/base/IPreProcessorUtil.h"
 
+#define $_UseGadget(klassName)   \
+public:\
+    virtual const QString& className() const final {    \
+        static const QString clsName = staticMetaObject.className();    \
+        return clsName; \
+    }   \
+    virtual QMetaObject getMetaObject() const final{    \
+        return staticMetaObject;    \
+    }   \
+    virtual const QVector<QMetaMethod>& getMetaMethods() const final{  \
+        static auto methods =  IMetaUtil::getMetaMethods(staticMetaObject); \
+        return methods; \
+    }   \
+    virtual const QMap<QString, QString>& getMetaClassInfos() const final{ \
+        static auto clsInfos = IMetaUtil::getMetaClassInfoMap(staticMetaObject);    \
+        return clsInfos;    \
+    }   \
+    virtual QMetaProperty getMetaProperty(const QString& name) const final {   \
+        return IMetaUtil::getMetaPropertyByName(staticMetaObject, name);    \
+    }   \
+    virtual const QVector<QMetaProperty>& getMetaProperties() const final {    \
+        static auto props = IMetaUtil::getMetaProperties(staticMetaObject);  \
+        return props;   \
+    }   \
+    virtual QVariant getFieldValue(const QString& name) const final {   \
+        const auto& property = getMetaProperty(name);  \
+        return IMetaUtil::readProperty(property, this); \
+    }   \
+    virtual void setFieldValue(const QString& name, const QVariant& value) final{     \
+        const auto& property = getMetaProperty(name);  \
+        IMetaUtil::writeProperty(property, this, value);    \
+    }   \
+    virtual QJsonObject toJson() const final{   \
+        auto map = IMetaUtil::toVariantMap(this, staticMetaObject); \
+        return IConvertUtil::toJsonObject(map); \
+    }   \
+    virtual QMap<QString, QVariant> toVariantMap() const final{ \
+        return IMetaUtil::toVariantMap(this, staticMetaObject); \
+    }   \
+    virtual const QStringList& getIgnorableFieldNames() const override{ \
+        static QStringList ignoredFields = IMetaUtil::getIgnoredFields(staticMetaObject);   \
+        return ignoredFields;   \
+    }   \
+    virtual const QVector<int>& getIgnorableFieldIndexes() const override{  \
+        static QVector<int> ignoredFields = IMetaUtil::getIgnoredFieldIndexes(staticMetaObject);   \
+        return ignoredFields;   \
+    }   \
+    virtual bool isIgnorableField(const QString& name) const override{  \
+        static const QStringList ignoredFields = getIgnorableFieldNames();  \
+        return ignoredFields.contains(name);    \
+    }   \
+    virtual bool isIgnorableField(int index) const override{    \
+        static const QVector<int> ignoredFields = getIgnorableFieldIndexes();   \
+        return ignoredFields.contains(index);   \
+    }   \
+    virtual const QStringList& getMetaFieldNames() const override{  \
+        static QStringList fieldNames = IMetaUtil::getMetaPropertyNames(staticMetaObject);  \
+        return fieldNames;  \
+    }   \
+private:
+
+
 #define $AsBean(klassName) \
 public: \
     $UseMetaRegistration(klassName) \
-    $UseGadget(klassName) \
+    $_UseGadget(klassName) \
 public: \
     operator QString(){ \
         return toString(); \
