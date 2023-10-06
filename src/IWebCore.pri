@@ -57,6 +57,9 @@ HEADERS += \
     $$PWD/core/task/ITaskWare.h \
     $$PWD/core/task/default/ITestInvokeTask.h \
     $$PWD/core/task/default/ITestTaskCatagory.h \
+    $$PWD/core/task/unit/IDirectTaskUnit.h \
+    $$PWD/core/task/unit/IManagedTaskCatagoryUnit.h \
+    $$PWD/core/task/unit/IManagedTaskWareUnit.h \
     $$PWD/core/test/ITestTaskInterface.h \
     $$PWD/core/test/ITestManage.h \
     $$PWD/core/test/ITestPreProcessor.h \
@@ -65,7 +68,6 @@ HEADERS += \
     $$PWD/core/unit/INoCopyMoveUnit.h \
     $$PWD/core/unit/IOrderUnit.h  \
     $$PWD/core/unit/IRegisterGadgetUnit.h \
-    $$PWD/core/unit/IRegisterInstanceUnit.h \
     $$PWD/core/unit/IRegisterMetaTypeUnit.h \
     $$PWD/core/unit/IRegisterTypeUnit.h \
     $$PWD/orm/IOrmAssert.h \
@@ -227,7 +229,6 @@ SOURCES += \
     $$PWD/core/unit/IGadgetUnit.cpp \
     $$PWD/core/unit/INoCopyMoveUnit.cpp \
     $$PWD/core/unit/IRegisterGadgetUnit.cpp \
-    $$PWD/core/unit/IRegisterInstanceUnit.cpp \
     $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
     $$PWD/core/unit/IRegisterTypeUnit.cpp \
     $$PWD/orm/IOrmAssert.cpp \

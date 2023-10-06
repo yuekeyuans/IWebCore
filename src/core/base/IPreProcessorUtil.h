@@ -124,7 +124,7 @@ private:    \
     #endif
 #endif
 
-#define $AsRegistray(klassName) \
+#define $AsTaskUnit(klassName) \
 private:    \
     class klassName ## InitPrivate{ \
     public: \
@@ -135,7 +135,7 @@ private:    \
         return &m_private;  \
     }
 
-#define $UseRegistray(klassName) \
+#define $UseTaskUnit(klassName) \
     template<typename T, bool enabled>  \
     typename klassName <T, enabled>:: \
              klassName ## InitPrivate \
@@ -144,28 +144,3 @@ private:    \
              klassName<T, enabled>:: \
              klassName ## InitPrivate ::     \
              klassName ## InitPrivate ()
-
-#define $AsTaskRegistray(klassName) \
-    private:    \
-        class klassName ## InitPrivate{ \
-        public: \
-            klassName ## InitPrivate(){ \
-                if(enabled){    \
-                    static std::once_flag flag; \
-                    std::call_once(flag, []{    \
-                        T{}.task(); \
-                    }); \
-                }   \
-            }   \
-        };  \
-        static klassName ## InitPrivate m_private;  \
-        virtual void* klassName ## InitPrivateTouch(){  \
-            return &m_private;  \
-        }
-
-
-#define $UseTaskRegistray(klassName)    \
-    template<typename T, bool enabled>  \
-    typename klassName <T, enabled>:: \
-             klassName ## InitPrivate \
-             klassName <T, enabled>::m_private;

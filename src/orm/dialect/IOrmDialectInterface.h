@@ -1,14 +1,14 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
-#include "core/unit/IRegisterInstanceUnit.h"
+#include "core/task/unit/IManagedTaskWareUnit.h"
 #include "orm/dialect/IOrmDialectWare.h"
 #include "orm/IOrmManage.h"
 
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true>
-class IOrmDialectInterface : public IOrmDialectWare, public IRegisterInstanceUnit<T, enabled>
+class IOrmDialectInterface : public IOrmDialectWare, public IManagedTaskWareUnit<T, enabled>
 {
 public:
     IOrmDialectInterface() = default;
@@ -20,14 +20,17 @@ public:
     virtual QString getLimitString(int count) override = 0;
     virtual QString getLimitString(quint64 start, quint64 count) override = 0;
 
-private:
-    virtual void registerToBase() override {
-        auto inst = T::instance();
-        IOrmManage::registerDialect(inst);
-    };
-
-private:
-    friend class IRegisterInstanceUnit<T, enabled>;
+public:
+    virtual double order() const{ return 2;}
+    virtual QString name() const final { return "Sqlite Dialect";}
+    virtual QString catagory() const final { return "Orm"; }
+    virtual void task() final;
 };
+
+template<typename T, bool enabled>
+void IOrmDialectInterface<T, enabled>::task() {
+    auto inst = T::instance();
+    IOrmManage::registerDialect(inst);
+}
 
 $PackageWebCoreEnd

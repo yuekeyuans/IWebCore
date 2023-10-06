@@ -4,12 +4,12 @@
 #include "core/base/IMetaUtil.h"
 #include "core/task/ITaskWare.h"
 #include "core/task/ITaskManage.h"
-#include "core/unit/IRegisterInstanceUnit.h"
+#include "core/task/unit/IManagedTaskWareUnit.h"
 
 $PackageWebCoreBegin
 
 template<typename T, bool enabled=true>
-class IStartupTaskInterface : public ITaskWare, public IRegisterInstanceUnit<T, enabled>
+class IStartupTaskInterface : public IManagedTaskWareUnit<T, enabled>
 {
 public:
     IStartupTaskInterface() = default;
@@ -20,7 +20,6 @@ public:
     virtual QString name() const override;
     virtual double order() const override;
     virtual QString catagory() const final;
-    virtual void registerToBase() final;
 };
 
 template<typename T, bool enabled>
@@ -39,12 +38,6 @@ template<typename T, bool enabled>
 QString IStartupTaskInterface<T, enabled>::catagory() const
 {
     return "StartUp";
-}
-
-template<typename T, bool enabled>
-void IStartupTaskInterface<T, enabled>::registerToBase()
-{
-    ITaskManage::instance()->addTaskWare(T::instance());
 }
 
 $PackageWebCoreEnd

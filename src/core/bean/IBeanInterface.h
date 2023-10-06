@@ -5,12 +5,12 @@
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IMetaUtil.h"
 #include "core/bean/IBeanPreProcessor.h"
-#include "core/task/unit/IStaticInitializeTaskUnit.h"
+#include "core/task/unit/IDirectTaskUnit.h"
 
 $PackageWebCoreBegin
 
 template<class T, bool enabled = true>
-class IBeanInterface : public IBeanWare, public IStaticInitializeTaskUnit<T, enabled>
+class IBeanInterface : public IBeanWare, public IDirectTaskUnit<T, enabled>
 {
 public:
     IBeanInterface() = default;

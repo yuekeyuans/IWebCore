@@ -3,13 +3,13 @@
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IMetaUtil.h"
 #include "core/bean/IBeanTypeManage.h"
-#include "core/task/unit/IStaticInitializeTaskUnit.h"
+#include "core/task/unit/IDirectTaskUnit.h"
 #include "orm/tableview/IOrmViewWare.h"
 
 $PackageWebCoreBegin
 
 template<typename T, bool enabled=true>
-class IOrmViewInterface : public IOrmViewWare, public IStaticInitializeTaskUnit<T, enabled>
+class IOrmViewInterface : public IOrmViewWare, public IDirectTaskUnit<T, enabled>
 {
 public:
     IOrmViewInterface() = default;

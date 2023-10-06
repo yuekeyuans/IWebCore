@@ -19,11 +19,6 @@ double ITestInvokeTask::order() const
     return 100;
 }
 
-void ITestInvokeTask::registerToBase()
-{
-    ITaskManage::instance()->addTaskWare(instance());
-}
-
 void ITestInvokeTask::task()
 {
     ITestManage::invokeAllTestClass();

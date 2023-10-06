@@ -6,7 +6,7 @@
 #include "core/task/ITaskWare.h"
 #include "core/task/ITaskManage.h"
 //#include "core/task/unit/IControllerTaskUnit.h"
-#include "core/unit/IRegisterInstanceUnit.h"
+#include "core/task/unit/IManagedTaskWareUnit.h"
 #include "web/controller/IControllerManage.h"
 #include "web/node/IStatusActionNode.h"
 
@@ -15,7 +15,7 @@ $PackageWebCoreBegin
 struct IControllerInfo;
 
 template<typename T, bool enabled = true>
-class IStatusControllerInterface : public ITaskWare, public IRegisterInstanceUnit<T, enabled>
+class IStatusControllerInterface : public IManagedTaskWareUnit<T, enabled>
 {
 public:
     IStatusControllerInterface() = default;

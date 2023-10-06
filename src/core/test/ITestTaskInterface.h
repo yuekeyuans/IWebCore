@@ -6,12 +6,12 @@
 #include "core/task/ITaskWare.h"
 #include "core/task/ITaskManage.h"
 #include "core/test/ITestManage.h"
-#include "core/unit/IRegisterInstanceUnit.h"
+#include "core/task/unit/IManagedTaskWareUnit.h"
 
 $PackageWebCoreBegin
 
 template<typename T, bool enabled =true>
-class ITestTaskInterface: public ITaskWare , public IRegisterInstanceUnit<T, enabled>, public QObject
+class ITestTaskInterface : public IManagedTaskWareUnit<T, enabled>, public QObject
 {
 public:
     ITestTaskInterface() = default;

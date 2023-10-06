@@ -41,6 +41,6 @@ namespace ITraitHelper
     template<> struct IsNumber<qulonglong> { enum {value = true}; };
     template<> struct IsNumber<float> { enum {value = true}; };
     template<> struct IsNumber<double> { enum {value = true}; };
-};
+}
 
 $PackageWebCoreEnd

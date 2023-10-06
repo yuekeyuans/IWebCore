@@ -2,12 +2,12 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/task/ITaskWare.h"
-#include "core/unit/IRegisterInstanceUnit.h"
+#include "core/task/unit/IManagedTaskWareUnit.h"
 
 $PackageWebCoreBegin
 
 // special task
-class ITestInvokeTask : public ITaskWare, public IRegisterInstanceUnit<ITestInvokeTask>
+class ITestInvokeTask : public IManagedTaskWareUnit<ITestInvokeTask>
 {
     Q_GADGET
     $AsTask(ITestInvokeTask)
@@ -18,7 +18,6 @@ public:
     virtual QString name() const override;
     virtual QString catagory() const override;
     virtual double order() const final;
-    virtual void registerToBase() override;
     virtual void task() override;
 };
 
