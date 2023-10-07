@@ -1,14 +1,14 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
-#include "core/task/unit/IManagedTaskWareUnit.h"
+#include "core/task/unit/ITaskWareUnit.h"
 #include "orm/dialect/IOrmDialectWare.h"
 #include "orm/IOrmManage.h"
 
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true>
-class IOrmDialectInterface : public IOrmDialectWare, public IManagedTaskWareUnit<T, enabled>
+class IOrmDialectInterface : public IOrmDialectWare, public ITaskWareUnit<T, enabled>
 {
 public:
     IOrmDialectInterface() = default;

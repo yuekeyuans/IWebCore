@@ -8,16 +8,16 @@
 $PackageWebCoreBegin
 
 template<class T, bool enabled = true>
-class IManagedTaskWareUnit : public ITaskWare
+class ITaskWareUnit : public ITaskWare
 {
-    $AsTaskUnit(IManagedTaskWareUnit)
-    Q_DISABLE_COPY_MOVE(IManagedTaskWareUnit)
+    $AsTaskUnit(ITaskWareUnit)
+    Q_DISABLE_COPY_MOVE(ITaskWareUnit)
 protected:
-    IManagedTaskWareUnit() = default;
-    virtual ~IManagedTaskWareUnit() = default;
+    ITaskWareUnit() = default;
+    virtual ~ITaskWareUnit() = default;
 };
 
-$UseTaskUnit(IManagedTaskWareUnit){
+$UseTaskUnit(ITaskWareUnit){
     if(enabled){
         static std::once_flag flag;
         std::call_once(flag, [](){

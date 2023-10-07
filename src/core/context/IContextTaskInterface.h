@@ -2,14 +2,14 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IMetaUtil.h"
-#include "core/task/unit/IManagedTaskWareUnit.h"
+#include "core/task/unit/ITaskWareUnit.h"
 #include "core/task/ITaskManage.h"
 #include "core/context/IContextPreProcessor.h"
 
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true>
-class IContextTaskInterface : public IManagedTaskWareUnit<T, enabled>
+class IContextTaskInterface : public ITaskWareUnit<T, enabled>
 {
 public:
     IContextTaskInterface() = default;

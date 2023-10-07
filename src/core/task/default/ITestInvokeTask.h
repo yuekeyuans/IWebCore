@@ -1,12 +1,12 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
-#include "core/task/unit/IManagedTaskWareUnit.h"
+#include "core/task/unit/ITaskWareUnit.h"
 
 $PackageWebCoreBegin
 
 // special task
-class ITestInvokeTask : public IManagedTaskWareUnit<ITestInvokeTask>
+class ITestInvokeTask : public ITaskWareUnit<ITestInvokeTask>
 {
     Q_GADGET
     $AsTask(ITestInvokeTask)

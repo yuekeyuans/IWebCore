@@ -58,9 +58,9 @@ HEADERS += \
     $$PWD/core/task/ITaskWare.h \
     $$PWD/core/task/default/ITestInvokeTask.h \
     $$PWD/core/task/default/ITestTaskCatagory.h \
-    $$PWD/core/task/unit/IDirectTaskUnit.h \
-    $$PWD/core/task/unit/IManagedTaskCatagoryUnit.h \
-    $$PWD/core/task/unit/IManagedTaskWareUnit.h \
+    $$PWD/core/task/unit/ITaskCatagoryUnit.h \
+    $$PWD/core/task/unit/ITaskInstantUnit.h \
+    $$PWD/core/task/unit/ITaskWareUnit.h \
     $$PWD/core/test/ITestTaskInterface.h \
     $$PWD/core/test/ITestManage.h \
     $$PWD/core/test/ITestPreProcessor.h \

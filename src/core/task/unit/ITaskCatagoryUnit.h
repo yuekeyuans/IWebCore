@@ -7,16 +7,16 @@
 $PackageWebCoreBegin
 
 template<class T, bool enabled = true>
-class IManagedTaskCatagoryUnit : public ITaskCatagory
+class ITaskCatagoryUnit : public ITaskCatagory
 {
-    Q_DISABLE_COPY_MOVE(IManagedTaskCatagoryUnit)
-    $AsTaskUnit(IManagedTaskCatagoryUnit)
+    Q_DISABLE_COPY_MOVE(ITaskCatagoryUnit)
+    $AsTaskUnit(ITaskCatagoryUnit)
 protected:
-    IManagedTaskCatagoryUnit() = default;
-    virtual ~IManagedTaskCatagoryUnit() = default;
+    ITaskCatagoryUnit() = default;
+    virtual ~ITaskCatagoryUnit() = default;
 };
 
-$UseTaskUnit(IManagedTaskCatagoryUnit){
+$UseTaskUnit(ITaskCatagoryUnit){
     if(enabled){
         static std::once_flag flag;
         std::call_once(flag, [](){

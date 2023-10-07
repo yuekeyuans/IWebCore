@@ -2,7 +2,7 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IMetaUtil.h"
-#include "core/task/unit/IManagedTaskWareUnit.h"
+#include "core/task/unit/ITaskWareUnit.h"
 #include "core/task/ITaskManage.h"
 #include "orm/IOrmManage.h"
 #include "orm/database/IOrmDatabaseWare.h"
@@ -11,7 +11,7 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true>
-class IOrmDatabaseInterface : public IOrmDatabaseWare, public IManagedTaskWareUnit<T, enabled>
+class IOrmDatabaseInterface : public IOrmDatabaseWare, public ITaskWareUnit<T, enabled>
 {
     Q_DISABLE_COPY_MOVE(IOrmDatabaseInterface)
 public:

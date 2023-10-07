@@ -3,7 +3,7 @@
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IMetaUtil.h"
 #include "core/task/ITaskManage.h"
-#include "core/task/unit/IManagedTaskWareUnit.h"
+#include "core/task/unit/ITaskWareUnit.h"
 //#include "core/task/unit/IControllerTaskUnit.h"
 #include "web/controller/IControllerManage.h"
 
@@ -12,7 +12,7 @@ $PackageWebCoreBegin
 struct IControllerInfo;
 
 template<typename T, bool enabled = true>
-class IControllerInterface : public IManagedTaskWareUnit<T, enabled>
+class IControllerInterface : public ITaskWareUnit<T, enabled>
 {
 public:
     IControllerInterface() = default;

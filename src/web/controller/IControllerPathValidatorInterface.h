@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
-#include "core/task/unit/IDirectTaskUnit.h"
+#include "core/task/unit/ITaskInstantUnit.h"
 
 $PackageWebCoreBegin
 
@@ -12,7 +12,7 @@ namespace IControllerPathValidatorInterfaceProxy {
 }
 
 template<typename T, bool enabled = true>
-class IControllerPathValidatorInterface : public IDirectTaskUnit<T, enabled>
+class IControllerPathValidatorInterface : public ITaskInstantUnit<T, enabled>
 {
 public:
     using ValidatorFun = bool(*)(const QString&);

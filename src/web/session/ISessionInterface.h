@@ -2,13 +2,13 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IMetaUtil.h"
-#include "core/task/unit/IManagedTaskWareUnit.h"
+#include "core/task/unit/ITaskWareUnit.h"
 #include "web/session/ISessionWare.h"
 
 $PackageWebCoreBegin
 
 template<typename T, bool enabled=true>
-class ISessionInterface : public ISessionWare, public IManagedTaskWareUnit<T, enabled>
+class ISessionInterface : public ISessionWare, public ITaskWareUnit<T, enabled>
 {
 public:
     ISessionInterface() = default;

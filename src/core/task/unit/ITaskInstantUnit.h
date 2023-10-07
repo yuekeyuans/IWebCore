@@ -6,17 +6,17 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled=true>
-class IDirectTaskUnit
+class ITaskInstantUnit
 {
-    $AsTaskUnit(IDirectTaskUnit)
+    $AsTaskUnit(ITaskInstantUnit)
 public:
-    IDirectTaskUnit() = default;
+    ITaskInstantUnit() = default;
 
 public:
     virtual void task() = 0;
 };
 
-$UseTaskUnit(IDirectTaskUnit)
+$UseTaskUnit(ITaskInstantUnit)
 {
     if(enabled){
         static std::once_flag flag;
