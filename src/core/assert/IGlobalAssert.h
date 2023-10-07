@@ -36,6 +36,4 @@ public:
 
 $PackageWebCoreEnd
 
-#ifdef $UseInLineMode
-    #include "IGlobalAssert.cpp"
-#endif
+#include "IGlobalAssert.cpp"

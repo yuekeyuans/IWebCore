@@ -40,18 +40,3 @@ private:
 private:    \
     void* operator new(size_t) noexcept {return nullptr;};  \
     void operator delete(void*){};  \
-
-// support for inline directory
-#ifndef $UseInLineMode
-    #ifdef UseInLineMode
-        #define $UseInLineMode
-    #endif
-#endif
-
-#ifndef $InLine
-    #ifdef $UseInLineMode
-        #define $InLine inline
-    #else
-        #define $InLine
-    #endif
-#endif

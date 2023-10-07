@@ -31,6 +31,4 @@ namespace IToeUtil
 
 $PackageWebCoreEnd
 
-#ifdef $UseInLineMode
-    #include "IToeUtil.cpp"
-#endif
+#include "IToeUtil.cpp"

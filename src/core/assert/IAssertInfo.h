@@ -22,6 +22,4 @@ public:
 
 $PackageWebCoreEnd
 
-#ifdef $UseInLineMode
-    #include "IAssertInfo.cpp"
-#endif
+#include "IAssertInfo.cpp"

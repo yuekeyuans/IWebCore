@@ -3,19 +3,19 @@
 
 $PackageWebCoreBegin
 
-$InLine void IToeUtil::setOk(bool &ok, bool value)
+inline void IToeUtil::setOk(bool &ok, bool value)
 {
     ok = value;
 }
 
-$InLine void IToeUtil::setOk(bool *ok, bool value)
+inline void IToeUtil::setOk(bool *ok, bool value)
 {
     if(ok != nullptr){
         *ok = value;
     }
 }
 
-$InLine void IToeUtil::setOk(bool condition, bool *ok, bool value)
+inline void IToeUtil::setOk(bool condition, bool *ok, bool value)
 {
     if(condition){
         if(ok != nullptr){
@@ -24,14 +24,14 @@ $InLine void IToeUtil::setOk(bool condition, bool *ok, bool value)
     }
 }
 
-$InLine void IToeUtil::setOk(bool condition, bool &ok, bool value)
+inline void IToeUtil::setOk(bool condition, bool &ok, bool value)
 {
     if(condition){
         ok = value;
     }
 }
 
-$InLine void IToeUtil::setOkAnd(bool *ok, bool value)
+inline void IToeUtil::setOkAnd(bool *ok, bool value)
 {
     if(ok != nullptr){
         *ok &= value;
@@ -39,37 +39,37 @@ $InLine void IToeUtil::setOkAnd(bool *ok, bool value)
 }
 
 
-$InLine void IToeUtil::setOkAnd(bool &ok, bool value)
+inline void IToeUtil::setOkAnd(bool &ok, bool value)
 {
     ok &= value;
 }
 
 
-$InLine void IToeUtil::setOkOr(bool *ok, bool value)
+inline void IToeUtil::setOkOr(bool *ok, bool value)
 {
     if(ok != nullptr){
         *ok |= value;
     }
 }
 
-$InLine void IToeUtil::setOkOr(bool &ok, bool value)
+inline void IToeUtil::setOkOr(bool &ok, bool value)
 {
     ok |= value;
 }
 
-$InLine void IToeUtil::setOkXor(bool *ok, bool value)
+inline void IToeUtil::setOkXor(bool *ok, bool value)
 {
     if(ok != nullptr){
         *ok ^= value;
     }
 }
 
-$InLine void IToeUtil::setOkXor(bool &ok, bool value)
+inline void IToeUtil::setOkXor(bool &ok, bool value)
 {
     ok ^= value;
 }
 
-$InLine bool IToeUtil::isPrimaryKeyType(QMetaType::Type type)
+inline bool IToeUtil::isPrimaryKeyType(QMetaType::Type type)
 {
     static const QMetaType::Type PrimaryKeyTypes[4] = {QMetaType::Int, QMetaType::Long, QMetaType::LongLong, QMetaType::QString};
     const auto& pkTypes = PrimaryKeyTypes;
@@ -78,7 +78,7 @@ $InLine bool IToeUtil::isPrimaryKeyType(QMetaType::Type type)
 }
 
 // NOTE: this perhaps will be changed latter
-$InLine bool IToeUtil::isFalsy(const QString &value)
+inline bool IToeUtil::isFalsy(const QString &value)
 {
     if(value.isNull() || value.trimmed().isEmpty()){
         return true;
@@ -91,12 +91,12 @@ $InLine bool IToeUtil::isFalsy(const QString &value)
     return falsyArgs.contains(value.trimmed().toUpper());
 }
 
-$InLine bool IToeUtil::isTruthy(const QString &value)
+inline bool IToeUtil::isTruthy(const QString &value)
 {
     return !isFalsy(value);
 }
 
-$InLine QString IToeUtil::trimQuote(const QString &content)
+inline QString IToeUtil::trimQuote(const QString &content)
 {
     static const QString quote = "\\\"";
 

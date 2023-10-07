@@ -2,7 +2,7 @@
 
 $PackageWebCoreBegin
 
-$InLine IAssertInfo::operator QString() const
+inline IAssertInfo::operator QString() const
 {
     QString ret;
     if(!file.isEmpty()){

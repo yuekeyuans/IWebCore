@@ -2,14 +2,14 @@
 
 $PackageWebCoreBegin
 
-$InLine TicTac::TicTac(const char *file, const char *function, int line)
+inline TicTac::TicTac(const char *file, const char *function, int line)
     : file(file), function(function), line(QString::number(line))
 {
     using namespace std::chrono;
     tic = std::chrono::high_resolution_clock().now();
 }
 
-$InLine TicTac::~TicTac()
+inline TicTac::~TicTac()
 {
     using namespace std::chrono;
     auto toc = high_resolution_clock().now();

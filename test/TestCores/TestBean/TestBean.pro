@@ -6,8 +6,6 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-DEFINES += UseInLineMode
-
 include(../../../src/IWebCore.pri)
 
 SOURCES +=  \

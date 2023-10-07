@@ -2,7 +2,7 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     TestBean \
-#    TestConvertion \
+    TestConvertion \
 #    TestNewKindOfTaskManager
 
 QMAKE_PRE_LINK

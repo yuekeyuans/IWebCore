@@ -20,6 +20,8 @@ private:
 
 $PackageWebCoreEnd
 
+#include "ITicTacUtil.cpp"
+
 #define $TIC_TAC  \
     TicTac time_tic_tac##__LINE (__FILE__, __FUNCTION__, __LINE__);
 
@@ -33,6 +35,4 @@ $PackageWebCoreEnd
         qDebug().noquote() << std::chrono::duration_cast<std::chrono::microseconds>(timeTac - timeTic).count() * 1.0 / 1000  << timeTip;  \
     }while(0);
 
-#ifdef $UseInLineMode
-    #include "ITicTacUtil.cpp"
-#endif
+

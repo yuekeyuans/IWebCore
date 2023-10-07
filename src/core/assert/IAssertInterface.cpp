@@ -10,7 +10,7 @@ namespace IAssertInterfaceHelper
     QString getOutput(const QString& name, const QPair<QString, QString>& value, const IAssertInfo& info);
 }
 
-$InLine void IAssertInterface::fatal(const QString &name)
+inline void IAssertInterface::fatal(const QString &name)
 {
     if(m_fatal.contains(name)){
         auto str = IAssertInterfaceHelper::getOutput(name, m_fatal[name]);
@@ -19,7 +19,7 @@ $InLine void IAssertInterface::fatal(const QString &name)
     }
 }
 
-$InLine void IAssertInterface::fatal(const QString &name, const IAssertInfo &info)
+inline void IAssertInterface::fatal(const QString &name, const IAssertInfo &info)
 {
     if(m_fatal.contains(name)){
         auto str = IAssertInterfaceHelper::getOutput(name, m_fatal[name], info);
@@ -27,7 +27,7 @@ $InLine void IAssertInterface::fatal(const QString &name, const IAssertInfo &inf
     }
 }
 
-$InLine void IAssertInterface::warn(const QString &name)
+inline void IAssertInterface::warn(const QString &name)
 {
     if(m_warn.contains(name)){
         auto str = IAssertInterfaceHelper::getOutput(name, m_warn[name]);
@@ -35,7 +35,7 @@ $InLine void IAssertInterface::warn(const QString &name)
     }
 }
 
-$InLine void IAssertInterface::warn(const QString &name, const IAssertInfo &info)
+inline void IAssertInterface::warn(const QString &name, const IAssertInfo &info)
 {
     if(m_warn.contains(name)){
         auto str = IAssertInterfaceHelper::getOutput(name, m_warn[name], info);
@@ -43,7 +43,7 @@ $InLine void IAssertInterface::warn(const QString &name, const IAssertInfo &info
     }
 }
 
-$InLine void IAssertInterface::debug(const QString &name)
+inline void IAssertInterface::debug(const QString &name)
 {
     if(m_warn.contains(name)){
         auto str = IAssertInterfaceHelper::getOutput(name, m_warn[name]);
@@ -51,7 +51,7 @@ $InLine void IAssertInterface::debug(const QString &name)
     }
 }
 
-$InLine void IAssertInterface::debug(const QString &name, const IAssertInfo &info)
+inline void IAssertInterface::debug(const QString &name, const IAssertInfo &info)
 {
     if(m_warn.contains(name)){
         auto str = IAssertInterfaceHelper::getOutput(name, m_warn[name], info);
@@ -59,7 +59,7 @@ $InLine void IAssertInterface::debug(const QString &name, const IAssertInfo &inf
     }
 }
 
-$InLine void IAssertInterface::addFatal(const QString &tag, const QString &info, const QString &solution)
+inline void IAssertInterface::addFatal(const QString &tag, const QString &info, const QString &solution)
 {
     if(m_fatal.contains(tag)){
         auto info = QString("tag, already exist, please check your code. tag: ").append(tag);
@@ -68,7 +68,7 @@ $InLine void IAssertInterface::addFatal(const QString &tag, const QString &info,
     m_fatal[tag] = {info, solution};
 }
 
-$InLine void IAssertInterface::addWarn(const QString &tag, const QString &info, const QString &solution)
+inline void IAssertInterface::addWarn(const QString &tag, const QString &info, const QString &solution)
 {
     if(m_warn.contains(tag)){
         auto info = QString("tag, already exist, please check your code. tag: ").append(tag);
@@ -77,7 +77,7 @@ $InLine void IAssertInterface::addWarn(const QString &tag, const QString &info, 
     m_warn[tag] = {info, solution};
 }
 
-$InLine void IAssertInterface::addDebug(const QString &tag, const QString &info, const QString &solution)
+inline void IAssertInterface::addDebug(const QString &tag, const QString &info, const QString &solution)
 {
     if(m_debug.contains(tag)){
         auto info = QString("tag, already exist, please check your code. tag: ").append(tag);
@@ -86,7 +86,7 @@ $InLine void IAssertInterface::addDebug(const QString &tag, const QString &info,
     m_debug[tag] = {info, solution};
 }
 
-$InLine QString IAssertInterfaceHelper::getOutput(const QString& name, const QPair<QString, QString>& value)
+inline QString IAssertInterfaceHelper::getOutput(const QString& name, const QPair<QString, QString>& value)
 {
     QString ret;
     ret.append("[TAG] ").append(name);
@@ -99,7 +99,7 @@ $InLine QString IAssertInterfaceHelper::getOutput(const QString& name, const QPa
     return ret;
 }
 
-$InLine QString IAssertInterfaceHelper::getOutput(const QString& name, const QPair<QString, QString>& value, const IAssertInfo& info)
+inline QString IAssertInterfaceHelper::getOutput(const QString& name, const QPair<QString, QString>& value, const IAssertInfo& info)
 {
     auto ret = getOutput(name, value);
     ret.append(info);

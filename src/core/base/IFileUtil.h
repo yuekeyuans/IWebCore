@@ -35,6 +35,4 @@ QString IFileUtil::joinPath(const T &first, const Args &...rest)
 
 $PackageWebCoreEnd
 
-#ifdef $UseInLineMode
-    #include "IFileUtil.cpp"
-#endif
+#include "IFileUtil.cpp"

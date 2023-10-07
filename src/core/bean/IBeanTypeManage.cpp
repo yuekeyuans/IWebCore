@@ -8,19 +8,19 @@ public:
     QStringList m_beanNames;
 };
 
-$InLine IBeanTypeManage::IBeanTypeManage()
+inline IBeanTypeManage::IBeanTypeManage()
     : d_ptr(std::make_shared<IBeanTypeManagePrivate>())
 {
 }
 
-$InLine void IBeanTypeManage::registerBeanType(const QString &typeName)
+inline void IBeanTypeManage::registerBeanType(const QString &typeName)
 {
     auto name = typeName.split(' ').last();
     auto inst = instance();
     inst->d_ptr->m_beanNames.append(name);
 }
 
-$InLine bool IBeanTypeManage::containBean(const QString &typeName)
+inline bool IBeanTypeManage::containBean(const QString &typeName)
 {
     auto inst = instance();
     QString name = typeName;

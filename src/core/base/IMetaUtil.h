@@ -91,6 +91,4 @@ void IMetaUtil::registerMetaType(const QString& bareName, const QString& fullNam
 
 $PackageWebCoreEnd
 
-#ifdef $UseInLineMode
-    #include "IMetaUtil.cpp"
-#endif
+#include "IMetaUtil.cpp"

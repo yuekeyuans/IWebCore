@@ -2,19 +2,19 @@
 
 $PackageWebCoreBegin
 
-$InLine void IGlobalAssert::fatal(IGlobalAssert::Type type)
+inline void IGlobalAssert::fatal(IGlobalAssert::Type type)
 {
     QString name = QMetaEnum::fromType<IGlobalAssert::Type>().valueToKey(type);
     this->IAssertInterface::fatal(name);
 }
 
-$InLine void IGlobalAssert::fatal(IGlobalAssert::Type type, const IAssertInfo &info)
+inline void IGlobalAssert::fatal(IGlobalAssert::Type type, const IAssertInfo &info)
 {
     QString name = QMetaEnum::fromType<IGlobalAssert::Type>().valueToKey(type);
     this->IAssertInterface::fatal(name, info);
 }
 
-$InLine void IGlobalAssert::fatal(IGlobalAssert::Type type, const QString &reason)
+inline void IGlobalAssert::fatal(IGlobalAssert::Type type, const QString &reason)
 {
     IAssertInfo info;
     info.reason = reason;
@@ -22,7 +22,7 @@ $InLine void IGlobalAssert::fatal(IGlobalAssert::Type type, const QString &reaso
     this->IAssertInterface::fatal(name, info);
 }
 
-$InLine void IGlobalAssert::loadAssert()
+inline void IGlobalAssert::loadAssert()
 {
     // IApplication
     addFatal("IApplication_not_created", "you can not get any IApplication instance when IApplication not created");

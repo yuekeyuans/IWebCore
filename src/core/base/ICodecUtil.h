@@ -17,6 +17,4 @@ namespace ICodecUtil
 
 $PackageWebCoreEnd
 
-#ifdef $UseInLineMode
-    #include "ICodecUtil.cpp"
-#endif
+#include "ICodecUtil.cpp"

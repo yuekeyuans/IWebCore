@@ -94,7 +94,6 @@ void ITaskManage::mergetTasksToCatagores()
 
 void ITaskManage::execEachCatagory()
 {
-
     for(const auto& node : m_catagories){
         if(node->isCatagoryEnabled()){
             node->sortTask();

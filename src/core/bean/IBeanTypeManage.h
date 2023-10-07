@@ -19,6 +19,4 @@ public:
 
 $PackageWebCoreEnd
 
-#ifdef $UseInLineMode
-    #include "IBeanTypeManage.cpp"
-#endif
+#include "IBeanTypeManage.cpp"

@@ -36,6 +36,4 @@ private:
 
 $PackageWebCoreEnd
 
-#ifdef $UseInLineMode
-    #include "IAssertInterface.cpp"
-#endif
+#include "IAssertInterface.cpp"

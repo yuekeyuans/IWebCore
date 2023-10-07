@@ -12,6 +12,4 @@ namespace IXmlUtil
 
 $PackageWebCoreEnd
 
-#ifdef $UseInLineMode
-    #include "IXmlUtil.cpp"
-#endif
+#include "IXmlUtil.cpp"

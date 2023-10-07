@@ -3,7 +3,7 @@
 
 $PackageWebCoreBegin
 
-$InLine bool IFileUtil::isFileExist(const QString &path)
+inline bool IFileUtil::isFileExist(const QString &path)
 {
     if(path.startsWith(":")){
         QFileInfo fileInfo(path);
@@ -13,12 +13,12 @@ $InLine bool IFileUtil::isFileExist(const QString &path)
     return QFile(path).exists();
 }
 
-$InLine QString IFileUtil::readFileAsString(const QString &path, bool *ok)
+inline QString IFileUtil::readFileAsString(const QString &path, bool *ok)
 {
     return readFileAsByteArray(path, ok);
 }
 
-$InLine QByteArray IFileUtil::readFileAsByteArray(const QString &path, bool *ok)
+inline QByteArray IFileUtil::readFileAsByteArray(const QString &path, bool *ok)
 {
     QFile file(path);
     if(file.open(QFile::ReadOnly)){
@@ -32,7 +32,7 @@ $InLine QByteArray IFileUtil::readFileAsByteArray(const QString &path, bool *ok)
     return {};
 }
 
-$InLine QString IFileUtil::getFileSuffix(const QString &path)
+inline QString IFileUtil::getFileSuffix(const QString &path)
 {
     return QFileInfo(path).completeSuffix();
 }
