@@ -26,10 +26,8 @@ private:
     void printTaskInfo() const;
 
 private:
-    QList<ITaskWare*> m_taskWares;
-
-private:
     friend class ITaskManage;
+    QList<ITaskWare*> m_taskWares;
 };
 
 $PackageWebCoreEnd
