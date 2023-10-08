@@ -14,8 +14,6 @@ class IHttpServer : public QTcpServer
 {
     Q_GADGET
     $UseInstance(IHttpServer)
-    $UseContext(IHttpServer)
-
 public:
     using ProcessFunctor = std::function<void(const IRequest& req, IResponse& resp)>;
 
