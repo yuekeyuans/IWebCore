@@ -17,9 +17,9 @@ public:
 public:
     virtual QString name() const = 0;
     virtual bool isCatagoryDefaultEnabled() const;
-    bool isCatagoryEnabled() const;
 
 private:
+    bool isCatagoryEnabled() const;
     void addTask(ITaskWare*);
     void sortTask();
     void execTaskNodes() const;
