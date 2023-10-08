@@ -42,10 +42,16 @@ public:
     static T getBean(const QString& path, bool*ok);
     static void getConfigBean(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaProperty>&props, bool*ok);
 
+public:
+    static constexpr char SystemContextGroup[] = "System";
+    static constexpr char ApplicationContextGroup[] = "Application";
+
 private:
     friend class ITaskManage;
     friend class IContextWritter;
     QMap<QString, QJsonObject> m_configs;
+
+
 };
 
 template<typename T>

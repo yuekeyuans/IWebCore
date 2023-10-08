@@ -1,5 +1,6 @@
 ﻿#include "IContextJsonConfigTask.h"
-#include "core/context/IContextWritter.h"
+//#include "core/context/IContextWritter.h"
+#include "core/context/IContextManage.h"
 #include "core/base/IFileUtil.h"
 #include "core/base/IJsonUtil.h"
 #include "core/assert/IGlobalAssert.h"

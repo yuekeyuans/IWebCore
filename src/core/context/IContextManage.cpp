@@ -11,16 +11,13 @@ $PackageWebCoreBegin
 
 $UseGlobalAssert()
 
-extern const char SystemContextGroup[] = "System";
-extern const char ApplicationContextGroup[] = "Application";
-
 struct ConfigurationBean{
     QString type;
     QString name;
     QString path;
     bool optional {false};
     QMetaType::Type typeId {QMetaType::UnknownType};
-    QString group {ApplicationContextGroup};
+    QString group {IContextManage::ApplicationContextGroup};
 };
 
 namespace IContextManageHelper {
