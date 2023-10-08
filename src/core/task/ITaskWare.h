@@ -5,6 +5,7 @@
 
 $PackageWebCoreBegin
 
+class ITaskCatagory;
 class ITaskWare : public IOrderUnit
 {
 public:
@@ -16,7 +17,12 @@ public:
     virtual void task() = 0;
     virtual QString catagory() const = 0;
     virtual bool isTaskDefaultEnabled() const;
+
+private:
     bool isTaskEnabled() const;
+
+private:
+    friend class ITaskCatagory;
 };
 
 $PackageWebCoreEnd
