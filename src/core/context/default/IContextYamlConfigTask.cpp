@@ -2,7 +2,6 @@
 #include "core/assert/IGlobalAssert.h"
 #include "core/base/IFileUtil.h"
 #include "core/context/yaml/IYamlUtil.h"
-#include "core/context/IContextWritter.h"
 #include "core/context/IContextManage.h"
 
 $PackageWebCoreBegin
@@ -18,7 +17,6 @@ void IContextYamlConfigTask::loadYaml(){
     auto paths = getYamlPaths();
     for(auto path : paths){
         auto obj = parseYamlFile(path);
-//        IContextWritter::addApplicationConfig(obj);
         IContextManage::addConfig(obj, IContextManage::ApplicationContextGroup);
         qDebug() << "Load Configuration:\t" << path;
     }

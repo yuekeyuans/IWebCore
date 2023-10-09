@@ -48,10 +48,7 @@ public:
 
 private:
     friend class ITaskManage;
-    friend class IContextWritter;
     QMap<QString, QJsonObject> m_configs;
-
-
 };
 
 template<typename T>

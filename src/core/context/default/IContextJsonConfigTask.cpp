@@ -1,5 +1,4 @@
 ﻿#include "IContextJsonConfigTask.h"
-//#include "core/context/IContextWritter.h"
 #include "core/context/IContextManage.h"
 #include "core/base/IFileUtil.h"
 #include "core/base/IJsonUtil.h"
@@ -19,7 +18,6 @@ void IContextJsonConfigTask::loadJson()
     auto paths = getJsonPaths();
     for(auto path : paths){
         auto obj = parseJsonFile(path);
-//        IContextWritter::addApplicationConfig(obj);
         IContextManage::addConfig(obj, IContextManage::ApplicationContextGroup);
     }
 }
