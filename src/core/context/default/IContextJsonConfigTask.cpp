@@ -19,7 +19,8 @@ void IContextJsonConfigTask::loadJson()
     auto paths = getJsonPaths();
     for(auto path : paths){
         auto obj = parseJsonFile(path);
-        IContextWritter::addApplicationConfig(obj);
+//        IContextWritter::addApplicationConfig(obj);
+        IContextManage::addConfig(obj, IContextManage::ApplicationContextGroup);
     }
 }
 

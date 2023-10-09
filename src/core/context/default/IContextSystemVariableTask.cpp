@@ -1,6 +1,6 @@
 ﻿#include "IContextSystemVariableTask.h"
 #include "core/context/IContextWritter.h"
-
+#include "core/context/IContextManage.h"
 $PackageWebCoreBegin
 
 void IContextSystemVariableTask::task()
@@ -10,7 +10,8 @@ void IContextSystemVariableTask::task()
 
 void IContextSystemVariableTask::loadSystemEnvironment(){
     auto obj = getSystemEnvironment();
-    IContextWritter::addSystemConfig(obj);
+//    IContextWritter::addSystemConfig(obj);
+    IContextManage::addConfig(obj, IContextManage::SystemContextGroup);
 }
 
 QJsonObject IContextSystemVariableTask::getSystemEnvironment(){

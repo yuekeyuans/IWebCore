@@ -2,7 +2,8 @@
 
 #include "core/base/IPreProcessorUtil.h"
 #include "core/base/IToeUtil.h"
-#include "core/context/IContextWritter.h"
+//#include "core/context/IContextWritter.h"
+#include "core/context/IContextManage.h"
 
 #define $AsContext(klassName)   \
     $UseInstance(klassName)
@@ -13,8 +14,8 @@ class klassName \
 public: \
     klassName(){    \
         QString key = IToeUtil::trimQuote( #path ); \
-        QJsonValue val = QJsonValue(value); \
-        IContextWritter::addSystemConfig(val, key); \
+        QJsonValue obj = QJsonValue(value); \
+        IContextManage::addConfig(obj, IContextManage::SystemContextGroup, key); \
     }   \
     static klassName* instance(){   \
         static klassName inst;  \
