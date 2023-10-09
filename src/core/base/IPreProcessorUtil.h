@@ -39,4 +39,4 @@ private:
 #define Q_CREATE_ON_STACK_ONLY \
 private:    \
     void* operator new(size_t) noexcept {return nullptr;};  \
-    void operator delete(void*){};  \
+    void operator delete(void*){};
