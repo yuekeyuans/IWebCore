@@ -13,8 +13,12 @@ private:
     IContextManage();
 
 public:
-    static QJsonValue getConfig(const QString& path, bool* ok, const QString& group);
+    static void addConfig(const QJsonValue& value, const QString& group, const QString& path="");
+    static void addSystemConfig(const QJsonValue& value, const QString& path="");
+    static void addApplicationConfig(const QJsonValue& value, const QString& path="");
 
+public:
+    static QJsonValue getConfig(const QString& path, bool* ok, const QString& group);
     static QJsonValue getSystemConfig(const QString& path, bool*ok);
     static QJsonValue getApplicationConfig(const QString& path, bool*ok);
 
@@ -27,9 +31,6 @@ public:
     static int getApplicationConfigAsInt(const QString& path, bool* ok=nullptr);
     static double getApplicationConfigAsDouble(const QString& path, bool* ok=nullptr);
     static QString getApplicationConfigAsString(const QString& path, bool* ok=nullptr);
-
-public:
-    static void addConfig(const QJsonValue& value, const QString& group, const QString& path="");
 
 public:
     template<typename T>

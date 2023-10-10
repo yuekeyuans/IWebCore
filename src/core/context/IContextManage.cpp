@@ -36,6 +36,24 @@ IContextManage::IContextManage()
 {
 }
 
+void IContextManage::addConfig(const QJsonValue& value, const QString& group, const QString& path)
+{
+    auto inst = instance();
+    auto& obj = inst->m_configs[group];
+    IContextManageHelper::addJsonValue(obj, value, path);
+}
+
+void IContextManage::addSystemConfig(const QJsonValue &value, const QString &path)
+{
+    addConfig(value, SystemContextGroup, path);
+}
+
+void IContextManage::addApplicationConfig(const QJsonValue &value, const QString &path)
+{
+    addConfig(value, ApplicationContextGroup, path);
+}
+
+
 QJsonValue IContextManage::getConfig(const QString &path, bool* ok, const QString &group)
 {
     IToeUtil::setOk(ok, true);
@@ -188,13 +206,6 @@ QString IContextManage::getApplicationConfigAsString(const QString &path, bool *
     }
     IToeUtil::setOk(ok, false);
     return "";
-}
-
-void IContextManage::addConfig(const QJsonValue& value, const QString& group, const QString& path)
-{
-    auto inst = instance();
-    auto& obj = inst->m_configs[group];
-    IContextManageHelper::addJsonValue(obj, value, path);
 }
 
 void IContextManage::getConfigBean(void *handler, const QMap<QString, QString> &clsInfo, const QVector<QMetaProperty> &props, bool *ok)
