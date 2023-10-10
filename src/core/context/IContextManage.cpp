@@ -34,8 +34,26 @@ namespace IContextManageHelper {
 
 IContextManage::IContextManage()
 {
-//        setSystemConfig("CONFIG_TEST_PYTHON_INPUT_PATH", ":/test/python/");
-//        setSystemConfig("CONFIG_TEST_PYTHON_OUTPUT_PATH", "./.python");
+}
+
+QJsonValue IContextManage::getConfig(const QString &path, bool* ok, const QString &group)
+{
+    IToeUtil::setOk(ok, true);
+
+    auto inst = instance();
+    if(!inst->m_configs.contains(group)){
+        IToeUtil::setOk(ok, false);
+        return {};
+    }
+
+    bool convertOk;
+    auto value = IJsonUtil::getJsonValue(inst->m_configs[group], path, &convertOk);
+    if(convertOk){
+        return value;
+    }
+
+    IToeUtil::setOk(ok, convertOk);
+    return {};
 }
 
 QJsonValue IContextManage::getSystemConfig(const QString &path, bool*ok)
@@ -234,39 +252,11 @@ QString IContextManage::getApplicationConfigAsString(const QString &path, bool *
 //    return "";
 //}
 
-QJsonValue IContextManage::getConfig(const QString &path, bool* ok, const QString &group)
-{
-    IToeUtil::setOk(ok, true);
-
-    auto inst = instance();
-    if(!inst->m_configs.contains(group)){
-        IToeUtil::setOk(ok, false);
-        return {};
-    }
-
-    bool convertOk;
-    auto value = IJsonUtil::getJsonValue(inst->m_configs[group], path, &convertOk);
-    if(convertOk){
-        return value;
-    }
-
-    IToeUtil::setOk(ok, convertOk);
-    return {};
-}
-
-
 void IContextManage::addConfig(const QJsonValue& value, const QString& group, const QString& path)
 {
     auto inst = instance();
     auto& obj = inst->m_configs[group];
     IContextManageHelper::addJsonValue(obj, value, path);
-}
-
-void IContextManage::removeConfig(const QString &group, const QString &path)
-{
-    auto inst = instance();
-    auto& obj = inst->m_configs[group];
-    inst->m_configs[group] = IContextManageHelper::removeJsonValue(obj, path);
 }
 
 void IContextManage::getConfigBean(void *handler, const QMap<QString, QString> &clsInfo, const QVector<QMetaProperty> &props, bool *ok)
