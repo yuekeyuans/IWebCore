@@ -190,68 +190,6 @@ QString IContextManage::getApplicationConfigAsString(const QString &path, bool *
     return "";
 }
 
-//bool IContextManage::getConfigAsBool(const QString &path, bool *ok, const QString &group)
-//{
-//    IToeUtil::setOk(ok, true);
-//    bool convertOk;
-//    auto value = getConfig(path, &convertOk, group);
-//    if(convertOk){
-//        return IConvertUtil::toBool(value, ok);
-//    }
-
-//    IToeUtil::setOkAnd(ok, convertOk);
-//    return false;
-//}
-
-//int IContextManage::getConfigAsInt(const QString &path, bool *ok, const QString &group)
-//{
-//    IToeUtil::setOk(ok, true);
-//    bool convertOk;
-//    auto value = getConfig(path, &convertOk, group);
-//    if(convertOk){
-//        return IConvertUtil::toInt(value, ok);
-//    }
-
-//    IToeUtil::setOkAnd(ok, convertOk);
-//    return 0;
-//}
-
-//double IContextManage::getConfigAsDouble(const QString &path, bool *ok, const QString &group)
-//{
-//    IToeUtil::setOk(ok, true);
-//    bool convertOk;
-//    auto value = getConfig(path, &convertOk, group);
-//    if(convertOk){
-//        return IConvertUtil::toDouble(value, ok);
-//    }
-
-//    IToeUtil::setOkAnd(ok, convertOk);
-//    return 0;
-//}
-
-//QString IContextManage::getConfigAsString(const QString &path, bool *ok, const QString &group)
-//{
-//    IToeUtil::setOk(ok, true);
-//    bool convertOk;
-
-//    auto value = getConfig(path, &convertOk, group);
-//    if(!convertOk || value.isArray() || value.isObject() || value.isNull() || value.isUndefined()){
-//        IToeUtil::setOk(ok, false);
-//        return "";
-//    }
-//    IToeUtil::setOkAnd(ok, convertOk);
-
-//    if(value.isDouble()){
-//        return QString::number(value.toDouble());
-//    }else if(value.isBool()){
-//        return IConvertUtil::toString(value.toBool());
-//    }else if(value.isString()){
-//        return value.toString();
-//    }
-//    IToeUtil::setOk(ok, false);
-//    return "";
-//}
-
 void IContextManage::addConfig(const QJsonValue& value, const QString& group, const QString& path)
 {
     auto inst = instance();
