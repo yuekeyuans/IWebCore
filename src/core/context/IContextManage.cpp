@@ -334,19 +334,20 @@ void IContextManageHelper::addJsonValue(QJsonObject& root, const QJsonValue& val
     QJsonValue curValue = value;
 
     if(!path.isEmpty()){
-        auto pieces = path.split('.');
+        QStringList pieces = path.split('.');
         if(pieces.isEmpty() || pieces.first().startsWith("_")){
             $GlobalAssert->fatal("ContextAddPathInvalid");
         }
 
-        for(auto it=pieces.crbegin(); it!=pieces.crend(); it++){
-            if(it->startsWith('_')){   // 不判断第几个，只说明这是一个 index.
+        for(int i=pieces.length()-1; i>=0; i--){
+            QString key = pieces[i];
+            if(key.startsWith('_')){   // 不判断第几个，只说明这是一个 index.
                 QJsonArray array;
                 array.push_back(curValue);
                 curValue = array;
             }else{
                 QJsonObject obj;
-                obj[*it] = curValue;
+                obj[key] = curValue;
                 curValue = obj;
             }
         }
