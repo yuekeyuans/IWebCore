@@ -8,9 +8,9 @@
 #define $AsContext(klassName)   \
     $UseInstance(klassName)
 
+// TODO: this not work in mingw!!!
 //#define PP_SYSTEM_CONTEXT_SETTING(klassName, path, value)   \
-//class klassName : public ITaskInstantUnit <     \
-//    klassName, true >  \
+//class klassName : public ITaskInstantUnit < klassName, true >  \
 //{   \
 //public:     \
 //    klassName() = default;  \
