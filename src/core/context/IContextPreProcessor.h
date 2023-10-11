@@ -21,7 +21,6 @@ public:     \
     }    \
 };
 
-
 // another realization, this is a little fast, but less cohesion
 //#define PP_SYSTEM_CONTEXT_SETTING(klassName, path, value)   \
 //class klassName \

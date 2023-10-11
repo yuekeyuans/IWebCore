@@ -2,14 +2,9 @@
 #include "core/context/IContextManage.h"
 $PackageWebCoreBegin
 
-void IContextSystemVariableTask::task()
+QJsonValue IContextSystemVariableTask::getSystemConfig()
 {
-    loadSystemEnvironment();
-}
-
-void IContextSystemVariableTask::loadSystemEnvironment(){
-    auto obj = getSystemEnvironment();
-    IContextManage::addConfig(obj, IContextManage::SystemContextGroup);
+    return getSystemEnvironment();
 }
 
 QJsonObject IContextSystemVariableTask::getSystemEnvironment(){

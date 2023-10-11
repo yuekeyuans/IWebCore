@@ -2,9 +2,9 @@
 
 $PackageWebCoreBegin
 
-void IContextTomlConfigTask::task()
+QJsonValue IContextTomlConfigTask::getApplicationConfig()
 {
-    qDebug() << "task executed";
+    return {};
 }
 
 $PackageWebCoreEnd

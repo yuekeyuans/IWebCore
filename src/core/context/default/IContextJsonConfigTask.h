@@ -13,10 +13,9 @@ private:
     IContextJsonConfigTask() = default;
 
 public:
-    virtual void task() final;
+    virtual QJsonValue getApplicationConfig();
 
 private:
-    void loadJson();
     QStringList getJsonPaths();
     QJsonObject parseJsonFile(const QString& path);
 };

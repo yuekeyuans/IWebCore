@@ -13,13 +13,10 @@ private:
     IContextSystemVariableTask() = default;
 
 public:
-    virtual void task() final;
+    virtual QJsonValue getSystemConfig();
 
 private:
-    void loadSystemEnvironment();
     QJsonObject getSystemEnvironment();
-
-
 };
 
 $PackageWebCoreEnd

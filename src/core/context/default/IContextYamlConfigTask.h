@@ -13,10 +13,9 @@ private:
     IContextYamlConfigTask() = default;
 
 public:
-    virtual void task() final;
+    virtual QJsonValue getApplicationConfig();
 
 private:
-    void loadYaml();
     QStringList getYamlPaths();
     QJsonObject parseYamlFile(const QString& path);
 };

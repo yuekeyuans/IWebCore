@@ -6,6 +6,8 @@ $PackageWebCoreBegin
 
 class ITaskManage;
 
+// TODO: 这里 Context 应该修改成 Config, 因为里面的内容全是 config 的， 没有context
+
 class IContextManage
 {
     $UseInstance(IContextManage)

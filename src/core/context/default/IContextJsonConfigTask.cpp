@@ -8,18 +8,15 @@ $PackageWebCoreBegin
 
 $UseGlobalAssert()
 
-void IContextJsonConfigTask::task()
-{
-    loadJson();
-}
-
-void IContextJsonConfigTask::loadJson()
+QJsonValue IContextJsonConfigTask::getApplicationConfig()
 {
     auto paths = getJsonPaths();
     for(auto path : paths){
         auto obj = parseJsonFile(path);
         IContextManage::addConfig(obj, IContextManage::ApplicationContextGroup);
     }
+
+    return {};
 }
 
 QStringList IContextJsonConfigTask::getJsonPaths(){

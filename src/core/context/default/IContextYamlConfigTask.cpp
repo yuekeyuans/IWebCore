@@ -8,18 +8,16 @@ $PackageWebCoreBegin
 
 $UseGlobalAssert()
 
-void IContextYamlConfigTask::task()
+QJsonValue IContextYamlConfigTask::getApplicationConfig()
 {
-    loadYaml();
-}
-
-void IContextYamlConfigTask::loadYaml(){
     auto paths = getYamlPaths();
     for(auto path : paths){
         auto obj = parseYamlFile(path);
         IContextManage::addConfig(obj, IContextManage::ApplicationContextGroup);
         qDebug() << "Load Configuration:\t" << path;
     }
+
+    return {};
 }
 
 QStringList IContextYamlConfigTask::getYamlPaths(){

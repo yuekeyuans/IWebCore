@@ -12,8 +12,8 @@ class IContextTomlConfigTask : public IContextTaskInterface<IContextTomlConfigTa
 private:
     IContextTomlConfigTask() = default;
 
-private:
-    virtual void task() final;
+public:
+    virtual QJsonValue getApplicationConfig();
 };
 
 $PackageWebCoreEnd
