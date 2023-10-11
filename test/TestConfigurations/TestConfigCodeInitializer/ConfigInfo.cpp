@@ -1,9 +1,9 @@
 ﻿#include <IWebCore>
 
-IConfigInstance(ConfigSpecificDemo){
-    QJsonObject obj ={
-        {"name" , "zhi"},
-        {"age", 102}
-    };
-    return obj;
-}
+//IConfigInstance(ConfigSpecificDemo){
+//    QJsonObject obj ={
+//        {"name" , "zhi"},
+//        {"age", 102}
+//    };
+//    return obj;
+//}

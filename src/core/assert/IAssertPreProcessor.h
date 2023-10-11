@@ -20,10 +20,10 @@ private:
     $UseAssert(IGlobalAssert, $GlobalAssert)
 
 #define $UseAssert_1(klassName)  \
-    static inline klassName* $Ast = klassName::instance();
+    static klassName* $Ast = klassName::instance();
 
 #define $UseAssert_2(klassName, name)  \
-    static inline klassName* name = klassName::instance();
+    static klassName* name = klassName::instance();
 
 #define $UseAssert_(N) $UseAssert_##N
 #define $UseAssert_EVAL(N) $UseAssert_(N)

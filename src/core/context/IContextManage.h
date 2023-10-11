@@ -10,7 +10,7 @@ class IContextManage
 {
     $UseInstance(IContextManage)
 private:
-    IContextManage();
+    IContextManage() = default;
 
 public:
     static void addConfig(const QJsonValue& value, const QString& group, const QString& path="");

@@ -5,7 +5,7 @@
 class ConfigBean
 {
     Q_GADGET
-    $UseConfig(ConfigBean)
+//    $UseConfig(ConfigBean)
 public:
     ConfigBean();
 

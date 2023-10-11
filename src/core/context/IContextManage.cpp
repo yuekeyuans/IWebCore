@@ -32,10 +32,6 @@ namespace IContextManageHelper {
     QJsonObject removeJsonValue(QJsonObject& dest, const QString& path);
 }
 
-IContextManage::IContextManage()
-{
-}
-
 void IContextManage::addConfig(const QJsonValue& value, const QString& group, const QString& path)
 {
     auto inst = instance();

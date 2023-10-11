@@ -2,5 +2,5 @@
 
 ConfigBean::ConfigBean()
 {
-    $ConstructConfig()
+//    $ConstructConfig()
 }

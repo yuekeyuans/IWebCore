@@ -4,5 +4,5 @@ SUBDIRS += \
     TestCores \
 #    TestHttps \
 #    TestOrms    \
-#    TestConfigurations \
+    TestConfigurations \
 #    TestTest

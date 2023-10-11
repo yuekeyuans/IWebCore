@@ -17,6 +17,7 @@ public:
 protected:
     virtual QString name() const override;
     virtual QString catagory() const final;
+    virtual void task() = 0;
 };
 
 template<typename T, bool enabled>
@@ -30,6 +31,5 @@ QString IContextTaskInterface<T, enabled>::catagory() const
 {
     return "Context";
 }
-
 
 $PackageWebCoreEnd

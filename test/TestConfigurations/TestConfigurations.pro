@@ -2,6 +2,6 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
     TestConfigCodeInitializer \
-    TestConfigurationCodeConfig \
-    TestConfigurationInterface \
-    TestDataBaseConfiguration
+#    TestConfigurationCodeConfig \
+#    TestConfigurationInterface \
+#    TestDataBaseConfiguration

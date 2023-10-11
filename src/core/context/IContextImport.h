@@ -5,7 +5,6 @@
 #include "core/base/IJsonUtil.h"
 #include "core/context/IContextManage.h"
 
-
 $PackageWebCoreBegin
 
 template<typename T>
