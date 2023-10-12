@@ -27,7 +27,7 @@ protected:
 template<typename T, bool enabled>
 QString IContextTaskInterface<T, enabled>::name() const
 {
-    return IMetaUtil::getMetaClassName(T::staticMetaObject);
+    return typeid(T).name();
 }
 
 template<typename T, bool enabled>
