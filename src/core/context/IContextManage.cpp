@@ -342,6 +342,9 @@ void IContextManageHelper::addJsonValue(QJsonObject& root, const QJsonValue& val
         for(int i=pieces.length()-1; i>=0; i--){
             QString key = pieces[i];
             if(key.startsWith('_')){   // 不判断第几个，只说明这是一个 index.
+                if(i==0){
+                    $GlobalAssert->fatal("ContextObjectError");
+                }
                 QJsonArray array;
                 array.push_back(curValue);
                 curValue = array;
