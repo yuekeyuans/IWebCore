@@ -9,12 +9,13 @@
 //    return obj;
 //}
 
+// TODO: 这里 Application Config 没有返回自己的 path
+
 class ConfigDemo : public IContextTaskInterface<ConfigDemo, true>
 {
-    $UseInstance(ConfigDemo)
+    $AsContext(ConfigDemo)
 public:
     ConfigDemo() = default;
-
     virtual QJsonValue getApplicationConfig() final{
             QJsonObject obj ={
                 {"name" , "zhi"},

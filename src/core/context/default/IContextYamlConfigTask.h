@@ -2,12 +2,12 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/context/IContextTaskInterface.h"
+#include "core/context/IContextPreProcessor.h"
 
 $PackageWebCoreBegin
 
 class IContextYamlConfigTask : public IContextTaskInterface<IContextYamlConfigTask>
 {
-    Q_GADGET
     $AsContext(IContextYamlConfigTask)
 private:
     IContextYamlConfigTask() = default;
