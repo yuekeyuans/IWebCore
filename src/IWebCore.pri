@@ -206,9 +206,7 @@ SOURCES += \
     $$PWD/core/assert/IAssertInterface.cpp \
     $$PWD/core/assert/IGlobalAssert.cpp \
     $$PWD/core/bean/IBeanTypeManage.cpp \
-    $$PWD/core/context/IContextImport.cpp \
     $$PWD/core/context/IContextManage.cpp \
-    $$PWD/core/context/IContextSystemConfigInterface.cpp \
     $$PWD/core/context/default/IContextJsonConfigTask.cpp \
     $$PWD/core/context/default/IContextSystemVariableTask.cpp \
     $$PWD/core/context/default/IContextTomlConfigTask.cpp \

@@ -1,9 +1,15 @@
-#pragma once
+﻿#pragma once
 
+#include "core/base/IHeaderUtil.h"
+#include "core/context/IContextTaskInterface.h"
 
-class IContextSystemConfigInterface
+$PackageWebCoreBegin
+
+template<typename T, bool enabled>
+class IContextSystemConfigInterface : public IContextTaskInterface<T, enabled>
 {
 public:
-    IContextSystemConfigInterface();
+    IContextSystemConfigInterface() = default;
 };
 
+$PackageWebCoreEnd
