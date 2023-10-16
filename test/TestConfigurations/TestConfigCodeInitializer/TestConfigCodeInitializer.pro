@@ -12,10 +12,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         ConfigBean.cpp \
+        ConfigData.cpp \
         ConfigInfo.cpp \
         TestConfig.cpp \
         main.cpp
 
 HEADERS += \
     ConfigBean.h \
+    ConfigData.h \
     TestConfig.h

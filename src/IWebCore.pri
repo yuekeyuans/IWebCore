@@ -32,9 +32,11 @@ HEADERS += \
     $$PWD/core/bean/IBeanPreProcessor.h \
     $$PWD/core/bean/IBeanTypeManage.h \
     $$PWD/core/bean/IBeanWare.h \
+    $$PWD/core/context/IContextApplicationConfigInterface.h \
     $$PWD/core/context/IContextImport.h \
     $$PWD/core/context/IContextManage.h \
     $$PWD/core/context/IContextPreProcessor.h \
+    $$PWD/core/context/IContextSystemConfigInterface.h \
     $$PWD/core/context/IContextTaskInterface.h \
     $$PWD/core/context/IContextWirePreProcessor.h \
     $$PWD/core/context/default/IContextJsonConfigTask.h \
@@ -206,6 +208,7 @@ SOURCES += \
     $$PWD/core/bean/IBeanTypeManage.cpp \
     $$PWD/core/context/IContextImport.cpp \
     $$PWD/core/context/IContextManage.cpp \
+    $$PWD/core/context/IContextSystemConfigInterface.cpp \
     $$PWD/core/context/default/IContextJsonConfigTask.cpp \
     $$PWD/core/context/default/IContextSystemVariableTask.cpp \
     $$PWD/core/context/default/IContextTomlConfigTask.cpp \
