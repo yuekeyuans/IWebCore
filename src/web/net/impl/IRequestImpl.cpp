@@ -227,13 +227,15 @@ QByteArray IRequestImpl::getAppParameter(const QString &name, bool* ok) const
     IToeUtil::setOk(ok, true);
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
 
-    bool convertOk;
-    auto value = IContextManage::getApplicationConfig(originName, &convertOk);
-    if(convertOk){
-        return IConvertUtil::toByteArray(value);
-    }
 
-    IToeUtil::setOk(ok, convertOk);
+    // TODO:
+//    bool convertOk;
+//    auto value = IContextManage::getApplicationConfig(originName, &convertOk);
+//    if(convertOk){
+//        return IConvertUtil::toByteArray(value);
+//    }
+
+//    IToeUtil::setOk(ok, convertOk);
     return {};
 }
 
@@ -245,7 +247,7 @@ QByteArray IRequestImpl::getSystemParameter(const QString &name, bool* ok) const
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
 
     bool convertOk;
-    auto value = IContextManage::getSystemConfig(originName, &convertOk);
+    auto value = IContextManage::instance()->getConfig(originName, &convertOk);
     if(convertOk){
         return IConvertUtil::toByteArray(value);
     }

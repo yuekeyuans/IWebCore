@@ -47,6 +47,7 @@ HEADERS += \
     $$PWD/core/context/yaml/IYamlUtil.h \
     $$PWD/core/context/yaml/Yaml.hpp \
     $$PWD/core/core.h \
+    $$PWD/core/profile/IProfileManage.h \
     $$PWD/core/task/ITaskCatagory.h \
     $$PWD/core/task/ITaskCatagoryInterface.h \
     $$PWD/core/task/ITaskPreProcessor.h \
@@ -67,6 +68,7 @@ HEADERS += \
     $$PWD/core/test/ITestTaskInterface.h \
     $$PWD/core/test/ITestManage.h \
     $$PWD/core/test/ITestPreProcessor.h \
+    $$PWD/core/unit/IConfigUnit.h \
     $$PWD/core/unit/IGadgetUnit.h \
     $$PWD/core/unit/INoConstructUnit.h \
     $$PWD/core/unit/INoCopyMoveUnit.h \
@@ -214,6 +216,7 @@ SOURCES += \
     $$PWD/core/context/default/IContextYamlConfigTask.cpp \
     $$PWD/core/context/yaml/IYamlUtil.cpp \
     $$PWD/core/context/yaml/Yaml.cpp \
+    $$PWD/core/profile/IProfileManage.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \
     $$PWD/core/task/default/IBannerTask.cpp \
     $$PWD/core/task/default/IContextTaskCatagory.cpp \
@@ -226,6 +229,7 @@ SOURCES += \
     $$PWD/core/task/default/ITestInvokeTask.cpp \
     $$PWD/core/task/default/ITestTaskCatagory.cpp \
     $$PWD/core/test/ITestManage.cpp \
+    $$PWD/core/unit/IConfigUnit.cpp \
     $$PWD/core/unit/IGadgetUnit.cpp \
     $$PWD/core/unit/INoCopyMoveUnit.cpp \
     $$PWD/core/unit/IRegisterGadgetUnit.cpp \

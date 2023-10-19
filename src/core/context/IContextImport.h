@@ -108,17 +108,18 @@ IContextImport<T>::operator T() const
 template<typename T>
 T &IContextImport<T>::get() const
 {
-    if(!m_isLoaded){
-        bool ok;
-        auto value = IContextManage::getApplicationConfig(m_path, &ok);
-        if(ok){
-            m_data = IJsonUtil::fromJson<T>(value, &ok);
-            qDebug() << "data is ok" << value;
-        }else{
-            qDebug() << "fail to load data" << m_path;
-        }
-        m_isLoaded = true;
-    }
+    // TODO: app
+//    if(!m_isLoaded){
+//        bool ok;
+//        auto value = IContextManage::getApplicationConfig(m_path, &ok);
+//        if(ok){
+//            m_data = IJsonUtil::fromJson<T>(value, &ok);
+//            qDebug() << "data is ok" << value;
+//        }else{
+//            qDebug() << "fail to load data" << m_path;
+//        }
+//        m_isLoaded = true;
+//    }
 
     return m_data;
 }

@@ -17,7 +17,7 @@ public:     \
     virtual void task() final {  \
         QString key = IToeUtil::trimQuote( #path ); \
         QJsonValue obj = QJsonValue(value); \
-        IContextManage::addConfig(obj, IContextManage::SystemContextGroup, key); \
+        IContextManage::instance()->addConfig(obj, key); \
     }    \
 };
 

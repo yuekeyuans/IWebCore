@@ -489,7 +489,7 @@ bool IControllerParamBeanUtil::isBeanResoveStrictMode()
     static std::once_flag flag;
     std::call_once(flag, [](){
         bool ok;
-        auto value = IContextManage::getSystemConfig("BEAN_RESOLVE_IS_STRICT_MODE", &ok);
+        auto value = IContextManage::instance()->getConfig("BEAN_RESOLVE_IS_STRICT_MODE", &ok);
         if(!ok || !value.isBool()){
             isStrict = true;
         }else{

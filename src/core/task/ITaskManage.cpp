@@ -98,7 +98,7 @@ void ITaskManage::execEachCatagory()
         if(node->isCatagoryEnabled()){
             node->sortTask();
             bool ok;
-            if(IContextManage::getSystemConfig("SYSTEM_ENABLE_TASK_OUTPUT", &ok).toBool() && ok){
+            if(IContextManage::instance()->getConfig("SYSTEM_ENABLE_TASK_OUTPUT", &ok).toBool() && ok){
                node->printTaskInfo();
             }
         }

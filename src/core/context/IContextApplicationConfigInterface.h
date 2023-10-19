@@ -31,10 +31,11 @@ void IContextApplicationConfigInterface<T, enabled>::task()
         qDebug() << "contains";
     }
 
-    auto applicationConfig = getApplicationConfig();
-    if(!applicationConfig.isNull() && !applicationConfig.isUndefined()){
-        IContextManage::addApplicationConfig(applicationConfig, path);
-    }
+    // TODO:
+//    auto applicationConfig = getApplicationConfig();
+//    if(!applicationConfig.isNull() && !applicationConfig.isUndefined()){
+//        IContextManage::addApplicationConfig(applicationConfig, path);
+//    }
 }
 
 template<typename T, bool enabled>

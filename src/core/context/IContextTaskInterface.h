@@ -53,12 +53,7 @@ void IContextTaskInterface<T, enabled>::task()
 {
     auto systemConfig = getSystemConfig();
     if(!systemConfig.isNull() && !systemConfig.isUndefined()){
-        IContextManage::addSystemConfig(systemConfig);
-    }
-
-    auto applicationConfig = getApplicationConfig();
-    if(!applicationConfig.isNull() && !applicationConfig.isUndefined()){
-        IContextManage::addApplicationConfig(applicationConfig);
+        IContextManage::instance()->addConfig(systemConfig);
     }
 }
 

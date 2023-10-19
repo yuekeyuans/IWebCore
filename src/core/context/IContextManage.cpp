@@ -32,177 +32,177 @@ namespace IContextManageHelper {
     QJsonObject removeJsonValue(QJsonObject& dest, const QString& path);
 }
 
-void IContextManage::addConfig(const QJsonValue& value, const QString& group, const QString& path)
-{
-    auto inst = instance();
-    auto& obj = inst->m_configs[group];
-    IContextManageHelper::addJsonValue(obj, value, path);
-}
+//void IContextManage::addConfig(const QJsonValue& value, const QString& group, const QString& path)
+//{
+//    auto inst = instance();
+//    auto& obj = inst->m_configs[group];
+//    IContextManageHelper::addJsonValue(obj, value, path);
+//}
 
-void IContextManage::addSystemConfig(const QJsonValue &value, const QString &path)
-{
-    addConfig(value, SystemContextGroup, path);
-}
+//void IContextManage::addSystemConfig(const QJsonValue &value, const QString &path)
+//{
+//    addConfig(value, SystemContextGroup, path);
+//}
 
-void IContextManage::addApplicationConfig(const QJsonValue &value, const QString &path)
-{
-    addConfig(value, ApplicationContextGroup, path);
-}
+//void IContextManage::addApplicationConfig(const QJsonValue &value, const QString &path)
+//{
+//    addConfig(value, ApplicationContextGroup, path);
+//}
 
 
-QJsonValue IContextManage::getConfig(const QString &path, bool* ok, const QString &group)
-{
-    IToeUtil::setOk(ok, true);
+//QJsonValue IContextManage::getConfig(const QString &path, bool* ok, const QString &group)
+//{
+//    IToeUtil::setOk(ok, true);
 
-    auto inst = instance();
-    if(!inst->m_configs.contains(group)){
-        IToeUtil::setOk(ok, false);
-        return {};
-    }
+//    auto inst = instance();
+//    if(!inst->m_configs.contains(group)){
+//        IToeUtil::setOk(ok, false);
+//        return {};
+//    }
 
-    bool convertOk;
-    auto value = IJsonUtil::getJsonValue(inst->m_configs[group], path, &convertOk);
-    if(convertOk){
-        return value;
-    }
+//    bool convertOk;
+//    auto value = IJsonUtil::getJsonValue(inst->m_configs[group], path, &convertOk);
+//    if(convertOk){
+//        return value;
+//    }
 
-    IToeUtil::setOk(ok, convertOk);
-    return {};
-}
+//    IToeUtil::setOk(ok, convertOk);
+//    return {};
+//}
 
-QJsonValue IContextManage::getSystemConfig(const QString &path, bool*ok)
-{
-    return getConfig(path, ok, SystemContextGroup);
-}
+//QJsonValue IContextManage::getSystemConfig(const QString &path, bool*ok)
+//{
+//    return getConfig(path, ok, SystemContextGroup);
+//}
 
-QJsonValue IContextManage::getApplicationConfig(const QString &path, bool *ok)
-{
-    return getConfig(path, ok, ApplicationContextGroup);
-}
+//QJsonValue IContextManage::getApplicationConfig(const QString &path, bool *ok)
+//{
+//    return getConfig(path, ok, ApplicationContextGroup);
+//}
 
-bool IContextManage::getSystemConfigAsBool(const QString &path, bool *ok)
-{
-    IToeUtil::setOk(ok, true);
-    bool convertOk;
-    auto value = getConfig(path, &convertOk, SystemContextGroup);
-    if(convertOk){
-        return IConvertUtil::toBool(value, ok);
-    }
+//bool IContextManage::getSystemConfigAsBool(const QString &path, bool *ok)
+//{
+//    IToeUtil::setOk(ok, true);
+//    bool convertOk;
+//    auto value = getConfig(path, &convertOk, SystemContextGroup);
+//    if(convertOk){
+//        return IConvertUtil::toBool(value, ok);
+//    }
 
-    IToeUtil::setOkAnd(ok, convertOk);
-    return false;
-}
+//    IToeUtil::setOkAnd(ok, convertOk);
+//    return false;
+//}
 
-int IContextManage::getSystemConfigAsInt(const QString &path, bool *ok)
-{
-    IToeUtil::setOk(ok, true);
-    bool convertOk;
-    auto value = getConfig(path, &convertOk, SystemContextGroup);
-    if(convertOk){
-        return IConvertUtil::toInt(value, ok);
-    }
+//int IContextManage::getSystemConfigAsInt(const QString &path, bool *ok)
+//{
+//    IToeUtil::setOk(ok, true);
+//    bool convertOk;
+//    auto value = getConfig(path, &convertOk, SystemContextGroup);
+//    if(convertOk){
+//        return IConvertUtil::toInt(value, ok);
+//    }
 
-    IToeUtil::setOkAnd(ok, convertOk);
-    return false;
-}
+//    IToeUtil::setOkAnd(ok, convertOk);
+//    return false;
+//}
 
-double IContextManage::getSystemConfigAsDouble(const QString &path, bool *ok)
-{
-    IToeUtil::setOk(ok, true);
-    bool convertOk;
-    auto value = getConfig(path, &convertOk, SystemContextGroup);
-    if(convertOk){
-        return IConvertUtil::toDouble(value, ok);
-    }
+//double IContextManage::getSystemConfigAsDouble(const QString &path, bool *ok)
+//{
+//    IToeUtil::setOk(ok, true);
+//    bool convertOk;
+//    auto value = getConfig(path, &convertOk, SystemContextGroup);
+//    if(convertOk){
+//        return IConvertUtil::toDouble(value, ok);
+//    }
 
-    IToeUtil::setOkAnd(ok, convertOk);
-    return false;
-}
+//    IToeUtil::setOkAnd(ok, convertOk);
+//    return false;
+//}
 
-QString IContextManage::getSystemConfigAsString(const QString &path, bool *ok)
-{
-    IToeUtil::setOk(ok, true);
-    bool convertOk;
+//QString IContextManage::getSystemConfigAsString(const QString &path, bool *ok)
+//{
+//    IToeUtil::setOk(ok, true);
+//    bool convertOk;
 
-    auto value = getConfig(path, &convertOk, SystemContextGroup);
-    if(!convertOk || value.isArray() || value.isObject() || value.isNull() || value.isUndefined()){
-        IToeUtil::setOk(ok, false);
-        return "";
-    }
-    IToeUtil::setOkAnd(ok, convertOk);
+//    auto value = getConfig(path, &convertOk, SystemContextGroup);
+//    if(!convertOk || value.isArray() || value.isObject() || value.isNull() || value.isUndefined()){
+//        IToeUtil::setOk(ok, false);
+//        return "";
+//    }
+//    IToeUtil::setOkAnd(ok, convertOk);
 
-    if(value.isDouble()){
-        return QString::number(value.toDouble());
-    }else if(value.isBool()){
-        return IConvertUtil::toString(value.toBool());
-    }else if(value.isString()){
-        return value.toString();
-    }
-    IToeUtil::setOk(ok, false);
-    return "";
-}
+//    if(value.isDouble()){
+//        return QString::number(value.toDouble());
+//    }else if(value.isBool()){
+//        return IConvertUtil::toString(value.toBool());
+//    }else if(value.isString()){
+//        return value.toString();
+//    }
+//    IToeUtil::setOk(ok, false);
+//    return "";
+//}
 
-bool IContextManage::getApplicationConfigAsBool(const QString &path, bool *ok)
-{
-    IToeUtil::setOk(ok, true);
-    bool convertOk;
-    auto value = getConfig(path, &convertOk, ApplicationContextGroup);
-    if(convertOk){
-        return IConvertUtil::toBool(value, ok);
-    }
+//bool IContextManage::getApplicationConfigAsBool(const QString &path, bool *ok)
+//{
+//    IToeUtil::setOk(ok, true);
+//    bool convertOk;
+//    auto value = getConfig(path, &convertOk, ApplicationContextGroup);
+//    if(convertOk){
+//        return IConvertUtil::toBool(value, ok);
+//    }
 
-    IToeUtil::setOkAnd(ok, convertOk);
-    return false;
-}
+//    IToeUtil::setOkAnd(ok, convertOk);
+//    return false;
+//}
 
-int IContextManage::getApplicationConfigAsInt(const QString &path, bool *ok)
-{
-    IToeUtil::setOk(ok, true);
-    bool convertOk;
-    auto value = getConfig(path, &convertOk, ApplicationContextGroup);
-    if(convertOk){
-        return IConvertUtil::toInt(value, ok);
-    }
+//int IContextManage::getApplicationConfigAsInt(const QString &path, bool *ok)
+//{
+//    IToeUtil::setOk(ok, true);
+//    bool convertOk;
+//    auto value = getConfig(path, &convertOk, ApplicationContextGroup);
+//    if(convertOk){
+//        return IConvertUtil::toInt(value, ok);
+//    }
 
-    IToeUtil::setOkAnd(ok, convertOk);
-    return false;
-}
+//    IToeUtil::setOkAnd(ok, convertOk);
+//    return false;
+//}
 
-double IContextManage::getApplicationConfigAsDouble(const QString &path, bool *ok)
-{
-    IToeUtil::setOk(ok, true);
-    bool convertOk;
-    auto value = getConfig(path, &convertOk, ApplicationContextGroup);
-    if(convertOk){
-        return IConvertUtil::toDouble(value, ok);
-    }
+//double IContextManage::getApplicationConfigAsDouble(const QString &path, bool *ok)
+//{
+//    IToeUtil::setOk(ok, true);
+//    bool convertOk;
+//    auto value = getConfig(path, &convertOk, ApplicationContextGroup);
+//    if(convertOk){
+//        return IConvertUtil::toDouble(value, ok);
+//    }
 
-    IToeUtil::setOkAnd(ok, convertOk);
-    return false;
-}
+//    IToeUtil::setOkAnd(ok, convertOk);
+//    return false;
+//}
 
-QString IContextManage::getApplicationConfigAsString(const QString &path, bool *ok)
-{
-    IToeUtil::setOk(ok, true);
-    bool convertOk;
+//QString IContextManage::getApplicationConfigAsString(const QString &path, bool *ok)
+//{
+//    IToeUtil::setOk(ok, true);
+//    bool convertOk;
 
-    auto value = getConfig(path, &convertOk, ApplicationContextGroup);
-    if(!convertOk || value.isArray() || value.isObject() || value.isNull() || value.isUndefined()){
-        IToeUtil::setOk(ok, false);
-        return "";
-    }
-    IToeUtil::setOkAnd(ok, convertOk);
+//    auto value = getConfig(path, &convertOk, ApplicationContextGroup);
+//    if(!convertOk || value.isArray() || value.isObject() || value.isNull() || value.isUndefined()){
+//        IToeUtil::setOk(ok, false);
+//        return "";
+//    }
+//    IToeUtil::setOkAnd(ok, convertOk);
 
-    if(value.isDouble()){
-        return QString::number(value.toDouble());
-    }else if(value.isBool()){
-        return IConvertUtil::toString(value.toBool());
-    }else if(value.isString()){
-        return value.toString();
-    }
-    IToeUtil::setOk(ok, false);
-    return "";
-}
+//    if(value.isDouble()){
+//        return QString::number(value.toDouble());
+//    }else if(value.isBool()){
+//        return IConvertUtil::toString(value.toBool());
+//    }else if(value.isString()){
+//        return value.toString();
+//    }
+//    IToeUtil::setOk(ok, false);
+//    return "";
+//}
 
 void IContextManage::getConfigBean(void *handler, const QMap<QString, QString> &clsInfo, const QVector<QMetaProperty> &props, bool *ok)
 {
