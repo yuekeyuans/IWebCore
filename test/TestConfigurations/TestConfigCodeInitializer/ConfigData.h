@@ -15,4 +15,3 @@ public:
     virtual QJsonValue getApplicationConfig();
 
 };
-
