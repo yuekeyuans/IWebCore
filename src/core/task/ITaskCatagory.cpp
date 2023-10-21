@@ -1,6 +1,6 @@
 ﻿#include "ITaskCatagory.h"
 #include "core/task/ITaskWare.h"
-#include "core/context/IContextManage.h"
+#include "core/config/IContextManage.h"
 
 $PackageWebCoreBegin
 

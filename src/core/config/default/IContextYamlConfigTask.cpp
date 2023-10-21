@@ -3,6 +3,7 @@
 #include "core/base/IFileUtil.h"
 #include "core/context/yaml/IYamlUtil.h"
 #include "core/context/IContextManage.h"
+#include "core/profile/IProfileManage.h"
 
 $PackageWebCoreBegin
 
@@ -13,7 +14,7 @@ QJsonValue IContextYamlConfigTask::getApplicationConfig()
     auto paths = getYamlPaths();
     for(auto path : paths){
         auto obj = parseYamlFile(path);
-        IContextManage::instance()->addConfig(obj, IContextManage::ApplicationContextGroup);
+        IProfileManage::instance()->addConfig(obj);
         qDebug() << "Load Configuration:\t" << path;
     }
 

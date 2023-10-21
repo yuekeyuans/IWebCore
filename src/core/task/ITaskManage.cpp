@@ -1,6 +1,6 @@
 ﻿#include "ITaskManage.h"
 
-#include "core/context/IContextManage.h"
+#include "core/config/IContextManage.h"
 #include "core/assert/IGlobalAssert.h"
 #include "core/task/ITaskWare.h"
 #include "core/task/ITaskCatagory.h"

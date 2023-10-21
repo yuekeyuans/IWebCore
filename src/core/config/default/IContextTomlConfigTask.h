@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
-#include "core/context/IContextTaskInterface.h"
-#include "core/context/IContextPreProcessor.h"
+#include "core/config/IContextTaskInterface.h"
+#include "core/config/IContextPreProcessor.h"
 
 $PackageWebCoreBegin
 

@@ -1,5 +1,5 @@
 ﻿#include "IContextSystemVariableTask.h"
-#include "core/context/IContextManage.h"
+#include "core/config/IContextManage.h"
 $PackageWebCoreBegin
 
 QJsonValue IContextSystemVariableTask::getSystemConfig()

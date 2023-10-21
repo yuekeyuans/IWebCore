@@ -1,5 +1,5 @@
 ﻿#include "IControllerManage.h"
-#include "core/context/IContextManage.h"
+#include "core/config/IContextManage.h"
 #include "web/net/IRequest.h"
 #include "core/base/IConvertUtil.h"
 #include "core/base/IMetaUtil.h"

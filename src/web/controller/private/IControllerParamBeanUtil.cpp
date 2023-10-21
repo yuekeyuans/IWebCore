@@ -4,7 +4,7 @@
 #include "core/base/IConstantUtil.h"
 #include "core/base/IToeUtil.h"
 #include "core/bean/IBeanWare.h"
-#include "core/context/IContextManage.h"
+#include "core/config/IContextManage.h"
 #include "web/node/IMethodNode.h"
 #include "web/node/IParamNode.h"
 #include "web/net/IRequest.h"

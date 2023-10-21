@@ -3,6 +3,7 @@
 #include "core/base/IFileUtil.h"
 #include "core/base/IJsonUtil.h"
 #include "core/assert/IGlobalAssert.h"
+#include "core/profile/IProfileManage.h"
 
 $PackageWebCoreBegin
 
@@ -13,7 +14,7 @@ QJsonValue IContextJsonConfigTask::getApplicationConfig()
     auto paths = getJsonPaths();
     for(auto path : paths){
         auto obj = parseJsonFile(path);
-        IContextManage::instance()->addConfig(obj, IContextManage::ApplicationContextGroup);
+        IProfileManage::instance()->addConfig(obj);
     }
 
     return {};

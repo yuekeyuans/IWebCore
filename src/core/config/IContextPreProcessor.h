@@ -2,7 +2,7 @@
 
 #include "core/base/IPreProcessorUtil.h"
 #include "core/base/IToeUtil.h"
-#include "core/context/IContextManage.h"
+#include "core/config/IContextManage.h"
 #include "core/task/unit/ITaskInstantUnit.h"
 
 #define $AsContext(klassName)   \

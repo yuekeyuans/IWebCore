@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "core/context/IContextPreProcessor.h"
+#include "core/config/IContextPreProcessor.h"
 
 #define $EnableConfigFile(fileName) \
     PP_SYSTEM_CONTEXT_SETTING(EnableFileClass, PP_FILE, fileName)

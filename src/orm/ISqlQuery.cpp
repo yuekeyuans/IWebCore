@@ -1,6 +1,6 @@
 ﻿#include "ISqlQuery.h"
 #include "core/base/IConvertUtil.h"
-#include "core/context/IContextManage.h"
+#include "core/config/IContextManage.h"
 #include "orm/IOrmManage.h"
 
 $PackageWebCoreBegin

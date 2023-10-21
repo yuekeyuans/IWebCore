@@ -1,5 +1,5 @@
 ﻿#pragma once
 
-#include "core/context/IContextApplicationConfigInterface.h"
+#include "core/config/IContextApplicationConfigInterface.h"
 
 using namespace IWebCore;

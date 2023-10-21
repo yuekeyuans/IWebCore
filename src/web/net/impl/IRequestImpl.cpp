@@ -5,7 +5,7 @@
 #include "core/base/IHeaderUtil.h"
 #include "core/base/ICodecUtil.h"
 #include "core/base/IToeUtil.h"
-#include "core/context/IContextManage.h"
+#include "core/config/IContextManage.h"
 #include "web/net/IRequest.h"
 #include "web/net/impl/IReqRespRaw.h"
 #include "web/jar/IHeaderJar.h"

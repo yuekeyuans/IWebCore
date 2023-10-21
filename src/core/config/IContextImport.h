@@ -3,7 +3,7 @@
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IConvertUtil.h"
 #include "core/base/IJsonUtil.h"
-#include "core/context/IContextManage.h"
+#include "core/config/IContextManage.h"
 
 $PackageWebCoreBegin
 

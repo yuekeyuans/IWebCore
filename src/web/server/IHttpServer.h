@@ -1,9 +1,9 @@
 ﻿#pragma once
 
 #include "core/base/IConstantUtil.h"
-#include "core/context/IContextPreProcessor.h"
-#include "core/context/IContextWirePreProcessor.h"
-#include "core/context/IContextImport.h"
+#include "core/config/IContextPreProcessor.h"
+#include "core/config/IContextWirePreProcessor.h"
+#include "core/config/IContextImport.h"
 #include "web/biscuits/IHttpMethod.h"
 #include "web/net/IRequest.h"
 #include "web/net/IResponse.h"
