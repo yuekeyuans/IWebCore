@@ -89,7 +89,7 @@ IOrmDataSource IOrmManage::getDataSource(const QString &name)
 {
     auto path = QString("dataSource.").append(name);
     bool convertOk;
-    auto bean = IContextManage::getBean<IOrmDataSource>(path, &convertOk);
+    auto bean = IProfileManage::instance()->getBean<IOrmDataSource>(path, &convertOk);
     if(!convertOk){
         qFatal("datasource config error");
     }

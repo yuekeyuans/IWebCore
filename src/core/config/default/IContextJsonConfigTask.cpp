@@ -1,9 +1,9 @@
 ﻿#include "IContextJsonConfigTask.h"
-#include "core/context/IContextManage.h"
+#include "core/assert/IGlobalAssert.h"
 #include "core/base/IFileUtil.h"
 #include "core/base/IJsonUtil.h"
-#include "core/assert/IGlobalAssert.h"
-#include "core/profile/IProfileManage.h"
+#include "core/config/IContextManage.h"
+#include "core/config/IProfileManage.h"
 
 $PackageWebCoreBegin
 

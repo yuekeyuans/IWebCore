@@ -33,20 +33,20 @@ HEADERS += \
     $$PWD/core/bean/IBeanPreProcessor.h \
     $$PWD/core/bean/IBeanTypeManage.h \
     $$PWD/core/bean/IBeanWare.h \
+    $$PWD/core/config/IContextApplicationConfigInterface.h \
+    $$PWD/core/config/IContextImport.h \
     $$PWD/core/config/IContextManage.h \
+    $$PWD/core/config/IContextPreProcessor.h \
+    $$PWD/core/config/IContextSystemConfigInterface.h \
+    $$PWD/core/config/IContextTaskInterface.h \
+    $$PWD/core/config/IContextWirePreProcessor.h \
     $$PWD/core/config/IProfileManage.h \
-    $$PWD/core/context/IContextApplicationConfigInterface.h \
-    $$PWD/core/context/IContextImport.h \
-    $$PWD/core/context/IContextPreProcessor.h \
-    $$PWD/core/context/IContextSystemConfigInterface.h \
-    $$PWD/core/context/IContextTaskInterface.h \
-    $$PWD/core/context/IContextWirePreProcessor.h \
-    $$PWD/core/context/default/IContextJsonConfigTask.h \
-    $$PWD/core/context/default/IContextSystemVariableTask.h \
-    $$PWD/core/context/default/IContextTomlConfigTask.h \
-    $$PWD/core/context/default/IContextYamlConfigTask.h \
-    $$PWD/core/context/yaml/IYamlUtil.h \
-    $$PWD/core/context/yaml/Yaml.hpp \
+    $$PWD/core/config/default/IContextJsonConfigTask.h \
+    $$PWD/core/config/default/IContextSystemVariableTask.h \
+    $$PWD/core/config/default/IContextTomlConfigTask.h \
+    $$PWD/core/config/default/IContextYamlConfigTask.h \
+    $$PWD/core/config/yaml/IYamlUtil.h \
+    $$PWD/core/config/yaml/Yaml.hpp \
     $$PWD/core/core.h \
     $$PWD/core/task/ITaskCatagory.h \
     $$PWD/core/task/ITaskCatagoryInterface.h \
@@ -211,12 +211,12 @@ SOURCES += \
     $$PWD/core/bean/IBeanTypeManage.cpp \
     $$PWD/core/config/IContextManage.cpp \
     $$PWD/core/config/IProfileManage.cpp \
-    $$PWD/core/context/default/IContextJsonConfigTask.cpp \
-    $$PWD/core/context/default/IContextSystemVariableTask.cpp \
-    $$PWD/core/context/default/IContextTomlConfigTask.cpp \
-    $$PWD/core/context/default/IContextYamlConfigTask.cpp \
-    $$PWD/core/context/yaml/IYamlUtil.cpp \
-    $$PWD/core/context/yaml/Yaml.cpp \
+    $$PWD/core/config/default/IContextJsonConfigTask.cpp \
+    $$PWD/core/config/default/IContextSystemVariableTask.cpp \
+    $$PWD/core/config/default/IContextTomlConfigTask.cpp \
+    $$PWD/core/config/default/IContextYamlConfigTask.cpp \
+    $$PWD/core/config/yaml/IYamlUtil.cpp \
+    $$PWD/core/config/yaml/Yaml.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \
     $$PWD/core/task/default/IBannerTask.cpp \
     $$PWD/core/task/default/IContextTaskCatagory.cpp \

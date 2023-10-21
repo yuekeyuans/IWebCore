@@ -1,9 +1,9 @@
 ﻿#include "IContextYamlConfigTask.h"
 #include "core/assert/IGlobalAssert.h"
 #include "core/base/IFileUtil.h"
-#include "core/context/yaml/IYamlUtil.h"
-#include "core/context/IContextManage.h"
-#include "core/profile/IProfileManage.h"
+#include "core/config/yaml/IYamlUtil.h"
+#include "core/config/IContextManage.h"
+#include "core/config/IProfileManage.h"
 
 $PackageWebCoreBegin
 
