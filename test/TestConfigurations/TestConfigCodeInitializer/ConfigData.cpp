@@ -11,3 +11,4 @@ QJsonValue ConfigData::getApplicationConfig()
     obj["hello"] = "world";
     return obj;
 }
+
