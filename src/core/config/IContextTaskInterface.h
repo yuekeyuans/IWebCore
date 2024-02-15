@@ -57,5 +57,4 @@ void IContextTaskInterface<T, enabled>::task()
     }
 }
 
-
 $PackageWebCoreEnd
