@@ -9,5 +9,9 @@ class TestController : public IControllerInterface<TestController>
 public:
     TestController();
 
+
+    $GetMapping(hello, /)
+    QString hello();
+
 };
 
