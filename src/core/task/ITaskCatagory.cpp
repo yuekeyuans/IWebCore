@@ -40,7 +40,7 @@ void ITaskCatagory::execTaskNodes() const
 void ITaskCatagory::printTaskInfo() const
 {
     bool ok;
-    ok = IContextManage::instance()->getConfig("SYSTEM_ENABLE_TASK_OUTPUT", &ok).toBool() && ok;
+    ok = IContextManage::instance()->getConfigAsBool("SYSTEM_ENABLE_TASK_OUTPUT", &ok) && ok;
     if(ok){
         qDebug() << endl << "Catagory: " << name() << ", order: " << order();
     }

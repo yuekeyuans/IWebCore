@@ -2,8 +2,11 @@
 #include "IToeUtil.h"
 #include "IConvertUtil.h"
 #include "IConstantUtil.h"
+#include "core/assert/IGlobalAssert.h"
 
 $PackageWebCoreBegin
+
+$UseGlobalAssert()
 
 QVariant IJsonUtil::getJsonVariantValue(const QJsonObject &obj, const QString &type, const QString path, bool *ok)
 {
@@ -450,34 +453,80 @@ QVariant IJsonUtil::toVariant(const QJsonValue &value, QMetaType::Type type, boo
     return {};
 }
 
-static bool isJsonIndex(const QString& arg)
+static QJsonValue buildJsonByPath(const QStringList& args, QJsonValue value)
 {
-    if(!arg.startsWith("_")){
-        return false;
+    QJsonValue val = value;
+    for(auto it = args.rbegin(); it != args.rend(); it++){
+        if(*it == "@^" || *it == "@$"){
+            QJsonArray array;
+            array.append(val);
+            val = array;
+        }else{
+            QJsonObject obj;
+            obj[*it] = val;
+            val = obj;
+        }
     }
-
-    bool ok{false};
-    arg.mid(1).toInt(&ok);
-    return ok;
+    return val;
 }
 
-static int getJsonIndex(const QString& arg)
+static QJsonValue mergeJsonObject(const QJsonValue &target, const QJsonValue &source, QStringList args)
 {
-    return arg.mid(1).toInt();
+    const auto& arg = args.first();
+    if(arg == "@^" || arg == "@$"){
+        if(!target.isArray() || !source.isArray()){
+            $GlobalAssert->fatal("JsonArrayMergeMismatch");
+        }
+
+        QJsonArray array = target.toArray();
+        if(arg == "@^"){
+            array.push_front(source.toArray().first());
+        }else{
+            array.push_back(source.toArray().first());
+        }
+        return array;
+    }else{
+        if(!target.isObject() || !source.isObject()){
+            $GlobalAssert->fatal("JsonObjectMergeMismatch");
+        }
+
+        QJsonObject obj = target.toObject();
+        if(!obj.contains(arg) || args.length() == 1){
+            obj[arg] = source[arg];
+        }else{
+            obj[arg] = mergeJsonObject(obj[arg], source[arg], args.mid(1));
+        }
+        return obj;
+    }
 }
 
-void IJsonUtil::addToJsonObject(QJsonObject &obj, const QString &path, QJsonValue value)
+QJsonObject IJsonUtil::addToJsonObject(const QJsonObject &obj, const QString &path, QJsonValue value)
 {
     QStringList args = path.split(".");
     assert(args.length() != 0);
-    assert(!isJsonIndex(args.first()));
+    assert(args.first() != "@^" && args.first() != "@$");
 
+    auto val = buildJsonByPath(args, value);
+    return mergeJsonObject(obj, val, args).toObject();
 }
 
 QJsonValue IJsonUtil::getJsonValue(const QJsonObject &obj, const QString &path, bool *ok)
 {
-    return {};
+    QStringList args = path.split(".");
+    QJsonValue value = obj;
+    for(const auto& arg : args){
+        if(!value.isObject()){
+            IToeUtil::setOk(ok, false);
+            return {};
+        }
+        QJsonObject temp = value.toObject();
+        if(!temp.contains(arg)){
+            IToeUtil::setOk(ok, false);
+            return {};
+        }
+        value = temp[arg];
+    }
+    return value;
 }
-
 
 $PackageWebCoreEnd

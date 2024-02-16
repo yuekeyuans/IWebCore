@@ -30,6 +30,9 @@ inline void IGlobalAssert::loadAssert()
     /// global
     addFatal("Assert_Load_Json_Error", "your json format is not correct");
     addFatal("UnImplimentedMethod", "this method is not implimented.");
+    addFatal("JsonArrayMergeMismatch", "Merge json array must both are array type");
+    addFatal("JsonObjectMergeMismatch", "Merge object array must both are object type");
+
 
     /// macro
     addFatal("EnableBluePrintParamError", "");
@@ -48,6 +51,7 @@ inline void IGlobalAssert::loadAssert()
     addFatal("ContextRemovePathInvalid", "remove path can not be empty");
     addFatal("ContextResolvePathInvalid", "path can not be resolved to match the context");
     addFatal("ContextObjectError", "Configuration`s top level must be an object other than a array. Please use key-value pair to register configuration");
+    addFatal("ContextMergeError");
 
     /// task
     addFatal("TaskDeferRegisterNotAllowed");

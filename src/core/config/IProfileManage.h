@@ -5,7 +5,7 @@
 
 $PackageWebCoreBegin
 
-class IProfileManage : public IConfigUnit<IProfileManage>
+class IProfileManage final : public IConfigUnit
 {
     $UseInstance(IProfileManage)
 private:
