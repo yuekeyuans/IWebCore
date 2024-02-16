@@ -13,7 +13,7 @@ private:
     IContextJsonConfigTask() = default;
 
 public:
-    virtual QJsonValue getApplicationConfig();
+    virtual QJsonValue getContext() final;
 
 private:
     QStringList getJsonPaths();

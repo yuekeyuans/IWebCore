@@ -14,8 +14,9 @@ public:
     IContextTaskInterface() = default;
 
 public:
-    virtual QJsonValue getSystemConfig();
-    virtual QJsonValue getApplicationConfig();
+    virtual QJsonValue getContext() = 0;
+//    virtual QJsonValue getSystemConfig();
+//    virtual QJsonValue getApplicationConfig();
 
 protected:
     virtual QString name() const final;
@@ -35,25 +36,32 @@ QString IContextTaskInterface<T, enabled>::catagory() const
     return "Context";
 }
 
-template<typename T, bool enabled>
-QJsonValue IContextTaskInterface<T, enabled>::getSystemConfig()
-{
-    return {};
-}
 
-template<typename T, bool enabled>
-QJsonValue IContextTaskInterface<T, enabled>::getApplicationConfig()
-{
-    return {};
-}
+//template<typename T, bool enabled>
+//QJsonValue IContextTaskInterface<T, enabled>::getContext()
+//{
+//    return {};
+//}
+
+//template<typename T, bool enabled>
+//QJsonValue IContextTaskInterface<T, enabled>::getSystemConfig()
+//{
+//    return {};
+//}
+
+//template<typename T, bool enabled>
+//QJsonValue IContextTaskInterface<T, enabled>::getApplicationConfig()
+//{
+//    return {};
+//}
 
 
 template<typename T, bool enabled>
 void IContextTaskInterface<T, enabled>::task()
 {
-    auto systemConfig = getSystemConfig();
-    if(!systemConfig.isNull() && !systemConfig.isUndefined()){
-        IContextManage::instance()->addConfig(systemConfig);
+    auto config = getContext();
+    if(!config.isNull() && !config.isUndefined()){
+        IContextManage::instance()->addConfig(config);
     }
 }
 

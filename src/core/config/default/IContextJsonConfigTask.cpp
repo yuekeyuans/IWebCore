@@ -9,7 +9,7 @@ $PackageWebCoreBegin
 
 $UseGlobalAssert()
 
-QJsonValue IContextJsonConfigTask::getApplicationConfig()
+QJsonValue IContextJsonConfigTask::getContext()
 {
     auto paths = getJsonPaths();
     for(auto path : paths){
@@ -20,7 +20,8 @@ QJsonValue IContextJsonConfigTask::getApplicationConfig()
     return {};
 }
 
-QStringList IContextJsonConfigTask::getJsonPaths(){
+QStringList IContextJsonConfigTask::getJsonPaths()
+{
     QStringList ret;
     QDir dir(":/");
     auto entries = dir.entryInfoList({"*.json"});

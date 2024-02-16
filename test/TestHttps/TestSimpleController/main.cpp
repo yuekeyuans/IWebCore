@@ -2,6 +2,8 @@
 #include <IWeb/IWeb>
 
 $EnableTaskOutput
+$EnableBluePrint(true)
+$EnableCatagory(Controller)
 int main(int argc, char *argv[])
 {
     IApplication a(argc, argv);

@@ -450,4 +450,34 @@ QVariant IJsonUtil::toVariant(const QJsonValue &value, QMetaType::Type type, boo
     return {};
 }
 
+static bool isJsonIndex(const QString& arg)
+{
+    if(!arg.startsWith("_")){
+        return false;
+    }
+
+    bool ok{false};
+    arg.mid(1).toInt(&ok);
+    return ok;
+}
+
+static int getJsonIndex(const QString& arg)
+{
+    return arg.mid(1).toInt();
+}
+
+void IJsonUtil::addToJsonObject(QJsonObject &obj, const QString &path, QJsonValue value)
+{
+    QStringList args = path.split(".");
+    assert(args.length() != 0);
+    assert(!isJsonIndex(args.first()));
+
+}
+
+QJsonValue IJsonUtil::getJsonValue(const QJsonObject &obj, const QString &path, bool *ok)
+{
+    return {};
+}
+
+
 $PackageWebCoreEnd

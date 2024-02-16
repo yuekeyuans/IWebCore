@@ -10,7 +10,7 @@ class ITaskManage;
 
 // TODO: 这里 Context 应该修改成 Config, 因为里面的内容全是 config 的， 没有context
 
-class IContextManage : public IConfigUnit
+class IContextManage : public IConfigUnit<IContextManage>
 {
     $UseInstance(IContextManage)
 private:

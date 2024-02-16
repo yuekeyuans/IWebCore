@@ -11,14 +11,10 @@ bool ITaskCatagory::isCatagoryDefaultEnabled() const
 
 bool ITaskCatagory::isCatagoryEnabled() const
 {
-    bool ok;
+    bool ok{false};
     auto path = QString("CATAGORY_ENABLE_STATE_").append(name());
-    auto value = IContextManage::instance()->getConfig(path, &ok);
-    if(!ok){
-        return isCatagoryDefaultEnabled();
-    }
-
-    return value.toBool();
+    auto value = IContextManage::instance()->getConfigAsBool(path, &ok);
+    return ok? value :  isCatagoryDefaultEnabled();
 }
 
 void ITaskCatagory::addTask(ITaskWare *ware)

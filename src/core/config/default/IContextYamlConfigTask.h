@@ -13,7 +13,7 @@ private:
     IContextYamlConfigTask() = default;
 
 public:
-    virtual QJsonValue getApplicationConfig();
+    virtual QJsonValue getContext();
 
 private:
     QStringList getYamlPaths();
