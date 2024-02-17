@@ -34,17 +34,18 @@ HEADERS += \
     $$PWD/core/bean/IBeanTypeManage.h \
     $$PWD/core/bean/IBeanWare.h \
 #    $$PWD/core/config/IContextApplicationConfigInterface.h \
+    $$PWD/core/config/IConfigPreProcessor.h \
     $$PWD/core/config/IContextImport.h \
     $$PWD/core/config/IContextManage.h \
-    $$PWD/core/config/IContextPreProcessor.h \
 #    $$PWD/core/config/IContextSystemConfigInterface.h \
     $$PWD/core/config/IContextTaskInterface.h \
     $$PWD/core/config/IContextWirePreProcessor.h \
     $$PWD/core/config/IProfileManage.h \
-    $$PWD/core/config/default/IContextJsonConfigTask.h \
+    $$PWD/core/config/IProfileTaskInterface.h \
+    $$PWD/core/config/default/IContextJsonProfileTask.h \
     $$PWD/core/config/default/IContextSystemVariableTask.h \
-    $$PWD/core/config/default/IContextTomlConfigTask.h \
-    $$PWD/core/config/default/IContextYamlConfigTask.h \
+    $$PWD/core/config/default/IContextTomlProfileTask.h \
+    $$PWD/core/config/default/IContextYamlProfileTask.h \
     $$PWD/core/config/yaml/IYamlUtil.h \
     $$PWD/core/config/yaml/Yaml.hpp \
     $$PWD/core/core.h \
@@ -211,10 +212,11 @@ SOURCES += \
     $$PWD/core/bean/IBeanTypeManage.cpp \
     $$PWD/core/config/IContextManage.cpp \
     $$PWD/core/config/IProfileManage.cpp \
-    $$PWD/core/config/default/IContextJsonConfigTask.cpp \
+#    $$PWD/core/config/IProfileTaskInterface.cpp \
+    $$PWD/core/config/default/IContextJsonProfileTask.cpp \
     $$PWD/core/config/default/IContextSystemVariableTask.cpp \
-    $$PWD/core/config/default/IContextTomlConfigTask.cpp \
-    $$PWD/core/config/default/IContextYamlConfigTask.cpp \
+    $$PWD/core/config/default/IContextTomlProfileTask.cpp \
+    $$PWD/core/config/default/IContextYamlProfileTask.cpp \
     $$PWD/core/config/yaml/IYamlUtil.cpp \
     $$PWD/core/config/yaml/Yaml.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \

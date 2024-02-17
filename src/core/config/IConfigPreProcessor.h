@@ -5,11 +5,16 @@
 #include "core/config/IContextTaskInterface.h"
 #include "core/task/unit/ITaskInstantUnit.h"
 
+#define $AsConfig(klassName)   \
+    $UseInstance(klassName)
+
+#define $AsProfile(klassName)   \
+    $UseInstance(klassName)
+
 #define $AsContext(klassName)   \
     $UseInstance(klassName)
 
-// TODO: this not work in mingw!!!
-#define PP_PRIVILIGE_CONTEXT(klassName, path, value)   \
+#define PP_PRIVILIGE_CONTEXT_CONFIG(klassName, path, value)   \
 class klassName : public ITaskInstantUnit < klassName, true >  \
 {   \
 public:     \
@@ -21,7 +26,7 @@ public:     \
     }    \
 };
 
-#define PP_NORMAL_CONTEXT(klassName, path, value)   \
+#define PP_NORMAL_CONTEXT_CONFIG(klassName, path, value)   \
 class klassName : public IContextTaskInterface < klassName, true >  \
 {   \
     $AsContext(klassName)   \

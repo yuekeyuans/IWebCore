@@ -1,16 +1,16 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
-#include "core/config/IContextManage.h"
+#include "core/config/IProfileManage.h"
 #include "core/task/unit/ITaskWareUnit.h"
 
 $PackageWebCoreBegin
 
-template<typename T, bool enabled = true>
-class IContextTaskInterface : public ITaskWareUnit<T, enabled>
+template<typename T, bool enabled=true>
+class IProfileTaskInterface : public ITaskWareUnit<T, enabled>
 {
 public:
-    IContextTaskInterface() = default;
+    IProfileTaskInterface() = default;
 
 public:
     virtual QJsonValue getContext() = 0;
@@ -23,29 +23,29 @@ protected:
 };
 
 template<typename T, bool enabled>
-QString IContextTaskInterface<T, enabled>::getPath() const
+QString IProfileTaskInterface<T, enabled>::getPath() const
 {
     return {};
 }
 
 template<typename T, bool enabled>
-QString IContextTaskInterface<T, enabled>::name() const
+QString IProfileTaskInterface<T, enabled>::name() const
 {
     return typeid(T).name();
 }
 
 template<typename T, bool enabled>
-QString IContextTaskInterface<T, enabled>::catagory() const
+QString IProfileTaskInterface<T, enabled>::catagory() const
 {
     return "Context";
 }
 
 template<typename T, bool enabled>
-void IContextTaskInterface<T, enabled>::task()
+void IProfileTaskInterface<T, enabled>::task()
 {
     auto config = getContext();
     if(!config.isNull() && !config.isUndefined()){
-        IContextManage::instance()->addConfig(config, getPath());
+        IProfileManage::instance()->addConfig(config, getPath());
     }
 }
 

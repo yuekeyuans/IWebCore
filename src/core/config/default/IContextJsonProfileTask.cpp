@@ -1,7 +1,7 @@
-﻿#include "IContextYamlConfigTask.h"
+﻿#include "IContextJsonProfileTask.h"
 #include "core/assert/IGlobalAssert.h"
 #include "core/base/IFileUtil.h"
-#include "core/config/yaml/IYamlUtil.h"
+#include "core/base/IJsonUtil.h"
 #include "core/config/IContextManage.h"
 #include "core/config/IProfileManage.h"
 
@@ -9,35 +9,37 @@ $PackageWebCoreBegin
 
 $UseGlobalAssert()
 
-QJsonValue IContextYamlConfigTask::getContext()
+QJsonValue IContextJsonProfileTask::getContext()
 {
-    auto paths = getYamlPaths();
+    auto paths = getJsonPaths();
     for(auto path : paths){
-        auto obj = parseYamlFile(path);
+        auto obj = parseJsonFile(path);
         IProfileManage::instance()->addConfig(obj);
-        qDebug() << "Load Configuration:\t" << path;
     }
 
     return {};
 }
 
-QStringList IContextYamlConfigTask::getYamlPaths(){
+QStringList IContextJsonProfileTask::getJsonPaths()
+{
     QStringList ret;
-    auto entries = QDir(":/").entryInfoList({"*.yaml"});
+    QDir dir(":/");
+    auto entries = dir.entryInfoList({"*.json"});
     for(auto fileInfo : entries){
-        if(!fileInfo.isDir() && fileInfo.filePath().endsWith("config.yaml")){
+        if(!fileInfo.isDir() && fileInfo.filePath().endsWith("config.json")){
             ret.append(fileInfo.filePath());
         }
     }
     return ret;
 }
 
-QJsonObject IContextYamlConfigTask::parseYamlFile(const QString &path){
+QJsonObject IContextJsonProfileTask::parseJsonFile(const QString &path)
+{
     QJsonObject obj;
 
-    bool convertOk;
+    bool convertOk = true;
     QString content = IFileUtil::readFileAsString(path);
-    obj = IYamlUtil::toJsonObject(content, &convertOk);
+    obj = IJsonUtil::toJsonObject(content, &convertOk);
     if(!convertOk){
         IAssertInfo info;
         info.reason = path;

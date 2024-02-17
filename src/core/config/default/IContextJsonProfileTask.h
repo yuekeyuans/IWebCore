@@ -2,15 +2,15 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/config/IContextTaskInterface.h"
-#include "core/config/IContextPreProcessor.h"
+#include "core/config/IConfigPreProcessor.h"
 
 $PackageWebCoreBegin
 
-class IContextJsonConfigTask : public IContextTaskInterface<IContextJsonConfigTask>
+class IContextJsonProfileTask : public IContextTaskInterface<IContextJsonProfileTask>
 {
-    $AsContext(IContextJsonConfigTask)
+    $AsProfile(IContextJsonProfileTask)
 private:
-    IContextJsonConfigTask() = default;
+    IContextJsonProfileTask() = default;
 
 public:
     virtual QJsonValue getContext() final;

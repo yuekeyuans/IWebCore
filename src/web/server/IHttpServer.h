@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "core/base/IConstantUtil.h"
-#include "core/config/IContextPreProcessor.h"
+#include "core/config/IConfigPreProcessor.h"
 #include "core/config/IContextWirePreProcessor.h"
 #include "core/config/IContextImport.h"
 #include "web/biscuits/IHttpMethod.h"

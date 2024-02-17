@@ -6,18 +6,14 @@
 
 $PackageWebCoreBegin
 
-class IContextSystemVariableTask : public IContextTaskInterface<IContextSystemVariableTask>
+class IContextTomlProfileTask : public IContextTaskInterface<IContextTomlProfileTask>
 {
-    $AsContext(IContextSystemVariableTask)
+    $AsProfile(IContextTomlProfileTask)
 private:
-    IContextSystemVariableTask() = default;
+    IContextTomlProfileTask() = default;
 
 public:
     virtual QJsonValue getContext();
-
-private:
-    QJsonObject getSystemEnvironment();
 };
 
 $PackageWebCoreEnd
-
