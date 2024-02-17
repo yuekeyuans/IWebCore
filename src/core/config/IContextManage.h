@@ -24,7 +24,7 @@ public:
 template<typename T>
 T IContextManage::getBean(const QString &path, bool* ok)
 {
-    auto value = getConfig(path, ok);
+    auto value = IContextManage::instance()->getConfig(path, ok);
     if(*ok){
         return T::fromJson(value.toObject());
     }
