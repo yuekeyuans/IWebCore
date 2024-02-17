@@ -11,13 +11,15 @@ $PackageWebCoreBegin
 
 $UseGlobalAssert()
 
-struct ConfigurationBean{
-    QString type;
-    QString name;
-    QString path;
-    bool optional {false};
-    QMetaType::Type typeId {QMetaType::UnknownType};
-};
+// TODO: 之后查看一下这里面是啥宝贝
+
+//struct ConfigurationBean{
+//    QString type;
+//    QString name;
+//    QString path;
+//    bool optional {false};
+//    QMetaType::Type typeId {QMetaType::UnknownType};
+//};
 
 //namespace IContextManageHelper {
 //    bool checkConfigValueType(QMetaType::Type type);

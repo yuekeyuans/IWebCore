@@ -15,20 +15,21 @@ class IContextManage final : public IConfigUnit
 private:
     IContextManage() = default;
 
-//public:
-//    template<typename T>
-//    static T getBean(const QString& path, bool*ok);
+public:
+    template<typename T>
+    static T getBean(const QString& path, bool*ok);
 //    static void getConfigBean(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaProperty>&props, bool*ok);
 };
 
-//template<typename T>
-//T IContextManage::getBean(const QString &path, bool* ok)
-//{
-////    auto value = getApplicationConfig(path, ok);
-////    auto bean = T::fromJson(value.toObject());
-////    return bean;
-//    return {};
-//}
+template<typename T>
+T IContextManage::getBean(const QString &path, bool* ok)
+{
+    auto value = getConfig(path, ok);
+    if(*ok){
+        return T::fromJson(value.toObject());
+    }
+    return {};
+}
 
 $PackageWebCoreEnd
 
