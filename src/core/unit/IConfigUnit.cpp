@@ -8,6 +8,12 @@ $UseGlobalAssert()
 
 namespace IConfigUnitHelper
 {
+    static void validatePath(const QStringList& args){
+        if(args.contains("@^") || args.contains("@$")){
+            $GlobalAssert->warn("JsonMergeWarnWithArray");
+        }
+    }
+
     static QJsonValue buildJsonByPath(const QStringList& args, QJsonValue value)
     {
         QJsonValue val = value;
@@ -58,6 +64,7 @@ namespace IConfigUnitHelper
     QJsonObject addToJsonObject(const QJsonObject &obj, const QString &path, QJsonValue value)
     {
         QStringList args = path.split(".");
+        validatePath(args);
         assert(args.length() != 0);
         assert(args.first() != "@^" && args.first() != "@$");
 
