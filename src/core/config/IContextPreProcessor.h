@@ -2,14 +2,14 @@
 
 #include "core/base/IPreProcessorUtil.h"
 #include "core/base/IToeUtil.h"
-#include "core/config/IContextManage.h"
+#include "core/config/IContextTaskInterface.h"
 #include "core/task/unit/ITaskInstantUnit.h"
 
 #define $AsContext(klassName)   \
     $UseInstance(klassName)
 
 // TODO: this not work in mingw!!!
-#define PP_SYSTEM_CONTEXT_SETTING(klassName, path, value)   \
+#define PP_PRIVILIGE_CONTEXT(klassName, path, value)   \
 class klassName : public ITaskInstantUnit < klassName, true >  \
 {   \
 public:     \
@@ -21,19 +21,12 @@ public:     \
     }    \
 };
 
-// another realization, this is a little fast, but less cohesion
-//#define PP_SYSTEM_CONTEXT_SETTING(klassName, path, value)   \
-//class klassName \
-//{   \
-//public: \
-//    klassName(){    \
-//        QString key = IToeUtil::trimQuote( #path ); \
-//        QJsonValue obj = QJsonValue(value); \
-//        IContextManage::addConfig(obj, IContextManage::SystemContextGroup, key); \
-//    }   \
-//    static klassName* instance(){   \
-//        static klassName inst;  \
-//        return &inst;   \
-//    }   \
-//};  \
-//static const klassName* system_setting_ ## klassName ## _instance = klassName::instance();
+#define PP_NORMAL_CONTEXT(klassName, path, value)   \
+class klassName : public IContextTaskInterface < klassName, true >  \
+{   \
+    $AsContext(klassName)   \
+public:     \
+    klassName(){};  \
+    virtual QJsonValue getContext() final   {  return value; }  \
+    virtual QString getPath() const final { return IToeUtil::trimQuote( #path ); }  \
+};

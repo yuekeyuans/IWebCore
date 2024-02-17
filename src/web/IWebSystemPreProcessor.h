@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "core/config/IContextPreProcessor.h".h"
+#include "core/config/IContextPreProcessor.h"
 
 // default server
 

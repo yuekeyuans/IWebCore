@@ -2,33 +2,34 @@
 
 #include "core/config/IContextPreProcessor.h"
 
+
 #define $EnableConfigFile(fileName) \
-    PP_SYSTEM_CONTEXT_SETTING(EnableFileClass, PP_FILE, fileName)
+    PP_PRIVILIGE_CONTEXT(EnableFileClass, PP_FILE, fileName)
 
 #define $EnableDefaultStaticDir(prefix) \
-    PP_SYSTEM_CONTEXT_SETTING(EnableDefaultStaticFilePrefix, PP_DEFAULT_STATIC_DIR, prefix)
+    PP_NORMAL_CONTEXT(EnableDefaultStaticFilePrefix, PP_DEFAULT_STATIC_DIR, prefix)
 
 #define $EnableBluePrint(boolValue) \
-    PP_SYSTEM_CONTEXT_SETTING(EnableBluePrint, SYSTEM_BLUE_PRINT, boolValue)
+    PP_PRIVILIGE_CONTEXT(EnableBluePrint, SYSTEM_BLUE_PRINT, boolValue)
 
 #define $EnableBeanResolveStrictMode(boolValue) \
-    PP_SYSTEM_CONTEXT_SETTING(EnableBeanResolveStrictMode, BEAN_RESOLVE_IS_STRICT_MODE, boolValue)
+    PP_NORMAL_CONTEXT(EnableBeanResolveStrictMode, BEAN_RESOLVE_IS_STRICT_MODE, boolValue)
 
 #define $EnableSqlInfoPrint(boolValue) \
-    PP_SYSTEM_CONTEXT_SETTING(EnableSqlInfoPrint, ENABLE_SQL_PRINT_INFO, boolValue)
+    PP_NORMAL_CONTEXT(EnableSqlInfoPrint, ENABLE_SQL_PRINT_INFO, boolValue)
 
 // begin task
 #define $EnableCatagory(catagoryName) \
-    PP_SYSTEM_CONTEXT_SETTING(EnableCatagory_##catagoryName, CATAGORY_ENABLE_STATE_##catagoryName, true)
+    PP_NORMAL_CONTEXT(EnableCatagory_##catagoryName, CATAGORY_ENABLE_STATE_##catagoryName, true)
 
 #define $DisableCatagory(catagoryName) \
-    PP_SYSTEM_CONTEXT_SETTING(DisableCatagory_##catagoryName, CATAGORY_ENABLE_STATE_##catagoryName, false)
+    PP_NORMAL_CONTEXT(DisableCatagory_##catagoryName, CATAGORY_ENABLE_STATE_##catagoryName, false)
 
 #define $EnableTask(catagoryName, taskName) \
-    PP_SYSTEM_CONTEXT_SETTING(EnableTask_##catagoryName##_##taskName, TASK_ENABLE_STATE_##catagoryName##_##taskName, true)
+    PP_NORMAL_CONTEXT(EnableTask_##catagoryName##_##taskName, TASK_ENABLE_STATE_##catagoryName##_##taskName, true)
 
 #define $DisableTask(catagoryName, taskName) \
-    PP_SYSTEM_CONTEXT_SETTING(DisableTask_##catagoryName##_##taskName, TASK_ENABLE_STATE_##catagoryName##_##taskName, false)
+    PP_NORMAL_CONTEXT(DisableTask_##catagoryName##_##taskName, TASK_ENABLE_STATE_##catagoryName##_##taskName, false)
 // end task
 
 // begin test
@@ -113,4 +114,4 @@
 
 // enable taskManage to output something. default do not output anything
 #define $EnableTaskOutput \
-    PP_SYSTEM_CONTEXT_SETTING(EnableTaskOutputSettingKlass, SYSTEM_ENABLE_TASK_OUTPUT, true)
+    PP_PRIVILIGE_CONTEXT(EnableTaskOutputSettingKlass, SYSTEM_ENABLE_TASK_OUTPUT, true)

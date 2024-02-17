@@ -108,6 +108,9 @@ void IConfigUnit::addConfig(const QJsonValue &value, const QString &path)
     }
 
     m_configs = IConfigUnitHelper::addToJsonObject(m_configs, path, value);
+
+//    qDebug() << m_configs;
+
 }
 
 QJsonValue IConfigUnit::getConfig(const QString &path, bool *ok)

@@ -105,6 +105,7 @@ void ITaskManage::execEachCatagory()
     }
 
     for(auto& node : m_catagories){
+        qDebug() << node->name() << node->isCatagoryDefaultEnabled();
         if(node->isCatagoryEnabled()){
             node->execTaskNodes();
         }
