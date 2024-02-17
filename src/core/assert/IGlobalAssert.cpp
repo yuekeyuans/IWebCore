@@ -32,6 +32,7 @@ inline void IGlobalAssert::loadAssert()
     addFatal("UnImplimentedMethod", "this method is not implimented.");
     addFatal("JsonArrayMergeMismatch", "Merge json array must both are array type");
     addFatal("JsonObjectMergeMismatch", "Merge object array must both are object type");
+    addWarn("JsonFetchNotSupportArrary", "fetch json content not support path with array");
 
 
     /// macro

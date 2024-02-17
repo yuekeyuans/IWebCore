@@ -7,6 +7,87 @@ $PackageWebCoreBegin
 
 $UseGlobalAssert()
 
+namespace IConfigUnitHelper
+{
+    static QJsonValue buildJsonByPath(const QStringList& args, QJsonValue value)
+    {
+        QJsonValue val = value;
+        for(auto it = args.rbegin(); it != args.rend(); it++){
+            if(*it == "@^" || *it == "@$"){
+                QJsonArray array;
+                array.append(val);
+                val = array;
+            }else{
+                QJsonObject obj;
+                obj[*it] = val;
+                val = obj;
+            }
+        }
+        return val;
+    }
+
+    static QJsonValue mergeJsonObject(const QJsonValue &target, const QJsonValue &source, QStringList args)
+    {
+        const auto& arg = args.first();
+        if(arg == "@^" || arg == "@$"){
+            if(!target.isArray() || !source.isArray()){
+                $GlobalAssert->fatal("JsonArrayMergeMismatch");
+            }
+
+            QJsonArray array = target.toArray();
+            if(arg == "@^"){
+                array.push_front(source.toArray().first());
+            }else{
+                array.push_back(source.toArray().first());
+            }
+            return array;
+        }else{
+            if(!target.isObject() || !source.isObject()){
+                $GlobalAssert->fatal("JsonObjectMergeMismatch");
+            }
+
+            QJsonObject obj = target.toObject();
+            if(!obj.contains(arg) || args.length() == 1){
+                obj[arg] = source[arg];
+            }else{
+                obj[arg] = mergeJsonObject(obj[arg], source[arg], args.mid(1));
+            }
+            return obj;
+        }
+    }
+
+    QJsonObject addToJsonObject(const QJsonObject &obj, const QString &path, QJsonValue value)
+    {
+        QStringList args = path.split(".");
+        assert(args.length() != 0);
+        assert(args.first() != "@^" && args.first() != "@$");
+
+        auto val = buildJsonByPath(args, value);
+        return mergeJsonObject(obj, val, args).toObject();
+    }
+
+    QJsonValue getJsonValue(const QJsonObject &obj, const QString &path, bool *ok)
+    {
+        QStringList args = path.split(".");
+        QJsonValue value = obj;
+        for(const auto& arg : args){
+            if(!value.isObject()){
+                $GlobalAssert->warn("JsonFetchNotSupportArrary");
+                IToeUtil::setOk(ok, false);
+                return {};
+            }
+            QJsonObject temp = value.toObject();
+            if(!temp.contains(arg)){
+                IToeUtil::setOk(ok, false);
+                return {};
+            }
+            value = temp[arg];
+        }
+        IToeUtil::setOk(ok, true);
+        return value;
+    }
+}
+
 void IConfigUnit::addConfig(const QJsonValue &value, const QString &path)
 {
     if(path.trimmed().isEmpty()){
@@ -20,21 +101,18 @@ void IConfigUnit::addConfig(const QJsonValue &value, const QString &path)
         }
     }
 
-    m_configs = IJsonUtil::addToJsonObject(m_configs, path, value);
+    m_configs = IConfigUnitHelper::addToJsonObject(m_configs, path, value);
 }
 
 QJsonValue IConfigUnit::getConfig(const QString &path, bool *ok)
 {
-    return IJsonUtil::getJsonValue(m_configs, path, ok);
+    return IConfigUnitHelper::getJsonValue(m_configs, path, ok);
 }
 
 bool IConfigUnit::getConfigAsBool(const QString &path, bool *ok)
 {
     auto value = getConfig(path, ok);
-    if(ok){
-        return value.toBool(ok);
-    }
-    return {};
+    return value.toBool();
 }
 
 int IConfigUnit::getConfigAsInt(const QString &path, bool *ok)
