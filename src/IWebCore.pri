@@ -5,7 +5,6 @@ QT += network sql xml testlib
 PRECOMPILED_HEADER = $$PWD/core/base/IHeaderUtil.h
 
 HEADERS += \
-#    $$PWD/IContextApplicationConfigInterface \
     $$PWD/base/IContextTaskInterface \
     $$PWD/core/base/ICodecUtil.h \
     $$PWD/core/base/IConstantUtil.h \
@@ -33,11 +32,9 @@ HEADERS += \
     $$PWD/core/bean/IBeanPreProcessor.h \
     $$PWD/core/bean/IBeanTypeManage.h \
     $$PWD/core/bean/IBeanWare.h \
-#    $$PWD/core/config/IContextApplicationConfigInterface.h \
     $$PWD/core/config/IConfigPreProcessor.h \
     $$PWD/core/config/IContextImport.h \
     $$PWD/core/config/IContextManage.h \
-#    $$PWD/core/config/IContextSystemConfigInterface.h \
     $$PWD/core/config/IContextTaskInterface.h \
     $$PWD/core/config/IContextWirePreProcessor.h \
     $$PWD/core/config/IProfileManage.h \
