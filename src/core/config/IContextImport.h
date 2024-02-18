@@ -22,8 +22,8 @@ public:
 public:
     T& operator =(T value);
     bool operator !=(const T& value) const;
-    bool operator <(const T& vlaue) const;
-    bool operator >(const T& value) const;
+    // bool operator <(const T& vlaue) const;
+    // bool operator >(const T& value) const;
     operator T() const;
 //    operator *();
 
@@ -81,17 +81,17 @@ bool IContextImport<T>::operator !=(const T &value) const
     return get() != value;
 }
 
-template<typename T>
-bool IContextImport<T>::operator <(const T &value) const
-{
-    return get() < value;
-}
+// template<typename T>
+// bool IContextImport<T>::operator <(const T &value) const
+// {
+//     return get() < value;
+// }
 
-template<typename T>
-bool IContextImport<T>::operator >(const T &value) const
-{
-    return get() > value;
-}
+// template<typename T>
+// bool IContextImport<T>::operator >(const T &value) const
+// {
+//     return get() > value;
+// }
 
 template<typename T>
 IContextImport<T>::operator T() const
@@ -108,24 +108,23 @@ IContextImport<T>::operator T() const
 template<typename T>
 T &IContextImport<T>::get() const
 {
-    // TODO: app
-//    if(!m_isLoaded){
-//        bool ok;
-//        auto value = IContextManage::getApplicationConfig(m_path, &ok);
-//        if(ok){
-//            m_data = IJsonUtil::fromJson<T>(value, &ok);
-//            qDebug() << "data is ok" << value;
-//        }else{
-//            qDebug() << "fail to load data" << m_path;
-//        }
-//        m_isLoaded = true;
-//    }
+   if(!m_isLoaded){
+       bool ok;
+       auto value = IContextManageInstance->getConfig(m_path, &ok);
+       if(ok){
+           m_data = IJsonUtil::fromJson<T>(value, &ok);
+           qDebug() << "data is ok" << value;
+       }else{
+           qDebug() << "fail to load data" << m_path;
+       }
+       m_isLoaded = true;
+   }
 
     return m_data;
 }
 
-//using $Char = IContextImport<char>;
-//using $UChar = IContextImport<uchar>;
+using $Char = IContextImport<char>;
+using $UChar = IContextImport<uchar>;
 using $Short = IContextImport<short>;
 using $UShort = IContextImport<ushort>;
 using $Int = IContextImport<int>;
