@@ -315,7 +315,6 @@ QDateTime IConvertUtil::toDateTime(const QString &val, bool* ok)
     return dateTime;
 }
 
-
 QList<QVariant> IConvertUtil::toList(const QVariant &value, bool *ok)
 {
     if(value.type() == QVariant::List){
