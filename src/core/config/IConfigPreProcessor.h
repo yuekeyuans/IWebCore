@@ -7,7 +7,7 @@
 #include "core/task/unit/ITaskInstantUnit.h"
 
 #define $AsConfig(klassName)   \
-    $UseInstance(klassName)
+    $AsTask(klassName)
 
 #define $AsProfile(klassName)   \
     $AsConfig(klassName)
