@@ -1,13 +1,13 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
-#include "core/unit/IConfigUnit.h"
+#include "core/config/IConfigManageInterface.h"
 
 $PackageWebCoreBegin
 
 class ITaskManage;
 
-class IContextManage final : public IConfigUnit
+class IContextManage final : public IConfigManageInterface
 {
     $UseInstance(IContextManage)
 private:

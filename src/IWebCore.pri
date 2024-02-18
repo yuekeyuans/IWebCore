@@ -32,6 +32,7 @@ HEADERS += \
     $$PWD/core/bean/IBeanPreProcessor.h \
     $$PWD/core/bean/IBeanTypeManage.h \
     $$PWD/core/bean/IBeanWare.h \
+    $$PWD/core/config/IConfigManageInterface.h \
     $$PWD/core/config/IConfigPreProcessor.h \
     $$PWD/core/config/IContextImport.h \
     $$PWD/core/config/IContextManage.h \
@@ -66,7 +67,6 @@ HEADERS += \
     $$PWD/core/test/ITestTaskInterface.h \
     $$PWD/core/test/ITestManage.h \
     $$PWD/core/test/ITestPreProcessor.h \
-    $$PWD/core/unit/IConfigUnit.h \
     $$PWD/core/unit/IGadgetUnit.h \
     $$PWD/core/unit/INoConstructUnit.h \
     $$PWD/core/unit/INoCopyMoveUnit.h \
@@ -207,9 +207,9 @@ SOURCES += \
     $$PWD/core/assert/IAssertInterface.cpp \
     $$PWD/core/assert/IGlobalAssert.cpp \
     $$PWD/core/bean/IBeanTypeManage.cpp \
+    $$PWD/core/config/IConfigManageInterface.cpp \
     $$PWD/core/config/IContextManage.cpp \
     $$PWD/core/config/IProfileManage.cpp \
-#    $$PWD/core/config/IProfileTaskInterface.cpp \
     $$PWD/core/config/default/IContextJsonProfileTask.cpp \
     $$PWD/core/config/default/IContextSystemVariableTask.cpp \
     $$PWD/core/config/default/IContextTomlProfileTask.cpp \
@@ -228,7 +228,6 @@ SOURCES += \
     $$PWD/core/task/default/ITestInvokeTask.cpp \
     $$PWD/core/task/default/ITestTaskCatagory.cpp \
     $$PWD/core/test/ITestManage.cpp \
-    $$PWD/core/unit/IConfigUnit.cpp \
     $$PWD/core/unit/IGadgetUnit.cpp \
     $$PWD/core/unit/INoCopyMoveUnit.cpp \
     $$PWD/core/unit/IRegisterGadgetUnit.cpp \

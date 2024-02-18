@@ -4,10 +4,10 @@
 
 $PackageWebCoreBegin
 
-class IConfigUnit
+class IConfigManageInterface
 {
 public:
-    IConfigUnit() = default;
+    IConfigManageInterface() = default;
 
 public:
     void addConfig(const QJsonValue& value, const QString& path="");

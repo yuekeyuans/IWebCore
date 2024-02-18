@@ -15,7 +15,7 @@
 #define $AsContext(klassName)   \
     $AsConfig(klassName)
 
-#define PP_PRIVILIGE_CONTEXT_CONFIG(klassName, path, value)   \ 
+#define PP_PRIVILIGE_CONTEXT_CONFIG(klassName, path, value)   \
 class klassName : public ITaskInstantUnit < klassName, true >  \
 {   \
 public:     \

@@ -1,4 +1,4 @@
-﻿#include "IConfigUnit.h"
+﻿#include "IConfigManageInterface.h"
 #include "core/base/IToeUtil.h"
 #include "core/assert/IGlobalAssert.h"
 
@@ -94,7 +94,7 @@ namespace IConfigUnitHelper
     }
 }
 
-void IConfigUnit::addConfig(const QJsonValue &value, const QString &path)
+void IConfigManageInterface::addConfig(const QJsonValue &value, const QString &path)
 {
     if(path.trimmed().isEmpty()){
         if(!value.isObject()){
@@ -113,30 +113,30 @@ void IConfigUnit::addConfig(const QJsonValue &value, const QString &path)
 
 }
 
-QJsonValue IConfigUnit::getConfig(const QString &path, bool *ok)
+QJsonValue IConfigManageInterface::getConfig(const QString &path, bool *ok)
 {
     return IConfigUnitHelper::getJsonValue(m_configs, path, ok);
 }
 
-bool IConfigUnit::getConfigAsBool(const QString &path, bool *ok)
+bool IConfigManageInterface::getConfigAsBool(const QString &path, bool *ok)
 {
     auto value = getConfig(path, ok);
     return value.toBool();
 }
 
-int IConfigUnit::getConfigAsInt(const QString &path, bool *ok)
+int IConfigManageInterface::getConfigAsInt(const QString &path, bool *ok)
 {
     auto value = getConfig(path, ok);
     return value.toInt();
 }
 
-double IConfigUnit::getConfigAsDouble(const QString &path, bool *ok)
+double IConfigManageInterface::getConfigAsDouble(const QString &path, bool *ok)
 {
     auto value = getConfig(path, ok);
     return value.toDouble();
 }
 
-QString IConfigUnit::getConfigAsString(const QString &path, bool *ok)
+QString IConfigManageInterface::getConfigAsString(const QString &path, bool *ok)
 {
     auto value = getConfig(path, ok);
     return value.toString();

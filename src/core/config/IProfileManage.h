@@ -1,11 +1,11 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
-#include "core/unit/IConfigUnit.h"
+#include "core/config/IConfigManageInterface.h"
 
 $PackageWebCoreBegin
 
-class IProfileManage final : public IConfigUnit
+class IProfileManage final : public IConfigManageInterface
 {
     $UseInstance(IProfileManage)
 private:
