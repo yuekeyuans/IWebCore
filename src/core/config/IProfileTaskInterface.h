@@ -19,7 +19,7 @@ public:
 protected:
     virtual QString name() const final;
     virtual QString catagory() const final;
-    virtual void task() override;
+    virtual void task() final;
 };
 
 template<typename T, bool enabled>
