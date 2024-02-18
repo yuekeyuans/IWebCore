@@ -24,6 +24,11 @@ namespace IJsonUtil
     QJsonValue toJsonValue(const QList<QVariant>& list, bool* ok=nullptr);
     QJsonValue toJsonValue(const QVariant& value, bool *ok=nullptr);
 
+    template<class T>
+    QJsonValue toJsonValue(T value){
+        return IJsonUtil::_objectToJson(value);
+    }
+
     QJsonArray toJsonArray(const QString& value, bool *ok=nullptr);
     QJsonArray toJsonArray(const QByteArray& value, bool *ok=nullptr);
     QJsonArray toJsonArray(const QJsonValue& value, bool *ok=nullptr);
@@ -33,10 +38,6 @@ namespace IJsonUtil
     QJsonObject toJsonObject(const QMap<QString, QVariant>&map, bool*ok = nullptr);
 
     QJsonArray toJsonObjectArray(const QList<QMap<QString, QVariant>>&list, bool* ok=nullptr);
-
-//    QString toString(const QJsonObject &json);
-//    QString toString(const QJsonArray &json);
-    QString toString(const QJsonValue &json);
 
     QByteArray toByteArray(const QJsonObject &json, bool* ok=nullptr);
     QByteArray toByteArray(const QJsonArray &json, bool* ok=nullptr);
@@ -53,11 +54,6 @@ namespace IJsonUtil
         QJsonValue val = IJsonUtil::_objectToJson(value);
         return toString(val);
     }
-
-    template<class T>
-    QJsonValue toJsonValue(T value){
-        return IJsonUtil::_objectToJson(value);
-    }
 }
 
 namespace IConvertUtil {
@@ -68,7 +64,6 @@ namespace IConvertUtil {
     using IJsonUtil::toByteArray;
     using IJsonUtil::toString;
     using IJsonUtil::objectToString;
-//    using IJsonUtil::objectToJson;
     using IJsonUtil::toVariant;
 }
 

@@ -27,5 +27,19 @@ QJsonValue IJsonUtil::_objectToJson(double value)
     return value;
 }
 
+QJsonValue IJsonUtil::_objectToJson(QJsonValue value)
+{
+    return value;
+}
+
+QJsonValue IJsonUtil::_objectToJson(QJsonArray value)
+{
+    return value;
+}
+
+QJsonValue IJsonUtil::_objectToJson(QJsonObject value)
+{
+    return value;
+}
 
 $PackageWebCoreEnd

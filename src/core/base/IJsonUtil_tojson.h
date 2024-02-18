@@ -19,6 +19,12 @@ QJsonValue _objectToJson(double value);
 
 QJsonValue _objectToJson(bool value);
 
+QJsonValue _objectToJson(QJsonValue value);
+
+QJsonValue _objectToJson(QJsonArray value);
+
+QJsonValue _objectToJson(QJsonObject value);
+
 template<class T>
 QJsonValue _objectToJson(const QList<T>& sequence);
 
