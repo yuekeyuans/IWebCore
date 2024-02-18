@@ -50,7 +50,6 @@ inline void IGlobalAssert::loadAssert()
     addFatal("ConfigurationResolveJsonError");
     addFatal("ContextAddPathInvalid");
     addFatal("ContextRemovePathInvalid", "remove path can not be empty");
-    addFatal("ContextResolvePathInvalid", "path can not be resolved to match the context");
     addFatal("ContextObjectError", "Configuration`s top level must be an object other than a array. Please use key-value pair to register configuration");
     addFatal("ContextMergeError");
 
