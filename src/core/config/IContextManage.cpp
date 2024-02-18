@@ -294,41 +294,41 @@ $UseGlobalAssert()
 //    return configBeans;
 //}
 
-//QJsonValue IContextManageHelper::getMergeValue(const QString key, const QJsonObject &dest, const QJsonObject &source)
-//{
-//    QJsonValue destValue = dest[key];
-//    QJsonValue srcValue = source[key];
-//    if(destValue.isObject() && source[key].isObject()){             // object 合并
-//        QJsonObject destObj = destValue.toObject();
-//        mergeJsonObject(destObj, srcValue.toObject());
-//        return destObj;
-//    }else if(destValue.isArray() && source[key].isArray()){         // array 合并
-//        QJsonArray destArray = destValue.toArray();
-//        QJsonArray sourceArray = srcValue.toArray();
-//        for(QJsonValue val : sourceArray){
-//            destArray.append(val);
-//        }
-//        return destArray;
-//    } else if((destValue.isObject() || destValue.isArray()          // 其中有一方是 obj 或 array, 但另一方类型不同
-//                || srcValue.isArray() || srcValue.isObject())){
-//        $GlobalAssert->fatal(IGlobalAssert::ConfigurationMergeJsonValueError);
-//    }else{                                                          // 都是普通值类型， 新的替换旧的
-//        return source[key];
-//    }
-//    return destValue;
-//}
+QJsonValue IContextManageHelper::getMergeValue(const QString key, const QJsonObject &dest, const QJsonObject &source)
+{
+   QJsonValue destValue = dest[key];
+   QJsonValue srcValue = source[key];
+   if(destValue.isObject() && source[key].isObject()){             // object 合并
+       QJsonObject destObj = destValue.toObject();
+       mergeJsonObject(destObj, srcValue.toObject());
+       return destObj;
+   }else if(destValue.isArray() && source[key].isArray()){         // array 合并
+       QJsonArray destArray = destValue.toArray();
+       QJsonArray sourceArray = srcValue.toArray();
+       for(QJsonValue val : sourceArray){
+           destArray.append(val);
+       }
+       return destArray;
+   } else if((destValue.isObject() || destValue.isArray()          // 其中有一方是 obj 或 array, 但另一方类型不同
+               || srcValue.isArray() || srcValue.isObject())){
+       $GlobalAssert->fatal(IGlobalAssert::ConfigurationMergeJsonValueError);
+   }else{                                                          // 都是普通值类型， 新的替换旧的
+       return source[key];
+   }
+   return destValue;
+}
 
-//void IContextManageHelper::mergeJsonObject(QJsonObject &dest, const QJsonObject &source)
-//{
-//    auto keys = source.keys();
-//    for(auto key : keys){
-//        if(dest.contains(key)){
-//            dest[key] = getMergeValue(key, dest, source);
-//        }else{
-//            dest[key] = source[key];
-//        }
-//    }
-//}
+void IContextManageHelper::mergeJsonObject(QJsonObject &dest, const QJsonObject &source)
+{
+   auto keys = source.keys();
+   for(auto key : keys){
+       if(dest.contains(key)){
+           dest[key] = getMergeValue(key, dest, source);
+       }else{
+           dest[key] = source[key];
+       }
+   }
+}
 
 //void IContextManageHelper::addJsonValue(QJsonObject& root, const QJsonValue& value, const QString& path)
 //{

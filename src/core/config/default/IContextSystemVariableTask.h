@@ -6,7 +6,7 @@
 
 $PackageWebCoreBegin
 
-class IContextSystemVariableTask : public IContextTaskInterface<IContextSystemVariableTask>
+class IContextSystemVariableTask : public IContextTaskInterface<IContextSystemVariableTask, false>
 {
     $AsContext(IContextSystemVariableTask)
 private:
