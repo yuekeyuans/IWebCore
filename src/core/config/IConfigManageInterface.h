@@ -6,7 +6,7 @@ $PackageWebCoreBegin
 
 class IConfigManageInterface
 {
-public:
+protected:
     IConfigManageInterface() = default;
 
 public:
@@ -18,8 +18,22 @@ public:
     double getConfigAsDouble(const QString& path, bool* ok);
     QString getConfigAsString(const QString& path, bool* ok);
 
+    template<typename T>
+    T getBean(const QString& path, bool* ok);
+
 protected:
     QJsonObject m_configs;
 };
+
+template<typename T>
+T IConfigManageInterface::getBean(const QString& path, bool* ok)
+{
+    auto value = getConfig(path, ok);
+    if(*ok){
+         return T::fromJson(value.toObject());
+    }
+
+    return {};
+}
 
 $PackageWebCoreEnd
