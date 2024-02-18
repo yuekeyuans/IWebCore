@@ -2,7 +2,7 @@
 
 $PackageWebCoreBegin
 
-QJsonValue IContextTomlProfileTask::getContext()
+QJsonValue IContextTomlProfileTask::config()
 {
     return {};
 }

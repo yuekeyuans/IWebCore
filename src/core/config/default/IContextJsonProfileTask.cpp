@@ -9,7 +9,7 @@ $PackageWebCoreBegin
 
 $UseGlobalAssert()
 
-QJsonValue IContextJsonProfileTask::getContext()
+QJsonValue IContextJsonProfileTask::config()
 {
     auto paths = getJsonPaths();
     for(auto path : paths){
@@ -20,7 +20,7 @@ QJsonValue IContextJsonProfileTask::getContext()
     return {};
 }
 
-QStringList IContextJsonProfileTask::getJsonPaths()
+QStringList IContextJsonProfileTask::getJsonPaths() const
 {
     QStringList ret;
     QDir dir(":/");
@@ -33,7 +33,7 @@ QStringList IContextJsonProfileTask::getJsonPaths()
     return ret;
 }
 
-QJsonObject IContextJsonProfileTask::parseJsonFile(const QString &path)
+QJsonObject IContextJsonProfileTask::parseJsonFile(const QString &path) const
 {
     QJsonObject obj;
 

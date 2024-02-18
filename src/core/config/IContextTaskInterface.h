@@ -13,8 +13,8 @@ public:
     IContextTaskInterface() = default;
 
 public:
-    virtual QJsonValue getContext() = 0;
-    virtual QString getPath() const;
+    virtual QJsonValue config() = 0;
+    virtual QString path() const;
 
 protected:
     virtual QString name() const final;
@@ -23,7 +23,7 @@ protected:
 };
 
 template<typename T, bool enabled>
-QString IContextTaskInterface<T, enabled>::getPath() const
+QString IContextTaskInterface<T, enabled>::path() const
 {
     return {};
 }
@@ -43,9 +43,9 @@ QString IContextTaskInterface<T, enabled>::catagory() const
 template<typename T, bool enabled>
 void IContextTaskInterface<T, enabled>::task()
 {
-    auto config = getContext();
-    if(!config.isNull() && !config.isUndefined()){
-        IContextManage::instance()->addConfig(config, getPath());
+    auto value = config();
+    if(!value.isNull() && !value.isUndefined()){
+        IContextManage::instance()->addConfig(value, path());
     }
 }
 

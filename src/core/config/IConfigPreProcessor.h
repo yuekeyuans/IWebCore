@@ -33,8 +33,8 @@ class klassName : public IContextTaskInterface < klassName, true >  \
     $AsContext(klassName)   \
 public:     \
     klassName(){};  \
-    virtual QJsonValue getContext() final   {  return value; }  \
-    virtual QString getPath() const final { return IToeUtil::trimQuote( #path ); }  \
+    virtual QJsonValue config() final   {  return value; }  \
+    virtual QString path() const final { return IToeUtil::trimQuote( #path ); }  \
 };
 
 #define PP_PROFILE_CONFIG(klassName, path, value) \
@@ -43,6 +43,6 @@ class klassName : public IProfileTaskInterface < klassName, true >  \
     $AsContext(klassName)   \
 public:     \
     klassName(){};  \
-    virtual QJsonValue getContext() final   {  return value; }  \
-    virtual QString getPath() const final { return IToeUtil::trimQuote( #path ); }  \
+    virtual QJsonValue config() final   {  return value; }  \
+    virtual QString path() const final { return IToeUtil::trimQuote( #path ); }  \
 };

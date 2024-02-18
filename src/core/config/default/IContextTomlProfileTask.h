@@ -13,7 +13,7 @@ private:
     IContextTomlProfileTask() = default;
 
 public:
-    virtual QJsonValue getContext();
+    virtual QJsonValue config();
 };
 
 $PackageWebCoreEnd

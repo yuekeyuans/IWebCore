@@ -13,7 +13,7 @@ private:
     IContextSystemVariableTask() = default;
 
 public:
-    virtual QJsonValue getContext();
+    virtual QJsonValue config();
 
 private:
     QJsonObject getSystemEnvironment();

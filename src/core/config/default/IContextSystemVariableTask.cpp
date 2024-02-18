@@ -2,7 +2,7 @@
 #include "core/config/IContextManage.h"
 $PackageWebCoreBegin
 
-QJsonValue IContextSystemVariableTask::getContext()
+QJsonValue IContextSystemVariableTask::config()
 {
     return getSystemEnvironment();
 }

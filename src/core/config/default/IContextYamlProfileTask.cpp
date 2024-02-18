@@ -9,7 +9,7 @@ $PackageWebCoreBegin
 
 $UseGlobalAssert()
 
-QJsonValue IContextYamlProfileTask::getContext()
+QJsonValue IContextYamlProfileTask::config()
 {
     auto paths = getYamlPaths();
     for(auto path : paths){
