@@ -3,16 +3,17 @@
 #include "core/base/IPreProcessorUtil.h"
 #include "core/base/IToeUtil.h"
 #include "core/config/IContextTaskInterface.h"
+#include "core/config/IProfileTaskInterface.h"
 #include "core/task/unit/ITaskInstantUnit.h"
 
 #define $AsConfig(klassName)   \
     $UseInstance(klassName)
 
 #define $AsProfile(klassName)   \
-    $UseInstance(klassName)
+    $AsConfig(klassName)
 
 #define $AsContext(klassName)   \
-    $UseInstance(klassName)
+    $AsConfig(klassName)
 
 #define PP_PRIVILIGE_CONTEXT_CONFIG(klassName, path, value)   \
 class klassName : public ITaskInstantUnit < klassName, true >  \
@@ -28,6 +29,16 @@ public:     \
 
 #define PP_NORMAL_CONTEXT_CONFIG(klassName, path, value)   \
 class klassName : public IContextTaskInterface < klassName, true >  \
+{   \
+    $AsContext(klassName)   \
+public:     \
+    klassName(){};  \
+    virtual QJsonValue getContext() final   {  return value; }  \
+    virtual QString getPath() const final { return IToeUtil::trimQuote( #path ); }  \
+};
+
+#define PP_PROFILE_CONFIG(klassName, path, value) \
+class klassName : public IProfileTaskInterface < klassName, true >  \
 {   \
     $AsContext(klassName)   \
 public:     \

@@ -16,6 +16,7 @@
 */vscode/
 ./vscode
 ./vsocde/*
+.vscode/
 
 # Qt-es
 object_script.*.Release
