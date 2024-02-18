@@ -13,17 +13,13 @@ private:
 
 public:
     template<typename T>
-    T getBean(const QString& path, bool* ok=nullptr);
+    static T getBean(const QString& path, bool* ok=nullptr);
 };
 
 template<typename T>
 T IProfileManage::getBean(const QString& path, bool* ok)
 {
-    auto value = IProfileManage::instance()->getConfig(path, ok);
-    if(*ok){
-        return T::fromJson(value.toObject());
-    }
-    return {};
+    return static_cast<IConfigManageInterface*>(IProfileManage::instance())->getBean<T>(path, ok);
 }
 
 $PackageWebCoreEnd

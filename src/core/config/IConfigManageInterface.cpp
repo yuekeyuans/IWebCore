@@ -121,25 +121,45 @@ QJsonValue IConfigManageInterface::getConfig(const QString &path, bool *ok)
 bool IConfigManageInterface::getConfigAsBool(const QString &path, bool *ok)
 {
     auto value = getConfig(path, ok);
-    return value.toBool();
+    if(*ok){
+        return IConvertUtil::toBool(value, ok);
+    }
+
+    IToeUtil::setOk(ok, false);
+    return {};
 }
 
 int IConfigManageInterface::getConfigAsInt(const QString &path, bool *ok)
 {
     auto value = getConfig(path, ok);
-    return value.toInt();
+    if(*ok){
+        return IConvertUtil::toInt(value, ok);
+    }
+
+    IToeUtil::setOk(ok, false);
+    return {};
 }
 
 double IConfigManageInterface::getConfigAsDouble(const QString &path, bool *ok)
 {
     auto value = getConfig(path, ok);
-    return value.toDouble();
+    if(*ok){
+        return IConvertUtil::toDouble(value, ok);
+    }
+
+    IToeUtil::setOk(ok, false);
+    return {};
 }
 
 QString IConfigManageInterface::getConfigAsString(const QString &path, bool *ok)
 {
     auto value = getConfig(path, ok);
-    return value.toString();
+    if(*ok){
+        return IConvertUtil::toString(value, ok);
+    }
+
+    IToeUtil::setOk(ok, false);
+    return {};
 }
 
 $PackageWebCoreEnd

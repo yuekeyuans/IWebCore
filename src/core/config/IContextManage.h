@@ -5,8 +5,6 @@
 
 $PackageWebCoreBegin
 
-class ITaskManage;
-
 class IContextManage final : public IConfigManageInterface
 {
     $UseInstance(IContextManage)
@@ -16,13 +14,12 @@ private:
 public:
     template<typename T>
     static T getBean(const QString& path, bool*ok);
-//    static void getConfigBean(void* handler, const QMap<QString, QString>& clsInfo, const QVector<QMetaProperty>&props, bool*ok);
 };
 
 template<typename T>
 T IContextManage::getBean(const QString &path, bool* ok)
 {
-    return IContextManage::instance()->getBean<T>(path, ok);
+    return static_cast<IConfigManageInterface*>(IContextManage::instance())->getBean<T>(path, ok);
 }
 
 $PackageWebCoreEnd

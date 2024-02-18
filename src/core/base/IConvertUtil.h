@@ -42,8 +42,9 @@ namespace  IConvertUtil
     QString toString(const QDateTime& datetime);
     QString toString(const QTime& time);
 
-//    QString toString(const QJsonObject &json);
-//    QString toString(const QJsonArray &json);
+    QString toString(const QJsonValue& value, bool* ok=nullptr);
+    QString toString(const QJsonObject &json);
+    QString toString(const QJsonArray &json);
 //    QString toString(const QJsonValue &json);
 
     QByteArray toByteArray(const QString& value);

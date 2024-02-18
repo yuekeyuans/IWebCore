@@ -236,17 +236,6 @@ QJsonValue IJsonUtil::toJsonValue(const QVariant &value, bool *ok)
     return {};
 }
 
-QString IJsonUtil::toString(const QJsonValue &json)
-{
-    if(json.isObject()){
-        return toString(json.toObject());
-    }else if(json.isArray()){
-        return toString(json.toArray());
-    }else{
-        return json.toString();
-    }
-}
-
 QJsonValue IJsonUtil::toJsonValue(const QMap<QString, QVariant> &map, bool *ok)
 {
     IToeUtil::setOk(ok, true);
@@ -326,15 +315,26 @@ QJsonArray IJsonUtil::toJsonObjectArray(const QList<QMap<QString, QVariant>> &li
     return IConvertUtil::toJsonArray(IConvertUtil::toJsonValue(list, ok));
 }
 
-QString IJsonUtil::toString(const QJsonArray &json)
-{
-    return QString(QJsonDocument(json).toJson(QJsonDocument::Compact));
-}
+//QString IJsonUtil::toString(const QJsonArray &json)
+//{
+//    return QString(QJsonDocument(json).toJson(QJsonDocument::Compact));
+//}
 
-QString IJsonUtil::toString(const QJsonObject &json)
-{
-    return QString(QJsonDocument(json).toJson(QJsonDocument::Compact));
-}
+//QString IJsonUtil::toString(const QJsonObject &json)
+//{
+//    return QString(QJsonDocument(json).toJson(QJsonDocument::Compact));
+//}
+
+//QString IJsonUtil::toString(const QJsonValue &json)
+//{
+//    if(json.isObject()){
+//        return toString(json.toObject());
+//    }else if(json.isArray()){
+//        return toString(json.toArray());
+//    }else{
+//        return json.toString();
+//    }
+//}
 
 QByteArray IJsonUtil::toByteArray(const QJsonObject &json, bool*ok)
 {

@@ -264,26 +264,32 @@ QString IConvertUtil::toString(const QTime &time)
     return time.toString(IConstantUtil::TimeFormat);
 }
 
-//QString IConvertUtil::toString(const QJsonArray &json)
-//{
-//    return QString(QJsonDocument(json).toJson(QJsonDocument::Compact));
-//}
+QString IConvertUtil::toString(const QJsonValue &value, bool *ok)
+{
+    if(value.isUndefined() || value.isNull()){
+        IToeUtil::setOk(ok, false);
+        return {};
+    }
 
-//QString IConvertUtil::toString(const QJsonObject &json)
-//{
-//    return QString(QJsonDocument(json).toJson(QJsonDocument::Compact));
-//}
+    IToeUtil::setOk(ok, true);
+    if(value.isObject()){
+        return toString(value.toObject());
+    }else if(value.isArray()){
+        return toString(value.toArray());
+    }else{
+        return value.toString();
+    }
+}
 
-//QString IConvertUtil::toString(const QJsonValue &json)
-//{
-//    if(json.isObject()){
-//        return toString(json.toObject());
-//    }else if(json.isArray()){
-//        return toString(json.toArray());
-//    }else{
-//        return json.toString();
-//    }
-//}
+QString IConvertUtil::toString(const QJsonArray &json)
+{
+    return QString(QJsonDocument(json).toJson(QJsonDocument::Compact));
+}
+
+QString IConvertUtil::toString(const QJsonObject &json)
+{
+    return QString(QJsonDocument(json).toJson(QJsonDocument::Compact));
+}
 
 QDate IConvertUtil::toDate(const QString &val, bool* ok)
 {
@@ -464,6 +470,5 @@ QString IConvertUtil::toUtcString(const QDateTime& dateTime)
     auto str = local.toString(dateTime.toUTC(), format).append(" GMT");
     return str;
 }
-
 
 $PackageWebCoreEnd
