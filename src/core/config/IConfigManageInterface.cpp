@@ -148,11 +148,37 @@ double IConfigManageInterface::getConfigAsDouble(const QString &path, bool *ok)
     return {};
 }
 
+// NOTE: 这个是对的，在具体的判断过程中，不应该把 Object array 等对象判断成为 String,
+static QString jsonValueToString(const QJsonValue& value, bool* ok)
+{
+    if(value.isNull() || value.isUndefined()){
+        IToeUtil::setOk(ok, false);
+        return {};
+    }
+
+    if(value.isArray() || value.isObject() ){
+        IToeUtil::setOk(ok, false);
+        return IConvertUtil::toString(value, ok);
+    }
+
+    IToeUtil::setOk(ok, true);
+    if(value.isDouble()){
+        return QString::number(value.toDouble());
+    }else if(value.isBool()){
+        return IConvertUtil::toString(value.toBool());
+    }else if(value.isString()){
+        return value.toString();
+    }
+
+    IToeUtil::setOk(ok, false);
+    return {};
+}
+
 QString IConfigManageInterface::getConfigAsString(const QString &path, bool *ok)
 {
     auto value = getConfig(path, ok);
     if(*ok){
-        return IConvertUtil::toString(value, ok);
+        return jsonValueToString(value, ok);
     }
 
     IToeUtil::setOk(ok, false);
