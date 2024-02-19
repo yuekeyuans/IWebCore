@@ -13,7 +13,7 @@ public:
     IContextImport(QString path, T value = {});
 
 public:
-    IContextImport& operator =(const T& value);
+    IContextImport& operator=(const T& value);
 
 protected:
     virtual IConfigManageInterface* getConfigManage() const final;

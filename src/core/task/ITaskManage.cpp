@@ -1,7 +1,7 @@
 ﻿#include "ITaskManage.h"
 
-#include "core/config/IContextManage.h"
 #include "core/assert/IGlobalAssert.h"
+#include "core/config/IContextImport.h"
 #include "core/task/ITaskWare.h"
 #include "core/task/ITaskCatagory.h"
 
@@ -94,11 +94,11 @@ void ITaskManage::mergetTasksToCatagores()
 
 void ITaskManage::execEachCatagory()
 {
+    $ContextBool printable{"SYSTEM_ENABLE_TASK_OUTPUT"};
     for(const auto& node : m_catagories){
         if(node->isCatagoryEnabled()){
             node->sortTask();
-            bool ok;
-            if(IContextManage::instance()->getConfig("SYSTEM_ENABLE_TASK_OUTPUT", &ok).toBool() && ok){
+            if(printable.isFound() && printable){
                node->printTaskInfo();
             }
         }
