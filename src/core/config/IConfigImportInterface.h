@@ -15,9 +15,8 @@ protected:
     explicit IConfigImportInterface(QString path, T value);
 
 public:
-    T& operator =(T value);
     bool operator !=(const T& value) const;
-    operator T() const;
+    operator const T&() const;
     const T& value() const;
 
 public:
@@ -59,20 +58,13 @@ IConfigImportInterface<T>::IConfigImportInterface(QString path, T value)
 }
 
 template<typename T>
-T &IConfigImportInterface<T>::operator =(T value)
-{
-    m_data = value;
-    return m_data;
-}
-
-template<typename T>
 bool IConfigImportInterface<T>::operator !=(const T &value) const
 {
     return get() != value;
 }
 
 template<typename T>
-IConfigImportInterface<T>::operator T() const
+IConfigImportInterface<T>::operator const T&() const
 {
     return get();
 }
@@ -96,7 +88,6 @@ T &IConfigImportInterface<T>::get() const
        auto value = getConfigManage()->getConfig(m_path, &m_isFound);
        if(m_isFound){
            m_data = IJsonUtil::fromJson<T>(value, &m_isFound);
-           qDebug() << "data is ok" << value;
        }
        m_isLoaded = true;
    }
