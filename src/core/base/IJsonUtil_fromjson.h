@@ -35,6 +35,7 @@ inline ushort IJsonUtil::fromJson<ushort>(QJsonValue value, bool* ok){
     return IConvertUtil::toUShort(value, ok);
 }
 
+// TODO: !!!
 template<>
 inline QString IJsonUtil::fromJson<QString>(QJsonValue json, bool* ok){
     Q_UNUSED(ok)
