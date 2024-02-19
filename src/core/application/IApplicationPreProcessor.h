@@ -71,6 +71,11 @@
     $EnableTest_8(testKlass1, testKlass2, testKlass3, testKlass4, testKlass5, testKlass6, testKlass7, testKlass8) \
     $EnableTask(Test, testKlass9)
 
+// enable taskManage to output something. default do not output anything
+#define $EnableTaskOutput \
+    PP_PRIVILIGE_CONTEXT_CONFIG(EnableTaskOutputSettingKlass, SYSTEM_ENABLE_TASK_OUTPUT, true)
+
+
 #define $DisableTest_(N) $DisableTest_##N
 #define $DisableTest_EVAL(N) $DisableTest_(N)
 #define $DisableTest(...) PP_EXPAND( $DisableTest_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
@@ -110,7 +115,3 @@
     $DisableTest_8(testKlass1, testKlass2, testKlass3, testKlass4, testKlass5, testKlass6, testKlass7, testKlass8) \
     $DisableTask(Test, testKlass9)
 // end test
-
-// enable taskManage to output something. default do not output anything
-#define $EnableTaskOutput \
-    PP_PRIVILIGE_CONTEXT_CONFIG(EnableTaskOutputSettingKlass, SYSTEM_ENABLE_TASK_OUTPUT, true)
