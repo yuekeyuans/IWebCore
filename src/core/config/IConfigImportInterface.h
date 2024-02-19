@@ -3,7 +3,7 @@
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IConvertUtil.h"
 #include "core/base/IJsonUtil.h"
-#include "core/config/IContextManage.h"
+#include "core/config/IConfigManageInterface.h"
 
 $PackageWebCoreBegin
 
@@ -18,8 +18,10 @@ public:
     T& operator =(T value);
     bool operator !=(const T& value) const;
     operator T() const;
-
     const T& value() const;
+
+public:
+    bool isFound() const;
 
 protected:
     virtual IConfigManageInterface* getConfigManage() const = 0;
@@ -43,9 +45,11 @@ private:
 
 protected:
     mutable T m_data {};
-    mutable std::atomic_bool m_isLoaded{false};
-    mutable bool m_isOk{false};
+
+private:
+    mutable bool m_isFound{false};
     const QString m_path;
+    mutable std::atomic_bool m_isLoaded{false};
 };
 
 template<typename T>
@@ -80,12 +84,18 @@ const T &IConfigImportInterface<T>::value() const
 }
 
 template<typename T>
+bool IConfigImportInterface<T>::isFound() const
+{
+    return m_isFound;
+}
+
+template<typename T>
 T &IConfigImportInterface<T>::get() const
 {
    if(!m_isLoaded){
-       auto value = getConfigManage()->getConfig(m_path, &m_isOk);
-       if(m_isOk){
-           m_data = IJsonUtil::fromJson<T>(value, &m_isOk);
+       auto value = getConfigManage()->getConfig(m_path, &m_isFound);
+       if(m_isFound){
+           m_data = IJsonUtil::fromJson<T>(value, &m_isFound);
            qDebug() << "data is ok" << value;
        }
        m_isLoaded = true;

@@ -4,7 +4,7 @@
 #include "core/base/IConstantUtil.h"
 #include "core/base/IToeUtil.h"
 #include "core/bean/IBeanWare.h"
-#include "core/config/IContextManage.h"
+#include "core/config/IContextImport.h"
 #include "web/node/IMethodNode.h"
 #include "web/node/IParamNode.h"
 #include "web/net/IRequest.h"
@@ -484,17 +484,11 @@ bool IControllerParamBeanUtil::checkKeyInQStringMap(const QMap<QString, QString>
 
 bool IControllerParamBeanUtil::isBeanResoveStrictMode()
 {
-    static bool isStrict = true;
-
+    static bool isStrict;
     static std::once_flag flag;
     std::call_once(flag, [](){
-        bool ok;
-        auto value = IContextManage::instance()->getConfig("BEAN_RESOLVE_IS_STRICT_MODE", &ok);
-        if(!ok || !value.isBool()){
-            isStrict = true;
-        }else{
-            isStrict = value.toBool();
-        }
+        $ContextBool value{"BEAN_RESOLVE_IS_STRICT_MODE"};
+        isStrict = value.isFound() ? value : true;
     });
 
     return isStrict;
