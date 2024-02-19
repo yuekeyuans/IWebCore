@@ -78,6 +78,10 @@ const T &IConfigImportInterface<T>::value() const
 template<typename T>
 bool IConfigImportInterface<T>::isFound() const
 {
+    if(!m_isLoaded){    // lazy load
+        value();
+    }
+
     return m_isFound;
 }
 

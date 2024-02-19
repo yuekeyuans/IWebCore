@@ -24,7 +24,6 @@ protected:
 template<typename T>
 IProfileImport<T>::IProfileImport(QString path, T value) : IConfigImportInterface<T>(path, value)
 {
-    this->value();  // no lazy initialization!!!
 }
 
 template<typename T>

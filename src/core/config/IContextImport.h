@@ -22,7 +22,6 @@ protected:
 template<typename T>
 IContextImport<T>::IContextImport(QString path, T value) : IConfigImportInterface<T>(path, value)
 {
-    this->value();  // no lazy initialization!!!
 }
 
 template<typename T>
