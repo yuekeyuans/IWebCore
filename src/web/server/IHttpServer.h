@@ -3,7 +3,7 @@
 #include "core/base/IConstantUtil.h"
 #include "core/config/IConfigPreProcessor.h"
 #include "core/config/IContextWirePreProcessor.h"
-#include "core/config/IContextImport.h"
+#include "core/config/IProfileImport.h"
 #include "web/biscuits/IHttpMethod.h"
 #include "web/net/IRequest.h"
 #include "web/net/IResponse.h"

@@ -32,12 +32,14 @@ HEADERS += \
     $$PWD/core/bean/IBeanPreProcessor.h \
     $$PWD/core/bean/IBeanTypeManage.h \
     $$PWD/core/bean/IBeanWare.h \
+    $$PWD/core/config/IConfigImportInterface.h \
     $$PWD/core/config/IConfigManageInterface.h \
     $$PWD/core/config/IConfigPreProcessor.h \
     $$PWD/core/config/IContextImport.h \
     $$PWD/core/config/IContextManage.h \
     $$PWD/core/config/IContextTaskInterface.h \
     $$PWD/core/config/IContextWirePreProcessor.h \
+    $$PWD/core/config/IProfileImport.h \
     $$PWD/core/config/IProfileManage.h \
     $$PWD/core/config/IProfileTaskInterface.h \
     $$PWD/core/config/default/IContextJsonProfileTask.h \

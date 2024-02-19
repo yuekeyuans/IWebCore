@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IConvertUtil.h"
@@ -11,9 +11,8 @@ template<typename T>
 class IConfigImportInterface
 {
     Q_DISABLE_COPY_MOVE(IConfigImportInterface)
-public:
-    explicit IConfigImportInterface(QString path, T value = {});
-    ~IConfigImportInterface() = default;
+protected:
+    explicit IConfigImportInterface(QString path, T value);
 
 public:
     void setValue(T value);
@@ -22,10 +21,7 @@ public:
 public:
     T& operator =(T value);
     bool operator !=(const T& value) const;
-    // bool operator <(const T& vlaue) const;
-    // bool operator >(const T& value) const;
     operator T() const;
-//    operator *();
 
 private:    // only run  in stack
     void* operator new[] (std::size_t size) = delete;
@@ -44,7 +40,7 @@ private:    // only run  in stack
 private:
     T& get() const;
 
-private:
+protected:
     mutable T m_data {};
     mutable std::atomic_bool m_isLoaded{false};
     const QString m_path;
@@ -81,18 +77,6 @@ bool IConfigImportInterface<T>::operator !=(const T &value) const
     return get() != value;
 }
 
-// template<typename T>
-// bool IConfigImportInterface<T>::operator <(const T &value) const
-// {
-//     return get() < value;
-// }
-
-// template<typename T>
-// bool IConfigImportInterface<T>::operator >(const T &value) const
-// {
-//     return get() > value;
-// }
-
 template<typename T>
 IConfigImportInterface<T>::operator T() const
 {
@@ -116,22 +100,5 @@ T &IConfigImportInterface<T>::get() const
 
     return m_data;
 }
-
-using $Char = IConfigImportInterface<char>;
-using $UChar = IConfigImportInterface<uchar>;
-using $Short = IConfigImportInterface<short>;
-using $UShort = IConfigImportInterface<ushort>;
-using $Int = IConfigImportInterface<int>;
-using $UInt = IConfigImportInterface<uint>;
-using $Long = IConfigImportInterface<long>;
-using $ULong = IConfigImportInterface<ulong>;
-using $LongLong = IConfigImportInterface<long long>;
-using $ULongLong = IConfigImportInterface<qulonglong>;
-using $Float = IConfigImportInterface<float>;
-using $Double = IConfigImportInterface<double>;
-using $LongDouble = IConfigImportInterface<long double>;
-
-using $Bool = IConfigImportInterface<bool>;
-using $QString = IConfigImportInterface<QString>;
 
 $PackageWebCoreEnd
