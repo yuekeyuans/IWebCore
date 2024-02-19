@@ -15,13 +15,14 @@ protected:
     explicit IConfigImportInterface(QString path, T value);
 
 public:
-    void setValue(T value);
-    const T& value() const;
-
-public:
     T& operator =(T value);
     bool operator !=(const T& value) const;
     operator T() const;
+
+    const T& value() const;
+
+protected:
+    virtual IConfigManageInterface* getConfigManage() const = 0;
 
 private:    // only run  in stack
     void* operator new[] (std::size_t size) = delete;
@@ -43,6 +44,7 @@ private:
 protected:
     mutable T m_data {};
     mutable std::atomic_bool m_isLoaded{false};
+    mutable bool m_isOk{false};
     const QString m_path;
 };
 
@@ -50,18 +52,6 @@ template<typename T>
 IConfigImportInterface<T>::IConfigImportInterface(QString path, T value)
     :  m_data(std::move(value)), m_path(std::move(path))
 {
-}
-
-template<typename T>
-void IConfigImportInterface<T>::setValue(T value)
-{
-    m_data = std::move(value);
-}
-
-template<typename T>
-const T &IConfigImportInterface<T>::value() const
-{
-    return get();
 }
 
 template<typename T>
@@ -84,16 +74,19 @@ IConfigImportInterface<T>::operator T() const
 }
 
 template<typename T>
+const T &IConfigImportInterface<T>::value() const
+{
+    return get();
+}
+
+template<typename T>
 T &IConfigImportInterface<T>::get() const
 {
    if(!m_isLoaded){
-       bool ok;
-       auto value = IContextManageInstance->getConfig(m_path, &ok);
-       if(ok){
-           m_data = IJsonUtil::fromJson<T>(value, &ok);
+       auto value = getConfigManage()->getConfig(m_path, &m_isOk);
+       if(m_isOk){
+           m_data = IJsonUtil::fromJson<T>(value, &m_isOk);
            qDebug() << "data is ok" << value;
-       }else{
-           qDebug() << "fail to load data" << m_path;
        }
        m_isLoaded = true;
    }

@@ -1,6 +1,7 @@
 ﻿#include "ITaskCatagory.h"
 #include "core/task/ITaskWare.h"
 #include "core/config/IContextManage.h"
+#include "core/config/IContextImport.h"
 
 $PackageWebCoreBegin
 
@@ -13,8 +14,8 @@ bool ITaskCatagory::isCatagoryEnabled() const
 {
     bool ok{false};
     auto path = QString("CATAGORY_ENABLE_STATE_").append(name());
-    auto value = IContextManage::instance()->getConfigAsBool(path, &ok);
-    return ok? value :  isCatagoryDefaultEnabled();
+    $ContextBool value{path, true};
+    return value? value :  isCatagoryDefaultEnabled();
 }
 
 void ITaskCatagory::addTask(ITaskWare *ware)

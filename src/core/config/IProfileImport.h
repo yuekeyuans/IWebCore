@@ -4,6 +4,7 @@
 #include "core/base/IConvertUtil.h"
 #include "core/base/IJsonUtil.h"
 #include "core/config/IConfigImportInterface.h"
+#include "core/config/IProfileManage.h"
 
 $PackageWebCoreBegin
 
@@ -15,6 +16,9 @@ public:
 
 public:
     IProfileImport& operator =(const T& value);
+
+protected:
+    virtual IConfigManageInterface* getConfigManage() const final;
 };
 
 template<typename T>
@@ -27,6 +31,12 @@ IProfileImport<T>& IProfileImport<T>::operator =(const T& value)
 {
     this->m_data = value;
     return *this;
+}
+
+template<typename T>
+IConfigManageInterface *IProfileImport<T>::getConfigManage() const
+{
+    return IProfileManage::instance();
 }
 
 template<typename T>

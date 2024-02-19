@@ -9,16 +9,19 @@ $PackageWebCoreBegin
 namespace IJsonUtil
 {
 template<typename T>
-T fromJson(QJsonValue, bool* ok);
+T fromJson(const QJsonValue&, bool* ok);
 
 template<>
-int fromJson<int>(QJsonValue, bool* ok);
+int fromJson<int>(const QJsonValue&, bool* ok);
 
 template<>
-ushort fromJson<ushort>(QJsonValue, bool* ok);
+ushort fromJson<ushort>(const QJsonValue&, bool* ok);
 
 template<>
-QString fromJson<QString>(QJsonValue, bool *ok);
+QString fromJson<QString>(const QJsonValue&, bool *ok);
+
+template<>
+bool fromJson<bool>(const QJsonValue&, bool*ok);
 
 }
 
@@ -26,23 +29,23 @@ QString fromJson<QString>(QJsonValue, bool *ok);
 #include "core/base/IConvertUtil.h"
 
 template<>
-inline int IJsonUtil::fromJson<int>(QJsonValue value, bool* ok){
+inline int IJsonUtil::fromJson<int>(const QJsonValue& value, bool* ok){
     return IConvertUtil::toInt(value, ok);
 }
 
 template<>
-inline ushort IJsonUtil::fromJson<ushort>(QJsonValue value, bool* ok){
+inline ushort IJsonUtil::fromJson<ushort>(const QJsonValue& value, bool* ok){
     return IConvertUtil::toUShort(value, ok);
 }
 
-// TODO: !!!
 template<>
-inline QString IJsonUtil::fromJson<QString>(QJsonValue json, bool* ok){
-    Q_UNUSED(ok)
-    Q_UNUSED(json)
-//    return IJsonUtil::toString(json);
-//    return IConvertUtil::toString(value, ok);
-  return "127.0.0.2";
+inline QString IJsonUtil::fromJson<QString>(const QJsonValue& json, bool* ok){
+    return IConvertUtil::toString(json, ok);
+}
+
+template<>
+inline bool IJsonUtil::fromJson<bool>(const QJsonValue& value, bool* ok){
+    return IConvertUtil::toBool(value, ok);
 }
 
 $PackageWebCoreEnd
