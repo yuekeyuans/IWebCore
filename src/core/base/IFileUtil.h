@@ -11,13 +11,13 @@ namespace IFileUtil {
 
     QByteArray readFileAsByteArray(const QString& path, bool*ok=nullptr);
 
+    QString getFileSuffix(const QString& path);
+
     template<typename T>
     QString joinPath(const T& first);
 
     template<typename T, typename...Args>
     QString joinPath(const T&first, const Args&...rest);
-
-    QString getFileSuffix(const QString& path);
 }
 
 template<typename T>

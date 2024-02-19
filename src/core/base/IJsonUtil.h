@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "core/base/IHeaderUtil.h"
-#include "IJsonUtil_tojson.h"
-#include "IJsonUtil_fromjson.h"
+#include "core/base/IJsonUtil_tojson.h"
+#include "core/base/IJsonUtil_fromjson.h"
 
 $PackageWebCoreBegin
 namespace IJsonUtil
