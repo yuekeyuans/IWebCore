@@ -433,7 +433,7 @@ QVariant IJsonUtil::toVariant(const QJsonValue &value, QMetaType::Type type, boo
 }
 
 QString IJsonUtil::toString(QJsonValue value){
-    return IConvertUtil::toString(value);
+    return value.toString();
 }
 
 $PackageWebCoreEnd

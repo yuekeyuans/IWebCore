@@ -240,22 +240,22 @@ QByteArray IRequestImpl::getAppParameter(const QString &name, bool* ok) const
 }
 
 // TODO: 这里需要特别注意，之后这个函数需要被移除，现在先不动，之后看明白了再搞
-QByteArray IRequestImpl::getSystemParameter(const QString &name, bool* ok) const
-{
-    static const QString suffix = "_system";
+//QByteArray IRequestImpl::getSystemParameter(const QString &name, bool* ok) const
+//{
+//    static const QString suffix = "_system";
 
-    IToeUtil::setOk(ok, true);
-    const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
+//    IToeUtil::setOk(ok, true);
+//    const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
 
-    bool convertOk;
-    auto value = IContextManage::instance()->getConfig(originName, &convertOk);
-    if(convertOk){
-        return IConvertUtil::toByteArray(value);
-    }
+//    bool convertOk;
+//    auto value = IContextManage::instance()->getConfig(originName, &convertOk);
+//    if(convertOk){
+//        return IConvertUtil::toByteArray(value);
+//    }
 
-    IToeUtil::setOk(ok, convertOk);
-    return {};
-}
+//    IToeUtil::setOk(ok, convertOk);
+//    return {};
+//}
 
 void IRequestImpl::resolve()
 {
