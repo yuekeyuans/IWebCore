@@ -49,6 +49,8 @@ namespace IJsonUtil
 
     QVariant toVariant(const QJsonValue& value, QMetaType::Type type, bool* ok=nullptr);
 
+    QString toString(QJsonValue value);
+
     template<class T>
     QString toString(T value){
         QJsonValue val = IJsonUtil::_objectToJson(value);

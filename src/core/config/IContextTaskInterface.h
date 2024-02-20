@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "core/base/IMetaUtil.h"
 #include "core/config/IContextManage.h"
 #include "core/task/unit/ITaskWareUnit.h"
 
@@ -31,7 +32,7 @@ QString IContextTaskInterface<T, enabled>::path() const
 template<typename T, bool enabled>
 QString IContextTaskInterface<T, enabled>::name() const
 {
-    return typeid(T).name();
+    return IMetaUtil::getTypename<T>();
 }
 
 template<typename T, bool enabled>

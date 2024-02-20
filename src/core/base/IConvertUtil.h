@@ -67,19 +67,17 @@ namespace  IConvertUtil
     QString toUtcString(const QDateTime& dateTime);
 
     // TODO:  add Functions
+//    // intergral without bool
+//    template<typename T>
+//    std::enable_if_t<(std::is_integral_v<T> && std::is_same_v<T, bool>), T> toIntegral(const QJsonValue& value, bool*ok=nullptr);
 
-    // intergral without bool
-    template<typename T>
-    std::enable_if_t<std::is_integral<T> &&  !std::is_same<T, bool>, T> toIntegral(const QJsonValue& value, bool*ok=nullptr);
+//    // floating pointer
+//    template<typename T>
+//    std::enable_if<std::is_floating_point_v<T>, T> toFloatingPoint(const QJsonValue& value, bool* ok=nullptr);
 
-    // floating pointer
-    template<typename T>
-    std::enable_if<std::is_floating_point<T>, T> toFloatingPoint(const QJsonValue& value, bool* ok=nullptr);
-
-    // bean
-    template<typename T>
-    T toBean(const QJsonValue& value, bool* ok=nullptr);
-
+//    // bean
+//    template<typename T>
+//    T toBean(const QJsonValue& value, bool* ok=nullptr);
 }
 
 $PackageWebCoreEnd

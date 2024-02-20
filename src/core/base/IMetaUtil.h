@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "core/base/ITraitHelper.h"
 
 $PackageWebCoreBegin
 
@@ -50,24 +51,11 @@ namespace IMetaUtil
     bool writeProperty(const QMetaProperty& prop, void* handler,  const QVariant& value);
     QVariant readProperty(const QMetaProperty& prop, const void* handler);
 
-    template<class T>
-    bool isInstanceOfQObject(T);
-
-    template<class T>
-    bool isInstanceOfQGadGet(T);
-
     template<typename T>
     void registerMetaType(const QString& bareName, const QString& fullName = "");
-}
 
-template<class T>
-bool IMetaUtil::isInstanceOfQObject(T){
-    return QtPrivate::IsPointerToTypeDerivedFromQObject<T>::Value;
-}
-
-template<class T>
-bool IMetaUtil::isInstanceOfQGadGet(T){
-    return QtPrivate::IsPointerToGadgetHelper<T>::IsRealGadget;
+    template<typename T>
+    QString getTypename();
 }
 
 // TODO: 这里的函数或许是 同名 bean 的解决方案,同样的bean 可以注册 使用 barename 或则 fullname.
@@ -86,6 +74,15 @@ void IMetaUtil::registerMetaType(const QString& bareName, const QString& fullNam
 
     for(auto name : names){
         qRegisterMetaType<T>(name.toUtf8());
+    }
+}
+
+template<typename T>
+QString IMetaUtil::getTypename(){
+    if constexpr (ITraitHelper::is_gadget_v<T>){
+        return getMetaClassName(T::staticMetaObject);
+    }else{
+        return typeid(T).name();
     }
 }
 

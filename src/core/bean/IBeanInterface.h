@@ -24,7 +24,7 @@ public:
 template <typename T, bool enabled>
 QString IBeanInterface<T, enabled>::name() const
 {
-    return IMetaUtil::getMetaClassName(T::staticMetaObject);
+    return IMetaUtil::getTypename<T>();
 }
 
 template<typename T, bool enabled>
