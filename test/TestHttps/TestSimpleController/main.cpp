@@ -1,6 +1,8 @@
 ﻿#include <ICore/IApplication>
 #include <IWeb/IWeb>
 
+#include <core/config/IContextImport.h>
+
 $EnableTaskOutput
 $EnableBluePrint(true)
 $EnableCatagory(Controller)

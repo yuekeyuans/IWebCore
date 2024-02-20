@@ -13,6 +13,7 @@ public:
     void addConfig(const QJsonValue& value, const QString& path="");
 
     QJsonValue getConfig(const QString& path, bool* ok);
+
     bool getConfigAsBool(const QString& path, bool* ok);
     int getConfigAsInt(const QString& path, bool* ok);
     double getConfigAsDouble(const QString& path, bool* ok);

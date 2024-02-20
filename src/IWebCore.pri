@@ -76,6 +76,7 @@ HEADERS += \
     $$PWD/core/unit/IRegisterGadgetUnit.h \
     $$PWD/core/unit/IRegisterMetaTypeUnit.h \
     $$PWD/core/unit/IRegisterTypeUnit.h \
+    $$PWD/core/unit/IStackObjectUnit.h \
     $$PWD/orm/IOrmAssert.h \
     $$PWD/orm/IOrmManage.h \
     $$PWD/orm/IOrmTaskCatagory.h \
@@ -235,6 +236,7 @@ SOURCES += \
     $$PWD/core/unit/IRegisterGadgetUnit.cpp \
     $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
     $$PWD/core/unit/IRegisterTypeUnit.cpp \
+    $$PWD/core/unit/IStackObjectUnit.cpp \
     $$PWD/orm/IOrmAssert.cpp \
     $$PWD/orm/IOrmManage.cpp \
     $$PWD/orm/IOrmTaskCatagory.cpp \

@@ -4,11 +4,12 @@
 #include "core/base/IConvertUtil.h"
 #include "core/base/IJsonUtil.h"
 #include "core/config/IConfigManageInterface.h"
+#include "core/unit/IStackObjectUnit.h"
 
 $PackageWebCoreBegin
 
 template<typename T>
-class IConfigImportInterface
+class IConfigImportInterface : public IStackObjectUnit
 {
     Q_DISABLE_COPY_MOVE(IConfigImportInterface)
 protected:
@@ -20,24 +21,12 @@ public:
     const T& value() const;
 
 public:
+    bool isLoaded() const;
     bool isFound() const;
+    const QString& path();
 
 protected:
     virtual IConfigManageInterface* getConfigManage() const = 0;
-
-private:    // only run  in stack
-    void* operator new[] (std::size_t size) = delete;
-    void* operator new[] (std::size_t size, const std::nothrow_t& nothrow_value) = delete;
-    void* operator new[] (std::size_t size, void* ptr) = delete;
-    void* operator new(std::size_t) = delete;
-    void* operator new(std::size_t, void*) = delete;
-    void* operator new (std::size_t size, const std::nothrow_t& nothrow_value) throw() = delete;
-
-    void operator delete[] (void* ptr) throw() = delete;
-    void operator delete[] (void* ptr, const std::nothrow_t& nothrow_constant) throw() = delete;
-    void operator delete[] (void* ptr, void* voidptr2) throw() = delete;
-    void operator delete( void * ) = delete;
-    void operator delete( void *, size_t ) = delete;
 
 private:
     T& get() const;
@@ -76,6 +65,12 @@ const T &IConfigImportInterface<T>::value() const
 }
 
 template<typename T>
+bool IConfigImportInterface<T>::isLoaded() const
+{
+    return m_isLoaded;
+}
+
+template<typename T>
 bool IConfigImportInterface<T>::isFound() const
 {
     if(!m_isLoaded){    // lazy load
@@ -83,6 +78,12 @@ bool IConfigImportInterface<T>::isFound() const
     }
 
     return m_isFound;
+}
+
+template<typename T>
+const QString &IConfigImportInterface<T>::path()
+{
+    return m_path;
 }
 
 template<typename T>
