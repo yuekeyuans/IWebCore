@@ -12,6 +12,9 @@ template<typename T>
 T fromJson(QJsonValue, bool* ok);
 
 template<>
+std
+
+template<>
 int fromJson<int>(QJsonValue, bool* ok);
 
 template<>
