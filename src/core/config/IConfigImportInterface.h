@@ -1,9 +1,9 @@
-#pragma once
+﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IConvertUtil.h"
 #include "core/base/IJsonUtil.h"
-#include "core/config/IContextManage.h"
+#include "core/config/IConfigManageInterface.h"
 
 $PackageWebCoreBegin
 
@@ -11,21 +11,19 @@ template<typename T>
 class IConfigImportInterface
 {
     Q_DISABLE_COPY_MOVE(IConfigImportInterface)
-public:
-    explicit IConfigImportInterface(QString path, T value = {});
-    ~IConfigImportInterface() = default;
+protected:
+    explicit IConfigImportInterface(QString path, T value);
 
 public:
-    void setValue(T value);
+    bool operator !=(const T& value) const;
+    operator const T&() const;
     const T& value() const;
 
 public:
-    T& operator =(T value);
-    bool operator !=(const T& value) const;
-    // bool operator <(const T& vlaue) const;
-    // bool operator >(const T& value) const;
-    operator T() const;
-//    operator *();
+    bool isFound() const;
+
+protected:
+    virtual IConfigManageInterface* getConfigManage() const = 0;
 
 private:    // only run  in stack
     void* operator new[] (std::size_t size) = delete;
@@ -44,10 +42,13 @@ private:    // only run  in stack
 private:
     T& get() const;
 
-private:
+protected:
     mutable T m_data {};
-    mutable std::atomic_bool m_isLoaded{false};
+
+private:
+    mutable bool m_isFound{false};
     const QString m_path;
+    mutable std::atomic_bool m_isLoaded{false};
 };
 
 template<typename T>
@@ -57,9 +58,15 @@ IConfigImportInterface<T>::IConfigImportInterface(QString path, T value)
 }
 
 template<typename T>
-void IConfigImportInterface<T>::setValue(T value)
+bool IConfigImportInterface<T>::operator !=(const T &value) const
 {
-    m_data = std::move(value);
+    return get() != value;
+}
+
+template<typename T>
+IConfigImportInterface<T>::operator const T&() const
+{
+    return get();
 }
 
 template<typename T>
@@ -69,69 +76,27 @@ const T &IConfigImportInterface<T>::value() const
 }
 
 template<typename T>
-T &IConfigImportInterface<T>::operator =(T value)
+bool IConfigImportInterface<T>::isFound() const
 {
-    m_data = value;
-    return m_data;
-}
+    if(!m_isLoaded){    // lazy load
+        value();
+    }
 
-template<typename T>
-bool IConfigImportInterface<T>::operator !=(const T &value) const
-{
-    return get() != value;
-}
-
-// template<typename T>
-// bool IConfigImportInterface<T>::operator <(const T &value) const
-// {
-//     return get() < value;
-// }
-
-// template<typename T>
-// bool IConfigImportInterface<T>::operator >(const T &value) const
-// {
-//     return get() > value;
-// }
-
-template<typename T>
-IConfigImportInterface<T>::operator T() const
-{
-    return get();
+    return m_isFound;
 }
 
 template<typename T>
 T &IConfigImportInterface<T>::get() const
 {
    if(!m_isLoaded){
-       bool ok;
-       auto value = IContextManageInstance->getConfig(m_path, &ok);
-       if(ok){
-           m_data = IJsonUtil::fromJson<T>(value, &ok);
-           qDebug() << "data is ok" << value;
-       }else{
-           qDebug() << "fail to load data" << m_path;
+       auto value = getConfigManage()->getConfig(m_path, &m_isFound);
+       if(m_isFound){
+           m_data = IJsonUtil::fromJson<T>(value, &m_isFound);
        }
        m_isLoaded = true;
    }
 
     return m_data;
 }
-
-using $Char = IConfigImportInterface<char>;
-using $UChar = IConfigImportInterface<uchar>;
-using $Short = IConfigImportInterface<short>;
-using $UShort = IConfigImportInterface<ushort>;
-using $Int = IConfigImportInterface<int>;
-using $UInt = IConfigImportInterface<uint>;
-using $Long = IConfigImportInterface<long>;
-using $ULong = IConfigImportInterface<ulong>;
-using $LongLong = IConfigImportInterface<long long>;
-using $ULongLong = IConfigImportInterface<qulonglong>;
-using $Float = IConfigImportInterface<float>;
-using $Double = IConfigImportInterface<double>;
-using $LongDouble = IConfigImportInterface<long double>;
-
-using $Bool = IConfigImportInterface<bool>;
-using $QString = IConfigImportInterface<QString>;
 
 $PackageWebCoreEnd

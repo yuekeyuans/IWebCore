@@ -48,6 +48,7 @@ void ISqlQuery::bindExecParameters()
     }
 }
 
+// TODO: 这个也不动，这个应该是 Profile 来处理
 bool ISqlQuery::isEnableSqlPrint()
 {
     static bool isEnabled = true;

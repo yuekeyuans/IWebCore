@@ -1,6 +1,6 @@
 ﻿#include "ITaskCatagory.h"
 #include "core/task/ITaskWare.h"
-#include "core/config/IContextManage.h"
+#include "core/config/IContextImport.h"
 
 $PackageWebCoreBegin
 
@@ -11,10 +11,9 @@ bool ITaskCatagory::isCatagoryDefaultEnabled() const
 
 bool ITaskCatagory::isCatagoryEnabled() const
 {
-    bool ok{false};
     auto path = QString("CATAGORY_ENABLE_STATE_").append(name());
-    auto value = IContextManage::instance()->getConfigAsBool(path, &ok);
-    return ok? value :  isCatagoryDefaultEnabled();
+    $ContextBool value{path, true};
+    return value.isFound() ? value :  isCatagoryDefaultEnabled();
 }
 
 void ITaskCatagory::addTask(ITaskWare *ware)
@@ -39,9 +38,8 @@ void ITaskCatagory::execTaskNodes() const
 
 void ITaskCatagory::printTaskInfo() const
 {
-    bool ok;
-    ok = IContextManage::instance()->getConfigAsBool("SYSTEM_ENABLE_TASK_OUTPUT", &ok) && ok;
-    if(ok){
+    $ContextBool value{"SYSTEM_ENABLE_TASK_OUTPUT", false};
+    if(value.isFound() && value){
         qDebug() << endl << "Catagory: " << name() << ", order: " << order();
     }
 
@@ -50,7 +48,7 @@ void ITaskCatagory::printTaskInfo() const
             continue;
         }
 
-        if(ok){
+        if(value.isFound() && value){
             QString tip = QString("`").append(node->name()).append("` registered.");
             if(!tip.isEmpty()){
                 qDebug().noquote() << "    " << QStringLiteral("[√]  ") << tip << " order: " << node->order();

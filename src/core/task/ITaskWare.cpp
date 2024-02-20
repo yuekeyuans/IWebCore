@@ -1,5 +1,5 @@
 ﻿#include "ITaskWare.h"
-#include "core/config/IContextManage.h"
+#include "core/config/IContextImport.h"
 
 $PackageWebCoreBegin
 
@@ -10,15 +10,9 @@ bool ITaskWare::isTaskDefaultEnabled() const
 
 bool ITaskWare::isTaskEnabled() const
 {
-    bool ok;
-
     auto path = QString("TASK_ENABLE_STATE_").append(catagory()).append("_").append(name());
-    auto value = IContextManageInstance->getConfig(path, &ok);
-    if(!ok){
-        return this->isTaskDefaultEnabled();
-    }
-
-    return value.toBool();
+    $ContextBool value{path};
+    return value.isFound() ? value : this->isTaskDefaultEnabled();
 }
 
 $PackageWebCoreEnd

@@ -239,6 +239,7 @@ QByteArray IRequestImpl::getAppParameter(const QString &name, bool* ok) const
     return {};
 }
 
+// TODO: 这里需要特别注意，之后这个函数需要被移除，现在先不动，之后看明白了再搞
 QByteArray IRequestImpl::getSystemParameter(const QString &name, bool* ok) const
 {
     static const QString suffix = "_system";

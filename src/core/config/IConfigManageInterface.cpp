@@ -178,7 +178,7 @@ QString IConfigManageInterface::getConfigAsString(const QString &path, bool *ok)
 {
     auto value = getConfig(path, ok);
     if(*ok){
-        return jsonValueToString(value, ok);
+        return jsonValueToString(value, ok);    // This convertion differs to IConvertUtil::toString(QJsonValue) because we wang single value;
     }
 
     IToeUtil::setOk(ok, false);

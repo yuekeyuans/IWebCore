@@ -1,6 +1,5 @@
 ﻿#include "IApplication.h"
 
-#include "core/config/IContextManage.h"
 #include "core/task/ITaskManage.h"
 #include "core/assert/IGlobalAssert.h"
 

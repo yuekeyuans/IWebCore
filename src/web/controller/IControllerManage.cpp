@@ -308,10 +308,10 @@ void IControllerManage::setDefaultStaticDir(const QString &dirPath)
     inst->m_staticFilePrefix = dir.absolutePath().append("/");
 }
 
+// TODO: 先不动这个内容，这个应该是需要从 Profile 中间取出数据来初始化的，之后再看一看吧
 QString IControllerManage::getDefaultStaticDir()
 {
     auto inst = instance();
-
     bool ok;
     auto value = IContextManage::instance()->getConfigAsString("PP_DEFAULT_STATIC_DIR", &ok);
     if(ok && !value.isEmpty()){
