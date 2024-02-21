@@ -291,22 +291,19 @@ inline QVariant IMetaUtil::readProperty(const QMetaProperty &prop, const void *h
     return prop.readOnGadget(handler);
 }
 
-
-//#if defined( __has_include ) && (!defined( __GNUC__ ) || (__GNUC__ + 0) >= 5)
-//# if __has_include(<cxxabi.h>)
-//# endif
-//#elif defined( __GLIBCXX__ ) || defined( __GLIBCPP__ )
-//    # include <cxxabi.h>
-//#endif
-
-#if defined(__MINGW32__) || defined(__MINGW64__)
+#if defined(__GNUC__)
     # include <cxxabi.h>
-#endif
+#elif defined(__clang__)
 
+#elif defined(_MSC_VER)
+    #include <windows.h>
+    #include <dbghelp.h>
+    #pragma comment ( lib,"DbgHelp.lib" )
+#endif
 
 QString IMetaUtilHelper::demangleName(const char *name)
 {
-#ifdef __MINGW32__
+#ifdef __GNUC__
     int status;
      char* demangledName = abi::__cxa_demangle(name, nullptr, nullptr, &status);
      if(status == 0){
@@ -314,6 +311,19 @@ QString IMetaUtilHelper::demangleName(const char *name)
      }else{
          return name;
      }
+#elif defined(__clang__)
+    qDebug() << "this should be test when clang applied";
+    return name;
+#elif defined(_MSC_VER)
+    char* demangledName = nullptr;
+    HRESULT result = UnDecorateSymbolName(name, demangledName, 0, UNDNAME_COMPLETE);
+    if (result == S_OK && demangledName != nullptr) {
+        std::string temp(demangledName);
+        free(demangledName);
+        return QString::fromStdString(temp);
+    } else {
+        return name;
+    }
 #else
     return name;
 #endif

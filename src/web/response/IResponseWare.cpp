@@ -90,9 +90,9 @@ void IResponseWare::setInstanceArg(void *arg, const QString &tag)
     qFatal(IConstantUtil::InheritedMethod);
 }
 
-void IResponseWare::setInstanceCopy(IResponseWare *interface)
+void IResponseWare::setInstanceCopy(IResponseWare *interface_)
 {
-    std::swap(interface->raw, this->raw);
+    std::swap(interface_->raw, this->raw);
 }
 
 void IResponseWare::redirectTo(IRedirectResponse &&redirectResponse)
