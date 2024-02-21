@@ -73,16 +73,6 @@ QJsonValue IJsonUtil::_objectToJson(const std::vector<T>& sequence)
     return array;
 }
 
-template<class T>
-QJsonValue IJsonUtil::_objectToJson(const std::deque<T>& sequence)
-{
-    QJsonArray array;
-    for(auto it=sequence.cbegin(); it!=sequence.cend(); it++){
-        array.append(_objectToJson(*it));
-    }
-    return array;
-}
-
 template<class T, int N>
 QJsonValue IJsonUtil::_objectToJson(const std::array<T, N>& sequence)
 {

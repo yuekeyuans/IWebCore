@@ -3,7 +3,7 @@
 #include "core/base/IHeaderUtil.h"
 #include "ITraitHelper.h"
 #include <type_traits>
-#include <deque>
+//#include <deque>
 
 $PackageWebCoreBegin
 namespace IJsonUtil
@@ -45,9 +45,6 @@ QJsonValue _objectToJson(const std::list<T>& sequence);
 
 template<class T>
 QJsonValue _objectToJson(const std::vector<T>& sequence);
-
-template<class T>
-QJsonValue _objectToJson(const std::deque<T>& sequence);
 
 template<class T, int N>
 QJsonValue _objectToJson(const std::array<T, N>& sequence);

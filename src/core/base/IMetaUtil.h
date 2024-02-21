@@ -5,6 +5,11 @@
 
 $PackageWebCoreBegin
 
+
+namespace IMetaUtilHelper {
+    static QString demangleName(const char*);
+}
+
 namespace IMetaUtil
 {
     int getMetaTypeId(const QString& name);
@@ -82,7 +87,7 @@ QString IMetaUtil::getTypename(){
     if constexpr (ITraitHelper::is_gadget_v<T>){
         return getMetaClassName(T::staticMetaObject);
     }else{
-        return typeid(T).name();
+        return IMetaUtilHelper::demangleName(typeid(T).name());
     }
 }
 

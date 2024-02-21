@@ -291,4 +291,32 @@ inline QVariant IMetaUtil::readProperty(const QMetaProperty &prop, const void *h
     return prop.readOnGadget(handler);
 }
 
+
+//#if defined( __has_include ) && (!defined( __GNUC__ ) || (__GNUC__ + 0) >= 5)
+//# if __has_include(<cxxabi.h>)
+//# endif
+//#elif defined( __GLIBCXX__ ) || defined( __GLIBCPP__ )
+//    # include <cxxabi.h>
+//#endif
+
+#if defined(__MINGW32__) || defined(__MINGW64__)
+    # include <cxxabi.h>
+#endif
+
+
+QString IMetaUtilHelper::demangleName(const char *name)
+{
+#ifdef __MINGW32__
+    int status;
+     char* demangledName = abi::__cxa_demangle(name, nullptr, nullptr, &status);
+     if(status == 0){
+         return demangledName;
+     }else{
+         return name;
+     }
+#else
+    return name;
+#endif
+}
+
 $PackageWebCoreEnd
