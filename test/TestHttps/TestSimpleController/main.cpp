@@ -1,7 +1,6 @@
 ﻿#include <ICore/IApplication>
 #include <IWeb/IWeb>
-
-#include <core/config/IContextImport.h>
+#include "core/config/IConfigAnnomacro.h"
 
 $EnableTaskOutput
 $EnableBluePrint(true)

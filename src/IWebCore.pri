@@ -32,6 +32,7 @@ HEADERS += \
     $$PWD/core/bean/IBeanPreProcessor.h \
     $$PWD/core/bean/IBeanTypeManage.h \
     $$PWD/core/bean/IBeanWare.h \
+    $$PWD/core/config/IConfigAnnomacro.h \
     $$PWD/core/config/IConfigImportInterface.h \
     $$PWD/core/config/IConfigManageInterface.h \
     $$PWD/core/config/IConfigPreProcessor.h \
