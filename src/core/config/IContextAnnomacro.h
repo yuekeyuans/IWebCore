@@ -2,8 +2,6 @@
 
 #include "IConfigPreProcessor.h"
 
-
-
 // begin task
 #define $EnableCatagory(catagoryName) \
     PP_NORMAL_CONTEXT_CONFIG(EnableCatagory_##catagoryName, CATAGORY_ENABLE_STATE_##catagoryName, true)
