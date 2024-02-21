@@ -8,30 +8,7 @@ $PackageWebCoreBegin
 
 $UseGlobalAssert()
 
-QVariant IJsonUtil::getJsonVariantValue(const QJsonObject &obj, const QString &type, const QString path, bool *ok)
-{
-    IToeUtil::setOk(ok, true);
-    bool convertOk;
-    auto value = getJsonValue(obj, path, &convertOk);
-    IToeUtil::setOkAnd(ok, convertOk);
-
-    if(!convertOk){
-        return {};
-    }
-
-    if(type == "QString"){
-        return value.toString();
-    } else if(type == "int"){
-        return value.toInt();
-    } else if(type == "bool"){
-        return value.toBool();
-    } else if(type == "double"){
-        return value.toDouble();
-    }
-    IToeUtil::setOk(ok, false);
-    return {};
-}
-
+// TODO: 这里的 path 定义 和 config 中的path 定义不大一致，可以在之后调整到这里时查看一下这个问题，并修复一下
 QJsonValue IJsonUtil::getJsonValue(const QJsonValue &obj, const QString &path, bool *ok)
 {
     IToeUtil::setOk(ok, true);

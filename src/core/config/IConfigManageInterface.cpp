@@ -8,6 +8,15 @@ $UseGlobalAssert()
 
 namespace IConfigUnitHelper
 {
+
+    struct ConfigurationBean{
+        QString type;
+        QString name;
+        QString path;
+        bool optional {false};
+        QMetaType::Type typeId {QMetaType::UnknownType};
+    };
+
     static void validatePath(const QStringList& args){
         if(args.contains("@^") || args.contains("@$")){
             $GlobalAssert->warn("JsonMergeWarnWithArray");
@@ -17,7 +26,7 @@ namespace IConfigUnitHelper
     static QJsonValue buildJsonByPath(const QStringList& args, QJsonValue value)
     {
         QJsonValue val = value;
-        for(auto it = args.rbegin(); it != args.rend(); it++){
+        for(auto it = args.rbegin(); it != args.rend(); it++){            
             if(*it == "@^" || *it == "@$"){
                 QJsonArray array;
                 array.append(val);
@@ -65,8 +74,10 @@ namespace IConfigUnitHelper
     {
         QStringList args = path.split(".");
         validatePath(args);
-        assert(args.length() != 0);
-        assert(args.first() != "@^" && args.first() != "@$");
+
+        if(args.isEmpty() || args.first().startsWith("_")){
+            $GlobalAssert->fatal("ContextAddPathInvalid");
+        }
 
         auto val = buildJsonByPath(args, value);
         return mergeJsonObject(obj, val, args).toObject();

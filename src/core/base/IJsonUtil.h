@@ -6,7 +6,6 @@
 $PackageWebCoreBegin
 namespace IJsonUtil
 {
-    QVariant getJsonVariantValue(const QJsonObject&obj, const QString& type, const QString path, bool* ok);
     QJsonValue getJsonValue(const QJsonValue& obj, const QString& path, bool* ok=nullptr);
 
     //! @note 当编写 文档时，注意 jsonvalue 的转换规则
