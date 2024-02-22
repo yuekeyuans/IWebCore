@@ -3,18 +3,19 @@
 #include "core/base/IHeaderUtil.h"
 #include "core/config/IProfileManage.h"
 #include "core/task/unit/ITaskWareUnit.h"
+#include "core/unit/ISingletonUnit.h"
 
 $PackageWebCoreBegin
 
 template<typename T, bool enabled=true>
-class IProfileTaskInterface : public ITaskWareUnit<T, enabled>
+class IProfileTaskInterface : public ITaskWareUnit<T, enabled>, public ISingletonUnit<T>
 {
 public:
     IProfileTaskInterface() = default;
 
 public:
-    virtual QJsonValue getContext() = 0;
-    virtual QString getPath() const;
+    virtual QJsonValue config() = 0;
+    virtual QString path() const;
 
 protected:
     virtual QString name() const final;
@@ -23,7 +24,7 @@ protected:
 };
 
 template<typename T, bool enabled>
-QString IProfileTaskInterface<T, enabled>::getPath() const
+QString IProfileTaskInterface<T, enabled>::path() const
 {
     return {};
 }
@@ -31,21 +32,21 @@ QString IProfileTaskInterface<T, enabled>::getPath() const
 template<typename T, bool enabled>
 QString IProfileTaskInterface<T, enabled>::name() const
 {
-    return typeid(T).name();
+    return IMetaUtil::getTypename<T>();
 }
 
 template<typename T, bool enabled>
 QString IProfileTaskInterface<T, enabled>::catagory() const
 {
-    return "Context";
+    return "Config";
 }
 
 template<typename T, bool enabled>
 void IProfileTaskInterface<T, enabled>::task()
 {
-    auto config = getContext();
-    if(!config.isNull() && !config.isUndefined()){
-        IProfileManage::instance()->addConfig(config, getPath());
+    auto value = config();
+    if(!value.isNull() && !value.isUndefined()){
+        IProfileManage::instance()->addConfig(value, path());
     }
 }
 

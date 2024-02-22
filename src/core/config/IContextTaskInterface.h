@@ -39,7 +39,7 @@ QString IContextTaskInterface<T, enabled>::name() const
 template<typename T, bool enabled>
 QString IContextTaskInterface<T, enabled>::catagory() const
 {
-    return "Context";
+    return "Config";
 }
 
 template<typename T, bool enabled>

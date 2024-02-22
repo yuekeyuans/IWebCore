@@ -53,7 +53,7 @@ HEADERS += \
     $$PWD/core/task/ITaskCatagoryInterface.h \
     $$PWD/core/task/ITaskPreProcessor.h \
     $$PWD/core/task/default/IBannerTask.h \
-    $$PWD/core/task/default/IContextTaskCatagory.h \
+    $$PWD/core/task/default/IConfigTaskCatagory.h \
     $$PWD/core/task/default/IEndupTaskCatagory.h \
     $$PWD/core/task/default/IEndupTaskInterface.h \
     $$PWD/core/task/default/IInitializationTaskCatagory.h \
@@ -223,7 +223,7 @@ SOURCES += \
     $$PWD/core/config/yaml/Yaml.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \
     $$PWD/core/task/default/IBannerTask.cpp \
-    $$PWD/core/task/default/IContextTaskCatagory.cpp \
+    $$PWD/core/task/default/IConfigTaskCatagory.cpp \
     $$PWD/core/task/default/IEndupTaskCatagory.cpp \
     $$PWD/core/task/default/IEndupTaskInterface.cpp \
     $$PWD/core/task/default/IInitializationTaskCatagory.cpp \

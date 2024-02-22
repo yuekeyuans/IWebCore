@@ -313,7 +313,7 @@ void *IControllerParamUtil::getParamOfPrimitiveType(const IParamNode &node, IReq
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to int");
         break;
     case QMetaType::UInt:
-        *static_cast<uint*>(param) = IConvertUtil::toUInt(content, &ok);
+        *static_cast<uint*>(param) = IConvertUtil::toUInt(QString(content), &ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to UInt");
         break;
     case QMetaType::Long:

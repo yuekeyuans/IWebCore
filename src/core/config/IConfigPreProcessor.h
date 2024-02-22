@@ -10,7 +10,7 @@
 class klassName : public ITaskInstantUnit < klassName, true >  \
 {   \
 public:     \
-    klassName(){};  \
+    klassName() = default;  \
     virtual void task() final {  \
         QString key = IToeUtil::trimQuote( #path_ ); \
         QJsonValue obj = QJsonValue(value); \
@@ -22,7 +22,7 @@ public:     \
 class klassName : public IContextTaskInterface < klassName, true >  \
 {   \
 public:     \
-    klassName(){};  \
+    klassName() = default;  \
     virtual QJsonValue config() final   {  return value; }  \
     virtual QString path() const final { return IToeUtil::trimQuote( #path_ ); }  \
 };
@@ -31,7 +31,7 @@ public:     \
 class klassName : public IProfileTaskInterface < klassName, true >  \
 {   \
 public:     \
-    klassName(){};  \
+    klassName() = default;  \
     virtual QJsonValue config() final   {  return value; }  \
     virtual QString path() const final { return IToeUtil::trimQuote( #path_ ); }  \
 };

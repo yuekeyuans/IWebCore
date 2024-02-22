@@ -18,6 +18,7 @@ namespace  IConvertUtil
     int toInt(const QJsonValue& value, bool *ok);
     uint toUInt(const QString& value, bool *ok=nullptr, int base=10);
     uint toUInt(const QJsonValue& value, bool* ok);
+    uint toUInt(double value, bool*ok);
     long toLong(const QString& value, bool *ok=nullptr, int base=10);
     ulong toULong(const QString& value, bool *ok=nullptr, int base=10);
     qlonglong toLongLong(const QString& value, bool *ok=nullptr, int base=10);

@@ -5,11 +5,11 @@
 
 $PackageWebCoreBegin
 
-class IContextTaskCatagory : public ITaskCatagoryInterface<IContextTaskCatagory>
+class IConfigTaskCatagory : public ITaskCatagoryInterface<IConfigTaskCatagory>
 {
-    friend class ISingletonUnit<IContextTaskCatagory>;
+    friend class ISingletonUnit<IConfigTaskCatagory>;
 private:
-    IContextTaskCatagory() = default;
+    IConfigTaskCatagory() = default;
 
 public:
     virtual QString name() const final;

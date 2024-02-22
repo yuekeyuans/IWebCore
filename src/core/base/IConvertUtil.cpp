@@ -120,7 +120,7 @@ uint IConvertUtil::toUInt(const QJsonValue &value, bool *ok)
 
     IToeUtil::setOk(ok, true);
     if(value.isDouble()){
-        return toUInt(value.toString(), ok);
+        return toUInt(value.toDouble(), ok);
     }else if(value.isString()){
         return toInt(value.toString(), ok);
     }
@@ -468,6 +468,18 @@ QString IConvertUtil::toUtcString(const QDateTime& dateTime)
     static const QLocale local = QLocale::English;
     auto str = local.toString(dateTime.toUTC(), format).append(" GMT");
     return str;
+}
+
+uint IConvertUtil::toUInt(double value, bool *ok)
+{
+    if(value < std::numeric_limits<uint>::min() || value > std::numeric_limits<uint>::max()){
+        *ok = false;
+    }else{
+        *ok = true;
+    }
+
+    return static_cast<uint>(value);
+
 }
 
 $PackageWebCoreEnd
