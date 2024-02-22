@@ -30,14 +30,22 @@ namespace  IConvertUtil
     long toLong(double value, bool *ok=nullptr);
     long toLong(const QJsonValue& value, bool* ok);
 
-    ulong toULong(const QString& value, bool *ok=nullptr, int base=10);\
+    ulong toULong(const QString& value, bool *ok=nullptr, int base=10);
     ulong toULong(double value, bool *ok=nullptr);
     ulong toULong(const QJsonValue& value, bool* ok);
 
     qlonglong toLongLong(const QString& value, bool *ok=nullptr, int base=10);
+    qlonglong toLongLong(double value, bool *ok=nullptr);
+    qlonglong toLongLong(const QJsonValue& value, bool* ok);
+
     qulonglong toULongLong(const QString& value, bool *ok=nullptr, int base=10);
+    qulonglong toULongLong(double value, bool *ok=nullptr);
+    qulonglong toULongLong(const QJsonValue& value, bool* ok);
 
     float toFloat(const QString& value, bool *ok=nullptr);
+    float toFloat(double value, bool *ok=nullptr);
+    float toFloat(const QJsonValue& value, bool* ok);
+
     double toDouble(const QString& value, bool *ok=nullptr);
     double toDouble(const QJsonValue& value, bool *ok=nullptr);
 

@@ -256,14 +256,98 @@ qlonglong IConvertUtil::toLongLong(const QString &value, bool *ok, int base)
     return std::mem_fn(&QString::toLongLong)(value, ok, base);
 }
 
+qlonglong IConvertUtil::toLongLong(double value, bool *ok)
+{
+    if(value < std::numeric_limits<qlonglong>::min() || value > std::numeric_limits<qlonglong>::max()){
+        *ok = false;
+    }else{
+        *ok = true;
+    }
+
+    return static_cast<qlonglong>(value);
+}
+
+qlonglong IConvertUtil::toLongLong(const QJsonValue &value, bool *ok)
+{
+    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
+        IToeUtil::setOk(ok, false);
+        return 0;
+    }
+
+    IToeUtil::setOk(ok, true);
+    if(value.isDouble()){
+        return toLongLong(value.toDouble(), ok);
+    }else if(value.isString()){
+        return toLongLong(value.toString(), ok);
+    }
+    IToeUtil::setOk(ok, false);
+    return {};
+}
+
 qulonglong IConvertUtil::toULongLong(const QString &value, bool *ok, int base)
 {
     return std::mem_fn(&QString::toULongLong)(value, ok, base);
 }
 
+qulonglong IConvertUtil::toULongLong(double value, bool *ok)
+{
+    if(value < std::numeric_limits<qulonglong>::min() || value > std::numeric_limits<qulonglong>::max()){
+        *ok = false;
+    }else{
+        *ok = true;
+    }
+
+    return static_cast<qulonglong>(value);
+}
+
+qulonglong IConvertUtil::toULongLong(const QJsonValue &value, bool *ok)
+{
+    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
+        IToeUtil::setOk(ok, false);
+        return 0;
+    }
+
+    IToeUtil::setOk(ok, true);
+    if(value.isDouble()){
+        return toULongLong(value.toDouble(), ok);
+    }else if(value.isString()){
+        return toULongLong(value.toString(), ok);
+    }
+    IToeUtil::setOk(ok, false);
+    return {};
+}
+
 float IConvertUtil::toFloat(const QString &value, bool *ok)
 {
     return std::mem_fn(&QString::toFloat)(value, ok);
+}
+
+float IConvertUtil::toFloat(double value, bool *ok)
+{
+    if(value < std::numeric_limits<float>::min() || value > std::numeric_limits<float>::max()){
+        *ok = false;
+    }else{
+        *ok = true;
+    }
+
+    return static_cast<float>(value);
+}
+
+float IConvertUtil::toFloat(const QJsonValue &value, bool *ok)
+{
+    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
+        IToeUtil::setOk(ok, false);
+        return 0;
+    }
+
+    IToeUtil::setOk(ok, true);
+    if(value.isDouble()){
+        return toFloat(value.toDouble(), ok);
+    }else if(value.isString()){
+        return toFloat(value.toString(), ok);
+    }
+    IToeUtil::setOk(ok, false);
+    return 0;
 }
 
 double IConvertUtil::toDouble(const QString &value, bool *ok)

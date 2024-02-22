@@ -325,19 +325,19 @@ void *IControllerParamUtil::getParamOfPrimitiveType(const IParamNode &node, IReq
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to ulong");
         break;
     case QMetaType::LongLong:
-        *static_cast<qlonglong*>(param) = IConvertUtil::toLongLong(content, &ok);
+        *static_cast<qlonglong*>(param) = IConvertUtil::toLongLong(QString(content), &ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to LongLong");
         break;
     case QMetaType::ULongLong:
-        *static_cast<qulonglong*>(param) = IConvertUtil::toULongLong(content, &ok);
+        *static_cast<qulonglong*>(param) = IConvertUtil::toULongLong(QString(content), &ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to ULongLong");
         break;
     case QMetaType::Float:
-        *static_cast<float*>(param) = IConvertUtil::toFloat(content, &ok);
+        *static_cast<float*>(param) = IConvertUtil::toFloat(QString(content), &ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to float");
         break;
     case QMetaType::Double:
-        *static_cast<double*>(param) = IConvertUtil::toDouble(content, &ok);
+        *static_cast<double*>(param) = IConvertUtil::toDouble(QString(content), &ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to double");
         break;
     }
