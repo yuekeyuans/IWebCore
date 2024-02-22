@@ -71,8 +71,7 @@ private:
     static void initJudgeTypes();
 
 private:
-    virtual void task() final;
-//    friend class IInitializationTaskUnit<IControllerParamUtil>;
+    virtual void task() final;  // TODO: 这个没有注册，是怎么回事？
 };
 
 $PackageWebCoreEnd
