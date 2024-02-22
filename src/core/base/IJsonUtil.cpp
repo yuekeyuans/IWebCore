@@ -9,7 +9,7 @@ $PackageWebCoreBegin
 $UseGlobalAssert()
 
 // TODO: 这里的 path 定义 和 config 中的path 定义不大一致，可以在之后调整到这里时查看一下这个问题，并修复一下
-QJsonValue IJsonUtil::getJsonValue(const QJsonValue &obj, const QString &path, bool *ok)
+QJsonValue IJsonUtil::getJsonValue(const QJsonValue &obj, const QString &path, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     QStringList args = path.split(".");
@@ -49,7 +49,7 @@ QJsonValue IJsonUtil::getJsonValue(const QJsonValue &obj, const QString &path, b
     return value;
 }
 
-QJsonValue IJsonUtil::toJsonValue(const QString& content, bool *ok)
+QJsonValue IJsonUtil::toJsonValue(const QString& content, bool& ok)
 {
     if(content.trimmed().isEmpty()){
         IToeUtil::setOk(ok, false);
@@ -77,70 +77,72 @@ QJsonValue IJsonUtil::toJsonValue(const QString& content, bool *ok)
     return QJsonValue(content);
 }
 
-QJsonValue IJsonUtil::toJsonValue(const QByteArray &value, bool *ok)
+QJsonValue IJsonUtil::toJsonValue(const QByteArray &value, bool& ok)
 {
     return toJsonValue(QString(value), ok);
 }
 
 
-QJsonValue IJsonUtil::toJsonValue(bool content, bool *ok)
+QJsonValue IJsonUtil::toJsonValue(bool content, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     return QJsonValue(content);
 }
 
 
-QJsonValue IJsonUtil::toJsonValue(qint64 content, bool *ok)
+QJsonValue IJsonUtil::toJsonValue(qint64 content, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     return QJsonValue(content);
 }
 
-QJsonValue IJsonUtil::toJsonValue(int content, bool *ok)
+QJsonValue IJsonUtil::toJsonValue(int content, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     return QJsonValue(content);
 }
 
-QJsonValue IJsonUtil::toJsonValue(double content, bool *ok)
+QJsonValue IJsonUtil::toJsonValue(double content, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     return QJsonValue(content);
 }
 
-QJsonValue IJsonUtil::toJsonValue(const QJsonValue &value, bool *ok)
+QJsonValue IJsonUtil::toJsonValue(const QJsonValue &value, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     return value;
 }
 
 
-QJsonValue IJsonUtil::toJsonValue(const QHash<QString, QVariant> &hash, bool *ok)
+QJsonValue IJsonUtil::toJsonValue(const QHash<QString, QVariant> &hash, bool& ok)
 {
-    IToeUtil::setOk(ok, true);
     const auto keys = hash.keys();
     QJsonObject obj;
-    bool convertOk;
     for(const auto& key : keys){
-        obj[key] = toJsonValue(hash[key], &convertOk);
-        IToeUtil::setOkAnd(ok, convertOk);
+        obj[key] = toJsonValue(hash[key], ok);
+        if(!ok){
+            break;
+        }
     }
+    ok = true;
     return obj;
 }
 
-QJsonValue IJsonUtil::toJsonValue(const QList<QMap<QString, QVariant> > &list, bool *ok)
+QJsonValue IJsonUtil::toJsonValue(const QList<QMap<QString, QVariant> > &list, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     QJsonArray array;
-    bool convertOk;
     for(const auto& map : list){
-        array.append(toJsonValue(map, &convertOk));
-        IToeUtil::setOkAnd(ok, convertOk);
+        array.append(toJsonValue(map, ok));
+        if(!ok){
+            break;
+        }
     }
     return array;
 }
 
-QJsonValue IJsonUtil::toJsonValue(const QStringList &list, bool *ok)
+QJsonValue IJsonUtil::toJsonValue(const QStringList &list, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     QJsonArray array;
@@ -150,20 +152,21 @@ QJsonValue IJsonUtil::toJsonValue(const QStringList &list, bool *ok)
     return  array;
 }
 
-QJsonValue IJsonUtil::toJsonValue(const QList<QVariant> &list, bool *ok)
+QJsonValue IJsonUtil::toJsonValue(const QList<QVariant> &list, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     QJsonArray array;
-    bool convertOk;
     for(const auto& val : list){
-        array.append(toJsonValue(val, &convertOk));
-        IToeUtil::setOkAnd(ok, convertOk);
+        array.append(toJsonValue(val, ok));
+        if(!ok){
+            break;
+        }
     }
     return array;
 }
 
 // NOTE: 当涉及 uchar ushort 等类型的时候, QVariant::Type 已经不能满足需要了，所以，这里需要有一点特别的处理
-QJsonValue IJsonUtil::toJsonValue(const QVariant &value, bool *ok)
+QJsonValue IJsonUtil::toJsonValue(const QVariant &value, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     auto type = QMetaType::Type(value.type());
@@ -198,119 +201,126 @@ QJsonValue IJsonUtil::toJsonValue(const QVariant &value, bool *ok)
     case QMetaType::QTime:
         return value.toTime().toString(IConstantUtil::TimeFormat);
     case QMetaType::QVariantMap:
-        return toJsonValue(value.toMap());
+        return toJsonValue(value.toMap(), ok);
     case QMetaType::QVariantList:
-        return toJsonValue(value.toList());
+        return toJsonValue(value.toList(), ok);
     case QMetaType::QStringList:
-        return toJsonValue(value.toStringList());
+        return toJsonValue(value.toStringList(), ok);
     case QMetaType::QByteArray:           //! @note try convert
         return QString(value.toByteArray());
     case QMetaType::QVariantHash:
-        return toJsonValue(value.toHash());
+        return toJsonValue(value.toHash(), ok);
     default:
         qFatal("can not convert this type, please check your code");
     }
+    ok = false;
     return {};
 }
 
-QJsonValue IJsonUtil::toJsonValue(const QMap<QString, QVariant> &map, bool *ok)
+QJsonValue IJsonUtil::toJsonValue(const QMap<QString, QVariant> &map, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     QJsonObject obj;
     const auto& keys = map.keys();
-    bool convertOk;
     for(const auto& key : keys){
-        obj[key] = IConvertUtil::toJsonValue(map[key], &convertOk);
-        IToeUtil::setOkAnd(ok, convertOk);
+        obj[key] = IConvertUtil::toJsonValue(map[key], ok);
+        if(!ok){
+            break;
+        }
     }
     return obj;
 }
 
-QJsonArray IJsonUtil::toJsonArray(const QString &value, bool *ok)
+QJsonArray IJsonUtil::toJsonArray(const QString &value, bool& ok)
 {
     IToeUtil::setOk(ok, true);
-    bool convertOk;
-    auto val = IJsonUtil::toJsonValue(value, &convertOk);
-    IToeUtil::setOkAnd(ok, convertOk);
-
-    if(!convertOk){
+    auto val = IJsonUtil::toJsonValue(value, ok);
+    if(!ok){
         return {};
     }
+
     return toJsonArray(val, ok);
 }
 
-QJsonArray IJsonUtil::toJsonArray(const QJsonValue &value, bool *ok)
+QJsonArray IJsonUtil::toJsonArray(const QJsonValue &value, bool& ok)
 {
-    IToeUtil::setOk(ok, true);
     if(!value.isArray()){
-        IToeUtil::setOk(ok, false);
+        ok = false;
         return {};
     }
+
+    ok = true;
     return value.toArray();
 }
 
-QJsonArray IJsonUtil::toJsonArray(const QByteArray &value, bool *ok)
+QJsonArray IJsonUtil::toJsonArray(const QByteArray &value, bool& ok)
 {
     return toJsonArray(QString(value), ok);
 }
 
-QJsonObject IJsonUtil::toJsonObject(const QString &value, bool *ok)
+QJsonObject IJsonUtil::toJsonObject(const QString &value, bool& ok)
 {
-    IToeUtil::setOk(ok, true);
-    bool convertOk;
-    auto val = IJsonUtil::toJsonValue(value, &convertOk);
-    IToeUtil::setOkAnd(ok, convertOk);
-
-    if(!convertOk){
+    auto val = IJsonUtil::toJsonValue(value, ok);
+    if(!ok){
         return {};
     }
     return toJsonObject(val, ok);
 }
 
-QJsonObject IJsonUtil::toJsonObject(const QJsonValue &value, bool *ok)
+QJsonObject IJsonUtil::toJsonObject(const QJsonValue &value, bool& ok)
 {
-    IToeUtil::setOk(ok, true);
     if(!value.isObject()){
-        IToeUtil::setOk(ok, false);
+        ok = false;
         return {};
     }
+
+    ok = true;
     return value.toObject();
 }
 
-QJsonObject IJsonUtil::toJsonObject(const QMap<QString, QVariant> &map, bool* ok)
+QJsonObject IJsonUtil::toJsonObject(const QMap<QString, QVariant> &map, bool& ok)
 {
-    return IConvertUtil::toJsonObject(IConvertUtil::toJsonValue(map, ok));
+    auto value = IConvertUtil::toJsonValue(map, ok);
+    if(ok){
+        return IConvertUtil::toJsonObject(value, ok);
+    }
+
+    return {};
 }
 
-QJsonObject IJsonUtil::toJsonObject(const QByteArray &value, bool *ok)
+QJsonObject IJsonUtil::toJsonObject(const QByteArray &value, bool& ok)
 {
     return toJsonObject(QString(value), ok);
 }
 
-QJsonArray IJsonUtil::toJsonObjectArray(const QList<QMap<QString, QVariant>> &list, bool *ok)
+QJsonArray IJsonUtil::toJsonObjectArray(const QList<QMap<QString, QVariant>> &list, bool& ok)
 {
-    return IConvertUtil::toJsonArray(IConvertUtil::toJsonValue(list, ok));
+    auto value = IConvertUtil::toJsonValue(list, ok);
+    if(ok){
+        return IConvertUtil::toJsonArray(value, ok);
+    }
+    return {};
 }
 
-QByteArray IJsonUtil::toByteArray(const QJsonObject &json, bool*ok)
-{
-    IToeUtil::setOk(ok, true);
-    return QJsonDocument(json).toJson(QJsonDocument::Compact);
-}
-
-QByteArray IJsonUtil::toByteArray(const QJsonArray &json, bool*ok)
+QByteArray IJsonUtil::toByteArray(const QJsonObject &json, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     return QJsonDocument(json).toJson(QJsonDocument::Compact);
 }
 
-QByteArray IJsonUtil::toByteArray(const QJsonValue &json, bool* ok)
+QByteArray IJsonUtil::toByteArray(const QJsonArray &json, bool& ok)
+{
+    IToeUtil::setOk(ok, true);
+    return QJsonDocument(json).toJson(QJsonDocument::Compact);
+}
+
+QByteArray IJsonUtil::toByteArray(const QJsonValue &json, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     if(json.isObject()){
-        return toByteArray(json.toObject());
+        return toByteArray(json.toObject(), ok);
     }else if(json.isArray()){
-        return toByteArray(json.toArray());
+        return toByteArray(json.toArray(), ok);
     }else if(json.isString()){
         return json.toString().toUtf8();
     }else if(json.isBool()){
@@ -341,7 +351,7 @@ QString IJsonUtil::objectToString(const QJsonObject &value)
 
 
 //! @note not safe!
-QVariant IJsonUtil::toVariant(const QJsonValue &value, QMetaType::Type type, bool *ok)
+QVariant IJsonUtil::toVariant(const QJsonValue &value, QMetaType::Type type, bool& ok)
 {
     static const QList<QMetaType::Type> validTypes = {
         QMetaType::Bool,
@@ -389,10 +399,8 @@ QVariant IJsonUtil::toVariant(const QJsonValue &value, QMetaType::Type type, boo
     case QMetaType::QTime:
         return QVariant(value.toString()).toTime();
     case QMetaType::QStringList:{
-        bool convertOk;
-        auto list = IJsonUtil::toJsonArray(value, &convertOk);
-        IToeUtil::setOk(ok, convertOk);
-        if(!convertOk){
+        auto list = IJsonUtil::toJsonArray(value, ok);
+        if(!ok){
             return {};
         }
         QStringList ret;

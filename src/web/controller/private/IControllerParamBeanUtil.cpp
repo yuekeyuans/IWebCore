@@ -270,7 +270,7 @@ void *IControllerParamBeanUtil::resolveBodyXml(IBeanWare *bean, IRequest &reques
     return bean;
 }
 
-QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QList<QPair<QString, QString> > &list, IBeanWare *bean, IRequest &request, bool *ok)
+QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QList<QPair<QString, QString> > &list, IBeanWare *bean, IRequest &request, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     QMap<QString, QVariant> map;
@@ -308,7 +308,7 @@ QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QL
 }
 
 QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QMap<QString, QByteArray> &raw
-                                                                            , IBeanWare* bean, IRequest& request, bool* ok)
+                                                                            , IBeanWare* bean, IRequest& request, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     QMap<QString, QVariant> map;
@@ -339,7 +339,7 @@ QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QM
 }
 
 QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QVector<IMultiPart> &parts
-                                                                            , IBeanWare* bean, IRequest& request, bool* ok)
+                                                                            , IBeanWare* bean, IRequest& request, bool& ok)
 {
     QMap<QString, QVariant> map;
     const QStringList& fieldNames = bean->getMetaFieldNames();

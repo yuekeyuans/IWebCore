@@ -10,28 +10,28 @@ class IOrmEntityInfoWare;
 namespace IOrmUtil
 {
 // 单行单列 获取
-    int getInt(QSqlQuery& query, bool* ok=nullptr);
-    uint getUint(QSqlQuery& query, bool* ok=nullptr);
+    int getInt(QSqlQuery& query, bool& ok);
+    uint getUint(QSqlQuery& query, bool& ok);
 
-    qulonglong getULongLong(QSqlQuery& query, bool* ok=nullptr);
-    qlonglong getLongLong(QSqlQuery& query, bool* ok=nullptr);
+    qulonglong getULongLong(QSqlQuery& query, bool& ok);
+    qlonglong getLongLong(QSqlQuery& query, bool& ok);
 
-    float getFloat(QSqlQuery& query, bool* ok=nullptr);
-    double getDouble(QSqlQuery& query, bool* ok=nullptr);
+    float getFloat(QSqlQuery& query, bool& ok);
+    double getDouble(QSqlQuery& query, bool& ok);
 
-    bool getBool(QSqlQuery& query, bool* ok=nullptr);
+    bool getBool(QSqlQuery& query, bool& ok);
 
-    QString getString(QSqlQuery& query, bool* ok=nullptr);
+    QString getString(QSqlQuery& query, bool& ok);
 
-    QVariant getVariant(QSqlQuery& query, bool *ok=nullptr);
+    QVariant getVariant(QSqlQuery& query, bool& ok);
 
-    QDate getDate(QSqlQuery& query, bool* ok=nullptr);
-    QTime getTime(QSqlQuery& query, bool* ok=nullptr);
-    QDateTime getDateTime(QSqlQuery& query, bool* ok=nullptr);
+    QDate getDate(QSqlQuery& query, bool& ok);
+    QTime getTime(QSqlQuery& query, bool& ok);
+    QDateTime getDateTime(QSqlQuery& query, bool& ok);
 
 // 单行多列 获取
-    QMap<QString, QVariant> getMap(QSqlQuery& query, bool* ok=nullptr);
-    QJsonObject getJsonObject(QSqlQuery& query, bool* ok=nullptr);
+    QMap<QString, QVariant> getMap(QSqlQuery& query, bool& ok);
+    QJsonObject getJsonObject(QSqlQuery& query, bool& ok);
     template <class T> T getBean(QSqlQuery& query);
 
 // 多行多列 获取
@@ -40,45 +40,45 @@ namespace IOrmUtil
     template <class T> QList<T> getBeans(QSqlQuery& query);
 
 // 多行单列 获取
-    QList<QVariant> getVariantList(QSqlQuery& query, bool* ok=nullptr);
-    QList<int> getIntList(QSqlQuery& query, bool* ok=nullptr);
-    QList<uint> getUintList(QSqlQuery& query, bool* ok=nullptr);
-    QList<qulonglong> getULongLongList(QSqlQuery& query, bool* ok=nullptr);
-    QList<qlonglong> getLongLongList(QSqlQuery& query, bool* ok=nullptr);
-    QList<float> getFloatList(QSqlQuery& query, bool* ok=nullptr);
-    QList<double> getDoubleList(QSqlQuery& query, bool* ok=nullptr);
-    QList<bool> getBoolList(QSqlQuery& query, bool* ok=nullptr);
-    QStringList getStringList(QSqlQuery& query, bool* ok=nullptr);
-    QList<QDate> getDateList(QSqlQuery& query, bool* ok);
-    QList<QTime> getTimeList(QSqlQuery& query, bool* ok=nullptr);
-    QList<QDateTime> getDateTimeList(QSqlQuery& query, bool* ok=nullptr);
+    QList<QVariant> getVariantList(QSqlQuery& query, bool& ok);
+    QList<int> getIntList(QSqlQuery& query, bool& ok);
+    QList<uint> getUintList(QSqlQuery& query, bool& ok);
+    QList<qulonglong> getULongLongList(QSqlQuery& query, bool& ok);
+    QList<qlonglong> getLongLongList(QSqlQuery& query, bool& ok);
+    QList<float> getFloatList(QSqlQuery& query, bool& ok);
+    QList<double> getDoubleList(QSqlQuery& query, bool& ok);
+    QList<bool> getBoolList(QSqlQuery& query, bool& ok);
+    QStringList getStringList(QSqlQuery& query, bool& ok);
+    QList<QDate> getDateList(QSqlQuery& query, bool& ok);
+    QList<QTime> getTimeList(QSqlQuery& query, bool& ok);
+    QList<QDateTime> getDateTimeList(QSqlQuery& query, bool& ok);
 
 // toXX 转换  (bean, QJsonObject， map, list 互相转换)
     template <class T>
-    QJsonObject toJsonObject(const T& bean, bool*ok = nullptr);
+    QJsonObject toJsonObject(const T& bean, bool& ok);
 
     template <class T>
-    QJsonArray toJsonQbjectArray(const QList<T>&, bool*ok = nullptr);
+    QJsonArray toJsonQbjectArray(const QList<T>&, bool& ok);
 
     template <class T>
-    QMap<QString, QVariant> toMap(const T& t, bool* ok=nullptr);
-    QMap<QString, QVariant> toMap(const QJsonObject&, bool*ok = nullptr);
+    QMap<QString, QVariant> toMap(const T& t, bool& ok);
+    QMap<QString, QVariant> toMap(const QJsonObject&, bool& ok);
 
     template <class T>
-    QList<QMap<QString, QVariant>> toMapList(QList<T>& list, bool* ok=nullptr);
-    QList<QMap<QString, QVariant>> toMapList(const QJsonArray& array, bool* ok=nullptr);
+    QList<QMap<QString, QVariant>> toMapList(QList<T>& list, bool& ok);
+    QList<QMap<QString, QVariant>> toMapList(const QJsonArray& array, bool& ok);
 
     template <class T>
-    T toBean(const QMap<QString, QVariant>& map, bool* ok=nullptr);
+    T toBean(const QMap<QString, QVariant>& map, bool& ok);
 
     template <class T>
-    T toBean(const QJsonObject& obj, bool* ok=nullptr);
+    T toBean(const QJsonObject& obj, bool& ok);
 
     template <class T>
-    QList<T> toBeans(const QJsonArray& array, bool* ok=nullptr);
+    QList<T> toBeans(const QJsonArray& array, bool& ok);
 
     template <class T>
-    QList<T> toBeans(const QList<QMap<QString, QVariant>>&list, bool*ok=nullptr);
+    QList<T> toBeans(const QList<QMap<QString, QVariant>>&list, bool& ok);
 
 // util
     QStringList getFieldNames(const IOrmEntityInfoWare& info);
@@ -130,13 +130,13 @@ QList<T> IOrmUtil::getBeans(QSqlQuery &query)
 }
 
 template<class T>
-QJsonObject IOrmUtil::toJsonObject(const T &t, bool *ok)
+QJsonObject IOrmUtil::toJsonObject(const T &t, bool& ok)
 {
     return IConvertUtil::toJsonObject(IOrmUtil::toMap<T>(t, ok));
 }
 
 template<class T>
-QJsonArray IOrmUtil::toJsonQbjectArray(const QList<T> &list, bool* ok)
+QJsonArray IOrmUtil::toJsonQbjectArray(const QList<T> &list, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     QJsonArray array;
@@ -149,7 +149,7 @@ QJsonArray IOrmUtil::toJsonQbjectArray(const QList<T> &list, bool* ok)
 }
 
 template<class T>
-QMap<QString, QVariant> IOrmUtil::toMap(const T &t, bool *ok)
+QMap<QString, QVariant> IOrmUtil::toMap(const T &t, bool& ok)
 {
     IToeUtil::setOk(ok, true);
 
@@ -163,7 +163,7 @@ QMap<QString, QVariant> IOrmUtil::toMap(const T &t, bool *ok)
 }
 
 template<class T>
-QList<QMap<QString, QVariant> > IOrmUtil::toMapList(QList<T> & list, bool *ok)
+QList<QMap<QString, QVariant> > IOrmUtil::toMapList(QList<T> & list, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     QList<QMap<QString, QVariant>> ret;
@@ -177,7 +177,7 @@ QList<QMap<QString, QVariant> > IOrmUtil::toMapList(QList<T> & list, bool *ok)
 
 // TODO: 这里目前不支持复合类型
 template<class T>
-T IOrmUtil::toBean(const QMap<QString, QVariant> &map, bool *ok)
+T IOrmUtil::toBean(const QMap<QString, QVariant> &map, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     T t;
@@ -192,7 +192,7 @@ T IOrmUtil::toBean(const QMap<QString, QVariant> &map, bool *ok)
 }
 
 template<class T>
-T IOrmUtil::toBean(const QJsonObject &obj, bool *ok)
+T IOrmUtil::toBean(const QJsonObject &obj, bool& ok)
 {
     const auto& map = IOrmUtil::toMap(obj, ok);
     bool convertOk;
@@ -202,9 +202,9 @@ T IOrmUtil::toBean(const QJsonObject &obj, bool *ok)
 }
 
 template<class T>
-QList<T> IOrmUtil::toBeans(const QList<QMap<QString, QVariant> > &list, bool *ok)
+QList<T> IOrmUtil::toBeans(const QList<QMap<QString, QVariant> > &list, bool& ok)
 {
-    IToeUtil::setOk(ok, true);
+    ok = true;
     QList<T> ret;
     bool convertOk;
     for(const auto& map : list){
@@ -215,7 +215,7 @@ QList<T> IOrmUtil::toBeans(const QList<QMap<QString, QVariant> > &list, bool *ok
 }
 
 template<class T>
-QList<T> IOrmUtil::toBeans(const QJsonArray &array, bool *ok)
+QList<T> IOrmUtil::toBeans(const QJsonArray &array, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     QList<T> ret;

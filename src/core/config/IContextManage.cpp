@@ -61,7 +61,7 @@
 ////    return {};
 ////}
 
-////QString IContextManage::getApplicationConfigAsString(const QString &path, bool *ok)
+////QString IContextManage::getApplicationConfigAsString(const QString &path, bool& ok)
 ////{
 ////    IToeUtil::setOk(ok, true);
 ////    bool convertOk;
@@ -84,7 +84,7 @@
 ////    return "";
 ////}
 
-////void IContextManage::getConfigBean(void *handler, const QMap<QString, QString> &clsInfo, const QVector<QMetaProperty> &props, bool *ok)
+////void IContextManage::getConfigBean(void *handler, const QMap<QString, QString> &clsInfo, const QVector<QMetaProperty> &props, bool& ok)
 ////{
 ////    IToeUtil::setOk(ok, true);
 ////    auto inst = instance();

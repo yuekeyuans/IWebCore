@@ -9,7 +9,7 @@ $PackageWebCoreBegin
  */
 namespace IYamlUtil
 {
-    QJsonObject toJsonObject(const QString& content, bool* ok);
+    QJsonObject toJsonObject(const QString& content, bool& ok);
 };
 
 $PackageWebCoreEnd

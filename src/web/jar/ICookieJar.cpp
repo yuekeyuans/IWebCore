@@ -115,7 +115,7 @@ const QList<ICookiePart> &ICookieJar::responseCookies() const
     return m_raw->m_responseCookies;
 }
 
-ICookiePart &ICookieJar::getResponseCookie(const QString &key, bool *ok)
+ICookiePart &ICookieJar::getResponseCookie(const QString &key, bool& ok)
 {
     auto& cookies = m_raw->m_responseCookies;
     for(auto it=cookies.begin(); it!=cookies.end(); it++){
@@ -128,7 +128,7 @@ ICookiePart &ICookieJar::getResponseCookie(const QString &key, bool *ok)
     return *cookies.end();
 }
 
-const ICookiePart &ICookieJar::getResponseCookie(const QString &key, bool *ok) const
+const ICookiePart &ICookieJar::getResponseCookie(const QString &key, bool& ok) const
 {
     auto& cookies = m_raw->m_responseCookies;
     for(auto it=cookies.begin(); it!=cookies.end(); it++){
@@ -162,7 +162,7 @@ bool ICookieJar::containResponseCookieKey(const QString &key) const
     return false;
 }
 
-QString ICookieJar::getResponseCookieValue(const QString &key, bool *ok)
+QString ICookieJar::getResponseCookieValue(const QString &key, bool& ok)
 {
     const auto& cookie = getResponseCookie(key, ok);
     if(*ok){

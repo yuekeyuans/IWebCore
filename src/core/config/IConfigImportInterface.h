@@ -90,9 +90,9 @@ template<typename T>
 T &IConfigImportInterface<T>::get() const
 {
    if(!m_isLoaded){
-       auto value = getConfigManage()->getConfig(m_path, &m_isFound);
+       auto value = getConfigManage()->getConfig(m_path, m_isFound);
        if(m_isFound){
-           m_data = IJsonUtil::fromJson<T>(value, &m_isFound);
+           m_data = IJsonUtil::fromJson<T>(value, m_isFound);
        }
        m_isLoaded = true;
    }

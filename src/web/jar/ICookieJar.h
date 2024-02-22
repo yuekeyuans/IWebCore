@@ -34,12 +34,12 @@ public:
     // response
     QList<ICookiePart>& responseCookies();
     const QList<ICookiePart>& responseCookies() const;
-    ICookiePart& getResponseCookie(const QString& key, bool *ok);
-    const ICookiePart& getResponseCookie(const QString& key, bool* ok) const;
+    ICookiePart& getResponseCookie(const QString& key, bool& ok);
+    const ICookiePart& getResponseCookie(const QString& key, bool& ok) const;
 
     QStringList responseCookieKeys() const;
     bool containResponseCookieKey(const QString& key) const;
-    QString getResponseCookieValue(const QString& key, bool* ok);
+    QString getResponseCookieValue(const QString& key, bool& ok);
 
     void deleteResponseCookie(const QString& key);
 

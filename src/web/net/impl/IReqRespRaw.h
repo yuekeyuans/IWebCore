@@ -32,8 +32,8 @@ public:
     void setInvalid(IHttpStatus status, const QString& message);
     void setInvalidIf(bool condition, IHttpStatus status, const QString& message);
 
-    QJsonValue& getRequestJson(bool* ok=nullptr);
-    QDomNode&   getRequestXml(bool* ok=nullptr);
+    QJsonValue& getRequestJson(bool& ok);
+    QDomNode&   getRequestXml(bool& ok);
 
 
 public:         // 这些东西先抽象出来，等到改变 socket 的时候就相对依赖小一点

@@ -13,12 +13,12 @@ inline bool IFileUtil::isFileExist(const QString &path)
     return QFile(path).exists();
 }
 
-inline QString IFileUtil::readFileAsString(const QString &path, bool *ok)
+inline QString IFileUtil::readFileAsString(const QString &path, bool& ok)
 {
     return readFileAsByteArray(path, ok);
 }
 
-inline QByteArray IFileUtil::readFileAsByteArray(const QString &path, bool *ok)
+inline QByteArray IFileUtil::readFileAsByteArray(const QString &path, bool& ok)
 {
     QFile file(path);
     if(file.open(QFile::ReadOnly)){

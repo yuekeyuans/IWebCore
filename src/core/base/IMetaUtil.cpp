@@ -241,15 +241,19 @@ inline QMap<QString, QVariant> IMetaUtil::toVariantMap(const void *handler, cons
     return map;
 }
 
+// TODO: 感觉 神智不清这个之后开一线
 inline void IMetaUtil::fromJsonObject(void *handler, const QMetaObject &meta, const QJsonObject &obj)
 {
-    auto map = IConvertUtil::toMap(obj);
+    bool ok;
+    auto map = IConvertUtil::toMap(obj, ok);
     return fromVariantMap(handler, meta, map);
 }
 
+// TODO：
 inline void IMetaUtil::fromJsonObject(void *handler, const QMetaObject *meta, const QJsonObject &obj)
 {
-    auto map = IConvertUtil::toMap(obj);
+    bool ok;
+    auto map = IConvertUtil::toMap(obj, ok);
     return fromVariantMap(handler, meta, map);
 }
 

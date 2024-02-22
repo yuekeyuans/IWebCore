@@ -40,7 +40,7 @@ QStringList IMultiPartJar::getRequestMultiPartNames() const
 }
 
 // 这里的操作是，添加一个invalid multipart;
-const IMultiPart &IMultiPartJar::getRequestMultiPart(const QString &name, bool *ok) const
+const IMultiPart &IMultiPartJar::getRequestMultiPart(const QString &name, bool& ok) const
 {
     const auto& jar = m_raw->m_requestMultiParts;
     for(const auto& part : jar){

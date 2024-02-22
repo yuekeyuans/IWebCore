@@ -14,7 +14,7 @@ namespace IYamlHelper{
     QJsonValue toValue(const Yaml::Node& node);
 }
 
-QJsonObject IYamlUtil::toJsonObject(const QString &content, bool* ok)
+QJsonObject IYamlUtil::toJsonObject(const QString &content, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     Yaml::Node root;

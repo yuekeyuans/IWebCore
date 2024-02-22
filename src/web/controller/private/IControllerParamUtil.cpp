@@ -56,7 +56,7 @@ static const QVector<int> StringTypes = {
 
 namespace IControllerFunctionBaseImplHelper
 {
-    void* convertParamToJson(const IParamNode &node, const QByteArray &content, bool* ok);
+    void* convertParamToJson(const IParamNode &node, const QByteArray &content, bool& ok);
 }
 
 bool IControllerParamUtil::createArguments(const IMethodNode& methodNode, ParamType& params, IRequest &request)
@@ -570,7 +570,7 @@ void IControllerParamUtil::initJudgeTypes(){
     });
 }
 
-void* IControllerFunctionBaseImplHelper::convertParamToJson(const IParamNode &node, const QByteArray &content, bool* ok)
+void* IControllerFunctionBaseImplHelper::convertParamToJson(const IParamNode &node, const QByteArray &content, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     auto param = QMetaType::create(node.paramTypeId);

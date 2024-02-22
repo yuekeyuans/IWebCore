@@ -7,7 +7,7 @@ namespace IFileUtil {
 
     bool isFileExist(const QString& path);
 
-    QString readFileAsString(const QString& path, bool *ok=nullptr);
+    QString readFileAsString(const QString& path, bool& ok);
 
     QByteArray readFileAsByteArray(const QString& path, bool*ok=nullptr);
 

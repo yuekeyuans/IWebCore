@@ -68,7 +68,7 @@ void IReqRespRaw::setInvalidIf(bool condition, IHttpStatus status, const QString
     }
 }
 
-QJsonValue &IReqRespRaw::getRequestJson(bool *ok)
+QJsonValue &IReqRespRaw::getRequestJson(bool& ok)
 {
     IToeUtil::setOk(ok, true);
     bool convertOk;
@@ -81,7 +81,7 @@ QJsonValue &IReqRespRaw::getRequestJson(bool *ok)
     return m_requestJson;
 }
 
-QDomNode &IReqRespRaw::getRequestXml(bool *ok)
+QDomNode &IReqRespRaw::getRequestXml(bool& ok)
 {
     IToeUtil::setOk(ok, true);
     if(!isXmlInited){

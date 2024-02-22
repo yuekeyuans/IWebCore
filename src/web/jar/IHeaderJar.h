@@ -23,7 +23,7 @@ public:
     QStringList requestHeaderKeys() const;
     bool containRequestHeaderKey(const QString& key) const;
 
-    QString getRequestHeaderValue(const QString& key, bool* ok) const;
+    QString getRequestHeaderValue(const QString& key, bool& ok) const;
     QStringList getRequestHeaderValues(const QString& key) const;
 
     // response
@@ -33,7 +33,7 @@ public:
     QStringList responseHeaderKeys() const;
     bool containResponseHeaderKey(const QString& key) const;
 
-    QString getResponseHeaderValue(const QString& key, bool* ok) const;
+    QString getResponseHeaderValue(const QString& key, bool& ok) const;
     QStringList getResponseHeaderValues(const QString& key) const;
 
     void addResponseHeader(const QString& key, const QString& value);

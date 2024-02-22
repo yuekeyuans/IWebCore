@@ -44,7 +44,7 @@ bool IHeaderJar::containRequestHeaderKey(const QString &key) const
     return false;
 }
 
-QString IHeaderJar::getRequestHeaderValue(const QString &key, bool *ok) const
+QString IHeaderJar::getRequestHeaderValue(const QString &key, bool& ok) const
 {
     for(const auto& pair : m_raw->m_requestHeaders){
         if(pair.first == key){
@@ -98,7 +98,7 @@ bool IHeaderJar::containResponseHeaderKey(const QString &key) const
     return false;
 }
 
-QString IHeaderJar::getResponseHeaderValue(const QString &key, bool* ok) const
+QString IHeaderJar::getResponseHeaderValue(const QString &key, bool& ok) const
 {
     for(const auto& pair : m_raw->m_requestHeaders){
         if(pair.first == key){

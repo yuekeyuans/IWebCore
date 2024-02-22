@@ -61,25 +61,25 @@ public:
 
     const QMap<QString, QByteArray>& bodyFormParameters() const;
     const QVector<IMultiPart>& bodyMultiParts() const;
-    const QJsonValue& bodyJson(bool* ok=nullptr) const;
-    const QDomNode& bodyXml(bool* ok=nullptr) const;
+    const QJsonValue& bodyJson(bool& ok) const;
+    const QDomNode& bodyXml(bool& ok) const;
 
-    QByteArray getParameter(const QString& name, bool* ok=nullptr) const;
-    QByteArray getMixedParameter(const QString& name, bool* ok=nullptr) const;
-    QByteArray getUrlParameter(const QString& name, bool* ok=nullptr) const;
-    QByteArray getParamParameter(const QString& name, bool* ok=nullptr) const ;
-    QByteArray getHeaderParameter(const QString& name, bool* ok=nullptr) const;
-    QByteArray getBodyParameter(const QString& name, bool* ok=nullptr) const;
+    QByteArray getParameter(const QString& name, bool& ok) const;
+    QByteArray getMixedParameter(const QString& name, bool& ok) const;
+    QByteArray getUrlParameter(const QString& name, bool& ok) const;
+    QByteArray getParamParameter(const QString& name, bool& ok) const ;
+    QByteArray getHeaderParameter(const QString& name, bool& ok) const;
+    QByteArray getBodyParameter(const QString& name, bool& ok) const;
 
-    QByteArray getCookieParameter(const QString& name, bool* ok=nullptr) const;
-    QByteArray getSessionParameter(const QString& name, bool* ok=nullptr) const;
-    QByteArray getAppParameter(const QString& name, bool* ok=nullptr) const;
-    QByteArray getSystemParameter(const QString& name, bool* ok=nullptr) const;
+    QByteArray getCookieParameter(const QString& name, bool& ok) const;
+    QByteArray getSessionParameter(const QString& name, bool& ok) const;
+    QByteArray getAppParameter(const QString& name, bool& ok) const;
+    QByteArray getSystemParameter(const QString& name, bool& ok) const;
 
     const QMap<QString, QVariant>& attributes() const;;
     bool hasAttribute(const QString& name) const;;
     void setAttribute(const QString& name, const QVariant& value);;
-    QVariant getAttribute(const QString& name, bool* ok=nullptr) const;
+    QVariant getAttribute(const QString& name, bool& ok) const;
 
     bool valid() const;
     void setInvalidIf(bool condition, IHttpStatus status, const QString& message) const;

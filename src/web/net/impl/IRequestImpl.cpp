@@ -25,12 +25,12 @@ IRequestImpl::IRequestImpl(IReqRespRaw *raw)
     this->raw = raw;
 }
 
-QJsonValue &IRequestImpl::requestJson(bool *ok) const
+QJsonValue &IRequestImpl::requestJson(bool& ok) const
 {
     return raw->getRequestJson(ok);
 }
 
-QDomNode &IRequestImpl::requestXml(bool *ok) const
+QDomNode &IRequestImpl::requestXml(bool& ok) const
 {
     return raw->getRequestXml(ok);
 }
@@ -57,7 +57,7 @@ QString IRequestImpl::contentType() const
     return value;
 }
 
-QByteArray IRequestImpl::getParameter(const QString &name, bool* ok) const
+QByteArray IRequestImpl::getParameter(const QString &name, bool& ok) const
 {
     // 这里独自处理
     if(name.endsWith("_content")){
@@ -75,7 +75,7 @@ QByteArray IRequestImpl::getParameter(const QString &name, bool* ok) const
     return getMixedParameter(name, ok);
 }
 
-QByteArray IRequestImpl::getMixedParameter(const QString &name, bool* ok) const
+QByteArray IRequestImpl::getMixedParameter(const QString &name, bool& ok) const
 {
     static const QString mixedSuffix = "_mixed";
 
@@ -103,7 +103,7 @@ QByteArray IRequestImpl::getMixedParameter(const QString &name, bool* ok) const
     return {};
 }
 
-QByteArray IRequestImpl::getContentParameter(const QString &name, bool *ok) const
+QByteArray IRequestImpl::getContentParameter(const QString &name, bool& ok) const
 {
     Q_UNUSED(name);
     IToeUtil::setOk(ok, true);
@@ -114,7 +114,7 @@ QByteArray IRequestImpl::getContentParameter(const QString &name, bool *ok) cons
     return raw->m_requestBody;
 }
 
-QByteArray IRequestImpl::getUrlParameter(const QString &name, bool* ok) const
+QByteArray IRequestImpl::getUrlParameter(const QString &name, bool& ok) const
 {
     static const QString suffix = "_url";
 
@@ -128,7 +128,7 @@ QByteArray IRequestImpl::getUrlParameter(const QString &name, bool* ok) const
     return {};
 }
 
-QByteArray IRequestImpl::getBodyParameter(const QString &name, bool*ok) const
+QByteArray IRequestImpl::getBodyParameter(const QString &name, bool& ok) const
 {
     static const QString suffix = "_body";
 
@@ -159,7 +159,7 @@ QByteArray IRequestImpl::getBodyParameter(const QString &name, bool*ok) const
     return {};
 }
 
-QByteArray IRequestImpl::getHeaderParameter(const QString &name, bool* ok) const
+QByteArray IRequestImpl::getHeaderParameter(const QString &name, bool& ok) const
 {
     static const QString suffix = "_header";
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
@@ -167,7 +167,7 @@ QByteArray IRequestImpl::getHeaderParameter(const QString &name, bool* ok) const
     return raw->m_headerJar->getRequestHeaderValue(originName, ok).toUtf8();
 }
 
-QByteArray IRequestImpl::getParamParameter(const QString &name, bool* ok) const
+QByteArray IRequestImpl::getParamParameter(const QString &name, bool& ok) const
 {
     static QString suffix = "_param";
 
@@ -181,7 +181,7 @@ QByteArray IRequestImpl::getParamParameter(const QString &name, bool* ok) const
     return {};
 }
 
-QByteArray IRequestImpl::getCookieParameter(const QString &name, bool* ok) const
+QByteArray IRequestImpl::getCookieParameter(const QString &name, bool& ok) const
 {
     static const QString suffix = "_cookie";
 
@@ -206,7 +206,7 @@ QByteArray IRequestImpl::getCookieParameter(const QString &name, bool* ok) const
     return ret;
 }
 
-QByteArray IRequestImpl::getSessionParameter(const QString &name, bool* ok) const
+QByteArray IRequestImpl::getSessionParameter(const QString &name, bool& ok) const
 {
     static const QString suffix = "_session";
 
@@ -220,7 +220,7 @@ QByteArray IRequestImpl::getSessionParameter(const QString &name, bool* ok) cons
     return {};
 }
 
-QByteArray IRequestImpl::getAppParameter(const QString &name, bool* ok) const
+QByteArray IRequestImpl::getAppParameter(const QString &name, bool& ok) const
 {
     static const QString suffix = "_app";
 
@@ -240,7 +240,7 @@ QByteArray IRequestImpl::getAppParameter(const QString &name, bool* ok) const
 }
 
 // TODO: 这里需要特别注意，之后这个函数需要被移除，现在先不动，之后看明白了再搞
-QByteArray IRequestImpl::getSystemParameter(const QString &name, bool* ok) const
+QByteArray IRequestImpl::getSystemParameter(const QString &name, bool& ok) const
 {
     static const QString suffix = "_system";
 
@@ -280,7 +280,7 @@ void IRequestImpl::resolve()
     }
 }
 
-QByteArray IRequestImpl::getFormUrlValue(const QString &name, bool* ok) const
+QByteArray IRequestImpl::getFormUrlValue(const QString &name, bool& ok) const
 {
     IToeUtil::setOk(ok, true);
     if(raw->m_requestBodyParameters.contains(name)){
@@ -291,7 +291,7 @@ QByteArray IRequestImpl::getFormUrlValue(const QString &name, bool* ok) const
     return {};
 }
 
-QByteArray IRequestImpl::getMultiPartFormData(const QString &name, bool*ok) const
+QByteArray IRequestImpl::getMultiPartFormData(const QString &name, bool& ok) const
 {
     IToeUtil::setOk(ok, true);
     for(auto& part : raw->m_requestMultiParts){
@@ -304,7 +304,7 @@ QByteArray IRequestImpl::getMultiPartFormData(const QString &name, bool*ok) cons
     return {};
 }
 
-QByteArray IRequestImpl::getJsonData(const QString &name, bool* ok) const
+QByteArray IRequestImpl::getJsonData(const QString &name, bool& ok) const
 {
     IToeUtil::setOk(ok, true);
 

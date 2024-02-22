@@ -7,7 +7,7 @@
 
 $PackageWebCoreBegin
 
-QVariant get_single_row_single_col_variant(QSqlQuery& query, bool*ok) {
+QVariant get_single_row_single_col_variant(QSqlQuery& query, bool& ok) {
 
 #ifdef QT_DEBUG
     const auto& fields = IOrmUtil::getFieldNames(query);
@@ -17,7 +17,7 @@ QVariant get_single_row_single_col_variant(QSqlQuery& query, bool*ok) {
     }
 #endif
 
-    IToeUtil::setOk(ok, true);
+    ok = true;
     size_t count = 0;
     QVariant ret;
     while(query.next()){
@@ -26,11 +26,14 @@ QVariant get_single_row_single_col_variant(QSqlQuery& query, bool*ok) {
         }
         count ++;
     }
-    IToeUtil::setOk(count != 1 && ok != nullptr, ok, false);
+    if(count != 1){
+        ok = false;
+    }
+
     return ret;
 };
 
-QList<QVariant> get_multi_row_single_col_variant(QSqlQuery& query, bool*ok)
+QList<QVariant> get_multi_row_single_col_variant(QSqlQuery& query, bool& ok)
 {
 #ifdef QT_DEBUG
     const auto& fields = IOrmUtil::getFieldNames(query);
@@ -50,7 +53,7 @@ QList<QVariant> get_multi_row_single_col_variant(QSqlQuery& query, bool*ok)
 
 
 
-int IOrmUtil::getInt(QSqlQuery &query, bool *ok)
+int IOrmUtil::getInt(QSqlQuery &query, bool& ok)
 {
     bool convertOk;
     int value = get_single_row_single_col_variant(query, ok).toInt(&convertOk);
@@ -58,7 +61,7 @@ int IOrmUtil::getInt(QSqlQuery &query, bool *ok)
     return value;
 }
 
-uint IOrmUtil::getUint(QSqlQuery &query, bool *ok)
+uint IOrmUtil::getUint(QSqlQuery &query, bool& ok)
 {
     bool convertOk;
     uint value = get_single_row_single_col_variant(query, ok).toUInt(&convertOk);
@@ -66,7 +69,7 @@ uint IOrmUtil::getUint(QSqlQuery &query, bool *ok)
     return value;
 }
 
-qulonglong IOrmUtil::getULongLong(QSqlQuery &query, bool *ok)
+qulonglong IOrmUtil::getULongLong(QSqlQuery &query, bool& ok)
 {
     bool convertOk;
     qulonglong value = get_single_row_single_col_variant(query, ok).toULongLong(&convertOk);
@@ -74,7 +77,7 @@ qulonglong IOrmUtil::getULongLong(QSqlQuery &query, bool *ok)
     return value;
 }
 
-qlonglong IOrmUtil::getLongLong(QSqlQuery &query, bool *ok)
+qlonglong IOrmUtil::getLongLong(QSqlQuery &query, bool& ok)
 {
     bool convertOk;
     qlonglong value = get_single_row_single_col_variant(query, ok).toLongLong(&convertOk);
@@ -82,7 +85,7 @@ qlonglong IOrmUtil::getLongLong(QSqlQuery &query, bool *ok)
     return value;
 }
 
-float IOrmUtil::getFloat(QSqlQuery &query, bool *ok)
+float IOrmUtil::getFloat(QSqlQuery &query, bool& ok)
 {
     bool convertOk;
     float value = get_single_row_single_col_variant(query, ok).toFloat(&convertOk);
@@ -90,7 +93,7 @@ float IOrmUtil::getFloat(QSqlQuery &query, bool *ok)
     return value;
 }
 
-double IOrmUtil::getDouble(QSqlQuery &query, bool *ok)
+double IOrmUtil::getDouble(QSqlQuery &query, bool& ok)
 {
     bool convertOk;
     double value = get_single_row_single_col_variant(query, ok).toDouble(&convertOk);
@@ -99,22 +102,22 @@ double IOrmUtil::getDouble(QSqlQuery &query, bool *ok)
 }
 
 // NOTE: 在 orm 实现中 , bool 实现使用 integral 类型， 1 为 true， 0 为false, 可以使用 falsy, 和 truthy 解析
-bool IOrmUtil::getBool(QSqlQuery &query, bool *ok)
+bool IOrmUtil::getBool(QSqlQuery &query, bool& ok)
 {
     int value = get_single_row_single_col_variant(query, ok).toBool();;
     return value;
 }
 
-QString IOrmUtil::getString(QSqlQuery &query, bool *ok)
+QString IOrmUtil::getString(QSqlQuery &query, bool& ok)
 {
     return get_single_row_single_col_variant(query, ok).toString();
 }
 
-QDate IOrmUtil::getDate(QSqlQuery &query, bool *ok)
+QDate IOrmUtil::getDate(QSqlQuery &query, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     bool convertOk;
-    auto val = get_single_row_single_col_variant(query, &convertOk);
+    auto val = get_single_row_single_col_variant(query, convertOk);
     IToeUtil::setOkAnd(ok, convertOk);
     if(!convertOk){
         return QDate();
@@ -134,15 +137,13 @@ QDate IOrmUtil::getDate(QSqlQuery &query, bool *ok)
     return QDate();
 }
 
-QTime IOrmUtil::getTime(QSqlQuery &query,  bool *ok)
+QTime IOrmUtil::getTime(QSqlQuery &query,  bool& ok)
 {
-    IToeUtil::setOk(ok, true);
-    bool convertOk;
-    auto val = get_single_row_single_col_variant(query, &convertOk);
-    IToeUtil::setOkAnd(ok, convertOk);
-    if(!convertOk){
-        return QTime();
+    auto val = get_single_row_single_col_variant(query, ok);
+    if(!ok){
+        return {};
     }
+
     switch (val.type()) {
     case QVariant::Time:
         return val.toTime();
@@ -158,14 +159,11 @@ QTime IOrmUtil::getTime(QSqlQuery &query,  bool *ok)
     return QTime();
 }
 
-QDateTime IOrmUtil::getDateTime(QSqlQuery &query, bool *ok)
+QDateTime IOrmUtil::getDateTime(QSqlQuery &query, bool& ok)
 {
-    IToeUtil::setOk(ok, true);
-    bool convertOk;
-    auto val = get_single_row_single_col_variant(query, &convertOk);
-    IToeUtil::setOkAnd(ok, convertOk);
-    if(!convertOk){
-        return QDateTime();
+    auto val = get_single_row_single_col_variant(query, ok);
+    if(!ok){
+        return {};
     }
     switch (val.type()) {
     case QVariant::DateTime:
@@ -180,12 +178,12 @@ QDateTime IOrmUtil::getDateTime(QSqlQuery &query, bool *ok)
     return QDateTime();
 }
 
-QVariant IOrmUtil::getVariant(QSqlQuery &query, bool *ok)
+QVariant IOrmUtil::getVariant(QSqlQuery &query, bool& ok)
 {
     return get_single_row_single_col_variant(query, ok);
 }
 
-QMap<QString, QVariant> IOrmUtil::getMap(QSqlQuery &query, bool *ok)
+QMap<QString, QVariant> IOrmUtil::getMap(QSqlQuery &query, bool& ok)
 {
     QMap<QString, QVariant> map;
     size_t count = 0;
@@ -200,7 +198,7 @@ QMap<QString, QVariant> IOrmUtil::getMap(QSqlQuery &query, bool *ok)
     return map;
 }
 
-QJsonObject IOrmUtil::getJsonObject(QSqlQuery &query, bool *ok)
+QJsonObject IOrmUtil::getJsonObject(QSqlQuery &query, bool& ok)
 {
     QJsonObject obj;
     size_t count = 0;
@@ -208,7 +206,10 @@ QJsonObject IOrmUtil::getJsonObject(QSqlQuery &query, bool *ok)
     while(query.next()){
         count ++;
         for(const auto& field : fields){
-            obj[field] = IConvertUtil::toJsonValue(query.value(field));
+            obj[field] = IConvertUtil::toJsonValue(query.value(field), ok);
+            if(!ok){
+                return {};
+            }
         }
     }
     IToeUtil::setOk(ok, count == 1);
@@ -231,24 +232,26 @@ QList<QMap<QString, QVariant> > IOrmUtil::getMapList(QSqlQuery &query)
 
 QJsonArray IOrmUtil::getJsonObjectArray(QSqlQuery &query)
 {
+    bool ok;
     QJsonArray ret;
     auto fields = getFieldNames(query);
     while(query.next()){
         QJsonObject obj;
         for(const auto& field : fields){
-            obj[field] = IConvertUtil::toJsonValue(query.value(field));
+            obj[field] = IConvertUtil::toJsonValue(query.value(field), ok);
+            assert(ok);
         }
         ret.append(std::move(obj));
     }
     return ret;
 }
 
-QList<QVariant> IOrmUtil::getVariantList(QSqlQuery &query, bool *ok)
+QList<QVariant> IOrmUtil::getVariantList(QSqlQuery &query, bool& ok)
 {
     return get_multi_row_single_col_variant(query, ok);
 }
 
-QList<int> IOrmUtil::getIntList(QSqlQuery &query, bool *ok)
+QList<int> IOrmUtil::getIntList(QSqlQuery &query, bool& ok)
 {
     QList<int> ret;
     auto result = get_multi_row_single_col_variant(query, ok);
@@ -260,7 +263,7 @@ QList<int> IOrmUtil::getIntList(QSqlQuery &query, bool *ok)
     return ret;
 }
 
-QList<uint> IOrmUtil::getUintList(QSqlQuery &query, bool *ok)
+QList<uint> IOrmUtil::getUintList(QSqlQuery &query, bool& ok)
 {
     QList<uint> ret;
     auto result = get_multi_row_single_col_variant(query, ok);
@@ -272,7 +275,7 @@ QList<uint> IOrmUtil::getUintList(QSqlQuery &query, bool *ok)
     return ret;
 }
 
-QList<qulonglong> IOrmUtil::getULongLongList(QSqlQuery &query, bool *ok)
+QList<qulonglong> IOrmUtil::getULongLongList(QSqlQuery &query, bool& ok)
 {
     QList<qulonglong> ret;
     auto result = get_multi_row_single_col_variant(query, ok);
@@ -284,7 +287,7 @@ QList<qulonglong> IOrmUtil::getULongLongList(QSqlQuery &query, bool *ok)
     return ret;
 }
 
-QList<qlonglong> IOrmUtil::getLongLongList(QSqlQuery &query, bool *ok)
+QList<qlonglong> IOrmUtil::getLongLongList(QSqlQuery &query, bool& ok)
 {
     QList<qlonglong> ret;
     auto result = get_multi_row_single_col_variant(query, ok);
@@ -296,7 +299,7 @@ QList<qlonglong> IOrmUtil::getLongLongList(QSqlQuery &query, bool *ok)
     return ret;
 }
 
-QList<float> IOrmUtil::getFloatList(QSqlQuery &query, bool *ok)
+QList<float> IOrmUtil::getFloatList(QSqlQuery &query, bool& ok)
 {
     QList<float> ret;
     auto result = get_multi_row_single_col_variant(query, ok);
@@ -308,7 +311,7 @@ QList<float> IOrmUtil::getFloatList(QSqlQuery &query, bool *ok)
     return ret;
 }
 
-QList<double> IOrmUtil::getDoubleList(QSqlQuery &query, bool *ok)
+QList<double> IOrmUtil::getDoubleList(QSqlQuery &query, bool& ok)
 {
     QList<double> ret;
     auto result = get_multi_row_single_col_variant(query, ok);
@@ -320,7 +323,7 @@ QList<double> IOrmUtil::getDoubleList(QSqlQuery &query, bool *ok)
     return ret;
 }
 
-QList<bool> IOrmUtil::getBoolList(QSqlQuery &query, bool *ok)
+QList<bool> IOrmUtil::getBoolList(QSqlQuery &query, bool& ok)
 {
     QList<bool> ret;
     auto result = get_multi_row_single_col_variant(query, ok);
@@ -333,7 +336,7 @@ QList<bool> IOrmUtil::getBoolList(QSqlQuery &query, bool *ok)
     return ret;
 }
 
-QStringList IOrmUtil::getStringList(QSqlQuery &query, bool *ok)
+QStringList IOrmUtil::getStringList(QSqlQuery &query, bool& ok)
 {
     QStringList ret;
     auto result = get_multi_row_single_col_variant(query, ok);
@@ -400,7 +403,7 @@ QStringList IOrmUtil::getFieldNames(const QSqlQuery &query, const IOrmEntityInfo
 }
 
 // TODO: 怎样处理异常数据
-QList<QDate> IOrmUtil::getDateList(QSqlQuery &query, bool *ok)
+QList<QDate> IOrmUtil::getDateList(QSqlQuery &query, bool& ok)
 {
     QList<QDate> dates;
     auto result = get_multi_row_single_col_variant(query, ok);
@@ -414,8 +417,8 @@ QList<QDate> IOrmUtil::getDateList(QSqlQuery &query, bool *ok)
             break;
         case QVariant::String:
             dates.append(IConvertUtil::toDate(val.toString(), ok));
-            if(!*ok){
-                return dates;
+            if(!ok){
+                return {};
             }
             break;
         case QVariant::Invalid:
@@ -429,7 +432,7 @@ QList<QDate> IOrmUtil::getDateList(QSqlQuery &query, bool *ok)
 }
 
 // TODO: 这里用不到 dialect 的原因是 规定死 time 的格式，只能是这几种，就不需要dialect 配置了。
-QList<QTime> IOrmUtil::getTimeList(QSqlQuery &query, bool *ok)
+QList<QTime> IOrmUtil::getTimeList(QSqlQuery &query, bool& ok)
 {
     QList<QTime> ret;
     auto result = get_multi_row_single_col_variant(query, ok);
@@ -444,6 +447,9 @@ QList<QTime> IOrmUtil::getTimeList(QSqlQuery &query, bool *ok)
             break;
         case QVariant::String:
             ret.append(IConvertUtil::toTime(val.toString(), ok));
+            if(!ok){
+                return {};
+            }
             break;
         case QVariant::Invalid:
             ret.append(QTime());
@@ -451,24 +457,27 @@ QList<QTime> IOrmUtil::getTimeList(QSqlQuery &query, bool *ok)
         default:
             qFatal("current other type of date not supported");
         }
-        if(!*ok){
-            break;
-        }
     }
     return ret;
 }
 
-QList<QDateTime> IOrmUtil::getDateTimeList(QSqlQuery &query, bool *ok)
+QList<QDateTime> IOrmUtil::getDateTimeList(QSqlQuery &query, bool& ok)
 {
     QList<QDateTime> ret;
     auto result = get_multi_row_single_col_variant(query, ok);
+    if(!ok){
+        return {};
+    }
     for(const QVariant& val : result){
         switch (val.type()) {
         case QVariant::DateTime:
             ret.append(val.toDateTime());
             break;
         case QVariant::String:
-            ret.append(IConvertUtil::toDateTime(val.toString()));
+            ret.append(IConvertUtil::toDateTime(val.toString(), ok));
+            if(!ok){
+                return {};
+            }
             break;
         case QVariant::Invalid:
             ret.append(QDateTime());
@@ -480,24 +489,25 @@ QList<QDateTime> IOrmUtil::getDateTimeList(QSqlQuery &query, bool *ok)
     return ret;
 }
 
-QMap<QString, QVariant> IOrmUtil::toMap(const QJsonObject &obj, bool *ok)
+QMap<QString, QVariant> IOrmUtil::toMap(const QJsonObject &obj, bool& ok)
 {
     return IConvertUtil::toMap(IConvertUtil::toVariant(obj, ok), ok);
 }
 
-QList<QMap<QString, QVariant>> IOrmUtil::toMapList(const QJsonArray &array, bool *ok)
+QList<QMap<QString, QVariant>> IOrmUtil::toMapList(const QJsonArray &array, bool& ok)
 {
-    IToeUtil::setOk(ok, true);
     QList<QMap<QString, QVariant>>  ret;
-    bool convertOk;
     for(const QJsonValue& value : array){
         if(!value.isObject()){
-            IToeUtil::setOk(ok, false);
+            ok = false;
             return ret;
         }
-        ret.append(IOrmUtil::toMap(value.toObject(), &convertOk));
-        IToeUtil::setOkAnd(ok, convertOk);
+        ret.append(IOrmUtil::toMap(value.toObject(), ok));
+        if(!ok){
+            return {};
+        }
     }
+    ok = true;
     return ret;
 }
 

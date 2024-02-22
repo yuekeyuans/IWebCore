@@ -19,29 +19,29 @@ class IReqRespRaw;
 class IRequestImpl
 {
 public:
-    using FunType = QByteArray (IRequestImpl::*)(const QString& name, bool* ok) const;
+    using FunType = QByteArray (IRequestImpl::*)(const QString& name, bool& ok) const;
 
 public:
     IRequestImpl(IReqRespRaw* raw);
 
-    QJsonValue& requestJson(bool *ok) const;
-    QDomNode &requestXml(bool* ok) const;
+    QJsonValue& requestJson(bool& ok) const;
+    QDomNode &requestXml(bool& ok) const;
 
     int contentLength() const;
     QString contentType() const;
 
-    QByteArray getParameter(const QString &name, bool* ok) const;
-    QByteArray getMixedParameter(const QString& name, bool* ok) const;
+    QByteArray getParameter(const QString &name, bool& ok) const;
+    QByteArray getMixedParameter(const QString& name, bool& ok) const;
 
-    QByteArray getContentParameter(const QString& name, bool* ok) const;
-    QByteArray getUrlParameter(const QString &name, bool* ok) const;
-    QByteArray getBodyParameter(const QString &name, bool* ok) const;
-    QByteArray getHeaderParameter(const QString &name, bool* ok) const;
-    QByteArray getParamParameter(const QString &name, bool* ok) const;
-    QByteArray getCookieParameter(const QString &name, bool* ok) const;
-    QByteArray getSessionParameter(const QString &name, bool* ok) const;
-    QByteArray getAppParameter(const QString& name, bool* ok) const;
-    QByteArray getSystemParameter(const QString& name, bool* ok) const;
+    QByteArray getContentParameter(const QString& name, bool& ok) const;
+    QByteArray getUrlParameter(const QString &name, bool& ok) const;
+    QByteArray getBodyParameter(const QString &name, bool& ok) const;
+    QByteArray getHeaderParameter(const QString &name, bool& ok) const;
+    QByteArray getParamParameter(const QString &name, bool& ok) const;
+    QByteArray getCookieParameter(const QString &name, bool& ok) const;
+    QByteArray getSessionParameter(const QString &name, bool& ok) const;
+    QByteArray getAppParameter(const QString& name, bool& ok) const;
+    QByteArray getSystemParameter(const QString& name, bool& ok) const;
 
     void resolve();
 
@@ -49,9 +49,9 @@ public:
 
 private:
     // get
-    QByteArray getFormUrlValue(const QString &name, bool* ok) const;
-    QByteArray getMultiPartFormData(const QString &name, bool* ok) const;
-    QByteArray getJsonData(const QString &name, bool* ok) const;
+    QByteArray getFormUrlValue(const QString &name, bool& ok) const;
+    QByteArray getMultiPartFormData(const QString &name, bool& ok) const;
+    QByteArray getJsonData(const QString &name, bool& ok) const;
     QList<QPair<QString, FunType>> parameterResolverMap() const;
 
     // resolve

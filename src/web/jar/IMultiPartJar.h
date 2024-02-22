@@ -22,7 +22,7 @@ public:
     bool containRequestMulitPartName(const QString& name) const;
     QStringList getRequestMultiPartNames() const;
 
-    const IMultiPart& getRequestMultiPart(const QString& name, bool* ok=nullptr) const;
+    const IMultiPart& getRequestMultiPart(const QString& name, bool& ok) const;
 
     const QVector<IMultiPart>& getRequestMultiParts() const;
     QVector<IMultiPart> getRequestFileMultiParts() const;

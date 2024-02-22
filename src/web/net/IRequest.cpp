@@ -194,62 +194,62 @@ const QVector<IMultiPart> &IRequest::bodyMultiParts() const
     return raw->m_requestMultiParts;
 }
 
-const QJsonValue &IRequest::bodyJson(bool* ok) const
+const QJsonValue &IRequest::bodyJson(bool& ok) const
 {
     return impl->requestJson(ok);
 }
 
-const QDomNode &IRequest::bodyXml(bool* ok) const
+const QDomNode &IRequest::bodyXml(bool& ok) const
 {
     return impl->requestXml(ok);
 }
 
-QByteArray IRequest::getParameter(const QString &name, bool*ok) const
+QByteArray IRequest::getParameter(const QString &name, bool& ok) const
 {
     return impl->getParameter(name, ok);
 }
 
-QByteArray IRequest::getMixedParameter(const QString &name, bool *ok) const
+QByteArray IRequest::getMixedParameter(const QString &name, bool& ok) const
 {
     return impl->getMixedParameter(name, ok);
 }
 
-QByteArray IRequest::getUrlParameter(const QString &name, bool* ok) const
+QByteArray IRequest::getUrlParameter(const QString &name, bool& ok) const
 {
     return impl->getUrlParameter(name, ok);
 }
 
-QByteArray IRequest::getParamParameter(const QString &name, bool* ok) const
+QByteArray IRequest::getParamParameter(const QString &name, bool& ok) const
 {
     return impl->getParamParameter(name, ok);
 }
 
-QByteArray IRequest::getHeaderParameter(const QString &name, bool* ok) const
+QByteArray IRequest::getHeaderParameter(const QString &name, bool& ok) const
 {
     return impl->getHeaderParameter(name, ok);
 }
 
-QByteArray IRequest::getBodyParameter(const QString &name, bool* ok) const
+QByteArray IRequest::getBodyParameter(const QString &name, bool& ok) const
 {
     return impl->getBodyParameter(name, ok);
 }
 
-QByteArray IRequest::getCookieParameter(const QString &name, bool* ok) const
+QByteArray IRequest::getCookieParameter(const QString &name, bool& ok) const
 {
     return impl->getCookieParameter(name, ok);
 }
 
-QByteArray IRequest::getSessionParameter(const QString &name, bool* ok) const
+QByteArray IRequest::getSessionParameter(const QString &name, bool& ok) const
 {
     return impl->getSessionParameter(name, ok);
 }
 
-QByteArray IRequest::getAppParameter(const QString &name, bool* ok) const
+QByteArray IRequest::getAppParameter(const QString &name, bool& ok) const
 {
     return impl->getAppParameter(name, ok);
 }
 
-QByteArray IRequest::getSystemParameter(const QString &name, bool* ok) const
+QByteArray IRequest::getSystemParameter(const QString &name, bool& ok) const
 {
     return impl->getSystemParameter(name, ok);
 }
@@ -269,7 +269,7 @@ void IRequest::setAttribute(const QString &name, const QVariant &value)
     raw->m_attribute[name] = value;
 }
 
-QVariant IRequest::getAttribute(const QString &name, bool* ok) const
+QVariant IRequest::getAttribute(const QString &name, bool& ok) const
 {
     IToeUtil::setOk(ok, true);
     if(raw->m_attribute.contains(name)){

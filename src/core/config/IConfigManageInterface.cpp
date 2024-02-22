@@ -82,7 +82,7 @@ namespace IConfigUnitHelper
         return mergeJsonObject(obj, val, args).toObject();
     }
 
-    QJsonValue getJsonValue(const QJsonObject &obj, const QString &path, bool *ok)
+    QJsonValue getJsonValue(const QJsonObject &obj, const QString &path, bool& ok)
     {
         QStringList args = path.split(".");
         QJsonValue value = obj;
@@ -120,12 +120,12 @@ void IConfigManageInterface::addConfig(const QJsonValue &value, const QString &p
     m_configs = IConfigUnitHelper::addToJsonObject(m_configs, path, value);
 }
 
-QJsonValue IConfigManageInterface::getConfig(const QString &path, bool *ok)
+QJsonValue IConfigManageInterface::getConfig(const QString &path, bool& ok)
 {
     return IConfigUnitHelper::getJsonValue(m_configs, path, ok);
 }
 
-bool IConfigManageInterface::getConfigAsBool(const QString &path, bool *ok)
+bool IConfigManageInterface::getConfigAsBool(const QString &path, bool& ok)
 {
     auto value = getConfig(path, ok);
     if(*ok){
@@ -136,7 +136,7 @@ bool IConfigManageInterface::getConfigAsBool(const QString &path, bool *ok)
     return {};
 }
 
-int IConfigManageInterface::getConfigAsInt(const QString &path, bool *ok)
+int IConfigManageInterface::getConfigAsInt(const QString &path, bool& ok)
 {
     auto value = getConfig(path, ok);
     if(*ok){
@@ -147,7 +147,7 @@ int IConfigManageInterface::getConfigAsInt(const QString &path, bool *ok)
     return {};
 }
 
-double IConfigManageInterface::getConfigAsDouble(const QString &path, bool *ok)
+double IConfigManageInterface::getConfigAsDouble(const QString &path, bool& ok)
 {
     auto value = getConfig(path, ok);
     if(*ok){
@@ -159,7 +159,7 @@ double IConfigManageInterface::getConfigAsDouble(const QString &path, bool *ok)
 }
 
 // NOTE: 这个是对的，在具体的判断过程中，不应该把 Object array 等对象判断成为 String,
-static QString jsonValueToString(const QJsonValue& value, bool* ok)
+static QString jsonValueToString(const QJsonValue& value, bool& ok)
 {
     if(value.isNull() || value.isUndefined()){
         IToeUtil::setOk(ok, false);
@@ -184,7 +184,7 @@ static QString jsonValueToString(const QJsonValue& value, bool* ok)
     return {};
 }
 
-QString IConfigManageInterface::getConfigAsString(const QString &path, bool *ok)
+QString IConfigManageInterface::getConfigAsString(const QString &path, bool& ok)
 {
     auto value = getConfig(path, ok);
     if(*ok){
