@@ -6,15 +6,6 @@
 #include "core/config/IProfileTaskInterface.h"
 #include "core/task/unit/ITaskInstantUnit.h"
 
-#define $AsConfig(klassName)   \
-    $AsTask(klassName)
-
-#define $AsProfile(klassName)   \
-    $AsConfig(klassName)
-
-#define $AsContext(klassName)   \
-    $AsConfig(klassName)
-
 #define PP_PRIVILIGE_CONTEXT_CONFIG(klassName, path_, value)   \
 class klassName : public ITaskInstantUnit < klassName, true >  \
 {   \
@@ -30,7 +21,6 @@ public:     \
 #define PP_NORMAL_CONTEXT_CONFIG(klassName, path_, value)   \
 class klassName : public IContextTaskInterface < klassName, true >  \
 {   \
-    $AsContext(klassName)   \
 public:     \
     klassName(){};  \
     virtual QJsonValue config() final   {  return value; }  \
@@ -40,7 +30,6 @@ public:     \
 #define PP_PROFILE_CONFIG(klassName, path_, value) \
 class klassName : public IProfileTaskInterface < klassName, true >  \
 {   \
-    $AsContext(klassName)   \
 public:     \
     klassName(){};  \
     virtual QJsonValue config() final   {  return value; }  \

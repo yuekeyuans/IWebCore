@@ -5,7 +5,7 @@
 
 $PackageWebCoreBegin
 
-class IConfigManageInterface : public ISingletonUnit<IConfigManageInterface>
+class IConfigManageInterface
 {
 public:
     void addConfig(const QJsonValue& value, const QString& path="");

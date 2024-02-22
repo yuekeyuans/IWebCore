@@ -1,16 +1,15 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "core/unit/ISingletonUnit.h"
 #include "core/task/unit/ITaskWareUnit.h"
 
 $PackageWebCoreBegin
 
 // special task
-class ITestInvokeTask : public ITaskWareUnit<ITestInvokeTask>
+class ITestInvokeTask : public ITaskWareUnit<ITestInvokeTask>, public ISingletonUnit<ITestInvokeTask>
 {
-    Q_GADGET
-    $AsTask(ITestInvokeTask)
-private:
+public:
     ITestInvokeTask() = default;
 
 public:

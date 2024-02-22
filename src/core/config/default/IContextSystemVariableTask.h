@@ -8,10 +8,6 @@ $PackageWebCoreBegin
 
 class IContextSystemVariableTask : public IContextTaskInterface<IContextSystemVariableTask, false>
 {
-    $AsContext(IContextSystemVariableTask)
-private:
-    IContextSystemVariableTask() = default;
-
 public:
     virtual QJsonValue config();
 

@@ -7,11 +7,6 @@ $PackageWebCoreBegin
 
 class IOrmTaskCatagory : public ITaskCatagoryInterface<IOrmTaskCatagory>
 {
-    Q_GADGET
-    $AsCatagory(IOrmTaskCatagory)
-private:
-    IOrmTaskCatagory() = default;
-
 public:
     virtual QString name() const final;
     virtual double order() const final;

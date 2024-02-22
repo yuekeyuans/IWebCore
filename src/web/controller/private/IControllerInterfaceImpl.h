@@ -1,16 +1,16 @@
 ﻿#pragma once
 
-#include <QtCore>
+#include "core/base/IHeaderUtil.h"
+#include "core/unit/ISingletonUnit.h"
 #include "web/node/IUrlActionNode.h"
 
 $PackageWebCoreBegin
 
 struct IControllerInfo;
 
-class IControllerInterfaceImpl
+class IControllerInterfaceImpl : public ISingletonUnit<IControllerInterfaceImpl>
 {
-    $UseInstance(IControllerInterfaceImpl);
-
+    friend struct ISingletonUnit<IControllerInterfaceImpl>;
 private:
     IControllerInterfaceImpl() = default;
 

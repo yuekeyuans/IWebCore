@@ -4,10 +4,6 @@
 
 $PackageWebCoreBegin
 
-IResponseManage::IResponseManage()
-{
-}
-
 void IResponseManage::registerResponseType(IResponseWare *response)
 {
     instance()->responses.append(response);

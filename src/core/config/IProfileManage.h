@@ -2,13 +2,13 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/config/IConfigManageInterface.h"
+#include "core/unit/ISingletonUnit.h"
 
 $PackageWebCoreBegin
 
-class IProfileManage final : public IConfigManageInterface
+class IProfileManage final : public IConfigManageInterface, public ISingletonUnit<IProfileManage>
 {
-    $UseInstance(IProfileManage)
-private:
+public:
     IProfileManage() = default;
 
 public:

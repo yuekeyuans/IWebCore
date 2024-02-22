@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "core/unit/ISingletonUnit.h"
 #include "web/response/IResponseWare.h"
 
 $PackageWebCoreBegin
@@ -11,9 +12,9 @@ struct IMethodNode;
 struct IFunctionNode;
 struct IParamNode;
 
-class IControllerParamUtil // : public IInitializationTaskUnit<IControllerParamUtil>
+class IControllerParamUtil  : public ISingletonUnit<IControllerParamUtil>// : public IInitializationTaskUnit<IControllerParamUtil>
 {
-    $UseInstance(IControllerParamUtil)
+    friend struct ISingletonUnit<IControllerParamUtil>;
 public:
     using ParamType = void*[11];
     using CreateParamFunType = void*(*)(const IParamNode& node, IRequest& request, bool& ok);

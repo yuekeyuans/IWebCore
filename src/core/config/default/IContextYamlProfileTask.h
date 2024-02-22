@@ -8,10 +8,6 @@ $PackageWebCoreBegin
 
 class IContextYamlProfileTask : public IContextTaskInterface<IContextYamlProfileTask>
 {
-    $AsProfile(IContextYamlProfileTask)
-private:
-    IContextYamlProfileTask() = default;
-
 public:
     virtual QJsonValue config();
 

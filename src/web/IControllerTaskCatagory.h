@@ -7,11 +7,6 @@ $PackageWebCoreBegin
 
 class IControllerTaskCatagory : public ITaskCatagoryInterface<IControllerTaskCatagory>
 {
-    Q_GADGET
-    $AsCatagory(IControllerTaskCatagory)
-public:
-    IControllerTaskCatagory() = default;
-
 public:
     virtual QString name() const final;
 };

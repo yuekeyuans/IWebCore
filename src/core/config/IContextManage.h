@@ -6,9 +6,9 @@
 
 $PackageWebCoreBegin
 
-class IContextManage final : public IConfigManageInterface
+class IContextManage final : public IConfigManageInterface, public ISingletonUnit<IContextManage>
 {
-    $UseInstance(IContextManage)
+    friend struct ISingletonUnit<IContextManage>;
 private:
     IContextManage() = default;
 

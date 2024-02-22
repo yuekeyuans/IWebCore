@@ -1,15 +1,16 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "core/unit/ISingletonUnit.h"
 #include "IServerInterface.h"
 
 $PackageWebCoreBegin
 
 extern const char* MasterServer;
 
-class IHttpServerManage
+class IHttpServerManage : public ISingletonUnit<IHttpServerManage>
 {
-    $UseInstance(IHttpServerManage)
+    friend struct ISingletonUnit<IHttpServerManage>;
 private:
     IHttpServerManage();
 

@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "core/base/IPreProcessorUtil.h"
+#include "core/unit/ISingletonUnit.h"
 
 #include "orm/database/IOrmDataSource.h"
 #include "orm/dialect/IOrmDialectWare.h"
@@ -8,9 +9,9 @@ $PackageWebCoreBegin
 
 class IOrmDatabaseWare;
 
-class IOrmManage
+class IOrmManage : public ISingletonUnit<IOrmManage>
 {
-    $UseInstance(IOrmManage)
+    friend struct ISingletonUnit<IOrmManage>;
 private:
     IOrmManage();
 

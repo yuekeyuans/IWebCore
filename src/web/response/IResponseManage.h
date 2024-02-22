@@ -1,16 +1,19 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "core/unit/ISingletonUnit.h"
 
 $PackageWebCoreBegin
 
 class IResponseWare;
 
-class IResponseManage
+class IResponseManage : public ISingletonUnit<IResponseManage>
 {
-    $UseInstance(IResponseManage)
+    friend struct ISingletonUnit<IResponseManage>;
+private:
+    IResponseManage() = default;
+
 public:
-    IResponseManage();
     static void registerResponseType(IResponseWare* response);
     static IResponseWare* convertMatch(const QString&);
 

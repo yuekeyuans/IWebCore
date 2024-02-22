@@ -1,13 +1,14 @@
 ﻿#pragma once
 
+#include "core/base/IHeaderUtil.h"
+#include "core/unit/ISingletonUnit.h"
 #include "orm/pp/IOrmPreProcessor.h"
 #include "orm/dialect/IOrmDialectInterface.h"
 
 $PackageWebCoreBegin
 
-class IOrmMySqlDialect : public IOrmDialectInterface<IOrmMySqlDialect>
+class IOrmMySqlDialect : public IOrmDialectInterface<IOrmMySqlDialect>, public ISingletonUnit<IOrmMySqlDialect>
 {
-    $AsDialect(IOrmMySqlDialect)
 public:
     IOrmMySqlDialect();
 

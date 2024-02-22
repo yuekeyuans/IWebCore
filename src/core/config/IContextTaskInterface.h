@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "core/unit/ISingletonUnit.h"
 #include "core/base/IMetaUtil.h"
 #include "core/config/IContextManage.h"
 #include "core/task/unit/ITaskWareUnit.h"
@@ -8,7 +9,7 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true>
-class IContextTaskInterface : public ITaskWareUnit<T, enabled>
+class IContextTaskInterface : public ITaskWareUnit<T, enabled>, public ISingletonUnit<T>
 {
 public:
     IContextTaskInterface() = default;

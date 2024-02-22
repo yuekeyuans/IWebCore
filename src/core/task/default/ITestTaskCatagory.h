@@ -7,10 +7,6 @@ $PackageWebCoreBegin
 
 class ITestTaskCatagory : public ITaskCatagoryInterface<ITestTaskCatagory>
 {
-    $AsCatagory(ITestTaskCatagory)
-private:
-    ITestTaskCatagory() = default;
-
 public:
     virtual QString name() const final;
     virtual double order() const final;

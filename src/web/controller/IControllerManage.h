@@ -2,6 +2,7 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IPreProcessorUtil.h"
+#include "core/unit/ISingletonUnit.h"
 #include "web/biscuits/IHttpMethod.h"
 #include "web/biscuits/IHttpStatus.h"
 #include "web/middleware/IMiddleWare.h"
@@ -15,9 +16,9 @@
 
 $PackageWebCoreBegin
 class IRequest;
-class IControllerManage
+class IControllerManage : public ISingletonUnit<IControllerManage>
 {
-    $UseInstance(IControllerManage)
+    friend struct ISingletonUnit<IControllerManage>;
 private:
     IControllerManage();
     ~IControllerManage() = default;

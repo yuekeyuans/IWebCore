@@ -8,10 +8,6 @@ $PackageWebCoreBegin
 
 class IContextTomlProfileTask : public IContextTaskInterface<IContextTomlProfileTask>
 {
-    $AsProfile(IContextTomlProfileTask)
-private:
-    IContextTomlProfileTask() = default;
-
 public:
     virtual QJsonValue config();
 };

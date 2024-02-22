@@ -11,9 +11,8 @@ protected:
     ISingletonUnit& operator=(const ISingletonUnit&) = delete;
 
 public:
-    template<typename ...Args>
-    static T* instance(Args&& ...args) {
-        static T instance{std::forward<Args>(args)...};
+    static T* instance() {
+        static T instance;
         return &instance;
     }
 };

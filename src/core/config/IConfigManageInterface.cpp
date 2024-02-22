@@ -25,7 +25,7 @@ namespace IConfigUnitHelper
     static QJsonValue buildJsonByPath(const QStringList& args, QJsonValue value)
     {
         QJsonValue val = value;
-        for(auto it = args.rbegin(); it != args.rend(); it++){            
+        for(auto it = args.rbegin(); it != args.rend(); it++){
             if(*it == "@^" || *it == "@$"){
                 QJsonArray array;
                 array.append(val);
