@@ -49,6 +49,9 @@ HEADERS += \
     $$PWD/core/config/yaml/IYamlUtil.h \
     $$PWD/core/config/yaml/Yaml.hpp \
     $$PWD/core/core.h \
+    $$PWD/core/result/ICauseResult.h \
+    $$PWD/core/result/IConstResult.h \
+    $$PWD/core/result/IResult.h \
     $$PWD/core/task/ITaskCatagory.h \
     $$PWD/core/task/ITaskCatagoryInterface.h \
     $$PWD/core/task/ITaskPreProcessor.h \

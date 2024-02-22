@@ -85,7 +85,7 @@ namespace  IConvertUtil
     // date datetime, time
     QDate toDate(const QString& val, bool* ok);
     QTime toTime(const QString& val, bool* ok);
-    QDateTime toDateTime(const QString& val, bool* ok);
+    QDateTime toDateTime(const QString& val, bool* ok=nullptr);
 
     QString toUtcString(const QDateTime& dateTime);
 
