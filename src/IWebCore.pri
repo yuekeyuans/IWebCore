@@ -76,6 +76,7 @@ HEADERS += \
     $$PWD/core/unit/IRegisterGadgetUnit.h \
     $$PWD/core/unit/IRegisterMetaTypeUnit.h \
     $$PWD/core/unit/IRegisterTypeUnit.h \
+    $$PWD/core/unit/ISingletonUnit.h \
     $$PWD/core/unit/IStackObjectUnit.h \
     $$PWD/orm/IOrmAssert.h \
     $$PWD/orm/IOrmManage.h \

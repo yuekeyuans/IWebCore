@@ -8,7 +8,6 @@ $UseGlobalAssert()
 
 namespace IConfigUnitHelper
 {
-
     struct ConfigurationBean{
         QString type;
         QString name;

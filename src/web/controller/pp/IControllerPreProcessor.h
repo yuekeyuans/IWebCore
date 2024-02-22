@@ -4,13 +4,11 @@
 #include "core/config/IConfigPreProcessor.h"
 
 #define $AsController_1(klassName) \
-    $UseInstance(klassName) \
 private:
 
 #define $AsController_2(klassName, path) \
     Q_CLASSINFO(PP_STRING(iwebControllerMapping$), #path) \
     $AsController_1(klassName)  \
-private:
 
 #define $AsController_(N) $AsController_##N
 #define $AsController_EVAL(N) $AsController_(N)

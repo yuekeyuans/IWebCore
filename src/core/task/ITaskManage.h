@@ -2,21 +2,18 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IPreProcessorUtil.h"
+#include "core/unit/ISingletonUnit.h"
 
 $PackageWebCoreBegin
 
 class ITaskWare;
 class ITaskCatagory;
 
-class ITaskManage
+class ITaskManage : public ISingletonUnit<ITaskManage>
 {
-    $UseInstance(ITaskManage)
 public:
     using FunType = std::function<void()>;
     using ArgumentTaskFunType = std::function<void(const QStringList&)>;
-
-private:
-    ITaskManage() = default;
 
 public:
     static void run();

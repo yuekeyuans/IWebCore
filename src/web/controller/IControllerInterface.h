@@ -6,13 +6,14 @@
 #include "core/task/unit/ITaskWareUnit.h"
 //#include "core/task/unit/IControllerTaskUnit.h"
 #include "web/controller/IControllerManage.h"
+#include "core/unit/ISingletonUnit.h"
 
 $PackageWebCoreBegin
 
 struct IControllerInfo;
 
 template<typename T, bool enabled = true>
-class IControllerInterface : public ITaskWareUnit<T, enabled>
+class IControllerInterface : public ITaskWareUnit<T, enabled>, public ISingletonUnit<T>
 {
 public:
     IControllerInterface() = default;

@@ -2,6 +2,7 @@
 #include <ICore/IContext>
 #include <IWeb/IWeb>
 
+#include "core/bean/IBeanTypeManage.h"
 
 $EnableTaskOutput
 $EnableBluePrint(true)

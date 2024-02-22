@@ -1,14 +1,12 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "core/unit/ISingletonUnit.h"
 
 $PackageWebCoreBegin
 
-class IConfigManageInterface
+class IConfigManageInterface : public ISingletonUnit<IConfigManageInterface>
 {
-protected:
-    IConfigManageInterface() = default;
-
 public:
     void addConfig(const QJsonValue& value, const QString& path="");
 

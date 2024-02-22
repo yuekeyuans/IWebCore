@@ -1,15 +1,15 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "core/unit/ISingletonUnit.h"
 
 $PackageWebCoreBegin
 
 class IBeanTypeManagePrivate;
-class IBeanTypeManage
+class IBeanTypeManage : public ISingletonUnit<IBeanTypeManage>
 {
-    $UseInstance(IBeanTypeManage)
     $UseDataPtr(IBeanTypeManage)
-private:
+public:
     IBeanTypeManage();
 
 public:

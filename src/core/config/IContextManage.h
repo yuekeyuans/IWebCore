@@ -2,6 +2,7 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/config/IConfigManageInterface.h"
+#include "core/unit/ISingletonUnit.h"
 
 $PackageWebCoreBegin
 
