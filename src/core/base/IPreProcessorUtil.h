@@ -16,6 +16,7 @@
         } \
     private:
 
+// TODO: 这个类型需要检查，看看是否需要全部删除
 #define $UseInstance(klassName) \
     Q_DISABLE_COPY_MOVE(klassName)\
     $UseBareInstance(klassName)

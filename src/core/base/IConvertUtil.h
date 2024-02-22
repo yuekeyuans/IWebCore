@@ -83,9 +83,9 @@ namespace  IConvertUtil
     QVariant toVariant(const QString& value, QMetaType::Type destType, bool* ok=nullptr);
 
     // date datetime, time
-    QDate toDate(const QString& val, bool* ok=nullptr);
-    QTime toTime(const QString& val, bool* ok=nullptr);
-    QDateTime toDateTime(const QString& val, bool* ok=nullptr);
+    QDate toDate(const QString& val, bool* ok);
+    QTime toTime(const QString& val, bool* ok);
+    QDateTime toDateTime(const QString& val, bool* ok);
 
     QString toUtcString(const QDateTime& dateTime);
 

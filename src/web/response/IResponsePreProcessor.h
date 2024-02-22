@@ -26,6 +26,7 @@ public: \
         std::swap(this->raw, rhs.raw);  \
     }
 
+// TODO: 这个名称可以考虑  CATD 实现
 #define $AsResponse(klassName)  \
 public: \
     $UseBareInstance(klassName) \

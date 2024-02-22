@@ -125,7 +125,7 @@ QDate IOrmUtil::getDate(QSqlQuery &query, bool *ok)
     case QVariant::DateTime:
         return val.toDateTime().date();
     case QVariant::String:
-        return IConvertUtil::toDate(val.toString());
+        return IConvertUtil::toDate(val.toString(), ok);
     case QVariant::Invalid:
         return QDate();
     default:
@@ -149,7 +149,7 @@ QTime IOrmUtil::getTime(QSqlQuery &query,  bool *ok)
     case QVariant::DateTime:
         return val.toDateTime().time();
     case QVariant::String:
-        return IConvertUtil::toTime(val.toString());
+        return IConvertUtil::toTime(val.toString(), ok);
     case QVariant::Invalid:
         return QTime();
     default:
@@ -171,7 +171,7 @@ QDateTime IOrmUtil::getDateTime(QSqlQuery &query, bool *ok)
     case QVariant::DateTime:
         return val.toDateTime();
     case QVariant::String:
-        return IConvertUtil::toDateTime(val.toString());
+        return IConvertUtil::toDateTime(val.toString(), ok);
     case QVariant::Invalid:
         return QDateTime();
     default:
@@ -413,7 +413,10 @@ QList<QDate> IOrmUtil::getDateList(QSqlQuery &query, bool *ok)
             dates.append(val.toDateTime().date());
             break;
         case QVariant::String:
-            dates.append(IConvertUtil::toDate(val.toString()));
+            dates.append(IConvertUtil::toDate(val.toString(), ok));
+            if(!*ok){
+                return dates;
+            }
             break;
         case QVariant::Invalid:
             dates.append(QDate());
@@ -430,6 +433,7 @@ QList<QTime> IOrmUtil::getTimeList(QSqlQuery &query, bool *ok)
 {
     QList<QTime> ret;
     auto result = get_multi_row_single_col_variant(query, ok);
+    IToeUtil::setOk(ok, true);
     for(const QVariant& val : result){
         switch (val.type()) {
         case QVariant::DateTime:
@@ -439,13 +443,16 @@ QList<QTime> IOrmUtil::getTimeList(QSqlQuery &query, bool *ok)
             ret.append(val.toTime());
             break;
         case QVariant::String:
-            ret.append(IConvertUtil::toTime(val.toString()));
+            ret.append(IConvertUtil::toTime(val.toString(), ok));
             break;
         case QVariant::Invalid:
             ret.append(QTime());
             break;
         default:
             qFatal("current other type of date not supported");
+        }
+        if(!*ok){
+            break;
         }
     }
     return ret;

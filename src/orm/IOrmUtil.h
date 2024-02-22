@@ -49,7 +49,7 @@ namespace IOrmUtil
     QList<double> getDoubleList(QSqlQuery& query, bool* ok=nullptr);
     QList<bool> getBoolList(QSqlQuery& query, bool* ok=nullptr);
     QStringList getStringList(QSqlQuery& query, bool* ok=nullptr);
-    QList<QDate> getDateList(QSqlQuery& query, bool* ok=nullptr);
+    QList<QDate> getDateList(QSqlQuery& query, bool* ok);
     QList<QTime> getTimeList(QSqlQuery& query, bool* ok=nullptr);
     QList<QDateTime> getDateTimeList(QSqlQuery& query, bool* ok=nullptr);
 
