@@ -1,35 +1,15 @@
-﻿//#include "IBluePrintControllerTask.h"
+﻿#include "IBluePrintControllerTask.h"
+#include "core/config/IContextImport.h"
+#include "web/controller/IControllerManage.h"
 
-//#include "core/assert/IGlobalAssert.h"
-//#include "core/task/ITaskManage.h"
-//#include "web/controller/IControllerManage.h"
+$PackageWebCoreBegin
 
-//$PackageWebCoreBegin
+void IBluePrintControllerTask::task()
+{
+    $ContextBool condition{"SYSTEM_BLUE_PRINT", false};
+    if(condition.isFound() && condition){
+        IControllerManage::travalPrintUrlTree();
+    }
+}
 
-//$UseGlobalAssert()
-
-//IBluePrintControllerTask::IBluePrintControllerTask()
-//{
-//    registerTask();
-//}
-
-//void IBluePrintControllerTask::registerTask()
-//{
-//    static auto task = [](){
-//        bool convertOk;
-//        auto value = IConfi5gurationManage::getValue("SYSTEM_BLUE_PRINT", &convertOk, SystemContextGroup);
-//        if(!convertOk){
-//            return;
-//        }
-
-//        if(!value.isBool()){
-//            $GlobalAssert->fatal(IGlobalAssert::EnableBluePrintParamError);
-//        }
-//        if(value.toBool()){
-//            IControllerManage::travalPrintUrlTree();
-//        }
-//    };
-////    ITaskManage::registerBluePrint(task);
-//}
-
-//$PackageWebCoreEnd
+$PackageWebCoreEnd

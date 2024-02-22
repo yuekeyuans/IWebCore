@@ -4,11 +4,12 @@
 #include "core/base/IMetaUtil.h"
 #include "core/task/ITaskManage.h"
 #include "core/task/unit/ITaskWareUnit.h"
+#include "core/unit/ISingletonUnit.h"
 
 $PackageWebCoreBegin
 
 template<typename T, bool enabled=true>
-class IEndupTaskInterface : public ITaskWareUnit<T, enabled>
+class IEndupTaskInterface : public ITaskWareUnit<T, enabled>, public ISingletonUnit<T>
 {
 public:
     IEndupTaskInterface() = default;
@@ -16,22 +17,15 @@ public:
 public:
     virtual void task() = 0;
 
-    virtual QString name() const override;
-    virtual QStringList orders() const override;
-    virtual QString catagory()  const final;
-    virtual void registerToBase() final;
+protected:
+    virtual QString name() const final;
+    virtual QString catagory() const final;
 };
 
 template<typename T, bool enabled>
 QString IEndupTaskInterface<T, enabled>::name() const
 {
-    return IMetaUtil::getMetaClassName(T::staticMetaObject);
-}
-
-template<typename T, bool enabled>
-QStringList IEndupTaskInterface<T, enabled>::orders() const
-{
-    return {};
+    return IMetaUtil::getTypename<T>();
 }
 
 template<typename T, bool enabled>
@@ -40,10 +34,5 @@ QString IEndupTaskInterface<T, enabled>::catagory() const
     return "EndUp";
 }
 
-template<typename T, bool enabled>
-void IEndupTaskInterface<T, enabled>::registerToBase()
-{
-    ITaskManage::instance()->addTaskWare(T::instance());
-}
 
 $PackageWebCoreEnd

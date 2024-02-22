@@ -1,19 +1,18 @@
-﻿//#pragma once
+﻿#pragma once
 
-//#include "core/base/IHeaderUtil.h"
-//#include "core/assert/IAssertInterface.h"
+#include "core/base/IHeaderUtil.h"
+#include "core/task/default/IEndupTaskInterface.h"
 
-//$PackageWebCoreBegin
+$PackageWebCoreBegin
 
-//class IBluePrintControllerTask
-//{
-//    $UseInstance(IBluePrintControllerTask);
-//private:
-//    IBluePrintControllerTask();
+class IBluePrintControllerTask : public IEndupTaskInterface<IBluePrintControllerTask>
+{
+    friend class ISingletonUnit<IBluePrintControllerTask>;
+private:
+    IBluePrintControllerTask() = default;
 
-//    void registerTask();
-//};
+public:
+    virtual void task();
+};
 
-//static IBluePrintControllerTask* task = IBluePrintControllerTask::instance();
-
-//$PackageWebCoreEnd
+$PackageWebCoreEnd

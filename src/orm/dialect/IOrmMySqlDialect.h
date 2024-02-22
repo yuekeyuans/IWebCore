@@ -7,7 +7,7 @@
 
 $PackageWebCoreBegin
 
-class IOrmMySqlDialect : public IOrmDialectInterface<IOrmMySqlDialect>, public ISingletonUnit<IOrmMySqlDialect>
+class IOrmMySqlDialect : public IOrmDialectInterface<IOrmMySqlDialect>
 {
 public:
     IOrmMySqlDialect();
