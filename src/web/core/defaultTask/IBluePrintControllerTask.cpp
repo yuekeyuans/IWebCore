@@ -1,7 +1,6 @@
 ﻿//#include "IBluePrintControllerTask.h"
 
 //#include "core/assert/IGlobalAssert.h"
-//#include "core/config/IConfigurationManage.h"
 //#include "core/task/ITaskManage.h"
 //#include "web/controller/IControllerManage.h"
 
@@ -18,7 +17,7 @@
 //{
 //    static auto task = [](){
 //        bool convertOk;
-//        auto value = IConfigurationManage::getValue("SYSTEM_BLUE_PRINT", &convertOk, SystemContextGroup);
+//        auto value = IConfi5gurationManage::getValue("SYSTEM_BLUE_PRINT", &convertOk, SystemContextGroup);
 //        if(!convertOk){
 //            return;
 //        }

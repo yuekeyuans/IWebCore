@@ -10,7 +10,7 @@ extern const char* MasterServer;
 
 class IHttpServerManage : public ISingletonUnit<IHttpServerManage>
 {
-    friend struct ISingletonUnit<IHttpServerManage>;
+    friend class ISingletonUnit<IHttpServerManage>;
 private:
     IHttpServerManage();
 

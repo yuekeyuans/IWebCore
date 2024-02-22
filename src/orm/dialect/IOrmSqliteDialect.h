@@ -8,7 +8,7 @@ $PackageWebCoreBegin
 
 class IOrmSqliteDialect : public IOrmDialectInterface<IOrmSqliteDialect>
 {
-    $AsDialect(IOrmSqliteDialect)
+    friend class ISingletonUnit<IOrmSqliteDialect>;
 private:
     IOrmSqliteDialect() = default;
 public:

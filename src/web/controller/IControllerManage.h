@@ -18,7 +18,7 @@ $PackageWebCoreBegin
 class IRequest;
 class IControllerManage : public ISingletonUnit<IControllerManage>
 {
-    friend struct ISingletonUnit<IControllerManage>;
+    friend class ISingletonUnit<IControllerManage>;
 private:
     IControllerManage();
     ~IControllerManage() = default;

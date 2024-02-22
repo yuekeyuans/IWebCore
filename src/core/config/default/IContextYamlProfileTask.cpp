@@ -40,7 +40,7 @@ QJsonObject IContextYamlProfileTask::parseYamlFile(const QString &path){
     if(!convertOk){
         IAssertInfo info;
         info.reason = path;
-        $GlobalAssert->fatal(IGlobalAssert::ConfigurationResolveJsonError, info);
+        $GlobalAssert->fatal("ConfigurationResolveJsonError", info);
     }
     return obj;
 }

@@ -9,7 +9,7 @@ class IResponseWare;
 
 class IResponseManage : public ISingletonUnit<IResponseManage>
 {
-    friend struct ISingletonUnit<IResponseManage>;
+    friend class ISingletonUnit<IResponseManage>;
 private:
     IResponseManage() = default;
 

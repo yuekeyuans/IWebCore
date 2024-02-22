@@ -10,9 +10,3 @@
     static constexpr char const *field_##name = #name ; \
     $BeanFieldDeclare(type, name)
 
-#define $AsDatabase(klassName)  \
-    $UseInstance(klassName);
-
-#define $AsDialect(klassName) \
-    $UseInstance(klassName); \
-

@@ -25,7 +25,7 @@ QJsonObject IYamlUtil::toJsonObject(const QString &content, bool* ok)
         IToeUtil::setOk(ok, false);
         IAssertInfo info;
         info.reason = e.what();
-        $GlobalAssert->fatal(IGlobalAssert::ConfigurationCovertYamlFailError, info);    // actually, it need not ok, but for compat, write here for future.
+        $GlobalAssert->fatal("ConfigurationCovertYamlFailError", info);    // actually, it need not ok, but for compat, write here for future.
     }
     if(root.IsMap()){
         return IYamlHelper::toObject(root);

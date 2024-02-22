@@ -42,7 +42,7 @@ QJsonObject IContextJsonProfileTask::parseJsonFile(const QString &path) const
     if(!convertOk){
         IAssertInfo info;
         info.reason = path;
-        $GlobalAssert->fatal(IGlobalAssert::ConfigurationResolveJsonError, info);
+        $GlobalAssert->fatal("ConfigurationResolveJsonError", info);
     }
     return obj;
 }

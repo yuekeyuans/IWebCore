@@ -2,26 +2,6 @@
 
 $PackageWebCoreBegin
 
-inline void IGlobalAssert::fatal(IGlobalAssert::Type type)
-{
-    QString name = QMetaEnum::fromType<IGlobalAssert::Type>().valueToKey(type);
-    this->IAssertInterface::fatal(name);
-}
-
-inline void IGlobalAssert::fatal(IGlobalAssert::Type type, const IAssertInfo &info)
-{
-    QString name = QMetaEnum::fromType<IGlobalAssert::Type>().valueToKey(type);
-    this->IAssertInterface::fatal(name, info);
-}
-
-inline void IGlobalAssert::fatal(IGlobalAssert::Type type, const QString &reason)
-{
-    IAssertInfo info;
-    info.reason = reason;
-    QString name = QMetaEnum::fromType<IGlobalAssert::Type>().valueToKey(type);
-    this->IAssertInterface::fatal(name, info);
-}
-
 inline void IGlobalAssert::loadAssert()
 {
     // IApplication

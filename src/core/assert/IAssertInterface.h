@@ -8,7 +8,6 @@ $PackageWebCoreBegin
 
 class IAssertInterface
 {
-    Q_GADGET
 protected:
     IAssertInterface() = default;
 

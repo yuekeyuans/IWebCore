@@ -10,7 +10,7 @@ struct IControllerInfo;
 
 class IControllerInterfaceImpl : public ISingletonUnit<IControllerInterfaceImpl>
 {
-    friend struct ISingletonUnit<IControllerInterfaceImpl>;
+    friend class ISingletonUnit<IControllerInterfaceImpl>;
 private:
     IControllerInterfaceImpl() = default;
 

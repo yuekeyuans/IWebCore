@@ -1,9 +1,5 @@
 ﻿#pragma once
 
-//#define $AsCatagory(klassName)  $UseInstance(klassName)
-
-//#define $AsTask(klassName)  $UseInstance(klassName)
-
 #define $AsTaskUnit(klassName) \
 private:    \
     class klassName ## InitPrivate{ \

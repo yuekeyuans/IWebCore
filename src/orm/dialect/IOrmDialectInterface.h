@@ -2,13 +2,14 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/task/unit/ITaskWareUnit.h"
+#include "core/unit/ISingletonUnit.h"
 #include "orm/dialect/IOrmDialectWare.h"
 #include "orm/IOrmManage.h"
 
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true>
-class IOrmDialectInterface : public IOrmDialectWare, public ITaskWareUnit<T, enabled>
+class IOrmDialectInterface : public IOrmDialectWare, public ITaskWareUnit<T, enabled>, public ISingletonUnit<T>
 {
 public:
     IOrmDialectInterface() = default;

@@ -7,7 +7,7 @@ $PackageWebCoreBegin
 
 class IContextTaskCatagory : public ITaskCatagoryInterface<IContextTaskCatagory>
 {
-    friend struct ISingletonUnit<IContextTaskCatagory>;
+    friend class ISingletonUnit<IContextTaskCatagory>;
 private:
     IContextTaskCatagory() = default;
 

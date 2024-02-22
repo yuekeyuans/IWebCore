@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 template<typename T>
-struct ISingletonUnit
+class ISingletonUnit
 {
 protected:
     ISingletonUnit() = default;
