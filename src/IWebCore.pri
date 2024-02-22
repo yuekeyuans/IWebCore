@@ -111,6 +111,7 @@ HEADERS += \
     $$PWD/orm/tableview/IOrmViewWare.h \
     $$PWD/web/IControllerTaskCatagory.h \
     $$PWD/web/IInterceptInterface.h \
+    $$PWD/web/IWebAnnomacro.h \
     $$PWD/web/IWebAssert.h \
     $$PWD/web/IWebSystemPreProcessor.h \
     $$PWD/web/biscuits/IHttpHeader.h \

@@ -5,7 +5,7 @@
 #include "core/bean/IBeanTypeManage.h"
 
 $EnableTaskOutput
-$EnableBluePrint(true)
+$EnableControllerPrint(true)
 $EnableCatagory(Controller)
 int main(int argc, char *argv[])
 {

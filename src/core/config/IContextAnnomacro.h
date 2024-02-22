@@ -5,9 +5,6 @@
 #define $EnableConfigFile(fileName) \
     PP_PRIVILIGE_CONTEXT_CONFIG(EnableFileClass, PP_FILE, fileName)
 
-#define $EnableBluePrint(boolValue) \
-    PP_PRIVILIGE_CONTEXT_CONFIG(EnableBluePrint, SYSTEM_BLUE_PRINT, boolValue)
-
 // begin task
 #define $EnableCatagory(catagoryName) \
     PP_NORMAL_CONTEXT_CONFIG(EnableCatagory_##catagoryName, CATAGORY_ENABLE_STATE_##catagoryName, true)
