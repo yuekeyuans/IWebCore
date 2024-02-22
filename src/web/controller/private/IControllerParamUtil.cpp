@@ -301,15 +301,15 @@ void *IControllerParamUtil::getParamOfPrimitiveType(const IParamNode &node, IReq
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to bool");
         break;
     case QMetaType::Short:
-        *static_cast<short*>(param) = IConvertUtil::toShort(content, &ok);
+        *static_cast<short*>(param) = IConvertUtil::toShort(QString(content), &ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to short");
         break;
     case QMetaType::UShort:
-        *static_cast<ushort*>(param) = IConvertUtil::toUShort(content, &ok);
+        *static_cast<ushort*>(param) = IConvertUtil::toUShort(QString(content), &ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to ushort");
         break;
     case QMetaType::Int:
-        *static_cast<int*>(param) = IConvertUtil::toInt(content, &ok);
+        *static_cast<int*>(param) = IConvertUtil::toInt(QString(content), &ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to int");
         break;
     case QMetaType::UInt:
@@ -317,11 +317,11 @@ void *IControllerParamUtil::getParamOfPrimitiveType(const IParamNode &node, IReq
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to UInt");
         break;
     case QMetaType::Long:
-        *static_cast<long*>(param) = IConvertUtil::toLong(content, &ok);
+        *static_cast<long*>(param) = IConvertUtil::toLong(QString(content), &ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to long");
         break;
     case QMetaType::ULong:
-        *static_cast<ulong*>(param) = IConvertUtil::toULong(content, &ok);
+        *static_cast<ulong*>(param) = IConvertUtil::toULong(QString(content), &ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to ulong");
         break;
     case QMetaType::LongLong:
@@ -349,7 +349,6 @@ void *IControllerParamUtil::getParamOfStringType(const IParamNode &node, IReques
 {
     const auto& content = node.paramName.endsWith("_content") ? request.bodyContent()
                                                   : request.getParameter(node.paramName, &ok);
-
     if(ok){
         if(node.paramTypeId == QMetaType::QString){
             QString value = QString(content);

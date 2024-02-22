@@ -12,17 +12,31 @@ namespace  IConvertUtil
 
     short  toShort(const QString& value, bool *ok=nullptr, int base=10);
     short toShort(const QJsonValue& value, bool* ok);
+    short toShort(double value, bool*ok);
+
     ushort toUShort(const QString& value, bool *ok=nullptr, int base=10);
     ushort toUShort(const QJsonValue& value, bool* ok);
+    ushort toUShort(double value, bool*ok);
+
     int toInt(const QString& value, bool *ok=nullptr, int base=10);
     int toInt(const QJsonValue& value, bool *ok);
+    int toInt(double value, bool*ok);
+
     uint toUInt(const QString& value, bool *ok=nullptr, int base=10);
     uint toUInt(const QJsonValue& value, bool* ok);
     uint toUInt(double value, bool*ok);
+
     long toLong(const QString& value, bool *ok=nullptr, int base=10);
-    ulong toULong(const QString& value, bool *ok=nullptr, int base=10);
+    long toLong(double value, bool *ok=nullptr);
+    long toLong(const QJsonValue& value, bool* ok);
+
+    ulong toULong(const QString& value, bool *ok=nullptr, int base=10);\
+    ulong toULong(double value, bool *ok=nullptr);
+    ulong toULong(const QJsonValue& value, bool* ok);
+
     qlonglong toLongLong(const QString& value, bool *ok=nullptr, int base=10);
     qulonglong toULongLong(const QString& value, bool *ok=nullptr, int base=10);
+
     float toFloat(const QString& value, bool *ok=nullptr);
     double toDouble(const QString& value, bool *ok=nullptr);
     double toDouble(const QJsonValue& value, bool *ok=nullptr);

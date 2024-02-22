@@ -43,7 +43,7 @@ int IRequestImpl::contentLength() const
         return 0;
     }
 
-    auto size = IConvertUtil::toInt(len, &convertOk);
+    auto size = IConvertUtil::toInt(QString(len), &convertOk);
     return convertOk ? size : 0;
 }
 

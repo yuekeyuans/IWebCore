@@ -60,13 +60,30 @@ short IConvertUtil::toShort(const QString &value, bool *ok, int base)
 
 short IConvertUtil::toShort(const QJsonValue &value, bool *ok)
 {
-    int val = toInt(value, ok);
-    if(ok && val >= std::numeric_limits<short>::min() && val <= std::numeric_limits<short>::max()){
-        return static_cast<short>(val);
+    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
+        IToeUtil::setOk(ok, false);
+        return 0;
     }
 
+    IToeUtil::setOk(ok, true);
+    if(value.isDouble()){
+        return toShort(value.toDouble(), ok);
+    }else if(value.isString()){
+        return toShort(value.toString(), ok);
+    }
     IToeUtil::setOk(ok, false);
-    return {};
+    return 0;
+}
+
+short IConvertUtil::toShort(double value, bool *ok)
+{
+    if(value < std::numeric_limits<short>::min() || value > std::numeric_limits<short>::max()){
+        *ok = false;
+    }else{
+        *ok = true;
+    }
+
+    return static_cast<short>(value);
 }
 
 ushort IConvertUtil::toUShort(const QString &value, bool *ok, int base)
@@ -76,12 +93,30 @@ ushort IConvertUtil::toUShort(const QString &value, bool *ok, int base)
 
 ushort IConvertUtil::toUShort(const QJsonValue &value, bool *ok)
 {
-    uint val = toUInt(value, ok);
-    if(ok && val >= std::numeric_limits<ushort>::min() && val <= std::numeric_limits<ushort>::max()){
-        return static_cast<ushort>(val);
+    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
+        IToeUtil::setOk(ok, false);
+        return 0;
+    }
+
+    IToeUtil::setOk(ok, true);
+    if(value.isDouble()){
+        return toUShort(value.toDouble(), ok);
+    }else if(value.isString()){
+        return toUShort(value.toString(), ok);
     }
     IToeUtil::setOk(ok, false);
-    return {};
+    return 0;
+}
+
+ushort IConvertUtil::toUShort(double value, bool *ok)
+{
+    if(value < std::numeric_limits<ushort>::min() || value > std::numeric_limits<ushort>::max()){
+        *ok = false;
+    }else{
+        *ok = true;
+    }
+
+    return static_cast<ushort>(value);
 }
 
 int IConvertUtil::toInt(const QString &value, bool *ok, int base)
@@ -106,6 +141,17 @@ int IConvertUtil::toInt(const QJsonValue &value, bool *ok)
     return 0;
 }
 
+int IConvertUtil::toInt(double value, bool *ok)
+{
+    if(value < std::numeric_limits<int>::min() || value > std::numeric_limits<int>::max()){
+        *ok = false;
+    }else{
+        *ok = true;
+    }
+
+    return static_cast<int>(value);
+}
+
 uint IConvertUtil::toUInt(const QString &value, bool *ok, int base)
 {
     return std::mem_fn(&QString::toUInt)(value, ok, base);
@@ -128,14 +174,81 @@ uint IConvertUtil::toUInt(const QJsonValue &value, bool *ok)
     return {};
 }
 
+uint IConvertUtil::toUInt(double value, bool *ok)
+{
+    if(value < std::numeric_limits<uint>::min() || value > std::numeric_limits<uint>::max()){
+        *ok = false;
+    }else{
+        *ok = true;
+    }
+
+    return static_cast<uint>(value);
+}
+
 long IConvertUtil::toLong(const QString &value, bool *ok, int base)
 {
     return std::mem_fn(&QString::toLong)(value, ok, base);
 }
 
+long IConvertUtil::toLong(double value, bool *ok)
+{
+    if(value < std::numeric_limits<long>::min() || value > std::numeric_limits<long>::max()){
+        *ok = false;
+    }else{
+        *ok = true;
+    }
+
+    return static_cast<long>(value);
+}
+
+long IConvertUtil::toLong(const QJsonValue &value, bool *ok)
+{
+    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
+        IToeUtil::setOk(ok, false);
+        return 0;
+    }
+
+    IToeUtil::setOk(ok, true);
+    if(value.isDouble()){
+        return toLong(value.toDouble(), ok);
+    }else if(value.isString()){
+        return toLong(value.toString(), ok);
+    }
+    IToeUtil::setOk(ok, false);
+    return {};
+}
+
 ulong IConvertUtil::toULong(const QString &value, bool *ok, int base)
 {
     return std::mem_fn(&QString::toULong)(value, ok, base);
+}
+
+ulong IConvertUtil::toULong(double value, bool *ok)
+{
+    if(value < std::numeric_limits<ulong>::min() || value > std::numeric_limits<ulong>::max()){
+        *ok = false;
+    }else{
+        *ok = true;
+    }
+
+    return static_cast<ulong>(value);
+}
+
+ulong IConvertUtil::toULong(const QJsonValue &value, bool *ok)
+{
+    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
+        IToeUtil::setOk(ok, false);
+        return 0;
+    }
+
+    IToeUtil::setOk(ok, true);
+    if(value.isDouble()){
+        return toULong(value.toDouble(), ok);
+    }else if(value.isString()){
+        return toULong(value.toString(), ok);
+    }
+    IToeUtil::setOk(ok, false);
+    return {};
 }
 
 qlonglong IConvertUtil::toLongLong(const QString &value, bool *ok, int base)
@@ -468,18 +581,6 @@ QString IConvertUtil::toUtcString(const QDateTime& dateTime)
     static const QLocale local = QLocale::English;
     auto str = local.toString(dateTime.toUTC(), format).append(" GMT");
     return str;
-}
-
-uint IConvertUtil::toUInt(double value, bool *ok)
-{
-    if(value < std::numeric_limits<uint>::min() || value > std::numeric_limits<uint>::max()){
-        *ok = false;
-    }else{
-        *ok = true;
-    }
-
-    return static_cast<uint>(value);
-
 }
 
 $PackageWebCoreEnd
