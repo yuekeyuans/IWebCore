@@ -9,7 +9,7 @@ namespace IFileUtil {
 
     QString readFileAsString(const QString& path, bool& ok);
 
-    QByteArray readFileAsByteArray(const QString& path, bool*ok=nullptr);
+    QByteArray readFileAsByteArray(const QString& path, bool& ok);
 
     QString getFileSuffix(const QString& path);
 

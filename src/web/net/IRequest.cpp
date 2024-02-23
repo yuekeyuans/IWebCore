@@ -94,9 +94,10 @@ IRequest &IRequest::operator=(IRequest &&)
     return *this;
 }
 
-const QString IRequest::operator[](const QString &header) const
+const QString& IRequest::operator[](const QString &header) const
 {
-    return raw->m_headerJar->getRequestHeaderValue(header, nullptr);
+    bool ok;
+    return raw->m_headerJar->getRequestHeaderValue(header, ok);
 }
 
 IResponse *IRequest::response() const

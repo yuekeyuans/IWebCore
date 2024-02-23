@@ -28,7 +28,7 @@ template<typename T>
 T IConfigManageInterface::getBean(const QString& path, bool& ok)
 {
     auto value = getConfig(path, ok);
-    if(*ok){
+    if(ok){
          return T::fromJson(value.toObject());
     }
 

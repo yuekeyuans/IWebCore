@@ -15,7 +15,8 @@ IMultiPartJar::IMultiPartJar() : IJarUnit(nullptr)
 // NOTE: 这里没有正证伪，需要用户手动判断， 所以这里不建议使用
 const IMultiPart& IMultiPartJar::operator[](const QString &name) const
 {
-    return getRequestMultiPart (name);
+    bool ok;
+    return getRequestMultiPart (name, ok);
 }
 
 bool IMultiPartJar::containRequestMulitPartName(const QString &name) const

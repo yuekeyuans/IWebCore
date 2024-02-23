@@ -232,9 +232,9 @@ size_t IOrmDialectWare::count(QSqlDatabase &db, const IOrmEntityInfoWare &info)
         return -1;
     }
 
-    bool convertOk;
-    auto ret = IOrmUtil::getLongLong(query, &convertOk);
-    if(!convertOk){
+    bool ok;
+    auto ret = IOrmUtil::getLongLong(query, ok);
+    if(!ok){
         qFatal("error");
         return -1;
     }
@@ -256,9 +256,9 @@ size_t IOrmDialectWare::count(QSqlDatabase &db, const IOrmEntityInfoWare &info, 
     condition.bindParameters(query);
     query.exec();
 
-    bool convertOk;
-    auto ret = IOrmUtil::getLongLong(query, &convertOk);
-    if(!convertOk){
+    bool ok;
+    auto ret = IOrmUtil::getLongLong(query, ok);
+    if(!ok){
         return -1;
     }
     return ret;

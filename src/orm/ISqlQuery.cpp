@@ -56,7 +56,7 @@ bool ISqlQuery::isEnableSqlPrint()
     static std::once_flag flag;
     std::call_once(flag, [](){
         bool ok;
-        auto value = IContextManage::instance()->getConfig("ENABLE_SQL_PRINT_INFO", &ok);
+        auto value = IContextManage::instance()->getConfig("ENABLE_SQL_PRINT_INFO", ok);
         if(!ok || !value.isBool()){
             isEnabled = true;
         }else{

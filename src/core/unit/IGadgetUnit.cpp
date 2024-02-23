@@ -141,8 +141,9 @@ bool IGadgetUnit::isEqualTo(const IGadgetUnit &gadget)
         auto val1 = this->getFieldValue(propName);
         auto val2 = gadget.getFieldValue(propName);
         if(val1.type() == QVariant::Bool){
-            auto thisBool = IConvertUtil::toBool(val1.toBool());
-            auto thatBool = IConvertUtil::toBool(val2.toBool());
+            bool ok;
+            auto thisBool = IConvertUtil::toBool(val1.toBool(), ok);
+            auto thatBool = IConvertUtil::toBool(val2.toBool(), ok);
             if(thisBool != thatBool){
                 return false;
             }

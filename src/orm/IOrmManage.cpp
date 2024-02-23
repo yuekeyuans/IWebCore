@@ -87,9 +87,9 @@ void IOrmManage::unregisterDatabase(const QString &dbName)
 IOrmDataSource IOrmManage::getDataSource(const QString &name)
 {
     auto path = QString("dataSource.").append(name);
-    bool convertOk;
-    auto bean = IProfileManage::instance()->getBean<IOrmDataSource>(path, &convertOk);
-    if(!convertOk){
+    bool ok;
+    auto bean = IProfileManage::instance()->getBean<IOrmDataSource>(path, ok);
+    if(!ok){
         qFatal("datasource config error");
     }
     return bean;

@@ -71,24 +71,21 @@ void IReqRespRaw::setInvalidIf(bool condition, IHttpStatus status, const QString
 QJsonValue &IReqRespRaw::getRequestJson(bool& ok)
 {
     IToeUtil::setOk(ok, true);
-    bool convertOk;
     if(!isJsonInited){
-        m_requestJson = IJsonUtil::toJsonValue(m_requestBody, &convertOk);
-        setInvalidIf(!convertOk, IHttpStatus::BAD_REQUEST_400, "convert body to json failed");
-        IToeUtil::setOkAnd(ok, convertOk);
+        m_requestJson = IJsonUtil::toJsonValue(m_requestBody, ok);
+        setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, "convert body to json failed");
         isJsonInited = true;
     }
     return m_requestJson;
 }
 
+// TODO: xml 不再被支持， 以后考虑支持
 QDomNode &IReqRespRaw::getRequestXml(bool& ok)
 {
     IToeUtil::setOk(ok, true);
     if(!isXmlInited){
-        bool convertOk;
-        m_requestXml = IXmlUtil::toXml(m_requestBody, &convertOk);
+        m_requestXml = IXmlUtil::toXml(m_requestBody, ok);
         setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, "convert body to xml failed");
-        IToeUtil::setOkAnd(ok, convertOk);
         isXmlInited = true;
     }
     return m_requestXml;

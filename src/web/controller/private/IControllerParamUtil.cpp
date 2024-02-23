@@ -146,7 +146,7 @@ void *IControllerParamUtil::createArgParam(const IParamNode& node, IRequest &req
         &IControllerParamUtil::getParamOfBean,
     };
 
-    IToeUtil::setOk(ok, true);
+    ok = true;
     static int length = JudgeTypes.length();
     for(int i=0; i<length; i++){
         if(JudgeTypes[i].contains(node.paramTypeId)){
@@ -269,13 +269,13 @@ void *IControllerParamUtil::getParamOfBean(const IParamNode& node, IRequest &req
 void *IControllerParamUtil::getParamOfJsonType(const IParamNode& node, IRequest &request, bool& ok)
 {
     const auto& content = node.paramName.endsWith("_content")
-                              ? request.bodyContent() : request.getParameter(node.paramName, &ok);
+                              ? request.bodyContent() : request.getParameter(node.paramName, ok);
     if(!ok){
         request.setInvalid(IHttpStatus::BAD_REQUEST_400, "convert to json fail. At " + node.paramTypeName + " " + node.paramName);
         return nullptr;
     }
 
-    auto ptr = IControllerFunctionBaseImplHelper::convertParamToJson(node, content, &ok);
+    auto ptr = IControllerFunctionBaseImplHelper::convertParamToJson(node, content, ok);
     if(!ok){
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, node.paramName + " can`t be converted to json type");
     }
@@ -285,7 +285,7 @@ void *IControllerParamUtil::getParamOfJsonType(const IParamNode& node, IRequest 
 void *IControllerParamUtil::getParamOfPrimitiveType(const IParamNode &node, IRequest &request, bool& ok)
 {    
     const auto& content = node.paramName.endsWith("_content")
-                              ? request.bodyContent() : request.getParameter(node.paramName, &ok);
+                              ? request.bodyContent() : request.getParameter(node.paramName, ok);
 
     if(!ok || content.isEmpty()){
         request.setInvalid(IHttpStatus::BAD_REQUEST_400, node.paramName + " is empty to convert to any type");
@@ -297,47 +297,47 @@ void *IControllerParamUtil::getParamOfPrimitiveType(const IParamNode &node, IReq
     auto param = QMetaType::create(node.paramTypeId);
     switch (node.paramTypeId) {
     case QMetaType::Bool :
-        *static_cast<bool*>(param) = IConvertUtil::toBool(QString(content), &ok);
+        *static_cast<bool*>(param) = IConvertUtil::toBool(QString(content), ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to bool");
         break;
     case QMetaType::Short:
-        *static_cast<short*>(param) = IConvertUtil::toShort(QString(content), &ok);
+        *static_cast<short*>(param) = IConvertUtil::toShort(QString(content), ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to short");
         break;
     case QMetaType::UShort:
-        *static_cast<ushort*>(param) = IConvertUtil::toUShort(QString(content), &ok);
+        *static_cast<ushort*>(param) = IConvertUtil::toUShort(QString(content), ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to ushort");
         break;
     case QMetaType::Int:
-        *static_cast<int*>(param) = IConvertUtil::toInt(QString(content), &ok);
+        *static_cast<int*>(param) = IConvertUtil::toInt(QString(content), ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to int");
         break;
     case QMetaType::UInt:
-        *static_cast<uint*>(param) = IConvertUtil::toUInt(QString(content), &ok);
+        *static_cast<uint*>(param) = IConvertUtil::toUInt(QString(content), ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to UInt");
         break;
     case QMetaType::Long:
-        *static_cast<long*>(param) = IConvertUtil::toLong(QString(content), &ok);
+        *static_cast<long*>(param) = IConvertUtil::toLong(QString(content), ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to long");
         break;
     case QMetaType::ULong:
-        *static_cast<ulong*>(param) = IConvertUtil::toULong(QString(content), &ok);
+        *static_cast<ulong*>(param) = IConvertUtil::toULong(QString(content), ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to ulong");
         break;
     case QMetaType::LongLong:
-        *static_cast<qlonglong*>(param) = IConvertUtil::toLongLong(QString(content), &ok);
+        *static_cast<qlonglong*>(param) = IConvertUtil::toLongLong(QString(content), ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to LongLong");
         break;
     case QMetaType::ULongLong:
-        *static_cast<qulonglong*>(param) = IConvertUtil::toULongLong(QString(content), &ok);
+        *static_cast<qulonglong*>(param) = IConvertUtil::toULongLong(QString(content), ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to ULongLong");
         break;
     case QMetaType::Float:
-        *static_cast<float*>(param) = IConvertUtil::toFloat(QString(content), &ok);
+        *static_cast<float*>(param) = IConvertUtil::toFloat(QString(content), ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to float");
         break;
     case QMetaType::Double:
-        *static_cast<double*>(param) = IConvertUtil::toDouble(QString(content), &ok);
+        *static_cast<double*>(param) = IConvertUtil::toDouble(QString(content), ok);
         request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to double");
         break;
     }
@@ -348,7 +348,7 @@ void *IControllerParamUtil::getParamOfPrimitiveType(const IParamNode &node, IReq
 void *IControllerParamUtil::getParamOfStringType(const IParamNode &node, IRequest &request, bool& ok)
 {
     const auto& content = node.paramName.endsWith("_content") ? request.bodyContent()
-                                                  : request.getParameter(node.paramName, &ok);
+                                                  : request.getParameter(node.paramName, ok);
     if(ok){
         if(node.paramTypeId == QMetaType::QString){
             QString value = QString(content);

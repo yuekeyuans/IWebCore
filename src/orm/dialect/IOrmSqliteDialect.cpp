@@ -93,7 +93,10 @@ QVariant IOrmSqliteDialect::getInsertedPrimaryKey(QSqlDatabase& db, IOrmTableWar
     query.prepare(sql);
     query.bindValue(":rowid", rowid);
     query.exec();
-    return IOrmUtil::getVariant(query);
+
+    bool ok;
+    return IOrmUtil::getVariant(query, ok);
+    // TODO: check ok
 }
 
 bool IOrmSqliteDialect::truncateTable(QSqlDatabase &db, const IOrmTableInfo &info)

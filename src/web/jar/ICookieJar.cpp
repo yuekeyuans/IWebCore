@@ -165,7 +165,7 @@ bool ICookieJar::containResponseCookieKey(const QString &key) const
 QString ICookieJar::getResponseCookieValue(const QString &key, bool& ok)
 {
     const auto& cookie = getResponseCookie(key, ok);
-    if(*ok){
+    if(ok){
         return cookie.value;
     }
 

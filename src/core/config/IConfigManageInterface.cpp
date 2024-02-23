@@ -128,33 +128,33 @@ QJsonValue IConfigManageInterface::getConfig(const QString &path, bool& ok)
 bool IConfigManageInterface::getConfigAsBool(const QString &path, bool& ok)
 {
     auto value = getConfig(path, ok);
-    if(*ok){
+    if(ok){
         return IConvertUtil::toBool(value, ok);
     }
 
-    IToeUtil::setOk(ok, false);
+    ok = false;
     return {};
 }
 
 int IConfigManageInterface::getConfigAsInt(const QString &path, bool& ok)
 {
     auto value = getConfig(path, ok);
-    if(*ok){
+    if(ok){
         return IConvertUtil::toInt(value, ok);
     }
 
-    IToeUtil::setOk(ok, false);
+    ok = false;
     return {};
 }
 
 double IConfigManageInterface::getConfigAsDouble(const QString &path, bool& ok)
 {
     auto value = getConfig(path, ok);
-    if(*ok){
+    if(ok){
         return IConvertUtil::toDouble(value, ok);
     }
 
-    IToeUtil::setOk(ok, false);
+    ok = false;
     return {};
 }
 
@@ -187,11 +187,11 @@ static QString jsonValueToString(const QJsonValue& value, bool& ok)
 QString IConfigManageInterface::getConfigAsString(const QString &path, bool& ok)
 {
     auto value = getConfig(path, ok);
-    if(*ok){
+    if(ok){
         return jsonValueToString(value, ok);    // This convertion differs to IConvertUtil::toString(QJsonValue) because we wang single value;
     }
 
-    IToeUtil::setOk(ok, false);
+    ok = false;
     return {};
 }
 

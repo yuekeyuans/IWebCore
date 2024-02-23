@@ -35,11 +35,15 @@ QStringList IContextJsonProfileTask::getJsonPaths() const
 QJsonObject IContextJsonProfileTask::parseJsonFile(const QString &path) const
 {
     QJsonObject obj;
+    bool ok;
+    QString content = IFileUtil::readFileAsString(path, ok);
+    if(!ok){
+        $GlobalAssert->fatal("ConfigurationResolveJsonError");
+        return obj;
+    }
 
-    bool convertOk = true;
-    QString content = IFileUtil::readFileAsString(path);
-    obj = IJsonUtil::toJsonObject(content, &convertOk);
-    if(!convertOk){
+    obj = IJsonUtil::toJsonObject(content, ok);
+    if(!ok){
         IAssertInfo info;
         info.reason = path;
         $GlobalAssert->fatal("ConfigurationResolveJsonError", info);

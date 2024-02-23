@@ -77,7 +77,7 @@ void *IControllerParamBeanUtil::assambleBeanWareWithBody(IBeanWare *bean, IReque
     if(request.mime() == IHttpMime::APPLICATION_JSON
         ||request.mime() == IHttpMime::APPLICATION_JSON_UTF8){
         bool ok;
-        const auto& value = request.bodyJson(&ok);
+        const auto& value = request.bodyJson(ok);
         if(!ok || value.isObject()){
             QString info = "body to jsonobject is not valid";
             request.setInvalid(IHttpStatus::BAD_REQUEST_400, info);
@@ -104,7 +104,7 @@ void *IControllerParamBeanUtil::assambleBeanWareWithParameter(IBeanWare *bean, I
 
     if(checkKeyInQByteArrayMap(parameters, bean, request)){
         bool convertOk;
-        auto map = resolveBeanFieldAsMap(parameters, bean, request, &convertOk);
+        auto map = resolveBeanFieldAsMap(parameters, bean, request, convertOk);
         if(convertOk){
             bean->load(map);
         }
@@ -118,7 +118,7 @@ void *IControllerParamBeanUtil::assambleBeanWareWithUrl(IBeanWare *bean, IReques
 
     if(checkKeyInQByteArrayMap(parameters, bean, request)){
         bool convertOk;
-        auto map = resolveBeanFieldAsMap(parameters, bean, request, &convertOk);
+        auto map = resolveBeanFieldAsMap(parameters, bean, request, convertOk);
         if(convertOk){
             bean->load(map);
         }
@@ -132,7 +132,7 @@ void *IControllerParamBeanUtil::assambleBeanWareWithHeaders(IBeanWare *bean, IRe
 
     if(checkKeyInListPair(parameters, bean, request)){
         bool convertOk;
-        auto map = resolveBeanFieldAsMap(parameters, bean, request, &convertOk);
+        auto map = resolveBeanFieldAsMap(parameters, bean, request, convertOk);
         if(convertOk){
             bean->load(map);
         }
@@ -150,7 +150,7 @@ void *IControllerParamBeanUtil::assambleBeanWareWithMixed(IBeanWare *bean, IRequ
 
     bool convertOk;
     for(auto prop : props){
-        auto value = request.getMixedParameter(prop.name(), &convertOk);
+        auto value = request.getMixedParameter(prop.name(), convertOk);
         if(!convertOk){
             if(bean->isIgnorableField(prop.propertyIndex())){
                 continue;
@@ -166,7 +166,7 @@ void *IControllerParamBeanUtil::assambleBeanWareWithMixed(IBeanWare *bean, IRequ
             continue;
         }
 
-        auto variant = IConvertUtil::toVariant(value, QMetaType::Type(prop.type()), &convertOk);
+        auto variant = IConvertUtil::toVariant(value, QMetaType::Type(prop.type()), convertOk);
         if(!convertOk){
             if(bean->isIgnorableField(prop.propertyIndex())){
                 continue;
@@ -225,7 +225,7 @@ void *IControllerParamBeanUtil::resolveBodyForm(IBeanWare *bean, IRequest &reque
 
     if(checkKeyInQByteArrayMap(parameters, bean, request)){
         bool convertOk;
-        auto map = resolveBeanFieldAsMap(parameters, bean, request, &convertOk);
+        auto map = resolveBeanFieldAsMap(parameters, bean, request, convertOk);
         if(convertOk){
             bean->load(map);
         }
@@ -239,7 +239,7 @@ void *IControllerParamBeanUtil::resolveBodyMultiPart(IBeanWare *bean, IRequest &
 
     if(checkKeyInMultiPart(multiparts, bean, request)){
         bool convertOk;
-        auto map = resolveBeanFieldAsMap(multiparts, bean, request, &convertOk);
+        auto map = resolveBeanFieldAsMap(multiparts, bean, request, convertOk);
         if(convertOk){
             bean->load(map);
         }
@@ -250,7 +250,7 @@ void *IControllerParamBeanUtil::resolveBodyMultiPart(IBeanWare *bean, IRequest &
 void *IControllerParamBeanUtil::resolveBodyJson(IBeanWare *bean, IRequest &request)
 {
     bool ok;
-    auto value = request.bodyJson(&ok);
+    auto value = request.bodyJson(ok);
     if(!ok || !value.isObject()){
         request.setInvalid(IHttpStatus::BAD_REQUEST_400, "json value is not ok");
         return bean;
@@ -285,7 +285,7 @@ QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QL
             }
         }
 
-        auto variant = IConvertUtil::toVariant(value, QMetaType::Type(prop.type()), &convertOk);
+        auto variant = IConvertUtil::toVariant(value, QMetaType::Type(prop.type()), convertOk);
         if(!convertOk){
             if(bean->isIgnorableField(prop.propertyIndex())){
                 continue;
@@ -317,7 +317,7 @@ QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QM
     auto props = bean->getMetaProperties();
     for(const auto& prop : props){
         auto value = raw[prop.name()];
-        auto variant = IConvertUtil::toVariant(value, QMetaType::Type(prop.type()), &convertOk);
+        auto variant = IConvertUtil::toVariant(value, QMetaType::Type(prop.type()), convertOk);
         if(!convertOk){
             if(bean->isIgnorableField(prop.propertyIndex())){
                 continue;
@@ -350,7 +350,7 @@ QMap<QString, QVariant> IControllerParamBeanUtil::resolveBeanFieldAsMap(const QV
         if(fieldNames.contains(name)){
             auto value = part.content;
             auto prop = bean->getMetaProperty(name);        // should optimized
-            auto variant = IConvertUtil::toVariant(value, QMetaType::Type(prop.type()), &convertOk);
+            auto variant = IConvertUtil::toVariant(value, QMetaType::Type(prop.type()), convertOk);
             if(!convertOk){
                 if(bean->isIgnorableField(prop.propertyIndex())){
                     continue;

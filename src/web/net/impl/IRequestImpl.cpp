@@ -37,20 +37,20 @@ QDomNode &IRequestImpl::requestXml(bool& ok) const
 
 int IRequestImpl::contentLength() const
 {
-    bool convertOk;
-    auto len = getHeaderParameter(IHttpHeader::ContentLength, &convertOk);
-    if(!convertOk){
+    bool ok;
+    auto len = getHeaderParameter(IHttpHeader::ContentLength, ok);
+    if(!ok){
         return 0;
     }
 
-    auto size = IConvertUtil::toInt(QString(len), &convertOk);
-    return convertOk ? size : 0;
+    auto size = IConvertUtil::toInt(QString(len), ok);
+    return ok ? size : 0;
 }
 
 QString IRequestImpl::contentType() const
 {
     bool convertOk;
-    auto value = getHeaderParameter(IHttpHeader::ContentType, &convertOk);
+    auto value = getHeaderParameter(IHttpHeader::ContentType, convertOk);
     if(!convertOk){
         return "";
     }
@@ -88,14 +88,14 @@ QByteArray IRequestImpl::getMixedParameter(const QString &name, bool& ok) const
 
     for(auto& pair : map){
         auto result = std::mem_fn(pair.second)(this, originName, ok);
-        if(*ok){
+        if(ok){
             return result;
         }
     }
 
     // 这里单独处理 content TODO: 这里可能会出现bug.
     auto result = IRequestImpl::getContentParameter(name, ok);
-    if(*ok){
+    if(ok){
         return result;
     }
 
@@ -248,7 +248,7 @@ QByteArray IRequestImpl::getSystemParameter(const QString &name, bool& ok) const
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
 
     bool convertOk;
-    auto value = IContextManage::instance()->getConfig(originName, &convertOk);
+    auto value = IContextManage::instance()->getConfig(originName, convertOk);
     if(convertOk){
         return IConvertUtil::toByteArray(value);
     }
@@ -309,13 +309,13 @@ QByteArray IRequestImpl::getJsonData(const QString &name, bool& ok) const
     IToeUtil::setOk(ok, true);
 
     bool convertOk;
-    auto json = requestJson(&convertOk);
+    auto json = requestJson(convertOk);
     IToeUtil::setOkAnd(ok, convertOk);
     if(!convertOk){
         return {};
     }
 
-    auto value = IJsonUtil::getJsonValue(json, name, &convertOk);
+    auto value = IJsonUtil::getJsonValue(json, name, convertOk);
     IToeUtil::setOkAnd(ok, convertOk);
     if(!convertOk){
         return {};
@@ -328,7 +328,7 @@ QByteArray IRequestImpl::getJsonData(const QString &name, bool& ok) const
         return IConvertUtil::toByteArray(IConvertUtil::toString(value.toDouble()));
     case QJsonValue::Type::Array:
     case QJsonValue::Type::Object:
-        return IJsonUtil::toByteArray(value);
+        return IJsonUtil::toByteArray(value, ok);
     case QJsonValue::Type::String:
         return value.toString().toUtf8();
     case QJsonValue::Type::Null:
@@ -454,7 +454,9 @@ bool IRequestImpl::resolveCookies()
 
 
     if(IConstantUtil::ICookiePluginEnabled && raw->m_headerJar->containRequestHeaderKey(IHttpHeader::Cookie)){
-        const QString rawCookie = raw->m_headerJar->getRequestHeaderValue(IHttpHeader::Cookie, nullptr);
+        bool ok;
+        const QString rawCookie = raw->m_headerJar->getRequestHeaderValue(IHttpHeader::Cookie, ok);
+        // TODO: 检查 ok 的值
 
         QString key, value;
         int index;
@@ -660,7 +662,7 @@ void IRequestImplHelper::checkDumplicatedParameters(const QList<QPair<QString, I
     if(IConstantUtil::DebugMode){
         int count = 0;
         for(auto pair : maps){
-            std::mem_fn(pair.second)(ptr, name, &convertOk);
+            std::mem_fn(pair.second)(ptr, name, convertOk);     // TODO:这里要检查一下
             if(convertOk){
                 count ++;
             }

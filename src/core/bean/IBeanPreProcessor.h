@@ -2,6 +2,8 @@
 
 #include "core/base/IPreProcessorUtil.h"
 
+// TODO: check return IConvertUtil::toJsonObject(map, ok); \
+
 #define $_UseGadget(klassName)   \
 public:\
     virtual const QString& className() const final {    \
@@ -36,7 +38,8 @@ public:\
     }   \
     virtual QJsonObject toJson() const final{   \
         auto map = IMetaUtil::toVariantMap(this, staticMetaObject); \
-        return IConvertUtil::toJsonObject(map); \
+        bool ok;    \
+        return IConvertUtil::toJsonObject(map, ok); \
     }   \
     virtual QMap<QString, QVariant> toVariantMap() const final{ \
         return IMetaUtil::toVariantMap(this, staticMetaObject); \

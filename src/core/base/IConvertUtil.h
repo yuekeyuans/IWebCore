@@ -71,6 +71,7 @@ namespace  IConvertUtil
 
     QByteArray toByteArray(const QString& value);
     QByteArray toByteArray(const QByteArray& value);
+    QByteArray toByteArray(const QJsonValue& value);
 
     // json -> list,map 转换
     QList<QVariant> toList(const QVariant& value, bool& ok);

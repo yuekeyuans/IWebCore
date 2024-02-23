@@ -88,13 +88,15 @@ void IResponseContent::setContent(const char *content)
 
 QByteArray IResponseContent::getAsBytes()
 {
+    // TODO: check ok;
+    bool ok;
     switch(type){
     case Bytes:
         return contentBytes;
     case String:
         return contentString.toUtf8();
     case File:
-        return IFileUtil::readFileAsByteArray(contentFilePath);
+        return IFileUtil::readFileAsByteArray(contentFilePath, ok);
     }
     return {};
 }

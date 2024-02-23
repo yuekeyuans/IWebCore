@@ -287,7 +287,7 @@ void IControllerManage::setDefaultStaticDir(const QString &dirPath)
     auto inst = instance();
 
     bool ok;
-    auto value = IContextManage::instance()->getConfigAsString("PP_DEFAULT_STATIC_DIR", &ok);
+    auto value = IContextManage::instance()->getConfigAsString("PP_DEFAULT_STATIC_DIR", ok);
     if(!ok || value.isEmpty()){
         value = inst->m_staticFilePrefix;
     }
@@ -313,7 +313,7 @@ QString IControllerManage::getDefaultStaticDir()
 {
     auto inst = instance();
     bool ok;
-    auto value = IContextManage::instance()->getConfigAsString("PP_DEFAULT_STATIC_DIR", &ok);
+    auto value = IContextManage::instance()->getConfigAsString("PP_DEFAULT_STATIC_DIR", ok);
     if(ok && !value.isEmpty()){
         inst->m_staticFilePrefix = value;       // 优先设置项。
     }

@@ -34,10 +34,14 @@ QStringList IContextYamlProfileTask::getYamlPaths(){
 QJsonObject IContextYamlProfileTask::parseYamlFile(const QString &path){
     QJsonObject obj;
 
-    bool convertOk;
-    QString content = IFileUtil::readFileAsString(path);
-    obj = IYamlUtil::toJsonObject(content, &convertOk);
-    if(!convertOk){
+    bool ok;
+    QString content = IFileUtil::readFileAsString(path, ok);
+    if(!ok){
+        $GlobalAssert->fatal("ConfigurationResolveJsonError");
+    }
+
+    obj = IYamlUtil::toJsonObject(content, ok);
+    if(!ok){
         IAssertInfo info;
         info.reason = path;
         $GlobalAssert->fatal("ConfigurationResolveJsonError", info);

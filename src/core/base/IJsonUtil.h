@@ -53,8 +53,11 @@ namespace IJsonUtil
     // TODO: 看一下这个怎搞？
     template<class T>
     QString toString(T value){
-
-        QJsonValue val = IJsonUtil::_objectToJson(value);
+        bool ok;
+        QJsonValue val = IJsonUtil::_objectToJson(value, ok);
+        if(!ok){
+            return {};
+        }
         return toString(val);
     }
 }
