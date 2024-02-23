@@ -12,8 +12,6 @@ int main(int argc, char *argv[])
 {
     IApplication a(argc, argv);
 
-    IBeanTypeManage manage;
-
     IHttpServer server;
     server.setPort(81);
     server.listen();

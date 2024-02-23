@@ -14,13 +14,12 @@ struct IParamNode;
 
 class IControllerParamUtil  : public ISingletonUnit<IControllerParamUtil>// : public IInitializationTaskUnit<IControllerParamUtil>
 {
-    friend class ISingletonUnit<IControllerParamUtil>;
 public:
     using ParamType = void*[11];
     using CreateParamFunType = void*(*)(const IParamNode& node, IRequest& request, bool& ok);
     using ReleaseParamFunType = bool (*)(const IParamNode& node, void *obj);
 
-private:
+public:
     IControllerParamUtil() = default;
 
 public:

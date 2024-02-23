@@ -7,8 +7,7 @@ $PackageWebCoreBegin
 
 class IBluePrintControllerTask : public IEndupTaskInterface<IBluePrintControllerTask>
 {
-    friend class ISingletonUnit<IBluePrintControllerTask>;
-private:
+public:
     IBluePrintControllerTask() = default;
 
 public:

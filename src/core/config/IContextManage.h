@@ -8,8 +8,7 @@ $PackageWebCoreBegin
 
 class IContextManage final : public IConfigManageInterface, public ISingletonUnit<IContextManage>
 {
-    friend class ISingletonUnit<IContextManage>;
-private:
+public:
     IContextManage() = default;
 
 public:

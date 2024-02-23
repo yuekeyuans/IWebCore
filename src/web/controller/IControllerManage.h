@@ -15,13 +15,12 @@
 #include "IControllerFileNode.h"
 
 $PackageWebCoreBegin
+
 class IRequest;
 class IControllerManage : public ISingletonUnit<IControllerManage>
 {
-    friend class ISingletonUnit<IControllerManage>;
-private:
+public:
     IControllerManage();
-    ~IControllerManage() = default;
 
 public:
     using ValidatorFun = bool (*)(const QString&);

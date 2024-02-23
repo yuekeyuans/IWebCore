@@ -8,9 +8,9 @@ $PackageWebCoreBegin
 
 class IOrmSqliteDialect : public IOrmDialectInterface<IOrmSqliteDialect>
 {
-    friend class ISingletonUnit<IOrmSqliteDialect>;
-private:
+public:
     IOrmSqliteDialect() = default;
+
 public:
     virtual QString dialectType() final;
     virtual bool insert(QSqlDatabase& db, IOrmTableWare& table, const QStringList& columns = {}) final;

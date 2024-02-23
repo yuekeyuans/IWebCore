@@ -7,8 +7,7 @@ $PackageWebCoreBegin
 
 class IConfigTaskCatagory : public ITaskCatagoryInterface<IConfigTaskCatagory>
 {
-    friend class ISingletonUnit<IConfigTaskCatagory>;
-private:
+public:
     IConfigTaskCatagory() = default;
 
 public:

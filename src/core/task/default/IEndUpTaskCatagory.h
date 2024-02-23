@@ -7,8 +7,7 @@ $PackageWebCoreBegin
 
 class IEndupTaskCatagory : public ITaskCatagoryInterface<IEndupTaskCatagory>
 {
-    friend class ISingletonUnit<IEndupTaskCatagory>;
-private:
+public:
     IEndupTaskCatagory() = default;
 
 public:

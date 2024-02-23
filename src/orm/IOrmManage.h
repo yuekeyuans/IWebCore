@@ -11,8 +11,7 @@ class IOrmDatabaseWare;
 
 class IOrmManage : public ISingletonUnit<IOrmManage>
 {
-    friend class ISingletonUnit<IOrmManage>;
-private:
+public:
     IOrmManage();
 
 public:
