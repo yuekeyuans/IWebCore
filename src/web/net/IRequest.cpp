@@ -94,7 +94,8 @@ IRequest &IRequest::operator=(IRequest &&)
     return *this;
 }
 
-const QString& IRequest::operator[](const QString &header) const
+// TODO: 这个考虑返回 IResult
+const QString IRequest::operator[](const QString &header) const
 {
     bool ok;
     return raw->m_headerJar->getRequestHeaderValue(header, ok);

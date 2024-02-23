@@ -39,6 +39,10 @@ inline void IGlobalAssert::loadAssert()
     addWarn("CatagoryRangeExceed", "catagory range ought to be in 0 and 100");
     addWarn("TaskRangeExceed", "catagory range ought to be in 0 and 100");
     addWarn("TaskWithErrorCatagory", "this task`s catagory does not exist, please check your code");
+
+    // unit
+    addFatal("SingletonInstanceCreateError", "error with singleton instance, you should not create anyother instance of this");
+
 }
 
 $PackageWebCoreEnd

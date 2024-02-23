@@ -7,11 +7,12 @@
 $EnableTaskOutput
 $EnableControllerPrint(true)
 $EnableCatagory(Controller)
-
 $SetIpPort(1000)
 int main(int argc, char *argv[])
 {
     IApplication a(argc, argv);
+
+    IBeanTypeManage manage;
 
     IHttpServer server;
     server.setPort(81);
