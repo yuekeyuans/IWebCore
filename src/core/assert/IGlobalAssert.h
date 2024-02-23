@@ -9,10 +9,8 @@ $PackageWebCoreBegin
 class IGlobalAssert : public IAssertInterface
 {
     $AsAssert(IGlobalAssert)
-public:
+private:
     IGlobalAssert() = default;
-
-public:
     virtual void loadAssert() final;
 };
 

@@ -7,11 +7,9 @@ $PackageWebCoreBegin
 
 class IOrmAssert : public IAssertInterface
 {
-    Q_GADGET
     $AsAssert(IOrmAssert)
-public:
+private:
     IOrmAssert() = default;
-
     virtual void loadAssert() final;
 };
 

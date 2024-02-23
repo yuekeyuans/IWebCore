@@ -2,11 +2,9 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IMetaUtil.h"
-//#include "core/assert/IGlobalAssert.h"
+#include "core/assert/IGlobalAssert.h"
 
 $PackageWebCoreBegin
-
-//$UseGlobalAssert()
 
 template<typename T>
 class ISingletonUnit
@@ -32,9 +30,9 @@ ISingletonUnit<T>::ISingletonUnit()
 {
     static std::atomic_bool flag{false};
     if(flag){
-//        IAssertInfo info;
-//        info.className = IMetaUtil::getTypename<T>();
-//        $GlobalAssert->fatal("SingletonInstanceCreateError");
+        IAssertInfo info;
+        info.className = IMetaUtil::getTypename<T>();
+        IGlobalAssert::instance()->fatal("SingletonInstanceCreateError");
         qFatal("SingletonInstanceCreateError ", IMetaUtil::getTypename<T>());
     }
     flag = true;

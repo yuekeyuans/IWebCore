@@ -7,11 +7,9 @@ $PackageWebCoreBegin
 
 class IWebAssert : public IAssertInterface
 {
-    Q_GADGET
     $AsAssert(IWebAssert)
-public:
+private:
     IWebAssert() = default;
-
     virtual void loadAssert() final;
 };
 
