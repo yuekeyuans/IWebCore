@@ -32,8 +32,7 @@ ISingletonUnit<T>::ISingletonUnit()
     if(flag){
         IAssertInfo info;
         info.className = IMetaUtil::getTypename<T>();
-        IGlobalAssert::instance()->fatal("SingletonInstanceCreateError");
-        qFatal("SingletonInstanceCreateError ", IMetaUtil::getTypename<T>());
+        IGlobalAssert::instance()->fatal("SingletonInstanceCreateError", info);
     }
     flag = true;
 }
