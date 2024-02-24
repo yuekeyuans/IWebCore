@@ -26,9 +26,12 @@ IProfileImport<T>::IProfileImport(QString path, T value) : IConfigImportInterfac
 {
 }
 
+// NOTE: 设置值之后，就不会再加载了
 template<typename T>
 IProfileImport<T>& IProfileImport<T>::operator =(const T& value)
 {
+    this->m_isLoaded = false;
+    this->m_isFound = true;
     this->m_data = value;
     return *this;
 }

@@ -16,12 +16,12 @@ struct ICauseResult;
 template<typename T>
 struct IResult
 {
-    IResult(T&& value, bool ok = true);
+    IResult(T value, bool ok = true);
     operator T&();
     T& value();
     bool isOk();
 
-private:
+public:
     T m_value;
     bool m_ok;
 
@@ -73,7 +73,7 @@ public:
 };
 
 template<typename T>
-inline IResult<T>::IResult(T && value, bool ok) :m_value(std::forward<T>(value)), m_ok(ok)
+inline IResult<T>::IResult(T value, bool ok) :m_value(std::forward<T>(value)), m_ok(ok)
 {
 }
 
@@ -99,7 +99,6 @@ inline IConstResult<T>::IConstResult(T && value, bool ok) :m_value(std::forward<
 
 template<typename T>
 inline IConstResult<T>::IConstResult(const IResult<T>& value) : m_value(value.value), m_ok(value.m_ok) {
-    std::cout << "hello world";
     m_value = value.m_value;
     m_ok = value.m_ok;
 }

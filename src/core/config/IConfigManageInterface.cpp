@@ -120,6 +120,13 @@ void IConfigManageInterface::addConfig(const QJsonValue &value, const QString &p
     m_configs = IConfigUnitHelper::addToJsonObject(m_configs, path, value);
 }
 
+IResult<QJsonValue> IConfigManageInterface::getConfig(const QString &path)
+{
+    bool ok;
+    auto value = getConfig(path, ok);
+    return {value, ok};
+}
+
 QJsonValue IConfigManageInterface::getConfig(const QString &path, bool& ok)
 {
     return IConfigUnitHelper::getJsonValue(m_configs, path, ok);

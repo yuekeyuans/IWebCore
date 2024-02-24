@@ -103,3 +103,17 @@
     $DisableTest_8(testKlass1, testKlass2, testKlass3, testKlass4, testKlass5, testKlass6, testKlass7, testKlass8) \
     $DisableTask(Test, testKlass9)
 // end test
+
+// below is config files anomacro
+#define $EnableInternalConfigFiles(value)    \
+    PP_NORMAL_CONTEXT_CONFIG(EnableInternalConfigFiles, config.enableInternalConfigFiles, value)
+
+#define $EnableExternalConfig(value)    \
+    PP_NORMAL_CONTEXT_CONFIG(EnableExternalConfigFiles, config.enableExternalConfigFiles, value)
+
+#define $SetConfigFilesFilter(value)    \
+    PP_NORMAL_CONTEXT_CONFIG(SetConfigFilesFilter, config.configFilesFilter, value)
+
+
+
+

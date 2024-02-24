@@ -2,6 +2,7 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/unit/ISingletonUnit.h"
+#include "core/result/IResult.h"
 
 $PackageWebCoreBegin
 
@@ -10,6 +11,7 @@ class IConfigManageInterface
 public:
     void addConfig(const QJsonValue& value, const QString& path="");
 
+    IResult<QJsonValue> getConfig(const QString& path);
     QJsonValue getConfig(const QString& path, bool& ok);
 
     bool getConfigAsBool(const QString& path, bool& ok);

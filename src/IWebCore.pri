@@ -32,10 +32,10 @@ HEADERS += \
     $$PWD/core/bean/IBeanPreProcessor.h \
     $$PWD/core/bean/IBeanTypeManage.h \
     $$PWD/core/bean/IBeanWare.h \
+    $$PWD/core/config/IConfigAnnomacro.h \
     $$PWD/core/config/IConfigImportInterface.h \
     $$PWD/core/config/IConfigManageInterface.h \
     $$PWD/core/config/IConfigPreProcessor.h \
-    $$PWD/core/config/IContextAnnomacro.h \
     $$PWD/core/config/IContextImport.h \
     $$PWD/core/config/IContextManage.h \
     $$PWD/core/config/IContextTaskInterface.h \
@@ -49,8 +49,6 @@ HEADERS += \
     $$PWD/core/config/yaml/IYamlUtil.h \
     $$PWD/core/config/yaml/Yaml.hpp \
     $$PWD/core/core.h \
-    $$PWD/core/result/ICauseResult.h \
-    $$PWD/core/result/IConstResult.h \
     $$PWD/core/result/IResult.h \
     $$PWD/core/task/ITaskCatagory.h \
     $$PWD/core/task/ITaskCatagoryInterface.h \

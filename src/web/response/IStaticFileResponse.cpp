@@ -126,4 +126,5 @@ void IStaticFileResponseHelper::checkAndUpdateContentDisposition(bool contentDis
             = IStaticFileResponseHelper::getContentDisposition(raw->content.contentFilePath);
     }
 }
+
 $PackageWebCoreEnd

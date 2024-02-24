@@ -12,7 +12,6 @@ $PackageWebCoreBegin
 template<typename T>
 class IConfigImportInterface : public IStackObjectUnit
 {
-//    Q_DISABLE_COPY_MOVE(IConfigImportInterface)
 protected:
     explicit IConfigImportInterface(QString path, T value);
 
@@ -34,11 +33,9 @@ private:
 
 protected:
     mutable T m_data {};
-
-private:
-    mutable bool m_isFound{false};
+    mutable bool m_isFound{false};      // this value is not default value;
     const QString m_path;
-    mutable std::atomic_bool m_isLoaded{false};
+    mutable std::atomic_bool m_isLoaded{false};     // this value is loaded value.
 };
 
 template<typename T>
@@ -90,14 +87,19 @@ const QString &IConfigImportInterface<T>::path()
 template<typename T>
 T &IConfigImportInterface<T>::get() const
 {
-   if(!m_isLoaded){
-       auto value = getConfigManage()->getConfig(m_path, m_isFound);
-       if(m_isFound){
-           m_data = IJsonUtil::fromJson<T>(value, m_isFound);
-       }
-       m_isLoaded = true;
-   }
-
+    if(!m_isFound){
+        if(!m_isLoaded){
+            auto value  = getConfigManage()->getConfig(m_path);
+            if(value.isOk()){
+                auto realValue = IJsonUtil::fromJson<T>(value);
+                if(realValue.isOk()){
+                    m_data = realValue;
+                    m_isFound = true;
+                }
+            }
+        }
+        m_isLoaded = true;
+    }
     return m_data;
 }
 

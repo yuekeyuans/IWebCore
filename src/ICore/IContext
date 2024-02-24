@@ -1,5 +1,5 @@
 ﻿#pragma once
 
-#include "core/config/IContextAnnomacro.h"
+#include "core/config/IConfigAnnomacro.h"
 #include "core/config/IContextManage.h"
 #include "core/config/IContextImport.h"
