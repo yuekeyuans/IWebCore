@@ -13,8 +13,10 @@ public:
 
 private:
     virtual double order() const;
+    QStringList getConfigDirs() const;
     QStringList getJsonPaths() const;
-    QJsonObject parseJsonFile(const QString& path) const;
+    QStringList getValidatedJsonPaths() const;
+    QJsonObject parseJsonFile(const QString& path) const;    
 };
 
 $PackageWebCoreEnd

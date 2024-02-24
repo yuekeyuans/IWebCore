@@ -96,13 +96,26 @@ inline bool IToeUtil::isTruthy(const QString &value)
     return !isFalsy(value);
 }
 
+// TODO: 这里要做集中的测试
 inline QString IToeUtil::trimQuote(const QString &content)
 {
-    static const QString quote = "\\\"";
+    static const QString quote0 = "\"";
+    if(content.startsWith(quote0) && content.endsWith(quote0)){
+        return content.mid(1, content.length() - 2);
+    }
 
-    if(content.startsWith(quote) && content.endsWith(quote)){
+    static const QString quote1 = "\\\"";
+    if(content.startsWith(quote1) && content.endsWith(quote1)){
+        qFatal("here");
         return content.mid(2, content.length() - 4);
     }
+
+    static const QString quote2 = "\"\\\"";
+    if(content.startsWith(quote2) && content.endsWith(quote2)){
+        qFatal("here");
+        return content.mid(3, content.length() - 6);
+    }
+
     return content;
 }
 

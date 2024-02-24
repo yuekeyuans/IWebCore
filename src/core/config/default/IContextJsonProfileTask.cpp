@@ -16,7 +16,7 @@ QJsonValue IContextJsonProfileTask::config()
         return {};
     }
 
-    auto paths = getJsonPaths();
+    auto paths = getValidatedJsonPaths();
     for(auto path : paths){
         auto obj = parseJsonFile(path);
         IProfileManage::instance()->addConfig(obj);
@@ -30,23 +30,52 @@ double IContextJsonProfileTask::order() const
     return 99.0;
 }
 
-QStringList IContextJsonProfileTask::getJsonPaths() const
+QStringList IContextJsonProfileTask::getConfigDirs() const
 {
+    QStringList ret;
     $Context<QJsonObject> paths{"config.configFilePaths"};
     if(!paths.isFound()){
-        return {};
+        return ret;
     }
 
     QStringList keys = paths.value().keys();
-    qDebug() << keys << "keys";
+    for(const auto& key : keys){
+        ret.append(paths.value()[key].toString());
+    }
+    return ret;
+}
 
+QStringList IContextJsonProfileTask::getJsonPaths() const
+{
+    QStringList filesPaths;
+    auto dirs = getConfigDirs();
+    for(auto dirPath : dirs){
+        QDir dir(dirPath);
+        auto entries = dir.entryInfoList({"*.json"});
+        for(const auto& fileInfo : entries){
+            if(!fileInfo.isDir() && fileInfo.filePath().endsWith("config.json")){
+                filesPaths.append(fileInfo.filePath());
+            }
+        }
+    }
+    return filesPaths;
+}
+
+QStringList IContextJsonProfileTask::getValidatedJsonPaths() const
+{
+    auto paths = getJsonPaths();
+
+    $ContextQString exp{"config.configFilesFilter", ""};
+    if(!exp.isFound() || exp == ""){
+        return paths;
+    }
 
     QStringList ret;
-    QDir dir(":/");
-    auto entries = dir.entryInfoList({"*.json"});
-    for(auto fileInfo : entries){
-        if(!fileInfo.isDir() && fileInfo.filePath().endsWith("config.json")){
-            ret.append(fileInfo.filePath());
+    QRegExp reg(exp.value());
+    reg.setPatternSyntax(QRegExp::Wildcard);
+    for(const auto& path : paths){
+        if(reg.exactMatch(QFileInfo(path).fileName())){
+            ret.append(path);
         }
     }
     return ret;
