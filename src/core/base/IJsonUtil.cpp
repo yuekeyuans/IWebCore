@@ -110,7 +110,7 @@ QJsonValue IJsonUtil::toJsonValue(double content, bool& ok)
 
 QJsonValue IJsonUtil::toJsonValue(const QJsonValue &value, bool& ok)
 {
-    IToeUtil::setOk(ok, true);
+    ok = true;
     return value;
 }
 
