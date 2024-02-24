@@ -1,4 +1,5 @@
 ﻿#include "IContextTomlProfileTask.h"
+#include "ITomlUtil.h"
 
 $PackageWebCoreBegin
 

@@ -2,6 +2,8 @@ INCLUDEPATH += $$PWD
 
 QT += network sql xml testlib
 
+include($$PWD/core/package/package.pri)
+
 PRECOMPILED_HEADER = $$PWD/core/base/IHeaderUtil.h
 
 HEADERS += \
@@ -46,6 +48,7 @@ HEADERS += \
     $$PWD/core/config/default/IContextSystemVariableTask.h \
     $$PWD/core/config/default/IContextTomlProfileTask.h \
     $$PWD/core/config/default/IContextYamlProfileTask.h \
+    $$PWD/core/config/default/ILoadProfileFileUnit.h \
     $$PWD/core/config/yaml/IYamlUtil.h \
     $$PWD/core/config/yaml/Yaml.hpp \
     $$PWD/core/core.h \
@@ -220,6 +223,7 @@ SOURCES += \
     $$PWD/core/config/default/IContextSystemVariableTask.cpp \
     $$PWD/core/config/default/IContextTomlProfileTask.cpp \
     $$PWD/core/config/default/IContextYamlProfileTask.cpp \
+    $$PWD/core/config/default/ILoadProfileFileUnit.cpp \
     $$PWD/core/config/yaml/IYamlUtil.cpp \
     $$PWD/core/config/yaml/Yaml.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \
@@ -347,6 +351,8 @@ DISTFILES += \
     $$PWD/core/base/base \
     $$PWD/core/assertion/assertion \
     $$PWD/core/core.h \
+    $$PWD/core/package/toml/LICENSE \
+    $$PWD/core/package/toml/README.md \
     $$PWD/core/task/task \
     $$PWD/orm/orm \
     $$PWD/web/common \
