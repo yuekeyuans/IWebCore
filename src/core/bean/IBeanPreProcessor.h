@@ -2,7 +2,7 @@
 
 #include "core/base/IPreProcessorUtil.h"
 
-// TODO: check return IConvertUtil::toJsonObject(map, ok); \
+// TODO: check return IConvertUtil::toJsonObject(map, ok);
 
 #define $_UseGadget(klassName)   \
 public:\

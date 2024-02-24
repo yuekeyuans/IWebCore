@@ -20,6 +20,11 @@ QJsonValue IContextYamlProfileTask::config()
     return {};
 }
 
+double IContextYamlProfileTask::order() const
+{
+    return 99.0;
+}
+
 QStringList IContextYamlProfileTask::getYamlPaths(){
     QStringList ret;
     auto entries = QDir(":/").entryInfoList({"*.yaml"});

@@ -23,7 +23,7 @@ public:
 
 public:
     virtual double order() const{ return 2;}
-    virtual QString name() const final { return "Sqlite Dialect";}
+    virtual QString name() const final { return IMetaUtil::getTypename<T>();}
     virtual QString catagory() const final { return "Orm"; }
     virtual void task() final;
 };

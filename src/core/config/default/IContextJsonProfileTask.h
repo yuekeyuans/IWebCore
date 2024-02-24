@@ -12,6 +12,7 @@ public:
     virtual QJsonValue config() final;
 
 private:
+    virtual double order() const;
     QStringList getJsonPaths() const;
     QJsonObject parseJsonFile(const QString& path) const;
 };

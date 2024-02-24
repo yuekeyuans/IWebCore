@@ -4,16 +4,16 @@
 
 //#include "core/bean/IBeanTypeManage.h"
 
+$EnableDefaultConfigFiles
+
 $EnableTaskOutput
-$EnableControllerPrint(true)
+//$EnableControllerPrint(true)
 $EnableCatagory(Controller)
 $SetIpPort(1000)
 
 int main(int argc, char *argv[])
 {
     IApplication a(argc, argv);
-
-//    IBeanTypeManage manage;
 
     IHttpServer server;
     server.setPort(81);

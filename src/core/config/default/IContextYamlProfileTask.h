@@ -12,6 +12,7 @@ public:
     virtual QJsonValue config();
 
 private:
+    virtual double order() const final;
     QStringList getYamlPaths();
     QJsonObject parseYamlFile(const QString& path);
 };

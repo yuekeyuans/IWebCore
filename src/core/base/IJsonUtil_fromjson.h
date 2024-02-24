@@ -34,6 +34,10 @@ bool fromJson<bool>(const QJsonValue&, bool& ok);
 template<>
 IResult<bool> fromJson<bool>(const QJsonValue&);
 
+template<>
+QJsonObject fromJson<QJsonObject>(const QJsonValue&, bool& ok);
+template<>
+IResult<QJsonObject> fromJson<QJsonObject>(const QJsonValue&);
 }
 
 // TODO: directly copy, this should be changed;
@@ -79,11 +83,21 @@ template<>
 inline bool IJsonUtil::fromJson<bool>(const QJsonValue& value, bool& ok){
     return IConvertUtil::toBool(value, ok);
 }
-
 template<>
 inline IResult<bool> IJsonUtil::fromJson<bool>(const QJsonValue& value){
     bool ok;
     auto val = IConvertUtil::toBool(value, ok);
+    return {val, ok};
+}
+
+template<>
+inline QJsonObject IJsonUtil::fromJson<QJsonObject>(const QJsonValue& value, bool& ok){
+    return IJsonUtil::toJsonObject(value, ok);
+}
+template<>
+inline IResult<QJsonObject> IJsonUtil::fromJson<QJsonObject>(const QJsonValue& value){
+    bool ok;
+    auto val = fromJson<QJsonObject>(value, ok);
     return {val, ok};
 }
 

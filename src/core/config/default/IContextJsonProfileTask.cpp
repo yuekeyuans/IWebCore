@@ -3,6 +3,7 @@
 #include "core/base/IFileUtil.h"
 #include "core/base/IJsonUtil.h"
 #include "core/config/IProfileManage.h"
+#include "core/config/IContextImport.h"
 
 $PackageWebCoreBegin
 
@@ -10,6 +11,11 @@ $UseGlobalAssert()
 
 QJsonValue IContextJsonProfileTask::config()
 {
+    $ContextBool enableConfigFiles{"config.enableConfigFiles", false};
+    if(!enableConfigFiles){
+        return {};
+    }
+
     auto paths = getJsonPaths();
     for(auto path : paths){
         auto obj = parseJsonFile(path);
@@ -19,8 +25,22 @@ QJsonValue IContextJsonProfileTask::config()
     return {};
 }
 
+double IContextJsonProfileTask::order() const
+{
+    return 99.0;
+}
+
 QStringList IContextJsonProfileTask::getJsonPaths() const
 {
+    $Context<QJsonObject> paths{"config.configFilePaths"};
+    if(!paths.isFound()){
+        return {};
+    }
+
+    QStringList keys = paths.value().keys();
+    qDebug() << keys << "keys";
+
+
     QStringList ret;
     QDir dir(":/");
     auto entries = dir.entryInfoList({"*.json"});
