@@ -9,7 +9,7 @@ $EnableDefaultConfigFiles
 $EnableTaskOutput
 //$EnableControllerPrint(true)
 $EnableCatagory(Controller)
-//$SetIpPort(1000)
+$SetIpPort(1000)
 
 int main(int argc, char *argv[])
 {
