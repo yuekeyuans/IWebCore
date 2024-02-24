@@ -5,13 +5,14 @@
 #include "core/base/IJsonUtil.h"
 #include "core/config/IConfigManageInterface.h"
 #include "core/unit/IStackObjectUnit.h"
+#include "core/unit/ISingletonUnit.h"
 
 $PackageWebCoreBegin
 
 template<typename T>
 class IConfigImportInterface : public IStackObjectUnit
 {
-    Q_DISABLE_COPY_MOVE(IConfigImportInterface)
+//    Q_DISABLE_COPY_MOVE(IConfigImportInterface)
 protected:
     explicit IConfigImportInterface(QString path, T value);
 

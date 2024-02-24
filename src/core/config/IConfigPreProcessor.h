@@ -6,11 +6,13 @@
 #include "core/config/IProfileTaskInterface.h"
 #include "core/task/unit/ITaskInstantUnit.h"
 
+// NOTE: klassName() = default; 会出错，不知道为啥
+
 #define PP_PRIVILIGE_CONTEXT_CONFIG(klassName, path_, value)   \
 class klassName : public ITaskInstantUnit < klassName, true >  \
 {   \
 public:     \
-    klassName() = default;  \
+    klassName() {};  \
     virtual void task() final {  \
         QString key = IToeUtil::trimQuote( #path_ ); \
         QJsonValue obj = QJsonValue(value); \
@@ -22,7 +24,7 @@ public:     \
 class klassName : public IContextTaskInterface < klassName, true >  \
 {   \
 public:     \
-    klassName() = default;  \
+    klassName() {};  \
     virtual QJsonValue config() final   {  return value; }  \
     virtual QString path() const final { return IToeUtil::trimQuote( #path_ ); }  \
 };
@@ -31,7 +33,7 @@ public:     \
 class klassName : public IProfileTaskInterface < klassName, true >  \
 {   \
 public:     \
-    klassName() = default;  \
+    klassName() {};  \
     virtual QJsonValue config() final   {  return value; }  \
     virtual QString path() const final { return IToeUtil::trimQuote( #path_ ); }  \
 };

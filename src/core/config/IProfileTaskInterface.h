@@ -44,6 +44,7 @@ QString IProfileTaskInterface<T, enabled>::catagory() const
 template<typename T, bool enabled>
 void IProfileTaskInterface<T, enabled>::task()
 {
+    qDebug() << "call here" << config() << path();
     auto value = config();
     if(!value.isNull() && !value.isUndefined()){
         IProfileManage::instance()->addConfig(value, path());
