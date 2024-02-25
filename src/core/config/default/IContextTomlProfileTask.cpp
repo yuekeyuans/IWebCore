@@ -100,12 +100,18 @@ static std::vector<char> toVector(std::string value)
 
 QJsonValue IContextTomlProfileTask::parseToml(const QString &path, bool &ok)
 {
-    QString content = IFileUtil::readFileAsString(path, ok);
-    if(ok){
-        auto vec = toVector(content.toStdString());
-        auto value = toml::detail::parse(vec, path.toStdString());
+    if(path.startsWith(":/")){
+        QString content = IFileUtil::readFileAsString(path, ok);
+        if(ok){
+            auto vec = toVector(content.toStdString());
+            auto value = toml::detail::parse(vec, path.toStdString());
+            return tomlToJson(value);
+        }
+    }else{
+        auto value = toml::parse(path.toStdString());
         return tomlToJson(value);
     }
+
     return {};
 }
 

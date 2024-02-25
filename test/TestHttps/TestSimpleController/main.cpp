@@ -6,6 +6,9 @@
 
 $EnableDefaultConfigFiles
 
+//$EnableConfigFiles(true)
+//$SetConfigFilesPath("D:/code/IWebCore/test/TestHttps/TestSimpleController/config")
+
 $EnableTaskOutput
 //$EnableControllerPrint(true)
 $EnableCatagory(Controller)
