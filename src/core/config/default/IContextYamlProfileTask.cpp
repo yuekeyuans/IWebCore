@@ -1,7 +1,6 @@
 ﻿#include "IContextYamlProfileTask.h"
 #include "core/assert/IGlobalAssert.h"
 #include "core/base/IFileUtil.h"
-#include "core/config/yaml/IYamlUtil.h"
 #include "core/config/IProfileManage.h"
 #include "core/config/IContextImport.h"
 #include "Yaml.hpp"
@@ -48,6 +47,9 @@ static QJsonValue toValue( const Yaml::Node& node){
     if(node.IsNone()){
         return "";
     }
+//    if()
+
+
     if(node.IsScalar()){
         // TODO: 这个需要解析成不同的数据类型, 先不做这个了，麦格雷
         auto value = QString::fromStdString( node.As<std::string>());
@@ -81,7 +83,7 @@ static QJsonObject toJsonObject(const QString &content, bool& ok)
 QJsonValue IContextYamlProfileTask::config()
 {
     $ContextBool enableConfigFiles{"config.enableConfigFiles", false};
-    if(!enableConfigFiles){
+    if(!enableConfigFiles.isFound() || !enableConfigFiles){
         return {};
     }
 

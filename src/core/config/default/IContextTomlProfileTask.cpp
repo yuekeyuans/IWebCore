@@ -14,7 +14,7 @@ double IContextTomlProfileTask::order() const
 QJsonValue IContextTomlProfileTask::config()
 {
     $ContextBool enableConfigFiles{"config.enableConfigFiles", false};
-    if(!enableConfigFiles){
+    if(!enableConfigFiles.isFound() || !enableConfigFiles){
         return {};
     }
 
