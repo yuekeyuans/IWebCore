@@ -61,13 +61,13 @@ static QJsonValue toValue( const Yaml::Node& node){
 
 static QJsonObject toJsonObject(const QString &content, bool& ok)
 {
-    IToeUtil::setOk(ok, true);
+    ok = true;
     Yaml::Node root;
 
     try {
         Yaml::Parse(root, content.toStdString());
     } catch (Yaml::ParsingException e) {
-        IToeUtil::setOk(ok, false);
+        ok = false;
         IAssertInfo info;
         info.reason = e.what();
         $GlobalAssert->fatal("ConfigurationCovertYamlFailError", info);    // actually, it need not ok, but for compat, write here for future.
@@ -76,7 +76,7 @@ static QJsonObject toJsonObject(const QString &content, bool& ok)
         return toObject(root);
     }
 
-    IToeUtil::setOk(ok, false);
+    ok = false;
     return {};
 }
 

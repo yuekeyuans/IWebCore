@@ -17,14 +17,6 @@ bool IConvertUtil::toBool(bool value, bool& ok)
     return value ? true : false;
 }
 
-/*!
- * convert QString type to bool. the QString will be passed to IToeUtil::isTruthy function
- * is the QString value is truthy, the function will return true, else false.
- *
- * \param vaue string that to be converted to bool
- * \param[out] ok if convertion fails ok will be set to false
- * \return
- */
 bool IConvertUtil::toBool(const QString &value, bool& ok)
 {
     ok = true;

@@ -8,8 +8,10 @@ namespace IFileUtil {
     bool isFileExist(const QString& path);
 
     QString readFileAsString(const QString& path, bool& ok);
+    IResult<QString> readFileAsString(const QString& path);
 
     QByteArray readFileAsByteArray(const QString& path, bool& ok);
+    IResult<QByteArray> readFileAsByteArray(const QString &path);
 
     QString getFileSuffix(const QString& path);
 

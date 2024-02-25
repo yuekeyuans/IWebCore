@@ -215,7 +215,6 @@ SOURCES += \
     $$PWD/core/assert/IGlobalAssert.cpp \
     $$PWD/core/bean/IBeanTypeManage.cpp \
     $$PWD/core/config/IConfigManageInterface.cpp \
-    $$PWD/core/config/IContextManage.cpp \
     $$PWD/core/config/IProfileManage.cpp \
     $$PWD/core/config/default/IContextJsonProfileTask.cpp \
     $$PWD/core/config/default/IContextSystemVariableTask.cpp \
