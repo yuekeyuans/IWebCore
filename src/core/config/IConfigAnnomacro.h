@@ -154,4 +154,4 @@
 #define $EnableDefaultConfigFiles   \
     $EnableConfigFiles(true)   \
     $SetConfigFilesPath(":/config/")    \
-    $SetConfigFilesFilter("*.toml")
+    $SetConfigFilesFilter("*.yaml")

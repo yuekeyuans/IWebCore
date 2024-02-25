@@ -1,11 +1,6 @@
 INCLUDEPATH += $$PWD
 
-QT += network sql xml testlib
-
-PRECOMPILED_HEADER = $$PWD/core/base/IHeaderUtil.h
-
 HEADERS += \
-#    $$PWD/ITomlUtil.h \
     $$PWD/toml.hpp \
     $$PWD/toml/color.hpp \
     $$PWD/toml/combinator.hpp \
@@ -31,8 +26,6 @@ HEADERS += \
     $$PWD/toml/value.hpp \
     $$PWD/toml/version.hpp
 
-#SOURCES += \
-#    $$PWD/ITomlUtil.cpp
 
 
 

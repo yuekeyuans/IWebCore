@@ -49,8 +49,6 @@ HEADERS += \
     $$PWD/core/config/default/IContextTomlProfileTask.h \
     $$PWD/core/config/default/IContextYamlProfileTask.h \
     $$PWD/core/config/default/ILoadProfileFileUnit.h \
-    $$PWD/core/config/yaml/IYamlUtil.h \
-    $$PWD/core/config/yaml/Yaml.hpp \
     $$PWD/core/core.h \
     $$PWD/core/result/IResult.h \
     $$PWD/core/task/ITaskCatagory.h \
@@ -224,8 +222,6 @@ SOURCES += \
     $$PWD/core/config/default/IContextTomlProfileTask.cpp \
     $$PWD/core/config/default/IContextYamlProfileTask.cpp \
     $$PWD/core/config/default/ILoadProfileFileUnit.cpp \
-    $$PWD/core/config/yaml/IYamlUtil.cpp \
-    $$PWD/core/config/yaml/Yaml.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \
     $$PWD/core/task/default/IBannerTask.cpp \
     $$PWD/core/task/default/IConfigTaskCatagory.cpp \
