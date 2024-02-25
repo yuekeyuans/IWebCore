@@ -62,8 +62,8 @@ public:
 
     const QMap<QString, QByteArray>& bodyFormParameters() const;
     const QVector<IMultiPart>& bodyMultiParts() const;
-    const QJsonValue& bodyJson(bool& ok) const;
-    const QDomNode& bodyXml(bool& ok) const;
+    QJsonValue bodyJson(bool& ok) const;
+//    const QDomNode& bodyXml(bool& ok) const;
 
     QByteArray getParameter(const QString& name, bool& ok) const;
     QByteArray getMixedParameter(const QString& name, bool& ok) const;

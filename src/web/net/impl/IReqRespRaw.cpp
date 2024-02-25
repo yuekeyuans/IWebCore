@@ -68,28 +68,36 @@ void IReqRespRaw::setInvalidIf(bool condition, IHttpStatus status, const QString
     }
 }
 
-QJsonValue &IReqRespRaw::getRequestJson(bool& ok)
+// TODO: 这里需要查看一下，感觉返回数据过于早了，应该统一处理的。
+QJsonValue IReqRespRaw::getRequestJson(bool& ok)
 {
-    IToeUtil::setOk(ok, true);
     if(!isJsonInited){
         m_requestJson = IJsonUtil::toJsonValue(m_requestBody, ok);
         setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, "convert body to json failed");
         isJsonInited = true;
     }
+    ok = true;
     return m_requestJson;
 }
 
-// TODO: xml 不再被支持， 以后考虑支持
-QDomNode &IReqRespRaw::getRequestXml(bool& ok)
+IResult<QJsonValue> IReqRespRaw::getRequestJson()
 {
-    IToeUtil::setOk(ok, true);
-    if(!isXmlInited){
-        m_requestXml = IXmlUtil::toXml(m_requestBody, ok);
-        setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, "convert body to xml failed");
-        isXmlInited = true;
-    }
-    return m_requestXml;
+    bool ok;
+    auto value = getRequestJson(ok);
+    return {value, ok};
 }
+
+// TODO: xml 不再被支持， 以后考虑支持
+//QDomNode &IReqRespRaw::getRequestXml(bool& ok)
+//{
+//    IToeUtil::setOk(ok, true);
+//    if(!isXmlInited){
+//        m_requestXml = IXmlUtil::toXml(m_requestBody, ok);
+//        setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, "convert body to xml failed");
+//        isXmlInited = true;
+//    }
+//    return m_requestXml;
+//}
 
 void IReqRespRaw::writeSocket(const QByteArray &content)
 {

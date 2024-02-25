@@ -25,15 +25,15 @@ IRequestImpl::IRequestImpl(IReqRespRaw *raw)
     this->raw = raw;
 }
 
-QJsonValue &IRequestImpl::requestJson(bool& ok) const
+QJsonValue IRequestImpl::requestJson(bool& ok) const
 {
     return raw->getRequestJson(ok);
 }
 
-QDomNode &IRequestImpl::requestXml(bool& ok) const
-{
-    return raw->getRequestXml(ok);
-}
+//QDomNode &IRequestImpl::requestXml(bool& ok) const
+//{
+//    return raw->getRequestXml(ok);
+//}
 
 int IRequestImpl::contentLength() const
 {

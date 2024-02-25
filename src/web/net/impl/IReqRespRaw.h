@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "core/result/IResult.h"
 #include "web/biscuits/IHttpHeader.h"
 #include "web/biscuits/IHttpMethod.h"
 #include "web/biscuits/IHttpMime.h"
@@ -32,10 +33,10 @@ public:
     void setInvalid(IHttpStatus status, const QString& message);
     void setInvalidIf(bool condition, IHttpStatus status, const QString& message);
 
-    QJsonValue& getRequestJson(bool& ok);
+    QJsonValue getRequestJson(bool& ok);
+    IResult<QJsonValue> getRequestJson();
 
-
-    QDomNode&   getRequestXml(bool& ok);
+//    QDomNode&   getRequestXml(bool& ok);
 
 
 public:         // 这些东西先抽象出来，等到改变 socket 的时候就相对依赖小一点

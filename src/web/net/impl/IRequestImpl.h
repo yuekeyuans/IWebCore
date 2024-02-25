@@ -24,8 +24,8 @@ public:
 public:
     IRequestImpl(IReqRespRaw* raw);
 
-    QJsonValue& requestJson(bool& ok) const;
-    QDomNode &requestXml(bool& ok) const;
+    QJsonValue requestJson(bool& ok) const;
+//    QDomNode &requestXml(bool& ok) const;
 
     int contentLength() const;
     QString contentType() const;
