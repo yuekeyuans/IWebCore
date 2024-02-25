@@ -2,11 +2,6 @@
 
 #include <type_traits>
 
-#pragma once
-
-#include <type_traits>
-#include <string>
-
 template<typename T>
 struct IConstResult;
 

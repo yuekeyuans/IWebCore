@@ -3,7 +3,7 @@
 
 $PackageWebCoreBegin
 
-inline bool IFileUtil::isFileExist(const QString &path)
+bool IFileUtil::isFileExist(const QString &path)
 {
     if(path.startsWith(":")){
         QFileInfo fileInfo(path);
@@ -13,7 +13,7 @@ inline bool IFileUtil::isFileExist(const QString &path)
     return QFile(path).exists();
 }
 
-inline QString IFileUtil::readFileAsString(const QString &path, bool& ok)
+QString IFileUtil::readFileAsString(const QString &path, bool& ok)
 {
     return readFileAsByteArray(path, ok);
 }
@@ -25,7 +25,7 @@ IResult<QString> IFileUtil::readFileAsString(const QString &path)
     return {content, ok};
 }
 
-inline QByteArray IFileUtil::readFileAsByteArray(const QString &path, bool& ok)
+QByteArray IFileUtil::readFileAsByteArray(const QString &path, bool& ok)
 {
     QFile file(path);
     if(!file.exists()){
@@ -50,7 +50,7 @@ IResult<QByteArray> IFileUtil::readFileAsByteArray(const QString &path)
     return {value, ok};
 }
 
-inline QString IFileUtil::getFileSuffix(const QString &path)
+QString IFileUtil::getFileSuffix(const QString &path)
 {
     return QFileInfo(path).completeSuffix();
 }

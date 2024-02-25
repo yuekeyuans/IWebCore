@@ -1,5 +1,7 @@
 ﻿#pragma once
+
 #include "core/base/IHeaderUtil.h"
+#include "core/result/IResult.h"
 
 $PackageWebCoreBegin
 
@@ -37,4 +39,3 @@ QString IFileUtil::joinPath(const T &first, const Args &...rest)
 
 $PackageWebCoreEnd
 
-#include "IFileUtil.cpp"
