@@ -157,4 +157,4 @@
 #define $EnableDefaultConfigFiles   \
     $EnableConfigFiles(true)   \
     $SetConfigFilesPath(":/config/")    \
-    $SetConfigFilesFilter("*.json")
+    $SetConfigFilesFilter("*.toml")

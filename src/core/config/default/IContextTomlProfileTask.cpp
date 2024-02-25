@@ -2,6 +2,7 @@
 #include "toml.hpp"
 #include "core/base/IFileUtil.h"
 #include "core/base/IConvertUtil.h"
+#include "core/config/IContextImport.h"
 
 $PackageWebCoreBegin
 
@@ -12,6 +13,20 @@ double IContextTomlProfileTask::order() const
 
 QJsonValue IContextTomlProfileTask::config()
 {
+    $ContextBool enableConfigFiles{"config.enableConfigFiles", false};
+    if(!enableConfigFiles){
+        return {};
+    }
+
+    auto paths = getValidatedPaths();
+    for(auto path : paths){
+        bool ok;
+        auto obj = parseToml(path, ok);
+        if(ok){
+            IProfileManage::instance()->addConfig(obj);
+        }
+    }
+
     return {};
 }
 
@@ -48,6 +63,7 @@ static QJsonValue tomlToJson(const toml::value& value) {
         for(const auto& [key, val] : obj){
             ret[QString::fromStdString(key)] = tomlToJson(val);
         }
+        return ret;
     }
     if(value.is_array()){
         QJsonArray ret;
@@ -55,6 +71,7 @@ static QJsonValue tomlToJson(const toml::value& value) {
         for (const auto& element : array) {
             ret.append(tomlToJson(element));
         }
+        return ret;
     }
     if(value.is_local_date()){
         return IConvertUtil::toString(tomlLocalDateToQDate(value.as_local_date()));
@@ -74,15 +91,27 @@ static QJsonValue tomlToJson(const toml::value& value) {
     return {};
 }
 
+static std::vector<char> toVector(std::string value)
+{
+    std::vector<char> ret(value.length());
+    std::memcpy(ret.data(), value.c_str(), sizeof(char)*value.length());
+    return ret;
+}
 
 QJsonValue IContextTomlProfileTask::parseToml(const QString &path, bool &ok)
 {
     QString content = IFileUtil::readFileAsString(path, ok);
     if(ok){
-        auto value = toml::parse(content.toUtf8());
+        auto vec = toVector(content.toStdString());
+        auto value = toml::detail::parse(vec, path.toStdString());
         return tomlToJson(value);
     }
     return {};
+}
+
+QStringList IContextTomlProfileTask::nameFilters() const
+{
+    return {"*.toml", "*.tml"};
 }
 
 

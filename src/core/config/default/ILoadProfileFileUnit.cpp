@@ -46,7 +46,7 @@ QStringList ILoadProfileFileUnit::getConfigFiles() const
         QDir dir(dirPath);
         auto entries = dir.entryInfoList(nameFilters());
         for(const auto& fileInfo : entries){
-            if(!fileInfo.isDir() && fileInfo.filePath().endsWith("config.json")){
+            if(fileInfo.isFile()){
                 filesPaths.append(fileInfo.filePath());
             }
         }
