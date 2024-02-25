@@ -2,6 +2,7 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IMetaUtil.h"
+#include "core/result/IResult.h"
 #include "core/unit/IRegisterMetaTypeUnit.h"
 #include "web/jar/IJarUnit.h"
 #include "web/jar/IMultiPart.h"
@@ -22,7 +23,8 @@ public:
     bool containRequestMulitPartName(const QString& name) const;
     QStringList getRequestMultiPartNames() const;
 
-    const IMultiPart& getRequestMultiPart(const QString& name, bool& ok) const;
+    IMultiPart getRequestMultiPart(const QString& name, bool& ok) const;
+    IResult<IMultiPart> getRequestMultiPart(const QString &name) const;
 
     const QVector<IMultiPart>& getRequestMultiParts() const;
     QVector<IMultiPart> getRequestFileMultiParts() const;

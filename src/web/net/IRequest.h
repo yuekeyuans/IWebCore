@@ -3,6 +3,7 @@
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IPreProcessorUtil.h"
 #include "core/base/IMetaUtil.h"
+#include "core/result/IResult.h"
 #include "core/unit/IRegisterMetaTypeUnit.h"
 #include "web/biscuits/IHttpMethod.h"
 #include "web/biscuits/IHttpVersion.h"
@@ -80,6 +81,8 @@ public:
     bool hasAttribute(const QString& name) const;;
     void setAttribute(const QString& name, const QVariant& value);;
     QVariant getAttribute(const QString& name, bool& ok) const;
+    IResult<QVariant> getAttribute(const QString &name) const;
+
 
     bool valid() const;
     void setInvalidIf(bool condition, IHttpStatus status, const QString& message) const;

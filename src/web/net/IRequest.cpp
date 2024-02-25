@@ -273,12 +273,19 @@ void IRequest::setAttribute(const QString &name, const QVariant &value)
 
 QVariant IRequest::getAttribute(const QString &name, bool& ok) const
 {
-    IToeUtil::setOk(ok, true);
     if(raw->m_attribute.contains(name)){
+        ok = true;
         return raw->m_attribute[name];
     }
-    IToeUtil::setOk(ok, false);
+    ok = false;
     return {};
+}
+
+IResult<QVariant> IRequest::getAttribute(const QString &name) const
+{
+    bool ok;
+    auto value = getAttribute(name, ok);
+    return {value, ok};
 }
 
 bool IRequest::valid() const

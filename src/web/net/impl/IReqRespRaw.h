@@ -33,6 +33,8 @@ public:
     void setInvalidIf(bool condition, IHttpStatus status, const QString& message);
 
     QJsonValue& getRequestJson(bool& ok);
+
+
     QDomNode&   getRequestXml(bool& ok);
 
 

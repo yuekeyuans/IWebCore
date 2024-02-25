@@ -1,5 +1,4 @@
 ﻿#include "IMultiPartJar.h"
-#include "core/base/IToeUtil.h"
 #include "web/IWebAssert.h"
 #include "web/net/impl/IReqRespRaw.h"
 
@@ -41,18 +40,25 @@ QStringList IMultiPartJar::getRequestMultiPartNames() const
 }
 
 // 这里的操作是，添加一个invalid multipart;
-const IMultiPart &IMultiPartJar::getRequestMultiPart(const QString &name, bool& ok) const
+IMultiPart IMultiPartJar::getRequestMultiPart(const QString &name, bool& ok) const
 {
     const auto& jar = m_raw->m_requestMultiParts;
     for(const auto& part : jar){
         if(part.name == name){
-            IToeUtil::setOk (ok, true);
+            ok = true;
             return part;
         }
     }
 
-    IToeUtil::setOk (ok, false);
+    ok = false;
     return IMultiPart::InvalidMulitPart;
+}
+
+IResult<IMultiPart> IMultiPartJar::getRequestMultiPart(const QString &name) const
+{
+    bool ok;
+    auto value = getRequestMultiPart(name, ok);
+    return {value, ok};
 }
 
 const QVector<IMultiPart> &IMultiPartJar::getRequestMultiParts() const
