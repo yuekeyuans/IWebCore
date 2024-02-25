@@ -11,6 +11,11 @@ class IContextTomlProfileTask : public IContextTaskInterface<IContextTomlProfile
 public:
     virtual double order() const;
     virtual QJsonValue config();
+
+private:
+    QJsonValue parseToml(const QString &path, bool &ok);
+
 };
+
 
 $PackageWebCoreEnd
