@@ -78,13 +78,9 @@ QByteArray IRequestImpl::getMixedParameter(const QString &name, bool& ok) const
 {
     static const QString mixedSuffix = "_mixed";
 
-    IToeUtil::setOk(ok, true);
     const auto& map = parameterResolverMap();
-
     IRequestImplHelper::checkDumplicatedParameters(map, this, name);        //check
-
     const QString& originName = IRequestImplHelper::getOriginName(name, mixedSuffix);
-
     for(auto& pair : map){
         auto result = std::mem_fn(pair.second)(this, originName, ok);
         if(ok){
@@ -98,14 +94,14 @@ QByteArray IRequestImpl::getMixedParameter(const QString &name, bool& ok) const
         return result;
     }
 
-    IToeUtil::setOk(ok, false);
+    ok = false;
     return {};
 }
 
+// TODO: 这个感觉不对，看一下
 QByteArray IRequestImpl::getContentParameter(const QString &name, bool& ok) const
 {
     Q_UNUSED(name);
-    IToeUtil::setOk(ok, true);
     if(raw->m_method != IHttpMethod::GET){
         IToeUtil::setOk(ok, false);
     }
@@ -117,21 +113,23 @@ QByteArray IRequestImpl::getUrlParameter(const QString &name, bool& ok) const
 {
     static const QString suffix = "_url";
 
-    IToeUtil::setOk(ok, true);
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
     if(raw->m_requestUrlParameters.contains(originName)){
+        ok = true;
         return raw->m_requestUrlParameters[originName];
     }
 
-    IToeUtil::setOk(ok, false);
+    ok = false;
     return {};
 }
 
+// TODO: 这里有一个 fatal, 需要处理掉
+// TODO: 数据处理不完全
 QByteArray IRequestImpl::getBodyParameter(const QString &name, bool& ok) const
 {
     static const QString suffix = "_body";
 
-    IToeUtil::setOk(ok, true);
+    ok = true;
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
     switch (raw->m_requestMime) {
     case IHttpMime::MULTIPART_FORM_DATA:
@@ -142,19 +140,19 @@ QByteArray IRequestImpl::getBodyParameter(const QString &name, bool& ok) const
     case IHttpMime::APPLICATION_JSON_UTF8:
         return getJsonData(originName, ok);
     case IHttpMime::TEXT_XML:
-        IToeUtil::setOk(ok, false);
+        ok = false;
         $Ast->fatal("irequest_xml_currently_not_supported");
         break;
     case IHttpMime::TEXT_PLAIN:
     case IHttpMime::TEXT_PLAIN_UTF8:
-        IToeUtil::setOk(ok, false);
+        ok = false;
         return {};
     default:
-        IToeUtil::setOk(ok, false);
+        ok = false;
         return {};
     }
 
-    IToeUtil::setOk(ok, false);
+    ok = false;
     return {};
 }
 
@@ -170,21 +168,20 @@ QByteArray IRequestImpl::getParamParameter(const QString &name, bool& ok) const
 {
     static QString suffix = "_param";
 
-    IToeUtil::setOk(ok, true);
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
     if(raw->m_requestParamParameters.contains(originName)){
+        ok = true;
         return raw->m_requestParamParameters[originName];
     }
 
-    IToeUtil::setOk(ok, false);
+    ok = false;
     return {};
 }
 
+// TODO: 这个地方的 cookie 需要查看原文档
 QByteArray IRequestImpl::getCookieParameter(const QString &name, bool& ok) const
 {
     static const QString suffix = "_cookie";
-
-    IToeUtil::setOk(ok, true);
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
 
     QByteArray ret;
@@ -199,12 +196,11 @@ QByteArray IRequestImpl::getCookieParameter(const QString &name, bool& ok) const
         }
     }
 
-    if(count != 1){
-        IToeUtil::setOk(ok, false);
-    }
+    ok = count == 1;
     return ret;
 }
 
+// TODO: session not setted!!
 QByteArray IRequestImpl::getSessionParameter(const QString &name, bool& ok) const
 {
     static const QString suffix = "_session";
