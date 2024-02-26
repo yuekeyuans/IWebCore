@@ -64,7 +64,6 @@ QByteArray IRequestImpl::getParameter(const QString &name, bool& ok) const
         IRequestImpl::getContentParameter(name, ok);
     }
 
-    IToeUtil::setOk(ok, true);
     const auto& map = parameterResolverMap();
     for(auto pair : map){
         if(name.endsWith(pair.first)){
@@ -73,13 +72,6 @@ QByteArray IRequestImpl::getParameter(const QString &name, bool& ok) const
     }
 
     return getMixedParameter(name, ok);
-}
-
-IResult<QByteArray> IRequestImpl::getParameter(const QString &name) const
-{
-    bool ok;
-    auto value = getParameter(name, ok);
-    return {value, ok};
 }
 
 QByteArray IRequestImpl::getMixedParameter(const QString &name, bool& ok) const
@@ -110,13 +102,6 @@ QByteArray IRequestImpl::getMixedParameter(const QString &name, bool& ok) const
     return {};
 }
 
-IResult<QByteArray> IRequestImpl::getMixedParameter(const QString &name) const
-{
-    bool ok;
-    auto value = getMixedParameter(name, ok);
-    return {value, ok};
-}
-
 QByteArray IRequestImpl::getContentParameter(const QString &name, bool& ok) const
 {
     Q_UNUSED(name);
@@ -126,13 +111,6 @@ QByteArray IRequestImpl::getContentParameter(const QString &name, bool& ok) cons
     }
     IToeUtil::setOk(ok, true);
     return raw->m_requestBody;
-}
-
-IResult<QByteArray> IRequestImpl::getContentParameter(const QString &name) const
-{
-    bool ok;
-    auto value = getContentParameter(name, ok);
-    return {value, ok};
 }
 
 QByteArray IRequestImpl::getUrlParameter(const QString &name, bool& ok) const
@@ -265,16 +243,12 @@ QByteArray IRequestImpl::getSystemParameter(const QString &name, bool& ok) const
 {
     static const QString suffix = "_system";
 
-    IToeUtil::setOk(ok, true);
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
-
-    bool convertOk;
-    auto value = IContextManage::instance()->getConfig(originName, convertOk);
-    if(convertOk){
+    auto value = IContextManage::instance()->getConfig(originName, ok);
+    if(ok){
         return IConvertUtil::toByteArray(value);
     }
 
-    IToeUtil::setOk(ok, convertOk);
     return {};
 }
 
@@ -303,42 +277,37 @@ void IRequestImpl::resolve()
 
 QByteArray IRequestImpl::getFormUrlValue(const QString &name, bool& ok) const
 {
-    IToeUtil::setOk(ok, true);
     if(raw->m_requestBodyParameters.contains(name)){
+        ok = true;
         return raw->m_requestBodyParameters[name];
     }
 
-    IToeUtil::setOk(ok, false);
+    ok = false;
     return {};
 }
 
 QByteArray IRequestImpl::getMultiPartFormData(const QString &name, bool& ok) const
 {
-    IToeUtil::setOk(ok, true);
     for(auto& part : raw->m_requestMultiParts){
         if(part.name == name){
+            ok = true;
             return part.content;
         }
     }
 
-    IToeUtil::setOk(ok, false);
+    ok = false;
     return {};
 }
 
 QByteArray IRequestImpl::getJsonData(const QString &name, bool& ok) const
 {
-    IToeUtil::setOk(ok, true);
-
-    bool convertOk;
-    auto json = requestJson(convertOk);
-    IToeUtil::setOkAnd(ok, convertOk);
-    if(!convertOk){
+    auto json = requestJson(ok);
+    if(!ok){
         return {};
     }
 
-    auto value = IJsonUtil::getJsonValue(json, name, convertOk);
-    IToeUtil::setOkAnd(ok, convertOk);
-    if(!convertOk){
+    auto value = IJsonUtil::getJsonValue(json, name, ok);
+    if(!ok){
         return {};
     }
 
@@ -353,13 +322,13 @@ QByteArray IRequestImpl::getJsonData(const QString &name, bool& ok) const
     case QJsonValue::Type::String:
         return value.toString().toUtf8();
     case QJsonValue::Type::Null:
-        IToeUtil::setOk(ok, false);       // TODO: json 的null 值问题 json 有 null 值, 这个可能有转换方面的bug.
+        ok = false;      // TODO: json 的null 值问题 json 有 null 值, 这个可能有转换方面的bug.
         return {};
     case QJsonValue::Type::Undefined:
-        IToeUtil::setOk(ok, false);
+        ok = false;
         return {};
     }
-    IToeUtil::setOk(ok, false);
+    ok = false;
     return {};
 }
 

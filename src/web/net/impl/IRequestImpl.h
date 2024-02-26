@@ -31,14 +31,8 @@ public:
     QString contentType() const;
 
     QByteArray getParameter(const QString &name, bool& ok) const;
-    IResult<QByteArray> getParameter(const QString &name) const;
-
     QByteArray getMixedParameter(const QString& name, bool& ok) const;
-    IResult<QByteArray>getMixedParameter(const QString &name) const;
-
     QByteArray getContentParameter(const QString& name, bool& ok) const;
-    IResult<QByteArray> getContentParameter(const QString &name) const;
-
     QByteArray getUrlParameter(const QString &name, bool& ok) const;
     QByteArray getBodyParameter(const QString &name, bool& ok) const;
     QByteArray getHeaderParameter(const QString &name, bool& ok) const;

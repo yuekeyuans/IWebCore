@@ -211,9 +211,23 @@ QByteArray IRequest::getParameter(const QString &name, bool& ok) const
     return impl->getParameter(name, ok);
 }
 
+IResult<QByteArray> IRequest::getParameter(const QString &name) const
+{
+    bool ok;
+    auto value = impl->getParameter(name, ok);
+    return {std::move(value), ok};
+}
+
 QByteArray IRequest::getMixedParameter(const QString &name, bool& ok) const
 {
     return impl->getMixedParameter(name, ok);
+}
+
+IResult<QByteArray> IRequest::getMixedParameter(const QString &name) const
+{
+    bool ok;
+    auto value = impl->getMixedParameter(name, ok);
+    return {std::move(value), ok};
 }
 
 QByteArray IRequest::getUrlParameter(const QString &name, bool& ok) const
@@ -221,9 +235,23 @@ QByteArray IRequest::getUrlParameter(const QString &name, bool& ok) const
     return impl->getUrlParameter(name, ok);
 }
 
+IResult<QByteArray> IRequest::getUrlParameter(const QString &name) const
+{
+    bool ok;
+    auto value = impl->getUrlParameter(name, ok);
+    return {std::move(value), ok};
+}
+
 QByteArray IRequest::getParamParameter(const QString &name, bool& ok) const
 {
     return impl->getParamParameter(name, ok);
+}
+
+IResult<QByteArray> IRequest::getParamParameter(const QString &name) const
+{
+    bool ok;
+    auto value = impl->getParamParameter(name, ok);
+    return {std::move(value), ok};
 }
 
 QByteArray IRequest::getHeaderParameter(const QString &name, bool& ok) const
@@ -231,9 +259,23 @@ QByteArray IRequest::getHeaderParameter(const QString &name, bool& ok) const
     return impl->getHeaderParameter(name, ok);
 }
 
+IResult<QByteArray> IRequest::getHeaderParameter(const QString &name) const
+{
+    bool ok;
+    auto value = impl->getHeaderParameter(name, ok);
+    return {std::move(value), ok};
+}
+
 QByteArray IRequest::getBodyParameter(const QString &name, bool& ok) const
 {
     return impl->getBodyParameter(name, ok);
+}
+
+IResult<QByteArray> IRequest::getBodyParameter(const QString &name) const
+{
+    bool ok;
+    auto value = impl->getBodyParameter(name, ok);
+    return {std::move(value), ok};
 }
 
 QByteArray IRequest::getCookieParameter(const QString &name, bool& ok) const
@@ -241,9 +283,23 @@ QByteArray IRequest::getCookieParameter(const QString &name, bool& ok) const
     return impl->getCookieParameter(name, ok);
 }
 
+IResult<QByteArray> IRequest::getCookieParameter(const QString &name) const
+{
+    bool ok;
+    auto value = impl->getCookieParameter(name, ok);
+    return {std::move(value), ok};
+}
+
 QByteArray IRequest::getSessionParameter(const QString &name, bool& ok) const
 {
     return impl->getSessionParameter(name, ok);
+}
+
+IResult<QByteArray> IRequest::getSessionParameter(const QString &name) const
+{
+    bool ok;
+    auto value = impl->getSessionParameter(name, ok);
+    return {std::move(value), ok};
 }
 
 QByteArray IRequest::getAppParameter(const QString &name, bool& ok) const
@@ -251,9 +307,23 @@ QByteArray IRequest::getAppParameter(const QString &name, bool& ok) const
     return impl->getAppParameter(name, ok);
 }
 
+IResult<QByteArray> IRequest::getAppParameter(const QString &name) const
+{
+    bool ok;
+    auto value = impl->getAppParameter(name, ok);
+    return {std::move(value), ok};
+}
+
 QByteArray IRequest::getSystemParameter(const QString &name, bool& ok) const
 {
     return impl->getSystemParameter(name, ok);
+}
+
+IResult<QByteArray> IRequest::getSystemParameter(const QString &name) const
+{
+    bool ok;
+    auto value = impl->getSystemParameter(name, ok);
+    return {std::move(value), ok};
 }
 
 const QMap<QString, QVariant> &IRequest::attributes() const
