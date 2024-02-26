@@ -66,20 +66,39 @@ public:
 //    const QDomNode& bodyXml(bool& ok) const;
 
     QByteArray getParameter(const QString& name, bool& ok) const;
+    IResult<QByteArray> getParameter(const QString& name) const;
+
     QByteArray getMixedParameter(const QString& name, bool& ok) const;
+    IResult<QByteArray> getMixedParameter(const QString& name) const;
+
     QByteArray getUrlParameter(const QString& name, bool& ok) const;
+    IResult<QByteArray> getUrlParameter(const QString& name) const;
+
     QByteArray getParamParameter(const QString& name, bool& ok) const ;
+    IResult<QByteArray> getParamParameter(const QString& name) const ;
+
     QByteArray getHeaderParameter(const QString& name, bool& ok) const;
+    IResult<QByteArray> getHeaderParameter(const QString& name) const;
+
     QByteArray getBodyParameter(const QString& name, bool& ok) const;
+    IResult<QByteArray> getBodyParameter(const QString& name) const;
+
 
     QByteArray getCookieParameter(const QString& name, bool& ok) const;
-    QByteArray getSessionParameter(const QString& name, bool& ok) const;
-    QByteArray getAppParameter(const QString& name, bool& ok) const;
-    QByteArray getSystemParameter(const QString& name, bool& ok) const;
+    IResult<QByteArray> getCookieParameter(const QString& name) const;
 
-    const QMap<QString, QVariant>& attributes() const;;
-    bool hasAttribute(const QString& name) const;;
-    void setAttribute(const QString& name, const QVariant& value);;
+    QByteArray getSessionParameter(const QString& name, bool& ok) const;
+    IResult<QByteArray> getSessionParameter(const QString& name) const;
+
+    QByteArray getAppParameter(const QString& name, bool& ok) const;
+    IResult<QByteArray> getAppParameter(const QString& name) const;
+
+    QByteArray getSystemParameter(const QString& name, bool& ok) const;
+    IResult<QByteArray> getSystemParameter(const QString& name) const;
+
+    const QMap<QString, QVariant>& attributes() const;
+    bool hasAttribute(const QString& name) const;
+    void setAttribute(const QString& name, const QVariant& value);
     QVariant getAttribute(const QString& name, bool& ok) const;
     IResult<QVariant> getAttribute(const QString &name) const;
 

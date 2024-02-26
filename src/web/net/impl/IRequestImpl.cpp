@@ -75,6 +75,13 @@ QByteArray IRequestImpl::getParameter(const QString &name, bool& ok) const
     return getMixedParameter(name, ok);
 }
 
+IResult<QByteArray> IRequestImpl::getParameter(const QString &name) const
+{
+    bool ok;
+    auto value = getParameter(name, ok);
+    return {value, ok};
+}
+
 QByteArray IRequestImpl::getMixedParameter(const QString &name, bool& ok) const
 {
     static const QString mixedSuffix = "_mixed";
@@ -103,6 +110,13 @@ QByteArray IRequestImpl::getMixedParameter(const QString &name, bool& ok) const
     return {};
 }
 
+IResult<QByteArray> IRequestImpl::getMixedParameter(const QString &name) const
+{
+    bool ok;
+    auto value = getMixedParameter(name, ok);
+    return {value, ok};
+}
+
 QByteArray IRequestImpl::getContentParameter(const QString &name, bool& ok) const
 {
     Q_UNUSED(name);
@@ -112,6 +126,13 @@ QByteArray IRequestImpl::getContentParameter(const QString &name, bool& ok) cons
     }
     IToeUtil::setOk(ok, true);
     return raw->m_requestBody;
+}
+
+IResult<QByteArray> IRequestImpl::getContentParameter(const QString &name) const
+{
+    bool ok;
+    auto value = getContentParameter(name, ok);
+    return {value, ok};
 }
 
 QByteArray IRequestImpl::getUrlParameter(const QString &name, bool& ok) const

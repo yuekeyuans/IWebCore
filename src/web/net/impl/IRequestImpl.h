@@ -3,6 +3,7 @@
 #include "core/base/IJsonUtil.h"
 #include "core/base/IXmlUtil.h"
 #include "core/base/IConvertUtil.h"
+#include "core/result/IResult.h"
 #include "web/biscuits/IHttpHeader.h"
 #include "web/biscuits/IHttpVersion.h"
 #include "web/biscuits/IHttpMime.h"
@@ -25,15 +26,19 @@ public:
     IRequestImpl(IReqRespRaw* raw);
 
     QJsonValue requestJson(bool& ok) const;
-//    QDomNode &requestXml(bool& ok) const;
 
     int contentLength() const;
     QString contentType() const;
 
     QByteArray getParameter(const QString &name, bool& ok) const;
+    IResult<QByteArray> getParameter(const QString &name) const;
+
     QByteArray getMixedParameter(const QString& name, bool& ok) const;
+    IResult<QByteArray>getMixedParameter(const QString &name) const;
 
     QByteArray getContentParameter(const QString& name, bool& ok) const;
+    IResult<QByteArray> getContentParameter(const QString &name) const;
+
     QByteArray getUrlParameter(const QString &name, bool& ok) const;
     QByteArray getBodyParameter(const QString &name, bool& ok) const;
     QByteArray getHeaderParameter(const QString &name, bool& ok) const;
