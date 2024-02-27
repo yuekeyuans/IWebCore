@@ -6,7 +6,6 @@
 $PackageWebCoreBegin
 
 class IOrmEntityInfoWare;
-
 namespace IOrmUtil
 {
 // 单行单列 获取
