@@ -11,5 +11,8 @@ public:
 
     $GetMapping(hello, /)
     QString hello();
+
+    $GetMapping(index, hello/index)
+    IStaticFileResponse index();
 };
 

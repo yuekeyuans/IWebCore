@@ -21,6 +21,7 @@ int main(int argc, char *argv[])
     IHttpServer server;
 //    server.setPort(81);
     server.listen();
+    server.setDefaultStaticDir(R"(C:\Program Files\Go\src\net\http\testdata\)");
 
     return a.exec();
 }

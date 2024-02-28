@@ -9,3 +9,8 @@ QString TestController::hello()
 {
     return QStringLiteral("hello world");
 }
+
+IStaticFileResponse TestController::index()
+{
+    return "index.html";
+}

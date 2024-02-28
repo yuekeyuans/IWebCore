@@ -1,6 +1,6 @@
 QT -= gui
 
-CONFIG += c++17 console
+CONFIG += c++17 console /utf-8
 CONFIG -= app_bundle
 
 include(../../../src/IWebCore.pri)

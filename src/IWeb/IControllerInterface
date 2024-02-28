@@ -9,6 +9,7 @@
 #include "web/response/IByteArrayResponse.h"
 #include "web/response/IPlainTextResponse.h"
 #include "web/response/IHtmlResponse.h"
+#include "web/response/IStaticFileResponse.h"
 
 // preprocessor
 #include "web/controller/pp/IControlVariablePreProcessor.h"
