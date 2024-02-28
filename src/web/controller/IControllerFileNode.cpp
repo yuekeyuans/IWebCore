@@ -38,6 +38,7 @@ void IControllerFileNode::mountFilesToServer(const QString &dir, const QString &
 {
     IControllerFileNodeHelper::mountFilesToServer(m_urlFileHash, dir, prefix);
     IControllerFileNodeHelper::enabled = true;
+    travelPrint();
 }
 
 void IControllerFileNode::travelPrint(int space) const
