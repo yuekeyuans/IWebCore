@@ -37,8 +37,23 @@ QString IControllerFileNode::getFilePath(const QString &url) const
 void IControllerFileNode::mountFilesToServer(const QString &dir, const QString &prefix)
 {
     IControllerFileNodeHelper::mountFilesToServer(m_urlFileHash, dir, prefix);
-
     IControllerFileNodeHelper::enabled = true;
+}
+
+void IControllerFileNode::travelPrint(int space) const
+{
+    if(space == 0){
+        qDebug() << "============== file mapping begin =============";
+    }
+
+    auto keys = m_urlFileHash.keys();
+    for(const auto& key : keys){
+        qDebug() << key << m_urlFileHash[key];
+    }
+
+    if(space == 0){
+        qDebug() << "============== file mapping end =============";
+    }
 }
 
 QString IControllerFileNode::getUnRegisteredFilePath(QString url) const
@@ -75,7 +90,11 @@ void IControllerFileNodeHelper::mountFilesToServer(QHash<QString, QString>& hash
             continue;
         }
 
-        auto url = IFileUtil::joinPath(prefix, entry.fileName());
+        QString url = IFileUtil::joinPath(prefix, entry.fileName());
+        while(url.contains("//")){
+            url.replace("//", "/");
+        }
+
         auto filePath = entry.absoluteFilePath();
         mountFilePageToServer(hash, filePath, url);
     }
@@ -105,8 +124,7 @@ bool IControllerFileNodeHelper::mountFilePageToServer(QHash<QString, QString>& h
         }
 
         IAssertInfo info;
-        info.reason = QString("url: ").append(url)
-                          .append(" path1: ").append(filePath).append(" path2: ").append(hash[url]);
+        info.reason = QString("url: ").append(url).append(" path1: ").append(filePath).append(" path2: ").append(hash[url]);
         $Ast->fatal("register_the_same_url", info);
     }
     return false;

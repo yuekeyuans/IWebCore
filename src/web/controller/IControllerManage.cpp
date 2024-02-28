@@ -218,6 +218,7 @@ void IControllerManage::registerPostInterceptor(IInterceptorWare *middleWare)
 void IControllerManage::travalPrintUrlTree()
 {
     instance()->m_urlMapppings->travelPrint();
+    instance()->m_fileMappings->travelPrint();
 }
 
 QString IControllerManage::queryPathRegValidator(const QString &path)

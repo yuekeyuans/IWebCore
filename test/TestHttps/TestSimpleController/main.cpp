@@ -10,7 +10,7 @@ $EnableDefaultConfigFiles
 //$SetConfigFilesPath("D:/code/IWebCore/test/TestHttps/TestSimpleController/config")
 
 $EnableTaskOutput
-//$EnableControllerPrint(true)
+$EnableControllerPrint(true)
 $EnableCatagory(Controller)
 $SetIpPort(1000)
 
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
     IHttpServer server;
 //    server.setPort(81);
     server.listen();
-    server.setDefaultStaticDir(R"(C:\Program Files\Go\src\net\http\testdata\)");
+    server.serveStatic(R"(C:\Program Files\Go\src\net\http\testdata\)");
 
     return a.exec();
 }

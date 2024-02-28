@@ -9,10 +9,10 @@ class TestController : public IControllerInterface<TestController, true>
 public:
     TestController();
 
-    $GetMapping(hello, /)
+//    $GetMapping(hello, /)
     QString hello();
 
-    $GetMapping(index, hello/index)
+//    $GetMapping(index, hello/index)
     IStaticFileResponse index();
 };
 
