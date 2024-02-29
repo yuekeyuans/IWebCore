@@ -8,14 +8,6 @@ $UseGlobalAssert()
 
 namespace IConfigUnitHelper
 {
-    struct ConfigurationBean{
-        QString type;
-        QString name;
-        QString path;
-        bool optional {false};
-        QMetaType::Type typeId {QMetaType::UnknownType};
-    };
-
     static void validatePath(const QStringList& args){
         if(args.contains("@^") || args.contains("@$")){
             $GlobalAssert->warn("JsonMergeWarnWithArray");
@@ -144,6 +136,8 @@ void IConfigManageInterface::addConfig(const QJsonValue &value, const QString &p
         }
         QJsonObject obj = value.toObject();
         m_configs = IConfigUnitHelper::mergeJsonObject(m_configs, obj);
+        qDebug() << m_configs;
+
     }else{
         m_configs = IConfigUnitHelper::addToJsonObject(m_configs, path, value);
     }
