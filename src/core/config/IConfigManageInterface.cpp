@@ -144,19 +144,6 @@ void IConfigManageInterface::addConfig(const QJsonValue &value, const QString &p
         }
         QJsonObject obj = value.toObject();
         m_configs = IConfigUnitHelper::mergeJsonObject(m_configs, obj);
-        qDebug() << m_configs;
-
-
-//        auto names = obj.keys();
-//        for(const auto& name : names){
-//            if(!m_configs.contains(name)){
-//                m_configs[name] = obj[name];
-//            }else{
-////                m_configs = IConfigUnitHelper::addToJsonObject(m_configs, name, obj[name]);
-//                m_configs = IConfigUnitHelper::mergeJsonObject(m_configs, )
-//                qDebug() << "merge after" << m_configs;
-//            }
-//        }
     }else{
         m_configs = IConfigUnitHelper::addToJsonObject(m_configs, path, value);
     }
