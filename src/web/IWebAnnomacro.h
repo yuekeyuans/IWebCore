@@ -10,3 +10,6 @@
 
 #define $SetIpPort(value)   \
     PP_PROFILE_CONFIG(SetIpPort, http.port, value)
+
+#define $SetStaticLocation(value)  \
+    PP_PROFILE_CONFIG(SetStaticLocation, http.staticLocation, value)

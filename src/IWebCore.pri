@@ -59,6 +59,7 @@ HEADERS += \
     $$PWD/core/task/default/IEndupTaskCatagory.h \
     $$PWD/core/task/default/IEndupTaskInterface.h \
     $$PWD/core/task/default/IInitializationTaskCatagory.h \
+    $$PWD/core/task/default/IInitializationTaskInterface.h \
     $$PWD/core/task/default/IStartupTaskCatagory.h \
     $$PWD/core/task/default/IStartupTaskInterface.h \
     $$PWD/core/task/ITaskManage.h \
@@ -121,6 +122,7 @@ HEADERS += \
     $$PWD/web/biscuits/IHttpMime.h \
     $$PWD/web/biscuits/IHttpStatus.h \
     $$PWD/web/biscuits/IHttpVersion.h \
+    $$PWD/web/config/IStaticFileServiceTask.h \
     $$PWD/web/controller/IControllerFileNode.h \
     $$PWD/web/controller/private/IControllerInfo.h \
     $$PWD/web/core/defaultTask/IBluePrintControllerTask.h \
@@ -225,7 +227,6 @@ SOURCES += \
     $$PWD/core/task/default/IBannerTask.cpp \
     $$PWD/core/task/default/IConfigTaskCatagory.cpp \
     $$PWD/core/task/default/IEndupTaskCatagory.cpp \
-    $$PWD/core/task/default/IEndupTaskInterface.cpp \
     $$PWD/core/task/default/IInitializationTaskCatagory.cpp \
     $$PWD/core/task/default/IStartupTaskCatagory.cpp \
     $$PWD/core/task/ITaskManage.cpp \
@@ -272,6 +273,7 @@ SOURCES += \
     $$PWD/web/biscuits/IHttpMime.cpp \
     $$PWD/web/biscuits/IHttpStatus.cpp \
     $$PWD/web/biscuits/IHttpVersion.cpp \
+    $$PWD/web/config/IStaticFileServiceTask.cpp \
     $$PWD/web/controller/IControllerFileNode.cpp \
     $$PWD/web/controller/private/IControllerInfo.cpp \
     $$PWD/web/core/defaultTask/IBluePrintControllerTask.cpp \

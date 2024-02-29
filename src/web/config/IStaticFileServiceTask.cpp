@@ -1,6 +1,12 @@
-#include "IStaticFileServiceTask.h"
+﻿#include "IStaticFileServiceTask.h"
+#include "core/config/IProfileImport.h"
 
-IStaticFileServiceTask::IStaticFileServiceTask()
+$PackageWebCoreBegin
+
+void IStaticFileServiceTask::task()
 {
-
+    $QString staticPath{"http.staticLocation"};
+    qDebug() << staticPath.isFound() << staticPath;
 }
+
+$PackageWebCoreEnd

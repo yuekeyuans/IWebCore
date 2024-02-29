@@ -112,44 +112,44 @@
     PP_NORMAL_CONTEXT_CONFIG(SetConfigFilesFilter, config.configFilesFilter, value)
 
 // SetConfigFilesPath
-#define $SetConfigFilesPath_(N) $SetConfigFilesPath_##N
-#define $SetConfigFilesPath_EVAL(N) $SetConfigFilesPath_(N)
-#define $SetConfigFilesPath(...) PP_EXPAND( $SetConfigFilesPath_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
+#define $SetConfigFilespath1_(N) $SetConfigFilespath1_##N
+#define $SetConfigFilespath1_EVAL(N) $SetConfigFilespath1_(N)
+#define $SetConfigFilesPath(...) PP_EXPAND( $SetConfigFilespath1_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
 
-#define $SetConfigFilesPath_1(path1) \
-    PP_NORMAL_CONTEXT_CONFIG(SetConfigFilesPath_1, config.configFilePaths.path1, path1)
+#define $SetConfigFilespath1_1(path1_) \
+    PP_NORMAL_CONTEXT_CONFIG(SetConfigFilespath1_1, config.configFilePaths.path1, path1_)
 
-#define $SetConfigFilesPath_2(path1, path2) \
-    $SetConfigFilesPath(path1) \
-    PP_NORMAL_CONTEXT_CONFIG(SetConfigFilesPath_2, config.configFilePaths.path2, path2)
+#define $SetConfigFilespath1_2(path1_, path2_) \
+    $SetConfigFilesPath(path1_) \
+    PP_NORMAL_CONTEXT_CONFIG(SetConfigFilespath1_2, config.configFilePaths.path2, path2_)
 
-#define $SetConfigFilesPath_3(path1, path2, path3) \
-    $SetConfigFilesPath(path1, path2) \
-    PP_NORMAL_CONTEXT_CONFIG(SetConfigFilesPath_3, config.configFilePaths.path3, path3)
+#define $SetConfigFilespath1_3(path1_, path2_, path3_) \
+    $SetConfigFilesPath(path1_, path2_) \
+    PP_NORMAL_CONTEXT_CONFIG(SetConfigFilespath1_3, config.configFilePaths.path3, path3_)
 
-#define $SetConfigFilesPath_4(path1, path2, path3, path4) \
-    $SetConfigFilesPath(path1, path2, path3) \
-    PP_NORMAL_CONTEXT_CONFIG(SetConfigFilesPath_4, config.configFilePaths.path4, path4)
+#define $SetConfigFilespath1_4(path1_, path2_, path3_, path4_) \
+    $SetConfigFilesPath(path1_, path2_, path3_) \
+    PP_NORMAL_CONTEXT_CONFIG(SetConfigFilespath1_4, config.configFilePaths.path4, path4_)
 
-#define $SetConfigFilesPath_5(path1, path2, path3, path4, path5) \
-    $SetConfigFilesPath(path1, path2, path3, path4) \
-   PP_NORMAL_CONTEXT_CONFIG(SetConfigFilesPath_5, config.configFilePaths.path5, path5)
+#define $SetConfigFilespath1_5(path1_, path2_, path3_, path4_, path5_) \
+    $SetConfigFilesPath(path1_, path2_, path3_, path4_) \
+   PP_NORMAL_CONTEXT_CONFIG(SetConfigFilespath1_5, config.configFilePaths.path5, path5_)
 
-#define $SetConfigFilesPath_6(path1, path2, path3, path4, path5, path6) \
-    $SetConfigFilesPath(path1, path2, path3, path4, path5) \
-    PP_NORMAL_CONTEXT_CONFIG(SetConfigFilesPath_6, config.configFilePaths.path6, path6)
+#define $SetConfigFilespath1_6(path1_, path2_, path3_, path4_, path5_, path6_) \
+    $SetConfigFilesPath(path1_, path2_, path3_, path4_, path5_) \
+    PP_NORMAL_CONTEXT_CONFIG(SetConfigFilespath1_6, config.configFilePaths.path6, path6_)
 
-#define $SetConfigFilesPath_7(path1, path2, path3, path4, path5, path6, path7) \
-    $SetConfigFilesPath(path1, path2, path3, path4, path5, path6) \
-    PP_NORMAL_CONTEXT_CONFIG(SetConfigFilesPath_7, config.configFilePaths.path7, path7)
+#define $SetConfigFilespath1_7(path1_, path2_, path3_, path4_, path5_, path6_, path7_) \
+    $SetConfigFilesPath(path1_, path2_, path3_, path4_, path5_, path6_) \
+    PP_NORMAL_CONTEXT_CONFIG(SetConfigFilespath1_7, config.configFilePaths.path7, path7_)
 
-#define $SetConfigFilesPath_8(path1, path2, path3, path4, path5, path6, path7, path8) \
-    $SetConfigFilesPath(path1, path2, path3, path4, path5, path6, path7) \
-    PP_NORMAL_CONTEXT_CONFIG(SetConfigFilesPath_8, config.configFilePaths.path8, path8)
+#define $SetConfigFilespath1_8(path1_, path2_, path3_, path4_, path5_, path6_, path7_, path8_) \
+    $SetConfigFilesPath(path1_, path2_, path3_, path4_, path5_, path6_, path7_) \
+    PP_NORMAL_CONTEXT_CONFIG(SetConfigFilespath1_8, config.configFilePaths.path8, path8_)
 
-#define $SetConfigFilesPath_9(path1, path2, path3, path4, path5, path6, path7, path8, path9) \
-    $SetConfigFilesPath(path1, path2, path3, path4, path5, path6, path7, path8) \
-    PP_NORMAL_CONTEXT_CONFIG(SetConfigFilesPath_9, config.configFilePaths.path9, path9)
+#define $SetConfigFilespath1_9(path1_, path2_, path3_, path4_, path5_, path6_, path7_, path8_, path9_) \
+    $SetConfigFilesPath(path1_, path2_, path3_, path4_, path5_, path6_, path7_, path8_) \
+    PP_NORMAL_CONTEXT_CONFIG(SetConfigFilespath1_9, config.configFilePaths.path9, path9_)
 
 #define $EnableDefaultConfigFiles   \
     $EnableConfigFiles(true)   \

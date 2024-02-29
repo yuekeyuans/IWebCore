@@ -39,6 +39,38 @@ namespace IConfigUnitHelper
         return val;
     }
 
+    static QJsonObject mergeJsonObject(const QJsonObject& obj, const QJsonObject& obj2)
+    {
+        QJsonObject ret = obj;
+        auto keys = obj2.keys();
+        for(const auto& key : keys){
+            if(!ret.contains(key)){
+                ret[key] = obj2[key];
+                continue;
+            }
+
+            if(obj[key].isObject() || obj2[key].isObject()){
+                if(obj[key].isObject() && obj2[key].isObject()){
+                    ret[key] = mergeJsonObject(obj[key].toObject(), obj2[key].toObject());
+                }else{
+                    $GlobalAssert->warn("ContextMergeError");
+                }
+            }else if(obj[key].isArray() || obj2[key].isArray()){
+                if(obj[key].isArray() && obj2[key].isArray()){
+                    auto array = ret[key].toArray();
+                    array.append(obj2[key].toArray());
+                    ret[key] = array;
+                }else{
+                    $GlobalAssert->warn("ContextMergeError");
+                }
+            }else{
+                ret[key] = obj2[key];   // 重写内容
+            }
+        }
+
+        return ret;
+    }
+
     static QJsonValue mergeJsonObject(const QJsonValue &target, const QJsonValue &source, QStringList args)
     {
         const auto& arg = args.first();
@@ -111,13 +143,23 @@ void IConfigManageInterface::addConfig(const QJsonValue &value, const QString &p
             $GlobalAssert->fatal("ContextMergeError");
         }
         QJsonObject obj = value.toObject();
-        auto names = obj.keys();
-        for(const auto& name : names){
-            m_configs[name] = obj[name];
-        }
-    }
+        m_configs = IConfigUnitHelper::mergeJsonObject(m_configs, obj);
+        qDebug() << m_configs;
 
-    m_configs = IConfigUnitHelper::addToJsonObject(m_configs, path, value);
+
+//        auto names = obj.keys();
+//        for(const auto& name : names){
+//            if(!m_configs.contains(name)){
+//                m_configs[name] = obj[name];
+//            }else{
+////                m_configs = IConfigUnitHelper::addToJsonObject(m_configs, name, obj[name]);
+//                m_configs = IConfigUnitHelper::mergeJsonObject(m_configs, )
+//                qDebug() << "merge after" << m_configs;
+//            }
+//        }
+    }else{
+        m_configs = IConfigUnitHelper::addToJsonObject(m_configs, path, value);
+    }
 }
 
 IResult<QJsonValue> IConfigManageInterface::getConfig(const QString &path)

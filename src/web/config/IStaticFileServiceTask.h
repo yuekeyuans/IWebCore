@@ -1,9 +1,17 @@
-#pragma once
+﻿#pragma once
 
+#include "core/base/IHeaderUtil.h"
+#include "core/task/default/IInitializationTaskInterface.h"
 
-class IStaticFileServiceTask
+$PackageWebCoreBegin
+
+class IStaticFileServiceTask : public IInitializationTaskInterface<IStaticFileServiceTask>
 {
 public:
-    IStaticFileServiceTask();
+    IStaticFileServiceTask() = default;
+
+protected:
+    virtual void task() final;
 };
 
+$PackageWebCoreEnd
