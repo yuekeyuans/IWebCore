@@ -13,7 +13,7 @@ $EnableTaskOutput
 $EnableControllerPrint(true)
 $EnableCatagory(Controller)
 $SetIpPort(1000)
-$SetFileServiceMapping("D:/hello", "/")
+$SetFileServiceMapping("D:/hello")
 
 int main(int argc, char *argv[])
 {

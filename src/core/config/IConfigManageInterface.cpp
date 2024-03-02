@@ -134,10 +134,7 @@ void IConfigManageInterface::addConfig(const QJsonValue &value, const QString &p
         if(!value.isObject()){
             $GlobalAssert->fatal("ContextMergeError");
         }
-        QJsonObject obj = value.toObject();
-        m_configs = IConfigUnitHelper::mergeJsonObject(m_configs, obj);
-        qDebug() << m_configs;
-
+        m_configs = IConfigUnitHelper::mergeJsonObject(m_configs, value.toObject());
     }else{
         m_configs = IConfigUnitHelper::addToJsonObject(m_configs, path, value);
     }
