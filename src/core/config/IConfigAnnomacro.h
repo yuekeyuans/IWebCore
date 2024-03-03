@@ -56,10 +56,8 @@
     $EnableTest(testKlass1, testKlass2, testKlass3, testKlass4, testKlass5, testKlass6, testKlass7, testKlass8) \
     $EnableTask(Test, testKlass9)
 
-// enable taskManage to output something. default do not output anything
-#define $EnableTaskOutput \
-    PP_PRIVILIGE_CONTEXT_CONFIG(EnableTaskOutputSettingKlass, SYSTEM_ENABLE_TASK_OUTPUT, true)
-
+#define $EnableTaskOutput(value)    \
+    PP_PRIVILIGE_CONTEXT_CONFIG(EnableTaskOutputSettingKlass, SYSTEM_ENABLE_TASK_OUTPUT, value)
 
 #define $DisableTest_(N) $DisableTest_##N
 #define $DisableTest_EVAL(N) $DisableTest_(N)
@@ -111,6 +109,7 @@
 #define $SetConfigFilesFilter(value)    \
     PP_NORMAL_CONTEXT_CONFIG(SetConfigFilesFilter, config.configFilesFilter, value)
 
+
 // SetConfigFilesPath
 #define $SetConfigFilespath_(N) $SetConfigFilespath_##N
 #define $SetConfigFilespath_EVAL(N) $SetConfigFilespath_(N)
@@ -153,5 +152,7 @@
 
 #define $EnableDefaultConfigFiles   \
     $EnableConfigFiles(true)   \
-    $SetConfigFilesPath(":/config/")    \
-    $SetConfigFilesFilter("*.yaml")
+    $SetConfigFilesFilter("*.yaml")     \
+    $SetConfigFilesPath(":/config/")
+
+

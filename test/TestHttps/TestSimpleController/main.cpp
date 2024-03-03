@@ -2,14 +2,9 @@
 #include <ICore/IContext>
 #include <IWeb/IWeb>
 
-//#include "core/bean/IBeanTypeManage.h"
-
 $EnableDefaultConfigFiles
 
-//$EnableConfigFiles(true)
-//$SetConfigFilesPath("D:/code/IWebCore/test/TestHttps/TestSimpleController/config")
-
-$EnableTaskOutput
+$EnableTaskOutput(true)
 $EnableControllerPrint(true)
 $EnableCatagory(Controller)
 $SetIpPort(1000)
