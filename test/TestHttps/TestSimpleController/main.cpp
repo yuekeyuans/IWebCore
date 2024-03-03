@@ -8,7 +8,7 @@ $SetIpPort(1000)
 $EnableDefaultConfigFiles
 $EnableControllerPrint(true)
 $EnableCatagory(Controller)
-$SetFileServiceMapping("D:/hello")
+$SetFileServiceMapping("E:/123/export2/dest/倪柝声文集/")
 
 int main(int argc, char *argv[])
 {
