@@ -2,12 +2,12 @@
 #include <ICore/IContext>
 #include <IWeb/IWeb>
 
-$EnableDefaultConfigFiles
 
 $EnableTaskOutput(true)
+$SetIpPort(1000)
+$EnableDefaultConfigFiles
 $EnableControllerPrint(true)
 $EnableCatagory(Controller)
-$SetIpPort(1000)
 $SetFileServiceMapping("D:/hello")
 
 int main(int argc, char *argv[])

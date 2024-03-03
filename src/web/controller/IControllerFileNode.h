@@ -11,7 +11,7 @@ public:
 public:
     bool isUrlExist(const QString& url) const;
     QString getFilePath(const QString& url) const ;
-    void mountFilesToServer(const QString& dir, const QString& prefix="/");
+    void mountMapping(const QString& dir, const QString& prefix="/");
     void travelPrint(int space=0) const;
 
 private:
@@ -21,6 +21,7 @@ private:
 private:
     mutable QHash<QString, QString> m_urlFileHash;
     QMap<QString, QString> m_urlPrefixMap;
+    bool m_enabled{false};
 };
 
 $PackageWebCoreEnd

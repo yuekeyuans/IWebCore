@@ -148,7 +148,7 @@ void IControllerManage::registerStaticFiles(const QString &path, const QString &
     }
 
     auto inst = instance();
-    inst->m_fileMappings->mountFilesToServer(dir.absolutePath(), prefix);
+    inst->m_fileMappings->mountMapping(dir.absolutePath(), prefix);
 }
 
 void IControllerManage::registerPathValidator(const QString &name, const QString &regexp)

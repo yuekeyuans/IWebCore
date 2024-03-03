@@ -6,18 +6,16 @@ $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-namespace IControllerFileNodeHelper{
-
+namespace IControllerFileNodeHelper
+{
     void mountFilesToServer(QHash<QString, QString>& hash, const QString& path, const QString& prefix);
     void mountFirstPageToServer(QHash<QString, QString>& hash, const QString& path, const QString& prefix);
     bool mountFilePageToServer(QHash<QString, QString>& hash, const QString& filePath, const QString& url);
-
-    bool enabled {false};
 }
 
 bool IControllerFileNode::isUrlExist(const QString &url) const
 {
-    return IControllerFileNodeHelper::enabled && m_urlFileHash.contains(url);
+    return this->m_enabled && m_urlFileHash.contains(url);
 }
 
 QString IControllerFileNode::getFilePath(const QString &url) const
@@ -34,10 +32,10 @@ QString IControllerFileNode::getFilePath(const QString &url) const
     return getUnRegisteredFilePath(url);   // 理论上再监测一层， 方便于计算
 }
 
-void IControllerFileNode::mountFilesToServer(const QString &dir, const QString &prefix)
+void IControllerFileNode::mountMapping(const QString &dir, const QString &prefix)
 {
     IControllerFileNodeHelper::mountFilesToServer(m_urlFileHash, dir, prefix);
-    IControllerFileNodeHelper::enabled = true;
+    this->m_enabled = true;
     travelPrint();
 }
 
