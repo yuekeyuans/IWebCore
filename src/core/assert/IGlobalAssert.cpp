@@ -13,7 +13,7 @@ inline void IGlobalAssert::loadAssert()
     addFatal("JsonArrayMergeMismatch", "Merge json array must both are array type");
     addFatal("JsonObjectMergeMismatch", "Merge object array must both are object type");
     addWarn("JsonFetchNotSupportArrary", "fetch json content not support path with array");
-    addWarn("JsonMergeWarnWithArray", "add json content to context not support path with array currently");
+    addFatal("JsonMergeFatalWithArray", "add json content to context not support path with array in middle");
 
     /// macro
     addFatal("EnableBluePrintParamError", "");

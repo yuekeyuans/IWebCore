@@ -4,12 +4,13 @@
 
 #pragma execution_character_set("utf-8")
 
-$EnableTaskOutput(true)
+//$EnableTaskOutput(true)
 $SetIpPort(1000)
 $EnableDefaultConfigFiles
 $EnableControllerPrint(true)
 $EnableCatagory(Controller)
 $SetFileServiceMapping("E:/123/export2/dest/倪柝声文集/")
+$SetFileServiceAttachmentSuffix("html", "htm", "rar")
 
 int main(int argc, char *argv[])
 {

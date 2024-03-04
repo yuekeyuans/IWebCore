@@ -9,8 +9,14 @@ $UseGlobalAssert()
 namespace IConfigUnitHelper
 {
     static void validatePath(const QStringList& args){
-        if(args.contains("@^") || args.contains("@$")){
-            $GlobalAssert->warn("JsonMergeWarnWithArray");
+        if(args.isEmpty()){
+            $GlobalAssert->fatal("ContextAddPathInvalid");
+        }
+        if(args.contains("@^") && !args.endsWith("@^")){
+            $GlobalAssert->fatal("JsonMergeFatalWithArray");
+        }
+        if(args.contains("@$") && !args.endsWith("@$")){
+            $GlobalAssert->fatal("JsonMergeFatalWithArray");
         }
     }
 
@@ -97,10 +103,6 @@ namespace IConfigUnitHelper
     {
         QStringList args = path.split(".");
         validatePath(args);
-
-        if(args.isEmpty() || args.first().startsWith("_")){
-            $GlobalAssert->fatal("ContextAddPathInvalid");
-        }
 
         auto val = buildJsonByPath(args, value);
         return mergeJsonObject(obj, val, args).toObject();

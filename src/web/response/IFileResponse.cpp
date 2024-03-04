@@ -13,17 +13,17 @@ $UseAssert(IWebAssert)
 
 const QString IFileResponse::m_matcherPrefix{"$file:"};
 
-namespace IStaticFileResponseHelper
+namespace IFileResponseHelper
 {
-    QString getContentDisposition(const QString& filePath);
-    void setFilePath(IResponseWareRaw* raw, const QString& path);
-    void checkAndUpdateContentDisposition(bool contentDisposition, IResponseWareRaw* raw);
+    static QString getContentDisposition(const QString& filePath);
+    static void setFilePath(IResponseWareRaw* raw, const QString& path);
+    static void checkAndUpdateContentDisposition(bool contentDisposition, IResponseWareRaw* raw);
 }
 
 void IFileResponse::enableContentDisposition(bool enabled)
 {
     m_enableContentDisposition = enabled;
-    IStaticFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
+    IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
 }
 
 IFileResponse::IFileResponse()
@@ -32,14 +32,14 @@ IFileResponse::IFileResponse()
 
 IFileResponse::IFileResponse(const char *data)
 {
-    IStaticFileResponseHelper::setFilePath(raw, data);
-    IStaticFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
+    IFileResponseHelper::setFilePath(raw, data);
+    IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
 }
 
 IFileResponse::IFileResponse(const QString &data)
 {
-    IStaticFileResponseHelper::setFilePath(raw, data);
-    IStaticFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
+    IFileResponseHelper::setFilePath(raw, data);
+    IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
 }
 
 IFileResponse::IFileResponse(IWebCore::IRedirectResponse &&redirectResponse)
@@ -49,8 +49,8 @@ IFileResponse::IFileResponse(IWebCore::IRedirectResponse &&redirectResponse)
 
 void IFileResponse::setFilePath(const QString &path)
 {
-    IStaticFileResponseHelper::setFilePath(raw, path);
-    IStaticFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
+    IFileResponseHelper::setFilePath(raw, path);
+    IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
 }
 
 void IFileResponse::setContent(const QByteArray &bytes)
@@ -101,13 +101,13 @@ IFileResponse operator"" _file(const char* str, size_t size)
     return response;
 }
 
-QString IStaticFileResponseHelper::getContentDisposition(const QString& filePath)
+QString IFileResponseHelper::getContentDisposition(const QString& filePath)
 {
     auto fileName  = QFileInfo(filePath).fileName();
     return QString("attachment;filename=").append(ICodecUtil::urlEncode(fileName));
 }
 
-void IStaticFileResponseHelper::setFilePath(IResponseWareRaw* raw, const QString& path)
+void IFileResponseHelper::setFilePath(IResponseWareRaw* raw, const QString& path)
 {
     QString realPath = path;
     if(!path.startsWith(":/") && !QFileInfo(path).exists()){
@@ -130,12 +130,12 @@ void IStaticFileResponseHelper::setFilePath(IResponseWareRaw* raw, const QString
     raw->setFileContent(realPath);
 }
 
-void IStaticFileResponseHelper::checkAndUpdateContentDisposition(bool contentDisposition, IResponseWareRaw* raw)
+void IFileResponseHelper::checkAndUpdateContentDisposition(bool contentDisposition, IResponseWareRaw* raw)
 {
     if(contentDisposition &&raw->content.type == IResponseContent::File
         && !raw->content.contentFilePath.isEmpty()){
         raw->headers["Content-Disposition"]
-            = IStaticFileResponseHelper::getContentDisposition(raw->content.contentFilePath);
+            = IFileResponseHelper::getContentDisposition(raw->content.contentFilePath);
     }
 }
 
