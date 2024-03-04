@@ -283,49 +283,6 @@ QString IControllerManage::getStaticFileActionPath(const IRequest &request)
     return inst->m_fileMappings->getFilePath(request.url());
 }
 
-void IControllerManage::setDefaultStaticDir(const QString &dirPath)
-{
-    auto inst = instance();
-
-    bool ok;
-    auto value = IContextManage::instance()->getConfigAsString("PP_DEFAULT_STATIC_DIR", ok);
-    if(!ok || value.isEmpty()){
-        value = inst->m_staticFilePrefix;
-    }
-
-    if(!value.isEmpty()){
-        IAssertInfo info;
-        info.reason = QString("old: ").append(value).append(" new: ").append(dirPath);
-        $Ast->fatal("static_file_dir_aleady_exist", info);
-    }
-
-    QDir dir(dirPath);
-    if(!dir.exists()){
-        IAssertInfo info;
-        info.reason = QString("path: ").append(dirPath);
-        $Ast->fatal("static_file_dir_not_exist", info);
-    }
-
-    inst->m_staticFilePrefix = dir.absolutePath().append("/");
-}
-
-// TODO: 先不动这个内容，这个应该是需要从 Profile 中间取出数据来初始化的，之后再看一看吧
-QString IControllerManage::getDefaultStaticDir()
-{
-    auto inst = instance();
-    bool ok;
-    auto value = IContextManage::instance()->getConfigAsString("PP_DEFAULT_STATIC_DIR", ok);
-    if(ok && !value.isEmpty()){
-        inst->m_staticFilePrefix = value;       // 优先设置项。
-    }
-
-    if(inst->m_staticFilePrefix.isEmpty()){
-        inst->m_staticFilePrefix = ":/";
-    }
-
-    return inst->m_staticFilePrefix;
-}
-
 bool IControllerManage::preIntercept(IRequest &request, IResponse &response)
 {
     auto inst = instance();

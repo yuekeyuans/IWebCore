@@ -2,10 +2,14 @@
 #include "core/base/ICodecUtil.h"
 #include "core/base/IConstantUtil.h"
 #include "core/base/IFileUtil.h"
+#include "core/config/IProfileImport.h"
+#include "web/IWebAssert.h"
 #include "web/biscuits/IHttpMime.h"
 #include "web/controller/IControllerManage.h"
 
 $PackageWebCoreBegin
+
+$UseAssert(IWebAssert)
 
 const QString IStaticFileResponse::m_matcherPrefix{"$file:"};
 
@@ -106,11 +110,19 @@ QString IStaticFileResponseHelper::getContentDisposition(const QString& filePath
 void IStaticFileResponseHelper::setFilePath(IResponseWareRaw* raw, const QString& path)
 {
     QString realPath = path;
+    if(!path.startsWith(":/") && !QFileInfo(path).exists()){
+        $QString prefix{"http.fileService.path"};
+        if(prefix.isFound()){
+            realPath.prepend(prefix);
+        }
+    }
 
-    auto index = path.indexOf(":");
-    if(index < 0){
-        static const auto staticFilePrefix = IControllerManage::getDefaultStaticDir();
-        realPath.prepend(staticFilePrefix);
+    if(IConstantUtil::DebugMode){
+        if(!QFile(realPath).exists()){
+            IAssertInfo info;
+            info.reason = QString("filepath: " ).append(realPath);
+            $Ast->fatal("static_file_not_exist", info);
+        }
     }
 
     auto suffix = IFileUtil::getFileSuffix(realPath);

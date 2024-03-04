@@ -11,13 +11,20 @@ class IConfigManageInterface
 public:
     void addConfig(const QJsonValue& value, const QString& path="");
 
-    IResult<QJsonValue> getConfig(const QString& path);
     QJsonValue getConfig(const QString& path, bool& ok);
+    IResult<QJsonValue> getConfig(const QString& path);
 
     bool getConfigAsBool(const QString& path, bool& ok);
+    IResult<bool> getConfigAsBool(const QString& path);
+
     int getConfigAsInt(const QString& path, bool& ok);
+    IResult<int> getConfigAsInt(const QString& path);
+
     double getConfigAsDouble(const QString& path, bool& ok);
+    IResult<double> getConfigAsDouble(const QString& path);
+
     QString getConfigAsString(const QString& path, bool& ok);
+    IResult<QString> getConfigAsString(const QString& path);
 
     template<typename T>
     T getBean(const QString& path, bool& ok);

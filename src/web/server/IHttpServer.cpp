@@ -47,12 +47,6 @@ void IHttpServer::setPort(int port)
     this->port = port;
 }
 
-void IHttpServer::setDefaultStaticDir(const QString &dir)
-{
-
-    IControllerManage::setDefaultStaticDir(dir);
-}
-
 // TODO: 这个要被注销掉， 或者不从这里使用。
 void IHttpServer::serveStatic(const QString &dir, const QString &prefix)
 {

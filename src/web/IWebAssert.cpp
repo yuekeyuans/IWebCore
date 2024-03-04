@@ -43,6 +43,7 @@ void IWebAssert::loadAssert()
 
     addFatal("static_file_dir_not_exist", "your registered default static file dir not exist, please check");
     addFatal("static_file_dir_aleady_exist", "your registered default static file alreay exist, please check");
+    addFatal("static_file_not_exist", "your returned file is not exist, please check");
 
     addFatal("http_mime_already_exist", "user register mime already exist, please duplicated this mime");
 

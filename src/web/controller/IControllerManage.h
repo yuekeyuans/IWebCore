@@ -61,9 +61,6 @@ public:
     static IStatusActionNode* getStatusActionNode(IHttpStatus status);
     static QString getStaticFileActionPath(const IRequest& request);
 
-    static void setDefaultStaticDir(const QString& prefix);
-    static QString getDefaultStaticDir();
-
     static bool preIntercept(IRequest& request, IResponse& response);
     static bool postIntercept(IRequest& request, IResponse& response);
     static bool preProcess(IRequest& request, IResponse& response);

@@ -22,7 +22,6 @@ public:
     void setPort(int port);
 
 public:
-    void setDefaultStaticDir(const QString& dir);
     void serveStatic(const QString& dir, const QString& prefix="/");
 
     void get(const QString& path, ProcessFunctor functor);

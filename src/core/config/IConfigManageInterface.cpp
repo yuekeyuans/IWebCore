@@ -140,16 +140,16 @@ void IConfigManageInterface::addConfig(const QJsonValue &value, const QString &p
     }
 }
 
+QJsonValue IConfigManageInterface::getConfig(const QString &path, bool& ok)
+{
+    return IConfigUnitHelper::getJsonValue(m_configs, path, ok);
+}
+
 IResult<QJsonValue> IConfigManageInterface::getConfig(const QString &path)
 {
     bool ok;
     auto value = getConfig(path, ok);
     return {value, ok};
-}
-
-QJsonValue IConfigManageInterface::getConfig(const QString &path, bool& ok)
-{
-    return IConfigUnitHelper::getJsonValue(m_configs, path, ok);
 }
 
 bool IConfigManageInterface::getConfigAsBool(const QString &path, bool& ok)
@@ -163,6 +163,13 @@ bool IConfigManageInterface::getConfigAsBool(const QString &path, bool& ok)
     return {};
 }
 
+IResult<bool> IConfigManageInterface::getConfigAsBool(const QString &path)
+{
+    bool ok;
+    auto value = getConfigAsBool(path, ok);
+    return {value, ok};
+}
+
 int IConfigManageInterface::getConfigAsInt(const QString &path, bool& ok)
 {
     auto value = getConfig(path, ok);
@@ -174,6 +181,13 @@ int IConfigManageInterface::getConfigAsInt(const QString &path, bool& ok)
     return {};
 }
 
+IResult<int> IConfigManageInterface::getConfigAsInt(const QString &path)
+{
+    bool ok;
+    auto value = getConfigAsInt(path, ok);
+    return {value, ok};
+}
+
 double IConfigManageInterface::getConfigAsDouble(const QString &path, bool& ok)
 {
     auto value = getConfig(path, ok);
@@ -183,6 +197,13 @@ double IConfigManageInterface::getConfigAsDouble(const QString &path, bool& ok)
 
     ok = false;
     return {};
+}
+
+IResult<double> IConfigManageInterface::getConfigAsDouble(const QString &path)
+{
+    bool ok;
+    auto value = getConfigAsDouble(path, ok);
+    return {value, ok};
 }
 
 // NOTE: 这个是对的，在具体的判断过程中，不应该把 Object array 等对象判断成为 String,
@@ -220,6 +241,13 @@ QString IConfigManageInterface::getConfigAsString(const QString &path, bool& ok)
 
     ok = false;
     return {};
+}
+
+IResult<QString> IConfigManageInterface::getConfigAsString(const QString &path)
+{
+    bool ok;
+    auto value = getConfigAsString(path, ok);
+    return {value, ok};
 }
 
 $PackageWebCoreEnd

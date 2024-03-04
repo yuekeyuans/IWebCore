@@ -640,7 +640,6 @@ bool IRequestImplHelper::isPathValid(const QString& path){
     return exp.match(path).hasMatch();
 }
 
-
 void IRequestImplHelper::checkDumplicatedParameters(const QList<QPair<QString, IRequestImpl::FunType>>& maps, const IRequestImpl* ptr, const QString& name)
 {
     static const QByteArray fakeVal = "&y&u$e$k#e#y*u*a@n@";
