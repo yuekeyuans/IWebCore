@@ -144,7 +144,7 @@ void IControllerManage::registerStaticFiles(const QString &path, const QString &
 
     QDir dir(path);
     if(!dir.exists()){
-        qFatal("dir not exist");
+        $Ast->fatal("static_file_dir_not_exist");
     }
 
     auto inst = instance();

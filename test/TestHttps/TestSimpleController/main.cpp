@@ -2,6 +2,7 @@
 #include <ICore/IContext>
 #include <IWeb/IWeb>
 
+#pragma execution_character_set("utf-8")
 
 $EnableTaskOutput(true)
 $SetIpPort(1000)

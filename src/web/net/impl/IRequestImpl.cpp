@@ -632,7 +632,7 @@ QByteArray IRequestImpl::getBoundaryParam(const QString &mime)
 
 // TODO: 这里不对， 有路径没有被判断通过，
 bool IRequestImplHelper::isPathValid(const QString& path){
-    static QRegularExpression exp(R"(^(((file|gopher|news|nntp|telnet|http|ftp|https|ftps|sftp)://)?|(www\.))+(([a-zA-Z0-9\._-]+\.[a-zA-Z]{2,6}(:[0-9]{1,6})?)|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})(:[0-9]{1,6})?)?(/[a-zA-Z0-9\&%_\./-~-]*)?$)");
+    static QRegularExpression exp(R"(([\/\w \.-]*)*\/?$)");
     if(!exp.isValid()){
         qDebug() << "invalid" << exp.errorString();
     }

@@ -1,11 +1,12 @@
 QT -= gui
 
-CONFIG += c++17 console /utf-8
+CONFIG += c++17 console /utf-8 /utf8
 CONFIG -= app_bundle
 
 include(../../../src/IWebCore.pri)
 
 DEFINES += QT_DEPRECATED_WARNINGS
+
 
 # You can also make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
