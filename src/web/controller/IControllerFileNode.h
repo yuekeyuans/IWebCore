@@ -9,19 +9,17 @@ public:
     IControllerFileNode() = default;
 
 public:
-    bool isUrlExist(const QString& url) const;
     QString getFilePath(const QString& url) const ;
     void mountMapping(const QString& dir, const QString& prefix="/");
     void travelPrint(int space=0) const;
 
 private:
-    QString getUnRegisteredFilePath(QString url) const;
+    QMap<QString, QString> m_resourceMap;
+    QMap<QString, QString> m_systemMap;
 
-
-private:
-    mutable QHash<QString, QString> m_urlFileHash;
-    QMap<QString, QString> m_urlPrefixMap;
-    bool m_enabled{false};
+    QHash<QString, QString> m_resourceFileMappings;
+    bool m_resourceMappingEnabled{false};
+    bool m_systemMappingEnabled{false};
 };
 
 $PackageWebCoreEnd

@@ -8,35 +8,31 @@ $UseAssert(IWebAssert)
 
 namespace IControllerFileNodeHelper
 {
-    void mountFilesToServer(QHash<QString, QString>& hash, const QString& path, const QString& prefix);
+    void mountFilesToResourceMapping(QHash<QString, QString>& hash, const QString& path, const QString& prefix);
     void mountFirstPageToServer(QHash<QString, QString>& hash, const QString& path, const QString& prefix);
     bool mountFilePageToServer(QHash<QString, QString>& hash, const QString& filePath, const QString& url);
 }
 
-bool IControllerFileNode::isUrlExist(const QString &url) const
-{
-    return this->m_enabled && m_urlFileHash.contains(url);
-}
-
 QString IControllerFileNode::getFilePath(const QString &url) const
 {
-    if(isUrlExist(url)){
-        auto path = m_urlFileHash[url];
-        if(IFileUtil::isFileExist(path)){
-            return path;
-        }
-
-         m_urlFileHash.remove(url);
+    if(m_resourceMappingEnabled && m_resourceFileMappings.contains(url)){
+        return m_resourceFileMappings[url];
     }
+    auto keys = m_systemMap.keys();
 
-    return getUnRegisteredFilePath(url);   // 理论上再监测一层， 方便于计算
+    return {};
 }
 
 void IControllerFileNode::mountMapping(const QString &dir, const QString &prefix)
 {
-    IControllerFileNodeHelper::mountFilesToServer(m_urlFileHash, dir, prefix);
-    this->m_enabled = true;
-//    travelPrint();
+    if(dir.startsWith(":/")){
+        m_resourceMap[dir] = prefix;
+        this->m_resourceMappingEnabled = true;
+        IControllerFileNodeHelper::mountFilesToResourceMapping(m_resourceFileMappings, dir, prefix);
+    }else{
+        m_systemMap[dir] = prefix;
+        this->m_systemMappingEnabled = true;
+    }
 }
 
 void IControllerFileNode::travelPrint(int space) const
@@ -45,9 +41,9 @@ void IControllerFileNode::travelPrint(int space) const
         qDebug() << "============== file mapping begin =============";
     }
 
-    auto keys = m_urlFileHash.keys();
+    auto keys = m_resourceFileMappings.keys();
     for(const auto& key : keys){
-        qDebug() << key << m_urlFileHash[key];
+        qDebug() << key << m_resourceFileMappings[key];
     }
 
     if(space == 0){
@@ -55,23 +51,7 @@ void IControllerFileNode::travelPrint(int space) const
     }
 }
 
-QString IControllerFileNode::getUnRegisteredFilePath(QString url) const
-{
-    auto keys = m_urlPrefixMap.keys();
-    for(const auto& path : keys){
-        auto prefix = m_urlPrefixMap[path];
-        if(url.startsWith(prefix)){
-            auto filePath = IFileUtil::joinPath(path, url.replace(prefix, ""));
-            if(QFileInfo(filePath).exists()){
-                m_urlFileHash[url] = filePath;          // NOTE: 这里线程不安全，但是理论上没啥问题，因为他可以请求不成功
-                return filePath;
-            }
-        }
-    }
-    return {};
-}
-
-void IControllerFileNodeHelper::mountFilesToServer(QHash<QString, QString>& hash, const QString &path, const QString &prefix)
+void IControllerFileNodeHelper::mountFilesToResourceMapping(QHash<QString, QString>& hash, const QString &path, const QString &prefix)
 {
     QDir dir(path);
     if(!dir.exists() || dir.isEmpty()){
@@ -85,7 +65,7 @@ void IControllerFileNodeHelper::mountFilesToServer(QHash<QString, QString>& hash
     for(const auto& entry : entries){
         if(entry.isDir()){
             auto newPrefix = IFileUtil::joinPath(prefix, entry.fileName());
-            mountFilesToServer(hash, entry.absoluteFilePath(), newPrefix);
+            mountFilesToResourceMapping(hash, entry.absoluteFilePath(), newPrefix);
             continue;
         }
 

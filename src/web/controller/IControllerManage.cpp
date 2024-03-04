@@ -34,7 +34,6 @@ namespace IControllerManageHelper {
 IControllerManage::IControllerManage()
 {
     m_urlMapppings = std::make_shared<IControllerRouteNode>();
-    m_fileMappings = std::make_shared<IControllerFileNode>();
 
     static std::once_flag flag;
     std::call_once(flag, [&](){
@@ -148,7 +147,7 @@ void IControllerManage::registerStaticFiles(const QString &path, const QString &
     }
 
     auto inst = instance();
-    inst->m_fileMappings->mountMapping(dir.absolutePath(), prefix);
+    inst->m_fileMappings.mountMapping(dir.absolutePath(), prefix);
 }
 
 void IControllerManage::registerPathValidator(const QString &name, const QString &regexp)
@@ -218,7 +217,7 @@ void IControllerManage::registerPostInterceptor(IInterceptorWare *middleWare)
 void IControllerManage::travalPrintUrlTree()
 {
     instance()->m_urlMapppings->travelPrint();
-//    instance()->m_fileMappings->travelPrint();
+    instance()->m_fileMappings.travelPrint();
 }
 
 QString IControllerManage::queryPathRegValidator(const QString &path)
@@ -280,7 +279,7 @@ IStatusActionNode *IControllerManage::getStatusActionNode(IHttpStatus status)
 QString IControllerManage::getStaticFileActionPath(const IRequest &request)
 {
     auto inst = instance();
-    return inst->m_fileMappings->getFilePath(request.url());
+    return inst->m_fileMappings.getFilePath(request.url());
 }
 
 bool IControllerManage::preIntercept(IRequest &request, IResponse &response)

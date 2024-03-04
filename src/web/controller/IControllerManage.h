@@ -79,9 +79,7 @@ private:
 private:
     bool m_isServerStarted{false};
     std::shared_ptr<IControllerRouteNode> m_urlMapppings;
-    std::shared_ptr<IControllerFileNode> m_fileMappings;
-
-    QString m_staticFilePrefix {};      // static served file dir;
+    IControllerFileNode m_fileMappings;
 
     QMap<IHttpStatus, IStatusActionNode> m_statusMappings;
     QMap<QString, QString> m_pathRegValidators;
