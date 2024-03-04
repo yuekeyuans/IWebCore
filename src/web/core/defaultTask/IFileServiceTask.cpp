@@ -1,14 +1,12 @@
-﻿#include "IStaticFileServiceTask.h"
+﻿#include "IFileServiceTask.h"
 #include "core/config/IProfileImport.h"
 #include "web/controller/IControllerManage.h"
 
 $PackageWebCoreBegin
 
-void IStaticFileServiceTask::task()
+void IFileServiceTask::task()
 {
     $QString staticPath{"http.fileService.path"};
-    qDebug() << staticPath.isFound() << staticPath;
-
     if(!staticPath.isFound()){
         return;
     }

@@ -122,10 +122,10 @@ HEADERS += \
     $$PWD/web/biscuits/IHttpMime.h \
     $$PWD/web/biscuits/IHttpStatus.h \
     $$PWD/web/biscuits/IHttpVersion.h \
-    $$PWD/web/config/IStaticFileServiceTask.h \
     $$PWD/web/controller/IControllerFileNode.h \
     $$PWD/web/controller/private/IControllerInfo.h \
     $$PWD/web/core/defaultTask/IBluePrintControllerTask.h \
+    $$PWD/web/core/defaultTask/IFileServiceTask.h \
     $$PWD/web/jar/ICookieJar.h \
     $$PWD/web/jar/ICookiePart.h \
     $$PWD/web/jar/IHeaderJar.h \
@@ -273,10 +273,10 @@ SOURCES += \
     $$PWD/web/biscuits/IHttpMime.cpp \
     $$PWD/web/biscuits/IHttpStatus.cpp \
     $$PWD/web/biscuits/IHttpVersion.cpp \
-    $$PWD/web/config/IStaticFileServiceTask.cpp \
     $$PWD/web/controller/IControllerFileNode.cpp \
     $$PWD/web/controller/private/IControllerInfo.cpp \
     $$PWD/web/core/defaultTask/IBluePrintControllerTask.cpp \
+    $$PWD/web/core/defaultTask/IFileServiceTask.cpp \
     $$PWD/web/jar/ICookieJar.cpp \
     $$PWD/web/jar/ICookiePart.cpp \
     $$PWD/web/jar/IHeaderJar.cpp \

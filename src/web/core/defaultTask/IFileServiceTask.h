@@ -5,10 +5,10 @@
 
 $PackageWebCoreBegin
 
-class IStaticFileServiceTask : public IInitializationTaskInterface<IStaticFileServiceTask>
+class IFileServiceTask : public IInitializationTaskInterface<IFileServiceTask>
 {
 public:
-    IStaticFileServiceTask() = default;
+    IFileServiceTask() = default;
 
 protected:
     virtual void task() final;
