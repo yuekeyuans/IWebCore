@@ -25,14 +25,19 @@ template<>
 IResult<ushort> fromJson<ushort>(const QJsonValue&);
 
 template<>
+bool fromJson<bool>(const QJsonValue&, bool& ok);
+template<>
+IResult<bool> fromJson<bool>(const QJsonValue&);
+
+template<>
 QString fromJson<QString>(const QJsonValue&, bool& ok);
 template<>
 IResult<QString> fromJson<QString>(const QJsonValue&);
 
 template<>
-bool fromJson<bool>(const QJsonValue&, bool& ok);
+QStringList fromJson<QStringList>(const QJsonValue&, bool& ok);
 template<>
-IResult<bool> fromJson<bool>(const QJsonValue&);
+IResult<QStringList> fromJson<QStringList>(const QJsonValue&);
 
 template<>
 QJsonObject fromJson<QJsonObject>(const QJsonValue&, bool& ok);
@@ -78,6 +83,17 @@ inline IResult<ushort> IJsonUtil::fromJson<ushort>(const QJsonValue& value){
 }
 
 template<>
+inline bool IJsonUtil::fromJson<bool>(const QJsonValue& value, bool& ok){
+    return IConvertUtil::toBool(value, ok);
+}
+template<>
+inline IResult<bool> IJsonUtil::fromJson<bool>(const QJsonValue& value){
+    bool ok;
+    auto val = IConvertUtil::toBool(value, ok);
+    return {val, ok};
+}
+
+template<>
 inline QString IJsonUtil::fromJson<QString>(const QJsonValue& json, bool& ok){
     return IConvertUtil::toString(json, ok);
 }
@@ -90,13 +106,14 @@ inline IResult<QString> IJsonUtil::fromJson<QString>(const QJsonValue& value){
 }
 
 template<>
-inline bool IJsonUtil::fromJson<bool>(const QJsonValue& value, bool& ok){
-    return IConvertUtil::toBool(value, ok);
+inline QStringList IJsonUtil::fromJson<QStringList>(const QJsonValue& json, bool& ok){
+    return IConvertUtil::toStringList(json, ok);
 }
+
 template<>
-inline IResult<bool> IJsonUtil::fromJson<bool>(const QJsonValue& value){
+inline IResult<QStringList> IJsonUtil::fromJson<QStringList>(const QJsonValue& value){
     bool ok;
-    auto val = IConvertUtil::toBool(value, ok);
+    auto val = IConvertUtil::toStringList(value, ok);
     return {val, ok};
 }
 

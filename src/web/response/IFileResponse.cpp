@@ -15,15 +15,10 @@ const QString IFileResponse::m_matcherPrefix{"$file:"};
 
 namespace IFileResponseHelper
 {
-    static QString getContentDisposition(const QString& filePath);
+    static QString getContentDispositionAttachment(const QString& filePath);
     static void setFilePath(IResponseWareRaw* raw, const QString& path);
-    static void checkAndUpdateContentDisposition(bool contentDisposition, IResponseWareRaw* raw);
-}
-
-void IFileResponse::enableContentDisposition(bool enabled)
-{
-    m_enableContentDisposition = enabled;
-    IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
+    static void checkAndUpdateContentDisposition(bool enabled, IResponseWareRaw* raw);
+    static $QStringList suffixes{"http.fileService.suffixes"};
 }
 
 IFileResponse::IFileResponse()
@@ -101,7 +96,7 @@ IFileResponse operator"" _file(const char* str, size_t size)
     return response;
 }
 
-QString IFileResponseHelper::getContentDisposition(const QString& filePath)
+QString IFileResponseHelper::getContentDispositionAttachment(const QString& filePath)
 {
     auto fileName  = QFileInfo(filePath).fileName();
     return QString("attachment;filename=").append(ICodecUtil::urlEncode(fileName));
@@ -130,13 +125,17 @@ void IFileResponseHelper::setFilePath(IResponseWareRaw* raw, const QString& path
     raw->setFileContent(realPath);
 }
 
-void IFileResponseHelper::checkAndUpdateContentDisposition(bool contentDisposition, IResponseWareRaw* raw)
+void IFileResponseHelper::checkAndUpdateContentDisposition(bool enabled, IResponseWareRaw* raw)
 {
-    if(contentDisposition &&raw->content.type == IResponseContent::File
-        && !raw->content.contentFilePath.isEmpty()){
+    if(enabled
+            && raw->content.type == IResponseContent::File
+            && !raw->content.contentFilePath.isEmpty()
+            && IFileResponseHelper::suffixes.isFound()
+            && IFileResponseHelper::suffixes.value().contains(IFileUtil::getFileSuffix(raw->content.contentFilePath))){
         raw->headers["Content-Disposition"]
-            = IFileResponseHelper::getContentDisposition(raw->content.contentFilePath);
+                = IFileResponseHelper::getContentDispositionAttachment(raw->content.contentFilePath);
     }
+
 }
 
 $PackageWebCoreEnd

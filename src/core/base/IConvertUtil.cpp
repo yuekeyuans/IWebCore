@@ -623,4 +623,21 @@ QString IConvertUtil::toUtcString(const QDateTime& dateTime)
     return str;
 }
 
+QStringList IConvertUtil::toStringList(const QJsonValue &value, bool &ok)
+{
+    QStringList ret;
+    if(!value.isArray()){
+        ok = false;
+        return ret;
+    }
+
+    auto array = value.toArray();
+    for(const auto& val : array){
+        ret.append(IConvertUtil::toString(val));
+    }
+
+    ok = true;
+    return ret;
+}
+
 $PackageWebCoreEnd

@@ -69,6 +69,8 @@ namespace  IConvertUtil
     QString toString(const QJsonObject &json);
     QString toString(const QJsonArray &json);
 
+    QStringList toStringList(const QJsonValue& value, bool& ok);
+
     QByteArray toByteArray(const QString& value);
     QByteArray toByteArray(const QByteArray& value);
     QByteArray toByteArray(const QJsonValue& value);

@@ -61,6 +61,7 @@ using $ProfileDouble = $Profile<double>;
 using $ProfileLongDouble = $Profile<long double>;
 
 using $ProfileQString = $Profile<QString>;
+using $ProfileQStringList = $Profile<QStringList>;
 
 using $Bool = $Profile<bool>;
 using $Char = $Profile<char>;
@@ -78,5 +79,6 @@ using $Double = $Profile<double>;
 using $LongDouble = $Profile<long double>;
 
 using $QString = $Profile<QString>;
+using $QStringList = $Profile<QStringList>;
 
 $PackageWebCoreEnd

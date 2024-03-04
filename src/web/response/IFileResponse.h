@@ -12,9 +12,6 @@ class IFileResponse : public IResponseInterface<IFileResponse>
 public:
     using IResponseInterface::operator[];
 
-    // TODO: 这个后期会调整，但是现在没想好该怎么处理这件事情
-    void enableContentDisposition(bool enabled=true);
-
 public:
     IFileResponse();
     IFileResponse(const char* data);
@@ -36,7 +33,7 @@ protected:
 
 private:
     static const QString m_matcherPrefix;
-    bool m_enableContentDisposition{false};
+    bool m_enableContentDisposition {true};
 };
 
 IFileResponse operator"" _file(const char* str, size_t size);
