@@ -10,7 +10,7 @@ QString TestController::hello()
     return QStringLiteral("hello world");
 }
 
-IStaticFileResponse TestController::index()
+IFileResponse TestController::index()
 {
     return "index.html";
 }

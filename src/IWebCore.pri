@@ -153,6 +153,7 @@ HEADERS += \
     $$PWD/web/node/IStatusActionNode.h \
     $$PWD/web/node/IUrlActionNode.h \
     $$PWD/web/response/IByteArrayResponse.h \
+    $$PWD/web/response/IFileResponse.h \
     $$PWD/web/response/IHtmlResponse.h \
     $$PWD/web/response/IJsonResponse.h \
     $$PWD/web/response/IPlainTextResponse.h \
@@ -163,7 +164,6 @@ HEADERS += \
     $$PWD/web/response/IResponsePreProcessor.h \
     $$PWD/web/response/IResponseWare.h \
     $$PWD/web/response/IResponseWareRaw.h \
-    $$PWD/web/response/IStaticFileResponse.h \
     $$PWD/web/response/IStatusCodeResponse.h \
     $$PWD/web/response/response \
     $$PWD/web/server/multiThreadServer/ITcpSocket.h \
@@ -301,6 +301,7 @@ SOURCES += \
     $$PWD/web/node/IMethodNode.cpp \
     $$PWD/web/node/IParamNode.cpp \
     $$PWD/web/response/IByteArrayResponse.cpp \
+    $$PWD/web/response/IFileResponse.cpp \
     $$PWD/web/response/IHtmlResponse.cpp \
     $$PWD/web/response/IJsonResponse.cpp \
     $$PWD/web/response/IPlainTextResponse.cpp \
@@ -310,7 +311,6 @@ SOURCES += \
     $$PWD/web/response/IResponseManage.cpp \
     $$PWD/web/response/IResponseWare.cpp \
     $$PWD/web/response/IResponseWareRaw.cpp \
-    $$PWD/web/response/IStaticFileResponse.cpp \
     $$PWD/web/response/IStatusCodeResponse.cpp \
     $$PWD/web/server/multiThreadServer/ITcpSocket.cpp \
     $$PWD/web/controller/IControllerInterface.cpp \

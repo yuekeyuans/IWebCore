@@ -5,10 +5,10 @@
 
 $PackageWebCoreBegin
 
-class IStaticFileResponse : public IResponseInterface<IStaticFileResponse>
+class IFileResponse : public IResponseInterface<IFileResponse>
 {
     Q_GADGET
-    $AsResponse(IStaticFileResponse)
+    $AsResponse(IFileResponse)
 public:
     using IResponseInterface::operator[];
 
@@ -16,10 +16,10 @@ public:
     void enableContentDisposition(bool enabled=true);
 
 public:
-    IStaticFileResponse();
-    IStaticFileResponse(const char* data);
-    IStaticFileResponse(const QString& data);
-    IStaticFileResponse(IRedirectResponse&& redirectResponse);
+    IFileResponse();
+    IFileResponse(const char* data);
+    IFileResponse(const QString& data);
+    IFileResponse(IRedirectResponse&& redirectResponse);
 
     void setFilePath(const QString& path);
 
@@ -39,6 +39,6 @@ private:
     bool m_enableContentDisposition{false};
 };
 
-IStaticFileResponse operator"" _file(const char* str, size_t size);
+IFileResponse operator"" _file(const char* str, size_t size);
 
 $PackageWebCoreEnd

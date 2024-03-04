@@ -5,7 +5,7 @@
 #include "web/net/IRequest.h"
 #include "web/net/IResponse.h"
 #include "web/net/impl/IReqRespRaw.h"
-#include "web/response/IStaticFileResponse.h"
+#include "web/response/IFileResponse.h"
 
 $PackageWebCoreBegin
 
@@ -135,7 +135,7 @@ void IHttpServerRunable::processInMethodMode(IRequest &request, IResponse &respo
 void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &response, const QString &path)
 {
     Q_UNUSED(request)
-    IStaticFileResponse staticFileReponse(path);
+    IFileResponse staticFileReponse(path);
     response.setContent(&staticFileReponse);
 }
 

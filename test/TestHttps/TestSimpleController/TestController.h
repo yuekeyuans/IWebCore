@@ -13,6 +13,6 @@ public:
     QString hello();
 
 //    $GetMapping(index, hello/index)
-    IStaticFileResponse index();
+    IFileResponse index();
 };
 

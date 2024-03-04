@@ -1,4 +1,4 @@
-﻿#include "IStaticFileResponse.h"
+﻿#include "IFileResponse.h"
 #include "core/base/ICodecUtil.h"
 #include "core/base/IConstantUtil.h"
 #include "core/base/IFileUtil.h"
@@ -11,7 +11,7 @@ $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-const QString IStaticFileResponse::m_matcherPrefix{"$file:"};
+const QString IFileResponse::m_matcherPrefix{"$file:"};
 
 namespace IStaticFileResponseHelper
 {
@@ -20,84 +20,84 @@ namespace IStaticFileResponseHelper
     void checkAndUpdateContentDisposition(bool contentDisposition, IResponseWareRaw* raw);
 }
 
-void IStaticFileResponse::enableContentDisposition(bool enabled)
+void IFileResponse::enableContentDisposition(bool enabled)
 {
     m_enableContentDisposition = enabled;
     IStaticFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
 }
 
-IStaticFileResponse::IStaticFileResponse()
+IFileResponse::IFileResponse()
 {
 }
 
-IStaticFileResponse::IStaticFileResponse(const char *data)
-{
-    IStaticFileResponseHelper::setFilePath(raw, data);
-    IStaticFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
-}
-
-IStaticFileResponse::IStaticFileResponse(const QString &data)
+IFileResponse::IFileResponse(const char *data)
 {
     IStaticFileResponseHelper::setFilePath(raw, data);
     IStaticFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
 }
 
-IStaticFileResponse::IStaticFileResponse(IWebCore::IRedirectResponse &&redirectResponse)
+IFileResponse::IFileResponse(const QString &data)
+{
+    IStaticFileResponseHelper::setFilePath(raw, data);
+    IStaticFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
+}
+
+IFileResponse::IFileResponse(IWebCore::IRedirectResponse &&redirectResponse)
 {
     redirectTo(std::forward<IRedirectResponse &&>(redirectResponse));
 }
 
-void IStaticFileResponse::setFilePath(const QString &path)
+void IFileResponse::setFilePath(const QString &path)
 {
     IStaticFileResponseHelper::setFilePath(raw, path);
     IStaticFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
 }
 
-void IStaticFileResponse::setContent(const QByteArray &bytes)
+void IFileResponse::setContent(const QByteArray &bytes)
 {
     Q_UNUSED(bytes);
     qFatal(IConstantUtil::UnVisibleMethod);
 }
 
-void IStaticFileResponse::setContent(const QString &content)
+void IFileResponse::setContent(const QString &content)
 {
     Q_UNUSED(content);
     qFatal(IConstantUtil::UnVisibleMethod);
 }
 
-void IStaticFileResponse::setContent(const char *content)
+void IFileResponse::setContent(const char *content)
 {
     Q_UNUSED(content);
     qFatal(IConstantUtil::UnVisibleMethod);
 }
 
-void IStaticFileResponse::setInstanceArg(QString &&data)
+void IFileResponse::setInstanceArg(QString &&data)
 {
     auto path = data.mid(m_matcherPrefix.length());
     setFilePath(path);
 }
 
-bool IStaticFileResponse::canConvertFromString()
+bool IFileResponse::canConvertFromString()
 {
     return true;
 }
 
-bool IStaticFileResponse::matchConvertString(const QString &str)
+bool IFileResponse::matchConvertString(const QString &str)
 {
     return str.startsWith(m_matcherPrefix);
 }
 
-QSharedPointer<IResponseWare> IStaticFileResponse::createInstance()
+QSharedPointer<IResponseWare> IFileResponse::createInstance()
 {
-    return QSharedPointer<IResponseWare>(new IStaticFileResponse);
+    return QSharedPointer<IResponseWare>(new IFileResponse);
 }
 
-IStaticFileResponse operator"" _file(const char* str, size_t size)
+IFileResponse operator"" _file(const char* str, size_t size)
 {
     QByteArray array(str, static_cast<int>(size));
     QString name(array);
 
-    IStaticFileResponse response(name);
+    IFileResponse response(name);
     return response;
 }
 
