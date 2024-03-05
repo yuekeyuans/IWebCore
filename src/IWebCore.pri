@@ -274,7 +274,6 @@ SOURCES += \
     $$PWD/web/biscuits/IHttpStatus.cpp \
     $$PWD/web/biscuits/IHttpVersion.cpp \
     $$PWD/web/controller/IControllerFileNode.cpp \
-    $$PWD/web/controller/private/IControllerInfo.cpp \
     $$PWD/web/core/defaultTask/IBluePrintControllerTask.cpp \
     $$PWD/web/core/defaultTask/IFileServiceTask.cpp \
     $$PWD/web/jar/ICookieJar.cpp \

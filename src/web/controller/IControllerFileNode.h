@@ -15,11 +15,8 @@ public:
 
 private:
     QMap<QString, QString> m_resourceMap;
-    QMap<QString, QString> m_systemMap;
-
     QHash<QString, QString> m_resourceFileMappings;
     bool m_resourceMappingEnabled{false};
-    bool m_systemMappingEnabled{false};
 };
 
 $PackageWebCoreEnd

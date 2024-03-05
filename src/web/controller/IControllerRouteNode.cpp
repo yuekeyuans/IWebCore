@@ -153,7 +153,7 @@ IControllerRouteNode *IControllerRouteNode::getChildNode(const QString &fragment
 void IControllerRouteNode::travelPrint(int space) const
 {
     if(space == 0){
-        qDebug() << "============== url mapping begin =============";
+        qDebug() << "Below is Url Mapping:";
     }
 
     auto print = [](IUrlActionNode* leaf, int space){
@@ -176,7 +176,7 @@ void IControllerRouteNode::travelPrint(int space) const
     }
 
     if(space == 0){
-        qDebug() << "=============== url mapping end ==============";
+        qDebug() << "";
     }
 }
 

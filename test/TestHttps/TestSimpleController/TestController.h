@@ -12,7 +12,7 @@ public:
 //    $GetMapping(hello, /)
     QString hello();
 
-//    $GetMapping(index, hello/index)
+    $GetMapping(index, hello/index)
     IFileResponse index();
 };
 
