@@ -152,7 +152,7 @@
 
 #define $EnableDefaultConfigFiles   \
     $EnableConfigFiles(true)   \
-    $SetConfigFilesFilter("*.yaml")     \
+    $SetConfigFilesFilter("*.json")     \
     $SetConfigFilesPath(":/config/")
 
 
