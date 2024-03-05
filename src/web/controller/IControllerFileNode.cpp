@@ -41,9 +41,18 @@ void IControllerFileNode::travelPrint(int space) const
         qDebug() << "============== file mapping begin =============";
     }
 
-    auto keys = m_resourceFileMappings.keys();
-    for(const auto& key : keys){
-        qDebug() << key << m_resourceFileMappings[key];
+    if(m_resourceMappingEnabled){
+        auto keys = m_resourceMap.keys();
+        for(const auto& key : keys){
+            qDebug() << key << "->" << m_resourceMap[key];
+        }
+    }
+
+    if(m_systemMappingEnabled){
+        auto keys = m_systemMap.keys();
+        for(const auto& key : keys){
+            qDebug() << key << "->" << m_systemMap[key];
+        }
     }
 
     if(space == 0){

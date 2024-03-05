@@ -56,5 +56,6 @@ using $ContextDouble = $Context<double>;
 using $ContextLongDouble = $Context<long double>;
 
 using $ContextQString = $Context<QString>;
+using $ContextQStringList = $Context<QStringList>;
 
 $PackageWebCoreEnd
