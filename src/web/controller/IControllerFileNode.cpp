@@ -18,8 +18,15 @@ QString IControllerFileNode::getFilePath(const QString &url) const
     if(m_resourceMappingEnabled && m_resourceFileMappings.contains(url)){
         return m_resourceFileMappings[url];
     }
+    if(m_systemMappingEnabled){
+        // TODO:
+    }
     auto keys = m_systemMap.keys();
-
+    for(const auto& key : keys){
+        if(url.startsWith(key){
+            return m_systemMap[key] + url.mid(key.length());
+        }
+    }
     return {};
 }
 
@@ -30,7 +37,7 @@ void IControllerFileNode::mountMapping(const QString &dir, const QString &prefix
         this->m_resourceMappingEnabled = true;
         IControllerFileNodeHelper::mountFilesToResourceMapping(m_resourceFileMappings, dir, prefix);
     }else{
-        m_systemMap[dir] = prefix;
+        m_systemMap[prefix] = dir;
         this->m_systemMappingEnabled = true;
     }
 }
