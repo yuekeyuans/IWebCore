@@ -100,7 +100,7 @@ bool IFileResponse::matchConvertString(const QString &str)
 
 QSharedPointer<IResponseWare> IFileResponse::createInstance()
 {
-    return QSharedPointer<IResponseWare>(new IFileResponse);
+    return QSharedPointer<IFileResponse>::create();
 }
 
 IFileResponse operator"" _file(const char* str, size_t size)

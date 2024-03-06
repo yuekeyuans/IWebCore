@@ -79,7 +79,7 @@ bool IRedirectResponse::matchConvertString(const QString &data)
 
 QSharedPointer<IResponseWare> IRedirectResponse::createInstance()
 {
-    return QSharedPointer<IResponseWare>(new IRedirectResponse);
+    return QSharedPointer<IRedirectResponse>::create();
 }
 
 // TODO: 这里参数 encodeUri了， 那么url 需不需要 encode
