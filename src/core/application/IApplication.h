@@ -1,19 +1,18 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "core/unit/IStackObjectUnit.h"
 
 $PackageWebCoreBegin
 
 class IApplicationPrivate;
-class IApplication : public QCoreApplication
+class IApplication : public QCoreApplication, public IStackObjectUnit
 {
     $UseDataPtr(IApplication)
-    Q_DISABLE_COPY_MOVE(IApplication)
-    Q_CREATE_ON_STACK_ONLY
 public:
     IApplication();
     explicit IApplication(int argc, char** argv);
-    ~IApplication() = default;
+    ~IApplication();
 
 public:
     static const IApplication* theInstance();

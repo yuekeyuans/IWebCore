@@ -25,7 +25,6 @@ class IReqRespRaw;
 class IRequest : private IRegisterMetaTypeUnit<IRequest>
 {
     Q_GADGET
-    $UseMetaRegistration(IRequest)
 public:
     IRequest();
     explicit IRequest(qintptr handle);

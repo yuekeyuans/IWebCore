@@ -11,7 +11,6 @@ class ISessionWare;
 class ISessionJar : public IJarUnit, IRegisterMetaTypeUnit<ISessionJar>
 {
     Q_GADGET
-    $UseMetaRegistration(ISessionJar)
 public:
     ISessionJar();
     ISessionJar(IReqRespRaw* m_raw);

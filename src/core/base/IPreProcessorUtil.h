@@ -26,18 +26,3 @@
 private:    \
     Q_DECLARE_PRIVATE(klass);    \
     std::shared_ptr<klass##Private> d_ptr {nullptr};
-
-#define $UseMetaRegistration(klassName) \
-public:     \
-static void web_core_init_registerMetaType() {  \
-    QString baseName = #klassName ; \
-    QString fullName = IMetaUtil::getMetaClassName(staticMetaObject);  \
-    IMetaUtil::registerMetaType<klassName>(baseName, fullName); \
-}   \
-private:
-
-// create on stack only
-#define Q_CREATE_ON_STACK_ONLY \
-private:    \
-    void* operator new(size_t) noexcept {return nullptr;};  \
-    void operator delete(void*){};

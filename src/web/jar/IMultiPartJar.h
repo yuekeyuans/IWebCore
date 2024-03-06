@@ -12,7 +12,6 @@ $PackageWebCoreBegin
 class IMultiPartJar : public IJarUnit, IRegisterMetaTypeUnit<IMultiPartJar>
 {
     Q_GADGET
-    $UseMetaRegistration(IMultiPartJar)
 public:
     using IJarUnit::IJarUnit;
 

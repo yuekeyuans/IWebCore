@@ -18,6 +18,7 @@ public:
     QStringList m_arguments;
     static IApplication* s_master;
 };
+
 IApplication* IApplicationPrivate::s_master = nullptr;
 
 IApplication::IApplication()
@@ -26,12 +27,17 @@ IApplication::IApplication()
 }
 
 IApplication::IApplication(int argc, char **argv)
-    : QCoreApplication(argc, argv), d_ptr(std::make_shared<IApplicationPrivate>())
+    : QCoreApplication(argc, argv), IStackObjectUnit(), d_ptr(std::make_shared<IApplicationPrivate>())
 {
     Q_D(IApplication);
-    d->s_master = this;
     d->m_arguments = IApplicationHelper::fromArguments(argc, argv);
+    d->s_master = this;
     ITaskManage::run();
+}
+
+IApplication::~IApplication()
+{
+
 }
 
 const IApplication *IApplication::theInstance()

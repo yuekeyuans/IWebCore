@@ -21,7 +21,6 @@ private:
                 std::call_once(initRegisterFlag, [](){
                     auto name = IMetaUtil::getTypename<T>();
                     IMetaUtil::registerMetaType<T>();
-//                    T::web_core_init_registerMetaType();
                     qDebug() << "run here";
                 });
             }
