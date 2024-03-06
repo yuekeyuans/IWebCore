@@ -57,36 +57,14 @@ namespace IMetaUtil
     QVariant readProperty(const QMetaProperty& prop, const void* handler);
 
     template<typename T>
-    void registerMetaType(const QString& bareName, const QString& fullName = "");
+    void registerMetaType();
 
     template<typename T>
-    void registerMetaType();
+    void registerBaseType(const QString& name);
 
     template<typename T>
     QString getTypename();
 }
-
-// TODO: 这里的函数或许是 同名 bean 的解决方案,同样的bean 可以注册 使用 barename 或则 fullname.
-// 在查找的时候根据具体的情况判断
-template<typename T>
-void IMetaUtil::registerMetaType(const QString& bareName, const QString& fullName){
-    QStringList names;
-    if(!bareName.isEmpty()){
-        names << bareName;
-        names << bareName + "&";
-    }
-    if(!fullName.isEmpty() && bareName != fullName){
-        names << fullName;
-        names << fullName + "&";
-    }
-
-    for(auto name : names){
-        qRegisterMetaType<T>(name.toUtf8());
-    }
-
-    qDebug() << names << "old";
-}
-
 
 template<typename T>
 void IMetaUtil::registerMetaType()
@@ -106,7 +84,15 @@ void IMetaUtil::registerMetaType()
         qRegisterMetaType<T>(QString((name + "&")).toUtf8());
     }
 
-    qDebug() << names << "new";
+    qDebug() << names << "abc";
+}
+
+template<typename T>
+void IMetaUtil::registerBaseType(const QString &name)
+{
+    qRegisterMetaType<T>(name.toUtf8());
+    qRegisterMetaType<T>(QString((name + "&")).toUtf8());
+    qDebug() << name << "base";
 }
 
 template<typename T>

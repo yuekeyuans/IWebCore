@@ -19,9 +19,7 @@ private:
             if(enabled){
                 static std::once_flag initRegisterFlag;
                 std::call_once(initRegisterFlag, [](){
-                    auto name = IMetaUtil::getTypename<T>();
                     IMetaUtil::registerMetaType<T>();
-                    qDebug() << "run here";
                 });
             }
         }

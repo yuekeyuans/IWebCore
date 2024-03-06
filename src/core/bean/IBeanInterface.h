@@ -35,7 +35,6 @@ void IBeanInterface<T, enabled>::task()
         std::call_once(initRegisterFlag, [](){
             IBeanTypeManage::registerBeanType(typeid (T).name());   // register type
             IMetaUtil::registerMetaType<T>();
-//            T::web_core_init_registerMetaType();                // register meta type
         });
     }
 }

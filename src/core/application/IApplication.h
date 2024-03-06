@@ -6,7 +6,7 @@
 $PackageWebCoreBegin
 
 class IApplicationPrivate;
-class IApplication : public QCoreApplication, public IStackObjectUnit
+class IApplication : public QCoreApplication
 {
     $UseDataPtr(IApplication)
 public:
