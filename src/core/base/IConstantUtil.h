@@ -10,8 +10,8 @@ namespace IConstantUtil
     static constexpr bool DebugMode = true;
     static constexpr bool ReleaseMode = false;
 #else
-    static constexpr bool DebugMode = true;
-    static constexpr bool ReleaseMode = false;
+    static constexpr bool DebugMode = false;
+    static constexpr bool ReleaseMode = true;
 #endif
 
     //! official Date format
