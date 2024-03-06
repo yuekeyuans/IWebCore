@@ -9,7 +9,6 @@ $PackageWebCoreBegin
 
 class IHeaderJar : public IJarUnit, IRegisterMetaTypeUnit<IHeaderJar>
 {
-    Q_GADGET
 public:
     using IJarUnit::IJarUnit;
 

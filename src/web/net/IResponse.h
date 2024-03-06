@@ -21,7 +21,6 @@ class ICookiePart;
 
 class IResponse : private IRegisterMetaTypeUnit<IResponse>
 {
-    Q_GADGET
 public:
     IResponse();
     explicit IResponse(IRequest* response);

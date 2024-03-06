@@ -7,7 +7,6 @@ $PackageWebCoreBegin
 
 class IFileResponse : public IResponseInterface<IFileResponse>
 {
-    Q_GADGET
     $AsResponse(IFileResponse)
 public:
     using IResponseInterface::operator[];

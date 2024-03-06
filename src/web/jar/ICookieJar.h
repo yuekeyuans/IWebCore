@@ -11,7 +11,6 @@ $PackageWebCoreBegin
 
 class ICookieJar : public IJarUnit, IRegisterMetaTypeUnit<ICookieJar>
 {
-    Q_GADGET
 public:
     using IJarUnit::IJarUnit;
 

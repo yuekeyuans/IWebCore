@@ -24,7 +24,6 @@ class IReqRespRaw;
 
 class IRequest : private IRegisterMetaTypeUnit<IRequest>
 {
-    Q_GADGET
 public:
     IRequest();
     explicit IRequest(qintptr handle);

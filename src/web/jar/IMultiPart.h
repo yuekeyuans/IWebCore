@@ -11,7 +11,6 @@ $PackageWebCoreBegin
 class IMultiPartJar;
 class IMultiPart : public IRegisterMetaTypeUnit<IMultiPart>
 {
-    Q_GADGET
 public:
     enum TransferEncoding{      // rfc2046
         BIT_7,                  // ascii

@@ -10,7 +10,6 @@ $PackageWebCoreBegin
 class ISessionWare;
 class ISessionJar : public IJarUnit, IRegisterMetaTypeUnit<ISessionJar>
 {
-    Q_GADGET
 public:
     ISessionJar();
     ISessionJar(IReqRespRaw* m_raw);

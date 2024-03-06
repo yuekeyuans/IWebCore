@@ -8,7 +8,6 @@ $PackageWebCoreBegin
 
 class IPlainTextResponse : public IResponseInterface<IPlainTextResponse>
 {
-    Q_GADGET
     $AsResponse(IPlainTextResponse)
 public:
     using IResponseInterface::operator[];

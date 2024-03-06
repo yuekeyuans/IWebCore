@@ -7,7 +7,6 @@ $PackageWebCoreBegin
 
 class IByteArrayResponse : public IResponseInterface<IByteArrayResponse>
 {
-    Q_GADGET
     $AsResponse(IByteArrayResponse)
 public:
     using IResponseInterface::operator[];

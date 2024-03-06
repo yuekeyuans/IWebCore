@@ -7,7 +7,6 @@ $PackageWebCoreBegin
 
 class IHtmlResponse : public IResponseInterface<IHtmlResponse>
 {
-    Q_GADGET
     $AsResponse(IHtmlResponse)
 public:
     using IResponseInterface::operator[];
