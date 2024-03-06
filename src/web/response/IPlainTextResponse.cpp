@@ -39,7 +39,7 @@ void IPlainTextResponse::setInstanceArg(QString &&data)
     if(data.startsWith(m_matcherPrefix)){
         raw->setContent(data.mid(m_matcherPrefix.length()));
     }else{
-        raw->setContent(data);
+        raw->setContent(std::forward<QString>(data));
     }
 }
 
@@ -64,14 +64,17 @@ bool IPlainTextResponse::canConvertFromString()
     return true;
 }
 
+// TODO: 之后所有的返回改成这个样子
 QSharedPointer<IResponseWare> IPlainTextResponse::createInstance()
 {
-    return QSharedPointer<IResponseWare>(new IPlainTextResponse);
+    return std::make_shared<IPlainTextResponse>();
+    // return QSharedPointer<IResponseWare>(new IPlainTextResponse);
 }
 
 QSharedPointer<IResponseWare> IPlainTextResponse::createIPlainTexInstance()
 {
-    return QSharedPointer<IResponseWare>(new IPlainTextResponse);
+    return std::make_shared<IPlainTextResponse>();
+    // return QSharedPointer<IResponseWare>(new IPlainTextResponse);
 }
 
 bool IPlainTextResponse::matchConvertString(const QString &str)
