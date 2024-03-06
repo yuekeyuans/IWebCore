@@ -18,7 +18,7 @@ public:
 
     QString& operator[](const QString& header);
 
-    QString mime() const;
+    const QString& mime() const;
     IHttpStatus status() const;
 
     IResponseContent& getContent();
@@ -32,11 +32,11 @@ public:
     virtual void setContent(const QString& content);
     virtual void setContent(const char* content);
 
-    void redirectTo(IRedirectResponse&& redirectResponse);
-
     virtual void setInstanceArg(QString &&data); // 强制使用右值引用，为了在代码当中保持参数传入 std::move 增强标记性
     virtual void setInstanceArg(void *arg, const QString &tag = "");
     virtual void setInstanceCopy(IResponseWare* interface_);
+
+    void redirectTo(IRedirectResponse&& redirectResponse);
 
     virtual bool canConvertFromString();
     virtual bool matchConvertString(const QString&);

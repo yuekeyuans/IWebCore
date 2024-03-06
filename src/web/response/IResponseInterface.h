@@ -23,6 +23,7 @@ public:
     IResponseInterface() = default;
     virtual ~IResponseInterface() = default;
 
+    // TODO: 这里需要将 注册方式抽象， 继承 Task 功能
 private:
     class IResponseInterfacePrivate{
     public:

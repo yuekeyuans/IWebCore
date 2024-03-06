@@ -24,7 +24,7 @@ QString &IResponseWare::operator[](const QString &header)
     return raw->headers[header];
 }
 
-QString IResponseWare::mime() const
+const QString& IResponseWare::mime() const
 {
     return raw->mimeString;
 }
@@ -112,7 +112,7 @@ bool IResponseWare::matchConvertString(const QString &)
     return false;
 }
 
-QSharedPointer<IResponseWare> IResponseWare::createInstance()\
+QSharedPointer<IResponseWare> IResponseWare::createInstance()
 {
     qFatal(IConstantUtil::InheritedMethod);
     return nullptr;
