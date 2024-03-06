@@ -60,6 +60,9 @@ namespace IMetaUtil
     void registerMetaType(const QString& bareName, const QString& fullName = "");
 
     template<typename T>
+    void registerMetaType();
+
+    template<typename T>
     QString getTypename();
 }
 
@@ -80,6 +83,30 @@ void IMetaUtil::registerMetaType(const QString& bareName, const QString& fullNam
     for(auto name : names){
         qRegisterMetaType<T>(name.toUtf8());
     }
+
+    qDebug() << names << "old";
+}
+
+
+template<typename T>
+void IMetaUtil::registerMetaType()
+{
+    QStringList names;
+    QString name = getTypename<T>();
+    if(name.contains(" ")){
+        name = name.split(" ").last();
+    }
+    names.append(name);
+    if(name.contains("::")){
+        names.append(name.split("::").last());
+    }
+
+    for(auto name : names){
+        qRegisterMetaType<T>(name.toUtf8());
+        qRegisterMetaType<T>(QString((name + "&")).toUtf8());
+    }
+
+    qDebug() << names << "new";
 }
 
 template<typename T>

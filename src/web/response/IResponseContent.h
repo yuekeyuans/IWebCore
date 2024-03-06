@@ -13,7 +13,8 @@ public:
     enum Type{
         String,
         Bytes,
-        File
+        File,
+        Error,
     };
 
 public:

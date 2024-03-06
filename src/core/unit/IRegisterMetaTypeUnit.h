@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "core/base/IMetaUtil.h"
 
 $PackageWebCoreBegin
 
@@ -18,7 +19,10 @@ private:
             if(enabled){
                 static std::once_flag initRegisterFlag;
                 std::call_once(initRegisterFlag, [](){
-                    T::web_core_init_registerMetaType();
+                    auto name = IMetaUtil::getTypename<T>();
+                    IMetaUtil::registerMetaType<T>();
+//                    T::web_core_init_registerMetaType();
+                    qDebug() << "run here";
                 });
             }
         }

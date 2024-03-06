@@ -306,7 +306,6 @@ SOURCES += \
     $$PWD/web/response/IPlainTextResponse.cpp \
     $$PWD/web/response/IRedirectResponse.cpp \
     $$PWD/web/response/IResponseContent.cpp \
-    $$PWD/web/response/IResponseInterface.cpp \
     $$PWD/web/response/IResponseManage.cpp \
     $$PWD/web/response/IResponseWare.cpp \
     $$PWD/web/response/IResponseWareRaw.cpp \

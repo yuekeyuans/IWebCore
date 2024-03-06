@@ -4,7 +4,7 @@
 
 #pragma execution_character_set("utf-8")
 
-//$EnableTaskOutput(true)
+$EnableTaskOutput(true)
 $SetIpPort(1000)
 $EnableDefaultConfigFiles
 $EnableControllerPrint(true)

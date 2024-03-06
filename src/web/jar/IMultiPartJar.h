@@ -18,7 +18,7 @@ public:
 
 public:
     IMultiPartJar();
-    const IMultiPart &operator[](const QString& name) const;
+    IResult<IMultiPart> operator[](const QString& name) const;
 
     bool containRequestMulitPartName(const QString& name) const;
     QStringList getRequestMultiPartNames() const;

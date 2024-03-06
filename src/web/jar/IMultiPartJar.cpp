@@ -11,11 +11,11 @@ IMultiPartJar::IMultiPartJar() : IJarUnit(nullptr)
     $Ast->fatal("IMultiPartJar_CREATE_ERROR");
 }
 
-// NOTE: 这里没有正证伪，需要用户手动判断， 所以这里不建议使用
-const IMultiPart& IMultiPartJar::operator[](const QString &name) const
+IResult<IMultiPart> IMultiPartJar::operator[](const QString &name) const
 {
     bool ok;
-    return getRequestMultiPart (name, ok);
+    auto value = getRequestMultiPart (name, ok);
+    return {std::move(value), ok};
 }
 
 bool IMultiPartJar::containRequestMulitPartName(const QString &name) const
