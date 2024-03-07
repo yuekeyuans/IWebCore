@@ -55,7 +55,7 @@ bool IStatusCodeResponse::matchConvertString(const QString &data)
 
 QSharedPointer<IResponseWare> IStatusCodeResponse::createInstance()
 {
-    return std::make_shared<IStatusCodeResponse>();
+    return QSharedPointer<IStatusCodeResponse>::create();
 }
 
 QSharedPointer<IResponseWare> IStatusCodeResponse::createStatusCodeInstance()

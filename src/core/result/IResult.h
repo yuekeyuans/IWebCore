@@ -13,10 +13,6 @@ struct IResult
 public:
     T m_value;
     bool m_ok;
-
-private:
-    friend struct IConstResult<T>;
-    friend struct ICauseResult<T>;
 };
 
 template<typename T>

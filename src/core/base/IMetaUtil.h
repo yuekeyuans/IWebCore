@@ -83,8 +83,6 @@ void IMetaUtil::registerMetaType()
         qRegisterMetaType<T>(name.toUtf8());
         qRegisterMetaType<T>(QString((name + "&")).toUtf8());
     }
-
-    qDebug() << names << "abc";
 }
 
 template<typename T>
@@ -92,7 +90,6 @@ void IMetaUtil::registerBaseType(const QString &name)
 {
     qRegisterMetaType<T>(name.toUtf8());
     qRegisterMetaType<T>(QString((name + "&")).toUtf8());
-    qDebug() << name << "base";
 }
 
 template<typename T>

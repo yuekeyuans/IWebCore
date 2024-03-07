@@ -178,7 +178,7 @@ void IControllerRouteNode::travelPrint(int space) const
 
 bool IControllerRouteNode::operator==(const IControllerRouteNode &node)
 {
-    return this.name == node.name && type == node.type && fragment == node.fragment && children == node.children;
+    return this->name == node.name && type == node.type && fragment == node.fragment && children == node.children;
 }
 
 IControllerRouteNode::IUrlActionNodeStar &IControllerRouteNode::getLeafRef(IHttpMethod method)

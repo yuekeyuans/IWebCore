@@ -125,6 +125,8 @@ HEADERS += \
     $$PWD/web/controller/IControllerFileNode.h \
     $$PWD/web/controller/private/IControllerInfo.h \
     $$PWD/web/core/defaultTask/IBluePrintControllerTask.h \
+    $$PWD/web/core/defaultTask/IControllerBaseTypeTask.h \
+    $$PWD/web/core/defaultTask/IControllerPathValidatorTask.h \
     $$PWD/web/core/defaultTask/IFileServiceTask.h \
     $$PWD/web/jar/ICookieJar.h \
     $$PWD/web/jar/ICookiePart.h \
@@ -275,6 +277,8 @@ SOURCES += \
     $$PWD/web/biscuits/IHttpVersion.cpp \
     $$PWD/web/controller/IControllerFileNode.cpp \
     $$PWD/web/core/defaultTask/IBluePrintControllerTask.cpp \
+    $$PWD/web/core/defaultTask/IControllerBaseTypeTask.cpp \
+    $$PWD/web/core/defaultTask/IControllerPathValidatorTask.cpp \
     $$PWD/web/core/defaultTask/IFileServiceTask.cpp \
     $$PWD/web/jar/ICookieJar.cpp \
     $$PWD/web/jar/ICookiePart.cpp \

@@ -10,23 +10,6 @@ $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-namespace IControllerManageHelper {
-    bool isShortValue(const QString& value);
-    bool isUShortValue(const QString& value);
-    bool isIntValue(const QString& value);
-    bool isUIntValue(const QString& value);
-    bool isLongValue(const QString& value);
-    bool isULongValue(const QString& value);
-    bool isLongLongValue(const QString& value);
-    bool isULongLongValue(const QString& value);
-    bool isFloatValue(const QString& value);
-    bool isDoubleValue(const QString& value);
-    bool isQDateValue(const QString& value);
-    bool isQTimeValue(const QString& value);
-    bool isQDateTimeValue(const QString& value);
-    bool isQStringValue(const QString& value);
-}
-
 IControllerManage::IControllerManage()
 {
     m_urlMapppings = std::make_shared<IControllerRouteNode>();
@@ -388,42 +371,7 @@ bool IControllerManage::checkUrlDuplicateName(const IUrlActionNode *node)
 
 void IControllerManage::preRegisterPathValidator()
 {
-    static QMap<QString, QString> validatorRegMap = {
-        {"uuid",    "^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$"},
-        {"base64",  "^[a-zA-Z0-9+/]*={0,2}$"},
-    };
 
-    static QMap<QString, ValidatorFun> validatorFunMap = {
-        {"short", IControllerManageHelper::isShortValue},
-        {"ushort", IControllerManageHelper::isUShortValue},
-        {"int", IControllerManageHelper::isIntValue},
-        {"uint", IControllerManageHelper::isUIntValue},
-        {"long", IControllerManageHelper::isLongValue},
-        {"ulong", IControllerManageHelper::isULongValue},
-        {"longlong", IControllerManageHelper::isLongLongValue},
-        {"ulonglong", IControllerManageHelper::isULongLongValue},
-        {"float", IControllerManageHelper::isFloatValue},
-        {"double", IControllerManageHelper::isDoubleValue},
-
-        {"date", IControllerManageHelper::isQDateValue},
-        {"QDate", IControllerManageHelper::isQDateValue},
-        {"time", IControllerManageHelper::isQTimeValue},
-        {"QTime", IControllerManageHelper::isQTimeValue},
-        {"datetime", IControllerManageHelper::isQDateTimeValue},
-        {"QDateTime", IControllerManageHelper::isQDateTimeValue},
-
-        {"string", IControllerManageHelper::isQStringValue},
-        {"QString", IControllerManageHelper::isQStringValue},
-    };
-
-
-    for(auto key : validatorRegMap.keys()){
-        m_pathRegValidators[key] = validatorRegMap[key];
-    }
-
-    for(auto key : validatorFunMap.keys()){
-        m_pathFunValidators[key] = validatorFunMap[key];
-    }
 }
 
 void IControllerManage::checkRegisterAvalible()
@@ -434,72 +382,5 @@ void IControllerManage::checkRegisterAvalible()
     }
 }
 
-bool IControllerManageHelper::isShortValue(const QString& value){
-    bool ok;
-    value.toShort(&ok);
-    return ok;
-}
-bool IControllerManageHelper::isUShortValue(const QString& value){
-    bool ok;
-    value.toUShort(&ok);
-    return ok;
-}
-bool IControllerManageHelper::isIntValue(const QString& value){
-    bool ok;
-    value.toInt(&ok);
-    return ok;
-}
-bool IControllerManageHelper::isUIntValue(const QString& value){
-    bool ok;
-    value.toUInt(&ok);
-    return ok;
-}
-bool IControllerManageHelper::isLongValue(const QString& value){
-    bool ok;
-    value.toLong(&ok);
-    return ok;
-}
-bool IControllerManageHelper::isULongValue(const QString& value){
-    bool ok;
-    value.toULong(&ok);
-    return ok;
-}
-bool IControllerManageHelper::isLongLongValue(const QString& value){
-    bool ok;
-    value.toLongLong(&ok);
-    return ok;
-}
-bool IControllerManageHelper::isULongLongValue(const QString& value){
-    bool ok;
-    value.toULongLong(&ok);
-    return ok;
-}
-bool IControllerManageHelper::isFloatValue(const QString& value){
-    bool ok;
-    value.toFloat(&ok);
-    return ok;
-}
-bool IControllerManageHelper::isDoubleValue(const QString& value){
-    bool ok;
-    value.toDouble(&ok);
-    return ok;
-}
-
-bool IControllerManageHelper::isQDateValue(const QString& value){
-    QVariant variant = value;
-    return variant.toDate().isValid();
-}
-bool IControllerManageHelper::isQTimeValue(const QString& value){
-    QVariant variant = value;
-    return variant.toTime().isValid();
-}
-bool IControllerManageHelper::isQDateTimeValue(const QString& value){
-    QVariant variant = value;
-    return variant.toDateTime().isValid();
-}
-
-bool IControllerManageHelper::isQStringValue(const QString& value){
-    return !value.isEmpty();
-}
 
 $PackageWebCoreEnd

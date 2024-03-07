@@ -1,13 +1,15 @@
-#include "IBaseTypeTask.h"
-#include "core/base/MetaUtil.h"
+﻿#include "IControllerBaseTypeTask.h"
+#include "core/base/IMetaUtil.h"
 
 $PackageWebCoreBegin
 
-
-// this won't be compile in Qt5 gcc , so comment it out.
-
-void IBaseTypeTask::task()
+void IControllerBaseTypeTask::task()
 {
+    IMetaUtil::registerBaseType<bool>("bool");
+    IMetaUtil::registerBaseType<char>("char");
+    IMetaUtil::registerBaseType<signed char>("char");
+    IMetaUtil::registerBaseType<uchar>("uchar");
+
     IMetaUtil::registerBaseType<short>("short");
     IMetaUtil::registerBaseType<ushort>("ushort");
     IMetaUtil::registerBaseType<int>("int");
