@@ -99,16 +99,12 @@ QVector<IControllerRouteNode *> IControllerRouteNode::getChildNodes(const QStrin
     for(auto& val : children){
         if(val.type == NodeType::TEXT_MATCH && val.fragment == nodeName){
             nodes.append(&val);
-            continue;
         }else if(val.type == NodeType::REGEXP_MATCH && val.regexpValidator.match(nodeName).hasMatch()){
             nodes.append(&val);
-            continue;
         }else if(val.type == NodeType::FUNC_MATCH && val.funValidator(nodeName)){
             nodes.append(&val);
-            continue;
         }else if(val.type == NodeType::FULL_MATCH){
             nodes.append(&val);
-            continue;
         }
     }
     return nodes;
