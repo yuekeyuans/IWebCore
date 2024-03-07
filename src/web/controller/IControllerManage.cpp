@@ -11,8 +11,6 @@ $PackageWebCoreBegin
 $UseAssert(IWebAssert)
 
 namespace IControllerManageHelper {
-    void registerCommonTypes();
-
     bool isShortValue(const QString& value);
     bool isUShortValue(const QString& value);
     bool isIntValue(const QString& value);
@@ -23,11 +21,9 @@ namespace IControllerManageHelper {
     bool isULongLongValue(const QString& value);
     bool isFloatValue(const QString& value);
     bool isDoubleValue(const QString& value);
-
     bool isQDateValue(const QString& value);
     bool isQTimeValue(const QString& value);
     bool isQDateTimeValue(const QString& value);
-
     bool isQStringValue(const QString& value);
 }
 
@@ -37,7 +33,6 @@ IControllerManage::IControllerManage()
 
     static std::once_flag flag;
     std::call_once(flag, [&](){
-        IControllerManageHelper::registerCommonTypes(); // this won't be compile in Qt5 gcc
         preRegisterPathValidator();
     });
 }
@@ -437,33 +432,6 @@ void IControllerManage::checkRegisterAvalible()
     if(inst->m_isServerStarted){
         $Ast->fatal("register_to_controllerManage_error");
     }
-}
-
-void IControllerManageHelper::registerCommonTypes()
-{
-    IMetaUtil::registerBaseType<short>("short");
-    IMetaUtil::registerBaseType<ushort>("ushort");
-    IMetaUtil::registerBaseType<int>("int");
-    IMetaUtil::registerBaseType<uint>("unit");
-    IMetaUtil::registerBaseType<long>("long");
-    IMetaUtil::registerBaseType<ulong>("ulong");
-    IMetaUtil::registerBaseType<qlonglong>("qlonglong");
-    IMetaUtil::registerBaseType<qulonglong>("qulonglong");
-    IMetaUtil::registerBaseType<float>("float");
-    IMetaUtil::registerBaseType<double>("double");
-
-    IMetaUtil::registerBaseType<int16_t>("int16_t");
-    IMetaUtil::registerBaseType<uint16_t>("uint16_t");
-    IMetaUtil::registerBaseType<int32_t>("int32_t");
-    IMetaUtil::registerBaseType<uint32_t>("uint32_t");
-    IMetaUtil::registerBaseType<int64_t>("int64_t");
-    IMetaUtil::registerBaseType<uint64_t>("uint64_t");
-
-    IMetaUtil::registerBaseType<QString>("QString");
-    IMetaUtil::registerBaseType<QByteArray>("QByteArray");
-    IMetaUtil::registerBaseType<QJsonValue>("QJsonValue");
-    IMetaUtil::registerBaseType<QJsonArray>("QJsonArray");
-    IMetaUtil::registerBaseType<QJsonObject>("QJsonObject");
 }
 
 bool IControllerManageHelper::isShortValue(const QString& value){
