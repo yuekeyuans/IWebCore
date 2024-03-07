@@ -19,7 +19,7 @@ class IReqRespRaw;
 class IResponseImpl;
 class ICookiePart;
 
-class IResponse : private IRegisterMetaTypeUnit<IResponse>
+class IResponse : IRegisterMetaTypeUnit<IResponse>
 {
 public:
     IResponse();

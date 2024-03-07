@@ -14,7 +14,7 @@ struct IResponseWareRaw;
 class IRedirectResponse;
 
 template<typename T>
-class IResponseInterface : public IResponseWare, public IRegisterMetaTypeUnit<T>
+class IResponseInterface : public IResponseWare, IRegisterMetaTypeUnit<T>
 {
 public:
     using IResponseWare::operator[];
@@ -40,6 +40,7 @@ private:
 };
 
 template<typename T>
-typename IResponseInterface<T>::IResponseInterfacePrivate  IResponseInterface<T>::m_IResponseInterfacePrivate;
+typename IResponseInterface<T>::IResponseInterfacePrivate
+         IResponseInterface<T>::m_IResponseInterfacePrivate;
 
 $PackageWebCoreEnd

@@ -22,7 +22,7 @@ class ISessionJar;
 class IRequestImpl;
 class IReqRespRaw;
 
-class IRequest : private IRegisterMetaTypeUnit<IRequest>
+class IRequest : IRegisterMetaTypeUnit<IRequest>
 {
 public:
     IRequest();

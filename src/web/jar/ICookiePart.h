@@ -7,7 +7,7 @@
 
 $PackageWebCoreBegin
 
-class ICookiePart : public IRegisterMetaTypeUnit<ICookiePart>
+class ICookiePart : IRegisterMetaTypeUnit<ICookiePart>
 {
     Q_GADGET
 public:

@@ -9,7 +9,7 @@
 $PackageWebCoreBegin
 
 class IMultiPartJar;
-class IMultiPart : public IRegisterMetaTypeUnit<IMultiPart>
+class IMultiPart : IRegisterMetaTypeUnit<IMultiPart>
 {
 public:
     enum TransferEncoding{      // rfc2046
