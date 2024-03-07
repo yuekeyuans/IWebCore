@@ -10,6 +10,6 @@ public:
 
 public:
     virtual void task() final;
-}
+};
 
 $PackageWebCoreEnd

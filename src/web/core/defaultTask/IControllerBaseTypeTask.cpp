@@ -7,7 +7,6 @@ void IControllerBaseTypeTask::task()
 {
     IMetaUtil::registerBaseType<bool>("bool");
     IMetaUtil::registerBaseType<char>("char");
-    IMetaUtil::registerBaseType<signed char>("char");
     IMetaUtil::registerBaseType<uchar>("uchar");
 
     IMetaUtil::registerBaseType<short>("short");
