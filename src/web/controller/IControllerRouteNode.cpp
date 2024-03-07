@@ -149,7 +149,7 @@ IControllerRouteNode *IControllerRouteNode::getChildNode(const QString &fragment
 void IControllerRouteNode::travelPrint(int space) const
 {
     if(space == 0){
-        qDebug() << "Below is Url Mapping:";
+        qDebug() << "Below is Controller Url Mapping:";
     }
 
     auto print = [](IUrlActionNode* leaf, int space){
@@ -178,11 +178,7 @@ void IControllerRouteNode::travelPrint(int space) const
 
 bool IControllerRouteNode::operator==(const IControllerRouteNode &node)
 {
-    if(this->name != node.name || type != node.type || fragment != node.fragment || children != node.children){
-        return false;
-    }
-
-    return true;
+    return this.name == node.name && type == node.type && fragment == node.fragment && children == node.children;
 }
 
 IControllerRouteNode::IUrlActionNodeStar &IControllerRouteNode::getLeafRef(IHttpMethod method)
