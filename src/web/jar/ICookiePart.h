@@ -9,15 +9,12 @@ $PackageWebCoreBegin
 
 class ICookiePart : IRegisterMetaTypeUnit<ICookiePart>
 {
-    Q_GADGET
 public:
     enum SameSiteType{
         Lax,
         None,
         Strict
     };
-
-    Q_ENUM(SameSiteType)
 
 public:
     ICookiePart() = default;

@@ -4,6 +4,11 @@
 
 $PackageWebCoreBegin
 
+namespace ICookiePartHelper
+{
+    QString sameSiteTypeToString(ICookiePart::SameSiteType type);
+}
+
 ICookiePart::ICookiePart(const QString &key, const QString &value)
 {
     this->key = key;
@@ -107,7 +112,7 @@ QString ICookiePart::toHeaderString() const
     }
 
     if(sameSite != Lax){
-        header.append("; SameSite=").append(QMetaEnum::fromType<ICookiePart::SameSiteType>().valueToKey(sameSite));
+        header.append("; SameSite=").append(ICookiePartHelper::sameSiteTypeToString(sameSite));
     }
     if(secure){
         header.append("; Secure");
@@ -128,6 +133,16 @@ bool ICookiePart::isValid()
         return false;
     }
     return true;
+}
+
+QString ICookiePartHelper::sameSiteTypeToString(ICookiePart::SameSiteType type)
+{
+    static const QStringList strings {
+        "Lax",
+        "None",
+        "Strict"
+    };
+    return strings[static_cast<int>(type)];
 }
 
 $PackageWebCoreEnd

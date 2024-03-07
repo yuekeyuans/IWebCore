@@ -23,13 +23,15 @@ public:
     IResponseInterface() = default;
     virtual ~IResponseInterface() = default;
 
-    // TODO: 这里需要将 注册方式抽象， 继承 Task 功能
 private:
     class IResponseInterfacePrivate{
     public:
         IResponseInterfacePrivate(){
-            static T t;
-            IResponseManage::registerResponseType(&t);
+            static std::once_flag flag;
+            std::call_once(flag, [](){
+                static T t;
+                IResponseManage::registerResponseType(&t);
+            });
         }
     };
     friend class IResponseInterfacePrivate;
