@@ -55,12 +55,12 @@ bool IStatusCodeResponse::matchConvertString(const QString &data)
 
 QSharedPointer<IResponseWare> IStatusCodeResponse::createInstance()
 {
-    return QSharedPointer<IResponseWare>(new IStatusCodeResponse);
+    return std::make_shared<IStatusCodeResponse>();
 }
 
 QSharedPointer<IResponseWare> IStatusCodeResponse::createStatusCodeInstance()
 {
-    return QSharedPointer<IResponseWare>(new IStatusCodeResponse);
+    return std::make_shared<IStatusCodeResponse>();
 }
 
 void IStatusCodeResponseHelper::checkStatusCode(IHttpStatus status)
