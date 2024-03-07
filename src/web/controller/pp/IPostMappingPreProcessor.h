@@ -1,9 +1,6 @@
 ﻿#pragma once
 
-#include "core/base/IPreProcessorUtil.h"
-
-#define PP_CONTROLLER_JOIN(funName, type) \
-    PP_STRING( iwebControllerFun$##funName##$##type)
+#include "IControllerPreProcessor.h"
 
 #define $PostMappingDeclare_1(funName)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \

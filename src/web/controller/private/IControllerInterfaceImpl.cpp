@@ -38,6 +38,7 @@ QVector<IUrlActionNode> IControllerInterfaceImpl::createMappingLeaves(const ICon
     return ret;
 }
 
+// TODO: 这里 对于一个函数映射两个方法有问题，建议查看一下， 这个明天看一下， 有点烧脑
 QVector<QStringList> IControllerInterfaceImpl::getMethodMappingInfo(const QMap<QString, QString> &clsInfo)
 {
     static const QString CONTROLLER_INFO_PREFIX = "iwebControllerFun$";

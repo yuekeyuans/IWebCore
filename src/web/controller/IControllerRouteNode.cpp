@@ -159,14 +159,14 @@ void IControllerRouteNode::travelPrint(int space) const
     auto print = [](IUrlActionNode* leaf, int space){
         if(leaf != nullptr){
             qDebug().noquote()<< QString().fill(' ', 4 * space)
-                              << "    |" + IHttpMethodHelper::toString(leaf->httpMethod)
-                              << "/" + leaf->url
+                              << "    |::" + IHttpMethodHelper::toString(leaf->httpMethod)
+                              << "/" + (leaf->url == "/"? "" : leaf->url)
                               << "\t==>" << leaf->methodNode.expression;
         }
     };
 
     qDebug().noquote() << QString().fill(' ', 4* space)
-                       << "/" + this->fragment;
+                       << "|" + this->fragment;
 
     print(this->getMethodLeaf, space);
     print(this->putMethodLeaf, space);

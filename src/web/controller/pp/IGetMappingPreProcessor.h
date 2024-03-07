@@ -1,9 +1,6 @@
 ﻿#pragma once
 
-#include "core/base/IPreProcessorUtil.h"
-
-#define PP_CONTROLLER_JOIN(funName, type) \
-    PP_STRING( iwebControllerFun$##funName##$##type)
+#include "IControllerPreProcessor.h"
 
 // 思考, 这里如何更好的映射 根目录，除了 Get(a, /) 之外?
 #define $GetMappingDeclare_1(funName)  \
