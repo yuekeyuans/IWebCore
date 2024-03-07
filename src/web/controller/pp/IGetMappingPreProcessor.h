@@ -81,7 +81,6 @@
 #define $GetMappingDeclare_EVAL(N) $GetMappingDeclare_(N)
 #define $GetMappingDeclare(...) PP_EXPAND( $GetMappingDeclare_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
 
-
 #define $GetMapping_1(funName)  \
     $GetMappingDeclare(funName) \
     Q_INVOKABLE
