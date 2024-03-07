@@ -11,7 +11,7 @@ public:
 public:
     QString getFilePath(const QString& url) const ;
     void mountMapping(const QString& dir, const QString& prefix="/");
-    void travelPrint(int space=0) const;
+    void travelPrint() const;
 
 private:
     QMap<QString, QString> m_resourceMap;

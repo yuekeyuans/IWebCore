@@ -23,7 +23,7 @@ private:
         IRegisterGadgetUnitPrivate();
     };
 
-    friend class IRegisterGadgetUnitPrivate;
+//    friend class IRegisterGadgetUnitPrivate;
     static IRegisterGadgetUnitPrivate m_IRegisterGadgetUnitPrivate;
 
     virtual void* IRegisterUnitPrivateTouch(){

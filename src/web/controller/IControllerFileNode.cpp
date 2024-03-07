@@ -28,7 +28,7 @@ void IControllerFileNode::mountMapping(const QString &dir, const QString &prefix
     IControllerFileNodeHelper::mountFilesToResourceMapping(m_resourceFileMappings, dir, prefix);
 }
 
-void IControllerFileNode::travelPrint(int space) const
+void IControllerFileNode::travelPrint() const
 {
     if(m_resourceMappingEnabled){
         qDebug() << "Mapping Directory";
@@ -36,9 +36,8 @@ void IControllerFileNode::travelPrint(int space) const
         for(const auto& key : keys){
             qDebug().noquote()<< QString().fill(' ', 2) << key << "to" << m_resourceMap[key];
         }
+        qDebug() << "";
     }
-    
-    qDebug() << endl;
 }
 
 void IControllerFileNodeHelper::mountFilesToResourceMapping(QHash<QString, QString>& hash, const QString &path, const QString &prefix)
