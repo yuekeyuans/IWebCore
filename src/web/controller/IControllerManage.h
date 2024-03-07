@@ -19,12 +19,11 @@ $PackageWebCoreBegin
 class IRequest;
 class IControllerManage : public ISingletonUnit<IControllerManage>
 {
-public:
-    IControllerManage();
-
-public:
     using ValidatorFun = bool (*)(const QString&);
+public:
+    IControllerManage() = default;
 
+public:
     static void setIsServerStarted(bool);
 
     // TODO: 考虑 将函数换一些好用的名字
@@ -72,13 +71,12 @@ private:
 
     // 这里实现 url 时 需要防止  /<name>/<name>/  这种重复类型的 url
     static bool checkUrlDuplicateName(const IUrlActionNode* node);
-    void preRegisterPathValidator();
 
     static void checkRegisterAvalible();    // 检查是否能够注册
 
 private:
     bool m_isServerStarted{false};
-    std::shared_ptr<IControllerRouteNode> m_urlMapppings;
+    IControllerRouteNode m_urlMapppings;
     IControllerFileNode m_fileMappings;
 
     QMap<IHttpStatus, IStatusActionNode> m_statusMappings;

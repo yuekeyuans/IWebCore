@@ -9,8 +9,13 @@ class TestController : public IControllerInterface<TestController, true>
 public:
     TestController();
 
-//    $GetMapping(hello, /)
+    $GetMapping(hello, /)
     QString hello();
+
+    $PostMapping(helloGet, hello)
+    QString helloGet(){
+        return "";
+    }
 
     $GetMapping(index, hello/index)
     IFileResponse index();

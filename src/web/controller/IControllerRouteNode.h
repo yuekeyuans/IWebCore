@@ -24,7 +24,7 @@ public:
     IControllerRouteNode() = default;
     explicit IControllerRouteNode(IControllerRouteNode* parent, const QString& fragment);
 
-    bool isEmpty();
+    bool isEmpty() const;
     IUrlActionNode* setLeaf(const IUrlActionNode& leaf);
     IUrlActionNode* getLeaf(IHttpMethod method);
     void removeLeaf(IHttpMethod method);

@@ -10,16 +10,6 @@ $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-IControllerManage::IControllerManage()
-{
-    m_urlMapppings = std::make_shared<IControllerRouteNode>();
-
-    static std::once_flag flag;
-    std::call_once(flag, [&](){
-        preRegisterPathValidator();
-    });
-}
-
 void IControllerManage::setIsServerStarted(bool value)
 {
     auto inst = instance();
@@ -67,7 +57,7 @@ void IControllerManage::registerUrlActionNode(IUrlActionNode node)
 
     auto inst = instance();
     auto fragments = node.url.split("/");
-    auto nodePtr = inst->m_urlMapppings.get();
+    auto nodePtr = &inst->m_urlMapppings;
     for(auto it=fragments.begin(); it!= fragments.end(); ++it){
         if(!it->isEmpty()){     // this step to guarantee the root element to settle properly
             nodePtr = nodePtr->getOrAppendChildNode(*it);
@@ -91,7 +81,7 @@ void IControllerManage::unRegisterUrlActionNode(IUrlActionNode node)
 
     auto inst = instance();
     auto fragments = node.url.split("/");
-    auto nodePtr = inst->m_urlMapppings.get();
+    auto nodePtr = &inst->m_urlMapppings;
 
     for(const auto& fragment : fragments){
         nodePtr = nodePtr->getChildNode(fragment);
@@ -194,7 +184,7 @@ void IControllerManage::registerPostInterceptor(IInterceptorWare *middleWare)
 
 void IControllerManage::travalPrintUrlTree()
 {
-    instance()->m_urlMapppings->travelPrint();
+    instance()->m_urlMapppings.travelPrint();
     instance()->m_fileMappings.travelPrint();
 }
 
@@ -221,7 +211,7 @@ IUrlActionNode *IControllerManage::getUrlActionNode(IRequest &request)
     const QString &url = request.url();
     IHttpMethod method = request.method();
 
-    auto nodePtr = instance()->m_urlMapppings.get();
+    auto nodePtr = &instance()->m_urlMapppings;
 
     if(url == "/"){
         return nodePtr->getLeaf(method);
@@ -367,11 +357,6 @@ bool IControllerManage::checkUrlDuplicateName(const IUrlActionNode *node)
         parent = parent->parentNode;
     }
     return true;
-}
-
-void IControllerManage::preRegisterPathValidator()
-{
-
 }
 
 void IControllerManage::checkRegisterAvalible()

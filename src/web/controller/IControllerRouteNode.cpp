@@ -13,7 +13,7 @@ IControllerRouteNode::IControllerRouteNode(IControllerRouteNode* parent, const Q
     evaluateNode(fragment);
 }
 
-bool IControllerRouteNode::isEmpty()
+bool IControllerRouteNode::isEmpty() const
 {
     if(!children.isEmpty()){
         return false;
@@ -148,19 +148,25 @@ IControllerRouteNode *IControllerRouteNode::getChildNode(const QString &fragment
 
 void IControllerRouteNode::travelPrint(int space) const
 {
+    if(isEmpty()){
+        return;
+    }
+
     if(space == 0){
         qDebug() << "Below is Controller Url Mapping:";
     }
 
     auto print = [](IUrlActionNode* leaf, int space){
-        if(leaf == nullptr) return;
-        qDebug().noquote()<< QString().fill(' ', 4* space + 2)
-                          << leaf->url
-                          << IHttpMethodHelper::toString(leaf->httpMethod)
-                          << "<==" << leaf->methodNode.expression;
+        if(leaf != nullptr){
+            qDebug().noquote()<< QString().fill(' ', 4 * space)
+                              << "    |" + IHttpMethodHelper::toString(leaf->httpMethod)
+                              << "/" + leaf->url
+                              << "\t==>" << leaf->methodNode.expression;
+        }
     };
 
-    qDebug().noquote() << QString().fill(' ', 4* space) << (this->fragment.isEmpty() ? "/" :this->fragment);
+    qDebug().noquote() << QString().fill(' ', 4* space)
+                       << "/" + this->fragment;
 
     print(this->getMethodLeaf, space);
     print(this->putMethodLeaf, space);
