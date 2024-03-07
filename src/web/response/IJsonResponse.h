@@ -12,7 +12,6 @@ class IRedirectResponse;
 
 class IJsonResponse : public IResponseInterface<IJsonResponse>
 {
-    Q_GADGET
     $AsResponse(IJsonResponse)
 public:
     using IResponseInterface::operator[];

@@ -49,12 +49,12 @@ bool IByteArrayResponse::matchConvertString(const QString &value)
 
 QSharedPointer<IResponseWare> IByteArrayResponse::createByteArrayInstance()
 {
-    return QSharedPointer<IResponseWare>(new IByteArrayResponse);
+    return QSharedPointer<IByteArrayResponse>::create();
 }
 
 QSharedPointer<IResponseWare> IByteArrayResponse::createInstance()
 {
-    return QSharedPointer<IResponseWare>(new IByteArrayResponse);
+    return QSharedPointer<IByteArrayResponse>::create();
 }
 
 IByteArrayResponse operator"" _bytes(const char* str, size_t size){

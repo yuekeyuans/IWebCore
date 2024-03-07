@@ -67,14 +67,12 @@ bool IPlainTextResponse::canConvertFromString()
 // TODO: 之后所有的返回改成这个样子
 QSharedPointer<IResponseWare> IPlainTextResponse::createInstance()
 {
-    return std::make_shared<IPlainTextResponse>();
-    // return QSharedPointer<IResponseWare>(new IPlainTextResponse);
+    return QSharedPointer<IPlainTextResponse>::create();
 }
 
 QSharedPointer<IResponseWare> IPlainTextResponse::createIPlainTexInstance()
 {
-    return std::make_shared<IPlainTextResponse>();
-    // return QSharedPointer<IResponseWare>(new IPlainTextResponse);
+    return QSharedPointer<IPlainTextResponse>::create();
 }
 
 bool IPlainTextResponse::matchConvertString(const QString &str)

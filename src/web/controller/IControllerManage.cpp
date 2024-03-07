@@ -441,29 +441,29 @@ void IControllerManage::checkRegisterAvalible()
 
 void IControllerManageHelper::registerCommonTypes()
 {
-    IMetaUtil::registerMetaType<short>("short");
-    IMetaUtil::registerMetaType<ushort>("ushort");
-    IMetaUtil::registerMetaType<int>("int");
-    IMetaUtil::registerMetaType<uint>("unit");
-    IMetaUtil::registerMetaType<long>("long");
-    IMetaUtil::registerMetaType<ulong>("ulong");
-    IMetaUtil::registerMetaType<qlonglong>("qlonglong");
-    IMetaUtil::registerMetaType<qulonglong>("qulonglong");
-    IMetaUtil::registerMetaType<float>("float");
-    IMetaUtil::registerMetaType<double>("double");
+    IMetaUtil::registerBaseType<short>("short");
+    IMetaUtil::registerBaseType<ushort>("ushort");
+    IMetaUtil::registerBaseType<int>("int");
+    IMetaUtil::registerBaseType<uint>("unit");
+    IMetaUtil::registerBaseType<long>("long");
+    IMetaUtil::registerBaseType<ulong>("ulong");
+    IMetaUtil::registerBaseType<qlonglong>("qlonglong");
+    IMetaUtil::registerBaseType<qulonglong>("qulonglong");
+    IMetaUtil::registerBaseType<float>("float");
+    IMetaUtil::registerBaseType<double>("double");
 
-    IMetaUtil::registerMetaType<int16_t>("int16_t");
-    IMetaUtil::registerMetaType<uint16_t>("uint16_t");
-    IMetaUtil::registerMetaType<int32_t>("int32_t");
-    IMetaUtil::registerMetaType<uint32_t>("uint32_t");
-    IMetaUtil::registerMetaType<int64_t>("int64_t");
-    IMetaUtil::registerMetaType<uint64_t>("uint64_t");
+    IMetaUtil::registerBaseType<int16_t>("int16_t");
+    IMetaUtil::registerBaseType<uint16_t>("uint16_t");
+    IMetaUtil::registerBaseType<int32_t>("int32_t");
+    IMetaUtil::registerBaseType<uint32_t>("uint32_t");
+    IMetaUtil::registerBaseType<int64_t>("int64_t");
+    IMetaUtil::registerBaseType<uint64_t>("uint64_t");
 
-    IMetaUtil::registerMetaType<QString>("QString");
-    IMetaUtil::registerMetaType<QByteArray>("QByteArray");
-    IMetaUtil::registerMetaType<QJsonValue>("QJsonValue");
-    IMetaUtil::registerMetaType<QJsonArray>("QJsonArray");
-    IMetaUtil::registerMetaType<QJsonObject>("QJsonObject");
+    IMetaUtil::registerBaseType<QString>("QString");
+    IMetaUtil::registerBaseType<QByteArray>("QByteArray");
+    IMetaUtil::registerBaseType<QJsonValue>("QJsonValue");
+    IMetaUtil::registerBaseType<QJsonArray>("QJsonArray");
+    IMetaUtil::registerBaseType<QJsonObject>("QJsonObject");
 }
 
 bool IControllerManageHelper::isShortValue(const QString& value){

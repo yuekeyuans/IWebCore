@@ -71,12 +71,12 @@ bool IJsonResponse::matchConvertString(const QString &value)
 
 QSharedPointer<IJsonResponse> IJsonResponse::createJsonInstance()
 {
-    return QSharedPointer<IJsonResponse>(new IJsonResponse);
+    return QSharedPointer<IJsonResponse>::create();
 }
 
 QSharedPointer<IResponseWare> IJsonResponse::createInstance()
 {
-    return QSharedPointer<IResponseWare>(new IJsonResponse);
+    return QSharedPointer<IJsonResponse>::create();
 }
 
 IJsonResponse operator"" _json(const char *str, size_t size)

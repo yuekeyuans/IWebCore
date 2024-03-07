@@ -16,7 +16,7 @@ const QString IFileResponse::m_matcherPrefix{"$file:"};
 namespace IFileResponseHelper
 {
     static QString getContentDispositionAttachment(const QString& filePath);
-    static void setFilePath(IResponseWareRaw* raw, const QString& path);
+    static bool setFilePath(IResponseWareRaw* raw, const QString& path);
     static void checkAndUpdateContentDisposition(bool enabled, IResponseWareRaw* raw);
     static $QStringList suffixes{"http.fileService.suffixes"};
 }
@@ -25,16 +25,25 @@ IFileResponse::IFileResponse()
 {
 }
 
+// TODO: 检查 这里判断 setInvalid 方法不能使用的问题。
 IFileResponse::IFileResponse(const char *data)
 {
-    IFileResponseHelper::setFilePath(raw, data);
-    IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
+    if(IFileResponseHelper::setFilePath(raw, data)){
+        IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
+    }else{
+//        this->raw->
+//        this->setStatus(IHttpStatus::NOT_FOND_404);
+//        setStatus(IHttpStatus::NOT_FOND_404);
+    }
 }
 
 IFileResponse::IFileResponse(const QString &data)
 {
-    IFileResponseHelper::setFilePath(raw, data);
-    IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
+    if(IFileResponseHelper::setFilePath(raw, data)){
+        IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
+    }else{
+        setStatus(IHttpStatus::NOT_FOND_404);
+    }
 }
 
 IFileResponse::IFileResponse(IWebCore::IRedirectResponse &&redirectResponse)
@@ -44,8 +53,11 @@ IFileResponse::IFileResponse(IWebCore::IRedirectResponse &&redirectResponse)
 
 void IFileResponse::setFilePath(const QString &path)
 {
-    IFileResponseHelper::setFilePath(raw, path);
-    IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
+    if(IFileResponseHelper::setFilePath(raw, path)){
+        IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
+    }else{
+        setStatus(IHttpStatus::NOT_FOND_404);
+    }
 }
 
 void IFileResponse::setContent(const QByteArray &bytes)
@@ -69,7 +81,11 @@ void IFileResponse::setContent(const char *content)
 void IFileResponse::setInstanceArg(QString &&data)
 {
     auto path = data.mid(m_matcherPrefix.length());
-    setFilePath(path);
+    if(IFileResponseHelper::setFilePath(raw, path)){
+        IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
+    }else{
+        setStatus(IHttpStatus::NOT_FOND_404);
+    }
 }
 
 bool IFileResponse::canConvertFromString()
@@ -84,7 +100,7 @@ bool IFileResponse::matchConvertString(const QString &str)
 
 QSharedPointer<IResponseWare> IFileResponse::createInstance()
 {
-    return QSharedPointer<IResponseWare>(new IFileResponse);
+    return QSharedPointer<IFileResponse>::create();
 }
 
 IFileResponse operator"" _file(const char* str, size_t size)
@@ -102,7 +118,7 @@ QString IFileResponseHelper::getContentDispositionAttachment(const QString& file
     return QString("attachment;filename=").append(ICodecUtil::urlEncode(fileName));
 }
 
-void IFileResponseHelper::setFilePath(IResponseWareRaw* raw, const QString& path)
+bool IFileResponseHelper::setFilePath(IResponseWareRaw* raw, const QString& path)
 {
     QString realPath = path;
     if(!path.startsWith(":/") && !QFileInfo(path).exists()){
@@ -112,17 +128,21 @@ void IFileResponseHelper::setFilePath(IResponseWareRaw* raw, const QString& path
         }
     }
 
-    if(IConstantUtil::DebugMode){
-        if(!QFile(realPath).exists()){
-            IAssertInfo info;
-            info.reason = QString("filepath: " ).append(realPath);
-            $Ast->fatal("static_file_not_exist", info);
-        }
-    }
+//    if(IConstantUtil::DebugMode){
+//        if(!QFile(realPath).exists()){
+//            IAssertInfo info;
+//            info.reason = QString("filepath: " ).append(realPath);
+//            $Ast->fatal("static_file_not_exist", info);
+//        }
+//    }
 
-    auto suffix = IFileUtil::getFileSuffix(realPath);
-    raw->setMime(IHttpMimeHelper::getSuffixMime(suffix));
-    raw->setFileContent(realPath);
+    if(QFile(realPath).exists()){
+        auto suffix = IFileUtil::getFileSuffix(realPath);
+        raw->setMime(IHttpMimeHelper::getSuffixMime(suffix));
+        raw->setFileContent(realPath);
+        return true;
+    }
+    return false;
 }
 
 void IFileResponseHelper::checkAndUpdateContentDisposition(bool enabled, IResponseWareRaw* raw)

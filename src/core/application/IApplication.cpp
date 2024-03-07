@@ -10,6 +10,7 @@ $UseGlobalAssert()
 namespace IApplicationHelper
 {
     QStringList fromArguments(int argc, char** argv);
+    static int args = 0;
 }
 
 class IApplicationPrivate
@@ -18,20 +19,29 @@ public:
     QStringList m_arguments;
     static IApplication* s_master;
 };
+
 IApplication* IApplicationPrivate::s_master = nullptr;
 
 IApplication::IApplication()
-    : IApplication(0, nullptr)
+    : QCoreApplication(IApplicationHelper::args, nullptr), d_ptr(std::make_shared<IApplicationPrivate>())
 {
+    Q_D(IApplication);
+    d->s_master = this;
+    ITaskManage::run();
 }
 
 IApplication::IApplication(int argc, char **argv)
     : QCoreApplication(argc, argv), d_ptr(std::make_shared<IApplicationPrivate>())
 {
     Q_D(IApplication);
-    d->s_master = this;
     d->m_arguments = IApplicationHelper::fromArguments(argc, argv);
+    d->s_master = this;
     ITaskManage::run();
+}
+
+IApplication::~IApplication()
+{
+
 }
 
 const IApplication *IApplication::theInstance()

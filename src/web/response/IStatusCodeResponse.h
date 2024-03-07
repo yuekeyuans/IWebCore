@@ -9,7 +9,6 @@ $PackageWebCoreBegin
 
 class IStatusCodeResponse : public IResponseInterface<IStatusCodeResponse>
 {
-    Q_GADGET
     $AsResponse(IStatusCodeResponse)
 public:
     using IResponseInterface::operator[];

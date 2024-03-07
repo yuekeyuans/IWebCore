@@ -131,6 +131,7 @@ void IControllerParamUtil::resolveReturnValue(IResponse& response, const IMethod
 
 void *IControllerParamUtil::createReturnParam(int paramTypeId)
 {
+    qDebug() << paramTypeId << QMetaType::typeName(paramTypeId) << "typename";
     return QMetaType::create(paramTypeId);
 }
 

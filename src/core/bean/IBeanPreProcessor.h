@@ -69,7 +69,6 @@ private:
 
 #define $AsBean(klassName) \
 public: \
-    $UseMetaRegistration(klassName) \
     $_UseGadget(klassName) \
 public: \
     operator QString(){ \

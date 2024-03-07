@@ -30,5 +30,4 @@ public: \
 #define $AsResponse(klassName)  \
 public: \
     $UseBareInstance(klassName) \
-    $UseMetaRegistration(klassName)     \
     PP_AS_RESPONSE(klassName)

@@ -45,7 +45,7 @@ bool IHtmlResponse::matchConvertString(const QString &str)
 
 QSharedPointer<IResponseWare> IHtmlResponse::createInstance()
 {
-    return QSharedPointer<IResponseWare>(new IHtmlResponse);
+    return QSharedPointer<IHtmlResponse>::create();
 }
 
 IHtmlResponse operator"" _html(const char* str, size_t size)

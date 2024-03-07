@@ -60,7 +60,7 @@ QSharedPointer<IResponseWare> IStatusCodeResponse::createInstance()
 
 QSharedPointer<IResponseWare> IStatusCodeResponse::createStatusCodeInstance()
 {
-    return std::make_shared<IStatusCodeResponse>();
+    return QSharedPointer<IStatusCodeResponse>::create();
 }
 
 void IStatusCodeResponseHelper::checkStatusCode(IHttpStatus status)

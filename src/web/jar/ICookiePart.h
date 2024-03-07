@@ -10,7 +10,6 @@ $PackageWebCoreBegin
 class ICookiePart : public IRegisterMetaTypeUnit<ICookiePart>
 {
     Q_GADGET
-    $UseMetaRegistration(ICookiePart);
 public:
     enum SameSiteType{
         Lax,

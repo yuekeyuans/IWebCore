@@ -12,7 +12,6 @@ $PackageWebCoreBegin
  */
 class IRedirectResponse : public IResponseInterface<IRedirectResponse>
 {
-    Q_GADGET
     $AsResponse(IRedirectResponse)
 public:
     using IResponseInterface::operator[];
