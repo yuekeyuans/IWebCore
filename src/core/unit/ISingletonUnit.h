@@ -23,8 +23,6 @@ public:
     }
 };
 
-// TODO: GlobalAstError
-
 template<typename T>
 ISingletonUnit<T>::ISingletonUnit()
 {

@@ -106,13 +106,11 @@ inline QString IToeUtil::trimQuote(const QString &content)
 
     static const QString quote1 = "\\\"";
     if(content.startsWith(quote1) && content.endsWith(quote1)){
-        qFatal("here");
         return content.mid(2, content.length() - 4);
     }
 
     static const QString quote2 = "\"\\\"";
     if(content.startsWith(quote2) && content.endsWith(quote2)){
-        qFatal("here");
         return content.mid(3, content.length() - 6);
     }
 

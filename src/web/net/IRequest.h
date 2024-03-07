@@ -35,7 +35,7 @@ public:
     IRequest(IRequest&&);
     IRequest& operator=(IRequest&&);
 
-    const QString operator[](const QString&headerJar) const;
+    const QString operator[](const QString& headerJar) const;
 
     IResponse* response() const;
     ICookieJar* cookieJar() const;

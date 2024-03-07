@@ -49,7 +49,7 @@ namespace IJsonUtil
 
     QString toString(QJsonValue value);
 
-    // TODO: 看一下这个怎搞？
+    // TODO: 看一下这个怎搞？, 这个应该可以不要的。
     template<class T>
     QString toString(T value){
         bool ok;

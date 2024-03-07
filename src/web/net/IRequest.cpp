@@ -95,6 +95,7 @@ IRequest &IRequest::operator=(IRequest &&)
 }
 
 // TODO: 这个考虑返回 IResult
+// TODO: 这个返回不应该是 IResult, 而应该是 引用类型
 const QString IRequest::operator[](const QString &header) const
 {
     bool ok;

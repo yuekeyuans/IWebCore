@@ -10,7 +10,6 @@ namespace IConvertUtilHelper{
     QVariant toULong(ulong value);
 }
 
-// TODO:查看一下这个可会被优化掉？
 bool IConvertUtil::toBool(bool value, bool& ok)
 {
     ok = true;
@@ -393,7 +392,6 @@ QByteArray IConvertUtil::toByteArray(const QByteArray &value)
     return value;
 }
 
-// TODO: check ok
 QByteArray IConvertUtil::toByteArray(const QJsonValue &value)
 {
     return toString(value).toUtf8();

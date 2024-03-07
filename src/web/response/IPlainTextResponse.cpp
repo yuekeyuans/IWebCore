@@ -64,7 +64,6 @@ bool IPlainTextResponse::canConvertFromString()
     return true;
 }
 
-// TODO: 之后所有的返回改成这个样子
 QSharedPointer<IResponseWare> IPlainTextResponse::createInstance()
 {
     return QSharedPointer<IPlainTextResponse>::create();
