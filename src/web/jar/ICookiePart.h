@@ -1,8 +1,6 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
-#include "core/base/IMetaUtil.h"
-#include "core/base/IPreProcessorUtil.h"
 #include "core/unit/IRegisterMetaTypeUnit.h"
 
 $PackageWebCoreBegin
@@ -18,7 +16,6 @@ public:
 
 public:
     ICookiePart() = default;
-
     ICookiePart(const QString& key, const QString& value);
 
     template<typename T>
