@@ -9,22 +9,21 @@ class TestController : public IControllerInterface<TestController, true>
 public:
     TestController();
 
-//    $DeleteMapping(helloDelete, /)
-//    QString helloDelete(){
-//        return "";
-//    }
+    $DeleteMapping(helloDelete, /)
+    QString helloDelete(){
+        return "";
+    }
 
     $DeleteMappingDeclare(hello, /)
-    $GetMappingDeclare(hello, /)
-    Q_INVOKABLE
+    $GetMapping(hello, /)
     QString hello();
 
-//    $PostMapping(helloGet, hello)
-//    QString helloGet(){
-//        return "";
-//    }
+    $PostMapping(helloGet, hello)
+    QString helloGet(){
+        return "";
+    }
 
-//    $GetMapping(index, hello/index)
-//    IFileResponse index();
+    $GetMapping(index, hello/index)
+    IFileResponse index();
 };
 

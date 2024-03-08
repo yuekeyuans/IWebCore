@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "core/result/IResult.h"
 
 $PackageWebCoreBegin
 

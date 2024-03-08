@@ -38,9 +38,9 @@ private:
     void checkMethodParamterWithSuffixSet(const IUrlActionNode& node);
 
     // 其他调用函数
-    QVector<IUrlActionNode> createFunctionMappingLeaves(const IControllerInfo& info, const QStringList& args);
-    QVector<QStringList> getMethodMappingInfo(const QMap<QString, QString>&clsInfo);
-    QStringList reformClsInfoArgs(const QMap<QString, QString>&, const QStringList &rootPathArgs);
+//    QVector<IUrlActionNode> createFunctionMappingLeaves(const IControllerInfo& info, const QStringList& args);
+//    QVector<QStringList> getMethodMappingInfo(const QMap<QString, QString>&clsInfo);
+//    QStringList reformClsInfoArgs(const QMap<QString, QString>&, const QStringList &rootPathArgs);
     QMap<QString, QString> getStatusCodeInfos(QMap<QString, QString> clsInfos);
 };
 

@@ -6,5 +6,5 @@
     Q_CLASSINFO(PP_STRING(iwebControllerMapping$), #path) \
 private:
 
-#define PP_CONTROLLER_JOIN(funName, type) \
-    PP_STRING( iwebControllerFun$##funName##$##type)
+#define PP_CONTROLLER_PROP(funName, type, index)    \
+    PP_STRING(iwebControllerFun ## $ ## funName ## $ type ## $ ## index)
