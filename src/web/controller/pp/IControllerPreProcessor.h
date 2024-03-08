@@ -7,4 +7,4 @@
 private:
 
 #define PP_CONTROLLER_PROP(funName, type, index)    \
-    PP_STRING(iwebControllerFun ## $ ## funName ## $ type ## $ ## index)
+    PP_STRING(iwebControllerFun ## $ ## funName ## $ ## type ## $ ## index)

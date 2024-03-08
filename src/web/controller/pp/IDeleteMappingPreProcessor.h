@@ -40,7 +40,6 @@
 #define $DeleteMappingDeclare_EVAL(N) $DeleteMappingDeclare_(N)
 #define $DeleteMappingDeclare(...) PP_EXPAND( $DeleteMappingDeclare_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
 
-
 #define $DeleteMapping_1(funName)  \
     $DeleteMappingDeclare(funName) \
     Q_INVOKABLE
