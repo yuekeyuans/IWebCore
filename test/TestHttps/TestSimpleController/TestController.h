@@ -14,7 +14,6 @@ public:
         return "";
     }
 
-    $DeleteMappingDeclare(hello, /)
     $GetMapping(hello, /)
     QString hello();
 
