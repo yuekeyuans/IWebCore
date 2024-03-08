@@ -70,7 +70,7 @@ QStringList IControllerInterfaceImpl::reformClsInfoArgs(const QMap<QString, QStr
                                                         , const QStringList &rootPathArgs)
 {
     QStringList ret;
-    ret.append({map["resFunName"], map["reqMethod"]});
+    ret.append({map["reqFunName"], map["reqMethod"]});
 
     for(int index =1 ;; index++){
         auto number = QString::number(index);

@@ -3,30 +3,30 @@
 #include "IControllerPreProcessor.h"
 
 #define $DeleteMappingDeclare_1(funName)  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "DELETE")  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #funName)
 
 #define $DeleteMappingDeclare_2(funName, url1)  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "DELETE")  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #url1)
 
 #define $DeleteMappingDeclare_3(funName, url1, url2)  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "DELETE")  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #url1)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 2), #url2)
 
 #define $DeleteMappingDeclare_4(funName, url1, url2, url3)  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "DELETE")  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #url1)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 2), #url2)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 3), #url3)
 
 #define $DeleteMappingDeclare_5(funName, url1, url2, url3, url4)  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "DELETE")  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #url1)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 2), #url2)  \
@@ -34,7 +34,7 @@
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 4), #url4)
 
 #define $DeleteMappingDeclare_6(funName, url1, url2, url3, url4, url5)  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "DELETE")  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #url1)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 2), #url2)  \
@@ -43,7 +43,7 @@
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 5), #url5)
 
 #define $DeleteMappingDeclare_7(funName, url1, url2, url3, url4, url5, url6)  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "DELETE")  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #url1)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 2), #url2)  \
@@ -53,7 +53,7 @@
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 6), #url6)
 
 #define $DeleteMappingDeclare_8(funName, url1, url2, url3, url4, url5, url6, url7)  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "DELETE")  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #url1)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 2), #url2)  \
@@ -64,7 +64,7 @@
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 7), #url7)
 
 #define $DeleteMappingDeclare_9(funName, url1, url2, url3, url4, url5, url6, url7, url8)  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "DELETE")  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #url1)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 2), #url2)  \

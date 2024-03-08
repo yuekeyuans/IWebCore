@@ -3,30 +3,30 @@
 #include "IControllerPreProcessor.h"
 
 #define $PatchMappingDeclare_1(funName)  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "PATCH")  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #funName)
 
 #define $PatchMappingDeclare_2(funName, url1)  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "PATCH")  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #url1)
 
 #define $PatchMappingDeclare_3(funName, url1, url2)  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "PATCH")  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #url1)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 2), #url2)
 
 #define $PatchMappingDeclare_4(funName, url1, url2, url3)  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "PATCH")  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #url1)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 2), #url2)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 3), #url3)
 
 #define $PatchMappingDeclare_5(funName, url1, url2, url3, url4)  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "PATCH")  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #url1)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 2), #url2)  \
@@ -34,7 +34,7 @@
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 4), #url4)
 
 #define $PatchMappingDeclare_6(funName, url1, url2, url3, url4, url5)  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "PATCH")  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #url1)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 2), #url2)  \
@@ -43,7 +43,7 @@
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 5), #url5)
 
 #define $PatchMappingDeclare_7(funName, url1, url2, url3, url4, url5, url6)  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "PATCH")  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #url1)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 2), #url2)  \
@@ -53,7 +53,7 @@
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 6), #url6)
 
 #define $PatchMappingDeclare_8(funName, url1, url2, url3, url4, url5, url6, url7)  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "PATCH")  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #url1)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 2), #url2)  \
@@ -64,7 +64,7 @@
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 7), #url7)
 
 #define $PatchMappingDeclare_9(funName, url1, url2, url3, url4, url5, url6, url7, url8)  \
-    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, resFunName), #funName) \
+    Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqFunName), #funName) \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, reqMethod), "PATCH")  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 1), #url1)  \
     Q_CLASSINFO( PP_CONTROLLER_JOIN(funName, 2), #url2)  \
