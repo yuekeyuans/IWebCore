@@ -10,32 +10,16 @@ $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-namespace IControllerInterfaceImpHelper{
-    struct MappingInfo{
-        QString funName;
-        QStringList path;
-        IHttpMethod method;
-        int index;
-    };
-
-    bool isBeanType(const QString&);
-    bool isSpecialTypes(const QString&);
-    bool isParamNameWithSuffix(const QString& paramName);
-    bool isIgnoreParamCheckFunction(const QString& funName, const QMap<QString, QString>& clsInfo);
-
-    QVector<MappingInfo> getMethodMappingInfo(const QMap<QString, QString> &clsInfo);
-    QStringList toNormalUrl(const QString& url, const QStringList& prefix);
-    QVector<IUrlActionNode> createFunctionMappingLeaves(const IControllerInfo& info, const MappingInfo& mapping);
-}
-using namespace IControllerInterfaceImpHelper;
+//namespace IControllerInterfaceImpHelper{
+//}
+//using namespace IControllerInterfaceImpHelper;
 
 void IControllerInterfaceImpl::checkUrlMappings(const IControllerInfo& info)
 {
-    auto inst = instance();
-    inst->checkMappingOverloadFunctions(info.classMethods);
-    inst->checkMappingNameAndFunctionIsMatch(info);
-    inst->checkMappingUrlIsValid(info);
-    inst->checkMappingMethodArgsIsValid(info);
+    checkMappingOverloadFunctions(info.classMethods);
+    checkMappingNameAndFunctionIsMatch(info);
+    checkMappingUrlIsValid(info);
+    checkMappingMethodArgsIsValid(info);
 }
 
 QVector<IUrlActionNode> IControllerInterfaceImpl::createMappingLeaves(const IControllerInfo& info)
@@ -109,21 +93,21 @@ void IControllerInterfaceImpl::checkMappingUrlIsValid(const IControllerInfo &inf
 
 void IControllerInterfaceImpl::checkMappingMethodArgsIsValid(const IControllerInfo& info)
 {
-    using CheckFunType = void (IControllerInterfaceImpl::*)(const IUrlActionNode&);
-    static QList<CheckFunType> funs = {
-        &IControllerInterfaceImpl::chechMethodSupportedReturnType,
-        &IControllerInterfaceImpl::checkMethodSupportedParamArgType,
-        &IControllerInterfaceImpl::checkMethodArgNameIntegrality,
-        &IControllerInterfaceImpl::checkMethodOfReturnVoid,
-        &IControllerInterfaceImpl::checkMethodBodyContentArgs,
-        &IControllerInterfaceImpl::checkMethodParamterWithSuffixProper,
-        &IControllerInterfaceImpl::checkMethodParamterWithSuffixSet,
+    using CheckFunType = std::function<void (const IUrlActionNode&)>;
+    QList<CheckFunType> funs{
+        chechMethodSupportedReturnType,
+        checkMethodSupportedParamArgType,
+        checkMethodArgNameIntegrality,
+        checkMethodOfReturnVoid,
+        checkMethodBodyContentArgs,
+        checkMethodParamterWithSuffixProper,
+        checkMethodParamterWithSuffixSet,
     };
 
     auto leaves = createMappingLeaves(info);
     for(auto& leaf : leaves){
         for(auto& fun : funs){
-            std::mem_fn(fun)(this, leaf);
+            fun(leaf);
         }
     }
 }
@@ -285,8 +269,7 @@ void IControllerInterfaceImpl::checkMethodSupportedParamArgType(const IUrlAction
         auto typeId = typeIds[i];
 
         if(typeId >= QMetaType::User){
-            bool isSupportedType = IControllerInterfaceImpHelper::isSpecialTypes(typeName)
-                                   || IControllerInterfaceImpHelper::isBeanType(typeName);
+            bool isSupportedType = isSpecialTypes(typeName) || isBeanType(typeName);
             if(!isSupportedType){
                 IAssertInfo info;
                 info.reason = QString("At Function: ").append(node.methodNode.expression)
@@ -387,7 +370,7 @@ void IControllerInterfaceImpl::checkMethodParamterWithSuffixSet(const IUrlAction
             continue;
         }
 
-        if(!IControllerInterfaceImpHelper::isParamNameWithSuffix(param.paramName)){
+        if(!isParamNameWithSuffix(param.paramName)){
             IAssertInfo info;
             info.reason = QString("At Function: ").append(node.methodNode.expression)
                               .append(" At Param: ").append(param.paramName);
@@ -396,7 +379,7 @@ void IControllerInterfaceImpl::checkMethodParamterWithSuffixSet(const IUrlAction
     }
 }
 
-bool IControllerInterfaceImpHelper::isSpecialTypes(const QString& typeName)
+bool IControllerInterfaceImpl::isSpecialTypes(const QString& typeName)
 {
     static const QStringList specialExternalTypes = {
         "IRequest",     "IRequest&",
@@ -411,12 +394,12 @@ bool IControllerInterfaceImpHelper::isSpecialTypes(const QString& typeName)
     return specialExternalTypes.contains(typeName);
 }
 
-bool IControllerInterfaceImpHelper::isBeanType(const QString& typeName)
+bool IControllerInterfaceImpl::isBeanType(const QString& typeName)
 {
     return IBeanTypeManage::containBean(typeName);
 }
 
-bool IControllerInterfaceImpHelper::isParamNameWithSuffix(const QString& paramName)
+bool IControllerInterfaceImpl::isParamNameWithSuffix(const QString& paramName)
 {
     static const QStringList suffixes = {
         "_mixed", "_param", "_url", "_body", "_content", "_header",
@@ -431,7 +414,7 @@ bool IControllerInterfaceImpHelper::isParamNameWithSuffix(const QString& paramNa
     return false;
 }
 
-bool IControllerInterfaceImpHelper::isIgnoreParamCheckFunction(const QString& funName
+bool IControllerInterfaceImpl::isIgnoreParamCheckFunction(const QString& funName
                                                                , const QMap<QString, QString>& clsInfo)
 {
     static const QString ignoreAllKey = "ignore_all_controller_fun_name";
@@ -445,7 +428,7 @@ bool IControllerInterfaceImpHelper::isIgnoreParamCheckFunction(const QString& fu
     return clsInfo.contains(key);
 }
 
-QVector<MappingInfo> IControllerInterfaceImpHelper::getMethodMappingInfo(const QMap<QString, QString> &clsInfo)
+QVector<MappingInfo> IControllerInterfaceImpl::getMethodMappingInfo(const QMap<QString, QString> &clsInfo)
 {
     static const QString CONTROLLER_MAPPING_FLAG = "iwebControllerMapping$";
     QStringList rootPathArgs;
@@ -473,7 +456,7 @@ QVector<MappingInfo> IControllerInterfaceImpHelper::getMethodMappingInfo(const Q
     return infos;
 }
 
-QStringList IControllerInterfaceImpHelper::toNormalUrl(const QString& url, const QStringList& prefix)
+QStringList IControllerInterfaceImpl::toNormalUrl(const QString& url, const QStringList& prefix)
 {
     QStringList ret = prefix;
     auto tempArgs = url.split("/");
@@ -492,13 +475,13 @@ QStringList IControllerInterfaceImpHelper::toNormalUrl(const QString& url, const
     return ret;
 }
 
-QVector<IUrlActionNode> IControllerInterfaceImpHelper::createFunctionMappingLeaves(const IControllerInfo& info, const MappingInfo& mapping)
+QVector<IUrlActionNode> IControllerInterfaceImpl::createFunctionMappingLeaves(const IControllerInfo& info, const MappingInfo& mapping)
 {
     QVector<IUrlActionNode> ret;
 
     IUrlActionNode node;
     auto funName = mapping.funName;
-    node.ignoreParamCheck = IControllerInterfaceImpHelper::isIgnoreParamCheckFunction(funName, info.classInfo);
+    node.ignoreParamCheck = isIgnoreParamCheckFunction(funName, info.classInfo);
     node.httpMethod = mapping.method;
     QStringList pieces;
     for(const auto& method : info.classMethods){

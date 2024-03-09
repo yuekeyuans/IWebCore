@@ -13,6 +13,11 @@ namespace IControllerFileNodeHelper
     bool mountFilePageToServer(QHash<QString, QString>& hash, const QString& filePath, const QString& url);
 }
 
+bool IControllerFileNode::isEnabled() const
+{
+    return m_resourceMappingEnabled;
+}
+
 QString IControllerFileNode::getFilePath(const QString &url) const
 {
     if(m_resourceMappingEnabled && m_resourceFileMappings.contains(url)){

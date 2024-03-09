@@ -9,6 +9,7 @@ public:
     IControllerFileNode() = default;
 
 public:
+    bool isEnabled() const;
     QString getFilePath(const QString& url) const ;
     void mountMapping(const QString& dir, const QString& prefix="/");
     void travelPrint() const;

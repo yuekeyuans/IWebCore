@@ -1,8 +1,14 @@
-﻿#include "TestController.h"
+﻿#define $SourceFile
+
+#include "TestController.h"
 
 TestController::TestController()
 {
 
+}
+
+QString TestController::helloDelete($Header(QString, name)){
+    return name;
 }
 
 QString TestController::hello()

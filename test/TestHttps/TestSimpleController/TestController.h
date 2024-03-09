@@ -5,14 +5,12 @@
 class TestController : public IControllerInterface<TestController, true>
 {
     Q_GADGET
-//    $AsController(TestController)
+    $AsController(TestController)
 public:
     TestController();
 
     $DeleteMapping(helloDelete, /)
-    QString helloDelete(){
-        return "";
-    }
+    QString helloDelete($Header(QString, name));
 
     $PutMappingDeclare(hello, /)
     $GetMapping(hello, /)
