@@ -124,6 +124,7 @@ HEADERS += \
     $$PWD/web/biscuits/IHttpVersion.h \
     $$PWD/web/controller/IControllerFileNode.h \
     $$PWD/web/controller/private/IControllerInfo.h \
+    $$PWD/web/controller/private/IControllerInterfaceHelper.h \
     $$PWD/web/core/defaultTask/IBluePrintControllerTask.h \
     $$PWD/web/core/defaultTask/IControllerBaseTypeTask.h \
     $$PWD/web/core/defaultTask/IControllerPathValidatorTask.h \
@@ -183,7 +184,6 @@ HEADERS += \
     $$PWD/web/controller/pp/IPutMappingPreProcessor.h \
     $$PWD/web/controller/pp/IStatusCodeMappingPreProcessor.h \
     $$PWD/web/controller/pp/IStatusControllerPreProcessor.h \
-    $$PWD/web/controller/private/IControllerInterfaceImpl.h \
     $$PWD/web/controller/private/IControllerParamBeanUtil.h \
     $$PWD/web/controller/private/IControllerParamUtil.h \
     $$PWD/web/controller/private/IDefaultStatusController.h \
@@ -276,6 +276,7 @@ SOURCES += \
     $$PWD/web/biscuits/IHttpStatus.cpp \
     $$PWD/web/biscuits/IHttpVersion.cpp \
     $$PWD/web/controller/IControllerFileNode.cpp \
+    $$PWD/web/controller/private/IControllerInterfaceHelper.cpp \
     $$PWD/web/core/defaultTask/IBluePrintControllerTask.cpp \
     $$PWD/web/core/defaultTask/IControllerBaseTypeTask.cpp \
     $$PWD/web/core/defaultTask/IControllerPathValidatorTask.cpp \
@@ -320,7 +321,6 @@ SOURCES += \
     $$PWD/web/controller/IControllerPathValidatorInterface.cpp \
     $$PWD/web/controller/IControllerRouteNode.cpp \
     $$PWD/web/controller/IStatusControllerInterface.cpp \
-    $$PWD/web/controller/private/IControllerInterfaceImpl.cpp \
     $$PWD/web/controller/private/IControllerParamBeanUtil.cpp \
     $$PWD/web/controller/private/IControllerParamUtil.cpp \
     $$PWD/web/controller/private/IDefaultStatusController.cpp \

@@ -1,7 +1,7 @@
 ﻿#include "IControllerInterface.h"
 #include "web/IWebAssert.h"
 #include "web/controller/private/IControllerInfo.h"
-#include "web/controller/private/IControllerInterfaceImpl.h"
+#include "web/controller/private/IControllerInterfaceHelper.h"
 
 $PackageWebCoreBegin
 
@@ -16,8 +16,8 @@ void IControllerInterfaceProxy::registerController(void *handler, const QString 
     info.classInfo = classInfo;
     info.classMethods = methods;
 
-    IControllerInterfaceImpl::checkUrlMappings(info);
-    auto functionNodes = IControllerInterfaceImpl::createMappingLeaves(info);
+    IControllerInterfaceHelper::checkUrlMappings(info);
+    auto functionNodes = IControllerInterfaceHelper::createMappingLeaves(info);
     if(!functionNodes.empty()){
         IControllerManage::registerUrlActionNodes(functionNodes);
     }
@@ -42,8 +42,8 @@ void IControllerInterfaceProxy::unRegisterController(void *handler, const QStrin
     info.classInfo = classInfo;
     info.classMethods = methods;
 
-    IControllerInterfaceImpl::checkUrlMappings(info);
-    auto functionNodes = IControllerInterfaceImpl::createMappingLeaves(info);
+    IControllerInterfaceHelper::checkUrlMappings(info);
+    auto functionNodes = IControllerInterfaceHelper::createMappingLeaves(info);
     if(!functionNodes.empty()){
         IControllerManage::unRegisterUrlActionNodes(functionNodes);
     }

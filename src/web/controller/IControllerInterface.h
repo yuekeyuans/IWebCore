@@ -28,7 +28,6 @@ public:
     virtual void unRegisterController() final;
 };
 
-
 namespace IControllerInterfaceProxy
 {
     void registerController(void* handler, const QString& className,
@@ -38,7 +37,7 @@ namespace IControllerInterfaceProxy
     void unRegisterController(void* handler, const QString& className,
                               const QMap<QString, QString>& classMap, const QVector<QMetaMethod>& methods);
     void unRegisterError();
-};
+}
 
 template<typename T, bool enabled>
 QString IControllerInterface<T, enabled>::name() const
