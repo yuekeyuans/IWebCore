@@ -1,5 +1,6 @@
 ﻿#include "IControllerInterface.h"
 #include "web/IWebAssert.h"
+#include "web/controller/IControllerManage.h"
 #include "web/controller/private/IControllerInfo.h"
 #include "web/controller/private/IControllerInterfaceHelper.h"
 
@@ -7,7 +8,7 @@ $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-void IControllerInterfaceProxy::registerController(void *handler, const QString &className,
+void IControllerInterfaceHelper::registerController(void *handler, const QString &className,
                                                    const QMap<QString, QString> &classInfo, const QVector<QMetaMethod> &methods)
 {
     IControllerInfo info;
@@ -23,17 +24,17 @@ void IControllerInterfaceProxy::registerController(void *handler, const QString 
     }
 }
 
-void IControllerInterfaceProxy::registerError()
+void IControllerInterfaceHelper::registerError()
 {
     $Ast->fatal("register_controller_do_not_use_singleton");
 }
 
-void IControllerInterfaceProxy::unRegisterError()
+void IControllerInterfaceHelper::unRegisterError()
 {
     $Ast->fatal("unregister_controller_do_not_use_singleton");
 }
 
-void IControllerInterfaceProxy::unRegisterController(void *handler, const QString &className,
+void IControllerInterfaceHelper::unRegisterController(void *handler, const QString &className,
                                                      const QMap<QString, QString> &classInfo, const QVector<QMetaMethod> &methods)
 {
     IControllerInfo info;

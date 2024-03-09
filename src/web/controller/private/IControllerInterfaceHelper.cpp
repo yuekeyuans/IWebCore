@@ -20,30 +20,6 @@ void IControllerInterfaceHelper::checkUrlMappings(const IControllerInfo& info)
     checkMappingMethodArgsIsValid(info);
 }
 
-QVector<IUrlActionNode> IControllerInterfaceHelper::createMappingLeaves(const IControllerInfo& info)
-{
-    QVector<IUrlActionNode> ret;
-    auto args = getMethodMappingInfo(info.classInfo);
-    for(const auto& arg : args){
-        ret.append(createFunctionMappingLeaves(info, arg));
-    }
-    return ret;
-}
-
-//QMap<QString, QString> IControllerInterfaceImpl::getStatusCodeInfos(QMap<QString, QString> clsInfos)
-//{
-//    static const QString PREFIX = "iwebControllerStatusCode$";
-//    QMap<QString, QString> ret;
-//    for(auto key : clsInfos.keys()){
-//        if(key.startsWith(PREFIX)){
-//            auto funName = key.split("$")[1];
-//            auto code = clsInfos[key];
-//            ret[code] = funName;
-//        }
-//    }
-//    return ret;
-//}
-
 void IControllerInterfaceHelper::checkMappingOverloadFunctions(const QVector<QMetaMethod> &methods)
 {
     QStringList names;
@@ -375,6 +351,16 @@ void IControllerInterfaceHelper::checkMethodParamterWithSuffixSet(const IUrlActi
             $Ast->warn("irequest_controller_function_with_param_not_marked", info);
         }
     }
+}
+
+QVector<IUrlActionNode> IControllerInterfaceHelper::createMappingLeaves(const IControllerInfo& info)
+{
+    QVector<IUrlActionNode> ret;
+    auto args = getMethodMappingInfo(info.classInfo);
+    for(const auto& arg : args){
+        ret.append(createFunctionMappingLeaves(info, arg));
+    }
+    return ret;
 }
 
 bool IControllerInterfaceHelper::isSpecialTypes(const QString& typeName)

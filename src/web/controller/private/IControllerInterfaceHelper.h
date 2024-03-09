@@ -20,8 +20,6 @@ namespace IControllerInterfaceHelper
 
 //public:
     void checkUrlMappings(const IControllerInfo& info);
-    QVector<IUrlActionNode> createMappingLeaves(const IControllerInfo& info);
-
 //private:
     void checkMappingOverloadFunctions(const QVector<QMetaMethod>& methods);
     void checkMappingNameAndFunctionIsMatch(const IControllerInfo& info);
@@ -39,6 +37,9 @@ namespace IControllerInterfaceHelper
     void checkMethodParamterWithSuffixProper(const IUrlActionNode& node);
     void checkMethodParamterWithSuffixSet(const IUrlActionNode& node);
 
+//public:
+    QVector<IUrlActionNode> createMappingLeaves(const IControllerInfo& info);
+//private:
     bool isBeanType(const QString&);
     bool isSpecialTypes(const QString&);
     bool isParamNameWithSuffix(const QString& paramName);

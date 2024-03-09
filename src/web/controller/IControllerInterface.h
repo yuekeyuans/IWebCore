@@ -4,8 +4,6 @@
 #include "core/base/IMetaUtil.h"
 #include "core/task/ITaskManage.h"
 #include "core/task/unit/ITaskWareUnit.h"
-//#include "core/task/unit/IControllerTaskUnit.h"
-#include "web/controller/IControllerManage.h"
 #include "core/unit/ISingletonUnit.h"
 
 $PackageWebCoreBegin
@@ -28,7 +26,7 @@ public:
     virtual void unRegisterController() final;
 };
 
-namespace IControllerInterfaceProxy
+namespace IControllerInterfaceHelper
 {
     void registerController(void* handler, const QString& className,
                             const QMap<QString, QString>& classMap, const QVector<QMetaMethod>& methods);
@@ -67,26 +65,26 @@ template<typename T, bool enabled>
 void IControllerInterface<T, enabled>::registerController()
 {
     if(this != T::instance()){
-        IControllerInterfaceProxy::registerError();
+        IControllerInterfaceHelper::registerError();
     }
 
     auto className = IMetaUtil::getMetaClassName (T::staticMetaObject);
     auto classInfo = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
     auto classMethods = IMetaUtil::getMetaMethods(T::staticMetaObject);
-    IControllerInterfaceProxy::registerController(this, className, classInfo, classMethods);
+    IControllerInterfaceHelper::registerController(this, className, classInfo, classMethods);
 }
 
 template<typename T, bool enabled>
 void IControllerInterface<T, enabled>::unRegisterController()
 {
     if(this !=  T::instance()){
-        IControllerInterfaceProxy::unRegisterError();
+        IControllerInterfaceHelper::unRegisterError();
     }
 
     auto className = IMetaUtil::getMetaClassName (T::staticMetaObject);
     auto classInfo = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
     auto classMethods = IMetaUtil::getMetaMethods(T::staticMetaObject);
-    IControllerInterfaceProxy::unRegisterController(this, className, classInfo, classMethods);
+    IControllerInterfaceHelper::unRegisterController(this, className, classInfo, classMethods);
 }
 
 $PackageWebCoreEnd
