@@ -48,32 +48,6 @@ QVector<IUrlActionNode> IControllerInterfaceImpl::createMappingLeaves(const ICon
     return ret;
 }
 
-//QStringList IControllerInterfaceImpl::reformClsInfoArgs(const QMap<QString, QString> &map
-//                                                        , const QStringList &rootPathArgs)
-//{
-//    QStringList ret;
-//    ret.append({map["reqFunName"], map["reqMethod"]});
-
-//    for(int index =1 ;; index++){
-//        auto number = QString::number(index);
-//        if(!map.contains(number)){ break; }
-
-//        QStringList args(rootPathArgs);
-//        auto tempArgs = map[number].split("/");
-//        for(auto arg : tempArgs){
-//            arg = arg.trimmed();
-//            if(arg == "." || arg == ".."){
-//                $Ast->fatal("UrlError");
-//            }
-//            if(!arg.trimmed().isEmpty()){
-//                args.append(arg);
-//            }
-//        }
-//        ret.append(args.join("/"));
-//    }
-//    return ret;
-//}
-
 QMap<QString, QString> IControllerInterfaceImpl::getStatusCodeInfos(QMap<QString, QString> clsInfos)
 {
     static const QString PREFIX = "iwebControllerStatusCode$";
@@ -87,26 +61,6 @@ QMap<QString, QString> IControllerInterfaceImpl::getStatusCodeInfos(QMap<QString
     }
     return ret;
 }
-
-//QVector<IUrlActionNode> IControllerInterfaceImpl::createFunctionMappingLeaves(const IControllerInfo &info, const QStringList &args)
-//{
-//    QVector<IUrlActionNode> ret;
-
-//    IUrlActionNode node;
-//    auto funName = args.first();
-//    node.ignoreParamCheck = IControllerInterfaceImpHelper::isIgnoreParamCheckFunction(funName, info.classInfo);
-//    node.httpMethod = IHttpMethodHelper::toMethod(args[1]);
-//    for(const auto& method : info.classMethods){
-//        if(method.name() == funName){
-//            node.methodNode = IMethodNode::fromMetaMethod(info.handler, info.className, method);
-//        }
-//    }
-//    for(auto i=2; i<args.length(); i++){
-//        node.url = args[i].trimmed().isEmpty() ? "/" : args[i];  // exclude empty url
-//        ret.append(node);
-//    }
-//    return ret;
-//}
 
 void IControllerInterfaceImpl::checkMappingOverloadFunctions(const QVector<QMetaMethod> &methods)
 {
@@ -534,18 +488,6 @@ QStringList IControllerInterfaceImpHelper::toNormalUrl(const QString& url, const
     }
     return ret;
 }
-
-//QVector<IUrlActionNode> IControllerInterfaceImpHelper::createMappingLeaves(const IControllerInfo& info)
-//{
-//    QVector<IUrlActionNode> ret;
-
-//    auto inst = instance();
-//    auto argsList = getMethodMappingInfo(info.classInfo);
-//    for(const auto& args : argsList){
-//        ret.append(inst->createFunctionMappingLeaves(info, args));
-//    }
-//    return ret;
-//}
 
 QVector<IUrlActionNode> IControllerInterfaceImpHelper::createFunctionMappingLeaves(const IControllerInfo& info, const MappingInfo& mapping)
 {

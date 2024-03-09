@@ -17,6 +17,9 @@ public:
     static void checkUrlMappings(const IControllerInfo& info);
     static QVector<IUrlActionNode> createMappingLeaves(const IControllerInfo& info);
 
+
+    // TODO: 俩问题， 一个是把这些东西放到 cpp 中，
+    // 二， 调试 url 映射问题
 private:
     // 大的检查项目
     void checkMappingOverloadFunctions(const QVector<QMetaMethod>& methods);
@@ -37,10 +40,7 @@ private:
     void checkMethodParamterWithSuffixProper(const IUrlActionNode& node);
     void checkMethodParamterWithSuffixSet(const IUrlActionNode& node);
 
-    // 其他调用函数
-//    QVector<IUrlActionNode> createFunctionMappingLeaves(const IControllerInfo& info, const QStringList& args);
-//    QVector<QStringList> getMethodMappingInfo(const QMap<QString, QString>&clsInfo);
-//    QStringList reformClsInfoArgs(const QMap<QString, QString>&, const QStringList &rootPathArgs);
+private:
     QMap<QString, QString> getStatusCodeInfos(QMap<QString, QString> clsInfos);
 };
 
