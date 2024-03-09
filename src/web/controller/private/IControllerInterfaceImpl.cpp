@@ -486,6 +486,9 @@ QStringList IControllerInterfaceImpHelper::toNormalUrl(const QString& url, const
             ret.append(arg);
         }
     }
+    if(ret.isEmpty()){
+        ret.append("/");
+    }
     return ret;
 }
 
@@ -497,15 +500,20 @@ QVector<IUrlActionNode> IControllerInterfaceImpHelper::createFunctionMappingLeav
     auto funName = mapping.funName;
     node.ignoreParamCheck = IControllerInterfaceImpHelper::isIgnoreParamCheckFunction(funName, info.classInfo);
     node.httpMethod = mapping.method;
+    QStringList pieces;
     for(const auto& method : info.classMethods){
         if(method.name() == funName){
             node.methodNode = IMethodNode::fromMetaMethod(info.handler, info.className, method);
         }
     }
-    for(const auto& arg : mapping.path){
-        node.url = arg.trimmed().isEmpty() ? "/" : arg.trimmed();  // exclude empty url
-        ret.append(node);
+    for(const QString& arg : mapping.path){
+        if(arg.trimmed().isEmpty() || arg.trimmed() == "/"){
+            continue;
+        }
+        pieces.append(arg.trimmed());
     }
+    node.url = pieces.join("/").prepend("/");
+    ret.append(node);
     return ret;
 }
 

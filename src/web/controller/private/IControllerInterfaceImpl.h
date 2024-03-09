@@ -17,9 +17,6 @@ public:
     static void checkUrlMappings(const IControllerInfo& info);
     static QVector<IUrlActionNode> createMappingLeaves(const IControllerInfo& info);
 
-
-    // TODO: 俩问题， 一个是把这些东西放到 cpp 中，
-    // 二， 调试 url 映射问题
 private:
     // 大的检查项目
     void checkMappingOverloadFunctions(const QVector<QMetaMethod>& methods);

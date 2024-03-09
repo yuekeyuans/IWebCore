@@ -5,7 +5,7 @@
 class TestController : public IControllerInterface<TestController, true>
 {
     Q_GADGET
-    $AsController(TestController)
+//    $AsController(TestController)
 public:
     TestController();
 
@@ -14,6 +14,7 @@ public:
         return "";
     }
 
+    $PutMappingDeclare(hello, /)
     $GetMapping(hello, /)
     QString hello();
 
@@ -22,7 +23,7 @@ public:
         return "";
     }
 
-    $GetMapping(index, hello/index)
+    $GetMapping(index, hello/index1)
     IFileResponse index();
 };
 

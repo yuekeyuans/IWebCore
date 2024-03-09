@@ -160,7 +160,7 @@ void IControllerRouteNode::travelPrint(int space) const
         if(leaf != nullptr){
             qDebug().noquote()<< QString().fill(' ', 4 * space)
                               << "    |::" + IHttpMethodHelper::toString(leaf->httpMethod)
-                              << "/" + (leaf->url == "/"? "" : leaf->url)
+                              << leaf->url
                               << "\t==>" << leaf->methodNode.expression;
         }
     };
