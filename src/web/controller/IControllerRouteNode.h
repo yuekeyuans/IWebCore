@@ -10,7 +10,7 @@ class IControllerRouteNode
 {
 private:
     using ValidateFun = bool (*)(const QString&);
-    using IUrlActionNodeStar = IUrlActionNode*;
+    using IUrlActionNodePtr = IUrlActionNode*;
 
 public:
     enum NodeType{
@@ -42,7 +42,7 @@ public:
     bool operator==(const IControllerRouteNode& node);
 
 private:
-    IUrlActionNodeStar& getLeafRef(IHttpMethod method);
+    IUrlActionNodePtr& getLeafRef(IHttpMethod method);
     bool containFragment(const QString& fragment);
     void evaluateNode(const QString& fragment);
     bool evaluatePlainText(const QString& nodeName);
