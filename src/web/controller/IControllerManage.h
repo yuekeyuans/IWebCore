@@ -27,22 +27,22 @@ public:
     static void setIsServerStarted(bool);
 
     // TODO: 考虑 将函数换一些好用的名字
-    static void registerStatusActionNode(IStatusActionNode node);
-    static void registerStatusActionNodes(const QVector<IStatusActionNode>& statusNodes);
+    void registerStatusActionNode(IStatusActionNode node);
+    void registerStatusActionNodes(const QVector<IStatusActionNode>& statusNodes);
 
-    static void unRegisterStatusActionNode(const IStatusActionNode& node);
-    static void unRegisterStatusActionNodes(const QVector<IStatusActionNode>& statusNodes);
+    void unRegisterStatusActionNode(const IStatusActionNode& node);
+    void unRegisterStatusActionNodes(const QVector<IStatusActionNode>& statusNodes);
 
-    static void registerUrlActionNode(IUrlActionNode node);
-    static void registerUrlActionNodes(const QVector<IUrlActionNode>& functionNodes);
+    void registerUrlActionNode(IUrlActionNode node);
+    void registerUrlActionNodes(const QVector<IUrlActionNode>& functionNodes);
 
-    static void unRegisterUrlActionNode(IUrlActionNode node);
-    static void unRegisterUrlActionNodes(const QVector<IUrlActionNode>& functionNodes);
+    void unRegisterUrlActionNode(IUrlActionNode node);
+    void unRegisterUrlActionNodes(const QVector<IUrlActionNode>& functionNodes);
 
-    static void registerStaticFiles(const QString& path, const QString& prefix);
+    void registerStaticFiles(const QString& path, const QString& prefix);
 
-    static void registerPathValidator(const QString& name, const QString& regexp);
-    static void registerPathValidator(const QString& name, ValidatorFun fun);
+    void registerPathValidator(const QString& name, const QString& regexp);
+    void registerPathValidator(const QString& name, ValidatorFun fun);
 
     // TODO: 这里需要考虑添加到 global 和 local 的两种情形，之后添加上来，作为 AOP 的一部分。
     static void registerPreProcessor(IProcessorWare* middleWare);
@@ -54,11 +54,13 @@ public:
     static QString queryPathRegValidator(const QString& path);
     static ValidatorFun queryPathFunValidator(const QString& path);
 
-    static IUrlActionNode* getUrlActionNode(IRequest& request);
-//    static IUrlActionNode* getUrlActionNode(const QString& path, IHttpMethod method);
+    bool isUrlActionNodeEnabled() const;
+    IUrlActionNode* getUrlActionNode(IRequest& request);
 
     static IStatusActionNode* getStatusActionNode(IHttpStatus status);
-    static QString getStaticFileActionPath(const IRequest& request);
+
+    bool isStaticFileActionPathEnabled();
+    QString getStaticFileActionPath(const IRequest& request);
 
     static bool preIntercept(IRequest& request, IResponse& response);
     static bool postIntercept(IRequest& request, IResponse& response);

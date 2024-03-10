@@ -20,7 +20,7 @@ void IControllerInterfaceHelper::registerController(void *handler, const QString
     IControllerInterfaceHelper::checkUrlMappings(info);
     auto functionNodes = IControllerInterfaceHelper::createMappingLeaves(info);
     if(!functionNodes.empty()){
-        IControllerManage::registerUrlActionNodes(functionNodes);
+        IControllerManage::instance()->registerUrlActionNodes(functionNodes);
     }
 }
 
@@ -46,7 +46,7 @@ void IControllerInterfaceHelper::unRegisterController(void *handler, const QStri
     IControllerInterfaceHelper::checkUrlMappings(info);
     auto functionNodes = IControllerInterfaceHelper::createMappingLeaves(info);
     if(!functionNodes.empty()){
-        IControllerManage::unRegisterUrlActionNodes(functionNodes);
+        IControllerManage::instance()->unRegisterUrlActionNodes(functionNodes);
     }
 }
 

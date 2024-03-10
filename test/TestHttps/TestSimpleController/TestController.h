@@ -5,7 +5,7 @@
 class TestController : public IControllerInterface<TestController, true>
 {
     Q_GADGET
-    $AsController(TestController)
+//    $AsControl ler(TestController)
 public:
     TestController();
 

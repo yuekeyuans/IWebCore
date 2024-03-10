@@ -20,11 +20,10 @@ void IControllerManage::registerStatusActionNode(IStatusActionNode node)
 {
     checkRegisterAvalible();
 
-    auto inst = instance();
-    if(inst->m_statusMappings.contains(node.httpStatus)){
+    if(m_statusMappings.contains(node.httpStatus)){
         qDebug() << "override of status mapping";
     }
-    inst->m_statusMappings[node.httpStatus] = node;
+    m_statusMappings[node.httpStatus] = node;
 }
 
 void IControllerManage::registerStatusActionNodes(const QVector<IStatusActionNode> &statusNodes)
@@ -38,9 +37,8 @@ void IControllerManage::unRegisterStatusActionNode(const IStatusActionNode &node
 {
     checkRegisterAvalible();
 
-    auto inst = instance();
-    if(inst->m_statusMappings.contains(node.httpStatus)){
-        inst->m_statusMappings.remove(node.httpStatus);
+    if(m_statusMappings.contains(node.httpStatus)){
+        m_statusMappings.remove(node.httpStatus);
     }
 }
 
@@ -55,9 +53,8 @@ void IControllerManage::registerUrlActionNode(IUrlActionNode node)
 {
     checkRegisterAvalible();
 
-    auto inst = instance();
     auto fragments = node.url.split("/");
-    auto nodePtr = &inst->m_urlMapppings;
+    auto nodePtr = &m_urlMapppings;
     for(auto it=fragments.begin(); it!= fragments.end(); ++it){
         if(!it->isEmpty()){     // this step to guarantee the root element to settle properly
             nodePtr = nodePtr->getOrAppendChildNode(*it);
@@ -65,7 +62,6 @@ void IControllerManage::registerUrlActionNode(IUrlActionNode node)
     }
     auto newLeaf = nodePtr->setLeaf(node);
     checkUrlDuplicateName(newLeaf);
-
 }
 
 void IControllerManage::registerUrlActionNodes(const QVector<IUrlActionNode> &functionNodes)
@@ -79,9 +75,8 @@ void IControllerManage::unRegisterUrlActionNode(IUrlActionNode node)
 {
     checkRegisterAvalible();
 
-    auto inst = instance();
     auto fragments = node.url.split("/");
-    auto nodePtr = &inst->m_urlMapppings;
+    auto nodePtr = &m_urlMapppings;
 
     for(const auto& fragment : fragments){
         nodePtr = nodePtr->getChildNode(fragment);
@@ -114,40 +109,37 @@ void IControllerManage::registerStaticFiles(const QString &path, const QString &
         $Ast->fatal("static_file_dir_not_exist");
     }
 
-    auto inst = instance();
-    inst->m_fileMappings.mountMapping(dir.absolutePath(), prefix);
+    m_fileMappings.mountMapping(dir.absolutePath(), prefix);
 }
 
 void IControllerManage::registerPathValidator(const QString &name, const QString &regexp)
 {
     checkRegisterAvalible();
 
-    auto inst = instance();
     QRegularExpression exp(regexp);
     if(!exp.isValid()){
         auto info = regexp + " : regular expression is not valid";
         qFatal(info.toUtf8());
     }
 
-    if(inst->m_pathRegValidators.contains(name) || inst->m_pathFunValidators.contains(name)){
+    if(m_pathRegValidators.contains(name) || m_pathFunValidators.contains(name)){
         auto info = name + " validator already registered";
         qFatal(info.toUtf8());
     }
 
-    inst->m_pathRegValidators[name] = regexp;
+    m_pathRegValidators[name] = regexp;
 }
 
 void IControllerManage::registerPathValidator(const QString &name, ValidatorFun fun)
 {
     checkRegisterAvalible();
 
-    auto inst = instance();
-    if(inst->m_pathFunValidators.contains(name) || inst->m_pathFunValidators.contains(name)){
+    if(m_pathFunValidators.contains(name) || m_pathFunValidators.contains(name)){
         auto info = name + " validator already registered";
         qFatal(info.toUtf8());
     }
 
-    inst->m_pathFunValidators[name] = fun;
+    m_pathFunValidators[name] = fun;
 }
 
 void IControllerManage::registerPreProcessor(IProcessorWare *middleWare)
@@ -206,6 +198,11 @@ IControllerManage::ValidatorFun IControllerManage::queryPathFunValidator(const Q
     return nullptr;
 }
 
+bool IControllerManage::isUrlActionNodeEnabled() const
+{
+    return !m_urlMapppings.isEmpty();
+}
+
 IUrlActionNode *IControllerManage::getUrlActionNode(IRequest &request)
 {
     const QString &url = request.url();
@@ -244,10 +241,14 @@ IStatusActionNode *IControllerManage::getStatusActionNode(IHttpStatus status)
     return nullptr;
 }
 
+bool IControllerManage::isStaticFileActionPathEnabled()
+{
+    return m_fileMappings.isEnabled();
+}
+
 QString IControllerManage::getStaticFileActionPath(const IRequest &request)
 {
-    auto inst = instance();
-    return inst->m_fileMappings.getFilePath(request.url());
+    return m_fileMappings.getFilePath(request.url());
 }
 
 bool IControllerManage::preIntercept(IRequest &request, IResponse &response)

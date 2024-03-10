@@ -50,7 +50,7 @@ void IHttpServer::setPort(int port)
 // TODO: 这个要被注销掉， 或者不从这里使用。
 void IHttpServer::serveStatic(const QString &dir, const QString &prefix)
 {
-    IControllerManage::registerStaticFiles(dir, prefix);
+    IControllerManage::instance()->registerStaticFiles(dir, prefix);
 }
 
 void IHttpServer::get(const QString &path, IHttpServer::ProcessFunctor functor)
@@ -81,7 +81,7 @@ void IHttpServer::patch(const QString &path, IHttpServer::ProcessFunctor functor
 void IHttpServer::serveDynamic(IHttpMethod method, const QString &path, IHttpServer::ProcessFunctor functor)
 {
     auto node = IHttpServerHelper::generateUrlActionNode(method, path, functor);
-    IControllerManage::registerUrlActionNode(node);
+    IControllerManage::instance()->registerUrlActionNode(node);
 }
 
 void IHttpServer::incomingConnection(qintptr handle)

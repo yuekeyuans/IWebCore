@@ -187,7 +187,7 @@ bool IControllerRouteNode::operator==(const IControllerRouteNode &node)
     return this->name == node.name && type == node.type && fragment == node.fragment && children == node.children;
 }
 
-IControllerRouteNode::IUrlActionNodeStar &IControllerRouteNode::getLeafRef(IHttpMethod method)
+IControllerRouteNode::IUrlActionNodePtr &IControllerRouteNode::getLeafRef(IHttpMethod method)
 {
     switch (method) {
     case IHttpMethod::GET:

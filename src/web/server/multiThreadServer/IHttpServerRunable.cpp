@@ -67,26 +67,31 @@ void IHttpServerRunable::runRequest(IRequest& request)
 
 void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
 {
+    static auto controllerManage = IControllerManage::instance();
     if(request.method() == IHttpMethod::OPTIONS){
         return runOptionsFunction(request, response);
     }
 
-    // process as dynamic server first
-    auto function = IControllerManage::getUrlActionNode(request);
-    if(function != nullptr){
-        if(function->type == IUrlActionNode::Method){
-            processInMethodMode(request, response, function);
-        }else if(function->type == IUrlActionNode::Function){
-            processInFunctionMode(request, response, function);
+    static bool isUrlActionEnabled = controllerManage->isUrlActionNodeEnabled();     // process as dynamic server first
+    if(isUrlActionEnabled){
+        auto function = controllerManage->getUrlActionNode(request);
+        if(function != nullptr){
+            if(function->type == IUrlActionNode::Method){
+                processInMethodMode(request, response, function);
+            }else if(function->type == IUrlActionNode::Function){
+                processInFunctionMode(request, response, function);
+            }
+            return;
         }
-        return;
     }
 
-    // process as static file server then
-    auto path = IControllerManage::getStaticFileActionPath(request);
-    if(!path.isEmpty()){
-        processInStaticFileMode(request, response, path);
-        return;
+    static bool isStaticFileEnabled = controllerManage->isStaticFileActionPathEnabled();        // process as static file server then
+    if(isStaticFileEnabled){
+        auto path = controllerManage->getStaticFileActionPath(request);
+        if(!path.isEmpty()){
+            processInStaticFileMode(request, response, path);
+            return;
+        }
     }
 
     // process as not found last
@@ -147,9 +152,10 @@ void IHttpServerRunable::processInNotFoundMode(IRequest &request, IResponse &res
     return;
 }
 
-QStringList handleOptionsRequest1(IRequest& request, IResponse& response)
+QStringList handleOptionsRequest(IRequest& request, IResponse& response)
 {
     Q_UNUSED(response)
+    static auto controllerManage = IControllerManage::instance();
     static const QMap<IHttpMethod, QString> mappings = {
         {IHttpMethod::GET,      "GET"},
         {IHttpMethod::PUT,      "PUT"},
@@ -164,7 +170,7 @@ QStringList handleOptionsRequest1(IRequest& request, IResponse& response)
     auto origin = raw->m_method;
     for (auto key : keys) {
         raw->m_method = key;
-        if(IControllerManage::getUrlActionNode(request) != nullptr){
+        if(controllerManage->getUrlActionNode(request) != nullptr){
             options.append(mappings[key]);
         }
     }
@@ -183,7 +189,7 @@ QStringList handleOptionsRequest1(IRequest& request, IResponse& response)
 
 void IHttpServerRunable::runOptionsFunction(IRequest &request, IResponse &response)
 {
-    QStringList  options = handleOptionsRequest1(request, response);
+    QStringList  options = handleOptionsRequest(request, response);
 
     response.setStatus(IHttpStatus::OK_200);
     if(options.isEmpty()) {

@@ -52,11 +52,11 @@ void IControllerPathValidatorTask::task()
     };
 
     for(auto key : validatorRegMap.keys()){
-        IControllerManage::registerPathValidator(key, validatorRegMap[key]);
+        IControllerManage::instance()->registerPathValidator(key, validatorRegMap[key]);
     }
 
     for(auto key : validatorFunMap.keys()){
-        IControllerManage::registerPathValidator(key, validatorFunMap[key]);
+        IControllerManage::instance()->registerPathValidator(key, validatorFunMap[key]);
     }
 }
 
