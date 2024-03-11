@@ -43,7 +43,7 @@ void IStatusControllerInterfaceProxy::unRegisterController(void *handler, const 
 
     if(nodes.isEmpty()){
         IStatusControllerInterfaceImpl::checkStatusNodes(nodes);
-        IControllerManage::instance()->unRegisterStatusActionNodes(nodes);
+        IControllerManage::unRegisterStatusActionNodes(nodes);
     }
 }
 
