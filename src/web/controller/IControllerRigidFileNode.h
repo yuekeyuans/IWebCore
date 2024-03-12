@@ -3,10 +3,10 @@
 
 $PackageWebCoreBegin
 
-class IControllerFileNode
+class IControllerRigidFileNode
 {
 public:
-    IControllerFileNode() = default;
+    IControllerRigidFileNode() = default;
 
 public:
     bool isEnabled() const;
@@ -15,9 +15,9 @@ public:
     void travelPrint() const;
 
 private:
-    QMap<QString, QString> m_resourceMap;
-    QHash<QString, QString> m_resourceFileMappings;
-    bool m_resourceMappingEnabled{false};
+    QMap<QString, QString> m_map;
+    QHash<QString, QString> m_fileMappings;
+    bool m_enabled{false};
 };
 
 $PackageWebCoreEnd

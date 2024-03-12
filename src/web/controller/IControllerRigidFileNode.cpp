@@ -1,4 +1,4 @@
-﻿#include "IControllerFileNode.h"
+﻿#include "IControllerRigidFileNode.h"
 #include "core/base/IFileUtil.h"
 #include "web/IWebAssert.h"
 
@@ -6,54 +6,54 @@ $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-namespace IControllerFileNodeHelper
+namespace IControllerRigidFileNodeHelper
 {
     void mountFilesToResourceMapping(QHash<QString, QString>& hash, const QString& path, const QString& prefix);
     void mountFirstPageToServer(QHash<QString, QString>& hash, const QString& path, const QString& prefix);
     bool mountFilePageToServer(QHash<QString, QString>& hash, const QString& filePath, const QString& url);
 }
 
-bool IControllerFileNode::isEnabled() const
+bool IControllerRigidFileNode::isEnabled() const
 {
-    return m_resourceMappingEnabled;
+    return m_enabled;
 }
 
-QString IControllerFileNode::getFilePath(const QString &url) const
+QString IControllerRigidFileNode::getFilePath(const QString &url) const
 {
-    if(m_resourceMappingEnabled && m_resourceFileMappings.contains(url)){
-        return m_resourceFileMappings[url];
+    if(m_enabled && m_fileMappings.contains(url)){
+        return m_fileMappings[url];
     }
     return {};
 }
 
-void IControllerFileNode::mountMapping(const QString &dir, const QString &prefix)
+void IControllerRigidFileNode::mountMapping(const QString &dir, const QString &prefix)
 {
-    m_resourceMap[dir] = prefix;
-    this->m_resourceMappingEnabled = true;
-    IControllerFileNodeHelper::mountFilesToResourceMapping(m_resourceFileMappings, dir, prefix);
+    m_map[dir] = prefix;
+    this->m_enabled = true;
+    IControllerRigidFileNodeHelper::mountFilesToResourceMapping(m_fileMappings, dir, prefix);
 }
 
-void IControllerFileNode::travelPrint() const
+void IControllerRigidFileNode::travelPrint() const
 {
-    if(m_resourceMappingEnabled){
+    if(m_enabled){
         qDebug() << "Mapping Directory";
-        auto keys = m_resourceMap.keys();
+        auto keys = m_map.keys();
         for(const auto& key : keys){
-            qDebug().noquote()<< QString().fill(' ', 2) << key << "to" << m_resourceMap[key];
+            qDebug().noquote()<< QString().fill(' ', 2) << key << "to" << m_map[key];
         }
         qDebug() << "";
     }
 }
 
-void IControllerFileNodeHelper::mountFilesToResourceMapping(QHash<QString, QString>& hash, const QString &path, const QString &prefix)
+void IControllerRigidFileNodeHelper::mountFilesToResourceMapping(QHash<QString, QString>& hash, const QString &path, const QString &prefix)
 {
     QDir dir(path);
     if(!dir.exists() || dir.isEmpty()){
+        $Ast->warn("static_file_dir_not_exist");
         return;
     }
 
     mountFirstPageToServer(hash, path, prefix);
-
     dir.setFilter(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot);
     auto entries = dir.entryInfoList();
     for(const auto& entry : entries){
@@ -73,7 +73,7 @@ void IControllerFileNodeHelper::mountFilesToResourceMapping(QHash<QString, QStri
     }
 }
 
-void IControllerFileNodeHelper::mountFirstPageToServer(QHash<QString, QString>& hash, const QString& path, const QString& prefix)
+void IControllerRigidFileNodeHelper::mountFirstPageToServer(QHash<QString, QString>& hash, const QString& path, const QString& prefix)
 {
     static const QStringList names = {
         "index.html", "index.htm", "default.html", "default.html", "home.html", "home.htm"
@@ -87,7 +87,7 @@ void IControllerFileNodeHelper::mountFirstPageToServer(QHash<QString, QString>& 
     }
 }
 
-bool IControllerFileNodeHelper::mountFilePageToServer(QHash<QString, QString>& hash, const QString& filePath, const QString& url)
+bool IControllerRigidFileNodeHelper::mountFilePageToServer(QHash<QString, QString>& hash, const QString& filePath, const QString& url)
 {
     bool alreadyExist = hash.contains(url);
     if(QFileInfo(filePath).exists()){

@@ -9,14 +9,14 @@ class TestController : public IControllerInterface<TestController, true>
 public:
     TestController();
 
-    $DeleteMapping(helloDelete, /)
+//    $DeleteMapping(helloDelete, /)
     QString helloDelete($Header(QString, name));
 
-    $PutMappingDeclare(hello, /)
-    $GetMapping(hello, /)
+//    $PutMappingDeclare(hello, /)
+//    $GetMapping(hello, /)
     QString hello();
 
-    $PostMapping(helloGet, hello)
+//    $PostMapping(helloGet, hello)
     QString helloGet(){
         return "";
     }

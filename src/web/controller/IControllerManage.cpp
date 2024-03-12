@@ -109,7 +109,8 @@ void IControllerManage::registerStaticFiles(const QString &path, const QString &
         $Ast->fatal("static_file_dir_not_exist");
     }
 
-    m_fileMappings.mountMapping(dir.absolutePath(), prefix);
+//    m_rigidFileMappings.mountMapping(dir.absolutePath(), prefix);
+    m_freedFileMappings.mountMapping(dir.absolutePath(), prefix);
 }
 
 void IControllerManage::registerPathValidator(const QString &name, const QString &regexp)
@@ -177,7 +178,8 @@ void IControllerManage::registerPostInterceptor(IInterceptorWare *middleWare)
 void IControllerManage::travalPrintUrlTree()
 {
     instance()->m_urlMapppings.travelPrint();
-    instance()->m_fileMappings.travelPrint();
+    instance()->m_rigidFileMappings.travelPrint();
+    instance()->m_freedFileMappings.travelPrint();
 }
 
 QString IControllerManage::queryPathRegValidator(const QString &path)
@@ -243,12 +245,24 @@ IStatusActionNode *IControllerManage::getStatusActionNode(IHttpStatus status)
 
 bool IControllerManage::isStaticFileActionPathEnabled()
 {
-    return m_fileMappings.isEnabled();
+    return m_rigidFileMappings.isEnabled() || m_freedFileMappings.isEnabled();
 }
 
 QString IControllerManage::getStaticFileActionPath(const IRequest &request)
 {
-    return m_fileMappings.getFilePath(request.url());
+    static bool isRigidMappingEnabled = m_rigidFileMappings.isEnabled();
+    if(isRigidMappingEnabled){
+        QString value = m_rigidFileMappings.getFilePath(request.url());
+        if(!value.isEmpty()){
+            return value;
+        }
+    }
+
+    static bool isFreeMappingEnabled = m_freedFileMappings.isEnabled();
+    if(isFreeMappingEnabled){
+        return m_freedFileMappings.getFilePath(request.url());
+    }
+    return {};
 }
 
 bool IControllerManage::preIntercept(IRequest &request, IResponse &response)
