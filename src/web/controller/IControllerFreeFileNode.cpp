@@ -10,8 +10,6 @@ bool IControllerFreeFileNode::isEnabled() const
     return m_enabled;
 }
 
-// find first file
-// TODO: here we can check whether exist more than one files latter
 QString IControllerFreeFileNode::getFilePath(const QString &url) const
 {
     if(!m_enabled){
@@ -22,7 +20,7 @@ QString IControllerFreeFileNode::getFilePath(const QString &url) const
     for(const QString& val : values){
         if(url.startsWith(val)){
             auto key = m_map.key(val);
-            QString path = key.append(QString(val).replace(url, ""));
+            QString path = key.append(QString(url).replace(val, ""));
             if(QFileInfo(path).exists()){
                 return path;
             }
