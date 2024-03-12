@@ -1,4 +1,5 @@
 ﻿#pragma once
+
 #include "core/base/IHeaderUtil.h"
 
 $PackageWebCoreBegin
