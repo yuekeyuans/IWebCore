@@ -179,7 +179,7 @@ void IControllerManage::travalPrintUrlTree()
 {
     instance()->m_urlMapppings.travelPrint();
     instance()->m_rigidFileMappings.travelPrint();
-    instance()->m_freedFileMappings.travelPrint();
+    instance()->m_fr.travelPrint();
 }
 
 QString IControllerManage::queryPathRegValidator(const QString &path)
