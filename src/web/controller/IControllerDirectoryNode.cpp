@@ -1,16 +1,16 @@
-﻿#include "IControllerFreeFileNode.h"
+﻿#include "IControllerDirectoryNode.h"
 #include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-bool IControllerFreeFileNode::isEnabled() const
+bool IControllerDirectoryNode::isEnabled() const
 {
     return m_enabled;
 }
 
-QString IControllerFreeFileNode::getFilePath(const QString &url) const
+QString IControllerDirectoryNode::getFilePath(const QString &url) const
 {
     if(!m_enabled){
         return {};
@@ -30,7 +30,7 @@ QString IControllerFreeFileNode::getFilePath(const QString &url) const
     return {};
 }
 
-void IControllerFreeFileNode::mountMapping(const QString &path, const QString &prefix)
+void IControllerDirectoryNode::mountMapping(const QString &path, const QString &prefix)
 {
     QDir dir(path);
     if(!dir.exists() || dir.isEmpty()){
@@ -44,7 +44,7 @@ void IControllerFreeFileNode::mountMapping(const QString &path, const QString &p
     m_enabled = true;
 }
 
-void IControllerFreeFileNode::travelPrint() const
+void IControllerDirectoryNode::travelPrint() const
 {
     if(m_enabled){
         qDebug() << "Free Mapping Directory";
