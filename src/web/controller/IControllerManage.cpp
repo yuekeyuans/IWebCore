@@ -110,7 +110,7 @@ void IControllerManage::registerStaticFiles(const QString &path, const QString &
     }
 
 //    m_rigidFileMappings.mountMapping(dir.absolutePath(), prefix);
-    m_freedFileMappings.mountMapping(dir.absolutePath(), prefix);
+    m_directoryMappings.mountMapping(dir.absolutePath(), prefix);
 }
 
 void IControllerManage::registerPathValidator(const QString &name, const QString &regexp)
@@ -178,8 +178,8 @@ void IControllerManage::registerPostInterceptor(IInterceptorWare *middleWare)
 void IControllerManage::travalPrintUrlTree()
 {
     instance()->m_urlMapppings.travelPrint();
-    instance()->m_rigidFileMappings.travelPrint();
-    instance()->m_fr.travelPrint();
+    instance()->m_resourceMappings.travelPrint();
+    instance()->m_directoryMappings.travelPrint();
 }
 
 QString IControllerManage::queryPathRegValidator(const QString &path)
@@ -245,22 +245,22 @@ IStatusActionNode *IControllerManage::getStatusActionNode(IHttpStatus status)
 
 bool IControllerManage::isStaticFileActionPathEnabled()
 {
-    return m_rigidFileMappings.isEnabled() || m_freedFileMappings.isEnabled();
+    return m_resourceMappings.isEnabled() || m_directoryMappings.isEnabled();
 }
 
 QString IControllerManage::getStaticFileActionPath(const IRequest &request)
 {
-    static bool isRigidMappingEnabled = m_rigidFileMappings.isEnabled();
+    static bool isRigidMappingEnabled = m_resourceMappings.isEnabled();
     if(isRigidMappingEnabled){
-        QString value = m_rigidFileMappings.getFilePath(request.url());
+        QString value = m_resourceMappings.getFilePath(request.url());
         if(!value.isEmpty()){
             return value;
         }
     }
 
-    static bool isFreeMappingEnabled = m_freedFileMappings.isEnabled();
-    if(isFreeMappingEnabled){
-        return m_freedFileMappings.getFilePath(request.url());
+    static bool isDirMappingEnabled = m_directoryMappings.isEnabled();
+    if(isDirMappingEnabled){
+        return m_directoryMappings.getFilePath(request.url());
     }
     return {};
 }
@@ -311,7 +311,7 @@ bool IControllerManage::postProcess(IRequest &request, IResponse &response)
     return true;
 }
 
-QVector<IUrlActionNode *> IControllerManage::queryFunctionNodes(IControllerRouteNode *parentNode,
+QVector<IUrlActionNode *> IControllerManage::queryFunctionNodes(IControllerRouteMapping *parentNode,
                                                              const QStringList &fragments, IHttpMethod method)
 {
     QVector<IUrlActionNode*> ret;
@@ -342,12 +342,12 @@ QMap<QString, QByteArray> IControllerManage::getPathVariable(void* node, const Q
         return ret;
     }
 
-    IControllerRouteNode* routeNode = static_cast<IControllerRouteNode*>(node);
-    QVector<IControllerRouteNode *>  nodes = routeNode->getParentNodes();
+    IControllerRouteMapping* routeNode = static_cast<IControllerRouteMapping*>(node);
+    QVector<IControllerRouteMapping *>  nodes = routeNode->getParentNodes();
     nodes.pop_front();      // 去掉第一个node， 因为第一个 node 是 / 根节点，不参与。
     assert(nodes.length() == fragments.length());
     for(int i=0;i<nodes.length();i++){
-        if(nodes[i]->type != IControllerRouteNode::TEXT_MATCH && !nodes[i]->name.isEmpty()){
+        if(nodes[i]->type != IControllerRouteMapping::TEXT_MATCH && !nodes[i]->name.isEmpty()){
             ret[nodes[i]->name] = fragments[i].toUtf8();
         }
     }
@@ -357,11 +357,11 @@ QMap<QString, QByteArray> IControllerManage::getPathVariable(void* node, const Q
 bool IControllerManage::checkUrlDuplicateName(const IUrlActionNode *node)
 {
     QStringList names;
-    auto parent = static_cast<IControllerRouteNode*>(node->parentNode);
+    auto parent = static_cast<IControllerRouteMapping*>(node->parentNode);
 
     while(parent != nullptr){
         auto name = parent->name;
-        if(parent->type != IControllerRouteNode::TEXT_MATCH && !name.isEmpty()){
+        if(parent->type != IControllerRouteMapping::TEXT_MATCH && !name.isEmpty()){
             if(names.contains(name)){
                 auto info = name + " path variable name duplicated, please change one to annother name";
                 qFatal(info.toUtf8());

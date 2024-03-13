@@ -1,4 +1,4 @@
-﻿#include "IControllerRouteNode.h"
+﻿#include "IControllerRouteMapping.h"
 #include "IControllerManage.h"
 #include "web/IWebAssert.h"
 #include "web/node/IUrlActionNode.h"
@@ -7,13 +7,13 @@ $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-IControllerRouteNode::IControllerRouteNode(IControllerRouteNode* parent, const QString& fragment)
+IControllerRouteMapping::IControllerRouteMapping(IControllerRouteMapping* parent, const QString& fragment)
 {
     this->parentNode = parent;
     evaluateNode(fragment);
 }
 
-bool IControllerRouteNode::isEmpty() const
+bool IControllerRouteMapping::isEmpty() const
 {
     if(!children.isEmpty()){
         return false;
@@ -34,7 +34,7 @@ bool IControllerRouteNode::isEmpty() const
     return true;
 }
 
-IUrlActionNode* IControllerRouteNode::setLeaf(const IUrlActionNode &leafNode)
+IUrlActionNode* IControllerRouteMapping::setLeaf(const IUrlActionNode &leafNode)
 {
     auto& ptr = getLeafRef(leafNode.httpMethod);
     if(ptr != nullptr){
@@ -51,7 +51,7 @@ IUrlActionNode* IControllerRouteNode::setLeaf(const IUrlActionNode &leafNode)
 }
 
 // @see https://hc.apache.org/httpclient-legacy/methods/head.html
-IUrlActionNode* IControllerRouteNode::getLeaf(IHttpMethod method)
+IUrlActionNode* IControllerRouteMapping::getLeaf(IHttpMethod method)
 {
     if(method == IHttpMethod::OPTIONS){
         return nullptr;
@@ -60,7 +60,7 @@ IUrlActionNode* IControllerRouteNode::getLeaf(IHttpMethod method)
     return getLeafRef(method);
 }
 
-void IControllerRouteNode::removeLeaf(IHttpMethod method)
+void IControllerRouteMapping::removeLeaf(IHttpMethod method)
 {
     auto& ptr = getLeafRef(method);
     if(ptr != nullptr){
@@ -69,7 +69,7 @@ void IControllerRouteNode::removeLeaf(IHttpMethod method)
     }
 }
 
-void IControllerRouteNode::addChildNode(const IControllerRouteNode& node)
+void IControllerRouteMapping::addChildNode(const IControllerRouteMapping& node)
 {
     if(node.type == NodeType::TEXT_MATCH){
         return this->children.prepend(node);
@@ -88,14 +88,14 @@ void IControllerRouteNode::addChildNode(const IControllerRouteNode& node)
     children.insert(index, node);
 }
 
-void IControllerRouteNode::removeChildNode(const IControllerRouteNode &node)
+void IControllerRouteMapping::removeChildNode(const IControllerRouteMapping &node)
 {
     children.removeOne(node);
 }
 
-QVector<IControllerRouteNode *> IControllerRouteNode::getChildNodes(const QString nodeName)
+QVector<IControllerRouteMapping *> IControllerRouteMapping::getChildNodes(const QString nodeName)
 {
-    QVector<IControllerRouteNode*> nodes;
+    QVector<IControllerRouteMapping*> nodes;
     for(auto& val : children){
         if(val.type == NodeType::TEXT_MATCH && val.fragment == nodeName){
             nodes.append(&val);
@@ -110,10 +110,10 @@ QVector<IControllerRouteNode *> IControllerRouteNode::getChildNodes(const QStrin
     return nodes;
 }
 
-QVector<IControllerRouteNode *> IControllerRouteNode::getParentNodes()
+QVector<IControllerRouteMapping *> IControllerRouteMapping::getParentNodes()
 {
-    QVector<IControllerRouteNode*> parentNodes;
-    IControllerRouteNode* val = this;
+    QVector<IControllerRouteMapping*> parentNodes;
+    IControllerRouteMapping* val = this;
     while(val != nullptr){
         parentNodes.prepend(val);
         val = val->parentNode;
@@ -121,10 +121,10 @@ QVector<IControllerRouteNode *> IControllerRouteNode::getParentNodes()
     return parentNodes;
 }
 
-IControllerRouteNode *IControllerRouteNode::getOrAppendChildNode(const QString &fragment)
+IControllerRouteMapping *IControllerRouteMapping::getOrAppendChildNode(const QString &fragment)
 {
     if(!this->containFragment(fragment)){
-        IControllerRouteNode childNode(this, fragment);
+        IControllerRouteMapping childNode(this, fragment);
         this->addChildNode(childNode);
     }
 
@@ -136,7 +136,7 @@ IControllerRouteNode *IControllerRouteNode::getOrAppendChildNode(const QString &
     return nullptr;
 }
 
-IControllerRouteNode *IControllerRouteNode::getChildNode(const QString &fragment)
+IControllerRouteMapping *IControllerRouteMapping::getChildNode(const QString &fragment)
 {
     for(auto& child : children){
         if(child.fragment == fragment){
@@ -146,7 +146,7 @@ IControllerRouteNode *IControllerRouteNode::getChildNode(const QString &fragment
     return nullptr;
 }
 
-void IControllerRouteNode::travelPrint(int space) const
+void IControllerRouteMapping::travelPrint(int space) const
 {
     if(isEmpty()){
         return;
@@ -182,12 +182,12 @@ void IControllerRouteNode::travelPrint(int space) const
     }
 }
 
-bool IControllerRouteNode::operator==(const IControllerRouteNode &node)
+bool IControllerRouteMapping::operator==(const IControllerRouteMapping &node)
 {
     return this->name == node.name && type == node.type && fragment == node.fragment && children == node.children;
 }
 
-IControllerRouteNode::IUrlActionNodePtr &IControllerRouteNode::getLeafRef(IHttpMethod method)
+IControllerRouteMapping::IUrlActionNodePtr &IControllerRouteMapping::getLeafRef(IHttpMethod method)
 {
     switch (method) {
     case IHttpMethod::GET:
@@ -210,7 +210,7 @@ IControllerRouteNode::IUrlActionNodePtr &IControllerRouteNode::getLeafRef(IHttpM
     return getMethodLeaf;
 }
 
-bool IControllerRouteNode::containFragment(const QString& fragment)
+bool IControllerRouteMapping::containFragment(const QString& fragment)
 {
     for(const auto& child : children){
         if(child.fragment == fragment){
@@ -221,16 +221,16 @@ bool IControllerRouteNode::containFragment(const QString& fragment)
 }
 
 
-void IControllerRouteNode::evaluateNode(const QString &fragment)
+void IControllerRouteMapping::evaluateNode(const QString &fragment)
 {
-    using FunType = bool (IControllerRouteNode::*)(const QString&);
+    using FunType = bool (IControllerRouteMapping::*)(const QString&);
     static FunType funs[] = {
-        &IControllerRouteNode::evaluateTypeEmptyNode,
-        &IControllerRouteNode::evaluateNameOnlyNode,
-        &IControllerRouteNode::evaluateNameTypeNode,
-        &IControllerRouteNode::evaluateRegTypeNode,
-        &IControllerRouteNode::evaluatePlainText,
-        &IControllerRouteNode::evaluateUnMatchedNode
+        &IControllerRouteMapping::evaluateTypeEmptyNode,
+        &IControllerRouteMapping::evaluateNameOnlyNode,
+        &IControllerRouteMapping::evaluateNameTypeNode,
+        &IControllerRouteMapping::evaluateRegTypeNode,
+        &IControllerRouteMapping::evaluatePlainText,
+        &IControllerRouteMapping::evaluateUnMatchedNode
     };
 
     this->fragment = fragment;
@@ -242,7 +242,7 @@ void IControllerRouteNode::evaluateNode(const QString &fragment)
     }
 }
 
-bool IControllerRouteNode::evaluatePlainText(const QString& nodeName)
+bool IControllerRouteMapping::evaluatePlainText(const QString& nodeName)
 {
     static QRegularExpression plainTextType("^\\w+$");
     auto result = plainTextType.match(nodeName);
@@ -253,7 +253,7 @@ bool IControllerRouteNode::evaluatePlainText(const QString& nodeName)
     return false;
 }
 
-bool IControllerRouteNode::evaluateTypeEmptyNode(const QString &nodeName)
+bool IControllerRouteMapping::evaluateTypeEmptyNode(const QString &nodeName)
 {
     static QRegularExpression regTypeEmpty("^<>$");
     auto result = regTypeEmpty.match(nodeName);
@@ -264,7 +264,7 @@ bool IControllerRouteNode::evaluateTypeEmptyNode(const QString &nodeName)
     return false;
 }
 
-bool IControllerRouteNode::evaluateNameOnlyNode(const QString &nodeName)
+bool IControllerRouteMapping::evaluateNameOnlyNode(const QString &nodeName)
 {
     static QRegularExpression regTypeNameOnly("^<(\\w+)>$");
     auto result = regTypeNameOnly.match(nodeName);
@@ -276,7 +276,7 @@ bool IControllerRouteNode::evaluateNameOnlyNode(const QString &nodeName)
     return false;
 }
 
-bool IControllerRouteNode::evaluateNameTypeNode(const QString &nodeName)
+bool IControllerRouteMapping::evaluateNameTypeNode(const QString &nodeName)
 {
     static QRegularExpression regTypeNameValue("^<(\\w*):(\\w*)>$");
     auto result = regTypeNameValue.match(nodeName);
@@ -307,7 +307,7 @@ bool IControllerRouteNode::evaluateNameTypeNode(const QString &nodeName)
     return false;
 }
 
-bool IControllerRouteNode::evaluateRegTypeNode(const QString &nodeName)
+bool IControllerRouteMapping::evaluateRegTypeNode(const QString &nodeName)
 {
     static QRegularExpression regTypeNameReg("^<(reg)?:(\\w*):(\\w*)>$");
     if(regTypeNameReg.match(nodeName).hasMatch()){
@@ -326,7 +326,7 @@ bool IControllerRouteNode::evaluateRegTypeNode(const QString &nodeName)
     return false;
 }
 
-bool IControllerRouteNode::evaluateUnMatchedNode(const QString &nodeName)
+bool IControllerRouteMapping::evaluateUnMatchedNode(const QString &nodeName)
 {
     auto info = nodeName + " is not a valid expression, please check it";
     qFatal(info.toUtf8());

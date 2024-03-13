@@ -122,8 +122,9 @@ HEADERS += \
     $$PWD/web/biscuits/IHttpMime.h \
     $$PWD/web/biscuits/IHttpStatus.h \
     $$PWD/web/biscuits/IHttpVersion.h \
-    $$PWD/web/controller/IControllerDirectoryNode.h \
-    $$PWD/web/controller/IControllerResourceNode.h \
+    $$PWD/web/controller/IControllerDirectoryMapping.h \
+    $$PWD/web/controller/IControllerResourceMapping.h \
+    $$PWD/web/controller/IControllerRouteMapping.h \
     $$PWD/web/controller/private/IControllerInfo.h \
     $$PWD/web/controller/private/IControllerInterfaceHelper.h \
     $$PWD/web/core/defaultTask/IBluePrintControllerTask.h \
@@ -174,7 +175,6 @@ HEADERS += \
     $$PWD/web/controller/IControllerInterface.h \
     $$PWD/web/controller/IControllerManage.h \
     $$PWD/web/controller/IControllerPathValidatorInterface.h \
-    $$PWD/web/controller/IControllerRouteNode.h \
     $$PWD/web/controller/IStatusControllerInterface.h \
     $$PWD/web/controller/pp/IControlVariablePreProcessor.h \
     $$PWD/web/controller/pp/IControllerPreProcessor.h \
@@ -276,8 +276,9 @@ SOURCES += \
     $$PWD/web/biscuits/IHttpMime.cpp \
     $$PWD/web/biscuits/IHttpStatus.cpp \
     $$PWD/web/biscuits/IHttpVersion.cpp \
-    $$PWD/web/controller/IControllerDirectoryNode.cpp \
-    $$PWD/web/controller/IControllerResourceNode.cpp \
+    $$PWD/web/controller/IControllerDirectoryMapping.cpp \
+    $$PWD/web/controller/IControllerResourceMapping.cpp \
+    $$PWD/web/controller/IControllerRouteMapping.cpp \
     $$PWD/web/controller/private/IControllerInterfaceHelper.cpp \
     $$PWD/web/core/defaultTask/IBluePrintControllerTask.cpp \
     $$PWD/web/core/defaultTask/IControllerBaseTypeTask.cpp \
@@ -321,7 +322,6 @@ SOURCES += \
     $$PWD/web/controller/IControllerInterface.cpp \
     $$PWD/web/controller/IControllerManage.cpp \
     $$PWD/web/controller/IControllerPathValidatorInterface.cpp \
-    $$PWD/web/controller/IControllerRouteNode.cpp \
     $$PWD/web/controller/IStatusControllerInterface.cpp \
     $$PWD/web/controller/private/IControllerParamBeanUtil.cpp \
     $$PWD/web/controller/private/IControllerParamUtil.cpp \

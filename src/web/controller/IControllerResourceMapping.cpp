@@ -1,4 +1,4 @@
-﻿#include "IControllerResourceNode.h"
+﻿#include "IControllerResourceMapping.h"
 #include "core/base/IFileUtil.h"
 #include "web/IWebAssert.h"
 
@@ -13,12 +13,12 @@ namespace IControllerResourceNodeHelper
     bool mountFilePageToServer(QHash<QString, QString>& hash, const QString& filePath, const QString& url);
 }
 
-bool IControllerResourceNode::isEnabled() const
+bool IControllerResourceMapping::isEnabled() const
 {
     return m_enabled;
 }
 
-QString IControllerResourceNode::getFilePath(const QString &url) const
+QString IControllerResourceMapping::getFilePath(const QString &url) const
 {
     if(m_enabled && m_fileMappings.contains(url)){
         return m_fileMappings[url];
@@ -26,14 +26,14 @@ QString IControllerResourceNode::getFilePath(const QString &url) const
     return {};
 }
 
-void IControllerResourceNode::mountMapping(const QString &dir, const QString &prefix)
+void IControllerResourceMapping::mountMapping(const QString &dir, const QString &prefix)
 {
     m_map[dir] = prefix;
     this->m_enabled = true;
     IControllerResourceNodeHelper::mountFilesToResourceMapping(m_fileMappings, dir, prefix);
 }
 
-void IControllerResourceNode::travelPrint() const
+void IControllerResourceMapping::travelPrint() const
 {
     if(m_enabled){
         qDebug() << "Mapping Directory";

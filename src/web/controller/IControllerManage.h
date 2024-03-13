@@ -11,9 +11,9 @@
 #include "web/node/IUrlActionNode.h"
 #include "web/node/IStatusActionNode.h"
 
-#include "IControllerRouteNode.h"
-#include "IControllerResourceNode.h"
-#include "IControllerDirectoryNode.h"
+#include "IControllerRouteMapping.h"
+#include "IControllerResourceMapping.h"
+#include "IControllerDirectoryMapping.h"
 
 $PackageWebCoreBegin
 
@@ -69,7 +69,7 @@ public:
     static bool postProcess(IRequest& request, IResponse& response);
 
 private:
-    static QVector<IUrlActionNode*> queryFunctionNodes(IControllerRouteNode* parentNode, const QStringList& fragments, IHttpMethod method);
+    static QVector<IUrlActionNode*> queryFunctionNodes(IControllerRouteMapping* parentNode, const QStringList& fragments, IHttpMethod method);
     static QMap<QString, QByteArray> getPathVariable(void* node, const QStringList& fragments);
 
     // 这里实现 url 时 需要防止  /<name>/<name>/  这种重复类型的 url
@@ -79,9 +79,9 @@ private:
 
 private:
     bool m_isServerStarted{false};
-    IControllerRouteNode m_urlMapppings;
-    IControllerResourceNode m_rigidFileMappings;
-    IControllerDirectoryNode m_freedFileMappings;
+    IControllerRouteMapping m_urlMapppings;
+    IControllerResourceMapping m_resourceMappings;
+    IControllerDirectoryMapping m_directoryMappings;
 
     QMap<IHttpStatus, IStatusActionNode> m_statusMappings;
     QMap<QString, QString> m_pathRegValidators;
