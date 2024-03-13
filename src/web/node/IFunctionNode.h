@@ -13,12 +13,10 @@ public:
     static IFunctionNode createFunctionNode(std::function<void(const IRequest&, IResponse&)>);
 
 public:
-    std::function<void(IRequest&,  IResponse&)> function;
-
     int returnTypeId {QMetaType::Void};
-
     int funParamCount{0};
     QVector<IParamNode> funParamNodes;
+    std::function<void(IRequest&,  IResponse&)> function;
 };
 
 $PackageWebCoreEnd
