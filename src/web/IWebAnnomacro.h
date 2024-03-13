@@ -62,3 +62,6 @@
 #define $SetFileServiceAttachmentSuffix_9(suffix1, suffix2, suffix3, suffix4, suffix5, suffix6, suffix7, suffix8, suffix9) \
     $SetFileServiceAttachmentSuffix_8(suffix1, suffix2, suffix3, suffix4, suffix5, suffix6, suffix7, suffix8) \
     PP_PROFILE_CONFIG(SetFileServiceAttachmentSuffix_9, http.fileService.suffixes.@$, suffix9)
+
+#define $EnableFileServiceStaticMapping(value)  \
+    PP_PROFILE_CONFIG(EnableFileServiceStaticMapping, http.fileService.staticMapping, value)

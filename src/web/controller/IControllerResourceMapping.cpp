@@ -36,7 +36,7 @@ void IControllerResourceMapping::mountMapping(const QString &dir, const QString 
 void IControllerResourceMapping::travelPrint() const
 {
     if(m_enabled){
-        qDebug() << "Mapping Directory";
+        qDebug() << "Resource Mapping:";
         auto keys = m_map.keys();
         for(const auto& key : keys){
             qDebug().noquote()<< QString().fill(' ', 2) << key << "to" << m_map[key];

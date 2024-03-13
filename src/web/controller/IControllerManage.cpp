@@ -1,8 +1,9 @@
 ﻿#include "IControllerManage.h"
-#include "core/config/IContextManage.h"
-#include "web/net/IRequest.h"
 #include "core/base/IConvertUtil.h"
 #include "core/base/IMetaUtil.h"
+#include "core/config/IContextManage.h"
+#include "core/config/IProfileImport.h"
+#include "web/net/IRequest.h"
 #include "web/net/impl/IReqRespRaw.h"
 #include "web/IWebAssert.h"
 
@@ -109,8 +110,15 @@ void IControllerManage::registerStaticFiles(const QString &path, const QString &
         $Ast->fatal("static_file_dir_not_exist");
     }
 
-//    m_rigidFileMappings.mountMapping(dir.absolutePath(), prefix);
-    m_directoryMappings.mountMapping(dir.absolutePath(), prefix);
+    $Bool enabledFileStaticMapping("http.fileService.staticMapping", false);
+
+    qDebug() << "val" << enabledFileStaticMapping;
+
+    if(enabledFileStaticMapping.isLoaded() && enabledFileStaticMapping){
+        m_resourceMappings.mountMapping(dir.absolutePath(), prefix);
+    }else{
+        m_directoryMappings.mountMapping(dir.absolutePath(), prefix);
+    }
 }
 
 void IControllerManage::registerPathValidator(const QString &name, const QString &regexp)

@@ -153,7 +153,7 @@ void IControllerRouteMapping::travelPrint(int space) const
     }
 
     if(space == 0){
-        qDebug() << "Below is Controller Url Mapping:";
+        qDebug() << "Controller Url Mapping:";
     }
 
     auto print = [](IUrlActionNode* leaf, int space){

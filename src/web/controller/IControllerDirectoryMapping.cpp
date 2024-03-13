@@ -47,7 +47,7 @@ void IControllerDirectoryMapping::mountMapping(const QString &path, const QStrin
 void IControllerDirectoryMapping::travelPrint() const
 {
     if(m_enabled){
-        qDebug() << "Free Mapping Directory";
+        qDebug() << "Directory Mapping:";
         auto keys = m_map.keys();
         for(const auto& key : keys){
             qDebug().noquote()<< QString().fill(' ', 2) << key << "to" << m_map[key];

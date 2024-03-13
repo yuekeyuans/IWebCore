@@ -10,6 +10,7 @@ $SetIpPort(1000)
 $EnableControllerPrint(true)
 $EnableCatagory(Controller)
 $SetFileServiceMapping("E:/123/export2/dest/倪柝声文集/")
+//$EnableFileServiceStaticMapping(false)
 //$SetFileServiceAttachmentSuffix("html", "htm", "rar")
 
 int main(int argc, char *argv[])
