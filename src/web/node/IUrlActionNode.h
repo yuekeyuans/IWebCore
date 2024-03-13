@@ -15,12 +15,12 @@ public:
         Function
     };
 public:
+    IHttpMethod httpMethod;
+    Type type {Method};
     void* parentNode{nullptr};
     bool  ignoreParamCheck{false};
+    
     QString url;
-    IHttpMethod httpMethod;
-
-    Type type {Method};
     IMethodNode methodNode;
     IFunctionNode functionNode;
 };

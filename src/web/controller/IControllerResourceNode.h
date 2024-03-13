@@ -3,10 +3,10 @@
 
 $PackageWebCoreBegin
 
-class IControllerRigidFileNode
+class IControllerResourceNode
 {
 public:
-    IControllerRigidFileNode() = default;
+    IControllerResourceNode() = default;
 
 public:
     bool isEnabled() const;

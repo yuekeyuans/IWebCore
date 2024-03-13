@@ -4,10 +4,10 @@
 
 $PackageWebCoreBegin
 
-class IControllerFreeFileNode
+class IControllerDirectoryNode
 {
 public:
-    IControllerFreeFileNode() = default;
+    IControllerDirectoryNode() = default;
 
 public:
     bool isEnabled() const;

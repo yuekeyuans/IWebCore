@@ -15,8 +15,6 @@ public:
     QStringList getParamTypeNames() const;
     QList<QMetaType::Type> getParamTypeIds() const;
 
-
-
 public:
     void* handler{nullptr};
 

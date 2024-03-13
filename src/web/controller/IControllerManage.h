@@ -12,8 +12,8 @@
 #include "web/node/IStatusActionNode.h"
 
 #include "IControllerRouteNode.h"
-#include "IControllerRigidFileNode.h"
-#include "IControllerFreeFileNode.h"
+#include "IControllerResourceNode.h"
+#include "IControllerDirectoryNode.h"
 
 $PackageWebCoreBegin
 
@@ -80,8 +80,8 @@ private:
 private:
     bool m_isServerStarted{false};
     IControllerRouteNode m_urlMapppings;
-    IControllerRigidFileNode m_rigidFileMappings;
-    IControllerFreeFileNode m_freedFileMappings;
+    IControllerResourceNode m_rigidFileMappings;
+    IControllerDirectoryNode m_freedFileMappings;
 
     QMap<IHttpStatus, IStatusActionNode> m_statusMappings;
     QMap<QString, QString> m_pathRegValidators;

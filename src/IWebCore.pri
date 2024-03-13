@@ -122,8 +122,8 @@ HEADERS += \
     $$PWD/web/biscuits/IHttpMime.h \
     $$PWD/web/biscuits/IHttpStatus.h \
     $$PWD/web/biscuits/IHttpVersion.h \
-    $$PWD/web/controller/IControllerFreeFileNode.h \
-    $$PWD/web/controller/IControllerRigidFileNode.h \
+    $$PWD/web/controller/IControllerDirectoryNode.h \
+    $$PWD/web/controller/IControllerResourceNode.h \
     $$PWD/web/controller/private/IControllerInfo.h \
     $$PWD/web/controller/private/IControllerInterfaceHelper.h \
     $$PWD/web/core/defaultTask/IBluePrintControllerTask.h \
@@ -276,8 +276,8 @@ SOURCES += \
     $$PWD/web/biscuits/IHttpMime.cpp \
     $$PWD/web/biscuits/IHttpStatus.cpp \
     $$PWD/web/biscuits/IHttpVersion.cpp \
-    $$PWD/web/controller/IControllerFreeFileNode.cpp \
-    $$PWD/web/controller/IControllerRigidFileNode.cpp \
+    $$PWD/web/controller/IControllerDirectoryNode.cpp \
+    $$PWD/web/controller/IControllerResourceNode.cpp \
     $$PWD/web/controller/private/IControllerInterfaceHelper.cpp \
     $$PWD/web/core/defaultTask/IBluePrintControllerTask.cpp \
     $$PWD/web/core/defaultTask/IControllerBaseTypeTask.cpp \
