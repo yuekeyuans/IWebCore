@@ -43,14 +43,20 @@ void IHttpServerRunable::runRequest(IRequest& request)
             break;
         }
         IControllerManage::preProcess(request, response);
+        if(!request.valid()){
+            break;
+        }
 
         handleRequest(request, response);
+        if(!request.valid()){
+            break;
+        }
 
         if(IControllerManage::postIntercept(request, response)){
             break;
         }
         IControllerManage::postProcess(request, response);
-
+        
         // 拦截 socket
         if(!response.valid() || response.status() != IHttpStatus::OK_200){
             if(interceptStatusCode(request, response)){
