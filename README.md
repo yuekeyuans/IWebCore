@@ -159,15 +159,8 @@ public:
 
 ![image-20220226193138143](./doc/image-20220226193138143.png)
 
-第一个 `IWebCore`应用已经开发出来了，想了解更多，可以查看
-
-- [安装 IWebCore](http://www.iwebcore.com/guide/install_iwebcore/)
-- [编写一个网络服务器](http://www.iwebcore.com/guide/start_a_web_server/)
-- [使用 orm](http://www.iwebcore.com/guide/using_orm/)
-
 ---
 
-## 感谢
 
 在`IWebCore` 的开发前后，受到很多个方便的帮助，在此表示感谢:
 
@@ -177,11 +170,5 @@ public:
 - 感谢`C++` 框架 [drogon](https://github.com/drogonframework/drogon)。在看到它之后，我代码中的注册机制全部改成了`drogon` 的注册机制。代码真的太优秀了。
 - 本软件中引用了 [jimmiebergmann/mini-yaml库](https://github.com/jimmiebergmann/mini-yaml)，同样表示感谢
 - 感谢 `MkDocs` ，提供了便利的方式，能够开发出这么精美的文档。
-- 同样感谢`知乎`和 `Quora` ,在看到关于 `c++ web framework` 的讨论时，给了我写下去的动力。
-- 同样要感谢我的妻子，在这一段离职的时间里面，对我的支持。
 
 `IWebCore` 到目前为止，并不完善。好多的`feature`由于时间原因，将被放到以后的版本中间实现。
-
-
-
- 
