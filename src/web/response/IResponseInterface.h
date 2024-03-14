@@ -14,19 +14,13 @@ struct IResponseWareRaw;
 class IRedirectResponse;
 
 template<typename T>
-class IResponseInterface : public IResponseWare, IRegisterMetaTypeUnit<T>
+class IRegisterResponseType
 {
-public:
-    using IResponseWare::operator[];
-
-public:
-    IResponseInterface() = default;
-    virtual ~IResponseInterface() = default;
 
 private:
-    class IResponseInterfacePrivate{
+    class IRegisterResponseTypePrivate{
     public:
-        IResponseInterfacePrivate(){
+        IRegisterResponseTypePrivate(){
             static std::once_flag flag;
             std::call_once(flag, [](){
                 static T t;
@@ -34,15 +28,28 @@ private:
             });
         }
     };
-    friend class IResponseInterfacePrivate;
-    static IResponseInterfacePrivate m_IResponseInterfacePrivate;
-    virtual void* IResponseInterfacePrivateTouch(){
-        return &m_IResponseInterfacePrivate;
+    friend class IRegisterResponseTypePrivate;
+    static IRegisterResponseTypePrivate m_IRegisterResponseTypePrivate;
+    virtual void* IRegisterResponseTypePrivateTouch(){
+        return &m_IRegisterResponseTypePrivate;
     }
-};
+}
 
 template<typename T>
-typename IResponseInterface<T>::IResponseInterfacePrivate
-         IResponseInterface<T>::m_IResponseInterfacePrivate;
+typename IResponseInterface<T>::IRegisterResponseTypePrivate
+         IResponseInterface<T>::m_IRegisterResponseTypePrivate;
+
+
+template<typename T>
+class IResponseInterface : public IResponseWare, IRegisterMetaTypeUnit<T>, IRegisterResponseType<T>
+{
+public:
+    using IResponseWare::operator[];
+
+public:
+    IResponseInterface() = default;
+    virtual ~IResponseInterface() = default;
+};
+
 
 $PackageWebCoreEnd
