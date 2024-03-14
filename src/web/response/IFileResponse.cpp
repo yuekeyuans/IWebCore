@@ -156,7 +156,6 @@ void IFileResponseHelper::checkAndUpdateContentDisposition(bool enabled, IRespon
         raw->headers["Content-Disposition"]
                 = IFileResponseHelper::getContentDispositionAttachment(raw->content.contentFilePath);
     }
-
 }
 
 $PackageWebCoreEnd

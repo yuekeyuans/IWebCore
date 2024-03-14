@@ -86,7 +86,7 @@ void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
     }
 
     static bool isStaticFileEnabled = controllerManage->isStaticFileActionPathEnabled();        // process as static file server then
-    if(isStaticFileEnabled){
+    if(isStaticFileEnabled && request.method() == IHttpMethod::GET){
         auto path = controllerManage->getStaticFileActionPath(request);
         if(!path.isEmpty()){
             processInStaticFileMode(request, response, path);

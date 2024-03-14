@@ -73,11 +73,6 @@ void IResponseWare::setContent(const char *content)
     raw->setContent(content);
 }
 
-void IResponseWare::setInvalid(IHttpStatus status, const QString &reason)
-{
-    raw->setEror(status, reason);
-}
-
 IResponseContent &IResponseWare::getContent()
 {
     return raw->content;
@@ -104,6 +99,11 @@ void IResponseWare::redirectTo(IRedirectResponse &&redirectResponse)
 {
     redirectResponse.updateLocationPath();
     std::swap(this->raw, redirectResponse.raw);
+}
+
+void IResponseWare::setInvalid(IHttpStatus status, const QString &reason)
+{
+    raw->setEror(status, reason);
 }
 
 bool IResponseWare::canConvertFromString()
