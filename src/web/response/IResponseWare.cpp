@@ -73,7 +73,7 @@ void IResponseWare::setContent(const char *content)
     raw->setContent(content);
 }
 
-void IResponseWare::setError(IHttpStatus status, const QString &reason)
+void IResponseWare::setInvalid(IHttpStatus status, const QString &reason)
 {
     raw->setEror(status, reason);
 }

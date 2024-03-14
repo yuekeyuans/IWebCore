@@ -57,7 +57,7 @@ void IFileResponse::setFilePath(const QString &path)
         IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
     }else{
         QString reason = QString("file not found: ").append(path);
-        setError(IHttpStatus::NOT_FOUND_404, reason);
+        setInvalid(IHttpStatus::NOT_FOUND_404, reason);
     }
 }
 

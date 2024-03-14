@@ -30,7 +30,7 @@ public:
     virtual void setContent(const QByteArray& bytes);
     virtual void setContent(const QString& content);
     virtual void setContent(const char* content);
-    virtual void setError(IHttpStatus, const QString& reason);
+    virtual void setInvalid(IHttpStatus, const QString& reason);
     IResponseContent& getContent();
 
     virtual void setInstanceArg(QString &&data); // 强制使用右值引用，为了在代码当中保持参数传入 std::move 增强标记性
