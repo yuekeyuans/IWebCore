@@ -1,4 +1,4 @@
-#include "core/base/IHeaderUtil.h"
+﻿#include "core/base/IHeaderUtil.h"
 
 $PackageWebCoreBegin
 
@@ -24,10 +24,10 @@ private:
     virtual void* IRegisterResponseTypeUnitPrivateTouch(){
         return &m_IRegisterResponseTypeUnitPrivate;
     }
-}
+};
 
 template<typename T>
-typename IResponseInterface<T>::IRegisterResponseTypeUnitPrivate
-         IResponseInterface<T>::m_IRegisterResponseTypeUnitPrivate;
+typename IRegisterResponseTypeUnit<T>::IRegisterResponseTypeUnitPrivate
+         IRegisterResponseTypeUnit<T>::m_IRegisterResponseTypeUnitPrivate;
 
 $PackageWebCoreEnd

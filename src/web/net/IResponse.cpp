@@ -207,8 +207,8 @@ IResponse& IResponse::setContent(IResponseWare *response)
     std::swap(raw->m_responseContent, response->getContent());
 
     if(raw->m_responseContent.type == IResponseContent::Error){
-        setInvalid(raw->m_responseContent, raw->m_responseContent.contentString);
-        raw->m_responseMime = IHttpMime::TEXT_PLAIN_UTF8;
+        setInvalid(response->status(), raw->m_responseContent.contentString);
+        raw->m_responseMime = IHttpMimeHelper::toString(IHttpMime::TEXT_PLAIN_UTF8);
     }
 
     if(raw->m_responseStatus == IHttpStatus::UNKNOWN){
