@@ -19,18 +19,18 @@ public:
     QString& operator[](const QString& header);
 
     const QString& mime() const;
+    void setMime(IHttpMime);
+    
     IHttpStatus status() const;
-
-    IResponseContent& getContent();
+    void setStatus(IHttpStatus statusCode);
 
     const QMap<QString, QString>& headers() const;
-
-    void setMime(IHttpMime);
-    void setStatus(IHttpStatus statusCode);
     void setHeader(const QString& key, const QString& value);
+    
     virtual void setContent(const QByteArray& bytes);
     virtual void setContent(const QString& content);
     virtual void setContent(const char* content);
+    IResponseContent& getContent();
 
     virtual void setInstanceArg(QString &&data); // 强制使用右值引用，为了在代码当中保持参数传入 std::move 增强标记性
     virtual void setInstanceArg(void *arg, const QString &tag = "");

@@ -29,29 +29,24 @@ const QString& IResponseWare::mime() const
     return raw->mimeString;
 }
 
-IHttpStatus IResponseWare::status() const
-{
-    return raw->statusCode;
-}
-
-IResponseContent &IResponseWare::getContent()
-{
-    return raw->content;
-}
-
-const QMap<QString, QString>& IResponseWare::headers() const
-{
-    return raw->headers;
-}
-
 void IResponseWare::setMime(IHttpMime mime)
 {
     raw->setMime(mime);
 }
 
+IHttpStatus IResponseWare::status() const
+{
+    return raw->statusCode;
+}
+
 void IResponseWare::setStatus(IHttpStatus statusCode)
 {
     raw->statusCode = statusCode;
+}
+
+const QMap<QString, QString>& IResponseWare::headers() const
+{
+    return raw->headers;
 }
 
 void IResponseWare::setHeader(const QString &key, const QString &value)
@@ -76,6 +71,11 @@ void IResponseWare::setContent(const QString& content)
 void IResponseWare::setContent(const char *content)
 {
     raw->setContent(content);
+}
+
+IResponseContent &IResponseWare::getContent()
+{
+    return raw->content;
 }
 
 void IResponseWare::setInstanceArg(QString &&)

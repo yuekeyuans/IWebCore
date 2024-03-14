@@ -2,11 +2,13 @@
 
 $PackageWebCoreBegin
 
-void IResponseWareRaw::setMime(IHttpMime mime){
+void IResponseWareRaw::setMime(IHttpMime mime)
+{
     this->mimeString = IHttpMimeHelper::toString(mime);
 }
 
-void IResponseWareRaw::setMime(const QString &mime){
+void IResponseWareRaw::setMime(const QString &mime)
+{
     this->mimeString = mime;
 }
 
