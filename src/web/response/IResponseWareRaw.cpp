@@ -63,7 +63,7 @@ void IResponseWareRaw::setFileContent(const QString &filePath)
 void IResponseWareRaw::setEror(IHttpStatus status, QString reason)
 {
     statusCode = status;
-    content.type = IResponseContent::Error;
+    content.type = IResponseContent::Invalid;
     content.contentString = reason;
 }
 
