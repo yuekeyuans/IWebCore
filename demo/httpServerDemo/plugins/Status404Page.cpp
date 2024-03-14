@@ -8,7 +8,7 @@ Status404Page::Status404Page() : IStatusPageInterface()
 
 bool Status404Page::isMatch(IHttpStatus status)
 {
-    if(status == IHttpStatus::NOT_FOND_404){
+    if(status == IHttpStatus::NOT_FOUND_404){
         return true;
     }
     return false;

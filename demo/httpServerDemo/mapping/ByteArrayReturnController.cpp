@@ -7,7 +7,7 @@ ByteArrayReturnController::ByteArrayReturnController()
 
 QString ByteArrayReturnController::getArray1(IResponse &response)
 {
-    response.setStatus(IHttpStatus::NOT_FOND_404);
+    response.setStatus(IHttpStatus::NOT_FOUND_404);
     response.setMime(IHttpMime::TEXT_HTML_UTF8);
     return "$bytes:hello world1";
 }

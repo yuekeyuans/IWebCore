@@ -33,14 +33,9 @@ public:
 
 public:
     Type type{Type::Bytes};
-    IHttpStatus status;             // optional, only valid when type is error;
     QString contentString;
     QByteArray contentBytes;
     QString contentFilePath;
-
-    //extend
-    // TODO: 这个内容是以后使用的， 目的是返回一部分内容
-//    std::array<int, 2> anc{-1, -1};
 };
 
 $PackageWebCoreEnd

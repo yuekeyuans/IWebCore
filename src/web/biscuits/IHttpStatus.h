@@ -40,7 +40,7 @@ enum class IHttpStatus
     UNAUTHORIZED_401                        = 401,
     PAYMENT_REQURIED_402                    = 402,
     FORBIDDEN_403                           = 403,
-    NOT_FOND_404                            = 404,
+    NOT_FOUND_404                            = 404,
     METHOD_NOT_ALLOWED_405                  = 405,
     NOT_ACCEPTABLE_406                      = 406,
     PROXY_AUTHENTICATION_REQUIRED_407       = 407,

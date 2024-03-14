@@ -32,8 +32,8 @@ IFileResponse::IFileResponse(const char *data)
         IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
     }else{
 //        this->raw->
-//        this->setStatus(IHttpStatus::NOT_FOND_404);
-//        setStatus(IHttpStatus::NOT_FOND_404);
+//        this->setStatus(IHttpStatus::NOT_FOUND_404);
+//        setStatus(IHttpStatus::NOT_FOUND_404);
     }
 }
 
@@ -42,7 +42,7 @@ IFileResponse::IFileResponse(const QString &data)
     if(IFileResponseHelper::setFilePath(raw, data)){
         IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
     }else{
-        setStatus(IHttpStatus::NOT_FOND_404);
+        setStatus(IHttpStatus::NOT_FOUND_404);
     }
 }
 
@@ -56,7 +56,8 @@ void IFileResponse::setFilePath(const QString &path)
     if(IFileResponseHelper::setFilePath(raw, path)){
         IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
     }else{
-        setStatus(IHttpStatus::NOT_FOND_404);
+        QString reason = QString("file not found: ").append(path);
+        setError(IHttpStatus::NOT_FOUND_404, reason);
     }
 }
 
@@ -84,7 +85,7 @@ void IFileResponse::setInstanceArg(QString &&data)
     if(IFileResponseHelper::setFilePath(raw, path)){
         IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
     }else{
-        setStatus(IHttpStatus::NOT_FOND_404);
+        setStatus(IHttpStatus::NOT_FOUND_404);
     }
 }
 
