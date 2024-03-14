@@ -24,6 +24,8 @@ public:
     void setContent(const QFile& file); // TODO: 这个不一定行， 得具体测试一下看看
     void setFileContent(const QString& filePath);
 
+    void setEror(IHttpStatus status, QString reason);
+
 public:
     QString mimeString{"UNKNOWN"};   // when mime is unknown and mimeString is not empty ,mimeString take effect.
 

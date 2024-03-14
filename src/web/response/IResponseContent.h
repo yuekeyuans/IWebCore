@@ -33,6 +33,7 @@ public:
 
 public:
     Type type{Type::Bytes};
+    IHttpStatus status;             // optional, only valid when type is error;
     QString contentString;
     QByteArray contentBytes;
     QString contentFilePath;

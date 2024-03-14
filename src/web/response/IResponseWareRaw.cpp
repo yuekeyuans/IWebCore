@@ -60,4 +60,11 @@ void IResponseWareRaw::setFileContent(const QString &filePath)
     content.contentFilePath = filePath;
 }
 
+void IResponseWareRaw::setEror(IHttpStatus status, QString reason)
+{
+    content.type == IResponseContent::Error;
+    content.status = status;
+    content.setContent(std::move(reason));
+}
+
 $PackageWebCoreEnd

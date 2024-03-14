@@ -38,7 +38,6 @@ public:
 
 //    QDomNode&   getRequestXml(bool& ok);
 
-
 public:         // 这些东西先抽象出来，等到改变 socket 的时候就相对依赖小一点
     void writeSocket(const QByteArray& content);
     void writeSocket(QByteArray&& content);

@@ -73,6 +73,11 @@ void IResponseWare::setContent(const char *content)
     raw->setContent(content);
 }
 
+void IResponseWare::setError(IHttpStatus status, const QString &reason)
+{
+    raw->setEror(status, reason);
+}
+
 IResponseContent &IResponseWare::getContent()
 {
     return raw->content;
