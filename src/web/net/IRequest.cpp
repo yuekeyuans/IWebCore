@@ -27,33 +27,26 @@ IRequest::IRequest()
 }
 
 IRequest::IRequest(qintptr handle)
+    : IRequest(ISocketUtil::createTcpSocket(handle))
 {
-    auto socket = ISocketUtil::createTcpSocket(handle);
+}
+
+IRequest::IRequest(QTcpSocket *socket)
+{
     raw = new IReqRespRaw(this, socket);
     impl = new IRequestImpl(raw);
 
+    // TODO: 这里如果只是连接上了，但是没有通信的话，它会卡住线程，如果多余 idealThreadCount 的话，软件就会明显卡顿起来。
+    // 所以这里考虑 将数据处理和数据接收分离开来， 
+    // 数据接收 -> 满足条件 -> 数据处理
+    //        |-> 不满足条件 -> 压栈等待
+    //        |-> 失联或超时 -> invalid, 并且关闭线程。
+    // 目的就是把软件的时间给省出来。
     if(!raw->waitSocketForReadyRead()){
         setInvalid(IHttpStatus::REQUEST_TIMEOUT_408, "request open failed");
     }else{
         impl->resolve();
     }
-}
-
-IRequest::IRequest(QTcpSocket *socket)
-{
-//    m_socket = socket;
-
-//    auto descriptor = socket->socketDescriptor();
-//    socket->reset();
-//    delete socket;
-
-//    m_socket = ISocketUtil::createTcpSocket(descriptor);
-
-    raw = new IReqRespRaw;
-    raw->m_request = this;
-    raw->m_socket = socket;
-    impl = new IRequestImpl(raw);
-    impl->resolve();
 }
 
 IRequest::~IRequest()
