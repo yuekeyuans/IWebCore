@@ -73,21 +73,19 @@ void IHttpServerRunable::runRequest(IRequest& request)
 
 void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
 {
-    static auto controllerManage = IControllerManage::instance();
     if(request.method() == IHttpMethod::OPTIONS){
         return runOptionsFunction(request, response);
     }
 
+    static auto controllerManage = IControllerManage::instance();
     static bool isUrlActionEnabled = controllerManage->isUrlActionNodeEnabled();     // process as dynamic server first
     if(isUrlActionEnabled){
         auto function = controllerManage->getUrlActionNode(request);
         if(function != nullptr){
             if(function->type == IUrlActionNode::Method){
-                processInMethodMode(request, response, function);
-            }else if(function->type == IUrlActionNode::Function){
-                processInFunctionMode(request, response, function);
+                return processInMethodMode(request, response, function);
             }
-            return;
+            return processInFunctionMode(request, response, function);
         }
     }
 
@@ -95,12 +93,10 @@ void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
     if(isStaticFileEnabled && request.method() == IHttpMethod::GET){
         auto path = controllerManage->getStaticFileActionPath(request);
         if(!path.isEmpty()){
-            processInStaticFileMode(request, response, path);
-            return;
+            return processInStaticFileMode(request, response, path);
         }
     }
 
-    // process as not found last
     processInNotFoundMode(request, response);
 }
 
