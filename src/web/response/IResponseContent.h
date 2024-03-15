@@ -14,7 +14,7 @@ public:
         String,
         Bytes,
         File,
-        Error,
+        Invalid,
     };
 
 public:
@@ -28,6 +28,8 @@ public:
     void setContent(QByteArray&& content);
     void setContent(const QByteArray& content);
     void setContent(const char* content);
+
+    void setInvalid(QString content);
 
     QByteArray getAsBytes();
 

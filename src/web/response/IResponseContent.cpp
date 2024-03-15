@@ -86,6 +86,12 @@ void IResponseContent::setContent(const char *content)
     setContent(QByteArray(content));
 }
 
+void IResponseContent::setInvalid(QString content)
+{
+    type = Invalid;
+    contentString = std::move(content);
+}
+
 QByteArray IResponseContent::getAsBytes()
 {
     // TODO: check ok;
@@ -97,6 +103,8 @@ QByteArray IResponseContent::getAsBytes()
         return contentString.toUtf8();
     case File:
         return IFileUtil::readFileAsByteArray(contentFilePath, ok);
+    case Invalid:
+        qFatal("invalid should not be called");
     }
     return {};
 }

@@ -31,9 +31,7 @@ IFileResponse::IFileResponse(const char *data)
     if(IFileResponseHelper::setFilePath(raw, data)){
         IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
     }else{
-//        this->raw->
-//        this->setStatus(IHttpStatus::NOT_FOUND_404);
-//        setStatus(IHttpStatus::NOT_FOUND_404);
+        setInvalid(IHttpStatus::NOT_FOUND_404, "file not found");
     }
 }
 
@@ -42,7 +40,7 @@ IFileResponse::IFileResponse(const QString &data)
     if(IFileResponseHelper::setFilePath(raw, data)){
         IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
     }else{
-        setStatus(IHttpStatus::NOT_FOUND_404);
+        setInvalid(IHttpStatus::NOT_FOUND_404, "file not found");
     }
 }
 
@@ -128,14 +126,6 @@ bool IFileResponseHelper::setFilePath(IResponseWareRaw* raw, const QString& path
             realPath.prepend(prefix);
         }
     }
-
-//    if(IConstantUtil::DebugMode){
-//        if(!QFile(realPath).exists()){
-//            IAssertInfo info;
-//            info.reason = QString("filepath: " ).append(realPath);
-//            $Ast->fatal("static_file_not_exist", info);
-//        }
-//    }
 
     if(QFile(realPath).exists()){
         auto suffix = IFileUtil::getFileSuffix(realPath);
