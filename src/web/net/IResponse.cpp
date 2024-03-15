@@ -231,8 +231,9 @@ IResponse& IResponse::setContent(IResponseWare *response)
     // TODO: check ok;
     bool ok;
     if((!raw->m_headerJar->containResponseHeaderKey(IHttpHeader::ContentType)
-         || raw->m_headerJar->getResponseHeaderValue(IHttpHeader::ContentType, ok) == "UNKNOWN")
-        && raw->m_responseMime != IHttpMimeHelper::MIME_UNKNOWN_STRING){
+            || raw->m_headerJar->getResponseHeaderValue(IHttpHeader::ContentType, ok) == "UNKNOWN")
+            && raw->m_responseMime != IHttpMimeHelper::MIME_UNKNOWN_STRING)
+    {
         raw->m_headerJar->setResponseHeader(IHttpHeader::ContentType, raw->m_responseMime);
     }
     return *this;

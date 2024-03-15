@@ -135,7 +135,6 @@ void IHttpServerRunable::processInMethodMode(IRequest &request, IResponse &respo
     auto enclosingObject = node->methodNode.metaMethod.enclosingMetaObject();
     enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params);
     IControllerParamUtil::resolveReturnValue(response, node->methodNode, params);
-
     IControllerParamUtil::destroyArguments(node->methodNode, params);
 }
 

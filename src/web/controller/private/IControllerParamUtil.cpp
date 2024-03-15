@@ -93,7 +93,7 @@ void IControllerParamUtil::resolveReturnValue(IResponse& response, const IMethod
     QSharedPointer<IResponseWare> instance;
 
     switch (typeId) {
-    case QMetaType::Type::Void:
+    case QMetaType::Void:
         wrapVoidReturnInstance(response, functionNode, params);
         return;
     case QMetaType::QString:
@@ -131,7 +131,6 @@ void IControllerParamUtil::resolveReturnValue(IResponse& response, const IMethod
 
 void *IControllerParamUtil::createReturnParam(int paramTypeId)
 {
-    qDebug() << paramTypeId << QMetaType::typeName(paramTypeId) << "typename";
     return QMetaType::create(paramTypeId);
 }
 
