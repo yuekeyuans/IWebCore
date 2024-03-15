@@ -21,9 +21,9 @@ namespace IFileResponseHelper
     static $QStringList suffixes{"http.fileService.suffixes"};
 }
 
-IFileResponse::IFileResponse()
-{
-}
+//IFileResponse::IFileResponse()
+//{
+//}
 
 // TODO: 检查 这里判断 setInvalid 方法不能使用的问题。
 IFileResponse::IFileResponse(const char *data)
@@ -44,10 +44,10 @@ IFileResponse::IFileResponse(const QString &data)
     }
 }
 
-IFileResponse::IFileResponse(IWebCore::IRedirectResponse &&redirectResponse)
-{
-    redirectTo(std::forward<IRedirectResponse &&>(redirectResponse));
-}
+//IFileResponse::IFileResponse(IWebCore::IRedirectResponse &&redirectResponse)
+//{
+//    redirectTo(std::forward<IRedirectResponse &&>(redirectResponse));
+//}
 
 void IFileResponse::setFilePath(const QString &path)
 {

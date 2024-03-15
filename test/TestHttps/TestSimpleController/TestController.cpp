@@ -18,5 +18,6 @@ QString TestController::hello()
 
 IFileResponse TestController::index()
 {
-    return "index.html";
+//    return "index.html";
+    return  IRedirectResponse("http://www.baidu.com");
 }

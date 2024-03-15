@@ -22,7 +22,14 @@ public:
 
 public:
     IResponseInterface() = default;
+    IResponseInterface(IRedirectResponse&& response);
     virtual ~IResponseInterface() = default;
 };
+
+template<typename T>
+IResponseInterface<T>::IResponseInterface(IRedirectResponse &&response)
+{
+    redirectTo(std::forward<IRedirectResponse>(response));
+}
 
 $PackageWebCoreEnd

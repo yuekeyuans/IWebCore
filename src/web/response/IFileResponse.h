@@ -12,10 +12,11 @@ public:
     using IResponseInterface::operator[];
 
 public:
-    IFileResponse();
+//    IFileResponse();
+    using IResponseInterface::IResponseInterface;
     IFileResponse(const char* data);
     IFileResponse(const QString& data);
-    IFileResponse(IRedirectResponse&& redirectResponse);
+//    IFileResponse(IRedirectResponse&& redirectResponse);
 
     void setFilePath(const QString& path);
 

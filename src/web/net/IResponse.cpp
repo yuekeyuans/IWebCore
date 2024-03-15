@@ -211,7 +211,7 @@ IResponse& IResponse::setContent(IResponseWare *response)
         raw->m_responseMime = IHttpMimeHelper::toString(IHttpMime::TEXT_PLAIN_UTF8);
     }
 
-    if(raw->m_responseStatus == IHttpStatus::UNKNOWN){
+    if(response->status() != IHttpStatus::UNKNOWN){
         raw->m_responseStatus = response->status();
     }
 
