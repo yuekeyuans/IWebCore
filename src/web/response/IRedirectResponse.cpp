@@ -55,9 +55,9 @@ void IRedirectResponse::setInstanceArg(QString &&data)
     setRedirectPath(data.mid(m_matcherPrefix.length()));
 }
 
-void IRedirectResponse::setInstanceCopy(IResponseWare *interface_)
+void IRedirectResponse::setInstanceCopy(IResponseWare *ware)
 {
-    auto that = dynamic_cast<IRedirectResponse*>(interface_);
+    auto that = dynamic_cast<IRedirectResponse*>(ware);
     if(that == nullptr){
         qFatal("error with convertion, please check your code");
     }

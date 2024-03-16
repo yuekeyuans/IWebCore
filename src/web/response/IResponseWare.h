@@ -18,11 +18,11 @@ public:
     IResponseWare(IResponseWare&&);
     IResponseWare& operator =(const IResponseWare&);
     IResponseWare& operator =(IResponseWare&&);
-
     virtual ~IResponseWare();
 
     QString& operator[](const QString& header);
 
+public:
     const QString& mime() const;
     void setMime(IHttpMime);
     
@@ -39,7 +39,7 @@ public:
 
     virtual void setInstanceArg(QString &&data); // 强制使用右值引用，为了在代码当中保持参数传入 std::move 增强标记性
     virtual void setInstanceArg(void *arg, const QString &tag = "");
-    virtual void setInstanceCopy(IResponseWare* interface_);
+    virtual void setInstanceCopy(IResponseWare*);
 
     void redirectTo(IRedirectResponse&& redirectResponse);
 

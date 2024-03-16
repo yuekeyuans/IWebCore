@@ -118,15 +118,15 @@ bool IOrmDialectWare::update(QSqlDatabase &db, const IOrmTableInfo &info, const 
     return query.exec();
 }
 
-bool IOrmDialectWare::deleted(QSqlDatabase &db, const IOrmTableWare &interface_)
+bool IOrmDialectWare::deleted(QSqlDatabase &db, const IOrmTableWare &ware)
 {
-    const auto& info = interface_.getOrmEntityInfo();
+    const auto& info = ware.getOrmEntityInfo();
     const auto& pk = info->primaryKey;
     QString sql = QString("DELETE FROM ").append(info->entityName).append(" WHERE ").append(pk)
             .append(" = :").append(pk);
     ISqlQuery query(db);
     query.prepare(sql);
-    query.bindValue(":" + pk, interface_.getFieldValue(pk));
+    query.bindValue(":" + pk, ware.getFieldValue(pk));
     return query.exec();
 }
 
