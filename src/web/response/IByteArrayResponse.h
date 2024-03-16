@@ -6,26 +6,7 @@ $PackageWebCoreBegin
 
 class IByteArrayResponse : public IResponseInterface<IByteArrayResponse>
 {
-public:
-    IByteArrayResponse(const IByteArrayResponse &rhs) : IResponseInterface(rhs){
-//        auto raw = new IResponseWareRaw(*rhs.raw);
-//        delete this->raw;
-//        this->raw = raw;
-    }
-    IByteArrayResponse& operator=(IByteArrayResponse &rhs){
-        auto raw = new IResponseWareRaw(*rhs.raw);
-        delete this->raw;
-        this->raw = raw;
-        return *this;
-    }
-    IByteArrayResponse& operator=(IByteArrayResponse &&rhs){
-        std::swap(this->raw, rhs.raw);
-        return *this;
-    }
-    IByteArrayResponse(IByteArrayResponse&& rhs) : IResponseInterface(std::forward<IByteArrayResponse>(rhs)){
-//        std::swap(this->raw, rhs.raw);
-    }
-
+    $AsResponse(IByteArrayResponse)
 public:
     using IResponseInterface::operator[];
     using IResponseInterface::IResponseInterface;

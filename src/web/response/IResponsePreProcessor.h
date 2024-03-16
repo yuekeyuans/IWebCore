@@ -5,28 +5,9 @@
 #include "core/base/IMetaUtil.h"
 #include "web/response/IResponseWareRaw.h"
 
-#define PP_AS_RESPONSE(klassName) \
-public: \
-    klassName(const klassName &rhs){    \
-        auto raw = new IResponseWareRaw(*rhs.raw);  \
-        delete this->raw;   \
-        this->raw = raw;   \
-    }   \
-    klassName& operator=(klassName &rhs){  \
-        auto raw = new IResponseWareRaw(*rhs.raw);  \
-        delete this->raw;   \
-        this->raw = raw;    \
-        return *this;   \
-    }   \
-    klassName& operator=(klassName &&rhs){  \
-        std::swap(this->raw, rhs.raw);  \
-        return *this;   \
-    }   \
-    klassName(klassName&& rhs){ \
-        std::swap(this->raw, rhs.raw);  \
-    }
-
-// TODO: 这个名称可以考虑  CATD 实现
 #define $AsResponse(klassName)  \
 public: \
-    PP_AS_RESPONSE(klassName)
+    klassName(const klassName &rhs) : IResponseInterface(rhs){}   \
+    klassName(klassName&& rhs) : IResponseInterface(std::forward<klassName>(rhs)){}  \
+    klassName& operator=(klassName &rhs){ this->operator =(rhs);   return *this;  }   \
+    klassName& operator=(klassName &&rhs){  this->operator =(std::forward<klassName>(rhs));  return *this; }

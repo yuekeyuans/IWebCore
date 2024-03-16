@@ -6,10 +6,6 @@
 
 $PackageWebCoreBegin
 
-/**
- * @brief The IRedirectResponse to redirect url
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Location
- */
 class IRedirectResponse : public IResponseInterface<IRedirectResponse>
 {
     $AsResponse(IRedirectResponse)
