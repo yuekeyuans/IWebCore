@@ -23,7 +23,7 @@ public:
     template<class T>
     IPlainTextResponse(const T& value);
 
-    virtual void setInstanceArg(QString &&) final;
+    virtual void parsePrefixCommand(QString &&) final;
     void setInstanceStringArg(const QString &arg);
 
     virtual bool canConvertFromString() final;

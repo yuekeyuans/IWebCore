@@ -22,7 +22,7 @@ IHtmlResponse::IHtmlResponse(const QString &data)
     raw->setContent(data);
 }
 
-void IHtmlResponse::setInstanceArg(QString &&data)
+void IHtmlResponse::parsePrefixCommand(QString &&data)
 {
     raw->setMime(IHttpMime::TEXT_HTML_UTF8);
     raw->setContent(data.mid(m_matcherPrefix.length()));

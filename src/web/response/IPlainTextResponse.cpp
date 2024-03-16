@@ -28,7 +28,7 @@ IPlainTextResponse::IPlainTextResponse(const char *data)
     raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
-void IPlainTextResponse::setInstanceArg(QString &&data)
+void IPlainTextResponse::parsePrefixCommand(QString &&data)
 {
     raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
     if(data.startsWith(m_matcherPrefix)){

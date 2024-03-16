@@ -35,7 +35,7 @@ IJsonResponse::IJsonResponse(const QJsonObject &object) : IResponseInterface()
     raw->setContent(IJsonUtil::toString(object));
 }
 
-void IJsonResponse::setInstanceArg(QString &&value)
+void IJsonResponse::parsePrefixCommand(QString &&value)
 {
     raw->setContent(value.mid(prefix.length()));
 }

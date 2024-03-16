@@ -50,7 +50,7 @@ IRedirectResponse &IRedirectResponse::setRedirectPath(const QString &path)
     return *this;
 }
 
-void IRedirectResponse::setInstanceArg(QString &&data)
+void IRedirectResponse::parsePrefixCommand(QString &&data)
 {
     setRedirectPath(data.mid(m_matcherPrefix.length()));
 }

@@ -26,7 +26,7 @@ public:
     template<typename T>
     IJsonResponse(const T&);
 
-    virtual void setInstanceArg(QString &&) final;
+    virtual void parsePrefixCommand(QString &&) final;
     virtual bool canConvertFromString() final;
     virtual bool matchConvertString(const QString &value) final;
 

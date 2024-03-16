@@ -72,7 +72,7 @@ void IFileResponse::setContent(const char *content)
     qFatal(IConstantUtil::UnVisibleMethod);
 }
 
-void IFileResponse::setInstanceArg(QString &&data)
+void IFileResponse::parsePrefixCommand(QString &&data)
 {
     auto path = data.mid(m_matcherPrefix.length());
     if(IFileResponseHelper::setFilePath(raw, path)){

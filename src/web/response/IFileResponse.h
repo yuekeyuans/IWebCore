@@ -23,7 +23,7 @@ protected:
     virtual void setContent(const QString& content) final;
     virtual void setContent(const char* content) final;
 
-    virtual void setInstanceArg(QString &&data) final;
+    virtual void parsePrefixCommand(QString &&data) final;
     virtual bool canConvertFromString() final;
     virtual bool matchConvertString(const QString &str) final;
 

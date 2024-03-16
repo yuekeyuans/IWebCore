@@ -102,7 +102,7 @@ IResponseContent &IResponseWare::getContent()
     return raw->content;
 }
 
-void IResponseWare::setInstanceArg(QString &&)
+void IResponseWare::parsePrefixCommand(QString &&)
 {
     qFatal(IConstantUtil::InheritedMethod);
 }

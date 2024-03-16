@@ -18,7 +18,7 @@ public:
     IStatusCodeResponse(int code);
     IStatusCodeResponse(IHttpStatus status, const QString& errorMsg);
 
-    virtual void setInstanceArg(QString &&) final;
+    virtual void parsePrefixCommand(QString &&) final;
     virtual bool canConvertFromString() final;
     virtual bool matchConvertString(const QString &) final;
 

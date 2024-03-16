@@ -26,7 +26,7 @@ IByteArrayResponse::IByteArrayResponse(QByteArray &&array)
     raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
 }
 
-void IByteArrayResponse::setInstanceArg(QString &&value)
+void IByteArrayResponse::parsePrefixCommand(QString &&value)
 {
     raw->setContent(value.mid(m_matcherPrefix.length()));
 }

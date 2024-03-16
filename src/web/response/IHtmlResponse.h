@@ -17,7 +17,7 @@ public:
     IHtmlResponse(const char* data);
     IHtmlResponse(const QString& data);
 
-    virtual void setInstanceArg(QString &&data) final;
+    virtual void parsePrefixCommand(QString &&data) final;
     virtual bool canConvertFromString() final;
     virtual bool matchConvertString(const QString &str) final;
 

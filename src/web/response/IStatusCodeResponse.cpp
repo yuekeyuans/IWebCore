@@ -25,7 +25,7 @@ IStatusCodeResponse::IStatusCodeResponse(IHttpStatus status, const QString &erro
     setContent(errorMsg);
 }
 
-void IStatusCodeResponse::setInstanceArg(QString &&value)
+void IStatusCodeResponse::parsePrefixCommand(QString &&value)
 {
     QString num = value.midRef(m_matcherPrefix.length()).toUtf8();
     auto statusCode =  IHttpStatusHelper::toStatus(num);

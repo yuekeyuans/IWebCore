@@ -37,7 +37,7 @@ public:
     virtual void setContent(const char* content);
     IResponseContent& getContent();
 
-    virtual void setInstanceArg(QString &&data); // 强制使用右值引用，为了在代码当中保持参数传入 std::move 增强标记性
+    virtual void parsePrefixCommand(QString &&data);
     virtual void setInstanceCopy(IResponseWare*);
 
     void redirectTo(IRedirectResponse&& redirectResponse);

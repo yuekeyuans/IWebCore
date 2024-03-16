@@ -444,7 +444,7 @@ QSharedPointer<IResponseWare> IControllerParamUtil::createStringReturnInstance(v
     IResponseWare* response;
     if(value.startsWith("$") && (response = IResponseManage::convertMatch(value)) != nullptr){
         instance = response->createInstance(); // TODO: 这里应该使用函数优化掉这个内容
-        instance->setInstanceArg(std::move(value)); // 这一个是使用 QString 传入参数，其他的全部使用 void* 传入
+        instance->parsePrefixCommand(std::move(value)); // 这一个是使用 QString 传入参数，其他的全部使用 void* 传入
         return instance;
     }
 
