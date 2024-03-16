@@ -444,11 +444,11 @@ QSharedPointer<IResponseWare> IControllerParamUtil::createStringReturnInstance(v
     IResponseWare* response;
     if(value.startsWith("$") && (response = IResponseManage::convertMatch(value)) != nullptr){
         instance = response->createInstance(); // TODO: 这里应该使用函数优化掉这个内容
-    }else{
-        return QSharedPointer<IPlainTextResponse>::create(std::move(value));
+        instance->setInstanceArg(std::move(value)); // 这一个是使用 QString 传入参数，其他的全部使用 void* 传入
+        return instance;
     }
-    instance->setInstanceArg(std::move(value)); // 这一个是使用 QString 传入参数，其他的全部使用 void* 传入
-    return instance;
+
+    return QSharedPointer<IPlainTextResponse>::create(std::move(value));
 }
 
 // 这个地方应该是拷贝instance, 而不是 放置数据
