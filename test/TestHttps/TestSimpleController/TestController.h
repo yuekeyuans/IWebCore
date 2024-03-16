@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "IWeb/IControllerInterface"
+#include "web/response/IByteArrayResponse.h"
 
 class TestController : public IControllerInterface<TestController, true>
 {
@@ -9,19 +10,19 @@ class TestController : public IControllerInterface<TestController, true>
 public:
     TestController();
 
-//    $DeleteMapping(helloDelete, /)
-    QString helloDelete($Header(QString, name));
+////    $DeleteMapping(helloDelete, /)
+//    QString helloDelete($Header(QString, name));
 
-//    $PutMappingDeclare(hello, /)
-//    $GetMapping(hello, /)
-    QString hello();
+////    $PutMappingDeclare(hello, /)
+////    $GetMapping(hello, /)
+//    QString hello();
 
-//    $PostMapping(helloGet, hello)
-    QString helloGet(){
-        return "";
-    }
+////    $PostMapping(helloGet, hello)
+//    QString helloGet(){
+//        return "";
+//    }
 
     $GetMapping(index, hello/index1)
-    IFileResponse index();
+    IByteArrayResponse index();
 };
 

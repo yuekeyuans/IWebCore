@@ -11,6 +11,7 @@ class IPlainTextResponse : public IResponseInterface<IPlainTextResponse>
     $AsResponse(IPlainTextResponse)
 public:
     using IResponseInterface::operator[];
+    using IResponseInterface::IResponseInterface;
 
 public:
     IPlainTextResponse();
@@ -19,7 +20,6 @@ public:
     IPlainTextResponse(const QString& value);
     IPlainTextResponse(QString&& value);
     IPlainTextResponse(const char* data);
-    IPlainTextResponse(IRedirectResponse&& redirectResponse);
     template<class T>
     IPlainTextResponse(const T& value);
 

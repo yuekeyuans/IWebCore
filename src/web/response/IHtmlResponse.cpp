@@ -22,11 +22,6 @@ IHtmlResponse::IHtmlResponse(const QString &data)
     raw->setContent(data);
 }
 
-IHtmlResponse::IHtmlResponse(IRedirectResponse &&redirectResponse)
-{
-    redirectTo(std::forward<IRedirectResponse &&>(redirectResponse));
-}
-
 void IHtmlResponse::setInstanceArg(QString &&data)
 {
     raw->setMime(IHttpMime::TEXT_HTML_UTF8);

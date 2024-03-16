@@ -15,15 +15,14 @@ class IJsonResponse : public IResponseInterface<IJsonResponse>
     $AsResponse(IJsonResponse)
 public:
     using IResponseInterface::operator[];
+    using IResponseInterface::IResponseInterface;
 
 public:
     IJsonResponse();
-
     IJsonResponse(const QString&);
     IJsonResponse(const QJsonValue&);
     IJsonResponse(const QJsonArray&);
     IJsonResponse(const QJsonObject&);
-    IJsonResponse(IRedirectResponse&& redirectResponse);
     template<typename T>
     IJsonResponse(const T&);
 

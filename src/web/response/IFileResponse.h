@@ -10,13 +10,11 @@ class IFileResponse : public IResponseInterface<IFileResponse>
     $AsResponse(IFileResponse)
 public:
     using IResponseInterface::operator[];
+    using IResponseInterface::IResponseInterface;
 
 public:
-//    IFileResponse();
-    using IResponseInterface::IResponseInterface;
     IFileResponse(const char* data);
     IFileResponse(const QString& data);
-//    IFileResponse(IRedirectResponse&& redirectResponse);
 
     void setFilePath(const QString& path);
 

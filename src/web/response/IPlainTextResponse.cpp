@@ -28,11 +28,6 @@ IPlainTextResponse::IPlainTextResponse(const char *data)
     raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
-IPlainTextResponse::IPlainTextResponse(IRedirectResponse &&redirectResponse)
-{
-    redirectTo(std::forward<IRedirectResponse &&>(redirectResponse));
-}
-
 void IPlainTextResponse::setInstanceArg(QString &&data)
 {
     raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);

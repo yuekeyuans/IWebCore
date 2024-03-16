@@ -10,12 +10,12 @@ class IHtmlResponse : public IResponseInterface<IHtmlResponse>
     $AsResponse(IHtmlResponse)
 public:
     using IResponseInterface::operator[];
+    using IResponseInterface::IResponseInterface;
 
 public:
     IHtmlResponse();
     IHtmlResponse(const char* data);
     IHtmlResponse(const QString& data);
-    IHtmlResponse(IRedirectResponse&& redirectResponse);
 
     virtual void setInstanceArg(QString &&data) final;
     virtual bool canConvertFromString() final;

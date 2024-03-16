@@ -35,11 +35,6 @@ IJsonResponse::IJsonResponse(const QJsonObject &object) : IResponseInterface()
     raw->setContent(IJsonUtil::toString(object));
 }
 
-IJsonResponse::IJsonResponse(IRedirectResponse &&redirectResponse)
-{
-    redirectTo(std::forward<IRedirectResponse&&>(redirectResponse));
-}
-
 void IJsonResponse::setInstanceArg(QString &&value)
 {
     raw->setContent(value.mid(prefix.length()));

@@ -7,17 +7,17 @@ TestController::TestController()
 
 }
 
-QString TestController::helloDelete($Header(QString, name)){
-    return name;
-}
+//QString TestController::helloDelete($Header(QString, name)){
+//    return name;
+//}
 
-QString TestController::hello()
-{
-    return QStringLiteral("hello world");
-}
+//QString TestController::hello()
+//{
+//    return QStringLiteral("hello world");
+//}
 
-IFileResponse TestController::index()
+IByteArrayResponse TestController::index()
 {
-//    return "index.html";
-    return  IRedirectResponse("http://www.baidu.com");
+    return "index.html";
+//    return  IRedirectResponse("http://www.baidu.com");
 }

@@ -103,7 +103,7 @@ void IResponseWare::redirectTo(IRedirectResponse &&redirectResponse)
 
 void IResponseWare::setInvalid(IHttpStatus status, const QString &reason)
 {
-    raw->setEror(status, reason);
+    raw->setInvalid(status, reason);
 }
 
 bool IResponseWare::canConvertFromString()

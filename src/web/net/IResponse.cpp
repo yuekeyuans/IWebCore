@@ -13,7 +13,8 @@
 $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
-$UseGlobalAssert();
+
+$UseGlobalAssert()
 
 IResponse::IResponse()
 {
@@ -215,7 +216,7 @@ IResponse& IResponse::setContent(IResponseWare *response)
         raw->m_responseStatus = response->status();
     }
 
-    if(raw->m_responseMime == IHttpMimeHelper::MIME_UNKNOWN_STRING){
+    if(response->mime() != IHttpMimeHelper::MIME_UNKNOWN_STRING){
         raw->m_responseMime = response->mime();
     }
 

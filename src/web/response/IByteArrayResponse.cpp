@@ -9,6 +9,11 @@ IByteArrayResponse::IByteArrayResponse()
     raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
 }
 
+IByteArrayResponse::IByteArrayResponse(const char *array)
+    : IByteArrayResponse(QByteArray::fromRawData(array, static_cast<std::size_t>(strlen(array))))
+{
+}
+
 IByteArrayResponse::IByteArrayResponse(QByteArray &array)
 {
     raw->setContent(array);
@@ -17,13 +22,8 @@ IByteArrayResponse::IByteArrayResponse(QByteArray &array)
 
 IByteArrayResponse::IByteArrayResponse(QByteArray &&array)
 {
-    raw->setContent(array);
+    raw->setContent(std::forward<QByteArray>(array));
     raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
-}
-
-IByteArrayResponse::IByteArrayResponse(IRedirectResponse &&redirectResponse)
-{
-    redirectTo(std::forward<IRedirectResponse&&>(redirectResponse));
 }
 
 void IByteArrayResponse::setInstanceArg(QString &&value)

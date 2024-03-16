@@ -44,11 +44,6 @@ IFileResponse::IFileResponse(const QString &data)
     }
 }
 
-//IFileResponse::IFileResponse(IWebCore::IRedirectResponse &&redirectResponse)
-//{
-//    redirectTo(std::forward<IRedirectResponse &&>(redirectResponse));
-//}
-
 void IFileResponse::setFilePath(const QString &path)
 {
     if(IFileResponseHelper::setFilePath(raw, path)){
