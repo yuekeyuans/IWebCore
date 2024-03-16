@@ -27,7 +27,11 @@ public:
     IJsonResponse(const T&);
 
     virtual void setInstanceArg(QString &&) final;
-    virtual void setInstanceArg(void *arg, const QString& type) final;
+//    virtual void setInstanceArg(void *arg, const QString& type) final;
+//    virtual void setInstanceArg(QJsonObject obj);
+//    virtual void setInstanceArg(QJsonArray array);
+//    virtual void setInstanceArg(QJsonValue array);
+
     virtual bool canConvertFromString() final;
     virtual bool matchConvertString(const QString &value) final;
 

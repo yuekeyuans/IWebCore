@@ -54,12 +54,6 @@ private:
 private:
     static void wrapVoidReturnInstance(IResponse& response, const IMethodNode& functionNode, ParamType &params);
     static QSharedPointer<IResponseWare> createStringReturnInstance(void** params);
-    static QSharedPointer<IResponseWare> createIntReturnInstance(void** params);
-    static QSharedPointer<IResponseWare> createJsonValueReturnInstance(void** params);
-    static QSharedPointer<IResponseWare> createJsonObjectReturnInstance(void** params);
-    static QSharedPointer<IResponseWare> createJsonArrayReturnInstance(void** params);
-    static QSharedPointer<IResponseWare> createByteArrayReturnInstance(void** params);
-    static QSharedPointer<IResponseWare> createStringListReturnType(void** params);
     static QSharedPointer<IResponseWare> createInterfaceReturnInstance(void** params);
 
 private:

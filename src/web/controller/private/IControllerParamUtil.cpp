@@ -100,22 +100,22 @@ void IControllerParamUtil::resolveReturnValue(IResponse& response, const IMethod
         instance = createStringReturnInstance(params);
         break;
     case QMetaType::Int:
-        instance = createIntReturnInstance(params);
+        instance = QSharedPointer<IStatusCodeResponse>::create(*static_cast<int*>(params[0]));;
         break;
     case QMetaType::QJsonArray:
-        instance = createJsonArrayReturnInstance(params);
+        instance = QSharedPointer<IJsonResponse>::create(*static_cast<QJsonArray*>(params[0]));
         break;
     case QMetaType::QJsonObject:
-        instance = createJsonObjectReturnInstance(params);
+        instance = QSharedPointer<IJsonResponse>::create(*static_cast<QJsonObject*>(params[0]));
         break;
     case QMetaType::QJsonValue:
-        instance = createJsonValueReturnInstance(params);
+        instance = QSharedPointer<IJsonResponse>::create(*static_cast<QJsonObject*>(params[0]));
         break;
     case QMetaType::QByteArray:
-        instance = createByteArrayReturnInstance(params);
+        instance = QSharedPointer<IByteArrayResponse>::create(*static_cast<QByteArray*>(params[0]));
         break;
-    case QMetaType::Type::QStringList:
-        instance = createStringListReturnType(params);
+    case QMetaType::QStringList:
+        instance = QSharedPointer<IPlainTextResponse>::create(IConvertUtil::toString(*static_cast<QStringList*>(params[0])));
         break;
     default:
         auto type = functionNode.returnTypeName;
@@ -443,58 +443,11 @@ QSharedPointer<IResponseWare> IControllerParamUtil::createStringReturnInstance(v
     auto value = *static_cast<QString*>(params[0]);
     IResponseWare* response;
     if(value.startsWith("$") && (response = IResponseManage::convertMatch(value)) != nullptr){
-        instance = response->createInstance();
+        instance = response->createInstance(); // TODO: 这里应该使用函数优化掉这个内容
     }else{
-        instance = IPlainTextResponse::createIPlainTexInstance();
+        return QSharedPointer<IPlainTextResponse>::create(std::move(value));
     }
     instance->setInstanceArg(std::move(value)); // 这一个是使用 QString 传入参数，其他的全部使用 void* 传入
-    return instance;
-}
-
-QSharedPointer<IResponseWare> IControllerParamUtil::createIntReturnInstance(void **params)
-{
-    auto instance = IStatusCodeResponse::createStatusCodeInstance();
-    instance->setInstanceArg(params[0]);
-    return instance;
-}
-
-QSharedPointer<IResponseWare> IControllerParamUtil::createJsonValueReturnInstance(void **params)
-{
-    static const QString suffix = "QJsonValue";
-    auto instance = IJsonResponse::createJsonInstance();
-    instance->setInstanceArg(params[0], suffix);
-    return instance;
-}
-
-QSharedPointer<IResponseWare> IControllerParamUtil::createJsonObjectReturnInstance(void **params)
-{
-    static const QString suffix = "QJsonObject";
-    auto instance = IJsonResponse::createJsonInstance();
-    instance->setInstanceArg(params[0], suffix);
-    return instance;
-}
-
-QSharedPointer<IResponseWare> IControllerParamUtil::createJsonArrayReturnInstance(void **params)
-{
-    static const QString suffix = "QJsonArray";
-    auto instance = IJsonResponse::createJsonInstance();
-    instance->setInstanceArg(params[0], suffix);
-    return instance;
-}
-
-QSharedPointer<IResponseWare> IControllerParamUtil::createByteArrayReturnInstance(void **params)
-{
-    auto instance = IByteArrayResponse::createByteArrayInstance();
-    instance->setInstanceArg(params[0]);
-    return instance;
-}
-
-QSharedPointer<IResponseWare> IControllerParamUtil::createStringListReturnType(void **params)
-{
-    auto value = static_cast<QStringList*>(params[0]);
-    auto string = IConvertUtil::toString(*value);
-    auto instance = IPlainTextResponse::createIPlainTexInstance();
-    instance->setInstanceArg(std::move(string));
     return instance;
 }
 

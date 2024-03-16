@@ -40,19 +40,34 @@ void IJsonResponse::setInstanceArg(QString &&value)
     raw->setContent(value.mid(prefix.length()));
 }
 
-void IJsonResponse::setInstanceArg(void *arg, const QString &type)
-{
-    if(type == "QJsonObject"){
-        auto value = *static_cast<QJsonObject*>(arg);
-        raw->setContent(IJsonUtil::toString(value));
-    }else if(type == "QJsonArray"){
-        auto value = *static_cast<QJsonArray*>(arg);
-        raw->setContent(IJsonUtil::toString(value));
-    }else if(type == "QJsonValue"){
-        auto value = *static_cast<QJsonValue*>(arg);
-        raw->setContent(IJsonUtil::toString(value));
-    }
-}
+//void IJsonResponse::setInstanceArg(QJsonObject value)
+//{
+//    raw->setContent(IJsonUtil::toString(value));
+//}
+
+//void IJsonResponse::setInstanceArg(QJsonArray value)
+//{
+//    raw->setContent(IJsonUtil::toString(value));
+//}
+
+//void IJsonResponse::setInstanceArg(QJsonValue value)
+//{
+//    raw->setContent(IJsonUtil::toString(value));
+//}
+
+//void IJsonResponse::setInstanceArg(void *arg, const QString &type)
+//{
+//    if(type == "QJsonObject"){
+//        auto value = *static_cast<QJsonObject*>(arg);
+//        raw->setContent(IJsonUtil::toString(value));
+//    }else if(type == "QJsonArray"){
+//        auto value = *static_cast<QJsonArray*>(arg);
+//        raw->setContent(IJsonUtil::toString(value));
+//    }else if(type == "QJsonValue"){
+//        auto value = *static_cast<QJsonValue*>(arg);
+//        raw->setContent(IJsonUtil::toString(value));
+//    }
+//}
 
 bool IJsonResponse::canConvertFromString()
 {
