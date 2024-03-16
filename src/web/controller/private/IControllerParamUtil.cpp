@@ -120,7 +120,8 @@ void IControllerParamUtil::resolveReturnValue(IResponse& response, const IMethod
     default:
         auto type = functionNode.returnTypeName;
         if(type.startsWith("I") && type.endsWith("Response")){
-            instance = createInterfaceReturnInstance(params);
+            response.setContent(static_cast<IResponseWare*>(params[0]));
+            return;
         }else{
             QString info = type + " not supported, please change the return type!";
             qFatal(info.toUtf8());

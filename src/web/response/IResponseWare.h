@@ -48,6 +48,8 @@ public:
     virtual bool canConvertFromString();
     virtual bool matchConvertString(const QString&);
 
+//    virtual QString getResponseTypename() = 0;
+
     virtual QSharedPointer<IResponseWare> createInstance();
 
 protected:

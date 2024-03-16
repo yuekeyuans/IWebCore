@@ -29,6 +29,9 @@ public:
     IResponseInterface& operator=(IResponseInterface&&);
 
     virtual ~IResponseInterface() = default;
+
+//public:
+//    virtual QString getResponseTypename() const final;
 };
 
 
