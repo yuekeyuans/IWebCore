@@ -38,12 +38,6 @@ void IPlainTextResponse::setInstanceArg(QString &&data)
     }
 }
 
-void IPlainTextResponse::setInstanceArg(void *param, const QString &)
-{
-    auto value = *static_cast<QString*>(param);
-    setInstanceStringArg(value);
-}
-
 void IPlainTextResponse::setInstanceStringArg(const QString &arg)
 {
     raw->setContent(arg);

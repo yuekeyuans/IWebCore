@@ -7,6 +7,7 @@
 #include "web/biscuits/IHttpMime.h"
 #include "web/response/IResponseManage.h"
 #include "web/response/IResponseWare.h"
+#include "web/response/IResponseWareRaw.h"
 #include "web/core/unit/IRegisterResponseTypeUnit.h"
 
 $PackageWebCoreBegin
@@ -29,11 +30,7 @@ public:
     IResponseInterface& operator=(IResponseInterface&&);
 
     virtual ~IResponseInterface() = default;
-
-//public:
-//    virtual QString getResponseTypename() const final;
 };
-
 
 template<typename T>
 IResponseInterface<T>::IResponseInterface()
@@ -63,7 +60,7 @@ template<typename T>
 IResponseInterface<T> &IResponseInterface<T>::operator=(const IResponseInterface&rhs)
 {
     qDebug() << "assign const";
-    this->operator =(rhs);
+    IResponseWare::operator =(rhs);
     return *this;
 }
 
@@ -71,7 +68,7 @@ template<typename T>
 IResponseInterface<T> &IResponseInterface<T>::operator=(IResponseInterface &&rhs)
 {
     qDebug() << "assign move";
-    this->operator =(std::forward<IResponseInterface>(rhs));
+    IResponseWare::operator =(std::forward<IResponseInterface>(rhs));
     return *this;
 }
 

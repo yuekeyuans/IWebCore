@@ -24,7 +24,6 @@ public:
     IPlainTextResponse(const T& value);
 
     virtual void setInstanceArg(QString &&) final;
-    virtual void setInstanceArg(void * param, const QString& = "") final;
     void setInstanceStringArg(const QString &arg);
 
     virtual bool canConvertFromString() final;

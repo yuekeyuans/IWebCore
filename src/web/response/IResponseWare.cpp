@@ -107,13 +107,6 @@ void IResponseWare::setInstanceArg(QString &&)
     qFatal(IConstantUtil::InheritedMethod);
 }
 
-void IResponseWare::setInstanceArg(void *arg, const QString &tag)
-{
-    Q_UNUSED(arg);
-    Q_UNUSED(tag);
-    qFatal(IConstantUtil::InheritedMethod);
-}
-
 void IResponseWare::setInstanceCopy(IResponseWare *ware)
 {
     std::swap(ware->raw, this->raw);

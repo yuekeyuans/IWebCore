@@ -18,7 +18,6 @@ public:
     IByteArrayResponse(QByteArray &&array);
 
     virtual void setInstanceArg(QString &&value) final;
-    virtual void setInstanceArg(void *arg, const QString &tag = "") final;
     virtual bool canConvertFromString() final;
     virtual bool matchConvertString(const QString &value) final;
 

@@ -31,12 +31,6 @@ void IByteArrayResponse::setInstanceArg(QString &&value)
     raw->setContent(value.mid(m_matcherPrefix.length()));
 }
 
-void IByteArrayResponse::setInstanceArg(void *arg, const QString &)
-{
-    auto value = *static_cast<QByteArray*>(arg);
-    raw->setContent(std::move(value));
-}
-
 bool IByteArrayResponse::canConvertFromString()
 {
     return true;
