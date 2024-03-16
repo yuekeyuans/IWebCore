@@ -14,6 +14,11 @@ class IResponseWare
 {
 public:
     IResponseWare();
+    IResponseWare(const IResponseWare&);
+    IResponseWare(IResponseWare&&);
+    IResponseWare& operator =(const IResponseWare&);
+    IResponseWare& operator =(IResponseWare&&);
+
     virtual ~IResponseWare();
 
     QString& operator[](const QString& header);

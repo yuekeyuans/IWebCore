@@ -9,8 +9,32 @@ $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-IResponseWare::IResponseWare() : raw(new IResponseWareRaw())
+IResponseWare::IResponseWare()
+    : raw(new IResponseWareRaw())
 {
+}
+
+IResponseWare::IResponseWare(const IResponseWare &rhs)
+    : raw(new IResponseWareRaw(*rhs.raw))
+{
+}
+
+IResponseWare::IResponseWare(IResponseWare && rhs)
+{
+    std::swap(this->raw, rhs.raw);
+}
+
+IResponseWare &IResponseWare::operator =(const IResponseWare & rhs)
+{
+    delete this->raw;
+    this->raw = new IResponseWareRaw(*rhs.raw);
+    return *this;
+}
+
+IResponseWare &IResponseWare::operator =(IResponseWare && rhs)
+{
+    std::swap(this->raw, rhs.raw);
+    return *this;
 }
 
 IResponseWare::~IResponseWare()
