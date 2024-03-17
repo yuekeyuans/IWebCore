@@ -15,8 +15,7 @@ namespace IFileResponseHelper
 {
     static QString getContentDispositionAttachment(const QString& filePath);
     static bool setFilePath(IResponseWareRaw* raw, const QString& path);
-    static void checkAndUpdateContentDisposition(bool enabled, IResponseWareRaw* raw);
-    static $QStringList suffixes{"http.fileService.suffixes"};
+    static void checkAndUpdateContentDisposition(IResponseWareRaw* raw);
 }
 
 IFileResponse::IFileResponse()
@@ -25,9 +24,8 @@ IFileResponse::IFileResponse()
 
 IFileResponse::IFileResponse(const char *data)
 {
-    static $Bool s_enableContentDisposition{"http.fileService.contentDisposition", false};
     if(IFileResponseHelper::setFilePath(m_raw, data)){
-        IFileResponseHelper::checkAndUpdateContentDisposition(s_enableContentDisposition, m_raw);
+        IFileResponseHelper::checkAndUpdateContentDisposition(m_raw);
     }else{
         setInvalid(IHttpStatus::NOT_FOUND_404, "file not found");
     }
@@ -35,9 +33,8 @@ IFileResponse::IFileResponse(const char *data)
 
 IFileResponse::IFileResponse(const QString &data)
 {
-    static $Bool s_enableContentDisposition{"http.fileService.contentDisposition", false};
     if(IFileResponseHelper::setFilePath(m_raw, data)){
-        IFileResponseHelper::checkAndUpdateContentDisposition(s_enableContentDisposition, m_raw);
+        IFileResponseHelper::checkAndUpdateContentDisposition(m_raw);
     }else{
         setInvalid(IHttpStatus::NOT_FOUND_404, "file not found");
     }
@@ -82,15 +79,17 @@ bool IFileResponseHelper::setFilePath(IResponseWareRaw* raw, const QString& path
     return false;
 }
 
-void IFileResponseHelper::checkAndUpdateContentDisposition(bool enabled, IResponseWareRaw* raw)
+void IFileResponseHelper::checkAndUpdateContentDisposition(IResponseWareRaw* raw)
 {
+    static $QStringList suffixes{"http.fileService.suffixes"};
+    static $Bool enabled {"http.fileService.contentDisposition", true};
     if(enabled
             && raw->content.type == IResponseContent::File
             && !raw->content.contentFilePath.isEmpty()
-            && IFileResponseHelper::suffixes.isFound()
-            && IFileResponseHelper::suffixes.value().contains(IFileUtil::getFileSuffix(raw->content.contentFilePath))){
-        raw->headers["Content-Disposition"]
-                = IFileResponseHelper::getContentDispositionAttachment(raw->content.contentFilePath);
+            && suffixes.isFound()
+            && suffixes.value().contains(IFileUtil::getFileSuffix(raw->content.contentFilePath)))
+    {
+        raw->headers["Content-Disposition"] = IFileResponseHelper::getContentDispositionAttachment(raw->content.contentFilePath);
     }
 }
 
