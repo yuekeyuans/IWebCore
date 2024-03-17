@@ -31,5 +31,3 @@ private:
 IHtmlResponse operator"" _html(const char* str, size_t size);
 
 $PackageWebCoreEnd
-
-

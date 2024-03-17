@@ -3,6 +3,7 @@
 #include "core/base/IHeaderUtil.h"
 #include "web/biscuits/IHttpMime.h"
 #include "web/biscuits/IHttpStatus.h"
+#include "core/result/IResult.h"
 #include "IResponseContent.h"
 
 $PackageWebCoreBegin
@@ -37,15 +38,17 @@ public:
     virtual void setContent(const char* content);
     IResponseContent& getContent();
 
-    virtual void parsePrefixCommand(QString &&data);
     virtual void setInstanceCopy(IResponseWare*);
 
     void redirectTo(IRedirectResponse&& redirectResponse);
 
     virtual void setInvalid(IHttpStatus, const QString& reason);
 
+    virtual void parsePrefixCommand(QString &&data);
     virtual bool canConvertFromString();
-    virtual bool matchConvertString(const QString&);
+    virtual QString getPrefixMatcher();
+    bool matchConvertString(const QString&);
+    QString getMatchedString(const QString&);
 
     virtual QSharedPointer<IResponseWare> createInstance();
 
