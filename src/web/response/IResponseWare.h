@@ -35,7 +35,7 @@ public:
 
     IResponseContent& getContent();
 
-    void redirectTo(IRedirectResponse&& redirectResponse);
+//    void redirectTo(IRedirectResponse&& redirectResponse);
 
     virtual void setInvalid(IHttpStatus, const QString& reason);
     virtual QString getPrefixMatcher();

@@ -14,6 +14,7 @@ $PackageWebCoreBegin
 
 struct IResponseWareRaw;
 class IRedirectResponse;
+class IInvalidRepsonse;
 
 template<typename T>
 class IResponseInterface : public IResponseWare, IRegisterMetaTypeUnit<T>, IRegisterResponseTypeUnit<T>
@@ -24,6 +25,7 @@ public:
 public:
     IResponseInterface();
     IResponseInterface(IRedirectResponse&& response);
+    IResponseInterface(IInvalidRepsonse&& response);
     IResponseInterface(const IResponseInterface&);
     IResponseInterface(IResponseInterface &&);
     IResponseInterface(IResponseWare*); // special // only for create
@@ -46,7 +48,15 @@ IResponseInterface<T>::IResponseInterface()
 template<typename T>
 IResponseInterface<T>::IResponseInterface(IRedirectResponse &&response)
 {
-    redirectTo(std::forward<IRedirectResponse>(response));
+    response.updateLocationPath();
+    std::swap(this->m_raw, response.m_raw);
+//    redirectTo(std::forward<IRedirectResponse>(response));
+}
+
+template<typename T>
+IResponseInterface<T>::IResponseInterface(IInvalidRepsonse &&response)
+{
+
 }
 
 template<typename T>

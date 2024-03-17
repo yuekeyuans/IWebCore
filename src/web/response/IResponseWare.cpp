@@ -87,11 +87,11 @@ IResponseContent &IResponseWare::getContent()
     return m_raw->content;
 }
 
-void IResponseWare::redirectTo(IRedirectResponse &&redirectResponse)
-{
-    redirectResponse.updateLocationPath();
-    std::swap(this->m_raw, redirectResponse.m_raw);
-}
+//void IResponseWare::redirectTo(IRedirectResponse &&redirectResponse)
+//{
+//    redirectResponse.updateLocationPath();
+//    std::swap(this->m_raw, redirectResponse.m_raw);
+//}
 
 void IResponseWare::setInvalid(IHttpStatus status, const QString &reason)
 {

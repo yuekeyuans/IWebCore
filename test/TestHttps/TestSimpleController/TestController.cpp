@@ -18,6 +18,6 @@ TestController::TestController()
 
 IFileResponse TestController::index()
 {
-    return "index.htm";
-//    return  IRedirectResponse("http://www.baidu.com");
+//    return "index.htm";
+    return  IRedirectResponse("http://www.baidu.com");
 }
