@@ -30,7 +30,7 @@ QByteArray IFileUtil::readFileAsByteArray(const QString &path, bool& ok)
     QFile file(path);
     if(!file.exists()){
         ok = false;
-        return {{}, ok};
+        return {QByteArray{}, ok};
     }
 
     if(file.open(QFile::ReadOnly)){

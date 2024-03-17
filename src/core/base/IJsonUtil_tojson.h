@@ -29,9 +29,6 @@ template<class T>
 QJsonValue _objectToJson(const QList<T>& sequence, bool &ok);
 
 template<class T>
-QJsonValue _objectToJson(const QLinkedList<T>& sequence, bool &ok);
-
-template<class T>
 QJsonValue _objectToJson(const QStack<T>& sequence, bool &ok);
 
 template<class T>

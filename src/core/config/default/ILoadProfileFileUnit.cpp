@@ -1,5 +1,6 @@
 ﻿#include "ILoadProfileFileUnit.h"
 #include "core/config/IContextImport.h"
+#include <QRegularExpression>
 
 $PackageWebCoreBegin
 

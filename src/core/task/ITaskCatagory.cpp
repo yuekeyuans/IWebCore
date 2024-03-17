@@ -40,7 +40,7 @@ void ITaskCatagory::printTaskInfo() const
 {
     $ContextBool value{"SYSTEM_ENABLE_TASK_OUTPUT", false};
     if(value.isFound() && value){
-        qDebug() << endl << "Catagory: " << name() << ", order: " << order();
+        qDebug() << Qt::endl << "Catagory: " << name() << ", order: " << order();
     }
 
     for(const auto& node : m_taskWares){

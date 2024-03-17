@@ -19,7 +19,7 @@ QJsonValue IJsonUtil::getJsonValue(const QJsonValue &obj, const QString &path, b
         bool isArrayIndex = it->startsWith("_");
         if(isArrayIndex){
             bool convertOk;
-            arrayIndex = it->midRef(1).toUInt(&convertOk);
+            arrayIndex = it->mid(1).toUInt(&convertOk);
             IToeUtil::setOkAnd(ok, convertOk);
             if(!convertOk){
                 return {};
@@ -324,7 +324,7 @@ QByteArray IJsonUtil::toByteArray(const QJsonValue &json, bool& ok)
     }else if(json.isString()){
         return json.toString().toUtf8();
     }else if(json.isBool()){
-        return QString(json.toBool()).toUtf8();
+        return QString(json.toBool() ? "true" : "false").toUtf8();
     }else if(json.isDouble()){
         return QString::number(json.toDouble()).toUtf8();
     }else if(json.isUndefined() || json.isNull()){

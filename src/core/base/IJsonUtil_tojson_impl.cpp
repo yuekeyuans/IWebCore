@@ -17,19 +17,6 @@ QJsonValue IJsonUtil::_objectToJson(const QList<T>& sequence, bool &ok)
 }
 
 template<class T>
-QJsonValue IJsonUtil::_objectToJson(const QLinkedList<T>& sequence, bool &ok)
-{
-    QJsonArray array;
-    for(auto it=sequence.cbegin(); it!=sequence.cend(); it++){
-        array.append(_objectToJson(*it, ok));
-        if(!ok){
-            return {};
-        }
-    }
-    return array;
-}
-
-template<class T>
 QJsonValue IJsonUtil::_objectToJson(const QStack<T>& sequence, bool &ok)
 {
     QJsonArray array;
