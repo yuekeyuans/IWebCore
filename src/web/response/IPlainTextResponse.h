@@ -20,10 +20,10 @@ public:
     IPlainTextResponse(const QString& value);
     IPlainTextResponse(QString&& value);
     IPlainTextResponse(const char* data);
+
+    // TODO: 这里要不要考虑给限制掉？
     template<class T>
     IPlainTextResponse(const T& value);
-
-    void setInstanceStringArg(const QString &arg);
 
     virtual QString getPrefixMatcher() final;
 };

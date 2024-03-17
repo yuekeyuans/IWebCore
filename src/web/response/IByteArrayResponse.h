@@ -19,8 +19,6 @@ public:
     IByteArrayResponse(QByteArray &&array);
 
     virtual QString getPrefixMatcher();
-
-    static QSharedPointer<IResponseWare> createByteArrayInstance();
 };
 
 IByteArrayResponse operator"" _bytes(const char* str, size_t size);

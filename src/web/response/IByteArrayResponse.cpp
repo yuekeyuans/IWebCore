@@ -33,11 +33,6 @@ QString IByteArrayResponse::getPrefixMatcher()
     return "$bytes:";
 }
 
-QSharedPointer<IResponseWare> IByteArrayResponse::createByteArrayInstance()
-{
-    return QSharedPointer<IByteArrayResponse>::create();
-}
-
 IByteArrayResponse operator"" _bytes(const char* str, size_t size){
     return QByteArray::fromRawData(str, static_cast<int>(size));
 }

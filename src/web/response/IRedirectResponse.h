@@ -24,10 +24,8 @@ public:
     IRedirectResponse& addAttribute(QMap<QString, QString> attribute);
     IRedirectResponse& setRedirectPath(const QString& path);
 
-//    virtual void parsePrefixCommand(QString &&data) final;
     virtual void setInstanceCopy(IResponseWare *) final;
-//    virtual bool canConvertFromString() final;
-//    virtual bool matchConvertString(const QString &data) final;
+
     virtual QString getPrefixMatcher() final;
 
 

@@ -26,11 +26,6 @@ IPlainTextResponse::IPlainTextResponse(const char *data)
     raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
-void IPlainTextResponse::setInstanceStringArg(const QString &arg)
-{
-    raw->setContent(arg);
-}
-
 QString IPlainTextResponse::getPrefixMatcher()
 {
     return "$text:";
