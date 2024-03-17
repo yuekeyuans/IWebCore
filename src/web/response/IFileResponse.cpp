@@ -11,8 +11,6 @@ $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-const QString IFileResponse::m_matcherPrefix{"$file:"};
-
 namespace IFileResponseHelper
 {
     static QString getContentDispositionAttachment(const QString& filePath);
@@ -20,10 +18,6 @@ namespace IFileResponseHelper
     static void checkAndUpdateContentDisposition(bool enabled, IResponseWareRaw* raw);
     static $QStringList suffixes{"http.fileService.suffixes"};
 }
-
-//IFileResponse::IFileResponse()
-//{
-//}
 
 // TODO: 检查 这里判断 setInvalid 方法不能使用的问题。
 IFileResponse::IFileResponse(const char *data)
@@ -72,29 +66,9 @@ void IFileResponse::setContent(const char *content)
     qFatal(IConstantUtil::UnVisibleMethod);
 }
 
-void IFileResponse::parsePrefixCommand(QString &&data)
+QString IFileResponse::getPrefixMatcher()
 {
-    auto path = data.mid(m_matcherPrefix.length());
-    if(IFileResponseHelper::setFilePath(raw, path)){
-        IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
-    }else{
-        setStatus(IHttpStatus::NOT_FOUND_404);
-    }
-}
-
-bool IFileResponse::canConvertFromString()
-{
-    return true;
-}
-
-bool IFileResponse::matchConvertString(const QString &str)
-{
-    return str.startsWith(m_matcherPrefix);
-}
-
-QSharedPointer<IResponseWare> IFileResponse::createInstance()
-{
-    return QSharedPointer<IFileResponse>::create();
+    return "$file:";
 }
 
 IFileResponse operator"" _file(const char* str, size_t size)

@@ -26,15 +26,7 @@ public:
     template<typename T>
     IJsonResponse(const T&);
 
-    virtual void parsePrefixCommand(QString &&) final;
-    virtual bool canConvertFromString() final;
-    virtual bool matchConvertString(const QString &value) final;
-
-    static QSharedPointer<IJsonResponse> createJsonInstance();
-    virtual QSharedPointer<IResponseWare> createInstance() final;
-
-private:
-    static const QString prefix;
+    virtual QString getPrefixMatcher() final;
 };
 
 template<typename T>

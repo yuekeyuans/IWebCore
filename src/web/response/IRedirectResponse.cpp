@@ -4,8 +4,6 @@
 
 $PackageWebCoreBegin
 
-const QString IRedirectResponse::m_matcherPrefix = "$redirect:";
-
 IRedirectResponse::IRedirectResponse()
 {
     raw->statusCode = IHttpStatus::FOUND_302;
@@ -50,11 +48,6 @@ IRedirectResponse &IRedirectResponse::setRedirectPath(const QString &path)
     return *this;
 }
 
-void IRedirectResponse::parsePrefixCommand(QString &&data)
-{
-    setRedirectPath(data.mid(m_matcherPrefix.length()));
-}
-
 void IRedirectResponse::setInstanceCopy(IResponseWare *ware)
 {
     auto that = dynamic_cast<IRedirectResponse*>(ware);
@@ -67,19 +60,9 @@ void IRedirectResponse::setInstanceCopy(IResponseWare *ware)
     updateLocationPath();
 }
 
-bool IRedirectResponse::canConvertFromString()
+QString IRedirectResponse::getPrefixMatcher()
 {
-    return true;
-}
-
-bool IRedirectResponse::matchConvertString(const QString &data)
-{
-    return data.startsWith(m_matcherPrefix);
-}
-
-QSharedPointer<IResponseWare> IRedirectResponse::createInstance()
-{
-    return QSharedPointer<IRedirectResponse>::create();
+    return "$redirect:";
 }
 
 // TODO: 这里参数 encodeUri了， 那么url 需不需要 encode

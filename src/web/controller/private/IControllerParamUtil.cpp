@@ -439,13 +439,12 @@ void IControllerParamUtil::wrapVoidReturnInstance(IResponse &response, const IMe
 
 QSharedPointer<IResponseWare> IControllerParamUtil::createStringReturnInstance(void **params)
 {
+    static auto responseMange = IResponseManage::instance();
     QSharedPointer<IResponseWare> instance;
     auto value = *static_cast<QString*>(params[0]);
     IResponseWare* response;
-    if(value.startsWith("$") && (response = IResponseManage::convertMatch(value)) != nullptr){
-        instance = response->createInstance(); // TODO: 这里应该使用函数优化掉这个内容
-        instance->parsePrefixCommand(std::move(value)); // 这一个是使用 QString 传入参数，其他的全部使用 void* 传入
-        return instance;
+    if(value.startsWith("$") && (response = responseMange->convertMatch(value)) != nullptr){
+        return response->create(std::move(value)); // TODO: 这里应该使用函数优化掉这个内容
     }
 
     return QSharedPointer<IPlainTextResponse>::create(std::move(value));
@@ -455,7 +454,7 @@ QSharedPointer<IResponseWare> IControllerParamUtil::createStringReturnInstance(v
 QSharedPointer<IResponseWare> IControllerParamUtil::createInterfaceReturnInstance(void **params)
 {
     auto value = static_cast<IResponseWare*>(params[0]);
-    auto instance = value->createInstance();
+    auto instance = value->create();        // TODO: 先解决另外一个问题
     instance->setInstanceCopy(value);
     return instance;
 }

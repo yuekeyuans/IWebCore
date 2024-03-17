@@ -13,12 +13,13 @@ public:
     IResponseManage() = default;
 
 public:
-    static void registerResponseType(IResponseWare* response);
-    static IResponseWare* convertMatch(const QString&);
+    void registerResponseType(IResponseWare* response);
+    IResponseWare* convertMatch(const QString&);
 
 private:
-    QVector<IResponseWare*> responses;     // all response type;
-    QVector<IResponseWare*> stringConvertResponses;     // the response that should match the string
+    QVector<IResponseWare*> m_responses;     // all response type;
+    QMap<QString, IResponseWare*> stringConvertResponses;
+//    QVector<IResponseWare*> stringConvertResponses;     // the response that should match the string
 };
 
 $PackageWebCoreEnd

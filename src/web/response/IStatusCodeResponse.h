@@ -14,19 +14,12 @@ public:
     using IResponseInterface::operator[];
 
 public:
-    IStatusCodeResponse();
+    IStatusCodeResponse() = default;
+    IStatusCodeResponse(QString);
     IStatusCodeResponse(int code);
     IStatusCodeResponse(IHttpStatus status, const QString& errorMsg);
 
-    virtual void parsePrefixCommand(QString &&) final;
-    virtual bool canConvertFromString() final;
-    virtual bool matchConvertString(const QString &) final;
-
-    virtual QSharedPointer<IResponseWare> createInstance() final;
-    static QSharedPointer<IResponseWare> createStatusCodeInstance();
-
-private:
-    static const QString m_matcherPrefix;
+    virtual QString getPrefixMatcher() final;
 };
 
 $PackageWebCoreEnd

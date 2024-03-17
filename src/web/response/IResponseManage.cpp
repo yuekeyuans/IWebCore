@@ -6,19 +6,26 @@ $PackageWebCoreBegin
 
 void IResponseManage::registerResponseType(IResponseWare *response)
 {
-    instance()->responses.append(response);
-    if(response->canConvertFromString()){
-        instance()->stringConvertResponses.append(response);
+    m_responses.append(response);
+    if(!response->getPrefixMatcher().isEmpty()){
+        if(stringConvertResponses.contains(response->getPrefixMatcher())){
+            QString tip = QString("already contain response prefix matcher. name : ").append(response->getPrefixMatcher());
+            qFatal(tip.toUtf8());
+        }
+        stringConvertResponses[response->getPrefixMatcher()] = response;
     }
 }
 
 IResponseWare* IResponseManage::convertMatch(const QString &content)
 {
-    for(auto response : instance()->stringConvertResponses){
-        if(response->matchConvertString(content)){
-            return response;
+    static QStringList keys = stringConvertResponses.keys();
+    for(const auto& key : keys){
+        if(content.startsWith(key)){
+            return stringConvertResponses[key];
         }
+
     }
+
     return nullptr;
 }
 

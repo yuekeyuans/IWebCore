@@ -23,17 +23,9 @@ public:
     template<class T>
     IPlainTextResponse(const T& value);
 
-    virtual void parsePrefixCommand(QString &&) final;
     void setInstanceStringArg(const QString &arg);
 
-    virtual bool canConvertFromString() final;
-    virtual bool matchConvertString(const QString &) final;
-
-    static QSharedPointer<IResponseWare> createIPlainTexInstance();
-    virtual QSharedPointer<IResponseWare> createInstance() final;
-
-private:
-    static const QString m_matcherPrefix;
+    virtual QString getPrefixMatcher() final;
 };
 
 template<class T>

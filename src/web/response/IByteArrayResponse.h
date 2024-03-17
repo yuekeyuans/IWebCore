@@ -13,19 +13,14 @@ public:
 
 public:
     IByteArrayResponse();
+    IByteArrayResponse(QString);
     IByteArrayResponse(const char*);
     IByteArrayResponse(QByteArray &array);  // TODO: 这个函数可能有些问题，不能够大规模使用
     IByteArrayResponse(QByteArray &&array);
 
-    virtual void parsePrefixCommand(QString &&value) final;
-    virtual bool canConvertFromString() final;
-    virtual bool matchConvertString(const QString &value) final;
+    virtual QString getPrefixMatcher();
 
     static QSharedPointer<IResponseWare> createByteArrayInstance();
-    virtual QSharedPointer<IResponseWare> createInstance() final;
-
-private:
-    static const QString m_matcherPrefix;
 };
 
 IByteArrayResponse operator"" _bytes(const char* str, size_t size);

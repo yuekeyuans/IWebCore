@@ -30,6 +30,10 @@ public:
     IResponseInterface& operator=(IResponseInterface&&);
 
     virtual ~IResponseInterface() = default;
+
+public:
+    virtual QSharedPointer<IResponseWare> create() final;
+    virtual QSharedPointer<IResponseWare> create(QString val) final;
 };
 
 template<typename T>
@@ -70,6 +74,18 @@ IResponseInterface<T> &IResponseInterface<T>::operator=(IResponseInterface &&rhs
     qDebug() << "assign move";
     IResponseWare::operator =(std::forward<IResponseInterface>(rhs));
     return *this;
+}
+
+template<typename T>
+QSharedPointer<IResponseWare> IResponseInterface<T>::create()
+{
+    return QSharedPointer<T>::create();
+}
+
+template<typename T>
+QSharedPointer<IResponseWare> IResponseInterface<T>::create(QString val)
+{
+    return QSharedPointer<T>::create(val.mid(getPrefixMatcher().length())); // TODO: 倒也不必每次调用， 这里之后静态初始化这个值。
 }
 
 $PackageWebCoreEnd

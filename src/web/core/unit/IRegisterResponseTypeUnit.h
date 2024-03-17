@@ -15,7 +15,7 @@ private:
             static std::once_flag flag;
             std::call_once(flag, [](){
                 static T t;
-                IResponseManage::registerResponseType(&t);
+                IResponseManage::instance()->registerResponseType(&t);
             });
         }
     };

@@ -24,18 +24,17 @@ public:
     IRedirectResponse& addAttribute(QMap<QString, QString> attribute);
     IRedirectResponse& setRedirectPath(const QString& path);
 
-    virtual void parsePrefixCommand(QString &&data) final;
+//    virtual void parsePrefixCommand(QString &&data) final;
     virtual void setInstanceCopy(IResponseWare *) final;
-    virtual bool canConvertFromString() final;
-    virtual bool matchConvertString(const QString &data) final;
+//    virtual bool canConvertFromString() final;
+//    virtual bool matchConvertString(const QString &data) final;
+    virtual QString getPrefixMatcher() final;
 
-    virtual QSharedPointer<IResponseWare> createInstance() final;
 
 public:
     void updateLocationPath();
 
 private:
-    static const QString m_matcherPrefix;
     QString redirectPath;
     QMap<QString, QString> attributes;
 };

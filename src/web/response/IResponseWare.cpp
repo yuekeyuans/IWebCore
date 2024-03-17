@@ -119,40 +119,9 @@ void IResponseWare::setInvalid(IHttpStatus status, const QString &reason)
     raw->setInvalid(status, reason);
 }
 
-void IResponseWare::parsePrefixCommand(QString &&)
-{
-    qFatal(IConstantUtil::InheritedMethod);
-}
-
-
-bool IResponseWare::canConvertFromString()
-{
-    return false;
-}
-
-bool IResponseWare::matchConvertString(const QString &val)
-{
-    if(!canConvertFromString()){
-        return false;
-    }
-    return val.startsWith(getPrefixMatcher());
-}
-
-QString IResponseWare::getMatchedString(const QString & val)
-{
-    return val.mid(getPrefixMatcher().length());
-}
-
 QString IResponseWare::getPrefixMatcher()
 {
-    qFatal(IConstantUtil::InheritedMethod);
     return {};
-}
-
-QSharedPointer<IResponseWare> IResponseWare::createInstance()
-{
-    qFatal(IConstantUtil::InheritedMethod);
-    return nullptr;
 }
 
 

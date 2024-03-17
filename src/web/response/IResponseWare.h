@@ -43,14 +43,10 @@ public:
     void redirectTo(IRedirectResponse&& redirectResponse);
 
     virtual void setInvalid(IHttpStatus, const QString& reason);
-
-    virtual void parsePrefixCommand(QString &&data);
-    virtual bool canConvertFromString();
     virtual QString getPrefixMatcher();
-    bool matchConvertString(const QString&);
-    QString getMatchedString(const QString&);
 
-    virtual QSharedPointer<IResponseWare> createInstance();
+    virtual QSharedPointer<IResponseWare> create() = 0;
+    virtual QSharedPointer<IResponseWare> create(QString) = 0;
 
 protected:
     IResponseWareRaw* raw{nullptr};

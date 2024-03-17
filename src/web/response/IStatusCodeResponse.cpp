@@ -3,14 +3,18 @@
 
 $PackageWebCoreBegin
 
-const QString IStatusCodeResponse::m_matcherPrefix = "$status:";
-
 namespace IStatusCodeResponseHelper{
     void checkStatusCode(IHttpStatus);
 }
 
-IStatusCodeResponse::IStatusCodeResponse()
+IStatusCodeResponse::IStatusCodeResponse(QString num)
 {
+    auto statusCode =  IHttpStatusHelper::toStatus(num);
+    if(statusCode == IHttpStatus::UNKNOWN){
+        QString info = "the return value converted to IStatusCode is not correct\n Expression : " + num;
+        qFatal(info.toUtf8());
+    }
+    raw->statusCode = statusCode;
 }
 
 IStatusCodeResponse::IStatusCodeResponse(int arg)
@@ -25,35 +29,9 @@ IStatusCodeResponse::IStatusCodeResponse(IHttpStatus status, const QString &erro
     setContent(errorMsg);
 }
 
-void IStatusCodeResponse::parsePrefixCommand(QString &&value)
+QString IStatusCodeResponse::getPrefixMatcher()
 {
-    QString num = value.midRef(m_matcherPrefix.length()).toUtf8();
-    auto statusCode =  IHttpStatusHelper::toStatus(num);
-    if(statusCode == IHttpStatus::UNKNOWN){
-        QString info = "the return value converted to IStatusCode is not correct\n Expression : " + value;
-        qFatal(info.toUtf8());
-    }
-    raw->statusCode = statusCode;
-}
-
-bool IStatusCodeResponse::canConvertFromString()
-{
-    return true;
-}
-
-bool IStatusCodeResponse::matchConvertString(const QString &data)
-{
-    return data.startsWith(m_matcherPrefix);
-}
-
-QSharedPointer<IResponseWare> IStatusCodeResponse::createInstance()
-{
-    return QSharedPointer<IStatusCodeResponse>::create();
-}
-
-QSharedPointer<IResponseWare> IStatusCodeResponse::createStatusCodeInstance()
-{
-    return QSharedPointer<IStatusCodeResponse>::create();
+    return "$status:";
 }
 
 void IStatusCodeResponseHelper::checkStatusCode(IHttpStatus status)

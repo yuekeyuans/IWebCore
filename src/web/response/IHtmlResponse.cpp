@@ -3,8 +3,6 @@
 
 $PackageWebCoreBegin
 
-const QString IHtmlResponse::m_matcherPrefix{"$html:"};
-
 IHtmlResponse::IHtmlResponse() : IResponseInterface()
 {
     raw->setMime(IHttpMime::TEXT_HTML_UTF8);
@@ -22,25 +20,9 @@ IHtmlResponse::IHtmlResponse(const QString &data)
     raw->setContent(data);
 }
 
-void IHtmlResponse::parsePrefixCommand(QString &&data)
+QString IHtmlResponse::getPrefixMatcher()
 {
-    raw->setMime(IHttpMime::TEXT_HTML_UTF8);
-    raw->setContent(data.mid(m_matcherPrefix.length()));
-}
-
-bool IHtmlResponse::canConvertFromString()
-{
-    return true;
-}
-
-bool IHtmlResponse::matchConvertString(const QString &str)
-{
-    return str.startsWith(m_matcherPrefix);
-}
-
-QSharedPointer<IResponseWare> IHtmlResponse::createInstance()
-{
-    return QSharedPointer<IHtmlResponse>::create();
+    return "$html:";
 }
 
 IHtmlResponse operator"" _html(const char* str, size_t size)

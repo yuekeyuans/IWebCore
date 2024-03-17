@@ -2,11 +2,13 @@
 
 $PackageWebCoreBegin
 
-const QString IByteArrayResponse::m_matcherPrefix = "$bytes:";
-
 IByteArrayResponse::IByteArrayResponse()
 {
     raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
+}
+
+IByteArrayResponse::IByteArrayResponse(QString val) : IByteArrayResponse(val.toUtf8())
+{
 }
 
 IByteArrayResponse::IByteArrayResponse(const char *array)
@@ -26,27 +28,12 @@ IByteArrayResponse::IByteArrayResponse(QByteArray &&array)
     raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
 }
 
-void IByteArrayResponse::parsePrefixCommand(QString &&value)
+QString IByteArrayResponse::getPrefixMatcher()
 {
-    raw->setContent(value.mid(m_matcherPrefix.length()));
-}
-
-bool IByteArrayResponse::canConvertFromString()
-{
-    return true;
-}
-
-bool IByteArrayResponse::matchConvertString(const QString &value)
-{
-    return value.startsWith(m_matcherPrefix);
+    return "$bytes:";
 }
 
 QSharedPointer<IResponseWare> IByteArrayResponse::createByteArrayInstance()
-{
-    return QSharedPointer<IByteArrayResponse>::create();
-}
-
-QSharedPointer<IResponseWare> IByteArrayResponse::createInstance()
 {
     return QSharedPointer<IByteArrayResponse>::create();
 }

@@ -22,15 +22,9 @@ protected:
     virtual void setContent(const QByteArray& bytes) final;
     virtual void setContent(const QString& content) final;
     virtual void setContent(const char* content) final;
-
-    virtual void parsePrefixCommand(QString &&data) final;
-    virtual bool canConvertFromString() final;
-    virtual bool matchConvertString(const QString &str) final;
-
-    virtual QSharedPointer<IResponseWare> createInstance() final;
+    virtual QString getPrefixMatcher() final;
 
 private:
-    static const QString m_matcherPrefix;
     bool m_enableContentDisposition {true};
 };
 

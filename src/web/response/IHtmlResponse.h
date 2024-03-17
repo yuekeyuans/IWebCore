@@ -17,16 +17,8 @@ public:
     IHtmlResponse(const char* data);
     IHtmlResponse(const QString& data);
 
-    virtual void parsePrefixCommand(QString &&data) final;
-    virtual bool canConvertFromString() final;
-    virtual bool matchConvertString(const QString &str) final;
-
-    virtual QSharedPointer<IResponseWare> createInstance() final;
-
-private:
-    static const QString m_matcherPrefix;
+    virtual QString getPrefixMatcher() final;
 };
-
 
 IHtmlResponse operator"" _html(const char* str, size_t size);
 
