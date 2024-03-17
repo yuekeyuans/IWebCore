@@ -65,3 +65,7 @@
 
 #define $EnableFileServiceStaticMapping(value)  \
     PP_PROFILE_CONFIG(EnableFileServiceStaticMapping, http.fileService.staticMapping, value)
+
+#define $EnableFileServiceContentDisposition(value)  \
+    PP_PROFILE_CONFIG(EnableFileServiceContentDisposition, http.fileService.contentDisposition, value)
+

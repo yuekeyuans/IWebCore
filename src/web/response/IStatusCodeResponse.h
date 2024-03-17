@@ -20,6 +20,7 @@ public:
     IStatusCodeResponse(int code);
     IStatusCodeResponse(IHttpStatus status, const QString& errorMsg);
 
+public:
     virtual QString getPrefixMatcher() final;
 };
 

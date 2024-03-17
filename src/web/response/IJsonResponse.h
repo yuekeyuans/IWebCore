@@ -24,8 +24,9 @@ public:
     IJsonResponse(const QJsonArray&);
     IJsonResponse(const QJsonObject&);
     template<typename T>
-    IJsonResponse(const T&);
+    IJsonResponse(const T&);        // TODO: 这个要解决一下
 
+public:
     virtual QString getPrefixMatcher() final;
 };
 

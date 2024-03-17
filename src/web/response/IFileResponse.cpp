@@ -19,11 +19,15 @@ namespace IFileResponseHelper
     static $QStringList suffixes{"http.fileService.suffixes"};
 }
 
-// TODO: 检查 这里判断 setInvalid 方法不能使用的问题。
+IFileResponse::IFileResponse()
+{
+}
+
 IFileResponse::IFileResponse(const char *data)
 {
+    static $Bool s_enableContentDisposition{"http.fileService.contentDisposition", false};
     if(IFileResponseHelper::setFilePath(m_raw, data)){
-        IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, m_raw);
+        IFileResponseHelper::checkAndUpdateContentDisposition(s_enableContentDisposition, m_raw);
     }else{
         setInvalid(IHttpStatus::NOT_FOUND_404, "file not found");
     }
@@ -31,8 +35,9 @@ IFileResponse::IFileResponse(const char *data)
 
 IFileResponse::IFileResponse(const QString &data)
 {
+    static $Bool s_enableContentDisposition{"http.fileService.contentDisposition", false};
     if(IFileResponseHelper::setFilePath(m_raw, data)){
-        IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, m_raw);
+        IFileResponseHelper::checkAndUpdateContentDisposition(s_enableContentDisposition, m_raw);
     }else{
         setInvalid(IHttpStatus::NOT_FOUND_404, "file not found");
     }

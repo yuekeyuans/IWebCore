@@ -19,22 +19,14 @@ public:
 
     IRedirectResponse(const char *path);
     IRedirectResponse(const QString &path);
-
-    IRedirectResponse& addAttribute(QString key, QString value);
-    IRedirectResponse& addAttribute(QMap<QString, QString> attribute);
-    IRedirectResponse& setRedirectPath(const QString& path);
-
-    virtual void setInstanceCopy(IResponseWare *) final;
-
-    virtual QString getPrefixMatcher() final;
-
+    IRedirectResponse(IResponseWare *);
 
 public:
+    virtual QString getPrefixMatcher() final;
     void updateLocationPath();
 
 private:
     QString redirectPath;
-    QMap<QString, QString> attributes;
 };
 
 IRedirectResponse operator"" _redirect(const char* str, size_t size);

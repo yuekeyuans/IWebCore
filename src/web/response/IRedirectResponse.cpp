@@ -12,53 +12,39 @@ IRedirectResponse::IRedirectResponse()
 IRedirectResponse::IRedirectResponse(const char *path)
 {
     m_raw->statusCode = IHttpStatus::FOUND_302;
-    this->setRedirectPath(path);
+    this->redirectPath = path;
+    updateLocationPath();
 }
 
 IRedirectResponse::IRedirectResponse(const QString &path)
 {
     m_raw->statusCode = IHttpStatus::FOUND_302;
-    this->setRedirectPath(path);
-}
-
-IRedirectResponse &IRedirectResponse::addAttribute(QString key, QString value)
-{
-    assert(!key.isEmpty() && !value.isEmpty());
-    attributes[key] = value;
-
-    updateLocationPath();
-    return *this;
-}
-
-IRedirectResponse &IRedirectResponse::addAttribute(QMap<QString, QString> attribute)
-{
-    auto keys = attribute.keys();
-    for(auto key : keys){
-        attributes[key] = attribute[key];
-    }
-
-    updateLocationPath();
-    return *this;
-}
-
-IRedirectResponse &IRedirectResponse::setRedirectPath(const QString &path)
-{
     this->redirectPath = path;
     updateLocationPath();
-    return *this;
 }
 
-void IRedirectResponse::setInstanceCopy(IResponseWare *ware)
+IRedirectResponse::IRedirectResponse(IResponseWare *ware)
+    : IResponseInterface(ware)
 {
     auto that = dynamic_cast<IRedirectResponse*>(ware);
     if(that == nullptr){
         qFatal("error with convertion, please check your code");
     }
-    std::swap(that->m_raw, this->m_raw);
-    std::swap(that->attributes, this->attributes);
     std::swap(that->redirectPath, this->redirectPath);
     updateLocationPath();
 }
+
+//void IRedirectResponse::setInstanceCopy(IResponseWare *ware)
+//{
+//    auto that = dynamic_cast<IRedirectResponse*>(ware);
+//    if(that == nullptr){
+//        qFatal("error with convertion, please check your code");
+//    }
+//    std::swap(that->m_raw, this->m_raw);
+//    std::swap(that->attributes, this->attributes);
+//    std::swap(that->redirectPath, this->redirectPath);
+//    updateLocationPath();
+//}
 
 QString IRedirectResponse::getPrefixMatcher()
 {
@@ -72,17 +58,17 @@ void IRedirectResponse::updateLocationPath()
     if(redirectPath.isEmpty()){
         return;
     }
-    // 防止 非 acsii 字符，比如说汉字
+    // 防止 非 acsii 字符，比如说汉字      //TODO: 这里是个啥， 需要看一下
     auto path = ICodecUtil::pathEncode(redirectPath);
-    if(!attributes.isEmpty()){
-        path.append('?');
-        auto keys = attributes.keys();
-        for(auto key : keys){
-            path.append(ICodecUtil::urlEncode(key))
-                    .append('=')
-                    .append(ICodecUtil::urlEncode(attributes[key]));
-        }
-    }
+//    if(!attributes.isEmpty()){
+//        path.append('?');
+//        auto keys = attributes.keys();
+//        for(auto key : keys){
+//            path.append(ICodecUtil::urlEncode(key))
+//                    .append('=')
+//                    .append(ICodecUtil::urlEncode(attributes[key]));
+//        }
+//    }
     m_raw->headers["Location"] = path;
 }
 
