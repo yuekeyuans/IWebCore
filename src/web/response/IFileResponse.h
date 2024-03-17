@@ -16,12 +16,6 @@ public:
     IFileResponse(const char* data);
     IFileResponse(const QString& data);
 
-    void setFilePath(const QString& path);
-
-protected:
-    virtual void setContent(const QByteArray& bytes) final;
-    virtual void setContent(const QString& content) final;
-    virtual void setContent(const char* content) final;
     virtual QString getPrefixMatcher() final;
 
 private:

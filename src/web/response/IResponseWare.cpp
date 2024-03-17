@@ -82,31 +82,10 @@ void IResponseWare::setHeader(const QString &key, const QString &value)
     m_raw->headers[key] = value;
 }
 
-void IResponseWare::setContent(const QByteArray& content)
-{
-    m_raw->setContent(content);
-}
-
-void IResponseWare::setContent(const QString& content)
-{
-    m_raw->setContent(content);
-}
-
-void IResponseWare::setContent(const char *content)
-{
-    m_raw->setContent(content);
-}
-
 IResponseContent &IResponseWare::getContent()
 {
     return m_raw->content;
 }
-
-
-//void IResponseWare::setInstanceCopy(IResponseWare *ware)
-//{
-//    std::swap(ware->raw, this->raw);
-//}
 
 void IResponseWare::redirectTo(IRedirectResponse &&redirectResponse)
 {

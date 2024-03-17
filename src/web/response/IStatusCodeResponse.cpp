@@ -26,7 +26,8 @@ IStatusCodeResponse::IStatusCodeResponse(int arg)
 IStatusCodeResponse::IStatusCodeResponse(IHttpStatus status, const QString &errorMsg)
 {
     m_raw->statusCode = status;
-    setContent(errorMsg);
+    m_raw->content.setContent(errorMsg);
+//    setContent(errorMsg);
 }
 
 QString IStatusCodeResponse::getPrefixMatcher()

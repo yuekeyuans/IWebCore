@@ -27,10 +27,11 @@ QString IHtmlResponse::getPrefixMatcher()
 
 IHtmlResponse operator"" _html(const char* str, size_t size)
 {
-    QByteArray array(str, static_cast<int>(size));
-    IHtmlResponse response;
-    response.setContent(array);
-    return response;
+    Q_UNUSED(size)
+//    QByteArray array(str, static_cast<int>(size));
+    return IHtmlResponse(str);
+//    response.setContent(array);     // TODO:
+//    return response;
 }
 
 $PackageWebCoreEnd

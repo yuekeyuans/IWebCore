@@ -38,34 +38,6 @@ IFileResponse::IFileResponse(const QString &data)
     }
 }
 
-void IFileResponse::setFilePath(const QString &path)
-{
-    if(IFileResponseHelper::setFilePath(m_raw, path)){
-        IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, m_raw);
-    }else{
-        QString reason = QString("file not found: ").append(path);
-        setInvalid(IHttpStatus::NOT_FOUND_404, reason);
-    }
-}
-
-void IFileResponse::setContent(const QByteArray &bytes)
-{
-    Q_UNUSED(bytes);
-    qFatal(IConstantUtil::UnVisibleMethod);
-}
-
-void IFileResponse::setContent(const QString &content)
-{
-    Q_UNUSED(content);
-    qFatal(IConstantUtil::UnVisibleMethod);
-}
-
-void IFileResponse::setContent(const char *content)
-{
-    Q_UNUSED(content);
-    qFatal(IConstantUtil::UnVisibleMethod);
-}
-
 QString IFileResponse::getPrefixMatcher()
 {
     return "$file:";
