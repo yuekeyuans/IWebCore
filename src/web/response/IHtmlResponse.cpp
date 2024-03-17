@@ -5,19 +5,19 @@ $PackageWebCoreBegin
 
 IHtmlResponse::IHtmlResponse() : IResponseInterface()
 {
-    raw->setMime(IHttpMime::TEXT_HTML_UTF8);
+    m_raw->setMime(IHttpMime::TEXT_HTML_UTF8);
 }
 
 IHtmlResponse::IHtmlResponse(const char *data)
 {
-    raw->setMime(IHttpMime::TEXT_HTML_UTF8);
-    raw->setContent(data);
+    m_raw->setMime(IHttpMime::TEXT_HTML_UTF8);
+    m_raw->setContent(data);
 }
 
 IHtmlResponse::IHtmlResponse(const QString &data)
 {
-    raw->setMime(IHttpMime::TEXT_HTML_UTF8);
-    raw->setContent(data);
+    m_raw->setMime(IHttpMime::TEXT_HTML_UTF8);
+    m_raw->setContent(data);
 }
 
 QString IHtmlResponse::getPrefixMatcher()

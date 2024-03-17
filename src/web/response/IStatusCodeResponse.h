@@ -12,6 +12,7 @@ class IStatusCodeResponse : public IResponseInterface<IStatusCodeResponse>
     $AsResponse(IStatusCodeResponse)
 public:
     using IResponseInterface::operator[];
+    using IResponseInterface::IResponseInterface;
 
 public:
     IStatusCodeResponse() = default;

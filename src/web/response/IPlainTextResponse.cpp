@@ -5,25 +5,25 @@ $PackageWebCoreBegin
 
 IPlainTextResponse::IPlainTextResponse()
 {
-    raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
+    m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
 IPlainTextResponse::IPlainTextResponse(const QString &value)
 {
-    raw->setContent(value);
-    raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
+    m_raw->setContent(value);
+    m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
 IPlainTextResponse::IPlainTextResponse(QString &&value)
 {
-    raw->setContent(value);
-    raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
+    m_raw->setContent(value);
+    m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
 IPlainTextResponse::IPlainTextResponse(const char *data)
 {
-    raw->setContent(QByteArray(data));
-    raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
+    m_raw->setContent(QByteArray(data));
+    m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
 QString IPlainTextResponse::getPrefixMatcher()

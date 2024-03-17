@@ -30,9 +30,9 @@ public:
 
 template<class T>
 IPlainTextResponse::IPlainTextResponse(const T& value){
-    raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
+    m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
     auto textValue = IConvertUtil::toString(value);
-    raw->setContent(textValue);
+    m_raw->setContent(textValue);
 }
 
 IPlainTextResponse operator"" _text(const char* str, size_t size);

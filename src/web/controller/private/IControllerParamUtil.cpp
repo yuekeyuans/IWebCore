@@ -454,8 +454,8 @@ QSharedPointer<IResponseWare> IControllerParamUtil::createStringReturnInstance(v
 QSharedPointer<IResponseWare> IControllerParamUtil::createInterfaceReturnInstance(void **params)
 {
     auto value = static_cast<IResponseWare*>(params[0]);
-    auto instance = value->create();        // TODO: 先解决另外一个问题
-    instance->setInstanceCopy(value);
+    auto instance = value->create(value);        // TODO: 先解决另外一个问题
+//    instance->setInstanceCopy(value);
     return instance;
 }
 

@@ -6,18 +6,18 @@ $PackageWebCoreBegin
 
 IRedirectResponse::IRedirectResponse()
 {
-    raw->statusCode = IHttpStatus::FOUND_302;
+    m_raw->statusCode = IHttpStatus::FOUND_302;
 }
 
 IRedirectResponse::IRedirectResponse(const char *path)
 {
-    raw->statusCode = IHttpStatus::FOUND_302;
+    m_raw->statusCode = IHttpStatus::FOUND_302;
     this->setRedirectPath(path);
 }
 
 IRedirectResponse::IRedirectResponse(const QString &path)
 {
-    raw->statusCode = IHttpStatus::FOUND_302;
+    m_raw->statusCode = IHttpStatus::FOUND_302;
     this->setRedirectPath(path);
 }
 
@@ -54,7 +54,7 @@ void IRedirectResponse::setInstanceCopy(IResponseWare *ware)
     if(that == nullptr){
         qFatal("error with convertion, please check your code");
     }
-    std::swap(that->raw, this->raw);
+    std::swap(that->m_raw, this->m_raw);
     std::swap(that->attributes, this->attributes);
     std::swap(that->redirectPath, this->redirectPath);
     updateLocationPath();
@@ -83,7 +83,7 @@ void IRedirectResponse::updateLocationPath()
                     .append(ICodecUtil::urlEncode(attributes[key]));
         }
     }
-    raw->headers["Location"] = path;
+    m_raw->headers["Location"] = path;
 }
 
 IRedirectResponse operator"" _redirect(const char* str, size_t size)

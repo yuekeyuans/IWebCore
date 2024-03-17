@@ -38,18 +38,16 @@ public:
     virtual void setContent(const char* content);
     IResponseContent& getContent();
 
-    virtual void setInstanceCopy(IResponseWare*);
-
     void redirectTo(IRedirectResponse&& redirectResponse);
 
     virtual void setInvalid(IHttpStatus, const QString& reason);
     virtual QString getPrefixMatcher();
 
-    virtual QSharedPointer<IResponseWare> create() = 0;
+    virtual QSharedPointer<IResponseWare> create(IResponseWare*) = 0;
     virtual QSharedPointer<IResponseWare> create(QString) = 0;
 
-protected:
-    IResponseWareRaw* raw{nullptr};
+public:
+    IResponseWareRaw* m_raw{nullptr};
 };
 
 $PackageWebCoreEnd

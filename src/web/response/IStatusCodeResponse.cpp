@@ -14,18 +14,18 @@ IStatusCodeResponse::IStatusCodeResponse(QString num)
         QString info = "the return value converted to IStatusCode is not correct\n Expression : " + num;
         qFatal(info.toUtf8());
     }
-    raw->statusCode = statusCode;
+    m_raw->statusCode = statusCode;
 }
 
 IStatusCodeResponse::IStatusCodeResponse(int arg)
 {
-    raw->statusCode = IHttpStatusHelper::toStatus(arg);
-    IStatusCodeResponseHelper::checkStatusCode(raw->statusCode);
+    m_raw->statusCode = IHttpStatusHelper::toStatus(arg);
+    IStatusCodeResponseHelper::checkStatusCode(m_raw->statusCode);
 }
 
 IStatusCodeResponse::IStatusCodeResponse(IHttpStatus status, const QString &errorMsg)
 {
-    raw->statusCode = status;
+    m_raw->statusCode = status;
     setContent(errorMsg);
 }
 

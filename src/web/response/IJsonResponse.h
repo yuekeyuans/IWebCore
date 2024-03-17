@@ -32,9 +32,9 @@ public:
 template<typename T>
 IJsonResponse::IJsonResponse(const T& value)
 {
-    raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
+    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
     auto jsonValue = IConvertUtil::toJsonValue(value);
-    raw->setContent(IJsonUtil::toString(jsonValue));
+    m_raw->setContent(IJsonUtil::toString(jsonValue));
 }
 
 IJsonResponse operator"" _json(const char* str, size_t size);

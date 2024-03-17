@@ -6,31 +6,31 @@ $PackageWebCoreBegin
 
 IJsonResponse::IJsonResponse() : IResponseInterface()
 {
-    raw->setMime(IHttpMime::APPLICATION_JSON_UTF8); // this must be initialized, the only return type;
+    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8); // this must be initialized, the only return type;
 }
 
 IJsonResponse::IJsonResponse(const QString& value) : IResponseInterface()
 {
-    raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    raw->setContent(value);
+    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
+    m_raw->setContent(value);
 }
 
 IJsonResponse::IJsonResponse(const QJsonValue &value) : IResponseInterface()
 {
-    raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    raw->setContent(IJsonUtil::toString(value));
+    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
+    m_raw->setContent(IJsonUtil::toString(value));
 }
 
 IJsonResponse::IJsonResponse(const QJsonArray &array) : IResponseInterface()
 {
-    raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    raw->setContent(IJsonUtil::toString(array));
+    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
+    m_raw->setContent(IJsonUtil::toString(array));
 }
 
 IJsonResponse::IJsonResponse(const QJsonObject &object) : IResponseInterface()
 {
-    raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    raw->setContent(IJsonUtil::toString(object));
+    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
+    m_raw->setContent(IJsonUtil::toString(object));
 }
 
 QString IJsonResponse::getPrefixMatcher()

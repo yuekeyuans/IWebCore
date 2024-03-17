@@ -22,8 +22,8 @@ namespace IFileResponseHelper
 // TODO: 检查 这里判断 setInvalid 方法不能使用的问题。
 IFileResponse::IFileResponse(const char *data)
 {
-    if(IFileResponseHelper::setFilePath(raw, data)){
-        IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
+    if(IFileResponseHelper::setFilePath(m_raw, data)){
+        IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, m_raw);
     }else{
         setInvalid(IHttpStatus::NOT_FOUND_404, "file not found");
     }
@@ -31,8 +31,8 @@ IFileResponse::IFileResponse(const char *data)
 
 IFileResponse::IFileResponse(const QString &data)
 {
-    if(IFileResponseHelper::setFilePath(raw, data)){
-        IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
+    if(IFileResponseHelper::setFilePath(m_raw, data)){
+        IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, m_raw);
     }else{
         setInvalid(IHttpStatus::NOT_FOUND_404, "file not found");
     }
@@ -40,8 +40,8 @@ IFileResponse::IFileResponse(const QString &data)
 
 void IFileResponse::setFilePath(const QString &path)
 {
-    if(IFileResponseHelper::setFilePath(raw, path)){
-        IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, raw);
+    if(IFileResponseHelper::setFilePath(m_raw, path)){
+        IFileResponseHelper::checkAndUpdateContentDisposition(m_enableContentDisposition, m_raw);
     }else{
         QString reason = QString("file not found: ").append(path);
         setInvalid(IHttpStatus::NOT_FOUND_404, reason);

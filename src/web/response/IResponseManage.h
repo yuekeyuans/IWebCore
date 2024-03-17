@@ -17,9 +17,8 @@ public:
     IResponseWare* convertMatch(const QString&);
 
 private:
-    QVector<IResponseWare*> m_responses;     // all response type;
-    QMap<QString, IResponseWare*> stringConvertResponses;
-//    QVector<IResponseWare*> stringConvertResponses;     // the response that should match the string
+    QVector<IResponseWare*> m_responses;
+    QMap<QString, IResponseWare*> m_convertResponses;
 };
 
 $PackageWebCoreEnd

@@ -26,13 +26,14 @@ public:
     IResponseInterface(IRedirectResponse&& response);
     IResponseInterface(const IResponseInterface&);
     IResponseInterface(IResponseInterface &&);
+    IResponseInterface(IResponseWare*); // special // only for create
     IResponseInterface& operator=(const IResponseInterface&);
     IResponseInterface& operator=(IResponseInterface&&);
 
     virtual ~IResponseInterface() = default;
 
 public:
-    virtual QSharedPointer<IResponseWare> create() final;
+    virtual QSharedPointer<IResponseWare> create(IResponseWare*) override;
     virtual QSharedPointer<IResponseWare> create(QString val) final;
 };
 
@@ -61,6 +62,13 @@ IResponseInterface<T>::IResponseInterface(IResponseInterface &&rhs) : IResponseW
 }
 
 template<typename T>
+IResponseInterface<T>::IResponseInterface(IResponseWare *ware)
+{
+    qDebug() << "create here";
+    std::swap(this->m_raw, ware->m_raw);
+}
+
+template<typename T>
 IResponseInterface<T> &IResponseInterface<T>::operator=(const IResponseInterface&rhs)
 {
     qDebug() << "assign const";
@@ -77,9 +85,9 @@ IResponseInterface<T> &IResponseInterface<T>::operator=(IResponseInterface &&rhs
 }
 
 template<typename T>
-QSharedPointer<IResponseWare> IResponseInterface<T>::create()
+QSharedPointer<IResponseWare> IResponseInterface<T>::create(IResponseWare *ware)
 {
-    return QSharedPointer<T>::create();
+    return QSharedPointer<T>::create(ware);
 }
 
 template<typename T>

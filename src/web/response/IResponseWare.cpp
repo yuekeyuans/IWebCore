@@ -10,67 +10,67 @@ $PackageWebCoreBegin
 $UseAssert(IWebAssert)
 
 IResponseWare::IResponseWare()
-    : raw(new IResponseWareRaw())
+    : m_raw(new IResponseWareRaw())
 {
 }
 
 IResponseWare::IResponseWare(const IResponseWare &rhs)
-    : raw(new IResponseWareRaw(*rhs.raw))
+    : m_raw(new IResponseWareRaw(*rhs.m_raw))
 {
 }
 
 IResponseWare::IResponseWare(IResponseWare && rhs)
 {
-    std::swap(this->raw, rhs.raw);
+    std::swap(this->m_raw, rhs.m_raw);
 }
 
 IResponseWare &IResponseWare::operator =(const IResponseWare & rhs)
 {
-    delete this->raw;
-    this->raw = new IResponseWareRaw(*rhs.raw);
+    delete this->m_raw;
+    this->m_raw = new IResponseWareRaw(*rhs.m_raw);
     return *this;
 }
 
 IResponseWare &IResponseWare::operator =(IResponseWare && rhs)
 {
-    std::swap(this->raw, rhs.raw);
+    std::swap(this->m_raw, rhs.m_raw);
     return *this;
 }
 
 IResponseWare::~IResponseWare()
 {
-    delete raw;
-    raw = nullptr;
+    delete m_raw;
+    m_raw = nullptr;
 }
 
 QString &IResponseWare::operator[](const QString &header)
 {
-    return raw->headers[header];
+    return m_raw->headers[header];
 }
 
 const QString& IResponseWare::mime() const
 {
-    return raw->mimeString;
+    return m_raw->mimeString;
 }
 
 void IResponseWare::setMime(IHttpMime mime)
 {
-    raw->setMime(mime);
+    m_raw->setMime(mime);
 }
 
 IHttpStatus IResponseWare::status() const
 {
-    return raw->statusCode;
+    return m_raw->statusCode;
 }
 
 void IResponseWare::setStatus(IHttpStatus statusCode)
 {
-    raw->statusCode = statusCode;
+    m_raw->statusCode = statusCode;
 }
 
 const QMap<QString, QString>& IResponseWare::headers() const
 {
-    return raw->headers;
+    return m_raw->headers;
 }
 
 void IResponseWare::setHeader(const QString &key, const QString &value)
@@ -79,44 +79,44 @@ void IResponseWare::setHeader(const QString &key, const QString &value)
         $Ast->fatal("iresponse_setHeader_with_empty_value_or_key");
         return;
     }
-    raw->headers[key] = value;
+    m_raw->headers[key] = value;
 }
 
 void IResponseWare::setContent(const QByteArray& content)
 {
-    raw->setContent(content);
+    m_raw->setContent(content);
 }
 
 void IResponseWare::setContent(const QString& content)
 {
-    raw->setContent(content);
+    m_raw->setContent(content);
 }
 
 void IResponseWare::setContent(const char *content)
 {
-    raw->setContent(content);
+    m_raw->setContent(content);
 }
 
 IResponseContent &IResponseWare::getContent()
 {
-    return raw->content;
+    return m_raw->content;
 }
 
 
-void IResponseWare::setInstanceCopy(IResponseWare *ware)
-{
-    std::swap(ware->raw, this->raw);
-}
+//void IResponseWare::setInstanceCopy(IResponseWare *ware)
+//{
+//    std::swap(ware->raw, this->raw);
+//}
 
 void IResponseWare::redirectTo(IRedirectResponse &&redirectResponse)
 {
     redirectResponse.updateLocationPath();
-    std::swap(this->raw, redirectResponse.raw);
+    std::swap(this->m_raw, redirectResponse.m_raw);
 }
 
 void IResponseWare::setInvalid(IHttpStatus status, const QString &reason)
 {
-    raw->setInvalid(status, reason);
+    m_raw->setInvalid(status, reason);
 }
 
 QString IResponseWare::getPrefixMatcher()

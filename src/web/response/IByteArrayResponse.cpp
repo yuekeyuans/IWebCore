@@ -4,7 +4,7 @@ $PackageWebCoreBegin
 
 IByteArrayResponse::IByteArrayResponse()
 {
-    raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
+    m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
 }
 
 IByteArrayResponse::IByteArrayResponse(QString val) : IByteArrayResponse(val.toUtf8())
@@ -18,14 +18,14 @@ IByteArrayResponse::IByteArrayResponse(const char *array)
 
 IByteArrayResponse::IByteArrayResponse(QByteArray &array)
 {
-    raw->setContent(array);
-    raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
+    m_raw->setContent(array);
+    m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
 }
 
 IByteArrayResponse::IByteArrayResponse(QByteArray &&array)
 {
-    raw->setContent(std::forward<QByteArray>(array));
-    raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
+    m_raw->setContent(std::forward<QByteArray>(array));
+    m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
 }
 
 QString IByteArrayResponse::getPrefixMatcher()
