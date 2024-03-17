@@ -16,8 +16,8 @@ TestController::TestController()
 //    return QStringLiteral("hello world");
 //}
 
-IByteArrayResponse TestController::index()
+IFileResponse TestController::index()
 {
-    return "index.html";
+    return "index.htm";
 //    return  IRedirectResponse("http://www.baidu.com");
 }

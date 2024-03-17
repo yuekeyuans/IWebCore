@@ -23,6 +23,6 @@ public:
 //    }
 
     $GetMapping(index, hello/index1)
-    IByteArrayResponse index();
+    IFileResponse index();
 };
 
