@@ -159,10 +159,10 @@ HEADERS += \
     $$PWD/web/node/IUrlActionNode.h \
     $$PWD/web/response/IByteArrayResponse.h \
     $$PWD/web/response/IFileResponse.h \
-    $$PWD/web/response/IGingerResponse.h \
     $$PWD/web/response/IHtmlResponse.h \
     $$PWD/web/response/IInvalidResponse.h \
     $$PWD/web/response/IJsonResponse.h \
+    $$PWD/web/response/INodyResponse.h \
     $$PWD/web/response/IPlainTextResponse.h \
     $$PWD/web/response/IRedirectResponse.h \
     $$PWD/web/response/IResponseContent.h \
@@ -311,10 +311,10 @@ SOURCES += \
     $$PWD/web/node/IParamNode.cpp \
     $$PWD/web/response/IByteArrayResponse.cpp \
     $$PWD/web/response/IFileResponse.cpp \
-    $$PWD/web/response/IGingerResponse.cpp \
     $$PWD/web/response/IHtmlResponse.cpp \
     $$PWD/web/response/IInvalidResponse.cpp \
     $$PWD/web/response/IJsonResponse.cpp \
+    $$PWD/web/response/INodyResponse.cpp \
     $$PWD/web/response/IPlainTextResponse.cpp \
     $$PWD/web/response/IRedirectResponse.cpp \
     $$PWD/web/response/IResponseContent.cpp \
