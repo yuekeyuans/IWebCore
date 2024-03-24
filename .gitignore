@@ -18,6 +18,7 @@
 ./vsocde/*
 .vscode/
 
+
 # Qt-es
 object_script.*.Release
 object_script.*.Debug
@@ -59,6 +60,7 @@ release/
 
 demo/httpServerDemo/debug/
 demo/httpServerDemo/release/
+src/core/package/nody/.git
 
 # QtCreator 4.8< compilation database 
 compile_commands.json
