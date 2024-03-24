@@ -26,8 +26,3 @@ HEADERS += \
     $$PWD/toml/value.hpp \
     $$PWD/toml/version.hpp
 
-
-
-
-
-
