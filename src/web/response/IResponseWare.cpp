@@ -93,9 +93,9 @@ IResponseContent &IResponseWare::getContent()
 //    std::swap(this->m_raw, redirectResponse.m_raw);
 //}
 
-void IResponseWare::setInvalid(IHttpStatus status, const QString &reason)
+void IResponseWare::setInvalid(IHttpStatus status, QString reason)
 {
-    m_raw->setInvalid(status, reason);
+    m_raw->setInvalid(status, std::move(reason));
 }
 
 QString IResponseWare::getPrefixMatcher()

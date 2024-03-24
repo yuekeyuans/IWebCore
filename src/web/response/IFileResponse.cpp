@@ -60,6 +60,7 @@ QString IFileResponseHelper::getContentDispositionAttachment(const QString& file
     return QString("attachment;filename=").append(ICodecUtil::urlEncode(fileName));
 }
 
+// TODO: 这里的参数不太对，应该对应很多路径，但是这里只有一个
 bool IFileResponseHelper::setFilePath(IResponseWareRaw* raw, const QString& path)
 {
     QString realPath = path;

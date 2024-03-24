@@ -37,7 +37,7 @@ public:
 
 //    void redirectTo(IRedirectResponse&& redirectResponse);
 
-    virtual void setInvalid(IHttpStatus, const QString& reason);
+    virtual void setInvalid(IHttpStatus, QString reason);
     virtual QString getPrefixMatcher();
 
     virtual QSharedPointer<IResponseWare> create(IResponseWare*) = 0;
