@@ -11,6 +11,12 @@ public:
 
 public:
     virtual void task() final;
+
+private:
+    void travelDirectory(const QString& path);
+
+private:
+    static constexpr char SUFFIX[] = "yky";
 };
 
 $PackageWebCoreEnd

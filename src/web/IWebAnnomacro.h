@@ -39,7 +39,7 @@
     $SetFileServiceAttachmentSuffix_2(suffix1, suffix2) \
     PP_PROFILE_CONFIG(SetFileServiceAttachmentSuffix_3, http.fileService.suffixes.@$, suffix3)
 
-#define $SetFileServiceAttachmentSuffix_4(suffix1, suffix2, suffix3, suffix4) \
+#define $SetFileServiceAttachmentSuffix_4(suffix1, sufix2, suffix3, suffix4) \
     $SetFileServiceAttachmentSuffix_3(suffix1, suffix2, suffix3) \
     PP_PROFILE_CONFIG(SetFileServiceAttachmentSuffix_4, http.fileService.suffixes.@$, suffix4)
 
@@ -69,3 +69,5 @@
 #define $EnableFileServiceContentDisposition(value)  \
     PP_PROFILE_CONFIG(EnableFileServiceContentDisposition, http.fileService.contentDisposition, value)
 
+#define $SetNodyTemplateDirectory(path) \
+    PP_PROFILE_CONFIG(SetNodyTemplateDirectory, http.fileService.nodyTemplateDirectory, path)
