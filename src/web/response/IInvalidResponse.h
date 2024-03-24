@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include "core/base/IHeaderUtil.h"
 #include "IResponseInterface.h"
 #include "IResponsePreProcessor.h"
 

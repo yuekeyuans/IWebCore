@@ -7,6 +7,11 @@ TestController::TestController()
 
 }
 
+INodyResponse TestController::hello()
+{
+    return {"hello.yky", {}};
+}
+
 //QString TestController::helloDelete($Header(QString, name)){
 //    return name;
 //}

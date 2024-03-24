@@ -12,7 +12,7 @@ INodyResponse::INodyResponse(const QString &path, QJsonValue value)
         QMap<QString, QJsonValue> map;
         m_raw->setContent(nody->operator ()(value, map));
     }else{
-        setInvalid(IHttpStatus::INTERNAL_SERVER_ERROR_500, "template can not found:" + path);
+        setInvalid(IHttpStatus::INTERNAL_SERVER_ERROR_500, "template can not parse template:" + path);
     }
 }
 

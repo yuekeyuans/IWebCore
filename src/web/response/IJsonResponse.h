@@ -1,14 +1,10 @@
 ﻿#pragma once
 
-#include <QtCore>
 #include "IResponseInterface.h"
 #include "IResponsePreProcessor.h"
-//#include "core/base/IConvertUtil.h"
 #include "core/base/IJsonUtil.h"
 
 $PackageWebCoreBegin
-
-class IRedirectResponse;
 
 class IJsonResponse : public IResponseInterface<IJsonResponse>
 {

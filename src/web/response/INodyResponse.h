@@ -16,7 +16,6 @@ public:
 
 public:
     INodyResponse() = default;
-//    INodyResponse();
     INodyResponse(const QString& path, QJsonValue value);
 };
 

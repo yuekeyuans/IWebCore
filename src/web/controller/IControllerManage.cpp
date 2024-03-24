@@ -112,8 +112,6 @@ void IControllerManage::registerStaticFiles(const QString &path, const QString &
 
     $Bool enabledFileStaticMapping("http.fileService.staticMapping", false);
 
-    qDebug() << "val" << enabledFileStaticMapping;
-
     if(enabledFileStaticMapping.isLoaded() && enabledFileStaticMapping){
         m_resourceMappings.mountMapping(dir.absolutePath(), prefix);
     }else{

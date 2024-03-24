@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include <QtCore>
+
 #include "IResponseInterface.h"
 #include "IResponsePreProcessor.h"
 
