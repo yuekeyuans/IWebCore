@@ -60,7 +60,8 @@ release/
 
 demo/httpServerDemo/debug/
 demo/httpServerDemo/release/
-src/core/package/nody/.git
+src/core/package/nody/.git*
+src/core/package/nody/.gitignore
 
 # QtCreator 4.8< compilation database 
 compile_commands.json
