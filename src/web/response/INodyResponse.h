@@ -16,7 +16,7 @@ public:
 
 public:
     INodyResponse() = default;
-    INodyResponse(const QString& path, QJsonValue value);
+    INodyResponse(const QString& path, QJsonObject value);
 };
 
 $PackageWebCoreEnd
