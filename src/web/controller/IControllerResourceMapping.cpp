@@ -23,6 +23,14 @@ QString IControllerResourceMapping::getFilePath(const QString &url) const
     if(m_enabled && m_fileMappings.contains(url)){
         return m_fileMappings[url];
     }
+
+
+    static $Bool handleDir{"http.fileService.directoryHandled", false};
+    if(handleDir){
+        // TODO:
+        // 判断 url match mapping, 的内容，如果mapping 上了，则是继续查找.
+    }
+
     return {};
 }
 
@@ -75,10 +83,6 @@ void IControllerResourceNodeHelper::mountFilesToResourceMapping(QHash<QString, Q
 
 void IControllerResourceNodeHelper::mountFirstPageToServer(QHash<QString, QString>& hash, const QString& path, const QString& prefix)
 {
-//    static const QStringList names = {
-//        "index.html", "index.htm", "default.html", "default.html", "home.html", "home.htm"
-//    };
-
     for(const auto& name : IConstantUtil::IndexPageNames){
         auto pagePath = IFileUtil::joinPath(path, name);
         if(mountFilePageToServer(hash, pagePath, prefix)){

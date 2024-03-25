@@ -71,3 +71,6 @@
 
 #define $SetNodyTemplateDirectory(path) \
     PP_PROFILE_CONFIG(SetNodyTemplateDirectory, http.fileService.nodyTemplateDirectory, path)
+
+#define $SetFileServiceDirectoryHandled(value)  \
+    PP_PROFILE_CONFIG(SetFileServiceDirectoryHandled, http.fileService.directoryHandled, value)

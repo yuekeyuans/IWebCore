@@ -1,5 +1,6 @@
 ﻿#include "IHttpServerRunable.h"
 #include "core/base/ISocketUtil.h"
+#include "core/config/IProfileImport.h"
 #include "web/controller/IControllerManage.h"
 #include "web/controller/private/IControllerParamUtil.h"
 #include "web/net/IRequest.h"
@@ -141,8 +142,8 @@ void IHttpServerRunable::processInMethodMode(IRequest &request, IResponse &respo
 void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &response, const QString &path)
 {
     Q_UNUSED(request)
-    if(QFileInfo(path).isDir()){
 
+    if(QFileInfo(path).isDir()){
     }else{
         IFileResponse fileResponse(path);
         response.setContent(&fileResponse);
