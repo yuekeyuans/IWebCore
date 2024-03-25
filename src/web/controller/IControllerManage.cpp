@@ -256,16 +256,16 @@ bool IControllerManage::isStaticFileActionPathEnabled()
 
 QString IControllerManage::getStaticFileActionPath(const IRequest &request)
 {
-    static bool isRigidMappingEnabled = m_resourceMappings.isEnabled();
-    if(isRigidMappingEnabled){
+    static bool isResourceMapping = m_resourceMappings.isEnabled();
+    if(isResourceMapping){
         QString value = m_resourceMappings.getFilePath(request.url());
         if(!value.isEmpty()){
             return value;
         }
     }
 
-    static bool isDirMappingEnabled = m_directoryMappings.isEnabled();
-    if(isDirMappingEnabled){
+    static bool isDirMapping = m_directoryMappings.isEnabled();
+    if(isDirMapping){
         return m_directoryMappings.getFilePath(request.url());
     }
     return {};

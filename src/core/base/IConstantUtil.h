@@ -18,6 +18,7 @@ namespace IConstantUtil
     static const QString DateFormat = "yyyy-MM-dd";
     static const QString TimeFormat = "hh:mm:ss.zzz";
     static const QString DateTimeFormat = "yyyy-MM-dd hh:mm:ss.zzz";
+    static const QVector<QString> IndexPageNames = {"index.html", "index.htm"};     // TODO: 之后这个会放置在配置文件中。
 
     static constexpr char ServerName[] = "IWebCore";
 

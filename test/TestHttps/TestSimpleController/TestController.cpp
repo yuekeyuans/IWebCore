@@ -23,6 +23,5 @@ INodyResponse TestController::hello()
 
 IFileResponse TestController::index()
 {
-//    return "index.htm";
     return  IRedirectResponse("http://www.baidu.com");
 }

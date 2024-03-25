@@ -30,7 +30,6 @@ private:
     static void processInNotFoundMode(IRequest& request, IResponse& response);
 
     static void runOptionsFunction(IRequest& request, IResponse& response);
-
     static bool interceptStatusCode(IRequest& request, IResponse& response);
 
 private:

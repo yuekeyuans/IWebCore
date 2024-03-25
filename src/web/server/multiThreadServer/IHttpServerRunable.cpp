@@ -141,8 +141,12 @@ void IHttpServerRunable::processInMethodMode(IRequest &request, IResponse &respo
 void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &response, const QString &path)
 {
     Q_UNUSED(request)
-    IFileResponse staticFileReponse(path);
-    response.setContent(&staticFileReponse);
+    if(QFileInfo(path).isDir()){
+
+    }else{
+        IFileResponse fileResponse(path);
+        response.setContent(&fileResponse);
+    }
 }
 
 void IHttpServerRunable::processInNotFoundMode(IRequest &request, IResponse &response)
