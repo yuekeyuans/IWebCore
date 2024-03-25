@@ -42,7 +42,6 @@ public:
 template<typename T>
 IResponseInterface<T>::IResponseInterface()
 {
-    qDebug() << "construct";
 }
 
 template<typename T>
@@ -68,20 +67,17 @@ IResponseInterface<T>::IResponseInterface(const IResponseInterface &rhs) : IResp
 template<typename T>
 IResponseInterface<T>::IResponseInterface(IResponseInterface &&rhs) : IResponseWare(std::forward<IResponseInterface>(rhs))
 {
-    qDebug() << "move construct";
 }
 
 template<typename T>
 IResponseInterface<T>::IResponseInterface(IResponseWare *ware)
 {
-    qDebug() << "create here";
     std::swap(this->m_raw, ware->m_raw);
 }
 
 template<typename T>
 IResponseInterface<T> &IResponseInterface<T>::operator=(const IResponseInterface&rhs)
 {
-    qDebug() << "assign const";
     IResponseWare::operator =(rhs);
     return *this;
 }
@@ -89,7 +85,6 @@ IResponseInterface<T> &IResponseInterface<T>::operator=(const IResponseInterface
 template<typename T>
 IResponseInterface<T> &IResponseInterface<T>::operator=(IResponseInterface &&rhs)
 {
-    qDebug() << "assign move";
     IResponseWare::operator =(std::forward<IResponseInterface>(rhs));
     return *this;
 }
