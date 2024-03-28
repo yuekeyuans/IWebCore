@@ -17,7 +17,7 @@
 
 #define $SetFileServiceMapping_1(path_) \
     PP_PROFILE_CONFIG(SetFileServiceMapping_location, http.fileService.path, path_) \
-    PP_PROFILE_CONFIG(SetFileServiceMapping_url, config.fileService.mapping, "/")
+    PP_PROFILE_CONFIG(SetFileServiceMapping_url, http.fileService.mapping, "/")
 
 #define $SetFileServiceMapping_2(path_, mapping_) \
     PP_PROFILE_CONFIG(SetFileServiceMapping_location, http.fileService.path, path_) \
