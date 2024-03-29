@@ -91,10 +91,17 @@ void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
     }
 
     static bool isStaticFileEnabled = controllerManage->isStaticFileActionPathEnabled();        // process as static file server then
+    static $Bool handleDir{"http.fileService.directoryHandled", false};
     if(isStaticFileEnabled && request.method() == IHttpMethod::GET){
         auto path = controllerManage->getStaticFileActionPath(request);
         if(!path.isEmpty()){
             return processInStaticFileMode(request, response, path);
+        }
+        if(handleDir){
+            path = controllerManage->getStaticDirectoryActionPath(request);
+            if(!path.isEmpty()){
+                return processInStaticDirectoryMode(request, response, path);
+            }
         }
     }
 
@@ -148,6 +155,11 @@ void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &r
         IFileResponse fileResponse(path);
         response.setContent(&fileResponse);
     }
+}
+
+void IHttpServerRunable::processInStaticDirectoryMode(IRequest &request, IResponse &IResponse, const QString &path)
+{
+    // TODO:
 }
 
 void IHttpServerRunable::processInNotFoundMode(IRequest &request, IResponse &response)

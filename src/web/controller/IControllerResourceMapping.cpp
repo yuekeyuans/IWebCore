@@ -1,6 +1,5 @@
 ﻿#include "IControllerResourceMapping.h"
 #include "core/base/IFileUtil.h"
-#include "core/config/IProfileImport.h"
 #include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
@@ -23,13 +22,6 @@ QString IControllerResourceMapping::getFilePath(const QString &url) const
 {
     if(m_enabled && m_fileMappings.contains(url)){
         return m_fileMappings[url];
-    }
-
-
-    static $Bool handleDir{"http.fileService.directoryHandled", false};
-    if(handleDir){
-        // TODO:
-        // 判断 url match mapping, 的内容，如果mapping 上了，则是继续查找.
     }
 
     return {};

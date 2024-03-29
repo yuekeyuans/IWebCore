@@ -271,6 +271,11 @@ QString IControllerManage::getStaticFileActionPath(const IRequest &request)
     return {};
 }
 
+QString IControllerManage::getStaticDirectoryActionPath(const IRequest &request)
+{
+    return {};
+}
+
 bool IControllerManage::preIntercept(IRequest &request, IResponse &response)
 {
     auto inst = instance();
