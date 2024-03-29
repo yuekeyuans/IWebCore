@@ -12,6 +12,7 @@ public:
 public:
     bool isEnabled() const;
     QString getFilePath(const QString& url) const;
+    QStringList getFileEntries(const QString &url);
     void mountMapping(const QString& dir, const QString& prefix="/");
     void travelPrint() const;
 

@@ -98,9 +98,9 @@ void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
             return processInStaticFileMode(request, response, path);
         }
         if(handleDir){
-            path = controllerManage->getStaticDirectoryActionPath(request);
-            if(!path.isEmpty()){
-                return processInStaticDirectoryMode(request, response, path);
+            auto entries = controllerManage->getStaticDirectoryActionPath(request);
+            if(!entries.isEmpty()){
+                return processInStaticDirectoryMode(request, response, entries);
             }
         }
     }
@@ -157,7 +157,7 @@ void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &r
     }
 }
 
-void IHttpServerRunable::processInStaticDirectoryMode(IRequest &request, IResponse &IResponse, const QString &path)
+void IHttpServerRunable::processInStaticDirectoryMode(IRequest &request, IResponse &IResponse, const QStringList& entries)
 {
     // TODO:
 }

@@ -62,7 +62,7 @@ public:
 
     bool isStaticFileActionPathEnabled();
     QString getStaticFileActionPath(const IRequest& request);
-    QString getStaticDirectoryActionPath(const IRequest& request);
+    QStringList getStaticDirectoryActionPath(const IRequest& request);
 
     static bool preIntercept(IRequest& request, IResponse& response);
     static bool postIntercept(IRequest& request, IResponse& response);

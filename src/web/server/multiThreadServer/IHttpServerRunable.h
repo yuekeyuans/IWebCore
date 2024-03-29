@@ -27,7 +27,7 @@ private:
     static void processInFunctionMode(IRequest& request, IResponse& response, IUrlActionNode* node);
     static void processInMethodMode(IRequest& request, IResponse& response, IUrlActionNode* node);
     static void processInStaticFileMode(IRequest& request, IResponse& response, const QString& path);
-    static void processInStaticDirectoryMode(IRequest& request, IResponse& IResponse, const QString& path);
+    static void processInStaticDirectoryMode(IRequest& request, IResponse& IResponse, const QStringList& entries);
     static void processInNotFoundMode(IRequest& request, IResponse& response);
 
     static void runOptionsFunction(IRequest& request, IResponse& response);

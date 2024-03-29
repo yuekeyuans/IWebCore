@@ -30,6 +30,25 @@ QString IControllerDirectoryMapping::getFilePath(const QString &url) const
     return {};
 }
 
+QStringList IControllerDirectoryMapping::getFileEntries(const QString &url)
+{
+    if(!m_enabled){
+        return {};
+    }
+
+    QStringList ret;
+    auto keys = m_map.keys();
+    for(const QString& key : keys){
+        if(key.startsWith(url)){
+            auto val = key.mid(url.length());
+            if(!val.contains("/")){
+                ret.append(val);
+            }
+        }
+    }
+    return ret;
+}
+
 void IControllerDirectoryMapping::mountMapping(const QString &path, const QString &prefix)
 {
     QDir dir(path);

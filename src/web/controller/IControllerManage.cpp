@@ -271,8 +271,18 @@ QString IControllerManage::getStaticFileActionPath(const IRequest &request)
     return {};
 }
 
-QString IControllerManage::getStaticDirectoryActionPath(const IRequest &request)
+QStringList IControllerManage::getStaticDirectoryActionPath(const IRequest &request)
 {
+    auto url = request.url();
+    static bool isResourceMapping = m_resourceMappings.isEnabled();
+    if(isResourceMapping){
+        return m_resourceMappings.getFileEntries(url);
+    }
+
+    static bool isDirMapping = m_directoryMappings.isEnabled();
+    if(isDirMapping){
+        return m_directoryMappings.getFileEntries(url);
+    }
     return {};
 }
 
