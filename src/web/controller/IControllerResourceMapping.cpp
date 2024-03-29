@@ -1,5 +1,6 @@
 ﻿#include "IControllerResourceMapping.h"
 #include "core/base/IFileUtil.h"
+#include "core/config/IProfileImport.h"
 #include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
