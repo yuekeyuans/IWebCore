@@ -83,7 +83,8 @@ void IControllerDirectoryMapping::travelPrint() const
 QString IControllerDirectoryMapping::getDirectoryDefaultFilePath(const QString &path) const
 {
     static $QStringList defaultPages{"http.defaultPageNames"};
-    for(const QString& name : defaultPages.value()){
+    static const QStringList& pages = defaultPages.value();
+    for(const QString& name : pages){
         QFileInfo file(path + name);
         if(file.exists() && file.isFile()){
             return file.absoluteFilePath();

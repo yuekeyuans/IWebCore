@@ -1,5 +1,6 @@
 ﻿#include "IControllerResourceMapping.h"
 #include "core/base/IFileUtil.h"
+#include "core/config/IProfileImport.h"
 #include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
@@ -8,9 +9,9 @@ $UseAssert(IWebAssert)
 
 namespace IControllerResourceNodeHelper
 {
-    void mountFilesToResourceMapping(QHash<QString, QString>& hash, const QString& path, const QString& prefix);
-    void mountFirstPageToServer(QHash<QString, QString>& hash, const QString& path, const QString& prefix);
-    bool mountFilePageToServer(QHash<QString, QString>& hash, const QString& filePath, const QString& url);
+    void mountFilesToResourceMapping(QMap<QString, QString>& hash, const QString& path, const QString& prefix);
+    void mountFirstPageToServer(QMap<QString, QString>& hash, const QString& path, const QString& prefix);
+    bool mountFilePageToServer(QMap<QString, QString>& hash, const QString& filePath, const QString& url);
 }
 
 bool IControllerResourceMapping::isEnabled() const
@@ -65,7 +66,8 @@ void IControllerResourceMapping::travelPrint() const
     }
 }
 
-void IControllerResourceNodeHelper::mountFilesToResourceMapping(QHash<QString, QString>& hash, const QString &path, const QString &prefix)
+// NOTE: 写的有点啰嗦，先这样吧
+void IControllerResourceNodeHelper::mountFilesToResourceMapping(QMap<QString, QString>& hash, const QString &path, const QString &prefix)
 {
     QDir dir(path);
     if(!dir.exists() || dir.isEmpty()){
@@ -93,9 +95,11 @@ void IControllerResourceNodeHelper::mountFilesToResourceMapping(QHash<QString, Q
     }
 }
 
-void IControllerResourceNodeHelper::mountFirstPageToServer(QHash<QString, QString>& hash, const QString& path, const QString& prefix)
+void IControllerResourceNodeHelper::mountFirstPageToServer(QMap<QString, QString>& hash, const QString& path, const QString& prefix)
 {
-    for(const auto& name : IConstantUtil::IndexPageNames){
+    static $QStringList defaultPages{"http.defaultPageNames"};
+    static const QStringList& pages = defaultPages.value();
+    for(const auto& name : pages){
         auto pagePath = IFileUtil::joinPath(path, name);
         if(mountFilePageToServer(hash, pagePath, prefix)){
             return;
@@ -103,7 +107,7 @@ void IControllerResourceNodeHelper::mountFirstPageToServer(QHash<QString, QStrin
     }
 }
 
-bool IControllerResourceNodeHelper::mountFilePageToServer(QHash<QString, QString>& hash, const QString& filePath, const QString& url)
+bool IControllerResourceNodeHelper::mountFilePageToServer(QMap<QString, QString>& hash, const QString& filePath, const QString& url)
 {
     bool alreadyExist = hash.contains(url);
     if(QFileInfo(filePath).exists()){

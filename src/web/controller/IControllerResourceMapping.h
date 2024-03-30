@@ -17,7 +17,7 @@ public:
 
 private:
     QMap<QString, QString> m_map;
-    QHash<QString, QString> m_fileMappings;
+    QMap<QString, QString> m_fileMappings;
     bool m_enabled{false};
 };
 

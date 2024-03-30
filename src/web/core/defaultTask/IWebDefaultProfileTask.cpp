@@ -21,7 +21,7 @@ R"(
             "directoryHandled": true,
             "staticMapping" : true,
             "path" : "",
-            "url" : "",
+            "url" : "/",
             "contentDisposition" : {
                 "enabled" : false,
                 "suffixes" : []
