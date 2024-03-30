@@ -2,7 +2,7 @@
     "http": {
         "ip": "127.0.0.1",
         "port": 8550,
-        "printTrace": false,
+        "printTrace": true,
         "defaultPageNames": [
             "index.html",
             "index.htm",

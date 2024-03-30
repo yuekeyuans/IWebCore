@@ -3,7 +3,7 @@
 #include "core/config/IConfigPreProcessor.h"
 
 #define $EnableControllerPrint(boolValue) \
-    PP_PRIVILIGE_CONTEXT_CONFIG(EnableControllerPrint, http.printTrace, boolValue)
+    PP_PROFILE_CONFIG(EnableControllerPrint, http.printTrace, boolValue)
 
 #define $SetIpAddress(value)    \
     PP_PROFILE_CONFIG(SetIpAddress, http.ip, value)

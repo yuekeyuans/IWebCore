@@ -22,7 +22,7 @@ public:
 //        return "";
 //    }
 
-//    $GetMapping(index, hello/index1)
+    $GetMapping(index, hello/index1)
     IFileResponse index();
 };
 

@@ -4,24 +4,26 @@
 
 $PackageWebCoreBegin
 
-static constexpr char PROFILE_CONFIG[] = R"(
+static constexpr char PROFILE_CONFIG[] =
+R"(
+{
+    "http": {
+        "ip": "127.0.0.1",
+        "port": 8550,
+        "printTrace": true,
+        "defaultPageNames": [
+            "index.html",
+            "index.htm",
+            "default.html",
+            "default.htm"
+        ],
+        "fileService": {
+            "directoryHandled": true
+        }
+    }
+}
 
- {
-     "http": {
-         "ip": "127.0.0.1",
-         "port": 8550,
-         "printTrace": false,
-         "defaultPageNames": [
-             "index.html",
-             "index.htm",
-             "default.html",
-             "default.htm"
-         ],
-         "fileService": {
-             "directoryHandled": true
-         }
-     }
- }
+
 
 )";
 
