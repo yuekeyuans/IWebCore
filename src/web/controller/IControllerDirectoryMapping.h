@@ -17,6 +17,9 @@ public:
     void travelPrint() const;
 
 private:
+    QString getDirectoryDefaultFilePath(const QString&) const;
+
+private:
     QMap<QString, QString> m_map;
     bool m_enabled{false};
 };

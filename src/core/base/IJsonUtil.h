@@ -31,6 +31,8 @@ namespace IJsonUtil
     QJsonArray toJsonArray(const QByteArray& value, bool& ok);
     QJsonArray toJsonArray(const QJsonValue& value, bool& ok);
     QJsonObject toJsonObject(const QString& value, bool& ok);
+    IResult<QJsonObject> toJsonObject(const QString& value);
+
     QJsonObject toJsonObject(const QByteArray& value, bool& ok);
     QJsonObject toJsonObject(const QJsonValue& value, bool& ok);
     QJsonObject toJsonObject(const QMap<QString, QVariant>&map, bool& ok);

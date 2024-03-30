@@ -159,6 +159,7 @@ void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &r
 
 void IHttpServerRunable::processInStaticDirectoryMode(IRequest &request, IResponse &IResponse, const QStringList& entries)
 {
+    qDebug() << entries;
     // TODO:
 }
 

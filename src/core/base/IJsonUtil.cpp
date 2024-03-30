@@ -421,4 +421,11 @@ QString IJsonUtil::toString(QJsonValue value){
     return value.toString();
 }
 
+IResult<QJsonObject> IJsonUtil::toJsonObject(const QString &value)
+{
+    bool ok;
+    QJsonObject val = toJsonObject(value, ok);
+    return {val, ok};
+}
+
 $PackageWebCoreEnd

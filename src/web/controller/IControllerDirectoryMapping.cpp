@@ -21,8 +21,12 @@ QString IControllerDirectoryMapping::getFilePath(const QString &url) const
         if(url.startsWith(val)){
             auto key = m_map.key(val);
             QString path = key.append(QString(url).replace(val, ""));
-            if(QFileInfo(path).exists()){
+            QFileInfo info(path);
+            if(info.exists() && info.isFile()){
                 return path;
+            }
+            if(info.exists() && info.isDir()){
+                return getDirectoryDefaultFilePath(path);
             }
         }
     }
@@ -73,6 +77,11 @@ void IControllerDirectoryMapping::travelPrint() const
         }
         qDebug() << "";
     }
+}
+
+QString IControllerDirectoryMapping::getDirectoryDefaultFilePath(const QString &path) const
+{
+    return {};
 }
 
 $PackageWebCoreEnd

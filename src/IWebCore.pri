@@ -132,6 +132,7 @@ HEADERS += \
     $$PWD/web/core/defaultTask/IControllerPathValidatorTask.h \
     $$PWD/web/core/defaultTask/IFileServiceTask.h \
     $$PWD/web/core/defaultTask/INodyTemplateTask.h \
+    $$PWD/web/core/defaultTask/IWebDefaultProfileTask.h \
     $$PWD/web/jar/ICookieJar.h \
     $$PWD/web/jar/ICookiePart.h \
     $$PWD/web/jar/IHeaderJar.h \
@@ -288,6 +289,7 @@ SOURCES += \
     $$PWD/web/core/defaultTask/IControllerPathValidatorTask.cpp \
     $$PWD/web/core/defaultTask/IFileServiceTask.cpp \
     $$PWD/web/core/defaultTask/INodyTemplateTask.cpp \
+    $$PWD/web/core/defaultTask/IWebDefaultProfileTask.cpp \
     $$PWD/web/jar/ICookieJar.cpp \
     $$PWD/web/jar/ICookiePart.cpp \
     $$PWD/web/jar/IHeaderJar.cpp \
@@ -364,6 +366,7 @@ DISTFILES += \
     $$PWD/orm/orm \
     $$PWD/web/common \
     $$PWD/web/controller/controller \
+    $$PWD/web/core/defaultTask/defaultWebProfile.json \
     $$PWD/web/server/server
 
 

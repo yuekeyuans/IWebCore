@@ -14,7 +14,7 @@ public:
 ////    $DeleteMapping(helloDelete, /)
 //    QString helloDelete($Header(QString, name));
 
-    $GetMapping(hello, /)
+//    $GetMapping(hello, /)
     INodyResponse hello();
 
 ////    $PostMapping(helloGet, hello)
@@ -22,7 +22,7 @@ public:
 //        return "";
 //    }
 
-    $GetMapping(index, hello/index1)
+//    $GetMapping(index, hello/index1)
     IFileResponse index();
 };
 

@@ -1,0 +1,16 @@
+﻿{
+    "http": {
+        "ip": "127.0.0.1",
+        "port": 8550,
+        "printTrace": false,
+        "defaultPageNames": [
+            "index.html",
+            "index.htm",
+            "default.html",
+            "default.htm"
+        ],
+        "fileService": {
+            "directoryHandled": true
+        }
+    }
+}

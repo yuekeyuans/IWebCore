@@ -6,7 +6,7 @@ $PackageWebCoreBegin
 
 void IBluePrintControllerTask::task()
 {
-    $ContextBool condition{"SYSTEM_CONTROLLER_PRINT", false};
+    $ContextBool condition{"http.printTrace"};
     if(condition.isFound() && condition){
         IControllerManage::travalPrintUrlTree();
     }
