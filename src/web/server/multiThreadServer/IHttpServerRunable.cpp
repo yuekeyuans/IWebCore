@@ -91,7 +91,7 @@ void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
     }
 
     static bool isStaticFileEnabled = controllerManage->isStaticFileActionPathEnabled();        // process as static file server then
-    static $Bool handleDir{"http.fileService.directoryHandled", false};
+    static $Bool handleDir{"http.fileService.directoryHandled"};
     if(isStaticFileEnabled && request.method() == IHttpMethod::GET){
         auto path = controllerManage->getStaticFileActionPath(request);
         if(!path.isEmpty()){
