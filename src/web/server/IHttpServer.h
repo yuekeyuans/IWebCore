@@ -35,8 +35,8 @@ private:
     virtual void incomingConnection(qintptr handle) final;
 
 private:
-    $QString host{"http.host", "127.0.0.1"};
-    $UShort port{"http.port", 8550};
+    $QString host{"http.ip"};
+    $UShort port{"http.port"};
 };
 
 $PackageWebCoreEnd

@@ -10,7 +10,14 @@
             "default.htm"
         ],
         "fileService": {
-            "directoryHandled": true
+            "directoryHandled": true,
+            "staticMapping" : true,
+            "mapping" : []
+        },
+        "template" : {
+            "nody" : {
+                "directories" : []
+            }
         }
     }
 }

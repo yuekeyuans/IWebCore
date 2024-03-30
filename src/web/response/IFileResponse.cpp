@@ -82,8 +82,8 @@ bool IFileResponseHelper::setFilePath(IResponseWareRaw* raw, const QString& path
 
 void IFileResponseHelper::checkAndUpdateContentDisposition(IResponseWareRaw* raw)
 {
-    static $QStringList suffixes{"http.fileService.suffixes"};
-    static $Bool enabled {"http.fileService.contentDisposition", true};
+    static $Bool enabled {"http.fileService.contentDisposition.enabled"};
+    static $QStringList suffixes{"http.fileService.contentDisposition.suffixes"};
     if(enabled
             && raw->content.type == IResponseContent::File
             && !raw->content.contentFilePath.isEmpty()

@@ -4,11 +4,8 @@
 
 #pragma execution_character_set("utf-8")
 
-$EnableDefaultConfigFiles
+//$EnableDefaultConfigFiles
 $EnableTaskOutput(true)
-$SetIpPort(1000)
-$EnableWebPrintTrace(true)
-$EnableCatagory(Controller)
 $SetFileServiceMapping("E:/123/export2/dest/倪柝声文集/")
 //$EnableFileServiceStaticMapping(false)
 //$SetFileServiceAttachmentSuffix("html", "htm", "rar")

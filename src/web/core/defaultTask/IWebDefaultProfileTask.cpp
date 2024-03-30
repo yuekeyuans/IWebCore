@@ -18,12 +18,22 @@ R"(
             "default.htm"
         ],
         "fileService": {
-            "directoryHandled": true
+            "directoryHandled": true,
+            "staticMapping" : true,
+            "path" : "",
+            "url" : "",
+            "contentDisposition" : {
+                "enabled" : false,
+                "suffixes" : []
+            }
+        },
+        "template" : {
+            "nody" : {
+                "directories" : []
+            }
         }
     }
 }
-
-
 
 )";
 
