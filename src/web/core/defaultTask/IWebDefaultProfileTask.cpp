@@ -32,15 +32,10 @@ double IWebDefaultProfileTask::order() const
     return 1;
 }
 
-void IWebDefaultProfileTask::task()
+QJsonValue IWebDefaultProfileTask::config()
 {
     IResult<QJsonObject> json = IConvertUtil::toJsonObject(PROFILE_CONFIG);
-    if(json.isOk()){
-        IProfileManage::instance()->addConfig(json.m_value);
-    }else{
-        qFatal("default profile config error");
-    }
+    return json.value();
 }
-
 
 $PackageWebCoreEnd

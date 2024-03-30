@@ -1,19 +1,18 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
-#include "core/task/default/IInitializationTaskInterface.h"
+#include "core/config/IProfileTaskInterface.h"
 
 $PackageWebCoreBegin
 
-class IWebDefaultProfileTask : public IInitializationTaskInterface<IWebDefaultProfileTask>
+class IWebDefaultProfileTask : public IProfileTaskInterface<IWebDefaultProfileTask>
 {
 public:
     IWebDefaultProfileTask() = default;
 
 public:
     virtual double order() const final;
-    virtual void task() final;
-
+    virtual QJsonValue config() final;
 };
 
 $PackageWebCoreEnd

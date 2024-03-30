@@ -2,8 +2,8 @@
 
 #include "core/config/IConfigPreProcessor.h"
 
-#define $EnableControllerPrint(boolValue) \
-    PP_PROFILE_CONFIG(EnableControllerPrint, http.printTrace, boolValue)
+#define $EnableWebPrintTrace(boolValue) \
+    PP_PROFILE_CONFIG(EnableWebPrintTrace, http.printTrace, boolValue)
 
 #define $SetIpAddress(value)    \
     PP_PROFILE_CONFIG(SetIpAddress, http.ip, value)

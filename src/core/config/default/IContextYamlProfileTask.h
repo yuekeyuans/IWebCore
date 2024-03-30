@@ -16,9 +16,6 @@ private:
     virtual double order() const final;
     virtual QStringList nameFilters() const final;
     QJsonValue parseYamlFile(const QString& path, bool&ok);
-
-//    QStringList getYamlPaths();
-//    QJsonObject parseYamlFile(const QString& path);
 };
 
 $PackageWebCoreEnd
