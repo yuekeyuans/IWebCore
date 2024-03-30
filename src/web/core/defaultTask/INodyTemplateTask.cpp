@@ -14,10 +14,9 @@ INodyTemplateTask::INodyTemplateTask()
 void INodyTemplateTask::task()
 {
     $QString folder{"http.fileService.nodyTemplateFolder"};
-    if(!folder.isFound()){
-        qDebug() << "folder not set";
+    if(!folder.value().isEmpty()){
+        travelFolder(folder);
     }
-    travelFolder(folder);
 }
 
 void INodyTemplateTask::travelFolder(const QString &path)

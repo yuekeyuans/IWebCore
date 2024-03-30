@@ -41,4 +41,9 @@ Nody *IResponseManage::getNodyProcessor(const QString &path)
     return nullptr;
 }
 
+bool IResponseManage::isNodyPathExist(const QString &path)
+{
+    return m_nodyProcessor.contains(path);
+}
+
 $PackageWebCoreEnd

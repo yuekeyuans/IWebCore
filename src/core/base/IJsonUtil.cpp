@@ -231,6 +231,12 @@ QJsonValue IJsonUtil::toJsonValue(const QMap<QString, QVariant> &map, bool& ok)
     return obj;
 }
 
+QJsonArray IJsonUtil::toJsonArray(const QStringList &value, bool &ok)
+{
+    return QJsonArray::fromStringList(value);
+    ok = true;
+}
+
 QJsonArray IJsonUtil::toJsonArray(const QString &value, bool& ok)
 {
     IToeUtil::setOk(ok, true);
@@ -266,6 +272,14 @@ QJsonObject IJsonUtil::toJsonObject(const QString &value, bool& ok)
     }
     return toJsonObject(val, ok);
 }
+
+IResult<QJsonObject> IJsonUtil::toJsonObject(const QString &value)
+{
+    bool ok;
+    QJsonObject val = toJsonObject(value, ok);
+    return {val, ok};
+}
+
 
 QJsonObject IJsonUtil::toJsonObject(const QJsonValue &value, bool& ok)
 {
@@ -419,13 +433,6 @@ QVariant IJsonUtil::toVariant(const QJsonValue &value, QMetaType::Type type, boo
 
 QString IJsonUtil::toString(QJsonValue value){
     return value.toString();
-}
-
-IResult<QJsonObject> IJsonUtil::toJsonObject(const QString &value)
-{
-    bool ok;
-    QJsonObject val = toJsonObject(value, ok);
-    return {val, ok};
 }
 
 $PackageWebCoreEnd

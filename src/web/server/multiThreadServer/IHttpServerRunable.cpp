@@ -157,8 +157,16 @@ void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &r
 
 void IHttpServerRunable::processInStaticFolderMode(IRequest &request, IResponse &response, const QStringList& entries)
 {
-    IHtmlResponse htmlResponse(entries.join(", "));
-    response.setContent(htmlResponse);
+    QString path = "template/folder.yky";
+    if(!IResponseManage::instance()->isNodyPathExist(path)){
+        path = ":/resource/defaultPages/folder.yky";
+    }
+    QJsonObject obj;
+    obj["url"] = request.url();
+    obj["children"] = QJsonArray::fromStringList(entries);
+    obj["isRoot"] = request.url() == "/";
+    INodyResponse nodyResponse(path, obj);
+    response.setContent(&nodyResponse);
 }
 
 void IHttpServerRunable::processInNotFoundMode(IRequest &request, IResponse &response)

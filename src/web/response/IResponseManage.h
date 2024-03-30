@@ -19,6 +19,7 @@ public:
 
     void registerNodyProcesser(const QString& path, Nody*);
     Nody* getNodyProcessor(const QString& path);
+    bool isNodyPathExist(const QString& path);
 
 private:
     QVector<IResponseWare*> m_responses;
