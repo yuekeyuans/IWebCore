@@ -159,7 +159,7 @@ void IHttpServerRunable::processInStaticFolderMode(IRequest &request, IResponse 
 {
     QString path = "template/folder.yky";
     if(!IResponseManage::instance()->isNodyPathExist(path)){
-        path = ":/resource/defaultPages/folder.yky";
+        path = "defaultPages/folder.yky";
     }
     QJsonObject obj;
     obj["url"] = request.url();

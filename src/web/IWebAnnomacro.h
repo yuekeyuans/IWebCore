@@ -70,7 +70,7 @@
     PP_PROFILE_CONFIG(EnableFileServiceContentDisposition, http.fileService.contentDisposition.enabled, value)
 
 #define $SetNodyTemplateFolder(path) \
-    PP_PROFILE_CONFIG(SetNodyTemplateFolder, http.fileService.nodyTemplateFolder, path)
+    PP_PROFILE_CONFIG(SetNodyTemplateFolder, http.templates.nody.templateFolder, path)
 
 #define $SetFileServiceFolderHandled(value)  \
     PP_PROFILE_CONFIG(SetFileServiceFolderHandled, http.fileService.folderHandled, value)

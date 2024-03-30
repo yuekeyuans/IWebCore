@@ -19,9 +19,9 @@
                 "suffixes" : []
             }
         },
-        "template" : {
+        "templates" : {
             "nody" : {
-                "defaultNodyTemplateFolder" : ":/resource/"
+                "defaultTemplateFolder" : ":/resource/"
             }
         }
     }

@@ -13,7 +13,7 @@ public:
     virtual void task() final;
 
 private:
-    void travelFolder(const QString& path);
+    void travelFolder(const QString& path, const QString& root);
 
 private:
     static constexpr char SUFFIX[] = "yky";
