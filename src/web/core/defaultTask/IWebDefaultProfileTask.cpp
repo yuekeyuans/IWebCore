@@ -1,41 +1,9 @@
 ﻿#include "IWebDefaultProfileTask.h"
 #include "core/base/IConvertUtil.h"
 #include "core/config/IProfileManage.h"
+#include "core/base/IFileUtil.h"
 
 $PackageWebCoreBegin
-
-static constexpr char PROFILE_CONFIG[] =
-R"(
-{
-    "http": {
-        "ip": "127.0.0.1",
-        "port": 8550,
-        "printTrace": true,
-        "defaultPageNames": [
-            "index.html",
-            "index.htm",
-            "default.html",
-            "default.htm"
-        ],
-        "fileService": {
-            "folderHandled": true,
-            "staticMapping" : true,
-            "path" : "",
-            "url" : "/",
-            "contentDisposition" : {
-                "enabled" : false,
-                "suffixes" : []
-            }
-        },
-        "template" : {
-            "nody" : {
-                "directories" : []
-            }
-        }
-    }
-}
-
-)";
 
 double IWebDefaultProfileTask::order() const
 {
@@ -44,7 +12,8 @@ double IWebDefaultProfileTask::order() const
 
 QJsonValue IWebDefaultProfileTask::config()
 {
-    IResult<QJsonObject> json = IConvertUtil::toJsonObject(PROFILE_CONFIG);
+    auto content = IFileUtil::readFileAsString(":/resource/defaultWebConfig.json");
+    IResult<QJsonObject> json = IConvertUtil::toJsonObject(content);
     return json.value();
 }
 

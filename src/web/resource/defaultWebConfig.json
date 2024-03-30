@@ -1,0 +1,28 @@
+﻿{
+    "http": {
+        "ip": "127.0.0.1",
+        "port": 8550,
+        "printTrace": true,
+        "defaultPageNames": [
+            "index.html",
+            "index.htm",
+            "default.html",
+            "default.htm"
+        ],
+        "fileService": {
+            "folderHandled": true,
+            "staticMapping" : true,
+            "path" : "",
+            "url" : "/",
+            "contentDisposition" : {
+                "enabled" : false,
+                "suffixes" : []
+            }
+        },
+        "template" : {
+            "nody" : {
+                "directories" : []
+            }
+        }
+    }
+}
