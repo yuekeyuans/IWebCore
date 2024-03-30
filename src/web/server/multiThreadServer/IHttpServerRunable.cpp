@@ -93,16 +93,16 @@ void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
     }
 
     static bool isStaticFileEnabled = controllerManage->isStaticFileActionPathEnabled();        // process as static file server then
-    static $Bool handleDir{"http.fileService.directoryHandled"};
+    static $Bool handleDir{"http.fileService.folderHandled"};
     if(isStaticFileEnabled && request.method() == IHttpMethod::GET){
         auto path = controllerManage->getStaticFileActionPath(request);
         if(!path.isEmpty()){
             return processInStaticFileMode(request, response, path);
         }
         if(handleDir){
-            auto entries = controllerManage->getStaticDirectoryActionPath(request);
+            auto entries = controllerManage->getStaticFolderActionPath(request);
             if(!entries.isEmpty()){
-                return processInStaticDirectoryMode(request, response, entries);
+                return processInStaticFolderMode(request, response, entries);
             }
         }
     }
@@ -151,15 +151,11 @@ void IHttpServerRunable::processInMethodMode(IRequest &request, IResponse &respo
 void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &response, const QString &path)
 {
     Q_UNUSED(request)
-
-    if(QFileInfo(path).isDir()){
-    }else{
-        IFileResponse fileResponse(path);
-        response.setContent(&fileResponse);
-    }
+    IFileResponse fileResponse(path);
+    response.setContent(&fileResponse);
 }
 
-void IHttpServerRunable::processInStaticDirectoryMode(IRequest &request, IResponse &response, const QStringList& entries)
+void IHttpServerRunable::processInStaticFolderMode(IRequest &request, IResponse &response, const QStringList& entries)
 {
     IHtmlResponse htmlResponse(entries.join(", "));
     response.setContent(htmlResponse);

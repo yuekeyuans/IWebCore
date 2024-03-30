@@ -122,7 +122,7 @@ HEADERS += \
     $$PWD/web/biscuits/IHttpMime.h \
     $$PWD/web/biscuits/IHttpStatus.h \
     $$PWD/web/biscuits/IHttpVersion.h \
-    $$PWD/web/controller/IControllerDirectoryMapping.h \
+    $$PWD/web/controller/IControllerFolderMapping.h \
     $$PWD/web/controller/IControllerResourceMapping.h \
     $$PWD/web/controller/IControllerRouteMapping.h \
     $$PWD/web/controller/private/IControllerInfo.h \
@@ -280,7 +280,7 @@ SOURCES += \
     $$PWD/web/biscuits/IHttpMime.cpp \
     $$PWD/web/biscuits/IHttpStatus.cpp \
     $$PWD/web/biscuits/IHttpVersion.cpp \
-    $$PWD/web/controller/IControllerDirectoryMapping.cpp \
+    $$PWD/web/controller/IControllerFolderMapping.cpp \
     $$PWD/web/controller/IControllerResourceMapping.cpp \
     $$PWD/web/controller/IControllerRouteMapping.cpp \
     $$PWD/web/controller/private/IControllerInterfaceHelper.cpp \
@@ -368,6 +368,9 @@ DISTFILES += \
     $$PWD/web/controller/controller \
     $$PWD/web/core/defaultTask/defaultWebProfile.json \
     $$PWD/web/server/server
+
+RESOURCES += \
+    $$PWD/web/webresource.qrc
 
 
 

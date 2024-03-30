@@ -10,7 +10,7 @@ $SetFileServiceMapping("E:/123/export2/dest/倪柝声文集/")
 //$EnableFileServiceStaticMapping(false)
 //$SetFileServiceAttachmentSuffix("html", "htm", "rar")
 
-$SetNodyTemplateDirectory(":/template/")
+$SetNodyTemplateFolder(":/template/")
 
 int main(int argc, char *argv[])
 {

@@ -114,7 +114,7 @@ void IControllerManage::registerStaticFiles(const QString &path, const QString &
     if(enabledFileStaticMapping){
         m_resourceMappings.mountMapping(dir.absolutePath(), prefix);
     }else{
-        m_directoryMappings.mountMapping(dir.absolutePath(), prefix);
+        m_folderMappings.mountMapping(dir.absolutePath(), prefix);
     }
 }
 
@@ -184,7 +184,7 @@ void IControllerManage::travalPrintUrlTree()
 {
     instance()->m_urlMapppings.travelPrint();
     instance()->m_resourceMappings.travelPrint();
-    instance()->m_directoryMappings.travelPrint();
+    instance()->m_folderMappings.travelPrint();
 }
 
 QString IControllerManage::queryPathRegValidator(const QString &path)
@@ -250,7 +250,7 @@ IStatusActionNode *IControllerManage::getStatusActionNode(IHttpStatus status)
 
 bool IControllerManage::isStaticFileActionPathEnabled()
 {
-    return m_resourceMappings.isEnabled() || m_directoryMappings.isEnabled();
+    return m_resourceMappings.isEnabled() || m_folderMappings.isEnabled();
 }
 
 QString IControllerManage::getStaticFileActionPath(const IRequest &request)
@@ -263,14 +263,14 @@ QString IControllerManage::getStaticFileActionPath(const IRequest &request)
         }
     }
 
-    static bool isDirMapping = m_directoryMappings.isEnabled();
+    static bool isDirMapping = m_folderMappings.isEnabled();
     if(isDirMapping){
-        return m_directoryMappings.getFilePath(request.url());
+        return m_folderMappings.getFilePath(request.url());
     }
     return {};
 }
 
-QStringList IControllerManage::getStaticDirectoryActionPath(const IRequest &request)
+QStringList IControllerManage::getStaticFolderActionPath(const IRequest &request)
 {
     auto url = request.url();
     if(!url.endsWith("/")){
@@ -281,9 +281,9 @@ QStringList IControllerManage::getStaticDirectoryActionPath(const IRequest &requ
         return m_resourceMappings.getFileEntries(url);
     }
 
-    static bool isDirMapping = m_directoryMappings.isEnabled();
+    static bool isDirMapping = m_folderMappings.isEnabled();
     if(isDirMapping){
-        return m_directoryMappings.getFileEntries(url);
+        return m_folderMappings.getFileEntries(url);
     }
 
     return {};

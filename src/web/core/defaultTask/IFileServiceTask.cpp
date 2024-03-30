@@ -11,7 +11,9 @@ void IFileServiceTask::task()
         return;
     }
 
-    $QString staticUrl{"http.fileService.url", "/"};
+    $QString staticUrl{"http.fileService.url"};
+
+    qDebug() << "url" << staticUrl.value();
     IControllerManage::instance()->registerStaticFiles(staticPath, staticUrl);
 }
 

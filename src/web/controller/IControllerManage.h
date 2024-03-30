@@ -13,7 +13,7 @@
 
 #include "IControllerRouteMapping.h"
 #include "IControllerResourceMapping.h"
-#include "IControllerDirectoryMapping.h"
+#include "IControllerFolderMapping.h"
 
 $PackageWebCoreBegin
 
@@ -62,7 +62,7 @@ public:
 
     bool isStaticFileActionPathEnabled();
     QString getStaticFileActionPath(const IRequest& request);
-    QStringList getStaticDirectoryActionPath(const IRequest& request);
+    QStringList getStaticFolderActionPath(const IRequest& request);
 
     static bool preIntercept(IRequest& request, IResponse& response);
     static bool postIntercept(IRequest& request, IResponse& response);
@@ -82,7 +82,7 @@ private:
     bool m_isServerStarted{false};
     IControllerRouteMapping m_urlMapppings;
     IControllerResourceMapping m_resourceMappings;
-    IControllerDirectoryMapping m_directoryMappings;
+    IControllerFolderMapping m_folderMappings;
 
     QMap<IHttpStatus, IStatusActionNode> m_statusMappings;
     QMap<QString, QString> m_pathRegValidators;

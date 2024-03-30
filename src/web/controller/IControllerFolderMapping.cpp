@@ -1,4 +1,4 @@
-﻿#include "IControllerDirectoryMapping.h"
+﻿#include "IControllerFolderMapping.h"
 #include "core/config/IProfileImport.h"
 #include "web/IWebAssert.h"
 
@@ -6,12 +6,12 @@ $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-bool IControllerDirectoryMapping::isEnabled() const
+bool IControllerFolderMapping::isEnabled() const
 {
     return m_enabled;
 }
 
-QString IControllerDirectoryMapping::getFilePath(const QString &url) const
+QString IControllerFolderMapping::getFilePath(const QString &url) const
 {
     if(!m_enabled){
         return {};
@@ -27,7 +27,7 @@ QString IControllerDirectoryMapping::getFilePath(const QString &url) const
                 return path;
             }
             if(info.exists() && info.isDir()){
-                return getDirectoryDefaultFilePath(path);
+                return getFolderDefaultFilePath(path);
             }
         }
     }
@@ -35,7 +35,7 @@ QString IControllerDirectoryMapping::getFilePath(const QString &url) const
     return {};
 }
 
-QStringList IControllerDirectoryMapping::getFileEntries(const QString &url)
+QStringList IControllerFolderMapping::getFileEntries(const QString &url)
 {
     if(!m_enabled){
         return {};
@@ -54,7 +54,7 @@ QStringList IControllerDirectoryMapping::getFileEntries(const QString &url)
     return ret;
 }
 
-void IControllerDirectoryMapping::mountMapping(const QString &path, const QString &prefix)
+void IControllerFolderMapping::mountMapping(const QString &path, const QString &prefix)
 {
     QDir dir(path);
     if(!dir.exists() || dir.isEmpty()){
@@ -68,10 +68,10 @@ void IControllerDirectoryMapping::mountMapping(const QString &path, const QStrin
     m_enabled = true;
 }
 
-void IControllerDirectoryMapping::travelPrint() const
+void IControllerFolderMapping::travelPrint() const
 {
     if(m_enabled){
-        qDebug() << "Directory Mapping:";
+        qDebug() << "Folder Mapping:";
         auto keys = m_map.keys();
         for(const auto& key : keys){
             qDebug().noquote()<< QString().fill(' ', 2) << key << "to" << m_map[key];
@@ -80,7 +80,7 @@ void IControllerDirectoryMapping::travelPrint() const
     }
 }
 
-QString IControllerDirectoryMapping::getDirectoryDefaultFilePath(const QString &path) const
+QString IControllerFolderMapping::getFolderDefaultFilePath(const QString &path) const
 {
     static $QStringList defaultPages{"http.defaultPageNames"};
     static const QStringList& pages = defaultPages.value();

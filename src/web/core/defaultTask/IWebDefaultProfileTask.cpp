@@ -18,7 +18,7 @@ R"(
             "default.htm"
         ],
         "fileService": {
-            "directoryHandled": true,
+            "folderHandled": true,
             "staticMapping" : true,
             "path" : "",
             "url" : "/",

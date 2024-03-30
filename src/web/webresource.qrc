@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resource/defaultWebConfig.json</file>
+        <file>resource/defaultPages/folder.html</file>
+    </qresource>
+</RCC>

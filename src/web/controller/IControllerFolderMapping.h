@@ -4,10 +4,10 @@
 
 $PackageWebCoreBegin
 
-class IControllerDirectoryMapping
+class IControllerFolderMapping
 {
 public:
-    IControllerDirectoryMapping() = default;
+    IControllerFolderMapping() = default;
 
 public:
     bool isEnabled() const;
@@ -17,7 +17,7 @@ public:
     void travelPrint() const;
 
 private:
-    QString getDirectoryDefaultFilePath(const QString&) const;
+    QString getFolderDefaultFilePath(const QString&) const;
 
 private:
     QMap<QString, QString> m_map;
