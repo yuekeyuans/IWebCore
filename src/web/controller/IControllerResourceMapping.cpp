@@ -35,7 +35,7 @@ QStringList IControllerResourceMapping::getFileEntries(const QString &url)
     }
 
     QStringList ret;
-    auto keys = m_fileMappings.keys();
+    static const auto keys = m_fileMappings.keys();
     for(const QString& key : keys){
         if(key.startsWith(url)){
             auto val = key.mid(url.length());

@@ -273,6 +273,9 @@ QString IControllerManage::getStaticFileActionPath(const IRequest &request)
 QStringList IControllerManage::getStaticDirectoryActionPath(const IRequest &request)
 {
     auto url = request.url();
+    if(!url.endsWith("/")){
+        url.append("/");
+    }
     static bool isResourceMapping = m_resourceMappings.isEnabled();
     if(isResourceMapping){
         return m_resourceMappings.getFileEntries(url);
@@ -282,6 +285,7 @@ QStringList IControllerManage::getStaticDirectoryActionPath(const IRequest &requ
     if(isDirMapping){
         return m_directoryMappings.getFileEntries(url);
     }
+
     return {};
 }
 

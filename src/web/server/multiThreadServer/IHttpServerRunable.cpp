@@ -7,6 +7,8 @@
 #include "web/net/IResponse.h"
 #include "web/net/impl/IReqRespRaw.h"
 #include "web/response/IFileResponse.h"
+#include "web/response/INodyResponse.h"
+#include "web/response/IHtmlResponse.h"
 
 $PackageWebCoreBegin
 
@@ -157,10 +159,10 @@ void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &r
     }
 }
 
-void IHttpServerRunable::processInStaticDirectoryMode(IRequest &request, IResponse &IResponse, const QStringList& entries)
+void IHttpServerRunable::processInStaticDirectoryMode(IRequest &request, IResponse &response, const QStringList& entries)
 {
-    qDebug() << entries;
-    // TODO:
+    IHtmlResponse htmlResponse(entries.join(", "));
+    response.setContent(htmlResponse);
 }
 
 void IHttpServerRunable::processInNotFoundMode(IRequest &request, IResponse &response)
