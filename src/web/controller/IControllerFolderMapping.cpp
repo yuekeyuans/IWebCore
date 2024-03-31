@@ -1,5 +1,4 @@
 ﻿#include "IControllerFolderMapping.h"
-#include "core/config/IProfileImport.h"
 #include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
@@ -82,7 +81,6 @@ void IControllerFolderMapping::travelPrint() const
 
 QString IControllerFolderMapping::getFolderDefaultFilePath(const QString &path) const
 {
-    static $QStringList defaultPages{"http.defaultPageNames"};
     static const QStringList& pages = defaultPages.value();
     for(const QString& name : pages){
         QFileInfo file(path + name);

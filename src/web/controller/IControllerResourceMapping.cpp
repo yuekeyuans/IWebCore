@@ -1,6 +1,5 @@
 ﻿#include "IControllerResourceMapping.h"
 #include "core/base/IFileUtil.h"
-#include "core/config/IProfileImport.h"
 #include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
@@ -97,7 +96,6 @@ void IControllerResourceNodeHelper::mountFilesToResourceMapping(QMap<QString, QS
 
 void IControllerResourceNodeHelper::mountFirstPageToServer(QMap<QString, QString>& hash, const QString& path, const QString& prefix)
 {
-    static $QStringList defaultPages{"http.defaultPageNames"};
     static const QStringList& pages = defaultPages.value();
     for(const auto& name : pages){
         auto pagePath = IFileUtil::joinPath(path, name);

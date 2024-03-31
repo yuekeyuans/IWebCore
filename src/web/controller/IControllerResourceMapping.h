@@ -1,5 +1,7 @@
 ﻿#pragma once
+
 #include "core/base/IHeaderUtil.h"
+#include "core/config/IProfileImport.h"
 
 $PackageWebCoreBegin
 
@@ -19,6 +21,7 @@ private:
     QMap<QString, QString> m_map;
     QMap<QString, QString> m_fileMappings;
     bool m_enabled{false};
+    $QStringList defaultPages{"http.defaultPageNames"};
 };
 
 $PackageWebCoreEnd
