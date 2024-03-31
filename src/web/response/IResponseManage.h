@@ -5,7 +5,7 @@
 
 $PackageWebCoreBegin
 
-struct Nody;
+struct INody;
 class IResponseWare;
 
 class IResponseManage : public ISingletonUnit<IResponseManage>
@@ -17,14 +17,14 @@ public:
     void registerResponseType(IResponseWare* response);
     IResponseWare* convertMatch(const QString&);
 
-    void registerNodyProcesser(const QString& path, Nody*);
-    Nody* getNodyProcessor(const QString& path);
+    void registerNodyProcesser(const QString& path, INody*);
+    INody* getNodyProcessor(const QString& path);
     bool isNodyPathExist(const QString& path);
 
 private:
     QVector<IResponseWare*> m_responses;
     QMap<QString, IResponseWare*> m_convertResponses;
-    QHash<QString, Nody*> m_nodyProcessor;
+    QHash<QString, INody*> m_nodyProcessor;
 };
 
 $PackageWebCoreEnd

@@ -1,6 +1,6 @@
 ﻿<html>
     <body>
-        <p> ${{url}} </p>
+        <p> ${url} </p>
     <body>
 
 </html>

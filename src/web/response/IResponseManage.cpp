@@ -28,12 +28,12 @@ IResponseWare* IResponseManage::convertMatch(const QString &content)
     return nullptr;
 }
 
-void IResponseManage::registerNodyProcesser(const QString &path, Nody *nody)
+void IResponseManage::registerNodyProcesser(const QString &path, INody *nody)
 {
     m_nodyProcessor[path] = nody;
 }
 
-Nody *IResponseManage::getNodyProcessor(const QString &path)
+INody *IResponseManage::getNodyProcessor(const QString &path)
 {
     if(m_nodyProcessor.contains(path)){
         return m_nodyProcessor[path];

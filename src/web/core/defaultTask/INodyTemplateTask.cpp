@@ -34,7 +34,7 @@ void INodyTemplateTask::travelFolder(const QString &path, const QString& root)
         }else{
             auto fileName = entry.absoluteFilePath();
             if(fileName.endsWith(SUFFIX)){
-                auto node = NodyParser().parseContent(IFileUtil::readFileAsString(fileName));
+                auto node = INodyParser::parseContent(IFileUtil::readFileAsString(fileName));
                 if(node){
                     auto realPath = fileName.replace(root, "");
                     IResponseManage::instance()->registerNodyProcesser(realPath, node);
