@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "core/task/default/IInitializationTaskInterface.h"
+#include "core/config/IProfileImport.h"
 
 $PackageWebCoreBegin
 
@@ -16,7 +17,9 @@ private:
     void travelFolder(const QString& path, const QString& root);
 
 private:
-    static constexpr char SUFFIX[] = "yky";
+    $QString suffix{"http.templates.nody.suffix"};
+    $QString defaultFolder{"http.templates.nody.defaultTemplateFolder"};
+    $QString folder{"http.templates.nody.templateFolder"};
 };
 
 $PackageWebCoreEnd

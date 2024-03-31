@@ -13,12 +13,10 @@ INodyTemplateTask::INodyTemplateTask()
 
 void INodyTemplateTask::task()
 {
-    $QString defaultFolder{"http.templates.nody.defaultTemplateFolder"};
     if(!defaultFolder.value().isEmpty()){
         travelFolder(defaultFolder, defaultFolder);
     }
 
-    $QString folder{"http.templates.nody.templateFolder"};
     if(!folder.value().isEmpty()){
         travelFolder(folder, defaultFolder);
     }
@@ -31,14 +29,15 @@ void INodyTemplateTask::travelFolder(const QString &path, const QString& root)
     for(auto entry : entries){
         if(entry.isDir()){
             travelFolder(entry.absoluteFilePath(), root);
-        }else{
-            auto fileName = entry.absoluteFilePath();
-            if(fileName.endsWith(SUFFIX)){
-                auto node = INodyParser::parseContent(IFileUtil::readFileAsString(fileName));
-                if(node){
-                    auto realPath = fileName.replace(root, "");
-                    IResponseManage::instance()->registerNodyProcesser(realPath, node);
-                }
+            continue;
+        }
+
+        auto fileName = entry.absoluteFilePath();
+        if(fileName.endsWith(suffix)){
+            auto node = INodyParser::parseContent(IFileUtil::readFileAsString(fileName));
+            if(node){
+                auto realPath = fileName.replace(root, "");
+                IResponseManage::instance()->registerNodyProcesser(realPath, node);
             }
         }
     }
