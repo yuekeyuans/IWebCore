@@ -21,7 +21,6 @@ private:
     QMap<QString, QString> m_map;
     QMap<QString, QString> m_fileMappings;
     bool m_enabled{false};
-    $QStringList defaultPages{"http.defaultPageNames"};
 };
 
 $PackageWebCoreEnd
