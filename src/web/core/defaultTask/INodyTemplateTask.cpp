@@ -2,7 +2,7 @@
 #include "core/config/IProfileImport.h"
 #include "core/base/IFileUtil.h"
 #include "web/response/IResponseManage.h"
-#include "NodyParser.h"
+#include "nody/INodyManage.h"
 
 $PackageWebCoreBegin
 
@@ -34,7 +34,7 @@ void INodyTemplateTask::travelFolder(const QString &path, const QString& root)
 
         auto fileName = entry.absoluteFilePath();
         if(fileName.endsWith(suffix)){
-            auto node = INodyParser::parseContent(IFileUtil::readFileAsString(fileName));
+            auto node = INodyManage::instance()->parseContent(IFileUtil::readFileAsString(fileName));
             if(node){
                 auto realPath = fileName.replace(root, "");
                 IResponseManage::instance()->registerNodyProcesser(realPath, node);
