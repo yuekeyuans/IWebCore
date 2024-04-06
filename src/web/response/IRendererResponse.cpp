@@ -1,13 +1,13 @@
-﻿#include "IRenderResponse.h"
+﻿#include "IRendererResponse.h"
 #include "IResponseManage.h"
 #include "INody.h"
-#include "IResponseTemplateInterface.h"
+#include "IResponseRendererInterface.h"
 
 $PackageWebCoreBegin
 
-IRenderResponse::IRenderResponse(const QString &path, QJsonObject value)
+IRendererResponse::IRendererResponse(const QString &path, QJsonObject value)
 {
-    static IResponseTemplateInterface* renderTemplate = IResponseManage::instance()->getRenderTemplate();
+    static IResponseRendererInterface* renderTemplate = IResponseManage::instance()->getRenderTemplate();
     if(renderTemplate->isPathExist(path)){
         setMime(IHttpMime::TEXT_HTML_UTF8);
         m_raw->setContent(renderTemplate->render(path, value));

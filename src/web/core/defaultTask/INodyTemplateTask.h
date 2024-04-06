@@ -5,7 +5,7 @@
 
 $PackageWebCoreBegin
 
-class INodyTemplate;
+class INodyRenderer;
 class INodyTemplateTask : public IInitializationTaskInterface<INodyTemplateTask>
 {
 public:
@@ -21,7 +21,7 @@ private:
     $QString suffix{"http.templates.nody.suffix"};
     $QString defaultFolder{"http.templates.nody.defaultTemplateFolder"};
     $QString folder{"http.templates.nody.templateFolder"};
-    INodyTemplate* m_template{};
+    INodyRenderer* m_template{};
 };
 
 $PackageWebCoreEnd

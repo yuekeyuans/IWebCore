@@ -7,7 +7,7 @@ $PackageWebCoreBegin
 
 struct INody;
 class IResponseWare;
-class IResponseTemplateInterface;
+class IResponseRendererInterface;
 class IResponseManage : public ISingletonUnit<IResponseManage>
 {
 public:
@@ -19,8 +19,8 @@ public:
     IResponseWare* convertMatch(const QString&);
 
 
-    IResponseTemplateInterface* getRenderTemplate();
-    void setRenderTemplate(IResponseTemplateInterface*);
+    IResponseRendererInterface* getRenderTemplate();
+    void setRenderTemplate(IResponseRendererInterface*);
 //    void registerNodyProcesser(const QString& path, INody*);
 //    INody* getNodyProcessor(const QString& path);
 //    bool isNodyPathExist(const QString& path);
@@ -29,7 +29,7 @@ private:
     QVector<IResponseWare*> m_responses;
     QMap<QString, IResponseWare*> m_convertResponses;
     QHash<QString, INody*> m_nodyProcessor;
-    IResponseTemplateInterface* m_renderTemplate{};
+    IResponseRendererInterface* m_renderTemplate{};
 };
 
 $PackageWebCoreEnd

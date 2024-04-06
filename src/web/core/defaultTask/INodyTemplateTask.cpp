@@ -3,7 +3,7 @@
 #include "core/base/IFileUtil.h"
 #include "web/response/IResponseManage.h"
 #include "nody/INodyManage.h"
-#include "nody/INodyTemplate.h"
+#include "nody/INodyRenderer.h"
 
 $PackageWebCoreBegin
 
@@ -14,7 +14,7 @@ INodyTemplateTask::INodyTemplateTask()
 
 void INodyTemplateTask::task()
 {
-    m_template = new INodyTemplate;
+    m_template = new INodyRenderer;
     IResponseManage::instance()->setRenderTemplate(m_template);
 
     if(!defaultFolder.value().isEmpty()){

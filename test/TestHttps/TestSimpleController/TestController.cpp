@@ -7,7 +7,7 @@ TestController::TestController()
 
 }
 
-IRenderResponse TestController::hello()
+IRendererResponse TestController::hello()
 {
     return {"index.yky", {}};
 }

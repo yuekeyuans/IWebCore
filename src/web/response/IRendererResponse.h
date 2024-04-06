@@ -7,16 +7,16 @@
 
 $PackageWebCoreBegin
 
-class IRenderResponse : public IResponseInterface<IRenderResponse>
+class IRendererResponse : public IResponseInterface<IRendererResponse>
 {
-    $AsResponse(IRenderResponse)
+    $AsResponse(IRendererResponse)
 public:
     using IResponseInterface::operator [];
     using IResponseInterface::IResponseInterface;
 
 public:
-    IRenderResponse() = default;
-    IRenderResponse(const QString& path, QJsonObject value);
+    IRendererResponse() = default;
+    IRendererResponse(const QString& path, QJsonObject value);
 };
 
 $PackageWebCoreEnd

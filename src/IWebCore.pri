@@ -166,12 +166,12 @@ HEADERS += \
     $$PWD/web/response/IJsonResponse.h \
     $$PWD/web/response/IPlainTextResponse.h \
     $$PWD/web/response/IRedirectResponse.h \
-    $$PWD/web/response/IRenderResponse.h \
+    $$PWD/web/response/IRendererResponse.h \
     $$PWD/web/response/IResponseContent.h \
     $$PWD/web/response/IResponseInterface.h \
     $$PWD/web/response/IResponseManage.h \
     $$PWD/web/response/IResponsePreProcessor.h \
-    $$PWD/web/response/IResponseTemplateInterface.h \
+    $$PWD/web/response/IResponseRendererInterface.h \
     $$PWD/web/response/IResponseWare.h \
     $$PWD/web/response/IResponseWareRaw.h \
     $$PWD/web/response/IStatusCodeResponse.h \
@@ -321,7 +321,7 @@ SOURCES += \
     $$PWD/web/response/IJsonResponse.cpp \
     $$PWD/web/response/IPlainTextResponse.cpp \
     $$PWD/web/response/IRedirectResponse.cpp \
-    $$PWD/web/response/IRenderResponse.cpp \
+    $$PWD/web/response/IRendererResponse.cpp \
     $$PWD/web/response/IResponseContent.cpp \
     $$PWD/web/response/IResponseManage.cpp \
     $$PWD/web/response/IResponseWare.cpp \

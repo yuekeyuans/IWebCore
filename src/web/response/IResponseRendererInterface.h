@@ -4,11 +4,11 @@
 
 $PackageWebCoreBegin
 
-class IResponseTemplateInterface
+class IResponseRendererInterface
 {
 public:
-    IResponseTemplateInterface() = default;
-    virtual ~IResponseTemplateInterface() = default;
+    IResponseRendererInterface() = default;
+    virtual ~IResponseRendererInterface() = default;
 
 public:
     virtual bool isPathExist(const QString& path) = 0;

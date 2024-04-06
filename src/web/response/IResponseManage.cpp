@@ -33,12 +33,12 @@ IResponseWare* IResponseManage::convertMatch(const QString &content)
     return nullptr;
 }
 
-IResponseTemplateInterface *IResponseManage::getRenderTemplate()
+IResponseRendererInterface *IResponseManage::getRenderTemplate()
 {
     return m_renderTemplate;
 }
 
-void IResponseManage::setRenderTemplate(IResponseTemplateInterface *renderTemplate)
+void IResponseManage::setRenderTemplate(IResponseRendererInterface *renderTemplate)
 {
     m_renderTemplate = renderTemplate;
 }

@@ -7,9 +7,9 @@
 #include "web/net/IResponse.h"
 #include "web/net/impl/IReqRespRaw.h"
 #include "web/response/IFileResponse.h"
-#include "web/response/IRenderResponse.h"
+#include "web/response/IRendererResponse.h"
 #include "web/response/IHtmlResponse.h"
-#include "web/response/IResponseTemplateInterface.h"
+#include "web/response/IResponseRendererInterface.h"
 
 $PackageWebCoreBegin
 
@@ -163,7 +163,7 @@ void IHttpServerRunable::processInStaticFolderMode(IRequest &request, IResponse 
     obj["url"] = request.url();
     obj["children"] = QJsonArray::fromStringList(entries);
     obj["isRoot"] = request.url() == "/";
-    IRenderResponse nodyResponse(path, obj);
+    IRendererResponse nodyResponse(path, obj);
     response.setContent(&nodyResponse);
 }
 
