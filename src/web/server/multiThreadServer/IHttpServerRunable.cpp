@@ -64,7 +64,6 @@ void IHttpServerRunable::runRequest(IRequest& request)
                 break;
             }
         }
-
     } while(0);
 
     if(!response.respond()){
