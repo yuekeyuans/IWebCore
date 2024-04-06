@@ -3,6 +3,7 @@
 #include "core/base/IFileUtil.h"
 #include "web/response/IResponseManage.h"
 #include "nody/INodyManage.h"
+#include "nody/INodyTemplate.h"
 
 $PackageWebCoreBegin
 
@@ -13,6 +14,9 @@ INodyTemplateTask::INodyTemplateTask()
 
 void INodyTemplateTask::task()
 {
+    m_template = new INodyTemplate;
+    IResponseManage::instance()->setRenderTemplate(m_template);
+
     if(!defaultFolder.value().isEmpty()){
         travelFolder(defaultFolder, defaultFolder);
     }
@@ -37,7 +41,7 @@ void INodyTemplateTask::travelFolder(const QString &path, const QString& root)
             auto node = INodyManage::instance()->parseContent(IFileUtil::readFileAsString(fileName));
             if(node){
                 auto realPath = fileName.replace(root, "");
-                IResponseManage::instance()->registerNodyProcesser(realPath, node);
+                m_template->addNody(realPath, node);
             }
         }
     }

@@ -2,7 +2,7 @@
 
 #include "IWeb/IControllerInterface"
 #include "web/response/IByteArrayResponse.h"
-#include "web/response/INodyResponse.h"
+#include "web/response/IRenderResponse.h"
 
 class TestController : public IControllerInterface<TestController, true>
 {
@@ -15,7 +15,7 @@ public:
 //    QString helloDelete($Header(QString, name));
 
 //    $GetMapping(hello, /)
-    INodyResponse hello();
+    IRenderResponse hello();
 
 ////    $PostMapping(helloGet, hello)
 //    QString helloGet(){

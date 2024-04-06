@@ -4,6 +4,11 @@
 
 $PackageWebCoreBegin
 
+IResponseManage::~IResponseManage()
+{
+    delete m_renderTemplate;
+}
+
 void IResponseManage::registerResponseType(IResponseWare *response)
 {
     m_responses.append(response);
@@ -28,22 +33,14 @@ IResponseWare* IResponseManage::convertMatch(const QString &content)
     return nullptr;
 }
 
-void IResponseManage::registerNodyProcesser(const QString &path, INody *nody)
+IResponseTemplateInterface *IResponseManage::getRenderTemplate()
 {
-    m_nodyProcessor[path] = nody;
+    return m_renderTemplate;
 }
 
-INody *IResponseManage::getNodyProcessor(const QString &path)
+void IResponseManage::setRenderTemplate(IResponseTemplateInterface *renderTemplate)
 {
-    if(m_nodyProcessor.contains(path)){
-        return m_nodyProcessor[path];
-    }
-    return nullptr;
-}
-
-bool IResponseManage::isNodyPathExist(const QString &path)
-{
-    return m_nodyProcessor.contains(path);
+    m_renderTemplate = renderTemplate;
 }
 
 $PackageWebCoreEnd

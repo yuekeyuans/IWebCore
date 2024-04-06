@@ -7,16 +7,16 @@
 
 $PackageWebCoreBegin
 
-class INodyResponse : public IResponseInterface<INodyResponse>
+class IRenderResponse : public IResponseInterface<IRenderResponse>
 {
-    $AsResponse(INodyResponse)
+    $AsResponse(IRenderResponse)
 public:
     using IResponseInterface::operator [];
     using IResponseInterface::IResponseInterface;
 
 public:
-    INodyResponse() = default;
-    INodyResponse(const QString& path, QJsonObject value);
+    IRenderResponse() = default;
+    IRenderResponse(const QString& path, QJsonObject value);
 };
 
 $PackageWebCoreEnd

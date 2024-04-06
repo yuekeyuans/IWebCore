@@ -7,8 +7,9 @@
 #include "web/net/IResponse.h"
 #include "web/net/impl/IReqRespRaw.h"
 #include "web/response/IFileResponse.h"
-#include "web/response/INodyResponse.h"
+#include "web/response/IRenderResponse.h"
 #include "web/response/IHtmlResponse.h"
+#include "web/response/IResponseTemplateInterface.h"
 
 $PackageWebCoreBegin
 
@@ -155,14 +156,14 @@ void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &r
 void IHttpServerRunable::processInStaticFolderMode(IRequest &request, IResponse &response, const QStringList& entries)
 {
     QString path = "template/folder.yky";
-    if(!IResponseManage::instance()->isNodyPathExist(path)){
+    if(!IResponseManage::instance()->getRenderTemplate()->isPathExist(path)){
         path = "defaultPages/folder.yky";
     }
     QJsonObject obj;
     obj["url"] = request.url();
     obj["children"] = QJsonArray::fromStringList(entries);
     obj["isRoot"] = request.url() == "/";
-    INodyResponse nodyResponse(path, obj);
+    IRenderResponse nodyResponse(path, obj);
     response.setContent(&nodyResponse);
 }
 

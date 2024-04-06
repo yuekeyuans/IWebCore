@@ -7,7 +7,7 @@ TestController::TestController()
 
 }
 
-INodyResponse TestController::hello()
+IRenderResponse TestController::hello()
 {
     return {"index.yky", {}};
 }
