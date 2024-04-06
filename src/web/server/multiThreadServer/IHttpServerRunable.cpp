@@ -155,8 +155,13 @@ void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &r
 
 void IHttpServerRunable::processInStaticFolderMode(IRequest &request, IResponse &response, const QStringList& entries)
 {
+    auto renderTemplate = IResponseManage::instance()->getRenderTemplate();
+    if(!renderTemplate){
+        return;
+    }
+
     QString path = "template/folder.yky";
-    if(!IResponseManage::instance()->getRenderTemplate()->isPathExist(path)){
+    if(!renderTemplate->isPathExist(path)){
         path = "defaultPages/folder.yky";
     }
     QJsonObject obj;

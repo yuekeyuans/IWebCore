@@ -1,6 +1,7 @@
 ﻿#include "INodyTemplateTask.h"
 #include "core/config/IProfileImport.h"
 #include "core/base/IFileUtil.h"
+#include "core/config/IProfileImport.h"
 #include "web/response/IResponseManage.h"
 #include "nody/INodyManage.h"
 #include "nody/INodyRenderer.h"
@@ -9,12 +10,17 @@ $PackageWebCoreBegin
 
 INodyTemplateTask::INodyTemplateTask()
 {
-
 }
 
 void INodyTemplateTask::task()
 {
+    $Bool nodyEnabled{"http.templates.nody.enabled"};
+    if(!nodyEnabled){
+        return;
+    }
+
     m_template = new INodyRenderer;
+    delete IResponseManage::instance()->getRenderTemplate();
     IResponseManage::instance()->setRenderTemplate(m_template);
 
     if(!defaultFolder.value().isEmpty()){

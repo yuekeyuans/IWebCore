@@ -21,6 +21,7 @@
         },
         "templates" : {
             "nody" : {
+                "enabled" : true,
                 "defaultTemplateFolder" : ":/resource/",
                 "suffix" : "yky"
 

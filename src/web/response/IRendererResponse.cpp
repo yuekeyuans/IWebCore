@@ -7,8 +7,8 @@ $PackageWebCoreBegin
 
 IRendererResponse::IRendererResponse(const QString &path, QJsonObject value)
 {
-    static IResponseRendererInterface* renderTemplate = IResponseManage::instance()->getRenderTemplate();
-    if(renderTemplate->isPathExist(path)){
+    IResponseRendererInterface* renderTemplate = IResponseManage::instance()->getRenderTemplate();
+    if(renderTemplate && renderTemplate->isPathExist(path)){
         setMime(IHttpMime::TEXT_HTML_UTF8);
         m_raw->setContent(renderTemplate->render(path, value));
     }else{
