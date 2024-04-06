@@ -324,6 +324,7 @@ SOURCES += \
     $$PWD/web/response/IRendererResponse.cpp \
     $$PWD/web/response/IResponseContent.cpp \
     $$PWD/web/response/IResponseManage.cpp \
+    $$PWD/web/response/IResponseRendererInterface.cpp \
     $$PWD/web/response/IResponseWare.cpp \
     $$PWD/web/response/IResponseWareRaw.cpp \
     $$PWD/web/response/IStatusCodeResponse.cpp \
