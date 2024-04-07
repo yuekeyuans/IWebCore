@@ -1,6 +1,15 @@
 ﻿<html>
     <body>
-        <p> ${{url}} </p>
+        <h1>URL: ${{url}} </h1>
+        $if isRoot {{}}
+        $else {{
+            <p> <a href='../'>..</a></p>
+        }}
+        $for path in children {{
+            <p> <a href="${{url}}/${{path}}">${{path}}</a></p>
+        }}
+
     <body>
+
 
 </html>
