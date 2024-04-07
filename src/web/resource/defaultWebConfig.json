@@ -20,6 +20,7 @@
             }
         },
         "templates" : {
+            "enableErrorTemplate" : true,
             "nody" : {
                 "enabled" : true,
                 "defaultTemplateFolder" : ":/resource/",
