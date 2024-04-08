@@ -23,9 +23,9 @@
             "enableErrorTemplate" : true,
             "nody" : {
                 "enabled" : true,
-                "defaultTemplateFolder" : ":/resource/",
+                "defaultNodyTemplateFolder" : ":/resource/defaultNodyTemplateFolder/",
+                "userNodyTemplateFolder" : ":/resource/userNodyTemplateFolder/",
                 "suffix" : "yky"
-
             }
         }
     }
