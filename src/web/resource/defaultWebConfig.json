@@ -24,7 +24,7 @@
             "nody" : {
                 "enabled" : true,
                 "defaultNodyTemplateFolder" : ":/resource/defaultNodyTemplateFolder/",
-                "userNodyTemplateFolder" : ":/resource/userNodyTemplateFolder/",
+                "userDefinedNodyTemplateFolder" : ":/resource/userDefinedNodyTemplateFolder/",
                 "suffix" : "yky"
             }
         }

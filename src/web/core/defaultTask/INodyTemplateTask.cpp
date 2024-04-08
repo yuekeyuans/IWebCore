@@ -27,8 +27,8 @@ void INodyTemplateTask::task()
         travelFolder(defaultFolder, defaultFolder);
     }
 
-    if(!folder.value().isEmpty()){
-        travelFolder(folder, defaultFolder);
+    if(!userDefinedFolder.value().isEmpty()){
+        travelFolder(userDefinedFolder, defaultFolder);
     }
 }
 

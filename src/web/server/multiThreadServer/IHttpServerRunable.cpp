@@ -160,10 +160,7 @@ void IHttpServerRunable::processInStaticFolderMode(IRequest &request, IResponse 
         return;
     }
 
-    QString path = "template/folder.yky";
-    if(!renderTemplate->isPathExist(path)){
-        path = "defaultPages/folder.yky";
-    }
+    auto path = renderTemplate->getPage(IResponseRendererInterface::PageType::FileDirectory);
     QJsonObject obj;
     obj["url"] = request.url();
     obj["children"] = QJsonArray::fromStringList(entries);

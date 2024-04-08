@@ -19,8 +19,8 @@ private:
 
 private:
     $QString suffix{"http.templates.nody.suffix"};
-    $QString defaultFolder{"http.templates.nody.defaultTemplateFolder"};
-    $QString folder{"http.templates.nody.templateFolder"};
+    $QString defaultFolder{"http.templates.nody.defaultNodyTemplateFolder"};
+    $QString userDefinedFolder{"http.templates.nody.userDefinedNodyTemplateFolder"};
     INodyRenderer* m_template{};
 };
 
