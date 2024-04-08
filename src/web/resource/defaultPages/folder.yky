@@ -8,8 +8,5 @@
         $for path in children {{
             <p> <a href="${{url}}/${{path}}">${{path}}</a></p>
         }}
-
     <body>
-
-
 </html>
