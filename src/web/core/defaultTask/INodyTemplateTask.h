@@ -18,9 +18,8 @@ private:
     void travelFolder(const QString& path, const QString& root);
 
 private:
-    $QString suffix{"http.templates.nody.suffix"};
-    $QString defaultFolder{"http.templates.nody.defaultNodyTemplateFolder"};
-    $QString userDefinedFolder{"http.templates.nody.userDefinedNodyTemplateFolder"};
+    $QString m_suffix{"http.templates.nody.suffix"};
+    $QString m_templateDir{"http.templates.nody.templateDir"};
     INodyRenderer* m_template{};
 };
 

@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>resource/defaultWebConfig.json</file>
-        <file>resource/defaultNodyTemplateFolder/errorPage.yky</file>
-        <file>resource/defaultNodyTemplateFolder/folder.yky</file>
+        <file>resource/templates/defaultNodyTemplate/errorPage.yky</file>
+        <file>resource/templates/defaultNodyTemplate/folder.yky</file>
     </qresource>
 </RCC>

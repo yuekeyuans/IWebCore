@@ -23,12 +23,8 @@ void INodyTemplateTask::task()
     delete IResponseManage::instance()->getRenderTemplate();
     IResponseManage::instance()->setRenderTemplate(m_template);
 
-    if(!defaultFolder.value().isEmpty()){
-        travelFolder(defaultFolder, defaultFolder);
-    }
-
-    if(!userDefinedFolder.value().isEmpty()){
-        travelFolder(userDefinedFolder, defaultFolder);
+    if(!m_templateDir.value().isEmpty() && QFileInfo(m_templateDir).exists() && QFileInfo(m_templateDir).isDir()){
+        travelFolder(m_templateDir, m_templateDir);
     }
 }
 
@@ -43,7 +39,7 @@ void INodyTemplateTask::travelFolder(const QString &path, const QString& root)
         }
 
         auto fileName = entry.absoluteFilePath();
-        if(fileName.endsWith(suffix)){
+        if(fileName.endsWith(m_suffix)){
             auto node = INodyManage::instance()->parseContent(IFileUtil::readFileAsString(fileName));
             if(node){
                 auto realPath = fileName.replace(root, "");
