@@ -5,15 +5,15 @@
 
 $PackageWebCoreBegin
 
-class IResponseRendererInterface
+class IResponseTemplateRenderer
 {
 public:
     enum PageType {
-        FileDirectory,
+        Directory,
     };
 public:
-    IResponseRendererInterface();
-    virtual ~IResponseRendererInterface() = default;
+    IResponseTemplateRenderer();
+    virtual ~IResponseTemplateRenderer() = default;
 
 public:
     virtual bool isPathExist(const QString& path) = 0;

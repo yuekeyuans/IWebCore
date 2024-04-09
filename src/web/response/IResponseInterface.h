@@ -61,7 +61,6 @@ IResponseInterface<T>::IResponseInterface(IInvalidRepsonse &&response)
 template<typename T>
 IResponseInterface<T>::IResponseInterface(const IResponseInterface &rhs) : IResponseWare(rhs)
 {
-    qDebug() << "copy construct";
 }
 
 template<typename T>

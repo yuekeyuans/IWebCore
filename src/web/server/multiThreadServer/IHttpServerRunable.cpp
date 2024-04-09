@@ -9,7 +9,7 @@
 #include "web/response/IFileResponse.h"
 #include "web/response/IRendererResponse.h"
 #include "web/response/IHtmlResponse.h"
-#include "web/response/IResponseRendererInterface.h"
+#include "web/response/IResponseTemplateRenderer.h"
 
 $PackageWebCoreBegin
 
@@ -155,12 +155,12 @@ void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &r
 
 void IHttpServerRunable::processInStaticFolderMode(IRequest &request, IResponse &response, const QStringList& entries)
 {
-    auto renderTemplate = IResponseManage::instance()->getRenderTemplate();
+    auto renderTemplate = IResponseManage::instance()->getTemplateRenderer();
     if(!renderTemplate){
         return;
     }
 
-    auto path = renderTemplate->getPage(IResponseRendererInterface::PageType::FileDirectory);
+    auto path = renderTemplate->getPage(IResponseTemplateRenderer::PageType::Directory);
     QJsonObject obj;
     obj["url"] = request.url();
     obj["children"] = QJsonArray::fromStringList(entries);

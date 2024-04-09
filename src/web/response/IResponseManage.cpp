@@ -6,7 +6,7 @@ $PackageWebCoreBegin
 
 IResponseManage::~IResponseManage()
 {
-    delete m_renderTemplate;
+    delete m_templateRenderer;
 }
 
 void IResponseManage::registerResponseType(IResponseWare *response)
@@ -33,14 +33,14 @@ IResponseWare* IResponseManage::convertMatch(const QString &content)
     return nullptr;
 }
 
-IResponseRendererInterface *IResponseManage::getRenderTemplate()
+IResponseTemplateRenderer *IResponseManage::getTemplateRenderer()
 {
-    return m_renderTemplate;
+    return m_templateRenderer;
 }
 
-void IResponseManage::setRenderTemplate(IResponseRendererInterface *renderTemplate)
+void IResponseManage::setTemplateRenderer(IResponseTemplateRenderer *renderTemplate)
 {
-    m_renderTemplate = renderTemplate;
+    m_templateRenderer = renderTemplate;
 }
 
 $PackageWebCoreEnd

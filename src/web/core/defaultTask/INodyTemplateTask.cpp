@@ -20,8 +20,8 @@ void INodyTemplateTask::task()
     }
 
     m_template = new INodyRenderer;
-    delete IResponseManage::instance()->getRenderTemplate();
-    IResponseManage::instance()->setRenderTemplate(m_template);
+    delete IResponseManage::instance()->getTemplateRenderer();
+    IResponseManage::instance()->setTemplateRenderer(m_template);
 
     if(!m_templateDir.value().isEmpty() && QFileInfo(m_templateDir).exists() && QFileInfo(m_templateDir).isDir()){
         travelFolder(m_templateDir, m_templateDir);

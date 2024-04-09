@@ -171,7 +171,7 @@ HEADERS += \
     $$PWD/web/response/IResponseInterface.h \
     $$PWD/web/response/IResponseManage.h \
     $$PWD/web/response/IResponsePreProcessor.h \
-    $$PWD/web/response/IResponseRendererInterface.h \
+    $$PWD/web/response/IResponseTemplateRenderer.h \
     $$PWD/web/response/IResponseWare.h \
     $$PWD/web/response/IResponseWareRaw.h \
     $$PWD/web/response/IStatusCodeResponse.h \
@@ -324,7 +324,7 @@ SOURCES += \
     $$PWD/web/response/IRendererResponse.cpp \
     $$PWD/web/response/IResponseContent.cpp \
     $$PWD/web/response/IResponseManage.cpp \
-    $$PWD/web/response/IResponseRendererInterface.cpp \
+    $$PWD/web/response/IResponseTemplateRenderer.cpp \
     $$PWD/web/response/IResponseWare.cpp \
     $$PWD/web/response/IResponseWareRaw.cpp \
     $$PWD/web/response/IStatusCodeResponse.cpp \
