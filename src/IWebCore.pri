@@ -368,6 +368,7 @@ DISTFILES += \
     $$PWD/orm/orm \
     $$PWD/web/common \
     $$PWD/web/controller/controller \
+    $$PWD/web/net/IRequest.ipp \
     $$PWD/web/server/server
 
 RESOURCES += \
