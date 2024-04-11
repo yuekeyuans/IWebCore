@@ -110,6 +110,12 @@ private:
     IReqRespRaw*  raw{nullptr};
 };
 
+#ifdef USE_INLINE
+#define __IN_LINE__ inline
+#include "IRequest.ipp"
+#endif
+
+
 $PackageWebCoreEnd
 
 

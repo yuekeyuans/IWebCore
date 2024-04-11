@@ -367,4 +367,10 @@ void IRequest::setInvalid(IHttpStatus status, const QString &message) const
     return raw->setInvalid(status, message);
 }
 
+#ifndef USE_INLINE
+#define __IN_LINE__
+#include "IRequest.ipp"
+#endif
+
+
 $PackageWebCoreEnd
