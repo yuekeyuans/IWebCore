@@ -45,7 +45,6 @@ public:
     void registerPathValidator(const QString& name, const QString& regexp);
     void registerPathValidator(const QString& name, ValidatorFun fun);
 
-    // TODO: 这里需要考虑添加到 global 和 local 的两种情形，之后添加上来，作为 AOP 的一部分。
     static void registerPreProcessor(IProcessorWare* middleWare);
     static void registerPostProcessor(IProcessorWare* middleWare);
     static void registerPreInterceptor(IInterceptorWare* middleWare);
