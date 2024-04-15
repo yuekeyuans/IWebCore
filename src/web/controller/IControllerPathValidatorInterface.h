@@ -5,12 +5,6 @@
 
 $PackageWebCoreBegin
 
-namespace IControllerPathValidatorInterfaceProxy {
-    using ValidateFun = bool(*)(const QString&);
-    void registerValidator(const QString& name, const QString& regexp);
-    void registerValidator(const QString& name, ValidateFun function);
-}
-
 template<typename T, bool enabled = true>
 class IControllerPathValidatorInterface : public ITaskInstantUnit<T, enabled>
 {
@@ -26,14 +20,20 @@ protected:
     void registerValidator(const QString& name, ValidatorFun function);
 };
 
+namespace IControllerPathValidatorInterfaceHelper {
+    using ValidateFun = bool(*)(const QString&);
+    void registerValidator(const QString& name, const QString& regexp);
+    void registerValidator(const QString& name, ValidateFun function);
+}
+
 template<typename T, bool enabled>
 void IControllerPathValidatorInterface<T, enabled>::registerValidator(const QString& name, const QString& regexp){
-    IControllerPathValidatorInterfaceProxy::registerValidator(name, regexp);
+    IControllerPathValidatorInterfaceHelper::registerValidator(name, regexp);
 }
 
 template<typename T, bool enabled>
 void IControllerPathValidatorInterface<T, enabled>::registerValidator(const QString& name, const ValidatorFun fun){
-    IControllerPathValidatorInterfaceProxy::registerValidator(name, fun);
+    IControllerPathValidatorInterfaceHelper::registerValidator(name, fun);
 }
 
 $PackageWebCoreEnd
