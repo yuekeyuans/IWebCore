@@ -154,7 +154,7 @@ void *IControllerParameter::createArgParam(const IParamNode& node, IRequest &req
     static int length = JudgeTypes.length();
     for(int i=0; i<length; i++){
         if(JudgeTypes[i].contains(node.paramTypeId)){
-            return funs[i](node, request, ok);
+            return std::mem_fn(funs[i])(this, node, request, ok);
         }
     }
 
@@ -186,7 +186,7 @@ void IControllerParameter::destroyArgParam(const IParamNode& node, void *obj)
     static int length = JudgeTypes.length();
     for(int i=0; i<length; i++){
         if(JudgeTypes[i].contains(node.paramTypeId)){
-            auto val = funs[i](node, obj);
+            auto val = std::mem_fn(funs[i])(this, node, obj);
             if(val == false){
                 qFatal(GiveColorSeeSee.toUtf8());
             }

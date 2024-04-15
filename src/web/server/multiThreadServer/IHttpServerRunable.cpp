@@ -112,9 +112,9 @@ void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &respons
 {
     Q_UNUSED(response)
     IControllerParameter::ParamType params;
-    bool ok = IControllerParameter::createArguments(function->methodNode, params, request);
+    bool ok = IControllerParameter::instance()->createArguments(function->methodNode, params, request);
     if(!ok){
-        IControllerParameter::destroyArguments(function->methodNode, params);
+        IControllerParameter::instance()->destroyArguments(function->methodNode, params);
         return;
     }
 
@@ -122,7 +122,7 @@ void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &respons
     auto enclosingObject = function->methodNode.metaMethod.enclosingMetaObject();
     enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params);
 
-    IControllerParameter::destroyArguments(function->methodNode, params);
+    IControllerParameter::instance()->destroyArguments(function->methodNode, params);
 }
 
 void IHttpServerRunable::processInFunctionMode(IRequest &request, IResponse &response, IUrlActionNode *node)
@@ -133,17 +133,17 @@ void IHttpServerRunable::processInFunctionMode(IRequest &request, IResponse &res
 void IHttpServerRunable::processInMethodMode(IRequest &request, IResponse &response, IUrlActionNode *node)
 {
     IControllerParameter::ParamType params;
-    auto ok = IControllerParameter::createArguments(node->methodNode, params, request);
+    auto ok = IControllerParameter::instance()->createArguments(node->methodNode, params, request);
     if(!ok){
-        IControllerParameter::destroyArguments(node->methodNode, params);
+        IControllerParameter::instance()->destroyArguments(node->methodNode, params);
         return;
     }
 
     auto index = node->methodNode.metaMethod.methodIndex();
     auto enclosingObject = node->methodNode.metaMethod.enclosingMetaObject();
     enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params);
-    IControllerParameter::resolveReturnValue(response, node->methodNode, params);
-    IControllerParameter::destroyArguments(node->methodNode, params);
+    IControllerParameter::instance()->resolveReturnValue(response, node->methodNode, params);
+    IControllerParameter::instance()->destroyArguments(node->methodNode, params);
 }
 
 void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &response, const QString &path)

@@ -5,8 +5,7 @@
 class DefaultPathAndMethodMapping : public IControllerInterface<DefaultPathAndMethodMapping, true>
 {
     Q_GADGET
-    $AsController(DefaultPathAndMethodMapping, defaultPath)
-
+    $AsController(defaultPath)
 public:
     DefaultPathAndMethodMapping();
 
