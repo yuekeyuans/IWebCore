@@ -23,7 +23,7 @@ public:
     virtual void registerToBase();
 
     virtual void registerController() final;
-    virtual void unRegisterController() final;
+//    virtual void unRegisterController() final;
 };
 
 namespace IControllerInterfaceHelper
@@ -32,8 +32,8 @@ namespace IControllerInterfaceHelper
                             const QMap<QString, QString>& classMap, const QVector<QMetaMethod>& methods);
     void registerError();
 
-    void unRegisterController(void* handler, const QString& className,
-                              const QMap<QString, QString>& classMap, const QVector<QMetaMethod>& methods);
+//    void unRegisterController(void* handler, const QString& className,
+//                              const QMap<QString, QString>& classMap, const QVector<QMetaMethod>& methods);
     void unRegisterError();
 }
 
@@ -74,17 +74,17 @@ void IControllerInterface<T, enabled>::registerController()
     IControllerInterfaceHelper::registerController(this, className, classInfo, classMethods);
 }
 
-template<typename T, bool enabled>
-void IControllerInterface<T, enabled>::unRegisterController()
-{
-    if(this !=  T::instance()){
-        IControllerInterfaceHelper::unRegisterError();
-    }
+//template<typename T, bool enabled>
+//void IControllerInterface<T, enabled>::unRegisterController()
+//{
+//    if(this !=  T::instance()){
+//        IControllerInterfaceHelper::unRegisterError();
+//    }
 
-    auto className = IMetaUtil::getMetaClassName (T::staticMetaObject);
-    auto classInfo = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
-    auto classMethods = IMetaUtil::getMetaMethods(T::staticMetaObject);
-    IControllerInterfaceHelper::unRegisterController(this, className, classInfo, classMethods);
-}
+//    auto className = IMetaUtil::getMetaClassName (T::staticMetaObject);
+//    auto classInfo = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
+//    auto classMethods = IMetaUtil::getMetaMethods(T::staticMetaObject);
+//    IControllerInterfaceHelper::unRegisterController(this, className, classInfo, classMethods);
+//}
 
 $PackageWebCoreEnd

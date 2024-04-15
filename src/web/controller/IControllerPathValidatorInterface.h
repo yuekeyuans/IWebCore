@@ -5,8 +5,10 @@
 
 $PackageWebCoreBegin
 
+// TODO: 这个地方拆分成两个 interface, 提供重载方法。
 template<typename T, bool enabled = true>
-class IControllerPathValidatorInterface : public ITaskInstantUnit<T, enabled>
+
+class IControllerPathValidatorInterface : public ITaskInstantUnit<T, enabled>   // TODO: 这个也不对
 {
 public:
     using ValidatorFun = bool(*)(const QString&);
