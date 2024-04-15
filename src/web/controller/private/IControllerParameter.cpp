@@ -28,34 +28,8 @@ $UseAssert(IWebAssert)
 namespace IControllerParameterHelper
 {
     static const QString GiveColorSeeSee = QStringLiteral("浪额康康四辣锅削阔爱");
-    static QVector<int> SystemTypes;
-    static QVector<int> MultiPartTypes;
-    static QVector<int> CookiePartTypes;
-    static QVector<int> BeanTypes;
-    static QVector<QVector<int>> JudgeTypes;
 }
-
 using namespace IControllerParameterHelper;
-
-static const QVector<int> PrimitiveTypes = {
-    QMetaType::Bool,
-    QMetaType::Short, QMetaType::UShort,
-    QMetaType::Int, QMetaType::UInt,
-    QMetaType::Long, QMetaType::ULong,
-    QMetaType::LongLong, QMetaType::ULongLong,
-    QMetaType::Float, QMetaType::Double
-};
-
-static const QVector<int> JsonTypes = {
-    QMetaType::QJsonValue,
-    QMetaType::QJsonArray,
-    QMetaType::QJsonObject
-};
-
-static const QVector<int> StringTypes = {
-    QMetaType::QString,
-    QMetaType::QByteArray
-};
 
 namespace IControllerFunctionBaseImplHelper
 {
@@ -64,15 +38,16 @@ namespace IControllerFunctionBaseImplHelper
 
 bool IControllerParameter::createArguments(const IMethodNode& methodNode, ParamType& params, IRequest &request)
 {
+    auto inst = instance();
     for(int i=0; i<=10; i++){
         params[i] = nullptr;
     }
 
-    params[0] = createReturnParam(methodNode.returnTypeId);
+    params[0] = inst->createReturnParam(methodNode.returnTypeId);
 
     bool ok;
     for(int i=0; i<methodNode.getParamCount(); i++){
-        params[i + 1] = createArgParam(methodNode.paramNodes[i], request, ok);
+        params[i + 1] = inst->createArgParam(methodNode.paramNodes[i], request, ok);
         if(!ok){
             return false;
         }
@@ -83,42 +58,43 @@ bool IControllerParameter::createArguments(const IMethodNode& methodNode, ParamT
 
 void IControllerParameter::destroyArguments(const IMethodNode& node, void **params)
 {
-    destroyReturnParam(params[0], node.returnTypeId);
+    auto inst = instance();
+    inst->destroyReturnParam(params[0], node.returnTypeId);
 
     for(int i=0; i<node.getParamCount(); i++){
-        destroyArgParam(node.paramNodes[i], params[i+1]);
+        inst->destroyArgParam(node.paramNodes[i], params[i+1]);
     }
 }
 
 void IControllerParameter::resolveReturnValue(IResponse& response, const IMethodNode& functionNode, ParamType &params)
 {
     QMetaType::Type typeId = functionNode.returnTypeId;
-    QSharedPointer<IResponseWare> instance;
-
+    QSharedPointer<IResponseWare> responseWare;
+    auto inst = instance();
     switch (typeId) {
     case QMetaType::Void:
-        wrapVoidReturnInstance(response, functionNode, params);
+        inst->wrapVoidReturnInstance(response, functionNode, params);
         return;
     case QMetaType::QString:
-        instance = createStringReturnInstance(params);
+        responseWare = inst->createStringReturnInstance(params);
         break;
     case QMetaType::Int:
-        instance = QSharedPointer<IStatusCodeResponse>::create(*static_cast<int*>(params[0]));;
+        responseWare = QSharedPointer<IStatusCodeResponse>::create(*static_cast<int*>(params[0]));;
         break;
     case QMetaType::QJsonArray:
-        instance = QSharedPointer<IJsonResponse>::create(*static_cast<QJsonArray*>(params[0]));
+        responseWare = QSharedPointer<IJsonResponse>::create(*static_cast<QJsonArray*>(params[0]));
         break;
     case QMetaType::QJsonObject:
-        instance = QSharedPointer<IJsonResponse>::create(*static_cast<QJsonObject*>(params[0]));
+        responseWare = QSharedPointer<IJsonResponse>::create(*static_cast<QJsonObject*>(params[0]));
         break;
     case QMetaType::QJsonValue:
-        instance = QSharedPointer<IJsonResponse>::create(*static_cast<QJsonObject*>(params[0]));
+        responseWare = QSharedPointer<IJsonResponse>::create(*static_cast<QJsonObject*>(params[0]));
         break;
     case QMetaType::QByteArray:
-        instance = QSharedPointer<IByteArrayResponse>::create(*static_cast<QByteArray*>(params[0]));
+        responseWare = QSharedPointer<IByteArrayResponse>::create(*static_cast<QByteArray*>(params[0]));
         break;
     case QMetaType::QStringList:
-        instance = QSharedPointer<IPlainTextResponse>::create(IConvertUtil::toString(*static_cast<QStringList*>(params[0])));
+        responseWare = QSharedPointer<IPlainTextResponse>::create(IConvertUtil::toString(*static_cast<QStringList*>(params[0])));
         break;
     default:
         auto type = functionNode.returnTypeName;
@@ -130,7 +106,7 @@ void IControllerParameter::resolveReturnValue(IResponse& response, const IMethod
             qFatal(info.toUtf8());
         }
     }
-    response.setContent(instance.data());
+    response.setContent(responseWare.data());
 }
 
 void *IControllerParameter::createReturnParam(int paramTypeId)
@@ -151,9 +127,9 @@ void *IControllerParameter::createArgParam(const IParamNode& node, IRequest &req
     };
 
     ok = true;
-    static int length = JudgeTypes.length();
+    static int length = m_judgeTypes.length();
     for(int i=0; i<length; i++){
-        if(JudgeTypes[i].contains(node.paramTypeId)){
+        if(m_judgeTypes[i].contains(node.paramTypeId)){
             return std::mem_fn(funs[i])(this, node, request, ok);
         }
     }
@@ -183,9 +159,9 @@ void IControllerParameter::destroyArgParam(const IParamNode& node, void *obj)
         return;
     }
 
-    static int length = JudgeTypes.length();
+    static int length = m_judgeTypes.length();
     for(int i=0; i<length; i++){
-        if(JudgeTypes[i].contains(node.paramTypeId)){
+        if(m_judgeTypes[i].contains(node.paramTypeId)){
             auto val = std::mem_fn(funs[i])(this, node, obj);
             if(val == false){
                 qFatal(GiveColorSeeSee.toUtf8());
@@ -200,7 +176,7 @@ void IControllerParameter::destroyArgParam(const IParamNode& node, void *obj)
 void *IControllerParameter::getParamOfSystem(const IParamNode& node, IRequest &request, bool& ok)
 {
     Q_UNUSED(ok)
-    auto index = SystemTypes.indexOf(node.paramTypeId);
+    auto index = m_systemTypes.indexOf(node.paramTypeId);
 
     switch (index / 2) {
     case 0:
@@ -468,61 +444,71 @@ void IControllerParameter::initSystemTypes(){
     };
 
     static std::once_flag flag;
-    std::call_once(flag, [](){
+    std::call_once(flag, [&](){
         QString nmspace = QString($PackageWebCoreName).append("::");
 
         for(const auto& name : SystemTypeNames){
-            SystemTypes << QMetaType::type((nmspace + name).toUtf8());
-            SystemTypes << QMetaType::type((nmspace + name + "&").toUtf8());
+            m_systemTypes << QMetaType::type((nmspace + name).toUtf8());
+            m_systemTypes << QMetaType::type((nmspace + name + "&").toUtf8());
         }
     });
 }
 
 void IControllerParameter::initMultiPartTypes(){
     static std::once_flag flag;
-    std::call_once(flag, [](){
+    std::call_once(flag, [&](){
 //        QString nmspace = QString($PackageWebCoreName).append("::");
         const QString nmspace = "";
-        MultiPartTypes << QMetaType::type((nmspace + "IMultiPart").toUtf8());
-        MultiPartTypes << QMetaType::type((nmspace + "IMultiPart&").toUtf8());
+        m_multiPartTypes << QMetaType::type((nmspace + "IMultiPart").toUtf8());
+        m_multiPartTypes << QMetaType::type((nmspace + "IMultiPart&").toUtf8());
     });
 }
 
 void IControllerParameter::initCookiePartTypes(){
     static std::once_flag flag;
-    std::call_once(flag, [](){
+    std::call_once(flag, [&](){
 //        QString nmspace = QString($PackageWebCoreName).append("::");
         const QString nmspace = "";
-        CookiePartTypes << QMetaType::type((nmspace + "ICookiePart").toUtf8());
-        CookiePartTypes << QMetaType::type((nmspace + "ICookiePart&").toUtf8());
+        m_cookiePartTypes << QMetaType::type((nmspace + "ICookiePart").toUtf8());
+        m_cookiePartTypes << QMetaType::type((nmspace + "ICookiePart&").toUtf8());
     });
+}
+
+void IControllerParameter::initPrimitiveTypes()
+{
+    m_primitiveTypes = {
+        QMetaType::Bool,
+        QMetaType::Short, QMetaType::UShort,
+        QMetaType::Int, QMetaType::UInt,
+        QMetaType::Long, QMetaType::ULong,
+        QMetaType::LongLong, QMetaType::ULongLong,
+        QMetaType::Float, QMetaType::Double
+    };
+
+    m_jsonTypes = {
+        QMetaType::QJsonValue,
+        QMetaType::QJsonArray,
+        QMetaType::QJsonObject
+    };
+
+    m_stringTypes = {
+        QMetaType::QString,
+        QMetaType::QByteArray
+    };
 }
 
 void IControllerParameter::initBeanTypes(){
     static std::once_flag flag;
-    std::call_once(flag, [](){
+    std::call_once(flag, [&](){
         for(int id=QMetaType::User; ; id++){
             QString name = QMetaType::typeName(id);
             if(name.isEmpty()){
                 break;
             }
             if(IBeanTypeManage::containBean(name)){
-                BeanTypes << id;
+                m_beanTypes << id;
             }
         }
-    });
-}
-
-void IControllerParameter::initJudgeTypes(){
-    static std::once_flag flag;
-    std::call_once(flag, [](){
-        JudgeTypes << SystemTypes;
-        JudgeTypes << MultiPartTypes;
-        JudgeTypes << CookiePartTypes;
-        JudgeTypes << PrimitiveTypes;
-        JudgeTypes << StringTypes;
-        JudgeTypes << JsonTypes;
-        JudgeTypes << BeanTypes;
     });
 }
 
@@ -546,11 +532,22 @@ void* IControllerFunctionBaseImplHelper::convertParamToJson(const IParamNode &no
 
 void IControllerParameter::task()
 {
-    IControllerParameter::initSystemTypes();
-    IControllerParameter::initMultiPartTypes();
-    IControllerParameter::initCookiePartTypes();
-    IControllerParameter::initBeanTypes();
-    IControllerParameter::initJudgeTypes();
+    initPrimitiveTypes();
+    initSystemTypes();
+    initMultiPartTypes();
+    initCookiePartTypes();
+    initBeanTypes();
+
+    static std::once_flag flag;
+    std::call_once(flag, [&](){
+        m_judgeTypes << m_systemTypes;
+        m_judgeTypes << m_multiPartTypes;
+        m_judgeTypes << m_cookiePartTypes;
+        m_judgeTypes << m_primitiveTypes;
+        m_judgeTypes << m_stringTypes;
+        m_judgeTypes << m_jsonTypes;
+        m_judgeTypes << m_beanTypes;
+    });
 }
 
 $PackageWebCoreEnd

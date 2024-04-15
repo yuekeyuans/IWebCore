@@ -12,7 +12,6 @@ class IResponse;
 struct IMethodNode;
 struct IFunctionNode;
 struct IParamNode;
-
 class IControllerParameter  : public IInitializationTaskInterface<IControllerParameter>
 {
 public:
@@ -24,9 +23,9 @@ public:
     IControllerParameter() = default;
 
 public:
-    bool createArguments(const IMethodNode& methodNode, ParamType& params, IRequest& request);
-    void destroyArguments(const IMethodNode& node, void **params);
-    void resolveReturnValue(IResponse& response, const IMethodNode& functionNode, ParamType &params);
+    static bool createArguments(const IMethodNode& methodNode, ParamType& params, IRequest& request);
+    static void destroyArguments(const IMethodNode& node, void **params);
+    static void resolveReturnValue(IResponse& response, const IMethodNode& functionNode, ParamType &params);
 
 private:
     void *createReturnParam(int paramTypeId);
@@ -61,18 +60,21 @@ private:
     void initSystemTypes();
     void initMultiPartTypes();
     void initCookiePartTypes();
+    void initPrimitiveTypes();
     void initBeanTypes();
-    void initJudgeTypes();
 
 private:
-    virtual void task() final;  // TODO: 这个没有注册，是怎么回事？
+    virtual void task() final;
 
-//private:
-//    QVector<int> SystemTypes;
-//    QVector<int> MultiPartTypes;
-//    QVector<int> CookiePartTypes;
-//    QVector<int> BeanTypes;
-//    QVector<QVector<int>> JudgeTypes;
+private:
+    QVector<int> m_systemTypes;
+    QVector<int> m_multiPartTypes;
+    QVector<int> m_cookiePartTypes;
+    QVector<int> m_beanTypes;
+    QVector<int> m_primitiveTypes;
+    QVector<int> m_jsonTypes;
+    QVector<int> m_stringTypes;
+    QVector<QVector<int>> m_judgeTypes;
 };
 
 $PackageWebCoreEnd
