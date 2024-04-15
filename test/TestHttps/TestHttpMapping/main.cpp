@@ -1,8 +1,10 @@
 ﻿#include <IWebCore>
+#include "core/config/IConfigAnnomacro.h"
 
 //$EnableBeanResolveStrictMode(true)
 //$EnableBluePrint(true)
 //$EnableDefaultStaticDir("C:/ProgramData/Microsoft/Windows/OneSettings/")
+$EnableTaskOutput(true)
 
 int main(int argc, char *argv[])
 {

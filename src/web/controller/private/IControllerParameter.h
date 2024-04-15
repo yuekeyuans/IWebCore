@@ -13,7 +13,7 @@ struct IMethodNode;
 struct IFunctionNode;
 struct IParamNode;
 
-class IControllerParamUtil  : public IInitializationTaskInterface<IControllerParamUtil>
+class IControllerParameter  : public IInitializationTaskInterface<IControllerParameter>
 {
 public:
     using ParamType = void*[11];
@@ -21,10 +21,10 @@ public:
     using ReleaseParamFunType = bool (*)(const IParamNode& node, void *obj);
 
 public:
-    IControllerParamUtil() = default;
+    IControllerParameter() = default;
 
 public:
-    static bool createArguments(const IMethodNode& methodNode, ParamType& params, IRequest& request);
+    bool createArguments(const IMethodNode& methodNode, ParamType& params, IRequest& request);
     static void destroyArguments(const IMethodNode& node, void **params);
     static void resolveReturnValue(IResponse& response, const IMethodNode& functionNode, ParamType &params);
 
@@ -66,6 +66,13 @@ private:
 
 private:
     virtual void task() final;  // TODO: 这个没有注册，是怎么回事？
+
+//private:
+//    QVector<int> SystemTypes;
+//    QVector<int> MultiPartTypes;
+//    QVector<int> CookiePartTypes;
+//    QVector<int> BeanTypes;
+//    QVector<QVector<int>> JudgeTypes;
 };
 
 $PackageWebCoreEnd

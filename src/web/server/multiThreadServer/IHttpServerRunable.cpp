@@ -2,7 +2,7 @@
 #include "core/base/ISocketUtil.h"
 #include "core/config/IProfileImport.h"
 #include "web/controller/IControllerManage.h"
-#include "web/controller/private/IControllerParamUtil.h"
+#include "web/controller/private/IControllerParameter.h"
 #include "web/net/IRequest.h"
 #include "web/net/IResponse.h"
 #include "web/net/impl/IReqRespRaw.h"
@@ -34,7 +34,7 @@ void IHttpServerRunable::run()
 
 void IHttpServerRunable::runRequest(IRequest& request)
 {
-    IResponse response(&request);
+     IResponse response(&request);
     if(!request.valid()){
         response.respond();
         return;
@@ -111,10 +111,10 @@ void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
 void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &response, IStatusActionNode *function)
 {
     Q_UNUSED(response)
-    IControllerParamUtil::ParamType params;
-    bool ok = IControllerParamUtil::createArguments(function->methodNode, params, request);
+    IControllerParameter::ParamType params;
+    bool ok = IControllerParameter::createArguments(function->methodNode, params, request);
     if(!ok){
-        IControllerParamUtil::destroyArguments(function->methodNode, params);
+        IControllerParameter::destroyArguments(function->methodNode, params);
         return;
     }
 
@@ -122,7 +122,7 @@ void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &respons
     auto enclosingObject = function->methodNode.metaMethod.enclosingMetaObject();
     enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params);
 
-    IControllerParamUtil::destroyArguments(function->methodNode, params);
+    IControllerParameter::destroyArguments(function->methodNode, params);
 }
 
 void IHttpServerRunable::processInFunctionMode(IRequest &request, IResponse &response, IUrlActionNode *node)
@@ -132,18 +132,18 @@ void IHttpServerRunable::processInFunctionMode(IRequest &request, IResponse &res
 
 void IHttpServerRunable::processInMethodMode(IRequest &request, IResponse &response, IUrlActionNode *node)
 {
-    IControllerParamUtil::ParamType params;
-    auto ok = IControllerParamUtil::createArguments(node->methodNode, params, request);
+    IControllerParameter::ParamType params;
+    auto ok = IControllerParameter::createArguments(node->methodNode, params, request);
     if(!ok){
-        IControllerParamUtil::destroyArguments(node->methodNode, params);
+        IControllerParameter::destroyArguments(node->methodNode, params);
         return;
     }
 
     auto index = node->methodNode.metaMethod.methodIndex();
     auto enclosingObject = node->methodNode.metaMethod.enclosingMetaObject();
     enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params);
-    IControllerParamUtil::resolveReturnValue(response, node->methodNode, params);
-    IControllerParamUtil::destroyArguments(node->methodNode, params);
+    IControllerParameter::resolveReturnValue(response, node->methodNode, params);
+    IControllerParameter::destroyArguments(node->methodNode, params);
 }
 
 void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &response, const QString &path)
