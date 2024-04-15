@@ -296,30 +296,6 @@ IResult<QByteArray> IRequest::getSessionParameter(const QString &name) const
     return {std::move(value), ok};
 }
 
-QByteArray IRequest::getAppParameter(const QString &name, bool& ok) const
-{
-    return impl->getAppParameter(name, ok);
-}
-
-IResult<QByteArray> IRequest::getAppParameter(const QString &name) const
-{
-    bool ok;
-    auto value = impl->getAppParameter(name, ok);
-    return {std::move(value), ok};
-}
-
-QByteArray IRequest::getSystemParameter(const QString &name, bool& ok) const
-{
-    return impl->getSystemParameter(name, ok);
-}
-
-IResult<QByteArray> IRequest::getSystemParameter(const QString &name) const
-{
-    bool ok;
-    auto value = impl->getSystemParameter(name, ok);
-    return {std::move(value), ok};
-}
-
 const QMap<QString, QVariant> &IRequest::attributes() const
 {
     return raw->m_attribute;

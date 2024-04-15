@@ -39,8 +39,6 @@ public:
     QByteArray getParamParameter(const QString &name, bool& ok) const;
     QByteArray getCookieParameter(const QString &name, bool& ok) const;
     QByteArray getSessionParameter(const QString &name, bool& ok) const;
-    QByteArray getAppParameter(const QString& name, bool& ok) const;
-    QByteArray getSystemParameter(const QString& name, bool& ok) const;
 
     void resolve();
 

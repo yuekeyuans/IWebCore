@@ -215,39 +215,6 @@ QByteArray IRequestImpl::getSessionParameter(const QString &name, bool& ok) cons
     return {};
 }
 
-QByteArray IRequestImpl::getAppParameter(const QString &name, bool& ok) const
-{
-    static const QString suffix = "_app";
-
-    IToeUtil::setOk(ok, true);
-    const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
-
-
-    // TODO:
-//    bool convertOk;
-//    auto value = IContextManage::getApplicationConfig(originName, &convertOk);
-//    if(convertOk){
-//        return IConvertUtil::toByteArray(value);
-//    }
-
-//    IToeUtil::setOk(ok, convertOk);
-    return {};
-}
-
-// TODO: 这里需要特别注意，之后这个函数需要被移除，现在先不动，之后看明白了再搞
-QByteArray IRequestImpl::getSystemParameter(const QString &name, bool& ok) const
-{
-    static const QString suffix = "_system";
-
-    const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
-    auto value = IContextManage::instance()->getConfig(originName, ok);
-    if(ok){
-        return IConvertUtil::toByteArray(value);
-    }
-
-    return {};
-}
-
 void IRequestImpl::resolve()
 {
     if(!resolvePeerInfo()){
@@ -339,8 +306,6 @@ QList<QPair<QString, IRequestImpl::FunType>> IRequestImpl::parameterResolverMap(
 //        {"_content",    &IRequestImpl::getContentParameter },     // 这里并不包含 _content, 因为解析时 _content 的解析和其他的解析冲突
         {"_cookie",     &IRequestImpl::getCookieParameter},
         //        {"_session",    &IRequestImpl::getSessionParameter},
-        {"_app",        &IRequestImpl::getAppParameter},
-        {"_system",     &IRequestImpl::getSystemParameter}
     };
     return map;
 }

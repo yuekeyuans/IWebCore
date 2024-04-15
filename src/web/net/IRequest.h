@@ -88,12 +88,6 @@ public:
     QByteArray getSessionParameter(const QString& name, bool& ok) const;
     IResult<QByteArray> getSessionParameter(const QString& name) const;
 
-    QByteArray getAppParameter(const QString& name, bool& ok) const;
-    IResult<QByteArray> getAppParameter(const QString& name) const;
-
-    QByteArray getSystemParameter(const QString& name, bool& ok) const;
-    IResult<QByteArray> getSystemParameter(const QString& name) const;
-
     const QMap<QString, QVariant>& attributes() const;
     bool hasAttribute(const QString& name) const;
     void setAttribute(const QString& name, const QVariant& value);

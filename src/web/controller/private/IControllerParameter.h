@@ -10,7 +10,6 @@ $PackageWebCoreBegin
 class IRequest;
 class IResponse;
 struct IMethodNode;
-struct IFunctionNode;
 struct IParamNode;
 class IControllerParameter  : public IInitializationTaskInterface<IControllerParameter>
 {
