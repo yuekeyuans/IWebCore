@@ -18,6 +18,9 @@ public:
     IFileResponse(const QString& data);
 
 public:
+    void enableContentDisposition();
+
+public:
     virtual QString getPrefixMatcher() final;
 };
 

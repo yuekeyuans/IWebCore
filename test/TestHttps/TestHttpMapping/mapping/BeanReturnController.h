@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include <IControllerInterface>
+#include <IWeb/IControllerInterface>
 
 class BeanReturnController : public IControllerInterface<BeanReturnController>
 {

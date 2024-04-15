@@ -22,9 +22,16 @@ namespace IJsonUtil
     QJsonValue toJsonValue(const QList<QVariant>& list, bool& ok);
     QJsonValue toJsonValue(const QVariant& value, bool& ok);
 
-    template<class T>
+    template<typename T>
     QJsonValue toJsonValue(T value, bool& ok){
         return IJsonUtil::_objectToJson(value, ok);
+    }
+
+    template<typename T>
+    IResult<QJsonValue> toJsonValue(T value){
+        bool ok;
+        auto val = toJsonValue<T>(value, ok);
+        return {val, ok};
     }
 
     QJsonArray toJsonArray(const QStringList& value, bool& ok);

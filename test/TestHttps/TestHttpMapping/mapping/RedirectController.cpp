@@ -16,9 +16,8 @@ QString RedirectController::redirect2()
 
 IRedirectResponse RedirectController::redirect3()
 {
-    IRedirectResponse response;
-    response.addAttribute("word", QStringLiteral("约为"));
-    response.setRedirectPath("http://www.baidu.com/s");
+    IRedirectResponse response("http://www.baidu.com/s");
+//    response.addAttribute("word", QStringLiteral("约为"));
     return response;
 }
 

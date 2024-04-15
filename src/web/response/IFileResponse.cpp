@@ -40,6 +40,11 @@ IFileResponse::IFileResponse(const QString &data)
     }
 }
 
+void IFileResponse::enableContentDisposition()
+{
+    m_raw->headers["Content-Disposition"] = IFileResponseHelper::getContentDispositionAttachment(m_raw->content.contentFilePath);
+}
+
 QString IFileResponse::getPrefixMatcher()
 {
     return "$file:";

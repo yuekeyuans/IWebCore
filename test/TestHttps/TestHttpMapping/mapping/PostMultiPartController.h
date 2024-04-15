@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include <IControllerInterface>
+#include <IWeb/IControllerInterface>
 
 // test multipart transmission
 class PostMultiPartController : public IControllerInterface<PostMultiPartController>

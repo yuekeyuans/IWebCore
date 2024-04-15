@@ -10,6 +10,14 @@
 #include "web/response/IPlainTextResponse.h"
 #include "web/response/IHtmlResponse.h"
 #include "web/response/IFileResponse.h"
+#include "web/jar/IMultiPart.h"
+#include "web/jar/IMultiPartJar.h"
+
+#include "web/jar/ICookiePart.h"
+#include "web/jar/ICookieJar.h"
+
+#include "web/net/IRequest.h"
+#include "web/net/IResponse.h"
 
 // preprocessor
 #include "web/controller/pp/IControlVariablePreProcessor.h"

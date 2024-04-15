@@ -1,7 +1,6 @@
 ﻿#pragma once
 
-
-#include <IControllerInterface>
+#include <IWeb/IControllerInterface>
 #include "TestBean.h"
 
 class JsonReturnController : public IControllerInterface<JsonReturnController>

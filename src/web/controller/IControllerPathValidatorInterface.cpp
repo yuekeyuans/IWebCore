@@ -3,12 +3,12 @@
 
 $PackageWebCoreBegin
 
-void IControllerPathValidatorInterfaceProxy::registerValidator(const QString &name, const QString &regexp)
+void IControllerPathValidatorInterfaceHelper::registerValidator(const QString &name, const QString &regexp)
 {
     IControllerManage::instance()->registerPathValidator(name, regexp);
 }
 
-void IControllerPathValidatorInterfaceProxy::registerValidator(const QString &name, ValidateFun function)
+void IControllerPathValidatorInterfaceHelper::registerValidator(const QString &name, ValidateFun function)
 {
     IControllerManage::instance()->registerPathValidator(name, function);
 }

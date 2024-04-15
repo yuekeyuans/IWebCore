@@ -1,12 +1,12 @@
 ﻿#pragma once
 
-#include <IControllerInterface>
+#include <IWeb/IControllerInterface>
 
 class HttpMethodController : public IControllerInterface<HttpMethodController>
 {
     Q_GADGET
-    $AsController(HttpMethodController, controller)
-private:
+    $AsController(controller)
+public:
     HttpMethodController();
 
     $GetMapping(testGet, fun)

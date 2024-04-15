@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include <IControllerInterface>
+#include <IWeb/IControllerInterface>
 
 class PostParameterController : public IControllerInterface<PostParameterController, true>
 {

@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include <IControllerInterface>
+#include <IWeb/IControllerInterface>
 
 class DefaultPathAndMethodMapping : public IControllerInterface<DefaultPathAndMethodMapping, true>
 {

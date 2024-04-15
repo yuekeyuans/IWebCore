@@ -15,7 +15,8 @@ IJsonResponse BeanReturnController::getBeans()
     bean.name = "hello world";
     beans.append(bean);
     beans.append(TestBean{});
-    return IConvertUtil::toJsonValue(beans);
+    bool ok;
+    return IConvertUtil::toJsonValue(beans, ok);
 }
 
 IJsonResponse BeanReturnController::getBeans_1()

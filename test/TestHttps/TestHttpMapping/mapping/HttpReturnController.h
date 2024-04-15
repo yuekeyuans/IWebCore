@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include <IControllerInterface>
+#include <IWeb/IControllerInterface>
 
 class HttpRturnController : public IControllerInterface<HttpRturnController>
 {

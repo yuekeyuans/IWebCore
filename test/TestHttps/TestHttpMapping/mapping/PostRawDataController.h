@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include <IControllerInterface>
+#include <IWeb/IControllerInterface>
 
 // used for accept raw data
 class PostRawDataController : public IControllerInterface<PostRawDataController>

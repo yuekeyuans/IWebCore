@@ -17,14 +17,12 @@ QString ReqRespOperatorOverrideController::testReq_getHeader(IRequest &request)
 
 void ReqRespOperatorOverrideController::test_respInputOverrid(IResponse &response)
 {
-    IPlainTextResponse textResponse;
-    textResponse.setContent("hello world");
+    IPlainTextResponse textResponse("hello world");
     response << &textResponse;
 }
 
 void ReqRespOperatorOverrideController::test_respInputRefOverride(IResponse &response)
 {
-    IPlainTextResponse textResponse;
-    textResponse.setContent("hello world");
+    IPlainTextResponse textResponse("hello world");
     response << textResponse;
 }

@@ -14,8 +14,8 @@ QString PostParameterController::p1(IRequest &request, IResponse &response)
 QString PostParameterController::p2(IRequest &request)
 {
     bool ok;
-    QString val1 = request.getParameter(QStringLiteral("岳克远"), &ok);
-    QString val2 = request.getParameter(QStringLiteral("岳飞"), &ok);
+    QString val1 = request.getParameter(QStringLiteral("岳克远"), ok);
+    QString val2 = request.getParameter(QStringLiteral("岳飞"), ok);
     qDebug() << "p2" << val1 << val2;
     return val1 + val2;
 }
@@ -23,9 +23,9 @@ QString PostParameterController::p2(IRequest &request)
 QString PostParameterController::p3(IRequest &request)
 {
     bool ok;
-    QString val1 = request.getParameter(QStringLiteral("岳克远"), &ok);
+    QString val1 = request.getParameter(QStringLiteral("岳克远"), ok);
 
-    QString val2 = request.getParameter(QStringLiteral("岳飞"), &ok);
+    QString val2 = request.getParameter(QStringLiteral("岳飞"), ok);
     return val1 + val2;
 }
 

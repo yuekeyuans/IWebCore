@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include <IControllerInterface>
+#include <IWeb/IControllerInterface>
 
 // all kind of text
 class PostTextParameterRequest : public IControllerInterface<PostTextParameterRequest>

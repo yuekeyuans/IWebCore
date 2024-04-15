@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include <IControllerInterface>
+#include "IWeb/IControllerInterface"
 #include "mapping/TestBean.h"
 
 class A{};
@@ -8,7 +8,6 @@ class A{};
 class BeanParameterController : public IControllerInterface<BeanParameterController>
 {
     Q_GADGET
-    $AsController(BeanParameterController)
 public:
     BeanParameterController() = default;
 

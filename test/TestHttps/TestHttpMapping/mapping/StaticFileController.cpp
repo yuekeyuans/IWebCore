@@ -1,33 +1,33 @@
 ﻿#include "StaticFileController.h"
+#include "core/application/IApplication.h"
 
 StaticFileController::StaticFileController()
 {
 
 }
 
-IStaticFileResponse StaticFileController::getFile1()
+IFileResponse StaticFileController::getFile1()
 {
     auto path = IApplication::applicationDirPath();
     return path + "/TestHttpMapping.exe";
 }
 
-IStaticFileResponse StaticFileController::getFile2()
+IFileResponse StaticFileController::getFile2()
 {
     QString path = __FILE__;
     auto file = QFileInfo(path).absolutePath() + "/demoImage.png";
     return file;
 }
 
-IStaticFileResponse StaticFileController::getFile3()
+IFileResponse StaticFileController::getFile3()
 {
     return "TestHttpMapping.exe"_file;
 }
 
-IStaticFileResponse StaticFileController::getFile4()
+IFileResponse StaticFileController::getFile4()
 {
     auto path = IApplication::applicationDirPath() + "/TestHttpMapping.exe";
-    IStaticFileResponse response;
-    response.setFilePath(path);
+    IFileResponse response(path);
     response.enableContentDisposition();
     return response;
 }
@@ -35,12 +35,11 @@ IStaticFileResponse StaticFileController::getFile4()
 void StaticFileController::getFile5(IResponse &response)
 {
     auto path = IApplication::applicationDirPath() + "/TestHttpMapping.exe";
-    IStaticFileResponse fileResponse;
-    fileResponse.setFilePath(path);
+    IFileResponse fileResponse(path);
     response.setContent(fileResponse);
 }
 
-IStaticFileResponse StaticFileController::getConfigFile()
+IFileResponse StaticFileController::getConfigFile()
 {
     return "config.json";
 }
