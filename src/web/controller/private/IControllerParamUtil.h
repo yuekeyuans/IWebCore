@@ -2,6 +2,7 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/unit/ISingletonUnit.h"
+#include "core/task/default/IInitializationTaskInterface.h"
 #include "web/response/IResponseWare.h"
 
 $PackageWebCoreBegin
@@ -12,7 +13,7 @@ struct IMethodNode;
 struct IFunctionNode;
 struct IParamNode;
 
-class IControllerParamUtil  : public ISingletonUnit<IControllerParamUtil>// : public IInitializationTaskUnit<IControllerParamUtil>
+class IControllerParamUtil  : public IInitializationTaskInterface<IControllerParamUtil>
 {
 public:
     using ParamType = void*[11];
