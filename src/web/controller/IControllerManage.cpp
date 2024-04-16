@@ -34,21 +34,21 @@ void IControllerManage::registerStatusActionNodes(const QVector<IStatusActionNod
     }
 }
 
-void IControllerManage::unRegisterStatusActionNode(const IStatusActionNode &node)
-{
-    checkRegisterAvalible();
+//void IControllerManage::unRegisterStatusActionNode(const IStatusActionNode &node)
+//{
+//    checkRegisterAvalible();
 
-    if(m_statusMappings.contains(node.httpStatus)){
-        m_statusMappings.remove(node.httpStatus);
-    }
-}
+//    if(m_statusMappings.contains(node.httpStatus)){
+//        m_statusMappings.remove(node.httpStatus);
+//    }
+//}
 
-void IControllerManage::unRegisterStatusActionNodes(const QVector<IStatusActionNode> &statusNodes)
-{
-    for(const auto& node : statusNodes){
-        unRegisterStatusActionNode(node);
-    }
-}
+//void IControllerManage::unRegisterStatusActionNodes(const QVector<IStatusActionNode> &statusNodes)
+//{
+//    for(const auto& node : statusNodes){
+//        unRegisterStatusActionNode(node);
+//    }
+//}
 
 void IControllerManage::registerUrlActionNode(IUrlActionNode node)
 {
@@ -69,35 +69,6 @@ void IControllerManage::registerUrlActionNodes(const QVector<IUrlActionNode> &fu
 {
     for(auto& node : functionNodes){
         registerUrlActionNode(node);
-    }
-}
-
-void IControllerManage::unRegisterUrlActionNode(IUrlActionNode node)
-{
-    checkRegisterAvalible();
-
-    auto fragments = node.url.split("/");
-    auto nodePtr = &m_urlMapppings;
-
-    for(const auto& fragment : fragments){
-        nodePtr = nodePtr->getChildNode(fragment);
-        if(nodePtr == nullptr){
-            return;                  // 结束处理，因为没有相对应的内容
-        }
-    }
-
-    nodePtr->removeLeaf(node.httpMethod);
-    while(nodePtr != nullptr && nodePtr->parentNode != nullptr && nodePtr->isEmpty()){
-        auto parent = nodePtr->parentNode;
-        parent->removeChildNode(*nodePtr);
-        nodePtr = parent;
-    }
-}
-
-void IControllerManage::unRegisterUrlActionNodes(const QVector<IUrlActionNode> &functionNodes)
-{
-    for(auto& node : functionNodes){
-        unRegisterUrlActionNode(node);
     }
 }
 

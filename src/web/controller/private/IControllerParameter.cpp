@@ -5,7 +5,7 @@
 #include "core/bean/IBeanWare.h"
 #include "core/bean/IBeanTypeManage.h"
 #include "core/task/ITaskManage.h"
-#include "web/controller/private/IControllerParamBeanUtil.h"
+#include "web/controller/private/IControllerBeanParametr.h"
 #include "web/jar/IMultiPart.h"
 #include "web/node/IMethodNode.h"
 #include "web/node/IFunctionNode.h"
@@ -243,7 +243,7 @@ void *IControllerParameter::getParamOfCookiePart(const IParamNode &node, IReques
 void *IControllerParameter::getParamOfBean(const IParamNode& node, IRequest &request, bool& ok)
 {
     Q_UNUSED(ok)
-    return IControllerParamBeanUtil::getParamOfBean(node, request);
+    return IControllerBeanParametr::getParamOfBean(node, request);
 }
 
 void *IControllerParameter::getParamOfJsonType(const IParamNode& node, IRequest &request, bool& ok)

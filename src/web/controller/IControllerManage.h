@@ -31,14 +31,11 @@ public:
     void registerStatusActionNode(IStatusActionNode node);
     void registerStatusActionNodes(const QVector<IStatusActionNode>& statusNodes);
 
-    void unRegisterStatusActionNode(const IStatusActionNode& node);
-    void unRegisterStatusActionNodes(const QVector<IStatusActionNode>& statusNodes);
+//    void unRegisterStatusActionNode(const IStatusActionNode& node);
+//    void unRegisterStatusActionNodes(const QVector<IStatusActionNode>& statusNodes);
 
     void registerUrlActionNode(IUrlActionNode node);
     void registerUrlActionNodes(const QVector<IUrlActionNode>& functionNodes);
-
-    void unRegisterUrlActionNode(IUrlActionNode node);
-    void unRegisterUrlActionNodes(const QVector<IUrlActionNode>& functionNodes);
 
     void registerStaticFiles(const QString& path, const QString& prefix);
 

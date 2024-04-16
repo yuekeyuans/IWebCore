@@ -6,8 +6,7 @@ $PackageWebCoreBegin
 
 struct IControllerInfo
 {
-    void* handler;
-
+    void* handler{};
     QString className;
     QMap<QString, QString> classInfo;
     QVector<QMetaMethod> classMethods;
