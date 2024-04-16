@@ -125,7 +125,8 @@ HEADERS += \
     $$PWD/web/controller/IControllerFolderMapping.h \
     $$PWD/web/controller/IControllerResourceMapping.h \
     $$PWD/web/controller/IControllerRouteMapping.h \
-    $$PWD/web/controller/private/IControllerBeanParametr.h \
+    $$PWD/web/controller/IInvalidControllerInterface.h \
+    $$PWD/web/controller/private/IControllerBeanParameter.h \
     $$PWD/web/controller/private/IControllerInfo.h \
     $$PWD/web/controller/private/IControllerInterfaceHelper.h \
     $$PWD/web/controller/private/IControllerParameter.h \
@@ -192,7 +193,6 @@ HEADERS += \
     $$PWD/web/controller/pp/IPutMappingPreProcessor.h \
     $$PWD/web/controller/pp/IStatusCodeMappingPreProcessor.h \
     $$PWD/web/controller/pp/IStatusControllerPreProcessor.h \
-    $$PWD/web/controller/private/IDefaultStatusController.h \
     $$PWD/web/controller/private/IStatusControllerInterfaceImpl.h \
     $$PWD/web/server/IHttpServer.h \
     $$PWD/web/server/IHttpServerManage.h \
@@ -284,7 +284,7 @@ SOURCES += \
     $$PWD/web/controller/IControllerFolderMapping.cpp \
     $$PWD/web/controller/IControllerResourceMapping.cpp \
     $$PWD/web/controller/IControllerRouteMapping.cpp \
-    $$PWD/web/controller/private/IControllerBeanParametr.cpp \
+    $$PWD/web/controller/private/IControllerBeanParameter.cpp \
     $$PWD/web/controller/private/IControllerInterfaceHelper.cpp \
     $$PWD/web/controller/private/IControllerParameter.cpp \
     $$PWD/web/core/defaultTask/IBluePrintControllerTask.cpp \
@@ -335,7 +335,6 @@ SOURCES += \
     $$PWD/web/controller/IControllerManage.cpp \
     $$PWD/web/controller/IControllerPathValidatorInterface.cpp \
     $$PWD/web/controller/IStatusControllerInterface.cpp \
-    $$PWD/web/controller/private/IDefaultStatusController.cpp \
     $$PWD/web/controller/private/IStatusControllerInterfaceImpl.cpp \
     $$PWD/web/server/IHttpServer.cpp \
     $$PWD/web/server/IHttpServerManage.cpp \

@@ -34,22 +34,6 @@ void IControllerManage::registerStatusActionNodes(const QVector<IStatusActionNod
     }
 }
 
-//void IControllerManage::unRegisterStatusActionNode(const IStatusActionNode &node)
-//{
-//    checkRegisterAvalible();
-
-//    if(m_statusMappings.contains(node.httpStatus)){
-//        m_statusMappings.remove(node.httpStatus);
-//    }
-//}
-
-//void IControllerManage::unRegisterStatusActionNodes(const QVector<IStatusActionNode> &statusNodes)
-//{
-//    for(const auto& node : statusNodes){
-//        unRegisterStatusActionNode(node);
-//    }
-//}
-
 void IControllerManage::registerUrlActionNode(IUrlActionNode node)
 {
     checkRegisterAvalible();

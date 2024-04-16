@@ -35,7 +35,7 @@ namespace IControllerInterfaceHelper
 template<typename T, bool enabled>
 QString IControllerInterface<T, enabled>::name() const
 {
-    return IMetaUtil::getMetaClassName(T::staticMetaObject);
+    return IMetaUtil::getTypename<T>();
 }
 
 template<typename T, bool enabled>

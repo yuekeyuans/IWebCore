@@ -9,8 +9,3 @@
     Q_CLASSINFO( PP_STATUS_JOIN(funName, FunName), #funName) \
     Q_CLASSINFO( PP_STATUS_JOIN(funName, Status), #status)  \
     Q_INVOKABLE
-
-#define $AsStatusController(klassName) \
-public: \
-    $UseInstance(klassName) \
-private:

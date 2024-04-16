@@ -1,4 +1,4 @@
-﻿#include "IControllerBeanParametr.h"
+﻿#include "IControllerBeanParameter.h"
 
 #include "core/base/IConvertUtil.h"
 #include "core/base/IConstantUtil.h"
@@ -15,7 +15,7 @@ $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-void* IControllerBeanParametr::getParamOfBean(const IParamNode &node, IRequest &request)
+void* IControllerBeanParameter::getParamOfBean(const IParamNode &node, IRequest &request)
 {
     auto ptr = QMetaType::create(node.paramTypeId);
     auto beanWare = static_cast<IBeanWare*>(ptr);
@@ -39,7 +39,7 @@ void* IControllerBeanParametr::getParamOfBean(const IParamNode &node, IRequest &
     return assambleBeanWareWithMixed(beanWare, request);
 }
 
-void *IControllerBeanParametr::assamleBeanWareWithContent(IBeanWare *bean, IRequest &request)
+void *IControllerBeanParameter::assamleBeanWareWithContent(IBeanWare *bean, IRequest &request)
 {
     if(request.method() == IHttpMethod::GET){
         QString info = "can not get any body content when in GET method";
@@ -65,7 +65,7 @@ void *IControllerBeanParametr::assamleBeanWareWithContent(IBeanWare *bean, IRequ
 }
 
 
-void *IControllerBeanParametr::assambleBeanWareWithBody(IBeanWare *bean, IRequest &request)
+void *IControllerBeanParameter::assambleBeanWareWithBody(IBeanWare *bean, IRequest &request)
 {
     if(request.method() == IHttpMethod::GET){
         QString info = "can not get any body content when in GET method";
@@ -98,7 +98,7 @@ void *IControllerBeanParametr::assambleBeanWareWithBody(IBeanWare *bean, IReques
     return bean;
 }
 
-void *IControllerBeanParametr::assambleBeanWareWithParameter(IBeanWare *bean, IRequest &request)
+void *IControllerBeanParameter::assambleBeanWareWithParameter(IBeanWare *bean, IRequest &request)
 {
     const auto& parameters = request.paramParameters();
 
@@ -112,7 +112,7 @@ void *IControllerBeanParametr::assambleBeanWareWithParameter(IBeanWare *bean, IR
     return bean;
 }
 
-void *IControllerBeanParametr::assambleBeanWareWithUrl(IBeanWare *bean, IRequest &request)
+void *IControllerBeanParameter::assambleBeanWareWithUrl(IBeanWare *bean, IRequest &request)
 {
     const auto& parameters = request.urlParameters();
 
@@ -126,7 +126,7 @@ void *IControllerBeanParametr::assambleBeanWareWithUrl(IBeanWare *bean, IRequest
     return bean;
 }
 
-void *IControllerBeanParametr::assambleBeanWareWithHeaders(IBeanWare *bean, IRequest &request)
+void *IControllerBeanParameter::assambleBeanWareWithHeaders(IBeanWare *bean, IRequest &request)
 {
     const auto& parameters = request.headers();
 
@@ -140,7 +140,7 @@ void *IControllerBeanParametr::assambleBeanWareWithHeaders(IBeanWare *bean, IReq
     return bean;
 }
 
-void *IControllerBeanParametr::assambleBeanWareWithMixed(IBeanWare *bean, IRequest &request)
+void *IControllerBeanParameter::assambleBeanWareWithMixed(IBeanWare *bean, IRequest &request)
 {
     const auto& props = bean->getMetaProperties();
 
@@ -187,7 +187,7 @@ void *IControllerBeanParametr::assambleBeanWareWithMixed(IBeanWare *bean, IReque
     return bean;
 }
 
-void *IControllerBeanParametr::assambleBeanWareWithCookie(IBeanWare *bean, IRequest &request)
+void *IControllerBeanParameter::assambleBeanWareWithCookie(IBeanWare *bean, IRequest &request)
 {
     Q_UNUSED(request)
 
@@ -195,7 +195,7 @@ void *IControllerBeanParametr::assambleBeanWareWithCookie(IBeanWare *bean, IRequ
     return bean;
 }
 
-void *IControllerBeanParametr::assambleBeanWareWithSession(IBeanWare *bean, IRequest &request)
+void *IControllerBeanParameter::assambleBeanWareWithSession(IBeanWare *bean, IRequest &request)
 {
     Q_UNUSED(request)
 
@@ -203,7 +203,7 @@ void *IControllerBeanParametr::assambleBeanWareWithSession(IBeanWare *bean, IReq
     return bean;
 }
 
-void *IControllerBeanParametr::assambleBeanWareWithApplication(IBeanWare *bean, IRequest &request)
+void *IControllerBeanParameter::assambleBeanWareWithApplication(IBeanWare *bean, IRequest &request)
 {
     Q_UNUSED(request)
 
@@ -211,7 +211,7 @@ void *IControllerBeanParametr::assambleBeanWareWithApplication(IBeanWare *bean, 
     return bean;
 }
 
-void *IControllerBeanParametr::assambleBeanWareWithSystem(IBeanWare *bean, IRequest &request)
+void *IControllerBeanParameter::assambleBeanWareWithSystem(IBeanWare *bean, IRequest &request)
 {
     Q_UNUSED(request)
 
@@ -219,7 +219,7 @@ void *IControllerBeanParametr::assambleBeanWareWithSystem(IBeanWare *bean, IRequ
     return bean;
 }
 
-void *IControllerBeanParametr::resolveBodyForm(IBeanWare *bean, IRequest &request)
+void *IControllerBeanParameter::resolveBodyForm(IBeanWare *bean, IRequest &request)
 {
     const auto& parameters = request.bodyFormParameters();
 
@@ -233,7 +233,7 @@ void *IControllerBeanParametr::resolveBodyForm(IBeanWare *bean, IRequest &reques
     return bean;
 }
 
-void *IControllerBeanParametr::resolveBodyMultiPart(IBeanWare *bean, IRequest &request)
+void *IControllerBeanParameter::resolveBodyMultiPart(IBeanWare *bean, IRequest &request)
 {
     const auto& multiparts = request.bodyMultiParts();
 
@@ -247,7 +247,7 @@ void *IControllerBeanParametr::resolveBodyMultiPart(IBeanWare *bean, IRequest &r
     return bean;
 }
 
-void *IControllerBeanParametr::resolveBodyJson(IBeanWare *bean, IRequest &request)
+void *IControllerBeanParameter::resolveBodyJson(IBeanWare *bean, IRequest &request)
 {
     bool ok;
     auto value = request.bodyJson(ok);
@@ -263,14 +263,14 @@ void *IControllerBeanParametr::resolveBodyJson(IBeanWare *bean, IRequest &reques
     return bean;
 }
 
-void *IControllerBeanParametr::resolveBodyXml(IBeanWare *bean, IRequest &request)
+void *IControllerBeanParameter::resolveBodyXml(IBeanWare *bean, IRequest &request)
 {
     // TODO: xml
     request.setInvalid(IHttpStatus::BAD_REQUEST_400, "current convertion to bean can not be done, due to xml type");
     return bean;
 }
 
-QMap<QString, QVariant> IControllerBeanParametr::resolveBeanFieldAsMap(const QList<QPair<QString, QString> > &list, IBeanWare *bean, IRequest &request, bool& ok)
+QMap<QString, QVariant> IControllerBeanParameter::resolveBeanFieldAsMap(const QList<QPair<QString, QString> > &list, IBeanWare *bean, IRequest &request, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     QMap<QString, QVariant> map;
@@ -307,7 +307,7 @@ QMap<QString, QVariant> IControllerBeanParametr::resolveBeanFieldAsMap(const QLi
     return map;
 }
 
-QMap<QString, QVariant> IControllerBeanParametr::resolveBeanFieldAsMap(const QMap<QString, QByteArray> &raw
+QMap<QString, QVariant> IControllerBeanParameter::resolveBeanFieldAsMap(const QMap<QString, QByteArray> &raw
                                                                             , IBeanWare* bean, IRequest& request, bool& ok)
 {
     IToeUtil::setOk(ok, true);
@@ -338,7 +338,7 @@ QMap<QString, QVariant> IControllerBeanParametr::resolveBeanFieldAsMap(const QMa
     return map;
 }
 
-QMap<QString, QVariant> IControllerBeanParametr::resolveBeanFieldAsMap(const QVector<IMultiPart> &parts
+QMap<QString, QVariant> IControllerBeanParameter::resolveBeanFieldAsMap(const QVector<IMultiPart> &parts
                                                                             , IBeanWare* bean, IRequest& request, bool& ok)
 {
     QMap<QString, QVariant> map;
@@ -372,7 +372,7 @@ QMap<QString, QVariant> IControllerBeanParametr::resolveBeanFieldAsMap(const QVe
     return map;
 }
 
-bool IControllerBeanParametr::checkKeyInJsonAndBean(const QJsonObject &obj, IBeanWare* bean, IRequest& request)
+bool IControllerBeanParameter::checkKeyInJsonAndBean(const QJsonObject &obj, IBeanWare* bean, IRequest& request)
 {
     if(IConstantUtil::ReleaseMode){
         return true;
@@ -398,7 +398,7 @@ bool IControllerBeanParametr::checkKeyInJsonAndBean(const QJsonObject &obj, IBea
     return true;
 }
 
-bool IControllerBeanParametr::checkKeyInMultiPart(const QVector<IMultiPart> &parts, IBeanWare *bean, IRequest &request)
+bool IControllerBeanParameter::checkKeyInMultiPart(const QVector<IMultiPart> &parts, IBeanWare *bean, IRequest &request)
 {
     if(IConstantUtil::ReleaseMode){
         return true;
@@ -429,7 +429,7 @@ bool IControllerBeanParametr::checkKeyInMultiPart(const QVector<IMultiPart> &par
     return true;
 }
 
-bool IControllerBeanParametr::checkKeyInQByteArrayMap(const QMap<QString, QByteArray> &map, IBeanWare *bean, IRequest &request)
+bool IControllerBeanParameter::checkKeyInQByteArrayMap(const QMap<QString, QByteArray> &map, IBeanWare *bean, IRequest &request)
 {
     if(IConstantUtil::ReleaseMode){
         return true;
@@ -443,7 +443,7 @@ bool IControllerBeanParametr::checkKeyInQByteArrayMap(const QMap<QString, QByteA
     return checkKeyInQStringMap(newMap, bean, request);
 }
 
-bool IControllerBeanParametr::checkKeyInListPair(const QList<QPair<QString, QString> > &list, IBeanWare *bean, IRequest &request)
+bool IControllerBeanParameter::checkKeyInListPair(const QList<QPair<QString, QString> > &list, IBeanWare *bean, IRequest &request)
 {
     if(IConstantUtil::ReleaseMode){
         return true;
@@ -456,7 +456,7 @@ bool IControllerBeanParametr::checkKeyInListPair(const QList<QPair<QString, QStr
     return checkKeyInQStringMap(newMap, bean, request);
 }
 
-bool IControllerBeanParametr::checkKeyInQStringMap(const QMap<QString, QString> &map, IBeanWare *bean, IRequest &request)
+bool IControllerBeanParameter::checkKeyInQStringMap(const QMap<QString, QString> &map, IBeanWare *bean, IRequest &request)
 {
     if(IConstantUtil::ReleaseMode){
         return true;
@@ -482,7 +482,7 @@ bool IControllerBeanParametr::checkKeyInQStringMap(const QMap<QString, QString> 
     return true;
 }
 
-bool IControllerBeanParametr::isBeanResoveStrictMode()
+bool IControllerBeanParameter::isBeanResoveStrictMode()
 {
     static bool isStrict;
     static std::once_flag flag;
@@ -494,7 +494,7 @@ bool IControllerBeanParametr::isBeanResoveStrictMode()
     return isStrict;
 }
 
-QStringList &IControllerBeanParametr::getParameterSuffix()
+QStringList &IControllerBeanParameter::getParameterSuffix()
 {
     static QStringList suffix = {
         "_content", "_body",
@@ -506,22 +506,22 @@ QStringList &IControllerBeanParametr::getParameterSuffix()
     return suffix;
 }
 
-QVector<IControllerBeanParametr::ParamFun>& IControllerBeanParametr::getParameterFun()
+QVector<IControllerBeanParameter::ParamFun>& IControllerBeanParameter::getParameterFun()
 {
     static QVector<ParamFun> m_paramFuns;
     static std::once_flag flag;
     std::call_once(flag, [](){
-        m_paramFuns << IControllerBeanParametr::assamleBeanWareWithContent;
-        m_paramFuns << IControllerBeanParametr::assambleBeanWareWithBody;
-        m_paramFuns << IControllerBeanParametr::assambleBeanWareWithParameter;
-        m_paramFuns << IControllerBeanParametr::assambleBeanWareWithUrl;
-        m_paramFuns << IControllerBeanParametr::assambleBeanWareWithHeaders;
+        m_paramFuns << IControllerBeanParameter::assamleBeanWareWithContent;
+        m_paramFuns << IControllerBeanParameter::assambleBeanWareWithBody;
+        m_paramFuns << IControllerBeanParameter::assambleBeanWareWithParameter;
+        m_paramFuns << IControllerBeanParameter::assambleBeanWareWithUrl;
+        m_paramFuns << IControllerBeanParameter::assambleBeanWareWithHeaders;
 
-        m_paramFuns << IControllerBeanParametr::assambleBeanWareWithMixed;
-        m_paramFuns << IControllerBeanParametr::assambleBeanWareWithCookie;
-        m_paramFuns << IControllerBeanParametr::assambleBeanWareWithSession;
-        m_paramFuns << IControllerBeanParametr::assambleBeanWareWithApplication;
-        m_paramFuns << IControllerBeanParametr::assambleBeanWareWithSystem;
+        m_paramFuns << IControllerBeanParameter::assambleBeanWareWithMixed;
+        m_paramFuns << IControllerBeanParameter::assambleBeanWareWithCookie;
+        m_paramFuns << IControllerBeanParameter::assambleBeanWareWithSession;
+        m_paramFuns << IControllerBeanParameter::assambleBeanWareWithApplication;
+        m_paramFuns << IControllerBeanParameter::assambleBeanWareWithSystem;
     });
 
     return m_paramFuns;
