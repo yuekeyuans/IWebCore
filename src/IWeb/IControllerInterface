@@ -27,7 +27,6 @@
 #include "web/controller/pp/IPatchMappingPreProcessor.h"
 #include "web/controller/pp/IPostMappingPreProcessor.h"
 #include "web/controller/pp/IPutMappingPreProcessor.h"
-#include "web/controller/pp/IStatusCodeMappingPreProcessor.h"
 #include "web/controller/pp/IStatusControllerPreProcessor.h"
 
 using namespace IWebCore;

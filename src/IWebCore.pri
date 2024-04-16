@@ -191,9 +191,9 @@ HEADERS += \
     $$PWD/web/controller/pp/IPatchMappingPreProcessor.h \
     $$PWD/web/controller/pp/IPostMappingPreProcessor.h \
     $$PWD/web/controller/pp/IPutMappingPreProcessor.h \
-    $$PWD/web/controller/pp/IStatusCodeMappingPreProcessor.h \
-    $$PWD/web/controller/pp/IStatusControllerPreProcessor.h \
-    $$PWD/web/controller/private/IStatusControllerInterfaceImpl.h \
+#    $$PWD/web/controller/pp/IStatusCodeMappingPreProcessor.h \
+#    $$PWD/web/controller/pp/IStatusControllerPreProcessor.h \
+#    $$PWD/web/controller/private/IStatusControllerInterfaceImpl.h \
     $$PWD/web/server/IHttpServer.h \
     $$PWD/web/server/IHttpServerManage.h \
     $$PWD/web/server/IServerInterface.h \
@@ -334,8 +334,8 @@ SOURCES += \
     $$PWD/web/controller/IControllerInterface.cpp \
     $$PWD/web/controller/IControllerManage.cpp \
     $$PWD/web/controller/IControllerPathValidatorInterface.cpp \
-    $$PWD/web/controller/IStatusControllerInterface.cpp \
-    $$PWD/web/controller/private/IStatusControllerInterfaceImpl.cpp \
+#    $$PWD/web/controller/IStatusControllerInterface.cpp \
+#    $$PWD/web/controller/private/IStatusControllerInterfaceImpl.cpp \
     $$PWD/web/server/IHttpServer.cpp \
     $$PWD/web/server/IHttpServerManage.cpp \
     $$PWD/web/server/IServerInterface.cpp \
