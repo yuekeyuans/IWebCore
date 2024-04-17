@@ -2,10 +2,7 @@
 
 #include <QtTest>
 
-ITestManage *ITestManage::instance(){
-    static ITestManage inst;
-    return & inst;
-}
+$PackageWebCoreBegin
 
 void ITestManage::registerTestClass(QObject *obj)
 {
@@ -22,4 +19,4 @@ void ITestManage::invokeAllTestClass()
     }
 }
 
-
+$PackageWebCoreEnd

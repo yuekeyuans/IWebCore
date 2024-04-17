@@ -1,12 +1,14 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "core/unit/ISingletonUnit.h"
 
-class ITestManage
+$PackageWebCoreBegin
+
+class ITestManage : public ISingletonUnit<ITestManage>
 {
-private:
+public:
     ITestManage() = default;
-    static ITestManage* instance();
 
 public:
     static void registerTestClass(QObject* obj);
@@ -15,3 +17,6 @@ public:
 private:
     QVector<QObject*> m_objs;
 };
+
+
+$PackageWebCoreEnd
