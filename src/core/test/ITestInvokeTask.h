@@ -6,7 +6,6 @@
 
 $PackageWebCoreBegin
 
-// special task
 class ITestInvokeTask : public ITaskWareUnit<ITestInvokeTask>, public ISingletonUnit<ITestInvokeTask>
 {
 public:

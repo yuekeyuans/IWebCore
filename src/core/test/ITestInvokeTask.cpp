@@ -4,7 +4,7 @@
 
 $PackageWebCoreBegin
 
-QString IWebCore::ITestInvokeTask::name() const
+QString ITestInvokeTask::name() const
 {
     return "Execute All TestCase";
 }
@@ -21,7 +21,7 @@ double ITestInvokeTask::order() const
 
 void ITestInvokeTask::task()
 {
-    ITestManage::invokeAllTestClass();
+    ITestManage::instance()->invokeAllTestClass();
 }
 
 $PackageWebCoreEnd

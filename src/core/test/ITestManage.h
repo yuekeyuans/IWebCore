@@ -11,8 +11,8 @@ public:
     ITestManage() = default;
 
 public:
-    static void registerTestClass(QObject* obj);
-    static void invokeAllTestClass();
+    void registerTestClass(QObject* obj);
+    void invokeAllTestClass();
 
 private:
     QVector<QObject*> m_objs;

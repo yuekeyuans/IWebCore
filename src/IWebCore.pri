@@ -38,6 +38,7 @@ HEADERS += \
     $$PWD/core/config/IConfigImportInterface.h \
     $$PWD/core/config/IConfigManageInterface.h \
     $$PWD/core/config/IConfigPreProcessor.h \
+    $$PWD/core/config/IConfigTaskCatagory.h \
     $$PWD/core/config/IContextImport.h \
     $$PWD/core/config/IContextManage.h \
     $$PWD/core/config/IContextTaskInterface.h \
@@ -55,7 +56,6 @@ HEADERS += \
     $$PWD/core/task/ITaskCatagoryInterface.h \
     $$PWD/core/task/ITaskPreProcessor.h \
     $$PWD/core/task/default/IBannerTask.h \
-    $$PWD/core/task/default/IConfigTaskCatagory.h \
     $$PWD/core/task/default/IEndupTaskCatagory.h \
     $$PWD/core/task/default/IEndupTaskInterface.h \
     $$PWD/core/task/default/IInitializationTaskCatagory.h \
@@ -64,11 +64,11 @@ HEADERS += \
     $$PWD/core/task/default/IStartupTaskInterface.h \
     $$PWD/core/task/ITaskManage.h \
     $$PWD/core/task/ITaskWare.h \
-    $$PWD/core/task/default/ITestInvokeTask.h \
-    $$PWD/core/task/default/ITestTaskCatagory.h \
     $$PWD/core/task/unit/ITaskCatagoryUnit.h \
     $$PWD/core/task/unit/ITaskInstantUnit.h \
     $$PWD/core/task/unit/ITaskWareUnit.h \
+    $$PWD/core/test/ITestInvokeTask.h \
+    $$PWD/core/test/ITestTaskCatagory.h \
     $$PWD/core/test/ITestTaskInterface.h \
     $$PWD/core/test/ITestManage.h \
     $$PWD/core/test/ITestPreProcessor.h \
@@ -225,6 +225,7 @@ SOURCES += \
     $$PWD/core/assert/IGlobalAssert.cpp \
     $$PWD/core/bean/IBeanTypeManage.cpp \
     $$PWD/core/config/IConfigManageInterface.cpp \
+    $$PWD/core/config/IConfigTaskCatagory.cpp \
     $$PWD/core/config/IProfileManage.cpp \
     $$PWD/core/config/default/IContextJsonProfileTask.cpp \
     $$PWD/core/config/default/IContextSystemVariableTask.cpp \
@@ -233,15 +234,14 @@ SOURCES += \
     $$PWD/core/config/default/ILoadProfileFileUnit.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \
     $$PWD/core/task/default/IBannerTask.cpp \
-    $$PWD/core/task/default/IConfigTaskCatagory.cpp \
     $$PWD/core/task/default/IEndupTaskCatagory.cpp \
     $$PWD/core/task/default/IInitializationTaskCatagory.cpp \
     $$PWD/core/task/default/IStartupTaskCatagory.cpp \
     $$PWD/core/task/ITaskManage.cpp \
     $$PWD/core/task/ITaskWare.cpp \
-    $$PWD/core/task/default/ITestInvokeTask.cpp \
-    $$PWD/core/task/default/ITestTaskCatagory.cpp \
+    $$PWD/core/test/ITestInvokeTask.cpp \
     $$PWD/core/test/ITestManage.cpp \
+    $$PWD/core/test/ITestTaskCatagory.cpp \
     $$PWD/core/unit/IGadgetUnit.cpp \
     $$PWD/core/unit/INoCopyMoveUnit.cpp \
     $$PWD/core/unit/IRegisterGadgetUnit.cpp \
