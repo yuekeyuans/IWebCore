@@ -5,12 +5,11 @@
 
 $PackageWebCoreBegin
 
-class ITestTaskCatagory : public ITaskCatagoryInterface<ITestTaskCatagory>
+class ITestCatagory : public ITaskCatagoryInterface<ITestCatagory>
 {
 public:
     virtual QString name() const final;
     virtual double order() const final;
-    virtual bool isCatagoryDefaultEnabled() const;
 };
 
 $PackageWebCoreEnd

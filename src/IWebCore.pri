@@ -2,6 +2,8 @@ INCLUDEPATH += $$PWD
 
 QT += network sql xml testlib
 
+CONFIG += c++17
+
 include($$PWD/core/package/package.pri)
 
 PRECOMPILED_HEADER = $$PWD/core/base/IHeaderUtil.h
@@ -67,11 +69,13 @@ HEADERS += \
     $$PWD/core/task/unit/ITaskCatagoryUnit.h \
     $$PWD/core/task/unit/ITaskInstantUnit.h \
     $$PWD/core/task/unit/ITaskWareUnit.h \
-    $$PWD/core/test/ITestInvokeTask.h \
-    $$PWD/core/test/ITestTaskCatagory.h \
-    $$PWD/core/test/ITestTaskInterface.h \
-    $$PWD/core/test/ITestManage.h \
-    $$PWD/core/test/ITestPreProcessor.h \
+    $$PWD/core/test/ITestBaseInterface.h \
+    $$PWD/core/test/ITestCatagory.h \
+    $$PWD/core/test/ITestManageBaseInterface.h \
+    $$PWD/core/test/ITestTaskBaseInterface.h \
+    $$PWD/core/test/IUnitTestInterface.h \
+    $$PWD/core/test/IUnitTestManage.h \
+    $$PWD/core/test/IUnitTestTask.h \
     $$PWD/core/unit/IGadgetUnit.h \
     $$PWD/core/unit/INoConstructUnit.h \
     $$PWD/core/unit/INoCopyMoveUnit.h \
@@ -136,6 +140,9 @@ HEADERS += \
     $$PWD/web/core/defaultTask/IFileServiceTask.h \
     $$PWD/web/core/defaultTask/INodyTemplateTask.h \
     $$PWD/web/core/defaultTask/IWebDefaultProfileTask.h \
+    $$PWD/web/core/test/IHttpTestInterface.h \
+    $$PWD/web/core/test/IHttpTestManage.h \
+    $$PWD/web/core/test/IHttpTestTask.h \
     $$PWD/web/jar/ICookieJar.h \
     $$PWD/web/jar/ICookiePart.h \
     $$PWD/web/jar/IHeaderJar.h \
@@ -239,9 +246,11 @@ SOURCES += \
     $$PWD/core/task/default/IStartupTaskCatagory.cpp \
     $$PWD/core/task/ITaskManage.cpp \
     $$PWD/core/task/ITaskWare.cpp \
-    $$PWD/core/test/ITestInvokeTask.cpp \
-    $$PWD/core/test/ITestManage.cpp \
-    $$PWD/core/test/ITestTaskCatagory.cpp \
+    $$PWD/core/test/ITestCatagory.cpp \
+    $$PWD/core/test/ITestTask.cpp \
+    $$PWD/core/test/IUnitTestInterface.cpp \
+    $$PWD/core/test/IUnitTestManage.cpp \
+    $$PWD/core/test/IUnitTestTask.cpp \
     $$PWD/core/unit/IGadgetUnit.cpp \
     $$PWD/core/unit/INoCopyMoveUnit.cpp \
     $$PWD/core/unit/IRegisterGadgetUnit.cpp \
@@ -293,6 +302,9 @@ SOURCES += \
     $$PWD/web/core/defaultTask/IFileServiceTask.cpp \
     $$PWD/web/core/defaultTask/INodyTemplateTask.cpp \
     $$PWD/web/core/defaultTask/IWebDefaultProfileTask.cpp \
+    $$PWD/web/core/test/IHttpTestInterface.cpp \
+    $$PWD/web/core/test/IHttpTestManage.cpp \
+    $$PWD/web/core/test/IHttpTestTask.cpp \
     $$PWD/web/jar/ICookieJar.cpp \
     $$PWD/web/jar/ICookiePart.cpp \
     $$PWD/web/jar/IHeaderJar.cpp \
