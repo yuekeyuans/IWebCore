@@ -1,6 +1,7 @@
 ﻿#include "HTTPRequest.hpp"
 #include "ControllerTest.h"
 #include <winsock2.h> // 对于 Windows 平台
+#include <iostream>
 
 ControllerTest::ControllerTest()
 {
@@ -15,6 +16,6 @@ ControllerTest::ControllerTest()
     }
     catch (const std::exception& e)
     {
-        std::cerr << "Request failed, error: " << e.what() << '\n';
+        qDebug() << "Request failed, error: " << e.what() << '\n';
     }
 }
