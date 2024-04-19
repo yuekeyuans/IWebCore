@@ -5,6 +5,10 @@
 
 ControllerTest::ControllerTest()
 {
+}
+
+void ControllerTest::a()
+{
     try
     {
         // you can pass http::InternetProtocol::V6 to Request to make an IPv6 request

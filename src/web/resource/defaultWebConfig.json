@@ -28,6 +28,10 @@
                 "userDefinedNodyTemplatePrefix" : "userDefinedNodyTemplate",
                 "suffix" : "yky"
             }
+        },
+        "test" : {
+            "enabled" : true,
+            "delayDuration" : 1000
         }
     }
 }

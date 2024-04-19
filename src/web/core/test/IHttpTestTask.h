@@ -10,6 +10,9 @@ class IHttpTestTask : public ITestTaskBaseInterface<IHttpTestTask, IHttpTestMana
 {
 public:
     IHttpTestTask() = default;
+
+public:
+    virtual void task() final;
 };
 
 $PackageWebCoreEnd

@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "web/core/test/IHttpTestInterface.h"
+#include "web/core/test/IHttpTestAnnomacro.h"
 using namespace IWebCore;
 
 class ControllerTest : public IHttpTestInterface<ControllerTest, true>
@@ -9,6 +10,7 @@ class ControllerTest : public IHttpTestInterface<ControllerTest, true>
 public:
     ControllerTest();
 
-    Q_INVOKABLE void a(){}
+private slots:
+    void a();
 };
 
