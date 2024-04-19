@@ -19,6 +19,7 @@ LIBS += -lws2_32
 SOURCES += \
         ControllerTest.cpp \
         FirstTest.cpp \
+        TestController.cpp \
         main.cpp
 
 # Default rules for deployment.
@@ -28,4 +29,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     ControllerTest.h \
-    FirstTest.h
+    FirstTest.h \
+    TestController.h
