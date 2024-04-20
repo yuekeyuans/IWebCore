@@ -3,10 +3,13 @@
 #include "core/test/IUnitTestInterface.h"
 using namespace IWebCore;
 
-class FirstTest : public IUnitTestInterface<FirstTest, false>
+class UnitTest : public IUnitTestInterface<UnitTest, true>
 {
     Q_OBJECT
 public:
-    FirstTest();
+    UnitTest();
+
+private slots:
+    void slotTest();
 };
 

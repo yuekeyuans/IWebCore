@@ -140,7 +140,6 @@ HEADERS += \
     $$PWD/web/core/defaultTask/IFileServiceTask.h \
     $$PWD/web/core/defaultTask/INodyTemplateTask.h \
     $$PWD/web/core/defaultTask/IWebDefaultProfileTask.h \
-    $$PWD/web/core/test/IHttpTestAnnomacro.h \
     $$PWD/web/core/test/IHttpTestInterface.h \
     $$PWD/web/core/test/IHttpTestManage.h \
     $$PWD/web/core/test/IHttpTestTask.h \

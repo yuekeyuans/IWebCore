@@ -9,10 +9,7 @@ void IWebCore::IHttpTestTask::task()
         if(!enabled.value()){
             return;
         }
-        $Int delay{"http.test.delayDuration", 0};
-        if(delay.isFound()){
-            qDebug() << "delay execute http test for" << delay << "ms";
-        }
+        $Int delay{"http.test.delayDuration", 1000};
         std::this_thread::sleep_for(std::chrono::milliseconds(delay));
         IHttpTestManage::instance()->invokeTests();
     });
