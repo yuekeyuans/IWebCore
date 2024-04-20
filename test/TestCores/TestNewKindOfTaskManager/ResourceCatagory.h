@@ -5,8 +5,7 @@
 
 class ResourceCatagory : public ITaskCatagoryInterface<ResourceCatagory>
 {
-    $UseInstance(ResourceCatagory)
-private:
+public:
     ResourceCatagory() = default;
 
 public:

@@ -4,7 +4,6 @@
 #include "core/test/ITestBaseInterface.h"
 #include "web/core/test/IHttpTestManage.h"
 #include "web/core/test/IHttpTestInterface.h"
-#include "web/core/test/IHttpTestAnnomacro.h"
 
 $PackageWebCoreBegin
 

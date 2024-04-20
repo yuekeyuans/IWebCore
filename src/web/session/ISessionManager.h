@@ -1,16 +1,16 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "core/unit/ISingletonUnit.h"
 
 $PackageWebCoreBegin
 
 class ISessionWare;
 
-class ISessionManager : public QObject
+class ISessionManager : public QObject, public ISingletonUnit<ISessionManager>
 {
     Q_OBJECT
-    $UseInstance (ISessionManager)
-private:
+public:
     ISessionManager() = default;
 
 public:

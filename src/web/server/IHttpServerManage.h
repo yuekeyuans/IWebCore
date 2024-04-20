@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
-#include "core/unit/ISingletonUnit.h"
-#include "IServerInterface.h"
+#include "web/server/IServerWare.h"
+#include "IServerWare.h"
 
 $PackageWebCoreBegin
 
@@ -18,7 +18,7 @@ public:
     static void addSocket(QTcpSocket* socket);
 
 private:
-    QSharedPointer<IServerInterface> m_server;
+    QSharedPointer<IServerWare> m_server{};
 };
 
 $PackageWebCoreEnd

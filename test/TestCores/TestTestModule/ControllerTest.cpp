@@ -1,7 +1,5 @@
 ﻿#include "HTTPRequest.hpp"
 #include "ControllerTest.h"
-#include <winsock2.h> // 对于 Windows 平台
-#include <iostream>
 #include <QtTest>
 
 ControllerTest::ControllerTest()

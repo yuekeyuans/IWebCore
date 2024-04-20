@@ -1,17 +1,14 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "core/unit/ISingletonUnit.h"
+#include "web/server/IServerWare.h"
 
 $PackageWebCoreBegin
 
-class IServerInterface
+template<typename T>
+class IServerInterface : public  IServerWare, public ISingletonUnit<T>
 {
-public:
-    IServerInterface() = default;
-    virtual ~IServerInterface() = default;
-
-    virtual void addSocket(qintptr handle) =0;
-    virtual void addSocket(QTcpSocket* socket) = 0;
 };
 
 $PackageWebCoreEnd

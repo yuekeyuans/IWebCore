@@ -186,6 +186,8 @@ HEADERS += \
     $$PWD/web/response/IResponseWareRaw.h \
     $$PWD/web/response/IStatusCodeResponse.h \
     $$PWD/web/response/response \
+    $$PWD/web/server/IServerInterface.h \
+    $$PWD/web/server/IServerWare.h \
     $$PWD/web/server/multiThreadServer/ITcpSocket.h \
     $$PWD/web/controller/IControllerInterface.h \
     $$PWD/web/controller/IControllerManage.h \
@@ -203,7 +205,6 @@ HEADERS += \
 #    $$PWD/web/controller/private/IStatusControllerInterfaceImpl.h \
     $$PWD/web/server/IHttpServer.h \
     $$PWD/web/server/IHttpServerManage.h \
-    $$PWD/web/server/IServerInterface.h \
     $$PWD/web/server/multiThreadServer/IHttpServerRunable.h \
     $$PWD/web/server/multiThreadServer/IMultiThreadServer.h \
     $$PWD/web/server/quenedServer/IQueneServer.h \
@@ -350,7 +351,6 @@ SOURCES += \
 #    $$PWD/web/controller/private/IStatusControllerInterfaceImpl.cpp \
     $$PWD/web/server/IHttpServer.cpp \
     $$PWD/web/server/IHttpServerManage.cpp \
-    $$PWD/web/server/IServerInterface.cpp \
     $$PWD/web/server/multiThreadServer/IHttpServerRunable.cpp \
     $$PWD/web/server/multiThreadServer/IMultiThreadServer.cpp \
     $$PWD/web/server/quenedServer/IQueneServer.cpp \

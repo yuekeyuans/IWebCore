@@ -5,8 +5,7 @@
 
 class ResourceLoader : public ResourceTaskInterface<ResourceLoader>
 {
-    $UseInstance(ResourceLoader)
-private:
+public:
     ResourceLoader() = default;
 
 public:

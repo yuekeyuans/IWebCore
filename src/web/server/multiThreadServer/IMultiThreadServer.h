@@ -5,9 +5,8 @@
 
 $PackageWebCoreBegin
 
-class IMultiThreadServer : public IServerInterface
+class IMultiThreadServer : public IServerInterface<IMultiThreadServer>
 {
-    $UseInstance(IMultiThreadServer)
 public:
     IMultiThreadServer() = default;
 
