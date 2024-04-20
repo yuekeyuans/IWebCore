@@ -3,10 +3,9 @@
 #include <IWebCore>
 #include <QtTest>
 
-class TestGadget : public ITestTaskInterface<TestGadget>
+class TestGadget : public IUnitTestInterface<TestGadget>
 {
     Q_OBJECT
-    $AsTest(TestGadget)
 public:
     TestGadget() = default;
 

@@ -8,20 +8,6 @@
 #define PP_ARG_N(_1, _2, _3, _4, _5, _6, _7, _8, _9, N, ...) N
 #define PP_RSEQ_N() 9, 8, 7, 6, 5, 4, 3, 2, 1, 0
 
-#define $UseBareInstance(klassName) \
-    public: \
-        static klassName* instance(){ \
-            static klassName m_instance; \
-            return &m_instance; \
-        } \
-    private:
-
-// TODO: 这个类型需要检查，看看是否需要全部删除
-//#define $UseInstance(klassName) \
-//    Q_DISABLE_COPY_MOVE(klassName)\
-//    $UseBareInstance(klassName)
-
-
 #define $UseDataPtr(klass)   \
 private:    \
     Q_DECLARE_PRIVATE(klass);    \

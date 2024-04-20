@@ -1,7 +1,7 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-#    TestBean \
-#    TestConvertion \
+    TestBean \
+    TestConvertion \
     TestNewKindOfTaskManager \
-#    TestTestModule
+    TestTestModule

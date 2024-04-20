@@ -2,7 +2,7 @@
 
 QString ResourceLoader::name() const
 {
-    return "Resource loader";
+    return IMetaUtil::getTypename<ResourceLoader>();
 }
 
 QStringList ResourceLoader::orders() const

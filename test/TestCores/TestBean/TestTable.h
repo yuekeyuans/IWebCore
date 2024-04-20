@@ -5,10 +5,9 @@
 
 #include "OneTable.h"
 
-class TestTable : public ITestTaskInterface<TestTable>
+class TestTable : public IUnitTestInterface<TestTable>
 {
     Q_OBJECT
-    $AsTest(TestTable)
 public:
     TestTable();
 

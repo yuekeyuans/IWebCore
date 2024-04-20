@@ -37,16 +37,16 @@ void TestBeanListMapConvertion::test_normalContainer()
 {
     QList<QString> names;
     names << "hello" << "world";
-    auto value2 = IJsonUtil::toJsonValue(names);
+    auto value2 = IJsonUtil::toJsonValue(names).value();
     QTEST_ASSERT(value2 == QJsonValue{QJsonArray({"hello","world"})});
 
     QList<int> intVals;
     intVals << 1 << 2;
-    auto value1 = IConvertUtil::toJsonValue(intVals);
+    auto value1 = IConvertUtil::toJsonValue(intVals).value();
     QTEST_ASSERT(value1 == QJsonValue{QJsonArray({1, 2})});
 
 
     QStringList demo1 {"12", "32"};
-    auto value = IConvertUtil::toJsonValue(demo1);
+    auto value = IConvertUtil::toJsonValue(demo1).value();
     QTEST_ASSERT(value == QJsonValue{QJsonArray({"12","32"})});
 }
