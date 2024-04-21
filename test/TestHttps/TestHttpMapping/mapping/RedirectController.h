@@ -2,7 +2,7 @@
 
 #include <IWeb/IControllerInterface>
 
-class RedirectController : public IControllerInterface<RedirectController>
+class RedirectController : public IHttpControllerInterface<RedirectController>
 {
     Q_GADGET
     $AsController(RedirectController)

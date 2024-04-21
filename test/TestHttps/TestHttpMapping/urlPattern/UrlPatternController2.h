@@ -2,7 +2,7 @@
 #include <QtCore>
 #include <IWebCore>
 
-class UrlPatternController2 : public IControllerInterface<UrlPatternController2, true>
+class UrlPatternController2 : public IHttpControllerInterface<UrlPatternController2, true>
 {
     Q_GADGET
     $AsController(UrlPatternController2)

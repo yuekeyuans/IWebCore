@@ -85,6 +85,11 @@ HEADERS += \
     $$PWD/core/unit/IRegisterTypeUnit.h \
     $$PWD/core/unit/ISingletonUnit.h \
     $$PWD/core/unit/IStackObjectUnit.h \
+    $$PWD/http/IHttpControllerTaskCatagory.h \
+    $$PWD/http/controller/IHttpControllerInterface.h \
+    $$PWD/http/controller/private/IHttpControllerBeanParameter.h \
+    $$PWD/http/controller/private/IHttpControllerInfo.h \
+    $$PWD/http/controller/private/IHttpControllerParameter.h \
     $$PWD/orm/IOrmAssert.h \
     $$PWD/orm/IOrmManage.h \
     $$PWD/orm/IOrmTaskCatagory.h \
@@ -116,101 +121,96 @@ HEADERS += \
     $$PWD/orm/tableview/IOrmViewInfo.h \
     $$PWD/orm/tableview/IOrmViewInterface.h \
     $$PWD/orm/tableview/IOrmViewWare.h \
-    $$PWD/web/IControllerTaskCatagory.h \
-    $$PWD/web/IInterceptInterface.h \
-    $$PWD/web/IWebAnnomacro.h \
-    $$PWD/web/IWebAssert.h \
-    $$PWD/web/IWebSystemPreProcessor.h \
-    $$PWD/web/biscuits/IHttpHeader.h \
-    $$PWD/web/biscuits/IHttpMethod.h \
-    $$PWD/web/biscuits/IHttpMime.h \
-    $$PWD/web/biscuits/IHttpStatus.h \
-    $$PWD/web/biscuits/IHttpVersion.h \
-    $$PWD/web/controller/IHttpFolderMapping.h \
-    $$PWD/web/controller/IHttpManage.h \
-    $$PWD/web/controller/IHttpPathRegexpValidatorInterface.h \
-    $$PWD/web/controller/IHttpResourceMapping.h \
-    $$PWD/web/controller/IHttpRouteMapping.h \
-#    $$PWD/web/controller/IInvalidControllerInterface.h \
-    $$PWD/web/controller/private/IControllerBeanParameter.h \
-    $$PWD/web/controller/private/IControllerInfo.h \
-    $$PWD/web/controller/private/IControllerInterfaceHelper.h \
-    $$PWD/web/controller/private/IControllerParameter.h \
-    $$PWD/web/core/defaultTask/IBluePrintControllerTask.h \
-    $$PWD/web/core/defaultTask/IControllerBaseTypeTask.h \
-    $$PWD/web/core/defaultTask/IControllerPathValidatorTask.h \
-    $$PWD/web/core/defaultTask/IFileServiceTask.h \
-    $$PWD/web/core/defaultTask/INodyTemplateTask.h \
-    $$PWD/web/core/defaultTask/IWebDefaultProfileTask.h \
-    $$PWD/web/core/test/IHttpTestInterface.h \
-    $$PWD/web/core/test/IHttpTestManage.h \
-    $$PWD/web/core/test/IHttpTestTask.h \
-    $$PWD/web/jar/ICookieJar.h \
-    $$PWD/web/jar/ICookiePart.h \
-    $$PWD/web/jar/IHeaderJar.h \
-    $$PWD/web/jar/IJarUnit.h \
-    $$PWD/web/jar/IMultiPart.h \
-    $$PWD/web/jar/IMultiPartJar.h \
-    $$PWD/web/jar/ISessionJar.h \
-    $$PWD/web/middleware/IInterceptorWare.h \
-    $$PWD/web/middleware/IMiddleWare.h \
-    $$PWD/web/middleware/IMiddleWarePreProcessor.h \
-    $$PWD/web/middleware/IPostInterceptorInterface.h \
-    $$PWD/web/middleware/IPostProcessorInterface.h \
-    $$PWD/web/middleware/IPreInterceptorInterface.h \
-    $$PWD/web/middleware/IPreProcessorInterface.h \
-    $$PWD/web/middleware/IProcessorWare.h \
-    $$PWD/web/net/IRequest.h \
-    $$PWD/web/net/IResponse.h \
-    $$PWD/web/net/impl/IReqRespRaw.h \
-    $$PWD/web/net/impl/IRequestAssert.h \
-    $$PWD/web/net/impl/IRequestImpl.h \
-    $$PWD/web/net/impl/IResponseImpl.h \
-    $$PWD/web/node/IFunctionNode.h \
-    $$PWD/web/node/IMethodNode.h \
-    $$PWD/web/node/IParamNode.h \
-    $$PWD/web/node/IStatusActionNode.h \
-    $$PWD/web/node/IUrlActionNode.h \
-    $$PWD/web/response/IByteArrayResponse.h \
-    $$PWD/web/response/IFileResponse.h \
-    $$PWD/web/response/IHtmlResponse.h \
-    $$PWD/web/response/IInvalidResponse.h \
-    $$PWD/web/response/IJsonResponse.h \
-    $$PWD/web/response/IPlainTextResponse.h \
-    $$PWD/web/response/IRedirectResponse.h \
-    $$PWD/web/response/IRendererResponse.h \
-    $$PWD/web/response/IResponseContent.h \
-    $$PWD/web/response/IResponseInterface.h \
-    $$PWD/web/response/IResponseManage.h \
-    $$PWD/web/response/IResponsePreProcessor.h \
-    $$PWD/web/response/IResponseTemplateRenderer.h \
-    $$PWD/web/response/IResponseWare.h \
-    $$PWD/web/response/IResponseWareRaw.h \
-    $$PWD/web/response/IStatusCodeResponse.h \
-    $$PWD/web/response/response \
-    $$PWD/web/server/IServerInterface.h \
-    $$PWD/web/server/IServerWare.h \
-    $$PWD/web/server/multiThreadServer/ITcpSocket.h \
-    $$PWD/web/controller/IControllerInterface.h \
-#    $$PWD/web/controller/IStatusControllerInterface.h \
-    $$PWD/web/controller/pp/IControlVariablePreProcessor.h \
-    $$PWD/web/controller/pp/IControllerPreProcessor.h \
-    $$PWD/web/controller/pp/IDeleteMappingPreProcessor.h \
-    $$PWD/web/controller/pp/IGetMappingPreProcessor.h \
-    $$PWD/web/controller/pp/IPatchMappingPreProcessor.h \
-    $$PWD/web/controller/pp/IPostMappingPreProcessor.h \
-    $$PWD/web/controller/pp/IPutMappingPreProcessor.h \
-#    $$PWD/web/controller/pp/IStatusCodeMappingPreProcessor.h \
-#    $$PWD/web/controller/pp/IStatusControllerPreProcessor.h \
-#    $$PWD/web/controller/private/IStatusControllerInterfaceImpl.h \
-    $$PWD/web/server/IHttpServer.h \
-    $$PWD/web/server/IHttpServerManage.h \
-    $$PWD/web/server/multiThreadServer/IHttpServerRunable.h \
-    $$PWD/web/server/multiThreadServer/IMultiThreadServer.h \
-    $$PWD/web/server/quenedServer/IQueneServer.h \
-    $$PWD/web/session/ISessionInterface.h \
-    $$PWD/web/session/ISessionManager.h \
-    $$PWD/web/session/ISessionWare.h
+    $$PWD/http/IInterceptInterface.h \
+    $$PWD/http/IWebAnnomacro.h \
+    $$PWD/http/IWebAssert.h \
+    $$PWD/http/IWebSystemPreProcessor.h \
+    $$PWD/http/biscuits/IHttpHeader.h \
+    $$PWD/http/biscuits/IHttpMethod.h \
+    $$PWD/http/biscuits/IHttpMime.h \
+    $$PWD/http/biscuits/IHttpStatus.h \
+    $$PWD/http/biscuits/IHttpVersion.h \
+    $$PWD/http/controller/IHttpFolderMapping.h \
+    $$PWD/http/controller/IHttpManage.h \
+    $$PWD/http/controller/IHttpPathRegexpValidatorInterface.h \
+    $$PWD/http/controller/IHttpResourceMapping.h \
+    $$PWD/http/controller/IHttpRouteMapping.h \
+#    $$PWD/http/controller/IInvalidControllerInterface.h \
+    $$PWD/http/controller/private/IControllerInterfaceHelper.h \
+    $$PWD/http/core/defaultTask/IBluePrintControllerTask.h \
+    $$PWD/http/core/defaultTask/IControllerBaseTypeTask.h \
+    $$PWD/http/core/defaultTask/IControllerPathValidatorTask.h \
+    $$PWD/http/core/defaultTask/IFileServiceTask.h \
+    $$PWD/http/core/defaultTask/INodyTemplateTask.h \
+    $$PWD/http/core/defaultTask/IWebDefaultProfileTask.h \
+    $$PWD/http/core/test/IHttpTestInterface.h \
+    $$PWD/http/core/test/IHttpTestManage.h \
+    $$PWD/http/core/test/IHttpTestTask.h \
+    $$PWD/http/jar/ICookieJar.h \
+    $$PWD/http/jar/ICookiePart.h \
+    $$PWD/http/jar/IHeaderJar.h \
+    $$PWD/http/jar/IJarUnit.h \
+    $$PWD/http/jar/IMultiPart.h \
+    $$PWD/http/jar/IMultiPartJar.h \
+    $$PWD/http/jar/ISessionJar.h \
+    $$PWD/http/middleware/IInterceptorWare.h \
+    $$PWD/http/middleware/IMiddleWare.h \
+    $$PWD/http/middleware/IMiddleWarePreProcessor.h \
+    $$PWD/http/middleware/IPostInterceptorInterface.h \
+    $$PWD/http/middleware/IPostProcessorInterface.h \
+    $$PWD/http/middleware/IPreInterceptorInterface.h \
+    $$PWD/http/middleware/IPreProcessorInterface.h \
+    $$PWD/http/middleware/IProcessorWare.h \
+    $$PWD/http/net/IRequest.h \
+    $$PWD/http/net/IResponse.h \
+    $$PWD/http/net/impl/IReqRespRaw.h \
+    $$PWD/http/net/impl/IRequestAssert.h \
+    $$PWD/http/net/impl/IRequestImpl.h \
+    $$PWD/http/net/impl/IResponseImpl.h \
+    $$PWD/http/node/IFunctionNode.h \
+    $$PWD/http/node/IMethodNode.h \
+    $$PWD/http/node/IParamNode.h \
+    $$PWD/http/node/IStatusActionNode.h \
+    $$PWD/http/node/IUrlActionNode.h \
+    $$PWD/http/response/IByteArrayResponse.h \
+    $$PWD/http/response/IFileResponse.h \
+    $$PWD/http/response/IHtmlResponse.h \
+    $$PWD/http/response/IInvalidResponse.h \
+    $$PWD/http/response/IJsonResponse.h \
+    $$PWD/http/response/IPlainTextResponse.h \
+    $$PWD/http/response/IRedirectResponse.h \
+    $$PWD/http/response/IRendererResponse.h \
+    $$PWD/http/response/IResponseContent.h \
+    $$PWD/http/response/IResponseInterface.h \
+    $$PWD/http/response/IResponseManage.h \
+    $$PWD/http/response/IResponsePreProcessor.h \
+    $$PWD/http/response/IResponseTemplateRenderer.h \
+    $$PWD/http/response/IResponseWare.h \
+    $$PWD/http/response/IResponseWareRaw.h \
+    $$PWD/http/response/IStatusCodeResponse.h \
+    $$PWD/http/response/response \
+    $$PWD/http/server/IServerInterface.h \
+    $$PWD/http/server/IServerWare.h \
+    $$PWD/http/server/multiThreadServer/ITcpSocket.h \
+#    $$PWD/http/controller/IStatusControllerInterface.h \
+    $$PWD/http/controller/pp/IControlVariablePreProcessor.h \
+    $$PWD/http/controller/pp/IControllerPreProcessor.h \
+    $$PWD/http/controller/pp/IDeleteMappingPreProcessor.h \
+    $$PWD/http/controller/pp/IGetMappingPreProcessor.h \
+    $$PWD/http/controller/pp/IPatchMappingPreProcessor.h \
+    $$PWD/http/controller/pp/IPostMappingPreProcessor.h \
+    $$PWD/http/controller/pp/IPutMappingPreProcessor.h \
+#    $$PWD/http/controller/pp/IStatusCodeMappingPreProcessor.h \
+#    $$PWD/http/controller/pp/IStatusControllerPreProcessor.h \
+#    $$PWD/http/controller/private/IStatusControllerInterfaceImpl.h \
+    $$PWD/http/server/IHttpServer.h \
+    $$PWD/http/server/IHttpServerManage.h \
+    $$PWD/http/server/multiThreadServer/IHttpServerRunable.h \
+    $$PWD/http/server/multiThreadServer/IMultiThreadServer.h \
+    $$PWD/http/server/quenedServer/IQueneServer.h \
+    $$PWD/http/session/ISessionInterface.h \
+    $$PWD/http/session/ISessionManager.h \
+    $$PWD/http/session/ISessionWare.h
 
 SOURCES += \
     $$PWD/core/base/ICodecUtil.cpp \
@@ -257,6 +257,9 @@ SOURCES += \
     $$PWD/core/unit/IRegisterGadgetUnit.cpp \
     $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
     $$PWD/core/unit/IRegisterTypeUnit.cpp \
+    $$PWD/http/IHttpControllerTaskCatagory.cpp \
+    $$PWD/http/controller/private/IHttpControllerBeanParameter.cpp \
+    $$PWD/http/controller/private/IHttpControllerParameter.cpp \
     $$PWD/orm/IOrmAssert.cpp \
     $$PWD/orm/IOrmManage.cpp \
     $$PWD/orm/IOrmTaskCatagory.cpp \
@@ -283,80 +286,77 @@ SOURCES += \
     $$PWD/orm/tableview/IOrmTableWare.cpp \
     $$PWD/orm/tableview/IOrmViewInfo.cpp \
     $$PWD/orm/tableview/IOrmViewWare.cpp \
-    $$PWD/web/IControllerTaskCatagory.cpp \
-    $$PWD/web/IInterceptInterface.cpp \
-    $$PWD/web/IWebAssert.cpp \
-    $$PWD/web/biscuits/IHttpHeader.cpp \
-    $$PWD/web/biscuits/IHttpMethod.cpp \
-    $$PWD/web/biscuits/IHttpMime.cpp \
-    $$PWD/web/biscuits/IHttpStatus.cpp \
-    $$PWD/web/biscuits/IHttpVersion.cpp \
-    $$PWD/web/controller/IHttpFolderMapping.cpp \
-    $$PWD/web/controller/IHttpManage.cpp \
-    $$PWD/web/controller/IHttpResourceMapping.cpp \
-    $$PWD/web/controller/IHttpRouteMapping.cpp \
-    $$PWD/web/controller/private/IControllerBeanParameter.cpp \
-    $$PWD/web/controller/private/IControllerInterfaceHelper.cpp \
-    $$PWD/web/controller/private/IControllerParameter.cpp \
-    $$PWD/web/core/defaultTask/IBluePrintControllerTask.cpp \
-    $$PWD/web/core/defaultTask/IControllerBaseTypeTask.cpp \
-    $$PWD/web/core/defaultTask/IControllerPathValidatorTask.cpp \
-    $$PWD/web/core/defaultTask/IFileServiceTask.cpp \
-    $$PWD/web/core/defaultTask/INodyTemplateTask.cpp \
-    $$PWD/web/core/defaultTask/IWebDefaultProfileTask.cpp \
-    $$PWD/web/core/test/IHttpTestInterface.cpp \
-    $$PWD/web/core/test/IHttpTestManage.cpp \
-    $$PWD/web/core/test/IHttpTestTask.cpp \
-    $$PWD/web/jar/ICookieJar.cpp \
-    $$PWD/web/jar/ICookiePart.cpp \
-    $$PWD/web/jar/IHeaderJar.cpp \
-    $$PWD/web/jar/IJarUnit.cpp \
-    $$PWD/web/jar/IMultiPart.cpp \
-    $$PWD/web/jar/IMultiPartJar.cpp \
-    $$PWD/web/jar/ISessionJar.cpp \
-    $$PWD/web/middleware/IInterceptorWare.cpp \
-    $$PWD/web/middleware/IMiddleWare.cpp \
-    $$PWD/web/middleware/IPostInterceptorInterface.cpp \
-    $$PWD/web/middleware/IPostProcessorInterface.cpp \
-    $$PWD/web/middleware/IPreInterceptorInterface.cpp \
-    $$PWD/web/middleware/IPreProcessorInterface.cpp \
-    $$PWD/web/middleware/IProcessorWare.cpp \
-    $$PWD/web/net/IRequest.cpp \
-    $$PWD/web/net/IResponse.cpp \
-    $$PWD/web/net/impl/IReqRespRaw.cpp \
-    $$PWD/web/net/impl/IRequestAssert.cpp \
-    $$PWD/web/net/impl/IRequestImpl.cpp \
-    $$PWD/web/net/impl/IResponseImpl.cpp \
-    $$PWD/web/node/IFunctionNode.cpp \
-    $$PWD/web/node/IMethodNode.cpp \
-    $$PWD/web/node/IParamNode.cpp \
-    $$PWD/web/response/IByteArrayResponse.cpp \
-    $$PWD/web/response/IFileResponse.cpp \
-    $$PWD/web/response/IHtmlResponse.cpp \
-    $$PWD/web/response/IInvalidResponse.cpp \
-    $$PWD/web/response/IJsonResponse.cpp \
-    $$PWD/web/response/IPlainTextResponse.cpp \
-    $$PWD/web/response/IRedirectResponse.cpp \
-    $$PWD/web/response/IRendererResponse.cpp \
-    $$PWD/web/response/IResponseContent.cpp \
-    $$PWD/web/response/IResponseManage.cpp \
-    $$PWD/web/response/IResponseTemplateRenderer.cpp \
-    $$PWD/web/response/IResponseWare.cpp \
-    $$PWD/web/response/IResponseWareRaw.cpp \
-    $$PWD/web/response/IStatusCodeResponse.cpp \
-    $$PWD/web/server/multiThreadServer/ITcpSocket.cpp \
-    $$PWD/web/controller/IControllerInterface.cpp \
-    $$PWD/web/controller/IControllerPathValidatorInterface.cpp \
-#    $$PWD/web/controller/IStatusControllerInterface.cpp \
-#    $$PWD/web/controller/private/IStatusControllerInterfaceImpl.cpp \
-    $$PWD/web/server/IHttpServer.cpp \
-    $$PWD/web/server/IHttpServerManage.cpp \
-    $$PWD/web/server/multiThreadServer/IHttpServerRunable.cpp \
-    $$PWD/web/server/multiThreadServer/IMultiThreadServer.cpp \
-    $$PWD/web/server/quenedServer/IQueneServer.cpp \
-    $$PWD/web/session/ISessionInterface.cpp \
-    $$PWD/web/session/ISessionManager.cpp \
-    $$PWD/web/session/ISessionWare.cpp
+    $$PWD/http/IInterceptInterface.cpp \
+    $$PWD/http/IWebAssert.cpp \
+    $$PWD/http/biscuits/IHttpHeader.cpp \
+    $$PWD/http/biscuits/IHttpMethod.cpp \
+    $$PWD/http/biscuits/IHttpMime.cpp \
+    $$PWD/http/biscuits/IHttpStatus.cpp \
+    $$PWD/http/biscuits/IHttpVersion.cpp \
+    $$PWD/http/controller/IHttpFolderMapping.cpp \
+    $$PWD/http/controller/IHttpManage.cpp \
+    $$PWD/http/controller/IHttpResourceMapping.cpp \
+    $$PWD/http/controller/IHttpRouteMapping.cpp \
+    $$PWD/http/controller/private/IControllerInterfaceHelper.cpp \
+    $$PWD/http/core/defaultTask/IBluePrintControllerTask.cpp \
+    $$PWD/http/core/defaultTask/IControllerBaseTypeTask.cpp \
+    $$PWD/http/core/defaultTask/IControllerPathValidatorTask.cpp \
+    $$PWD/http/core/defaultTask/IFileServiceTask.cpp \
+    $$PWD/http/core/defaultTask/INodyTemplateTask.cpp \
+    $$PWD/http/core/defaultTask/IWebDefaultProfileTask.cpp \
+    $$PWD/http/core/test/IHttpTestInterface.cpp \
+    $$PWD/http/core/test/IHttpTestManage.cpp \
+    $$PWD/http/core/test/IHttpTestTask.cpp \
+    $$PWD/http/jar/ICookieJar.cpp \
+    $$PWD/http/jar/ICookiePart.cpp \
+    $$PWD/http/jar/IHeaderJar.cpp \
+    $$PWD/http/jar/IJarUnit.cpp \
+    $$PWD/http/jar/IMultiPart.cpp \
+    $$PWD/http/jar/IMultiPartJar.cpp \
+    $$PWD/http/jar/ISessionJar.cpp \
+    $$PWD/http/middleware/IInterceptorWare.cpp \
+    $$PWD/http/middleware/IMiddleWare.cpp \
+    $$PWD/http/middleware/IPostInterceptorInterface.cpp \
+    $$PWD/http/middleware/IPostProcessorInterface.cpp \
+    $$PWD/http/middleware/IPreInterceptorInterface.cpp \
+    $$PWD/http/middleware/IPreProcessorInterface.cpp \
+    $$PWD/http/middleware/IProcessorWare.cpp \
+    $$PWD/http/net/IRequest.cpp \
+    $$PWD/http/net/IResponse.cpp \
+    $$PWD/http/net/impl/IReqRespRaw.cpp \
+    $$PWD/http/net/impl/IRequestAssert.cpp \
+    $$PWD/http/net/impl/IRequestImpl.cpp \
+    $$PWD/http/net/impl/IResponseImpl.cpp \
+    $$PWD/http/node/IFunctionNode.cpp \
+    $$PWD/http/node/IMethodNode.cpp \
+    $$PWD/http/node/IParamNode.cpp \
+    $$PWD/http/response/IByteArrayResponse.cpp \
+    $$PWD/http/response/IFileResponse.cpp \
+    $$PWD/http/response/IHtmlResponse.cpp \
+    $$PWD/http/response/IInvalidResponse.cpp \
+    $$PWD/http/response/IJsonResponse.cpp \
+    $$PWD/http/response/IPlainTextResponse.cpp \
+    $$PWD/http/response/IRedirectResponse.cpp \
+    $$PWD/http/response/IRendererResponse.cpp \
+    $$PWD/http/response/IResponseContent.cpp \
+    $$PWD/http/response/IResponseManage.cpp \
+    $$PWD/http/response/IResponseTemplateRenderer.cpp \
+    $$PWD/http/response/IResponseWare.cpp \
+    $$PWD/http/response/IResponseWareRaw.cpp \
+    $$PWD/http/response/IStatusCodeResponse.cpp \
+    $$PWD/http/server/multiThreadServer/ITcpSocket.cpp \
+    $$PWD/http/controller/IControllerInterface.cpp \
+    $$PWD/http/controller/IControllerPathValidatorInterface.cpp \
+#    $$PWD/http/controller/IStatusControllerInterface.cpp \
+#    $$PWD/http/controller/private/IStatusControllerInterfaceImpl.cpp \
+    $$PWD/http/server/IHttpServer.cpp \
+    $$PWD/http/server/IHttpServerManage.cpp \
+    $$PWD/http/server/multiThreadServer/IHttpServerRunable.cpp \
+    $$PWD/http/server/multiThreadServer/IMultiThreadServer.cpp \
+    $$PWD/http/server/quenedServer/IQueneServer.cpp \
+    $$PWD/http/session/ISessionInterface.cpp \
+    $$PWD/http/session/ISessionManager.cpp \
+    $$PWD/http/session/ISessionWare.cpp
 
 HEADERS += \
     $$PWD/IWebCore   \
@@ -377,13 +377,13 @@ DISTFILES += \
     $$PWD/core/package/toml/README.md \
     $$PWD/core/task/task \
     $$PWD/orm/orm \
-    $$PWD/web/common \
-    $$PWD/web/controller/controller \
-    $$PWD/web/net/IRequest.ipp \
-    $$PWD/web/server/server
+    $$PWD/http/common \
+    $$PWD/http/controller/controller \
+    $$PWD/http/net/IRequest.ipp \
+    $$PWD/http/server/server
 
 RESOURCES += \
-    $$PWD/web/webresource.qrc
+    $$PWD/http/webresource.qrc
 
 
 

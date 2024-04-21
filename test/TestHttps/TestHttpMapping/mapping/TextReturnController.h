@@ -2,7 +2,7 @@
 
 #include <IWeb/IControllerInterface>
 
-class TextReturnController : public IControllerInterface<TextReturnController>
+class TextReturnController : public IHttpControllerInterface<TextReturnController>
 {
     Q_GADGET
     $AsController(TextReturnController)

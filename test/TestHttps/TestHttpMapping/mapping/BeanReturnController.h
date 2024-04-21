@@ -2,7 +2,7 @@
 
 #include <IWeb/IControllerInterface>
 
-class BeanReturnController : public IControllerInterface<BeanReturnController>
+class BeanReturnController : public IHttpControllerInterface<BeanReturnController>
 {
     Q_GADGET
     $AsController(BeanReturnController)

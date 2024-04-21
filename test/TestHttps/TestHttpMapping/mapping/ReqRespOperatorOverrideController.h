@@ -2,7 +2,7 @@
 
 #include <IWeb/IControllerInterface>
 
-class ReqRespOperatorOverrideController : public IControllerInterface<ReqRespOperatorOverrideController>
+class ReqRespOperatorOverrideController : public IHttpControllerInterface<ReqRespOperatorOverrideController>
 {
     Q_GADGET
     $AsController(ReqRespOperatorOverrideController)

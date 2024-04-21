@@ -2,7 +2,7 @@
 
 #include <IWeb/IControllerInterface>
 
-class XmlParameterController: public IControllerInterface<XmlParameterController>
+class XmlParameterController: public IHttpControllerInterface<XmlParameterController>
 {
     Q_GADGET
     $AsController(XmlParameterController)

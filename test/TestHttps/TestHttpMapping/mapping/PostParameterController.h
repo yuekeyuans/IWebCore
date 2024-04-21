@@ -2,7 +2,7 @@
 
 #include <IWeb/IControllerInterface>
 
-class PostParameterController : public IControllerInterface<PostParameterController, true>
+class PostParameterController : public IHttpControllerInterface<PostParameterController, true>
 {
     Q_GADGET
     $AsController(PostParameterController)

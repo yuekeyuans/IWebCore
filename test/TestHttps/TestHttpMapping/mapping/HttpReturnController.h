@@ -2,7 +2,7 @@
 
 #include <IWeb/IControllerInterface>
 
-class HttpRturnController : public IControllerInterface<HttpRturnController>
+class HttpRturnController : public IHttpControllerInterface<HttpRturnController>
 {
     Q_GADGET
     $AsController(HttpRturnController)

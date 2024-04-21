@@ -3,7 +3,7 @@
 #include <IWeb/IControllerInterface>
 #include "TestBean.h"
 
-class JsonReturnController : public IControllerInterface<JsonReturnController>
+class JsonReturnController : public IHttpControllerInterface<JsonReturnController>
 {
     Q_GADGET
     $AsController(JsonReturnController)

@@ -2,7 +2,7 @@
 
 #include <IWeb/IControllerInterface>
 
-class StaticFileController : public IControllerInterface<StaticFileController>
+class StaticFileController : public IHttpControllerInterface<StaticFileController>
 {
     Q_GADGET
     $AsController(staticFile)

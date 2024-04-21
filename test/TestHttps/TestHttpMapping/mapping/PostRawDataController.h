@@ -3,7 +3,7 @@
 #include <IWeb/IControllerInterface>
 
 // used for accept raw data
-class PostRawDataController : public IControllerInterface<PostRawDataController>
+class PostRawDataController : public IHttpControllerInterface<PostRawDataController>
 {
     Q_GADGET
     $AsController(PostRawDataController)

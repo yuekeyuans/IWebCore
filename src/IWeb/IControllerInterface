@@ -1,32 +1,32 @@
 ﻿#pragma once
 
-#include "web/controller/IControllerInterface.h"
+#include "http/controller/IHttpControllerInterface.h"
 
 // response
-#include "web/response/IResponseInterface.h"
-#include "web/response/IRedirectResponse.h"
-#include "web/response/IJsonResponse.h"
-#include "web/response/IByteArrayResponse.h"
-#include "web/response/IPlainTextResponse.h"
-#include "web/response/IHtmlResponse.h"
-#include "web/response/IFileResponse.h"
-#include "web/jar/IMultiPart.h"
-#include "web/jar/IMultiPartJar.h"
+#include "http/response/IResponseInterface.h"
+#include "http/response/IRedirectResponse.h"
+#include "http/response/IJsonResponse.h"
+#include "http/response/IByteArrayResponse.h"
+#include "http/response/IPlainTextResponse.h"
+#include "http/response/IHtmlResponse.h"
+#include "http/response/IFileResponse.h"
+#include "http/jar/IMultiPart.h"
+#include "http/jar/IMultiPartJar.h"
 
-#include "web/jar/ICookiePart.h"
-#include "web/jar/ICookieJar.h"
+#include "http/jar/ICookiePart.h"
+#include "http/jar/ICookieJar.h"
 
-#include "web/net/IRequest.h"
-#include "web/net/IResponse.h"
+#include "http/net/IRequest.h"
+#include "http/net/IResponse.h"
 
 // preprocessor
-#include "web/controller/pp/IControlVariablePreProcessor.h"
-#include "web/controller/pp/IControllerPreProcessor.h"
-#include "web/controller/pp/IDeleteMappingPreProcessor.h"
-#include "web/controller/pp/IGetMappingPreProcessor.h"
-#include "web/controller/pp/IPatchMappingPreProcessor.h"
-#include "web/controller/pp/IPostMappingPreProcessor.h"
-#include "web/controller/pp/IPutMappingPreProcessor.h"
-#include "web/controller/pp/IStatusControllerPreProcessor.h"
+#include "http/controller/pp/IControlVariablePreProcessor.h"
+#include "http/controller/pp/IControllerPreProcessor.h"
+#include "http/controller/pp/IDeleteMappingPreProcessor.h"
+#include "http/controller/pp/IGetMappingPreProcessor.h"
+#include "http/controller/pp/IPatchMappingPreProcessor.h"
+#include "http/controller/pp/IPostMappingPreProcessor.h"
+#include "http/controller/pp/IPutMappingPreProcessor.h"
+#include "http/controller/pp/IStatusControllerPreProcessor.h"
 
 using namespace IWebCore;

@@ -1,6 +1,6 @@
 ﻿#include "PostParameterController.h"
 
-PostParameterController::PostParameterController() : IControllerInterface()
+PostParameterController::PostParameterController() : IHttpControllerInterface()
 {
 }
 

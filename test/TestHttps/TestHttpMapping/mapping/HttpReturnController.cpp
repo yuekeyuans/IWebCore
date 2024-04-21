@@ -1,6 +1,6 @@
 ﻿#include "HttpReturnController.h"
 
-HttpRturnController::HttpRturnController() : IControllerInterface()
+HttpRturnController::HttpRturnController() : IHttpControllerInterface()
 {
 }
 

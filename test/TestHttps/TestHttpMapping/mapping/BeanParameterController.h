@@ -5,7 +5,7 @@
 
 class A{};
 
-class BeanParameterController : public IControllerInterface<BeanParameterController>
+class BeanParameterController : public IHttpControllerInterface<BeanParameterController>
 {
     Q_GADGET
 public:

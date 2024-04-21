@@ -2,7 +2,7 @@
 
 #include <IWeb/IControllerInterface>
 
-class ByteArrayReturnController : public IControllerInterface<ByteArrayReturnController>
+class ByteArrayReturnController : public IHttpControllerInterface<ByteArrayReturnController>
 {
     Q_GADGET
     $AsController(ByteArrayReturnController)

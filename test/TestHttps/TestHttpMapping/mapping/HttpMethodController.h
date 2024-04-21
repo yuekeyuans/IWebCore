@@ -2,7 +2,7 @@
 
 #include <IWeb/IControllerInterface>
 
-class HttpMethodController : public IControllerInterface<HttpMethodController>
+class HttpMethodController : public IHttpControllerInterface<HttpMethodController>
 {
     Q_GADGET
     $AsController(controller)

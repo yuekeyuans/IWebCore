@@ -3,7 +3,7 @@
 #include <IWeb/IControllerInterface>
 
 // test multipart transmission
-class PostMultiPartController : public IControllerInterface<PostMultiPartController>
+class PostMultiPartController : public IHttpControllerInterface<PostMultiPartController>
 {
     Q_GADGET
     $AsController(PostMultiPartController)

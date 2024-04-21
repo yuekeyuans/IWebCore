@@ -2,7 +2,7 @@
 
 #include <IWeb/IControllerInterface>
 
-class DefaultPathAndMethodMapping : public IControllerInterface<DefaultPathAndMethodMapping, true>
+class DefaultPathAndMethodMapping : public IHttpControllerInterface<DefaultPathAndMethodMapping, true>
 {
     Q_GADGET
     $AsController(defaultPath)

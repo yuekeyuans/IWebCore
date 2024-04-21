@@ -2,7 +2,7 @@
 
 #include <IWeb/IControllerInterface>
 
-class UrlPatternController : public IControllerInterface<UrlPatternController, false>
+class UrlPatternController : public IHttpControllerInterface<UrlPatternController, false>
 {
     Q_GADGET
     $AsController(UrlPatternController)

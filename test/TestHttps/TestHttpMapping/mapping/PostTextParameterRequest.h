@@ -3,7 +3,7 @@
 #include <IWeb/IControllerInterface>
 
 // all kind of text
-class PostTextParameterRequest : public IControllerInterface<PostTextParameterRequest>
+class PostTextParameterRequest : public IHttpControllerInterface<PostTextParameterRequest>
 {
     Q_GADGET
     $AsController(PostTextParameterRequest)
