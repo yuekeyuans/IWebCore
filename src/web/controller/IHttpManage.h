@@ -11,18 +11,18 @@
 #include "web/node/IUrlActionNode.h"
 #include "web/node/IStatusActionNode.h"
 
-#include "IControllerRouteMapping.h"
-#include "IControllerResourceMapping.h"
+#include "IHttpRouteMapping.h"
+#include "IHttpResourceMapping.h"
 #include "IControllerFolderMapping.h"
 
 $PackageWebCoreBegin
 
 class IRequest;
-class IControllerManage : public ISingletonUnit<IControllerManage>
+class IHttpManage : public ISingletonUnit<IHttpManage>
 {
     using ValidatorFun = bool (*)(const QString&);
 public:
-    IControllerManage() = default;
+    IHttpManage() = default;
 
 public:
     static void setIsServerStarted(bool);
@@ -66,7 +66,7 @@ public:
     static bool postProcess(IRequest& request, IResponse& response);
 
 private:
-    static QVector<IUrlActionNode*> queryFunctionNodes(IControllerRouteMapping* parentNode, const QStringList& fragments, IHttpMethod method);
+    static QVector<IUrlActionNode*> queryFunctionNodes(IHttpRouteMapping* parentNode, const QStringList& fragments, IHttpMethod method);
     static QMap<QString, QByteArray> getPathVariable(void* node, const QStringList& fragments);
 
     // 这里实现 url 时 需要防止  /<name>/<name>/  这种重复类型的 url
@@ -76,8 +76,8 @@ private:
 
 private:
     bool m_isServerStarted{false};
-    IControllerRouteMapping m_urlMapppings;
-    IControllerResourceMapping m_resourceMappings;
+    IHttpRouteMapping m_urlMapppings;
+    IHttpResourceMapping m_resourceMappings;
     IControllerFolderMapping m_folderMappings;
 
     QMap<IHttpStatus, IStatusActionNode> m_statusMappings;

@@ -5,10 +5,10 @@
 
 $PackageWebCoreBegin
 
-class IControllerResourceMapping
+class IHttpResourceMapping
 {
 public:
-    IControllerResourceMapping() = default;
+    IHttpResourceMapping() = default;
 
 public:
     bool isEnabled() const;

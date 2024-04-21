@@ -35,6 +35,7 @@ QString IOrmTableInterface<T, enabled>::catagory() const
     return "Orm";
 }
 
+// TODO: view detail whether this is right?
 template<typename T, bool enabled>
 void IOrmTableInterface<T, enabled>::task(){
     if(enabled){

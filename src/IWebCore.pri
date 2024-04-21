@@ -127,8 +127,10 @@ HEADERS += \
     $$PWD/web/biscuits/IHttpStatus.h \
     $$PWD/web/biscuits/IHttpVersion.h \
     $$PWD/web/controller/IControllerFolderMapping.h \
-    $$PWD/web/controller/IControllerResourceMapping.h \
-    $$PWD/web/controller/IControllerRouteMapping.h \
+    $$PWD/web/controller/IHttpManage.h \
+    $$PWD/web/controller/IHttpPathRegexpValidatorInterface.h \
+    $$PWD/web/controller/IHttpResourceMapping.h \
+    $$PWD/web/controller/IHttpRouteMapping.h \
     $$PWD/web/controller/IInvalidControllerInterface.h \
     $$PWD/web/controller/private/IControllerBeanParameter.h \
     $$PWD/web/controller/private/IControllerInfo.h \
@@ -190,8 +192,6 @@ HEADERS += \
     $$PWD/web/server/IServerWare.h \
     $$PWD/web/server/multiThreadServer/ITcpSocket.h \
     $$PWD/web/controller/IControllerInterface.h \
-    $$PWD/web/controller/IControllerManage.h \
-    $$PWD/web/controller/IControllerPathValidatorInterface.h \
     $$PWD/web/controller/IStatusControllerInterface.h \
     $$PWD/web/controller/pp/IControlVariablePreProcessor.h \
     $$PWD/web/controller/pp/IControllerPreProcessor.h \
@@ -292,8 +292,9 @@ SOURCES += \
     $$PWD/web/biscuits/IHttpStatus.cpp \
     $$PWD/web/biscuits/IHttpVersion.cpp \
     $$PWD/web/controller/IControllerFolderMapping.cpp \
-    $$PWD/web/controller/IControllerResourceMapping.cpp \
-    $$PWD/web/controller/IControllerRouteMapping.cpp \
+    $$PWD/web/controller/IHttpManage.cpp \
+    $$PWD/web/controller/IHttpResourceMapping.cpp \
+    $$PWD/web/controller/IHttpRouteMapping.cpp \
     $$PWD/web/controller/private/IControllerBeanParameter.cpp \
     $$PWD/web/controller/private/IControllerInterfaceHelper.cpp \
     $$PWD/web/controller/private/IControllerParameter.cpp \
@@ -345,7 +346,6 @@ SOURCES += \
     $$PWD/web/response/IStatusCodeResponse.cpp \
     $$PWD/web/server/multiThreadServer/ITcpSocket.cpp \
     $$PWD/web/controller/IControllerInterface.cpp \
-    $$PWD/web/controller/IControllerManage.cpp \
     $$PWD/web/controller/IControllerPathValidatorInterface.cpp \
 #    $$PWD/web/controller/IStatusControllerInterface.cpp \
 #    $$PWD/web/controller/private/IStatusControllerInterfaceImpl.cpp \

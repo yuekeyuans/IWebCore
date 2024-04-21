@@ -1,5 +1,5 @@
 ﻿#include "IControllerPathValidatorTask.h"
-#include "web/controller/IControllerManage.h"
+#include "web/controller/IHttpManage.h"
 
 $PackageWebCoreBegin
 
@@ -52,11 +52,11 @@ void IControllerPathValidatorTask::task()
     };
 
     for(auto key : validatorRegMap.keys()){
-        IControllerManage::instance()->registerPathValidator(key, validatorRegMap[key]);
+        IHttpManage::instance()->registerPathValidator(key, validatorRegMap[key]);
     }
 
     for(auto key : validatorFunMap.keys()){
-        IControllerManage::instance()->registerPathValidator(key, validatorFunMap[key]);
+        IHttpManage::instance()->registerPathValidator(key, validatorFunMap[key]);
     }
 }
 

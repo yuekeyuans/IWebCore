@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
         resp.setContent("hello world");
     });
 
-    IControllerManage::travalPrintUrlTree();
+    IHttpManage::travalPrintUrlTree();
 
     server.listen();
 

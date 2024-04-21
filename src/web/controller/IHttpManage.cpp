@@ -1,4 +1,4 @@
-﻿#include "IControllerManage.h"
+﻿#include "IHttpManage.h"
 #include "core/base/IConvertUtil.h"
 #include "core/base/IMetaUtil.h"
 #include "core/config/IContextManage.h"
@@ -11,13 +11,13 @@ $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-void IControllerManage::setIsServerStarted(bool value)
+void IHttpManage::setIsServerStarted(bool value)
 {
     auto inst = instance();
     inst->m_isServerStarted = value;
 }
 
-void IControllerManage::registerStatusActionNode(IStatusActionNode node)
+void IHttpManage::registerStatusActionNode(IStatusActionNode node)
 {
     checkRegisterAvalible();
 
@@ -27,14 +27,14 @@ void IControllerManage::registerStatusActionNode(IStatusActionNode node)
     m_statusMappings[node.httpStatus] = node;
 }
 
-void IControllerManage::registerStatusActionNodes(const QVector<IStatusActionNode> &statusNodes)
+void IHttpManage::registerStatusActionNodes(const QVector<IStatusActionNode> &statusNodes)
 {
     for(const auto& node : statusNodes){
         registerStatusActionNode(node);
     }
 }
 
-void IControllerManage::registerUrlActionNode(IUrlActionNode node)
+void IHttpManage::registerUrlActionNode(IUrlActionNode node)
 {
     checkRegisterAvalible();
 
@@ -49,14 +49,14 @@ void IControllerManage::registerUrlActionNode(IUrlActionNode node)
     checkUrlDuplicateName(newLeaf);
 }
 
-void IControllerManage::registerUrlActionNodes(const QVector<IUrlActionNode> &functionNodes)
+void IHttpManage::registerUrlActionNodes(const QVector<IUrlActionNode> &functionNodes)
 {
     for(auto& node : functionNodes){
         registerUrlActionNode(node);
     }
 }
 
-void IControllerManage::registerStaticFiles(const QString &path, const QString &prefix)
+void IHttpManage::registerStaticFiles(const QString &path, const QString &prefix)
 {
     checkRegisterAvalible();
 
@@ -73,7 +73,7 @@ void IControllerManage::registerStaticFiles(const QString &path, const QString &
     }
 }
 
-void IControllerManage::registerPathValidator(const QString &name, const QString &regexp)
+void IHttpManage::registerPathValidator(const QString &name, const QString &regexp)
 {
     checkRegisterAvalible();
 
@@ -91,7 +91,7 @@ void IControllerManage::registerPathValidator(const QString &name, const QString
     m_pathRegValidators[name] = regexp;
 }
 
-void IControllerManage::registerPathValidator(const QString &name, ValidatorFun fun)
+void IHttpManage::registerPathValidator(const QString &name, ValidatorFun fun)
 {
     checkRegisterAvalible();
 
@@ -103,7 +103,7 @@ void IControllerManage::registerPathValidator(const QString &name, ValidatorFun 
     m_pathFunValidators[name] = fun;
 }
 
-void IControllerManage::registerPreProcessor(IProcessorWare *middleWare)
+void IHttpManage::registerPreProcessor(IProcessorWare *middleWare)
 {
     checkRegisterAvalible();
 
@@ -111,7 +111,7 @@ void IControllerManage::registerPreProcessor(IProcessorWare *middleWare)
     inst->m_preProcessors.append(middleWare);
 }
 
-void IControllerManage::registerPostProcessor(IProcessorWare *middleWare)
+void IHttpManage::registerPostProcessor(IProcessorWare *middleWare)
 {
     checkRegisterAvalible();
 
@@ -119,7 +119,7 @@ void IControllerManage::registerPostProcessor(IProcessorWare *middleWare)
     inst->m_postProcessors.append(middleWare);
 }
 
-void IControllerManage::registerPreInterceptor(IInterceptorWare *middleWare)
+void IHttpManage::registerPreInterceptor(IInterceptorWare *middleWare)
 {
     checkRegisterAvalible();
 
@@ -127,7 +127,7 @@ void IControllerManage::registerPreInterceptor(IInterceptorWare *middleWare)
     inst->m_preInterceptors.append(middleWare);
 }
 
-void IControllerManage::registerPostInterceptor(IInterceptorWare *middleWare)
+void IHttpManage::registerPostInterceptor(IInterceptorWare *middleWare)
 {
     checkRegisterAvalible();
 
@@ -135,14 +135,14 @@ void IControllerManage::registerPostInterceptor(IInterceptorWare *middleWare)
     inst->m_postInterceptors.append(middleWare);
 }
 
-void IControllerManage::travalPrintUrlTree()
+void IHttpManage::travalPrintUrlTree()
 {
     instance()->m_urlMapppings.travelPrint();
     instance()->m_resourceMappings.travelPrint();
     instance()->m_folderMappings.travelPrint();
 }
 
-QString IControllerManage::queryPathRegValidator(const QString &path)
+QString IHttpManage::queryPathRegValidator(const QString &path)
 {
     auto inst = instance();
     if(inst->m_pathRegValidators.contains(path)){
@@ -151,7 +151,7 @@ QString IControllerManage::queryPathRegValidator(const QString &path)
     return "";
 }
 
-IControllerManage::ValidatorFun IControllerManage::queryPathFunValidator(const QString &path)
+IHttpManage::ValidatorFun IHttpManage::queryPathFunValidator(const QString &path)
 {
     auto inst = instance();
     if(inst->m_pathFunValidators.contains(path)){
@@ -160,12 +160,12 @@ IControllerManage::ValidatorFun IControllerManage::queryPathFunValidator(const Q
     return nullptr;
 }
 
-bool IControllerManage::isUrlActionNodeEnabled() const
+bool IHttpManage::isUrlActionNodeEnabled() const
 {
     return !m_urlMapppings.isEmpty();
 }
 
-IUrlActionNode *IControllerManage::getUrlActionNode(IRequest &request)
+IUrlActionNode *IHttpManage::getUrlActionNode(IRequest &request)
 {
     const QString &url = request.url();
     IHttpMethod method = request.method();
@@ -194,7 +194,7 @@ IUrlActionNode *IControllerManage::getUrlActionNode(IRequest &request)
     return node;
 }
 
-IStatusActionNode *IControllerManage::getStatusActionNode(IHttpStatus status)
+IStatusActionNode *IHttpManage::getStatusActionNode(IHttpStatus status)
 {
     auto inst = instance();
     if(inst->m_statusMappings.contains(status)){
@@ -203,12 +203,12 @@ IStatusActionNode *IControllerManage::getStatusActionNode(IHttpStatus status)
     return nullptr;
 }
 
-bool IControllerManage::isStaticFileActionPathEnabled()
+bool IHttpManage::isStaticFileActionPathEnabled()
 {
     return m_resourceMappings.isEnabled() || m_folderMappings.isEnabled();
 }
 
-QString IControllerManage::getStaticFileActionPath(const IRequest &request)
+QString IHttpManage::getStaticFileActionPath(const IRequest &request)
 {
     static bool isResourceMapping = m_resourceMappings.isEnabled();
     if(isResourceMapping){
@@ -225,7 +225,7 @@ QString IControllerManage::getStaticFileActionPath(const IRequest &request)
     return {};
 }
 
-QStringList IControllerManage::getStaticFolderActionPath(const IRequest &request)
+QStringList IHttpManage::getStaticFolderActionPath(const IRequest &request)
 {
     auto url = request.url();
     if(!url.endsWith("/")){
@@ -244,7 +244,7 @@ QStringList IControllerManage::getStaticFolderActionPath(const IRequest &request
     return {};
 }
 
-bool IControllerManage::preIntercept(IRequest &request, IResponse &response)
+bool IHttpManage::preIntercept(IRequest &request, IResponse &response)
 {
     auto inst = instance();
     for(auto obj : inst->m_preInterceptors){
@@ -256,7 +256,7 @@ bool IControllerManage::preIntercept(IRequest &request, IResponse &response)
     return false;
 }
 
-bool IControllerManage::postIntercept(IRequest &request, IResponse &response)
+bool IHttpManage::postIntercept(IRequest &request, IResponse &response)
 {
     auto inst = instance();
     for(auto obj : inst->m_postInterceptors){
@@ -268,7 +268,7 @@ bool IControllerManage::postIntercept(IRequest &request, IResponse &response)
     return false;
 }
 
-bool IControllerManage::preProcess(IRequest &request, IResponse &response)
+bool IHttpManage::preProcess(IRequest &request, IResponse &response)
 {
     auto inst = instance();
     for(auto obj : inst->m_preProcessors){
@@ -279,7 +279,7 @@ bool IControllerManage::preProcess(IRequest &request, IResponse &response)
     return true;
 }
 
-bool IControllerManage::postProcess(IRequest &request, IResponse &response)
+bool IHttpManage::postProcess(IRequest &request, IResponse &response)
 {
     auto inst = instance();
     for(auto obj : inst->m_postProcessors){
@@ -290,7 +290,7 @@ bool IControllerManage::postProcess(IRequest &request, IResponse &response)
     return true;
 }
 
-QVector<IUrlActionNode *> IControllerManage::queryFunctionNodes(IControllerRouteMapping *parentNode,
+QVector<IUrlActionNode *> IHttpManage::queryFunctionNodes(IHttpRouteMapping *parentNode,
                                                              const QStringList &fragments, IHttpMethod method)
 {
     QVector<IUrlActionNode*> ret;
@@ -314,33 +314,33 @@ QVector<IUrlActionNode *> IControllerManage::queryFunctionNodes(IControllerRoute
     return ret;
 }
 
-QMap<QString, QByteArray> IControllerManage::getPathVariable(void* node, const QStringList &fragments)
+QMap<QString, QByteArray> IHttpManage::getPathVariable(void* node, const QStringList &fragments)
 {
     QMap<QString, QByteArray> ret;
     if(node == nullptr){
         return ret;
     }
 
-    IControllerRouteMapping* routeNode = static_cast<IControllerRouteMapping*>(node);
-    QVector<IControllerRouteMapping *>  nodes = routeNode->getParentNodes();
+    IHttpRouteMapping* routeNode = static_cast<IHttpRouteMapping*>(node);
+    QVector<IHttpRouteMapping *>  nodes = routeNode->getParentNodes();
     nodes.pop_front();      // 去掉第一个node， 因为第一个 node 是 / 根节点，不参与。
     assert(nodes.length() == fragments.length());
     for(int i=0;i<nodes.length();i++){
-        if(nodes[i]->type != IControllerRouteMapping::TEXT_MATCH && !nodes[i]->name.isEmpty()){
+        if(nodes[i]->type != IHttpRouteMapping::TEXT_MATCH && !nodes[i]->name.isEmpty()){
             ret[nodes[i]->name] = fragments[i].toUtf8();
         }
     }
     return ret;
 }
 
-bool IControllerManage::checkUrlDuplicateName(const IUrlActionNode *node)
+bool IHttpManage::checkUrlDuplicateName(const IUrlActionNode *node)
 {
     QStringList names;
-    auto parent = static_cast<IControllerRouteMapping*>(node->parentNode);
+    auto parent = static_cast<IHttpRouteMapping*>(node->parentNode);
 
     while(parent != nullptr){
         auto name = parent->name;
-        if(parent->type != IControllerRouteMapping::TEXT_MATCH && !name.isEmpty()){
+        if(parent->type != IHttpRouteMapping::TEXT_MATCH && !name.isEmpty()){
             if(names.contains(name)){
                 auto info = name + " path variable name duplicated, please change one to annother name";
                 qFatal(info.toUtf8());
@@ -353,7 +353,7 @@ bool IControllerManage::checkUrlDuplicateName(const IUrlActionNode *node)
     return true;
 }
 
-void IControllerManage::checkRegisterAvalible()
+void IHttpManage::checkRegisterAvalible()
 {
     auto inst = instance();
     if(inst->m_isServerStarted){

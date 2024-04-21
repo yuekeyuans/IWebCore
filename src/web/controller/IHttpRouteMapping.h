@@ -6,7 +6,7 @@ $PackageWebCoreBegin
 
 struct IUrlActionNode;
 
-class IControllerRouteMapping
+class IHttpRouteMapping
 {
 private:
     using ValidateFun = bool (*)(const QString&);
@@ -21,25 +21,25 @@ public:
     };
 
 public:
-    IControllerRouteMapping() = default;
-    explicit IControllerRouteMapping(IControllerRouteMapping* parent, const QString& fragment);
+    IHttpRouteMapping() = default;
+    explicit IHttpRouteMapping(IHttpRouteMapping* parent, const QString& fragment);
 
     bool isEmpty() const;
     IUrlActionNode* setLeaf(const IUrlActionNode& leaf);
     IUrlActionNode* getLeaf(IHttpMethod method);
     void removeLeaf(IHttpMethod method);
 
-    void addChildNode(const IControllerRouteMapping& node);
-    void removeChildNode(const IControllerRouteMapping& node);
+    void addChildNode(const IHttpRouteMapping& node);
+    void removeChildNode(const IHttpRouteMapping& node);
 
-    QVector<IControllerRouteMapping*> getChildNodes(const QString nodeName);
-    QVector<IControllerRouteMapping*> getParentNodes();
-    IControllerRouteMapping* getOrAppendChildNode(const QString& fragment);
-    IControllerRouteMapping* getChildNode(const QString& fragment);
+    QVector<IHttpRouteMapping*> getChildNodes(const QString nodeName);
+    QVector<IHttpRouteMapping*> getParentNodes();
+    IHttpRouteMapping* getOrAppendChildNode(const QString& fragment);
+    IHttpRouteMapping* getChildNode(const QString& fragment);
 
     void travelPrint(int space=0) const;
 
-    bool operator==(const IControllerRouteMapping& node);
+    bool operator==(const IHttpRouteMapping& node);
 
 private:
     IUrlActionNodePtr& getLeafRef(IHttpMethod method);
@@ -59,14 +59,14 @@ public:
     QRegularExpression regexpValidator;     // 使用 正则式验证数据的正确性与否
     ValidateFun funValidator;               // 使用 函数 验证数据是否正确
 
-    QList<IControllerRouteMapping> children;
+    QList<IHttpRouteMapping> children;
 
     IUrlActionNode *getMethodLeaf{nullptr};
     IUrlActionNode *putMethodLeaf{nullptr};
     IUrlActionNode *postMethodLeaf{nullptr};
     IUrlActionNode *deleteMethodLeaf{nullptr};
     IUrlActionNode *patchMethodLeaf{nullptr};
-    IControllerRouteMapping* parentNode{nullptr};
+    IHttpRouteMapping* parentNode{nullptr};
 };
 
 $PackageWebCoreEnd

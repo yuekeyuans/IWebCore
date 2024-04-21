@@ -1,6 +1,6 @@
 ﻿#include "IHttpServer.h"
 #include "core/base/IConstantUtil.h"
-#include "web/controller/IControllerManage.h"
+#include "web/controller/IHttpManage.h"
 #include "web/server/IHttpServerManage.h"
 #include "web/node/IUrlActionNode.h"
 
@@ -50,7 +50,7 @@ void IHttpServer::setPort(int port)
 // TODO: 这个要被注销掉， 或者不从这里使用。
 void IHttpServer::serveStatic(const QString &dir, const QString &prefix)
 {
-    IControllerManage::instance()->registerStaticFiles(dir, prefix);
+    IHttpManage::instance()->registerStaticFiles(dir, prefix);
 }
 
 void IHttpServer::get(const QString &path, IHttpServer::ProcessFunctor functor)
@@ -81,7 +81,7 @@ void IHttpServer::patch(const QString &path, IHttpServer::ProcessFunctor functor
 void IHttpServer::serveDynamic(IHttpMethod method, const QString &path, IHttpServer::ProcessFunctor functor)
 {
     auto node = IHttpServerHelper::generateUrlActionNode(method, path, functor);
-    IControllerManage::instance()->registerUrlActionNode(node);
+    IHttpManage::instance()->registerUrlActionNode(node);
 }
 
 void IHttpServer::incomingConnection(qintptr handle)

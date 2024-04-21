@@ -1,7 +1,7 @@
 ﻿#include "IHttpServerRunable.h"
 #include "core/base/ISocketUtil.h"
 #include "core/config/IProfileImport.h"
-#include "web/controller/IControllerManage.h"
+#include "web/controller/IHttpManage.h"
 #include "web/controller/private/IControllerParameter.h"
 #include "web/net/IRequest.h"
 #include "web/net/IResponse.h"
@@ -41,10 +41,10 @@ void IHttpServerRunable::runRequest(IRequest& request)
     }
 
     do {
-        if( IControllerManage::preIntercept(request, response)){
+        if( IHttpManage::preIntercept(request, response)){
             break;
         }
-        IControllerManage::preProcess(request, response);
+        IHttpManage::preProcess(request, response);
         if(!request.valid()){
             break;
         }
@@ -54,10 +54,10 @@ void IHttpServerRunable::runRequest(IRequest& request)
             break;
         }
 
-        if(IControllerManage::postIntercept(request, response)){
+        if(IHttpManage::postIntercept(request, response)){
             break;
         }
-        IControllerManage::postProcess(request, response);
+        IHttpManage::postProcess(request, response);
         
         // 拦截 socket
         if(!response.valid() || response.status() != IHttpStatus::OK_200){
@@ -78,7 +78,7 @@ void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
         return runOptionsFunction(request, response);
     }
 
-    static auto controllerManage = IControllerManage::instance();
+    static auto controllerManage = IHttpManage::instance();
     static bool isUrlActionEnabled = controllerManage->isUrlActionNodeEnabled();     // process as dynamic server first
     if(isUrlActionEnabled){
         auto function = controllerManage->getUrlActionNode(request);
@@ -180,7 +180,7 @@ void IHttpServerRunable::processInNotFoundMode(IRequest &request, IResponse &res
 QStringList handleOptionsRequest(IRequest& request, IResponse& response)
 {
     Q_UNUSED(response)
-    static auto controllerManage = IControllerManage::instance();
+    static auto controllerManage = IHttpManage::instance();
     static const QMap<IHttpMethod, QString> mappings = {
         {IHttpMethod::GET,      "GET"},
         {IHttpMethod::PUT,      "PUT"},
@@ -227,7 +227,7 @@ void IHttpServerRunable::runOptionsFunction(IRequest &request, IResponse &respon
 
 bool IHttpServerRunable::interceptStatusCode(IRequest &request, IResponse &response)
 {
-    auto function = IControllerManage::getStatusActionNode(response.status());
+    auto function = IHttpManage::getStatusActionNode(response.status());
     if(function != nullptr){
         runStatusFunction(request, response, function);
     }

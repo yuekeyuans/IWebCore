@@ -1,4 +1,4 @@
-﻿#include "IControllerResourceMapping.h"
+﻿#include "IHttpResourceMapping.h"
 #include "core/base/IFileUtil.h"
 #include "web/IWebAssert.h"
 
@@ -13,12 +13,12 @@ namespace IControllerResourceNodeHelper
     bool mountFilePageToServer(QMap<QString, QString>& hash, const QString& filePath, const QString& url);
 }
 
-bool IControllerResourceMapping::isEnabled() const
+bool IHttpResourceMapping::isEnabled() const
 {
     return m_enabled;
 }
 
-QString IControllerResourceMapping::getFilePath(const QString &url) const
+QString IHttpResourceMapping::getFilePath(const QString &url) const
 {
     if(m_enabled && m_fileMappings.contains(url)){
         return m_fileMappings[url];
@@ -27,7 +27,7 @@ QString IControllerResourceMapping::getFilePath(const QString &url) const
     return {};
 }
 
-QStringList IControllerResourceMapping::getFileEntries(const QString &url)
+QStringList IHttpResourceMapping::getFileEntries(const QString &url)
 {
     if(!m_enabled){
         return {};
@@ -46,14 +46,14 @@ QStringList IControllerResourceMapping::getFileEntries(const QString &url)
     return ret;
 }
 
-void IControllerResourceMapping::mountMapping(const QString &dir, const QString &prefix)
+void IHttpResourceMapping::mountMapping(const QString &dir, const QString &prefix)
 {
     m_map[dir] = prefix;
     this->m_enabled = true;
     IControllerResourceNodeHelper::mountFilesToResourceMapping(m_fileMappings, dir, prefix);
 }
 
-void IControllerResourceMapping::travelPrint() const
+void IHttpResourceMapping::travelPrint() const
 {
     if(m_enabled){
         qDebug() << "Resource Mapping:";

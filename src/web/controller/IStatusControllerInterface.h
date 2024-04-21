@@ -4,7 +4,7 @@
 #include "core/base/IMetaUtil.h"
 #include "core/task/ITaskManage.h"
 #include "core/task/unit/ITaskWareUnit.h"
-#include "web/controller/IControllerManage.h"
+#include "web/controller/IHttpManage.h"
 #include "web/node/IStatusActionNode.h"
 
 $PackageWebCoreBegin

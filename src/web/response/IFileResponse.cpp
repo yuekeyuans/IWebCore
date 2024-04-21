@@ -5,7 +5,7 @@
 #include "core/config/IProfileImport.h"
 #include "web/IWebAssert.h"
 #include "web/biscuits/IHttpMime.h"
-#include "web/controller/IControllerManage.h"
+#include "web/controller/IHttpManage.h"
 
 $PackageWebCoreBegin
 

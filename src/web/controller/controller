@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include "IControllerManage.h"
+#include "IHttpManage.h"
 #include "IControllerInterface.h"
-#include "IControllerPathValidatorInterface.h"
+#include "IHttpPathRegexpValidatorInterface.h"
 #include "pp/IControllerPreProcessor.h"
 #include "pp/IDeleteMappingPreProcessor.h"
 #include "pp/IGetMappingPreProcessor.h"

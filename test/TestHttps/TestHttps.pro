@@ -8,4 +8,4 @@ SUBDIRS +=  \
 #    TestHttpStaticFileSerice1   \
 #    TestHttpRegistration \
 #    TestHttpListener \
-    TestSimpleController
+#    TestSimpleController

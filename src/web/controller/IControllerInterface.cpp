@@ -1,6 +1,6 @@
 ﻿#include "IControllerInterface.h"
 #include "web/IWebAssert.h"
-#include "web/controller/IControllerManage.h"
+#include "web/controller/IHttpManage.h"
 #include "web/controller/private/IControllerInfo.h"
 #include "web/controller/private/IControllerInterfaceHelper.h"
 
@@ -20,7 +20,7 @@ void IControllerInterfaceHelper::registerController(void *handler, const QString
     IControllerInterfaceHelper::checkUrlMappings(info);
     auto functionNodes = IControllerInterfaceHelper::createMappingLeaves(info);
     if(!functionNodes.empty()){
-        IControllerManage::instance()->registerUrlActionNodes(functionNodes);
+        IHttpManage::instance()->registerUrlActionNodes(functionNodes);
     }
 }
 

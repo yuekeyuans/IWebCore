@@ -2,9 +2,8 @@
 
 #include <IWebCore>
 
-class FiveCharaterUrlValidator : public IControllerPathValidatorInterface<FiveCharaterUrlValidator>
+class FiveCharaterUrlValidator : public IHttpPathRegexpValidatorInterface<FiveCharaterUrlValidator>
 {
-    $UseInstance(FiveCharaterUrlValidator)
 public:
     FiveCharaterUrlValidator() = default;
     virtual void task() override;

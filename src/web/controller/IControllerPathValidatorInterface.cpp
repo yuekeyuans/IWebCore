@@ -1,16 +1,16 @@
-﻿#include "IControllerPathValidatorInterface.h"
-#include "web/controller/IControllerManage.h"
+﻿#include "IHttpPathRegexpValidatorInterface.h"
+#include "web/controller/IHttpManage.h"
 
 $PackageWebCoreBegin
 
 void IControllerPathValidatorInterfaceHelper::registerValidator(const QString &name, const QString &regexp)
 {
-    IControllerManage::instance()->registerPathValidator(name, regexp);
+    IHttpManage::instance()->registerPathValidator(name, regexp);
 }
 
 void IControllerPathValidatorInterfaceHelper::registerValidator(const QString &name, ValidateFun function)
 {
-    IControllerManage::instance()->registerPathValidator(name, function);
+    IHttpManage::instance()->registerPathValidator(name, function);
 }
 
 $PackageWebCoreEnd
