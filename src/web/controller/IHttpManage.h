@@ -13,7 +13,7 @@
 
 #include "IHttpRouteMapping.h"
 #include "IHttpResourceMapping.h"
-#include "IControllerFolderMapping.h"
+#include "IHttpFolderMapping.h"
 
 $PackageWebCoreBegin
 
@@ -78,7 +78,7 @@ private:
     bool m_isServerStarted{false};
     IHttpRouteMapping m_urlMapppings;
     IHttpResourceMapping m_resourceMappings;
-    IControllerFolderMapping m_folderMappings;
+    IHttpFolderMapping m_folderMappings;
 
     QMap<IHttpStatus, IStatusActionNode> m_statusMappings;
     QMap<QString, QString> m_pathRegValidators;

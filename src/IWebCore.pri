@@ -126,12 +126,12 @@ HEADERS += \
     $$PWD/web/biscuits/IHttpMime.h \
     $$PWD/web/biscuits/IHttpStatus.h \
     $$PWD/web/biscuits/IHttpVersion.h \
-    $$PWD/web/controller/IControllerFolderMapping.h \
+    $$PWD/web/controller/IHttpFolderMapping.h \
     $$PWD/web/controller/IHttpManage.h \
     $$PWD/web/controller/IHttpPathRegexpValidatorInterface.h \
     $$PWD/web/controller/IHttpResourceMapping.h \
     $$PWD/web/controller/IHttpRouteMapping.h \
-    $$PWD/web/controller/IInvalidControllerInterface.h \
+#    $$PWD/web/controller/IInvalidControllerInterface.h \
     $$PWD/web/controller/private/IControllerBeanParameter.h \
     $$PWD/web/controller/private/IControllerInfo.h \
     $$PWD/web/controller/private/IControllerInterfaceHelper.h \
@@ -192,7 +192,7 @@ HEADERS += \
     $$PWD/web/server/IServerWare.h \
     $$PWD/web/server/multiThreadServer/ITcpSocket.h \
     $$PWD/web/controller/IControllerInterface.h \
-    $$PWD/web/controller/IStatusControllerInterface.h \
+#    $$PWD/web/controller/IStatusControllerInterface.h \
     $$PWD/web/controller/pp/IControlVariablePreProcessor.h \
     $$PWD/web/controller/pp/IControllerPreProcessor.h \
     $$PWD/web/controller/pp/IDeleteMappingPreProcessor.h \
@@ -291,7 +291,7 @@ SOURCES += \
     $$PWD/web/biscuits/IHttpMime.cpp \
     $$PWD/web/biscuits/IHttpStatus.cpp \
     $$PWD/web/biscuits/IHttpVersion.cpp \
-    $$PWD/web/controller/IControllerFolderMapping.cpp \
+    $$PWD/web/controller/IHttpFolderMapping.cpp \
     $$PWD/web/controller/IHttpManage.cpp \
     $$PWD/web/controller/IHttpResourceMapping.cpp \
     $$PWD/web/controller/IHttpRouteMapping.cpp \

@@ -1,16 +1,16 @@
-﻿#include "IControllerFolderMapping.h"
+﻿#include "IHttpFolderMapping.h"
 #include "web/IWebAssert.h"
 
 $PackageWebCoreBegin
 
 $UseAssert(IWebAssert)
 
-bool IControllerFolderMapping::isEnabled() const
+bool IHttpFolderMapping::isEnabled() const
 {
     return m_enabled;
 }
 
-QString IControllerFolderMapping::getFilePath(const QString &url) const
+QString IHttpFolderMapping::getFilePath(const QString &url) const
 {
     if(!m_enabled){
         return {};
@@ -34,7 +34,7 @@ QString IControllerFolderMapping::getFilePath(const QString &url) const
     return {};
 }
 
-QStringList IControllerFolderMapping::getFileEntries(const QString &url)
+QStringList IHttpFolderMapping::getFileEntries(const QString &url)
 {
     if(!m_enabled){
         return {};
@@ -53,7 +53,7 @@ QStringList IControllerFolderMapping::getFileEntries(const QString &url)
     return ret;
 }
 
-void IControllerFolderMapping::mountMapping(const QString &path, const QString &prefix)
+void IHttpFolderMapping::mountMapping(const QString &path, const QString &prefix)
 {
     QDir dir(path);
     if(!dir.exists() || dir.isEmpty()){
@@ -67,7 +67,7 @@ void IControllerFolderMapping::mountMapping(const QString &path, const QString &
     m_enabled = true;
 }
 
-void IControllerFolderMapping::travelPrint() const
+void IHttpFolderMapping::travelPrint() const
 {
     if(m_enabled){
         qDebug() << "Folder Mapping:";
@@ -79,7 +79,7 @@ void IControllerFolderMapping::travelPrint() const
     }
 }
 
-QString IControllerFolderMapping::getFolderDefaultFilePath(const QString &path) const
+QString IHttpFolderMapping::getFolderDefaultFilePath(const QString &path) const
 {
     static const QStringList& pages = defaultPages.value();
     for(const QString& name : pages){

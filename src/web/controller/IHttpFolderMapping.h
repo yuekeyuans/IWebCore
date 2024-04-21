@@ -5,10 +5,10 @@
 
 $PackageWebCoreBegin
 
-class IControllerFolderMapping
+class IHttpFolderMapping
 {
 public:
-    IControllerFolderMapping() = default;
+    IHttpFolderMapping() = default;
 
 public:
     bool isEnabled() const;
