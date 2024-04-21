@@ -90,6 +90,10 @@ HEADERS += \
     $$PWD/http/controller/private/IHttpControllerBeanParameter.h \
     $$PWD/http/controller/private/IHttpControllerInfo.h \
     $$PWD/http/controller/private/IHttpControllerParameter.h \
+    $$PWD/http/nody/INody.h \
+    $$PWD/http/nody/INodyManage.h \
+    $$PWD/http/nody/INodyParser.h \
+    $$PWD/http/nody/INodyRenderer.h \
     $$PWD/orm/IOrmAssert.h \
     $$PWD/orm/IOrmManage.h \
     $$PWD/orm/IOrmTaskCatagory.h \
@@ -260,6 +264,10 @@ SOURCES += \
     $$PWD/http/IHttpControllerTaskCatagory.cpp \
     $$PWD/http/controller/private/IHttpControllerBeanParameter.cpp \
     $$PWD/http/controller/private/IHttpControllerParameter.cpp \
+    $$PWD/http/nody/INody.cpp \
+    $$PWD/http/nody/INodyManage.cpp \
+    $$PWD/http/nody/INodyParser.cpp \
+    $$PWD/http/nody/INodyRenderer.cpp \
     $$PWD/orm/IOrmAssert.cpp \
     $$PWD/orm/IOrmManage.cpp \
     $$PWD/orm/IOrmTaskCatagory.cpp \

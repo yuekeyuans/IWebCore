@@ -1,6 +1,6 @@
 ﻿#include "IRendererResponse.h"
 #include "IResponseManage.h"
-#include "INody.h"
+#include "http/nody/INody.h"
 #include "IResponseTemplateRenderer.h"
 
 $PackageWebCoreBegin
