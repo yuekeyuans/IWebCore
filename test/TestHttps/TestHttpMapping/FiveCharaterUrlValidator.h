@@ -2,9 +2,13 @@
 
 #include <IWebCore>
 
-class FiveCharaterUrlValidator : public IHttpPathRegexpValidatorInterface<FiveCharaterUrlValidator>
+class FiveCharaterUrlValidator : public IHttpPathFunctorValidatorInterface<FiveCharaterUrlValidator>
 {
 public:
     FiveCharaterUrlValidator() = default;
-    virtual void task() override;
+
+public:
+    virtual QString name() final;
+    virtual Validator validator() final;
+
 };

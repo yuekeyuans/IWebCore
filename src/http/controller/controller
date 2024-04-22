@@ -3,6 +3,7 @@
 #include "IHttpManage.h"
 #include "IHttpControllerInterface.h"
 #include "IHttpPathRegexpValidatorInterface.h"
+#include "IHttpPathFunctorValidatorInterface.h"
 #include "pp/IControllerPreProcessor.h"
 #include "pp/IDeleteMappingPreProcessor.h"
 #include "pp/IGetMappingPreProcessor.h"

@@ -9,7 +9,7 @@ struct IUrlActionNode;
 class IHttpRouteMapping
 {
 private:
-    using ValidateFun = bool (*)(const QString&);
+    using ValidateFun = std::function<bool(const QString&)>;
     using IUrlActionNodePtr = IUrlActionNode*;
 
 public:

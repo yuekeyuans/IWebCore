@@ -1,10 +1,13 @@
 ﻿#include "FiveCharaterUrlValidator.h"
 
-void FiveCharaterUrlValidator::task()
+QString FiveCharaterUrlValidator::name()
 {
-    auto fiveCharatorValidator = [](const QString& piece) -> bool{
-        return piece.length() == 5;
-    };
-    registerValidator("5c", fiveCharatorValidator);
+    return "5c";
 }
 
+FiveCharaterUrlValidator::Validator FiveCharaterUrlValidator::validator()
+{
+    return [](const QString& data){
+        return data.length() == 5;
+    };
+}

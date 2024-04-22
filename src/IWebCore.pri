@@ -87,6 +87,7 @@ HEADERS += \
     $$PWD/core/unit/IStackObjectUnit.h \
     $$PWD/http/IHttpControllerTaskCatagory.h \
     $$PWD/http/controller/IHttpControllerInterface.h \
+    $$PWD/http/controller/IHttpPathFunctorValidatorInterface.h \
     $$PWD/http/controller/private/IHttpControllerBeanParameter.h \
     $$PWD/http/controller/private/IHttpControllerInfo.h \
     $$PWD/http/controller/private/IHttpControllerParameter.h \
@@ -262,6 +263,9 @@ SOURCES += \
     $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
     $$PWD/core/unit/IRegisterTypeUnit.cpp \
     $$PWD/http/IHttpControllerTaskCatagory.cpp \
+#    $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
+    $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
+    $$PWD/http/controller/IHttpPathRegexpValidatorInterface.cpp \
     $$PWD/http/controller/private/IHttpControllerBeanParameter.cpp \
     $$PWD/http/controller/private/IHttpControllerParameter.cpp \
     $$PWD/http/nody/INody.cpp \
@@ -354,7 +358,6 @@ SOURCES += \
     $$PWD/http/response/IStatusCodeResponse.cpp \
     $$PWD/http/server/multiThreadServer/ITcpSocket.cpp \
     $$PWD/http/controller/IControllerInterface.cpp \
-    $$PWD/http/controller/IControllerPathValidatorInterface.cpp \
 #    $$PWD/http/controller/IStatusControllerInterface.cpp \
 #    $$PWD/http/controller/private/IStatusControllerInterfaceImpl.cpp \
     $$PWD/http/server/IHttpServer.cpp \

@@ -20,7 +20,7 @@ $PackageWebCoreBegin
 class IRequest;
 class IHttpManage : public ISingletonUnit<IHttpManage>
 {
-    using ValidatorFun = bool (*)(const QString&);
+    using ValidatorFun = std::function<bool(const QString&)>;
 public:
     IHttpManage() = default;
 

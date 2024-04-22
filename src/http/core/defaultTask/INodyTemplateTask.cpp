@@ -3,8 +3,8 @@
 #include "core/base/IFileUtil.h"
 #include "core/config/IProfileImport.h"
 #include "http/response/IResponseManage.h"
-#include "nody/INodyManage.h"
-#include "nody/INodyRenderer.h"
+#include "http/nody/INodyManage.h"
+#include "http/nody/INodyRenderer.h"
 
 $PackageWebCoreBegin
 
