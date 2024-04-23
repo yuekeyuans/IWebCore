@@ -8,7 +8,7 @@ public:
     FiveCharaterUrlValidator() = default;
 
 public:
-    virtual QString name() final;
-    virtual Validator validator() final;
+    virtual QString marker() const final;
+    virtual Validator validator() const final;
 
 };

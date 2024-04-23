@@ -1,11 +1,11 @@
 ﻿#include "FiveCharaterUrlValidator.h"
 
-QString FiveCharaterUrlValidator::name()
+QString FiveCharaterUrlValidator::marker() const
 {
     return "5c";
 }
 
-FiveCharaterUrlValidator::Validator FiveCharaterUrlValidator::validator()
+FiveCharaterUrlValidator::Validator FiveCharaterUrlValidator::validator() const
 {
     return [](const QString& data){
         return data.length() == 5;

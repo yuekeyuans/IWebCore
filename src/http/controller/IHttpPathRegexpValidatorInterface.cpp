@@ -3,7 +3,7 @@
 
 $PackageWebCoreBegin
 
-void IHttpPathRegexpValidatorInterfaceHelper::registValidator(const QString &name, IHttpPathRegexpValidatorWare::Validator validator)
+void IHttpPathRegexpValidatorInterfaceHelper::registValidator(const QString &name, const QString &validator)
 {
     IHttpManage::instance()->registerPathValidator(name, validator);
 }

@@ -6,33 +6,57 @@
 
 $PackageWebCoreBegin
 
-struct IHttpPathRegexpValidatorWare
+template<typename T, bool enabled = true>
+class IHttpPathRegexpValidatorInterface : public IHttpPathRegexpValidatorWare, public ITaskInstantUnit<T, enabled>, public ISingletonUnit<T>
 {
 public:
     using Validator = QString;
 
 public:
-    virtual QString name() = 0;
-    virtual Validator validator();
-};
-
-template<typename T, bool enabled = true>
-class IHttpPathRegexpValidatorInterface : public IHttpPathRegexpValidatorWare, public ITaskInstantUnit<T, enabled>, public ISingletonUnit<T>
-{
-public:
     IHttpPathRegexpValidatorInterface() = default;
     virtual void task() final;
+    virtual QString name() const final;
+    virtual QString catagory() const final;
+    virtual double order() const final;
+
+public:
+    virtual QString marker() const  = 0;
+    virtual Validator validator() const  = 0;
 };
 
-namespace IHttpPathRegexpValidatorInterfaceHelper
+class IHttpPathRegexpValidatorInterfaceHelper
 {
-    void registValidator(const QString& name, IHttpPathRegexpValidatorWare::Validator);
-}
+private:
+    template<typename T, bool>
+    friend class IHttpPathRegexpValidatorInterface;
+
+private:
+    void registValidator(const QString& name, const QString&);
+};
 
 template<typename T, bool enabled>
 void IHttpPathRegexpValidatorInterface<T, enabled>::task()
 {
-    IHttpPathRegexpValidatorInterfaceHelper::registValidator(name(), validator());
+    IHttpPathFunctorValidatorInterfaceHelper::registValidator(this->marker(), this->validator());
 }
+
+template<typename T, bool enabled>
+QString IHttpPathRegexpValidatorInterface<T, enabled>::name() const
+{
+    return IMetaUtil::getTypename<T>();
+}
+
+template<typename T, bool enabled>
+QString IHttpPathRegexpValidatorInterface<T, enabled>::catagory() const
+{
+    return "HttpController";
+}
+
+template<typename T, bool enabled>
+double IHttpPathRegexpValidatorInterface<T, enabled>::order() const
+{
+    return 49;
+}
+
 
 $PackageWebCoreEnd
