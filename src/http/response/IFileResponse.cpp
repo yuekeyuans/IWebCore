@@ -78,7 +78,7 @@ bool IFileResponseHelper::setFilePath(IResponseWareRaw* raw, const QString& path
 
     if(QFile(realPath).exists()){
         auto suffix = IFileUtil::getFileSuffix(realPath);
-        raw->setMime(IHttpMimeHelper::getSuffixMime(suffix));
+        raw->setMime(IHttpMimeUtil::getSuffixMime(suffix));
         raw->setFileContent(realPath);
         return true;
     }

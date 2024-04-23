@@ -14,7 +14,7 @@ enum class IHttpMethod {
     UNKNOWN
 };
 
-namespace IHttpMethodHelper{
+namespace IHttpMethodUtil{
     QString toString(IHttpMethod);
     IHttpMethod toMethod(const QString&);
     const QStringList& methodNames();

@@ -52,11 +52,11 @@ bool IReqRespRaw::valid() const
 void IReqRespRaw::setInvalid(IHttpStatus status, const QString &message)
 {
     this->m_valid = false;
-    this->m_responseMime = IHttpMimeHelper::toString(IHttpMime::TEXT_PLAIN_UTF8);
+    this->m_responseMime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
     this->m_responseStatus = status;
 
-    QString tip = IHttpStatusHelper::toString(status).append(" - ")
-                      .append(IHttpStatusHelper::toStringDescription(status)).append(": ")
+    QString tip = IHttpStatusUtil::toString(status).append(" - ")
+                      .append(IHttpStatusUtil::toStringDescription(status)).append(": ")
                       .append(message).append(IConstantUtil::NewLine);
     this->m_responseContent.setContent(tip);
 }

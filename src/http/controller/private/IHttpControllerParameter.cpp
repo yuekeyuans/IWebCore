@@ -406,7 +406,7 @@ void IHttpControllerParameter::wrapVoidReturnInstance(IResponse &response, const
 {
     Q_UNUSED(functionNode)
     Q_UNUSED(params)
-    if(response.mime() == IHttpMimeHelper::MIME_UNKNOWN_STRING){
+    if(response.mime() == IHttpMimeUtil::MIME_UNKNOWN_STRING){
         response.setMime(IHttpMime::TEXT_PLAIN_UTF8);
         $Ast->warn("process_void_return_with_request_not_set_mime_error");
     }

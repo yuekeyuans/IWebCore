@@ -24,7 +24,7 @@ HEADERS += \
     $$PWD/core/base/ISocketUtil.h \
     $$PWD/core/base/ITicTacUtil.h \
     $$PWD/core/base/IToeUtil.h \
-    $$PWD/core/base/ITraitHelper.h \
+    $$PWD/core/base/ITraitUtil.h \
     $$PWD/core/base/IXmlUtil.h \
     $$PWD/core/application/IApplication.h \
     $$PWD/core/application/IApplicationPreProcessor.h \
@@ -230,7 +230,7 @@ SOURCES += \
     $$PWD/core/base/ISocketUtil.cpp \
     $$PWD/core/base/ITicTacUtil.cpp \
     $$PWD/core/base/IToeUtil.cpp \
-    $$PWD/core/base/ITraitHelper.cpp \
+    $$PWD/core/base/ITraitUtil.cpp \
     $$PWD/core/base/IXmlUtil.cpp \
     $$PWD/core/application/IApplication.cpp \
     $$PWD/core/assert/IAssertInfo.cpp \

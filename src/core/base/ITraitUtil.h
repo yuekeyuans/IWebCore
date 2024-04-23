@@ -4,7 +4,7 @@
 
 $PackageWebCoreBegin
 
-namespace ITraitHelper
+namespace ITraitUtil
 {
     template <typename T, typename = void>
     struct is_gadget : std::false_type {};

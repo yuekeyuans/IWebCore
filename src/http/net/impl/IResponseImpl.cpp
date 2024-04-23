@@ -19,11 +19,11 @@ bool IResponseImpl::respond()
         auto path = IResponseManage::instance()->getTemplateRenderer()->getPage(raw->m_responseStatus);
         if(!path.isEmpty()){
             QJsonObject obj;
-            obj["status_code"] = IHttpStatusHelper::toString(raw->m_responseStatus);
+            obj["status_code"] = IHttpStatusUtil::toString(raw->m_responseStatus);
             obj["error_info"] = raw->m_responseContent.contentString;
 
             IRendererResponse response(path, obj);
-            raw->m_responseMime = IHttpMimeHelper::toString(IHttpMime::TEXT_HTML_UTF8);
+            raw->m_responseMime = IHttpMimeUtil::toString(IHttpMime::TEXT_HTML_UTF8);
             raw->m_responseContent.setContent(response.getContent().contentString);
         }
     }
@@ -45,9 +45,9 @@ bool IResponseImpl::respond()
 QByteArray IResponseImpl::generateFirstLine()
 {
     QByteArray firstLine;
-    firstLine.append(IHttpVersionHelper::toString(raw->m_httpVersion)).append(" ")
-        .append(IHttpStatusHelper::toString(raw->m_responseStatus)).append(" ")
-        .append(IHttpStatusHelper::toStringDescription(raw->m_responseStatus)).append(IConstantUtil::NewLine);
+    firstLine.append(IHttpVersionUtil::toString(raw->m_httpVersion)).append(" ")
+        .append(IHttpStatusUtil::toString(raw->m_responseStatus)).append(" ")
+        .append(IHttpStatusUtil::toStringDescription(raw->m_responseStatus)).append(IConstantUtil::NewLine);
 
     return firstLine;
 }

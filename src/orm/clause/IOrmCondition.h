@@ -147,7 +147,11 @@ private:
 };
 
 
-namespace IOrmConditionHelper{
+class IOrmConditionHelper{
+private:
+    friend class IOrmCondition;
+
+private:
     void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<qint8>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
     void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<quint8>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
     void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<qint16>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
@@ -213,7 +217,7 @@ namespace IOrmConditionHelper{
     void havingBetween(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QPair<QDate, QDate>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
     void havingBetween(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QPair<QTime, QTime>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
     void havingBetween(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QPair<QDateTime, QDateTime>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
-}
+};
 
 template<typename T>
 IOrmCondition& IOrmCondition::whereIn(const QString& field, const QList<T>& range, IOrmCondition::Relation relation)

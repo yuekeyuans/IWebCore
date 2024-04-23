@@ -2,12 +2,12 @@
 
 $PackageWebCoreBegin
 
-QString IHttpStatusHelper::toString(const IHttpStatus statusCode)
+QString IHttpStatusUtil::toString(const IHttpStatus statusCode)
 {
     return QString::number(static_cast<int>(statusCode));
 }
 
-QString IHttpStatusHelper::toStringDescription(IHttpStatus statusCode)
+QString IHttpStatusUtil::toStringDescription(IHttpStatus statusCode)
 {
     const auto& description = getStatusDescription();
     if(!description.contains(static_cast<int>(statusCode))){
@@ -16,7 +16,7 @@ QString IHttpStatusHelper::toStringDescription(IHttpStatus statusCode)
     return getStatusDescription()[static_cast<int>(statusCode)];
 }
 
-IHttpStatus IHttpStatusHelper::toStatus(int statusCode)
+IHttpStatus IHttpStatusUtil::toStatus(int statusCode)
 {
     const auto& description = getStatusDescription();
     if(!description.contains(statusCode)){
@@ -25,13 +25,13 @@ IHttpStatus IHttpStatusHelper::toStatus(int statusCode)
     return IHttpStatus(statusCode);
 }
 
-IHttpStatus IHttpStatusHelper::toStatus(const QString &statusCode)
+IHttpStatus IHttpStatusUtil::toStatus(const QString &statusCode)
 {
     auto code = statusCode.toInt();
     return toStatus(code);
 }
 
-const QMap<int, QString> &IHttpStatusHelper::getStatusDescription()
+const QMap<int, QString> &IHttpStatusUtil::getStatusDescription()
 {
     const static QMap<int, QString> descriptionTable = {
         // 1XX

@@ -1,14 +1,9 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
-#include "core/base/ITraitHelper.h"
+#include "core/base/ITraitUtil.h"
 
 $PackageWebCoreBegin
-
-
-namespace IMetaUtilHelper {
-    static QString demangleName(const char*);
-}
 
 namespace IMetaUtil
 {
@@ -66,6 +61,16 @@ namespace IMetaUtil
     QString getTypename();
 }
 
+class IMetaUtilHelper
+{
+private:
+    template<typename T>
+    friend QString IMetaUtil::getTypename<T>();
+
+private:
+    static QString demangleName(const char*);
+};
+
 template<typename T>
 void IMetaUtil::registerMetaType()
 {
@@ -94,7 +99,7 @@ void IMetaUtil::registerBaseType(const QString &name)
 
 template<typename T>
 QString IMetaUtil::getTypename(){
-    if constexpr (ITraitHelper::is_gadget_v<T>){
+    if constexpr (ITraitUtil::is_gadget_v<T>){
         return getMetaClassName(T::staticMetaObject);
     }else{
         return IMetaUtilHelper::demangleName(typeid(T).name());
@@ -102,5 +107,3 @@ QString IMetaUtil::getTypename(){
 }
 
 $PackageWebCoreEnd
-
-#include "IMetaUtil.cpp"

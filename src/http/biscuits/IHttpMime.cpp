@@ -222,15 +222,15 @@ namespace{
     static QStringList mimeNames;
 }
 
-QString IHttpMimeHelper::toString(IHttpMime mime)
+QString IHttpMimeUtil::toString(IHttpMime mime)
 {
     if(mime == IHttpMime::UNKNOWN){
-        return IHttpMimeHelper::MIME_UNKNOWN_STRING;
+        return IHttpMimeUtil::MIME_UNKNOWN_STRING;
     }
     return getMimeStringList()[static_cast<int>(mime)];
 }
 
-IHttpMime IHttpMimeHelper::toMime(const QString &string)
+IHttpMime IHttpMimeUtil::toMime(const QString &string)
 {
     static int lastLength = getMimeStringList().length() -1;
     auto type = string.split(";").first().toLower().trimmed();
@@ -241,7 +241,7 @@ IHttpMime IHttpMimeHelper::toMime(const QString &string)
     return static_cast<IHttpMime>(index);
 }
 
-QString IHttpMimeHelper::getSuffixMime(const QString &suffix)
+QString IHttpMimeUtil::getSuffixMime(const QString &suffix)
 {
     if(suffix.isEmpty()){
         return "UNKNOWN";
@@ -249,7 +249,7 @@ QString IHttpMimeHelper::getSuffixMime(const QString &suffix)
 
     static QStringList keys = getSystemSuffixMimeMap().keys();
     if(keys.contains(suffix.toLower())){
-        return IHttpMimeHelper::toString(getSystemSuffixMimeMap()[suffix.toLower()]);
+        return IHttpMimeUtil::toString(getSystemSuffixMimeMap()[suffix.toLower()]);
     }
 
     auto index = mimeSuffixes.indexOf(suffix);
@@ -260,7 +260,7 @@ QString IHttpMimeHelper::getSuffixMime(const QString &suffix)
     return getMimeStringList()[int(IHttpMime::APPLICATION_OCTET_STREAM)];
 }
 
-void IHttpMimeHelper::registerSuffixMime(const QString &suffix, const QString &mime)
+void IHttpMimeUtil::registerSuffixMime(const QString &suffix, const QString &mime)
 {
     if(getSystemSuffixMimeMap().keys().contains(suffix.toLower())){
         IAssertInfo info;
@@ -274,7 +274,7 @@ void IHttpMimeHelper::registerSuffixMime(const QString &suffix, const QString &m
     }
 }
 
-void IHttpMimeHelper::registerSuffixMime(const QMap<QString, QString> &map)
+void IHttpMimeUtil::registerSuffixMime(const QMap<QString, QString> &map)
 {
     auto keys = map.keys();
     for(const auto& key : keys){

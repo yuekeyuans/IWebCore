@@ -83,7 +83,7 @@ enum class IHttpStatus
     UNKNOWN                                 = 1024
 };
 
-namespace IHttpStatusHelper {
+namespace IHttpStatusUtil {
     QString toString(const IHttpStatus);
     QString toStringDescription(IHttpStatus);
     QString getDescription(IHttpStatus);

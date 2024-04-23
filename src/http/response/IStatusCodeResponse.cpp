@@ -9,7 +9,7 @@ namespace IStatusCodeResponseHelper{
 
 IStatusCodeResponse::IStatusCodeResponse(QString num)
 {
-    auto statusCode =  IHttpStatusHelper::toStatus(num);
+    auto statusCode =  IHttpStatusUtil::toStatus(num);
     if(statusCode == IHttpStatus::UNKNOWN){
         QString info = "the return value converted to IStatusCode is not correct\n Expression : " + num;
         qFatal(info.toUtf8());
@@ -19,7 +19,7 @@ IStatusCodeResponse::IStatusCodeResponse(QString num)
 
 IStatusCodeResponse::IStatusCodeResponse(int arg)
 {
-    m_raw->statusCode = IHttpStatusHelper::toStatus(arg);
+    m_raw->statusCode = IHttpStatusUtil::toStatus(arg);
     IStatusCodeResponseHelper::checkStatusCode(m_raw->statusCode);
 }
 

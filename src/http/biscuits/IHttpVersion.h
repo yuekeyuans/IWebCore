@@ -13,7 +13,7 @@ enum class IHttpVersion
     UNKNOWN,
 };
 
-namespace IHttpVersionHelper {
+namespace IHttpVersionUtil {
     QString toString(IHttpVersion version);
     IHttpVersion toVersion(const QString& version);
     const QStringList& getVersionStrings();

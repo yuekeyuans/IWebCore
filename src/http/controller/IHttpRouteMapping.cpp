@@ -159,7 +159,7 @@ void IHttpRouteMapping::travelPrint(int space) const
     auto print = [](IUrlActionNode* leaf, int space){
         if(leaf != nullptr){
             qDebug().noquote()<< QString().fill(' ', 4 * space)
-                              << "    |::" + IHttpMethodHelper::toString(leaf->httpMethod)
+                              << "    |::" + IHttpMethodUtil::toString(leaf->httpMethod)
                               << leaf->url
                               << "\t==>" << leaf->methodNode.expression;
         }

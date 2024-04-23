@@ -2,13 +2,13 @@
 
 $PackageWebCoreBegin
 
-QString IHttpVersionHelper::toString(IHttpVersion version)
+QString IHttpVersionUtil::toString(IHttpVersion version)
 {
     const auto& versions = getVersionStrings();
     return versions[static_cast<int>(version)];
 }
 
-IHttpVersion IHttpVersionHelper::toVersion(const QString& version)
+IHttpVersion IHttpVersionUtil::toVersion(const QString& version)
 {
     const auto& versions = getVersionStrings();
     if(versions.contains(version)){
@@ -17,7 +17,7 @@ IHttpVersion IHttpVersionHelper::toVersion(const QString& version)
     return IHttpVersion::UNKNOWN;
 }
 
-const QStringList &IHttpVersionHelper::getVersionStrings()
+const QStringList &IHttpVersionUtil::getVersionStrings()
 {
     static QStringList m_versionStrings = {
         "HTTP/1.0",

@@ -112,7 +112,7 @@ enum class IHttpMime{
     UNKNOWN = 1024
 };
 
-namespace IHttpMimeHelper
+namespace IHttpMimeUtil
 {
     static const QString MIME_UNKNOWN_STRING = "UNKNOWN";
 
@@ -122,6 +122,6 @@ namespace IHttpMimeHelper
     QString getSuffixMime(const QString& suffix);
     void registerSuffixMime(const QString& suffix, const QString& mime);
     void registerSuffixMime(const QMap<QString, QString>& map);
-};
+}
 
 $PackageWebCoreEnd

@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
-#include "ITraitHelper.h"
+#include "ITraitUtil.h"
 #include <type_traits>
 //#include <deque>
 
@@ -59,11 +59,11 @@ template<class T>
 QJsonValue _objectToJson(const std::map<QString, T>& map, bool &ok);
 
 template <class T>
-typename std::enable_if<ITraitHelper::IsNumber<T>::value, QJsonValue>::type
+typename std::enable_if<ITraitUtil::IsNumber<T>::value, QJsonValue>::type
 _objectToJson(const T& value, bool &ok);
 
 template<class T>
-typename std::enable_if<ITraitHelper::is_bean<T>::value, QJsonValue>::type
+typename std::enable_if<ITraitUtil::is_bean<T>::value, QJsonValue>::type
 _objectToJson(const T& value, bool &ok);
 
 }

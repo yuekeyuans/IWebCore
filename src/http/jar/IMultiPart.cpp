@@ -30,7 +30,7 @@ void IMultiPart::resolveHeaders()
 
     if(headers.contains(IHttpHeader::ContentType)){
         auto contentType = headers[IHttpHeader::ContentType];
-        mime = IHttpMimeHelper::toMime(contentType);
+        mime = IHttpMimeUtil::toMime(contentType);
         if(contentType.indexOf("charset=") != -1){
             charset = charsetExp.match(contentType).captured(1);
         }

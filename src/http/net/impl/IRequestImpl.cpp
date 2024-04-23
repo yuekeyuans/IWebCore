@@ -342,13 +342,13 @@ bool IRequestImpl::resolveFirstLine()
         return false;
     }
 
-    raw->m_method = IHttpMethodHelper::toMethod(content[0]);
+    raw->m_method = IHttpMethodUtil::toMethod(content[0]);
     if(raw->m_method == IHttpMethod::UNKNOWN){
         raw->setInvalid(IHttpStatus::METHOD_NOT_ALLOWED_405, "can not resolve current method type");
         return false;
     }
 
-    raw->m_httpVersion = IHttpVersionHelper::toVersion(content[2]);
+    raw->m_httpVersion = IHttpVersionUtil::toVersion(content[2]);
     if(raw->m_httpVersion == IHttpVersion::UNKNOWN){
         raw->setInvalid(IHttpStatus::HTTP_VERSION_NOT_SUPPORTED, "current version is not supported");
         return false;
@@ -394,7 +394,7 @@ bool IRequestImpl::resolveHeaders()
         auto value = content.mid(index + 1).replace("\r\n", "").trimmed();  // NOTE: here should be optimized
         raw->m_requestHeaders.append({key, value});
     }
-    raw->m_requestMime = IHttpMimeHelper::toMime(contentType());
+    raw->m_requestMime = IHttpMimeUtil::toMime(contentType());
 
     return true;
 }

@@ -4,7 +4,7 @@ $PackageWebCoreBegin
 
 void IResponseWareRaw::setMime(IHttpMime mime)
 {
-    this->mimeString = IHttpMimeHelper::toString(mime);
+    this->mimeString = IHttpMimeUtil::toString(mime);
 }
 
 void IResponseWareRaw::setMime(const QString &mime)

@@ -429,7 +429,7 @@ QVector<MappingInfo> IControllerInterfaceHelper::getMethodMappingInfo(const QMap
             MappingInfo info{
                 args[1],
                 toNormalUrl(clsInfo[key], rootPathArgs),
-                IHttpMethodHelper::toMethod(args[2]),
+                IHttpMethodUtil::toMethod(args[2]),
                 args[3].toInt()
             };
 

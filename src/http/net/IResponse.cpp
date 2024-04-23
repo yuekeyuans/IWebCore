@@ -145,7 +145,7 @@ IResponse &IResponse::setStatus(int statusCode)
 
 IResponse &IResponse::setMime(IHttpMime mime)
 {
-    raw->m_responseMime = IHttpMimeHelper::toString(mime);
+    raw->m_responseMime = IHttpMimeUtil::toString(mime);
     return *this;
 }
 
@@ -209,14 +209,14 @@ IResponse& IResponse::setContent(IResponseWare *response)
 
     if(raw->m_responseContent.type == IResponseContent::Invalid){
         setInvalid(response->status(), raw->m_responseContent.contentString);
-        raw->m_responseMime = IHttpMimeHelper::toString(IHttpMime::TEXT_PLAIN_UTF8);
+        raw->m_responseMime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
     }
 
     if(response->status() != IHttpStatus::UNKNOWN){
         raw->m_responseStatus = response->status();
     }
 
-    if(response->mime() != IHttpMimeHelper::MIME_UNKNOWN_STRING){
+    if(response->mime() != IHttpMimeUtil::MIME_UNKNOWN_STRING){
         raw->m_responseMime = response->mime();
     }
 
@@ -233,7 +233,7 @@ IResponse& IResponse::setContent(IResponseWare *response)
     bool ok;
     if((!raw->m_headerJar->containResponseHeaderKey(IHttpHeader::ContentType)
             || raw->m_headerJar->getResponseHeaderValue(IHttpHeader::ContentType, ok) == "UNKNOWN")
-            && raw->m_responseMime != IHttpMimeHelper::MIME_UNKNOWN_STRING)
+            && raw->m_responseMime != IHttpMimeUtil::MIME_UNKNOWN_STRING)
     {
         raw->m_headerJar->setResponseHeader(IHttpHeader::ContentType, raw->m_responseMime);
     }
