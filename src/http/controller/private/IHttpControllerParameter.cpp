@@ -16,7 +16,7 @@
 #include "http/response/IResponseInterface.h"
 #include "http/response/IResponseManage.h"
 #include "http/response/IPlainTextResponse.h"
-#include "http/response/IStatusCodeResponse.h"
+#include "http/response/IStatusResponse.h"
 #include "http/response/IJsonResponse.h"
 #include "http/response/IByteArrayResponse.h"
 #include "http/IWebAssert.h"
@@ -79,7 +79,7 @@ void IHttpControllerParameter::resolveReturnValue(IResponse& response, const IMe
         responseWare = inst->createStringReturnInstance(params);
         break;
     case QMetaType::Int:
-        responseWare = QSharedPointer<IStatusCodeResponse>::create(*static_cast<int*>(params[0]));;
+        responseWare = QSharedPointer<IStatusResponse>::create(*static_cast<int*>(params[0]));;
         break;
     case QMetaType::QJsonArray:
         responseWare = QSharedPointer<IJsonResponse>::create(*static_cast<QJsonArray*>(params[0]));

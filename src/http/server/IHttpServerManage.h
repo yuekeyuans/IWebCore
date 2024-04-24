@@ -18,7 +18,7 @@ public:
     static void addSocket(QTcpSocket* socket);
 
 private:
-    QSharedPointer<IServerWare> m_server{};
+    IServerWare* m_server{};
 };
 
 $PackageWebCoreEnd

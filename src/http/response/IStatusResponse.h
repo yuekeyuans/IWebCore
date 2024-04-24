@@ -7,18 +7,18 @@
 
 $PackageWebCoreBegin
 
-class IStatusCodeResponse : public IResponseInterface<IStatusCodeResponse>
+class IStatusResponse : public IResponseInterface<IStatusResponse>
 {
-    $AsResponse(IStatusCodeResponse)
+    $AsResponse(IStatusResponse)
 public:
     using IResponseInterface::operator[];
     using IResponseInterface::IResponseInterface;
 
 public:
-    IStatusCodeResponse() = default;
-    IStatusCodeResponse(QString);
-    IStatusCodeResponse(int code);
-    IStatusCodeResponse(IHttpStatus status, const QString& errorMsg);
+    IStatusResponse() = default;
+    IStatusResponse(QString);
+    IStatusResponse(int code);
+    IStatusResponse(IHttpStatus status, const QString& errorMsg);
 
 public:
     virtual QString getPrefixMatcher() final;

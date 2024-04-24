@@ -1,4 +1,4 @@
-﻿#include "IStatusCodeResponse.h"
+﻿#include "IStatusResponse.h"
 #include "core/base/IConvertUtil.h"
 
 $PackageWebCoreBegin
@@ -7,7 +7,7 @@ namespace IStatusCodeResponseHelper{
     void checkStatusCode(IHttpStatus);
 }
 
-IStatusCodeResponse::IStatusCodeResponse(QString num)
+IStatusResponse::IStatusResponse(QString num)
 {
     auto statusCode =  IHttpStatusUtil::toStatus(num);
     if(statusCode == IHttpStatus::UNKNOWN){
@@ -17,20 +17,19 @@ IStatusCodeResponse::IStatusCodeResponse(QString num)
     m_raw->statusCode = statusCode;
 }
 
-IStatusCodeResponse::IStatusCodeResponse(int arg)
+IStatusResponse::IStatusResponse(int arg)
 {
     m_raw->statusCode = IHttpStatusUtil::toStatus(arg);
     IStatusCodeResponseHelper::checkStatusCode(m_raw->statusCode);
 }
 
-IStatusCodeResponse::IStatusCodeResponse(IHttpStatus status, const QString &errorMsg)
+IStatusResponse::IStatusResponse(IHttpStatus status, const QString &errorMsg)
 {
     m_raw->statusCode = status;
     m_raw->content.setContent(errorMsg);
-//    setContent(errorMsg);
 }
 
-QString IStatusCodeResponse::getPrefixMatcher()
+QString IStatusResponse::getPrefixMatcher()
 {
     return "$status:";
 }

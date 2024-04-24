@@ -7,7 +7,7 @@ const char* MasterServer = "MasterServer";
 
 IHttpServerManage::IHttpServerManage()
 {
-    m_server = QSharedPointer<IMultiThreadServer>::create();
+    m_server = IMultiThreadServer::instance();
 }
 
 void IHttpServerManage::addSocket(qintptr handle)
