@@ -34,16 +34,20 @@ void IHttpServerRunable::run()
 
 void IHttpServerRunable::runRequest(IRequest& request)
 {
-     IResponse response(&request);
-    if(!request.valid()){
-        response.respond();
-        return;
-    }
+    IResponse response(&request);
 
     do {
+        if(!request.valid()){
+            break;
+        }
+
         if( IHttpManage::preIntercept(request, response)){
             break;
         }
+        if(!request.valid()){
+            break;
+        }
+
         IHttpManage::preProcess(request, response);
         if(!request.valid()){
             break;
@@ -59,13 +63,14 @@ void IHttpServerRunable::runRequest(IRequest& request)
         }
         IHttpManage::postProcess(request, response);
         
-        // 拦截 socket
-//        if(!response.valid() || response.status() != IHttpStatus::OK_200){
-//            if(interceptStatusCode(request, response)){
-//                break;
-//            }
-//        }
+        if(!request.valid()){
+            break;
+        }
     } while(0);
+
+    if(!request.valid()){
+        qDebug() << "invalid response";
+    }
 
     if(!response.respond()){
         return ISocketUtil::handleInternalError(request.getRaw()->m_socket);
