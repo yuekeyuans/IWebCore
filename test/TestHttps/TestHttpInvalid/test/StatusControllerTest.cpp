@@ -43,3 +43,12 @@ void StatusControllerTest::testUserLiteral()
     QVERIFY(HttpRequestHelper::toBody(res).isEmpty());
     QVERIFY(HttpRequestHelper::toStatus(res) == IHttpStatus::BAD_GATEWAY_502);
 }
+
+void StatusControllerTest::testReplace()
+{
+    http::Request req(url + "/replace");
+    auto res = req.send("GET");
+    QVERIFY(HttpRequestHelper::toBody(res) == "replace content");
+    QVERIFY(HttpRequestHelper::toStatus(res) == IHttpStatus::NOT_FOUND_404);
+
+}

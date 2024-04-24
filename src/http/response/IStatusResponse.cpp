@@ -22,6 +22,7 @@ IStatusResponse::IStatusResponse(int arg, const QString& errorMsg)
     m_raw->statusCode = IHttpStatusUtil::toStatus(arg);
     IStatusCodeResponseHelper::checkStatusCode(m_raw->statusCode);
     if(!errorMsg.isEmpty()){
+        m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
         m_raw->content.setContent(errorMsg);
     }
 }
@@ -31,6 +32,7 @@ IStatusResponse::IStatusResponse(IHttpStatus status, const QString &errorMsg)
     m_raw->statusCode = status;
     IStatusCodeResponseHelper::checkStatusCode(m_raw->statusCode);
     if(!errorMsg.isEmpty()){
+        m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
         m_raw->content.setContent(errorMsg);
     }
 }
@@ -47,11 +49,9 @@ void IStatusCodeResponseHelper::checkStatusCode(IHttpStatus status)
     }
 }
 
-
-IStatusResponse operator"" _status(const char* str, std::size_t size)
+IStatusResponse operator"" _status(unsigned long long int value)
 {
-    auto data = QString::fromLocal8Bit(str, size);
-    return IStatusResponse(data);
+    return IStatusResponse(value);
 }
 
 $PackageWebCoreEnd

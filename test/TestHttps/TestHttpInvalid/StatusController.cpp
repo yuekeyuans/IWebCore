@@ -28,3 +28,9 @@ IStatusResponse StatusController::userLiteral()
     return 502_status;
 }
 
+IHtmlResponse StatusController::replace()
+{
+    IStatusResponse response(404, "replace content");
+    return response;
+}
+

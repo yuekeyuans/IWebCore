@@ -15,6 +15,7 @@ $PackageWebCoreBegin
 struct IResponseWareRaw;
 class IRedirectResponse;
 class IInvalidRepsonse;
+class IStatusResponse;
 
 template<typename T>
 class IResponseInterface : public IResponseWare, IRegisterMetaTypeUnit<T>, IRegisterResponseTypeUnit<T>
@@ -26,6 +27,7 @@ public:
     IResponseInterface();
     IResponseInterface(IRedirectResponse&& response);
     IResponseInterface(IInvalidRepsonse&& response);
+    IResponseInterface(IStatusResponse&& response);
     IResponseInterface(const IResponseInterface&);
     IResponseInterface(IResponseInterface &&);
     IResponseInterface(IResponseWare*); // special // only for create
@@ -55,7 +57,13 @@ IResponseInterface<T>::IResponseInterface(IRedirectResponse &&response)
 template<typename T>
 IResponseInterface<T>::IResponseInterface(IInvalidRepsonse &&response)
 {
+}
 
+template<typename T>
+IResponseInterface<T>::IResponseInterface(IStatusResponse &&response)
+{
+    std::swap(this->m_raw, response.m_raw);
+    this->m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
 template<typename T>

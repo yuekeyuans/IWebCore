@@ -4,6 +4,7 @@
 #include "http/response/IHtmlResponse.h"
 #include "http/response/IStatusResponse.h"
 
+
 class StatusController : public IHttpControllerInterface<StatusController>
 {
     Q_GADGET
@@ -25,7 +26,7 @@ public:
     $GetMapping(userLiteral, /userLiteral)
     IStatusResponse userLiteral();
 
-    $GetMapping(userLiteral2, /userLiteral2)
-    IStatusResponse userLiteral2();
+    $GetMapping(replace)
+    IHtmlResponse replace();
 };
 
