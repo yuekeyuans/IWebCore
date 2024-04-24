@@ -60,11 +60,11 @@ void IHttpServerRunable::runRequest(IRequest& request)
         IHttpManage::postProcess(request, response);
         
         // 拦截 socket
-        if(!response.valid() || response.status() != IHttpStatus::OK_200){
-            if(interceptStatusCode(request, response)){
-                break;
-            }
-        }
+//        if(!response.valid() || response.status() != IHttpStatus::OK_200){
+//            if(interceptStatusCode(request, response)){
+//                break;
+//            }
+//        }
     } while(0);
 
     if(!response.respond()){
@@ -108,22 +108,22 @@ void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
     processInNotFoundMode(request, response);
 }
 
-void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &response, IStatusActionNode *function)
-{
-    Q_UNUSED(response)
-    IHttpControllerParameter::ParamType params;
-    bool ok = IHttpControllerParameter::createArguments(function->methodNode, params, request);
-    if(!ok){
-        IHttpControllerParameter::destroyArguments(function->methodNode, params);
-        return;
-    }
+//void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &response, IStatusActionNode *function)
+//{
+//    Q_UNUSED(response)
+//    IHttpControllerParameter::ParamType params;
+//    bool ok = IHttpControllerParameter::createArguments(function->methodNode, params, request);
+//    if(!ok){
+//        IHttpControllerParameter::destroyArguments(function->methodNode, params);
+//        return;
+//    }
 
-    auto index = function->methodNode.metaMethod.methodIndex();
-    auto enclosingObject = function->methodNode.metaMethod.enclosingMetaObject();
-    enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params);
+//    auto index = function->methodNode.metaMethod.methodIndex();
+//    auto enclosingObject = function->methodNode.metaMethod.enclosingMetaObject();
+//    enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params);
 
-    IHttpControllerParameter::destroyArguments(function->methodNode, params);
-}
+//    IHttpControllerParameter::destroyArguments(function->methodNode, params);
+//}
 
 void IHttpServerRunable::processInFunctionMode(IRequest &request, IResponse &response, IUrlActionNode *node)
 {
@@ -225,13 +225,13 @@ void IHttpServerRunable::runOptionsFunction(IRequest &request, IResponse &respon
     response.setContent("");
 }
 
-bool IHttpServerRunable::interceptStatusCode(IRequest &request, IResponse &response)
-{
-    auto function = IHttpManage::getStatusActionNode(response.status());
-    if(function != nullptr){
-        runStatusFunction(request, response, function);
-    }
-    return false;
-}
+//bool IHttpServerRunable::interceptStatusCode(IRequest &request, IResponse &response)
+//{
+//    auto function = IHttpManage::getStatusActionNode(response.status());
+//    if(function != nullptr){
+//        runStatusFunction(request, response, function);
+//    }
+//    return false;
+//}
 
 $PackageWebCoreEnd

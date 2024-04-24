@@ -1,4 +1,4 @@
-﻿#include "IControllerPathValidatorTask.h"
+﻿#include "IHttpUrlPathValidatorTask.h"
 #include "http/controller/IHttpManage.h"
 
 $PackageWebCoreBegin
@@ -20,7 +20,7 @@ namespace IControllerPathValidatorTaskHelper {
     bool isQStringValue(const QString& value);
 }
 
-void IControllerPathValidatorTask::task()
+void IHttpUrlPathValidatorTask::task()
 {
     static QMap<QString, QString> validatorRegMap = {
         {"uuid",    "^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$"},

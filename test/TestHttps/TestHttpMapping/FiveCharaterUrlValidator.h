@@ -10,5 +10,4 @@ public:
 public:
     virtual QString marker() const final;
     virtual Validator validator() const final;
-
 };

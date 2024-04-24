@@ -6,7 +6,7 @@ $PackageWebCoreBegin
 
 class IRequest;
 class IResponse;
-struct IStatusActionNode;
+//struct IStatusActionNode;
 struct IUrlActionNode;
 
 // TODO: 这里需要一个 IRequestErrorPreIntercept 拦截 valid() == false 的情形。
@@ -22,7 +22,7 @@ private:
     static void runRequest(IRequest& req);
 
     static void handleRequest(IRequest& request, IResponse& response);
-    static void runStatusFunction(IRequest& request, IResponse& response, IStatusActionNode* function);
+//    static void runStatusFunction(IRequest& request, IResponse& response, IStatusActionNode* function);
 
     static void processInFunctionMode(IRequest& request, IResponse& response, IUrlActionNode* node);
     static void processInMethodMode(IRequest& request, IResponse& response, IUrlActionNode* node);
@@ -31,7 +31,7 @@ private:
     static void processInNotFoundMode(IRequest& request, IResponse& response);
 
     static void runOptionsFunction(IRequest& request, IResponse& response);
-    static bool interceptStatusCode(IRequest& request, IResponse& response);
+//    static bool interceptStatusCode(IRequest& request, IResponse& response);
 
 private:
     qintptr m_handle{0};

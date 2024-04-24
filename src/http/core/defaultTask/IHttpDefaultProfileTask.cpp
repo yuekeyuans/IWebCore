@@ -1,16 +1,16 @@
-﻿#include "IWebDefaultProfileTask.h"
+﻿#include "IHttpDefaultProfileTask.h"
 #include "core/base/IConvertUtil.h"
 #include "core/config/IProfileManage.h"
 #include "core/base/IFileUtil.h"
 
 $PackageWebCoreBegin
 
-double IWebDefaultProfileTask::order() const
+double IHttpDefaultProfileTask::order() const
 {
     return 1;
 }
 
-QJsonValue IWebDefaultProfileTask::config()
+QJsonValue IHttpDefaultProfileTask::config()
 {
     auto content = IFileUtil::readFileAsString(":/resource/defaultWebConfig.json");
     IResult<QJsonObject> json = IConvertUtil::toJsonObject(content);

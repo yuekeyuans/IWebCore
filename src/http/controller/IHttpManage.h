@@ -9,7 +9,7 @@
 #include "http/middleware/IInterceptorWare.h"
 #include "http/middleware/IProcessorWare.h"
 #include "http/node/IUrlActionNode.h"
-#include "http/node/IStatusActionNode.h"
+//#include "http/node/IStatusActionNode.h"
 
 #include "IHttpRouteMapping.h"
 #include "IHttpResourceMapping.h"
@@ -28,8 +28,8 @@ public:
     static void setIsServerStarted(bool);
 
     // TODO: 考虑 将函数换一些好用的名字
-    void registerStatusActionNode(IStatusActionNode node);
-    void registerStatusActionNodes(const QVector<IStatusActionNode>& statusNodes);
+//    void registerStatusActionNode(IStatusActionNode node);
+//    void registerStatusActionNodes(const QVector<IStatusActionNode>& statusNodes);
 
     void registerUrlActionNode(IUrlActionNode node);
     void registerUrlActionNodes(const QVector<IUrlActionNode>& functionNodes);
@@ -51,7 +51,7 @@ public:
     bool isUrlActionNodeEnabled() const;
     IUrlActionNode* getUrlActionNode(IRequest& request);
 
-    static IStatusActionNode* getStatusActionNode(IHttpStatus status);
+//    static IStatusActionNode* getStatusActionNode(IHttpStatus status);
 
     bool isStaticFileActionPathEnabled();
     QString getStaticFileActionPath(const IRequest& request);
@@ -77,7 +77,7 @@ private:
     IHttpResourceMapping m_resourceMappings;
     IHttpFolderMapping m_folderMappings;
 
-    QMap<IHttpStatus, IStatusActionNode> m_statusMappings;
+//    QMap<IHttpStatus, IStatusActionNode> m_statusMappings;
     QMap<QString, QString> m_pathRegValidators;
     QMap<QString, ValidatorFun> m_pathFunValidators;
 

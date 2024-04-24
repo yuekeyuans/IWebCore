@@ -5,10 +5,10 @@
 
 $PackageWebCoreBegin
 
-class IWebDefaultProfileTask : public IProfileTaskInterface<IWebDefaultProfileTask>
+class IHttpDefaultProfileTask : public IProfileTaskInterface<IHttpDefaultProfileTask>
 {
 public:
-    IWebDefaultProfileTask() = default;
+    IHttpDefaultProfileTask() = default;
 
 public:
     virtual double order() const final;

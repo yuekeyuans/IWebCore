@@ -17,22 +17,22 @@ void IHttpManage::setIsServerStarted(bool value)
     inst->m_isServerStarted = value;
 }
 
-void IHttpManage::registerStatusActionNode(IStatusActionNode node)
-{
-    checkRegisterAvalible();
+//void IHttpManage::registerStatusActionNode(IStatusActionNode node)
+//{
+//    checkRegisterAvalible();
 
-    if(m_statusMappings.contains(node.httpStatus)){
-        qDebug() << "override of status mapping";
-    }
-    m_statusMappings[node.httpStatus] = node;
-}
+//    if(m_statusMappings.contains(node.httpStatus)){
+//        qDebug() << "override of status mapping";
+//    }
+//    m_statusMappings[node.httpStatus] = node;
+//}
 
-void IHttpManage::registerStatusActionNodes(const QVector<IStatusActionNode> &statusNodes)
-{
-    for(const auto& node : statusNodes){
-        registerStatusActionNode(node);
-    }
-}
+//void IHttpManage::registerStatusActionNodes(const QVector<IStatusActionNode> &statusNodes)
+//{
+//    for(const auto& node : statusNodes){
+//        registerStatusActionNode(node);
+//    }
+//}
 
 void IHttpManage::registerUrlActionNode(IUrlActionNode node)
 {
@@ -194,14 +194,14 @@ IUrlActionNode *IHttpManage::getUrlActionNode(IRequest &request)
     return node;
 }
 
-IStatusActionNode *IHttpManage::getStatusActionNode(IHttpStatus status)
-{
-    auto inst = instance();
-    if(inst->m_statusMappings.contains(status)){
-        return &inst->m_statusMappings[status];
-    }
-    return nullptr;
-}
+//IStatusActionNode *IHttpManage::getStatusActionNode(IHttpStatus status)
+//{
+//    auto inst = instance();
+//    if(inst->m_statusMappings.contains(status)){
+//        return &inst->m_statusMappings[status];
+//    }
+//    return nullptr;
+//}
 
 bool IHttpManage::isStaticFileActionPathEnabled()
 {

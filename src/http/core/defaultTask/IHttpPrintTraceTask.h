@@ -5,10 +5,10 @@
 
 $PackageWebCoreBegin
 
-class IBluePrintControllerTask : public IEndupTaskInterface<IBluePrintControllerTask>
+class IHttpPrintTraceTask : public IEndupTaskInterface<IHttpPrintTraceTask>
 {
 public:
-    IBluePrintControllerTask() = default;
+    IHttpPrintTraceTask() = default;
 
 public:
     virtual void task();
