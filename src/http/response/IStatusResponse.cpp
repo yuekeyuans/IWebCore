@@ -47,4 +47,11 @@ void IStatusCodeResponseHelper::checkStatusCode(IHttpStatus status)
     }
 }
 
+
+IStatusResponse operator"" _status(const char* str, std::size_t size)
+{
+    auto data = QString::fromLocal8Bit(str, size);
+    return IStatusResponse(data);
+}
+
 $PackageWebCoreEnd

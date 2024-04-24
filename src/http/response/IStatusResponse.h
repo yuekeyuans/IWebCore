@@ -24,4 +24,6 @@ public:
     virtual QString getPrefixMatcher() final;
 };
 
+IStatusResponse operator"" _status(unsigned long long int);
+
 $PackageWebCoreEnd

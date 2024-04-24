@@ -13,6 +13,7 @@ private slots:
     void testIntString();
     void testStatus();
     void testStatusString();
+    void testUserLiteral();
 
 private:
     std::string url = "http://127.0.0.1:8550";

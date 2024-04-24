@@ -22,3 +22,9 @@ IStatusResponse StatusController::statusResponseStatusString()
         "created"
     };
 }
+
+IStatusResponse StatusController::userLiteral()
+{
+    return 502_status;
+}
+

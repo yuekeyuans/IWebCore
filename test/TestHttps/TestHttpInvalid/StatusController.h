@@ -21,5 +21,11 @@ public:
 
     $GetMapping(statusResponseStatusString, /statusString)
     IStatusResponse statusResponseStatusString();
+
+    $GetMapping(userLiteral, /userLiteral)
+    IStatusResponse userLiteral();
+
+    $GetMapping(userLiteral2, /userLiteral2)
+    IStatusResponse userLiteral2();
 };
 
