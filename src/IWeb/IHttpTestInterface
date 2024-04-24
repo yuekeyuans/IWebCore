@@ -1,0 +1,3 @@
+﻿#include "http/core/test/IHttpTestInterface.h"
+
+using namespace IWebCore;

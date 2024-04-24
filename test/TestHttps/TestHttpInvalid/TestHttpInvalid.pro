@@ -10,8 +10,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         StatusController.cpp \
-        main.cpp
+        main.cpp \
+        test/StatusControllerTest.cpp
 
 HEADERS += \
-    StatusController.h
+    StatusController.h \
+    test/StatusControllerTest.h
 

@@ -4,7 +4,7 @@
 
 $PackageWebCoreBegin
 
-enum class IHttpStatus
+enum class IHttpStatus : unsigned short
 {
     // 1XX
     CONTINUE_100                            = 100,

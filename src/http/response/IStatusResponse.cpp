@@ -17,16 +17,22 @@ IStatusResponse::IStatusResponse(QString num)
     m_raw->statusCode = statusCode;
 }
 
-IStatusResponse::IStatusResponse(int arg)
+IStatusResponse::IStatusResponse(int arg, const QString& errorMsg)
 {
     m_raw->statusCode = IHttpStatusUtil::toStatus(arg);
     IStatusCodeResponseHelper::checkStatusCode(m_raw->statusCode);
+    if(!errorMsg.isEmpty()){
+        m_raw->content.setContent(errorMsg);
+    }
 }
 
 IStatusResponse::IStatusResponse(IHttpStatus status, const QString &errorMsg)
 {
     m_raw->statusCode = status;
-    m_raw->content.setContent(errorMsg);
+    IStatusCodeResponseHelper::checkStatusCode(m_raw->statusCode);
+    if(!errorMsg.isEmpty()){
+        m_raw->content.setContent(errorMsg);
+    }
 }
 
 QString IStatusResponse::getPrefixMatcher()

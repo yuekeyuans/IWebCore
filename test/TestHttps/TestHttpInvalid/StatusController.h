@@ -10,7 +10,16 @@ class StatusController : public IHttpControllerInterface<StatusController>
 public:
     StatusController() = default;
 
-    $GetMapping(statusResponse, /status)
-    IStatusResponse statusResponse();
+    $GetMapping(statusResponseInt, /int)
+    IStatusResponse statusResponseInt();
+
+    $GetMapping(statusResponseIntString, /intString)
+    IStatusResponse statusResponseIntString();
+
+    $GetMapping(statusResponseStatus, /status)
+    IStatusResponse statusResponseStatus();
+
+    $GetMapping(statusResponseStatusString, /statusString)
+    IStatusResponse statusResponseStatusString();
 };
 

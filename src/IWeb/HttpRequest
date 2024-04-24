@@ -1,0 +1,20 @@
+﻿#include <HTTPRequest.hpp>
+
+#include "core/base/IHeaderUtil.h"
+#include "http/biscuits/IHttpStatus.h"
+
+using namespace IWebCore;
+
+namespace HttpRequestHelper
+{
+inline QString toBody(const http::Response& response)
+{
+    return QString::fromStdString(std::string(response.body.begin(), response.body.end()));
+}
+
+inline IHttpStatus toStatus(const http::Response& response)
+{
+    return IHttpStatusUtil::toStatus(static_cast<int>(response.status.code));
+}
+
+}

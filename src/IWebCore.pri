@@ -378,6 +378,8 @@ HEADERS += \
     $$PWD/IWeb/IControllerInterface \
     $$PWD/IWeb/IHttpServer \
     $$PWD/IWeb/IHttpController \
+    $$PWD/IWeb/IHttpTestInterface
+    $$PWD/IWeb/HttpRequest \
 
 
 DISTFILES += \

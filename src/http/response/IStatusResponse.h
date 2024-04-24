@@ -17,8 +17,8 @@ public:
 public:
     IStatusResponse() = default;
     IStatusResponse(QString);
-    IStatusResponse(int code);
-    IStatusResponse(IHttpStatus status, const QString& errorMsg);
+    IStatusResponse(int code, const QString& errorMsg="");
+    IStatusResponse(IHttpStatus status, const QString& errorMsg="");
 
 public:
     virtual QString getPrefixMatcher() final;
