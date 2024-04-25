@@ -1,8 +1,5 @@
 ﻿#pragma once
 
 #include "IWeb/IHttpServer"
-#include "IWeb/IControllerInterface"
-
-// preprocessor
-#include "http/IWebSystemPreProcessor.h"
+#include "IWeb/IHttpControllerInterface"
 #include "http/IHttpAnnomacro.h"

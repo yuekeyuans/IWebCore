@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include <IWeb/IHttpController>
+#include <IWeb/IHttpControllerInterface>
 #include "http/response/IHtmlResponse.h"
 #include "http/response/IStatusResponse.h"
 

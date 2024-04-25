@@ -10,6 +10,7 @@ PRECOMPILED_HEADER = $$PWD/core/base/IHeaderUtil.h
 
 HEADERS += \
     $$PWD/IWeb/IHttp \
+    $$PWD/IWeb/IHttpControllerInterface \
     $$PWD/core/base/ICodecUtil.h \
     $$PWD/core/base/IConstantUtil.h \
     $$PWD/core/base/IConvertUtil.h \
@@ -374,7 +375,6 @@ HEADERS += \
     $$PWD/ICore/IProfile \
     $$PWD/ICore/ITest   \
     $$PWD/IWeb/IHttpServer \
-    $$PWD/IWeb/IHttpController \
     $$PWD/IWeb/IHttpTestInterface
     $$PWD/IWeb/HttpRequest \
 

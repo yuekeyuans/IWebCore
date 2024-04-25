@@ -46,6 +46,8 @@ void IHttpAssert::loadAssert()
     addFatal("static_file_not_exist", "your returned file is not exist, please check");
 
     addFatal("http_mime_already_exist", "user register mime already exist, please duplicated this mime");
+    addFatal("http_status_code_convert_failed", "number can not match any status code");
+
 
     addWarn("register_the_same_url", "registration can`t match the leaf or the leaf already exist");
 
