@@ -304,7 +304,6 @@ SOURCES += \
     $$PWD/orm/tableview/IOrmViewInfo.cpp \
     $$PWD/orm/tableview/IOrmViewWare.cpp \
     $$PWD/http/IInterceptInterface.cpp \
-    $$PWD/http/biscuits/IHttpHeader.cpp \
     $$PWD/http/biscuits/IHttpMethod.cpp \
     $$PWD/http/biscuits/IHttpMime.cpp \
     $$PWD/http/biscuits/IHttpStatus.cpp \
