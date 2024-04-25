@@ -1,10 +1,10 @@
 ﻿#include "IHttpResourceMapping.h"
 #include "core/base/IFileUtil.h"
-#include "http/IWebAssert.h"
+#include "http/IHttpAssert.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAssert)
+$UseAssert(IHttpAssert)
 
 namespace IControllerResourceNodeHelper
 {

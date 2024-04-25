@@ -19,11 +19,11 @@
 #include "http/response/IStatusResponse.h"
 #include "http/response/IJsonResponse.h"
 #include "http/response/IByteArrayResponse.h"
-#include "http/IWebAssert.h"
+#include "http/IHttpAssert.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAssert)
+$UseAssert(IHttpAssert)
 
 namespace IControllerParameterHelper
 {
@@ -207,7 +207,7 @@ void *IHttpControllerParameter::getParamOfMultipart(const IParamNode& node, IReq
     }
 
     IToeUtil::setOk(ok, false);
-    request.setInvalid(IHttpStatus::BAD_REQUEST_400, "multipart content do not have content name " + node.paramName);
+    request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, "multipart content do not have content name " + node.paramName);
     return nullptr;
 }
 
@@ -231,10 +231,10 @@ void *IHttpControllerParameter::getParamOfCookiePart(const IParamNode &node, IRe
     }
 
     if(count == 0){
-        request.setInvalid(IHttpStatus::BAD_REQUEST_400, "ICookiePart does not have name " + node.paramName);
+        request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, "ICookiePart does not have name " + node.paramName);
     }else if(count > 1){
         delete part;
-        request.setInvalid(IHttpStatus::BAD_REQUEST_400, "ICookiePart has more than one key, name: " + node.paramName);
+        request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, "ICookiePart has more than one key, name: " + node.paramName);
     }
     IToeUtil::setOk(ok, false);
     return nullptr;
@@ -251,13 +251,13 @@ void *IHttpControllerParameter::getParamOfJsonType(const IParamNode& node, IRequ
     const auto& content = node.paramName.endsWith("_content")
                               ? request.bodyContent() : request.getParameter(node.paramName, ok);
     if(!ok){
-        request.setInvalid(IHttpStatus::BAD_REQUEST_400, "convert to json fail. At " + node.paramTypeName + " " + node.paramName);
+        request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, "convert to json fail. At " + node.paramTypeName + " " + node.paramName);
         return nullptr;
     }
 
     auto ptr = IControllerFunctionBaseImplHelper::convertParamToJson(node, content, ok);
     if(!ok){
-        request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, node.paramName + " can`t be converted to json type");
+        request.setInvalidIf(!ok, IHttpStatusCode::BAD_REQUEST_400, node.paramName + " can`t be converted to json type");
     }
     return ptr;
 }
@@ -268,7 +268,7 @@ void *IHttpControllerParameter::getParamOfPrimitiveType(const IParamNode &node, 
                               ? request.bodyContent() : request.getParameter(node.paramName, ok);
 
     if(!ok || content.isEmpty()){
-        request.setInvalid(IHttpStatus::BAD_REQUEST_400, node.paramName + " is empty to convert to any type");
+        request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, node.paramName + " is empty to convert to any type");
         IToeUtil::setOk(ok, false);
         return nullptr;
     }
@@ -278,47 +278,47 @@ void *IHttpControllerParameter::getParamOfPrimitiveType(const IParamNode &node, 
     switch (node.paramTypeId) {
     case QMetaType::Bool :
         *static_cast<bool*>(param) = IConvertUtil::toBool(QString(content), ok);
-        request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to bool");
+        request.setInvalidIf(!ok, IHttpStatusCode::BAD_REQUEST_400, paramName + " can`t be converted to bool");
         break;
     case QMetaType::Short:
         *static_cast<short*>(param) = IConvertUtil::toShort(QString(content), ok);
-        request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to short");
+        request.setInvalidIf(!ok, IHttpStatusCode::BAD_REQUEST_400, paramName + " can`t be converted to short");
         break;
     case QMetaType::UShort:
         *static_cast<ushort*>(param) = IConvertUtil::toUShort(QString(content), ok);
-        request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to ushort");
+        request.setInvalidIf(!ok, IHttpStatusCode::BAD_REQUEST_400, paramName + " can`t be converted to ushort");
         break;
     case QMetaType::Int:
         *static_cast<int*>(param) = IConvertUtil::toInt(QString(content), ok);
-        request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to int");
+        request.setInvalidIf(!ok, IHttpStatusCode::BAD_REQUEST_400, paramName + " can`t be converted to int");
         break;
     case QMetaType::UInt:
         *static_cast<uint*>(param) = IConvertUtil::toUInt(QString(content), ok);
-        request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to UInt");
+        request.setInvalidIf(!ok, IHttpStatusCode::BAD_REQUEST_400, paramName + " can`t be converted to UInt");
         break;
     case QMetaType::Long:
         *static_cast<long*>(param) = IConvertUtil::toLong(QString(content), ok);
-        request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to long");
+        request.setInvalidIf(!ok, IHttpStatusCode::BAD_REQUEST_400, paramName + " can`t be converted to long");
         break;
     case QMetaType::ULong:
         *static_cast<ulong*>(param) = IConvertUtil::toULong(QString(content), ok);
-        request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to ulong");
+        request.setInvalidIf(!ok, IHttpStatusCode::BAD_REQUEST_400, paramName + " can`t be converted to ulong");
         break;
     case QMetaType::LongLong:
         *static_cast<qlonglong*>(param) = IConvertUtil::toLongLong(QString(content), ok);
-        request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to LongLong");
+        request.setInvalidIf(!ok, IHttpStatusCode::BAD_REQUEST_400, paramName + " can`t be converted to LongLong");
         break;
     case QMetaType::ULongLong:
         *static_cast<qulonglong*>(param) = IConvertUtil::toULongLong(QString(content), ok);
-        request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to ULongLong");
+        request.setInvalidIf(!ok, IHttpStatusCode::BAD_REQUEST_400, paramName + " can`t be converted to ULongLong");
         break;
     case QMetaType::Float:
         *static_cast<float*>(param) = IConvertUtil::toFloat(QString(content), ok);
-        request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to float");
+        request.setInvalidIf(!ok, IHttpStatusCode::BAD_REQUEST_400, paramName + " can`t be converted to float");
         break;
     case QMetaType::Double:
         *static_cast<double*>(param) = IConvertUtil::toDouble(QString(content), ok);
-        request.setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, paramName + " can`t be converted to double");
+        request.setInvalidIf(!ok, IHttpStatusCode::BAD_REQUEST_400, paramName + " can`t be converted to double");
         break;
     }
 
@@ -338,7 +338,7 @@ void *IHttpControllerParameter::getParamOfStringType(const IParamNode &node, IRe
         }
     }
 
-    request.setInvalid(IHttpStatus::BAD_REQUEST_400, "param of string not exist, name: " + node.paramName);
+    request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, "param of string not exist, name: " + node.paramName);
     return nullptr;
 }
 
@@ -410,8 +410,8 @@ void IHttpControllerParameter::wrapVoidReturnInstance(IResponse &response, const
         response.setMime(IHttpMime::TEXT_PLAIN_UTF8);
         $Ast->warn("process_void_return_with_request_not_set_mime_error");
     }
-    if(response.status() == IHttpStatus::UNKNOWN){
-        response.setStatus(IHttpStatus::OK_200);
+    if(response.status() == IHttpStatusCode::UNKNOWN){
+        response.setStatus(IHttpStatusCode::OK_200);
         $Ast->warn("process_void_return_with_request_not_set_status_error");
     }
 }

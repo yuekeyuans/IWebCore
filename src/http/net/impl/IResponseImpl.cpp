@@ -19,7 +19,7 @@ bool IResponseImpl::respond()
         auto path = IResponseManage::instance()->getTemplateRenderer()->getPage(raw->m_responseStatus);
         if(!path.isEmpty()){
             QJsonObject obj;
-            obj["status_code"] = IHttpStatusUtil::toString(raw->m_responseStatus);
+            obj["status_code"] = IHttpStatus::toString(raw->m_responseStatus);
             obj["error_info"] = raw->m_responseContent.contentString;
 
             IRendererResponse response(path, obj);
@@ -46,8 +46,8 @@ QByteArray IResponseImpl::generateFirstLine()
 {
     QByteArray firstLine;
     firstLine.append(IHttpVersionUtil::toString(raw->m_httpVersion)).append(" ")
-        .append(IHttpStatusUtil::toString(raw->m_responseStatus)).append(" ")
-        .append(IHttpStatusUtil::toStringDescription(raw->m_responseStatus)).append(IConstantUtil::NewLine);
+        .append(IHttpStatus::toString(raw->m_responseStatus)).append(" ")
+        .append(IHttpStatus::toStringDescription(raw->m_responseStatus)).append(IConstantUtil::NewLine);
 
     return firstLine;
 }

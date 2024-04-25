@@ -3,13 +3,13 @@
 #include "core/base/IConstantUtil.h"
 #include "core/base/IFileUtil.h"
 #include "core/config/IProfileImport.h"
-#include "http/IWebAssert.h"
+#include "http/IHttpAssert.h"
 #include "http/biscuits/IHttpMime.h"
 #include "http/controller/IHttpManage.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAssert)
+$UseAssert(IHttpAssert)
 
 namespace IFileResponseHelper
 {
@@ -27,7 +27,7 @@ IFileResponse::IFileResponse(const char *data)
     if(IFileResponseHelper::setFilePath(m_raw, data)){
         IFileResponseHelper::checkAndUpdateContentDisposition(m_raw);
     }else{
-        setInvalid(IHttpStatus::NOT_FOUND_404, "file not found");
+        setInvalid(IHttpStatusCode::NOT_FOUND_404, "file not found");
     }
 }
 
@@ -36,7 +36,7 @@ IFileResponse::IFileResponse(const QString &data)
     if(IFileResponseHelper::setFilePath(m_raw, data)){
         IFileResponseHelper::checkAndUpdateContentDisposition(m_raw);
     }else{
-        setInvalid(IHttpStatus::NOT_FOUND_404, "file not found");
+        setInvalid(IHttpStatusCode::NOT_FOUND_404, "file not found");
     }
 }
 

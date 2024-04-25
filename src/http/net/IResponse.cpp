@@ -3,7 +3,7 @@
 #include "core/base/IConstantUtil.h"
 #include "core/assert/IGlobalAssert.h"
 #include "http/biscuits/IHttpHeader.h"
-#include "http/IWebAssert.h"
+#include "http/IHttpAssert.h"
 #include "http/net/IRequest.h"
 #include "http/net/impl/IReqRespRaw.h"
 #include "http/net/impl/IResponseImpl.h"
@@ -12,7 +12,7 @@
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAssert)
+$UseAssert(IHttpAssert)
 
 $UseGlobalAssert()
 
@@ -130,7 +130,7 @@ IResponse &IResponse::setHeader(const QString &key, const QString &value)
     return *this;
 }
 
-IResponse &IResponse::setStatus(IHttpStatus statusCode)
+IResponse &IResponse::setStatus(IHttpStatusCode statusCode)
 {
     raw->m_responseStatus = statusCode;
     return *this;
@@ -139,7 +139,7 @@ IResponse &IResponse::setStatus(IHttpStatus statusCode)
 // NOTE: 这里是强转， 也就是说，任何一个数据都可以被设置进来。
 IResponse &IResponse::setStatus(int statusCode)
 {
-    raw->m_responseStatus = IHttpStatus(statusCode);
+    raw->m_responseStatus = IHttpStatusCode(statusCode);
     return *this;
 }
 
@@ -212,7 +212,7 @@ IResponse& IResponse::setContent(IResponseWare *response)
         raw->m_responseMime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
     }
 
-    if(response->status() != IHttpStatus::UNKNOWN){
+    if(response->status() != IHttpStatusCode::UNKNOWN){
         raw->m_responseStatus = response->status();
     }
 
@@ -255,7 +255,7 @@ QString IResponse::mime() const
     return raw->m_responseMime;
 }
 
-IHttpStatus IResponse::status() const
+IHttpStatusCode IResponse::status() const
 {
     return raw->m_responseStatus;
 }
@@ -298,12 +298,12 @@ bool IResponse::valid() const
     return raw->m_valid;
 }
 
-void IResponse::setInvalidIf(bool condition, IHttpStatus status, const QString &message) const
+void IResponse::setInvalidIf(bool condition, IHttpStatusCode status, const QString &message) const
 {
     raw->setInvalidIf(condition, status, message);
 }
 
-void IResponse::setInvalid(IHttpStatus status, const QString &message) const
+void IResponse::setInvalid(IHttpStatusCode status, const QString &message) const
 {
     raw->setInvalid(status, message);
 }

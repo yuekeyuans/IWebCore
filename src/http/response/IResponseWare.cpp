@@ -3,11 +3,11 @@
 #include "core/base/IConstantUtil.h"
 #include "http/response/IResponseWareRaw.h"
 #include "http/response/IRedirectResponse.h"
-#include "http/IWebAssert.h"
+#include "http/IHttpAssert.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAssert)
+$UseAssert(IHttpAssert)
 
 IResponseWare::IResponseWare()
     : m_raw(new IResponseWareRaw())
@@ -58,12 +58,12 @@ void IResponseWare::setMime(IHttpMime mime)
     m_raw->setMime(mime);
 }
 
-IHttpStatus IResponseWare::status() const
+IHttpStatusCode IResponseWare::status() const
 {
     return m_raw->statusCode;
 }
 
-void IResponseWare::setStatus(IHttpStatus statusCode)
+void IResponseWare::setStatus(IHttpStatusCode statusCode)
 {
     m_raw->statusCode = statusCode;
 }
@@ -93,7 +93,7 @@ IResponseContent &IResponseWare::getContent()
 //    std::swap(this->m_raw, redirectResponse.m_raw);
 //}
 
-void IResponseWare::setInvalid(IHttpStatus status, QString reason)
+void IResponseWare::setInvalid(IHttpStatusCode status, QString reason)
 {
     m_raw->setInvalid(status, std::move(reason));
 }

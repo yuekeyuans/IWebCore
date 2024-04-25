@@ -12,9 +12,9 @@ inline QString toBody(const http::Response& response)
     return QString::fromStdString(std::string(response.body.begin(), response.body.end()));
 }
 
-inline IHttpStatus toStatus(const http::Response& response)
+inline IHttpStatusCode toStatus(const http::Response& response)
 {
-    return IHttpStatusUtil::toStatus(static_cast<int>(response.status.code));
+    return IHttpStatus::toStatus(static_cast<int>(response.status.code));
 }
 
 }

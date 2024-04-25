@@ -84,6 +84,7 @@ HEADERS += \
     $$PWD/core/unit/IRegisterTypeUnit.h \
     $$PWD/core/unit/ISingletonUnit.h \
     $$PWD/core/unit/IStackObjectUnit.h \
+    $$PWD/http/IHttpAssert.h \
     $$PWD/http/IHttpControllerTaskCatagory.h \
     $$PWD/http/controller/IHttpControllerInterface.h \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.h \
@@ -132,7 +133,6 @@ HEADERS += \
     $$PWD/orm/tableview/IOrmViewWare.h \
     $$PWD/http/IInterceptInterface.h \
     $$PWD/http/IWebAnnomacro.h \
-    $$PWD/http/IWebAssert.h \
     $$PWD/http/IWebSystemPreProcessor.h \
     $$PWD/http/biscuits/IHttpHeader.h \
     $$PWD/http/biscuits/IHttpMethod.h \
@@ -261,6 +261,7 @@ SOURCES += \
     $$PWD/core/unit/IRegisterGadgetUnit.cpp \
     $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
     $$PWD/core/unit/IRegisterTypeUnit.cpp \
+    $$PWD/http/IHttpAssert.cpp \
     $$PWD/http/IHttpControllerTaskCatagory.cpp \
 #    $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
@@ -303,7 +304,6 @@ SOURCES += \
     $$PWD/orm/tableview/IOrmViewInfo.cpp \
     $$PWD/orm/tableview/IOrmViewWare.cpp \
     $$PWD/http/IInterceptInterface.cpp \
-    $$PWD/http/IWebAssert.cpp \
     $$PWD/http/biscuits/IHttpHeader.cpp \
     $$PWD/http/biscuits/IHttpMethod.cpp \
     $$PWD/http/biscuits/IHttpMime.cpp \

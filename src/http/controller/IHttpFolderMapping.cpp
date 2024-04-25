@@ -1,9 +1,9 @@
 ﻿#include "IHttpFolderMapping.h"
-#include "http/IWebAssert.h"
+#include "http/IHttpAssert.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAssert)
+$UseAssert(IHttpAssert)
 
 bool IHttpFolderMapping::isEnabled() const
 {

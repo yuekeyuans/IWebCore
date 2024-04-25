@@ -1,11 +1,11 @@
 ﻿#include "ICookieJar.h"
 #include "http/net/impl/IReqRespRaw.h"
-#include "http/IWebAssert.h"
+#include "http/IHttpAssert.h"
 #include "core/base/IToeUtil.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAssert)
+$UseAssert(IHttpAssert)
 
 ICookieJar::ICookieJar() : IJarUnit(nullptr)
 {

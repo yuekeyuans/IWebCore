@@ -27,8 +27,8 @@ public:
     const QString& mime() const;
     void setMime(IHttpMime);
     
-    IHttpStatus status() const;
-    void setStatus(IHttpStatus statusCode);
+    IHttpStatusCode status() const;
+    void setStatus(IHttpStatusCode statusCode);
 
     const QMap<QString, QString>& headers() const;
     void setHeader(const QString& key, const QString& value);
@@ -37,7 +37,7 @@ public:
 
 //    void redirectTo(IRedirectResponse&& redirectResponse);
 
-    virtual void setInvalid(IHttpStatus, QString reason);
+    virtual void setInvalid(IHttpStatusCode, QString reason);
     virtual QString getPrefixMatcher();
 
     virtual QSharedPointer<IResponseWare> create(IResponseWare*) = 0;

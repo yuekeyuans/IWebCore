@@ -2,11 +2,11 @@
 
 #include "core/base/IPackageUtil.h"
 #include "http/controller/private/IHttpControllerInfo.h"
-#include "http/IWebAssert.h"
+#include "http/IHttpAssert.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAssert)
+$UseAssert(IHttpAssert)
 
 static const QString& nmspace = $PackageWebCoreName;
 

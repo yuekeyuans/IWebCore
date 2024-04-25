@@ -12,13 +12,13 @@ IStatusResponse StatusController::statusResponseIntString()
 
 IStatusResponse StatusController::statusResponseStatus()
 {
-    return IHttpStatus::INTERNAL_SERVER_ERROR_500;
+    return IHttpStatusCode::INTERNAL_SERVER_ERROR_500;
 }
 
 IStatusResponse StatusController::statusResponseStatusString()
 {
     return {
-        IHttpStatus::CREATED_201,
+        IHttpStatusCode::CREATED_201,
         "created"
     };
 }

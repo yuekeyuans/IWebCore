@@ -9,13 +9,13 @@
 #include "http/jar/IHeaderJar.h"
 #include "http/jar/ISessionJar.h"
 #include "http/jar/IMultiPartJar.h"
-#include "http/IWebAssert.h"
+#include "http/IHttpAssert.h"
 
 #include "http/session/ISessionManager.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAssert)
+$UseAssert(IHttpAssert)
 
 IReqRespRaw::IReqRespRaw()
 {
@@ -49,19 +49,19 @@ bool IReqRespRaw::valid() const
     return this->m_valid;
 }
 
-void IReqRespRaw::setInvalid(IHttpStatus status, const QString &message)
+void IReqRespRaw::setInvalid(IHttpStatusCode status, const QString &message)
 {
     this->m_valid = false;
     this->m_responseMime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
     this->m_responseStatus = status;
 
-    QString tip = IHttpStatusUtil::toString(status).append(" - ")
-                      .append(IHttpStatusUtil::toStringDescription(status)).append(": ")
+    QString tip = IHttpStatus::toString(status).append(" - ")
+                      .append(IHttpStatus::toStringDescription(status)).append(": ")
                       .append(message).append(IConstantUtil::NewLine);
     this->m_responseContent.setContent(tip);
 }
 
-void IReqRespRaw::setInvalidIf(bool condition, IHttpStatus status, const QString &message)
+void IReqRespRaw::setInvalidIf(bool condition, IHttpStatusCode status, const QString &message)
 {
     if(condition){
         setInvalid(status, message);
@@ -73,7 +73,7 @@ QJsonValue IReqRespRaw::getRequestJson(bool& ok)
 {
     if(!isJsonInited){
         m_requestJson = IJsonUtil::toJsonValue(m_requestBody, ok);
-        setInvalidIf(!ok, IHttpStatus::BAD_REQUEST_400, "convert body to json failed");
+        setInvalidIf(!ok, IHttpStatusCode::BAD_REQUEST_400, "convert body to json failed");
         isJsonInited = true;
     }
     ok = true;

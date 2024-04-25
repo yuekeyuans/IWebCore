@@ -4,11 +4,11 @@
 #include "http/controller/private/IHttpControllerInfo.h"
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
-#include "http/IWebAssert.h"
+#include "http/IHttpAssert.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAssert)
+$UseAssert(IHttpAssert)
 
 using namespace IControllerInterfaceHelper;
 

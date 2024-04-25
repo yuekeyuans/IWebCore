@@ -96,8 +96,8 @@ public:
 
 
     bool valid() const;
-    void setInvalidIf(bool condition, IHttpStatus status, const QString& message) const;
-    void setInvalid(IHttpStatus status, const QString& message) const;
+    void setInvalidIf(bool condition, IHttpStatusCode status, const QString& message) const;
+    void setInvalid(IHttpStatusCode status, const QString& message) const;
 
 private:
     IRequestImpl* impl{nullptr};

@@ -30,8 +30,8 @@ public:
 
 public:
     bool valid() const;
-    void setInvalid(IHttpStatus status, const QString& message);
-    void setInvalidIf(bool condition, IHttpStatus status, const QString& message);
+    void setInvalid(IHttpStatusCode status, const QString& message);
+    void setInvalidIf(bool condition, IHttpStatusCode status, const QString& message);
 
     QJsonValue getRequestJson(bool& ok);
     IResult<QJsonValue> getRequestJson();
@@ -94,7 +94,7 @@ public:
 
 public:
     // response
-    IHttpStatus m_responseStatus {IHttpStatus::OK_200};
+    IHttpStatusCode m_responseStatus {IHttpStatusCode::OK_200};
 
     QString m_responseMime{"UNKNOWN"};
 

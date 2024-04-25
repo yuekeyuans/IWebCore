@@ -1,12 +1,12 @@
 ﻿#include "IHttpControllerInterface.h"
-#include "http/IWebAssert.h"
+#include "http/IHttpAssert.h"
 #include "http/controller/IHttpManage.h"
 #include "http/controller/private/IHttpControllerInfo.h"
 #include "http/controller/private/IControllerInterfaceHelper.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAssert)
+$UseAssert(IHttpAssert)
 
 void IControllerInterfaceHelper::registerController(void *handler, const QString &className,
                                                    const QMap<QString, QString> &classInfo, const QVector<QMetaMethod> &methods)

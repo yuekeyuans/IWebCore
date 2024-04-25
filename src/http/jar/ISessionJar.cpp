@@ -1,12 +1,12 @@
 ﻿#include "ISessionJar.h"
-#include "http/IWebAssert.h"
+#include "http/IHttpAssert.h"
 #include "http/session/ISessionManager.h"
 #include "http/session/ISessionInterface.h"
 #include "http/net/impl/IReqRespRaw.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAssert)
+$UseAssert(IHttpAssert)
 
 ISessionJar::ISessionJar() : IJarUnit(nullptr)
 {

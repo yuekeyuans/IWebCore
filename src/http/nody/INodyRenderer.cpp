@@ -28,9 +28,9 @@ QString INodyRenderer::render(const QString &path, const QJsonObject &object)
     return {};
 }
 
-QString INodyRenderer::getPage(IHttpStatus status)
+QString INodyRenderer::getPage(IHttpStatusCode status)
 {
-    QString pagePath = QString(m_userDefinedPrefix).append("/").append(IHttpStatusUtil::toString(status)).append(".yky");
+    QString pagePath = QString(m_userDefinedPrefix).append("/").append(IHttpStatus::toString(status)).append(".yky");
     if(isPathExist(pagePath)){
         return pagePath;
     }

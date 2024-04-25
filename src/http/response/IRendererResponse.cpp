@@ -12,7 +12,7 @@ IRendererResponse::IRendererResponse(const QString &path, QJsonObject value)
         setMime(IHttpMime::TEXT_HTML_UTF8);
         m_raw->setContent(renderTemplate->render(path, value));
     }else{
-        setInvalid(IHttpStatus::INTERNAL_SERVER_ERROR_500, "template can not parse template:" + path);
+        setInvalid(IHttpStatusCode::INTERNAL_SERVER_ERROR_500, "template can not parse template:" + path);
     }
 }
 

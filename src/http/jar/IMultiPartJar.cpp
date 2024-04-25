@@ -1,10 +1,10 @@
 ﻿#include "IMultiPartJar.h"
-#include "http/IWebAssert.h"
+#include "http/IHttpAssert.h"
 #include "http/net/impl/IReqRespRaw.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAssert)
+$UseAssert(IHttpAssert)
 
 IMultiPartJar::IMultiPartJar() : IJarUnit(nullptr)
 {

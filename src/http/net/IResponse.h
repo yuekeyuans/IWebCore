@@ -43,7 +43,7 @@ public:
     IReqRespRaw* getRaw() const;
 
     IResponse& setHeader(const QString &key, const QString &value);
-    IResponse& setStatus(IHttpStatus statusCode);
+    IResponse& setStatus(IHttpStatusCode statusCode);
     IResponse& setStatus(int statusCode);
     IResponse& setMime(IHttpMime mime);
     IResponse& setMime(const QString mime);
@@ -62,7 +62,7 @@ public:
 
     IHttpVersion version() const;
     QString mime() const;
-    IHttpStatus status() const;
+    IHttpStatusCode status() const;
     const QList<QPair<QString, QString>>& headers() const;
 
     const QMap<QString, QVariant>& attributes() const;
@@ -73,8 +73,8 @@ public:
     bool respond();
 
     bool valid() const;
-    void setInvalidIf(bool condition, IHttpStatus status, const QString& message) const;
-    void setInvalid(IHttpStatus status, const QString& message) const;
+    void setInvalidIf(bool condition, IHttpStatusCode status, const QString& message) const;
+    void setInvalid(IHttpStatusCode status, const QString& message) const;
 
 private:
     IResponseImpl*  impl{nullptr};

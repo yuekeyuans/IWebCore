@@ -1,10 +1,10 @@
 ﻿#include "IHttpMime.h"
 #include "core/assert/IAssertPreProcessor.h"
-#include "http/IWebAssert.h"
+#include "http/IHttpAssert.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAssert)
+$UseAssert(IHttpAssert)
 
 namespace{
 

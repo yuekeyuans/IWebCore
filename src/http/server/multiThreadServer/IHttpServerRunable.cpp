@@ -178,7 +178,7 @@ void IHttpServerRunable::processInNotFoundMode(IRequest &request, IResponse &res
 {
     Q_UNUSED(response)
     QString info = request.url() + " " + IHttpMethodUtil::toString(request.method()) + " has no function to handle";
-    request.setInvalid(IHttpStatus::NOT_FOUND_404, info);
+    request.setInvalid(IHttpStatusCode::NOT_FOUND_404, info);
     return;
 }
 
@@ -221,7 +221,7 @@ void IHttpServerRunable::runOptionsFunction(IRequest &request, IResponse &respon
 {
     QStringList  options = handleOptionsRequest(request, response);
 
-    response.setStatus(IHttpStatus::OK_200);
+    response.setStatus(IHttpStatusCode::OK_200);
     if(options.isEmpty()) {
         response.setHeader("Allow" , "NONE");
     } else {

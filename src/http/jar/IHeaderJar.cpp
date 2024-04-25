@@ -2,11 +2,11 @@
 
 #include "core/base/IToeUtil.h"
 #include "http/net/impl/IReqRespRaw.h"
-#include "http/IWebAssert.h"
+#include "http/IHttpAssert.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAssert)
+$UseAssert(IHttpAssert)
 
 IHeaderJar::IHeaderJar() : IJarUnit(nullptr)
 {

@@ -9,11 +9,11 @@
 #include "http/node/IParamNode.h"
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
-#include "http/IWebAssert.h"
+#include "http/IHttpAssert.h"
 
 $PackageWebCoreBegin
 
-$UseAssert(IWebAssert)
+$UseAssert(IHttpAssert)
 
 void* IHttpControllerBeanParameter::getParamOfBean(const IParamNode &node, IRequest &request)
 {
@@ -43,7 +43,7 @@ void *IHttpControllerBeanParameter::assamleBeanWareWithContent(IBeanWare *bean, 
 {
     if(request.method() == IHttpMethod::GET){
         QString info = "can not get any body content when in GET method";
-        request.setInvalid(IHttpStatus::BAD_REQUEST_400, info);
+        request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, info);
         return bean;
     }
 
@@ -59,7 +59,7 @@ void *IHttpControllerBeanParameter::assamleBeanWareWithContent(IBeanWare *bean, 
     case IHttpMime::TEXT_XML:
         return resolveBodyXml(bean, request);
     default:
-        request.setInvalid(IHttpStatus::BAD_REQUEST_400, "the request type can not be converted to a bean");
+        request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, "the request type can not be converted to a bean");
     }
     return bean;
 }
@@ -69,7 +69,7 @@ void *IHttpControllerBeanParameter::assambleBeanWareWithBody(IBeanWare *bean, IR
 {
     if(request.method() == IHttpMethod::GET){
         QString info = "can not get any body content when in GET method";
-        request.setInvalid(IHttpStatus::BAD_REQUEST_400, info);
+        request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, info);
         return bean;
     }
 
@@ -80,7 +80,7 @@ void *IHttpControllerBeanParameter::assambleBeanWareWithBody(IBeanWare *bean, IR
         const auto& value = request.bodyJson(ok);
         if(!ok || value.isObject()){
             QString info = "body to jsonobject is not valid";
-            request.setInvalid(IHttpStatus::BAD_REQUEST_400, info);
+            request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, info);
         }
 
         auto obj = value.toObject();
@@ -94,7 +94,7 @@ void *IHttpControllerBeanParameter::assambleBeanWareWithBody(IBeanWare *bean, IR
     }
 
     QString info = "can not get any part of body in type except json and xml";
-    request.setInvalid(IHttpStatus::BAD_REQUEST_400, info);
+    request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, info);
     return bean;
 }
 
@@ -159,7 +159,7 @@ void *IHttpControllerBeanParameter::assambleBeanWareWithMixed(IBeanWare *bean, I
             IAssertInfo info;
             info.reason = QString( "bean inner parameter not found. name : ").append(prop.name());
             if(isBeanResoveStrictMode()){
-                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
+                request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, info.reason);
                 return bean;
             }
             $Ast->warn("assamble_bean_when_bean_inner_parameter_not_found", info);
@@ -174,7 +174,7 @@ void *IHttpControllerBeanParameter::assambleBeanWareWithMixed(IBeanWare *bean, I
             IAssertInfo info;
             info.reason = QString( "bean inner parameter format not correct. name : ").append(prop.name());
             if(isBeanResoveStrictMode()){
-                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
+                request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, info.reason);
                 return bean;
             }
             $Ast->warn("assamble_bean_when_bean_inner_parameter_not_found", info);
@@ -252,7 +252,7 @@ void *IHttpControllerBeanParameter::resolveBodyJson(IBeanWare *bean, IRequest &r
     bool ok;
     auto value = request.bodyJson(ok);
     if(!ok || !value.isObject()){
-        request.setInvalid(IHttpStatus::BAD_REQUEST_400, "json value is not ok");
+        request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, "json value is not ok");
         return bean;
     }
 
@@ -266,7 +266,7 @@ void *IHttpControllerBeanParameter::resolveBodyJson(IBeanWare *bean, IRequest &r
 void *IHttpControllerBeanParameter::resolveBodyXml(IBeanWare *bean, IRequest &request)
 {
     // TODO: xml
-    request.setInvalid(IHttpStatus::BAD_REQUEST_400, "current convertion to bean can not be done, due to xml type");
+    request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, "current convertion to bean can not be done, due to xml type");
     return bean;
 }
 
@@ -294,7 +294,7 @@ QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(cons
             info.reason = QString(prop.name()).append(" format not correct");
             if(isBeanResoveStrictMode()){
                 IToeUtil::setOk(ok, false);
-                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
+                request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, info.reason);
                 return map;
             }
 
@@ -326,7 +326,7 @@ QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(cons
             info.reason = QString(prop.name()).append(" format not correct");
             if(isBeanResoveStrictMode()){
                 IToeUtil::setOk(ok, false);
-                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
+                request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, info.reason);
                 return map;
             }
             $Ast->warn("assamble_bean_when_bean_inner_parameter_not_found", info);
@@ -359,7 +359,7 @@ QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(cons
                 info.reason = QString(prop.name()).append(" format not correct");
                 if(isBeanResoveStrictMode()){
                     IToeUtil::setOk(ok, false);
-                    request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
+                    request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, info.reason);
                     return map;
                 }
 
@@ -388,7 +388,7 @@ bool IHttpControllerBeanParameter::checkKeyInJsonAndBean(const QJsonObject &obj,
             IAssertInfo info;
             info.reason = QString("json do not contain pair :").append(prop.name());
             if(isBeanResoveStrictMode()){
-                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
+                request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, info.reason);
                 return false;
 
             }
@@ -419,7 +419,7 @@ bool IHttpControllerBeanParameter::checkKeyInMultiPart(const QVector<IMultiPart>
             IAssertInfo info;
             info.reason = QString(prop.name()).append(" not found");
             if(isBeanResoveStrictMode()){
-                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
+                request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, info.reason);
                 return false;
             }
             $Ast->warn("assamble_bean_when_bean_inner_parameter_not_found", info);
@@ -472,7 +472,7 @@ bool IHttpControllerBeanParameter::checkKeyInQStringMap(const QMap<QString, QStr
             IAssertInfo info;
             info.reason = QString(prop.name()).append(" not found");
             if(isBeanResoveStrictMode()){
-                request.setInvalid(IHttpStatus::BAD_REQUEST_400, info.reason);
+                request.setInvalid(IHttpStatusCode::BAD_REQUEST_400, info.reason);
                 return false;
             }
             $Ast->warn("assamble_bean_when_bean_inner_parameter_not_found", info);
