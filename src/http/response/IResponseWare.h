@@ -15,12 +15,11 @@ class IResponseWare
 {
 public:
     IResponseWare();
+    virtual ~IResponseWare();
     IResponseWare(const IResponseWare&);
     IResponseWare(IResponseWare&&);
     IResponseWare& operator =(const IResponseWare&);
     IResponseWare& operator =(IResponseWare&&);
-    virtual ~IResponseWare();
-
     QString& operator[](const QString& header);
 
 public:
@@ -34,8 +33,6 @@ public:
     void setHeader(const QString& key, const QString& value);
 
     IResponseContent& getContent();
-
-//    void redirectTo(IRedirectResponse&& redirectResponse);
 
     virtual void setInvalid(IHttpStatusCode, QString reason);
     virtual QString getPrefixMatcher();

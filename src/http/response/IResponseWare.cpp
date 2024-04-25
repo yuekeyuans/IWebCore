@@ -14,6 +14,12 @@ IResponseWare::IResponseWare()
 {
 }
 
+IResponseWare::~IResponseWare()
+{
+    delete m_raw;
+    m_raw = nullptr;
+}
+
 IResponseWare::IResponseWare(const IResponseWare &rhs)
     : m_raw(new IResponseWareRaw(*rhs.m_raw))
 {
@@ -35,12 +41,6 @@ IResponseWare &IResponseWare::operator =(IResponseWare && rhs)
 {
     std::swap(this->m_raw, rhs.m_raw);
     return *this;
-}
-
-IResponseWare::~IResponseWare()
-{
-    delete m_raw;
-    m_raw = nullptr;
 }
 
 QString &IResponseWare::operator[](const QString &header)
