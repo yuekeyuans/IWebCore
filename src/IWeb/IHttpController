@@ -7,7 +7,5 @@
 #include "http/controller/pp/IPatchMappingPreProcessor.h"
 #include "http/controller/pp/IPostMappingPreProcessor.h"
 #include "http/controller/pp/IPutMappingPreProcessor.h"
-#include "http/controller/pp/IStatusControllerPreProcessor.h"
-
 
 using namespace IWebCore;

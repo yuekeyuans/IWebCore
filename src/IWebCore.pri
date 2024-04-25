@@ -9,6 +9,7 @@ include($$PWD/core/package/package.pri)
 PRECOMPILED_HEADER = $$PWD/core/base/IHeaderUtil.h
 
 HEADERS += \
+    $$PWD/IWeb/IHttp \
     $$PWD/core/base/ICodecUtil.h \
     $$PWD/core/base/IConstantUtil.h \
     $$PWD/core/base/IConvertUtil.h \
@@ -84,6 +85,7 @@ HEADERS += \
     $$PWD/core/unit/IRegisterTypeUnit.h \
     $$PWD/core/unit/ISingletonUnit.h \
     $$PWD/core/unit/IStackObjectUnit.h \
+    $$PWD/http/IHttpAnnomacro.h \
     $$PWD/http/IHttpAssert.h \
     $$PWD/http/IHttpControllerTaskCatagory.h \
     $$PWD/http/controller/IHttpControllerInterface.h \
@@ -132,8 +134,6 @@ HEADERS += \
     $$PWD/orm/tableview/IOrmViewInterface.h \
     $$PWD/orm/tableview/IOrmViewWare.h \
     $$PWD/http/IInterceptInterface.h \
-    $$PWD/http/IWebAnnomacro.h \
-    $$PWD/http/IWebSystemPreProcessor.h \
     $$PWD/http/biscuits/IHttpHeader.h \
     $$PWD/http/biscuits/IHttpMethod.h \
     $$PWD/http/biscuits/IHttpMime.h \
@@ -373,8 +373,6 @@ HEADERS += \
     $$PWD/ICore/IContext \
     $$PWD/ICore/IProfile \
     $$PWD/ICore/ITest   \
-    $$PWD/IWeb/IWeb  \
-    $$PWD/IWeb/IControllerInterface \
     $$PWD/IWeb/IHttpServer \
     $$PWD/IWeb/IHttpController \
     $$PWD/IWeb/IHttpTestInterface
