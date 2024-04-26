@@ -9,6 +9,7 @@ class IHttpInvalidManage : public ISingletonUnit<IHttpInvalidManage>
 {
 public:
     IHttpInvalidManage() = default;
+
 };
 
 $PackageWebCoreEnd
