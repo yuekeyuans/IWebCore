@@ -6,9 +6,10 @@
 #include "core/base/ICodecUtil.h"
 #include "core/base/IToeUtil.h"
 #include "core/config/IContextManage.h"
+#include "http/invalid/IHttpBadRequestInvalid.h"
+#include "http/jar/IHeaderJar.h"
 #include "http/net/IRequest.h"
 #include "http/net/impl/IReqRespRaw.h"
-#include "http/jar/IHeaderJar.h"
 
 $PackageWebCoreBegin
 
@@ -321,42 +322,48 @@ bool IRequestImpl::resolvePeerInfo()
 bool IRequestImpl::resolveFirstLine()
 {
     if(!raw->canSocketReadLine()){
-        raw->setInvalid(IHttpStatusCode::BAD_REQUEST_400, "can't read from socket");
+        raw->setInvalid(IHttpBadRequestInvalid("can't read from socket"));
         return false;
     }
     auto line = raw->readSocketLine(IConstantUtil::Request_Url_Max_Length);
 
     if(line.length() == 0){
-        raw->setInvalid(IHttpStatusCode::BAD_REQUEST_400, "can't read from socket");
+        raw->setInvalid(IHttpBadRequestInvalid("can't read from socket"));
         return false;
     }
 
     if(line.length() >=IConstantUtil::Request_Url_Max_Length){
-         raw->setInvalid(IHttpStatusCode::BAD_REQUEST_400, "request url is too long");
+         raw->setInvalid(IHttpBadRequestInvalid("request url is too long"));
          return false;
     }
 
     auto content = line.replace("\r\n", "").split(' '); // NOTE: here should be optimized
     if(content.length() != 3){
-        raw->setInvalid(IHttpStatusCode::BAD_REQUEST_400, "first line of request is not supported");
+        raw->setInvalid(IHttpBadRequestInvalid("first line of request is not supported"));
         return false;
     }
 
+    // TODO:
     raw->m_method = IHttpMethodUtil::toMethod(content[0]);
     if(raw->m_method == IHttpMethod::UNKNOWN){
-        raw->setInvalid(IHttpStatusCode::METHOD_NOT_ALLOWED_405, "can not resolve current method type");
+//        raw->setInvalid(IHttpStatusCode::METHOD_NOT_ALLOWED_405, "can not resolve current method type");
+        raw->setInvalid(IHttpBadRequestInvalid("can not resolve current method type"));
+
         return false;
     }
 
+    // TODO:
     raw->m_httpVersion = IHttpVersionUtil::toVersion(content[2]);
     if(raw->m_httpVersion == IHttpVersion::UNKNOWN){
-        raw->setInvalid(IHttpStatusCode::HTTP_VERSION_NOT_SUPPORTED, "current version is not supported");
+//        raw->setInvalid(IHttpStatusCode::HTTP_VERSION_NOT_SUPPORTED, "current version is not supported");
+        raw->setInvalid(IHttpBadRequestInvalid("current version is not supported"));
+
         return false;
     }
 
     auto realUrl = QString(QByteArray::fromPercentEncoding(content[1]));
     if(!IRequestImplHelper::isPathValid(realUrl)){
-        raw->setInvalid(IHttpStatusCode::BAD_REQUEST_400, "request url is not correct. url:" + realUrl);
+        raw->setInvalid(IHttpBadRequestInvalid("request url is not correct. url:" + realUrl));
         return false;
     }
 
@@ -380,13 +387,13 @@ bool IRequestImpl::resolveHeaders()
 
         totalCount += content.length();
         if(totalCount > IConstantUtil::Request_Header_Max_Length){  // check header length;
-            raw->setInvalid(IHttpStatusCode::BAD_REQUEST_400, "request of headers too large");
+            raw->setInvalid(IHttpBadRequestInvalid("request of headers too large"));
             return false;
         }
 
         auto index = content.indexOf(':');
         if(index == -1){
-            raw->setInvalid(IHttpStatusCode::BAD_REQUEST_400, "server do not support headers item multiline");  // SEE: 默认不支持 headers 换行书写
+            raw->setInvalid(IHttpBadRequestInvalid("server do not support headers item multiline"));  // SEE: 默认不支持 headers 换行书写
             return false;
         }
 
@@ -442,13 +449,13 @@ bool IRequestImpl::resolveBody()
     }
 
     if(length > IConstantUtil::Request_Body_Max_Length){
-        raw->setInvalid(IHttpStatusCode::BAD_REQUEST_400, "the request body is too large");
+        raw->setInvalid(IHttpBadRequestInvalid("the request body is too large"));
         return false;
     }
 
     raw->m_requestBody = raw->readSocket(length);
     if(raw->m_requestBody.length() != length){
-        raw->setInvalid(IHttpStatusCode::BAD_REQUEST_400, "the request body`s length is not equal to length provided by Content-Length header");
+        raw->setInvalid(IHttpBadRequestInvalid("the request body`s length is not equal to length provided by Content-Length header"));
         return false;
     }
 
@@ -506,7 +513,7 @@ bool IRequestImpl::resolveEncodeArguments(const QByteArray &content, bool isBody
     for(auto val : list){
         auto map = val.split('=');
         if(map.length() != 2){
-            raw->setInvalid(IHttpStatusCode::BAD_REQUEST_400, "the parameters in body should be pair");
+            raw->setInvalid(IHttpBadRequestInvalid("the parameters in body should be pair"));
             return false;
         }
 
@@ -554,7 +561,7 @@ QList<QPair<int, int> > IRequestImpl::getBoundaries()
     auto boundary = getBoundaryParam(contentType());
     auto boundaryLength = boundary.length();
     if(boundary.isEmpty()){
-        raw->setInvalid(IHttpStatusCode::BAD_REQUEST_400, "multi part request boundary not set");
+        raw->setInvalid(IHttpBadRequestInvalid("multi part request boundary not set"));
         return ret;
     }
     auto endBoundary = boundary + "--\r\n";
@@ -573,7 +580,7 @@ QList<QPair<int, int> > IRequestImpl::getBoundaries()
             ret.append(boundaryPair);
             break;
         }else{
-            raw->setInvalid(IHttpStatusCode::BAD_REQUEST_400, "multi part request boundary error");
+            raw->setInvalid(IHttpBadRequestInvalid("multi part request boundary error"));
             return ret;
         }
         index = raw->m_requestBody.indexOf(boundary, pos);

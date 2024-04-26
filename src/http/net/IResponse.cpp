@@ -208,7 +208,7 @@ IResponse& IResponse::setContent(IResponseWare *response)
     std::swap(raw->m_responseContent, response->getContent());
 
     if(raw->m_responseContent.type == IResponseContent::Invalid){
-        setInvalid(response->status(), raw->m_responseContent.contentString);
+        setInvalid(response->getContent().contentInvalid);
         raw->m_responseMime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
     }
 
@@ -298,14 +298,16 @@ bool IResponse::valid() const
     return raw->m_valid;
 }
 
-void IResponse::setInvalidIf(bool condition, IHttpStatusCode status, const QString &message) const
+void IResponse::setInvalidIf(bool condition, IHttpInvalidWare ware) const
 {
-    raw->setInvalidIf(condition, status, message);
+    if(condition){
+        raw->setInvalid(ware);
+    }
 }
 
-void IResponse::setInvalid(IHttpStatusCode status, const QString &message) const
+void IResponse::setInvalid(IHttpInvalidWare ware) const
 {
-    raw->setInvalid(status, message);
+    raw->setInvalid(ware);
 }
 
 $PackageWebCoreEnd

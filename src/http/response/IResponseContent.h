@@ -1,12 +1,12 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "http/invalid/IHttpInvalidWare.h"
 #include <array>
 
 $PackageWebCoreBegin
 
 // 保存 content
-
 struct IResponseContent
 {
 public:
@@ -28,8 +28,7 @@ public:
     void setContent(QByteArray&& content);
     void setContent(const QByteArray& content);
     void setContent(const char* content);
-
-    void setInvalid(QString content);
+    void setContent(IHttpInvalidWare ware); // cut directly
 
     QByteArray getAsBytes();
 
@@ -38,6 +37,7 @@ public:
     QString contentString;
     QByteArray contentBytes;
     QString contentFilePath;
+    IHttpInvalidWare contentInvalid;
 };
 
 $PackageWebCoreEnd

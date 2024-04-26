@@ -30,8 +30,7 @@ public:
 
 public:
     bool valid() const;
-    void setInvalid(IHttpStatusCode status, const QString& message);
-    void setInvalidIf(bool condition, IHttpStatusCode status, const QString& message);
+    void setInvalid(IHttpInvalidWare ware);
 
     QJsonValue getRequestJson(bool& ok);
     IResult<QJsonValue> getRequestJson();

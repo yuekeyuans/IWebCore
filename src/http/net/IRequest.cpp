@@ -7,8 +7,9 @@
 #include "core/base/IToeUtil.h"
 #include "core/base/ISocketUtil.h"
 #include "core/assert/IGlobalAssert.h"
-#include "http/IHttpAssert.h"
 #include "http/biscuits/IHttpHeader.h"
+#include "http/IHttpAssert.h"
+#include "http/invalid/IHttpRequestTimeoutInvalid.h"
 #include "http/net/impl/IRequestImpl.h"
 #include "http/net/impl/IReqRespRaw.h"
 #include "http/jar/ICookieJar.h"
@@ -43,7 +44,7 @@ IRequest::IRequest(QTcpSocket *socket)
     //        |-> 失联或超时 -> invalid, 并且关闭线程。
     // 目的就是把软件的时间给省出来。
     if(!raw->waitSocketForReadyRead()){
-        setInvalid(IHttpStatusCode::REQUEST_TIMEOUT_408, "request open failed");
+        setInvalid(IHttpRequestTimeoutInvalid("request open failed"));
     }else{
         impl->resolve();
     }
@@ -333,14 +334,16 @@ bool IRequest::valid() const
     return raw->m_valid;
 }
 
-void IRequest::setInvalidIf(bool condition, IHttpStatusCode status, const QString &message) const
+void IRequest::setInvalidIf(bool condition, IHttpInvalidWare ware) const
 {
-    return raw->setInvalidIf(condition, status, message);
+    if(condition){
+        raw->setInvalid(ware);
+    }
 }
 
-void IRequest::setInvalid(IHttpStatusCode status, const QString &message) const
+void IRequest::setInvalid(IHttpInvalidWare ware) const
 {
-    return raw->setInvalid(status, message);
+    return raw->setInvalid(ware);
 }
 
 #ifndef USE_INLINE

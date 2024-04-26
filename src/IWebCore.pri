@@ -98,8 +98,11 @@ HEADERS += \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.h \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.h \
     $$PWD/http/core/defaultTask/IHttpUrlPathValidatorTask.h \
+    $$PWD/http/invalid/IHttpBadRequestInvalid.h \
     $$PWD/http/invalid/IHttpInvalidInterface.h \
     $$PWD/http/invalid/IHttpInvalidManage.h \
+    $$PWD/http/invalid/IHttpInvalidWare.h \
+    $$PWD/http/invalid/IHttpRequestTimeoutInvalid.h \
     $$PWD/http/nody/INody.h \
     $$PWD/http/nody/INodyManage.h \
     $$PWD/http/nody/INodyParser.h \
@@ -274,7 +277,10 @@ SOURCES += \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.cpp \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.cpp \
     $$PWD/http/core/defaultTask/IHttpUrlPathValidatorTask.cpp \
+    $$PWD/http/invalid/IHttpBadRequestInvalid.cpp \
     $$PWD/http/invalid/IHttpInvalidManage.cpp \
+    $$PWD/http/invalid/IHttpInvalidWare.cpp \
+    $$PWD/http/invalid/IHttpRequestTimeoutInvalid.cpp \
     $$PWD/http/nody/INody.cpp \
     $$PWD/http/nody/INodyManage.cpp \
     $$PWD/http/nody/INodyParser.cpp \

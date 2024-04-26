@@ -73,8 +73,8 @@ public:
     bool respond();
 
     bool valid() const;
-    void setInvalidIf(bool condition, IHttpStatusCode status, const QString& message) const;
-    void setInvalid(IHttpStatusCode status, const QString& message) const;
+    void setInvalidIf(bool condition, IHttpInvalidWare ware) const;
+    void setInvalid(IHttpInvalidWare ware) const;
 
 private:
     IResponseImpl*  impl{nullptr};

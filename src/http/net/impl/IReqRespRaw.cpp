@@ -10,6 +10,7 @@
 #include "http/jar/ISessionJar.h"
 #include "http/jar/IMultiPartJar.h"
 #include "http/IHttpAssert.h"
+#include "http/invalid/IHttpBadRequestInvalid.h"
 
 #include "http/session/ISessionManager.h"
 
@@ -49,23 +50,12 @@ bool IReqRespRaw::valid() const
     return this->m_valid;
 }
 
-void IReqRespRaw::setInvalid(IHttpStatusCode status, const QString &message)
+void IReqRespRaw::setInvalid(IHttpInvalidWare ware)
 {
     this->m_valid = false;
     this->m_responseMime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
-    this->m_responseStatus = status;
-
-    QString tip = IHttpStatus::toString(status).append(" - ")
-                      .append(IHttpStatus::toStringDescription(status)).append(": ")
-                      .append(message).append(IConstantUtil::NewLine);
-    this->m_responseContent.setContent(tip);
-}
-
-void IReqRespRaw::setInvalidIf(bool condition, IHttpStatusCode status, const QString &message)
-{
-    if(condition){
-        setInvalid(status, message);
-    }
+    this->m_responseStatus = ware.status;
+    this->m_responseContent.setContent(ware);
 }
 
 // TODO: 这里需要查看一下，感觉返回数据过于早了，应该统一处理的。
@@ -73,7 +63,10 @@ QJsonValue IReqRespRaw::getRequestJson(bool& ok)
 {
     if(!isJsonInited){
         m_requestJson = IJsonUtil::toJsonValue(m_requestBody, ok);
-        setInvalidIf(!ok, IHttpStatusCode::BAD_REQUEST_400, "convert body to json failed");
+        if(!ok){
+            setInvalid(IHttpBadRequestInvalid("convert body to json failed"));
+            return {}; // TODO: check here;
+        }
         isJsonInited = true;
     }
     ok = true;

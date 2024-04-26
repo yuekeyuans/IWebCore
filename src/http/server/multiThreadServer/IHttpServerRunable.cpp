@@ -174,11 +174,15 @@ void IHttpServerRunable::processInStaticFolderMode(IRequest &request, IResponse 
     response.setContent(&nodyResponse);
 }
 
+// TODO:
 void IHttpServerRunable::processInNotFoundMode(IRequest &request, IResponse &response)
 {
     Q_UNUSED(response)
     QString info = request.url() + " " + IHttpMethodUtil::toString(request.method()) + " has no function to handle";
-    request.setInvalid(IHttpStatusCode::NOT_FOUND_404, info);
+//    request.setInvalid(IHttpStatusCode::NOT_FOUND_404, info);
+    response.setMime(IHttpMime::TEXT_PLAIN_UTF8);
+    response.setStatus(IHttpStatus::NOT_FOUND_404);
+    response.setContent(info);
     return;
 }
 
