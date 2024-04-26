@@ -59,6 +59,9 @@ namespace IMetaUtil
 
     template<typename T>
     QString getTypename();
+
+    template<typename T>
+    QString getBareTypeName();
 }
 
 class IMetaUtilHelper
@@ -105,5 +108,14 @@ QString IMetaUtil::getTypename(){
         return IMetaUtilHelper::demangleName(typeid(T).name());
     }
 }
+
+
+template<typename T>
+QString IMetaUtil::getBareTypeName()
+{
+    QString name = IMetaUtil::getTypename<T>();
+    return name.split(" ").last();
+}
+
 
 $PackageWebCoreEnd

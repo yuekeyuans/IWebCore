@@ -1,0 +1,3 @@
+﻿#include "http/invalid/IHttpInvalidInterface.h"
+
+using namespace IWebCore;

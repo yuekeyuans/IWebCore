@@ -332,5 +332,4 @@ QString IMetaUtilHelper::demangleName(const char *name)
     return name;
 #endif
 }
-
 $PackageWebCoreEnd

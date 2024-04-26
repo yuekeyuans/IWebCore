@@ -98,6 +98,8 @@ HEADERS += \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.h \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.h \
     $$PWD/http/core/defaultTask/IHttpUrlPathValidatorTask.h \
+    $$PWD/http/invalid/IHttpInvalidInterface.h \
+    $$PWD/http/invalid/IHttpInvalidManage.h \
     $$PWD/http/nody/INody.h \
     $$PWD/http/nody/INodyManage.h \
     $$PWD/http/nody/INodyParser.h \
@@ -145,7 +147,6 @@ HEADERS += \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.h \
     $$PWD/http/controller/IHttpResourceMapping.h \
     $$PWD/http/controller/IHttpRouteMapping.h \
-#    $$PWD/http/controller/IInvalidControllerInterface.h \
     $$PWD/http/controller/private/IControllerInterfaceHelper.h \
     $$PWD/http/core/defaultTask/IControllerBaseTypeTask.h \
     $$PWD/http/core/defaultTask/INodyTemplateTask.h \
@@ -273,6 +274,7 @@ SOURCES += \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.cpp \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.cpp \
     $$PWD/http/core/defaultTask/IHttpUrlPathValidatorTask.cpp \
+    $$PWD/http/invalid/IHttpInvalidManage.cpp \
     $$PWD/http/nody/INody.cpp \
     $$PWD/http/nody/INodyManage.cpp \
     $$PWD/http/nody/INodyParser.cpp \
@@ -373,11 +375,11 @@ HEADERS += \
     $$PWD/ICore/IApplication \
     $$PWD/ICore/IContext \
     $$PWD/ICore/IProfile \
-    $$PWD/ICore/ITest   \
+    $$PWD/ICore/IUnitTestInterface \
     $$PWD/IWeb/IHttpServer \
-    $$PWD/IWeb/IHttpTestInterface
+    $$PWD/IWeb/IHttpTestInterface   \
+    $$PWD/IWeb/IHttpInvalidInterface \
     $$PWD/IWeb/HttpRequest \
-
 
 DISTFILES += \
     $$PWD/core/base/base \
