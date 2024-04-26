@@ -18,6 +18,6 @@ namespace IHttpMethodUtil{
     QString toString(IHttpMethod);
     IHttpMethod toMethod(const QString&);
     const QStringList& methodNames();
-};
+}
 
 $PackageWebCoreEnd
