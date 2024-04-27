@@ -140,11 +140,9 @@ void *IHttpControllerBeanParameter::assambleBeanWareWithHeaders(IBeanWare *bean,
 void *IHttpControllerBeanParameter::assambleBeanWareWithMixed(IBeanWare *bean, IRequest &request)
 {
     const auto& props = bean->getMetaProperties();
-
     QMap<QString, QVariant> map;
 
     // TODO:
-
     bool convertOk;
     for(auto prop : props){
         auto value = request.getMixedParameter(prop.name(), convertOk);

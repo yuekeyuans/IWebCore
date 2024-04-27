@@ -54,6 +54,11 @@ void IResponseWareRaw::setContent(const QFile &file)
     content.contentFilePath = QFileInfo(file).absoluteFilePath();
 }
 
+void IResponseWareRaw::setContent(IHttpInvalidWare ware)
+{
+    content.setContent(std::forward<IHttpInvalidWare>(ware));
+}
+
 void IResponseWareRaw::setFileContent(const QString &filePath)
 {
     content.type = IResponseContent::File;

@@ -2,14 +2,10 @@
 
 $PackageWebCoreBegin
 
-IInvalidResponse::IInvalidResponse(const QString &status, const QString &cause)
+IInvalidResponse::IInvalidResponse(IHttpInvalidWare ware)
 {
-
-}
-
-IInvalidResponse::IInvalidResponse(int statusCode, const QString &cause)
-{
-
+    m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
+    m_raw->setContent(ware);
 }
 
 $PackageWebCoreEnd
