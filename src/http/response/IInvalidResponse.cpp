@@ -4,7 +4,8 @@ $PackageWebCoreBegin
 
 IInvalidResponse::IInvalidResponse(const QString &value)
 {
-
+    Q_UNUSED(value)
+    qFatal(IConstantUtil::UnCallableMethod);
 }
 
 IInvalidResponse::IInvalidResponse(IHttpInvalidWare ware)
