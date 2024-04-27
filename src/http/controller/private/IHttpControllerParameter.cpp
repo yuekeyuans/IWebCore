@@ -117,6 +117,8 @@ void *IHttpControllerParameter::createReturnParam(int paramTypeId)
 
 void *IHttpControllerParameter::createArgParam(const IParamNode& node, IRequest &request, bool& ok)
 {
+//    qDebug() << node.paramTypeId << node.paramTypeName << QMetaType(node.paramTypeId).metaObject()->className();
+
     static QVector<CreateParamFunType> funs = {
         &IHttpControllerParameter::getParamOfSystem,
         &IHttpControllerParameter::getParamOfMultipart,
@@ -179,7 +181,7 @@ void *IHttpControllerParameter::getParamOfSystem(const IParamNode& node, IReques
     Q_UNUSED(ok)
     auto index = m_systemTypes.indexOf(node.paramTypeId);
 
-    switch (index / 2) {
+    switch (index / 3) {
     case 0:
         return &request;
     case 1:
@@ -448,10 +450,12 @@ void IHttpControllerParameter::initSystemTypes(){
     std::call_once(flag, [&](){
         QString nmspace = QString($PackageWebCoreName).append("::");
 
-        for(const auto& name : SystemTypeNames){
+        for(const auto& name : SystemTypeNames){\
+            m_systemTypes << QMetaType::type((name + "&").toUtf8());
             m_systemTypes << QMetaType::type((nmspace + name).toUtf8());
             m_systemTypes << QMetaType::type((nmspace + name + "&").toUtf8());
         }
+        qDebug() << m_systemTypes;
     });
 }
 

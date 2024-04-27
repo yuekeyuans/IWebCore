@@ -8,4 +8,7 @@
 #include "http/controller/pp/IPostMappingPreProcessor.h"
 #include "http/controller/pp/IPutMappingPreProcessor.h"
 
+#include "http/net/IRequest.h"
+#include "http/net/IResponse.h"
+
 using namespace IWebCore;
