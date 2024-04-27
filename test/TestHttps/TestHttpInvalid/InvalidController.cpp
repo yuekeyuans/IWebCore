@@ -1,6 +1,8 @@
 ﻿#include "InvalidController.h"
+#include "test/TestInvalid.h"
 
 QString InvalidController::testInvalid(IRequest &request)
 {
-    return "hello world";
+    request.setInvalid(TestInvalid("testInvalid"));
+    return {};
 }

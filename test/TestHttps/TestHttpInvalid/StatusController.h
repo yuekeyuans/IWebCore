@@ -4,7 +4,6 @@
 #include "http/response/IHtmlResponse.h"
 #include "http/response/IStatusResponse.h"
 
-
 class StatusController : public IHttpControllerInterface<StatusController>
 {
     Q_GADGET

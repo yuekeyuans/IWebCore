@@ -12,12 +12,16 @@ SOURCES += \
         StatusController.cpp \
         main.cpp \
         InvalidController.cpp \
+        test/InvalidControllerTest.cpp \
         test/StatusControllerTest.cpp \
-        test/StatusUnitTest.cpp
+        test/StatusUnitTest.cpp \
+        test/TestInvalid.cpp
 
 HEADERS += \
     StatusController.h \
     InvalidController.h \
+    test/InvalidControllerTest.h \
     test/StatusControllerTest.h \
-    test/StatusUnitTest.h
+    test/StatusUnitTest.h \
+    test/TestInvalid.h
 
