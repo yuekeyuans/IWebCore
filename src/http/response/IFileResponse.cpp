@@ -22,15 +22,6 @@ IFileResponse::IFileResponse()
 {
 }
 
-IFileResponse::IFileResponse(const char *data)
-{
-    if(IFileResponseHelper::setFilePath(m_raw, data)){
-        IFileResponseHelper::checkAndUpdateContentDisposition(m_raw);
-    }else{
-        setInvalid(IHttpStatusCode::NOT_FOUND_404, "file not found");
-    }
-}
-
 IFileResponse::IFileResponse(const QString &data)
 {
     if(IFileResponseHelper::setFilePath(m_raw, data)){

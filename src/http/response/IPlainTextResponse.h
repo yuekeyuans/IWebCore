@@ -17,9 +17,8 @@ public:
     IPlainTextResponse();
     virtual ~IPlainTextResponse() = default;
 
-    IPlainTextResponse(const QString& value);
     IPlainTextResponse(QString&& value);
-    IPlainTextResponse(const char* data);
+    IPlainTextResponse(const QString& value);
     template<class T>
     IPlainTextResponse(const T& value);     // TODO: 这里要不要考虑给限制掉？
 

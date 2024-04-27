@@ -20,12 +20,6 @@ IPlainTextResponse::IPlainTextResponse(QString &&value)
     m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
-IPlainTextResponse::IPlainTextResponse(const char *data)
-{
-    m_raw->setContent(QByteArray(data));
-    m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
-}
-
 QString IPlainTextResponse::getPrefixMatcher()
 {
     return "$text:";

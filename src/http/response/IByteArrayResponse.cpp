@@ -12,11 +12,6 @@ IByteArrayResponse::IByteArrayResponse(QString val)
 {
 }
 
-IByteArrayResponse::IByteArrayResponse(const char *array)
-    : IByteArrayResponse(QByteArray::fromRawData(array, static_cast<std::size_t>(strlen(array))))
-{
-}
-
 IByteArrayResponse::IByteArrayResponse(const QByteArray &array)
 {
     m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);

@@ -8,12 +8,6 @@ IHtmlResponse::IHtmlResponse() : IResponseInterface()
     m_raw->setMime(IHttpMime::TEXT_HTML_UTF8);
 }
 
-IHtmlResponse::IHtmlResponse(const char *data)
-{
-    m_raw->setMime(IHttpMime::TEXT_HTML_UTF8);
-    m_raw->setContent(data);
-}
-
 IHtmlResponse::IHtmlResponse(const QString &data)
 {
     m_raw->setMime(IHttpMime::TEXT_HTML_UTF8);

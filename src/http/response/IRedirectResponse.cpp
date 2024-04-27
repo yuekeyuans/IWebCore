@@ -9,13 +9,6 @@ IRedirectResponse::IRedirectResponse()
     m_raw->statusCode = IHttpStatusCode::FOUND_302;
 }
 
-IRedirectResponse::IRedirectResponse(const char *path)
-{
-    m_raw->statusCode = IHttpStatusCode::FOUND_302;
-    this->redirectPath = path;
-    updateLocationPath();
-}
-
 IRedirectResponse::IRedirectResponse(const QString &path)
 {
     m_raw->statusCode = IHttpStatusCode::FOUND_302;

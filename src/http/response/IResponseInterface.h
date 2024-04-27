@@ -57,6 +57,7 @@ IResponseInterface<T>::IResponseInterface(IRedirectResponse &&response)
 template<typename T>
 IResponseInterface<T>::IResponseInterface(IInvalidRepsonse &&response)
 {
+    std::swap(this->m_raw, response.m_raw);
 }
 
 template<typename T>

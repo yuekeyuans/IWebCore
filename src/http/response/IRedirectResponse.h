@@ -15,9 +15,7 @@ public:
 
 public:
     IRedirectResponse();
-    virtual ~IRedirectResponse() = default;
 
-    IRedirectResponse(const char *path);
     IRedirectResponse(const QString &path);
     IRedirectResponse(IResponseWare *);
 

@@ -14,7 +14,6 @@ public:
 
 public:
     IHtmlResponse();
-    IHtmlResponse(const char* data);
     IHtmlResponse(const QString& data);
 
 public:

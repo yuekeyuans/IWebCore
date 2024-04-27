@@ -14,7 +14,6 @@ public:
 
 public:
     IFileResponse();
-    IFileResponse(const char* data);
     IFileResponse(const QString& data);
 
 public:

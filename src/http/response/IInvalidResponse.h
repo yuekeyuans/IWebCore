@@ -15,6 +15,7 @@ public:
 
 public:
     IInvalidResponse() = default;
+    IInvalidResponse(const QString& value);
     IInvalidResponse(IHttpInvalidWare ware);
 };
 

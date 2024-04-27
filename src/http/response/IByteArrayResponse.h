@@ -15,7 +15,6 @@ public:
 public:
     IByteArrayResponse();
     IByteArrayResponse(QString);
-    IByteArrayResponse(const char*);
     IByteArrayResponse(const QByteArray &array);  // TODO: 这个函数可能有些问题，不能够大规模使用
     IByteArrayResponse(QByteArray &&array);
 
