@@ -109,7 +109,7 @@ enum class IHttpMime{
     MULTIPART_VOICE_MESSAGE                 , // multipart/vocie-message;
 
     //UNKNOWN
-    UNKNOWN = 1024
+    UNKNOWN = 1024,
 };
 
 namespace IHttpMimeUtil

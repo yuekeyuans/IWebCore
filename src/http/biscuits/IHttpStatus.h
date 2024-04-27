@@ -85,7 +85,6 @@ public:
         // other
         UNKNOWN                                 = 1024
     };
-
     Q_ENUM(Code)
 
 public:

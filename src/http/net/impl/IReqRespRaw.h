@@ -93,10 +93,8 @@ public:
 
 public:
     // response
-    IHttpStatusCode m_responseStatus {IHttpStatusCode::OK_200};
-
+    IHttpStatusCode m_responseStatus {IHttpStatus::OK_200};
     QString m_responseMime{"UNKNOWN"};
-
     QList<QPair<QString, QString>> m_responseHeaders;
     QList<ICookiePart> m_responseCookies;
 

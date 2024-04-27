@@ -139,7 +139,7 @@ IResponse &IResponse::setStatus(IHttpStatusCode statusCode)
 // NOTE: 这里是强转， 也就是说，任何一个数据都可以被设置进来。
 IResponse &IResponse::setStatus(int statusCode)
 {
-    raw->m_responseStatus = IHttpStatusCode(statusCode);
+    raw->m_responseStatus = IHttpStatus::toStatus(statusCode);
     return *this;
 }
 
