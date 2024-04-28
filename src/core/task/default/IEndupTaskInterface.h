@@ -34,5 +34,4 @@ QString IEndupTaskInterface<T, enabled>::catagory() const
     return "EndUp";
 }
 
-
 $PackageWebCoreEnd

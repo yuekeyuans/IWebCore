@@ -449,21 +449,21 @@ void IHttpControllerParameter::initSystemTypes(){
     static std::once_flag flag;
     std::call_once(flag, [&](){
         QString nmspace = QString($PackageWebCoreName).append("::");
-
-        for(const auto& name : SystemTypeNames){\
+        for(const auto& name : SystemTypeNames){
+            m_systemTypes << QMetaType::type(name.toUtf8());
             m_systemTypes << QMetaType::type((name + "&").toUtf8());
             m_systemTypes << QMetaType::type((nmspace + name).toUtf8());
             m_systemTypes << QMetaType::type((nmspace + name + "&").toUtf8());
         }
-        qDebug() << m_systemTypes;
     });
 }
 
 void IHttpControllerParameter::initMultiPartTypes(){
     static std::once_flag flag;
     std::call_once(flag, [&](){
-//        QString nmspace = QString($PackageWebCoreName).append("::");
-        const QString nmspace = "";
+        QString nmspace = QString($PackageWebCoreName).append("::");
+        m_multiPartTypes << QMetaType::type("IMultiPart");
+        m_multiPartTypes << QMetaType::type("IMultiPart&");
         m_multiPartTypes << QMetaType::type((nmspace + "IMultiPart").toUtf8());
         m_multiPartTypes << QMetaType::type((nmspace + "IMultiPart&").toUtf8());
     });
@@ -472,8 +472,9 @@ void IHttpControllerParameter::initMultiPartTypes(){
 void IHttpControllerParameter::initCookiePartTypes(){
     static std::once_flag flag;
     std::call_once(flag, [&](){
-//        QString nmspace = QString($PackageWebCoreName).append("::");
-        const QString nmspace = "";
+        QString nmspace = QString($PackageWebCoreName).append("::");
+        m_cookiePartTypes << QMetaType::type("ICookiePart");
+        m_cookiePartTypes << QMetaType::type("ICookiePart&");
         m_cookiePartTypes << QMetaType::type((nmspace + "ICookiePart").toUtf8());
         m_cookiePartTypes << QMetaType::type((nmspace + "ICookiePart&").toUtf8());
     });
