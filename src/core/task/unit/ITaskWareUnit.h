@@ -17,7 +17,8 @@ protected:
     virtual ~ITaskWareUnit() = default;
 };
 
-$UseTaskUnit(ITaskWareUnit){
+$UseTaskUnit(ITaskWareUnit)
+{
     if(enabled){
         static std::once_flag flag;
         std::call_once(flag, [](){

@@ -2,7 +2,7 @@
 
 #include "IResponseInterface.h"
 #include "IResponsePreProcessor.h"
-#include "http/invalid/IHttpInvalidWare.h"
+#include "http/invalid/IHttpInvalidUnit.h"
 
 $PackageWebCoreBegin
 
@@ -16,7 +16,7 @@ public:
 public:
     IInvalidResponse() = default;
     IInvalidResponse(const QString& value);
-    IInvalidResponse(IHttpInvalidWare ware);
+    IInvalidResponse(IHttpInvalidUnit ware);
 };
 
 $PackageWebCoreEnd

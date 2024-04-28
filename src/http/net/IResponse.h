@@ -73,8 +73,8 @@ public:
     bool respond();
 
     bool valid() const;
-    void setInvalidIf(bool condition, IHttpInvalidWare ware) const;
-    void setInvalid(IHttpInvalidWare ware) const;
+    void setInvalidIf(bool condition, IHttpInvalidUnit ware) const;
+    void setInvalid(IHttpInvalidUnit ware) const;
 
 private:
     IResponseImpl*  impl{nullptr};

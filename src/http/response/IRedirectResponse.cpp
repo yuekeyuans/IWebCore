@@ -27,18 +27,6 @@ IRedirectResponse::IRedirectResponse(IResponseWare *ware)
     updateLocationPath();
 }
 
-//void IRedirectResponse::setInstanceCopy(IResponseWare *ware)
-//{
-//    auto that = dynamic_cast<IRedirectResponse*>(ware);
-//    if(that == nullptr){
-//        qFatal("error with convertion, please check your code");
-//    }
-//    std::swap(that->m_raw, this->m_raw);
-//    std::swap(that->attributes, this->attributes);
-//    std::swap(that->redirectPath, this->redirectPath);
-//    updateLocationPath();
-//}
-
 QString IRedirectResponse::getPrefixMatcher()
 {
     return "$redirect:";

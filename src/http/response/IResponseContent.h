@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
-#include "http/invalid/IHttpInvalidWare.h"
+#include "http/invalid/IHttpInvalidUnit.h"
 #include <array>
 
 $PackageWebCoreBegin
@@ -28,7 +28,7 @@ public:
     void setContent(QByteArray&& content);
     void setContent(const QByteArray& content);
     void setContent(const char* content);
-    void setContent(IHttpInvalidWare ware); // cut directly
+    void setContent(IHttpInvalidUnit ware); // cut directly
 
     QByteArray getAsBytes();
 
@@ -37,7 +37,7 @@ public:
     QString contentString;
     QByteArray contentBytes;
     QString contentFilePath;
-    IHttpInvalidWare contentInvalid;
+    IHttpInvalidUnit contentInvalid;
 };
 
 $PackageWebCoreEnd

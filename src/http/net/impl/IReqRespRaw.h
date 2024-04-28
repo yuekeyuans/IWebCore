@@ -30,7 +30,7 @@ public:
 
 public:
     bool valid() const;
-    void setInvalid(IHttpInvalidWare ware);
+    void setInvalid(IHttpInvalidUnit ware);
 
     QJsonValue getRequestJson(bool& ok);
     IResult<QJsonValue> getRequestJson();

@@ -10,7 +10,7 @@
 #include "http/biscuits/IHttpStatus.h"
 #include "http/biscuits/IHttpMime.h"
 #include "http/jar/IMultiPart.h"
-#include "http/invalid/IHttpInvalidWare.h"
+#include "http/invalid/IHttpInvalidUnit.h"
 
 $PackageWebCoreBegin
 
@@ -97,8 +97,8 @@ public:
 
 
     bool valid() const;
-    void setInvalidIf(bool condition, IHttpInvalidWare) const;
-    void setInvalid(IHttpInvalidWare) const;
+    void setInvalidIf(bool condition, IHttpInvalidUnit) const;
+    void setInvalid(IHttpInvalidUnit) const;
 
 private:
     IRequestImpl* impl{nullptr};

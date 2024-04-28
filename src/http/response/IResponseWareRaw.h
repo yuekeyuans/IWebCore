@@ -3,7 +3,7 @@
 #include "http/biscuits/IHttpMime.h"
 #include "http/biscuits/IHttpStatus.h"
 #include "http/response/IResponseContent.h"
-#include "http/invalid/IHttpInvalidWare.h"
+#include "http/invalid/IHttpInvalidUnit.h"
 
 $PackageWebCoreBegin
 
@@ -23,7 +23,7 @@ public:
 
     void setContent(const QFileInfo& content);
     void setContent(const QFile& file); // TODO: 这个不一定行， 得具体测试一下看看
-    void setContent(IHttpInvalidWare ware);
+    void setContent(IHttpInvalidUnit ware);
     void setFileContent(const QString& filePath);
 
 

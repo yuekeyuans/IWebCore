@@ -49,7 +49,7 @@ bool IReqRespRaw::valid() const
     return this->m_valid;
 }
 
-void IReqRespRaw::setInvalid(IHttpInvalidWare ware)
+void IReqRespRaw::setInvalid(IHttpInvalidUnit ware)
 {
     this->m_valid = false;
     this->m_responseMime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);

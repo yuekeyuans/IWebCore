@@ -298,14 +298,14 @@ bool IResponse::valid() const
     return raw->m_valid;
 }
 
-void IResponse::setInvalidIf(bool condition, IHttpInvalidWare ware) const
+void IResponse::setInvalidIf(bool condition, IHttpInvalidUnit ware) const
 {
     if(condition){
         raw->setInvalid(ware);
     }
 }
 
-void IResponse::setInvalid(IHttpInvalidWare ware) const
+void IResponse::setInvalid(IHttpInvalidUnit ware) const
 {
     raw->setInvalid(ware);
 }

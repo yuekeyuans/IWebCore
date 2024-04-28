@@ -8,7 +8,7 @@ IInvalidResponse::IInvalidResponse(const QString &value)
     qFatal(IConstantUtil::UnCallableMethod);
 }
 
-IInvalidResponse::IInvalidResponse(IHttpInvalidWare ware)
+IInvalidResponse::IInvalidResponse(IHttpInvalidUnit ware)
 {
     m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
     m_raw->setContent(ware);

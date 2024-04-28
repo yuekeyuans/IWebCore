@@ -1,23 +1,20 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
-#include "http/biscuits/IHttpStatus.h"
+#include "http/invalid/IHttpInvalidUnit.h"
 
 $PackageWebCoreBegin
 
-// TODO: check lvalue swap work or not!!!
-
-struct IHttpInvalidWare
+class IRequest;
+class IResponse;
+class IHttpInvalidWare : public IHttpInvalidUnit
 {
 public:
-    IHttpInvalidWare() = default;
-    explicit IHttpInvalidWare(IHttpStatusCode status, const QString& name_, const QString& description_="");
+    using IHttpInvalidUnit::IHttpInvalidUnit;
+    virtual ~IHttpInvalidWare() = default;
 
 public:
-    bool invalid{false};
-    IHttpStatusCode status{IHttpStatus::UNKNOWN};
-    QString name;
-    QString description;
+    virtual void process(IRequest&, IResponse&);
 };
 
 $PackageWebCoreEnd

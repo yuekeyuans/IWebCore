@@ -2,37 +2,27 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IMetaUtil.h"
+#include "core/task/ITaskPreProcessor.h"
 
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true>
 class IRegisterMetaTypeUnit
 {
-public:
+    $AsTaskUnit(IRegisterMetaTypeUnit)
+protected:
     IRegisterMetaTypeUnit() = default;
     virtual ~IRegisterMetaTypeUnit() = default;
-
-private:
-    class IRegisterMetaTypeetUnitPrivate{
-    public:
-        IRegisterMetaTypeetUnitPrivate(){
-            if(enabled){
-                static std::once_flag initRegisterFlag;
-                std::call_once(initRegisterFlag, [](){
-                    IMetaUtil::registerMetaType<T>();
-                });
-            }
-        }
-    };
-
-    static IRegisterMetaTypeetUnitPrivate m_IRegisterMetaTypeetUnitPrivate;
-    virtual void* IRegisterMetaTypeetUnitPrivateTouch(){
-        return &m_IRegisterMetaTypeetUnitPrivate;
-    }
 };
 
-template <typename T, bool enabled>
-typename IRegisterMetaTypeUnit<T, enabled>::IRegisterMetaTypeetUnitPrivate
-IRegisterMetaTypeUnit<T, enabled>::m_IRegisterMetaTypeetUnitPrivate;
+$UseTaskUnit(IRegisterMetaTypeUnit)
+{
+    if(enabled){
+        static std::once_flag initRegisterFlag;
+        std::call_once(initRegisterFlag, [](){
+            IMetaUtil::registerMetaType<T>();
+        });
+    }
+}
 
 $PackageWebCoreEnd

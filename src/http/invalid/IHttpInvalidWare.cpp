@@ -1,11 +1,16 @@
 ﻿#include "IHttpInvalidWare.h"
+#include "http/net/IRequest.h"
+#include "http/net/IResponse.h"
+#include "http/net/impl/IReqRespRaw.h"
 
 $PackageWebCoreBegin
 
-IWebCore::IHttpInvalidWare::IHttpInvalidWare(IHttpStatusCode status, const QString &name_, const QString &description_)
-    :status(status), name(name_), description(description_)
+void IHttpInvalidWare::process(IRequest & req, IResponse &res)
 {
-    invalid = !name.isEmpty();
+    Q_UNUSED(req);
+    auto& content = res.getRaw()->m_responseContent;
+    content.setContent(content.contentInvalid.description);
+//    auto invalid = res.getRaw()->m_responseContent.contentInvalid;
 }
 
 $PackageWebCoreEnd

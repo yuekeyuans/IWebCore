@@ -86,7 +86,7 @@ void IResponseContent::setContent(const char *content)
     setContent(QByteArray(content));
 }
 
-void IResponseContent::setContent(IHttpInvalidWare ware)
+void IResponseContent::setContent(IHttpInvalidUnit ware)
 {
     type = Type::Invalid;
     contentInvalid = std::move(ware);
