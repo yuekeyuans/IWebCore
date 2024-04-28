@@ -34,7 +34,7 @@ IRequest::IRequest(qintptr handle)
 
 IRequest::IRequest(QTcpSocket *socket)
 {
-    raw = new IReqRespRaw(this, socket);
+    auto raw = new IReqRespRaw(this, socket);
     impl = new IRequestImpl(raw);
 
     // TODO: 这里如果只是连接上了，但是没有通信的话，它会卡住线程，如果多余 idealThreadCount 的话，软件就会明显卡顿起来。
@@ -43,7 +43,7 @@ IRequest::IRequest(QTcpSocket *socket)
     //        |-> 不满足条件 -> 压栈等待
     //        |-> 失联或超时 -> invalid, 并且关闭线程。
     // 目的就是把软件的时间给省出来。
-    if(!raw->waitSocketForReadyRead()){
+    if(!impl->raw->waitSocketForReadyRead()){
         setInvalid(IHttpRequestTimeoutInvalid("request open failed"));
     }else{
         impl->resolve();
@@ -56,13 +56,12 @@ IRequest::~IRequest()
 //    auto connection = getHeaderParameter("Connection", &ok);
 //    if(ok && connection.contains("keep-alive")){
 //        qDebug() << connection;
-//        IHttpServerManage::addSocket(raw->m_socket);
+//        IHttpServerManage::addSocket(impl->raw->m_socket);
 //    }else{
-        ISocketUtil::closeTcpSocket(raw->m_socket);
-        delete raw->m_socket;
+        ISocketUtil::closeTcpSocket(impl->raw->m_socket);
+        delete impl->raw->m_socket;
 //    }
 
-    delete raw;
     delete impl;
 }
 
@@ -93,57 +92,57 @@ IRequest &IRequest::operator=(IRequest &&)
 const QString IRequest::operator[](const QString &header) const
 {
     bool ok;
-    return raw->m_headerJar->getRequestHeaderValue(header, ok);
+    return impl->raw->m_headerJar->getRequestHeaderValue(header, ok);
 }
 
 IResponse *IRequest::response() const
 {
-    return raw->m_response;
+    return impl->raw->m_response;
 }
 
 ICookieJar *IRequest::cookieJar() const
 {
-    return raw->m_cookieJar;
+    return impl->raw->m_cookieJar;
 }
 
 ISessionJar *IRequest::sessionJar() const
 {
-    return raw->m_sessionJar;
+    return impl->raw->m_sessionJar;
 }
 
 IHeaderJar *IRequest::headerJar() const
 {
-    return raw->m_headerJar;
+    return impl->raw->m_headerJar;
 }
 
 IMultiPartJar *IRequest::multiPartJar() const
 {
-    return raw->m_multiPartJar;
+    return impl->raw->m_multiPartJar;
 }
 
 IReqRespRaw *IRequest::getRaw() const
 {
-    return raw;
+    return impl->raw;
 }
 
 IHttpVersion IRequest::version() const
 {
-    return raw->m_httpVersion;
+    return impl->raw->m_httpVersion;
 }
 
 IHttpMime IRequest::mime() const
 {
-    return raw->m_requestMime;
+    return impl->raw->m_requestMime;
 }
 
 const QString &IRequest::url() const
 {
-    return raw->m_url;
+    return impl->raw->m_url;
 }
 
 IHttpMethod IRequest::method() const
 {
-    return raw->m_method;
+    return impl->raw->m_method;
 }
 
 int IRequest::bodyContentLength() const
@@ -158,37 +157,37 @@ QString IRequest::bodyContentType() const
 
 const QByteArray &IRequest::bodyContent() const
 {
-    return raw->m_requestBody;
+    return impl->raw->m_requestBody;
 }
 
 QList<QPair<QString, QString> > &IRequest::headers()
 {
-    return raw->m_requestHeaders;
+    return impl->raw->m_requestHeaders;
 }
 
 const QList<QPair<QString, QString>> &IRequest::headers() const
 {
-    return raw->m_requestHeaders;
+    return impl->raw->m_requestHeaders;
 }
 
 const QMap<QString, QByteArray> &IRequest::urlParameters() const
 {
-    return raw->m_requestUrlParameters;
+    return impl->raw->m_requestUrlParameters;
 }
 
 const QMap<QString, QByteArray> &IRequest::paramParameters() const
 {
-    return raw->m_requestParamParameters;
+    return impl->raw->m_requestParamParameters;
 }
 
 const QMap<QString, QByteArray> &IRequest::bodyFormParameters() const
 {
-    return raw->m_requestBodyParameters;
+    return impl->raw->m_requestBodyParameters;
 }
 
 const QVector<IMultiPart> &IRequest::bodyMultiParts() const
 {
-    return raw->m_requestMultiParts;
+    return impl->raw->m_requestMultiParts;
 }
 
 QJsonValue IRequest::bodyJson(bool &ok) const
@@ -299,24 +298,24 @@ IResult<QByteArray> IRequest::getSessionParameter(const QString &name) const
 
 const QMap<QString, QVariant> &IRequest::attributes() const
 {
-    return raw->m_attribute;
+    return impl->raw->m_attribute;
 }
 
 bool IRequest::hasAttribute(const QString &name) const
 {
-    return raw->m_attribute.contains(name);
+    return impl->raw->m_attribute.contains(name);
 }
 
 void IRequest::setAttribute(const QString &name, const QVariant &value)
 {
-    raw->m_attribute[name] = value;
+    impl->raw->m_attribute[name] = value;
 }
 
 QVariant IRequest::getAttribute(const QString &name, bool& ok) const
 {
-    if(raw->m_attribute.contains(name)){
+    if(impl->raw->m_attribute.contains(name)){
         ok = true;
-        return raw->m_attribute[name];
+        return impl->raw->m_attribute[name];
     }
     ok = false;
     return {};
@@ -331,25 +330,21 @@ IResult<QVariant> IRequest::getAttribute(const QString &name) const
 
 bool IRequest::valid() const
 {
-    return raw->m_valid;
+    return impl->raw->m_valid;
 }
 
 void IRequest::setInvalidIf(bool condition, IHttpInvalidUnit ware) const
 {
     if(condition){
-        raw->setInvalid(ware);
+        impl->raw->setInvalid(ware);
     }
 }
 
 void IRequest::setInvalid(IHttpInvalidUnit ware) const
 {
-    return raw->setInvalid(ware);
+    return impl->raw->setInvalid(ware);
 }
 
-#ifndef USE_INLINE
-#define __IN_LINE__
-#include "IRequest.ipp"
-#endif
 
 
 $PackageWebCoreEnd

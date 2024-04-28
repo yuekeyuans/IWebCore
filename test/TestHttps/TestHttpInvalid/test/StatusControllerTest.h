@@ -2,7 +2,7 @@
 
 #include "IWeb/IHttpTestInterface"
 
-class StatusControllerTest : public IHttpTestInterface<StatusControllerTest>
+class StatusControllerTest : public IHttpTestInterface<StatusControllerTest, false>
 {
     Q_OBJECT
 public:

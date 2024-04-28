@@ -150,7 +150,15 @@ void IHttpServerRunable::processInMethodMode(IRequest &request, IResponse &respo
     auto index = node->methodNode.metaMethod.methodIndex();
     auto enclosingObject = node->methodNode.metaMethod.enclosingMetaObject();
     enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params);
+    if(!request.valid()){
+        return;
+    }
+
     IHttpControllerParameter::resolveReturnValue(response, node->methodNode, params);
+    if(!request.valid()){
+        return;
+    }
+
     IHttpControllerParameter::destroyArguments(node->methodNode, params);
 }
 

@@ -2,7 +2,7 @@
 
 #include "ICore/IUnitTestInterface"
 
-class StatusUnitTest : public IUnitTestInterface<StatusUnitTest>
+class StatusUnitTest : public IUnitTestInterface<StatusUnitTest, false>
 {
     Q_OBJECT
 public:

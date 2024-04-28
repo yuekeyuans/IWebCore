@@ -26,6 +26,12 @@ IRequestImpl::IRequestImpl(IReqRespRaw *raw)
     this->raw = raw;
 }
 
+IRequestImpl::~IRequestImpl()
+{
+    delete raw;
+    raw = nullptr;
+}
+
 QJsonValue IRequestImpl::requestJson(bool& ok) const
 {
     return raw->getRequestJson(ok);

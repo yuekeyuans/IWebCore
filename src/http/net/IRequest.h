@@ -102,7 +102,7 @@ public:
 
 private:
     IRequestImpl* impl{nullptr};    // TODO: 这两个不一致, 需要查看一下
-    IReqRespRaw*  raw{nullptr};
+//    IReqRespRaw*  raw{nullptr};
 };
 
 #ifdef USE_INLINE
