@@ -117,8 +117,6 @@ void *IHttpControllerParameter::createReturnParam(int paramTypeId)
 
 void *IHttpControllerParameter::createArgParam(const IParamNode& node, IRequest &request, bool& ok)
 {
-//    qDebug() << node.paramTypeId << node.paramTypeName << QMetaType(node.paramTypeId).metaObject()->className();
-
     static QVector<CreateParamFunType> funs = {
         &IHttpControllerParameter::getParamOfSystem,
         &IHttpControllerParameter::getParamOfMultipart,

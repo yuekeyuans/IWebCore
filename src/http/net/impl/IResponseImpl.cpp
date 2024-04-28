@@ -15,18 +15,18 @@ IResponseImpl::IResponseImpl(IReqRespRaw *raw)
 
 bool IResponseImpl::respond()
 {
-    if(!raw->valid()){
-        auto path = IResponseManage::instance()->getTemplateRenderer()->getPage(raw->m_responseStatus);
-        if(!path.isEmpty()){
-            QJsonObject obj;
-            obj["status_code"] = IHttpStatus::toString(raw->m_responseStatus);
-            obj["error_info"] = raw->m_responseContent.contentString;
+//    if(!raw->valid()){
+//        auto path = IResponseManage::instance()->getTemplateRenderer()->getPage(raw->m_responseStatus);
+//        if(!path.isEmpty()){
+//            QJsonObject obj;
+//            obj["status_code"] = IHttpStatus::toString(raw->m_responseStatus);
+//            obj["error_info"] = raw->m_responseContent.contentString;
 
-            IRendererResponse response(path, obj);
-            raw->m_responseMime = IHttpMimeUtil::toString(IHttpMime::TEXT_HTML_UTF8);
-            raw->m_responseContent.setContent(response.getContent().contentString);
-        }
-    }
+//            IRendererResponse response(path, obj);
+//            raw->m_responseMime = IHttpMimeUtil::toString(IHttpMime::TEXT_HTML_UTF8);
+//            raw->m_responseContent.setContent(response.getContent().contentString);
+//        }
+//    }
 
     const auto& content = raw->m_responseContent.getAsBytes();
 

@@ -23,7 +23,7 @@ public:
     using FunType = QByteArray (IRequestImpl::*)(const QString& name, bool& ok) const;
 
 public:
-    IRequestImpl(IReqRespRaw* raw);
+    IRequestImpl(IRequest* req);
 
     QJsonValue requestJson(bool& ok) const;
 

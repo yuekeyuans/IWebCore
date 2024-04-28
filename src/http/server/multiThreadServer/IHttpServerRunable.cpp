@@ -3,6 +3,7 @@
 #include "core/config/IProfileImport.h"
 #include "http/controller/IHttpManage.h"
 #include "http/controller/private/IHttpControllerParameter.h"
+#include "http/invalid/IHttpInvalidManage.h"
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
 #include "http/net/impl/IReqRespRaw.h"
@@ -69,7 +70,9 @@ void IHttpServerRunable::runRequest(IRequest& request)
     } while(0);
 
     if(!request.valid()){
-        qDebug() << "invalid response";
+//        qDebug() << "invalid response";
+        auto process = IHttpInvalidManage::instance()->getWare(request.getRaw()->m_responseContent.contentInvalid.tag);
+        process->process(request, response);
     }
 
     if(!response.respond()){
