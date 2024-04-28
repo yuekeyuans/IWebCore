@@ -24,7 +24,7 @@ protected:
 template<typename T, bool enabled>
 QString IInitializationTaskInterface<T, enabled>::name() const
 {
-    return IMetaUtil::getTypename<T>();
+    return IMetaUtil::getBareTypeName<T>();
 }
 
 template<typename T, bool enabled>

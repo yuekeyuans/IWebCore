@@ -9,7 +9,7 @@ QString IStartupTaskCatagory::name() const
 
 double IStartupTaskCatagory::order() const
 {
-    return 0.5;
+    return 1;
 }
 
 $PackageWebCoreEnd

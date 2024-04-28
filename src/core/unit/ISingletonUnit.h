@@ -25,8 +25,8 @@ public:
 
 namespace ISingletonUnitHelper
 {
-    template<typename T>
-    T* getInstance(int);
+    template<typename T, typename = decltype(T::instance())>
+    T* getInstance(void*);
 
     template<typename T>
     T* getInstance(...);
@@ -44,8 +44,9 @@ ISingletonUnit<T>::ISingletonUnit()
     flag = true;
 }
 
-template<typename T>
-T* ISingletonUnitHelper::getInstance(int){
+template<typename T, typename U>
+T* ISingletonUnitHelper::getInstance(void*)
+{
     return T::instance();
 }
 
@@ -55,6 +56,5 @@ T* ISingletonUnitHelper::getInstance(...)
     static T t;
     return &t;
 }
-
 
 $PackageWebCoreEnd

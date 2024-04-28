@@ -4,12 +4,14 @@
 class NameInvalid : public IHttpInvalidInterface<NameInvalid>
 {
 public:
-    using IHttpInvalidInterface::IHttpInvalidInterface;
+    NameInvalid(const QString& description = "") : IHttpInvalidInterface(IHttpStatus::INTERNAL_SERVER_ERROR_500, description)
+    {
+    }
 };
 
 void StatusUnitTest::slotTestInterface()
 {
-    NameInvalid invalid(IHttpStatus::INTERNAL_SERVER_ERROR_500);
+    NameInvalid invalid;
     qDebug() << invalid.status << invalid.description << invalid.tag << invalid.invalid;
     QVERIFY(invalid.status == IHttpStatus::INTERNAL_SERVER_ERROR_500);
     QVERIFY(invalid.description.isEmpty());

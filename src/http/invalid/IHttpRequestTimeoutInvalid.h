@@ -8,7 +8,7 @@ $PackageWebCoreBegin
 class IHttpRequestTimeoutInvalid : public IHttpInvalidInterface<IHttpRequestTimeoutInvalid>
 {
 public:
-    IHttpRequestTimeoutInvalid(const QString& description);
+    IHttpRequestTimeoutInvalid(const QString& description="");
 };
 
 $PackageWebCoreEnd

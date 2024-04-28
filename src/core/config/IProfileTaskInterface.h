@@ -32,7 +32,7 @@ QString IProfileTaskInterface<T, enabled>::path() const
 template<typename T, bool enabled>
 QString IProfileTaskInterface<T, enabled>::name() const
 {
-    return IMetaUtil::getTypename<T>();
+    return IMetaUtil::getBareTypeName<T>();
 }
 
 template<typename T, bool enabled>

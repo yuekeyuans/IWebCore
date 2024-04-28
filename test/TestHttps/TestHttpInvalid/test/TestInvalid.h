@@ -5,6 +5,6 @@
 class TestInvalid : public IHttpInvalidInterface<TestInvalid>
 {
 public:
-    TestInvalid(const QString& description);
+    TestInvalid(const QString& description="");
 };
 
