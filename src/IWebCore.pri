@@ -104,6 +104,7 @@ HEADERS += \
     $$PWD/http/invalid/IHttpInvalidUnit.h \
     $$PWD/http/invalid/IHttpInvalidWare.h \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.h \
+    $$PWD/http/invalid/IRegistInvalidUnit.h \
     $$PWD/http/nody/INody.h \
     $$PWD/http/nody/INodyManage.h \
     $$PWD/http/nody/INodyParser.h \
