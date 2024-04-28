@@ -117,5 +117,4 @@ QString IMetaUtil::getBareTypeName()
     return name.split(" ").last();
 }
 
-
 $PackageWebCoreEnd

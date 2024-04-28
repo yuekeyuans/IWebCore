@@ -23,6 +23,15 @@ public:
     }
 };
 
+namespace ISingletonUnitHelper
+{
+    template<typename T>
+    T* getInstance(int);
+
+    template<typename T>
+    T* getInstance(...);
+}
+
 template<typename T>
 ISingletonUnit<T>::ISingletonUnit()
 {
@@ -34,5 +43,18 @@ ISingletonUnit<T>::ISingletonUnit()
     }
     flag = true;
 }
+
+template<typename T>
+T* ISingletonUnitHelper::getInstance(int){
+    return T::instance();
+}
+
+template<typename T>
+T* ISingletonUnitHelper::getInstance(...)
+{
+    static T t;
+    return &t;
+}
+
 
 $PackageWebCoreEnd

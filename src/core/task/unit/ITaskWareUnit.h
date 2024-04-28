@@ -4,6 +4,7 @@
 #include "core/task/ITaskWare.h"
 #include "core/task/ITaskManage.h"
 #include "core/task/ITaskPreProcessor.h"
+#include "core/unit/ISingletonUnit.h"
 
 $PackageWebCoreBegin
 
@@ -22,7 +23,7 @@ $UseTaskUnit(ITaskWareUnit)
     if(enabled){
         static std::once_flag flag;
         std::call_once(flag, [](){
-            ITaskManage::instance()->addTaskWare(T::instance());
+            ITaskManage::instance()->addTaskWare(ISingletonUnitHelper::getInstance<T>(0));
         });
     }
 }
