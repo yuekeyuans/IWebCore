@@ -114,7 +114,7 @@ enum class IHttpMime{
 
 namespace IHttpMimeUtil
 {
-    static const QString MIME_UNKNOWN_STRING = "UNKNOWN";
+    inline static const QString MIME_UNKNOWN_STRING = "UNKNOWN";
 
     QString toString(IHttpMime);
     IHttpMime toMime(const QString &);
