@@ -87,15 +87,9 @@ IResponseContent &IResponseWare::getContent()
     return m_raw->content;
 }
 
-//void IResponseWare::redirectTo(IRedirectResponse &&redirectResponse)
-//{
-//    redirectResponse.updateLocationPath();
-//    std::swap(this->m_raw, redirectResponse.m_raw);
-//}
-
 void IResponseWare::setInvalid(IHttpStatusCode status, QString reason)
 {
-    m_raw->setInvalid(status, std::move(reason));
+    m_raw->setInvalid(status, reason);
 }
 
 QString IResponseWare::getPrefixMatcher()
