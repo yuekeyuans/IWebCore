@@ -1,4 +1,4 @@
-﻿#include "IHttpServerRunable.h"
+﻿#include "IHttpServerRunnable.h"
 #include "core/base/ISocketUtil.h"
 #include "core/config/IProfileImport.h"
 #include "http/controller/IHttpManage.h"
@@ -14,15 +14,15 @@
 
 $PackageWebCoreBegin
 
-IHttpServerRunable::IHttpServerRunable(qintptr handle) : m_handle{handle}
+IHttpServerRunnable::IHttpServerRunnable(qintptr handle) : m_handle{handle}
 {
 }
 
-IHttpServerRunable::IHttpServerRunable(QTcpSocket *socket) : m_socket(socket)
+IHttpServerRunnable::IHttpServerRunnable(QTcpSocket *socket) : m_socket(socket)
 {
 }
 
-void IHttpServerRunable::run()
+void IHttpServerRunnable::run()
 {
     if(m_socket != nullptr){
         IRequest request(m_socket);
@@ -33,7 +33,7 @@ void IHttpServerRunable::run()
     }
 }
 
-void IHttpServerRunable::runRequest(IRequest& request)
+void IHttpServerRunnable::runRequest(IRequest& request)
 {
     IResponse response(&request);
 
@@ -42,45 +42,45 @@ void IHttpServerRunable::runRequest(IRequest& request)
             break;
         }
 
-        if( IHttpManage::preIntercept(request, response)){
-            break;
-        }
-        if(!request.valid()){
-            break;
-        }
+//        if( IHttpManage::preIntercept(request, response)){
+//            break;
+//        }
 
-        IHttpManage::preProcess(request, response);
-        if(!request.valid()){
-            break;
-        }
+//        if(!request.valid()){
+//            break;
+//        }
+
+//        IHttpManage::preProcess(request, response);
+//        if(!request.valid()){
+//            break;
+//        }
 
         handleRequest(request, response);
         if(!request.valid()){
             break;
         }
 
-        if(IHttpManage::postIntercept(request, response)){
-            break;
-        }
-        IHttpManage::postProcess(request, response);
+//        if(IHttpManage::postIntercept(request, response)){
+//            break;
+//        }
+//        IHttpManage::postProcess(request, response);
         
-        if(!request.valid()){
-            break;
-        }
+//        if(!request.valid()){
+//            break;
+//        }
     } while(0);
 
     if(!request.valid()){
-//        qDebug() << "invalid response";
         auto process = IHttpInvalidManage::instance()->getWare(request.getRaw()->m_responseContent.contentInvalid.tag);
         process->process(request, response);
     }
 
     if(!response.respond()){
-        return ISocketUtil::handleInternalError(request.getRaw()->m_socket);
+        ISocketUtil::closeTcpSocket(request.getRaw()->m_socket);
     }
 }
 
-void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
+void IHttpServerRunnable::handleRequest(IRequest &request, IResponse &response)
 {
     if(request.method() == IHttpMethod::OPTIONS){
         return runOptionsFunction(request, response);
@@ -133,12 +133,12 @@ void IHttpServerRunable::handleRequest(IRequest &request, IResponse &response)
 //    IHttpControllerParameter::destroyArguments(function->methodNode, params);
 //}
 
-void IHttpServerRunable::processInFunctionMode(IRequest &request, IResponse &response, IUrlActionNode *node)
+void IHttpServerRunnable::processInFunctionMode(IRequest &request, IResponse &response, IUrlActionNode *node)
 {
     node->functionNode.function(request, response);
 }
 
-void IHttpServerRunable::processInMethodMode(IRequest &request, IResponse &response, IUrlActionNode *node)
+void IHttpServerRunnable::processInMethodMode(IRequest &request, IResponse &response, IUrlActionNode *node)
 {
     IHttpControllerParameter::ParamType params;
     auto ok = IHttpControllerParameter::createArguments(node->methodNode, params, request);
@@ -162,14 +162,14 @@ void IHttpServerRunable::processInMethodMode(IRequest &request, IResponse &respo
     IHttpControllerParameter::destroyArguments(node->methodNode, params);
 }
 
-void IHttpServerRunable::processInStaticFileMode(IRequest &request, IResponse &response, const QString &path)
+void IHttpServerRunnable::processInStaticFileMode(IRequest &request, IResponse &response, const QString &path)
 {
     Q_UNUSED(request)
     IFileResponse fileResponse(path);
     response.setContent(&fileResponse);
 }
 
-void IHttpServerRunable::processInStaticFolderMode(IRequest &request, IResponse &response, const QStringList& entries)
+void IHttpServerRunnable::processInStaticFolderMode(IRequest &request, IResponse &response, const QStringList& entries)
 {
     auto renderTemplate = IResponseManage::instance()->getTemplateRenderer();
     if(!renderTemplate){
@@ -186,7 +186,7 @@ void IHttpServerRunable::processInStaticFolderMode(IRequest &request, IResponse 
 }
 
 // TODO:
-void IHttpServerRunable::processInNotFoundMode(IRequest &request, IResponse &response)
+void IHttpServerRunnable::processInNotFoundMode(IRequest &request, IResponse &response)
 {
     Q_UNUSED(response)
     QString info = request.url() + " " + IHttpMethodUtil::toString(request.method()) + " has no function to handle";
@@ -232,7 +232,7 @@ QStringList handleOptionsRequest(IRequest& request, IResponse& response)
     return options;
 }
 
-void IHttpServerRunable::runOptionsFunction(IRequest &request, IResponse &response)
+void IHttpServerRunnable::runOptionsFunction(IRequest &request, IResponse &response)
 {
     QStringList  options = handleOptionsRequest(request, response);
 

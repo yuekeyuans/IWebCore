@@ -17,7 +17,6 @@ public:
 
 private:
     static void runRequest(IRequest& req);
-
     static void handleRequest(IRequest& request, IResponse& response);
     static void processInFunctionMode(IRequest& request, IResponse& response, IUrlActionNode* node);
     static void processInMethodMode(IRequest& request, IResponse& response, IUrlActionNode* node);
