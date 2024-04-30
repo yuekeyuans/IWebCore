@@ -103,6 +103,7 @@ HEADERS += \
     $$PWD/http/invalid/IHttpInvalidManage.h \
     $$PWD/http/invalid/IHttpInvalidUnit.h \
     $$PWD/http/invalid/IHttpInvalidWare.h \
+    $$PWD/http/invalid/IHttpNotFoundInvalid.h \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.h \
     $$PWD/http/invalid/IRegistInvalidUnit.h \
     $$PWD/http/nody/INody.h \
@@ -283,6 +284,7 @@ SOURCES += \
     $$PWD/http/invalid/IHttpInvalidManage.cpp \
     $$PWD/http/invalid/IHttpInvalidUnit.cpp \
     $$PWD/http/invalid/IHttpInvalidWare.cpp \
+    $$PWD/http/invalid/IHttpNotFoundInvalid.cpp \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.cpp \
     $$PWD/http/nody/INody.cpp \
     $$PWD/http/nody/INodyManage.cpp \

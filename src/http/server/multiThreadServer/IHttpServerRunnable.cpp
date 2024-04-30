@@ -11,6 +11,7 @@
 #include "http/response/IRendererResponse.h"
 #include "http/response/IHtmlResponse.h"
 #include "http/response/IResponseTemplateRenderer.h"
+#include "http/invalid/IHttpNotFoundInvalid.h"
 
 $PackageWebCoreBegin
 
@@ -113,7 +114,8 @@ void IHttpServerRunnable::handleRequest(IRequest &request, IResponse &response)
         }
     }
 
-    processInNotFoundMode(request, response);
+    QString info = request.url() + " " + IHttpMethodUtil::toString(request.method()) + " has no function to handle";
+    response.setInvalid(IHttpNotFoundInvalid(info));
 }
 
 //void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &response, IStatusActionNode *function)
@@ -183,18 +185,6 @@ void IHttpServerRunnable::processInStaticFolderMode(IRequest &request, IResponse
     obj["isRoot"] = request.url() == "/";
     IRendererResponse nodyResponse(path, obj);
     response.setContent(&nodyResponse);
-}
-
-// TODO:
-void IHttpServerRunnable::processInNotFoundMode(IRequest &request, IResponse &response)
-{
-    Q_UNUSED(response)
-    QString info = request.url() + " " + IHttpMethodUtil::toString(request.method()) + " has no function to handle";
-//    request.setInvalid(IHttpStatusCode::NOT_FOUND_404, info);
-    response.setMime(IHttpMime::TEXT_PLAIN_UTF8);
-    response.setStatus(IHttpStatus::NOT_FOUND_404);
-    response.setContent(info);
-    return;
 }
 
 QStringList handleOptionsRequest(IRequest& request, IResponse& response)
