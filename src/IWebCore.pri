@@ -110,6 +110,7 @@ HEADERS += \
     $$PWD/http/nody/INodyParser.h \
     $$PWD/http/nody/INodyRenderer.h \
     $$PWD/http/response/IStatusResponse.h \
+    $$PWD/http/server/multiThreadServer/IHttpServerRunnable.h \
     $$PWD/orm/IOrmAssert.h \
     $$PWD/orm/IOrmManage.h \
     $$PWD/orm/IOrmTaskCatagory.h \
@@ -216,7 +217,6 @@ HEADERS += \
 #    $$PWD/http/controller/private/IStatusControllerInterfaceImpl.h \
     $$PWD/http/server/IHttpServer.h \
     $$PWD/http/server/IHttpServerManage.h \
-    $$PWD/http/server/multiThreadServer/IHttpServerRunable.h \
     $$PWD/http/server/multiThreadServer/IMultiThreadServer.h \
     $$PWD/http/server/quenedServer/IQueneServer.h \
     $$PWD/http/session/ISessionInterface.h \
@@ -289,6 +289,7 @@ SOURCES += \
     $$PWD/http/nody/INodyParser.cpp \
     $$PWD/http/nody/INodyRenderer.cpp \
     $$PWD/http/response/IStatusResponse.cpp \
+    $$PWD/http/server/multiThreadServer/IHttpServerRunnable.cpp \
     $$PWD/orm/IOrmAssert.cpp \
     $$PWD/orm/IOrmManage.cpp \
     $$PWD/orm/IOrmTaskCatagory.cpp \
@@ -372,7 +373,6 @@ SOURCES += \
 #    $$PWD/http/controller/private/IStatusControllerInterfaceImpl.cpp \
     $$PWD/http/server/IHttpServer.cpp \
     $$PWD/http/server/IHttpServerManage.cpp \
-    $$PWD/http/server/multiThreadServer/IHttpServerRunable.cpp \
     $$PWD/http/server/multiThreadServer/IMultiThreadServer.cpp \
     $$PWD/http/server/quenedServer/IQueneServer.cpp \
     $$PWD/http/session/ISessionInterface.cpp \
