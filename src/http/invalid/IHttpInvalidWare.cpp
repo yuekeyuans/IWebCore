@@ -10,7 +10,6 @@ void IHttpInvalidWare::process(IRequest & req, IResponse &res)
     Q_UNUSED(req);
     auto& content = res.getRaw()->m_responseContent;
     content.setContent(content.contentInvalid.description);
-//    auto invalid = res.getRaw()->m_responseContent.contentInvalid;
 }
 
 $PackageWebCoreEnd

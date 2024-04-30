@@ -34,7 +34,6 @@ public:
 
     QJsonValue getRequestJson(bool& ok);
     IResult<QJsonValue> getRequestJson();
-
 //    QDomNode&   getRequestXml(bool& ok);
 
 public:         // 这些东西先抽象出来，等到改变 socket 的时候就相对依赖小一点
@@ -78,20 +77,19 @@ public:
     IMultiPartJar* m_multiPartJar{nullptr};
     ISessionJar* m_sessionJar{nullptr};
 
-private:
-    QJsonValue m_requestJson;                   // json 和 dom 不一定使用，也可能是延后加载
-    QDomNode m_requestXml;
-
+private:    
     bool isJsonInited   {false};
     bool isXmlInited    {false};
+    QJsonValue m_requestJson;                   // json 和 dom 不一定使用，也可能是延后加载
+    QDomNode m_requestXml;
 
 //public:
 //    const IMultiPart m_invalidMultiPart{};      // TODO: 先写在这里，等一下chonggou
 
 public:
     // response
-    IHttpStatusCode m_responseStatus {IHttpStatus::OK_200};
-    QString m_responseMime{"UNKNOWN"};
+    IHttpStatusCode m_responseStatus {IHttpStatus::UNKNOWN};
+    QString m_responseMime{IHttpMimeUtil::MIME_UNKNOWN_STRING};
     QList<QPair<QString, QString>> m_responseHeaders;
     QList<ICookiePart> m_responseCookies;
 

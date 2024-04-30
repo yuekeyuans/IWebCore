@@ -31,7 +31,7 @@ public:
     void setInvalid(IHttpStatusCode status, QString reason);
 
 public:
-    QString mimeString {"UNKNOWN"};   // when mime is unknown and mimeString is not empty ,mimeString take effect.
+    QString mimeString {IHttpMimeUtil::MIME_UNKNOWN_STRING};   // when mime is unknown and mimeString is not empty ,mimeString take effect.
     IHttpStatusCode statusCode {IHttpStatusCode::UNKNOWN};
     QMap<QString, QString> headers;
     IResponseContent content;

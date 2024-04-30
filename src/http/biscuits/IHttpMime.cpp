@@ -244,7 +244,7 @@ IHttpMime IHttpMimeUtil::toMime(const QString &string)
 QString IHttpMimeUtil::getSuffixMime(const QString &suffix)
 {
     if(suffix.isEmpty()){
-        return "UNKNOWN";
+        return IHttpMimeUtil::MIME_UNKNOWN_STRING;
     }
 
     static QStringList keys = getSystemSuffixMimeMap().keys();
