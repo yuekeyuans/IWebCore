@@ -11,7 +11,6 @@ class IStatusResponse : public IResponseInterface<IStatusResponse>
 {
     $AsResponse(IStatusResponse)
 public:
-    using IResponseInterface::operator[];
     using IResponseInterface::IResponseInterface;
 
 public:

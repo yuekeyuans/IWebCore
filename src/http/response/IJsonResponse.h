@@ -10,7 +10,6 @@ class IJsonResponse : public IResponseInterface<IJsonResponse>
 {
     $AsResponse(IJsonResponse)
 public:
-    using IResponseInterface::operator[];
     using IResponseInterface::IResponseInterface;
 
 public:

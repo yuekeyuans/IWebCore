@@ -62,9 +62,11 @@ QByteArray IResponseImpl::generateHeadersContent(int contentSize)
     }
 
     QByteArray headersContent;
-    for(const auto& pair : raw->m_responseRaw->headers){
-        headersContent.append(pair.first).append(": ").append(pair.second).append(IConstantUtil::NewLine);
+    for(const auto& key : raw->m_responseRaw->headers){
+        auto value = raw->m_responseRaw->headers.values(key);
+        headersContent.append(key).append(": ").append(value.join("; ")).append(IConstantUtil::NewLine);
     }
+    // TODO: check it!!!
 
     generateExternalHeadersContent(headersContent);
     return headersContent;

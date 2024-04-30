@@ -20,9 +20,6 @@ template<typename T>
 class IResponseInterface : public IResponseWare, IRegisterMetaTypeUnit<T>, IRegisterResponseTypeUnit<T>
 {
 public:
-    using IResponseWare::operator[];
-
-public:
     IResponseInterface();
     IResponseInterface(IRedirectResponse&& response);
     IResponseInterface(IInvalidRepsonse&& response);

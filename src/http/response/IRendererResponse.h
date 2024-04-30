@@ -11,7 +11,6 @@ class IRendererResponse : public IResponseInterface<IRendererResponse>
 {
     $AsResponse(IRendererResponse)
 public:
-    using IResponseInterface::operator [];
     using IResponseInterface::IResponseInterface;
 
 public:

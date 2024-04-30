@@ -29,7 +29,7 @@ public:
 public:
     QString mime {IHttpMimeUtil::MIME_UNKNOWN_STRING};   // when mime is unknown and mimeString is not empty ,mimeString take effect.
     IHttpStatusCode status {IHttpStatus::UNKNOWN};
-    QList<QPair<QString, QString>> headers;
+    QMultiHash<QString, QString> headers;
     QList<ICookiePart> cookies;
     IResponseContent content;
 };

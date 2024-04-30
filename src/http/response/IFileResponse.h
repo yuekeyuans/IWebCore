@@ -9,7 +9,6 @@ class IFileResponse : public IResponseInterface<IFileResponse>
 {
     $AsResponse(IFileResponse)
 public:
-    using IResponseInterface::operator[];
     using IResponseInterface::IResponseInterface;
 
 public:

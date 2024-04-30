@@ -43,10 +43,10 @@ IResponseWare &IResponseWare::operator =(IResponseWare && rhs)
     return *this;
 }
 
-QString &IResponseWare::operator[](const QString &header)
-{
-    return m_raw->headers[header];
-}
+//QString &IResponseWare::operator[](const QString &header)
+//{
+//    return m_raw->headers[header];
+//}
 
 const QString& IResponseWare::mime() const
 {
@@ -68,7 +68,7 @@ void IResponseWare::setStatus(IHttpStatusCode statusCode)
     m_raw->status = statusCode;
 }
 
-const QMap<QString, QString>& IResponseWare::headers() const
+const QMultiHash<QString, QString>& IResponseWare::headers() const
 {
     return m_raw->headers;
 }
@@ -79,7 +79,7 @@ void IResponseWare::setHeader(const QString &key, const QString &value)
         $Ast->fatal("iresponse_setHeader_with_empty_value_or_key");
         return;
     }
-    m_raw->headers[key] = value;
+    m_raw->headers.insert(key, value);
 }
 
 IResponseContent &IResponseWare::getContent()

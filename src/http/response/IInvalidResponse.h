@@ -10,7 +10,6 @@ class IInvalidResponse : public IResponseInterface<IInvalidResponse>
 {
     $AsResponse(IInvalidResponse)
 public:
-    using IResponseInterface::operator[];
     using IResponseInterface::IResponseInterface;
 
 public:

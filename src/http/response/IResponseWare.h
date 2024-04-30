@@ -20,7 +20,7 @@ public:
     IResponseWare(IResponseWare&&);
     IResponseWare& operator =(const IResponseWare&);
     IResponseWare& operator =(IResponseWare&&);
-    QString& operator[](const QString& header);
+//    QString& operator[](const QString& header);
 
 public:
     const QString& mime() const;
@@ -29,7 +29,7 @@ public:
     IHttpStatusCode status() const;
     void setStatus(IHttpStatusCode statusCode);
 
-    const QMap<QString, QString>& headers() const;
+    const QMultiHash<QString, QString>& headers() const;
     void setHeader(const QString& key, const QString& value);
 
     IResponseContent& getContent();

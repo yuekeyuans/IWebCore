@@ -10,7 +10,6 @@ class IPlainTextResponse : public IResponseInterface<IPlainTextResponse>
 {
     $AsResponse(IPlainTextResponse)
 public:
-    using IResponseInterface::operator[];
     using IResponseInterface::IResponseInterface;
 
 public:

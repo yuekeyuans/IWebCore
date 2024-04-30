@@ -25,8 +25,8 @@ public:
     QStringList getRequestHeaderValues(const QString& key) const;
 
     // response
-    const QList<QPair<QString, QString>>& responseHeaders() const;
-    QList<QPair<QString, QString>>& responseHeaders();
+    const QMultiHash<QString, QString>& responseHeaders() const;
+    QMultiHash<QString, QString>& responseHeaders();
 
     QStringList responseHeaderKeys() const;
     bool containResponseHeaderKey(const QString& key) const;
@@ -35,7 +35,9 @@ public:
     QStringList getResponseHeaderValues(const QString& key) const;
 
     void addResponseHeader(const QString& key, const QString& value);
+    void addResponseHeader(const QString& key, const QStringList& values);
     void setResponseHeader(const QString& key, const QString& value);
+    void setResponseHeader(const QString& key, const QStringList& values);
 
     void deleteReponseHeader(const QString& key);
 };

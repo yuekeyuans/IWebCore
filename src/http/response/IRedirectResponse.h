@@ -10,7 +10,6 @@ class IRedirectResponse : public IResponseInterface<IRedirectResponse>
 {
     $AsResponse(IRedirectResponse)
 public:
-    using IResponseInterface::operator[];
     using IResponseInterface::IResponseInterface;
 
 public:

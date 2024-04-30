@@ -85,30 +85,19 @@ IResponse &IResponse::operator<<(IResponseWare &response)
     return *this;
 }
 
-QString IResponse::operator[](const QString &header) const
-{
-    auto it=raw->m_responseRaw->headers.begin();
-    for(; it!= raw->m_responseRaw->headers.end(); it++){
-        if(it->first == header){
-            return it->second;
-        }
-    }
+//QString IResponse::operator[](const QString &header) const
+//{
+//    if(raw->m_responseRaw->headers.contains(header)){
+//        return raw->m_responseRaw->headers[header];
+//    }
 
-    return "";
-}
+//    return "";
+//}
 
-QString &IResponse::operator[](const QString &header)
-{
-    auto it=raw->m_responseRaw->headers.begin();
-    for(; it!= raw->m_responseRaw->headers.end(); it++){
-        if(it->first == header){
-            return it->second;
-        }
-    }
-    QPair<QString, QByteArray> pair{header, ""};
-    raw->m_responseRaw->headers.append(pair);
-    return raw->m_responseRaw->headers.last().second;
-}
+//QString &IResponse::operator[](const QString &header)
+//{
+//    return raw->m_responseRaw->headers[header];
+//}
 
 IRequest *IResponse::request() const
 {
@@ -224,7 +213,7 @@ IResponse& IResponse::setContent(IResponseWare *response)
     auto keys = headers.keys();
     for(auto key : keys){
         if(!raw->m_headerJar->containResponseHeaderKey(key)){
-            raw->m_headerJar->addResponseHeader(key, headers[key]);
+            raw->m_headerJar->addResponseHeader(key, headers.values(key));
             // TODO: 这里可能有冲突，需要特殊处理掉
         }
     }
@@ -266,7 +255,7 @@ IHttpStatusCode IResponse::status() const
     return raw->m_responseRaw->status;
 }
 
-const QList<QPair<QString, QString>>& IResponse::headers() const
+const QMultiHash<QString, QString>& IResponse::headers() const
 {
     return raw->m_responseRaw->headers;
 }
@@ -303,17 +292,5 @@ bool IResponse::valid() const
 {
     return impl->raw->valid();
 }
-
-//void IResponse::setInvalidIf(bool condition, IHttpInvalidUnit ware) const
-//{
-//    if(condition){
-//        raw->setInvalid(ware);
-//    }
-//}
-
-//void IResponse::setInvalid(IHttpInvalidUnit ware) const
-//{
-//    raw->setInvalid(ware);
-//}
 
 $PackageWebCoreEnd

@@ -34,8 +34,8 @@ IFileResponse::IFileResponse(const QString &data)
 
 void IFileResponse::enableContentDisposition()
 {
-    m_raw->headers.append({"Content-Disposition",
-                                     IFileResponseHelper::getContentDispositionAttachment(m_raw->content.contentFilePath)});
+    m_raw->headers.insert("Content-Disposition",
+                                     IFileResponseHelper::getContentDispositionAttachment(m_raw->content.contentFilePath));
 }
 
 QString IFileResponse::getPrefixMatcher()
@@ -88,8 +88,8 @@ void IFileResponseHelper::checkAndUpdateContentDisposition(IResponseRaw* raw)
             && suffixes.isFound()
             && suffixes.value().contains(IFileUtil::getFileSuffix(raw->content.contentFilePath)))
     {
-        raw->headers.append({"Content-Disposition",
-                                       IFileResponseHelper::getContentDispositionAttachment(raw->content.contentFilePath)});
+        raw->headers.insert("Content-Disposition",
+                                       IFileResponseHelper::getContentDispositionAttachment(raw->content.contentFilePath));
     }
 }
 
