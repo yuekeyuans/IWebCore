@@ -57,8 +57,6 @@ public:
     int peerPort{};
     QHostAddress peerAddress;
     QString peerName;
-
-    bool m_valid{true};
     QMap<QString, QVariant> m_attribute;                // 用户或系统可以自己放置内容的地方。
 
     // request

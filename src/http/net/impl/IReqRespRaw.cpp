@@ -46,12 +46,11 @@ IReqRespRaw::~IReqRespRaw()
 
 bool IReqRespRaw::valid() const
 {
-    return this->m_valid;
+    return m_responseContent.type != IResponseContent::Type::Invalid;
 }
 
 void IReqRespRaw::setInvalid(IHttpInvalidUnit ware)
 {
-    this->m_valid = false;
     this->m_responseMime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
     this->m_responseStatus = ware.status;
     this->m_responseContent.setContent(ware);

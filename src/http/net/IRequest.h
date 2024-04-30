@@ -101,8 +101,7 @@ public:
     void setInvalid(IHttpInvalidUnit) const;
 
 private:
-    IRequestImpl* impl{nullptr};    // TODO: 这两个不一致, 需要查看一下
-//    IReqRespRaw*  raw{nullptr};
+    IRequestImpl* impl{nullptr};
 };
 
 #ifdef USE_INLINE

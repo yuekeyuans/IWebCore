@@ -295,7 +295,7 @@ bool IResponse::respond()
 
 bool IResponse::valid() const
 {
-    return raw->m_valid;
+    return impl->raw->valid();
 }
 
 void IResponse::setInvalidIf(bool condition, IHttpInvalidUnit ware) const

@@ -330,7 +330,7 @@ IResult<QVariant> IRequest::getAttribute(const QString &name) const
 
 bool IRequest::valid() const
 {
-    return impl->raw->m_valid;
+    return impl->raw->valid();
 }
 
 void IRequest::setInvalidIf(bool condition, IHttpInvalidUnit ware) const
