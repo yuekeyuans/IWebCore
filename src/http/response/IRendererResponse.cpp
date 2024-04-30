@@ -2,6 +2,7 @@
 #include "IResponseManage.h"
 #include "http/nody/INody.h"
 #include "IResponseTemplateRenderer.h"
+#include "http/invalid/IHttpInternalErrorInvalid.h"
 
 $PackageWebCoreBegin
 
@@ -12,7 +13,7 @@ IRendererResponse::IRendererResponse(const QString &path, QJsonObject value)
         setMime(IHttpMime::TEXT_HTML_UTF8);
         m_raw->setContent(renderTemplate->render(path, value));
     }else{
-        setInvalid(IHttpStatusCode::INTERNAL_SERVER_ERROR_500, "template can not parse template:" + path);
+        m_raw->setContent(IHttpInternalErrorInvalid("template can not parse template:" + path));
     }
 }
 

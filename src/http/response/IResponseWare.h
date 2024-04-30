@@ -3,12 +3,12 @@
 #include "core/base/IHeaderUtil.h"
 #include "http/biscuits/IHttpMime.h"
 #include "http/biscuits/IHttpStatus.h"
+#include "http/response/IResponseWareRaw.h"
 #include "core/result/IResult.h"
 #include "IResponseContent.h"
 
 $PackageWebCoreBegin
 
-struct IResponseWareRaw;
 class IRedirectResponse;
 
 class IResponseWare
@@ -34,7 +34,6 @@ public:
 
     IResponseContent& getContent();
 
-    virtual void setInvalid(IHttpStatusCode, QString reason);
     virtual QString getPrefixMatcher();
 
     virtual QSharedPointer<IResponseWare> create(IResponseWare*) = 0;

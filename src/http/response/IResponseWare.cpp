@@ -87,11 +87,6 @@ IResponseContent &IResponseWare::getContent()
     return m_raw->content;
 }
 
-void IResponseWare::setInvalid(IHttpStatusCode status, QString reason)
-{
-    m_raw->setInvalid(status, reason);
-}
-
 QString IResponseWare::getPrefixMatcher()
 {
     return {};

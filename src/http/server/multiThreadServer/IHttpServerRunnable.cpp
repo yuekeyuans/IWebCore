@@ -72,7 +72,7 @@ void IHttpServerRunnable::runRequest(IRequest& request)
     } while(0);
 
     if(!request.valid()){
-        auto process = IHttpInvalidManage::instance()->getWare(request.getRaw()->m_responseContent.contentInvalid.tag);
+        auto process = IHttpInvalidManage::instance()->getWare(request.getRaw()->m_responseRaw->content.contentInvalid.tag);
         process->process(request, response);
     }
 
@@ -115,7 +115,7 @@ void IHttpServerRunnable::handleRequest(IRequest &request, IResponse &response)
     }
 
     QString info = request.url() + " " + IHttpMethodUtil::toString(request.method()) + " has no function to handle";
-    response.setInvalid(IHttpNotFoundInvalid(info));
+    response.setContent(IHttpNotFoundInvalid(info));
 }
 
 //void IHttpServerRunable::runStatusFunction(IRequest &request, IResponse &response, IStatusActionNode *function)

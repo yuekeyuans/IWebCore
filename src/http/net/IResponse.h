@@ -7,7 +7,7 @@
 #include "http/biscuits/IHttpStatus.h"
 #include "http/biscuits/IHttpVersion.h"
 #include "http/biscuits/IHttpMime.h"
-#include "http/response/IResponseWareRaw.h"
+#include "http/invalid/IHttpInvalidUnit.h"
 #include "http/response/IResponsePreProcessor.h"
 
 $PackageWebCoreBegin
@@ -59,6 +59,7 @@ public:
     IResponse& setContent(const char* content);
     IResponse& setContent(IResponseWare *response);
     IResponse& setContent(IResponseWare& response);
+    IResponse& setContent(IHttpInvalidUnit unit);
 
     IHttpVersion version() const;
     QString mime() const;
@@ -73,8 +74,8 @@ public:
     bool respond();
 
     bool valid() const;
-    void setInvalidIf(bool condition, IHttpInvalidUnit ware) const;
-    void setInvalid(IHttpInvalidUnit ware) const;
+//    void setInvalidIf(bool condition, IHttpInvalidUnit ware) const;
+//    void setInvalid(IHttpInvalidUnit ware) const;
 
 private:
     IResponseImpl*  impl{nullptr};

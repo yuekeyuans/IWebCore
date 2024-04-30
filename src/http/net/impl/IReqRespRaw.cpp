@@ -11,6 +11,7 @@
 #include "http/jar/IMultiPartJar.h"
 #include "http/IHttpAssert.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
+#include "http/response/IResponseWareRaw.h"
 #include "http/session/ISessionManager.h"
 
 $PackageWebCoreBegin
@@ -30,6 +31,7 @@ IReqRespRaw::IReqRespRaw(IRequest *request, QTcpSocket *socket)
     m_headerJar = new IHeaderJar(this);
     m_cookieJar = new ICookieJar(this);
     m_multiPartJar = new IMultiPartJar(this);
+    m_responseRaw = new IResponseWareRaw;
 
     if(ISessionManager::instance()->getSessionWare() != nullptr){
         m_sessionJar = new ISessionJar(this);
@@ -42,18 +44,18 @@ IReqRespRaw::~IReqRespRaw()
     delete m_cookieJar;
     delete m_multiPartJar;
     delete m_sessionJar;
+    delete m_responseRaw;
 }
 
 bool IReqRespRaw::valid() const
 {
-    return m_responseContent.type != IResponseContent::Type::Invalid;
+    return m_responseRaw->valid();
 }
 
 void IReqRespRaw::setInvalid(IHttpInvalidUnit ware)
 {
-    this->m_responseMime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
-    this->m_responseStatus = ware.status;
-    this->m_responseContent.setContent(ware);
+    m_responseRaw->setMime(IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8));
+    m_responseRaw->setContent(ware);
 }
 
 // TODO: 这里需要查看一下，感觉返回数据过于早了，应该统一处理的。

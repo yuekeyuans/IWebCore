@@ -2,8 +2,8 @@
 #include "core/base/IHeaderUtil.h"
 #include "http/biscuits/IHttpMime.h"
 #include "http/biscuits/IHttpStatus.h"
+#include "http/jar/ICookieJar.h"
 #include "http/response/IResponseContent.h"
-#include "http/invalid/IHttpInvalidUnit.h"
 
 $PackageWebCoreBegin
 
@@ -23,13 +23,15 @@ public:
     void setContent(IHttpInvalidUnit ware);
     void setFileContent(const QString& filePath);
 
-    void setInvalid(IHttpStatusCode status, QString reason);
+public:
+    bool valid();
 
 public:
     QString mimeString {IHttpMimeUtil::MIME_UNKNOWN_STRING};   // when mime is unknown and mimeString is not empty ,mimeString take effect.
-    IHttpStatusCode statusCode {IHttpStatusCode::UNKNOWN};
+    IHttpStatusCode statusCode {IHttpStatus::UNKNOWN};
     QMap<QString, QString> headers;
     IResponseContent content;
+    QList<ICookiePart> m_responseCookies;
 };
 
 $PackageWebCoreEnd

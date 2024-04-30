@@ -24,7 +24,7 @@ IResponse::IResponse()
 IResponse::IResponse(IRequest *request)
 {
     raw = request->getRaw();
-    raw->m_response = this;
+//    raw->m_responseWare = this;
     impl = new IResponseImpl(raw);
 }
 
@@ -57,19 +57,19 @@ IResponse &IResponse::operator=(IResponse &&)
 
 IResponse &IResponse::operator<<(const QString &content)
 {
-    raw->m_responseContent.append(content);
+    raw->m_responseRaw->content.append(content);
     return *this;
 }
 
 IResponse &IResponse::operator<<(const QByteArray &content)
 {
-    raw->m_responseContent.append(content);
+    raw->m_responseRaw->content.append(content);
     return *this;
 }
 
 IResponse &IResponse::operator<<(const char *content)
 {
-    raw->m_responseContent.append(QByteArray(content));
+    raw->m_responseRaw->content.append(QByteArray(content));
     return *this;
 }
 
@@ -87,8 +87,8 @@ IResponse &IResponse::operator<<(IResponseWare &response)
 
 QString IResponse::operator[](const QString &header) const
 {
-    auto it=raw->m_responseHeaders.begin();
-    for(; it!= raw->m_responseHeaders.end(); it++){
+    auto it=raw->m_responseRaw->headers.begin();
+    for(; it!= raw->m_responseRaw->headers.end(); it++){
         if(it->first == header){
             return it->second;
         }
@@ -99,15 +99,15 @@ QString IResponse::operator[](const QString &header) const
 
 QString &IResponse::operator[](const QString &header)
 {
-    auto it=raw->m_responseHeaders.begin();
-    for(; it!= raw->m_responseHeaders.end(); it++){
+    auto it=raw->m_responseRaw->headers.begin();
+    for(; it!= raw->m_responseRaw->headers.end(); it++){
         if(it->first == header){
             return it->second;
         }
     }
     QPair<QString, QByteArray> pair{header, ""};
-    raw->m_responseHeaders.append(pair);
-    return raw->m_responseHeaders.last().second;
+    raw->m_responseRaw->headers.append(pair);
+    return raw->m_responseRaw->headers.last().second;
 }
 
 IRequest *IResponse::request() const
@@ -132,92 +132,92 @@ IResponse &IResponse::setHeader(const QString &key, const QString &value)
 
 IResponse &IResponse::setStatus(IHttpStatusCode statusCode)
 {
-    raw->m_responseStatus = statusCode;
+    raw->m_responseRaw->statusCode = statusCode;
     return *this;
 }
 
 // NOTE: 这里是强转， 也就是说，任何一个数据都可以被设置进来。
 IResponse &IResponse::setStatus(int statusCode)
 {
-    raw->m_responseStatus = IHttpStatus::toStatus(statusCode);
+    raw->m_responseRaw->statusCode = IHttpStatus::toStatus(statusCode);
     return *this;
 }
 
 IResponse &IResponse::setMime(IHttpMime mime)
 {
-    raw->m_responseMime = IHttpMimeUtil::toString(mime);
+    raw->m_responseRaw->mimeString = IHttpMimeUtil::toString(mime);
     return *this;
 }
 
 IResponse &IResponse::setMime(const QString mime)
 {
-    raw->m_responseMime = mime;
+    raw->m_responseRaw->mimeString = mime;
     return *this;
 }
 
 IResponse &IResponse::addCookie(const ICookiePart &cookiePart)
 {
-    raw->m_responseCookies.append(cookiePart);
+    raw->m_responseRaw->m_responseCookies.append(cookiePart);
     return *this;
 }
 
 IResponse &IResponse::appendContent(const QString &content)
 {
-    raw->m_responseContent.append(content);
+    raw->m_responseRaw->content.append(content);
     return *this;
 }
 
 IResponse &IResponse::appendContent(const QByteArray &content)
 {
-    raw->m_responseContent.append(content);
+    raw->m_responseRaw->content.append(content);
     return *this;
 }
 
 IResponse &IResponse::appendContent(const char *content)
 {
-    raw->m_responseContent.append(content);
+    raw->m_responseRaw->content.append(content);
     return *this;
 }
 
 IResponse &IResponse::setContent(const QString &content)
 {
-    raw->m_responseContent.setContent(content);
+    raw->m_responseRaw->content.setContent(content);
     return *this;
 }
 
 IResponse &IResponse::setContent(const QByteArray &content)
 {
-    raw->m_responseContent.setContent(content);
+    raw->m_responseRaw->content.setContent(content);
     return *this;
 }
 
 IResponse &IResponse::setContent(QByteArray &&content)
 {
-    raw->m_responseContent.setContent(std::forward<QByteArray&&>(content));
+    raw->m_responseRaw->content.setContent(std::forward<QByteArray&&>(content));
     return *this;
 }
 
 IResponse &IResponse::setContent(const char *content)
 {
-    raw->m_responseContent.setContent(content);
+    raw->m_responseRaw->content.setContent(content);
     return *this;
 }
 
 IResponse& IResponse::setContent(IResponseWare *response)
 {
-    std::swap(raw->m_responseContent, response->getContent());
+    std::swap(raw->m_responseRaw->content, response->getContent());
 
-    if(raw->m_responseContent.type == IResponseContent::Invalid){
-        setInvalid(response->getContent().contentInvalid);
-        raw->m_responseMime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
+    if(raw->m_responseRaw->content.type == IResponseContent::Invalid){
+        setContent(response->getContent().contentInvalid);
+        raw->m_responseRaw->mimeString = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
     }
 
     if(response->status() != IHttpStatusCode::UNKNOWN){
-        raw->m_responseStatus = response->status();
+        raw->m_responseRaw->statusCode = response->status();
     }
 
     if(response->mime() != IHttpMimeUtil::MIME_UNKNOWN_STRING){
-        raw->m_responseMime = response->mime();
+        raw->m_responseRaw->mimeString = response->mime();
     }
 
     auto& headers = response->headers();
@@ -233,9 +233,9 @@ IResponse& IResponse::setContent(IResponseWare *response)
     bool ok;
     if((!raw->m_headerJar->containResponseHeaderKey(IHttpHeader::ContentType)
             || raw->m_headerJar->getResponseHeaderValue(IHttpHeader::ContentType, ok) == "UNKNOWN")
-            && raw->m_responseMime != IHttpMimeUtil::MIME_UNKNOWN_STRING)
+            && raw->m_responseRaw->mimeString != IHttpMimeUtil::MIME_UNKNOWN_STRING)
     {
-        raw->m_headerJar->setResponseHeader(IHttpHeader::ContentType, raw->m_responseMime);
+        raw->m_headerJar->setResponseHeader(IHttpHeader::ContentType, raw->m_responseRaw->mimeString);
     }
     return *this;
 }
@@ -245,6 +245,11 @@ IResponse &IResponse::setContent(IResponseWare &response)
     return setContent(&response);
 }
 
+IResponse &IResponse::setContent(IHttpInvalidUnit unit)
+{
+    raw->setInvalid(unit);
+}
+
 IHttpVersion IResponse::version() const
 {
     return raw->m_httpVersion;
@@ -252,17 +257,18 @@ IHttpVersion IResponse::version() const
 
 QString IResponse::mime() const
 {
-    return raw->m_responseMime;
+    return raw->m_responseRaw->mimeString;
 }
 
 IHttpStatusCode IResponse::status() const
 {
-    return raw->m_responseStatus;
+    return raw->m_responseRaw->statusCode;
 }
 
 const QList<QPair<QString, QString>>& IResponse::headers() const
 {
-    return raw->m_responseHeaders;
+    // TODO:
+    return raw->m_responseRaw->headers;
 }
 
 const QMap<QString, QVariant> &IResponse::attributes() const
@@ -298,16 +304,16 @@ bool IResponse::valid() const
     return impl->raw->valid();
 }
 
-void IResponse::setInvalidIf(bool condition, IHttpInvalidUnit ware) const
-{
-    if(condition){
-        raw->setInvalid(ware);
-    }
-}
+//void IResponse::setInvalidIf(bool condition, IHttpInvalidUnit ware) const
+//{
+//    if(condition){
+//        raw->setInvalid(ware);
+//    }
+//}
 
-void IResponse::setInvalid(IHttpInvalidUnit ware) const
-{
-    raw->setInvalid(ware);
-}
+//void IResponse::setInvalid(IHttpInvalidUnit ware) const
+//{
+//    raw->setInvalid(ware);
+//}
 
 $PackageWebCoreEnd

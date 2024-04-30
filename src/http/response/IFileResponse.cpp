@@ -6,6 +6,7 @@
 #include "http/IHttpAssert.h"
 #include "http/biscuits/IHttpMime.h"
 #include "http/controller/IHttpManage.h"
+#include "http/invalid/IHttpNotFoundInvalid.h"
 
 $PackageWebCoreBegin
 
@@ -27,7 +28,7 @@ IFileResponse::IFileResponse(const QString &data)
     if(IFileResponseHelper::setFilePath(m_raw, data)){
         IFileResponseHelper::checkAndUpdateContentDisposition(m_raw);
     }else{
-        setInvalid(IHttpStatusCode::NOT_FOUND_404, "file not found");
+        m_raw->setContent(IHttpNotFoundInvalid("file not found"));
     }
 }
 

@@ -7,7 +7,6 @@
 #include "http/biscuits/IHttpMime.h"
 #include "http/response/IResponseManage.h"
 #include "http/response/IResponseWare.h"
-#include "http/response/IResponseWareRaw.h"
 #include "http/core/unit/IRegisterResponseTypeUnit.h"
 
 $PackageWebCoreBegin

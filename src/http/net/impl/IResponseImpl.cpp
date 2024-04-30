@@ -28,7 +28,7 @@ bool IResponseImpl::respond()
 //        }
 //    }
 
-    const auto& content = raw->m_responseContent.getAsBytes();
+    const auto& content = raw->m_responseRaw->content.getAsBytes();
 
     raw->writeSocket(generateFirstLine());
     raw->writeSocket(generateHeadersContent(content.size()));
@@ -46,8 +46,8 @@ QByteArray IResponseImpl::generateFirstLine()
 {
     QByteArray firstLine;
     firstLine.append(IHttpVersionUtil::toString(raw->m_httpVersion)).append(" ")
-        .append(IHttpStatus::toString(raw->m_responseStatus)).append(" ")
-        .append(IHttpStatus::toStringDescription(raw->m_responseStatus)).append(IConstantUtil::NewLine);
+        .append(IHttpStatus::toString(raw->m_responseRaw->statusCode)).append(" ")
+        .append(IHttpStatus::toStringDescription(raw->m_responseRaw->statusCode)).append(IConstantUtil::NewLine);
 
     return firstLine;
 }
@@ -62,7 +62,7 @@ QByteArray IResponseImpl::generateHeadersContent(int contentSize)
     }
 
     QByteArray headersContent;
-    for(const auto& pair : raw->m_responseHeaders){
+    for(const auto& pair : raw->m_responseRaw->headers){
         headersContent.append(pair.first).append(": ").append(pair.second).append(IConstantUtil::NewLine);
     }
 

@@ -9,13 +9,13 @@
 #include "http/biscuits/IHttpVersion.h"
 #include "http/jar/IMultiPart.h"
 #include "http/jar/ICookiePart.h"
-#include "http/response/IResponseContent.h"
+//#include "http/response/IResponseContent.h"
+#include "http/response/IResponseWareRaw.h"
 
 $PackageWebCoreBegin
 
 class IResponse;
 class IRequest;
-
 class IHeaderJar;
 class ICookieJar;
 class ISessionJar;
@@ -87,13 +87,13 @@ private:
 //    const IMultiPart m_invalidMultiPart{};      // TODO: 先写在这里，等一下chonggou
 
 public:
+    IResponseWareRaw* m_responseRaw{};
     // response
-    IHttpStatusCode m_responseStatus {IHttpStatus::UNKNOWN};
-    QString m_responseMime{IHttpMimeUtil::MIME_UNKNOWN_STRING};
-    QList<QPair<QString, QString>> m_responseHeaders;
-    QList<ICookiePart> m_responseCookies;
-
-    IResponseContent m_responseContent;
+//    IHttpStatusCode m_responseStatus {IHttpStatus::UNKNOWN};
+//    QString m_responseMime{IHttpMimeUtil::MIME_UNKNOWN_STRING};
+//    QList<QPair<QString, QString>> m_responseHeaders;
+//    IResponseContent m_responseContent;
+//    QList<ICookiePart> m_responseCookies;
 };
 
 $PackageWebCoreEnd

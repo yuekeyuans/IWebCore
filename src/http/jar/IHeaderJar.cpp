@@ -2,6 +2,7 @@
 
 #include "core/base/IToeUtil.h"
 #include "http/net/impl/IReqRespRaw.h"
+#include "http/response/IResponseWareRaw.h"
 #include "http/IHttpAssert.h"
 
 $PackageWebCoreBegin
@@ -69,7 +70,7 @@ QStringList IHeaderJar::getRequestHeaderValues(const QString &key) const
 
 const QList<QPair<QString, QString> > &IHeaderJar::responseHeaders() const
 {
-    return m_raw->m_responseHeaders;
+    return m_raw->m_responseWare->headers;
 }
 
 QList<QPair<QString, QString> > &IHeaderJar::responseHeaders()
