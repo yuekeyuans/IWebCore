@@ -12,9 +12,8 @@ public:
 void StatusUnitTest::slotTestInterface()
 {
     NameInvalid invalid;
-    qDebug() << invalid.status << invalid.description << invalid.tag << invalid.invalid;
+    qDebug() << invalid.status << invalid.description << invalid.tag;
     QVERIFY(invalid.status == IHttpStatus::INTERNAL_SERVER_ERROR_500);
     QVERIFY(invalid.description.isEmpty());
     QVERIFY(invalid.tag == "NameInvalid");
-    QVERIFY(invalid.invalid = true);
 }

@@ -6,7 +6,6 @@
 
 $PackageWebCoreBegin
 
-// 保存 content
 struct IResponseContent
 {
 public:

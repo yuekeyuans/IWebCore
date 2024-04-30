@@ -9,10 +9,9 @@ struct IHttpInvalidUnit
 {
 public:
     IHttpInvalidUnit() = default;
-    explicit IHttpInvalidUnit(IHttpStatusCode status, const QString& tag_, const QString& description_="");
+    explicit IHttpInvalidUnit(IHttpStatusCode status, const QString& tag, const QString& description="");
 
 public:
-    bool invalid{false};
     IHttpStatusCode status{IHttpStatus::UNKNOWN};
     QString tag;
     QString description;

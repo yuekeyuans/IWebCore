@@ -2,10 +2,9 @@
 
 $PackageWebCoreBegin
 
-IWebCore::IHttpInvalidUnit::IHttpInvalidUnit(IHttpStatusCode status, const QString &tag_, const QString &description_)
-    :status(status), tag(tag_), description(description_)
+IWebCore::IHttpInvalidUnit::IHttpInvalidUnit(IHttpStatusCode status, const QString &tag, const QString &description)
+    :status(status), tag(tag), description(description)
 {
-    invalid = !tag.isEmpty();
 }
 
 $PackageWebCoreEnd

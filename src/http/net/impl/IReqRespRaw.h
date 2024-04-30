@@ -64,10 +64,9 @@ public:
     IHttpVersion m_httpVersion {IHttpVersion::UNKNOWN};
     IHttpMethod m_method {IHttpMethod::UNKNOWN};
     IHttpMime m_requestMime {IHttpMime::UNKNOWN};
-
     QByteArray m_requestBody;
-    QList<QPair<QString, QString>> m_requestHeaders;
 
+    QList<QPair<QString, QString>> m_requestHeaders;
     QMap<QString, QByteArray> m_requestUrlParameters;
     QMap<QString, QByteArray> m_requestParamParameters;     // 特指 url 参数后面的内容
     QMap<QString, QByteArray> m_requestBodyParameters;  // 特指 url encoded
@@ -86,8 +85,8 @@ private:
     bool isJsonInited   {false};
     bool isXmlInited    {false};
 
-public:
-    const IMultiPart m_invalidMultiPart{};      // TODO: 先写在这里，等一下chonggou
+//public:
+//    const IMultiPart m_invalidMultiPart{};      // TODO: 先写在这里，等一下chonggou
 
 public:
     // response

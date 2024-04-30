@@ -89,7 +89,7 @@ void IResponseContent::setContent(const char *content)
 void IResponseContent::setContent(IHttpInvalidUnit ware)
 {
     type = Type::Invalid;
-    contentInvalid = std::move(ware);
+    contentInvalid = ware;
 }
 
 QByteArray IResponseContent::getAsBytes()
@@ -104,7 +104,7 @@ QByteArray IResponseContent::getAsBytes()
     case File:
         return IFileUtil::readFileAsByteArray(contentFilePath, ok);
     case Invalid:
-        qFatal("invalid should not be called");
+        qFatal("invalid should not be called, this should be preprocessed");
     }
     return {};
 }
