@@ -1,7 +1,7 @@
 ﻿#include "IResponseWare.h"
 
 #include "core/base/IConstantUtil.h"
-#include "http/response/IResponseWareRaw.h"
+#include "http/response/IResponseRaw.h"
 #include "http/response/IRedirectResponse.h"
 #include "http/IHttpAssert.h"
 
@@ -10,7 +10,7 @@ $PackageWebCoreBegin
 $UseAssert(IHttpAssert)
 
 IResponseWare::IResponseWare()
-    : m_raw(new IResponseWareRaw())
+    : m_raw(new IResponseRaw())
 {
 }
 
@@ -21,7 +21,7 @@ IResponseWare::~IResponseWare()
 }
 
 IResponseWare::IResponseWare(const IResponseWare &rhs)
-    : m_raw(new IResponseWareRaw(*rhs.m_raw))
+    : m_raw(new IResponseRaw(*rhs.m_raw))
 {
 }
 
@@ -33,7 +33,7 @@ IResponseWare::IResponseWare(IResponseWare && rhs)
 IResponseWare &IResponseWare::operator =(const IResponseWare & rhs)
 {
     delete this->m_raw;
-    this->m_raw = new IResponseWareRaw(*rhs.m_raw);
+    this->m_raw = new IResponseRaw(*rhs.m_raw);
     return *this;
 }
 
@@ -50,7 +50,7 @@ QString &IResponseWare::operator[](const QString &header)
 
 const QString& IResponseWare::mime() const
 {
-    return m_raw->mimeString;
+    return m_raw->mime;
 }
 
 void IResponseWare::setMime(IHttpMime mime)
@@ -60,12 +60,12 @@ void IResponseWare::setMime(IHttpMime mime)
 
 IHttpStatusCode IResponseWare::status() const
 {
-    return m_raw->statusCode;
+    return m_raw->status;
 }
 
 void IResponseWare::setStatus(IHttpStatusCode statusCode)
 {
-    m_raw->statusCode = statusCode;
+    m_raw->status = statusCode;
 }
 
 const QMap<QString, QString>& IResponseWare::headers() const

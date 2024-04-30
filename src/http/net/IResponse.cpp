@@ -132,32 +132,32 @@ IResponse &IResponse::setHeader(const QString &key, const QString &value)
 
 IResponse &IResponse::setStatus(IHttpStatusCode statusCode)
 {
-    raw->m_responseRaw->statusCode = statusCode;
+    raw->m_responseRaw->status = statusCode;
     return *this;
 }
 
 // NOTE: 这里是强转， 也就是说，任何一个数据都可以被设置进来。
 IResponse &IResponse::setStatus(int statusCode)
 {
-    raw->m_responseRaw->statusCode = IHttpStatus::toStatus(statusCode);
+    raw->m_responseRaw->status = IHttpStatus::toStatus(statusCode);
     return *this;
 }
 
 IResponse &IResponse::setMime(IHttpMime mime)
 {
-    raw->m_responseRaw->mimeString = IHttpMimeUtil::toString(mime);
+    raw->m_responseRaw->mime = IHttpMimeUtil::toString(mime);
     return *this;
 }
 
 IResponse &IResponse::setMime(const QString mime)
 {
-    raw->m_responseRaw->mimeString = mime;
+    raw->m_responseRaw->mime = mime;
     return *this;
 }
 
 IResponse &IResponse::addCookie(const ICookiePart &cookiePart)
 {
-    raw->m_responseRaw->m_responseCookies.append(cookiePart);
+    raw->m_responseRaw->cookies.append(cookiePart);
     return *this;
 }
 
@@ -209,15 +209,15 @@ IResponse& IResponse::setContent(IResponseWare *response)
 
     if(raw->m_responseRaw->content.type == IResponseContent::Invalid){
         setContent(response->getContent().contentInvalid);
-        raw->m_responseRaw->mimeString = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
+        raw->m_responseRaw->mime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
     }
 
     if(response->status() != IHttpStatusCode::UNKNOWN){
-        raw->m_responseRaw->statusCode = response->status();
+        raw->m_responseRaw->status = response->status();
     }
 
     if(response->mime() != IHttpMimeUtil::MIME_UNKNOWN_STRING){
-        raw->m_responseRaw->mimeString = response->mime();
+        raw->m_responseRaw->mime = response->mime();
     }
 
     auto& headers = response->headers();
@@ -233,9 +233,9 @@ IResponse& IResponse::setContent(IResponseWare *response)
     bool ok;
     if((!raw->m_headerJar->containResponseHeaderKey(IHttpHeader::ContentType)
             || raw->m_headerJar->getResponseHeaderValue(IHttpHeader::ContentType, ok) == "UNKNOWN")
-            && raw->m_responseRaw->mimeString != IHttpMimeUtil::MIME_UNKNOWN_STRING)
+            && raw->m_responseRaw->mime != IHttpMimeUtil::MIME_UNKNOWN_STRING)
     {
-        raw->m_headerJar->setResponseHeader(IHttpHeader::ContentType, raw->m_responseRaw->mimeString);
+        raw->m_headerJar->setResponseHeader(IHttpHeader::ContentType, raw->m_responseRaw->mime);
     }
     return *this;
 }
@@ -248,6 +248,7 @@ IResponse &IResponse::setContent(IResponseWare &response)
 IResponse &IResponse::setContent(IHttpInvalidUnit unit)
 {
     raw->setInvalid(unit);
+    return *this;
 }
 
 IHttpVersion IResponse::version() const
@@ -257,17 +258,16 @@ IHttpVersion IResponse::version() const
 
 QString IResponse::mime() const
 {
-    return raw->m_responseRaw->mimeString;
+    return raw->m_responseRaw->mime;
 }
 
 IHttpStatusCode IResponse::status() const
 {
-    return raw->m_responseRaw->statusCode;
+    return raw->m_responseRaw->status;
 }
 
 const QList<QPair<QString, QString>>& IResponse::headers() const
 {
-    // TODO:
     return raw->m_responseRaw->headers;
 }
 

@@ -15,7 +15,7 @@
 #include "http/response/IPlainTextResponse.h"
 #include "http/response/IRedirectResponse.h"
 #include "http/response/IResponseWare.h"
-#include "http/response/IResponseWareRaw.h"
+#include "http/response/IResponseRaw.h"
 #include "http/response/IFileResponse.h"
 
 #include "http/middleware/IMiddleWarePreProcessor.h"

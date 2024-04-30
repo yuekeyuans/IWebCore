@@ -15,8 +15,8 @@ $UseAssert(IHttpAssert)
 namespace IFileResponseHelper
 {
     static QString getContentDispositionAttachment(const QString& filePath);
-    static bool setFilePath(IResponseWareRaw* raw, const QString& path);
-    static void checkAndUpdateContentDisposition(IResponseWareRaw* raw);
+    static bool setFilePath(IResponseRaw* raw, const QString& path);
+    static void checkAndUpdateContentDisposition(IResponseRaw* raw);
 }
 
 IFileResponse::IFileResponse()
@@ -34,7 +34,8 @@ IFileResponse::IFileResponse(const QString &data)
 
 void IFileResponse::enableContentDisposition()
 {
-    m_raw->headers["Content-Disposition"] = IFileResponseHelper::getContentDispositionAttachment(m_raw->content.contentFilePath);
+    m_raw->headers.append({"Content-Disposition",
+                                     IFileResponseHelper::getContentDispositionAttachment(m_raw->content.contentFilePath)});
 }
 
 QString IFileResponse::getPrefixMatcher()
@@ -58,7 +59,7 @@ QString IFileResponseHelper::getContentDispositionAttachment(const QString& file
 }
 
 // TODO: 这里的参数不太对，应该对应很多路径，但是这里只有一个
-bool IFileResponseHelper::setFilePath(IResponseWareRaw* raw, const QString& path)
+bool IFileResponseHelper::setFilePath(IResponseRaw* raw, const QString& path)
 {
     QString realPath = path;
     if(!path.startsWith(":/") && !QFileInfo(path).exists()){
@@ -77,7 +78,7 @@ bool IFileResponseHelper::setFilePath(IResponseWareRaw* raw, const QString& path
     return false;
 }
 
-void IFileResponseHelper::checkAndUpdateContentDisposition(IResponseWareRaw* raw)
+void IFileResponseHelper::checkAndUpdateContentDisposition(IResponseRaw* raw)
 {
     static $Bool enabled {"http.fileService.contentDisposition.enabled"};
     static $QStringList suffixes{"http.fileService.contentDisposition.suffixes"};
@@ -87,7 +88,8 @@ void IFileResponseHelper::checkAndUpdateContentDisposition(IResponseWareRaw* raw
             && suffixes.isFound()
             && suffixes.value().contains(IFileUtil::getFileSuffix(raw->content.contentFilePath)))
     {
-        raw->headers["Content-Disposition"] = IFileResponseHelper::getContentDispositionAttachment(raw->content.contentFilePath);
+        raw->headers.append({"Content-Disposition",
+                                       IFileResponseHelper::getContentDispositionAttachment(raw->content.contentFilePath)});
     }
 }
 

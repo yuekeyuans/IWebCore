@@ -111,6 +111,7 @@ HEADERS += \
     $$PWD/http/nody/INodyManage.h \
     $$PWD/http/nody/INodyParser.h \
     $$PWD/http/nody/INodyRenderer.h \
+    $$PWD/http/response/IResponseRaw.h \
     $$PWD/http/response/IStatusResponse.h \
     $$PWD/http/server/multiThreadServer/IHttpServerRunnable.h \
     $$PWD/orm/IOrmAssert.h \
@@ -201,7 +202,6 @@ HEADERS += \
     $$PWD/http/response/IResponsePreProcessor.h \
     $$PWD/http/response/IResponseTemplateRenderer.h \
     $$PWD/http/response/IResponseWare.h \
-    $$PWD/http/response/IResponseWareRaw.h \
     $$PWD/http/response/response \
     $$PWD/http/server/IServerInterface.h \
     $$PWD/http/server/IServerWare.h \
@@ -292,6 +292,7 @@ SOURCES += \
     $$PWD/http/nody/INodyManage.cpp \
     $$PWD/http/nody/INodyParser.cpp \
     $$PWD/http/nody/INodyRenderer.cpp \
+    $$PWD/http/response/IResponseRaw.cpp \
     $$PWD/http/response/IStatusResponse.cpp \
     $$PWD/http/server/multiThreadServer/IHttpServerRunnable.cpp \
     $$PWD/orm/IOrmAssert.cpp \
@@ -370,7 +371,6 @@ SOURCES += \
     $$PWD/http/response/IResponseManage.cpp \
     $$PWD/http/response/IResponseTemplateRenderer.cpp \
     $$PWD/http/response/IResponseWare.cpp \
-    $$PWD/http/response/IResponseWareRaw.cpp \
     $$PWD/http/server/multiThreadServer/ITcpSocket.cpp \
     $$PWD/http/controller/IControllerInterface.cpp \
 #    $$PWD/http/controller/IStatusControllerInterface.cpp \

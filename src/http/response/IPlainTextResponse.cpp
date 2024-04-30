@@ -1,5 +1,5 @@
 ﻿#include "IPlainTextResponse.h"
-#include "IResponseWareRaw.h"
+#include "IResponseRaw.h"
 
 $PackageWebCoreBegin
 

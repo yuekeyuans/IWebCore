@@ -11,7 +11,7 @@
 #include "http/jar/IMultiPartJar.h"
 #include "http/IHttpAssert.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
-#include "http/response/IResponseWareRaw.h"
+#include "http/response/IResponseRaw.h"
 #include "http/session/ISessionManager.h"
 
 $PackageWebCoreBegin
@@ -31,7 +31,7 @@ IReqRespRaw::IReqRespRaw(IRequest *request, QTcpSocket *socket)
     m_headerJar = new IHeaderJar(this);
     m_cookieJar = new ICookieJar(this);
     m_multiPartJar = new IMultiPartJar(this);
-    m_responseRaw = new IResponseWareRaw;
+    m_responseRaw = new IResponseRaw;
 
     if(ISessionManager::instance()->getSessionWare() != nullptr){
         m_sessionJar = new ISessionJar(this);

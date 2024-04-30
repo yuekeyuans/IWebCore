@@ -2,7 +2,7 @@
 
 #include "core/base/IToeUtil.h"
 #include "http/net/impl/IReqRespRaw.h"
-#include "http/response/IResponseWareRaw.h"
+#include "http/response/IResponseRaw.h"
 #include "http/IHttpAssert.h"
 
 $PackageWebCoreBegin
@@ -70,18 +70,18 @@ QStringList IHeaderJar::getRequestHeaderValues(const QString &key) const
 
 const QList<QPair<QString, QString> > &IHeaderJar::responseHeaders() const
 {
-    return m_raw->m_responseWare->headers;
+    return m_raw->m_responseRaw->headers;
 }
 
 QList<QPair<QString, QString> > &IHeaderJar::responseHeaders()
 {
-    return m_raw->m_responseHeaders;
+    return m_raw->m_responseRaw->headers;
 }
 
 QStringList IHeaderJar::responseHeaderKeys() const
 {
     QStringList ret;
-    for(const auto& pair : m_raw->m_responseHeaders){
+    for(const auto& pair : m_raw->m_responseRaw->headers){
         if(!ret.contains(pair.first)){
             ret.append(pair.first);
         }
@@ -91,7 +91,7 @@ QStringList IHeaderJar::responseHeaderKeys() const
 
 bool IHeaderJar::containResponseHeaderKey(const QString &key) const
 {
-    for(const auto& pair : m_raw->m_responseHeaders){
+    for(const auto& pair : m_raw->m_responseRaw->headers){
         if(pair.first == key){
             return true;
         }
@@ -114,7 +114,7 @@ QString IHeaderJar::getResponseHeaderValue(const QString &key, bool& ok) const
 QStringList IHeaderJar::getResponseHeaderValues(const QString &key) const
 {
     QStringList ret;
-    for(const auto& pair : m_raw->m_responseHeaders){
+    for(const auto& pair : m_raw->m_responseRaw->headers){
         if(pair.first == key){
             ret.append(pair.second);
         }
@@ -125,13 +125,13 @@ QStringList IHeaderJar::getResponseHeaderValues(const QString &key) const
 // NOTE: 注意这两者之间的差别， setReponseHeader是，如果有这个值，就替换， addResponseHeader 表示不管怎样，直接添加。
 void IHeaderJar::addResponseHeader(const QString &key, const QString &value)
 {
-    return m_raw->m_responseHeaders.append({key, value});
+    return m_raw->m_responseRaw->headers.append({key, value});
 }
 
 void IHeaderJar::setResponseHeader(const QString &key, const QString &value)
 {
-    auto it=m_raw->m_responseHeaders.begin();
-    for(; it!=m_raw->m_responseHeaders.end(); it++){
+    auto it=m_raw->m_responseRaw->headers.begin();
+    for(; it!=m_raw->m_responseRaw->headers.end(); it++){
         if(it->first == key){
             it->second = value;
             return;
@@ -143,7 +143,7 @@ void IHeaderJar::setResponseHeader(const QString &key, const QString &value)
 
 void IHeaderJar::deleteReponseHeader(const QString &key)
 {
-    auto& header = m_raw->m_responseHeaders;
+    auto& header = m_raw->m_responseRaw->headers;
     for(auto it=header.begin(); it!= header.end();){
         if(it->first == key){
             it = header.erase(it);

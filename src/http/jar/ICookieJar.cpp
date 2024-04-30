@@ -107,17 +107,17 @@ void ICookieJar::deleteRequestCookies(const QString &key)
 
 QList<ICookiePart> &ICookieJar::responseCookies()
 {
-    return m_raw->m_responseRaw->m_responseCookies;
+    return m_raw->m_responseRaw->cookies;
 }
 
 const QList<ICookiePart> &ICookieJar::responseCookies() const
 {
-    return m_raw->m_responseRaw->m_responseCookies;
+    return m_raw->m_responseRaw->cookies;
 }
 
 ICookiePart &ICookieJar::getResponseCookie(const QString &key, bool& ok)
 {
-    auto& cookies = m_raw->m_responseRaw->m_responseCookies;
+    auto& cookies = m_raw->m_responseRaw->cookies;
     for(auto it=cookies.begin(); it!=cookies.end(); it++){
         if(it->key == key){
             IToeUtil::setOk(ok, true);
@@ -130,7 +130,7 @@ ICookiePart &ICookieJar::getResponseCookie(const QString &key, bool& ok)
 
 const ICookiePart &ICookieJar::getResponseCookie(const QString &key, bool& ok) const
 {
-    auto& cookies = m_raw->m_responseRaw->m_responseCookies;
+    auto& cookies = m_raw->m_responseRaw->cookies;
     for(auto it=cookies.begin(); it!=cookies.end(); it++){
         if(it->key == key){
             IToeUtil::setOk(ok, true);
@@ -143,7 +143,7 @@ const ICookiePart &ICookieJar::getResponseCookie(const QString &key, bool& ok) c
 
 QStringList ICookieJar::responseCookieKeys() const
 {
-    const auto& cookies = m_raw->m_responseRaw->m_responseCookies;
+    const auto& cookies = m_raw->m_responseRaw->cookies;
     QStringList keys;
     for(const auto& part : cookies){
         keys.append(part.key);
@@ -153,7 +153,7 @@ QStringList ICookieJar::responseCookieKeys() const
 
 bool ICookieJar::containResponseCookieKey(const QString &key) const
 {
-    const auto& cookies = m_raw->m_responseRaw->m_responseCookies;
+    const auto& cookies = m_raw->m_responseRaw->cookies;
     for(const auto& part : cookies){
         if(part.key == key){
             return true;
@@ -174,7 +174,7 @@ QString ICookieJar::getResponseCookieValue(const QString &key, bool& ok)
 
 void ICookieJar::deleteResponseCookie(const QString &key)
 {
-    auto& cookies = m_raw->m_responseRaw->m_responseCookies;
+    auto& cookies = m_raw->m_responseRaw->cookies;
     for(auto it=cookies.begin(); it!= cookies.end();){
         if(it->key == key){
             it = cookies.erase(it);
@@ -186,7 +186,7 @@ void ICookieJar::deleteResponseCookie(const QString &key)
 
 void ICookieJar::addResponseCookie(const ICookiePart &cookiePart)
 {
-    m_raw->m_responseRaw->m_responseCookies.append(cookiePart);
+    m_raw->m_responseRaw->cookies.append(cookiePart);
 }
 
 void ICookieJar::addResponseCookie(const QString &key, const QString &value)
@@ -194,19 +194,19 @@ void ICookieJar::addResponseCookie(const QString &key, const QString &value)
     ICookiePart part;
     part.key = key;
     part.value = value;
-    m_raw->m_responseRaw->m_responseCookies.append(part);
+    m_raw->m_responseRaw->cookies.append(part);
 }
 
 void ICookieJar::addResponseCookie(const QString &key, const QString &value, int maxAge, bool secure, bool httpOnly)
 {
     ICookiePart part(key, value, maxAge, secure, httpOnly);
-    m_raw->m_responseRaw->m_responseCookies.append(part);
+    m_raw->m_responseRaw->cookies.append(part);
 }
 
 void ICookieJar::addResponseCookie(const QString &key, const QString &value, const QDateTime &expires, bool secure, bool httpOnly)
 {
     ICookiePart part(key, value, expires, secure, httpOnly);
-    m_raw->m_responseRaw->m_responseCookies.append(part);
+    m_raw->m_responseRaw->cookies.append(part);
 }
 
 bool ICookieJar::isValid() const

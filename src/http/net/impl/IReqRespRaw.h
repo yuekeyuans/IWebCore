@@ -10,7 +10,7 @@
 #include "http/jar/IMultiPart.h"
 #include "http/jar/ICookiePart.h"
 //#include "http/response/IResponseContent.h"
-#include "http/response/IResponseWareRaw.h"
+#include "http/response/IResponseRaw.h"
 
 $PackageWebCoreBegin
 
@@ -87,7 +87,7 @@ private:
 //    const IMultiPart m_invalidMultiPart{};      // TODO: 先写在这里，等一下chonggou
 
 public:
-    IResponseWareRaw* m_responseRaw{};
+    IResponseRaw* m_responseRaw{};
     // response
 //    IHttpStatusCode m_responseStatus {IHttpStatus::UNKNOWN};
 //    QString m_responseMime{IHttpMimeUtil::MIME_UNKNOWN_STRING};

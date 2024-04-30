@@ -1,5 +1,5 @@
 ﻿#include "IResponseManage.h"
-#include "IResponseWareRaw.h"
+#include "IResponseRaw.h"
 #include "IResponseWare.h"
 #include "IResponseTemplateRenderer.h"
 

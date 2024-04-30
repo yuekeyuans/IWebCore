@@ -46,8 +46,8 @@ QByteArray IResponseImpl::generateFirstLine()
 {
     QByteArray firstLine;
     firstLine.append(IHttpVersionUtil::toString(raw->m_httpVersion)).append(" ")
-        .append(IHttpStatus::toString(raw->m_responseRaw->statusCode)).append(" ")
-        .append(IHttpStatus::toStringDescription(raw->m_responseRaw->statusCode)).append(IConstantUtil::NewLine);
+        .append(IHttpStatus::toString(raw->m_responseRaw->status)).append(" ")
+        .append(IHttpStatus::toStringDescription(raw->m_responseRaw->status)).append(IConstantUtil::NewLine);
 
     return firstLine;
 }
@@ -57,7 +57,7 @@ QByteArray IResponseImpl::generateHeadersContent(int contentSize)
     if(contentSize != 0){
         raw->m_headerJar->setResponseHeader(IHttpHeader::ContentLength, QString::number(contentSize));
         if(!raw->m_headerJar->containResponseHeaderKey(IHttpHeader::ContentType)){
-            raw->m_headerJar->setResponseHeader(IHttpHeader::ContentType, raw->m_responseMime);
+            raw->m_headerJar->setResponseHeader(IHttpHeader::ContentType, raw->m_responseRaw->mime);
         }
     }
 
@@ -87,7 +87,7 @@ void IResponseImpl::generateExternalHeadersContent(QByteArray& content)
 QString IResponseImpl::generateCookieHeaders()
 {
     QStringList contents;
-    const auto& cookies = raw->m_responseCookies;
+    const auto& cookies = raw->m_responseRaw->cookies;
     for(auto cookie : cookies){
         auto val = cookie.toHeaderString();
         if(!val.isEmpty()){

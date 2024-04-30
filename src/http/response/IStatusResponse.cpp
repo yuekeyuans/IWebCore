@@ -8,16 +8,16 @@ $UseAssert(IHttpAssert)
 
 IStatusResponse::IStatusResponse(QString num)
 {
-    m_raw->statusCode = IHttpStatus::toStatus(num);
-    if(m_raw->statusCode == IHttpStatusCode::UNKNOWN){
+    m_raw->status = IHttpStatus::toStatus(num);
+    if(m_raw->status == IHttpStatusCode::UNKNOWN){
         $Ast->fatal("http_status_code_convert_failed");
     }
 }
 
 IStatusResponse::IStatusResponse(int code, const QString& errorMsg)
 {
-    m_raw->statusCode = IHttpStatus::toStatus(code);
-    if(m_raw->statusCode == IHttpStatusCode::UNKNOWN){
+    m_raw->status = IHttpStatus::toStatus(code);
+    if(m_raw->status == IHttpStatusCode::UNKNOWN){
         $Ast->fatal("http_status_code_convert_failed");
     }
 
@@ -29,7 +29,7 @@ IStatusResponse::IStatusResponse(int code, const QString& errorMsg)
 
 IStatusResponse::IStatusResponse(IHttpStatusCode status, const QString &errorMsg)
 {
-    m_raw->statusCode = status;
+    m_raw->status = status;
 
     if(!errorMsg.isEmpty()){
         m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);

@@ -7,7 +7,7 @@
 
 $PackageWebCoreBegin
 
-struct IResponseWareRaw
+struct IResponseRaw
 {
 public:
     void setMime(IHttpMime mime);
@@ -27,11 +27,11 @@ public:
     bool valid();
 
 public:
-    QString mimeString {IHttpMimeUtil::MIME_UNKNOWN_STRING};   // when mime is unknown and mimeString is not empty ,mimeString take effect.
-    IHttpStatusCode statusCode {IHttpStatus::UNKNOWN};
-    QMap<QString, QString> headers;
+    QString mime {IHttpMimeUtil::MIME_UNKNOWN_STRING};   // when mime is unknown and mimeString is not empty ,mimeString take effect.
+    IHttpStatusCode status {IHttpStatus::UNKNOWN};
+    QList<QPair<QString, QString>> headers;
+    QList<ICookiePart> cookies;
     IResponseContent content;
-    QList<ICookiePart> m_responseCookies;
 };
 
 $PackageWebCoreEnd

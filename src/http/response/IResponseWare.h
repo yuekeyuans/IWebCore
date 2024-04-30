@@ -3,7 +3,7 @@
 #include "core/base/IHeaderUtil.h"
 #include "http/biscuits/IHttpMime.h"
 #include "http/biscuits/IHttpStatus.h"
-#include "http/response/IResponseWareRaw.h"
+#include "http/response/IResponseRaw.h"
 #include "core/result/IResult.h"
 #include "IResponseContent.h"
 
@@ -40,7 +40,7 @@ public:
     virtual QSharedPointer<IResponseWare> create(QString) = 0;
 
 public:
-    IResponseWareRaw* m_raw{nullptr};
+    IResponseRaw* m_raw{nullptr};
 };
 
 $PackageWebCoreEnd

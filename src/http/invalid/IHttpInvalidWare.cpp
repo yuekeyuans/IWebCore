@@ -2,7 +2,7 @@
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
 #include "http/net/impl/IReqRespRaw.h"
-#include "http/response/IResponseWareRaw.h"
+#include "http/response/IResponseRaw.h"
 
 $PackageWebCoreBegin
 

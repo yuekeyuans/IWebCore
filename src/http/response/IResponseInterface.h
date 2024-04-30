@@ -11,7 +11,7 @@
 
 $PackageWebCoreBegin
 
-struct IResponseWareRaw;
+struct IResponseRaw;
 class IRedirectResponse;
 class IInvalidRepsonse;
 class IStatusResponse;
