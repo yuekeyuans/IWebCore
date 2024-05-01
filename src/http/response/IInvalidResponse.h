@@ -11,6 +11,7 @@ class IInvalidResponse : public IResponseInterface<IInvalidResponse>
     $AsResponse(IInvalidResponse)
 public:
     using IResponseInterface::IResponseInterface;
+    using IResponseInterface::operator [];
 
 public:
     IInvalidResponse() = default;

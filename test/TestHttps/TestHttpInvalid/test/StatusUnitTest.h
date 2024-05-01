@@ -2,7 +2,7 @@
 
 #include "ICore/IUnitTestInterface"
 
-class StatusUnitTest : public IUnitTestInterface<StatusUnitTest, false>
+class StatusUnitTest : public IUnitTestInterface<StatusUnitTest, true>
 {
     Q_OBJECT
 public:
@@ -10,6 +10,6 @@ public:
 
 private slots:
     void slotTestInterface();
-
+    void slotTestOperatorRef();
 };
 

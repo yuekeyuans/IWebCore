@@ -43,10 +43,11 @@ IResponseWare &IResponseWare::operator =(IResponseWare && rhs)
     return *this;
 }
 
-//QString &IResponseWare::operator[](const QString &header)
-//{
-//    return m_raw->headers[header];
-//}
+IResponseHeaderRef IResponseWare::operator[](const QString &header)
+{
+    auto value = m_raw->headers.value(header);
+    return IResponseHeaderRef(m_raw, header, value);
+}
 
 const QString& IResponseWare::mime() const
 {

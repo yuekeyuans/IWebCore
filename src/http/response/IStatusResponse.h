@@ -12,6 +12,7 @@ class IStatusResponse : public IResponseInterface<IStatusResponse>
     $AsResponse(IStatusResponse)
 public:
     using IResponseInterface::IResponseInterface;
+    using IResponseInterface::operator [];
 
 public:
     IStatusResponse() = default;

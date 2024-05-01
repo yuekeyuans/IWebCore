@@ -1,11 +1,12 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "core/result/IResult.h"
 #include "http/biscuits/IHttpMime.h"
 #include "http/biscuits/IHttpStatus.h"
 #include "http/net/impl/IResponseRaw.h"
-#include "core/result/IResult.h"
 #include "IResponseContent.h"
+#include "http/response/IResponseHeaderRef.h"
 
 $PackageWebCoreBegin
 
@@ -20,7 +21,7 @@ public:
     IResponseWare(IResponseWare&&);
     IResponseWare& operator =(const IResponseWare&);
     IResponseWare& operator =(IResponseWare&&);
-//    QString& operator[](const QString& header);
+    IResponseHeaderRef operator[](const QString& header);
 
 public:
     const QString& mime() const;

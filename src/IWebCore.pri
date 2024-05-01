@@ -112,6 +112,7 @@ HEADERS += \
     $$PWD/http/nody/INodyManage.h \
     $$PWD/http/nody/INodyParser.h \
     $$PWD/http/nody/INodyRenderer.h \
+    $$PWD/http/response/IResponseHeaderRef.h \
     $$PWD/http/response/IStatusResponse.h \
     $$PWD/http/server/multiThreadServer/IHttpServerRunnable.h \
     $$PWD/orm/IOrmAssert.h \
@@ -293,6 +294,7 @@ SOURCES += \
     $$PWD/http/nody/INodyManage.cpp \
     $$PWD/http/nody/INodyParser.cpp \
     $$PWD/http/nody/INodyRenderer.cpp \
+    $$PWD/http/response/IResponseHeaderRef.cpp \
     $$PWD/http/response/IStatusResponse.cpp \
     $$PWD/http/server/multiThreadServer/IHttpServerRunnable.cpp \
     $$PWD/orm/IOrmAssert.cpp \
