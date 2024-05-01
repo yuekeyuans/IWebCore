@@ -1,7 +1,7 @@
 ﻿#include "IResponseWare.h"
 
 #include "core/base/IConstantUtil.h"
-#include "http/response/IResponseRaw.h"
+#include "http/net/impl/IResponseRaw.h"
 #include "http/response/IRedirectResponse.h"
 #include "http/IHttpAssert.h"
 

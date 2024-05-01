@@ -10,7 +10,7 @@
 #include "http/jar/IMultiPart.h"
 #include "http/jar/ICookiePart.h"
 //#include "http/response/IResponseContent.h"
-#include "http/response/IResponseRaw.h"
+#include "http/net/impl/IResponseRaw.h"
 
 $PackageWebCoreBegin
 

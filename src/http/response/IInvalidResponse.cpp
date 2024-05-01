@@ -1,5 +1,5 @@
 ﻿#include "IInvalidResponse.h"
-#include "http/response/IResponseRaw.h"
+#include "http/net/impl/IResponseRaw.h"
 
 $PackageWebCoreBegin
 

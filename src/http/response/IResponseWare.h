@@ -3,7 +3,7 @@
 #include "core/base/IHeaderUtil.h"
 #include "http/biscuits/IHttpMime.h"
 #include "http/biscuits/IHttpStatus.h"
-#include "http/response/IResponseRaw.h"
+#include "http/net/impl/IResponseRaw.h"
 #include "core/result/IResult.h"
 #include "IResponseContent.h"
 

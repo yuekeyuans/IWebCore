@@ -1,7 +1,7 @@
 ﻿#include "IResponseManage.h"
-#include "IResponseRaw.h"
 #include "IResponseWare.h"
 #include "IResponseTemplateRenderer.h"
+#include "http/net/impl/IResponseRaw.h"
 
 $PackageWebCoreBegin
 

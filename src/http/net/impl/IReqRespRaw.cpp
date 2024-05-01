@@ -11,7 +11,7 @@
 #include "http/jar/IMultiPartJar.h"
 #include "http/IHttpAssert.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
-#include "http/response/IResponseRaw.h"
+#include "http/net/impl/IResponseRaw.h"
 #include "http/session/ISessionManager.h"
 
 $PackageWebCoreBegin

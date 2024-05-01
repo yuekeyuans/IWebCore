@@ -1,6 +1,6 @@
 ﻿#include "IJsonResponse.h"
 #include "IResponseManage.h"
-#include "IResponseRaw.h"
+#include "http/net/impl/IResponseRaw.h"
 
 $PackageWebCoreBegin
 

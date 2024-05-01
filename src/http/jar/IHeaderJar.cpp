@@ -2,7 +2,7 @@
 
 #include "core/base/IToeUtil.h"
 #include "http/net/impl/IReqRespRaw.h"
-#include "http/response/IResponseRaw.h"
+#include "http/net/impl/IResponseRaw.h"
 #include "http/IHttpAssert.h"
 
 $PackageWebCoreBegin
