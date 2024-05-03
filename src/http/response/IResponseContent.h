@@ -9,7 +9,8 @@ $PackageWebCoreBegin
 struct IResponseContent
 {
 public:
-    enum Type{
+    enum class Type{
+        Empty,
         String,
         Bytes,
         File,
@@ -32,7 +33,7 @@ public:
     QByteArray getAsBytes();
 
 public:
-    Type type{Type::Bytes};
+    Type type{Type::Empty};
     QString contentString;
     QByteArray contentBytes;
     QString contentFilePath;

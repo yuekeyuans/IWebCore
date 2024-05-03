@@ -197,7 +197,7 @@ IResponse& IResponse::setContent(IResponseWare *response)
 {
     std::swap(raw->m_responseRaw->content, response->getContent());
 
-    if(raw->m_responseRaw->content.type == IResponseContent::Invalid){
+    if(raw->m_responseRaw->content.type == IResponseContent::Type::Invalid){
         setContent(response->getContent().contentInvalid);
         raw->m_responseRaw->mime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
     }

@@ -9,8 +9,8 @@
 $PackageWebCoreBegin
 
 IResponseImpl::IResponseImpl(IReqRespRaw *raw)
+    : raw(raw)
 {
-    this->raw = raw;
 }
 
 bool IResponseImpl::respond()

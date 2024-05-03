@@ -1,18 +1,26 @@
 ﻿#include "IResponseContent.h"
 #include "core/base/IFileUtil.h"
+#include "http/IHttpAssert.h"
 
 $PackageWebCoreBegin
+
+$UseAssert(IHttpAssert)
 
 void IResponseContent::append(const QString &content)
 {
     switch (type) {
-    case Bytes:
+    case Type::Empty:
+        type = Type::String;
+        contentString = content;
+        break;
+    case Type::Bytes:
         contentBytes.append(content.toUtf8());
         break;
-    case String:
+    case Type::String:
         contentString.append(content);
         break;
     default:
+//        $Ast->warn();
         return;
     }
 }
@@ -20,10 +28,10 @@ void IResponseContent::append(const QString &content)
 void IResponseContent::append(const QByteArray &content)
 {
     switch (type) {
-    case Bytes:
+    case Type::Bytes:
         contentBytes.append(content);
         break;
-    case String:
+    case Type::String:
         contentString.append(content);
         break;
     default:
@@ -35,7 +43,7 @@ void IResponseContent::append(const QByteArray &content)
 void IResponseContent::append(QByteArray &&content)
 {
     switch (type) {
-    case Bytes:{
+    case Type::Bytes:{
         if(contentBytes.isEmpty()){
             contentBytes = std::move(content);
         }else{
@@ -43,7 +51,7 @@ void IResponseContent::append(QByteArray &&content)
         }
     }
         break;
-    case String:
+    case Type::String:
         contentString.append(content);
         break;
     default:
@@ -97,13 +105,13 @@ QByteArray IResponseContent::getAsBytes()
     // TODO: check ok;
     bool ok;
     switch(type){
-    case Bytes:
+    case Type::Bytes:
         return contentBytes;
-    case String:
+    case Type::String:
         return contentString.toUtf8();
-    case File:
+    case Type::File:
         return IFileUtil::readFileAsByteArray(contentFilePath, ok);
-    case Invalid:
+    case Type::Invalid:
         qFatal("invalid should not be called, this should be preprocessed");
     }
     return {};
