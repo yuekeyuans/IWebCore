@@ -12,7 +12,7 @@ $PackageWebCoreBegin
 
 $UseAssert(IHttpAssert)
 
-namespace IFileResponseHelper
+namespace detail
 {
     static QString getContentDispositionAttachment(const QString& filePath);
     static bool setFilePath(IResponseRaw* raw, const QString& path);
@@ -25,8 +25,8 @@ IFileResponse::IFileResponse()
 
 IFileResponse::IFileResponse(const QString &data)
 {
-    if(IFileResponseHelper::setFilePath(m_raw, data)){
-        IFileResponseHelper::checkAndUpdateContentDisposition(m_raw);
+    if(detail::setFilePath(m_raw, data)){
+        detail::checkAndUpdateContentDisposition(m_raw);
     }else{
         m_raw->setContent(IHttpNotFoundInvalid("file not found"));
     }
@@ -35,7 +35,7 @@ IFileResponse::IFileResponse(const QString &data)
 void IFileResponse::enableContentDisposition()
 {
     m_raw->headers.insert("Content-Disposition",
-                                     IFileResponseHelper::getContentDispositionAttachment(m_raw->content.contentString));
+                                     detail::getContentDispositionAttachment(m_raw->content.contentString));
 }
 
 QString IFileResponse::getPrefixMatcher()
@@ -52,14 +52,14 @@ IFileResponse operator"" _file(const char* str, size_t size)
     return response;
 }
 
-QString IFileResponseHelper::getContentDispositionAttachment(const QString& filePath)
+QString detail::getContentDispositionAttachment(const QString& filePath)
 {
     auto fileName  = QFileInfo(filePath).fileName();
     return QString("attachment;filename=").append(ICodecUtil::urlEncode(fileName));
 }
 
 // TODO: 这里的参数不太对，应该对应很多路径，但是这里只有一个
-bool IFileResponseHelper::setFilePath(IResponseRaw* raw, const QString& path)
+bool detail::setFilePath(IResponseRaw* raw, const QString& path)
 {
     QString realPath = path;
     if(!path.startsWith(":/") && !QFileInfo(path).exists()){
@@ -78,7 +78,7 @@ bool IFileResponseHelper::setFilePath(IResponseRaw* raw, const QString& path)
     return false;
 }
 
-void IFileResponseHelper::checkAndUpdateContentDisposition(IResponseRaw* raw)
+void detail::checkAndUpdateContentDisposition(IResponseRaw* raw)
 {
     static $Bool enabled {"http.fileService.contentDisposition.enabled"};
     static $QStringList suffixes{"http.fileService.contentDisposition.suffixes"};
@@ -89,7 +89,7 @@ void IFileResponseHelper::checkAndUpdateContentDisposition(IResponseRaw* raw)
             && suffixes.value().contains(IFileUtil::getFileSuffix(raw->content.contentString)))
     {
         raw->headers.insert("Content-Disposition",
-                                       IFileResponseHelper::getContentDispositionAttachment(raw->content.contentString));
+                                       detail::getContentDispositionAttachment(raw->content.contentString));
     }
 }
 

@@ -29,11 +29,6 @@ namespace IConstantUtil
     inline static constexpr char ServerName[] = "IWebCore";
     inline static constexpr char MasterServer[] = "MasterServer";
 
-    // length
-    inline static constexpr int Request_Url_Max_Length = (2048 + 35);  // 2083
-    inline static constexpr int Request_Header_Max_Length = (1024 * 8); // 8K
-    inline static constexpr int Request_Body_Max_Length   = (1024 * 1024 * 4);  // 4M
-
     // session
     inline static constexpr double IDefaultOrderValue = 50;
 }

@@ -5,7 +5,7 @@
 #include "core/base/IHeaderUtil.h"
 #include "core/base/ICodecUtil.h"
 #include "core/base/IToeUtil.h"
-#include "core/config/IContextManage.h"
+#include "core/config/IProfileImport.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/jar/IHeaderJar.h"
 #include "http/net/IRequest.h"
@@ -327,18 +327,20 @@ bool IRequestImpl::resolvePeerInfo()
 
 bool IRequestImpl::resolveFirstLine()
 {
+    static $Int urlMaxLength("http.urlMaxLength");
+
     if(!raw->canSocketReadLine()){
         raw->setInvalid(IHttpBadRequestInvalid("can't read from socket"));
         return false;
     }
-    auto line = raw->readSocketLine(IConstantUtil::Request_Url_Max_Length);
+    auto line = raw->readSocketLine(urlMaxLength);
 
     if(line.length() == 0){
         raw->setInvalid(IHttpBadRequestInvalid("can't read from socket"));
         return false;
     }
 
-    if(line.length() >=IConstantUtil::Request_Url_Max_Length){
+    if(line.length() >= urlMaxLength){
          raw->setInvalid(IHttpBadRequestInvalid("request url is too long"));
          return false;
     }
@@ -386,13 +388,14 @@ bool IRequestImpl::resolveFirstLine()
 
 bool IRequestImpl::resolveHeaders()
 {
-    int totalCount = 0;
+    static $Int headerMaxLength("http.headerMaxLength");
 
+    int totalCount = 0;
     QByteArray content;
     while((content = raw->readSocketLine()) != "\r\n"){
 
         totalCount += content.length();
-        if(totalCount > IConstantUtil::Request_Header_Max_Length){  // check header length;
+        if(totalCount > headerMaxLength){  // check header length;
             raw->setInvalid(IHttpBadRequestInvalid("request of headers too large"));
             return false;
         }
@@ -420,7 +423,6 @@ bool IRequestImpl::resolveCookies()
         bool ok;
         const QString rawCookie = raw->m_headerJar->getRequestHeaderValue(IHttpHeader::Cookie, ok);
         // TODO: 检查 ok 的值
-
         QString key, value;
         int index;
         auto parts = rawCookie.split(splitString);
@@ -444,6 +446,8 @@ bool IRequestImpl::resolveCookies()
 // TODO: whether GET method can reslove multipart data?
 bool IRequestImpl::resolveBody()
 {
+    static $Int bodyMaxLength("http.bodyMaxLength");
+
     if(raw->m_method == IHttpMethod::GET) { // when get, do not resolve.
         return true;
     }
@@ -453,7 +457,7 @@ bool IRequestImpl::resolveBody()
         return true;
     }
 
-    if(length > IConstantUtil::Request_Body_Max_Length){
+    if(length > bodyMaxLength){
         raw->setInvalid(IHttpBadRequestInvalid("the request body is too large"));
         return false;
     }

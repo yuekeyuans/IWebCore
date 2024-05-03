@@ -3,6 +3,9 @@
         "ip": "127.0.0.1",
         "port": 8550,
         "printTrace": true,
+        "urlMaxLength" : 2083,
+        "headerMaxLength":8192,
+        "bodyMaxLength": 4194304,
         "defaultPageNames": [
             "index.html",
             "index.htm",
