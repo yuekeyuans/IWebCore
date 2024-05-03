@@ -6,6 +6,17 @@ $PackageWebCoreBegin
 
 $UseAssert(IHttpAssert)
 
+namespace detail
+{
+    inline static QString getTypename(IResponseContent::Type type)
+    {
+        QStringList typeString = {
+            "Empty", "String", "Bytes", "File", "Invalid",
+        };
+        return typeString[(int)type];
+    }
+}
+
 void IResponseContent::append(const QString &content)
 {
     switch (type) {
@@ -20,7 +31,7 @@ void IResponseContent::append(const QString &content)
         contentString.append(content);
         break;
     default:
-//        $Ast->warn();
+        $Ast->warn("response_incorrect_append", "current type is " + detail::getTypename(type));
         return;
     }
 }
@@ -28,6 +39,10 @@ void IResponseContent::append(const QString &content)
 void IResponseContent::append(const QByteArray &content)
 {
     switch (type) {
+    case Type::Empty:
+        type = Type::Empty;
+        contentBytes = content;
+        break;
     case Type::Bytes:
         contentBytes.append(content);
         break;
@@ -35,27 +50,7 @@ void IResponseContent::append(const QByteArray &content)
         contentString.append(content);
         break;
     default:
-        // NOTE: 理论上这里应该报错，但是又不太合逻辑，再等等，再想想
-        return;
-    }
-}
-
-void IResponseContent::append(QByteArray &&content)
-{
-    switch (type) {
-    case Type::Bytes:{
-        if(contentBytes.isEmpty()){
-            contentBytes = std::move(content);
-        }else{
-            contentBytes.append(std::forward<QByteArray>(content));
-        }
-    }
-        break;
-    case Type::String:
-        contentString.append(content);
-        break;
-    default:
-        // NOTE: 理论上这里应该报错，但是又不太合逻辑，再等等，再想想
+        $Ast->warn("response_incorrect_append", "current type is " + detail::getTypename(type));
         return;
     }
 }
@@ -102,9 +97,10 @@ void IResponseContent::setContent(IHttpInvalidUnit ware)
 
 QByteArray IResponseContent::getAsBytes()
 {
-    // TODO: check ok;
     bool ok;
     switch(type){
+    case Type::Empty:
+        return {};
     case Type::Bytes:
         return contentBytes;
     case Type::String:
@@ -112,6 +108,7 @@ QByteArray IResponseContent::getAsBytes()
     case Type::File:
         return IFileUtil::readFileAsByteArray(contentFilePath, ok);
     case Type::Invalid:
+        $Ast->fatal("response_invalid_type_error");
         qFatal("invalid should not be called, this should be preprocessed");
     }
     return {};

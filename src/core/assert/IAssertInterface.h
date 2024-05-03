@@ -13,12 +13,15 @@ protected:
 
 public:
     void fatal(const QString& name);
+    void fatal(const QString& name, const QString& reason);
     void fatal(const QString& name, const IAssertInfo& info);
 
     void warn(const QString& name);
+    void warn(const QString& name, const QString& reason);
     void warn(const QString& name, const IAssertInfo& info);
 
     void debug(const QString& name);
+    void debug(const QString& name, const QString& reason);
     void debug(const QString& name, const IAssertInfo& info);
 
 protected:

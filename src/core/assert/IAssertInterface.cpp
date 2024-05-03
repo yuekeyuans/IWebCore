@@ -19,6 +19,13 @@ inline void IAssertInterface::fatal(const QString &name)
     }
 }
 
+inline void IAssertInterface::fatal(const QString &name, const QString &reason)
+{
+    IAssertInfo info;
+    info.reason = reason;
+    fatal(name, info);
+}
+
 inline void IAssertInterface::fatal(const QString &name, const IAssertInfo &info)
 {
     if(m_fatal.contains(name)){
@@ -35,6 +42,13 @@ inline void IAssertInterface::warn(const QString &name)
     }
 }
 
+inline void IAssertInterface::warn(const QString &name, const QString &reason)
+{
+    IAssertInfo info;
+    info.reason = reason;
+    warn(name, info);
+}
+
 inline void IAssertInterface::warn(const QString &name, const IAssertInfo &info)
 {
     if(m_warn.contains(name)){
@@ -49,6 +63,13 @@ inline void IAssertInterface::debug(const QString &name)
         auto str = IAssertInterfaceHelper::getOutput(name, m_warn[name]);
         qDebug().noquote() << str;
     }
+}
+
+inline void IAssertInterface::debug(const QString &name, const QString &reason)
+{
+    IAssertInfo info;
+    info.reason = reason;
+    debug(name, info);
 }
 
 inline void IAssertInterface::debug(const QString &name, const IAssertInfo &info)

@@ -48,11 +48,14 @@ void IHttpAssert::loadAssert()
     addFatal("http_mime_already_exist", "user register mime already exist, please duplicated this mime");
     addFatal("http_status_code_convert_failed", "number can not match any status code");
 
-
     addWarn("register_the_same_url", "registration can`t match the leaf or the leaf already exist");
 
     addWarn("process_void_return_with_request_not_set_mime_error");
     addWarn("process_void_return_with_request_not_set_status_error");
+
+    // response
+    addWarn("response_incorrect_append", "this type of response can not use append to enincrease content");
+    addFatal("response_invalid_type_error", "all invalid type should be preprocessed before response to user");
 }
 
 $PackageWebCoreEnd
