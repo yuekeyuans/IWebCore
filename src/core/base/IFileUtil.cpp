@@ -55,4 +55,16 @@ QString IFileUtil::getFileSuffix(const QString &path)
     return QFileInfo(path).completeSuffix();
 }
 
+void IFileUtil::assertWhenFileInvalid(const QString &path)
+{
+    QFile file(path);
+    if(!file.exists()){
+        qWarning() << "file not exist";
+    }
+    if(!file.open(QFile::ReadOnly)){
+        qWarning() << "file can not be opened";
+    }
+    file.close();
+}
+
 $PackageWebCoreEnd

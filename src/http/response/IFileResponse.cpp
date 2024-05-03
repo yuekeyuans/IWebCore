@@ -35,7 +35,7 @@ IFileResponse::IFileResponse(const QString &data)
 void IFileResponse::enableContentDisposition()
 {
     m_raw->headers.insert("Content-Disposition",
-                                     IFileResponseHelper::getContentDispositionAttachment(m_raw->content.contentFilePath));
+                                     IFileResponseHelper::getContentDispositionAttachment(m_raw->content.contentString));
 }
 
 QString IFileResponse::getPrefixMatcher()
@@ -84,12 +84,12 @@ void IFileResponseHelper::checkAndUpdateContentDisposition(IResponseRaw* raw)
     static $QStringList suffixes{"http.fileService.contentDisposition.suffixes"};
     if(enabled
             && raw->content.type == IResponseContent::Type::File
-            && !raw->content.contentFilePath.isEmpty()
+            && !raw->content.contentString.isEmpty()
             && suffixes.isFound()
-            && suffixes.value().contains(IFileUtil::getFileSuffix(raw->content.contentFilePath)))
+            && suffixes.value().contains(IFileUtil::getFileSuffix(raw->content.contentString)))
     {
         raw->headers.insert("Content-Disposition",
-                                       IFileResponseHelper::getContentDispositionAttachment(raw->content.contentFilePath));
+                                       IFileResponseHelper::getContentDispositionAttachment(raw->content.contentString));
     }
 }
 

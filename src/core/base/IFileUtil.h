@@ -5,8 +5,8 @@
 
 $PackageWebCoreBegin
 
-namespace IFileUtil {
-
+namespace IFileUtil
+{
     bool isFileExist(const QString& path);
 
     QString readFileAsString(const QString& path, bool& ok);
@@ -22,6 +22,8 @@ namespace IFileUtil {
 
     template<typename T, typename...Args>
     QString joinPath(const T&first, const Args&...rest);
+
+    void assertWhenFileInvalid(const QString& path);
 }
 
 template<typename T>

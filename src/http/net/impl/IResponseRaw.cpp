@@ -45,13 +45,13 @@ void IResponseRaw::setContent(const char *value)
 void IResponseRaw::setContent(const QFileInfo &value)
 {
     content.type = IResponseContent::Type::File;
-    content.contentFilePath = value.absoluteFilePath();
+    content.contentString = value.absoluteFilePath();
 }
 
 void IResponseRaw::setContent(const QFile &file)
 {
     content.type = IResponseContent::Type::File;
-    content.contentFilePath = QFileInfo(file).absoluteFilePath();
+    content.contentString = QFileInfo(file).absoluteFilePath();
 }
 
 void IResponseRaw::setContent(IHttpInvalidUnit ware)
@@ -62,7 +62,7 @@ void IResponseRaw::setContent(IHttpInvalidUnit ware)
 void IResponseRaw::setFileContent(const QString &filePath)
 {
     content.type = IResponseContent::Type::File;
-    content.contentFilePath = filePath;
+    content.contentString = filePath;
 }
 
 bool IResponseRaw::valid()

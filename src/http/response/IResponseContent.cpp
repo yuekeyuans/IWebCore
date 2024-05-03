@@ -105,7 +105,10 @@ QByteArray IResponseContent::getAsBytes()
     case Type::String:
         return contentString.toUtf8();
     case Type::File:
-        return IFileUtil::readFileAsByteArray(contentFilePath);
+        if(IConstantUtil::DebugMode){
+            IFileUtil::assertWhenFileInvalid(contentString);
+        }
+        return IFileUtil::readFileAsByteArray(contentString);
     case Type::Invalid:
         $Ast->fatal("response_invalid_type_error");
     }

@@ -35,7 +35,7 @@ public:
     Type type{Type::Empty};
     QString contentString;
     QByteArray contentBytes;
-    QString contentFilePath;
+//    QString contentFilePath;
     IHttpInvalidUnit contentInvalid;
 };
 
