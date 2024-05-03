@@ -1,3 +1,5 @@
-﻿#include "core/test/IUnitTestInterface.h"
+﻿#pragma once
 
-using namespace IWebCore;
+#include "core/test/IUnitTestInterface.h"
+
+$PackageWebCoreUsing

@@ -1,3 +1,0 @@
-﻿#pragma once
-
-#include "core/test/ITestPreProcessor.h"

@@ -1,4 +1,6 @@
-﻿#include "http/controller/IHttpControllerInterface.h"
+﻿#pragma once
+
+#include "http/controller/IHttpControllerInterface.h"
 
 #include "http/controller/pp/IControlVariablePreProcessor.h"
 #include "http/controller/pp/IControllerPreProcessor.h"
@@ -11,4 +13,4 @@
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
 
-using namespace IWebCore;
+$PackageWebCoreUsing

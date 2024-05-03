@@ -1,3 +1,5 @@
-﻿#include "http/invalid/IHttpInvalidInterface.h"
+﻿#pragma once
 
-using namespace IWebCore;
+#include "http/invalid/IHttpInvalidInterface.h"
+
+$PackageWebCoreUsing

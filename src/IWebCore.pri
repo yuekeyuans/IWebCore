@@ -9,7 +9,6 @@ include($$PWD/core/package/package.pri)
 PRECOMPILED_HEADER = $$PWD/core/base/IHeaderUtil.h
 
 HEADERS += \
-    $$PWD/IWeb/IHttp \
     $$PWD/IWeb/IHttpControllerInterface \
     $$PWD/core/base/ICodecUtil.h \
     $$PWD/core/base/IConstantUtil.h \

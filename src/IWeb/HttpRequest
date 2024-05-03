@@ -1,11 +1,12 @@
-﻿#include <HTTPRequest.hpp>
+﻿#pragma once
 
+#include <HTTPRequest.hpp>
 #include "core/base/IHeaderUtil.h"
 #include "http/biscuits/IHttpStatus.h"
 
-using namespace IWebCore;
+$PackageWebCoreUsing
 
-namespace HttpRequestHelper
+namespace HttpRequestUtil
 {
 inline QString toBody(const http::Response& response)
 {

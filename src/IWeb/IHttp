@@ -1,5 +1,0 @@
-﻿#pragma once
-
-#include "IWeb/IHttpServer"
-#include "IWeb/IHttpControllerInterface"
-#include "http/IHttpAnnomacro.h"
