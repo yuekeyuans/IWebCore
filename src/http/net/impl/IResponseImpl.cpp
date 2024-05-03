@@ -61,13 +61,12 @@ QByteArray IResponseImpl::generateHeadersContent(int contentSize)
 
 void IResponseImpl::generateExternalHeadersContent(QByteArray& content)
 {
-    content.append("Server: ").append(IConstantUtil::ServerName).append(IConstantUtil::NewLine);
+    content.append("Server: IWebCore").append(IConstantUtil::NewLine);
 
     auto cookieContent = generateCookieHeaders();
     if(!cookieContent.isEmpty()){
         content.append(cookieContent).append(IConstantUtil::NewLine);
     }
-
 }
 
 QString IResponseImpl::generateCookieHeaders()

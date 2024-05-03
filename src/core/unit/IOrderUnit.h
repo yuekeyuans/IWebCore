@@ -18,7 +18,7 @@ public:
 
 inline double IOrderUnit::order() const
 {
-    return IConstantUtil::IDefaultOrderValue;
+    return 50;
 }
 
 template<typename T>
