@@ -2,25 +2,25 @@
 
 $PackageWebCoreBegin
 
-class IBeanTypeManagePrivate
+class IBeanTypeManageImpl
 {
 public:
     QStringList m_beanNames;
 };
 
-inline IBeanTypeManage::IBeanTypeManage()
-    : d_ptr(std::make_shared<IBeanTypeManagePrivate>())
+IBeanTypeManage::IBeanTypeManage()
+    : d_ptr(std::make_shared<IBeanTypeManageImpl>())
 {
 }
 
-inline void IBeanTypeManage::registerBeanType(const QString &typeName)
+void IBeanTypeManage::registerBeanType(const QString &typeName)
 {
     auto name = typeName.split(' ').last();
     auto inst = instance();
     inst->d_ptr->m_beanNames.append(name);
 }
 
-inline bool IBeanTypeManage::containBean(const QString &typeName)
+bool IBeanTypeManage::containBean(const QString &typeName)
 {
     auto inst = instance();
     QString name = typeName;

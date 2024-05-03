@@ -10,5 +10,4 @@
 
 #define $UseDataPtr(klass)   \
 private:    \
-    Q_DECLARE_PRIVATE(klass);    \
-    std::shared_ptr<klass##Private> d_ptr {nullptr};
+    std::shared_ptr<klass##Impl> d_ptr {nullptr};

@@ -7,35 +7,33 @@ $PackageWebCoreBegin
 
 $UseGlobalAssert()
 
-namespace IApplicationHelper
+namespace detail
 {
-    QStringList fromArguments(int argc, char** argv);
+    static QStringList fromArguments(int argc, char** argv);
     static int args = 0;
 }
 
-class IApplicationPrivate
+class IApplicationImpl
 {
 public:
     QStringList m_arguments;
     static IApplication* s_master;
 };
 
-IApplication* IApplicationPrivate::s_master = nullptr;
+IApplication* IApplicationImpl::s_master = nullptr;
 
 IApplication::IApplication()
-    : QCoreApplication(IApplicationHelper::args, nullptr), d_ptr(std::make_shared<IApplicationPrivate>())
+    : QCoreApplication(detail::args, nullptr), d_ptr(std::make_shared<IApplicationImpl>())
 {
-    Q_D(IApplication);
-    d->s_master = this;
+    d_ptr->s_master = this;
     ITaskManage::run();
 }
 
 IApplication::IApplication(int argc, char **argv)
-    : QCoreApplication(argc, argv), d_ptr(std::make_shared<IApplicationPrivate>())
+    : QCoreApplication(argc, argv), d_ptr(std::make_shared<IApplicationImpl>())
 {
-    Q_D(IApplication);
-    d->m_arguments = IApplicationHelper::fromArguments(argc, argv);
-    d->s_master = this;
+    d_ptr->m_arguments = detail::fromArguments(argc, argv);
+    d_ptr->s_master = this;
     ITaskManage::run();
 }
 
@@ -46,20 +44,20 @@ IApplication::~IApplication()
 
 const IApplication *IApplication::theInstance()
 {
-    if(IApplicationPrivate::s_master == nullptr){
+    if(IApplicationImpl::s_master == nullptr){
         $GlobalAssert->fatal("IApplication_not_created");
     }
 
-    return IApplicationPrivate::s_master;
+    return IApplicationImpl::s_master;
 }
 
 const QStringList& IApplication::arguments()
 {
-    auto d_ptr = IApplication::theInstance()->d_func();
+    auto d_ptr = IApplication::theInstance()->d_ptr;
     return d_ptr->m_arguments;
 }
 
-QStringList IApplicationHelper::fromArguments(int argc, char** argv){
+QStringList detail::fromArguments(int argc, char** argv){
     QStringList ret;
     for(int i=0; i<argc; i++){
         ret.append(argv[i]);
