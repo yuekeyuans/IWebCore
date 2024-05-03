@@ -74,7 +74,6 @@ public:
     bool valid() const;
 
 private:
-    IResponseImpl*  m_impl{nullptr};
     IReqRespRaw*    m_raw{nullptr};
 };
 

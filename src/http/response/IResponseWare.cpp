@@ -20,8 +20,7 @@ IResponseWare::~IResponseWare()
     m_raw = nullptr;
 }
 
-IResponseWare::IResponseWare(const IResponseWare &rhs)
-    : m_raw(new IResponseRaw(*rhs.m_raw))
+IResponseWare::IResponseWare(const IResponseWare &rhs) : m_raw(new IResponseRaw(*rhs.m_raw))
 {
 }
 

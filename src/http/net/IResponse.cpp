@@ -21,15 +21,12 @@ IResponse::IResponse()
     qFatal(IConstantUtil::UnVisibleMethod);
 }
 
-IResponse::IResponse(IRequest *request)
+IResponse::IResponse(IRequest *request) : m_raw(request->getRaw())
 {
-    m_raw = request->getRaw();
-    m_impl = new IResponseImpl(m_raw);
 }
 
 IResponse::~IResponse()
 {
-    delete m_impl;
 }
 
 IResponse::IResponse(const IResponse &)
@@ -276,7 +273,7 @@ QVariant IResponse::getAttribute(const QString &name, const QVariant &defaultVal
 
 bool IResponse::respond()
 {
-    return m_impl->respond();
+    return IResponseImpl(m_raw).respond();
 }
 
 bool IResponse::valid() const
