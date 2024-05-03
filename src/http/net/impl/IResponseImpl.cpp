@@ -15,26 +15,14 @@ IResponseImpl::IResponseImpl(IReqRespRaw *raw)
 
 bool IResponseImpl::respond()
 {
-//    if(!raw->valid()){
-//        auto path = IResponseManage::instance()->getTemplateRenderer()->getPage(raw->m_responseStatus);
-//        if(!path.isEmpty()){
-//            QJsonObject obj;
-//            obj["status_code"] = IHttpStatus::toString(raw->m_responseStatus);
-//            obj["error_info"] = raw->m_responseContent.contentString;
-
-//            IRendererResponse response(path, obj);
-//            raw->m_responseMime = IHttpMimeUtil::toString(IHttpMime::TEXT_HTML_UTF8);
-//            raw->m_responseContent.setContent(response.getContent().contentString);
-//        }
-//    }
-
     const auto& content = raw->m_responseRaw->content.getAsBytes();
-
     raw->writeSocket(generateFirstLine());
-    raw->writeSocket(generateHeadersContent(content.size()));
+    if(!content.isEmpty()){
+        raw->writeSocket(generateHeadersContent(content.size()));
+    }
     raw->writeSocket(IConstantUtil::NewLine);
 
-    if(content.length() != 0 && raw->m_method != IHttpMethod::HEAD){       // 处理 head 方法
+    if(!content.isEmpty() && raw->m_method != IHttpMethod::HEAD){       // 处理 head 方法
         raw->writeSocket(content);
     }
 
@@ -56,17 +44,17 @@ QByteArray IResponseImpl::generateHeadersContent(int contentSize)
 {
     if(contentSize != 0){
         raw->m_headerJar->setResponseHeader(IHttpHeader::ContentLength, QString::number(contentSize));
-        if(!raw->m_headerJar->containResponseHeaderKey(IHttpHeader::ContentType)){
+        if(!raw->m_headerJar->containResponseHeaderKey(IHttpHeader::ContentType)
+                && !raw->m_responseRaw->mime.isEmpty()){
             raw->m_headerJar->setResponseHeader(IHttpHeader::ContentType, raw->m_responseRaw->mime);
         }
     }
 
     QByteArray headersContent;
     for(const auto& key : raw->m_responseRaw->headers){
-        auto value = raw->m_responseRaw->headers.values(key);
-        headersContent.append(key).append(": ").append(value.join("; ")).append(IConstantUtil::NewLine);
+        auto values = raw->m_responseRaw->headers.values(key);
+        headersContent.append(key).append(": ").append(values.join("; ")).append(IConstantUtil::NewLine);
     }
-    // TODO: check it!!!
 
     generateExternalHeadersContent(headersContent);
     return headersContent;

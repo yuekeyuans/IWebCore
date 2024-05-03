@@ -192,6 +192,7 @@ IResponse &IResponse::setContent(const char *content)
     return *this;
 }
 
+// TODO: reconstruct it
 IResponse& IResponse::setContent(IResponseWare *response)
 {
     std::swap(raw->m_responseRaw->content, response->getContent());

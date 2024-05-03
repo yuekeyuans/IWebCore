@@ -27,7 +27,7 @@ public:
     bool valid();
 
 public:
-    QString mime;   // when mime is unknown and mimeString is not empty ,mimeString take effect.
+    QString mime;
     IHttpStatusCode status {IHttpStatus::UNKNOWN};
     QMultiHash<QString, QString> headers;
     QList<ICookiePart> cookies;

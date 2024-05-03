@@ -7,70 +7,40 @@ $PackageWebCoreBegin
 namespace IConstantUtil
 {
 #ifdef QT_DEBUG
-    static constexpr bool DebugMode = true;
-    static constexpr bool ReleaseMode = false;
+    inline static constexpr bool DebugMode = true;
+    inline static constexpr bool ReleaseMode = false;
 #else
-    static constexpr bool DebugMode = false;
-    static constexpr bool ReleaseMode = true;
+    inline static constexpr bool DebugMode = false;
+    inline static constexpr bool ReleaseMode = true;
 #endif
 
-    //! official Date format
-    static const QString DateFormat = "yyyy-MM-dd";
-    static const QString TimeFormat = "hh:mm:ss.zzz";
-    static const QString DateTimeFormat = "yyyy-MM-dd hh:mm:ss.zzz";
-    static constexpr char ServerName[] = "IWebCore";
+    // official Date format
+    inline static constexpr char DateFormat[] = "yyyy-MM-dd";
+    inline static constexpr char TimeFormat[] = "hh:mm:ss.zzz";
+    inline static constexpr char DateTimeFormat[] = "yyyy-MM-dd hh:mm:ss.zzz";
 
-    //! char[] of new line.
-    static constexpr char NewLine[] = "\r\n";
+    inline static constexpr char NewLine[] = "\r\n";
 
-    static constexpr char InheritedMethod[] = "inherited method";
-    static constexpr char UnImplimentedMethod[] = "unimplimented method, this will be implimented latter";
-    static constexpr char UnVisibleMethod[] = "This method change visiblity to unvisible, if you see this, it means you call it illegally";
-    static constexpr char UnCallableMethod[] = "This method can not be called anywhere.";
+    inline static constexpr char InheritedMethod[] = "inherited method";
+    inline static constexpr char UnImplimentedMethod[] = "unimplimented method, this will be implimented latter";
+    inline static constexpr char UnVisibleMethod[] = "This method change visiblity to unvisible, if you see this, it means you call it illegally";
+    inline static constexpr char UnCallableMethod[] = "This method can not be called anywhere.";
 
-    static constexpr char MasterServer[] = "MasterServer";
+    inline static constexpr char ServerName[] = "IWebCore";
+    inline static constexpr char MasterServer[] = "MasterServer";
 
-    // length;
-    static constexpr int Request_Url_Max_Length = (2048 + 35);  // 2083
-    static constexpr int Request_Header_Max_Length = (1024 * 8); // 8K
-    static constexpr int Request_Body_Max_Length   = (1024 * 1024 * 4);  // 4M
+    // length
+    inline static constexpr int Request_Url_Max_Length = (2048 + 35);  // 2083
+    inline static constexpr int Request_Header_Max_Length = (1024 * 8); // 8K
+    inline static constexpr int Request_Body_Max_Length   = (1024 * 1024 * 4);  // 4M
 
     // session
-    static constexpr int Session_Expiration = 30;
+    inline static constexpr int Session_Expiration = 30;
 
-    // configuration  暂时的
-    static constexpr bool IServerNameMiddleWareEnabeld = true;
-    static constexpr bool ICookiePluginEnabled = true;
-    static constexpr bool ICorsPluginEnabled = true;
-    static constexpr double IDefaultOrderValue = 50;
-
-
-    void deprecateWarning();
-}
-
-inline void IConstantUtil::deprecateWarning(){
-    Q_UNUSED(DebugMode)
-    Q_UNUSED(ReleaseMode)
-
-    Q_UNUSED(ServerName)
-    Q_UNUSED(NewLine)
-    Q_UNUSED(InheritedMethod)
-    Q_UNUSED(UnImplimentedMethod)
-    Q_UNUSED(UnVisibleMethod)
-
-    Q_UNUSED(UnCallableMethod)
-    Q_UNUSED(MasterServer)
-    Q_UNUSED(Request_Url_Max_Length)
-    Q_UNUSED(Request_Header_Max_Length)
-    Q_UNUSED(Request_Body_Max_Length)
-
-    Q_UNUSED(Session_Expiration)
-
-    Q_UNUSED(IServerNameMiddleWareEnabeld)
-    Q_UNUSED(ICookiePluginEnabled)
-    Q_UNUSED(ICorsPluginEnabled)
-
-    qFatal("this function is used for deprecate warnings above, do not call this");
+    inline static constexpr bool IServerNameMiddleWareEnabeld = true;
+    inline static constexpr bool ICookiePluginEnabled = true;
+    inline static constexpr bool ICorsPluginEnabled = true;
+    inline static constexpr double IDefaultOrderValue = 50;
 }
 
 $PackageWebCoreEnd

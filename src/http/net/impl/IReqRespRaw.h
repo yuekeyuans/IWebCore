@@ -9,7 +9,6 @@
 #include "http/biscuits/IHttpVersion.h"
 #include "http/jar/IMultiPart.h"
 #include "http/jar/ICookiePart.h"
-//#include "http/response/IResponseContent.h"
 #include "http/net/impl/IResponseRaw.h"
 
 $PackageWebCoreBegin
@@ -20,7 +19,6 @@ class IHeaderJar;
 class ICookieJar;
 class ISessionJar;
 class IMultiPartJar;
-
 class IReqRespRaw
 {
 public:
@@ -83,17 +81,8 @@ private:
     QJsonValue m_requestJson;                   // json 和 dom 不一定使用，也可能是延后加载
     QDomNode m_requestXml;
 
-//public:
-//    const IMultiPart m_invalidMultiPart{};      // TODO: 先写在这里，等一下chonggou
-
 public:
     IResponseRaw* m_responseRaw{};
-    // response
-//    IHttpStatusCode m_responseStatus {IHttpStatus::UNKNOWN};
-//    QString m_responseMime{IHttpMimeUtil::MIME_UNKNOWN_STRING};
-//    QList<QPair<QString, QString>> m_responseHeaders;
-//    IResponseContent m_responseContent;
-//    QList<ICookiePart> m_responseCookies;
 };
 
 $PackageWebCoreEnd
