@@ -231,7 +231,6 @@ SOURCES += \
     $$PWD/core/base/ISocketUtil.cpp \
     $$PWD/core/base/ITicTacUtil.cpp \
     $$PWD/core/base/IToeUtil.cpp \
-    $$PWD/core/base/ITraitUtil.cpp \
     $$PWD/core/base/IXmlUtil.cpp \
     $$PWD/core/application/IApplication.cpp \
     $$PWD/core/assert/IAssertInfo.cpp \

@@ -133,7 +133,7 @@ QJsonValue IJsonUtil::_objectToJson(const std::map<QString, T>& map, bool& ok)
 }
 
 template <class T>
-typename std::enable_if<ITraitUtil::IsNumber<T>::value, QJsonValue>::type
+typename std::enable_if<std::is_arithmetic<T>::value, QJsonValue>::type
 IJsonUtil::_objectToJson(const T& value, bool& ok)
 {
     ok = true;
