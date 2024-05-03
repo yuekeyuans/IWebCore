@@ -14,14 +14,15 @@ IResponseWare::IResponseWare()
 {
 }
 
+IResponseWare::IResponseWare(const IResponseWare &rhs)
+    : m_raw(new IResponseRaw(*rhs.m_raw))
+{
+}
+
 IResponseWare::~IResponseWare()
 {
     delete m_raw;
     m_raw = nullptr;
-}
-
-IResponseWare::IResponseWare(const IResponseWare &rhs) : m_raw(new IResponseRaw(*rhs.m_raw))
-{
 }
 
 IResponseWare::IResponseWare(IResponseWare && rhs)
@@ -36,7 +37,7 @@ IResponseWare &IResponseWare::operator =(const IResponseWare & rhs)
     return *this;
 }
 
-IResponseWare &IResponseWare::operator =(IResponseWare && rhs)
+IResponseWare &IResponseWare::operator = (IResponseWare && rhs)
 {
     std::swap(this->m_raw, rhs.m_raw);
     return *this;
@@ -72,13 +73,19 @@ const QMultiHash<QString, QString>& IResponseWare::headers() const
     return m_raw->headers;
 }
 
+QMultiHash<QString, QString> &IResponseWare::headers()
+{
+    return m_raw->headers;
+}
+
 void IResponseWare::setHeader(const QString &key, const QString &value)
 {
-    if(key.isEmpty() || value.isEmpty()){
-        $Ast->fatal("iresponse_setHeader_with_empty_value_or_key");
-        return;
-    }
     m_raw->headers.insert(key, value);
+}
+
+void IResponseWare::addHeader(const QString &key, const QString &value)
+{
+    m_raw->headers.insertMulti(key, value);
 }
 
 IResponseContent &IResponseWare::getContent()
