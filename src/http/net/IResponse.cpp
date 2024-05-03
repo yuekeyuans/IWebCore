@@ -180,15 +180,12 @@ IResponse &IResponse::setContent(const char *content)
 
 IResponse& IResponse::setContent(IResponseWare *response)
 {
-    // cookie 不分优先级.
     if(!m_raw->m_responseRaw->cookies.isEmpty()){
         response->m_raw->cookies.append(m_raw->m_responseRaw->cookies);
     }
 
-    // response 中的header 有更高的优先级.
     if(!m_raw->m_response->headers().isEmpty()){
-        auto& headers = m_raw->m_responseRaw->headers;
-        for(const auto& header : headers){
+        for(const auto& header : m_raw->m_responseRaw->headers){
             if(!response->m_raw->headers.contains(header)){
                 const auto& values = headers.values(header);
                 for(auto value : values){
