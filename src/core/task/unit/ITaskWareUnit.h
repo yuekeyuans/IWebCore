@@ -23,7 +23,7 @@ $UseTaskUnit(ITaskWareUnit)
     if(enabled){
         static std::once_flag flag;
         std::call_once(flag, [](){
-            ITaskManage::instance()->addTaskWare(ISingletonUnitHelper::getInstance<T>(nullptr));
+            ITaskManage::instance()->addTaskWare(ISingletonUnitUtil::getInstance<T>(nullptr));
         });
     }
 }

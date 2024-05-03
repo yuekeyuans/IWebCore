@@ -79,11 +79,10 @@ HEADERS += \
     $$PWD/core/test/IUnitTestTask.h \
     $$PWD/core/unit/IGadgetUnit.h \
     $$PWD/core/unit/INoConstructUnit.h \
-    $$PWD/core/unit/INoCopyMoveUnit.h \
     $$PWD/core/unit/IOrderUnit.h  \
     $$PWD/core/unit/IRegisterGadgetUnit.h \
     $$PWD/core/unit/IRegisterMetaTypeUnit.h \
-    $$PWD/core/unit/IRegisterTypeUnit.h \
+#    $$PWD/core/unit/IRegisterTypeUnit.h \
     $$PWD/core/unit/ISingletonUnit.h \
     $$PWD/core/unit/IStackObjectUnit.h \
     $$PWD/http/IHttpAnnomacro.h \
@@ -267,10 +266,8 @@ SOURCES += \
     $$PWD/core/test/IUnitTestManage.cpp \
     $$PWD/core/test/IUnitTestTask.cpp \
     $$PWD/core/unit/IGadgetUnit.cpp \
-    $$PWD/core/unit/INoCopyMoveUnit.cpp \
     $$PWD/core/unit/IRegisterGadgetUnit.cpp \
     $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
-    $$PWD/core/unit/IRegisterTypeUnit.cpp \
     $$PWD/http/IHttpAssert.cpp \
     $$PWD/http/IHttpControllerTaskCatagory.cpp \
 #    $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \

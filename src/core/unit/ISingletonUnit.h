@@ -17,19 +17,23 @@ protected:
     ISingletonUnit& operator=(const ISingletonUnit&) = delete;
 
 public:
-    static T* instance() {
-        static T instance;
-        return &instance;
-    }
+    static T* instance();
 };
 
-namespace ISingletonUnitHelper
+namespace ISingletonUnitUtil
 {
     template<typename T, typename = decltype(T::instance())>
     T* getInstance(void*);
 
     template<typename T>
     T* getInstance(...);
+}
+
+template<typename T>
+T* ISingletonUnit<T>::instance()
+{
+    static T instance{};
+    return &instance;
 }
 
 template<typename T>
@@ -45,13 +49,13 @@ ISingletonUnit<T>::ISingletonUnit()
 }
 
 template<typename T, typename U>
-T* ISingletonUnitHelper::getInstance(void*)
+T* ISingletonUnitUtil::getInstance(void*)
 {
     return T::instance();
 }
 
 template<typename T>
-T* ISingletonUnitHelper::getInstance(...)
+T* ISingletonUnitUtil::getInstance(...)
 {
     static T t;
     return &t;
