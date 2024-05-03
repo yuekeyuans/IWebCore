@@ -416,7 +416,7 @@ bool IRequestImpl::resolveCookies()
 {
     static const QByteArray splitString = "; ";
 
-    if(IConstantUtil::ICookiePluginEnabled && raw->m_headerJar->containRequestHeaderKey(IHttpHeader::Cookie)){
+    if(raw->m_headerJar->containRequestHeaderKey(IHttpHeader::Cookie)){
         bool ok;
         const QString rawCookie = raw->m_headerJar->getRequestHeaderValue(IHttpHeader::Cookie, ok);
         // TODO: 检查 ok 的值

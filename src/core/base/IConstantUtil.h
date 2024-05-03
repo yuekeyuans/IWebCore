@@ -35,11 +35,6 @@ namespace IConstantUtil
     inline static constexpr int Request_Body_Max_Length   = (1024 * 1024 * 4);  // 4M
 
     // session
-    inline static constexpr int Session_Expiration = 30;
-
-    inline static constexpr bool IServerNameMiddleWareEnabeld = true;
-    inline static constexpr bool ICookiePluginEnabled = true;
-    inline static constexpr bool ICorsPluginEnabled = true;
     inline static constexpr double IDefaultOrderValue = 50;
 }
 

@@ -97,7 +97,6 @@ void IResponseContent::setContent(IHttpInvalidUnit ware)
 
 QByteArray IResponseContent::getAsBytes()
 {
-    bool ok;
     switch(type){
     case Type::Empty:
         return {};
@@ -106,10 +105,9 @@ QByteArray IResponseContent::getAsBytes()
     case Type::String:
         return contentString.toUtf8();
     case Type::File:
-        return IFileUtil::readFileAsByteArray(contentFilePath, ok);
+        return IFileUtil::readFileAsByteArray(contentFilePath);
     case Type::Invalid:
         $Ast->fatal("response_invalid_type_error");
-        qFatal("invalid should not be called, this should be preprocessed");
     }
     return {};
 }

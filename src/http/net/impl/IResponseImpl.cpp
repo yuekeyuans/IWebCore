@@ -8,8 +8,7 @@
 
 $PackageWebCoreBegin
 
-IResponseImpl::IResponseImpl(IReqRespRaw *raw)
-    : raw(raw)
+IResponseImpl::IResponseImpl(IReqRespRaw *raw) : raw(raw)
 {
 }
 
@@ -62,16 +61,13 @@ QByteArray IResponseImpl::generateHeadersContent(int contentSize)
 
 void IResponseImpl::generateExternalHeadersContent(QByteArray& content)
 {
-    if(IConstantUtil::IServerNameMiddleWareEnabeld){
-        content.append("Server: ").append(IConstantUtil::ServerName).append(IConstantUtil::NewLine);
+    content.append("Server: ").append(IConstantUtil::ServerName).append(IConstantUtil::NewLine);
+
+    auto cookieContent = generateCookieHeaders();
+    if(!cookieContent.isEmpty()){
+        content.append(cookieContent).append(IConstantUtil::NewLine);
     }
 
-    if(IConstantUtil::ICookiePluginEnabled){
-        auto cookieContent = generateCookieHeaders();
-        if(!cookieContent.isEmpty()){
-            content.append(cookieContent).append(IConstantUtil::NewLine);
-        }
-    }
 }
 
 QString IResponseImpl::generateCookieHeaders()
