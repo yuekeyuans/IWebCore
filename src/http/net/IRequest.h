@@ -95,7 +95,6 @@ public:
     QVariant getAttribute(const QString& name, bool& ok) const;
     IResult<QVariant> getAttribute(const QString &name) const;
 
-
     bool valid() const;
     void setInvalidIf(bool condition, IHttpInvalidUnit) const;
     void setInvalid(IHttpInvalidUnit) const;

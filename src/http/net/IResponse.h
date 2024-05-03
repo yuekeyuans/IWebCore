@@ -70,6 +70,7 @@ public:
     bool hasAttribute(const QString& name) const;
     void setAttribute(const QString& name, const QVariant& value);
     QVariant getAttribute(const QString& name, const QVariant& defaultValue = {}) const;
+
     bool respond();
     bool valid() const;
 
