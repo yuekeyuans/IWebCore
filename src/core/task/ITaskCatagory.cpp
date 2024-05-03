@@ -23,7 +23,7 @@ void ITaskCatagory::addTask(ITaskWare *ware)
 
 void ITaskCatagory::sortTask()
 {
-    IOrderUnit::sortUnit(m_taskWares);
+    IOrderUnitUtil::sortUnit(m_taskWares);
 }
 
 void ITaskCatagory::execTaskNodes() const

@@ -66,7 +66,7 @@ void ITaskManage::checkTaskExceed()
 
 void ITaskManage::mergetTasksToCatagores()
 {
-    IOrderUnit::sortUnit(m_catagories);
+    IOrderUnitUtil::sortUnit(m_catagories);
 
     QList<ITaskWare*> wares;
     for(auto task : m_taskWares){
