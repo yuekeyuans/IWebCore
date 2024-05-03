@@ -82,7 +82,6 @@ HEADERS += \
     $$PWD/core/unit/IOrderUnit.h  \
     $$PWD/core/unit/IRegisterGadgetUnit.h \
     $$PWD/core/unit/IRegisterMetaTypeUnit.h \
-#    $$PWD/core/unit/IRegisterTypeUnit.h \
     $$PWD/core/unit/ISingletonUnit.h \
     $$PWD/core/unit/IStackObjectUnit.h \
     $$PWD/http/IHttpAnnomacro.h \
@@ -186,7 +185,6 @@ HEADERS += \
     $$PWD/http/node/IFunctionNode.h \
     $$PWD/http/node/IMethodNode.h \
     $$PWD/http/node/IParamNode.h \
-#    $$PWD/http/node/IStatusActionNode.h \
     $$PWD/http/node/IUrlActionNode.h \
     $$PWD/http/response/IByteArrayResponse.h \
     $$PWD/http/response/IFileResponse.h \
@@ -206,7 +204,6 @@ HEADERS += \
     $$PWD/http/server/IServerInterface.h \
     $$PWD/http/server/IServerWare.h \
     $$PWD/http/server/multiThreadServer/ITcpSocket.h \
-#    $$PWD/http/controller/IStatusControllerInterface.h \
     $$PWD/http/controller/pp/IControlVariablePreProcessor.h \
     $$PWD/http/controller/pp/IControllerPreProcessor.h \
     $$PWD/http/controller/pp/IDeleteMappingPreProcessor.h \
@@ -214,9 +211,6 @@ HEADERS += \
     $$PWD/http/controller/pp/IPatchMappingPreProcessor.h \
     $$PWD/http/controller/pp/IPostMappingPreProcessor.h \
     $$PWD/http/controller/pp/IPutMappingPreProcessor.h \
-#    $$PWD/http/controller/pp/IStatusCodeMappingPreProcessor.h \
-#    $$PWD/http/controller/pp/IStatusControllerPreProcessor.h \
-#    $$PWD/http/controller/private/IStatusControllerInterfaceImpl.h \
     $$PWD/http/server/IHttpServer.h \
     $$PWD/http/server/IHttpServerManage.h \
     $$PWD/http/server/multiThreadServer/IMultiThreadServer.h \
@@ -270,7 +264,6 @@ SOURCES += \
     $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
     $$PWD/http/IHttpAssert.cpp \
     $$PWD/http/IHttpControllerTaskCatagory.cpp \
-#    $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.cpp \
     $$PWD/http/controller/private/IHttpControllerBeanParameter.cpp \
@@ -372,8 +365,6 @@ SOURCES += \
     $$PWD/http/response/IResponseWare.cpp \
     $$PWD/http/server/multiThreadServer/ITcpSocket.cpp \
     $$PWD/http/controller/IControllerInterface.cpp \
-#    $$PWD/http/controller/IStatusControllerInterface.cpp \
-#    $$PWD/http/controller/private/IStatusControllerInterfaceImpl.cpp \
     $$PWD/http/server/IHttpServer.cpp \
     $$PWD/http/server/IHttpServerManage.cpp \
     $$PWD/http/server/multiThreadServer/IMultiThreadServer.cpp \
@@ -393,18 +384,7 @@ HEADERS += \
     $$PWD/IWeb/IHttpInvalidInterface \
     $$PWD/IWeb/HttpRequest \
 
-DISTFILES += \
-    $$PWD/core/base/base \
-    $$PWD/core/assertion/assertion \
-    $$PWD/core/core.h \
-    $$PWD/core/package/toml/LICENSE \
-    $$PWD/core/package/toml/README.md \
-    $$PWD/core/task/task \
-    $$PWD/orm/orm \
-    $$PWD/http/common \
-    $$PWD/http/controller/controller \
-    $$PWD/http/net/IRequest.ipp \
-    $$PWD/http/server/server
+DISTFILES +=
 
 RESOURCES += \
     $$PWD/http/webresource.qrc
