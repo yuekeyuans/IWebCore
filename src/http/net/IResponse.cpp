@@ -18,7 +18,7 @@ $UseGlobalAssert()
 
 IResponse::IResponse()
 {
-    $Ast->fatal("IRequest_IResponse_CREATE_ERROR");
+    qFatal(IConstantUtil::UnVisibleMethod);
 }
 
 IResponse::IResponse(IRequest *request)
@@ -35,23 +35,23 @@ IResponse::~IResponse()
 
 IResponse::IResponse(const IResponse &)
 {
-    $Ast->fatal("IRequest_IResponse_COPY_MOVE_ERROR");
+    qFatal(IConstantUtil::UnVisibleMethod);
 }
 
 IResponse &IResponse::operator=(const IResponse &)
 {
-    $Ast->fatal("IRequest_IResponse_COPY_MOVE_ERROR");
+    qFatal(IConstantUtil::UnVisibleMethod);
     return *this;
 }
 
 IResponse::IResponse(IResponse &&)
 {
-    $Ast->fatal("IRequest_IResponse_COPY_MOVE_ERROR");
+    qFatal(IConstantUtil::UnVisibleMethod);
 }
 
 IResponse &IResponse::operator=(IResponse &&)
 {
-    $Ast->fatal("IRequest_IResponse_COPY_MOVE_ERROR");
+    qFatal(IConstantUtil::UnVisibleMethod);
     return *this;
 }
 

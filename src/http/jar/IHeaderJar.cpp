@@ -11,7 +11,7 @@ $UseAssert(IHttpAssert)
 
 IHeaderJar::IHeaderJar() : IJarUnit(nullptr)
 {
-    $Ast->fatal("IHeaderJar_CREATE_ERROR");
+    qFatal(IConstantUtil::UnVisibleMethod);
 }
 
 const QList<QPair<QString, QString>>& IHeaderJar::requestHeaders() const

@@ -24,7 +24,7 @@ $UseGlobalAssert()
 
 IRequest::IRequest()
 {
-    $Ast->fatal("IRequest_IResponse_CREATE_ERROR");
+    qFatal(IConstantUtil::UnVisibleMethod);
 }
 
 IRequest::IRequest(qintptr handle)
@@ -67,23 +67,23 @@ IRequest::~IRequest()
 
 IRequest::IRequest(const IRequest &)
 {
-    $Ast->fatal("IRequest_IResponse_COPY_MOVE_ERROR");
+    qFatal(IConstantUtil::UnVisibleMethod);
 }
 
 IRequest &IRequest::operator=(const IRequest &)
 {
-    $Ast->fatal("IRequest_IResponse_COPY_MOVE_ERROR");
+    qFatal(IConstantUtil::UnVisibleMethod);
     return *this;
 }
 
 IRequest::IRequest(IRequest &&)
 {
-    $Ast->fatal("IRequest_IResponse_COPY_MOVE_ERROR");
+    qFatal(IConstantUtil::UnVisibleMethod);
 }
 
 IRequest &IRequest::operator=(IRequest &&)
 {
-    $Ast->fatal("IRequest_IResponse_COPY_MOVE_ERROR");
+    qFatal(IConstantUtil::UnVisibleMethod);
     return *this;
 }
 

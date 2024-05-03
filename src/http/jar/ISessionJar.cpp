@@ -10,7 +10,7 @@ $UseAssert(IHttpAssert)
 
 ISessionJar::ISessionJar() : IJarUnit(nullptr)
 {
-    $Ast->fatal("ISessionJar_CREATE_ERROR");
+    qFatal(IConstantUtil::UnVisibleMethod);
 }
 
 ISessionJar::ISessionJar(IReqRespRaw *m_raw) : IJarUnit(m_raw)

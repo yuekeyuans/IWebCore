@@ -8,7 +8,7 @@ $UseAssert(IHttpAssert)
 
 IMultiPartJar::IMultiPartJar() : IJarUnit(nullptr)
 {
-    $Ast->fatal("IMultiPartJar_CREATE_ERROR");
+    qFatal(IConstantUtil::UnVisibleMethod);
 }
 
 IResult<IMultiPart> IMultiPartJar::operator[](const QString &name) const

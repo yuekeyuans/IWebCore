@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
-#include "core/base/IConstantUtil.h"
 
 $PackageWebCoreBegin
 

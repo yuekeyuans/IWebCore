@@ -19,7 +19,7 @@ $UseAssert(IHttpAssert)
 
 IReqRespRaw::IReqRespRaw()
 {
-    $Ast->fatal("IReqResp_CREATE_ERROR");
+    qFatal(IConstantUtil::UnVisibleMethod);
 }
 
 IReqRespRaw::IReqRespRaw(IRequest *request, QTcpSocket *socket)

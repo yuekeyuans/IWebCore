@@ -9,7 +9,7 @@ $UseAssert(IHttpAssert)
 
 ICookieJar::ICookieJar() : IJarUnit(nullptr)
 {
-    $Ast->fatal("ICookieJar_CREATE_ERROR");
+    qFatal(IConstantUtil::UnVisibleMethod);
 }
 
 const QList<QPair<QString, QString> > &ICookieJar::requestCookies() const
