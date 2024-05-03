@@ -17,22 +17,6 @@ void IHttpManage::setIsServerStarted(bool value)
     inst->m_isServerStarted = value;
 }
 
-//void IHttpManage::registerStatusActionNode(IStatusActionNode node)
-//{
-//    checkRegisterAvalible();
-
-//    if(m_statusMappings.contains(node.httpStatus)){
-//        qDebug() << "override of status mapping";
-//    }
-//    m_statusMappings[node.httpStatus] = node;
-//}
-
-//void IHttpManage::registerStatusActionNodes(const QVector<IStatusActionNode> &statusNodes)
-//{
-//    for(const auto& node : statusNodes){
-//        registerStatusActionNode(node);
-//    }
-//}
 
 void IHttpManage::registerUrlActionNode(IUrlActionNode node)
 {
@@ -103,38 +87,6 @@ void IHttpManage::registerPathValidator(const QString &name, ValidatorFun fun)
     m_pathFunValidators[name] = fun;
 }
 
-//void IHttpManage::registerPreProcessor(IProcessorWare *middleWare)
-//{
-//    checkRegisterAvalible();
-
-//    auto inst = instance();
-//    inst->m_preProcessors.append(middleWare);
-//}
-
-//void IHttpManage::registerPostProcessor(IProcessorWare *middleWare)
-//{
-//    checkRegisterAvalible();
-
-//    auto inst = instance();
-//    inst->m_postProcessors.append(middleWare);
-//}
-
-//void IHttpManage::registerPreInterceptor(IInterceptorWare *middleWare)
-//{
-//    checkRegisterAvalible();
-
-//    auto inst = instance();
-//    inst->m_preInterceptors.append(middleWare);
-//}
-
-//void IHttpManage::registerPostInterceptor(IInterceptorWare *middleWare)
-//{
-//    checkRegisterAvalible();
-
-//    auto inst = instance();
-//    inst->m_postInterceptors.append(middleWare);
-//}
-
 void IHttpManage::travalPrintUrlTree()
 {
     instance()->m_urlMapppings.travelPrint();
@@ -194,15 +146,6 @@ IUrlActionNode *IHttpManage::getUrlActionNode(IRequest &request)
     return node;
 }
 
-//IStatusActionNode *IHttpManage::getStatusActionNode(IHttpStatus status)
-//{
-//    auto inst = instance();
-//    if(inst->m_statusMappings.contains(status)){
-//        return &inst->m_statusMappings[status];
-//    }
-//    return nullptr;
-//}
-
 bool IHttpManage::isStaticFileActionPathEnabled()
 {
     return m_resourceMappings.isEnabled() || m_folderMappings.isEnabled();
@@ -243,52 +186,6 @@ QStringList IHttpManage::getStaticFolderActionPath(const IRequest &request)
 
     return {};
 }
-
-//bool IHttpManage::preIntercept(IRequest &request, IResponse &response)
-//{
-//    auto inst = instance();
-//    for(auto obj : inst->m_preInterceptors){
-//        if(obj->match(request, response)
-//            && obj->action(request, response)){
-//            return true;
-//        }
-//    }
-//    return false;
-//}
-
-//bool IHttpManage::postIntercept(IRequest &request, IResponse &response)
-//{
-//    auto inst = instance();
-//    for(auto obj : inst->m_postInterceptors){
-//        if(obj->match(request, response)
-//            && obj->action(request, response)){
-//            return true;
-//        }
-//    }
-//    return false;
-//}
-
-//bool IHttpManage::preProcess(IRequest &request, IResponse &response)
-//{
-//    auto inst = instance();
-//    for(auto obj : inst->m_preProcessors){
-//        if(obj->match(request, response)){
-//            obj->action(request, response);
-//        }
-//    }
-//    return true;
-//}
-
-//bool IHttpManage::postProcess(IRequest &request, IResponse &response)
-//{
-//    auto inst = instance();
-//    for(auto obj : inst->m_postProcessors){
-//        if(obj->match(request, response)){
-//            obj->action(request, response);
-//        }
-//    }
-//    return true;
-//}
 
 QVector<IUrlActionNode *> IHttpManage::queryFunctionNodes(IHttpRouteMapping *parentNode,
                                                              const QStringList &fragments, IHttpMethod method)

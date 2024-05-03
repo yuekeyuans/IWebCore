@@ -69,17 +69,17 @@ IResponse &IResponse::operator<<(const char *content)
     return *this;
 }
 
-IResponse &IResponse::operator<<(IResponseWare *response)
-{
-    setContent(response);
-    return *this;
-}
+//IResponse &IResponse::operator<<(IResponseWare *response)
+//{
+//    setContent(response);
+//    return *this;
+//}
 
-IResponse &IResponse::operator<<(IResponseWare &response)
-{
-    setContent(&response);
-    return *this;
-}
+//IResponse &IResponse::operator<<(IResponseWare &response)
+//{
+//    setContent(&response);
+//    return *this;
+//}
 
 IResponseHeader IResponse::operator[](const QString &header) const
 {
@@ -112,7 +112,6 @@ IResponse &IResponse::setStatus(IHttpStatusCode statusCode)
     return *this;
 }
 
-// NOTE: 这里是强转， 也就是说，任何一个数据都可以被设置进来。
 IResponse &IResponse::setStatus(int statusCode)
 {
     m_raw->m_responseRaw->status = IHttpStatus::toStatus(statusCode);
@@ -179,41 +178,27 @@ IResponse &IResponse::setContent(const char *content)
     return *this;
 }
 
-// TODO: reconstruct it
 IResponse& IResponse::setContent(IResponseWare *response)
 {
-    std::swap(m_raw->m_responseRaw->content, response->getContent());
-
-    if(m_raw->m_responseRaw->content.type == IResponseContent::Type::Invalid){
-        setContent(response->getContent().contentInvalid);
-        m_raw->m_responseRaw->mime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
+    // cookie 不分优先级.
+    if(!m_raw->m_responseRaw->cookies.isEmpty()){
+        response->m_raw->cookies.append(m_raw->m_responseRaw->cookies);
     }
 
-    if(response->status() != IHttpStatusCode::UNKNOWN){
-        m_raw->m_responseRaw->status = response->status();
-    }
-
-    if(response->mime() != IHttpMimeUtil::MIME_UNKNOWN_STRING){
-        m_raw->m_responseRaw->mime = response->mime();
-    }
-
-    auto& headers = response->headers();
-    auto keys = headers.keys();
-    for(auto key : keys){
-        if(!m_raw->m_headerJar->containResponseHeaderKey(key)){
-            m_raw->m_headerJar->addResponseHeader(key, headers.values(key));
-            // TODO: 这里可能有冲突，需要特殊处理掉
+    // response 中的header 有更高的优先级.
+    if(!m_raw->m_response->headers().isEmpty()){
+        auto& headers = m_raw->m_responseRaw->headers;
+        for(const auto& header : headers){
+            if(!response->m_raw->headers.contains(header)){
+                const auto& values = headers.values(header);
+                for(auto value : values){
+                    response->m_raw->headers.insertMulti(header, value);
+                }
+            }
         }
     }
 
-    // TODO: check ok;
-    bool ok;
-    if((!m_raw->m_headerJar->containResponseHeaderKey(IHttpHeader::ContentType)
-            || m_raw->m_headerJar->getResponseHeaderValue(IHttpHeader::ContentType, ok) == "UNKNOWN")
-            && m_raw->m_responseRaw->mime != IHttpMimeUtil::MIME_UNKNOWN_STRING)
-    {
-        m_raw->m_headerJar->setResponseHeader(IHttpHeader::ContentType, m_raw->m_responseRaw->mime);
-    }
+    std::swap(m_raw->m_responseRaw, response->m_raw);
     return *this;
 }
 

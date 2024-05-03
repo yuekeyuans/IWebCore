@@ -35,8 +35,8 @@ public:
     IResponse& operator<<(const QString& content);
     IResponse& operator<<(const QByteArray& content);
     IResponse& operator<<(const char* content);
-    IResponse& operator<<(IResponseWare* response);
-    IResponse& operator<<(IResponseWare& response);
+//    IResponse& operator<<(IResponseWare* response);
+//    IResponse& operator<<(IResponseWare& response);
     IResponseHeader operator[](const QString& header) const;
 
     IRequest* request() const;
@@ -74,7 +74,7 @@ public:
     bool valid() const;
 
 private:
-    IReqRespRaw*    m_raw{nullptr};
+    IReqRespRaw* m_raw{nullptr};
 };
 
 $PackageWebCoreEnd
