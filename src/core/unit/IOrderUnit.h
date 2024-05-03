@@ -17,7 +17,7 @@ namespace IOrderUnitUtil
     static void sortUnit(QList<T*>& values);
 }
 
-double IOrderUnit::order() const
+inline double IOrderUnit::order() const
 {
     return 50;
 }

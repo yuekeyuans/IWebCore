@@ -5,8 +5,8 @@
 #include "http/biscuits/IHttpMime.h"
 #include "http/biscuits/IHttpStatus.h"
 #include "http/net/impl/IResponseRaw.h"
+#include "http/net/impl/IResponseHeader.h"
 #include "IResponseContent.h"
-#include "http/response/IResponseHeaderRef.h"
 
 $PackageWebCoreBegin
 
@@ -21,7 +21,7 @@ public:
     IResponseWare(IResponseWare&&);
     IResponseWare& operator =(const IResponseWare&);
     IResponseWare& operator =(IResponseWare&&);
-    IResponseHeaderRef operator[](const QString& header);
+    IResponseHeader operator[](const QString& header);
 
 public:
     const QString& mime() const;

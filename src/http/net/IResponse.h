@@ -8,6 +8,7 @@
 #include "http/biscuits/IHttpVersion.h"
 #include "http/biscuits/IHttpMime.h"
 #include "http/invalid/IHttpInvalidUnit.h"
+#include "http/net/impl/IResponseHeader.h"
 #include "http/response/IResponsePreProcessor.h"
 
 $PackageWebCoreBegin
@@ -36,8 +37,7 @@ public:
     IResponse& operator<<(const char* content);
     IResponse& operator<<(IResponseWare* response);
     IResponse& operator<<(IResponseWare& response);
-//    QString operator[](const QString& header) const;
-//    QString& operator[](const QString& header);
+    IResponseHeader operator[](const QString& header) const;
 
     IRequest* request() const;
     IReqRespRaw* getRaw() const;
@@ -74,8 +74,8 @@ public:
     bool valid() const;
 
 private:
-    IResponseImpl*  impl{nullptr};
-    IReqRespRaw*    raw{nullptr};
+    IResponseImpl*  m_impl{nullptr};
+    IReqRespRaw*    m_raw{nullptr};
 };
 
 $PackageWebCoreEnd

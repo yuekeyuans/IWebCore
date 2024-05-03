@@ -104,12 +104,12 @@ HEADERS += \
     $$PWD/http/invalid/IHttpNotFoundInvalid.h \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.h \
     $$PWD/http/invalid/IRegistInvalidUnit.h \
+    $$PWD/http/net/impl/IResponseHeader.h \
     $$PWD/http/net/impl/IResponseRaw.h \
     $$PWD/http/nody/INody.h \
     $$PWD/http/nody/INodyManage.h \
     $$PWD/http/nody/INodyParser.h \
     $$PWD/http/nody/INodyRenderer.h \
-    $$PWD/http/response/IResponseHeaderRef.h \
     $$PWD/http/response/IStatusResponse.h \
     $$PWD/http/server/multiThreadServer/IHttpServerRunnable.h \
     $$PWD/orm/IOrmAssert.h \
@@ -278,12 +278,12 @@ SOURCES += \
     $$PWD/http/invalid/IHttpInvalidWare.cpp \
     $$PWD/http/invalid/IHttpNotFoundInvalid.cpp \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.cpp \
+    $$PWD/http/net/impl/IResponseHeader.cpp \
     $$PWD/http/net/impl/IResponseRaw.cpp \
     $$PWD/http/nody/INody.cpp \
     $$PWD/http/nody/INodyManage.cpp \
     $$PWD/http/nody/INodyParser.cpp \
     $$PWD/http/nody/INodyRenderer.cpp \
-    $$PWD/http/response/IResponseHeaderRef.cpp \
     $$PWD/http/response/IStatusResponse.cpp \
     $$PWD/http/server/multiThreadServer/IHttpServerRunnable.cpp \
     $$PWD/orm/IOrmAssert.cpp \
