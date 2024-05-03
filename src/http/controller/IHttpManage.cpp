@@ -103,37 +103,37 @@ void IHttpManage::registerPathValidator(const QString &name, ValidatorFun fun)
     m_pathFunValidators[name] = fun;
 }
 
-void IHttpManage::registerPreProcessor(IProcessorWare *middleWare)
-{
-    checkRegisterAvalible();
+//void IHttpManage::registerPreProcessor(IProcessorWare *middleWare)
+//{
+//    checkRegisterAvalible();
 
-    auto inst = instance();
-    inst->m_preProcessors.append(middleWare);
-}
+//    auto inst = instance();
+//    inst->m_preProcessors.append(middleWare);
+//}
 
-void IHttpManage::registerPostProcessor(IProcessorWare *middleWare)
-{
-    checkRegisterAvalible();
+//void IHttpManage::registerPostProcessor(IProcessorWare *middleWare)
+//{
+//    checkRegisterAvalible();
 
-    auto inst = instance();
-    inst->m_postProcessors.append(middleWare);
-}
+//    auto inst = instance();
+//    inst->m_postProcessors.append(middleWare);
+//}
 
-void IHttpManage::registerPreInterceptor(IInterceptorWare *middleWare)
-{
-    checkRegisterAvalible();
+//void IHttpManage::registerPreInterceptor(IInterceptorWare *middleWare)
+//{
+//    checkRegisterAvalible();
 
-    auto inst = instance();
-    inst->m_preInterceptors.append(middleWare);
-}
+//    auto inst = instance();
+//    inst->m_preInterceptors.append(middleWare);
+//}
 
-void IHttpManage::registerPostInterceptor(IInterceptorWare *middleWare)
-{
-    checkRegisterAvalible();
+//void IHttpManage::registerPostInterceptor(IInterceptorWare *middleWare)
+//{
+//    checkRegisterAvalible();
 
-    auto inst = instance();
-    inst->m_postInterceptors.append(middleWare);
-}
+//    auto inst = instance();
+//    inst->m_postInterceptors.append(middleWare);
+//}
 
 void IHttpManage::travalPrintUrlTree()
 {
@@ -244,51 +244,51 @@ QStringList IHttpManage::getStaticFolderActionPath(const IRequest &request)
     return {};
 }
 
-bool IHttpManage::preIntercept(IRequest &request, IResponse &response)
-{
-    auto inst = instance();
-    for(auto obj : inst->m_preInterceptors){
-        if(obj->match(request, response)
-            && obj->action(request, response)){
-            return true;
-        }
-    }
-    return false;
-}
+//bool IHttpManage::preIntercept(IRequest &request, IResponse &response)
+//{
+//    auto inst = instance();
+//    for(auto obj : inst->m_preInterceptors){
+//        if(obj->match(request, response)
+//            && obj->action(request, response)){
+//            return true;
+//        }
+//    }
+//    return false;
+//}
 
-bool IHttpManage::postIntercept(IRequest &request, IResponse &response)
-{
-    auto inst = instance();
-    for(auto obj : inst->m_postInterceptors){
-        if(obj->match(request, response)
-            && obj->action(request, response)){
-            return true;
-        }
-    }
-    return false;
-}
+//bool IHttpManage::postIntercept(IRequest &request, IResponse &response)
+//{
+//    auto inst = instance();
+//    for(auto obj : inst->m_postInterceptors){
+//        if(obj->match(request, response)
+//            && obj->action(request, response)){
+//            return true;
+//        }
+//    }
+//    return false;
+//}
 
-bool IHttpManage::preProcess(IRequest &request, IResponse &response)
-{
-    auto inst = instance();
-    for(auto obj : inst->m_preProcessors){
-        if(obj->match(request, response)){
-            obj->action(request, response);
-        }
-    }
-    return true;
-}
+//bool IHttpManage::preProcess(IRequest &request, IResponse &response)
+//{
+//    auto inst = instance();
+//    for(auto obj : inst->m_preProcessors){
+//        if(obj->match(request, response)){
+//            obj->action(request, response);
+//        }
+//    }
+//    return true;
+//}
 
-bool IHttpManage::postProcess(IRequest &request, IResponse &response)
-{
-    auto inst = instance();
-    for(auto obj : inst->m_postProcessors){
-        if(obj->match(request, response)){
-            obj->action(request, response);
-        }
-    }
-    return true;
-}
+//bool IHttpManage::postProcess(IRequest &request, IResponse &response)
+//{
+//    auto inst = instance();
+//    for(auto obj : inst->m_postProcessors){
+//        if(obj->match(request, response)){
+//            obj->action(request, response);
+//        }
+//    }
+//    return true;
+//}
 
 QVector<IUrlActionNode *> IHttpManage::queryFunctionNodes(IHttpRouteMapping *parentNode,
                                                              const QStringList &fragments, IHttpMethod method)

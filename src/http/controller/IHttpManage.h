@@ -27,10 +27,6 @@ public:
 public:
     static void setIsServerStarted(bool);
 
-    // TODO: 考虑 将函数换一些好用的名字
-//    void registerStatusActionNode(IStatusActionNode node);
-//    void registerStatusActionNodes(const QVector<IStatusActionNode>& statusNodes);
-
     void registerUrlActionNode(IUrlActionNode node);
     void registerUrlActionNodes(const QVector<IUrlActionNode>& functionNodes);
 
@@ -51,16 +47,14 @@ public:
     bool isUrlActionNodeEnabled() const;
     IUrlActionNode* getUrlActionNode(IRequest& request);
 
-//    static IStatusActionNode* getStatusActionNode(IHttpStatus status);
-
     bool isStaticFileActionPathEnabled();
     QString getStaticFileActionPath(const IRequest& request);
     QStringList getStaticFolderActionPath(const IRequest& request);
 
-    static bool preIntercept(IRequest& request, IResponse& response);
-    static bool postIntercept(IRequest& request, IResponse& response);
-    static bool preProcess(IRequest& request, IResponse& response);
-    static bool postProcess(IRequest& request, IResponse& response);
+//    static bool preIntercept(IRequest& request, IResponse& response);
+//    static bool postIntercept(IRequest& request, IResponse& response);
+//    static bool preProcess(IRequest& request, IResponse& response);
+//    static bool postProcess(IRequest& request, IResponse& response);
 
 private:
     static QVector<IUrlActionNode*> queryFunctionNodes(IHttpRouteMapping* parentNode, const QStringList& fragments, IHttpMethod method);
@@ -77,15 +71,14 @@ private:
     IHttpResourceMapping m_resourceMappings;
     IHttpFolderMapping m_folderMappings;
 
-//    QMap<IHttpStatus, IStatusActionNode> m_statusMappings;
     QMap<QString, QString> m_pathRegValidators;
     QMap<QString, ValidatorFun> m_pathFunValidators;
 
-    QVector<IProcessorWare*> m_preProcessors;
-    QVector<IProcessorWare*> m_postProcessors;
+//    QVector<IProcessorWare*> m_preProcessors;
+//    QVector<IProcessorWare*> m_postProcessors;
 
-    QVector<IInterceptorWare*> m_preInterceptors;
-    QVector<IInterceptorWare*> m_postInterceptors;
+//    QVector<IInterceptorWare*> m_preInterceptors;
+//    QVector<IInterceptorWare*> m_postInterceptors;
 };
 
 $PackageWebCoreEnd
