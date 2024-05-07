@@ -9,4 +9,5 @@ SUBDIRS +=  \
 #    TestHttpRegistration \
 #    TestHttpListener \
 #    TestSimpleController   \
-    TestHttpInvalid
+#    TestHttpInvalid \
+    TestQTcpServer
