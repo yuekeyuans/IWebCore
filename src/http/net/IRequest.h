@@ -28,7 +28,6 @@ class IRequest : IRegisterMetaTypeUnit<IRequest>
 {
 public:
     IRequest();
-//    explicit IRequest(qintptr handle);
     explicit IRequest(asio::ip::tcp::socket);
     ~IRequest();
 
@@ -102,6 +101,7 @@ public:
 
 private:
     IRequestImpl* impl{nullptr};
+    asio::ip::tcp::socket m_socket;
 };
 
 #ifdef USE_INLINE

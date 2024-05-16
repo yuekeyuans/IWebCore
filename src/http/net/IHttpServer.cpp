@@ -1,6 +1,8 @@
 ﻿#include "IHttpServer.h"
 #include "core/application/IApplicationInterface.h"
 #include "core/application/IAsioApplication.h"
+#include "http/net/IRequest.h"
+#include "http/net/IRequestManage.h"
 
 $PackageWebCoreBegin
 
@@ -36,8 +38,8 @@ void IHttpServer::doAccept()
         }
 
         if(!ec){
-            qDebug() << "accept socket";
-            // TODO: write code here;
+            auto request = new IRequest(std::move(socket));
+            IRequestManage::instance()->pushRequest(request);
         }
         doAccept();
     });
