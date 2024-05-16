@@ -11,6 +11,9 @@ PRECOMPILED_HEADER = $$PWD/core/base/IHeaderUtil.h
 HEADERS += \
     $$PWD/IWeb/IHttpControllerInterface \
     $$PWD/core/application/IApplicationAnnomacro.h \
+    $$PWD/core/application/IApplicationInterface.h \
+    $$PWD/core/application/IAsioApplication.h \
+    $$PWD/core/application/IQtApplication.h \
     $$PWD/core/base/ICodecUtil.h \
     $$PWD/core/base/IConstantUtil.h \
     $$PWD/core/base/IConvertUtil.h \
@@ -27,7 +30,6 @@ HEADERS += \
     $$PWD/core/base/IToeUtil.h \
     $$PWD/core/base/ITraitUtil.h \
     $$PWD/core/base/IXmlUtil.h \
-    $$PWD/core/application/IApplication.h \
     $$PWD/core/assert/IAssertInfo.h \
     $$PWD/core/assert/IAssertInterface.h \
     $$PWD/core/assert/IAssertPreProcessor.h \
@@ -112,6 +114,7 @@ HEADERS += \
     $$PWD/http/nody/INodyRenderer.h \
     $$PWD/http/response/IStatusResponse.h \
 #    $$PWD/http/server/multiThreadServer/IHttpServerRunnable.h \
+    $$PWD/http/srver/IHttpServer.h \
     $$PWD/orm/IOrmAssert.h \
     $$PWD/orm/IOrmManage.h \
     $$PWD/orm/IOrmTaskCatagory.h \
@@ -202,7 +205,7 @@ HEADERS += \
     $$PWD/http/response/response \
 #    $$PWD/http/server/IServerInterface.h \
 #    $$PWD/http/server/IServerWare.h \
-    $$PWD/http/server/multiThreadServer/ITcpSocket.h \
+#    $$PWD/http/server/multiThreadServer/ITcpSocket.h \
     $$PWD/http/controller/pp/IControlVariablePreProcessor.h \
     $$PWD/http/controller/pp/IControllerPreProcessor.h \
     $$PWD/http/controller/pp/IDeleteMappingPreProcessor.h \
@@ -219,6 +222,9 @@ HEADERS += \
     $$PWD/http/session/ISessionWare.h
 
 SOURCES += \
+    $$PWD/core/application/IApplicationInterface.cpp \
+    $$PWD/core/application/IAsioApplication.cpp \
+    $$PWD/core/application/IQtApplication.cpp \
     $$PWD/core/base/ICodecUtil.cpp \
     $$PWD/core/base/IConvertUtil.cpp \
     $$PWD/core/base/IFileUtil.cpp \
@@ -232,7 +238,6 @@ SOURCES += \
     $$PWD/core/base/ITicTacUtil.cpp \
     $$PWD/core/base/IToeUtil.cpp \
     $$PWD/core/base/IXmlUtil.cpp \
-    $$PWD/core/application/IApplication.cpp \
     $$PWD/core/assert/IAssertInfo.cpp \
     $$PWD/core/assert/IAssertInterface.cpp \
     $$PWD/core/assert/IGlobalAssert.cpp \
@@ -285,6 +290,7 @@ SOURCES += \
     $$PWD/http/nody/INodyRenderer.cpp \
     $$PWD/http/response/IStatusResponse.cpp \
 #    $$PWD/http/server/multiThreadServer/IHttpServerRunnable.cpp \
+    $$PWD/http/srver/IHttpServer.cpp \
     $$PWD/orm/IOrmAssert.cpp \
     $$PWD/orm/IOrmManage.cpp \
     $$PWD/orm/IOrmTaskCatagory.cpp \
@@ -361,8 +367,8 @@ SOURCES += \
     $$PWD/http/response/IResponseManage.cpp \
     $$PWD/http/response/IResponseTemplateRenderer.cpp \
     $$PWD/http/response/IResponseWare.cpp \
-    $$PWD/http/server/multiThreadServer/ITcpSocket.cpp \
     $$PWD/http/controller/IControllerInterface.cpp \
+#    $$PWD/http/server/multiThreadServer/ITcpSocket.cpp \
 #    $$PWD/http/server/IHttpServer.cpp \
 #    $$PWD/http/server/IHttpServerManage.cpp \
 #    $$PWD/http/server/multiThreadServer/IMultiThreadServer.cpp \

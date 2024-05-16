@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "core/application/IApplication.h"
+#include "core/application/IQtApplication.h"
 #include "core/application/IApplicationAnnomacro.h"
 
 $PackageWebCoreUsing
