@@ -1,8 +1,8 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
-#include "http/server/IServerWare.h"
-#include "IServerWare.h"
+//#include "http/server/IServerWare.h"
+//#include "IServerWare.h"
 
 $PackageWebCoreBegin
 
@@ -15,10 +15,10 @@ public:
 
 public:
     static void addSocket(qintptr handle);
-    static void addSocket(QTcpSocket* socket);
+//    static void addSocket(QTcpSocket* socket);
 
 private:
-    IServerWare* m_server{};
+//    IServerWare* m_server{};
 };
 
 $PackageWebCoreEnd

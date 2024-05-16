@@ -22,10 +22,10 @@ IReqRespRaw::IReqRespRaw()
     qFatal(IConstantUtil::UnVisibleMethod);
 }
 
-IReqRespRaw::IReqRespRaw(IRequest *request, QTcpSocket *socket)
+IReqRespRaw::IReqRespRaw(IRequest *request/*, QTcpSocket *socket*/)
 {
     m_request = request;
-    m_socket = socket;
+//    m_socket = socket;
 
     m_headerJar = new IHeaderJar(this);
     m_cookieJar = new ICookieJar(this);
@@ -93,37 +93,42 @@ IResult<QJsonValue> IReqRespRaw::getRequestJson()
 
 void IReqRespRaw::writeSocket(const QByteArray &content)
 {
-    m_socket->write(content);
+//    m_socket->write(content);
 }
 
 void IReqRespRaw::writeSocket(QByteArray &&content)
 {
-    m_socket->write(std::forward<QByteArray>(content));
+//    m_socket->write(std::forward<QByteArray>(content));
 }
 
 void IReqRespRaw::flushSocket()
 {
-    m_socket->flush();
+//    m_socket->flush();
 }
 
 bool IReqRespRaw::waitSocketForReadyRead(int time)
 {
-    return m_socket->waitForReadyRead(time);
+//    return m_socket->waitForReadyRead(time);
+    return true;
 }
 
 QByteArray IReqRespRaw::readSocketLine(qint64 cnt)
 {
-    return m_socket->readLine(cnt);
+//    return m_socket->readLine(cnt);
+//    return true;
+    return {};
 }
 
 QByteArray IReqRespRaw::readSocket(qint64 length)
 {
-    return m_socket->read(length);
+//    return m_socket->read(length);
+    return {};
 }
 
 bool IReqRespRaw::canSocketReadLine()
 {
-    return m_socket->canReadLine();
+//    return m_socket->canReadLine();
+    return true;
 }
 
 $PackageWebCoreEnd

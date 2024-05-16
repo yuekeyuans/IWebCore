@@ -1,5 +1,5 @@
 ﻿#include "IHttpServerRunnable.h"
-#include "core/base/ISocketUtil.h"
+//#include "core/base/ISocketUtil.h"
 #include "core/config/IProfileImport.h"
 #include "http/controller/IHttpManage.h"
 #include "http/controller/private/IHttpControllerParameter.h"
@@ -19,19 +19,19 @@ IHttpServerRunnable::IHttpServerRunnable(qintptr handle) : m_handle{handle}
 {
 }
 
-IHttpServerRunnable::IHttpServerRunnable(QTcpSocket *socket) : m_socket(socket)
-{
-}
+//IHttpServerRunnable::IHttpServerRunnable(QTcpSocket *socket) : m_socket(socket)
+//{
+//}
 
 void IHttpServerRunnable::run()
 {
-    if(m_socket != nullptr){
-        IRequest request(m_socket);
-        runRequest(request);
-    }else{
-        IRequest request(m_handle);
-        runRequest(request);
-    }
+//    if(m_socket != nullptr){
+//        IRequest request(m_socket);
+//        runRequest(request);
+//    }else{
+//        IRequest request(m_handle);
+//        runRequest(request);
+//    }
 }
 
 void IHttpServerRunnable::runRequest(IRequest& request)
@@ -77,7 +77,7 @@ void IHttpServerRunnable::runRequest(IRequest& request)
     }
 
     if(!response.respond()){
-        ISocketUtil::closeTcpSocket(request.getRaw()->m_socket);
+//        ISocketUtil::closeTcpSocket(request.getRaw()->m_socket);
     }
 }
 

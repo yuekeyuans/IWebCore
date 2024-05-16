@@ -12,7 +12,7 @@ class IHttpServerRunnable : public QRunnable
 {
 public:
     IHttpServerRunnable(qintptr handle);
-    IHttpServerRunnable(QTcpSocket* socket);
+//    IHttpServerRunnable(QTcpSocket* socket);
     virtual void run() final;
 
 private:
@@ -26,7 +26,7 @@ private:
 
 private:
     qintptr m_handle{0};
-    QTcpSocket* m_socket{nullptr};
+//    QTcpSocket* m_socket{nullptr};
 };
 
 $PackageWebCoreEnd

@@ -1,6 +1,6 @@
 INCLUDEPATH += $$PWD
 
-QT += network sql xml testlib
+QT += sql xml testlib
 
 CONFIG += c++17
 
@@ -22,7 +22,7 @@ HEADERS += \
     $$PWD/core/base/IMetaUtil.h \
     $$PWD/core/base/IPackageUtil.h \
     $$PWD/core/base/IPreProcessorUtil.h \
-    $$PWD/core/base/ISocketUtil.h \
+#    $$PWD/core/base/ISocketUtil.h \
     $$PWD/core/base/ITicTacUtil.h \
     $$PWD/core/base/IToeUtil.h \
     $$PWD/core/base/ITraitUtil.h \
@@ -111,7 +111,7 @@ HEADERS += \
     $$PWD/http/nody/INodyParser.h \
     $$PWD/http/nody/INodyRenderer.h \
     $$PWD/http/response/IStatusResponse.h \
-    $$PWD/http/server/multiThreadServer/IHttpServerRunnable.h \
+#    $$PWD/http/server/multiThreadServer/IHttpServerRunnable.h \
     $$PWD/orm/IOrmAssert.h \
     $$PWD/orm/IOrmManage.h \
     $$PWD/orm/IOrmTaskCatagory.h \
@@ -200,8 +200,8 @@ HEADERS += \
     $$PWD/http/response/IResponseTemplateRenderer.h \
     $$PWD/http/response/IResponseWare.h \
     $$PWD/http/response/response \
-    $$PWD/http/server/IServerInterface.h \
-    $$PWD/http/server/IServerWare.h \
+#    $$PWD/http/server/IServerInterface.h \
+#    $$PWD/http/server/IServerWare.h \
     $$PWD/http/server/multiThreadServer/ITcpSocket.h \
     $$PWD/http/controller/pp/IControlVariablePreProcessor.h \
     $$PWD/http/controller/pp/IControllerPreProcessor.h \
@@ -210,10 +210,10 @@ HEADERS += \
     $$PWD/http/controller/pp/IPatchMappingPreProcessor.h \
     $$PWD/http/controller/pp/IPostMappingPreProcessor.h \
     $$PWD/http/controller/pp/IPutMappingPreProcessor.h \
-    $$PWD/http/server/IHttpServer.h \
-    $$PWD/http/server/IHttpServerManage.h \
-    $$PWD/http/server/multiThreadServer/IMultiThreadServer.h \
-    $$PWD/http/server/quenedServer/IQueneServer.h \
+#    $$PWD/http/server/IHttpServer.h \
+#    $$PWD/http/server/IHttpServerManage.h \
+#    $$PWD/http/server/multiThreadServer/IMultiThreadServer.h \
+#    $$PWD/http/server/quenedServer/IQueneServer.h \
     $$PWD/http/session/ISessionInterface.h \
     $$PWD/http/session/ISessionManager.h \
     $$PWD/http/session/ISessionWare.h
@@ -228,7 +228,7 @@ SOURCES += \
     $$PWD/core/base/IJsonUtil_tojson_impl.cpp \
     $$PWD/core/base/IMetaUtil.cpp \
     $$PWD/core/base/IPreProcessorUtil.cpp \
-    $$PWD/core/base/ISocketUtil.cpp \
+#    $$PWD/core/base/ISocketUtil.cpp \
     $$PWD/core/base/ITicTacUtil.cpp \
     $$PWD/core/base/IToeUtil.cpp \
     $$PWD/core/base/IXmlUtil.cpp \
@@ -284,7 +284,7 @@ SOURCES += \
     $$PWD/http/nody/INodyParser.cpp \
     $$PWD/http/nody/INodyRenderer.cpp \
     $$PWD/http/response/IStatusResponse.cpp \
-    $$PWD/http/server/multiThreadServer/IHttpServerRunnable.cpp \
+#    $$PWD/http/server/multiThreadServer/IHttpServerRunnable.cpp \
     $$PWD/orm/IOrmAssert.cpp \
     $$PWD/orm/IOrmManage.cpp \
     $$PWD/orm/IOrmTaskCatagory.cpp \
@@ -363,10 +363,10 @@ SOURCES += \
     $$PWD/http/response/IResponseWare.cpp \
     $$PWD/http/server/multiThreadServer/ITcpSocket.cpp \
     $$PWD/http/controller/IControllerInterface.cpp \
-    $$PWD/http/server/IHttpServer.cpp \
-    $$PWD/http/server/IHttpServerManage.cpp \
-    $$PWD/http/server/multiThreadServer/IMultiThreadServer.cpp \
-    $$PWD/http/server/quenedServer/IQueneServer.cpp \
+#    $$PWD/http/server/IHttpServer.cpp \
+#    $$PWD/http/server/IHttpServerManage.cpp \
+#    $$PWD/http/server/multiThreadServer/IMultiThreadServer.cpp \
+#    $$PWD/http/server/quenedServer/IQueneServer.cpp \
     $$PWD/http/session/ISessionInterface.cpp \
     $$PWD/http/session/ISessionManager.cpp \
     $$PWD/http/session/ISessionWare.cpp
@@ -377,7 +377,7 @@ HEADERS += \
     $$PWD/ICore/IContext \
     $$PWD/ICore/IProfile \
     $$PWD/ICore/IUnitTestInterface \
-    $$PWD/IWeb/IHttpServer \
+#    $$PWD/IWeb/IHttpServer \
     $$PWD/IWeb/IHttpTestInterface   \
     $$PWD/IWeb/IHttpInvalidInterface \
     $$PWD/IWeb/HttpRequest \

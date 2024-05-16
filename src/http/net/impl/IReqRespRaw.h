@@ -23,7 +23,7 @@ class IReqRespRaw
 {
 public:
     IReqRespRaw();
-    IReqRespRaw(IRequest* request, QTcpSocket* socket);
+    IReqRespRaw(IRequest* request/*, QTcpSocket* socket*/);
     ~IReqRespRaw();
 
 public:
@@ -47,12 +47,12 @@ public:         // 这些东西先抽象出来，等到改变 socket 的时候�
     bool canSocketReadLine();
 
 public:
-    QTcpSocket* m_socket {nullptr};
+//    QTcpSocket* m_socket {nullptr};
     IResponse*  m_response {nullptr};
     IRequest*   m_request  {nullptr};
 
     int peerPort{};
-    QHostAddress peerAddress;
+//    QHostAddress peerAddress;
     QString peerName;
     QMap<QString, QVariant> m_attribute;                // 用户或系统可以自己放置内容的地方。
 

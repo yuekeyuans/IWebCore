@@ -1,5 +1,5 @@
 ﻿#include "IHttpServerManage.h"
-#include "http/server/multiThreadServer/IMultiThreadServer.h"
+//#include "http/server/multiThreadServer/IMultiThreadServer.h"
 
 $PackageWebCoreBegin
 

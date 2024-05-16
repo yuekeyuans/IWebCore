@@ -5,7 +5,7 @@
 #include "core/base/IJsonUtil.h"
 #include "core/base/IXmlUtil.h"
 #include "core/base/IToeUtil.h"
-#include "core/base/ISocketUtil.h"
+//#include "core/base/ISocketUtil.h"
 #include "core/assert/IGlobalAssert.h"
 #include "http/biscuits/IHttpHeader.h"
 #include "http/IHttpAssert.h"
@@ -27,14 +27,14 @@ IRequest::IRequest()
     qFatal(IConstantUtil::UnVisibleMethod);
 }
 
-IRequest::IRequest(qintptr handle)
-    : IRequest(ISocketUtil::createTcpSocket(handle))
-{
-}
+//IRequest::IRequest(qintptr handle)
+//    : IRequest(ISocketUtil::createTcpSocket(handle))
+//{
+//}
 
-IRequest::IRequest(QTcpSocket *socket)
+IRequest::IRequest(asio::ip::tcp::socket socket)
 {
-    auto raw = new IReqRespRaw(this, socket);
+    auto raw = new IReqRespRaw(this/*, socket*/);
     impl = new IRequestImpl(raw);
 
     // TODO: 这里如果只是连接上了，但是没有通信的话，它会卡住线程，如果多余 idealThreadCount 的话，软件就会明显卡顿起来。
@@ -58,8 +58,8 @@ IRequest::~IRequest()
 //        qDebug() << connection;
 //        IHttpServerManage::addSocket(impl->raw->m_socket);
 //    }else{
-        ISocketUtil::closeTcpSocket(impl->raw->m_socket);
-        delete impl->raw->m_socket;
+//        ISocketUtil::closeTcpSocket(impl->raw->m_socket);
+//        delete impl->raw->m_socket;
 //    }
 
     delete impl;

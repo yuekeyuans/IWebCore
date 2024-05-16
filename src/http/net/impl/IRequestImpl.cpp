@@ -319,9 +319,9 @@ QList<QPair<QString, IRequestImpl::FunType>> IRequestImpl::parameterResolverMap(
 
 bool IRequestImpl::resolvePeerInfo()
 {
-    raw->peerName = raw->m_socket->peerName();
-    raw->peerPort = raw->m_socket->peerPort();
-    raw->peerAddress = raw->m_socket->peerAddress();
+//    raw->peerName = raw->m_socket->peerName();
+//    raw->peerPort = raw->m_socket->peerPort();
+//    raw->peerAddress = raw->m_socket->peerAddress();
     return true;
 }
 

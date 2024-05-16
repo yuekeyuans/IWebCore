@@ -1,7 +1,7 @@
 ﻿#include "IHttpServer.h"
 #include "core/base/IConstantUtil.h"
 #include "http/controller/IHttpManage.h"
-#include "http/server/IHttpServerManage.h"
+//#include "http/server/IHttpServerManage.h"
 #include "http/node/IUrlActionNode.h"
 
 $PackageWebCoreBegin

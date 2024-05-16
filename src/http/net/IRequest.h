@@ -12,6 +12,7 @@
 #include "http/jar/IMultiPart.h"
 #include "http/invalid/IHttpInvalidUnit.h"
 
+
 $PackageWebCoreBegin
 
 class IResponse;
@@ -27,8 +28,8 @@ class IRequest : IRegisterMetaTypeUnit<IRequest>
 {
 public:
     IRequest();
-    explicit IRequest(qintptr handle);
-    explicit IRequest(QTcpSocket* m_socket);
+//    explicit IRequest(qintptr handle);
+    explicit IRequest(asio::ip::tcp::socket);
     ~IRequest();
 
     IRequest(const IRequest &);
