@@ -101,7 +101,6 @@ public:
 
 private:
     IRequestImpl* impl{nullptr};
-    asio::ip::tcp::socket m_socket;
 };
 
 #ifdef USE_INLINE

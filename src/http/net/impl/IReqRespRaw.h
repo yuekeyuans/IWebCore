@@ -23,7 +23,7 @@ class IReqRespRaw
 {
 public:
     IReqRespRaw();
-    IReqRespRaw(IRequest* request/*, QTcpSocket* socket*/);
+    IReqRespRaw(IRequest* request);
     ~IReqRespRaw();
 
 public:

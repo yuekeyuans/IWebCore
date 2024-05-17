@@ -22,42 +22,23 @@ $PackageWebCoreBegin
 $UseAssert(IHttpAssert)
 $UseGlobalAssert()
 
-IRequest::IRequest() : m_socket(*reinterpret_cast<asio::io_context*>(nullptr))
+IRequest::IRequest()
 {
     qFatal(IConstantUtil::UnVisibleMethod);
 }
 
 IRequest::IRequest(asio::ip::tcp::socket socket)
-    : m_socket(std::move(socket))
 {
-    auto raw = new IReqRespRaw(this/*, socket*/);
-    impl = new IRequestImpl(raw);
-
+    impl = new IRequestImpl(this, std::move(socket));
     qDebug() << "opened";
-
-//    if(!impl->raw->waitSocketForReadyRead()){
-//        setInvalid(IHttpRequestTimeoutInvalid("request open failed"));
-//    }else{
-//        impl->resolve();
-//    }
 }
 
 IRequest::~IRequest()
 {
-//    bool ok;
-//    auto connection = getHeaderParameter("Connection", &ok);
-//    if(ok && connection.contains("keep-alive")){
-//        qDebug() << connection;
-//        IHttpServerManage::addSocket(impl->raw->m_socket);
-//    }else{
-//        ISocketUtil::closeTcpSocket(impl->raw->m_socket);
-//        delete impl->raw->m_socket;
-//    }
-
     delete impl;
 }
 
-IRequest::IRequest(const IRequest &)  : m_socket(*reinterpret_cast<asio::io_context*>(nullptr))
+IRequest::IRequest(const IRequest &)
 {
     qFatal(IConstantUtil::UnVisibleMethod);
 }
@@ -68,7 +49,7 @@ IRequest &IRequest::operator=(const IRequest &)
     return *this;
 }
 
-IRequest::IRequest(IRequest &&)  : m_socket(*reinterpret_cast<asio::io_context*>(nullptr))
+IRequest::IRequest(IRequest &&)
 {
     qFatal(IConstantUtil::UnVisibleMethod);
 }
@@ -336,7 +317,5 @@ void IRequest::setInvalid(IHttpInvalidUnit ware) const
 {
     return impl->raw->setInvalid(ware);
 }
-
-
 
 $PackageWebCoreEnd

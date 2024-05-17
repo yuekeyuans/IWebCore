@@ -21,9 +21,11 @@ namespace IRequestImplHelper{
     QString getOriginName(const QString& name, const QString& suffix);
 }
 
-IRequestImpl::IRequestImpl(IReqRespRaw *raw)
+IRequestImpl::IRequestImpl(IRequest* self, asio::ip::tcp::socket socket)
+    : m_socket(std::move(socket))
 {
-    this->raw = raw;
+    raw = new IReqRespRaw(self);
+    doRead();
 }
 
 IRequestImpl::~IRequestImpl()
@@ -222,28 +224,36 @@ QByteArray IRequestImpl::getSessionParameter(const QString &name, bool& ok) cons
     return {};
 }
 
-void IRequestImpl::resolve()
+void IRequestImpl::doRead()
 {
-    if(!resolvePeerInfo()){
-        return;
-    }
-
-    if(!resolveFirstLine()){
-        return;
-    }
-
-    if(!resolveHeaders()){
-        return;
-    }
-
-    if(!resolveCookies()){
-        return;
-    }
-
-    if(!resolveBody()){
-        return;
-    }
+    m_socket.async_read_some(m_data.getNextBuffer(), [&](std::error_code, int length){
+        m_data.endPos += length;
+        parseData();
+    });
 }
+
+//void IRequestImpl::resolve()
+//{
+//    if(!resolvePeerInfo()){
+//        return;
+//    }
+
+//    if(!resolveFirstLine()){
+//        return;
+//    }
+
+//    if(!resolveHeaders()){
+//        return;
+//    }
+
+//    if(!resolveCookies()){
+//        return;
+//    }
+
+//    if(!resolveBody()){
+//        return;
+//    }
+//}
 
 QByteArray IRequestImpl::getFormUrlValue(const QString &name, bool& ok) const
 {
@@ -317,6 +327,66 @@ QList<QPair<QString, IRequestImpl::FunType>> IRequestImpl::parameterResolverMap(
     return map;
 }
 
+void IRequestImpl::parseData()
+{
+    while(true){
+        auto line = m_data.getLine();
+        if(line[1] == 0){
+            break;      // can  not parse anything, check it whether should read again
+        }
+
+        if(m_data.readState == State::Start){
+            parseFirstLine(QString::fromLocal8Bit(m_data.data + line[0], line[1]-2));
+            m_data.readState = State::FirstLine;
+        }
+
+
+        if(!raw->valid()){
+            // TODO: 发生错误，需要立即处理即可，不需要往下解析下去了
+        }
+
+        m_data.startPos += line[1];
+    }
+}
+
+void IRequestImpl::parseFirstLine(QString line)
+{
+    static $Int urlMaxLength("http.urlMaxLength");
+    if(line.length() >= urlMaxLength){
+         return raw->setInvalid(IHttpBadRequestInvalid("request url is too long"));
+    }
+
+    QStringList content = line.split(' '); // NOTE: here should be optimized
+    if(content.length() != 3){
+        return raw->setInvalid(IHttpBadRequestInvalid("first line of request is not supported"));
+    }
+
+    raw->m_method = IHttpMethodUtil::toMethod(content[0]);
+    if(raw->m_method == IHttpMethod::UNKNOWN){
+        return raw->setInvalid(IHttpBadRequestInvalid("can not resolve current method type"));
+    }
+
+    raw->m_httpVersion = IHttpVersionUtil::toVersion(content[2]);
+    if(raw->m_httpVersion == IHttpVersion::UNKNOWN){
+        return raw->setInvalid(IHttpBadRequestInvalid("current version is not supported"));
+    }
+
+    auto realUrl = QString(QByteArray::fromPercentEncoding(content[1].toUtf8()));
+    if(!IRequestImplHelper::isPathValid(realUrl)){
+        return raw->setInvalid(IHttpBadRequestInvalid("request url is not correct. url:" + realUrl));
+    }
+
+    QStringList spices = realUrl.split('?');
+    raw->m_url = spices.first();
+    if(spices.length() == 2){
+        if(!resolveEncodeArguments(spices[1].toUtf8(), false)){
+            return;
+        }
+    }
+
+}
+
+/*
 bool IRequestImpl::resolvePeerInfo()
 {
 //    raw->peerName = raw->m_socket->peerName();
@@ -516,26 +586,7 @@ bool IRequestImpl::resolveFormUrlEncoded()
     return resolveEncodeArguments(raw->m_requestBody, true);
 }
 
-bool IRequestImpl::resolveEncodeArguments(const QByteArray &content, bool isBody)
-{
-    auto list = content.split('&');
-    for(auto val : list){
-        auto map = val.split('=');
-        if(map.length() != 2){
-            raw->setInvalid(IHttpBadRequestInvalid("the parameters in body should be pair"));
-            return false;
-        }
 
-        QString key = QString(QByteArray::fromPercentEncoding(map.first()));
-        auto value = QByteArray::fromPercentEncoding(map.last());
-        if(isBody){
-            raw->m_requestBodyParameters[key] = value;
-        }else{
-            raw->m_requestParamParameters[key] = value;
-        }
-    }
-    return true;
-}
 
 void IRequestImpl::processMultiPartHeaders(IMultiPart &part, int start, int end)
 {
@@ -611,6 +662,29 @@ QByteArray IRequestImpl::getBoundaryParam(const QString &mime)
     return boundary.toUtf8();
 }
 
+*/
+
+bool IRequestImpl::resolveEncodeArguments(const QByteArray &content, bool isBody)
+{
+    auto list = content.split('&');
+    for(auto val : list){
+        auto map = val.split('=');
+        if(map.length() != 2){
+            raw->setInvalid(IHttpBadRequestInvalid("the parameters in body should be pair"));
+            return false;
+        }
+
+        QString key = QString(QByteArray::fromPercentEncoding(map.first()));
+        auto value = QByteArray::fromPercentEncoding(map.last());
+        if(isBody){
+            raw->m_requestBodyParameters[key] = value;
+        }else{
+            raw->m_requestParamParameters[key] = value;
+        }
+    }
+    return true;
+}
+
 // TODO: 这里不对， 有路径没有被判断通过，
 bool IRequestImplHelper::isPathValid(const QString& path){
     static QRegularExpression exp(R"(([\/\w \.-]*)*\/?$)");
@@ -649,5 +723,18 @@ QString IRequestImplHelper::getOriginName(const QString& name, const QString& su
     }
     return name;
 }
+
+std::array<int, 2> IRequestImpl::Data::getLine()
+{
+    std::array<int, 2> value{startPos, 0};
+    for(int i=startPos; i<endPos-1; i++){
+        if(data[i] == '\r' && data[i + 1] == '\n'){     // 这个可以通过 转换类型并 异或 完成数据的判断，更简单一点
+            value[1] = i + 2 - startPos;
+            return value;
+        }
+    }
+    return value;
+}
+
 
 $PackageWebCoreEnd
