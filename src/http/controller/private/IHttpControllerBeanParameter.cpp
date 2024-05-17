@@ -438,15 +438,16 @@ bool IHttpControllerBeanParameter::checkKeyInQByteArrayMap(const QMap<QString, Q
     return checkKeyInQStringMap(newMap, bean, request);
 }
 
-bool IHttpControllerBeanParameter::checkKeyInListPair(const QList<QPair<QString, QString> > &list, IBeanWare *bean, IRequest &request)
+// TODO: check first argument
+bool IHttpControllerBeanParameter::checkKeyInListPair(const QMultiHash<QString, QString>&list, IBeanWare *bean, IRequest &request)
 {
     if(IConstantUtil::ReleaseMode){
         return true;
     }
 
     QMap<QString, QString> newMap;
-    for(const auto& pair : list){
-        newMap[pair.first] = "";
+    for(const auto& pair : list.keys()){
+        newMap[pair] = "";
     }
     return checkKeyInQStringMap(newMap, bean, request);
 }

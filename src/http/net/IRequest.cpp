@@ -133,12 +133,12 @@ const QByteArray &IRequest::bodyContent() const
     return impl->raw->m_requestBody;
 }
 
-QList<QPair<QString, QString> > &IRequest::headers()
+QMultiHash<QString, QString> &IRequest::headers()
 {
     return impl->raw->m_requestHeaders;
 }
 
-const QList<QPair<QString, QString>> &IRequest::headers() const
+const QMultiHash<QString, QString> &IRequest::headers() const
 {
     return impl->raw->m_requestHeaders;
 }

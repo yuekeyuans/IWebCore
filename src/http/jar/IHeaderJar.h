@@ -31,8 +31,8 @@ public:
     QStringList responseHeaderKeys() const;
     bool containResponseHeaderKey(const QString& key) const;
 
-    QString getResponseHeaderValue(const QString& key, bool& ok) const;
-    QStringList getResponseHeaderValues(const QString& key) const;
+//    QString getResponseHeaderValue(const QString& key, bool& ok) const;
+//    QStringList getResponseHeaderValues(const QString& key) const;
 
     void addResponseHeader(const QString& key, const QString& value);
     void addResponseHeader(const QString& key, const QStringList& values);
