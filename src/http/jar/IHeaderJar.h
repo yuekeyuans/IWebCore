@@ -15,8 +15,8 @@ public:
 public:
     IHeaderJar();
     // request
-    const QList<QPair<QString, QString>>& requestHeaders() const;
-    QList<QPair<QString, QString>>& requestHeaders();
+    const QMultiHash<QString, QString>& requestHeaders() const;
+    QMultiHash<QString, QString>& requestHeaders();
 
     QStringList requestHeaderKeys() const;
     bool containRequestHeaderKey(const QString& key) const;

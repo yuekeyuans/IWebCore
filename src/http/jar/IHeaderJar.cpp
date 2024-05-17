@@ -14,12 +14,12 @@ IHeaderJar::IHeaderJar() : IJarUnit(nullptr)
     qFatal(IConstantUtil::UnVisibleMethod);
 }
 
-const QList<QPair<QString, QString>>& IHeaderJar::requestHeaders() const
+const QMultiHash<QString, QString>& IHeaderJar::requestHeaders() const
 {
     return m_raw->m_requestHeaders;
 }
 
-QList<QPair<QString, QString> > &IHeaderJar::requestHeaders()
+QMultiHash<QString, QString> &IHeaderJar::requestHeaders()
 {
     return m_raw->m_requestHeaders;
 }

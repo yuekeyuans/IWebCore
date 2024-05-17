@@ -27,6 +27,7 @@ public:
         HeaderRn,
         Body,
         BodyRn,
+        End,
     };
 
 public:
@@ -87,6 +88,9 @@ private:
 
     void parseData();
     void parseFirstLine(QString data);
+    void resolveFirstLine();    // 解析里面所得到的信息
+    void parseHeader(QString data);
+    void resolveHeaders();      // 解析接收到的头
 
     // resolve
 //    bool resolvePeerInfo();

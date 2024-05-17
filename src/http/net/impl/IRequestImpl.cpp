@@ -335,11 +335,36 @@ void IRequestImpl::parseData()
             break;      // can  not parse anything, check it whether should read again
         }
 
-        if(m_data.readState == State::Start){
+        switch (m_data.readState) {
+        case Start:
             parseFirstLine(QString::fromLocal8Bit(m_data.data + line[0], line[1]-2));
             m_data.readState = State::FirstLine;
-        }
+            if(raw->valid()){
+                resolveFirstLine();
+            }
+            break;
+        case FirstLine:
+            if(line[1] == 2){
+                m_data.readState = State::End;
+                break;
+            }
+            parseHeader(QString::fromLocal8Bit(m_data.data + line[0], line[1] -2));
+            m_data.readState = Header;
+        case Header:
+            if(line[1] == 2){
+                resolveHeaders();
+                // TODO: check whether body exist?
+                m_data.readState = State::Body;
+                break;
+            }
+            parseHeader(QString::fromLocal8Bit(m_data.data + line[0], line[1] -2));
 
+        case Body:
+            // TODO:
+            break;
+        default:
+            break;
+        }
 
         if(!raw->valid()){
             // TODO: 发生错误，需要立即处理即可，不需要往下解析下去了
@@ -351,6 +376,7 @@ void IRequestImpl::parseData()
 
 void IRequestImpl::parseFirstLine(QString line)
 {
+    qDebug() << "FirstLine" << line;
     static $Int urlMaxLength("http.urlMaxLength");
     if(line.length() >= urlMaxLength){
          return raw->setInvalid(IHttpBadRequestInvalid("request url is too long"));
@@ -383,6 +409,31 @@ void IRequestImpl::parseFirstLine(QString line)
             return;
         }
     }
+}
+
+void IRequestImpl::resolveFirstLine()
+{
+
+}
+
+void IRequestImpl::parseHeader(QString line)
+{
+    qDebug() << "Header" << line;
+
+    static $Int headerMaxLength("http.headerMaxLength");
+
+    auto index = line.indexOf(':');
+    if(index == -1){
+        return raw->setInvalid(IHttpBadRequestInvalid("server do not support headers item multiline"));  // SEE: 默认不支持 headers 换行书写
+    }
+
+    auto key = line.left(index);
+    auto value = line.mid(index + 1).trimmed();
+    raw->m_requestHeaders.insertMulti(key, value);       // TODO: check
+}
+
+void IRequestImpl::resolveHeaders()
+{
 
 }
 
