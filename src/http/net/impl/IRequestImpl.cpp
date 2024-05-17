@@ -345,7 +345,7 @@ void IRequestImpl::parseData()
             break;
         case FirstLine:
             if(line[1] == 2){
-                m_data.readState = State::End;
+                m_data.readState = State::HeaderGap;
                 break;
             }
             parseHeader(QString::fromLocal8Bit(m_data.data + line[0], line[1] -2));
@@ -354,10 +354,14 @@ void IRequestImpl::parseData()
             if(line[1] == 2){
                 resolveHeaders();
                 // TODO: check whether body exist?
-                m_data.readState = State::Body;
+                m_data.readState = State::HeaderGap;
                 break;
             }
             parseHeader(QString::fromLocal8Bit(m_data.data + line[0], line[1] -2));
+        case HeaderGap:
+            if(line[1] == 2){
+                m_data.readState = State::End;
+            }
 
         case Body:
             // TODO:
@@ -365,12 +369,15 @@ void IRequestImpl::parseData()
         default:
             break;
         }
+        m_data.startPos += line[1];
 
         if(!raw->valid()){
             // TODO: 发生错误，需要立即处理即可，不需要往下解析下去了
         }
 
-        m_data.startPos += line[1];
+        if(m_data.readState == State::End){
+            // finish read, then process
+        }
     }
 }
 

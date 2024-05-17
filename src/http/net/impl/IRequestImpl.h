@@ -24,9 +24,8 @@ public:
         Start,
         FirstLine,
         Header,
-        HeaderRn,
+        HeaderGap,
         Body,
-        BodyRn,
         End,
     };
 

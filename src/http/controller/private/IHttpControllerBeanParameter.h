@@ -44,7 +44,7 @@ private:
     static QMap<QString, QVariant> resolveBeanFieldAsMap(const QList<QPair<QString, QString>>& list, IBeanWare* bean, IRequest&request, bool& ok);
     static QMap<QString, QVariant> resolveBeanFieldAsMap(const QMap<QString, QByteArray>& map, IBeanWare* bean, IRequest& request, bool& ok);
     static QMap<QString, QVariant> resolveBeanFieldAsMap(const QVector<IMultiPart>& parts, IBeanWare* bean, IRequest& request, bool& ok);
-
+    static QMap<QString, QVariant> resolveBeanFieldAsMap(const QMultiHash<QString, QString>& parts, IBeanWare* bean, IRequest& request, bool& ok);
 
     static bool checkKeyInJsonAndBean(const QJsonObject& obj, IBeanWare* bean, IRequest& request);
     static bool checkKeyInMultiPart(const QVector<IMultiPart> &parts, IBeanWare* bean, IRequest& request);

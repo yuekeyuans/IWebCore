@@ -129,10 +129,11 @@ void *IHttpControllerBeanParameter::assambleBeanWareWithHeaders(IBeanWare *bean,
 
     if(checkKeyInListPair(parameters, bean, request)){
         bool convertOk;
-        auto map = resolveBeanFieldAsMap(parameters, bean, request, convertOk);
-        if(convertOk){
-            bean->load(map);
-        }
+//        auto map = resolveBeanFieldAsMap(parameters, bean, request, convertOk);
+//        if(convertOk){
+//            bean->load(map);
+//        }
+        // TODO: 注释掉
     }
     return bean;
 }
@@ -333,8 +334,8 @@ QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(cons
     return map;
 }
 
-QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(const QVector<IMultiPart> &parts
-                                                                            , IBeanWare* bean, IRequest& request, bool& ok)
+QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(const QVector<IMultiPart> &parts,
+                                                                            IBeanWare *bean, IRequest &request, bool &ok)
 {
     QMap<QString, QVariant> map;
     const QStringList& fieldNames = bean->getMetaFieldNames();
@@ -365,6 +366,14 @@ QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(cons
         }
     }
     return map;
+
+}
+
+QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(const QMultiHash<QString, QString> &parts,
+                                                                            IBeanWare* bean, IRequest& request, bool& ok)
+{
+    // TODO: NOT FINISHED
+    return {};
 }
 
 bool IHttpControllerBeanParameter::checkKeyInJsonAndBean(const QJsonObject &obj, IBeanWare* bean, IRequest& request)
