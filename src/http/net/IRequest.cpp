@@ -143,17 +143,17 @@ const QMultiHash<QString, QString> &IRequest::headers() const
     return impl->raw->m_requestHeaders;
 }
 
-const QMap<QString, QByteArray> &IRequest::urlParameters() const
+const QMap<QString, QString> &IRequest::urlParameters() const
 {
     return impl->raw->m_requestUrlParameters;
 }
 
-const QMap<QString, QByteArray> &IRequest::paramParameters() const
+const QMap<QString, QString> &IRequest::paramParameters() const
 {
     return impl->raw->m_requestParamParameters;
 }
 
-const QMap<QString, QByteArray> &IRequest::bodyFormParameters() const
+const QMap<QString, QString> &IRequest::bodyFormParameters() const
 {
     return impl->raw->m_requestBodyParameters;
 }

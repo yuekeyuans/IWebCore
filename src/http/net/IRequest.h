@@ -56,10 +56,9 @@ public:
 
     QMultiHash<QString, QString>& headers();
     const QMultiHash<QString, QString>& headers() const;
-    const QMap<QString, QByteArray>& urlParameters() const;
-    const QMap<QString, QByteArray>& paramParameters() const;
-
-    const QMap<QString, QByteArray>& bodyFormParameters() const;
+    const QMap<QString, QString>& urlParameters() const;
+    const QMap<QString, QString>& paramParameters() const;
+    const QMap<QString, QString>& bodyFormParameters() const;
     const QVector<IMultiPart>& bodyMultiParts() const;
     QJsonValue bodyJson(bool& ok) const;
 //    const QDomNode& bodyXml(bool& ok) const;

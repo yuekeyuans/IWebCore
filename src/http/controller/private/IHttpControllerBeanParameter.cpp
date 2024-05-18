@@ -303,7 +303,7 @@ QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(cons
     return map;
 }
 
-QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(const QMap<QString, QByteArray> &raw
+QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(const QMap<QString, QString> &raw
                                                                             , IBeanWare* bean, IRequest& request, bool& ok)
 {
     IToeUtil::setOk(ok, true);
@@ -433,7 +433,7 @@ bool IHttpControllerBeanParameter::checkKeyInMultiPart(const QVector<IMultiPart>
     return true;
 }
 
-bool IHttpControllerBeanParameter::checkKeyInQByteArrayMap(const QMap<QString, QByteArray> &map, IBeanWare *bean, IRequest &request)
+bool IHttpControllerBeanParameter::checkKeyInQByteArrayMap(const QMap<QString, QString> &map, IBeanWare *bean, IRequest &request)
 {
     if(IConstantUtil::ReleaseMode){
         return true;

@@ -211,9 +211,9 @@ QVector<IUrlActionNode *> IHttpManage::queryFunctionNodes(IHttpRouteMapping *par
     return ret;
 }
 
-QMap<QString, QByteArray> IHttpManage::getPathVariable(void* node, const QStringList &fragments)
+QMap<QString, QString> IHttpManage::getPathVariable(void* node, const QStringList &fragments)
 {
-    QMap<QString, QByteArray> ret;
+    QMap<QString, QString> ret;
     if(node == nullptr){
         return ret;
     }
@@ -224,7 +224,7 @@ QMap<QString, QByteArray> IHttpManage::getPathVariable(void* node, const QString
     assert(nodes.length() == fragments.length());
     for(int i=0;i<nodes.length();i++){
         if(nodes[i]->type != IHttpRouteMapping::TEXT_MATCH && !nodes[i]->name.isEmpty()){
-            ret[nodes[i]->name] = fragments[i].toUtf8();
+            ret[nodes[i]->name] = fragments[i];
         }
     }
     return ret;

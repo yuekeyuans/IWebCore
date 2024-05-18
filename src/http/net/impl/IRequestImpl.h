@@ -25,8 +25,16 @@ public:
         FirstLine,
         Header,
         HeaderGap,
-        Body,
         End,
+    };
+
+    enum BodyType{
+        None,
+        Plain,
+        Json,
+        Xml,
+        MultiPart,
+        BinData,
     };
 
 public:
@@ -41,9 +49,12 @@ public:
         int parsedPos{};    // 表示当前parse 到哪个地方了
 
         State readState{State::Start};    // 当前的 state
+        BodyType bodyType{BodyType::BinData};   // 默认表示当前的body
+        int contentLength;         //Content-Type
+        QString multipartBoundary;   //multipart
 
-        std::array<int, 2> getLine();     // 读取下一行数据
-
+        bool getLine(int*);     // 读取下一行数据
+        BodyType getBodyType(const QString& data);
         auto getNextBuffer(){
             return asio::buffer(data + startPos, sizeof(data) - startPos);
         }
@@ -78,17 +89,24 @@ private:
     void doRead();
     void doWrite();
 
-
 private:
     // get
-    QByteArray getFormUrlValue(const QString &name, bool& ok) const;
+    QString getFormUrlValue(const QString &name, bool& ok) const;
     QByteArray getMultiPartFormData(const QString &name, bool& ok) const;
     QByteArray getJsonData(const QString &name, bool& ok) const;
     QList<QPair<QString, FunType>> parameterResolverMap() const;
 
     void parseData();
+
+    void startState(int[2]);
+    void firstLineState(int[2]);
+    void headerState(int[2]);
+    bool headerGapState();
+    void endState();
+
     void parseFirstLine(QString data);
     void resolveFirstLine();    // 解析里面所得到的信息
+    bool resolveFirstLineArguments(const QString& content, bool isBody);
     void parseHeader(QString data);
     void resolveHeaders();      // 解析接收到的头
 
@@ -96,13 +114,12 @@ private:
 //    bool resolvePeerInfo();
 //    bool resolveFirstLine();
 //    bool resolveHeaders();
-    bool resolveCookies();
+//    bool resolveCookies();
 //    bool resolveBody();
 //    bool resolveBodyContent();  // 解析body 的具体内容
 //    bool resolveMultipartFormData();
 //    bool resolveTrailer();
 //    bool resolveFormUrlEncoded();
-    bool resolveEncodeArguments(const QByteArray& content, bool isBody);
 //    void processMultiPartHeaders(IMultiPart& part, int start, int end);
 //    void processMultiPartBody(IMultiPart& part, int start, int end);
 
@@ -112,9 +129,6 @@ private:
 public:
     IReqRespRaw* raw;
     asio::ip::tcp::socket m_socket;
-
-private:
-    State m_readState{State::Start};
     Data m_data;
 };
 

@@ -48,24 +48,12 @@ QJsonValue IRequestImpl::requestJson(bool& ok) const
 
 int IRequestImpl::contentLength() const
 {
-    bool ok;
-    auto len = getHeaderParameter(IHttpHeader::ContentLength, ok);
-    if(!ok){
-        return 0;
-    }
-
-    auto size = IConvertUtil::toInt(QString(len), ok);
-    return ok ? size : 0;
+    return m_data.contentLength;
 }
 
 QString IRequestImpl::contentType() const
 {
-    bool convertOk;
-    auto value = getHeaderParameter(IHttpHeader::ContentType, convertOk);
-    if(!convertOk){
-        return "";
-    }
-    return value;
+    raw->m_requestHeaders.value(IHttpHeader::ContentType);
 }
 
 QByteArray IRequestImpl::getParameter(const QString &name, bool& ok) const
@@ -127,7 +115,7 @@ QByteArray IRequestImpl::getUrlParameter(const QString &name, bool& ok) const
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
     if(raw->m_requestUrlParameters.contains(originName)){
         ok = true;
-        return raw->m_requestUrlParameters[originName];
+        return raw->m_requestUrlParameters[originName].toUtf8();
     }
 
     ok = false;
@@ -146,7 +134,7 @@ QByteArray IRequestImpl::getBodyParameter(const QString &name, bool& ok) const
     case IHttpMime::MULTIPART_FORM_DATA:
         return getMultiPartFormData(originName, ok);
     case IHttpMime::APPLICATION_WWW_FORM_URLENCODED:
-        return getFormUrlValue(originName, ok);
+        return getFormUrlValue(originName, ok).toUtf8();
     case IHttpMime::APPLICATION_JSON:
     case IHttpMime::APPLICATION_JSON_UTF8:
         return getJsonData(originName, ok);
@@ -182,7 +170,7 @@ QByteArray IRequestImpl::getParamParameter(const QString &name, bool& ok) const
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
     if(raw->m_requestParamParameters.contains(originName)){
         ok = true;
-        return raw->m_requestParamParameters[originName];
+        return raw->m_requestParamParameters[originName].toUtf8();
     }
 
     ok = false;
@@ -228,17 +216,25 @@ QByteArray IRequestImpl::getSessionParameter(const QString &name, bool& ok) cons
 
 void IRequestImpl::doRead()
 {
-    m_socket.async_read_some(m_data.getNextBuffer(), [&](std::error_code, int length){
-        m_data.endPos += length;
-        parseData();
+    m_socket.async_read_some(m_data.getNextBuffer(), [&](std::error_code ec, int length){
+        if(!ec){
+            m_data.endPos += length;
+            parseData();
+        }else{
+            qDebug() << "connection lost";
+        }
     });
 }
 
 void IRequestImpl::doWrite()
 {
-    asio::async_write(m_socket, asio::buffer("hello world"), [&](std::error_code, int length){
-        m_socket.close();
-//        IRequestManage::instance()->popRequest();
+    asio::async_write(m_socket, asio::buffer("hello world"), [&](std::error_code ec, int length){
+        if(!ec){
+            // check length;
+            m_socket.close();
+        }else{
+            qDebug() << "connection write lost";
+        }
     });
 }
 
@@ -265,7 +261,7 @@ void IRequestImpl::doWrite()
 //    }
 //}
 
-QByteArray IRequestImpl::getFormUrlValue(const QString &name, bool& ok) const
+QString IRequestImpl::getFormUrlValue(const QString &name, bool& ok) const
 {
     if(raw->m_requestBodyParameters.contains(name)){
         ok = true;
@@ -339,63 +335,102 @@ QList<QPair<QString, IRequestImpl::FunType>> IRequestImpl::parameterResolverMap(
 
 void IRequestImpl::parseData()
 {
+    int line[2];    // 这个在之后可以考虑是 4 个字节，因为还有扩展部分的数据要传输
+    static std::vector<void(IRequestImpl::*)(int[2])> stateFun = {
+        &IRequestImpl::startState, &IRequestImpl::firstLineState, &IRequestImpl::headerState
+    };
     while(true){
-        auto line = m_data.getLine();
-        if(line[1] == 0){
-            break;      // can  not parse anything, check it whether should read again
-        }
-
         switch (m_data.readState) {
-        case Start:
-            parseFirstLine(QString::fromLocal8Bit(m_data.data + line[0], line[1]-2));
-            if(raw->valid()){
-                resolveFirstLine();
+        case State::End:
+            return endState();
+        case State::HeaderGap:
+            if(!headerGapState()){
+                return doRead(); // 等待下一次的数据。
             }
-            m_data.readState = State::FirstLine;
-            break;
-        case FirstLine:
-            if(line[1] == 2){
-                m_data.readState = State::End;
-                break;
-            }
-            parseHeader(QString::fromLocal8Bit(m_data.data + line[0], line[1] -2));
-            m_data.readState = Header;
-        case Header:
-            if(line[1] == 2){
-                resolveHeaders();
-                // TODO: check whether body exist?
-                m_data.readState = State::End;
-                break;
-            }
-            parseHeader(QString::fromLocal8Bit(m_data.data + line[0], line[1] -2));
-        case HeaderGap:
-            if(line[1] == 2){
-                m_data.readState = State::End;
-            }
-
-        case Body:
-            // TODO:
             break;
         default:
-            break;
+            if(!m_data.getLine(line)){
+                return doRead();
+            }
+            std::mem_fn(stateFun[m_data.readState])(this, line);
+            m_data.startPos += line[1];
         }
-        m_data.startPos += line[1];
 
         if(!raw->valid()){
-            // TODO: 发生错误，需要立即处理即可，不需要往下解析下去了
+            m_data.readState = State::End;
         }
-
-        if(m_data.readState == State::End){
-            doWrite();
-            qDebug() << "write";
-        }
-
     }
+}
+
+void IRequestImpl::startState(int line[2])
+{
+    parseFirstLine(QString::fromLocal8Bit(m_data.data + line[0], line[1]-2));
+    m_data.readState = State::FirstLine;
+
+    if(raw->valid()){
+        resolveFirstLine();
+    }
+}
+
+void IRequestImpl::firstLineState(int line[2])
+{
+    if(line[1] != 2){
+        parseHeader(QString::fromLocal8Bit(m_data.data + line[0], line[1] -2));
+        m_data.readState = Header;
+        return;
+    }
+
+    m_data.readState = State::End;
+}
+
+void IRequestImpl::headerState(int line[2])
+{
+    if(line[1] != 2){
+        parseHeader(QString::fromLocal8Bit(m_data.data + line[0], line[1] -2));
+        return;
+    }
+
+    if(raw->m_requestHeaders.contains(IHttpHeader::ContentLength)){
+        m_data.contentLength = raw->m_requestHeaders.value(IHttpHeader::ContentLength).toInt();
+        if(m_data.contentLength != 0){
+            m_data.readState = State::HeaderGap;
+            m_data.bodyType = m_data.getBodyType(raw->m_requestHeaders.value(IHttpHeader::ContentType));
+        }
+    }else if(raw->m_requestHeaders.contains(IHttpHeader::ContentType) &&
+             raw->m_requestHeaders.value(IHttpHeader::ContentType).startsWith("multipart/form-data;")){
+        m_data.readState = State::HeaderGap;
+        m_data.bodyType = BodyType::MultiPart;
+    }else{
+        m_data.readState = State::End;
+    }
+
+    resolveHeaders();       // 这个还可以再延后处理，万一其他数据出问题了呢
+}
+
+// return true 表示数据解析完成
+// return false 表示数据还需要进一步的读取。
+bool IRequestImpl::headerGapState()
+{
+    if(m_data.bodyType == BodyType::MultiPart){
+        // TODO:
+        return true;
+    }
+    if(m_data.contentLength != 0){
+//        if(line[2] == m_data.bodyLength){
+//            // 获得了数据，进行解析，
+//        }
+    }
+    // 表示 headerGap 没有处理完成， 还需要进一步的处理数据
+    return false;
+}
+
+void IRequestImpl::endState()
+{
+
 }
 
 void IRequestImpl::parseFirstLine(QString line)
 {
-    qDebug() << "FirstLine" << line;
     static $Int urlMaxLength("http.urlMaxLength");
     if(line.length() >= urlMaxLength){
          return raw->setInvalid(IHttpBadRequestInvalid("request url is too long"));
@@ -411,36 +446,53 @@ void IRequestImpl::parseFirstLine(QString line)
         return raw->setInvalid(IHttpBadRequestInvalid("can not resolve current method type"));
     }
 
+    raw->m_realUrl = QString(QByteArray::fromPercentEncoding(content[1].toUtf8()));
+    if(!IRequestImplHelper::isPathValid(raw->m_realUrl)){
+        return raw->setInvalid(IHttpBadRequestInvalid("request url is not correct. url:" + raw->m_realUrl));
+    }
+
     raw->m_httpVersion = IHttpVersionUtil::toVersion(content[2]);
     if(raw->m_httpVersion == IHttpVersion::UNKNOWN){
         return raw->setInvalid(IHttpBadRequestInvalid("current version is not supported"));
-    }
-
-    auto realUrl = QString(QByteArray::fromPercentEncoding(content[1].toUtf8()));
-    if(!IRequestImplHelper::isPathValid(realUrl)){
-        return raw->setInvalid(IHttpBadRequestInvalid("request url is not correct. url:" + realUrl));
-    }
-
-    QStringList spices = realUrl.split('?');
-    raw->m_url = spices.first();
-    if(spices.length() == 2){
-        if(!resolveEncodeArguments(spices[1].toUtf8(), false)){
-            return;
-        }
     }
 }
 
 void IRequestImpl::resolveFirstLine()
 {
+    QStringList spices = raw->m_realUrl.split('?');
+    raw->m_url = spices.first();
+    if(spices.length() == 2){
+        if(!resolveFirstLineArguments(spices[1], false)){
+            return;
+        }
+    }
+}
 
+bool IRequestImpl::resolveFirstLineArguments(const QString &content, bool isBody)
+{
+    QStringList list = QString(QByteArray::fromPercentEncoding(content.toUtf8())).split('&');
+    for(auto val : list){
+        QStringList map = val.split('=');
+        if(map.length() != 2){
+            raw->setInvalid(IHttpBadRequestInvalid("the parameters in body should be pair"));
+            return false;
+        }
+
+        QString key = map.first();
+        auto value = map.last();
+        if(isBody){
+            raw->m_requestBodyParameters[key] = value;
+        }else{
+            raw->m_requestParamParameters[key] = value;
+        }
+    }
+    return true;
 }
 
 void IRequestImpl::parseHeader(QString line)
 {
     qDebug() << "Header" << line;
-
     static $Int headerMaxLength("http.headerMaxLength");
-
     auto index = line.indexOf(':');
     if(index == -1){
         return raw->setInvalid(IHttpBadRequestInvalid("server do not support headers item multiline"));  // SEE: 默认不支持 headers 换行书写
@@ -475,7 +527,7 @@ void IRequestImpl::resolveHeaders()
             raw->m_requestCookieParameters.append({key, value});
         }
     }
-    return true;
+//    return true;
 
 }
 
@@ -730,27 +782,6 @@ QByteArray IRequestImpl::getBoundaryParam(const QString &mime)
 
 */
 
-bool IRequestImpl::resolveEncodeArguments(const QByteArray &content, bool isBody)
-{
-    auto list = content.split('&');
-    for(auto val : list){
-        auto map = val.split('=');
-        if(map.length() != 2){
-            raw->setInvalid(IHttpBadRequestInvalid("the parameters in body should be pair"));
-            return false;
-        }
-
-        QString key = QString(QByteArray::fromPercentEncoding(map.first()));
-        auto value = QByteArray::fromPercentEncoding(map.last());
-        if(isBody){
-            raw->m_requestBodyParameters[key] = value;
-        }else{
-            raw->m_requestParamParameters[key] = value;
-        }
-    }
-    return true;
-}
-
 // TODO: 这里不对， 有路径没有被判断通过，
 bool IRequestImplHelper::isPathValid(const QString& path){
     static QRegularExpression exp(R"(([\/\w \.-]*)*\/?$)");
@@ -790,16 +821,22 @@ QString IRequestImplHelper::getOriginName(const QString& name, const QString& su
     return name;
 }
 
-std::array<int, 2> IRequestImpl::Data::getLine()
+bool IRequestImpl::Data::getLine(int* value)
 {
-    std::array<int, 2> value{startPos, 0};
+    value[0] = startPos;
     for(int i=startPos; i<endPos-1; i++){
         if(data[i] == '\r' && data[i + 1] == '\n'){     // 这个可以通过 转换类型并 异或 完成数据的判断，更简单一点
             value[1] = i + 2 - startPos;
-            return value;
+            return true;
         }
     }
-    return value;
+    value[1] = startPos;
+    return false;
+}
+
+IRequestImpl::BodyType IRequestImpl::Data::getBodyType(const QString &data)
+{
+    return BodyType::BinData;
 }
 
 

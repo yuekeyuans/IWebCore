@@ -57,6 +57,7 @@ public:
     QMap<QString, QVariant> m_attribute;                // 用户或系统可以自己放置内容的地方。
 
     // request
+    QString m_realUrl;                                  // TODO: 考虑优化掉
     QString m_url;
     IHttpVersion m_httpVersion {IHttpVersion::UNKNOWN};
     IHttpMethod m_method {IHttpMethod::UNKNOWN};
@@ -64,9 +65,9 @@ public:
     QByteArray m_requestBody;
 
     QMultiHash<QString, QString> m_requestHeaders;
-    QMap<QString, QByteArray> m_requestUrlParameters;
-    QMap<QString, QByteArray> m_requestParamParameters;     // 特指 url 参数后面的内容
-    QMap<QString, QByteArray> m_requestBodyParameters;  // 特指 url encoded
+    QMap<QString, QString> m_requestUrlParameters;
+    QMap<QString, QString> m_requestParamParameters;     // 特指 url 参数后面的内容
+    QMap<QString, QString> m_requestBodyParameters;  // 特指 url encoded
     QVector<IMultiPart> m_requestMultiParts;
     QList<QPair<QString, QString>> m_requestCookieParameters;
 

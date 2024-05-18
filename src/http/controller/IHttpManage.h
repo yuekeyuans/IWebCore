@@ -42,7 +42,7 @@ public:
 
 private:
     static QVector<IUrlActionNode*> queryFunctionNodes(IHttpRouteMapping* parentNode, const QStringList& fragments, IHttpMethod method);
-    static QMap<QString, QByteArray> getPathVariable(void* node, const QStringList& fragments);
+    static QMap<QString, QString> getPathVariable(void* node, const QStringList& fragments);
 
     // 这里实现 url 时 需要防止  /<name>/<name>/  这种重复类型的 url
     static bool checkUrlDuplicateName(const IUrlActionNode* node);
