@@ -21,16 +21,12 @@ class IRequestImpl
 {
 public:
     enum State{
-        Start,
-        FirstLine,
-        Header,
-        HeaderGap,
-        End,
+        Start, FirstLine, Header, HeaderGap, End,
     };
 
     enum BodyType{
         None,
-        Plain,
+        Text,
         Json,
         Xml,
         MultiPart,
@@ -54,7 +50,8 @@ public:
         QString multipartBoundary;   //multipart
 
         bool getLine(int*);     // 读取下一行数据
-        BodyType getBodyType(const QString& data);
+        void configBodyType(const QString& data);
+        void configBoundary(const QString &mime);
         auto getNextBuffer(){
             return asio::buffer(data + startPos, sizeof(data) - startPos);
         }
@@ -68,7 +65,6 @@ public:
     ~IRequestImpl();
 
     QJsonValue requestJson(bool& ok) const;
-
     int contentLength() const;
     QString contentType() const;
 
@@ -124,7 +120,6 @@ private:
 //    void processMultiPartBody(IMultiPart& part, int start, int end);
 
 //    QList<QPair<int, int>> getBoundaries();
-//    QByteArray getBoundaryParam(const QString& mime);
 
 public:
     IReqRespRaw* raw;

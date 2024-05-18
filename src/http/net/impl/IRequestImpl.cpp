@@ -41,11 +41,6 @@ QJsonValue IRequestImpl::requestJson(bool& ok) const
     return raw->getRequestJson(ok);
 }
 
-//QDomNode &IRequestImpl::requestXml(bool& ok) const
-//{
-//    return raw->getRequestXml(ok);
-//}
-
 int IRequestImpl::contentLength() const
 {
     return m_data.contentLength;
@@ -53,7 +48,7 @@ int IRequestImpl::contentLength() const
 
 QString IRequestImpl::contentType() const
 {
-    raw->m_requestHeaders.value(IHttpHeader::ContentType);
+    return raw->m_requestHeaders.value(IHttpHeader::ContentType);
 }
 
 QByteArray IRequestImpl::getParameter(const QString &name, bool& ok) const
@@ -394,7 +389,7 @@ void IRequestImpl::headerState(int line[2])
         m_data.contentLength = raw->m_requestHeaders.value(IHttpHeader::ContentLength).toInt();
         if(m_data.contentLength != 0){
             m_data.readState = State::HeaderGap;
-            m_data.bodyType = m_data.getBodyType(raw->m_requestHeaders.value(IHttpHeader::ContentType));
+            m_data.configBodyType(raw->m_requestHeaders.value(IHttpHeader::ContentType));
         }
     }else if(raw->m_requestHeaders.contains(IHttpHeader::ContentType) &&
              raw->m_requestHeaders.value(IHttpHeader::ContentType).startsWith("multipart/form-data;")){
@@ -412,7 +407,7 @@ void IRequestImpl::headerState(int line[2])
 bool IRequestImpl::headerGapState()
 {
     if(m_data.bodyType == BodyType::MultiPart){
-        // TODO:
+        m_data.configBoundary(raw->m_requestHeaders.value(IHttpHeader::ContentType));
         return true;
     }
     if(m_data.contentLength != 0){
@@ -766,21 +761,9 @@ QList<QPair<int, int> > IRequestImpl::getBoundaries()
     return ret;
 }
 
-QByteArray IRequestImpl::getBoundaryParam(const QString &mime)
-{
-    QRegularExpression expression("boundary=[\"]?(.+)[\"]?$");
-    auto result = expression.match(mime);
-    if(!result.hasMatch()){
-        return "";
-    }
-    auto boundary = result.captured(1);
-    if(!boundary.startsWith("--")){
-        boundary.prepend("--");
-    }
-    return boundary.toUtf8();
-}
 
 */
+
 
 // TODO: 这里不对， 有路径没有被判断通过，
 bool IRequestImplHelper::isPathValid(const QString& path){
@@ -834,9 +817,22 @@ bool IRequestImpl::Data::getLine(int* value)
     return false;
 }
 
-IRequestImpl::BodyType IRequestImpl::Data::getBodyType(const QString &data)
+void IRequestImpl::Data::configBodyType(const QString &data)
 {
-    return BodyType::BinData;
+    bodyType =  BodyType::BinData;
+}
+
+void IRequestImpl::Data::configBoundary(const QString &mime)
+{
+    QRegularExpression expression("boundary=[\"]?(.+)[\"]?$");
+    auto result = expression.match(mime);
+    if(result.hasMatch()){
+        auto boundary = result.captured(1);
+        if(!boundary.startsWith("--")){
+            boundary.prepend("--");
+        }
+        multipartBoundary = boundary;
+    }
 }
 
 
