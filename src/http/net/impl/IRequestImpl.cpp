@@ -351,30 +351,30 @@ void IRequestImpl::headerState(int line[2])
         return;
     }
 
+    // next state
     if(raw->m_requestHeaders.contains(IHttpHeader::ContentLength)){
         m_data.contentLength = raw->m_requestHeaders.value(IHttpHeader::ContentLength).toInt();
         if(m_data.contentLength != 0){
             m_data.readState = State::HeaderGap;
-            m_data.configBodyType(raw->m_requestHeaders.value(IHttpHeader::ContentType));
         }
     }else if(raw->m_requestHeaders.contains(IHttpHeader::ContentType) &&
              raw->m_requestHeaders.value(IHttpHeader::ContentType).startsWith("multipart/form-data;")){
         m_data.readState = State::HeaderGap;
-        m_data.bodyType = BodyType::MultiPart;
     }else{
         m_data.readState = State::End;
     }
 
-    resolveHeaders();       // 这个还可以再延后处理，万一其他数据出问题了呢
+    resolveHeaders();
 }
 
 bool IRequestImpl::headerGapState()
 {
-    if(m_data.bodyType == BodyType::MultiPart){
+    if(raw->m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
         m_data.configBoundary(raw->m_requestHeaders.value(IHttpHeader::ContentType));
         parseMultiPartBody();
         return true;
     }
+
     if(m_data.contentLength != 0){
         auto fileLength = m_data.endPos - m_data.parsedPos;
         if(fileLength >= m_data.contentLength){
@@ -424,13 +424,55 @@ void IRequestImpl::resolveFirstLine()
     QStringList spices = raw->m_realUrl.split('?');
     raw->m_url = spices.first();
     if(spices.length() == 2){
-        if(!resolveFirstLineArguments(spices[1], false)){
+        if(!resolveFormedData(spices[1], false)){
             return;
         }
     }
 }
 
-bool IRequestImpl::resolveFirstLineArguments(const QString &content, bool isBody)
+void IRequestImpl::parseHeader(QString line)
+{
+    static $Int headerMaxLength("http.headerMaxLength");
+    auto index = line.indexOf(':');
+    if(index == -1){
+        return raw->setInvalid(IHttpBadRequestInvalid("server do not support headers item multiline"));  // SEE: 默认不支持 headers 换行书写
+    }
+
+    auto key = line.left(index);
+    auto value = line.mid(index + 1).trimmed();
+    raw->m_requestHeaders.insertMulti(key, value);       // TODO: check
+}
+
+void IRequestImpl::resolveHeaders()
+{
+    resolveCookieHeaders();
+    raw->m_requestMime = IHttpMimeUtil::toMime(raw->m_requestHeaders.value(IHttpHeader::ContentType));
+}
+
+// TODO: 检查字符转义的问题
+void IRequestImpl::resolveCookieHeaders()
+{
+    auto cookies = raw->m_requestHeaders.values(IHttpHeader::Cookie);
+    for(const QString& cookie : cookies){
+        auto parts = cookie.split("; ");
+        for(const QString& part : parts){
+            QStringList args = part.split("=");
+            if(args.length() == 1){
+                raw->m_requestCookieParameters.insertMulti(args.first(), args.first());
+            }else{
+                raw->m_requestCookieParameters.insertMulti(args.first(), args.last());
+            }
+        }
+    }
+}
+
+void IRequestImpl::parseMultiPartBody()
+{
+
+}
+
+
+bool IRequestImpl::resolveFormedData(const QString &content, bool isBody)
 {
     QStringList list = QString(QByteArray::fromPercentEncoding(content.toUtf8())).split('&');
     for(auto val : list){
@@ -451,152 +493,19 @@ bool IRequestImpl::resolveFirstLineArguments(const QString &content, bool isBody
     return true;
 }
 
-void IRequestImpl::parseHeader(QString line)
-{
-    static $Int headerMaxLength("http.headerMaxLength");
-    auto index = line.indexOf(':');
-    if(index == -1){
-        return raw->setInvalid(IHttpBadRequestInvalid("server do not support headers item multiline"));  // SEE: 默认不支持 headers 换行书写
-    }
-
-    auto key = line.left(index);
-    auto value = line.mid(index + 1).trimmed();
-    raw->m_requestHeaders.insertMulti(key, value);       // TODO: check
-}
-
-void IRequestImpl::resolveHeaders()
-{
-    raw->m_requestMime = IHttpMimeUtil::toMime(raw->m_requestHeaders.value(IHttpHeader::ContentType));
-    QStringList cookies = raw->m_requestHeaders.values(IHttpHeader::Cookie);
-
-}
-
-// TODO: 检查字符转义的问题
-void IRequestImpl::resolveCookieHeaders()
-{
-    static constexpr char splitString[] = "; ";
-    auto cookies = raw->m_requestHeaders.values(IHttpHeader::Cookie);
-    for(const auto& cookie : cookies){
-        auto parts = cookie.split(splitString);
-        for(const QString& part : parts){
-            QStringList args = part.split("=");
-            if(args.length() == 1){
-                raw->m_requestCookieParameters.insertMulti(args.first(), args.first());
-            }else{
-                raw->m_requestCookieParameters.insertMulti(args.first(), args.last());
-            }
-        }
-    }
-}
-
-void IRequestImpl::parseMultiPartBody()
-{
-
-}
-
 void IRequestImpl::parseCommonBody()
 {
-
+    switch (raw->m_requestMime) {
+    case IHttpMime::APPLICATION_WWW_FORM_URLENCODED:
+        QString data = QString::fromLocal8Bit(m_data.data + m_data.parsedPos, m_data.endPos - m_data.parsedPos);
+        resolveFormedData(data, true);
+//        return resolveFormUrlEncoded();
+    default:
+        break; // 只解析上面两个，其他的不解析。 json and xml will be resolved when using it.
+    }
 }
 
 /*
-bool IRequestImpl::resolvePeerInfo()
-{
-//    raw->peerName = raw->m_socket->peerName();
-//    raw->peerPort = raw->m_socket->peerPort();
-//    raw->peerAddress = raw->m_socket->peerAddress();
-    return true;
-}
-
-bool IRequestImpl::resolveFirstLine()
-{
-    static $Int urlMaxLength("http.urlMaxLength");
-
-    if(!raw->canSocketReadLine()){
-        raw->setInvalid(IHttpBadRequestInvalid("can't read from socket"));
-        return false;
-    }
-    auto line = raw->readSocketLine(urlMaxLength);
-
-    if(line.length() == 0){
-        raw->setInvalid(IHttpBadRequestInvalid("can't read from socket"));
-        return false;
-    }
-
-    if(line.length() >= urlMaxLength){
-         raw->setInvalid(IHttpBadRequestInvalid("request url is too long"));
-         return false;
-    }
-
-    auto content = line.replace("\r\n", "").split(' '); // NOTE: here should be optimized
-    if(content.length() != 3){
-        raw->setInvalid(IHttpBadRequestInvalid("first line of request is not supported"));
-        return false;
-    }
-
-    // TODO:
-    raw->m_method = IHttpMethodUtil::toMethod(content[0]);
-    if(raw->m_method == IHttpMethod::UNKNOWN){
-//        raw->setInvalid(IHttpStatusCode::METHOD_NOT_ALLOWED_405, "can not resolve current method type");
-        raw->setInvalid(IHttpBadRequestInvalid("can not resolve current method type"));
-
-        return false;
-    }
-
-    // TODO:
-    raw->m_httpVersion = IHttpVersionUtil::toVersion(content[2]);
-    if(raw->m_httpVersion == IHttpVersion::UNKNOWN){
-//        raw->setInvalid(IHttpStatusCode::HTTP_VERSION_NOT_SUPPORTED, "current version is not supported");
-        raw->setInvalid(IHttpBadRequestInvalid("current version is not supported"));
-
-        return false;
-    }
-
-    auto realUrl = QString(QByteArray::fromPercentEncoding(content[1]));
-    if(!IRequestImplHelper::isPathValid(realUrl)){
-        raw->setInvalid(IHttpBadRequestInvalid("request url is not correct. url:" + realUrl));
-        return false;
-    }
-
-    auto spices = realUrl.split('?');
-    raw->m_url = spices.first();
-    if(spices.length() == 2){
-        if(!resolveEncodeArguments(spices[1].toUtf8(), false)){
-            return false;
-        }
-    }
-
-    return true;
-}
-
-bool IRequestImpl::resolveHeaders()
-{
-    static $Int headerMaxLength("http.headerMaxLength");
-
-    int totalCount = 0;
-    QByteArray content;
-    while((content = raw->readSocketLine()) != "\r\n"){
-
-        totalCount += content.length();
-        if(totalCount > headerMaxLength){  // check header length;
-            raw->setInvalid(IHttpBadRequestInvalid("request of headers too large"));
-            return false;
-        }
-
-        auto index = content.indexOf(':');
-        if(index == -1){
-            raw->setInvalid(IHttpBadRequestInvalid("server do not support headers item multiline"));  // SEE: 默认不支持 headers 换行书写
-            return false;
-        }
-
-        auto key = content.left(index);
-        auto value = content.mid(index + 1).replace("\r\n", "").trimmed();  // NOTE: here should be optimized
-        raw->m_requestHeaders.append({key, value});
-    }
-    raw->m_requestMime = IHttpMimeUtil::toMime(contentType());
-
-    return true;
-}
 
 // NOTE: this kind of resolve is not safe in keep-alive mode.
 // TODO: whether GET method can reslove multipart data?
@@ -749,7 +658,6 @@ bool IRequestImplHelper::isPathValid(const QString& path){
 void IRequestImplHelper::checkDumplicatedParameters(const QList<QPair<QString, IRequestImpl::FunType>>& maps, const IRequestImpl* ptr, const QString& name)
 {
     static const QByteArray fakeVal = "&y&u$e$k#e#y*u*a@n@";
-
     bool convertOk;
     if(IConstantUtil::DebugMode){
         int count = 0;
@@ -768,7 +676,8 @@ void IRequestImplHelper::checkDumplicatedParameters(const QList<QPair<QString, I
     }
 }
 
-QString IRequestImplHelper::getOriginName(const QString& name, const QString& suffix){
+QString IRequestImplHelper::getOriginName(const QString& name, const QString& suffix)
+{
     if(name.endsWith(suffix)){
         return name.left(name.length() - suffix.length());
     }
@@ -786,11 +695,6 @@ bool IRequestImpl::Data::getLine(int* value)
     }
     value[1] = startPos;
     return false;
-}
-
-void IRequestImpl::Data::configBodyType(const QString &data)
-{
-    bodyType =  BodyType::BinData;
 }
 
 void IRequestImpl::Data::configBoundary(const QString &mime)

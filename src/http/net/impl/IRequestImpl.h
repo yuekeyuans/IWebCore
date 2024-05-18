@@ -24,15 +24,6 @@ public:
         Start, FirstLine, Header, HeaderGap, End,
     };
 
-    enum BodyType{
-        None,
-        Text,
-        Json,
-        Xml,
-        MultiPart,
-        BinData,
-    };
-
 public:
     struct Data{
         char data[1024*8];
@@ -45,12 +36,10 @@ public:
         int parsedPos{};    // 表示当前parse 到哪个地方了
 
         State readState{State::Start};    // 当前的 state
-        BodyType bodyType{BodyType::BinData};   // 默认表示当前的body
         int contentLength;         //Content-Type
         QString multipartBoundary;   //multipart
 
         bool getLine(int*);     // 读取下一行数据
-        void configBodyType(const QString& data);
         void configBoundary(const QString &mime);
         auto getNextBuffer(){
             return asio::buffer(data + startPos, sizeof(data) - startPos);
@@ -102,11 +91,11 @@ private:
 
     void parseFirstLine(QString data);
     void resolveFirstLine();    // 解析里面所得到的信息
-    bool resolveFirstLineArguments(const QString& content, bool isBody);
     void parseHeader(QString data);
     void resolveHeaders();      // 解析接收到的头
     void resolveCookieHeaders();
     void parseMultiPartBody();
+    bool resolveFormedData(const QString& content, bool isBody);
     void parseCommonBody();
 
     // resolve
