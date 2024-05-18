@@ -214,27 +214,15 @@ void *IHttpControllerParameter::getParamOfMultipart(const IParamNode& node, IReq
 
 void *IHttpControllerParameter::getParamOfCookiePart(const IParamNode &node, IRequest &request, bool& ok)
 {
-    ICookiePart* part{nullptr};
-
-    int count {0};
-    const auto& cookies = request.getRaw()->m_requestCookieParameters;
-    for(const auto& cookie : cookies){
-        if(cookie.first == node.paramName){
-            if(count == 0){
-                part = new ICookiePart(cookie.first, cookie.second);
-            }
-            count ++;
-        }
+    QStringList values = request.getRaw()->m_requestCookieParameters.values(node.paramName);
+    if(values.length() == 1){
+        IToeUtil::setOk(ok, true);
+        return new ICookiePart(node.paramName, values.first());
     }
 
-    if(count == 1){
-        return part;
-    }
-
-    if(count == 0){
+    if(values.length() == 0){
         request.setInvalid(IHttpBadRequestInvalid("ICookiePart does not have name " + node.paramName));
-    }else if(count > 1){
-        delete part;
+    }else if(values.length() > 1){
         request.setInvalid(IHttpBadRequestInvalid("ICookiePart has more than one key, name: " + node.paramName));
     }
     IToeUtil::setOk(ok, false);

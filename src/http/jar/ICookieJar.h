@@ -18,14 +18,14 @@ public:
     ICookieJar();
 
     // request
-    const QList<QPair<QString, QString>>& requestCookies() const;
+    const QMultiHash<QString, QString>& requestCookies() const;
     ICookiePart getRequestCookie(const QString& key, bool& ok) const;
     QList<ICookiePart> getRequestCookies(const QString& key) const;
 
     QStringList requestCookieKeys() const;
     bool containRequestCookieKey(const QString& key) const;
-    QString getRequestCookieValue(const QString& key, bool& ok) const;
-    QStringList getRequestCookieValues(const QString& key) const;
+//    QString getRequestCookieValue(const QString& key, bool& ok) const;
+//    QStringList getRequestCookieValues(const QString& key) const;
 
     void deleteRequestCookies(const QString& key);
 

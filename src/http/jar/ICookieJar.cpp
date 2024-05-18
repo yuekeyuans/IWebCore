@@ -12,7 +12,7 @@ ICookieJar::ICookieJar() : IJarUnit(nullptr)
     qFatal(IConstantUtil::UnVisibleMethod);
 }
 
-const QList<QPair<QString, QString> > &ICookieJar::requestCookies() const
+const QMultiHash<QString, QString> &ICookieJar::requestCookies() const
 {
     return m_raw->m_requestCookieParameters;
 }
@@ -20,30 +20,22 @@ const QList<QPair<QString, QString> > &ICookieJar::requestCookies() const
 // this function is used to return one cookie-part, but when not one part found, the *ok is false
 ICookiePart ICookieJar::getRequestCookie(const QString &key, bool& ok) const
 {
-    ICookiePart cookie;
-    int count = 0;
-
-    auto& cookies = m_raw->m_requestCookieParameters;
-    for(const auto& pair : cookies){
-        if(pair.first == key){
-            count ++;
-            cookie = {pair.first, pair.second};
-        }
+    auto values = m_raw->m_requestCookieParameters.values(key);
+    IToeUtil::setOk(ok, values.length() == 1);
+    if(values.length() > 0){
+        return {key, values.first()};
     }
-
-    IToeUtil::setOk(ok, count == 1);
-    return cookie;
+    return {};
 }
+
 
 QList<ICookiePart> ICookieJar::getRequestCookies(const QString &key) const
 {
     QList<ICookiePart> ret;
 
-    auto& cookies = m_raw->m_requestCookieParameters;
-    for(const auto& pair : cookies){
-        if(pair.first == key){
-            ret.append({pair.first, pair.second});
-        }
+    auto values = m_raw->m_requestCookieParameters.values(key);
+    for(const auto& value : values){
+        ret.append({key, value});
     }
 
     return ret;
@@ -51,54 +43,44 @@ QList<ICookiePart> ICookieJar::getRequestCookies(const QString &key) const
 
 QStringList ICookieJar::requestCookieKeys() const
 {
-    const auto& cookies = m_raw->m_requestCookieParameters;
-    QStringList keys;
-    for(const auto& cookie : cookies){
-        keys.append(cookie.first);
-    }
-    return keys;
+    return m_raw->m_requestCookieParameters.keys();
 }
 
 bool ICookieJar::containRequestCookieKey(const QString &key) const
 {
-    for(const auto& pair  : m_raw->m_requestCookieParameters){
-        if(pair.first == key){
-            return true;
-        }
-    }
-    return false;
+    return m_raw->m_requestCookieParameters.contains(key);
 }
 
-QString ICookieJar::getRequestCookieValue(const QString &key, bool &ok) const
-{
-    QString ret;
+//QString ICookieJar::getRequestCookieValue(const QString &key, bool &ok) const
+//{
+//    QString ret;
 
-    int count{0};
-    for(const auto& pair  : m_raw->m_requestCookieParameters){
-        if(pair.first == key){
-            count ++;
-            ret = pair.second;
-        }
-    }
-    IToeUtil::setOk(ok, count == 1);
-    return ret;
-}
+//    int count{0};
+//    for(const auto& pair  : m_raw->m_requestCookieParameters){
+//        if(pair.first == key){
+//            count ++;
+//            ret = pair.second;
+//        }
+//    }
+//    IToeUtil::setOk(ok, count == 1);
+//    return ret;
+//}
 
-QStringList ICookieJar::getRequestCookieValues(const QString &key) const
-{
-    QStringList ret;
+//QStringList ICookieJar::getRequestCookieValues(const QString &key) const
+//{
+//    QStringList ret;
 
-    for(const auto& pair  : m_raw->m_requestCookieParameters){
-        if(pair.first == key){
-            ret.append(pair.second);
-        }
-    }
-    return ret;
-}
+//    for(const auto& pair  : m_raw->m_requestCookieParameters){
+//        if(pair.first == key){
+//            ret.append(pair.second);
+//        }
+//    }
+//    return ret;
+//}
 
 void ICookieJar::deleteRequestCookies(const QString &key)
 {
-    auto values = getRequestCookieValues(key);
+    auto values = m_raw->m_requestCookieParameters.values(key);
     for(const auto& value : values){
         ICookiePart part(key, value, 0);
         addResponseCookie(part);

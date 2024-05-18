@@ -47,13 +47,8 @@ public:         // 这些东西先抽象出来，等到改变 socket 的时候�
     bool canSocketReadLine();
 
 public:
-//    QTcpSocket* m_socket {nullptr};
     IResponse*  m_response {nullptr};
     IRequest*   m_request  {nullptr};
-
-    int peerPort{};
-//    QHostAddress peerAddress;
-    QString peerName;
     QMap<QString, QVariant> m_attribute;                // 用户或系统可以自己放置内容的地方。
 
     // request
@@ -69,7 +64,7 @@ public:
     QMap<QString, QString> m_requestParamParameters;     // 特指 url 参数后面的内容
     QMap<QString, QString> m_requestBodyParameters;  // 特指 url encoded
     QVector<IMultiPart> m_requestMultiParts;
-    QList<QPair<QString, QString>> m_requestCookieParameters;
+    QMultiHash<QString, QString> m_requestCookieParameters;
 
     IHeaderJar* m_headerJar{nullptr};
     ICookieJar* m_cookieJar{nullptr};                                       // TODO: 这两个是否需要指针?

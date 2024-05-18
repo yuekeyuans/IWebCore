@@ -105,6 +105,9 @@ private:
     bool resolveFirstLineArguments(const QString& content, bool isBody);
     void parseHeader(QString data);
     void resolveHeaders();      // 解析接收到的头
+    void resolveCookieHeaders();
+    void parseMultiPartBody();
+    void parseCommonBody();
 
     // resolve
 //    bool resolvePeerInfo();

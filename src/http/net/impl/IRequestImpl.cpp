@@ -178,20 +178,9 @@ QByteArray IRequestImpl::getCookieParameter(const QString &name, bool& ok) const
     static const QString suffix = "_cookie";
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
 
-    QByteArray ret;
-    const auto& cookies = raw->m_requestCookieParameters;
-    int count{0};
-    for(const auto& cookie : cookies){
-        if(cookie.first == originName){
-            if(count == 0){
-                ret = cookie.second.toUtf8();
-            }
-            count ++;
-        }
-    }
-
-    ok = count == 1;
-    return ret;
+    auto values = raw->m_requestCookieParameters.values(originName);
+    ok = values.length() == 1;
+    return values.length() > 0 ? values.first().toUtf8() : QByteArray();
 }
 
 // TODO: session not setted!!
@@ -224,6 +213,7 @@ void IRequestImpl::doRead()
 void IRequestImpl::doWrite()
 {
     asio::async_write(m_socket, asio::buffer("hello world"), [&](std::error_code ec, int length){
+        Q_UNUSED(length)
         if(!ec){
             // check length;
             m_socket.close();
@@ -232,29 +222,6 @@ void IRequestImpl::doWrite()
         }
     });
 }
-
-//void IRequestImpl::resolve()
-//{
-//    if(!resolvePeerInfo()){
-//        return;
-//    }
-
-//    if(!resolveFirstLine()){
-//        return;
-//    }
-
-//    if(!resolveHeaders()){
-//        return;
-//    }
-
-//    if(!resolveCookies()){
-//        return;
-//    }
-
-//    if(!resolveBody()){
-//        return;
-//    }
-//}
 
 QString IRequestImpl::getFormUrlValue(const QString &name, bool& ok) const
 {
@@ -315,7 +282,6 @@ QByteArray IRequestImpl::getJsonData(const QString &name, bool& ok) const
 
 QList<QPair<QString, IRequestImpl::FunType>> IRequestImpl::parameterResolverMap() const
 {
-
     static const QList<QPair<QString, IRequestImpl::FunType>> map = {
         {"_param",      &IRequestImpl::getParamParameter},
         {"_body",       &IRequestImpl::getBodyParameter},
@@ -402,20 +368,21 @@ void IRequestImpl::headerState(int line[2])
     resolveHeaders();       // 这个还可以再延后处理，万一其他数据出问题了呢
 }
 
-// return true 表示数据解析完成
-// return false 表示数据还需要进一步的读取。
 bool IRequestImpl::headerGapState()
 {
     if(m_data.bodyType == BodyType::MultiPart){
         m_data.configBoundary(raw->m_requestHeaders.value(IHttpHeader::ContentType));
+        parseMultiPartBody();
         return true;
     }
     if(m_data.contentLength != 0){
-//        if(line[2] == m_data.bodyLength){
-//            // 获得了数据，进行解析，
-//        }
+        auto fileLength = m_data.endPos - m_data.parsedPos;
+        if(fileLength >= m_data.contentLength){
+            // 表示数据已经接收完成，可以进行处理了
+            parseCommonBody();
+            return true;
+        }
     }
-    // 表示 headerGap 没有处理完成， 还需要进一步的处理数据
     return false;
 }
 
@@ -486,7 +453,6 @@ bool IRequestImpl::resolveFirstLineArguments(const QString &content, bool isBody
 
 void IRequestImpl::parseHeader(QString line)
 {
-    qDebug() << "Header" << line;
     static $Int headerMaxLength("http.headerMaxLength");
     auto index = line.indexOf(':');
     if(index == -1){
@@ -499,6 +465,13 @@ void IRequestImpl::parseHeader(QString line)
 }
 
 void IRequestImpl::resolveHeaders()
+{
+    raw->m_requestMime = IHttpMimeUtil::toMime(raw->m_requestHeaders.value(IHttpHeader::ContentType));
+    QStringList cookies = raw->m_requestHeaders.values(IHttpHeader::Cookie);
+
+}
+
+void IRequestImpl::resolveCookieHeaders()
 {
     static const QByteArray splitString = "; ";
 
@@ -519,10 +492,18 @@ void IRequestImpl::resolveHeaders()
                 key = part.mid(0, index);
                 value = part.mid(index + 1);
             }
-            raw->m_requestCookieParameters.append({key, value});
+            raw->m_requestCookieParameters.insertMulti(key, value);
         }
     }
-//    return true;
+}
+
+void IRequestImpl::parseMultiPartBody()
+{
+
+}
+
+void IRequestImpl::parseCommonBody()
+{
 
 }
 
@@ -698,8 +679,6 @@ bool IRequestImpl::resolveFormUrlEncoded()
 {
     return resolveEncodeArguments(raw->m_requestBody, true);
 }
-
-
 
 void IRequestImpl::processMultiPartHeaders(IMultiPart &part, int start, int end)
 {
