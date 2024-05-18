@@ -471,28 +471,20 @@ void IRequestImpl::resolveHeaders()
 
 }
 
+// TODO: 检查字符转义的问题
 void IRequestImpl::resolveCookieHeaders()
 {
-    static const QByteArray splitString = "; ";
-
-    if(raw->m_headerJar->containRequestHeaderKey(IHttpHeader::Cookie)){
-        bool ok;
-        const QString rawCookie = raw->m_headerJar->getRequestHeaderValue(IHttpHeader::Cookie, ok);
-        // TODO: 检查 ok 的值
-        QString key, value;
-        int index;
-        auto parts = rawCookie.split(splitString);
-        for(const auto& part : parts){
-            key.clear();
-            value.clear();
-            index = part.indexOf('=');
-            if(index<=0){       // 保证只有 key 的情形
-                key = part;
+    static constexpr char splitString[] = "; ";
+    auto cookies = raw->m_requestHeaders.values(IHttpHeader::Cookie);
+    for(const auto& cookie : cookies){
+        auto parts = cookie.split(splitString);
+        for(const QString& part : parts){
+            QStringList args = part.split("=");
+            if(args.length() == 1){
+                raw->m_requestCookieParameters.insertMulti(args.first(), args.first());
             }else{
-                key = part.mid(0, index);
-                value = part.mid(index + 1);
+                raw->m_requestCookieParameters.insertMulti(args.first(), args.last());
             }
-            raw->m_requestCookieParameters.insertMulti(key, value);
         }
     }
 }
