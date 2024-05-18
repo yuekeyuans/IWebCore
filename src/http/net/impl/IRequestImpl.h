@@ -67,9 +67,6 @@ public:
     QByteArray getCookieParameter(const QString &name, bool& ok) const;
     QByteArray getSessionParameter(const QString &name, bool& ok) const;
 
-//    void resolve();
-    bool checkParamDuplicatedNameError(const QString &name) const;
-
 private:
     void doRead();
     void doWrite();
@@ -82,7 +79,6 @@ private:
     QList<QPair<QString, FunType>> parameterResolverMap() const;
 
     void parseData();
-
     void startState(int[2]);
     void firstLineState(int[2]);
     void headerState(int[2]);
@@ -97,21 +93,6 @@ private:
     void parseMultiPartBody();
     bool resolveFormedData(const QString& content, bool isBody);
     void parseCommonBody();
-
-    // resolve
-//    bool resolvePeerInfo();
-//    bool resolveFirstLine();
-//    bool resolveHeaders();
-//    bool resolveCookies();
-//    bool resolveBody();
-//    bool resolveBodyContent();  // 解析body 的具体内容
-//    bool resolveMultipartFormData();
-//    bool resolveTrailer();
-//    bool resolveFormUrlEncoded();
-//    void processMultiPartHeaders(IMultiPart& part, int start, int end);
-//    void processMultiPartBody(IMultiPart& part, int start, int end);
-
-//    QList<QPair<int, int>> getBoundaries();
 
 public:
     IReqRespRaw* raw;
