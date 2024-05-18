@@ -9,7 +9,9 @@
 #include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/jar/IHeaderJar.h"
 #include "http/net/IRequest.h"
+#include "http/net/IRequestManage.h"
 #include "http/net/impl/IReqRespRaw.h"
+#include "http/net/impl/IResponseRaw.h"
 
 $PackageWebCoreBegin
 
@@ -232,6 +234,14 @@ void IRequestImpl::doRead()
     });
 }
 
+void IRequestImpl::doWrite()
+{
+    asio::async_write(m_socket, asio::buffer("hello world"), [&](std::error_code, int length){
+        m_socket.close();
+//        IRequestManage::instance()->popRequest();
+    });
+}
+
 //void IRequestImpl::resolve()
 //{
 //    if(!resolvePeerInfo()){
@@ -338,14 +348,14 @@ void IRequestImpl::parseData()
         switch (m_data.readState) {
         case Start:
             parseFirstLine(QString::fromLocal8Bit(m_data.data + line[0], line[1]-2));
-            m_data.readState = State::FirstLine;
             if(raw->valid()){
                 resolveFirstLine();
             }
+            m_data.readState = State::FirstLine;
             break;
         case FirstLine:
             if(line[1] == 2){
-                m_data.readState = State::HeaderGap;
+                m_data.readState = State::End;
                 break;
             }
             parseHeader(QString::fromLocal8Bit(m_data.data + line[0], line[1] -2));
@@ -354,7 +364,7 @@ void IRequestImpl::parseData()
             if(line[1] == 2){
                 resolveHeaders();
                 // TODO: check whether body exist?
-                m_data.readState = State::HeaderGap;
+                m_data.readState = State::End;
                 break;
             }
             parseHeader(QString::fromLocal8Bit(m_data.data + line[0], line[1] -2));
@@ -376,8 +386,10 @@ void IRequestImpl::parseData()
         }
 
         if(m_data.readState == State::End){
-            // finish read, then process
+            doWrite();
+            qDebug() << "write";
         }
+
     }
 }
 
@@ -441,6 +453,29 @@ void IRequestImpl::parseHeader(QString line)
 
 void IRequestImpl::resolveHeaders()
 {
+    static const QByteArray splitString = "; ";
+
+    if(raw->m_headerJar->containRequestHeaderKey(IHttpHeader::Cookie)){
+        bool ok;
+        const QString rawCookie = raw->m_headerJar->getRequestHeaderValue(IHttpHeader::Cookie, ok);
+        // TODO: 检查 ok 的值
+        QString key, value;
+        int index;
+        auto parts = rawCookie.split(splitString);
+        for(const auto& part : parts){
+            key.clear();
+            value.clear();
+            index = part.indexOf('=');
+            if(index<=0){       // 保证只有 key 的情形
+                key = part;
+            }else{
+                key = part.mid(0, index);
+                value = part.mid(index + 1);
+            }
+            raw->m_requestCookieParameters.append({key, value});
+        }
+    }
+    return true;
 
 }
 
@@ -540,33 +575,6 @@ bool IRequestImpl::resolveHeaders()
     }
     raw->m_requestMime = IHttpMimeUtil::toMime(contentType());
 
-    return true;
-}
-
-bool IRequestImpl::resolveCookies()
-{
-    static const QByteArray splitString = "; ";
-
-    if(raw->m_headerJar->containRequestHeaderKey(IHttpHeader::Cookie)){
-        bool ok;
-        const QString rawCookie = raw->m_headerJar->getRequestHeaderValue(IHttpHeader::Cookie, ok);
-        // TODO: 检查 ok 的值
-        QString key, value;
-        int index;
-        auto parts = rawCookie.split(splitString);
-        for(const auto& part : parts){
-            key.clear();
-            value.clear();
-            index = part.indexOf('=');
-            if(index<=0){       // 保证只有 key 的情形
-                key = part;
-            }else{
-                key = part.mid(0, index);
-                value = part.mid(index + 1);
-            }
-            raw->m_requestCookieParameters.append({key, value});
-        }
-    }
     return true;
 }
 
