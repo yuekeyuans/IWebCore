@@ -379,6 +379,7 @@ bool IRequestImpl::headerGapState()
         auto fileLength = m_data.endPos - m_data.parsedPos;
         if(fileLength >= m_data.contentLength){
             // 表示数据已经接收完成，可以进行处理了
+            // 这里需要复制一下么 ?
             parseCommonBody();
             return true;
         }
@@ -497,8 +498,12 @@ void IRequestImpl::parseCommonBody()
 {
     switch (raw->m_requestMime) {
     case IHttpMime::APPLICATION_WWW_FORM_URLENCODED:
+    {
+
         QString data = QString::fromLocal8Bit(m_data.data + m_data.parsedPos, m_data.endPos - m_data.parsedPos);
         resolveFormedData(data, true);
+    }
+        break;
 //        return resolveFormUrlEncoded();
     default:
         break; // 只解析上面两个，其他的不解析。 json and xml will be resolved when using it.
@@ -507,34 +512,6 @@ void IRequestImpl::parseCommonBody()
 
 /*
 
-// NOTE: this kind of resolve is not safe in keep-alive mode.
-// TODO: whether GET method can reslove multipart data?
-bool IRequestImpl::resolveBody()
-{
-    static $Int bodyMaxLength("http.bodyMaxLength");
-
-    if(raw->m_method == IHttpMethod::GET) { // when get, do not resolve.
-        return true;
-    }
-
-    auto length = contentLength();
-    if(length == 0){
-        return true;
-    }
-
-    if(length > bodyMaxLength){
-        raw->setInvalid(IHttpBadRequestInvalid("the request body is too large"));
-        return false;
-    }
-
-    raw->m_requestBody = raw->readSocket(length);
-    if(raw->m_requestBody.length() != length){
-        raw->setInvalid(IHttpBadRequestInvalid("the request body`s length is not equal to length provided by Content-Length header"));
-        return false;
-    }
-
-    return resolveBodyContent();
-}
 
 // TODO: 在接收数据的时候，这里其实应该判断一下body 所用的编码方式，因为可能因为编码方式的错误导致内容出错
 bool IRequestImpl::resolveBodyContent()
@@ -574,11 +551,6 @@ bool IRequestImpl::resolveTrailer()
 {
     // TODO: this will be fixed in next version
     return true;
-}
-
-bool IRequestImpl::resolveFormUrlEncoded()
-{
-    return resolveEncodeArguments(raw->m_requestBody, true);
 }
 
 void IRequestImpl::processMultiPartHeaders(IMultiPart &part, int start, int end)
