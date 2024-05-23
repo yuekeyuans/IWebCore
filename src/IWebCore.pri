@@ -106,12 +106,12 @@ HEADERS += \
     $$PWD/http/invalid/IHttpNotFoundInvalid.h \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.h \
     $$PWD/http/invalid/IRegistInvalidUnit.h \
-    $$PWD/http/net/IHttpConnection.h \
-    $$PWD/http/net/IHttpServer.h \
     $$PWD/http/net/IRequestManage.h \
     $$PWD/http/net/impl/IResponseHeader.h \
     $$PWD/http/net/impl/IResponseRaw.h \
-    $$PWD/http/net/impl/ITcpConnection.h \
+    $$PWD/http/net/server/IHttpConnection.h \
+    $$PWD/http/net/server/IHttpServer.h \
+    $$PWD/http/net/server/ITcpConnection.h \
     $$PWD/http/net/server/ITcpConnectionData.h \
     $$PWD/http/net/server/ITcpResolverInterface.h \
     $$PWD/http/net/server/ITcpResolverManage.h \
@@ -120,8 +120,6 @@ HEADERS += \
     $$PWD/http/nody/INodyParser.h \
     $$PWD/http/nody/INodyRenderer.h \
     $$PWD/http/response/IStatusResponse.h \
-#    $$PWD/http/server/multiThreadServer/IHttpServerRunnable.h \
-#    $$PWD/http/srver/IHttpServer.h \
     $$PWD/orm/IOrmAssert.h \
     $$PWD/orm/IOrmManage.h \
     $$PWD/orm/IOrmTaskCatagory.h \
@@ -210,9 +208,6 @@ HEADERS += \
     $$PWD/http/response/IResponseTemplateRenderer.h \
     $$PWD/http/response/IResponseWare.h \
     $$PWD/http/response/response \
-#    $$PWD/http/server/IServerInterface.h \
-#    $$PWD/http/server/IServerWare.h \
-#    $$PWD/http/server/multiThreadServer/ITcpSocket.h \
     $$PWD/http/controller/pp/IControlVariablePreProcessor.h \
     $$PWD/http/controller/pp/IControllerPreProcessor.h \
     $$PWD/http/controller/pp/IDeleteMappingPreProcessor.h \
@@ -220,10 +215,6 @@ HEADERS += \
     $$PWD/http/controller/pp/IPatchMappingPreProcessor.h \
     $$PWD/http/controller/pp/IPostMappingPreProcessor.h \
     $$PWD/http/controller/pp/IPutMappingPreProcessor.h \
-#    $$PWD/http/server/IHttpServer.h \
-#    $$PWD/http/server/IHttpServerManage.h \
-#    $$PWD/http/server/multiThreadServer/IMultiThreadServer.h \
-#    $$PWD/http/server/quenedServer/IQueneServer.h \
     $$PWD/http/session/ISessionInterface.h \
     $$PWD/http/session/ISessionManager.h \
     $$PWD/http/session/ISessionWare.h
@@ -289,12 +280,12 @@ SOURCES += \
     $$PWD/http/invalid/IHttpInvalidWare.cpp \
     $$PWD/http/invalid/IHttpNotFoundInvalid.cpp \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.cpp \
-    $$PWD/http/net/IHttpConnection.cpp \
-    $$PWD/http/net/IHttpServer.cpp \
     $$PWD/http/net/IRequestManage.cpp \
     $$PWD/http/net/impl/IResponseHeader.cpp \
     $$PWD/http/net/impl/IResponseRaw.cpp \
-    $$PWD/http/net/impl/ITcpConnection.cpp \
+    $$PWD/http/net/server/IHttpConnection.cpp \
+    $$PWD/http/net/server/IHttpServer.cpp \
+    $$PWD/http/net/server/ITcpConnection.cpp \
     $$PWD/http/net/server/ITcpConnectionData.cpp \
     $$PWD/http/net/server/ITcpResolverInterface.cpp \
     $$PWD/http/net/server/ITcpResolverManage.cpp \
@@ -303,8 +294,6 @@ SOURCES += \
     $$PWD/http/nody/INodyParser.cpp \
     $$PWD/http/nody/INodyRenderer.cpp \
     $$PWD/http/response/IStatusResponse.cpp \
-#    $$PWD/http/server/multiThreadServer/IHttpServerRunnable.cpp \
-#    $$PWD/http/srver/IHttpServer.cpp \
     $$PWD/orm/IOrmAssert.cpp \
     $$PWD/orm/IOrmManage.cpp \
     $$PWD/orm/IOrmTaskCatagory.cpp \
@@ -382,11 +371,6 @@ SOURCES += \
     $$PWD/http/response/IResponseTemplateRenderer.cpp \
     $$PWD/http/response/IResponseWare.cpp \
     $$PWD/http/controller/IControllerInterface.cpp \
-#    $$PWD/http/server/multiThreadServer/ITcpSocket.cpp \
-#    $$PWD/http/server/IHttpServer.cpp \
-#    $$PWD/http/server/IHttpServerManage.cpp \
-#    $$PWD/http/server/multiThreadServer/IMultiThreadServer.cpp \
-#    $$PWD/http/server/quenedServer/IQueneServer.cpp \
     $$PWD/http/session/ISessionInterface.cpp \
     $$PWD/http/session/ISessionManager.cpp \
     $$PWD/http/session/ISessionWare.cpp
@@ -397,7 +381,6 @@ HEADERS += \
     $$PWD/ICore/IContext \
     $$PWD/ICore/IProfile \
     $$PWD/ICore/IUnitTestInterface \
-#    $$PWD/IWeb/IHttpServer \
     $$PWD/IWeb/IHttpTestInterface   \
     $$PWD/IWeb/IHttpInvalidInterface \
     $$PWD/IWeb/HttpRequest \

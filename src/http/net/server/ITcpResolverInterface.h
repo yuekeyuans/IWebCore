@@ -11,9 +11,8 @@ public:
     ITcpResolverInterface(ITcpConnection*);
     virtual void resolve() = 0;
 
-protected:
+public:
     ITcpConnection* m_connection{};
-
 };
 
 $PackageWebCoreEnd

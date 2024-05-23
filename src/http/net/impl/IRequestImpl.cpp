@@ -9,7 +9,7 @@
 #include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/jar/IHeaderJar.h"
 #include "http/net/IRequest.h"
-#include "http/net/impl/ITcpConnection.h"
+#include "http/net/server/ITcpConnection.h"
 #include "http/net/IRequestManage.h"
 #include "http/net/impl/IReqRespRaw.h"
 #include "http/net/impl/IResponseRaw.h"
@@ -300,7 +300,7 @@ void IRequestImpl::parseData()
         &IRequestImpl::startState, &IRequestImpl::firstLineState, &IRequestImpl::headerState
     };
     while(true){
-        switch (m_data.readState) {
+        switch (m_readState) {
         case State::End:
             return endState();
         case State::HeaderGap:
@@ -309,23 +309,23 @@ void IRequestImpl::parseData()
             }
             break;
         default:
-            if(!m_data.getLine(line)){
+            if(!m_request->m_connection->m_data.getLine(line)){
                 return m_request->m_connection->doRead();
             }
-            std::mem_fn(stateFun[m_data.readState])(this, line);
+            std::mem_fn(stateFun[m_readState])(this, line);
             m_request->m_connection->m_data.parsedSize += line[1];
         }
 
         if(!raw->valid()){
-            m_data.readState = State::End;
+            m_readState = State::End;
         }
     }
 }
 
 void IRequestImpl::startState(int line[2])
 {
-    parseFirstLine(QString::fromLocal8Bit(m_data.data + line[0], line[1]-2));
-    m_data.readState = State::FirstLine;
+    parseFirstLine(QString::fromLocal8Bit(m_request->m_connection->m_data.m_data + line[0], line[1]-2));
+    m_readState = State::FirstLine;
 
     if(raw->valid()){
         resolveFirstLine();
@@ -335,32 +335,34 @@ void IRequestImpl::startState(int line[2])
 void IRequestImpl::firstLineState(int line[2])
 {
     if(line[1] != 2){
-        parseHeader(QString::fromLocal8Bit(m_data.data + line[0], line[1] -2));
-        m_data.readState = Header;
+        parseHeader(QString::fromLocal8Bit(m_request->m_connection->m_data.m_data + line[0], line[1] -2));
+        m_readState = Header;
         return;
     }
 
-    m_data.readState = State::End;
+    m_readState = State::End;
 }
 
 void IRequestImpl::headerState(int line[2])
 {
+    const auto &data = m_request->m_connection->m_data;
+
     if(line[1] != 2){
-        parseHeader(QString::fromLocal8Bit(m_data.data + line[0], line[1] -2));
+        parseHeader(QString::fromLocal8Bit(m_request->m_connection->m_data.m_data + line[0], line[1] -2));
         return;
     }
 
     // next state
     if(raw->m_requestHeaders.contains(IHttpHeader::ContentLength)){
-        m_data.contentLength = raw->m_requestHeaders.value(IHttpHeader::ContentLength).toInt();
-        if(m_data.contentLength != 0){
-            m_data.readState = State::HeaderGap;
+        m_contentLength = raw->m_requestHeaders.value(IHttpHeader::ContentLength).toInt();
+        if(m_contentLength != 0){
+            m_readState = State::HeaderGap;
         }
     }else if(raw->m_requestHeaders.contains(IHttpHeader::ContentType) &&
              raw->m_requestHeaders.value(IHttpHeader::ContentType).startsWith("multipart/form-data;")){
-        m_data.readState = State::HeaderGap;
+        m_readState = State::HeaderGap;
     }else{
-        m_data.readState = State::End;
+        m_readState = State::End;
     }
 
     resolveHeaders();
@@ -368,15 +370,20 @@ void IRequestImpl::headerState(int line[2])
 
 bool IRequestImpl::headerGapState()
 {
+    auto data = m_request->m_connection->m_data;
     if(raw->m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
-        m_data.configBoundary(raw->m_requestHeaders.value(IHttpHeader::ContentType));
+        m_multipartBoundary = getBoundary(raw->m_requestHeaders.value(IHttpHeader::ContentType));
+        if(m_multipartBoundary.isEmpty()){
+            m_request->setInvalid(IHttpBadRequestInvalid("multipart request has no boundary"));
+            return false;
+        }
         parseMultiPartBody();
         return true;
     }
 
-    if(m_data.contentLength != 0){
-        auto fileLength = m_data.endPos - m_data.parsedPos;
-        if(fileLength >= m_data.contentLength){
+    if(m_contentLength != 0){
+        auto fileLength = data.readSize - data.parsedSize;
+        if(fileLength >= m_contentLength){
             // 表示数据已经接收完成，可以进行处理了
             // 这里需要复制一下么 ?
             parseCommonBody();
@@ -495,18 +502,33 @@ bool IRequestImpl::resolveFormedData(const QString &content, bool isBody)
 
 void IRequestImpl::parseCommonBody()
 {
+    const auto& data = m_request->m_connection->m_data;
     switch (raw->m_requestMime) {
     case IHttpMime::APPLICATION_WWW_FORM_URLENCODED:
     {
-
-        QString data = QString::fromLocal8Bit(m_data.data + m_data.parsedPos, m_data.endPos - m_data.parsedPos);
-        resolveFormedData(data, true);
+        QString body = QString::fromLocal8Bit
+                (data.m_data + m_request->m_connection->m_data.parsedSize, data.readSize - data.parsedSize);
+        resolveFormedData(body, true);
     }
         break;
 //        return resolveFormUrlEncoded();
     default:
         break; // 只解析上面两个，其他的不解析。 json and xml will be resolved when using it.
     }
+}
+
+QString IRequestImpl::getBoundary(const QString &mime)
+{
+    QRegularExpression expression("boundary=[\"]?(.+)[\"]?$");
+    auto result = expression.match(mime);
+    if(result.hasMatch()){
+        auto boundary = result.captured(1);
+        if(!boundary.startsWith("--")){
+            boundary.prepend("--");
+        }
+        return boundary;
+    }
+    return {};
 }
 
 /*
@@ -655,31 +677,31 @@ QString IRequestImplHelper::getOriginName(const QString& name, const QString& su
     return name;
 }
 
-bool IRequestImpl::Data::getLine(int* value)
-{
-    value[0] = startPos;
-    for(int i=startPos; i<endPos-1; i++){
-        if(data[i] == '\r' && data[i + 1] == '\n'){     // 这个可以通过 转换类型并 异或 完成数据的判断，更简单一点
-            value[1] = i + 2 - startPos;
-            return true;
-        }
-    }
-    value[1] = startPos;
-    return false;
-}
+//bool IRequestImpl::Data::getLine(int* value)
+//{
+//    value[0] = startPos;
+//    for(int i=startPos; i<endPos-1; i++){
+//        if(data[i] == '\r' && data[i + 1] == '\n'){     // 这个可以通过 转换类型并 异或 完成数据的判断，更简单一点
+//            value[1] = i + 2 - startPos;
+//            return true;
+//        }
+//    }
+//    value[1] = startPos;
+//    return false;
+//}
 
-void IRequestImpl::Data::configBoundary(const QString &mime)
-{
-    QRegularExpression expression("boundary=[\"]?(.+)[\"]?$");
-    auto result = expression.match(mime);
-    if(result.hasMatch()){
-        auto boundary = result.captured(1);
-        if(!boundary.startsWith("--")){
-            boundary.prepend("--");
-        }
-        multipartBoundary = boundary;
-    }
-}
+//void IRequestImpl::Data::configBoundary(const QString &mime)
+//{
+//    QRegularExpression expression("boundary=[\"]?(.+)[\"]?$");
+//    auto result = expression.match(mime);
+//    if(result.hasMatch()){
+//        auto boundary = result.captured(1);
+//        if(!boundary.startsWith("--")){
+//            boundary.prepend("--");
+//        }
+//        multipartBoundary = boundary;
+//    }
+//}
 
 
 $PackageWebCoreEnd

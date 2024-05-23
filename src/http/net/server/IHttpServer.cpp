@@ -4,7 +4,7 @@
 #include "http/net/IRequest.h"
 #include "http/net/IRequestManage.h"
 #include "http/net/server/ITcpResolverManage.h"
-#include "http/net/impl/ITcpConnection.h"
+#include "http/net/server/ITcpConnection.h"
 
 $PackageWebCoreBegin
 

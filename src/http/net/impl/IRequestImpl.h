@@ -25,14 +25,6 @@ public:
     };
 
 public:
-//    struct Data{
-//        State readState{State::Start};    // 当前的 state
-//        int contentLength;         //Content-Type
-//        QString multipartBoundary;   //multipart
-//        void configBoundary(const QString &mime);
-//    };
-
-public:
     using FunType = QByteArray (IRequestImpl::*)(const QString& name, bool& ok) const;
 
 public:
@@ -78,10 +70,15 @@ private:
     void parseMultiPartBody();
     bool resolveFormedData(const QString& content, bool isBody);
     void parseCommonBody();
+    QString getBoundary(const QString&);
 
 public:
     IRequest* m_request{};
     IReqRespRaw* raw;
+private:
+    State m_readState{Start};
+    int m_contentLength;
+    QString m_multipartBoundary;
 };
 
 

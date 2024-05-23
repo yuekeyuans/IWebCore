@@ -20,10 +20,15 @@ public:
     void doDestroy();
     void doReuse();
 
+public:
+    ITcpConnectionData m_data;
+
 private:
     asio::ip::tcp::socket m_socket;
-    ITcpConnectionData m_data;
     ITcpResolverInterface* m_resolver{};
+
+public:
+    friend class ITcpResolverInterface;
 };
 
 $PackageWebCoreEnd

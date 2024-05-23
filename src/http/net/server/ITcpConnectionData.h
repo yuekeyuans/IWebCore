@@ -22,6 +22,7 @@ public:
     ITcpConnectionData();
 
 public:
+    bool getLine(int*) const;
     auto getBuffer(){
         return asio::buffer(m_data + readSize, totalLength - readSize);
     }
