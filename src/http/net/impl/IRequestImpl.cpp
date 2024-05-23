@@ -9,6 +9,7 @@
 #include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/jar/IHeaderJar.h"
 #include "http/net/IRequest.h"
+#include "http/net/impl/ITcpConnection.h"
 #include "http/net/IRequestManage.h"
 #include "http/net/impl/IReqRespRaw.h"
 #include "http/net/impl/IResponseRaw.h"
@@ -23,11 +24,9 @@ namespace IRequestImplHelper{
     QString getOriginName(const QString& name, const QString& suffix);
 }
 
-IRequestImpl::IRequestImpl(IRequest* self, asio::ip::tcp::socket socket)
-    : m_socket(std::move(socket))
+IRequestImpl::IRequestImpl(IRequest* self)
+    : m_request(self), raw(new IReqRespRaw(self))
 {
-    raw = new IReqRespRaw(self);
-    doRead();
 }
 
 IRequestImpl::~IRequestImpl()
@@ -43,7 +42,7 @@ QJsonValue IRequestImpl::requestJson(bool& ok) const
 
 int IRequestImpl::contentLength() const
 {
-    return m_data.contentLength;
+    return raw->m_requestHeaders.value(IHttpHeader::ContentLength).toInt();
 }
 
 QString IRequestImpl::contentType() const
@@ -198,30 +197,30 @@ QByteArray IRequestImpl::getSessionParameter(const QString &name, bool& ok) cons
     return {};
 }
 
-void IRequestImpl::doRead()
-{
-    m_socket.async_read_some(m_data.getNextBuffer(), [&](std::error_code ec, int length){
-        if(!ec){
-            m_data.endPos += length;
-            parseData();
-        }else{
-            qDebug() << "connection lost";
-        }
-    });
-}
+//void IRequestImpl::doRead()
+//{
+//    m_socket.async_read_some(m_data.getNextBuffer(), [&](std::error_code ec, int length){
+//        if(!ec){
+//            m_data.endPos += length;
+//            parseData();
+//        }else{
+//            qDebug() << "connection lost";
+//        }
+//    });
+//}
 
-void IRequestImpl::doWrite()
-{
-    asio::async_write(m_socket, asio::buffer("hello world"), [&](std::error_code ec, int length){
-        Q_UNUSED(length)
-        if(!ec){
-            // check length;
-            m_socket.close();
-        }else{
-            qDebug() << "connection write lost";
-        }
-    });
-}
+//void IRequestImpl::doWrite()
+//{
+//    asio::async_write(m_socket, asio::buffer("hello world"), [&](std::error_code ec, int length){
+//        Q_UNUSED(length)
+//        if(!ec){
+//            // check length;
+//            m_socket.close();
+//        }else{
+//            qDebug() << "connection write lost";
+//        }
+//    });
+//}
 
 QString IRequestImpl::getFormUrlValue(const QString &name, bool& ok) const
 {
@@ -306,15 +305,15 @@ void IRequestImpl::parseData()
             return endState();
         case State::HeaderGap:
             if(!headerGapState()){
-                return doRead(); // 等待下一次的数据。
+                return m_request->m_connection->doRead(); // 等待下一次的数据。
             }
             break;
         default:
             if(!m_data.getLine(line)){
-                return doRead();
+                return m_request->m_connection->doRead();
             }
             std::mem_fn(stateFun[m_data.readState])(this, line);
-            m_data.startPos += line[1];
+            m_request->m_connection->m_data.parsedSize += line[1];
         }
 
         if(!raw->valid()){

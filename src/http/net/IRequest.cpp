@@ -22,15 +22,14 @@ $PackageWebCoreBegin
 $UseAssert(IHttpAssert)
 $UseGlobalAssert()
 
-IRequest::IRequest()
+IRequest::IRequest() : ITcpResolverInterface(nullptr)
 {
     qFatal(IConstantUtil::UnVisibleMethod);
 }
 
-IRequest::IRequest(asio::ip::tcp::socket socket)
+IRequest::IRequest(ITcpConnection *connection) : ITcpResolverInterface(connection)
 {
-    impl = new IRequestImpl(this, std::move(socket));
-    qDebug() << "opened";
+    impl = new IRequestImpl(this);
 }
 
 IRequest::~IRequest()
@@ -38,7 +37,7 @@ IRequest::~IRequest()
     delete impl;
 }
 
-IRequest::IRequest(const IRequest &)
+IRequest::IRequest(const IRequest &) : ITcpResolverInterface(nullptr)
 {
     qFatal(IConstantUtil::UnVisibleMethod);
 }
@@ -49,7 +48,7 @@ IRequest &IRequest::operator=(const IRequest &)
     return *this;
 }
 
-IRequest::IRequest(IRequest &&)
+IRequest::IRequest(IRequest &&) : ITcpResolverInterface(nullptr)
 {
     qFatal(IConstantUtil::UnVisibleMethod);
 }
@@ -316,6 +315,11 @@ void IRequest::setInvalidIf(bool condition, IHttpInvalidUnit ware) const
 void IRequest::setInvalid(IHttpInvalidUnit ware) const
 {
     return impl->raw->setInvalid(ware);
+}
+
+void IRequest::resolve()
+{
+    impl->parseData();
 }
 
 $PackageWebCoreEnd

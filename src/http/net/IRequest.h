@@ -11,6 +11,7 @@
 #include "http/biscuits/IHttpMime.h"
 #include "http/jar/IMultiPart.h"
 #include "http/invalid/IHttpInvalidUnit.h"
+#include "http/net/server/ITcpResolverInterface.h"
 
 
 $PackageWebCoreBegin
@@ -24,11 +25,11 @@ class ISessionJar;
 class IRequestImpl;
 class IReqRespRaw;
 
-class IRequest : IRegisterMetaTypeUnit<IRequest>
+class IRequest : IRegisterMetaTypeUnit<IRequest>, public ITcpResolverInterface
 {
 public:
     IRequest();
-    explicit IRequest(asio::ip::tcp::socket);
+    explicit IRequest(ITcpConnection*);
     ~IRequest();
 
     IRequest(const IRequest &);
@@ -97,6 +98,9 @@ public:
     bool valid() const;
     void setInvalidIf(bool condition, IHttpInvalidUnit) const;
     void setInvalid(IHttpInvalidUnit) const;
+
+protected:
+    virtual void resolve() final;
 
 private:
     IRequestImpl* impl{nullptr};

@@ -5,6 +5,7 @@
 
 $PackageWebCoreBegin
 
+class ITcpConnection;
 class IHttpServer
 {
 public:
@@ -18,6 +19,8 @@ private:
     $QString ip{"", "0.0.0.0"};
     $Int port{"", 8550};
     asio::ip::tcp::acceptor* m_acceptor{};
+
+    QList<ITcpConnection*> m_connection;
 };
 
 $PackageWebCoreEnd

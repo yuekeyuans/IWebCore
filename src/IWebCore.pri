@@ -106,10 +106,15 @@ HEADERS += \
     $$PWD/http/invalid/IHttpNotFoundInvalid.h \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.h \
     $$PWD/http/invalid/IRegistInvalidUnit.h \
+    $$PWD/http/net/IHttpConnection.h \
     $$PWD/http/net/IHttpServer.h \
     $$PWD/http/net/IRequestManage.h \
     $$PWD/http/net/impl/IResponseHeader.h \
     $$PWD/http/net/impl/IResponseRaw.h \
+    $$PWD/http/net/impl/ITcpConnection.h \
+    $$PWD/http/net/server/ITcpConnectionData.h \
+    $$PWD/http/net/server/ITcpResolverInterface.h \
+    $$PWD/http/net/server/ITcpResolverManage.h \
     $$PWD/http/nody/INody.h \
     $$PWD/http/nody/INodyManage.h \
     $$PWD/http/nody/INodyParser.h \
@@ -284,10 +289,15 @@ SOURCES += \
     $$PWD/http/invalid/IHttpInvalidWare.cpp \
     $$PWD/http/invalid/IHttpNotFoundInvalid.cpp \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.cpp \
+    $$PWD/http/net/IHttpConnection.cpp \
     $$PWD/http/net/IHttpServer.cpp \
     $$PWD/http/net/IRequestManage.cpp \
     $$PWD/http/net/impl/IResponseHeader.cpp \
     $$PWD/http/net/impl/IResponseRaw.cpp \
+    $$PWD/http/net/impl/ITcpConnection.cpp \
+    $$PWD/http/net/server/ITcpConnectionData.cpp \
+    $$PWD/http/net/server/ITcpResolverInterface.cpp \
+    $$PWD/http/net/server/ITcpResolverManage.cpp \
     $$PWD/http/nody/INody.cpp \
     $$PWD/http/nody/INodyManage.cpp \
     $$PWD/http/nody/INodyParser.cpp \
