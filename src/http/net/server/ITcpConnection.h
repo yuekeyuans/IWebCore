@@ -12,7 +12,7 @@ class ITcpConnection
 {
 public:
     ITcpConnection(asio::ip::tcp::socket socket);
-    virtual ~ITcpConnection() = default;
+    virtual ~ITcpConnection();
 
 public:
     void doRead();

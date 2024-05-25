@@ -7,13 +7,23 @@ $PackageWebCoreBegin
 ITcpConnection::ITcpConnection(asio::ip::tcp::socket socket)
     : m_socket(std::move(socket))
 {
-   doRead();
+    doRead();
 }
 
-void ITcpConnection::doRead(){
+ITcpConnection::~ITcpConnection()
+{
+    if(m_socket.is_open()){
+        m_socket.close();
+    }
+    delete m_resolver;
+}
+
+void ITcpConnection::doRead()
+{
     m_socket.async_read_some(m_data.getBuffer(), [&](std::error_code error, int length){
         if(error){
             doDestroy();
+            return;
         }
 
         m_data.readSize += length;
@@ -24,7 +34,7 @@ void ITcpConnection::doRead(){
         if(m_resolver){
             m_resolver->resolve();
         }else{
-            if(m_data.readSize > 10){
+            if(m_data.readSize > 4){
                 doDestroy();
             }else{
                 doRead();
@@ -33,15 +43,18 @@ void ITcpConnection::doRead(){
     });
 }
 
-void ITcpConnection::doWrite(){
+void ITcpConnection::doWrite()
+{
 
 }
 
-void ITcpConnection::doDestroy(){
+void ITcpConnection::doDestroy()
+{
 
 }
 
-void ITcpConnection::doReuse(){
+void ITcpConnection::doReuse()
+{
 
 }
 

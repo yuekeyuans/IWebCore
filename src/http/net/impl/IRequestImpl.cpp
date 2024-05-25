@@ -25,7 +25,8 @@ namespace IRequestImplHelper{
 }
 
 IRequestImpl::IRequestImpl(IRequest* self)
-    : m_request(self), raw(new IReqRespRaw(self))
+    : m_request(self), raw(new IReqRespRaw(self)),
+      m_connection(self->m_connection), m_data(self->m_connection->m_data)
 {
 }
 
@@ -70,7 +71,6 @@ QByteArray IRequestImpl::getParameter(const QString &name, bool& ok) const
 QByteArray IRequestImpl::getMixedParameter(const QString &name, bool& ok) const
 {
     static const QString mixedSuffix = "_mixed";
-
     const auto& map = parameterResolverMap();
     IRequestImplHelper::checkDumplicatedParameters(map, this, name);        //check
     const QString& originName = IRequestImplHelper::getOriginName(name, mixedSuffix);
@@ -197,31 +197,6 @@ QByteArray IRequestImpl::getSessionParameter(const QString &name, bool& ok) cons
     return {};
 }
 
-//void IRequestImpl::doRead()
-//{
-//    m_socket.async_read_some(m_data.getNextBuffer(), [&](std::error_code ec, int length){
-//        if(!ec){
-//            m_data.endPos += length;
-//            parseData();
-//        }else{
-//            qDebug() << "connection lost";
-//        }
-//    });
-//}
-
-//void IRequestImpl::doWrite()
-//{
-//    asio::async_write(m_socket, asio::buffer("hello world"), [&](std::error_code ec, int length){
-//        Q_UNUSED(length)
-//        if(!ec){
-//            // check length;
-//            m_socket.close();
-//        }else{
-//            qDebug() << "connection write lost";
-//        }
-//    });
-//}
-
 QString IRequestImpl::getFormUrlValue(const QString &name, bool& ok) const
 {
     if(raw->m_requestBodyParameters.contains(name)){
@@ -295,7 +270,7 @@ QList<QPair<QString, IRequestImpl::FunType>> IRequestImpl::parameterResolverMap(
 
 void IRequestImpl::parseData()
 {
-    int line[2];    // 这个在之后可以考虑是 4 个字节，因为还有扩展部分的数据要传输
+    int line[2];    // TODO: 这个在之后可以考虑是 4 个字节，因为还有扩展部分的数据要传输
     static std::vector<void(IRequestImpl::*)(int[2])> stateFun = {
         &IRequestImpl::startState, &IRequestImpl::firstLineState, &IRequestImpl::headerState
     };
@@ -305,15 +280,15 @@ void IRequestImpl::parseData()
             return endState();
         case State::HeaderGap:
             if(!headerGapState()){
-                return m_request->m_connection->doRead(); // 等待下一次的数据。
+                return m_connection->doRead(); // 等待下一次的数据。
             }
             break;
         default:
-            if(!m_request->m_connection->m_data.getLine(line)){
-                return m_request->m_connection->doRead();
+            if(!m_data.getLine(line)){
+                return m_connection->doRead();
             }
             std::mem_fn(stateFun[m_readState])(this, line);
-            m_request->m_connection->m_data.parsedSize += line[1];
+            m_data.parsedSize += line[1];
         }
 
         if(!raw->valid()){
@@ -324,18 +299,19 @@ void IRequestImpl::parseData()
 
 void IRequestImpl::startState(int line[2])
 {
-    parseFirstLine(QString::fromLocal8Bit(m_request->m_connection->m_data.m_data + line[0], line[1]-2));
-    m_readState = State::FirstLine;
-
-    if(raw->valid()){
-        resolveFirstLine();
+    parseFirstLine(QString::fromLocal8Bit(m_data.m_data + line[0], line[1]-2));
+    if(!raw->valid()){
+        return;
     }
+
+    m_readState = State::FirstLine;
+    resolveFirstLine();
 }
 
 void IRequestImpl::firstLineState(int line[2])
 {
     if(line[1] != 2){
-        parseHeader(QString::fromLocal8Bit(m_request->m_connection->m_data.m_data + line[0], line[1] -2));
+        parseHeader(QString::fromLocal8Bit(m_data.m_data + line[0], line[1] -2));
         m_readState = Header;
         return;
     }
@@ -345,10 +321,8 @@ void IRequestImpl::firstLineState(int line[2])
 
 void IRequestImpl::headerState(int line[2])
 {
-    const auto &data = m_request->m_connection->m_data;
-
     if(line[1] != 2){
-        parseHeader(QString::fromLocal8Bit(m_request->m_connection->m_data.m_data + line[0], line[1] -2));
+        parseHeader(QString::fromLocal8Bit(m_data.m_data + line[0], line[1] -2));
         return;
     }
 
@@ -370,7 +344,7 @@ void IRequestImpl::headerState(int line[2])
 
 bool IRequestImpl::headerGapState()
 {
-    auto data = m_request->m_connection->m_data;
+    auto data = m_data;
     if(raw->m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
         m_multipartBoundary = getBoundary(raw->m_requestHeaders.value(IHttpHeader::ContentType));
         if(m_multipartBoundary.isEmpty()){
@@ -400,6 +374,8 @@ void IRequestImpl::endState()
 
 void IRequestImpl::parseFirstLine(QString line)
 {
+    qDebug() << __FUNCTION__ << line;
+
     static $Int urlMaxLength("http.urlMaxLength");
     if(line.length() >= urlMaxLength){
          return raw->setInvalid(IHttpBadRequestInvalid("request url is too long"));
@@ -439,6 +415,8 @@ void IRequestImpl::resolveFirstLine()
 
 void IRequestImpl::parseHeader(QString line)
 {
+    qDebug() << line << __FUNCTION__;
+
     static $Int headerMaxLength("http.headerMaxLength");
     auto index = line.indexOf(':');
     if(index == -1){
@@ -502,12 +480,12 @@ bool IRequestImpl::resolveFormedData(const QString &content, bool isBody)
 
 void IRequestImpl::parseCommonBody()
 {
-    const auto& data = m_request->m_connection->m_data;
+    const auto& data = m_data;
     switch (raw->m_requestMime) {
     case IHttpMime::APPLICATION_WWW_FORM_URLENCODED:
     {
         QString body = QString::fromLocal8Bit
-                (data.m_data + m_request->m_connection->m_data.parsedSize, data.readSize - data.parsedSize);
+                (data.m_data + m_data.parsedSize, data.readSize - data.parsedSize);
         resolveFormedData(body, true);
     }
         break;

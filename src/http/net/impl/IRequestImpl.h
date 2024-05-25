@@ -16,6 +16,8 @@ $PackageWebCoreBegin
 class IResponse;
 class IRequest;
 class IReqRespRaw;
+class ITcpConnection;
+struct ITcpConnectionData;
 
 class IRequestImpl
 {
@@ -75,6 +77,8 @@ private:
 public:
     IRequest* m_request{};
     IReqRespRaw* raw;
+    ITcpConnection* m_connection{};
+    ITcpConnectionData& m_data;
 private:
     State m_readState{Start};
     int m_contentLength;

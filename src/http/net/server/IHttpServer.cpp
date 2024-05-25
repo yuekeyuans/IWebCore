@@ -10,7 +10,6 @@ $PackageWebCoreBegin
 
 IHttpServer::IHttpServer()
 {
-
 }
 
 void IHttpServer::listen()
@@ -39,7 +38,7 @@ void IHttpServer::doAccept()
             return;
         }
 
-        if(ec){
+        if(!ec){
             auto connection = new ITcpConnection(std::move(socket));
             m_connection.append(connection);
         }
