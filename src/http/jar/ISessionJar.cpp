@@ -2,7 +2,7 @@
 #include "http/IHttpAssert.h"
 #include "http/session/ISessionManager.h"
 #include "http/session/ISessionInterface.h"
-#include "http/net/impl/IReqRespRaw.h"
+#include "http/net/impl/IRequestRaw.h"
 
 $PackageWebCoreBegin
 
@@ -13,7 +13,7 @@ ISessionJar::ISessionJar() : IJarUnit(nullptr)
     qFatal(IConstantUtil::UnVisibleMethod);
 }
 
-ISessionJar::ISessionJar(IReqRespRaw *m_raw) : IJarUnit(m_raw)
+ISessionJar::ISessionJar(IRequestRaw *m_raw) : IJarUnit(m_raw)
 {
     m_sessionWare = ISessionManager::instance()->getSessionWare();
     m_sessionId = m_sessionWare->getSessionId(m_raw);

@@ -107,6 +107,7 @@ HEADERS += \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.h \
     $$PWD/http/invalid/IRegistInvalidUnit.h \
     $$PWD/http/net/IRequestManage.h \
+    $$PWD/http/net/impl/IRequestRaw.h \
     $$PWD/http/net/impl/IResponseHeader.h \
     $$PWD/http/net/impl/IResponseRaw.h \
     $$PWD/http/net/server/IHttpConnection.h \
@@ -185,7 +186,6 @@ HEADERS += \
 #    $$PWD/http/middleware/IProcessorWare.h \
     $$PWD/http/net/IRequest.h \
     $$PWD/http/net/IResponse.h \
-    $$PWD/http/net/impl/IReqRespRaw.h \
     $$PWD/http/net/impl/IRequestAssert.h \
     $$PWD/http/net/impl/IRequestImpl.h \
     $$PWD/http/net/impl/IResponseImpl.h \
@@ -281,6 +281,7 @@ SOURCES += \
     $$PWD/http/invalid/IHttpNotFoundInvalid.cpp \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.cpp \
     $$PWD/http/net/IRequestManage.cpp \
+    $$PWD/http/net/impl/IRequestRaw.cpp \
     $$PWD/http/net/impl/IResponseHeader.cpp \
     $$PWD/http/net/impl/IResponseRaw.cpp \
     $$PWD/http/net/server/IHttpConnection.cpp \
@@ -351,7 +352,6 @@ SOURCES += \
 #    $$PWD/http/middleware/IProcessorWare.cpp \
     $$PWD/http/net/IRequest.cpp \
     $$PWD/http/net/IResponse.cpp \
-    $$PWD/http/net/impl/IReqRespRaw.cpp \
     $$PWD/http/net/impl/IRequestAssert.cpp \
     $$PWD/http/net/impl/IRequestImpl.cpp \
     $$PWD/http/net/impl/IResponseImpl.cpp \

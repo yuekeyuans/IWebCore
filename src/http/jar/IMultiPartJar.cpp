@@ -1,6 +1,6 @@
 ﻿#include "IMultiPartJar.h"
 #include "http/IHttpAssert.h"
-#include "http/net/impl/IReqRespRaw.h"
+#include "http/net/impl/IRequestRaw.h"
 
 $PackageWebCoreBegin
 

@@ -4,17 +4,17 @@
 
 $PackageWebCoreBegin
 
-class IReqRespRaw;
+class IRequestRaw;
 
 class IJarUnit
 {
 public:
-    IJarUnit(IReqRespRaw* m_raw);
+    IJarUnit(IRequestRaw* m_raw);
     virtual bool isValid() const;
 
 protected:
-    friend class IReqRespRaw;
-    IReqRespRaw* m_raw{nullptr};
+    friend class IRequestRaw;
+    IRequestRaw* m_raw{nullptr};
 };
 
 $PackageWebCoreEnd

@@ -1,7 +1,7 @@
 ﻿#include "IHeaderJar.h"
 
 #include "core/base/IToeUtil.h"
-#include "http/net/impl/IReqRespRaw.h"
+#include "http/net/impl/IRequestRaw.h"
 #include "http/net/impl/IResponseRaw.h"
 #include "http/IHttpAssert.h"
 

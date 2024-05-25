@@ -4,7 +4,7 @@
 
 $PackageWebCoreBegin
 
-class IReqRespRaw;
+class IRequestRaw;
 class ISessionWare
 {
 public:
@@ -20,7 +20,7 @@ public:
 
     virtual void updateSession(const QString& key) = 0; // 这个用于 session 更新
 
-    virtual QString getSessionId(IReqRespRaw* raw) const = 0;
+    virtual QString getSessionId(IRequestRaw* raw) const = 0;
 };
 
 $PackageWebCoreEnd

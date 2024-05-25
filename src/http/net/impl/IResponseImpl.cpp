@@ -1,6 +1,6 @@
 ﻿#include "IResponseImpl.h"
 #include "core/base/IConstantUtil.h"
-#include "http/net/impl/IReqRespRaw.h"
+#include "http/net/impl/IRequestRaw.h"
 #include "http/jar/IHeaderJar.h"
 #include "http/response/IResponseManage.h"
 #include "http/response/IResponseTemplateRenderer.h"
@@ -10,7 +10,7 @@ $PackageWebCoreBegin
 
 inline static constexpr char NEW_LINE[] = "\r\n";
 
-IResponseImpl::IResponseImpl(IReqRespRaw *raw) : raw(raw)
+IResponseImpl::IResponseImpl(IRequestRaw *raw) : raw(raw)
 {
 }
 

@@ -1,5 +1,6 @@
 ﻿#include "IRequestImpl.h"
 
+#include <algorithm>
 #include "IRequestAssert.h"
 #include "core/base/IConstantUtil.h"
 #include "core/base/IHeaderUtil.h"
@@ -11,7 +12,7 @@
 #include "http/net/IRequest.h"
 #include "http/net/server/ITcpConnection.h"
 #include "http/net/IRequestManage.h"
-#include "http/net/impl/IReqRespRaw.h"
+#include "http/net/impl/IRequestRaw.h"
 #include "http/net/impl/IResponseRaw.h"
 
 $PackageWebCoreBegin
@@ -25,30 +26,30 @@ namespace IRequestImplHelper{
 }
 
 IRequestImpl::IRequestImpl(IRequest* self)
-    : m_request(self), raw(new IReqRespRaw(self)),
+    : m_request(self), m_raw(new IRequestRaw(self)),
       m_connection(self->m_connection), m_data(self->m_connection->m_data)
 {
 }
 
 IRequestImpl::~IRequestImpl()
 {
-    delete raw;
-    raw = nullptr;
+    delete m_raw;
+    m_raw = nullptr;
 }
 
 QJsonValue IRequestImpl::requestJson(bool& ok) const
 {
-    return raw->getRequestJson(ok);
+    return m_raw->getRequestJson(ok);
 }
 
 int IRequestImpl::contentLength() const
 {
-    return raw->m_requestHeaders.value(IHttpHeader::ContentLength).toInt();
+    return m_raw->m_requestHeaders.value(IHttpHeader::ContentLength).toInt();
 }
 
 QString IRequestImpl::contentType() const
 {
-    return raw->m_requestHeaders.value(IHttpHeader::ContentType);
+    return m_raw->m_requestHeaders.value(IHttpHeader::ContentType);
 }
 
 QByteArray IRequestImpl::getParameter(const QString &name, bool& ok) const
@@ -95,11 +96,11 @@ QByteArray IRequestImpl::getMixedParameter(const QString &name, bool& ok) const
 QByteArray IRequestImpl::getContentParameter(const QString &name, bool& ok) const
 {
     Q_UNUSED(name);
-    if(raw->m_method != IHttpMethod::GET){
+    if(m_raw->m_method != IHttpMethod::GET){
         IToeUtil::setOk(ok, false);
     }
     IToeUtil::setOk(ok, true);
-    return raw->m_requestBody;
+    return m_raw->m_requestBody;
 }
 
 QByteArray IRequestImpl::getUrlParameter(const QString &name, bool& ok) const
@@ -107,9 +108,9 @@ QByteArray IRequestImpl::getUrlParameter(const QString &name, bool& ok) const
     static const QString suffix = "_url";
 
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
-    if(raw->m_requestUrlParameters.contains(originName)){
+    if(m_raw->m_requestUrlParameters.contains(originName)){
         ok = true;
-        return raw->m_requestUrlParameters[originName].toUtf8();
+        return m_raw->m_requestUrlParameters[originName].toUtf8();
     }
 
     ok = false;
@@ -124,7 +125,7 @@ QByteArray IRequestImpl::getBodyParameter(const QString &name, bool& ok) const
 
     ok = true;
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
-    switch (raw->m_requestMime) {
+    switch (m_raw->m_requestMime) {
     case IHttpMime::MULTIPART_FORM_DATA:
         return getMultiPartFormData(originName, ok);
     case IHttpMime::APPLICATION_WWW_FORM_URLENCODED:
@@ -154,7 +155,7 @@ QByteArray IRequestImpl::getHeaderParameter(const QString &name, bool& ok) const
     static const QString suffix = "_header";
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
 
-    return raw->m_headerJar->getRequestHeaderValue(originName, ok).toUtf8();
+    return m_raw->m_headerJar->getRequestHeaderValue(originName, ok).toUtf8();
 }
 
 QByteArray IRequestImpl::getParamParameter(const QString &name, bool& ok) const
@@ -162,9 +163,9 @@ QByteArray IRequestImpl::getParamParameter(const QString &name, bool& ok) const
     static QString suffix = "_param";
 
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
-    if(raw->m_requestParamParameters.contains(originName)){
+    if(m_raw->m_requestPathParameters.contains(originName)){
         ok = true;
-        return raw->m_requestParamParameters[originName].toUtf8();
+        return m_raw->m_requestPathParameters[originName].toUtf8();
     }
 
     ok = false;
@@ -177,7 +178,7 @@ QByteArray IRequestImpl::getCookieParameter(const QString &name, bool& ok) const
     static const QString suffix = "_cookie";
     const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
 
-    auto values = raw->m_requestCookieParameters.values(originName);
+    auto values = m_raw->m_requestCookieParameters.values(originName);
     ok = values.length() == 1;
     return values.length() > 0 ? values.first().toUtf8() : QByteArray();
 }
@@ -199,9 +200,9 @@ QByteArray IRequestImpl::getSessionParameter(const QString &name, bool& ok) cons
 
 QString IRequestImpl::getFormUrlValue(const QString &name, bool& ok) const
 {
-    if(raw->m_requestBodyParameters.contains(name)){
+    if(m_raw->m_requestBodyParameters.contains(name)){
         ok = true;
-        return raw->m_requestBodyParameters[name];
+        return m_raw->m_requestBodyParameters[name];
     }
 
     ok = false;
@@ -210,7 +211,7 @@ QString IRequestImpl::getFormUrlValue(const QString &name, bool& ok) const
 
 QByteArray IRequestImpl::getMultiPartFormData(const QString &name, bool& ok) const
 {
-    for(auto& part : raw->m_requestMultiParts){
+    for(auto& part : m_raw->m_requestMultiParts){
         if(part.name == name){
             ok = true;
             return part.content;
@@ -270,7 +271,7 @@ QList<QPair<QString, IRequestImpl::FunType>> IRequestImpl::parameterResolverMap(
 
 void IRequestImpl::parseData()
 {
-    int line[2];    // TODO: 这个在之后可以考虑是 4 个字节，因为还有扩展部分的数据要传输
+    int line[2];
     static std::vector<void(IRequestImpl::*)(int[2])> stateFun = {
         &IRequestImpl::startState, &IRequestImpl::firstLineState, &IRequestImpl::headerState
     };
@@ -279,10 +280,7 @@ void IRequestImpl::parseData()
         case State::End:
             return endState();
         case State::HeaderGap:
-            if(!headerGapState()){
-                return m_connection->doRead(); // 等待下一次的数据。
-            }
-            break;
+            return headerGapState();
         default:
             if(!m_data.getLine(line)){
                 return m_connection->doRead();
@@ -291,7 +289,7 @@ void IRequestImpl::parseData()
             m_data.parsedSize += line[1];
         }
 
-        if(!raw->valid()){
+        if(!m_raw->valid()){
             m_readState = State::End;
         }
     }
@@ -300,7 +298,7 @@ void IRequestImpl::parseData()
 void IRequestImpl::startState(int line[2])
 {
     parseFirstLine(QString::fromLocal8Bit(m_data.m_data + line[0], line[1]-2));
-    if(!raw->valid()){
+    if(!m_raw->valid()){
         return;
     }
 
@@ -326,45 +324,29 @@ void IRequestImpl::headerState(int line[2])
         return;
     }
 
-    // next state
-    if(raw->m_requestHeaders.contains(IHttpHeader::ContentLength)){
-        m_contentLength = raw->m_requestHeaders.value(IHttpHeader::ContentLength).toInt();
-        if(m_contentLength != 0){
-            m_readState = State::HeaderGap;
-        }
-    }else if(raw->m_requestHeaders.contains(IHttpHeader::ContentType) &&
-             raw->m_requestHeaders.value(IHttpHeader::ContentType).startsWith("multipart/form-data;")){
+    resolveHeaders();
+
+    if(m_contentLength || !m_multipartBoundary.isEmpty()){
         m_readState = State::HeaderGap;
     }else{
         m_readState = State::End;
     }
-
-    resolveHeaders();
 }
 
-bool IRequestImpl::headerGapState()
+void IRequestImpl::headerGapState()
 {
-    auto data = m_data;
-    if(raw->m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
-        m_multipartBoundary = getBoundary(raw->m_requestHeaders.value(IHttpHeader::ContentType));
-        if(m_multipartBoundary.isEmpty()){
-            m_request->setInvalid(IHttpBadRequestInvalid("multipart request has no boundary"));
-            return false;
-        }
+    if(m_raw->m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
         parseMultiPartBody();
-        return true;
     }
 
     if(m_contentLength != 0){
-        auto fileLength = data.readSize - data.parsedSize;
+        auto fileLength = m_data.readSize - m_data.parsedSize;
         if(fileLength >= m_contentLength){
-            // 表示数据已经接收完成，可以进行处理了
-            // 这里需要复制一下么 ?
             parseCommonBody();
-            return true;
+        }else{
+            m_connection->doRead();
         }
     }
-    return false;
 }
 
 void IRequestImpl::endState()
@@ -374,38 +356,36 @@ void IRequestImpl::endState()
 
 void IRequestImpl::parseFirstLine(QString line)
 {
-    qDebug() << __FUNCTION__ << line;
-
     static $Int urlMaxLength("http.urlMaxLength");
     if(line.length() >= urlMaxLength){
-         return raw->setInvalid(IHttpBadRequestInvalid("request url is too long"));
+         return m_raw->setInvalid(IHttpBadRequestInvalid("request url is too long"));
     }
 
     QStringList content = line.split(' '); // NOTE: here should be optimized
     if(content.length() != 3){
-        return raw->setInvalid(IHttpBadRequestInvalid("first line of request is not supported"));
+        return m_raw->setInvalid(IHttpBadRequestInvalid("first line of request is not supported"));
     }
 
-    raw->m_method = IHttpMethodUtil::toMethod(content[0]);
-    if(raw->m_method == IHttpMethod::UNKNOWN){
-        return raw->setInvalid(IHttpBadRequestInvalid("can not resolve current method type"));
+    m_raw->m_method = IHttpMethodUtil::toMethod(content[0]);
+    if(m_raw->m_method == IHttpMethod::UNKNOWN){
+        return m_raw->setInvalid(IHttpBadRequestInvalid("can not resolve current method type"));
     }
 
-    raw->m_realUrl = QString(QByteArray::fromPercentEncoding(content[1].toUtf8()));
-    if(!IRequestImplHelper::isPathValid(raw->m_realUrl)){
-        return raw->setInvalid(IHttpBadRequestInvalid("request url is not correct. url:" + raw->m_realUrl));
+    m_raw->m_realUrl = QString(QByteArray::fromPercentEncoding(content[1].toUtf8()));
+    if(!IRequestImplHelper::isPathValid(m_raw->m_realUrl)){
+        return m_raw->setInvalid(IHttpBadRequestInvalid("request url is not correct. url:" + m_raw->m_realUrl));
     }
 
-    raw->m_httpVersion = IHttpVersionUtil::toVersion(content[2]);
-    if(raw->m_httpVersion == IHttpVersion::UNKNOWN){
-        return raw->setInvalid(IHttpBadRequestInvalid("current version is not supported"));
+    m_raw->m_httpVersion = IHttpVersionUtil::toVersion(content[2]);
+    if(m_raw->m_httpVersion == IHttpVersion::UNKNOWN){
+        return m_raw->setInvalid(IHttpBadRequestInvalid("current version is not supported"));
     }
 }
 
 void IRequestImpl::resolveFirstLine()
 {
-    QStringList spices = raw->m_realUrl.split('?');
-    raw->m_url = spices.first();
+    QStringList spices = m_raw->m_realUrl.split('?');
+    m_raw->m_url = spices.first();
     if(spices.length() == 2){
         if(!resolveFormedData(spices[1], false)){
             return;
@@ -415,38 +395,65 @@ void IRequestImpl::resolveFirstLine()
 
 void IRequestImpl::parseHeader(QString line)
 {
-    qDebug() << line << __FUNCTION__;
-
     static $Int headerMaxLength("http.headerMaxLength");
     auto index = line.indexOf(':');
     if(index == -1){
-        return raw->setInvalid(IHttpBadRequestInvalid("server do not support headers item multiline"));  // SEE: 默认不支持 headers 换行书写
+        return m_raw->setInvalid(IHttpBadRequestInvalid("server do not support headers item multiline"));  // SEE: 默认不支持 headers 换行书写
+    }
+
+    if(line.length() > headerMaxLength){
+        // TODO: IHttpStatus::REQUEST_HEADER_FIELDS_TOO_LARGE_431;
+        m_raw->setInvalid(IHttpBadRequestInvalid("header too long"));
     }
 
     auto key = line.left(index);
     auto value = line.mid(index + 1).trimmed();
-    raw->m_requestHeaders.insertMulti(key, value);       // TODO: check
+    QStringList values = value.split(";");
+    std::reverse(values.begin(), values.end());
+    for(auto it=values.begin(); it!= values.end(); it++){
+        m_raw->m_requestHeaders.insertMulti(key, (*it).trimmed());
+    }
 }
 
 void IRequestImpl::resolveHeaders()
 {
+    if(m_raw->m_requestHeaders.contains(IHttpHeader::ContentLength)){
+        bool ok;
+        m_contentLength = m_raw->m_requestHeaders.value(IHttpHeader::ContentLength).toUInt(&ok);
+        if(!ok){
+            return m_raw->setInvalid(IHttpBadRequestInvalid("ContentLength error"));
+        }
+        static $Int bodyMaxLength("http.bodyMaxLength");
+        if(m_contentLength > bodyMaxLength){
+            return m_raw->setInvalid(IHttpBadRequestInvalid("Content Length too large to accept"));
+        }
+    }
+
+    auto contentType = m_raw->m_requestHeaders.value(IHttpHeader::ContentType);
+    if(!contentType.isEmpty()){
+        m_raw->m_requestMime = IHttpMimeUtil::toMime(contentType);
+        if(m_raw->m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
+            m_multipartBoundary = getBoundary(contentType);
+            if(m_multipartBoundary.isEmpty()){
+                m_request->setInvalid(IHttpBadRequestInvalid("multipart request has no boundary"));
+                return;
+            }
+        }
+    }
+
     resolveCookieHeaders();
-    raw->m_requestMime = IHttpMimeUtil::toMime(raw->m_requestHeaders.value(IHttpHeader::ContentType));
 }
 
-// TODO: 检查字符转义的问题
+// I decide not to support any encodings except ascii
 void IRequestImpl::resolveCookieHeaders()
 {
-    auto cookies = raw->m_requestHeaders.values(IHttpHeader::Cookie);
+    auto cookies = m_raw->m_requestHeaders.values(IHttpHeader::Cookie);
     for(const QString& cookie : cookies){
-        auto parts = cookie.split("; ");
-        for(const QString& part : parts){
-            QStringList args = part.split("=");
-            if(args.length() == 1){
-                raw->m_requestCookieParameters.insertMulti(args.first(), args.first());
-            }else{
-                raw->m_requestCookieParameters.insertMulti(args.first(), args.last());
-            }
+        QStringList args = cookie.split("=");
+        if(args.length() == 1){
+            m_raw->m_requestCookieParameters.insertMulti(args.first(), args.first());
+        }else{
+            m_raw->m_requestCookieParameters.insertMulti(args.first(), args.last());
         }
     }
 }
@@ -456,23 +463,22 @@ void IRequestImpl::parseMultiPartBody()
 
 }
 
-
 bool IRequestImpl::resolveFormedData(const QString &content, bool isBody)
 {
     QStringList list = QString(QByteArray::fromPercentEncoding(content.toUtf8())).split('&');
     for(auto val : list){
         QStringList map = val.split('=');
         if(map.length() != 2){
-            raw->setInvalid(IHttpBadRequestInvalid("the parameters in body should be pair"));
+            m_raw->setInvalid(IHttpBadRequestInvalid("the parameters in body should be pair"));
             return false;
         }
 
         QString key = map.first();
         auto value = map.last();
         if(isBody){
-            raw->m_requestBodyParameters[key] = value;
+            m_raw->m_requestBodyParameters[key] = value;
         }else{
-            raw->m_requestParamParameters[key] = value;
+            m_raw->m_requestPathParameters[key] = value;
         }
     }
     return true;
@@ -480,16 +486,14 @@ bool IRequestImpl::resolveFormedData(const QString &content, bool isBody)
 
 void IRequestImpl::parseCommonBody()
 {
-    const auto& data = m_data;
-    switch (raw->m_requestMime) {
+    m_raw->m_requestBody = QByteArray(m_data.m_data + m_data.parsedSize, m_data.readSize - m_data.parsedSize);
+    switch (m_raw->m_requestMime) {
     case IHttpMime::APPLICATION_WWW_FORM_URLENCODED:
-    {
-        QString body = QString::fromLocal8Bit
-                (data.m_data + m_data.parsedSize, data.readSize - data.parsedSize);
-        resolveFormedData(body, true);
-    }
+        resolveFormedData(m_raw->m_requestBody, true);
         break;
-//        return resolveFormUrlEncoded();
+    case IHttpMime::APPLICATION_JSON:
+    case IHttpMime::APPLICATION_JSON_UTF8:
+
     default:
         break; // 只解析上面两个，其他的不解析。 json and xml will be resolved when using it.
     }
@@ -655,31 +659,6 @@ QString IRequestImplHelper::getOriginName(const QString& name, const QString& su
     return name;
 }
 
-//bool IRequestImpl::Data::getLine(int* value)
-//{
-//    value[0] = startPos;
-//    for(int i=startPos; i<endPos-1; i++){
-//        if(data[i] == '\r' && data[i + 1] == '\n'){     // 这个可以通过 转换类型并 异或 完成数据的判断，更简单一点
-//            value[1] = i + 2 - startPos;
-//            return true;
-//        }
-//    }
-//    value[1] = startPos;
-//    return false;
-//}
-
-//void IRequestImpl::Data::configBoundary(const QString &mime)
-//{
-//    QRegularExpression expression("boundary=[\"]?(.+)[\"]?$");
-//    auto result = expression.match(mime);
-//    if(result.hasMatch()){
-//        auto boundary = result.captured(1);
-//        if(!boundary.startsWith("--")){
-//            boundary.prepend("--");
-//        }
-//        multipartBoundary = boundary;
-//    }
-//}
 
 
 $PackageWebCoreEnd

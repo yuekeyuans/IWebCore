@@ -4,12 +4,12 @@
 
 $PackageWebCoreBegin
 
-class IReqRespRaw;
+class IRequestRaw;
 
 class IResponseImpl
 {
 public:
-    IResponseImpl(IReqRespRaw* raw);
+    IResponseImpl(IRequestRaw* raw);
     bool respond();
 
 private:
@@ -19,7 +19,7 @@ private:
     QString generateCookieHeaders();
 
 public:
-    IReqRespRaw* raw{nullptr};
+    IRequestRaw* raw{nullptr};
 };
 
 $PackageWebCoreEnd

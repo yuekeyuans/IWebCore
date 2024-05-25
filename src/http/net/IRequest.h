@@ -23,7 +23,7 @@ class IHeaderJar;
 class IMultiPartJar;
 class ISessionJar;
 class IRequestImpl;
-class IReqRespRaw;
+class IRequestRaw;
 
 class IRequest : IRegisterMetaTypeUnit<IRequest>, public ITcpResolverInterface
 {
@@ -44,7 +44,7 @@ public:
     ISessionJar* sessionJar() const;
     IHeaderJar* headerJar() const;
     IMultiPartJar* multiPartJar() const;
-    IReqRespRaw* getRaw() const;
+    IRequestRaw* getRaw() const;
 
     IHttpVersion version() const;
     IHttpMime mime() const;

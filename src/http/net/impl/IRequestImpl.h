@@ -15,7 +15,7 @@ $PackageWebCoreBegin
 
 class IResponse;
 class IRequest;
-class IReqRespRaw;
+class IRequestRaw;
 class ITcpConnection;
 struct ITcpConnectionData;
 
@@ -48,7 +48,6 @@ public:
     QByteArray getSessionParameter(const QString &name, bool& ok) const;
 
 private:
-    // get
     QString getFormUrlValue(const QString &name, bool& ok) const;
     QByteArray getMultiPartFormData(const QString &name, bool& ok) const;
     QByteArray getJsonData(const QString &name, bool& ok) const;
@@ -61,7 +60,7 @@ private:
     void startState(int[2]);
     void firstLineState(int[2]);
     void headerState(int[2]);
-    bool headerGapState();
+    void headerGapState();
     void endState();
 
     void parseFirstLine(QString data);
@@ -76,12 +75,12 @@ private:
 
 public:
     IRequest* m_request{};
-    IReqRespRaw* raw;
+    IRequestRaw* m_raw{};
     ITcpConnection* m_connection{};
     ITcpConnectionData& m_data;
 private:
     State m_readState{Start};
-    int m_contentLength;
+    int m_contentLength{};
     QString m_multipartBoundary;
 };
 

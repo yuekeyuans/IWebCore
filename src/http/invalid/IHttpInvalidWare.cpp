@@ -1,7 +1,7 @@
 ﻿#include "IHttpInvalidWare.h"
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
-#include "http/net/impl/IReqRespRaw.h"
+#include "http/net/impl/IRequestRaw.h"
 #include "http/net/impl/IResponseRaw.h"
 
 $PackageWebCoreBegin
