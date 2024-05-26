@@ -44,6 +44,10 @@ void ITcpConnection::doRead()
     });
 }
 
+struct TcpData{
+
+};
+
 void ITcpConnection::doWrite()
 {
     auto result = m_resolver->getResult();
