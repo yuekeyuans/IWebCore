@@ -1,8 +1,7 @@
 ﻿//#include <ICore/IApplication>
 #include <core/application/IAsioApplication.h>
 #include <ICore/IContext>
-//#include <IWeb/IHttpServer>
-#include <http/net/IHttpServer.h>
+#include <http/net/server/IHttpServer.h>
 
 $EnableTaskOutput(true)
 int main(int argc, char *argv[])

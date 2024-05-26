@@ -13,7 +13,7 @@
 #include "http/node/IParamNode.h"
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
-#include "http/net/impl/IReqRespRaw.h"
+#include "http/net/impl/IRequestRaw.h"
 #include "http/response/IResponseInterface.h"
 #include "http/response/IResponseManage.h"
 #include "http/response/IPlainTextResponse.h"

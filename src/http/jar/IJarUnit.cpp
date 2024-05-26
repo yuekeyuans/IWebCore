@@ -3,7 +3,7 @@
 
 $PackageWebCoreBegin
 
-IJarUnit::IJarUnit(IReqRespRaw* raw){
+IJarUnit::IJarUnit(IRequestRaw* raw){
     m_raw = raw;
 }
 

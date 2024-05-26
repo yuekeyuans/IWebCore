@@ -16,7 +16,7 @@ $PackageWebCoreBegin
 class IRequest;
 class IResponseWare;
 class IRequestImpl;
-class IReqRespRaw;
+class IRequestRaw;
 class IResponseImpl;
 class ICookiePart;
 
@@ -40,7 +40,7 @@ public:
     IResponseHeader operator[](const QString& header) const;
 
     IRequest* request() const;
-    IReqRespRaw* getRaw() const;
+    IRequestRaw* getRaw() const;
 
     IResponse& setHeader(const QString &key, const QString &value);
     IResponse& setStatus(IHttpStatusCode statusCode);
@@ -71,11 +71,11 @@ public:
     void setAttribute(const QString& name, const QVariant& value);
     QVariant getAttribute(const QString& name, const QVariant& defaultValue = {}) const;
 
-    bool respond();
+//    bool respond();
     bool valid() const;
 
 private:
-    IReqRespRaw* m_raw{nullptr};
+    IRequestRaw* m_raw{nullptr};
 };
 
 $PackageWebCoreEnd

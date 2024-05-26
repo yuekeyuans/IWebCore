@@ -1,5 +1,5 @@
 ﻿#include "ICookieJar.h"
-#include "http/net/impl/IReqRespRaw.h"
+#include "http/net/impl/IRequestRaw.h"
 #include "http/IHttpAssert.h"
 #include "core/base/IToeUtil.h"
 

@@ -19,12 +19,12 @@ class IHeaderJar;
 class ICookieJar;
 class ISessionJar;
 class IMultiPartJar;
-class IReqRespRaw
+class IRequestRaw
 {
 public:
-    IReqRespRaw();
-    IReqRespRaw(IRequest* request);
-    ~IReqRespRaw();
+    IRequestRaw();
+    IRequestRaw(IRequest* request);
+    ~IRequestRaw();
 
 public:
     bool valid() const;
@@ -32,21 +32,9 @@ public:
 
     QJsonValue getRequestJson(bool& ok);
     IResult<QJsonValue> getRequestJson();
-//    QDomNode&   getRequestXml(bool& ok);
-
-public:         // 这些东西先抽象出来，等到改变 socket 的时候就相对依赖小一点
-    void writeSocket(const QByteArray& content);
-    void writeSocket(QByteArray&& content);
-
-    void flushSocket();
-
-    // TODO: 理论上这些函数都应该返回一个状态值， 为了预防端口被关闭的情况, 也为了预防数据发送过慢或者其他出错的情况
-    bool waitSocketForReadyRead(int time = 30000);
-    QByteArray readSocketLine(qint64 cnt=0);
-    QByteArray readSocket(qint64 length);
-    bool canSocketReadLine();
 
 public:
+    IResponseRaw* m_responseRaw{nullptr};
     IResponse*  m_response {nullptr};
     IRequest*   m_request  {nullptr};
     QMap<QString, QVariant> m_attribute;                // 用户或系统可以自己放置内容的地方。
@@ -61,7 +49,7 @@ public:
 
     QMultiHash<QString, QString> m_requestHeaders;
     QMap<QString, QString> m_requestUrlParameters;
-    QMap<QString, QString> m_requestParamParameters;     // 特指 url 参数后面的内容
+    QMap<QString, QString> m_requestPathParameters;     // 特指 url 参数后面的内容
     QMap<QString, QString> m_requestBodyParameters;  // 特指 url encoded
     QVector<IMultiPart> m_requestMultiParts;
     QMultiHash<QString, QString> m_requestCookieParameters;
@@ -76,9 +64,6 @@ private:
     bool isXmlInited    {false};
     QJsonValue m_requestJson;                   // json 和 dom 不一定使用，也可能是延后加载
     QDomNode m_requestXml;
-
-public:
-    IResponseRaw* m_responseRaw{};
 };
 
 $PackageWebCoreEnd

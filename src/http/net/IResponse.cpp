@@ -5,8 +5,8 @@
 #include "http/biscuits/IHttpHeader.h"
 #include "http/IHttpAssert.h"
 #include "http/net/IRequest.h"
-#include "http/net/impl/IReqRespRaw.h"
-#include "http/net/impl/IResponseImpl.h"
+#include "http/net/impl/IRequestRaw.h"
+//#include "http/net/impl/IResponseImpl.h"
 #include "http/jar/IHeaderJar.h"
 #include "http/response/IResponseWare.h"
 
@@ -91,7 +91,7 @@ IRequest *IResponse::request() const
     return m_raw->m_request;
 }
 
-IReqRespRaw *IResponse::getRaw() const
+IRequestRaw *IResponse::getRaw() const
 {
     return m_raw;
 }
@@ -253,10 +253,10 @@ QVariant IResponse::getAttribute(const QString &name, const QVariant &defaultVal
     return defaultValue;
 }
 
-bool IResponse::respond()
-{
-    return IResponseImpl(m_raw).respond();
-}
+//bool IResponse::respond()
+//{
+//    return IResponseImpl(m_raw).respond();
+//}
 
 bool IResponse::valid() const
 {

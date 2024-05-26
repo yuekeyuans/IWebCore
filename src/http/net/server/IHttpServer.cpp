@@ -3,12 +3,14 @@
 #include "core/application/IAsioApplication.h"
 #include "http/net/IRequest.h"
 #include "http/net/IRequestManage.h"
+#include "http/net/server/ITcpResolverManage.h"
+#include "http/net/server/ITcpConnection.h"
+#include "http/net/server/ITcpConnectionManage.h"
 
 $PackageWebCoreBegin
 
 IHttpServer::IHttpServer()
 {
-
 }
 
 void IHttpServer::listen()
@@ -38,8 +40,8 @@ void IHttpServer::doAccept()
         }
 
         if(!ec){
-            auto request = new IRequest(std::move(socket));
-            IRequestManage::instance()->pushRequest(request);
+            auto connection = new ITcpConnection(std::move(socket));
+            ITcpConnectionManage::instance()->addTcpConnection(connection);
         }
         doAccept();
     });

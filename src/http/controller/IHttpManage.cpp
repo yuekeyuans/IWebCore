@@ -4,7 +4,7 @@
 #include "core/config/IContextManage.h"
 #include "core/config/IProfileImport.h"
 #include "http/net/IRequest.h"
-#include "http/net/impl/IReqRespRaw.h"
+#include "http/net/impl/IRequestRaw.h"
 #include "http/IHttpAssert.h"
 
 $PackageWebCoreBegin

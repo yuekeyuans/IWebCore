@@ -15,7 +15,9 @@ $PackageWebCoreBegin
 
 class IResponse;
 class IRequest;
-class IReqRespRaw;
+class IRequestRaw;
+class ITcpConnection;
+struct ITcpConnectionData;
 
 class IRequestImpl
 {
@@ -25,32 +27,10 @@ public:
     };
 
 public:
-    struct Data{
-        char data[1024*8];
-        int startPos{};     // 表示当前的起点，前面的数据已经被解析过了。
-        int endPos{};       //  当前的终点， 之后的数据还没有传递过来。
-
-        char* extra{};
-        int extraLength{};
-        int extraPos{};
-        int parsedPos{};    // 表示当前parse 到哪个地方了
-
-        State readState{State::Start};    // 当前的 state
-        int contentLength;         //Content-Type
-        QString multipartBoundary;   //multipart
-
-        bool getLine(int*);     // 读取下一行数据
-        void configBoundary(const QString &mime);
-        auto getNextBuffer(){
-            return asio::buffer(data + startPos, sizeof(data) - startPos);
-        }
-    };
-
-public:
     using FunType = QByteArray (IRequestImpl::*)(const QString& name, bool& ok) const;
 
 public:
-    IRequestImpl(IRequest* self, asio::ip::tcp::socket socket);
+    IRequestImpl(IRequest* self);
     ~IRequestImpl();
 
     QJsonValue requestJson(bool& ok) const;
@@ -68,21 +48,20 @@ public:
     QByteArray getSessionParameter(const QString &name, bool& ok) const;
 
 private:
-    void doRead();
-    void doWrite();
-
-private:
-    // get
     QString getFormUrlValue(const QString &name, bool& ok) const;
     QByteArray getMultiPartFormData(const QString &name, bool& ok) const;
     QByteArray getJsonData(const QString &name, bool& ok) const;
     QList<QPair<QString, FunType>> parameterResolverMap() const;
 
+public:
     void parseData();
+    QByteArray getResult();
+
+private:
     void startState(int[2]);
     void firstLineState(int[2]);
     void headerState(int[2]);
-    bool headerGapState();
+    void headerGapState();
     void endState();
 
     void parseFirstLine(QString data);
@@ -93,11 +72,17 @@ private:
     void parseMultiPartBody();
     bool resolveFormedData(const QString& content, bool isBody);
     void parseCommonBody();
+    QString getBoundary(const QString&);
 
 public:
-    IReqRespRaw* raw;
-    asio::ip::tcp::socket m_socket;
-    Data m_data;
+    IRequest* m_request{};
+    IRequestRaw* m_raw{};
+    ITcpConnection* m_connection{};
+    ITcpConnectionData& m_data;
+private:
+    State m_readState{Start};
+    int m_contentLength{};
+    QString m_multipartBoundary;
 };
 
 
