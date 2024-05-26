@@ -10,8 +10,8 @@ class ITcpResolverInterface
 protected:
 
 public:
-    ITcpResolverInterface(ITcpConnection*);
-    virtual ~ITcpResolverInterface() = default;
+    ITcpResolverInterface(ITcpConnection* connection);
+   virtual ~ITcpResolverInterface() = default;
 
 public:
     virtual void resolve() = 0;

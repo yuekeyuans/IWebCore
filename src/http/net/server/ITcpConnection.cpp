@@ -48,9 +48,12 @@ void ITcpConnection::doWrite()
 {
     auto result = m_resolver->getResult();
     qDebug() << result;
-    asio::async_write(m_socket, asio::buffer("HTTP/1.1 200 ok\r\n\r\n"), [=](std::error_code err, int length){
-        qDebug() << "data writed" << length;
-        doDestroy();
+    asio::async_write(m_socket, asio::buffer("HTTP/1.1 200 ok\r\n\r\n"), [=](std::error_code err, int){
+        if(!m_closeConnection && !err){
+            return doReuse();
+        }else{
+            doDestroy();
+        }
     });
 }
 

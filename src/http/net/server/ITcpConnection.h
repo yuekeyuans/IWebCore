@@ -26,6 +26,7 @@ public:
 private:
     asio::ip::tcp::socket m_socket;
     ITcpResolverInterface* m_resolver{};
+    bool m_closeConnection{false};
 
 public:
     friend class ITcpResolverInterface;
