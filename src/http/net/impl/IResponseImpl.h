@@ -10,7 +10,9 @@ class IResponseImpl
 {
 public:
     IResponseImpl(IRequestRaw* raw);
-    bool respond();
+
+public:
+    QByteArray getContent();
 
 private:
     QByteArray generateFirstLine();

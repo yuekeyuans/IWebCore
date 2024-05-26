@@ -71,7 +71,7 @@ public:
     void setAttribute(const QString& name, const QVariant& value);
     QVariant getAttribute(const QString& name, const QVariant& defaultValue = {}) const;
 
-    bool respond();
+//    bool respond();
     bool valid() const;
 
 private:

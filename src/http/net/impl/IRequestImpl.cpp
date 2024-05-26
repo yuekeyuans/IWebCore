@@ -14,6 +14,7 @@
 #include "http/net/IRequestManage.h"
 #include "http/net/impl/IRequestRaw.h"
 #include "http/net/impl/IResponseRaw.h"
+#include "http/net/impl/IResponseImpl.h"
 
 $PackageWebCoreBegin
 
@@ -295,6 +296,14 @@ void IRequestImpl::parseData()
     }
 }
 
+QByteArray IRequestImpl::getResult()
+{
+    auto response = IResponseImpl(m_raw);
+    auto content = response.getContent();
+    qDebug() << content;
+    return content;
+}
+
 void IRequestImpl::startState(int line[2])
 {
     parseFirstLine(QString::fromLocal8Bit(m_data.m_data + line[0], line[1]-2));
@@ -351,7 +360,7 @@ void IRequestImpl::headerGapState()
 
 void IRequestImpl::endState()
 {
-
+    m_connection->doWrite();
 }
 
 void IRequestImpl::parseFirstLine(QString line)
@@ -460,7 +469,7 @@ void IRequestImpl::resolveCookieHeaders()
 
 void IRequestImpl::parseMultiPartBody()
 {
-
+    // TODO: this will be fixed latter. its easy
 }
 
 bool IRequestImpl::resolveFormedData(const QString &content, bool isBody)

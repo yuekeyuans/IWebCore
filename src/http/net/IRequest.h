@@ -101,6 +101,7 @@ public:
 
 protected:
     virtual void resolve() final;
+    virtual QByteArray getResult() final;
 
 private:
     IRequestImpl* impl{nullptr};

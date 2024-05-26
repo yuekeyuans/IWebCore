@@ -114,6 +114,7 @@ HEADERS += \
     $$PWD/http/net/server/IHttpServer.h \
     $$PWD/http/net/server/ITcpConnection.h \
     $$PWD/http/net/server/ITcpConnectionData.h \
+    $$PWD/http/net/server/ITcpConnectionManage.h \
     $$PWD/http/net/server/ITcpResolverInterface.h \
     $$PWD/http/net/server/ITcpResolverManage.h \
     $$PWD/http/nody/INody.h \
@@ -288,6 +289,7 @@ SOURCES += \
     $$PWD/http/net/server/IHttpServer.cpp \
     $$PWD/http/net/server/ITcpConnection.cpp \
     $$PWD/http/net/server/ITcpConnectionData.cpp \
+    $$PWD/http/net/server/ITcpConnectionManage.cpp \
     $$PWD/http/net/server/ITcpResolverInterface.cpp \
     $$PWD/http/net/server/ITcpResolverManage.cpp \
     $$PWD/http/nody/INody.cpp \

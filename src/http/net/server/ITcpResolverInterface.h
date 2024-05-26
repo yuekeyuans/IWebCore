@@ -7,9 +7,15 @@ $PackageWebCoreBegin
 class ITcpConnection;
 class ITcpResolverInterface
 {
+protected:
+
 public:
     ITcpResolverInterface(ITcpConnection*);
+    virtual ~ITcpResolverInterface() = default;
+
+public:
     virtual void resolve() = 0;
+    virtual QByteArray getResult() = 0;
 
 public:
     ITcpConnection* m_connection{};

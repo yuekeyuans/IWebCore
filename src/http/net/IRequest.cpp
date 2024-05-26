@@ -322,4 +322,9 @@ void IRequest::resolve()
     impl->parseData();
 }
 
+QByteArray IRequest::getResult()
+{
+    return impl->getResult();
+}
+
 $PackageWebCoreEnd

@@ -55,6 +55,7 @@ private:
 
 public:
     void parseData();
+    QByteArray getResult();
 
 private:
     void startState(int[2]);

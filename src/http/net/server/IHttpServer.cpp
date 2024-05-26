@@ -5,6 +5,7 @@
 #include "http/net/IRequestManage.h"
 #include "http/net/server/ITcpResolverManage.h"
 #include "http/net/server/ITcpConnection.h"
+#include "http/net/server/ITcpConnectionManage.h"
 
 $PackageWebCoreBegin
 
@@ -40,7 +41,7 @@ void IHttpServer::doAccept()
 
         if(!ec){
             auto connection = new ITcpConnection(std::move(socket));
-            m_connection.append(connection);
+            ITcpConnectionManage::instance()->addTcpConnection(connection);
         }
         doAccept();
     });
