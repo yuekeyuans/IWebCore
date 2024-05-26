@@ -14,20 +14,27 @@ IResponseImpl::IResponseImpl(IRequestRaw *raw) : raw(raw)
 {
 }
 
-QByteArray IResponseImpl::getContent()
+std::vector<asio::const_buffer> IResponseImpl::getContent()
 {
     const auto& content = raw->m_responseRaw->content.getAsBytes();
-    QByteArray result;
-    result += generateFirstLine();
+
+    m_content.emplace_back(generateFirstLine());
     if(!content.isEmpty()){
-        result += (generateHeadersContent(content.size()));
+        m_content.emplace_back(generateHeadersContent(content.size()));
     }
-    result += NEW_LINE;
+    m_content.emplace_back(NEW_LINE);
 
 
     if(!content.isEmpty() && raw->m_method != IHttpMethod::HEAD){       // 处理 head 方法
-        result += content;
+        m_content.emplace_back(content);
     }
+
+    std::vector<asio::const_buffer> result;
+
+    for(const auto& content : m_content){
+        result.emplace_back(asio::buffer(content.data(), content.length()));
+    }
+
     return result;
 }
 

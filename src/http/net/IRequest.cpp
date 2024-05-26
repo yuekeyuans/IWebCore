@@ -322,7 +322,7 @@ void IRequest::resolve()
     impl->parseData();
 }
 
-QByteArray IRequest::getResult()
+std::vector<asio::const_buffer> IRequest::getResult()
 {
     return impl->getResult();
 }

@@ -12,7 +12,7 @@ public:
     IResponseImpl(IRequestRaw* raw);
 
 public:
-    QByteArray getContent();
+    std::vector<asio::const_buffer> getContent();
 
 private:
     QByteArray generateFirstLine();
@@ -22,6 +22,7 @@ private:
 
 public:
     IRequestRaw* raw{nullptr};
+    std::vector<QByteArray> m_content;
 };
 
 $PackageWebCoreEnd
