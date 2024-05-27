@@ -34,6 +34,9 @@ IRequestImpl::IRequestImpl(IRequest* self)
 
 IRequestImpl::~IRequestImpl()
 {
+    delete m_responseImpl;
+    m_responseImpl = nullptr;
+
     delete m_raw;
     m_raw = nullptr;
 }
@@ -296,12 +299,10 @@ void IRequestImpl::parseData()
     }
 }
 
-QByteArray IRequestImpl::getResult()
+std::vector<asio::const_buffer> IRequestImpl::getResult()
 {
-    auto response = IResponseImpl(m_raw);
-    auto content = response.getContent();
-    qDebug() << content;
-    return content;
+    m_responseImpl = new IResponseImpl(m_raw);
+    return m_responseImpl->getContent();
 }
 
 void IRequestImpl::startState(int line[2])

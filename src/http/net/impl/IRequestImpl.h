@@ -17,6 +17,7 @@ class IResponse;
 class IRequest;
 class IRequestRaw;
 class ITcpConnection;
+class IResponseImpl;
 struct ITcpConnectionData;
 
 class IRequestImpl
@@ -55,7 +56,7 @@ private:
 
 public:
     void parseData();
-    QByteArray getResult();
+    std::vector<asio::const_buffer> getResult();
 
 private:
     void startState(int[2]);
@@ -79,6 +80,8 @@ public:
     IRequestRaw* m_raw{};
     ITcpConnection* m_connection{};
     ITcpConnectionData& m_data;
+
+    IResponseImpl* m_responseImpl{};    // TODO: 这个应该可以去掉的。
 private:
     State m_readState{Start};
     int m_contentLength{};

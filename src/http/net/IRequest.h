@@ -101,7 +101,7 @@ public:
 
 protected:
     virtual void resolve() final;
-    virtual QByteArray getResult() final;
+    virtual std::vector<asio::const_buffer> getResult() final;
 
 private:
     IRequestImpl* impl{nullptr};
