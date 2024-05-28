@@ -524,8 +524,6 @@ QString IRequestImpl::getBoundary(const QString &mime)
 }
 
 /*
-
-
 // TODO: 在接收数据的时候，这里其实应该判断一下body 所用的编码方式，因为可能因为编码方式的错误导致内容出错
 bool IRequestImpl::resolveBodyContent()
 {
@@ -668,7 +666,5 @@ QString IRequestImplHelper::getOriginName(const QString& name, const QString& su
     }
     return name;
 }
-
-
 
 $PackageWebCoreEnd

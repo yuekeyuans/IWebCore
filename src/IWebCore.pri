@@ -111,6 +111,7 @@ HEADERS += \
     $$PWD/http/net/impl/IResponseHeader.h \
     $$PWD/http/net/impl/IResponseRaw.h \
     $$PWD/http/net/server/IHttpConnection.h \
+    $$PWD/http/net/server/IHttpRequestHandler.h \
     $$PWD/http/net/server/IHttpServer.h \
     $$PWD/http/net/server/ITcpConnection.h \
     $$PWD/http/net/server/ITcpConnectionData.h \
@@ -286,6 +287,7 @@ SOURCES += \
     $$PWD/http/net/impl/IResponseHeader.cpp \
     $$PWD/http/net/impl/IResponseRaw.cpp \
     $$PWD/http/net/server/IHttpConnection.cpp \
+    $$PWD/http/net/server/IHttpRequestHandler.cpp \
     $$PWD/http/net/server/IHttpServer.cpp \
     $$PWD/http/net/server/ITcpConnection.cpp \
     $$PWD/http/net/server/ITcpConnectionData.cpp \
