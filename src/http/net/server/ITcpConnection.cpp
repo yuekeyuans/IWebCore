@@ -56,11 +56,12 @@ void ITcpConnection::doWrite()
     });
 }
 
+// TODO: this is safe?, but it works
 void ITcpConnection::doDestroy()
 {
-    asio::post([=](){
-        ITcpConnectionManage::instance()->removeTcpConnection(this);
-    });
+//    asio::post([=](){
+    ITcpConnectionManage::instance()->removeTcpConnection(this);
+//    });
 }
 
 void ITcpConnection::doReuse()

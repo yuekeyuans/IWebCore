@@ -11,7 +11,7 @@ struct IUrlActionNode;
 class IHttpRequestHandler : public ISingletonUnit<IHttpRequestHandler>
 {
 public:
-    IHttpRequestHandler();
+    IHttpRequestHandler() = default;
 
 public:
     void handle(IRequest& request);

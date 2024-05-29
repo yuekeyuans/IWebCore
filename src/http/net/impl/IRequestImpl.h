@@ -18,6 +18,7 @@ class IRequest;
 class IRequestRaw;
 class ITcpConnection;
 class IResponseImpl;
+struct IUrlActionNode;
 struct ITcpConnectionData;
 
 class IRequestImpl
@@ -25,6 +26,21 @@ class IRequestImpl
 public:
     enum State{
         Start, FirstLine, Header, HeaderGap, End,
+    };
+
+    struct ProcessUnit{
+        enum Type{
+            Invalid,
+            Function,
+            Path,
+            Directory,
+        };
+        union Content{
+            IUrlActionNode* node;
+            QString path;
+        };
+        Type type{Invalid};
+        Content content;
     };
 
 public:
@@ -86,6 +102,7 @@ private:
     State m_readState{Start};
     int m_contentLength{};
     QString m_multipartBoundary;
+    ProcessUnit m_processer;
 };
 
 

@@ -17,11 +17,6 @@
 
 $PackageWebCoreBegin
 
-IHttpRequestHandler::IHttpRequestHandler()
-{
-
-}
-
 void IHttpRequestHandler::handle(IRequest &request)
 {
     IResponse response(&request);
