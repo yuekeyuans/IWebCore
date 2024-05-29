@@ -76,7 +76,7 @@ QByteArray IResponseImpl::generateHeadersContent(int contentSize)
     }
 
     QByteArray headersContent;
-    auto keys = raw->m_responseRaw->headers.keys();
+    auto keys = raw->m_responseRaw->headers.uniqueKeys();
     for(const auto& key : keys){
         auto values = raw->m_responseRaw->headers.values(key);
         headersContent.append(key).append(":").append(values.join(";")).append(NEW_LINE);
