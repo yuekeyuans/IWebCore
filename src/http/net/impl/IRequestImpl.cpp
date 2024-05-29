@@ -15,6 +15,7 @@
 #include "http/net/impl/IRequestRaw.h"
 #include "http/net/impl/IResponseRaw.h"
 #include "http/net/impl/IResponseImpl.h"
+#include "http/net/server/IHttpRequestHandler.h"
 
 $PackageWebCoreBegin
 
@@ -361,7 +362,9 @@ void IRequestImpl::headerGapState()
 
 void IRequestImpl::endState()
 {
-    m_connection->doWrite();
+    IHttpRequestHandler::instance()->handle(*m_request);
+//    asio::post()
+//    m_connection->doWrite();
 }
 
 void IRequestImpl::parseFirstLine(QString line)

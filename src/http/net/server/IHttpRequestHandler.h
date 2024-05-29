@@ -1,13 +1,14 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
+#include "core/unit/ISingletonUnit.h"
 
 $PackageWebCoreBegin
 
 class IRequest;
 class IResponse;
-class IUrlActionNode;
-class IHttpRequestHandler
+struct IUrlActionNode;
+class IHttpRequestHandler : public ISingletonUnit<IHttpRequestHandler>
 {
 public:
     IHttpRequestHandler();
@@ -26,8 +27,6 @@ private:
     void processInFunctionMode(IRequest &request, IResponse &response, IUrlActionNode *node);
     void processInStaticFileMode(IRequest &request, IResponse &response, const QString &path);
     void processInStaticFolderMode(IRequest &request, IResponse &response, const QStringList& entries);
-
-
 };
 
 $PackageWebCoreEnd

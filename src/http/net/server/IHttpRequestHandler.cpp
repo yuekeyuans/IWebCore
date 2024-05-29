@@ -26,7 +26,7 @@ void IHttpRequestHandler::handle(IRequest &request)
 {
     IResponse response(&request);
     do{
-        if(request.valid()){
+        if(!request.valid()){
             break;
         }
 
