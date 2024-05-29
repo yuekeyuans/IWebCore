@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include "IRequestAssert.h"
+#include "core/application/IAsioApplication.h"
 #include "core/base/IConstantUtil.h"
 #include "core/base/IHeaderUtil.h"
 #include "core/base/ICodecUtil.h"
@@ -362,9 +363,10 @@ void IRequestImpl::headerGapState()
 
 void IRequestImpl::endState()
 {
-    IHttpRequestHandler::instance()->handle(*m_request);
-//    asio::post()
-//    m_connection->doWrite();
+    auto application = dynamic_cast<IAsioApplication*>(IApplicationInterface::instance());
+    asio::post(application->ioContext(), [=](){
+        IHttpRequestHandler::instance()->handle(*m_request);
+    });
 }
 
 void IRequestImpl::parseFirstLine(QString line)
