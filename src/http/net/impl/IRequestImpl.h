@@ -18,7 +18,6 @@ class IRequest;
 class IRequestRaw;
 class ITcpConnection;
 class IResponseImpl;
-struct IUrlActionNode;
 struct ITcpConnectionData;
 
 class IRequestImpl
@@ -26,20 +25,6 @@ class IRequestImpl
 public:
     enum State{
         Start, FirstLine, Header, HeaderGap, End,
-    };
-
-    struct ProcessUnit{
-        enum Type{
-            Invalid,    // 非法
-            Function,   // 处理函数
-            Path,       // 文件路径
-            Directory,  // 请求路径在 directory 当中
-            Option,     // 处理 option
-        };
-        Type type{Invalid};
-        IUrlActionNode* node;
-        QString path;
-        QStringList entries;
     };
 
 public:
@@ -98,13 +83,12 @@ public:
     ITcpConnectionData& m_data;
 
     IResponseImpl* m_responseImpl{};    // TODO: 这个应该可以去掉的。
+
 private:
     State m_readState{Start};
     int m_contentLength{};
     QString m_multipartBoundary;
-    ProcessUnit m_processer;
 };
-
 
 $PackageWebCoreEnd
 

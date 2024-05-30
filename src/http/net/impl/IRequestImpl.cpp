@@ -482,39 +482,38 @@ void IRequestImpl::resolveCookieHeaders()
 void IRequestImpl::resolvePathProcessor()
 {
     if(m_raw->m_method == IHttpMethod::OPTIONS){
-        m_processer.type == ProcessUnit::Type::Option;
+        m_raw->m_processer.type = IRequestRaw::ProcessUnit::Type::Option;
         return;
     }
 
     static auto controllerManage = IHttpManage::instance();
     static const bool isUrlActionEnabled = controllerManage->isUrlActionNodeEnabled();     // process as dynamic server first
     if(isUrlActionEnabled){
-        m_processer.node = controllerManage->getUrlActionNode(*m_request);
-        if(m_processer.node != nullptr){
-            m_processer.type = ProcessUnit::Type::Function;
+        m_raw->m_processer.node = controllerManage->getUrlActionNode(*m_request);
+        if(m_raw->m_processer.node != nullptr){
+            m_raw->m_processer.type = IRequestRaw::ProcessUnit::Type::Function;
             return;
         }
     }
 
     static bool isStaticFileEnabled = controllerManage->isStaticFileActionPathEnabled();        // process as static file server then
     if(isStaticFileEnabled && m_request->method() == IHttpMethod::GET){
-        m_processer.path = controllerManage->getStaticFileActionPath(*m_request);
-        if(!m_processer.path.isEmpty()){
-            m_processer.type = ProcessUnit::Type::Path;
+        m_raw->m_processer.path = controllerManage->getStaticFileActionPath(*m_request);
+        if(!m_raw->m_processer.path.isEmpty()){
+            m_raw->m_processer.type = IRequestRaw::ProcessUnit::Type::Path;
             return;
         }
 
         static $Bool handleDir{"http.fileService.folderHandled"};
         if(handleDir){
-            m_processer.entries = controllerManage->getStaticFolderActionPath(*m_request);
-            if(!m_processer.entries.isEmpty()){
-                m_processer.type = ProcessUnit::Type::Directory;
-//                return processInStaticFolderMode(request, response, entries);
+            m_raw->m_processer.entries = controllerManage->getStaticFolderActionPath(*m_request);
+            if(!m_raw->m_processer.entries.isEmpty()){
+                m_raw->m_processer.type = IRequestRaw::ProcessUnit::Type::Directory;
             }
         }
     }
-
-    m_request->setInvalid(IHttpNotFoundInvalid("not found any handler"));
+    QString info = m_request->url() + " " + IHttpMethodUtil::toString(m_request->method()) + " has no function to handle";
+    m_request->setInvalid(IHttpNotFoundInvalid(std::move(info)));
 }
 
 void IRequestImpl::parseMultiPartBody()

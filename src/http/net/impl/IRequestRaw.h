@@ -19,8 +19,24 @@ class IHeaderJar;
 class ICookieJar;
 class ISessionJar;
 class IMultiPartJar;
+struct IUrlActionNode;
 class IRequestRaw
 {
+public:
+    struct ProcessUnit{
+        enum Type{
+            Invalid,    // 非法
+            Function,   // 处理函数
+            Path,       // 文件路径
+            Directory,  // 请求路径在 directory 当中
+            Option,     // 处理 option
+        };
+        Type type{Invalid};
+        IUrlActionNode* node;
+        QString path;
+        QStringList entries;
+    };
+
 public:
     IRequestRaw();
     IRequestRaw(IRequest* request);
@@ -58,6 +74,8 @@ public:
     ICookieJar* m_cookieJar{nullptr};                                       // TODO: 这两个是否需要指针?
     IMultiPartJar* m_multiPartJar{nullptr};
     ISessionJar* m_sessionJar{nullptr};
+
+    ProcessUnit m_processer;
 
 private:    
     bool isJsonInited   {false};

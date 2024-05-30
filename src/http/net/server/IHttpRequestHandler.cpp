@@ -40,40 +40,33 @@ void IHttpRequestHandler::handle(IRequest &request)
 
 void IHttpRequestHandler::handleRequest(IRequest &request, IResponse &response)
 {
-    if(request.method() == IHttpMethod::OPTIONS){
+    const auto& process = request.getRaw()->m_processer;
+
+    if(process.type == IRequestRaw::ProcessUnit::Option){
         runOptionsFunction(request, response);
     }
 
-    static auto controllerManage = IHttpManage::instance();
-    static bool isUrlActionEnabled = controllerManage->isUrlActionNodeEnabled();     // process as dynamic server first
-    if(isUrlActionEnabled){
-        auto function = controllerManage->getUrlActionNode(request);
-        if(function != nullptr){
-            if(function->type == IUrlActionNode::Method){
-                return processInMethodMode(request, response, function);
-            }
-            return processInFunctionMode(request, response, function);
+    switch (process.type) {
+    case IRequestRaw::ProcessUnit::Option:
+        return runOptionsFunction(request, response);
+    case IRequestRaw::ProcessUnit::Function:
+    {
+        auto function = process.node;
+        if(function->type == IUrlActionNode::Method){
+            return processInMethodMode(request, response, function);
         }
+        return processInFunctionMode(request, response, function);
     }
-
-    static bool isStaticFileEnabled = controllerManage->isStaticFileActionPathEnabled();        // process as static file server then
-    static $Bool handleDir{"http.fileService.folderHandled"};
-    if(isStaticFileEnabled && request.method() == IHttpMethod::GET){
-        auto path = controllerManage->getStaticFileActionPath(request);
-        if(!path.isEmpty()){
-            return processInStaticFileMode(request, response, path);
-        }
-        if(handleDir){
-            auto entries = controllerManage->getStaticFolderActionPath(request);
-            if(!entries.isEmpty()){
-                return processInStaticFolderMode(request, response, entries);
-            }
-        }
+    case IRequestRaw::ProcessUnit::Path:
+        return processInStaticFileMode(request, response, process.path);
+    case IRequestRaw::ProcessUnit::Directory:
+        return processInStaticFolderMode(request, response, process.entries);
+    default:
+    {
+        QString info = request.url() + " " + IHttpMethodUtil::toString(request.method()) + " has no function to handle";
+        response.setContent(IHttpNotFoundInvalid(info));
     }
-
-    QString info = request.url() + " " + IHttpMethodUtil::toString(request.method()) + " has no function to handle";
-    response.setContent(IHttpNotFoundInvalid(info));
-
+    }
 }
 
 void IHttpRequestHandler::runOptionsFunction(IRequest &request, IResponse &response)
