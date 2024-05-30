@@ -1,15 +1,18 @@
 ﻿#include "IHttpInvalidManage.h"
 
-void IWebCore::IHttpInvalidManage::addWare(IWebCore::IHttpInvalidWare *ware)
+$PackageWebCoreBegin
+
+void IHttpInvalidManage::addWare(IWebCore::IHttpInvalidWare *ware)
 {
-    auto name = ware->tag;
-    m_wares[name] = ware;
+    m_wares[ware->tag] = ware;
 }
 
-IWebCore::IHttpInvalidWare *IWebCore::IHttpInvalidManage::getWare(const QString &name)
+IHttpInvalidWare *IHttpInvalidManage::getWare(const QString &name)
 {
-    if(!m_wares.contains(name)){
-        return nullptr;
+    if(m_wares.contains(name)){
+        return m_wares[name];
     }
-    return m_wares[name];
+    return nullptr;
 }
+
+$PackageWebCoreEnd

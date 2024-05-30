@@ -2,19 +2,23 @@
 
 #include <algorithm>
 #include "IRequestAssert.h"
+#include "core/application/IAsioApplication.h"
 #include "core/base/IConstantUtil.h"
 #include "core/base/IHeaderUtil.h"
 #include "core/base/ICodecUtil.h"
 #include "core/base/IToeUtil.h"
 #include "core/config/IProfileImport.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
+#include "http/invalid/IHttpNotFoundInvalid.h"
 #include "http/jar/IHeaderJar.h"
 #include "http/net/IRequest.h"
 #include "http/net/server/ITcpConnection.h"
 #include "http/net/IRequestManage.h"
+#include "http/controller/IHttpManage.h"
 #include "http/net/impl/IRequestRaw.h"
 #include "http/net/impl/IResponseRaw.h"
 #include "http/net/impl/IResponseImpl.h"
+#include "http/net/server/IHttpRequestHandler.h"
 
 $PackageWebCoreBegin
 
@@ -361,7 +365,10 @@ void IRequestImpl::headerGapState()
 
 void IRequestImpl::endState()
 {
-    m_connection->doWrite();
+    auto application = dynamic_cast<IAsioApplication*>(IApplicationInterface::instance());
+    asio::post(application->ioContext(), [=](){
+        IHttpRequestHandler::instance()->handle(*m_request);
+    });
 }
 
 void IRequestImpl::parseFirstLine(QString line)
@@ -427,6 +434,11 @@ void IRequestImpl::parseHeader(QString line)
 
 void IRequestImpl::resolveHeaders()
 {
+    resolvePathProcessor();
+    if(!m_request->valid()){
+        return;
+    }
+
     if(m_raw->m_requestHeaders.contains(IHttpHeader::ContentLength)){
         bool ok;
         m_contentLength = m_raw->m_requestHeaders.value(IHttpHeader::ContentLength).toUInt(&ok);
@@ -450,7 +462,6 @@ void IRequestImpl::resolveHeaders()
             }
         }
     }
-
     resolveCookieHeaders();
 }
 
@@ -466,6 +477,44 @@ void IRequestImpl::resolveCookieHeaders()
             m_raw->m_requestCookieParameters.insertMulti(args.first(), args.last());
         }
     }
+}
+
+void IRequestImpl::resolvePathProcessor()
+{
+    if(m_raw->m_method == IHttpMethod::OPTIONS){
+        m_processer.type == ProcessUnit::Type::Option;
+        return;
+    }
+
+    static auto controllerManage = IHttpManage::instance();
+    static const bool isUrlActionEnabled = controllerManage->isUrlActionNodeEnabled();     // process as dynamic server first
+    if(isUrlActionEnabled){
+        m_processer.node = controllerManage->getUrlActionNode(*m_request);
+        if(m_processer.node != nullptr){
+            m_processer.type = ProcessUnit::Type::Function;
+            return;
+        }
+    }
+
+    static bool isStaticFileEnabled = controllerManage->isStaticFileActionPathEnabled();        // process as static file server then
+    if(isStaticFileEnabled && m_request->method() == IHttpMethod::GET){
+        m_processer.path = controllerManage->getStaticFileActionPath(*m_request);
+        if(!m_processer.path.isEmpty()){
+            m_processer.type = ProcessUnit::Type::Path;
+            return;
+        }
+
+        static $Bool handleDir{"http.fileService.folderHandled"};
+        if(handleDir){
+            m_processer.entries = controllerManage->getStaticFolderActionPath(*m_request);
+            if(!m_processer.entries.isEmpty()){
+                m_processer.type = ProcessUnit::Type::Directory;
+//                return processInStaticFolderMode(request, response, entries);
+            }
+        }
+    }
+
+    m_request->setInvalid(IHttpNotFoundInvalid("not found any handler"));
 }
 
 void IRequestImpl::parseMultiPartBody()
@@ -524,8 +573,6 @@ QString IRequestImpl::getBoundary(const QString &mime)
 }
 
 /*
-
-
 // TODO: 在接收数据的时候，这里其实应该判断一下body 所用的编码方式，因为可能因为编码方式的错误导致内容出错
 bool IRequestImpl::resolveBodyContent()
 {
@@ -668,7 +715,5 @@ QString IRequestImplHelper::getOriginName(const QString& name, const QString& su
     }
     return name;
 }
-
-
 
 $PackageWebCoreEnd

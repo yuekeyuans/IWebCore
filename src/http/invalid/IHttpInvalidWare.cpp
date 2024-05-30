@@ -10,6 +10,7 @@ void IHttpInvalidWare::process(IRequest & req, IResponse &res)
 {
     Q_UNUSED(req);
     auto content = res.getRaw()->m_responseRaw;
+    content->status = status;
     content->setContent(content->content.contentInvalid.description);
 }
 
