@@ -9,7 +9,7 @@ class ITcpConnection;
 class IHttpServer
 {
 public:
-    IHttpServer();
+    IHttpServer() = default;
     void listen();
 
 private:

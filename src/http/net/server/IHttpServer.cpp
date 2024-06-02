@@ -9,10 +9,6 @@
 
 $PackageWebCoreBegin
 
-IHttpServer::IHttpServer()
-{
-}
-
 void IHttpServer::listen()
 {
     auto application = dynamic_cast<IAsioApplication*>(IApplicationInterface::instance());
@@ -20,6 +16,7 @@ void IHttpServer::listen()
         qFatal("application not supported");
         return;
     }
+
     asio::ip::tcp::resolver resolver(application->ioContext());
     asio::ip::tcp::endpoint endpoint =
             *resolver.resolve(ip.value().toStdString(), QString::number(port.value()).toStdString()).begin();
@@ -40,6 +37,8 @@ void IHttpServer::doAccept()
         }
 
         if(!ec){
+            $Int m_timeout{"http.readTimeOut"};
+            socket.set_option(asio::detail::socket_option::integer<SOL_SOCKET, SO_RCVTIMEO>{ m_timeout.value() });
             auto connection = new ITcpConnection(std::move(socket));
             ITcpConnectionManage::instance()->addTcpConnection(connection);
         }

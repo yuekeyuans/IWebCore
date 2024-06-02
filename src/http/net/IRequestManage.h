@@ -11,7 +11,7 @@ class IRequest;
 class IRequestManage : public ISingletonUnit<IRequestManage>
 {
 public:
-    IRequestManage();
+    IRequestManage() = default;
 
 public:
     void pushRequest(IRequest*);

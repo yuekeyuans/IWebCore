@@ -3,10 +3,6 @@
 
 $PackageWebCoreBegin
 
-IRequestManage::IRequestManage()
-{
-}
-
 void IRequestManage::pushRequest(IRequest *request)
 {
     m_requests.emplace(request);
