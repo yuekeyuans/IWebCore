@@ -1,1 +1,0 @@
-﻿#include "IInterceptorWare.h"

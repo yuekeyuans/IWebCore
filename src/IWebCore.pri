@@ -25,7 +25,6 @@ HEADERS += \
     $$PWD/core/base/IMetaUtil.h \
     $$PWD/core/base/IPackageUtil.h \
     $$PWD/core/base/IPreProcessorUtil.h \
-#    $$PWD/core/base/ISocketUtil.h \
     $$PWD/core/base/ITicTacUtil.h \
     $$PWD/core/base/IToeUtil.h \
     $$PWD/core/base/ITraitUtil.h \
@@ -178,14 +177,6 @@ HEADERS += \
     $$PWD/http/jar/IMultiPart.h \
     $$PWD/http/jar/IMultiPartJar.h \
     $$PWD/http/jar/ISessionJar.h \
-#    $$PWD/http/middleware/IInterceptorWare.h \
-#    $$PWD/http/middleware/IMiddleWare.h \
-#    $$PWD/http/middleware/IMiddleWarePreProcessor.h \
-#    $$PWD/http/middleware/IPostInterceptorInterface.h \
-#    $$PWD/http/middleware/IPostProcessorInterface.h \
-#    $$PWD/http/middleware/IPreInterceptorInterface.h \
-#    $$PWD/http/middleware/IPreProcessorInterface.h \
-#    $$PWD/http/middleware/IProcessorWare.h \
     $$PWD/http/net/IRequest.h \
     $$PWD/http/net/IResponse.h \
     $$PWD/http/net/impl/IRequestAssert.h \
@@ -234,7 +225,6 @@ SOURCES += \
     $$PWD/core/base/IJsonUtil_tojson_impl.cpp \
     $$PWD/core/base/IMetaUtil.cpp \
     $$PWD/core/base/IPreProcessorUtil.cpp \
-#    $$PWD/core/base/ISocketUtil.cpp \
     $$PWD/core/base/ITicTacUtil.cpp \
     $$PWD/core/base/IToeUtil.cpp \
     $$PWD/core/base/IXmlUtil.cpp \
@@ -347,13 +337,6 @@ SOURCES += \
     $$PWD/http/jar/IMultiPart.cpp \
     $$PWD/http/jar/IMultiPartJar.cpp \
     $$PWD/http/jar/ISessionJar.cpp \
-#    $$PWD/http/middleware/IInterceptorWare.cpp \
-#    $$PWD/http/middleware/IMiddleWare.cpp \
-#    $$PWD/http/middleware/IPostInterceptorInterface.cpp \
-#    $$PWD/http/middleware/IPostProcessorInterface.cpp \
-#    $$PWD/http/middleware/IPreInterceptorInterface.cpp \
-#    $$PWD/http/middleware/IPreProcessorInterface.cpp \
-#    $$PWD/http/middleware/IProcessorWare.cpp \
     $$PWD/http/net/IRequest.cpp \
     $$PWD/http/net/IResponse.cpp \
     $$PWD/http/net/impl/IRequestAssert.cpp \

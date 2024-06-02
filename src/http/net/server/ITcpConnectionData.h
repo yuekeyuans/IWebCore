@@ -23,8 +23,6 @@ public:
     int parsedSize{};
 };
 
-//asio::const_buffer
-
 struct MyBuffer
 {
     MyBuffer(QByteArray array){

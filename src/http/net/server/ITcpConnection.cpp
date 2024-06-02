@@ -78,5 +78,4 @@ void ITcpConnection::resolveData()
     }
 }
 
-
 $PackageWebCoreEnd
