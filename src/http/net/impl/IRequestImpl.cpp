@@ -509,9 +509,11 @@ void IRequestImpl::resolvePathProcessor()
             m_raw->m_processer.entries = controllerManage->getStaticFolderActionPath(*m_request);
             if(!m_raw->m_processer.entries.isEmpty()){
                 m_raw->m_processer.type = IRequestRaw::ProcessUnit::Type::Directory;
+                return;
             }
         }
     }
+
     QString info = m_request->url() + " " + IHttpMethodUtil::toString(m_request->method()) + " has no function to handle";
     m_request->setInvalid(IHttpNotFoundInvalid(std::move(info)));
 }
