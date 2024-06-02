@@ -1,4 +1,5 @@
 ﻿#include "IRequestManage.h"
+#include "http/net/IRequest.h"
 
 $PackageWebCoreBegin
 

@@ -14,7 +14,6 @@ public:
 
 public:
     IHeaderJar();
-    // request
     const QMultiHash<QString, QString>& requestHeaders() const;
     QMultiHash<QString, QString>& requestHeaders();
 
@@ -24,15 +23,11 @@ public:
     QString getRequestHeaderValue(const QString& key, bool& ok) const;
     QStringList getRequestHeaderValues(const QString& key) const;
 
-    // response
     const QMultiHash<QString, QString>& responseHeaders() const;
     QMultiHash<QString, QString>& responseHeaders();
 
     QStringList responseHeaderKeys() const;
     bool containResponseHeaderKey(const QString& key) const;
-
-//    QString getResponseHeaderValue(const QString& key, bool& ok) const;
-//    QStringList getResponseHeaderValues(const QString& key) const;
 
     void addResponseHeader(const QString& key, const QString& value);
     void addResponseHeader(const QString& key, const QStringList& values);

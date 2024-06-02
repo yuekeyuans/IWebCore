@@ -65,23 +65,6 @@ bool IHeaderJar::containResponseHeaderKey(const QString &key) const
     return m_raw->m_responseRaw->headers.contains(key);
 }
 
-//QString IHeaderJar::getResponseHeaderValue(const QString &key, bool& ok) const
-//{
-//    for(const auto& pair : m_raw->m_requestHeaders){
-//        if(pair.first == key){
-//            IToeUtil::setOk(ok, true);
-//            return pair.second;
-//        }
-//    }
-//    IToeUtil::setOk(ok, false);
-//    return "";
-//}
-
-//QStringList IHeaderJar::getResponseHeaderValues(const QString &key) const
-//{
-//    return m_raw->m_responseRaw->headers.values(key);
-//}
-
 // NOTE: 注意这两者之间的差别， setReponseHeader是，如果有这个值，就替换， addResponseHeader 表示不管怎样，直接添加。
 void IHeaderJar::addResponseHeader(const QString &key, const QString &value)
 {
