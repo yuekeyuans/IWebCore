@@ -28,19 +28,7 @@ void ITcpConnection::doRead()
         }
 
         m_data.readSize += length;
-        if(!m_resolver){
-            m_resolver = ITcpResolverManage::instance()->createResolver(this);
-        }
-
-        if(m_resolver){
-            m_resolver->resolve();
-        }else{
-            if(m_data.readSize > 4){
-                doDestroy();
-            }else{
-                doRead();
-            }
-        }
+        resolveData();
     });
 }
 
@@ -66,7 +54,28 @@ void ITcpConnection::doDestroy()
 
 void ITcpConnection::doReuse()
 {
+    m_data.resetForReuse();
+    delete m_resolver;
+    m_resolver = nullptr;
 
+    resolveData();
+}
+
+void ITcpConnection::resolveData()
+{
+    if(!m_resolver){
+        m_resolver = ITcpResolverManage::instance()->createResolver(this);
+    }
+
+    if(m_resolver){
+        m_resolver->resolve();
+    }else{
+        if(m_data.readSize > 4){
+            doDestroy();
+        }else{
+            doRead();
+        }
+    }
 }
 
 

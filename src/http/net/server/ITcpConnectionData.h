@@ -14,6 +14,7 @@ public:
     auto getBuffer(){
         return asio::buffer(m_data + readSize, totalLength - readSize);
     }
+    void resetForReuse();
 
 public:
     char* m_data{};

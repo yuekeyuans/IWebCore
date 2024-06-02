@@ -28,4 +28,9 @@ bool ITcpConnectionData::getLine(int *value) const
     return false;
 }
 
+void ITcpConnectionData::resetForReuse()
+{
+    // TODO: do nothing, but clear now;
+}
+
 $PackageWebCoreEnd

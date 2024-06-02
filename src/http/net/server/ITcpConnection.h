@@ -3,7 +3,6 @@
 #include "core/base/IHeaderUtil.h"
 #include "http/net/server/ITcpConnectionData.h"
 
-
 $PackageWebCoreBegin
 
 class ITcpResolverInterface;
@@ -19,6 +18,9 @@ public:
     void doWrite();
     void doDestroy();
     void doReuse();
+
+private:
+    void resolveData();
 
 public:
     ITcpConnectionData m_data;
