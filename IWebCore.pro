@@ -3,4 +3,5 @@ TEMPLATE = subdirs
 SUBDIRS += \
 #    demo \
 #    src \
-    test
+#    test \
+    unittest

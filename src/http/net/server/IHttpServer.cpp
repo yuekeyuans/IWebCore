@@ -26,6 +26,8 @@ void IHttpServer::listen()
     m_acceptor->bind(endpoint);
     m_acceptor->listen();
 
+    qDebug() << "server started, listen at" << ip << port;
+
     doAccept();
 }
 

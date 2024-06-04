@@ -166,11 +166,6 @@ QJsonValue IRequest::bodyJson(bool &ok) const
     return impl->requestJson(ok);
 }
 
-//const QDomNode &IRequest::bodyXml(bool& ok) const
-//{
-//    return impl->requestXml(ok);
-//}
-
 QByteArray IRequest::getParameter(const QString &name, bool& ok) const
 {
     return impl->getParameter(name, ok);
