@@ -47,7 +47,7 @@ void ITcpConnection::doReadStreamUntil(const char *stop)
         if(error){
             return doDestroy();
         }
-        resolveData(); // 表示可以进行数据的解析
+        resolveData();
     });
 }
 

@@ -15,6 +15,7 @@ public:
 
 public:
     void doRead();
+    void doReadStreamBy(int length);
     void doReadStreamUntil(const char*);
     void doWrite();
     void doDestroy();

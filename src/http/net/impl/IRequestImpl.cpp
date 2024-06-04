@@ -340,13 +340,18 @@ void IRequestImpl::headerState(int line[2])
 
     resolveHeaders();
 
-    if(m_contentLength || !m_multipartBoundary.isEmpty()){
+    if(m_contentLength){
+
+        m_readState = State::HeaderGap;
+    }else if(!m_multipartBoundary.isEmpty()){
+
         m_readState = State::HeaderGap;
     }else{
         m_readState = State::End;
     }
 }
 
+// 再这里读取并解析
 void IRequestImpl::headerGapState()
 {
     if(m_raw->m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
