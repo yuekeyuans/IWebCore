@@ -31,9 +31,19 @@ void ITcpConnection::doRead()
     });
 }
 
+void ITcpConnection::doReadStreamBy(int length)
+{
+    asio::async_read(m_socket, m_data.m_buff, asio::transfer_exactly(length), [=](std::error_code, std::size_t length){
+        if(error){
+            return doDestroy();
+        }
+        resolveData();
+    });
+}
+
 void ITcpConnection::doReadStreamUntil(const char *stop)
 {
-    asio::async_read_until(m_socket, m_data.m_buff, stop, [](std::error_code error, std::size_t length){
+    asio::async_read_until(m_socket, m_data.m_buff, stop, [=](std::error_code error, std::size_t length){
         if(error){
             return doDestroy();
         }
