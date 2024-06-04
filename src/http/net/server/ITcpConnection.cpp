@@ -21,14 +21,23 @@ ITcpConnection::~ITcpConnection()
 
 void ITcpConnection::doRead()
 {
-    m_socket.async_read_some(m_data.getBuffer(), [&](std::error_code error, int length){
+    m_socket.async_read_some(m_data.getMutableBuffer(), [&](std::error_code error, std::size_t length){
         if(error){
-            doDestroy();
-            return;
+            return doDestroy();
         }
 
-        m_data.readSize += length;
+        m_data.m_readSize += length;
         resolveData();
+    });
+}
+
+void ITcpConnection::doReadStreamUntil(const char *stop)
+{
+    asio::async_read_until(m_socket, m_data.m_buff, stop, [](std::error_code error, std::size_t length){
+        if(error){
+            return doDestroy();
+        }
+        resolveData(); // 表示可以进行数据的解析
     });
 }
 
@@ -70,7 +79,7 @@ void ITcpConnection::resolveData()
     if(m_resolver){
         m_resolver->resolve();
     }else{
-        if(m_data.readSize > 4){
+        if(m_data.m_readSize > 4){
             doDestroy();
         }else{
             doRead();

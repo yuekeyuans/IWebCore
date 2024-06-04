@@ -5,6 +5,7 @@
         "printTrace": true,
         "urlMaxLength" : 2083,
         "headerMaxLength":8192,
+        "urlHeaderMaxLength": 10275,
         "readTimeOut" : 10000,
         "bodyMaxLength": 4194304,
         "defaultPageNames": [

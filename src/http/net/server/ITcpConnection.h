@@ -15,6 +15,7 @@ public:
 
 public:
     void doRead();
+    void doReadStreamUntil(const char*);
     void doWrite();
     void doDestroy();
     void doReuse();

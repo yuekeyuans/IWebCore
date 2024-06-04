@@ -294,7 +294,7 @@ void IRequestImpl::parseData()
                 return m_connection->doRead();
             }
             std::mem_fn(stateFun[m_readState])(this, line);
-            m_data.parsedSize += line[1];
+            m_data.m_parsedSize += line[1];
         }
 
         if(!m_raw->valid()){
@@ -354,7 +354,7 @@ void IRequestImpl::headerGapState()
     }
 
     if(m_contentLength != 0){
-        auto fileLength = m_data.readSize - m_data.parsedSize;
+        auto fileLength = m_data.m_readSize - m_data.m_parsedSize;
         if(fileLength >= m_contentLength){
             parseCommonBody();
         }else{
@@ -546,7 +546,7 @@ bool IRequestImpl::resolveFormedData(const QString &content, bool isBody)
 
 void IRequestImpl::parseCommonBody()
 {
-    m_raw->m_requestBody = QByteArray(m_data.m_data + m_data.parsedSize, m_data.readSize - m_data.parsedSize);
+    m_raw->m_requestBody = QByteArray(m_data.m_data + m_data.m_parsedSize, m_data.m_readSize - m_data.m_parsedSize);
     switch (m_raw->m_requestMime) {
     case IHttpMime::APPLICATION_WWW_FORM_URLENCODED:
         resolveFormedData(m_raw->m_requestBody, true);
