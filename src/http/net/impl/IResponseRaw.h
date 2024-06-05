@@ -28,7 +28,7 @@ public:
 
 public:
     QString mime;
-    IHttpStatusCode status {IHttpStatus::UNKNOWN};
+    IHttpStatusCode status {IHttpStatus::OK_200};
     QMultiHash<QString, QString> headers;
     QList<ICookiePart> cookies;
     IResponseContent content;

@@ -9,4 +9,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp
+        FormDataController.cpp \
+        main.cpp \
+        test/TestFormDataController.cpp
+
+HEADERS += \
+    FormDataController.h \
+    test/TestFormDataController.h

@@ -33,10 +33,12 @@ void ITcpConnection::doRead()
 
 void ITcpConnection::doReadStreamBy(int length)
 {
-    asio::async_read(m_socket, m_data.m_buff, asio::transfer_exactly(length), [=](std::error_code, std::size_t length){
+    // TODO: 如何在这里保证一个偏移？
+    asio::async_read(m_socket, m_data.m_buff, asio::transfer_exactly(length), [=](std::error_code error, std::size_t length){
         if(error){
             return doDestroy();
         }
+        m_data.m_buffReadSize += length;
         resolveData();
     });
 }
@@ -47,6 +49,7 @@ void ITcpConnection::doReadStreamUntil(const char *stop)
         if(error){
             return doDestroy();
         }
+        m_data.m_buffReadSize += length;
         resolveData();
     });
 }

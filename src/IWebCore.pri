@@ -9,7 +9,9 @@ include($$PWD/core/package/package.pri)
 PRECOMPILED_HEADER = $$PWD/core/base/IHeaderUtil.h
 
 HEADERS += \
-    $$PWD/IWeb/IHttpControllerInterface \
+#    $$PWD/IWeb/IHttpControllerInterface \
+    $$PWD/IHttp/IHttpControllerInterface \
+    $$PWD/IHttp/IHttpTestInterface \
     $$PWD/core/application/IApplicationAnnomacro.h \
     $$PWD/core/application/IApplicationInterface.h \
     $$PWD/core/application/IAsioApplication.h \
@@ -368,7 +370,7 @@ HEADERS += \
     $$PWD/ICore/IContext \
     $$PWD/ICore/IProfile \
     $$PWD/ICore/IUnitTestInterface \
-    $$PWD/IWeb/IHttpTestInterface   \
+#    $$PWD/IWeb/IHttpTestInterface   \
     $$PWD/IWeb/IHttpInvalidInterface \
     $$PWD/IWeb/HttpRequest \
 

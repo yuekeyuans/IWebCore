@@ -293,8 +293,8 @@ void IRequestImpl::parseData()
             if(!m_data.getLine(line)){
                 return m_connection->doRead();
             }
-            std::mem_fn(stateFun[m_readState])(this, line);
             m_data.m_parsedSize += line[1];
+            std::mem_fn(stateFun[m_readState])(this, line);
         }
 
         if(!m_raw->valid()){
@@ -336,12 +336,36 @@ void IRequestImpl::headerState(int line[2])
     if(line[1] != 2){
         parseHeader(QString::fromLocal8Bit(m_data.m_data + line[0], line[1] -2));
         return;
+    }else{
+
     }
 
     resolveHeaders();
 
-    if(m_contentLength){
 
+    // 描述这里的算法
+    // 如果是 content-length, 判断剩余空间是否能够满足，
+        // 如果能够满足，判断是否读完，没有读完继续读， 读完了就可以解析了
+        // 如果不满足 ， 拷贝当前的数据到 buff 中  继续读取buff,直到读取完成
+    // 如果是 multipart 读取数据直到内存读满， 或者读取结束
+        // 如果能够再当前的空间中读完，就在当前的空间中解析数据
+        // 如果当前空间使用完成后，还是没有读完， 启用 buff, 将 part 数据拷贝到 buff中，并继续读取buff, 直到读取到结束符号，
+    // 解析相关的数据。
+    if(m_contentLength){
+        int readLength = m_data.m_readSize - m_data.m_parsedSize;
+        if(m_data.m_parsedSize + m_contentLength < m_data.m_maxSize){   // 表示可以使用 data 空间
+            if(readLength == m_contentLength){
+                // 可以进行解析
+            }else{
+                m_connection->doRead(); // 继续读取
+            }
+        }else{
+            auto data = asio::buffer_cast<char*>(m_data.m_buff.prepare(m_contentLength));
+            memcpy(data, m_data.m_data + m_data.m_parsedSize, readLength); // 拷贝数据
+            m_data.m_buffReadSize += readLength;
+            m_connection->doReadStreamBy(m_contentLength-readLength);
+            m_data.m_buff.commit(readLength);
+        }
         m_readState = State::HeaderGap;
     }else if(!m_multipartBoundary.isEmpty()){
 
@@ -362,6 +386,8 @@ void IRequestImpl::headerGapState()
         auto fileLength = m_data.m_readSize - m_data.m_parsedSize;
         if(fileLength >= m_contentLength){
             parseCommonBody();
+            m_readState = State::End;
+            endState();
         }else{
             m_connection->doRead();
         }
@@ -464,6 +490,8 @@ void IRequestImpl::resolveHeaders()
             if(m_multipartBoundary.isEmpty()){
                 m_request->setInvalid(IHttpBadRequestInvalid("multipart request has no boundary"));
                 return;
+            }else{
+                m_multipartBoundaryEnd = m_multipartBoundary + "__";
             }
         }
     }
@@ -564,7 +592,7 @@ void IRequestImpl::parseCommonBody()
     }
 }
 
-QString IRequestImpl::getBoundary(const QString &mime)
+QByteArray IRequestImpl::getBoundary(const QString &mime)
 {
     QRegularExpression expression("boundary=[\"]?(.+)[\"]?$");
     auto result = expression.match(mime);
@@ -573,7 +601,7 @@ QString IRequestImpl::getBoundary(const QString &mime)
         if(!boundary.startsWith("--")){
             boundary.prepend("--");
         }
-        return boundary;
+        return boundary.toUtf8();
     }
     return {};
 }

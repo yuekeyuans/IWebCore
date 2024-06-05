@@ -23,6 +23,7 @@ IResponse::IResponse()
 
 IResponse::IResponse(IRequest *request) : m_raw(request->getRaw())
 {
+    m_raw->m_response = this;
 }
 
 IResponse::~IResponse()

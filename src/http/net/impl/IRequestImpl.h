@@ -74,7 +74,7 @@ private:
     void parseMultiPartBody();
     bool resolveFormedData(const QString& content, bool isBody);
     void parseCommonBody();
-    QString getBoundary(const QString&);
+    QByteArray getBoundary(const QString&);
 
 public:
     IRequest* m_request{};
@@ -87,7 +87,8 @@ public:
 private:
     State m_readState{Start};
     int m_contentLength{};
-    QString m_multipartBoundary;
+    QByteArray m_multipartBoundary;
+    QByteArray m_multipartBoundaryEnd;
 };
 
 $PackageWebCoreEnd
