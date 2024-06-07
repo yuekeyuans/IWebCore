@@ -19,7 +19,8 @@ public:
     ICurl& withPostDataUrlEncode(QString);
 
     ICurl& F(QString);
-    ICurl& withPostDataMultiPart(QString path, QString fileName="", QString type="");
+    ICurl& withFormData(QString key, QString value);
+    ICurl& withFormDataFile(QString key, QString path, QString fileName="", QString type="");
 
     ICurl& G();
     ICurl& withGenerateUrlQuery();

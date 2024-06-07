@@ -51,9 +51,14 @@ ICurl &ICurl::F(QString data)
     return *this;
 }
 
-ICurl &ICurl::withPostDataMultiPart(QString path, QString fileName, QString type)
+ICurl &ICurl::withFormData(QString key, QString value)
 {
-    QString data = "file=@"+path;
+    return F(key+"="+value);
+}
+
+ICurl &ICurl::withFormDataFile(QString key, QString path, QString fileName, QString type)
+{
+    QString data = key + "=@" + path;
     if(!fileName.isEmpty()){
         data.append(";filename="+fileName);
     }
