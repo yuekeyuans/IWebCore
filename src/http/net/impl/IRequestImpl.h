@@ -62,7 +62,7 @@ private:
     void startState(int[2]);
     void firstLineState(int[2]);
     void headerState(int[2]);
-    void headerGapState();
+    bool headerGapState();
     void endState();
 
     void parseFirstLine(QString data);
@@ -81,7 +81,6 @@ public:
     IRequestRaw* m_raw{};
     ITcpConnection* m_connection{};
     ITcpConnectionData& m_data;
-
     IResponseImpl* m_responseImpl{};    // TODO: 这个应该可以去掉的。
 
 private:

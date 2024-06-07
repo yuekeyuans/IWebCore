@@ -1,6 +1,8 @@
 ﻿#pragma once
 
-#include <QtCore>
+#include "core/base/IHeaderUtil.h"
+
+$PackageWebCoreBegin
 
 class ICurlResponse
 {
@@ -14,9 +16,10 @@ private:
 
 public:
     bool m_error{false};
+    int m_status;
     QByteArray m_content;
     QByteArray m_body;
     QMap<QString, QString> m_headers;
-
 };
 
+$PackageWebCoreEnd

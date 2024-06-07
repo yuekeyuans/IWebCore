@@ -1,6 +1,6 @@
 ﻿#include "ICurl.h"
-#include <QProcess>
-#include <QDebug>
+
+$PackageWebCoreBegin
 
 ICurl::ICurl(const QString& url)
 {
@@ -156,3 +156,5 @@ ICurlResponse ICurl::execDelete()
     X("DELETE");
     return exec();
 }
+
+$PackageWebCoreEnd

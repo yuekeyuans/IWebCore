@@ -288,7 +288,11 @@ void IRequestImpl::parseData()
         case State::End:
             return endState();
         case State::HeaderGap:
-            return headerGapState();
+            if(headerGapState()){       // if parse body finished then break to run endState, else, return and wait
+                break;
+            }else{
+                return;
+            }
         default:
             if(!m_data.getLine(line)){
                 return m_connection->doRead();
@@ -375,11 +379,12 @@ void IRequestImpl::headerState(int line[2])
     }
 }
 
-// 再这里读取并解析
-void IRequestImpl::headerGapState()
+// if finished return true, else false;
+bool IRequestImpl::headerGapState()
 {
     if(m_raw->m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
         parseMultiPartBody();
+        return true;
     }
 
     if(m_contentLength != 0){
@@ -387,9 +392,10 @@ void IRequestImpl::headerGapState()
         if(fileLength >= m_contentLength){
             parseCommonBody();
             m_readState = State::End;
-            endState();
+            return true;
         }else{
             m_connection->doRead();
+            return false;
         }
     }
 }

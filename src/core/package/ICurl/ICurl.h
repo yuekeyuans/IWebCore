@@ -1,6 +1,9 @@
 ﻿#pragma once
 
+#include "core/base/IHeaderUtil.h"
 #include "ICurlResponse.h"
+
+$PackageWebCoreBegin
 
 // NOTE: this file is only for test request.
 class ICurl
@@ -47,3 +50,4 @@ private:
     QStringList m_args;
 };
 
+$PackageWebCoreEnd

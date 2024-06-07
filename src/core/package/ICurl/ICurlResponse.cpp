@@ -1,5 +1,7 @@
 ﻿#include "ICurlResponse.h"
 
+$PackageWebCoreBegin
+
 ICurlResponse::ICurlResponse(QByteArray data) : m_content(std::move(data))
 {
     parse();
@@ -40,7 +42,6 @@ void ICurlResponse::parseHead(QByteArray data)
     }
     parseFirstLine(content.first());
     for(int i=1; i<content.length(); i++){
-        qDebug() << content[i];
         QStringList pair = QString(content.at(i)).split(":");
         auto value = pair.last().trimmed();
         m_headers[pair.first().trimmed()] = value;
@@ -49,5 +50,12 @@ void ICurlResponse::parseHead(QByteArray data)
 
 void ICurlResponse::parseFirstLine(QString data)
 {
-    qDebug() << "first line" << data;
+    QStringList args = data.split(" ");
+    if(args.length() <3){
+        m_error = true;
+        return;
+    }
+    m_status = args[1].toInt();
 }
+
+$PackageWebCoreEnd

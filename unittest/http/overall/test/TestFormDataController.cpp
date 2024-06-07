@@ -7,5 +7,5 @@ void TestFormDataController::testPostFormData()
             .withPostData("{\"foo\": 1, \"bar\": \"baz\"}")
             .withHeaderContentType("application/json")
             .execPost();
-    qDebug() << response.m_headers;
+    qDebug() << response.m_status;
 }
