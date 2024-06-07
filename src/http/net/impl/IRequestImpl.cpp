@@ -712,10 +712,7 @@ QList<QPair<int, int> > IRequestImpl::getBoundaries()
     }
     return ret;
 }
-
-
 */
-
 
 // TODO: 这里不对， 有路径没有被判断通过，
 bool IRequestImplHelper::isPathValid(const QString& path){
