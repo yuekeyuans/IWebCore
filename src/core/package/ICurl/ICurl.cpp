@@ -2,61 +2,61 @@
 #include <QProcess>
 #include <QDebug>
 
-ICurl::ICurl(QString url)
+ICurl::ICurl(const QString& url)
 {
     m_args.append(url);
 }
 
-ICurl &ICurl::b(QString data)
+ICurl &ICurl::b(const QString& data)
 {
     m_args.append( "-b '" + data + "'");
     return *this;
 }
 
-ICurl &ICurl::withCookie(QString data)
+ICurl &ICurl::withCookie(const QString& data)
 {
     return b(data);
 }
 
-ICurl &ICurl::d(QString data)
+ICurl &ICurl::d(const QString& data)
 {
     m_args.append("-d '" + data + "'");
     return *this;
 }
 
-ICurl &ICurl::withPostData(QString data)
+ICurl &ICurl::withPostData(const QString& data)
 {
     return d(data);
 }
 
-ICurl &ICurl::withPostDataFile(QString path)
+ICurl &ICurl::withPostDataFile(const QString& path)
 {
     return d("@"+path);
 }
 
-ICurl &ICurl::dataUrlencode(QString data)
+ICurl &ICurl::dataUrlencode(const QString& data)
 {
     m_args.append( "--data-urlencode '" + data + "'");
     return *this;
 }
 
-ICurl &ICurl::withPostDataUrlEncode(QString data)
+ICurl &ICurl::withPostDataUrlEncode(const QString& data)
 {
     return dataUrlencode(data);
 }
 
-ICurl &ICurl::F(QString data)
+ICurl &ICurl::F(const QString& data)
 {
     m_args.append( "-F '" + data + "'");
     return *this;
 }
 
-ICurl &ICurl::withFormData(QString key, QString value)
+ICurl &ICurl::withFormData(const QString& key, const QString& value)
 {
     return F(key+"="+value);
 }
 
-ICurl &ICurl::withFormDataFile(QString key, QString path, QString fileName, QString type)
+ICurl &ICurl::withFormDataFile(const QString& key, const QString& path, const QString& fileName, const QString& type)
 {
     QString data = key + "=@" + path;
     if(!fileName.isEmpty()){
@@ -79,50 +79,46 @@ ICurl &ICurl::withGenerateUrlQuery()
     return G();
 }
 
-ICurl &ICurl::H(QString data)
+ICurl &ICurl::H(const QString& data)
 {
-    QString arg = ("-H '" + data + "'");
+    const QString& arg = ("-H '" + data + "'");
     m_args.append(arg);
     return *this;
 }
 
-ICurl &ICurl::withHeader(QString data)
+ICurl &ICurl::withHeader(const QString& data)
 {
     return H(data);
 }
 
-ICurl &ICurl::withHeader(QString key, QString value)
+ICurl &ICurl::withHeader(const QString& key, const QString& value)
 {
     return withHeader(key + ": " + value);
 }
 
-ICurl &ICurl::withHeaderContentType(QString data)
+ICurl &ICurl::withHeaderContentType(const QString& data)
 {
     return withHeader("Content-Type", data);
 }
 
-ICurl &ICurl::limitRate(QString data)
+ICurl &ICurl::limitRate(const QString& data)
 {
-    QString arg;
-    arg += "--limit-rate " + data;
-    m_args.append(arg);
+    m_args.append( "--limit-rate " + data);
     return *this;
 }
 
-ICurl &ICurl::withLimitRate(QString data)
+ICurl &ICurl::withLimitRate(const QString& data)
 {
     return limitRate(data);
 }
 
-ICurl &ICurl::X(QString data)
+ICurl &ICurl::X(const QString& data)
 {
-    QString arg;
-    arg += "-X " + data;
-    m_args.append(arg);
+    m_args.append("-X " + data);
     return *this;
 }
 
-ICurl &ICurl::withMethod(QString data)
+ICurl &ICurl::withMethod(const QString& data)
 {
     return X(data);
 }

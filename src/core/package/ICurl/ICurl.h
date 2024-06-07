@@ -6,35 +6,35 @@
 class ICurl
 {
 public:
-    ICurl(QString url);
+    ICurl(const QString& url);
 
 public:
-    ICurl& b(QString);
-    ICurl& withCookie(QString);
+    ICurl& b(const QString&);
+    ICurl& withCookie(const QString&);
 
-    ICurl& d(QString);
-    ICurl& withPostData(QString);
-    ICurl& withPostDataFile(QString path);
-    ICurl& dataUrlencode(QString);
-    ICurl& withPostDataUrlEncode(QString);
+    ICurl& d(const QString&);
+    ICurl& withPostData(const QString&);
+    ICurl& withPostDataFile(const QString& path);
+    ICurl& dataUrlencode(const QString&);
+    ICurl& withPostDataUrlEncode(const QString&);
 
-    ICurl& F(QString);
-    ICurl& withFormData(QString key, QString value);
-    ICurl& withFormDataFile(QString key, QString path, QString fileName="", QString type="");
+    ICurl& F(const QString&);
+    ICurl& withFormData(const QString& key, const QString& value);
+    ICurl& withFormDataFile(const QString& key, const QString& path, const QString& fileName="", const QString& type="");
 
     ICurl& G();
     ICurl& withGenerateUrlQuery();
 
-    ICurl& H(QString);
-    ICurl& withHeader(QString);
-    ICurl& withHeader(QString, QString);
-    ICurl& withHeaderContentType(QString);
+    ICurl& H(const QString&);
+    ICurl& withHeader(const QString&);
+    ICurl& withHeader(const QString&, const QString&);
+    ICurl& withHeaderContentType(const QString&);
 
-    ICurl& limitRate(QString);
-    ICurl& withLimitRate(QString);
+    ICurl& limitRate(const QString&);
+    ICurl& withLimitRate(const QString&);
 
-    ICurl& X(QString);
-    ICurl& withMethod(QString);
+    ICurl& X(const QString&);
+    ICurl& withMethod(const QString&);
 
 public:
     ICurlResponse exec();
