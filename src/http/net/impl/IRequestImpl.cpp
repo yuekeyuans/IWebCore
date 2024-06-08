@@ -280,27 +280,28 @@ QList<QPair<QString, IRequestImpl::FunType>> IRequestImpl::parameterResolverMap(
 void IRequestImpl::parseData()
 {
     int line[2];
-    static std::vector<void(IRequestImpl::*)(int[2])> stateFun = {
-        &IRequestImpl::startState, &IRequestImpl::firstLineState, &IRequestImpl::headerState
-    };
     while(true){
         switch (m_readState) {
-        case State::End:
-            return endState();
-        case State::HeaderGap:
-            bool runEnd;
-            headerGapState(runEnd);
-            if(runEnd){
-                continue;   // 继续循环，下一个循环是 End
-            }else{
-                return;     // 跳出循环，等待数据
-            }
-        default:
+        case State::PathState:
             if(!m_data.getLine(line)){
                 return m_connection->doRead();
             }
-            m_data.m_parsedSize += line[1];
-            std::mem_fn(stateFun[m_readState])(this, line);
+            pathState(line);
+            break;
+        case State::HeaderState:
+            if(!m_data.getLine(line)){
+                return m_connection->doRead();
+            }
+            headerState(line);
+            break;
+        case State::End:
+            return endState();
+        case BodyState:
+            bodyState();
+            break;
+        case State::HeaderGap:
+            headerGapState();
+            break;
         }
 
         if(!m_raw->valid()){
@@ -315,36 +316,37 @@ std::vector<asio::const_buffer> IRequestImpl::getResult()
     return m_responseImpl->getContent();
 }
 
-void IRequestImpl::startState(int line[2])
+void IRequestImpl::pathState(int line[2])
 {
+    m_data.m_parsedSize += line[1];
     parseFirstLine(QString::fromLocal8Bit(m_data.m_data + line[0], line[1]-2));
     if(!m_raw->valid()){
         return;
     }
 
-    m_readState = State::FirstLine;
     resolveFirstLine();
-}
-
-void IRequestImpl::firstLineState(int line[2])
-{
-    if(line[1] != 2){
-        parseHeader(QString::fromLocal8Bit(m_data.m_data + line[0], line[1] -2));
-        m_readState = Header;
-        return;
-    }
-
-    m_readState = State::End;
+    m_readState = State::HeaderState;
 }
 
 void IRequestImpl::headerState(int line[2])
 {
+    m_data.m_parsedSize += line[1];
     if(line[1] != 2){
         parseHeader(QString::fromLocal8Bit(m_data.m_data + line[0], line[1] -2));
         return;
     }
 
     resolveHeaders();
+    m_readState = State::HeaderGap;
+}
+
+void IRequestImpl::headerGapState()
+{
+    if(line[1] != 2){
+        parseHeader(QString::fromLocal8Bit(m_data.m_data + line[0], line[1] -2));
+        return;
+    }
+
 
     int readLength = m_data.m_readSize - m_data.m_parsedSize;
     m_readState = State::HeaderGap;
@@ -379,26 +381,31 @@ void IRequestImpl::headerState(int line[2])
     }
 }
 
-void IRequestImpl::headerGapState(bool& runEnd)
+void IRequestImpl::bodyState()
 {
-    runEnd = false;
 
-    if(m_raw->m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
-        parseMultiPartBody();
-        runEnd = true;
-    }
-
-    if(m_contentLength != 0){
-        auto fileLength = m_data.m_readSize - m_data.m_parsedSize;
-        if(fileLength >= m_contentLength){
-            parseCommonBody();
-            m_readState = State::End;
-            runEnd = true;
-        }else{
-            m_connection->doRead();
-        }
-    }
 }
+
+//void IRequestImpl::headerGapState(bool& runEnd)
+//{
+//    runEnd = false;
+
+//    if(m_raw->m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
+//        parseMultiPartBody();
+//        runEnd = true;
+//    }
+
+//    if(m_contentLength != 0){
+//        auto fileLength = m_data.m_readSize - m_data.m_parsedSize;
+//        if(fileLength >= m_contentLength){
+//            parseCommonBody();
+//            m_readState = State::End;
+//            runEnd = true;
+//        }else{
+//            m_connection->doRead();
+//        }
+//    }
+//}
 
 void IRequestImpl::endState()
 {

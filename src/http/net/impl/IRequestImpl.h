@@ -24,7 +24,7 @@ class IRequestImpl
 {
 public:
     enum State{
-        Start, FirstLine, Header, HeaderGap, End,
+        PathState, HeaderState, HeaderGap, BodyState, End,
     };
 
 public:
@@ -59,10 +59,10 @@ public:
     std::vector<asio::const_buffer> getResult();
 
 private:
-    void startState(int[2]);
-    void firstLineState(int[2]);
+    void pathState(int[2]);
     void headerState(int[2]);
-    void headerGapState(bool& runEnd);
+    void headerGapState();
+    void bodyState();
     void endState();
 
     void parseFirstLine(QString data);
@@ -84,7 +84,7 @@ public:
     IResponseImpl* m_responseImpl{};    // TODO: 这个应该可以去掉的。
 
 private:
-    State m_readState{Start};
+    State m_readState{PathState};
     int m_contentLength{};
     QByteArray m_multipartBoundary;
     std::string m_multipartBoundaryEnd;
