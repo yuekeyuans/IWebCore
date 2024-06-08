@@ -1,11 +1,15 @@
 ﻿#include "ICurl.h"
+#include "core/config/IProfileImport.h"
 
 $PackageWebCoreBegin
 
 ICurl::ICurl(const QString& url)
 {
+    static $QString m_ip{"http.ip"};
+    static $UShort m_port{"http.port"};
+
     m_args.append("-i");
-    m_args.append(url);
+    m_args.append("http://" + m_ip + ":" + QString::number(m_port)  + url);
 }
 
 ICurl &ICurl::b(const QString& data)

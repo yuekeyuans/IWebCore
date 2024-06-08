@@ -26,7 +26,6 @@ public:
 
 public:
     asio::streambuf m_buff; // 存储超过请求的内容，这个表示额外的内容
-    std::size_t m_buffReadSize{};
 };
 
 $PackageWebCoreEnd

@@ -342,39 +342,47 @@ void IRequestImpl::headerState(int line[2])
     if(line[1] != 2){
         parseHeader(QString::fromLocal8Bit(m_data.m_data + line[0], line[1] -2));
         return;
-    }else{
-
     }
 
     resolveHeaders();
 
+    int readLength = m_data.m_readSize - m_data.m_parsedSize;
+    m_readState = State::HeaderGap;
     if(m_contentLength){
-        int readLength = m_data.m_readSize - m_data.m_parsedSize;
         if(m_data.m_parsedSize + m_contentLength < m_data.m_maxSize){   // 表示可以使用 data 空间
             if(readLength == m_contentLength){
-                // 可以进行解析
+                m_readState = End;
             }else{
                 m_connection->doRead(); // 继续读取
             }
         }else{
+            m_bodyInData = false;   // 表示数据存放在 buffer 中
             auto data = asio::buffer_cast<char*>(m_data.m_buff.prepare(m_contentLength));
             memcpy(data, m_data.m_data + m_data.m_parsedSize, readLength); // 拷贝数据
-            m_data.m_buffReadSize += readLength;
+            m_data.m_buff.commit(readLength);
+            m_connection->doReadStreamBy(m_contentLength-readLength);
+        }
+    }else if(!m_multipartBoundary.isEmpty()){
+        std::string_view view(m_data.m_data + m_data.m_parsedSize, readLength);
+        if(view.find(m_multipartBoundaryEnd) != std::string::npos){     // 读取完成
+            m_readState = State::End;
+        }else{
+            m_bodyInData = false;
+            auto data = asio::buffer_cast<char*>(m_data.m_buff.prepare(readLength * 2));
+            memcpy(data, m_data.m_data + m_data.m_parsedSize, readLength); // 拷贝数据
             m_connection->doReadStreamBy(m_contentLength-readLength);
             m_data.m_buff.commit(readLength);
+            m_connection->doReadStreamUntil(m_multipartBoundaryEnd.c_str());
         }
-        m_readState = State::HeaderGap;
-    }else if(!m_multipartBoundary.isEmpty()){
-
-        m_readState = State::HeaderGap;
     }else{
         m_readState = State::End;
     }
 }
 
-void IRequestImpl::headerGapState(bool runEnd)
+void IRequestImpl::headerGapState(bool& runEnd)
 {
     runEnd = false;
+
     if(m_raw->m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
         parseMultiPartBody();
         runEnd = true;

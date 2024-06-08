@@ -38,7 +38,6 @@ void ITcpConnection::doReadStreamBy(int length)
         if(error){
             return doDestroy();
         }
-        m_data.m_buffReadSize += length;
         resolveData();
     });
 }
@@ -49,7 +48,6 @@ void ITcpConnection::doReadStreamUntil(const char *stop)
         if(error){
             return doDestroy();
         }
-        m_data.m_buffReadSize += length;
         resolveData();
     });
 }

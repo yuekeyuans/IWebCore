@@ -87,7 +87,8 @@ private:
     State m_readState{Start};
     int m_contentLength{};
     QByteArray m_multipartBoundary;
-    QByteArray m_multipartBoundaryEnd;
+    std::string m_multipartBoundaryEnd;
+    bool m_bodyInData{true};    // 表示数据存放在 data 上面
 };
 
 $PackageWebCoreEnd
