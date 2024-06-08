@@ -19,6 +19,7 @@
 #include "http/net/impl/IResponseRaw.h"
 #include "http/net/impl/IResponseImpl.h"
 #include "http/net/server/IHttpRequestHandler.h"
+#include <iostream>
 
 $PackageWebCoreBegin
 
@@ -282,11 +283,11 @@ void IRequestImpl::parseData()
     int line[2];
     while(true){
         switch (m_readState) {
-        case State::PathState:
+        case State::FirstLineState:
             if(!m_data.getLine(line)){
                 return m_connection->doRead();
             }
-            pathState(line);
+            firstLineState(line);
             break;
         case State::HeaderState:
             if(!m_data.getLine(line)){
@@ -294,18 +295,20 @@ void IRequestImpl::parseData()
             }
             headerState(line);
             break;
-        case State::End:
-            return endState();
+        case State::HeaderGapState:
+            if(!headerGapState()){
+                return;
+            }
+            break;
         case BodyState:
             bodyState();
             break;
-        case State::HeaderGap:
-            headerGapState();
-            break;
+        case State::EndState:
+            return endState();
         }
 
         if(!m_raw->valid()){
-            m_readState = State::End;
+            m_readState = State::EndState;
         }
     }
 }
@@ -316,7 +319,7 @@ std::vector<asio::const_buffer> IRequestImpl::getResult()
     return m_responseImpl->getContent();
 }
 
-void IRequestImpl::pathState(int line[2])
+void IRequestImpl::firstLineState(int line[2])
 {
     m_data.m_parsedSize += line[1];
     parseFirstLine(QString::fromLocal8Bit(m_data.m_data + line[0], line[1]-2));
@@ -325,6 +328,8 @@ void IRequestImpl::pathState(int line[2])
     }
 
     resolveFirstLine();
+    resolvePathProcessor();
+
     m_readState = State::HeaderState;
 }
 
@@ -337,26 +342,24 @@ void IRequestImpl::headerState(int line[2])
     }
 
     resolveHeaders();
-    m_readState = State::HeaderGap;
+
+    if(m_contentLength || !m_multipartBoundary.isEmpty()){
+        m_readState = State::HeaderGapState;
+    }else{
+        m_readState = State::EndState;
+    }
 }
 
-void IRequestImpl::headerGapState()
+bool IRequestImpl::headerGapState()
 {
-    if(line[1] != 2){
-        parseHeader(QString::fromLocal8Bit(m_data.m_data + line[0], line[1] -2));
-        return;
-    }
-
-
+    m_readState = BodyState;
     int readLength = m_data.m_readSize - m_data.m_parsedSize;
-    m_readState = State::HeaderGap;
     if(m_contentLength){
         if(m_data.m_parsedSize + m_contentLength < m_data.m_maxSize){   // 表示可以使用 data 空间
             if(readLength == m_contentLength){
-                m_readState = End;
-            }else{
-                m_connection->doRead(); // 继续读取
+                return true;        // 表示可以直接解析
             }
+            m_connection->doRead(); // 继续读取
         }else{
             m_bodyInData = false;   // 表示数据存放在 buffer 中
             auto data = asio::buffer_cast<char*>(m_data.m_buff.prepare(m_contentLength));
@@ -366,46 +369,30 @@ void IRequestImpl::headerGapState()
         }
     }else if(!m_multipartBoundary.isEmpty()){
         std::string_view view(m_data.m_data + m_data.m_parsedSize, readLength);
-        if(view.find(m_multipartBoundaryEnd) != std::string::npos){     // 读取完成
-            m_readState = State::End;
-        }else{
-            m_bodyInData = false;
-            auto data = asio::buffer_cast<char*>(m_data.m_buff.prepare(readLength * 2));
-            memcpy(data, m_data.m_data + m_data.m_parsedSize, readLength); // 拷贝数据
-            m_connection->doReadStreamBy(m_contentLength-readLength);
-            m_data.m_buff.commit(readLength);
-            m_connection->doReadStreamUntil(m_multipartBoundaryEnd.c_str());
+        if(view.find(m_multipartBoundaryEnd) != std::string::npos){
+            return true;
         }
-    }else{
-        m_readState = State::End;
+
+        m_bodyInData = false;
+        auto data = asio::buffer_cast<char*>(m_data.m_buff.prepare(readLength * 2));
+        memcpy(data, m_data.m_data + m_data.m_parsedSize, readLength); // 拷贝数据
+        m_connection->doReadStreamBy(m_contentLength-readLength);
+        m_data.m_buff.commit(readLength);
+        m_connection->doReadStreamUntil(m_multipartBoundaryEnd.c_str());
     }
+    return false;
 }
 
 void IRequestImpl::bodyState()
 {
+    if(m_contentLength){
+        resolveBodyContent();
+    }else if(!m_multipartBoundary.isEmpty()){
+        resolveBodyMultipart();
+    }
 
+    m_readState = State::EndState;
 }
-
-//void IRequestImpl::headerGapState(bool& runEnd)
-//{
-//    runEnd = false;
-
-//    if(m_raw->m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
-//        parseMultiPartBody();
-//        runEnd = true;
-//    }
-
-//    if(m_contentLength != 0){
-//        auto fileLength = m_data.m_readSize - m_data.m_parsedSize;
-//        if(fileLength >= m_contentLength){
-//            parseCommonBody();
-//            m_readState = State::End;
-//            runEnd = true;
-//        }else{
-//            m_connection->doRead();
-//        }
-//    }
-//}
 
 void IRequestImpl::endState()
 {
@@ -478,11 +465,6 @@ void IRequestImpl::parseHeader(QString line)
 
 void IRequestImpl::resolveHeaders()
 {
-    resolvePathProcessor();
-    if(!m_request->valid()){
-        return;
-    }
-
     if(m_raw->m_requestHeaders.contains(IHttpHeader::ContentLength)){
         bool ok;
         m_contentLength = m_raw->m_requestHeaders.value(IHttpHeader::ContentLength).toUInt(&ok);
@@ -504,7 +486,7 @@ void IRequestImpl::resolveHeaders()
                 m_request->setInvalid(IHttpBadRequestInvalid("multipart request has no boundary"));
                 return;
             }else{
-                m_multipartBoundaryEnd = m_multipartBoundary + "__";
+                m_multipartBoundaryEnd = std::string((m_multipartBoundary + "__").data());
             }
         }
     }
@@ -564,10 +546,42 @@ void IRequestImpl::resolvePathProcessor()
     m_request->setInvalid(IHttpNotFoundInvalid(std::move(info)));
 }
 
-void IRequestImpl::parseMultiPartBody()
+void IRequestImpl::resolveBodyContent()
 {
-    // TODO: this will be fixed latter. its easy
+    if(m_bodyInData){
+        auto readSize = m_data.m_readSize - m_data.m_parsedSize;
+        if(m_contentLength != readSize){
+            return m_request->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
+        }
+        m_bodyData = std::string_view(m_data.m_data + m_data.m_parsedSize, readSize);
+    }else{
+        if(m_contentLength != m_data.m_buff.size()){
+            return m_request->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
+        }
+        m_bodyData = std::string_view(asio::buffer_cast<const char*>(m_data.m_buff.data()), m_data.m_buff.size());
+    }
+
+    qDebug() << QString::fromStdString(std::string(m_bodyData));
 }
+
+void IRequestImpl::resolveBodyMultipart()
+{
+    if(m_bodyInData){
+        auto readSize = m_data.m_readSize - m_data.m_parsedSize;
+        if(m_contentLength != readSize){
+            return m_request->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
+        }
+        m_bodyData = std::string_view(m_data.m_data + m_data.m_parsedSize, readSize);
+    }else{
+        if(m_contentLength != m_data.m_buff.size()){
+            return m_request->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
+        }
+        m_bodyData = std::string_view(asio::buffer_cast<const char*>(m_data.m_buff.data()), m_data.m_buff.size());
+    }
+
+    qDebug() << QString::fromStdString(std::string(m_bodyData));
+}
+
 
 bool IRequestImpl::resolveFormedData(const QString &content, bool isBody)
 {
@@ -619,108 +633,6 @@ QByteArray IRequestImpl::getBoundary(const QString &mime)
     }
     return {};
 }
-
-/*
-// TODO: 在接收数据的时候，这里其实应该判断一下body 所用的编码方式，因为可能因为编码方式的错误导致内容出错
-bool IRequestImpl::resolveBodyContent()
-{
-    if(raw->m_requestBody.length() == 0){
-        return true;
-    }
-
-    switch (raw->m_requestMime) {
-    case IHttpMime::MULTIPART_FORM_DATA:
-        return resolveMultipartFormData();
-    case IHttpMime::APPLICATION_WWW_FORM_URLENCODED:
-        return resolveFormUrlEncoded();
-    default:
-        break; // 只解析上面两个，其他的不解析。 json and xml will be resolved when using it.
-    }
-    return true;
-}
-
-bool IRequestImpl::resolveMultipartFormData()
-{
-    auto boundaries = getBoundaries();
-    for(auto i=0; i<boundaries.length()-1; i++){
-        auto start = boundaries[i].second;
-        auto end = boundaries[i+1].first;
-        auto splitPos = raw->m_requestBody.indexOf("\r\n\r\n", start);  // here point to \r
-
-        IMultiPart part;                                        // @optimized it!
-        processMultiPartHeaders(part, start, splitPos + 2);     // from start to \r\n
-        processMultiPartBody(part, splitPos + 4, end - 2);      // from bodyBegin to bodyEnd
-        raw->m_requestMultiParts.append(part);
-    }
-    return resolveTrailer();
-}
-
-bool IRequestImpl::resolveTrailer()
-{
-    // TODO: this will be fixed in next version
-    return true;
-}
-
-void IRequestImpl::processMultiPartHeaders(IMultiPart &part, int start, int end)
-{
-    auto posBegin = start;
-    auto posEnd = raw->m_requestBody.indexOf("\r\n", posBegin);
-    while(posEnd != -1 && posEnd < end){
-        auto line = raw->m_requestBody.mid(posBegin, posEnd - posBegin);
-        auto args = line.split(':');
-//        auto key = QString(QByteArray::fromPercentEncoding(args.first()));
-//        auto value = QString(QByteArray::fromPercentEncoding(args.last())).trimmed();
-//        part.headers[key] = value;
-        part.headers[ICodecUtil::urlDecode(args.first()).trimmed()] = ICodecUtil::urlDecode(args.last()).trimmed();
-        posBegin = posEnd + 2;
-        posEnd = raw->m_requestBody.indexOf("\r\n", posBegin);
-    }
-    part.resolveHeaders();
-}
-
-void IRequestImpl::processMultiPartBody(IMultiPart &part, int start, int end)
-{
-    if(part.mime != IHttpMime::MULTIPART_FORM_DATA){
-        part.content = raw->m_requestBody.mid(start, end - start);
-    } else {
-        qFatal("error, please process");        // TODO: 这里不知道是否会有嵌套出现，默认没有，如果真的有了，再处理吧，我要睡觉了。
-        qDebug() << "you should process this file again";
-    }
-}
-
-QList<QPair<int, int> > IRequestImpl::getBoundaries()
-{
-    QList<QPair<int, int>> ret;
-    auto boundary = getBoundaryParam(contentType());
-    auto boundaryLength = boundary.length();
-    if(boundary.isEmpty()){
-        raw->setInvalid(IHttpBadRequestInvalid("multi part request boundary not set"));
-        return ret;
-    }
-    auto endBoundary = boundary + "--\r\n";
-
-    int pos = 0;
-    auto index = raw->m_requestBody.indexOf(boundary, pos);
-    while(index != -1){
-        auto endPoint = index + boundaryLength;
-        if(raw->m_requestBody[endPoint] == '\r' && raw->m_requestBody[endPoint + 1]== '\n'){
-            pos = endPoint +1;
-            QPair<int, int> boundaryPair{index, pos};
-            ret.append(boundaryPair);
-        }else if(raw->m_requestBody.mid(endPoint, 4) == "--\r\n"){
-            pos = endPoint + 3;
-            QPair<int, int> boundaryPair{index, pos};
-            ret.append(boundaryPair);
-            break;
-        }else{
-            raw->setInvalid(IHttpBadRequestInvalid("multi part request boundary error"));
-            return ret;
-        }
-        index = raw->m_requestBody.indexOf(boundary, pos);
-    }
-    return ret;
-}
-*/
 
 // TODO: 这里不对， 有路径没有被判断通过，
 bool IRequestImplHelper::isPathValid(const QString& path){

@@ -24,7 +24,7 @@ class IRequestImpl
 {
 public:
     enum State{
-        PathState, HeaderState, HeaderGap, BodyState, End,
+        FirstLineState, HeaderState, HeaderGapState, BodyState, EndState,
     };
 
 public:
@@ -59,19 +59,20 @@ public:
     std::vector<asio::const_buffer> getResult();
 
 private:
-    void pathState(int[2]);
+    void firstLineState(int[2]);
     void headerState(int[2]);
-    void headerGapState();
+    bool headerGapState();
     void bodyState();
     void endState();
 
     void parseFirstLine(QString data);
-    void resolveFirstLine();    // 解析里面所得到的信息
+    void resolveFirstLine();
     void parseHeader(QString data);
     void resolveHeaders();      // 解析接收到的头
     void resolveCookieHeaders();
     void resolvePathProcessor();
-    void parseMultiPartBody();
+    void resolveBodyContent();
+    void resolveBodyMultipart();
     bool resolveFormedData(const QString& content, bool isBody);
     void parseCommonBody();
     QByteArray getBoundary(const QString&);
@@ -84,11 +85,12 @@ public:
     IResponseImpl* m_responseImpl{};    // TODO: 这个应该可以去掉的。
 
 private:
-    State m_readState{PathState};
+    State m_readState{FirstLineState};
     int m_contentLength{};
     QByteArray m_multipartBoundary;
     std::string m_multipartBoundaryEnd;
     bool m_bodyInData{true};    // 表示数据存放在 data 上面
+    std::string_view m_bodyData{};
 };
 
 $PackageWebCoreEnd

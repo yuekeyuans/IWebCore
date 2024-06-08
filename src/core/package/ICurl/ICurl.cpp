@@ -136,11 +136,10 @@ ICurlResponse ICurl::exec()
 {
     QProcess process;
     m_args.prepend("curl");
-    process.execute(m_args.join(" "));
+    process.start(m_args.join(" "));
 
     process.waitForStarted();
     process.waitForFinished();
-    process.waitForReadyRead();
     return ICurlResponse(process.readAll());
 }
 
