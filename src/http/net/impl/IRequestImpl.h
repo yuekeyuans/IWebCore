@@ -62,7 +62,7 @@ private:
     void startState(int[2]);
     void firstLineState(int[2]);
     void headerState(int[2]);
-    bool headerGapState();
+    void headerGapState(bool& runEnd);
     void endState();
 
     void parseFirstLine(QString data);

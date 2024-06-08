@@ -288,10 +288,12 @@ void IRequestImpl::parseData()
         case State::End:
             return endState();
         case State::HeaderGap:
-            if(headerGapState()){       // if parse body finished then break to run endState, else, return and wait
-                break;
+            bool runEnd;
+            headerGapState(runEnd);
+            if(runEnd){
+                continue;   // 继续循环，下一个循环是 End
             }else{
-                return;
+                return;     // 跳出循环，等待数据
             }
         default:
             if(!m_data.getLine(line)){
@@ -346,15 +348,6 @@ void IRequestImpl::headerState(int line[2])
 
     resolveHeaders();
 
-
-    // 描述这里的算法
-    // 如果是 content-length, 判断剩余空间是否能够满足，
-        // 如果能够满足，判断是否读完，没有读完继续读， 读完了就可以解析了
-        // 如果不满足 ， 拷贝当前的数据到 buff 中  继续读取buff,直到读取完成
-    // 如果是 multipart 读取数据直到内存读满， 或者读取结束
-        // 如果能够再当前的空间中读完，就在当前的空间中解析数据
-        // 如果当前空间使用完成后，还是没有读完， 启用 buff, 将 part 数据拷贝到 buff中，并继续读取buff, 直到读取到结束符号，
-    // 解析相关的数据。
     if(m_contentLength){
         int readLength = m_data.m_readSize - m_data.m_parsedSize;
         if(m_data.m_parsedSize + m_contentLength < m_data.m_maxSize){   // 表示可以使用 data 空间
@@ -379,12 +372,12 @@ void IRequestImpl::headerState(int line[2])
     }
 }
 
-// if finished return true, else false;
-bool IRequestImpl::headerGapState()
+void IRequestImpl::headerGapState(bool runEnd)
 {
+    runEnd = false;
     if(m_raw->m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
         parseMultiPartBody();
-        return true;
+        runEnd = true;
     }
 
     if(m_contentLength != 0){
@@ -392,10 +385,9 @@ bool IRequestImpl::headerGapState()
         if(fileLength >= m_contentLength){
             parseCommonBody();
             m_readState = State::End;
-            return true;
+            runEnd = true;
         }else{
             m_connection->doRead();
-            return false;
         }
     }
 }
