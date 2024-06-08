@@ -65,6 +65,7 @@ private:
     void bodyState();
     void endState();
 
+private:
     void parseFirstLine(QString data);
     void resolveFirstLine();
     void parseHeader(QString data);
@@ -73,8 +74,7 @@ private:
     void resolvePathProcessor();
     void resolveBodyContent();
     void resolveBodyMultipart();
-    bool resolveFormedData(const QString& content, bool isBody);
-    void parseCommonBody();
+    void resolveFormData(std::string_view data, bool isBody);
     QByteArray getBoundary(const QString&);
 
 public:

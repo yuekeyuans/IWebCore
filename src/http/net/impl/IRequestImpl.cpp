@@ -435,7 +435,7 @@ void IRequestImpl::resolveFirstLine()
     QStringList spices = m_raw->m_realUrl.split('?');
     m_raw->m_url = spices.first();
     if(spices.length() == 2){
-        if(!resolveFormedData(spices[1], false)){
+        if(!resolveFormData(spices[1], false)){
             return;
         }
     }
@@ -561,7 +561,16 @@ void IRequestImpl::resolveBodyContent()
         m_bodyData = std::string_view(asio::buffer_cast<const char*>(m_data.m_buff.data()), m_data.m_buff.size());
     }
 
-    qDebug() << QString::fromStdString(std::string(m_bodyData));
+    switch (m_raw->m_requestMime) {
+    case IHttpMime::APPLICATION_WWW_FORM_URLENCODED:
+        resolveFormData(m_bodyData, true);
+        break;
+    case IHttpMime::APPLICATION_JSON:
+    case IHttpMime::APPLICATION_JSON_UTF8:
+        // do nothing
+    default:
+        break;
+    }
 }
 
 void IRequestImpl::resolveBodyMultipart()
@@ -582,41 +591,23 @@ void IRequestImpl::resolveBodyMultipart()
     qDebug() << QString::fromStdString(std::string(m_bodyData));
 }
 
-
-bool IRequestImpl::resolveFormedData(const QString &content, bool isBody)
+void IRequestImpl::resolveFormData(std::string_view view, bool isBody)
 {
-    QStringList list = QString(QByteArray::fromPercentEncoding(content.toUtf8())).split('&');
-    for(auto val : list){
-        QStringList map = val.split('=');
-        if(map.length() != 2){
+    QByteArray data = QByteArray::fromPercentEncoding(QByteArray(view.data(), view.length()));
+    int pos{};
+    int index{};
+    while(index = data.indexOf('&', pos) != -1){
+        auto value = data.mid(pos, index-pos);
+        auto part = value.indexOf('=');
+        if(part == -1){
             m_raw->setInvalid(IHttpBadRequestInvalid("the parameters in body should be pair"));
-            return false;
+            return;
         }
-
-        QString key = map.first();
-        auto value = map.last();
         if(isBody){
-            m_raw->m_requestBodyParameters[key] = value;
+            m_raw->m_requestBodyParameters[value.left(part)] = value.mid(part+1);
         }else{
-            m_raw->m_requestPathParameters[key] = value;
+            m_raw->m_requestPathParameters[value.left(part)] = value.mid(part+1);
         }
-    }
-    return true;
-}
-
-void IRequestImpl::parseCommonBody()
-{
-    m_raw->m_requestBody = QByteArray(m_data.m_data + m_data.m_parsedSize, m_data.m_readSize - m_data.m_parsedSize);
-    qDebug() << m_raw->m_requestBody << m_data.m_parsedSize << m_data.m_readSize;
-    switch (m_raw->m_requestMime) {
-    case IHttpMime::APPLICATION_WWW_FORM_URLENCODED:
-        resolveFormedData(m_raw->m_requestBody, true);
-        break;
-    case IHttpMime::APPLICATION_JSON:
-    case IHttpMime::APPLICATION_JSON_UTF8:
-
-    default:
-        break; // 只解析上面两个，其他的不解析。 json and xml will be resolved when using it.
     }
 }
 

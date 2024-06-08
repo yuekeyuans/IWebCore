@@ -25,10 +25,7 @@ ICurl &ICurl::withCookie(const QString& data)
 
 ICurl &ICurl::d(QString data)
 {
-    data.replace('=', "\=");
-    data.replace('&', "\&");
-    data.replace(' ', "%20");
-    m_args.append("-d '" + data + "'");
+    m_args.append("-d '" + data.toUtf8().toPercentEncoding()+ "'");
     return *this;
 }
 

@@ -56,12 +56,14 @@ public:
     QMap<QString, QVariant> m_attribute;                // 用户或系统可以自己放置内容的地方。
 
     // request
-    QString m_realUrl;                                  // TODO: 考虑优化掉
+    std::string_view m_realUrl;
+//    QString m_realUrl;                                  // TODO: 考虑优化掉
     QString m_url;
     IHttpVersion m_httpVersion {IHttpVersion::UNKNOWN};
     IHttpMethod m_method {IHttpMethod::UNKNOWN};
     IHttpMime m_requestMime {IHttpMime::UNKNOWN};
     QByteArray m_requestBody;
+//    std::string_view m_requestBody;   // TODO: 数据替换
 
     QMultiHash<QString, QString> m_requestHeaders;
     QMap<QString, QString> m_requestUrlParameters;
