@@ -3,6 +3,7 @@
 #include <http/net/server/IHttpServer.h>
 
 $EnableTaskOutput(true)
+//$DisableCatagory(Test)
 int main(int argc, char *argv[])
 {
     IAsioApplication app(argc, argv);

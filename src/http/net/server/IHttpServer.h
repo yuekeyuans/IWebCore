@@ -16,8 +16,8 @@ private:
     void doAccept();
 
 private:
-    $QString ip{"", "0.0.0.0"};
-    $Int port{"", 8550};
+    $QString ip{"http.ip", "0.0.0.0"};
+    $Int port{"http.port", 8550};
     asio::ip::tcp::acceptor* m_acceptor{};
 };
 

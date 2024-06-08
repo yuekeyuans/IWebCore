@@ -10,5 +10,6 @@ public:
 
 private slots:
     void testPostFormData();
+    void testPostLargeFile();
 };
 

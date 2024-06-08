@@ -4,6 +4,7 @@ $PackageWebCoreBegin
 
 ICurl::ICurl(const QString& url)
 {
+    m_args.append("-i");
     m_args.append(url);
 }
 
@@ -18,8 +19,11 @@ ICurl &ICurl::withCookie(const QString& data)
     return b(data);
 }
 
-ICurl &ICurl::d(const QString& data)
+ICurl &ICurl::d(QString data)
 {
+    data.replace('=', "\=");
+    data.replace('&', "\&");
+    data.replace(' ', "%20");
     m_args.append("-d '" + data + "'");
     return *this;
 }
@@ -127,8 +131,12 @@ ICurl &ICurl::withMethod(const QString& data)
 ICurlResponse ICurl::exec()
 {
     QProcess process;
-    process.start("curl", {"http://www.baidu.com", "-i"});
+    m_args.prepend("curl");
+    process.execute(m_args.join(" "));
+
+    process.waitForStarted();
     process.waitForFinished();
+    process.waitForReadyRead();
     return ICurlResponse(process.readAll());
 }
 

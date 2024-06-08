@@ -15,7 +15,7 @@ public:
     ICurl& b(const QString&);
     ICurl& withCookie(const QString&);
 
-    ICurl& d(const QString&);
+    ICurl& d(QString);
     ICurl& withPostData(const QString&);
     ICurl& withPostDataFile(const QString& path);
     ICurl& dataUrlencode(const QString&);

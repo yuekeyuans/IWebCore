@@ -586,6 +586,7 @@ bool IRequestImpl::resolveFormedData(const QString &content, bool isBody)
 void IRequestImpl::parseCommonBody()
 {
     m_raw->m_requestBody = QByteArray(m_data.m_data + m_data.m_parsedSize, m_data.m_readSize - m_data.m_parsedSize);
+    qDebug() << m_raw->m_requestBody << m_data.m_parsedSize << m_data.m_readSize;
     switch (m_raw->m_requestMime) {
     case IHttpMime::APPLICATION_WWW_FORM_URLENCODED:
         resolveFormedData(m_raw->m_requestBody, true);
