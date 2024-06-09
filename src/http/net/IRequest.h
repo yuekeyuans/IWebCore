@@ -63,8 +63,8 @@ public:
     const QVector<IMultiPart>& bodyMultiParts() const;
     QJsonValue bodyJson(bool& ok) const;
 
-    QByteArray getParameter(const QString& name, bool& ok) const;
-    IResult<QByteArray> getParameter(const QString& name) const;
+    std::string_view getParameter(const QString& name, bool& ok) const;
+    IResult<std::string_view> getParameter(const QString& name) const;      // 考虑删掉
 
     QByteArray getMixedParameter(const QString& name, bool& ok) const;
     IResult<QByteArray> getMixedParameter(const QString& name) const;

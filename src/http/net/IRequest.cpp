@@ -166,12 +166,12 @@ QJsonValue IRequest::bodyJson(bool &ok) const
     return impl->requestJson(ok);
 }
 
-QByteArray IRequest::getParameter(const QString &name, bool& ok) const
+std::string_view IRequest::getParameter(const QString &name, bool& ok) const
 {
     return impl->getParameter(name, ok);
 }
 
-IResult<QByteArray> IRequest::getParameter(const QString &name) const
+IResult<std::string_view> IRequest::getParameter(const QString &name) const
 {
     bool ok;
     auto value = impl->getParameter(name, ok);
