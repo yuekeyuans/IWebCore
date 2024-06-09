@@ -111,7 +111,6 @@ private:
 #include "IRequest.ipp"
 #endif
 
-
 $PackageWebCoreEnd
 
 

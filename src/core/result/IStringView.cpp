@@ -1,6 +1,1 @@
-#include "IStringView.h"
-
-IStringView::IStringView()
-{
-
-}
+﻿#include "IStringView.h"
