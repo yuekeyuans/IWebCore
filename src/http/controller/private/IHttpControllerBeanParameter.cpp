@@ -137,49 +137,53 @@ void *IHttpControllerBeanParameter::assambleBeanWareWithHeaders(IBeanWare *bean,
     return bean;
 }
 
+
 void *IHttpControllerBeanParameter::assambleBeanWareWithMixed(IBeanWare *bean, IRequest &request)
 {
-    const auto& props = bean->getMetaProperties();
-    QMap<QString, QVariant> map;
+    // FIXME:
+    return {};
 
-    // TODO:
-    bool convertOk;
-    for(auto prop : props){
-        auto value = request.getMixedParameter(prop.name(), convertOk);
-        if(!convertOk){
-            if(bean->isIgnorableField(prop.propertyIndex())){
-                continue;
-            }
+//    const auto& props = bean->getMetaProperties();
+//    QMap<QString, QVariant> map;
 
-            IAssertInfo info;
-            info.reason = QString( "bean inner parameter not found. name : ").append(prop.name());
-            if(isBeanResoveStrictMode()){
-                request.setInvalid(IHttpBadRequestInvalid(info.reason));
-                return bean;
-            }
-            $Ast->warn("assamble_bean_when_bean_inner_parameter_not_found", info);
-            continue;
-        }
+//    // TODO:
+//    bool convertOk;
+//    for(auto prop : props){
+//        auto value = request.getMixedParameter(prop.name(), convertOk);
+//        if(!convertOk){
+//            if(bean->isIgnorableField(prop.propertyIndex())){
+//                continue;
+//            }
 
-        auto variant = IConvertUtil::toVariant(value, QMetaType::Type(prop.type()), convertOk);
-        if(!convertOk){
-            if(bean->isIgnorableField(prop.propertyIndex())){
-                continue;
-            }
-            IAssertInfo info;
-            info.reason = QString( "bean inner parameter format not correct. name : ").append(prop.name());
-            if(isBeanResoveStrictMode()){
-                request.setInvalid(IHttpBadRequestInvalid(info.reason));
-                return bean;
-            }
-            $Ast->warn("assamble_bean_when_bean_inner_parameter_not_found", info);
-            continue;
-        }
-        map[prop.name()] = variant;
-    }
+//            IAssertInfo info;
+//            info.reason = QString( "bean inner parameter not found. name : ").append(prop.name());
+//            if(isBeanResoveStrictMode()){
+//                request.setInvalid(IHttpBadRequestInvalid(info.reason));
+//                return bean;
+//            }
+//            $Ast->warn("assamble_bean_when_bean_inner_parameter_not_found", info);
+//            continue;
+//        }
 
-    bean->load(map);
-    return bean;
+//        auto variant = IConvertUtil::toVariant(value, QMetaType::Type(prop.type()), convertOk);
+//        if(!convertOk){
+//            if(bean->isIgnorableField(prop.propertyIndex())){
+//                continue;
+//            }
+//            IAssertInfo info;
+//            info.reason = QString( "bean inner parameter format not correct. name : ").append(prop.name());
+//            if(isBeanResoveStrictMode()){
+//                request.setInvalid(IHttpBadRequestInvalid(info.reason));
+//                return bean;
+//            }
+//            $Ast->warn("assamble_bean_when_bean_inner_parameter_not_found", info);
+//            continue;
+//        }
+//        map[prop.name()] = variant;
+//    }
+
+//    bean->load(map);
+//    return bean;
 }
 
 void *IHttpControllerBeanParameter::assambleBeanWareWithCookie(IBeanWare *bean, IRequest &request)

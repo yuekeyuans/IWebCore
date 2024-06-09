@@ -166,6 +166,7 @@ QJsonValue IRequest::bodyJson(bool &ok) const
     return impl->requestJson(ok);
 }
 
+/*
 IStringView IRequest::getParameter(const QString &name, bool& ok) const
 {
     return impl->getParameter(name, ok);
@@ -265,6 +266,7 @@ IResult<QByteArray> IRequest::getSessionParameter(const QString &name) const
     auto value = impl->getSessionParameter(name, ok);
     return {std::move(value), ok};
 }
+*/
 
 const QMap<QString, QVariant> &IRequest::attributes() const
 {

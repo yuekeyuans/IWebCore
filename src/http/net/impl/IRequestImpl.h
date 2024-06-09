@@ -38,21 +38,21 @@ public:
     int contentLength() const;
     IStringView contentType() const;
 
-    QByteArray getParameter(const QString &name, bool& ok) const;
-    QByteArray getMixedParameter(const QString& name, bool& ok) const;
-    QByteArray getContentParameter(const QString& name, bool& ok) const;
-    QByteArray getUrlParameter(const QString &name, bool& ok) const;
-    QByteArray getBodyParameter(const QString &name, bool& ok) const;
-    QByteArray getHeaderParameter(const QString &name, bool& ok) const;
-    QByteArray getParamParameter(const QString &name, bool& ok) const;
-    QByteArray getCookieParameter(const QString &name, bool& ok) const;
-    QByteArray getSessionParameter(const QString &name, bool& ok) const;
+//    QByteArray getParameter(const QString &name, bool& ok) const;
+//    QByteArray getMixedParameter(const QString& name, bool& ok) const;
+//    QByteArray getContentParameter(const QString& name, bool& ok) const;
+//    QByteArray getUrlParameter(const QString &name, bool& ok) const;
+//    QByteArray getBodyParameter(const QString &name, bool& ok) const;
+//    QByteArray getHeaderParameter(const QString &name, bool& ok) const;
+//    QByteArray getParamParameter(const QString &name, bool& ok) const;
+//    QByteArray getCookieParameter(const QString &name, bool& ok) const;
+//    QByteArray getSessionParameter(const QString &name, bool& ok) const;
 
 private:
     QString getFormUrlValue(const QString &name, bool& ok) const;
     QByteArray getMultiPartFormData(const QString &name, bool& ok) const;
     QByteArray getJsonData(const QString &name, bool& ok) const;
-    QList<QPair<QString, FunType>> parameterResolverMap() const;
+//    QList<QPair<QString, FunType>> parameterResolverMap() const;
 
 public:
     void parseData();

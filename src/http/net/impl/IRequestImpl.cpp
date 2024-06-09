@@ -59,6 +59,7 @@ IStringView IRequestImpl::contentType() const
     return m_raw->m_requestHeaders.value(IHttpHeader::ContentType);
 }
 
+/*
 QByteArray IRequestImpl::getParameter(const QString &name, bool& ok) const
 {
     // 这里独自处理
@@ -111,7 +112,7 @@ QByteArray IRequestImpl::getContentParameter(const QString &name, bool& ok) cons
 //    }
 //    IToeUtil::setOk(ok, true);
 //    return m_raw->m_requestBody;
-}
+}`
 
 QByteArray IRequestImpl::getUrlParameter(const QString &name, bool& ok) const
 {
@@ -215,6 +216,8 @@ QByteArray IRequestImpl::getSessionParameter(const QString &name, bool& ok) cons
     return {};
 }
 
+*/
+
 QString IRequestImpl::getFormUrlValue(const QString &name, bool& ok) const
 {
     // FIXME:
@@ -274,19 +277,19 @@ QByteArray IRequestImpl::getJsonData(const QString &name, bool& ok) const
     return {};
 }
 
-QList<QPair<QString, IRequestImpl::FunType>> IRequestImpl::parameterResolverMap() const
-{
-    static const QList<QPair<QString, IRequestImpl::FunType>> map = {
-        {"_param",      &IRequestImpl::getParamParameter},
-        {"_body",       &IRequestImpl::getBodyParameter},
-        {"_url",        &IRequestImpl::getUrlParameter},
-        {"_header",     &IRequestImpl::getHeaderParameter},
-//        {"_content",    &IRequestImpl::getContentParameter },     // 这里并不包含 _content, 因为解析时 _content 的解析和其他的解析冲突
-        {"_cookie",     &IRequestImpl::getCookieParameter},
-        //        {"_session",    &IRequestImpl::getSessionParameter},
-    };
-    return map;
-}
+//QList<QPair<QString, IRequestImpl::FunType>> IRequestImpl::parameterResolverMap() const
+//{
+//    static const QList<QPair<QString, IRequestImpl::FunType>> map = {
+//        {"_param",      &IRequestImpl::getParamParameter},
+//        {"_body",       &IRequestImpl::getBodyParameter},
+//        {"_url",        &IRequestImpl::getUrlParameter},
+//        {"_header",     &IRequestImpl::getHeaderParameter},
+////        {"_content",    &IRequestImpl::getContentParameter },     // 这里并不包含 _content, 因为解析时 _content 的解析和其他的解析冲突
+//        {"_cookie",     &IRequestImpl::getCookieParameter},
+//        //        {"_session",    &IRequestImpl::getSessionParameter},
+//    };
+//    return map;
+//}
 
 void IRequestImpl::parseData()
 {
