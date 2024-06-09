@@ -35,6 +35,7 @@ void ITcpConnection::doReadStreamBy(int length)
 {
     // TODO: 如何在这里保证一个偏移？
     asio::async_read(m_socket, m_data.m_buff, asio::transfer_exactly(length), [=](std::error_code error, std::size_t length){
+        Q_UNUSED(length)
         if(error){
             return doDestroy();
         }
@@ -45,6 +46,7 @@ void ITcpConnection::doReadStreamBy(int length)
 void ITcpConnection::doReadStreamUntil(const char *stop)
 {
     asio::async_read_until(m_socket, m_data.m_buff, stop, [=](std::error_code error, std::size_t length){
+        Q_UNUSED(length)
         if(error){
             return doDestroy();
         }
