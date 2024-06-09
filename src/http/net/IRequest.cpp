@@ -121,7 +121,7 @@ int IRequest::bodyContentLength() const
     return impl->contentLength();
 }
 
-QString IRequest::bodyContentType() const
+IStringView IRequest::bodyContentType() const
 {
     return impl->contentType();
 }

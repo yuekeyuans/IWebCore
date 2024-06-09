@@ -54,9 +54,9 @@ int IRequestImpl::contentLength() const
     return m_raw->m_requestHeaders.value(IHttpHeader::ContentLength).toQString().toInt();
 }
 
-QString IRequestImpl::contentType() const
+IStringView IRequestImpl::contentType() const
 {
-    return m_raw->m_requestHeaders.value(IHttpHeader::ContentType).toQString();
+    return m_raw->m_requestHeaders.value(IHttpHeader::ContentType);
 }
 
 QByteArray IRequestImpl::getParameter(const QString &name, bool& ok) const

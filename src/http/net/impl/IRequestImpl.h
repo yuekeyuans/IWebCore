@@ -36,7 +36,7 @@ public:
 
     QJsonValue requestJson(bool& ok) const;
     int contentLength() const;
-    QString contentType() const;
+    IStringView contentType() const;
 
     QByteArray getParameter(const QString &name, bool& ok) const;
     QByteArray getMixedParameter(const QString& name, bool& ok) const;
@@ -93,8 +93,8 @@ private:
     int m_contentLength{};
     IStringView m_multipartBoundary;
     IStringView m_multipartBoundaryEnd;
-    bool m_bodyInData{true};    // 表示数据存放在 data 上面
     IStringView m_bodyData{};
+    bool m_bodyInData{true};    // 表示数据存放在 data 上面
 
 private:
     std::list<QByteArray> m_stash;

@@ -51,7 +51,7 @@ public:
     IHttpMethod method() const;
 
     int bodyContentLength() const;
-    QString bodyContentType() const;
+    IStringView bodyContentType() const;
     IStringView bodyContent() const;
 
     QMultiHash<IStringView, IStringView>& headers();
