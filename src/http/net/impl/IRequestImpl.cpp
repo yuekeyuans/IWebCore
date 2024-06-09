@@ -649,28 +649,25 @@ void IRequestImpl::resolveFormData(IStringView view, bool isBody)
     }
 }
 
-QByteArray IRequestImpl::getBoundary(IStringView data)
+// TODO: not correct
+IStringView IRequestImpl::getBoundary(IStringView data)
 {
-    QRegularExpression expression("boundary=[\"]?(.+)[\"]?$");
-    auto result = expression.match(data.toQString());
-    if(result.hasMatch()){
-        auto boundary = result.captured(1);
-        if(!boundary.startsWith("--")){
-            boundary.prepend("--");
-        }
-        return boundary.toUtf8();
+    static std::string prefix = "boundary=";
+    auto index = data.find(prefix);
+    if(index == std::string::npos){
+        return {};
     }
-    return {};
+    auto view = data.substr(index + prefix.length());
+    if(!view.startWith("--")){
+        return stash("--" + view.toQByteArray());
+    }
+    return view;
 }
 
 // TODO: 这里不对， 有路径没有被判断通过，
 bool IRequestImpl::isPathValid(const QString& path)
 {
     static QRegularExpression exp(R"(([\/\w \.-]*)*\/?$)");
-    if(!exp.isValid()){
-        qDebug() << "invalid" << exp.errorString();
-    }
-
     return exp.match(path).hasMatch();
 }
 

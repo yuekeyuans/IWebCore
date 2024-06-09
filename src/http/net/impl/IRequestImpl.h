@@ -78,7 +78,7 @@ private:
     void resolveFormData(IStringView data, bool isBody);
 
 private:
-    QByteArray getBoundary(IStringView);
+    IStringView getBoundary(IStringView);
     bool isPathValid(const QString&);
 
 public:

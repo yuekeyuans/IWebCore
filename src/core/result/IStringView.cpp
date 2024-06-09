@@ -40,6 +40,16 @@ IStringView IStringView::substr(const size_type _Off, size_type _Count) const
     return IStringView(std::string_view::substr(_Off, _Count));
 }
 
+IStringView IStringView::trimmed()
+{
+    auto left = find_first_not_of(' ');
+    if (left == std::string_view::npos) {
+        return "";
+    }
+    auto right = find_last_not_of(' ');
+    return substr(left, right - left + 1);
+}
+
 QList<IStringView> IStringView::split(char delimiter) const
 {
     QList<IStringView> tokens;
@@ -56,10 +66,15 @@ QList<IStringView> IStringView::split(char delimiter) const
     return tokens;
 }
 
+bool IStringView::startWith(IStringView prefix)
+{
+    return this->_Starts_with(prefix);
+}
 
-//IStringView IStringView::trimmed()
-//{
-//    return {};
-//}
+bool IStringView::endWith(IStringView suffix)
+{
+    return this->substr(this->size() - suffix.size()) == suffix;
+}
+
 
 $PackageWebCoreEnd
