@@ -26,18 +26,21 @@ QString IResponseHeader::key()
 
 QString IResponseHeader::value()
 {
-    if(m_raw->headers.contains(m_key)){
-        return m_raw->headers.value(m_key);
+    auto range = m_raw->headers.equal_range(m_key);
+    for(auto it = range.first; it != range.second; ++it){
+        return it->second;
     }
     return {};
 }
 
-QList<QString> IResponseHeader::values()
+QStringList IResponseHeader::values()
 {
-    if(m_raw->headers.contains(m_key)){
-        return m_raw->headers.values(m_key);
+    QStringList ret;
+    auto range = m_raw->headers.equal_range(m_key);
+    for(auto it = range.first; it != range.second; ++it){
+        ret.append(it->second);
     }
-    return {};
+    return ret;
 }
 
 $PackageWebCoreEnd

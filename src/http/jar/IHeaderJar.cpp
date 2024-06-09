@@ -59,55 +59,67 @@ IStringViewList IHeaderJar::getRequestHeaderValues(const QString &key) const
     return getRequestHeaderValues(key.toStdString());
 }
 
-const QMultiHash<QString, QString> &IHeaderJar::responseHeaders() const
+const std::unordered_multimap<QString, QString> &IHeaderJar::responseHeaders() const
 {
     return m_raw->m_responseRaw->headers;
 }
 
-QMultiHash<QString, QString> &IHeaderJar::responseHeaders()
+std::unordered_multimap<QString, QString> &IHeaderJar::responseHeaders()
 {
     return m_raw->m_responseRaw->headers;
 }
 
 QStringList IHeaderJar::responseHeaderKeys() const
 {
-    return m_raw->m_responseRaw->headers.keys();
+    QStringList ret;
+    const auto headers = m_raw->m_responseRaw->headers;
+    for(auto it=headers.cbegin(); it!= headers.cend(); it++){
+        if(!ret.contains(it->first)){
+            ret.append(it->first);
+        }
+    }
+    return ret;
 }
 
 bool IHeaderJar::containResponseHeaderKey(const QString &key) const
 {
-    return m_raw->m_responseRaw->headers.contains(key);
+    auto range = m_raw->m_responseRaw->headers.equal_range(key);
+    return range.first != range.second;
 }
 
 // NOTE: 注意这两者之间的差别， setReponseHeader是，如果有这个值，就替换， addResponseHeader 表示不管怎样，直接添加。
-void IHeaderJar::addResponseHeader(const QString &key, const QString &value)
+void IHeaderJar::addResponseHeader(QString key, QString value)
 {
-    m_raw->m_responseRaw->headers.insertMulti(key, value);
+    m_raw->m_responseRaw->headers.emplace(std::move(key), std::move(value));
 }
 
-void IHeaderJar::addResponseHeader(const QString &key, const QStringList &values)
+void IHeaderJar::addResponseHeader(QString key, const QStringList &values)
 {
     for(const auto& value : values){
-        m_raw->m_responseRaw->headers.insert(key, value);
+        m_raw->m_responseRaw->headers.emplace(std::move(key), value);
     }
 }
 
-void IHeaderJar::setResponseHeader(const QString &key, const QString &value)
+void IHeaderJar::setResponseHeader(QString key, QString value)
 {
-    m_raw->m_responseRaw->headers.insert(key, value);
+    deleteReponseHeader(key);
+    m_raw->m_responseRaw->headers.emplace(std::move(key), std::move(value));
 }
 
-void IHeaderJar::setResponseHeader(const QString &key, const QStringList &values)
+void IHeaderJar::setResponseHeader(QString key, const QStringList &values)
 {
-    m_raw->m_responseRaw->headers.remove(key);
+    deleteReponseHeader(key);
     for(const auto& value : values){
-        m_raw->m_responseRaw->headers.insert(key, value);
+        m_raw->m_responseRaw->headers.emplace(key, value);
     }
 }
 
 void IHeaderJar::deleteReponseHeader(const QString &key)
 {
-    m_raw->m_responseRaw->headers.remove(key);
+    auto range = m_raw->m_responseRaw->headers.equal_range(key);
+    for(auto it=range.first; it!= range.second; it++){
+        m_raw->m_responseRaw->headers.erase(it);
+    }
 }
 
 $PackageWebCoreEnd

@@ -15,7 +15,7 @@ public:
     const IResponseHeader& operator=(const QString& value);
     QString key();
     QString value();
-    QList<QString> values();
+    QStringList values();
 
 private:
     IResponseRaw* m_raw{};
