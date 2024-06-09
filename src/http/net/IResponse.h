@@ -35,8 +35,6 @@ public:
     IResponse& operator<<(const QString& content);
     IResponse& operator<<(const QByteArray& content);
     IResponse& operator<<(const char* content);
-//    IResponse& operator<<(IResponseWare* response);
-//    IResponse& operator<<(IResponseWare& response);
     IResponseHeader operator[](const QString& header) const;
 
     IRequest* request() const;
@@ -47,7 +45,7 @@ public:
     IResponse& setStatus(int statusCode);
     IResponse& setMime(IHttpMime mime);
     IResponse& setMime(const QString mime);
-    IResponse& addCookie(const ICookiePart& cookiePart);
+    IResponse& addCookie(ICookiePart cookiePart);
 
     IResponse& appendContent(const QString& content);
     IResponse& appendContent(const QByteArray& content);
@@ -71,7 +69,6 @@ public:
     void setAttribute(const QString& name, const QVariant& value);
     QVariant getAttribute(const QString& name, const QVariant& defaultValue = {}) const;
 
-//    bool respond();
     bool valid() const;
 
 private:

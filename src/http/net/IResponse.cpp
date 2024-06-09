@@ -70,18 +70,6 @@ IResponse &IResponse::operator<<(const char *content)
     return *this;
 }
 
-//IResponse &IResponse::operator<<(IResponseWare *response)
-//{
-//    setContent(response);
-//    return *this;
-//}
-
-//IResponse &IResponse::operator<<(IResponseWare &response)
-//{
-//    setContent(&response);
-//    return *this;
-//}
-
 IResponseHeader IResponse::operator[](const QString &header) const
 {
     return {m_raw->m_responseRaw, header};
@@ -131,9 +119,9 @@ IResponse &IResponse::setMime(const QString mime)
     return *this;
 }
 
-IResponse &IResponse::addCookie(const ICookiePart &cookiePart)
+IResponse &IResponse::addCookie(ICookiePart cookiePart)
 {
-    m_raw->m_responseRaw->cookies.append(cookiePart);
+    m_raw->m_responseRaw->cookies.push_back(std::move(cookiePart));
     return *this;
 }
 
@@ -181,8 +169,10 @@ IResponse &IResponse::setContent(const char *content)
 
 IResponse& IResponse::setContent(IResponseWare *response)
 {
-    if(!m_raw->m_responseRaw->cookies.isEmpty()){
-        response->m_raw->cookies.append(m_raw->m_responseRaw->cookies);
+    if(!m_raw->m_responseRaw->cookies.empty()){
+        for(auto val : m_raw->m_responseRaw->cookies){
+            response->m_raw->cookies.push_back(val);    // TODO: see whether other effecient way.
+        }
     }
 
     if(!m_raw->m_response->headers().isEmpty()){
@@ -253,11 +243,6 @@ QVariant IResponse::getAttribute(const QString &name, const QVariant &defaultVal
     }
     return defaultValue;
 }
-
-//bool IResponse::respond()
-//{
-//    return IResponseImpl(m_raw).respond();
-//}
 
 bool IResponse::valid() const
 {

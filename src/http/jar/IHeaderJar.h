@@ -17,14 +17,14 @@ public:
     const QMultiHash<IStringView, IStringView>& requestHeaders() const;
     QMultiHash<IStringView, IStringView>& requestHeaders();
 
-    QList<IStringView> requestHeaderKeys() const;
+    IStringViewList requestHeaderKeys() const;
     bool containRequestHeaderKey(IStringView key) const;
-    bool containRequestHeaderKey(std::string key) const;
     bool containRequestHeaderKey(const QString& key) const;
 
-    QString getRequestHeaderValue(const QString& key, bool& ok) const;
-    IStringView getRequestHeaderValue(IStringView view, bool& ok) const;
-//    QStringList getRequestHeaderValues(const QString& key) const;
+    IStringView getRequestHeaderValue(IStringView key) const;
+    IStringView getRequestHeaderValue(const QString& key) const;
+    IStringViewList getRequestHeaderValues(IStringView key) const;
+    IStringViewList getRequestHeaderValues(const QString& key) const;
 
     const QMultiHash<QString, QString>& responseHeaders() const;
     QMultiHash<QString, QString>& responseHeaders();

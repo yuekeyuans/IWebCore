@@ -33,8 +33,8 @@ public:
     void deleteRequestCookies(const QString& key);
 
     // response
-    QList<ICookiePart>& responseCookies();
-    const QList<ICookiePart>& responseCookies() const;
+    std::list<ICookiePart>& responseCookies();
+    const std::list<ICookiePart>& responseCookies() const;
     ICookiePart getResponseCookie(const QString& key) const;
     QStringList responseCookieKeys() const;
     bool containResponseCookieKey(const QString& key) const;

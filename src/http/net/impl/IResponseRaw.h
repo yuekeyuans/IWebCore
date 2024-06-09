@@ -30,7 +30,7 @@ public:
     QString mime;
     IHttpStatusCode status {IHttpStatus::OK_200};
     QMultiHash<QString, QString> headers;
-    QList<ICookiePart> cookies;
+    std::list<ICookiePart> cookies;
     IResponseContent content;
 };
 

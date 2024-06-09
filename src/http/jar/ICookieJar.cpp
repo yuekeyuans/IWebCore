@@ -75,12 +75,12 @@ void ICookieJar::deleteRequestCookies(const QString &key)
     return deleteRequestCookies(key.toStdString());
 }
 
-QList<ICookiePart> &ICookieJar::responseCookies()
+std::list<ICookiePart> &ICookieJar::responseCookies()
 {
     return m_raw->m_responseRaw->cookies;
 }
 
-const QList<ICookiePart> &ICookieJar::responseCookies() const
+const std::list<ICookiePart> &ICookieJar::responseCookies() const
 {
     return m_raw->m_responseRaw->cookies;
 }
@@ -131,22 +131,22 @@ void ICookieJar::deleteResponseCookie(const QString &key)
 
 void ICookieJar::addResponseCookie(ICookiePart cookiePart)
 {
-    m_raw->m_responseRaw->cookies.append(std::move(cookiePart));
+    m_raw->m_responseRaw->cookies.push_back(std::move(cookiePart));
 }
 
 void ICookieJar::addResponseCookie(QString key, QString value)
 {
-    m_raw->m_responseRaw->cookies.append({std::move(key), std::move(value)});
+    m_raw->m_responseRaw->cookies.push_back({std::move(key), std::move(value)});
 }
 
 void ICookieJar::addResponseCookie(QString key, QString value, int maxAge, bool secure, bool httpOnly)
 {
-    m_raw->m_responseRaw->cookies.append(ICookiePart{std::move(key), std::move(value), maxAge, secure, httpOnly});
+    m_raw->m_responseRaw->cookies.push_back(ICookiePart{std::move(key), std::move(value), maxAge, secure, httpOnly});
 }
 
 void ICookieJar::addResponseCookie(QString key, QString value, QDateTime expires, bool secure, bool httpOnly)
 {
-    m_raw->m_responseRaw->cookies.append(ICookiePart{std::move(key), std::move(value), std::move(expires), secure, httpOnly});
+    m_raw->m_responseRaw->cookies.push_back(ICookiePart{std::move(key), std::move(value), std::move(expires), secure, httpOnly});
 }
 
 bool ICookieJar::isValid() const

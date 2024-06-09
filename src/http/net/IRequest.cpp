@@ -58,12 +58,14 @@ IRequest &IRequest::operator=(IRequest &&)
     return *this;
 }
 
-// TODO: 这个考虑返回 IResult
-// TODO: 这个返回不应该是 IResult, 而应该是 引用类型
-const QString IRequest::operator[](const QString &header) const
+IStringView IRequest::operator[](IStringView header) const
 {
-    bool ok;
-    return impl->m_raw->m_headerJar->getRequestHeaderValue(header, ok);
+    return impl->m_raw->m_headerJar->getRequestHeaderValue(header);
+}
+
+IStringView IRequest::operator[](const QString &header) const
+{
+    return operator [](header.toStdString());
 }
 
 IResponse *IRequest::response() const
