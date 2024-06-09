@@ -25,7 +25,7 @@ public:
     QString toQString() const;
     QByteArray toQByteArray() const;
     IStringView substr(const size_type _Off, size_type _Count=std::string::npos) const;
-    QList<IStringView> split(char);
+    QList<IStringView> split(char) const;
 };
 
 
@@ -37,9 +37,16 @@ Q_DECLARE_METATYPE(IStringView)
 
 $PackageWebCoreEnd
 
-inline uint qHash(const IWebCore::IStringView *obj, uint seed = 0)
+template<>
+inline uint qHash<IWebCore::IStringView>(const IWebCore::IStringView *obj, uint seed)
 {
     return IWebCore::IStringView::qHash(obj, seed);
+}
+
+template<>
+inline uint qHash<IWebCore::IStringView>(const IWebCore::IStringView &obj, uint seed)
+{
+    return IWebCore::IStringView::qHash(&obj, seed);
 }
 
 namespace std {

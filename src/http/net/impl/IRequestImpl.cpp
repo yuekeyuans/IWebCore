@@ -297,13 +297,13 @@ void IRequestImpl::parseData()
             if(!m_data.getLine(line)){
                 return m_connection->doRead();
             }
-            firstLineState(std::string_view(m_data.m_data + line[0], line[1]));
+            firstLineState(IStringView(m_data.m_data + line[0], line[1]));
             break;
         case State::HeaderState:
             if(!m_data.getLine(line)){
                 return m_connection->doRead();
             }
-            headerState(std::string_view(m_data.m_data + line[0], line[1]));
+            headerState(IStringView(m_data.m_data + line[0], line[1]));
             break;
         case State::HeaderGapState:
             if(!headerGapState()){
@@ -329,7 +329,7 @@ std::vector<asio::const_buffer> IRequestImpl::getResult()
     return m_responseImpl->getContent();
 }
 
-void IRequestImpl::firstLineState(std::string_view data)
+void IRequestImpl::firstLineState(IStringView data)
 {
     m_data.m_parsedSize += data.length();
     parseFirstLine(data.substr(0, data.length()-2));
@@ -343,7 +343,7 @@ void IRequestImpl::firstLineState(std::string_view data)
     m_readState = State::HeaderState;
 }
 
-void IRequestImpl::headerState(std::string_view data)
+void IRequestImpl::headerState(IStringView data)
 {
     m_data.m_parsedSize += data.length();
     if(data.length() != 2){
@@ -378,7 +378,7 @@ bool IRequestImpl::headerGapState()
             m_connection->doReadStreamBy(m_contentLength-readLength);
         }
     }else if(!m_multipartBoundary.isEmpty()){
-        std::string_view view(m_data.m_data + m_data.m_parsedSize, readLength);
+        IStringView view(m_data.m_data + m_data.m_parsedSize, readLength);
         if(view.find(m_multipartBoundaryEnd) != std::string::npos){
             return true;
         }
@@ -412,7 +412,7 @@ void IRequestImpl::endState()
     });
 }
 
-void IRequestImpl::parseFirstLine(std::string_view line)
+void IRequestImpl::parseFirstLine(IStringView line)
 {
     static $UInt urlMaxLength("http.urlMaxLength");
     if(line.length() >= urlMaxLength){
@@ -469,7 +469,7 @@ void IRequestImpl::resolveFirstLine()
     resolveFormData(m_raw->m_rawPathArgs, false);
 }
 
-void IRequestImpl::parseHeader(std::string_view line)
+void IRequestImpl::parseHeader(IStringView line)
 {
     static $UInt headerMaxLength("http.headerMaxLength");
     auto index = line.find_first_of(':');
@@ -487,8 +487,8 @@ void IRequestImpl::parseHeader(std::string_view line)
     int pos=value.length();
     for(;;){
         auto index = value.find_last_of(';', pos);
-        std::string_view value_part = value.substr(index+1, value.length()-index);
-        m_raw->m_requestHeaders.insertMulti(QString::fromStdString(std::string(key)), QString::fromStdString(std::string(value_part)));
+        IStringView value_part = value.substr(index+1, value.length()-index);
+        m_raw->m_requestHeaders.insertMulti(key, value_part);
         if(index == std::string::npos){
             break;
         }
@@ -500,7 +500,7 @@ void IRequestImpl::resolveHeaders()
 {
     if(m_raw->m_requestHeaders.contains(IHttpHeader::ContentLength)){
         bool ok;
-        m_contentLength = m_raw->m_requestHeaders.value(IHttpHeader::ContentLength).toUInt(&ok);
+        m_contentLength = m_raw->m_requestHeaders.value(IHttpHeader::ContentLength).toQString().toUInt(&ok);
         if(!ok){
             return m_raw->setInvalid(IHttpBadRequestInvalid("ContentLength error"));
         }
@@ -511,7 +511,7 @@ void IRequestImpl::resolveHeaders()
     }
 
     auto contentType = m_raw->m_requestHeaders.value(IHttpHeader::ContentType);
-    if(!contentType.isEmpty()){
+    if(!contentType.empty()){
         m_raw->m_requestMime = IHttpMimeUtil::toMime(contentType);
         if(m_raw->m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
             m_multipartBoundary = getBoundary(contentType);
@@ -530,8 +530,8 @@ void IRequestImpl::resolveHeaders()
 void IRequestImpl::resolveCookieHeaders()
 {
     auto cookies = m_raw->m_requestHeaders.values(IHttpHeader::Cookie);
-    for(const QString& cookie : cookies){
-        QStringList args = cookie.split("=");
+    for(const auto& cookie : cookies){
+        auto args = cookie.split('=');
         if(args.length() == 1){
             m_raw->m_requestCookieParameters.insertMulti(args.first(), args.first());
         }else{
@@ -586,12 +586,12 @@ void IRequestImpl::resolveBodyContent()
         if(m_contentLength != readSize){
             return m_request->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
         }
-        m_bodyData = std::string_view(m_data.m_data + m_data.m_parsedSize, readSize);
+        m_bodyData = IStringView(m_data.m_data + m_data.m_parsedSize, readSize);
     }else{
         if(m_contentLength != m_data.m_buff.size()){
             return m_request->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
         }
-        m_bodyData = std::string_view(asio::buffer_cast<const char*>(m_data.m_buff.data()), m_data.m_buff.size());
+        m_bodyData = IStringView(asio::buffer_cast<const char*>(m_data.m_buff.data()), m_data.m_buff.size());
     }
 
     switch (m_raw->m_requestMime) {
@@ -613,18 +613,18 @@ void IRequestImpl::resolveBodyMultipart()
         if(m_contentLength != readSize){
             return m_request->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
         }
-        m_bodyData = std::string_view(m_data.m_data + m_data.m_parsedSize, readSize);
+        m_bodyData = IStringView(m_data.m_data + m_data.m_parsedSize, readSize);
     }else{
         if(m_contentLength != m_data.m_buff.size()){
             return m_request->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
         }
-        m_bodyData = std::string_view(asio::buffer_cast<const char*>(m_data.m_buff.data()), m_data.m_buff.size());
+        m_bodyData = IStringView(asio::buffer_cast<const char*>(m_data.m_buff.data()), m_data.m_buff.size());
     }
 
     qDebug() << QString::fromStdString(std::string(m_bodyData));
 }
 
-void IRequestImpl::resolveFormData(std::string_view view, bool isBody)
+void IRequestImpl::resolveFormData(IStringView view, bool isBody)
 {
     QByteArray data = QByteArray::fromPercentEncoding(QByteArray(view.data(), view.length()));
     int pos{};
@@ -644,10 +644,10 @@ void IRequestImpl::resolveFormData(std::string_view view, bool isBody)
     }
 }
 
-QByteArray IRequestImpl::getBoundary(const QString &mime)
+QByteArray IRequestImpl::getBoundary(IStringView data)
 {
     QRegularExpression expression("boundary=[\"]?(.+)[\"]?$");
-    auto result = expression.match(mime);
+    auto result = expression.match(data.toQString());
     if(result.hasMatch()){
         auto boundary = result.captured(1);
         if(!boundary.startsWith("--")){

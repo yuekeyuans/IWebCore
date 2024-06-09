@@ -40,7 +40,7 @@ IStringView IStringView::substr(const size_type _Off, size_type _Count) const
     return IStringView(std::string_view::substr(_Off, _Count));
 }
 
-QList<IStringView> IStringView::split(char delimiter)
+QList<IStringView> IStringView::split(char delimiter) const
 {
     QList<IStringView> tokens;
     std::string_view::size_type start = 0;

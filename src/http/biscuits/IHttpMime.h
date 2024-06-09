@@ -118,6 +118,7 @@ namespace IHttpMimeUtil
 
     QString toString(IHttpMime);
     IHttpMime toMime(const QString &);
+    IHttpMime toMime(IStringView);
 
     QString getSuffixMime(const QString& suffix);
     void registerSuffixMime(const QString& suffix, const QString& mime);

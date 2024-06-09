@@ -241,6 +241,11 @@ IHttpMime IHttpMimeUtil::toMime(const QString &string)
     return static_cast<IHttpMime>(index);
 }
 
+IHttpMime IHttpMimeUtil::toMime(IStringView data)
+{
+    return toMime(data.toQString());
+}
+
 QString IHttpMimeUtil::getSuffixMime(const QString &suffix)
 {
     if(suffix.isEmpty()){

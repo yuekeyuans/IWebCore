@@ -59,25 +59,25 @@ public:
     std::vector<asio::const_buffer> getResult();
 
 private:
-    void firstLineState(std::string_view);
-    void headerState(std::string_view);
+    void firstLineState(IStringView);
+    void headerState(IStringView);
     bool headerGapState();
     void bodyState();
     void endState();
 
 private:
-    void parseFirstLine(std::string_view);
+    void parseFirstLine(IStringView);
     void resolveFirstLine();
-    void parseHeader(std::string_view);
+    void parseHeader(IStringView);
     void resolveHeaders();      // 解析接收到的头
     void resolveCookieHeaders();
     void resolvePathProcessor();
     void resolveBodyContent();
     void resolveBodyMultipart();
-    void resolveFormData(std::string_view data, bool isBody);
+    void resolveFormData(IStringView data, bool isBody);
 
 private:
-    QByteArray getBoundary(const QString&);
+    QByteArray getBoundary(IStringView);
     bool isPathValid(const QString&);
 
 public:
@@ -93,7 +93,7 @@ private:
     QByteArray m_multipartBoundary;
     std::string m_multipartBoundaryEnd;
     bool m_bodyInData{true};    // 表示数据存放在 data 上面
-    std::string_view m_bodyData{};
+    IStringView m_bodyData{};
 };
 
 $PackageWebCoreEnd
