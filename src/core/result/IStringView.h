@@ -24,7 +24,7 @@ public:
 public:
     QString toQString() const;
     QByteArray toQByteArray() const;
-    IStringView substr(const size_type _Off, size_type _Count) const;
+    IStringView substr(const size_type _Off, size_type _Count=std::string::npos) const;
     QList<IStringView> split(char);
 };
 

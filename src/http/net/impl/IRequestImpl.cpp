@@ -51,12 +51,12 @@ QJsonValue IRequestImpl::requestJson(bool& ok) const
 
 int IRequestImpl::contentLength() const
 {
-    return m_raw->m_requestHeaders.value(IHttpHeader::ContentLength).toInt();
+    return m_raw->m_requestHeaders.value(IHttpHeader::ContentLength).toQString().toInt();
 }
 
 QString IRequestImpl::contentType() const
 {
-    return m_raw->m_requestHeaders.value(IHttpHeader::ContentType);
+    return m_raw->m_requestHeaders.value(IHttpHeader::ContentType).toQString();
 }
 
 QByteArray IRequestImpl::getParameter(const QString &name, bool& ok) const
@@ -102,26 +102,31 @@ QByteArray IRequestImpl::getMixedParameter(const QString &name, bool& ok) const
 // TODO: 这个感觉不对，看一下
 QByteArray IRequestImpl::getContentParameter(const QString &name, bool& ok) const
 {
-    Q_UNUSED(name);
-    if(m_raw->m_method != IHttpMethod::GET){
-        IToeUtil::setOk(ok, false);
-    }
-    IToeUtil::setOk(ok, true);
-    return m_raw->m_requestBody;
+    // FIXME:
+    return {};
+
+    //    Q_UNUSED(name);
+//    if(m_raw->m_method != IHttpMethod::GET){
+//        IToeUtil::setOk(ok, false);
+//    }
+//    IToeUtil::setOk(ok, true);
+//    return m_raw->m_requestBody;
 }
 
 QByteArray IRequestImpl::getUrlParameter(const QString &name, bool& ok) const
 {
-    static const QString suffix = "_url";
-
-    const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
-    if(m_raw->m_requestUrlParameters.contains(originName)){
-        ok = true;
-        return m_raw->m_requestUrlParameters[originName].toUtf8();
-    }
-
-    ok = false;
+    // FIXME:
     return {};
+    //    static const QString suffix = "_url";
+
+//    const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
+//    if(m_raw->m_requestUrlParameters.contains(originName)){
+//        ok = true;
+//        return m_raw->m_requestUrlParameters[originName].toUtf8();
+//    }
+
+//    ok = false;
+//    return {};
 }
 
 // TODO: 这里有一个 fatal, 需要处理掉
@@ -167,27 +172,32 @@ QByteArray IRequestImpl::getHeaderParameter(const QString &name, bool& ok) const
 
 QByteArray IRequestImpl::getParamParameter(const QString &name, bool& ok) const
 {
-    static QString suffix = "_param";
-
-    const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
-    if(m_raw->m_requestPathParameters.contains(originName)){
-        ok = true;
-        return m_raw->m_requestPathParameters[originName].toUtf8();
-    }
-
-    ok = false;
+    // FIXME:
     return {};
+//    static QString suffix = "_param";
+
+//    const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
+//    if(m_raw->m_requestPathParameters.contains(originName)){
+//        ok = true;
+//        return m_raw->m_requestPathParameters[originName].toUtf8();
+//    }
+
+//    ok = false;
+//    return {};
 }
 
 // TODO: 这个地方的 cookie 需要查看原文档
 QByteArray IRequestImpl::getCookieParameter(const QString &name, bool& ok) const
 {
-    static const QString suffix = "_cookie";
-    const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
+    // FIXME:
+    return {};
 
-    auto values = m_raw->m_requestCookieParameters.values(originName);
-    ok = values.length() == 1;
-    return values.length() > 0 ? values.first().toUtf8() : QByteArray();
+//    static const QString suffix = "_cookie";
+//    const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
+
+//    auto values = m_raw->m_requestCookieParameters.values(originName);
+//    ok = values.length() == 1;
+//    return values.length() > 0 ? values.first().toUtf8() : QByteArray();
 }
 
 // TODO: session not setted!!
@@ -207,13 +217,15 @@ QByteArray IRequestImpl::getSessionParameter(const QString &name, bool& ok) cons
 
 QString IRequestImpl::getFormUrlValue(const QString &name, bool& ok) const
 {
-    if(m_raw->m_requestBodyParameters.contains(name)){
-        ok = true;
-        return m_raw->m_requestBodyParameters[name];
-    }
-
-    ok = false;
+    // FIXME:
     return {};
+//    if(m_raw->m_requestBodyParameters.contains(name)){
+//        ok = true;
+//        return m_raw->m_requestBodyParameters[name];
+//    }
+
+//    ok = false;
+//    return {};
 }
 
 QByteArray IRequestImpl::getMultiPartFormData(const QString &name, bool& ok) const

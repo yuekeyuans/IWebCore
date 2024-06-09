@@ -6,13 +6,13 @@ $PackageWebCoreBegin
 
 struct IHttpHeader
 {
-    inline static const QString Location = "Location";
-    inline static const QString ContentLength = "Content-Length";
-    inline static const QString ContentType = "Content-Type";
-    inline static const QString ContentDisposition = "Content-Disposition";
-    inline static const QString ContentTransferEncoding = "Content-Transfer-Encoding";
-    inline static const QString Cookie = "Cookie";
-    inline static const QString SetCookie = "Set-Cookie";
+    inline static constexpr char Location[] = "Location";
+    inline static constexpr char ContentLength[] = "Content-Length";
+    inline static constexpr char ContentType[] = "Content-Type";
+    inline static constexpr char ContentDisposition[] = "Content-Disposition";
+    inline static constexpr char ContentTransferEncoding[] = "Content-Transfer-Encoding";
+    inline static constexpr char Cookie[] = "Cookie";
+    inline static constexpr char SetCookie[] = "Set-Cookie";
 };
 
 $PackageWebCoreEnd
