@@ -43,9 +43,10 @@ void ITcpConnection::doReadStreamBy(int length)
     });
 }
 
-void ITcpConnection::doReadStreamUntil(const char *stop)
+void ITcpConnection::doReadStreamUntil(IStringView data)
 {
-    asio::async_read_until(m_socket, m_data.m_buff, stop, [=](std::error_code error, std::size_t length){
+    // FIXME
+    asio::async_read_until(m_socket, m_data.m_buff, std::string(data), [=](std::error_code error, std::size_t length){
         Q_UNUSED(length)
         if(error){
             return doDestroy();

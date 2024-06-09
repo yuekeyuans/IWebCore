@@ -329,6 +329,12 @@ std::vector<asio::const_buffer> IRequestImpl::getResult()
     return m_responseImpl->getContent();
 }
 
+IStringView IRequestImpl::stash(QByteArray data)
+{
+    m_stash.emplace_back(std::move(data));
+    return IStringView(m_stash.back().data(), m_stash.back().length());
+}
+
 void IRequestImpl::firstLineState(IStringView data)
 {
     m_data.m_parsedSize += data.length();
@@ -353,7 +359,7 @@ void IRequestImpl::headerState(IStringView data)
 
     resolveHeaders();
 
-    if(m_contentLength || !m_multipartBoundary.isEmpty()){
+    if(m_contentLength || !m_multipartBoundary.empty()){
         m_readState = State::HeaderGapState;
     }else{
         m_readState = State::EndState;
@@ -377,7 +383,7 @@ bool IRequestImpl::headerGapState()
             m_data.m_buff.commit(readLength);
             m_connection->doReadStreamBy(m_contentLength-readLength);
         }
-    }else if(!m_multipartBoundary.isEmpty()){
+    }else if(!m_multipartBoundary.empty()){
         IStringView view(m_data.m_data + m_data.m_parsedSize, readLength);
         if(view.find(m_multipartBoundaryEnd) != std::string::npos){
             return true;
@@ -388,7 +394,7 @@ bool IRequestImpl::headerGapState()
         memcpy(data, m_data.m_data + m_data.m_parsedSize, readLength); // 拷贝数据
         m_connection->doReadStreamBy(m_contentLength-readLength);
         m_data.m_buff.commit(readLength);
-        m_connection->doReadStreamUntil(m_multipartBoundaryEnd.c_str());
+        m_connection->doReadStreamUntil(m_multipartBoundaryEnd);
     }
     return false;
 }
@@ -397,7 +403,7 @@ void IRequestImpl::bodyState()
 {
     if(m_contentLength){
         resolveBodyContent();
-    }else if(!m_multipartBoundary.isEmpty()){
+    }else if(!m_multipartBoundary.empty()){
         resolveBodyMultipart();
     }
 
@@ -515,18 +521,17 @@ void IRequestImpl::resolveHeaders()
         m_raw->m_requestMime = IHttpMimeUtil::toMime(contentType);
         if(m_raw->m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
             m_multipartBoundary = getBoundary(contentType);
-            if(m_multipartBoundary.isEmpty()){
+            if(m_multipartBoundary.empty()){
                 m_request->setInvalid(IHttpBadRequestInvalid("multipart request has no boundary"));
                 return;
             }else{
-                m_multipartBoundaryEnd = std::string((m_multipartBoundary + "__").data());
+                m_multipartBoundaryEnd = stash(m_multipartBoundary.toQByteArray() + "--");
             }
         }
     }
     resolveCookieHeaders();
 }
 
-// I decide not to support any encodings except ascii
 void IRequestImpl::resolveCookieHeaders()
 {
     auto cookies = m_raw->m_requestHeaders.values(IHttpHeader::Cookie);

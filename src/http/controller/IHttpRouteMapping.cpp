@@ -93,8 +93,9 @@ void IHttpRouteMapping::removeChildNode(const IHttpRouteMapping &node)
     children.removeOne(node);
 }
 
-QVector<IHttpRouteMapping *> IHttpRouteMapping::getChildNodes(const QString nodeName)
+QVector<IHttpRouteMapping *> IHttpRouteMapping::getChildNodes(IStringView name)
 {
+    auto nodeName = name.toQString();   // TODO: fix latter;
     QVector<IHttpRouteMapping*> nodes;
     for(auto& val : children){
         if(val.type == NodeType::TEXT_MATCH && val.fragment == nodeName){

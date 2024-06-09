@@ -57,6 +57,7 @@ private:
 public:
     void parseData();
     std::vector<asio::const_buffer> getResult();
+    IStringView stash(QByteArray);
 
 private:
     void firstLineState(IStringView);
@@ -90,10 +91,13 @@ public:
 private:
     State m_readState{FirstLineState};
     int m_contentLength{};
-    QByteArray m_multipartBoundary;
-    std::string m_multipartBoundaryEnd;
+    IStringView m_multipartBoundary;
+    IStringView m_multipartBoundaryEnd;
     bool m_bodyInData{true};    // 表示数据存放在 data 上面
     IStringView m_bodyData{};
+
+private:
+    std::list<QByteArray> m_stash;
 };
 
 $PackageWebCoreEnd

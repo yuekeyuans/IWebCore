@@ -16,7 +16,7 @@ public:
 public:
     void doRead();
     void doReadStreamBy(int length);
-    void doReadStreamUntil(const char*);
+    void doReadStreamUntil(IStringView);
     void doWrite();
     void doDestroy();
     void doReuse();

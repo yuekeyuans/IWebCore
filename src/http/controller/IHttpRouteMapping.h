@@ -32,7 +32,7 @@ public:
     void addChildNode(const IHttpRouteMapping& node);
     void removeChildNode(const IHttpRouteMapping& node);
 
-    QVector<IHttpRouteMapping*> getChildNodes(const QString nodeName);
+    QVector<IHttpRouteMapping*> getChildNodes(IStringView nodeName);
     QVector<IHttpRouteMapping*> getParentNodes();
     IHttpRouteMapping* getOrAppendChildNode(const QString& fragment);
     IHttpRouteMapping* getChildNode(const QString& fragment);

@@ -191,27 +191,26 @@ QVector<IUrlActionNode *> IHttpManage::queryFunctionNodes(IHttpRouteMapping *par
                                                              const IStringViewList &fragments, IHttpMethod method)
 {
     // FIXME:
-    return {};
 
-//    QVector<IUrlActionNode*> ret;
-//    auto childNodes = parentNode->getChildNodes(fragments.first());
-//    if(fragments.length() == 1){
-//        for(const auto& val : childNodes){
-//            auto leaf = val->getLeaf(method);
-//            if(leaf != nullptr){
-//                ret.append(leaf);
-//            }
-//        }
-//    }else{
-//        auto childFragments = fragments.mid(1);
-//        for(auto& val : childNodes){
-//            auto result = queryFunctionNodes(val, childFragments, method);
-//            if(!result.isEmpty()){
-//                ret.append(result);
-//            }
-//        }
-//    }
-//    return ret;
+    QVector<IUrlActionNode*> ret;
+    auto childNodes = parentNode->getChildNodes(fragments.first());
+    if(fragments.length() == 1){
+        for(const auto& val : childNodes){
+            auto leaf = val->getLeaf(method);
+            if(leaf != nullptr){
+                ret.append(leaf);
+            }
+        }
+    }else{
+        auto childFragments = fragments.mid(1);
+        for(auto& val : childNodes){
+            auto result = queryFunctionNodes(val, childFragments, method);
+            if(!result.isEmpty()){
+                ret.append(result);
+            }
+        }
+    }
+    return ret;
 }
 
 QMap<IStringView, IStringView> IHttpManage::getPathVariable(void* node, const IStringViewList &fragments)
