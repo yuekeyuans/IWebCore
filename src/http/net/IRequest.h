@@ -52,7 +52,7 @@ public:
 
     int bodyContentLength() const;
     QString bodyContentType() const;
-    std::string_view bodyContent() const;
+    IStringView bodyContent() const;
 
     QMultiHash<IStringView, IStringView>& headers();
     const QMultiHash<IStringView, IStringView>& headers() const;

@@ -17,6 +17,14 @@ IStringView::IStringView(std::string_view data)
 {
 }
 
+uint IStringView::qHash(const IStringView *obj, uint seed)
+{
+    for (auto it=obj->cbegin(); it!=obj->cend(); it++) {
+        seed ^= std::hash<char>{}(*it) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+    }
+    return seed;
+}
+
 QString IStringView::toQString() const
 {
     return QString::fromLocal8Bit(data(), length());

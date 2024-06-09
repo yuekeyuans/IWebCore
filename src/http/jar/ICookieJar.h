@@ -18,12 +18,12 @@ public:
     ICookieJar();
 
     // request
-    const QMultiHash<QString, QString>& requestCookies() const;
+    const QMultiHash<IStringView, IStringView>& requestCookies() const;
     ICookiePart getRequestCookie(const QString& key, bool& ok) const;
     QList<ICookiePart> getRequestCookies(const QString& key) const;
 
-    QStringList requestCookieKeys() const;
-    bool containRequestCookieKey(const QString& key) const;
+    IStringViewList requestCookieKeys() const;
+//    bool containRequestCookieKey(const QString& key) const;
 //    QString getRequestCookieValue(const QString& key, bool& ok) const;
 //    QStringList getRequestCookieValues(const QString& key) const;
 

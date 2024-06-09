@@ -137,7 +137,7 @@ IUrlActionNode *IHttpManage::getUrlActionNode(IRequest &request)
     if(nodes.length() == 0){
         return nullptr;
     }else if(nodes.length() > 1){
-        auto info = url + " : " + IHttpMethodUtil::toString(method) + " matched multi-functions, please check";
+        auto info = url.toQString() + " : " + IHttpMethodUtil::toString(method) + " matched multi-functions, please check";
         qFatal(info.toUtf8());
     }
 
@@ -188,46 +188,52 @@ QStringList IHttpManage::getStaticFolderActionPath(const IRequest &request)
 }
 
 QVector<IUrlActionNode *> IHttpManage::queryFunctionNodes(IHttpRouteMapping *parentNode,
-                                                             const QStringList &fragments, IHttpMethod method)
+                                                             const IStringViewList &fragments, IHttpMethod method)
 {
-    QVector<IUrlActionNode*> ret;
-    auto childNodes = parentNode->getChildNodes(fragments.first());
-    if(fragments.length() == 1){
-        for(const auto& val : childNodes){
-            auto leaf = val->getLeaf(method);
-            if(leaf != nullptr){
-                ret.append(leaf);
-            }
-        }
-    }else{
-        auto childFragments = fragments.mid(1);
-        for(auto& val : childNodes){
-            auto result = queryFunctionNodes(val, childFragments, method);
-            if(!result.isEmpty()){
-                ret.append(result);
-            }
-        }
-    }
-    return ret;
+    // FIXME:
+    return {};
+
+//    QVector<IUrlActionNode*> ret;
+//    auto childNodes = parentNode->getChildNodes(fragments.first());
+//    if(fragments.length() == 1){
+//        for(const auto& val : childNodes){
+//            auto leaf = val->getLeaf(method);
+//            if(leaf != nullptr){
+//                ret.append(leaf);
+//            }
+//        }
+//    }else{
+//        auto childFragments = fragments.mid(1);
+//        for(auto& val : childNodes){
+//            auto result = queryFunctionNodes(val, childFragments, method);
+//            if(!result.isEmpty()){
+//                ret.append(result);
+//            }
+//        }
+//    }
+//    return ret;
 }
 
-QMap<QString, QString> IHttpManage::getPathVariable(void* node, const QStringList &fragments)
+QMap<IStringView, IStringView> IHttpManage::getPathVariable(void* node, const IStringViewList &fragments)
 {
-    QMap<QString, QString> ret;
-    if(node == nullptr){
-        return ret;
-    }
+    // FIXME:
+    return {};
 
-    IHttpRouteMapping* routeNode = static_cast<IHttpRouteMapping*>(node);
-    QVector<IHttpRouteMapping *>  nodes = routeNode->getParentNodes();
-    nodes.pop_front();      // 去掉第一个node， 因为第一个 node 是 / 根节点，不参与。
-    assert(nodes.length() == fragments.length());
-    for(int i=0;i<nodes.length();i++){
-        if(nodes[i]->type != IHttpRouteMapping::TEXT_MATCH && !nodes[i]->name.isEmpty()){
-            ret[nodes[i]->name] = fragments[i];
-        }
-    }
-    return ret;
+    //    QMap<QString, QString> ret;
+//    if(node == nullptr){
+//        return ret;
+//    }
+
+//    IHttpRouteMapping* routeNode = static_cast<IHttpRouteMapping*>(node);
+//    QVector<IHttpRouteMapping *>  nodes = routeNode->getParentNodes();
+//    nodes.pop_front();      // 去掉第一个node， 因为第一个 node 是 / 根节点，不参与。
+//    assert(nodes.length() == fragments.length());
+//    for(int i=0;i<nodes.length();i++){
+//        if(nodes[i]->type != IHttpRouteMapping::TEXT_MATCH && !nodes[i]->name.isEmpty()){
+//            ret[nodes[i]->name] = fragments[i];
+//        }
+//    }
+//    return ret;
 }
 
 bool IHttpManage::checkUrlDuplicateName(const IUrlActionNode *node)

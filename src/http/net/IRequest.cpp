@@ -166,28 +166,32 @@ QJsonValue IRequest::bodyJson(bool &ok) const
     return impl->requestJson(ok);
 }
 
-std::string_view IRequest::getParameter(const QString &name, bool& ok) const
+IStringView IRequest::getParameter(const QString &name, bool& ok) const
 {
     return impl->getParameter(name, ok);
 }
 
-IResult<std::string_view> IRequest::getParameter(const QString &name) const
+IResult<IStringView> IRequest::getParameter(const QString &name) const
 {
     bool ok;
     auto value = impl->getParameter(name, ok);
     return {std::move(value), ok};
 }
 
-QByteArray IRequest::getMixedParameter(const QString &name, bool& ok) const
+IStringView IRequest::getMixedParameter(const QString &name, bool& ok) const
 {
-    return impl->getMixedParameter(name, ok);
+    // FIXME:
+    return {};
+//    return impl->getMixedParameter(name, ok);
 }
 
-IResult<QByteArray> IRequest::getMixedParameter(const QString &name) const
+IResult<IStringView> IRequest::getMixedParameter(const QString &name) const
 {
-    bool ok;
-    auto value = impl->getMixedParameter(name, ok);
-    return {std::move(value), ok};
+    // FIXME:
+    return {IStringView(), false};
+    //    bool ok;
+//    auto value = impl->getMixedParameter(name, ok);
+//    return {std::move(value), ok};
 }
 
 IStringView IRequest::getUrlParameter(const QString &name, bool& ok) const

@@ -41,8 +41,8 @@ public:
     QStringList getStaticFolderActionPath(const IRequest& request);
 
 private:
-    static QVector<IUrlActionNode*> queryFunctionNodes(IHttpRouteMapping* parentNode, const QStringList& fragments, IHttpMethod method);
-    static QMap<QString, QString> getPathVariable(void* node, const QStringList& fragments);
+    static QVector<IUrlActionNode*> queryFunctionNodes(IHttpRouteMapping* parentNode, const IStringViewList& fragments, IHttpMethod method);
+    static QMap<IStringView, IStringView> getPathVariable(void* node, const IStringViewList& fragments);
 
     // 这里实现 url 时 需要防止  /<name>/<name>/  这种重复类型的 url
     static bool checkUrlDuplicateName(const IUrlActionNode* node);

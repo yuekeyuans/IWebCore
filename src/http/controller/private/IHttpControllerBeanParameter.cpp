@@ -335,7 +335,8 @@ QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(cons
 
 QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(const QMap<IStringView, IStringView> &map, IBeanWare *bean, IRequest &request, bool &ok)
 {
-    // TODO:
+    // FIXME:
+    return {};
 }
 
 

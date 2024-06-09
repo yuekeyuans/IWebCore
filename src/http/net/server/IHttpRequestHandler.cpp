@@ -162,7 +162,7 @@ void IHttpRequestHandler::processInStaticFolderMode(IRequest &request, IResponse
 
     auto path = renderTemplate->getPage(IResponseTemplateRenderer::PageType::Directory);
     QJsonObject obj;
-    obj["url"] = request.url();
+    obj["url"] = QString(request.url());
     obj["children"] = QJsonArray::fromStringList(entries);
     obj["isRoot"] = request.url() == "/";
     IRendererResponse nodyResponse(path, obj);
