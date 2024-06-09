@@ -15,7 +15,7 @@ IResponseHeader::operator QString() noexcept
 
 const IResponseHeader& IResponseHeader::operator=(const QString &value)
 {
-    m_raw->headers.insert(m_key, value);
+    m_raw->headers.emplace(m_key, value);
     return *this;
 }
 

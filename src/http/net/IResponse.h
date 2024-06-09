@@ -62,7 +62,7 @@ public:
     IHttpVersion version() const;
     QString mime() const;
     IHttpStatusCode status() const;
-    const QMultiHash<QString, QString>& headers() const;
+    const std::unordered_multimap<QString, QString>& headers() const;
 
     const QMap<QString, QVariant>& attributes() const;
     bool hasAttribute(const QString& name) const;
