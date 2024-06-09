@@ -126,7 +126,7 @@ QString IRequest::bodyContentType() const
     return impl->contentType();
 }
 
-const QByteArray &IRequest::bodyContent() const
+std::string_view IRequest::bodyContent() const
 {
     return impl->m_raw->m_requestBody;
 }

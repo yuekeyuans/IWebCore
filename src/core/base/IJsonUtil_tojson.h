@@ -25,6 +25,8 @@ QJsonValue _objectToJson(QJsonArray value, bool &ok);
 
 QJsonValue _objectToJson(QJsonObject value, bool &ok);
 
+QJsonValue _objectToJson(std::string_view value, bool& ok);
+
 template<class T>
 QJsonValue _objectToJson(const QList<T>& sequence, bool &ok);
 

@@ -64,8 +64,8 @@ public:
     IHttpVersion m_httpVersion {IHttpVersion::UNKNOWN};
     IHttpMethod m_method {IHttpMethod::UNKNOWN};
     IHttpMime m_requestMime {IHttpMime::UNKNOWN};
-    QByteArray m_requestBody;
-//    std::string_view m_requestBody;   // TODO: 数据替换
+    std::string_view m_requestBody;
+
 
     QMultiHash<QString, QString> m_requestHeaders;
     QMap<QString, QString> m_requestUrlParameters;

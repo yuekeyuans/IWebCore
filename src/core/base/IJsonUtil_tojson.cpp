@@ -50,4 +50,11 @@ QJsonValue IJsonUtil::_objectToJson(QJsonObject value, bool &ok)
     return value;
 }
 
+
+QJsonValue IJsonUtil::_objectToJson(std::string_view value, bool &ok)
+{
+    return _objectToJson(QString::fromLocal8Bit(value.data(), value.length()), ok);
+}
+
+
 $PackageWebCoreEnd
