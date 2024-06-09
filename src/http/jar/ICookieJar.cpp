@@ -85,30 +85,15 @@ const QList<ICookiePart> &ICookieJar::responseCookies() const
     return m_raw->m_responseRaw->cookies;
 }
 
-ICookiePart &ICookieJar::getResponseCookie(const QString &key, bool& ok)
+ICookiePart ICookieJar::getResponseCookie(const QString &key) const
 {
-    auto& cookies = m_raw->m_responseRaw->cookies;
-    for(auto it=cookies.begin(); it!=cookies.end(); it++){
+    const auto& cookies = m_raw->m_responseRaw->cookies;
+    for(auto it=cookies.cbegin(); it!=cookies.cend(); it++){
         if(it->key == key){
-            IToeUtil::setOk(ok, true);
             return *it;
         }
     }
-    IToeUtil::setOk(ok, false);
-    return *cookies.end();
-}
-
-const ICookiePart &ICookieJar::getResponseCookie(const QString &key, bool& ok) const
-{
-    auto& cookies = m_raw->m_responseRaw->cookies;
-    for(auto it=cookies.begin(); it!=cookies.end(); it++){
-        if(it->key == key){
-            IToeUtil::setOk(ok, true);
-            return *it;
-        }
-    }
-    IToeUtil::setOk(ok, false);
-    return *cookies.end();
+    return {};
 }
 
 QStringList ICookieJar::responseCookieKeys() const
@@ -132,16 +117,6 @@ bool ICookieJar::containResponseCookieKey(const QString &key) const
     return false;
 }
 
-QString ICookieJar::getResponseCookieValue(const QString &key, bool& ok)
-{
-    const auto& cookie = getResponseCookie(key, ok);
-    if(ok){
-        return cookie.value;
-    }
-
-    return {};
-}
-
 void ICookieJar::deleteResponseCookie(const QString &key)
 {
     auto& cookies = m_raw->m_responseRaw->cookies;
@@ -154,29 +129,24 @@ void ICookieJar::deleteResponseCookie(const QString &key)
     }
 }
 
-void ICookieJar::addResponseCookie(const ICookiePart &cookiePart)
+void ICookieJar::addResponseCookie(ICookiePart cookiePart)
 {
-    m_raw->m_responseRaw->cookies.append(cookiePart);
+    m_raw->m_responseRaw->cookies.append(std::move(cookiePart));
 }
 
-void ICookieJar::addResponseCookie(const QString &key, const QString &value)
+void ICookieJar::addResponseCookie(QString key, QString value)
 {
-    ICookiePart part;
-    part.key = key;
-    part.value = value;
-    m_raw->m_responseRaw->cookies.append(part);
+    m_raw->m_responseRaw->cookies.append({std::move(key), std::move(value)});
 }
 
-void ICookieJar::addResponseCookie(const QString &key, const QString &value, int maxAge, bool secure, bool httpOnly)
+void ICookieJar::addResponseCookie(QString key, QString value, int maxAge, bool secure, bool httpOnly)
 {
-    ICookiePart part(key, value, maxAge, secure, httpOnly);
-    m_raw->m_responseRaw->cookies.append(part);
+    m_raw->m_responseRaw->cookies.append(ICookiePart{std::move(key), std::move(value), maxAge, secure, httpOnly});
 }
 
-void ICookieJar::addResponseCookie(const QString &key, const QString &value, const QDateTime &expires, bool secure, bool httpOnly)
+void ICookieJar::addResponseCookie(QString key, QString value, QDateTime expires, bool secure, bool httpOnly)
 {
-    ICookiePart part(key, value, expires, secure, httpOnly);
-    m_raw->m_responseRaw->cookies.append(part);
+    m_raw->m_responseRaw->cookies.append(ICookiePart{std::move(key), std::move(value), std::move(expires), secure, httpOnly});
 }
 
 bool ICookieJar::isValid() const

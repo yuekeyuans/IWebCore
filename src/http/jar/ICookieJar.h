@@ -35,30 +35,26 @@ public:
     // response
     QList<ICookiePart>& responseCookies();
     const QList<ICookiePart>& responseCookies() const;
-    ICookiePart& getResponseCookie(const QString& key, bool& ok);
-    const ICookiePart& getResponseCookie(const QString& key, bool& ok) const;
-
+    ICookiePart getResponseCookie(const QString& key) const;
     QStringList responseCookieKeys() const;
     bool containResponseCookieKey(const QString& key) const;
-    QString getResponseCookieValue(const QString& key, bool& ok);
-
     void deleteResponseCookie(const QString& key);
 
     template<typename T>        // in latter c++14, you can pass 1h, 24h type.
-    void addResponseCookie(const QString& key, const QString& value, std::chrono::duration<T> duration, bool secure=false, bool httpOnly=false);
-    void addResponseCookie(const ICookiePart& cookiePart);
-    void addResponseCookie(const QString& key, const QString& value);
-    void addResponseCookie(const QString& key, const QString& value, int maxAge, bool secure=false, bool httpOnly=false);
-    void addResponseCookie(const QString& key, const QString& value, const QDateTime& expires, bool secure=false, bool httpOnly=false);
+    void addResponseCookie(QString key, QString value, std::chrono::duration<T> duration, bool secure=false, bool httpOnly=false);
+    void addResponseCookie(ICookiePart cookiePart);
+    void addResponseCookie(QString key, QString value);
+    void addResponseCookie(QString key, QString value, int maxAge, bool secure=false, bool httpOnly=false);
+    void addResponseCookie(QString key, QString value, QDateTime expires, bool secure=false, bool httpOnly=false);
 
     virtual bool isValid() const final;
 };
 
 template<typename T>
-void ICookieJar::addResponseCookie(const QString& key, const QString& value, std::chrono::duration<T> duration, bool secure, bool httpOnly)
+void ICookieJar::addResponseCookie(QString key, QString value, std::chrono::duration<T> duration, bool secure, bool httpOnly)
 {
-    ICookiePart part(key, value, duration, secure, httpOnly);
-    addResponseCookie(part);
+    ICookiePart part(std::move(key), std::move(value), duration, secure, httpOnly);
+    addResponseCookie(std::move(part));     // TODO: test whether move works
 }
 
 $PackageWebCoreEnd
