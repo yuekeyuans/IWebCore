@@ -59,23 +59,26 @@ public:
     std::vector<asio::const_buffer> getResult();
 
 private:
-    void firstLineState(int[2]);
-    void headerState(int[2]);
+    void firstLineState(std::string_view);
+    void headerState(std::string_view);
     bool headerGapState();
     void bodyState();
     void endState();
 
 private:
-    void parseFirstLine(QString data);
+    void parseFirstLine(std::string_view);
     void resolveFirstLine();
-    void parseHeader(QString data);
+    void parseHeader(std::string_view);
     void resolveHeaders();      // 解析接收到的头
     void resolveCookieHeaders();
     void resolvePathProcessor();
     void resolveBodyContent();
     void resolveBodyMultipart();
     void resolveFormData(std::string_view data, bool isBody);
+
+private:
     QByteArray getBoundary(const QString&);
+    bool isPathValid(const QString&);
 
 public:
     IRequest* m_request{};

@@ -17,6 +17,7 @@ enum class IHttpMethod {
 namespace IHttpMethodUtil{
     QString toString(IHttpMethod);
     IHttpMethod toMethod(const QString&);
+    IHttpMethod toMethod(std::string_view);
     const QStringList& methodNames();
 }
 

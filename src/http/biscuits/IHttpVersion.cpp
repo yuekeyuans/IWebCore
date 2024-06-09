@@ -17,6 +17,11 @@ IHttpVersion IHttpVersionUtil::toVersion(const QString& version)
     return IHttpVersion::UNKNOWN;
 }
 
+IHttpVersion IHttpVersionUtil::toVersion(std::string_view version)
+{
+    return toVersion(QString::fromLocal8Bit(version.data(), version.length()));
+}
+
 const QStringList &IHttpVersionUtil::getVersionStrings()
 {
     static QStringList m_versionStrings = {
@@ -28,5 +33,6 @@ const QStringList &IHttpVersionUtil::getVersionStrings()
 
     return m_versionStrings;
 }
+
 
 $PackageWebCoreEnd

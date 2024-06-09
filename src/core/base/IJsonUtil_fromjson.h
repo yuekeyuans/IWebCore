@@ -15,9 +15,14 @@ template<typename T>
 IResult<T> fromJson(const QJsonValue&);
 
 template<>
-int fromJson<int>(const QJsonValue&, bool& ok);
+bool fromJson<bool>(const QJsonValue&, bool& ok);
 template<>
-IResult<int> fromJson<int>(const QJsonValue&);
+IResult<bool> fromJson<bool>(const QJsonValue&);
+
+template<>
+short fromJson<short>(const QJsonValue&, bool& ok);
+template<>
+IResult<short> fromJson<short>(const QJsonValue&);
 
 template<>
 ushort fromJson<ushort>(const QJsonValue&, bool& ok);
@@ -25,9 +30,14 @@ template<>
 IResult<ushort> fromJson<ushort>(const QJsonValue&);
 
 template<>
-bool fromJson<bool>(const QJsonValue&, bool& ok);
+int fromJson<int>(const QJsonValue&, bool& ok);
 template<>
-IResult<bool> fromJson<bool>(const QJsonValue&);
+IResult<int> fromJson<int>(const QJsonValue&);
+
+template<>
+uint fromJson<uint>(const QJsonValue&, bool& ok);
+template<>
+IResult<uint> fromJson<uint>(const QJsonValue&);
 
 template<>
 QString fromJson<QString>(const QJsonValue&, bool& ok);
@@ -59,14 +69,13 @@ IResult<QJsonValue> fromJson<QJsonValue>(const QJsonValue&);
 #include "core/base/IConvertUtil.h"
 
 template<>
-inline int IJsonUtil::fromJson<int>(const QJsonValue& value, bool& ok){
-    return IConvertUtil::toInt(value, ok);
+inline bool IJsonUtil::fromJson<bool>(const QJsonValue& value, bool& ok){
+    return IConvertUtil::toBool(value, ok);
 }
-
 template<>
-inline IResult<int> IJsonUtil::fromJson<int>(const QJsonValue& value){
+inline IResult<bool> IJsonUtil::fromJson<bool>(const QJsonValue& value){
     bool ok;
-    auto val = IConvertUtil::toInt(value, ok);
+    auto val = IConvertUtil::toBool(value, ok);
     return {val, ok};
 }
 
@@ -83,13 +92,38 @@ inline IResult<ushort> IJsonUtil::fromJson<ushort>(const QJsonValue& value){
 }
 
 template<>
-inline bool IJsonUtil::fromJson<bool>(const QJsonValue& value, bool& ok){
-    return IConvertUtil::toBool(value, ok);
+inline short IJsonUtil::fromJson<short>(const QJsonValue& value, bool& ok){
+    return IConvertUtil::toShort(value, ok);
 }
+
 template<>
-inline IResult<bool> IJsonUtil::fromJson<bool>(const QJsonValue& value){
+inline IResult<short> IJsonUtil::fromJson<short>(const QJsonValue& value){
     bool ok;
-    auto val = IConvertUtil::toBool(value, ok);
+    auto val = IConvertUtil::toShort(value, ok);
+    return {val, ok};
+}
+
+template<>
+inline int IJsonUtil::fromJson<int>(const QJsonValue& value, bool& ok){
+    return IConvertUtil::toInt(value, ok);
+}
+
+template<>
+inline IResult<int> IJsonUtil::fromJson<int>(const QJsonValue& value){
+    bool ok;
+    auto val = IConvertUtil::toInt(value, ok);
+    return {val, ok};
+}
+
+template<>
+inline uint IJsonUtil::fromJson<uint>(const QJsonValue& value, bool& ok){
+    return IConvertUtil::toInt(value, ok);
+}
+
+template<>
+inline IResult<uint> IJsonUtil::fromJson<uint>(const QJsonValue& value){
+    bool ok;
+    auto val = IConvertUtil::toUInt(value, ok);
     return {val, ok};
 }
 

@@ -19,14 +19,12 @@
 #include "http/net/impl/IResponseRaw.h"
 #include "http/net/impl/IResponseImpl.h"
 #include "http/net/server/IHttpRequestHandler.h"
-#include <iostream>
 
 $PackageWebCoreBegin
 
 $UseAssert(IRequestAssert)
 
 namespace IRequestImplHelper{
-    bool isPathValid(const QString& path);
     void checkDumplicatedParameters(const QList<QPair<QString, IRequestImpl::FunType>>& maps, const IRequestImpl* ptr, const QString& name);
     QString getOriginName(const QString& name, const QString& suffix);
 }
@@ -287,13 +285,13 @@ void IRequestImpl::parseData()
             if(!m_data.getLine(line)){
                 return m_connection->doRead();
             }
-            firstLineState(line);
+            firstLineState(std::string_view(m_data.m_data + line[0], line[1]));
             break;
         case State::HeaderState:
             if(!m_data.getLine(line)){
                 return m_connection->doRead();
             }
-            headerState(line);
+            headerState(std::string_view(m_data.m_data + line[0], line[1]));
             break;
         case State::HeaderGapState:
             if(!headerGapState()){
@@ -319,10 +317,10 @@ std::vector<asio::const_buffer> IRequestImpl::getResult()
     return m_responseImpl->getContent();
 }
 
-void IRequestImpl::firstLineState(int line[2])
+void IRequestImpl::firstLineState(std::string_view data)
 {
-    m_data.m_parsedSize += line[1];
-    parseFirstLine(QString::fromLocal8Bit(m_data.m_data + line[0], line[1]-2));
+    m_data.m_parsedSize += data.length();
+    parseFirstLine(data.substr(0, data.length()-2));
     if(!m_raw->valid()){
         return;
     }
@@ -333,11 +331,11 @@ void IRequestImpl::firstLineState(int line[2])
     m_readState = State::HeaderState;
 }
 
-void IRequestImpl::headerState(int line[2])
+void IRequestImpl::headerState(std::string_view data)
 {
-    m_data.m_parsedSize += line[1];
-    if(line[1] != 2){
-        parseHeader(QString::fromLocal8Bit(m_data.m_data + line[0], line[1] -2));
+    m_data.m_parsedSize += data.length();
+    if(data.length() != 2){
+        parseHeader(data.substr(0, data.length()-2));
         return;
     }
 
@@ -402,29 +400,42 @@ void IRequestImpl::endState()
     });
 }
 
-void IRequestImpl::parseFirstLine(QString line)
+void IRequestImpl::parseFirstLine(std::string_view line)
 {
-    static $Int urlMaxLength("http.urlMaxLength");
+    static $UInt urlMaxLength("http.urlMaxLength");
     if(line.length() >= urlMaxLength){
          return m_raw->setInvalid(IHttpBadRequestInvalid("request url is too long"));
     }
 
-    QStringList content = line.split(' '); // NOTE: here should be optimized
-    if(content.length() != 3){
-        return m_raw->setInvalid(IHttpBadRequestInvalid("first line of request is not supported"));
+    int pos{};
+    // method
+    auto index = line.find_first_of(' ', pos);
+    if(index == std::string::npos){
+        return m_raw->setInvalid(IHttpBadRequestInvalid("can not resolve current method type"));
     }
-
-    m_raw->m_method = IHttpMethodUtil::toMethod(content[0]);
+    auto method = line.substr(pos, index);
+    m_raw->m_method = IHttpMethodUtil::toMethod(method);
     if(m_raw->m_method == IHttpMethod::UNKNOWN){
         return m_raw->setInvalid(IHttpBadRequestInvalid("can not resolve current method type"));
     }
+    pos = index + 1;
 
-    m_raw->m_realUrl = QString(QByteArray::fromPercentEncoding(content[1].toUtf8()));
-    if(!IRequestImplHelper::isPathValid(m_raw->m_realUrl)){
-        return m_raw->setInvalid(IHttpBadRequestInvalid("request url is not correct. url:" + m_raw->m_realUrl));
+    // path
+    index = line.find_first_of(' ', pos);
+    if(index == std::string::npos){
+        return m_raw->setInvalid(IHttpBadRequestInvalid("request path is not correct"));
     }
+    m_raw->m_rawUrl = line.substr(pos, index-pos);
+    pos = index +1;
 
-    m_raw->m_httpVersion = IHttpVersionUtil::toVersion(content[2]);
+    // 这个放到内容里面解析
+//    m_raw->m_decodedUrl = QByteArray::fromPercentEncoding(QByteArray(m_raw->m_rawUrl.data(), m_raw->m_rawUrl.length()));
+//    if(!isPathValid(m_raw->m_decodedUrl)){
+//        return m_raw->setInvalid(IHttpBadRequestInvalid("request url is not correct. url:" + QString::fromStdString(std::string(m_raw->m_rawUrl))));
+//    }
+
+    // version
+    m_raw->m_httpVersion = IHttpVersionUtil::toVersion(line.substr(pos));
     if(m_raw->m_httpVersion == IHttpVersion::UNKNOWN){
         return m_raw->setInvalid(IHttpBadRequestInvalid("current version is not supported"));
     }
@@ -432,21 +443,26 @@ void IRequestImpl::parseFirstLine(QString line)
 
 void IRequestImpl::resolveFirstLine()
 {
-    QStringList spices = m_raw->m_realUrl.split('?');
-    m_raw->m_url = spices.first();
-    if(spices.length() == 2){
-        if(!resolveFormData(spices[1], false)){
-            return;
-        }
+    auto index = m_raw->m_rawUrl.find_first_of('?');
+    if(index == std::string::npos){
+        m_raw->m_rawPath = m_raw->m_rawUrl;
+        m_raw->m_url = QByteArray::fromPercentEncoding(QByteArray(m_raw->m_rawUrl.data(), m_raw->m_rawUrl.length()));
+        return;
     }
+
+    m_raw->m_rawPath = m_raw->m_rawUrl.substr(0, index);
+    m_raw->m_url = QByteArray::fromPercentEncoding(QByteArray(m_raw->m_rawUrl.data(), m_raw->m_rawUrl.length()));
+
+    m_raw->m_rawPathArgs = m_raw->m_rawUrl.substr(index+1);
+    resolveFormData(m_raw->m_rawPathArgs, false);
 }
 
-void IRequestImpl::parseHeader(QString line)
+void IRequestImpl::parseHeader(std::string_view line)
 {
-    static $Int headerMaxLength("http.headerMaxLength");
-    auto index = line.indexOf(':');
-    if(index == -1){
-        return m_raw->setInvalid(IHttpBadRequestInvalid("server do not support headers item multiline"));  // SEE: 默认不支持 headers 换行书写
+    static $UInt headerMaxLength("http.headerMaxLength");
+    auto index = line.find_first_of(':');
+    if(index == std::string::npos){
+        return m_raw->setInvalid(IHttpBadRequestInvalid("server do not support headers item multiline, or without key/value pair"));  // SEE: 默认不支持 headers 换行书写
     }
 
     if(line.length() > headerMaxLength){
@@ -454,12 +470,17 @@ void IRequestImpl::parseHeader(QString line)
         m_raw->setInvalid(IHttpBadRequestInvalid("header too long"));
     }
 
-    auto key = line.left(index);
-    auto value = line.mid(index + 1).trimmed();
-    QStringList values = value.split(";");
-    std::reverse(values.begin(), values.end());
-    for(auto it=values.begin(); it!= values.end(); it++){
-        m_raw->m_requestHeaders.insertMulti(key, (*it).trimmed());
+    auto key = line.substr(0, index);
+    auto value = line.substr(index+1);
+    int pos=value.length();
+    for(;;){
+        auto index = value.find_last_of(';', pos);
+        std::string_view value_part = value.substr(index+1, value.length()-index);
+        m_raw->m_requestHeaders.insertMulti(QString::fromStdString(std::string(key)), QString::fromStdString(std::string(value_part)));
+        if(index == std::string::npos){
+            break;
+        }
+        pos = index;
     }
 }
 
@@ -626,7 +647,8 @@ QByteArray IRequestImpl::getBoundary(const QString &mime)
 }
 
 // TODO: 这里不对， 有路径没有被判断通过，
-bool IRequestImplHelper::isPathValid(const QString& path){
+bool IRequestImpl::isPathValid(const QString& path)
+{
     static QRegularExpression exp(R"(([\/\w \.-]*)*\/?$)");
     if(!exp.isValid()){
         qDebug() << "invalid" << exp.errorString();

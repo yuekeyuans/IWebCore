@@ -56,8 +56,10 @@ public:
     QMap<QString, QVariant> m_attribute;                // 用户或系统可以自己放置内容的地方。
 
     // request
-    std::string_view m_realUrl;
-//    QString m_realUrl;                                  // TODO: 考虑优化掉
+    std::string_view m_rawUrl;
+    std::string_view m_rawPath;
+    std::string_view m_rawPathArgs;
+
     QString m_url;
     IHttpVersion m_httpVersion {IHttpVersion::UNKNOWN};
     IHttpMethod m_method {IHttpMethod::UNKNOWN};
