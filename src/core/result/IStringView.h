@@ -18,6 +18,8 @@ public:
     IStringView(const QByteArray& data);
     IStringView(std::string_view data);
 
+    // TODO: 考虑 operator QString() 这种自动类型转换？
+
 public:
     static uint qHash(const IWebCore::IStringView *obj, uint seed = 0);
 

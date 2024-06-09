@@ -9,57 +9,63 @@ namespace ICookiePartHelper
     QString sameSiteTypeToString(ICookiePart::SameSiteType type);
 }
 
-ICookiePart::ICookiePart(const QString &key, const QString &value)
+ICookiePart::ICookiePart(IStringView key, IStringView value)
+    : ICookiePart(key.toQString(), value.toQString())
 {
-    this->key = key;
-    this->value = value;
 }
 
-ICookiePart::ICookiePart(const QString &key, const QString &value, int maxAge, bool secure, bool httpOnly)
+ICookiePart::ICookiePart(QString key, QString value)
+    : key(std::move(key)), value(std::move(value))
 {
-    this->key = key;
-    this->value = value;
-    this->maxAge = maxAge;
-    this->secure = secure;
-    this->httpOnly = httpOnly;
 }
 
-ICookiePart::ICookiePart(const QString &key, const QString &value, const QDateTime &expires, bool secure, bool httpOnly)
+ICookiePart::ICookiePart(QString key, QString value, int maxAge, bool secure, bool httpOnly)
+    : key(std::move(key)), value(std::move(value)), maxAge(maxAge), secure(secure), httpOnly(httpOnly)
 {
-    this->key = key;
-    this->value = value;
-    this->expires = expires;
-    this->secure = secure;
-    this->httpOnly = httpOnly;
 }
 
-ICookiePart &ICookiePart::setKey(const QString &key)
+ICookiePart::ICookiePart(QString key, QString value, QDateTime expires, bool secure, bool httpOnly)
+    : key(std::move(key)), value(std::move(value)), expires(std::move(expires)), secure(secure), httpOnly(httpOnly)
 {
-    this->key = key;
+}
+
+ICookiePart::ICookiePart(IStringView key, IStringView value, int maxAge, bool secure, bool httpOnly)
+    : ICookiePart(key.toQString(), value.toQString(), maxAge, secure, httpOnly)
+{
+}
+
+ICookiePart::ICookiePart(IStringView key, IStringView value, QDateTime expires, bool secure, bool httpOnly)
+    : ICookiePart(key.toQString(), value.toQString(), std::move(expires), secure, httpOnly)
+{
+}
+
+ICookiePart &ICookiePart::setKey(QString key)
+{
+    this->key = std::move(key);
     return *this;
 }
 
-ICookiePart &ICookiePart::setValue(const QString &value)
+ICookiePart &ICookiePart::setValue(QString value)
 {
-    this->value = value;
+    this->value = std::move(value);
     return *this;
 }
 
-ICookiePart &ICookiePart::setDomain(const QString &domain)
+ICookiePart &ICookiePart::setDomain(QString domain)
 {
-    this->domain = domain;
+    this->domain = std::move(domain);
     return *this;
 }
 
-ICookiePart &ICookiePart::setPath(const QString &path)
+ICookiePart &ICookiePart::setPath(QString path)
 {
-    this->path = path;
+    this->path = std::move(path);
     return *this;
 }
 
-ICookiePart &ICookiePart::setExpires(const QDateTime &dateTime)
+ICookiePart &ICookiePart::setExpires(QDateTime dateTime)
 {
-    this->expires = dateTime;
+    this->expires = std::move(dateTime);
     return *this;
 }
 

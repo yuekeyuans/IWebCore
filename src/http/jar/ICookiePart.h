@@ -16,21 +16,25 @@ public:
 
 public:
     ICookiePart() = default;
-    ICookiePart(const QString& key, const QString& value);
+    ICookiePart(IStringView key, IStringView value);
+    ICookiePart(QString key, QString value);
 
     template<typename T>
-    explicit ICookiePart(const QString& key, const QString& value, std::chrono::duration<T> duration, bool secure=false, bool httpOnly=false);
+    explicit ICookiePart(QString key, QString value, std::chrono::duration<T> duration, bool secure=false, bool httpOnly=false);
+    explicit ICookiePart(QString key, QString value, int maxAge, bool secure=false, bool httpOnly=false);
+    explicit ICookiePart(QString key, QString value, QDateTime expires, bool secure=false, bool httpOnly=false);
 
-    explicit ICookiePart(const QString& key, const QString& value, int maxAge, bool secure=false, bool httpOnly=false);
-
-    explicit ICookiePart(const QString& key, const QString& value, const QDateTime& expires, bool secure=false, bool httpOnly=false);
+    template<typename T>
+    explicit ICookiePart(IStringView key, IStringView value, std::chrono::duration<T> duration, bool secure=false, bool httpOnly=false);
+    explicit ICookiePart(IStringView key, IStringView value, int maxAge, bool secure=false, bool httpOnly=false);
+    explicit ICookiePart(IStringView key, IStringView value, QDateTime expires, bool secure=false, bool httpOnly=false);
 
 public:
-    ICookiePart& setKey(const QString& key);
-    ICookiePart& setValue(const QString& value);
-    ICookiePart& setDomain(const QString& domain);
-    ICookiePart& setPath(const QString& path);
-    ICookiePart& setExpires(const QDateTime& dateTime);
+    ICookiePart& setKey(QString key);
+    ICookiePart& setValue(QString value);
+    ICookiePart& setDomain(QString domain);
+    ICookiePart& setPath(QString path);
+    ICookiePart& setExpires(QDateTime dateTime);
     ICookiePart& setMaxAge(int maxAge);
     ICookiePart& setSecure(bool secure);
     ICookiePart& setHttpOnly(bool httpOnly);
@@ -55,8 +59,14 @@ public:
 };
 
 template<typename T>
-ICookiePart::ICookiePart(const QString &key, const QString &value, std::chrono::duration<T> duration, bool secure, bool httpOnly)
-    : ICookiePart(key, value,std::chrono::duration_cast<std::chrono::seconds>(duration).count(), secure, httpOnly)
+ICookiePart::ICookiePart(QString key, QString value, std::chrono::duration<T> duration, bool secure, bool httpOnly)
+    : ICookiePart(std::move(key), std::move(value), std::chrono::duration_cast<std::chrono::seconds>(duration).count(), secure, httpOnly)
+{
+}
+
+template<typename T>
+ICookiePart::ICookiePart(IStringView key, IStringView value, std::chrono::duration<T> duration, bool secure, bool httpOnly)
+    : ICookiePart(key.toQString(), value.toQString(), std::chrono::duration_cast<std::chrono::seconds>(duration).count(), secure, httpOnly)
 {
 }
 

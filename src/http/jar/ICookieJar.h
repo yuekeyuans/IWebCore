@@ -19,14 +19,17 @@ public:
 
     // request
     const QMultiHash<IStringView, IStringView>& requestCookies() const;
-    ICookiePart getRequestCookie(const QString& key, bool& ok) const;
+    ICookiePart getRequestCookie(IStringView key) const;
+    ICookiePart getRequestCookie(const QString& key) const;
+    QList<ICookiePart> getRequestCookies(IStringView key) const;
     QList<ICookiePart> getRequestCookies(const QString& key) const;
 
     IStringViewList requestCookieKeys() const;
-//    bool containRequestCookieKey(const QString& key) const;
-//    QString getRequestCookieValue(const QString& key, bool& ok) const;
-//    QStringList getRequestCookieValues(const QString& key) const;
 
+    bool containRequestCookieKey(IStringView key) const;
+    bool containRequestCookieKey(const QString& key) const;
+
+    void deleteRequestCookies(IStringView key);
     void deleteRequestCookies(const QString& key);
 
     // response
