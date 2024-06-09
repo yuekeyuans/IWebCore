@@ -541,7 +541,13 @@ QVariant IConvertUtil::toVariant(const QByteArray &value, QMetaType::Type destTy
     return toVariant(QString(value), destType, ok);
 }
 
-QVariant IConvertUtil::toVariant(const QString &value, QMetaType::Type destType, bool& ok)
+QVariant IConvertUtil::toVariant(IStringView value, QMetaType::Type destType, bool& ok)
+{
+    // FIXME:
+    return {};
+}
+
+QVariant IConvertUtil::toVariant(const QString &value, QMetaType::Type destType, bool &ok)
 {
     IToeUtil::setOk(ok, true);
     switch (destType) {
@@ -594,6 +600,7 @@ QVariant IConvertUtil::toVariant(const QString &value, QMetaType::Type destType,
     IToeUtil::setOk(ok, false);
     return {};
 }
+
 
 QVariant IConvertUtilHelper::toLong(long val)
 {

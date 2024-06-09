@@ -106,7 +106,7 @@ IHttpMime IRequest::mime() const
     return impl->m_raw->m_requestMime;
 }
 
-const QString &IRequest::url() const
+const QByteArray &IRequest::url() const
 {
     return impl->m_raw->m_url;
 }
@@ -126,32 +126,32 @@ QString IRequest::bodyContentType() const
     return impl->contentType();
 }
 
-std::string_view IRequest::bodyContent() const
+IStringView IRequest::bodyContent() const
 {
     return impl->m_raw->m_requestBody;
 }
 
-QMultiHash<QString, QString> &IRequest::headers()
+QMultiHash<IStringView, IStringView> &IRequest::headers()
 {
     return impl->m_raw->m_requestHeaders;
 }
 
-const QMultiHash<QString, QString> &IRequest::headers() const
+const QMultiHash<IStringView, IStringView> &IRequest::headers() const
 {
     return impl->m_raw->m_requestHeaders;
 }
 
-const QMap<QString, QString> &IRequest::urlParameters() const
+const QMap<IStringView, IStringView> &IRequest::urlParameters() const
 {
     return impl->m_raw->m_requestUrlParameters;
 }
 
-const QMap<QString, QString> &IRequest::paramParameters() const
+const QMap<IStringView, IStringView> &IRequest::paramParameters() const
 {
     return impl->m_raw->m_requestPathParameters;
 }
 
-const QMap<QString, QString> &IRequest::bodyFormParameters() const
+const QMap<IStringView, IStringView> &IRequest::bodyFormParameters() const
 {
     return impl->m_raw->m_requestBodyParameters;
 }
@@ -190,60 +190,60 @@ IResult<QByteArray> IRequest::getMixedParameter(const QString &name) const
     return {std::move(value), ok};
 }
 
-QByteArray IRequest::getUrlParameter(const QString &name, bool& ok) const
+IStringView IRequest::getUrlParameter(const QString &name, bool& ok) const
 {
     return impl->getUrlParameter(name, ok);
 }
 
-IResult<QByteArray> IRequest::getUrlParameter(const QString &name) const
+IResult<IStringView> IRequest::getUrlParameter(const QString &name) const
 {
     bool ok;
     auto value = impl->getUrlParameter(name, ok);
     return {std::move(value), ok};
 }
 
-QByteArray IRequest::getParamParameter(const QString &name, bool& ok) const
+IStringView IRequest::getParamParameter(const QString &name, bool& ok) const
 {
     return impl->getParamParameter(name, ok);
 }
 
-IResult<QByteArray> IRequest::getParamParameter(const QString &name) const
+IResult<IStringView> IRequest::getParamParameter(const QString &name) const
 {
     bool ok;
     auto value = impl->getParamParameter(name, ok);
     return {std::move(value), ok};
 }
 
-QByteArray IRequest::getHeaderParameter(const QString &name, bool& ok) const
+IStringView IRequest::getHeaderParameter(const QString &name, bool& ok) const
 {
     return impl->getHeaderParameter(name, ok);
 }
 
-IResult<QByteArray> IRequest::getHeaderParameter(const QString &name) const
+IResult<IStringView> IRequest::getHeaderParameter(const QString &name) const
 {
     bool ok;
     auto value = impl->getHeaderParameter(name, ok);
     return {std::move(value), ok};
 }
 
-QByteArray IRequest::getBodyParameter(const QString &name, bool& ok) const
+IStringView IRequest::getBodyParameter(const QString &name, bool& ok) const
 {
     return impl->getBodyParameter(name, ok);
 }
 
-IResult<QByteArray> IRequest::getBodyParameter(const QString &name) const
+IResult<IStringView> IRequest::getBodyParameter(const QString &name) const
 {
     bool ok;
     auto value = impl->getBodyParameter(name, ok);
     return {std::move(value), ok};
 }
 
-QByteArray IRequest::getCookieParameter(const QString &name, bool& ok) const
+IStringView IRequest::getCookieParameter(const QString &name, bool& ok) const
 {
     return impl->getCookieParameter(name, ok);
 }
 
-IResult<QByteArray> IRequest::getCookieParameter(const QString &name) const
+IResult<IStringView> IRequest::getCookieParameter(const QString &name) const
 {
     bool ok;
     auto value = impl->getCookieParameter(name, ok);

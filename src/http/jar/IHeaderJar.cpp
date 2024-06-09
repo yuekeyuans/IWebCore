@@ -14,36 +14,52 @@ IHeaderJar::IHeaderJar() : IJarUnit(nullptr)
     qFatal(IConstantUtil::UnVisibleMethod);
 }
 
-const QMultiHash<QString, QString>& IHeaderJar::requestHeaders() const
+const QMultiHash<IStringView, IStringView>& IHeaderJar::requestHeaders() const
 {
     return m_raw->m_requestHeaders;
 }
 
-QMultiHash<QString, QString> &IHeaderJar::requestHeaders()
+QMultiHash<IStringView, IStringView> &IHeaderJar::requestHeaders()
 {
     return m_raw->m_requestHeaders;
 }
 
-QStringList IHeaderJar::requestHeaderKeys() const
+QList<IStringView> IHeaderJar::requestHeaderKeys() const
 {
     return m_raw->m_requestHeaders.keys();
 }
 
-bool IHeaderJar::containRequestHeaderKey(const QString &key) const
+bool IHeaderJar::containRequestHeaderKey(IStringView key) const
 {
     return m_raw->m_requestHeaders.contains(key);
+}
+
+bool IHeaderJar::containRequestHeaderKey(std::string key) const
+{
+    return m_raw->m_requestHeaders.contains(IStringView(key));
+}
+
+bool IHeaderJar::containRequestHeaderKey(const QString &key) const
+{
+    return containRequestHeaderKey(key.toStdString());
 }
 
 // TODO: check it
 QString IHeaderJar::getRequestHeaderValue(const QString &key, bool& ok) const
 {
-    return m_raw->m_requestHeaders.value(key);
+    auto val = key.toStdString();
+    return getRequestHeaderValue(IStringView(val), ok).toQString();
 }
 
-QStringList IHeaderJar::getRequestHeaderValues(const QString &key) const
+IStringView IHeaderJar::getRequestHeaderValue(IStringView view, bool &ok) const
 {
-    return m_raw->m_requestHeaders.values(key);
+    return m_raw->m_requestHeaders.value(view);
 }
+
+//QStringList IHeaderJar::getRequestHeaderValues(const QString &key) const
+//{
+//    return m_raw->m_requestHeaders.values(key);
+//}
 
 const QMultiHash<QString, QString> &IHeaderJar::responseHeaders() const
 {

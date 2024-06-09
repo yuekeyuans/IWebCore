@@ -98,7 +98,6 @@ void *IHttpControllerBeanParameter::assambleBeanWareWithBody(IBeanWare *bean, IR
 void *IHttpControllerBeanParameter::assambleBeanWareWithParameter(IBeanWare *bean, IRequest &request)
 {
     const auto& parameters = request.paramParameters();
-
     if(checkKeyInQByteArrayMap(parameters, bean, request)){
         bool convertOk;
         auto map = resolveBeanFieldAsMap(parameters, bean, request, convertOk);
@@ -334,6 +333,12 @@ QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(cons
     return map;
 }
 
+QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(const QMap<IStringView, IStringView> &map, IBeanWare *bean, IRequest &request, bool &ok)
+{
+    // TODO:
+}
+
+
 QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(const QVector<IMultiPart> &parts,
                                                                             IBeanWare *bean, IRequest &request, bool &ok)
 {
@@ -369,7 +374,13 @@ QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(cons
 
 }
 
-QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(const QMultiHash<QString, QString> &parts,
+QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(const QMultiHash<QString, QString> &parts, IBeanWare *bean, IRequest &request, bool &ok)
+{
+    // TODO: NOT FINISHED
+    return {};
+}
+
+QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(const QMultiHash<IStringView, IStringView> &parts,
                                                                             IBeanWare* bean, IRequest& request, bool& ok)
 {
     // TODO: NOT FINISHED
@@ -447,18 +458,38 @@ bool IHttpControllerBeanParameter::checkKeyInQByteArrayMap(const QMap<QString, Q
     return checkKeyInQStringMap(newMap, bean, request);
 }
 
-// TODO: check first argument
-bool IHttpControllerBeanParameter::checkKeyInListPair(const QMultiHash<QString, QString>&list, IBeanWare *bean, IRequest &request)
+bool IHttpControllerBeanParameter::checkKeyInQByteArrayMap(const QMap<IStringView, IStringView> &map, IBeanWare *bean, IRequest &request)
 {
     if(IConstantUtil::ReleaseMode){
         return true;
     }
 
-    QMap<QString, QString> newMap;
-    for(const auto& pair : list.keys()){
-        newMap[pair] = "";
+    // TODO:
+    return true;
+//    QMap<QString, QString> newMap;
+//    auto keys = map.keys();
+//    for(auto key : keys){
+//        newMap[key] = "";
+//    }
+//    return checkKeyInQStringMap(newMap, bean, request);
+}
+
+// TODO: check first argument
+bool IHttpControllerBeanParameter::checkKeyInListPair(const QMultiHash<IStringView, IStringView>&list, IBeanWare *bean, IRequest &request)
+{
+    if(IConstantUtil::ReleaseMode){
+        return true;
     }
-    return checkKeyInQStringMap(newMap, bean, request);
+
+    return false;
+
+    // FIXME:
+
+//    QMap<QString, QString> newMap;
+//    for(const auto& pair : list.keys()){
+//        newMap[pair] = "";
+//    }
+//    return checkKeyInQStringMap(newMap, bean, request);
 }
 
 bool IHttpControllerBeanParameter::checkKeyInQStringMap(const QMap<QString, QString> &map, IBeanWare *bean, IRequest &request)

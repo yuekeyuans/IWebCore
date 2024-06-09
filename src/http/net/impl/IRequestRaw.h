@@ -56,23 +56,22 @@ public:
     QMap<QString, QVariant> m_attribute;                // 用户或系统可以自己放置内容的地方。
 
     // request
-    std::string_view m_rawUrl;
-    std::string_view m_rawPath;
-    std::string_view m_rawPathArgs;
+    IStringView m_rawUrl;
+    IStringView m_rawPath;
+    IStringView m_rawPathArgs;
+    QByteArray m_url;
 
-    QString m_url;
     IHttpVersion m_httpVersion {IHttpVersion::UNKNOWN};
     IHttpMethod m_method {IHttpMethod::UNKNOWN};
     IHttpMime m_requestMime {IHttpMime::UNKNOWN};
-    std::string_view m_requestBody;
+    IStringView m_requestBody;
 
-
-    QMultiHash<QString, QString> m_requestHeaders;
-    QMap<QString, QString> m_requestUrlParameters;
-    QMap<QString, QString> m_requestPathParameters;     // 特指 url 参数后面的内容
-    QMap<QString, QString> m_requestBodyParameters;  // 特指 url encoded
+    QMultiHash<IStringView, IStringView> m_requestHeaders;
+    QMap<IStringView, IStringView> m_requestUrlParameters;
+    QMap<IStringView, IStringView> m_requestPathParameters;     // 特指 url 参数后面的内容
+    QMap<IStringView, IStringView> m_requestBodyParameters;  // 特指 url encoded
     QVector<IMultiPart> m_requestMultiParts;
-    QMultiHash<QString, QString> m_requestCookieParameters;
+    QMultiHash<IStringView, IStringView> m_requestCookieParameters;
 
     IHeaderJar* m_headerJar{nullptr};
     ICookieJar* m_cookieJar{nullptr};                                       // TODO: 这两个是否需要指针?

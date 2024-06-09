@@ -119,7 +119,7 @@ bool IHttpManage::isUrlActionNodeEnabled() const
 
 IUrlActionNode *IHttpManage::getUrlActionNode(IRequest &request)
 {
-    const QString &url = request.url();
+    IStringView url = request.url();
     IHttpMethod method = request.method();
 
     auto nodePtr = &instance()->m_urlMapppings;
@@ -128,8 +128,8 @@ IUrlActionNode *IHttpManage::getUrlActionNode(IRequest &request)
         return nodePtr->getLeaf(method);
     }
 
-    auto fragments = url.split("/");
-    if(fragments.first().isEmpty()){
+    QList<IStringView> fragments = url.split('/');
+    if(fragments.first().empty()){
         fragments.pop_front();
     }
 

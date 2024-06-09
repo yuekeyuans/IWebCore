@@ -13,7 +13,6 @@
 #include "http/invalid/IHttpInvalidUnit.h"
 #include "http/net/server/ITcpResolverInterface.h"
 
-
 $PackageWebCoreBegin
 
 class IResponse;
@@ -48,42 +47,41 @@ public:
 
     IHttpVersion version() const;
     IHttpMime mime() const;
-    const QString& url() const;
+    const QByteArray& url() const;
     IHttpMethod method() const;
 
     int bodyContentLength() const;
     QString bodyContentType() const;
     std::string_view bodyContent() const;
 
-    QMultiHash<QString, QString>& headers();
-    const QMultiHash<QString, QString>& headers() const;
-    const QMap<QString, QString>& urlParameters() const;
-    const QMap<QString, QString>& paramParameters() const;
-    const QMap<QString, QString>& bodyFormParameters() const;
+    QMultiHash<IStringView, IStringView>& headers();
+    const QMultiHash<IStringView, IStringView>& headers() const;
+    const QMap<IStringView, IStringView>& urlParameters() const;
+    const QMap<IStringView, IStringView>& paramParameters() const;
+    const QMap<IStringView, IStringView>& bodyFormParameters() const;
     const QVector<IMultiPart>& bodyMultiParts() const;
     QJsonValue bodyJson(bool& ok) const;
 
-    std::string_view getParameter(const QString& name, bool& ok) const;
-    IResult<std::string_view> getParameter(const QString& name) const;      // 考虑删掉
+    IStringView getParameter(const QString& name, bool& ok) const;
+    IResult<IStringView> getParameter(const QString& name) const;      // 考虑删掉
 
-    QByteArray getMixedParameter(const QString& name, bool& ok) const;
-    IResult<QByteArray> getMixedParameter(const QString& name) const;
+    IStringView getMixedParameter(const QString& name, bool& ok) const;
+    IResult<IStringView> getMixedParameter(const QString& name) const;
 
-    QByteArray getUrlParameter(const QString& name, bool& ok) const;
-    IResult<QByteArray> getUrlParameter(const QString& name) const;
+    IStringView getUrlParameter(const QString& name, bool& ok) const;
+    IResult<IStringView> getUrlParameter(const QString& name) const;
 
-    QByteArray getParamParameter(const QString& name, bool& ok) const ;
-    IResult<QByteArray> getParamParameter(const QString& name) const ;
+    IStringView getParamParameter(const QString& name, bool& ok) const ;
+    IResult<IStringView> getParamParameter(const QString& name) const ;
 
-    QByteArray getHeaderParameter(const QString& name, bool& ok) const;
-    IResult<QByteArray> getHeaderParameter(const QString& name) const;
+    IStringView getHeaderParameter(const QString& name, bool& ok) const;
+    IResult<IStringView> getHeaderParameter(const QString& name) const;
 
-    QByteArray getBodyParameter(const QString& name, bool& ok) const;
-    IResult<QByteArray> getBodyParameter(const QString& name) const;
+    IStringView getBodyParameter(const QString& name, bool& ok) const;
+    IResult<IStringView> getBodyParameter(const QString& name) const;
 
-
-    QByteArray getCookieParameter(const QString& name, bool& ok) const;
-    IResult<QByteArray> getCookieParameter(const QString& name) const;
+    IStringView getCookieParameter(const QString& name, bool& ok) const;
+    IResult<IStringView> getCookieParameter(const QString& name) const;
 
     QByteArray getSessionParameter(const QString& name, bool& ok) const;
     IResult<QByteArray> getSessionParameter(const QString& name) const;

@@ -85,7 +85,7 @@ namespace  IConvertUtil
     QVariant toVariant(const QJsonObject& object, bool& ok);
     QVariant toVariant(const QByteArray& value, QMetaType::Type destType, bool& ok);
     QVariant toVariant(const QString& value, QMetaType::Type destType, bool& ok);
-
+    QVariant toVariant(IStringView value, QMetaType::Type destType, bool& ok);
     // date datetime, time
     QDate toDate(const QString& val, bool& ok);
     QTime toTime(const QString& val, bool& ok);
