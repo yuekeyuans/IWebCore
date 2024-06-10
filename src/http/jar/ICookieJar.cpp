@@ -28,7 +28,8 @@ ICookiePart ICookieJar::getRequestCookie(IStringView key) const
 
 ICookiePart ICookieJar::getRequestCookie(const QString &key) const
 {
-    return getRequestCookie(key.toStdString());
+    auto temp = key.toUtf8();
+    return getRequestCookie(IStringView(temp));
 }
 
 QList<ICookiePart> ICookieJar::getRequestCookies(IStringView key) const
@@ -43,7 +44,8 @@ QList<ICookiePart> ICookieJar::getRequestCookies(IStringView key) const
 
 QList<ICookiePart> ICookieJar::getRequestCookies(const QString &key) const
 {
-    return getRequestCookies(key.toStdString());
+    auto temp = key.toUtf8();
+    return getRequestCookies(IStringView(temp));
 }
 
 IStringViewList ICookieJar::requestCookieKeys() const
@@ -58,7 +60,8 @@ bool ICookieJar::containRequestCookieKey(IStringView key) const
 
 bool ICookieJar::containRequestCookieKey(const QString &key) const
 {
-    return containRequestCookieKey(key.toStdString());
+    auto temp = key.toUtf8();
+    return containRequestCookieKey(IStringView(temp));
 }
 
 void ICookieJar::deleteRequestCookies(IStringView key)
@@ -72,7 +75,8 @@ void ICookieJar::deleteRequestCookies(IStringView key)
 
 void ICookieJar::deleteRequestCookies(const QString &key)
 {
-    return deleteRequestCookies(key.toStdString());
+    auto temp = key.toUtf8();
+    return deleteRequestCookies(IStringView(temp));
 }
 
 std::list<ICookiePart> &ICookieJar::responseCookies()

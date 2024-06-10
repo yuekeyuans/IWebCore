@@ -13,7 +13,8 @@ IMultiPartJar::IMultiPartJar() : IJarUnit(nullptr)
 
 IMultiPart IMultiPartJar::operator[](const QString &name) const
 {
-    return this->operator [](name.toStdString());
+    auto temp = name.toUtf8();
+    return this->operator [](IStringView(temp));
 }
 
 IMultiPart IMultiPartJar::operator[](IStringView name) const
@@ -40,7 +41,8 @@ bool IMultiPartJar::containRequestMulitPartName(IStringView name) const
 
 bool IMultiPartJar::containRequestMulitPartName(const QString &name) const
 {
-    return containRequestMulitPartName(name.toStdString());
+    auto temp = name.toUtf8();
+    return containRequestMulitPartName(IStringView(temp));
 }
 
 IStringViewList IMultiPartJar::getRequestMultiPartNames() const
@@ -66,7 +68,8 @@ IMultiPart IMultiPartJar::getRequestMultiPart(IStringView name) const
 
 IMultiPart IMultiPartJar::getRequestMultiPart(const QString &name) const
 {
-    return getRequestMultiPart(name.toStdString());
+    auto temp = name.toUtf8();
+    return getRequestMultiPart(IStringView(temp));
 }
 
 const QVector<IMultiPart> &IMultiPartJar::getRequestMultiParts() const

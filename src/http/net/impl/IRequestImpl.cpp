@@ -389,7 +389,7 @@ bool IRequestImpl::headerGapState()
         }
     }else if(!m_multipartBoundary.empty()){
         IStringView view(m_data.m_data + m_data.m_parsedSize, readLength);
-        if(view.find(m_multipartBoundaryEnd) != std::string::npos){
+        if(view.find(m_multipartBoundaryEnd) != std::string_view::npos){
             return true;
         }
 
@@ -444,7 +444,7 @@ void IRequestImpl::parseFirstLine(IStringView line)
 
     // path
     index = line.find_first_of(' ', pos);
-    if(index == std::string::npos){
+    if(index == std::string_view::npos){
         return m_raw->setInvalid(IHttpBadRequestInvalid("request path is not correct"));
     }
     m_raw->m_rawUrl = line.substr(pos, index-pos);
@@ -466,9 +466,9 @@ void IRequestImpl::parseFirstLine(IStringView line)
 void IRequestImpl::resolveFirstLine()
 {
     auto index = m_raw->m_rawUrl.find_first_of('?');
-    if(index == std::string::npos){
+    if(index == std::string_view::npos){
         m_raw->m_rawPath = m_raw->m_rawUrl;
-        m_raw->m_url = QByteArray::fromPercentEncoding(QByteArray(m_raw->m_rawUrl.data(), m_raw->m_rawUrl.length()));
+        m_raw->m_url = stash(QByteArray::fromPercentEncoding(QByteArray(m_raw->m_rawUrl.data(), m_raw->m_rawUrl.length())));
         return;
     }
 
@@ -483,7 +483,7 @@ void IRequestImpl::parseHeader(IStringView line)
 {
     static $UInt headerMaxLength("http.headerMaxLength");
     auto index = line.find_first_of(':');
-    if(index == std::string::npos){
+    if(index == std::string_view::npos){
         return m_raw->setInvalid(IHttpBadRequestInvalid("server do not support headers item multiline, or without key/value pair"));  // SEE: 默认不支持 headers 换行书写
     }
 
@@ -499,7 +499,7 @@ void IRequestImpl::parseHeader(IStringView line)
         auto index = value.find_last_of(';', pos);
         IStringView value_part = value.substr(index+1, value.length()-index);
         m_raw->m_requestHeaders.insertMulti(key, value_part);
-        if(index == std::string::npos){
+        if(index == std::string_view::npos){
             break;
         }
         pos = index;
@@ -584,7 +584,7 @@ void IRequestImpl::resolvePathProcessor()
         }
     }
 
-    QString info = m_request->url() + " " + IHttpMethodUtil::toString(m_request->method()) + " has no function to handle";
+    QString info = m_request->url().toQString() + " " + IHttpMethodUtil::toString(m_request->method()) + " has no function to handle";
     m_request->setInvalid(IHttpNotFoundInvalid(std::move(info)));
 }
 

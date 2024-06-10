@@ -36,7 +36,8 @@ bool IHeaderJar::containRequestHeaderKey(IStringView key) const
 
 bool IHeaderJar::containRequestHeaderKey(const QString &key) const
 {
-    return containRequestHeaderKey(key.toStdString());
+    auto temp = key.toUtf8();
+    return containRequestHeaderKey(IStringView(temp));
 }
 
 IStringView IHeaderJar::getRequestHeaderValue(IStringView view) const
@@ -46,7 +47,8 @@ IStringView IHeaderJar::getRequestHeaderValue(IStringView view) const
 
 IStringView IHeaderJar::getRequestHeaderValue(const QString &key) const
 {
-    return getRequestHeaderValue(key.toStdString());
+    auto temp = key.toUtf8();
+    return getRequestHeaderValue(IStringView(temp));
 }
 
 IStringViewList IHeaderJar::getRequestHeaderValues(IStringView key) const
@@ -56,7 +58,8 @@ IStringViewList IHeaderJar::getRequestHeaderValues(IStringView key) const
 
 IStringViewList IHeaderJar::getRequestHeaderValues(const QString &key) const
 {
-    return getRequestHeaderValues(key.toStdString());
+    auto temp = key.toUtf8();
+    return getRequestHeaderValues(IStringView(temp));
 }
 
 const QMultiHash<QString, QString> &IHeaderJar::responseHeaders() const

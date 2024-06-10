@@ -63,7 +63,7 @@ void IHttpRequestHandler::handleRequest(IRequest &request, IResponse &response)
         return processInStaticFolderMode(request, response, process.entries);
     default:
     {
-        QString info = request.url() + " " + IHttpMethodUtil::toString(request.method()) + " has no function to handle";
+        QString info = request.url().toQString() + " " + IHttpMethodUtil::toString(request.method()) + " has no function to handle";
         response.setContent(IHttpNotFoundInvalid(info));
     }
     }

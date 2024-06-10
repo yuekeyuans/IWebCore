@@ -13,7 +13,7 @@ IMultiPart::IMultiPart()
 IMultiPart::IMultiPart(IStringView view)
 {
     auto index = view.find("\r\n\r\n");
-    if(index == std::string::npos){
+    if(index == std::string_view::npos){
         return;     // invalid
     }
     resolveHeaders(view.substr(0, index));

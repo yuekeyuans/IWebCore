@@ -65,7 +65,8 @@ IStringView IRequest::operator[](IStringView header) const
 
 IStringView IRequest::operator[](const QString &header) const
 {
-    return operator [](header.toStdString());
+    auto temp = header.toUtf8();
+    return operator [](IStringView(temp));
 }
 
 IResponse *IRequest::response() const
