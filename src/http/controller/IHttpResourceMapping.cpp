@@ -18,10 +18,12 @@ bool IHttpResourceMapping::isEnabled() const
     return m_enabled;
 }
 
-QString IHttpResourceMapping::getFilePath(const QString &url) const
+QString IHttpResourceMapping::getFilePath(IStringView url) const
 {
-    if(m_enabled && m_fileMappings.contains(url)){
-        return m_fileMappings[url];
+    // TODO: optimize latter
+    auto newUrl = url.toQString();
+    if(m_enabled && m_fileMappings.contains(newUrl)){
+        return m_fileMappings[newUrl];
     }
 
     return {};

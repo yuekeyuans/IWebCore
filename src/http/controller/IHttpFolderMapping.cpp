@@ -10,12 +10,14 @@ bool IHttpFolderMapping::isEnabled() const
     return m_enabled;
 }
 
-QString IHttpFolderMapping::getFilePath(const QString &url) const
+QString IHttpFolderMapping::getFilePath(IStringView url_) const
 {
     if(!m_enabled){
         return {};
     }
 
+    // TODO: optimize latter
+    auto url = url_.toQString();
     auto values = m_map.values();
     for(const QString& val : values){
         if(url.startsWith(val)){

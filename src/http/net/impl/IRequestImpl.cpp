@@ -583,7 +583,7 @@ void IRequestImpl::resolvePathProcessor()
         }
     }
 
-    QString info = m_request->url().toQString() + " " + IHttpMethodUtil::toString(m_request->method()) + " has no function to handle";
+    QString info = m_request->url() + " " + IHttpMethodUtil::toString(m_request->method()) + " has no function to handle";
     m_request->setInvalid(IHttpNotFoundInvalid(std::move(info)));
 }
 
