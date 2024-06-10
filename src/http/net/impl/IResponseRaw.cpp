@@ -65,7 +65,7 @@ void IResponseRaw::setFileContent(const QString &filePath)
     content.contentString = filePath;
 }
 
-bool IResponseRaw::valid()
+bool IResponseRaw::isValid()
 {
     return content.type != IResponseContent::Type::Invalid;
 }

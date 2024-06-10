@@ -320,7 +320,7 @@ void IRequestImpl::parseData()
             return endState();
         }
 
-        if(!m_raw->valid()){
+        if(!m_raw->isValid()){
             m_readState = State::EndState;
         }
     }
@@ -342,7 +342,7 @@ void IRequestImpl::firstLineState(IStringView data)
 {
     m_data.m_parsedSize += data.length();
     parseFirstLine(data.substr(0, data.length()-2));
-    if(!m_raw->valid()){
+    if(!m_raw->isValid()){
         return;
     }
 

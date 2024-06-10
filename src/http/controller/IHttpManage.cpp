@@ -17,7 +17,6 @@ void IHttpManage::setIsServerStarted(bool value)
     inst->m_isServerStarted = value;
 }
 
-
 void IHttpManage::registerUrlActionNode(IUrlActionNode node)
 {
     checkRegisterAvalible();

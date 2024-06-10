@@ -43,7 +43,7 @@ public:
     ~IRequestRaw();
 
 public:
-    bool valid() const;
+    bool isValid() const;
     void setInvalid(IHttpInvalidUnit ware);
 
     QJsonValue getRequestJson(bool& ok);

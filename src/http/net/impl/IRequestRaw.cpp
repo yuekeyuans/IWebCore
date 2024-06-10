@@ -44,9 +44,9 @@ IRequestRaw::~IRequestRaw()
     delete m_responseRaw;
 }
 
-bool IRequestRaw::valid() const
+bool IRequestRaw::isValid() const
 {
-    return m_responseRaw->valid();
+    return m_responseRaw->isValid();
 }
 
 void IRequestRaw::setInvalid(IHttpInvalidUnit ware)

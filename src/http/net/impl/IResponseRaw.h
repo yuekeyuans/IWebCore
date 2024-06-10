@@ -24,7 +24,7 @@ public:
     void setFileContent(const QString& filePath);
 
 public:
-    bool valid();
+    bool isValid();
 
 public:
     QString mime;

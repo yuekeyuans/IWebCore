@@ -69,8 +69,6 @@ public:
     void setAttribute(const QString& name, const QVariant& value);
     QVariant getAttribute(const QString& name, const QVariant& defaultValue = {}) const;
 
-    bool valid() const;
-
 private:
     IRequestRaw* m_raw{nullptr};
 };

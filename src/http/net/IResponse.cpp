@@ -244,9 +244,4 @@ QVariant IResponse::getAttribute(const QString &name, const QVariant &defaultVal
     return defaultValue;
 }
 
-bool IResponse::valid() const
-{
-    return m_raw->valid();
-}
-
 $PackageWebCoreEnd

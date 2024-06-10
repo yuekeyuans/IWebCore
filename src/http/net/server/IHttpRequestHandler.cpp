@@ -21,17 +21,17 @@ void IHttpRequestHandler::handle(IRequest &request)
 {
     IResponse response(&request);
     do{
-        if(!request.valid()){
+        if(!request.isValid()){
             break;
         }
 
         handleRequest(request, response);
-        if(!request.valid()){
+        if(!request.isValid()){
             break;
         }
     }while(0);
 
-    if(!request.valid()){
+    if(!request.isValid()){
         auto process = IHttpInvalidManage::instance()->getWare(request.getRaw()->m_responseRaw->content.contentInvalid.tag);
         process->process(request, response);
     }
@@ -129,12 +129,12 @@ void IHttpRequestHandler::processInMethodMode(IRequest &request, IResponse &resp
     auto index = node->methodNode.metaMethod.methodIndex();
     auto enclosingObject = node->methodNode.metaMethod.enclosingMetaObject();
     enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params);
-    if(!request.valid()){
+    if(!request.isValid()){
         return;
     }
 
     IHttpControllerParameter::resolveReturnValue(response, node->methodNode, params);
-    if(!request.valid()){
+    if(!request.isValid()){
         return;
     }
 
