@@ -25,17 +25,16 @@ public:
     bool isValid() const;
 
 public:
-    QMap<QString, QString> headers;
-    QVector<IMultiPart> parts;
-    QString name;
-    QString fileName;
-    QString charset;
-    QByteArray content;
+    QMap<IStringView, IStringView> headers;
+//    QVector<IMultiPart> parts;
+    IStringView name;
+    IStringView fileName;
+    IStringView charset;
+    IStringView content;
     IHttpMime mime {IHttpMime::UNKNOWN};
     TransferEncoding encoding{BIT_7};
 
 private:
-    static const IMultiPart InvalidMulitPart;
     friend class IMultiPartJar;
 };
 

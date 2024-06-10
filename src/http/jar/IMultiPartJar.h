@@ -16,13 +16,15 @@ public:
 
 public:
     IMultiPartJar();
-    IResult<IMultiPart> operator[](const QString& name) const;
+    IMultiPart operator[](IStringView name) const;
+    IMultiPart operator[](const QString& name) const;
 
+    bool containRequestMulitPartName(IStringView name) const;
     bool containRequestMulitPartName(const QString& name) const;
     QStringList getRequestMultiPartNames() const;
 
-    IMultiPart getRequestMultiPart(const QString& name, bool& ok) const;
-    IResult<IMultiPart> getRequestMultiPart(const QString &name) const;
+    IMultiPart getRequestMultiPart(IStringView name) const;
+    IMultiPart getRequestMultiPart(const QString& name) const;
 
     const QVector<IMultiPart>& getRequestMultiParts() const;
     QVector<IMultiPart> getRequestFileMultiParts() const;

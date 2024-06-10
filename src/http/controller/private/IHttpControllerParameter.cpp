@@ -200,15 +200,16 @@ void *IHttpControllerParameter::getParamOfSystem(const IParamNode& node, IReques
 
 void *IHttpControllerParameter::getParamOfMultipart(const IParamNode& node, IRequest &request, bool& ok)
 {
-    auto& parts = request.getRaw()->m_requestMultiParts;
-    for(auto& part : parts) {
-        if(part.name == node.paramName) {
-            return &part;
-        }
-    }
+    // FIXME:
+//    auto& parts = request.getRaw()->m_requestMultiParts;
+//    for(auto& part : parts) {
+//        if(part.name == node.paramName) {
+//            return &part;
+//        }
+//    }
 
-    IToeUtil::setOk(ok, false);
-    request.setInvalid(IHttpBadRequestInvalid("multipart content do not have content name " + node.paramName));
+//    IToeUtil::setOk(ok, false);
+//    request.setInvalid(IHttpBadRequestInvalid("multipart content do not have content name " + node.paramName));
     return nullptr;
 }
 

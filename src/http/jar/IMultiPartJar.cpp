@@ -11,14 +11,23 @@ IMultiPartJar::IMultiPartJar() : IJarUnit(nullptr)
     qFatal(IConstantUtil::UnVisibleMethod);
 }
 
-IResult<IMultiPart> IMultiPartJar::operator[](const QString &name) const
+IMultiPart IMultiPartJar::operator[](const QString &name) const
 {
-    bool ok;
-    auto value = getRequestMultiPart (name, ok);
-    return {std::move(value), ok};
+    return this->operator [](name.toStdString());
 }
 
-bool IMultiPartJar::containRequestMulitPartName(const QString &name) const
+IMultiPart IMultiPartJar::operator[](IStringView name) const
+{
+    const auto& jar = m_raw->m_requestMultiParts;
+    for(const auto& part : jar){
+        if(part.name == name){
+            return part;
+        }
+    }
+    return {};
+}
+
+bool IMultiPartJar::containRequestMulitPartName(IStringView name) const
 {
     const auto& jar = m_raw->m_requestMultiParts;
     for(const auto& part : jar){
@@ -29,36 +38,35 @@ bool IMultiPartJar::containRequestMulitPartName(const QString &name) const
     return false;
 }
 
+bool IMultiPartJar::containRequestMulitPartName(const QString &name) const
+{
+    return containRequestMulitPartName(name.toStdString());
+}
+
 QStringList IMultiPartJar::getRequestMultiPartNames() const
 {
     QStringList ret;
     const auto& jar = m_raw->m_requestMultiParts;
     for(const auto& part : jar){
-        ret.append (part.name);
+        ret.append (part.name.toQString());
     }
     return ret;
 }
 
-// 这里的操作是，添加一个invalid multipart;
-IMultiPart IMultiPartJar::getRequestMultiPart(const QString &name, bool& ok) const
+IMultiPart IMultiPartJar::getRequestMultiPart(IStringView name) const
 {
     const auto& jar = m_raw->m_requestMultiParts;
     for(const auto& part : jar){
         if(part.name == name){
-            ok = true;
             return part;
         }
     }
-
-    ok = false;
-    return IMultiPart::InvalidMulitPart;
+    return {};
 }
 
-IResult<IMultiPart> IMultiPartJar::getRequestMultiPart(const QString &name) const
+IMultiPart IMultiPartJar::getRequestMultiPart(const QString &name) const
 {
-    bool ok;
-    auto value = getRequestMultiPart(name, ok);
-    return {value, ok};
+    return getRequestMultiPart(name.toStdString());
 }
 
 const QVector<IMultiPart> &IMultiPartJar::getRequestMultiParts() const
@@ -71,7 +79,7 @@ QVector<IMultiPart> IMultiPartJar::getRequestFileMultiParts() const
     QVector<IMultiPart> ret;
     const auto& jar = m_raw->m_requestMultiParts;
     for(const auto& part : jar){
-        if(!part.fileName.isEmpty ()){
+        if(!part.fileName.empty ()){
             ret.append (part);
         }
     }

@@ -350,9 +350,10 @@ QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(cons
     QMap<QString, QVariant> map;
     const QStringList& fieldNames = bean->getMetaFieldNames();
 
+    // FIXME:
     bool convertOk;
-    for(const auto& part : parts){
-        QString name = part.name;
+    for(auto part : parts){
+        QString name = part.name.toQString();
         if(fieldNames.contains(name)){
             auto value = part.content;
             auto prop = bean->getMetaProperty(name);        // should optimized
@@ -426,7 +427,7 @@ bool IHttpControllerBeanParameter::checkKeyInMultiPart(const QVector<IMultiPart>
 
     QStringList multiPartNames;
     for(const auto& part : parts){
-        multiPartNames.append(part.name);
+        multiPartNames.append(part.name.toQString());   // FIXME:
     }
 
     auto props = bean->getMetaProperties();

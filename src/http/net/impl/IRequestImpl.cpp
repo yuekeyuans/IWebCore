@@ -233,14 +233,15 @@ QString IRequestImpl::getFormUrlValue(const QString &name, bool& ok) const
 
 QByteArray IRequestImpl::getMultiPartFormData(const QString &name, bool& ok) const
 {
-    for(auto& part : m_raw->m_requestMultiParts){
-        if(part.name == name){
-            ok = true;
-            return part.content;
-        }
-    }
+    // FIXME:
+//    for(auto& part : m_raw->m_requestMultiParts){
+//        if(part.name == name){
+//            ok = true;
+//            return part.content;
+//        }
+//    }
 
-    ok = false;
+//    ok = false;
     return {};
 }
 
