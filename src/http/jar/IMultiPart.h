@@ -20,19 +20,21 @@ public:
 
 public:
     IMultiPart();
+    IMultiPart(IStringView);
 
-    void resolveHeaders();
     bool isValid() const;
 
+private:
+    void resolveHeaders(IStringView);
+
 public:
-    QMap<IStringView, IStringView> headers;
-//    QVector<IMultiPart> parts;
     IStringView name;
     IStringView fileName;
     IStringView charset;
     IStringView content;
     IHttpMime mime {IHttpMime::UNKNOWN};
     TransferEncoding encoding{BIT_7};
+    QMultiHash<IStringView, IStringView> headers; // TODO: 这个能不能变成可拷贝的一个内容？
 
 private:
     friend class IMultiPartJar;

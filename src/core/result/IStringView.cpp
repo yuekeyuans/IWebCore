@@ -115,12 +115,27 @@ IStringViewList IStringView::split(char delimiter) const
     return tokens;
 }
 
-bool IStringView::startWith(IStringView prefix)
+IStringViewList IStringView::split(IStringView delimiter) const
+{
+    IStringViewList result;
+    size_t start = 0;
+    size_t end = find(delimiter);
+    while (end != std::string_view::npos) {
+        result.push_back(substr(start, end - start));
+        start = end + delimiter.length();
+        end = find(delimiter, start);
+    }
+
+    result.append(substr(start));
+    return result;
+}
+
+bool IStringView::startWith(IStringView prefix) const
 {
     return this->_Starts_with(prefix);
 }
 
-bool IStringView::endWith(IStringView suffix)
+bool IStringView::endWith(IStringView suffix) const
 {
     return this->substr(this->size() - suffix.size()) == suffix;
 }
