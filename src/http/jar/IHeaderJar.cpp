@@ -110,11 +110,12 @@ void IHeaderJar::setResponseHeader(QString key, const QStringList &values)
 void IHeaderJar::deleteReponseHeader(const QString &key)
 {
     auto& headers = m_raw->m_responseRaw->headers;
-    for(auto it=headers.begin(); it!= headers.end();){
-        if(it.key() == key){
-            it=headers.erase(it);
-        }else{
-            it++;
+    auto i = headers.find(key);
+    while (i != headers.end() && i.key() == key) {
+        if (i.value() == 0) {
+            i = headers.erase(i);
+        } else {
+            ++i;
         }
     }
 }
