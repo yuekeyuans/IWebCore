@@ -21,7 +21,7 @@ public:
 
     bool containRequestMulitPartName(IStringView name) const;
     bool containRequestMulitPartName(const QString& name) const;
-    QStringList getRequestMultiPartNames() const;
+    IStringViewList getRequestMultiPartNames() const;
 
     IMultiPart getRequestMultiPart(IStringView name) const;
     IMultiPart getRequestMultiPart(const QString& name) const;

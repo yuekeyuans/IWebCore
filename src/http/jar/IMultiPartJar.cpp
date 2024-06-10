@@ -43,12 +43,12 @@ bool IMultiPartJar::containRequestMulitPartName(const QString &name) const
     return containRequestMulitPartName(name.toStdString());
 }
 
-QStringList IMultiPartJar::getRequestMultiPartNames() const
+IStringViewList IMultiPartJar::getRequestMultiPartNames() const
 {
-    QStringList ret;
+    IStringViewList ret;
     const auto& jar = m_raw->m_requestMultiParts;
     for(const auto& part : jar){
-        ret.append (part.name.toQString());
+        ret.append (part.name);
     }
     return ret;
 }
