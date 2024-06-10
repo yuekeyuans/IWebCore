@@ -26,8 +26,8 @@ public:
     IStringViewList getRequestHeaderValues(IStringView key) const;
     IStringViewList getRequestHeaderValues(const QString& key) const;
 
-    const std::unordered_multimap<QString, QString>& responseHeaders() const;
-    std::unordered_multimap<QString, QString>& responseHeaders();
+    const QMultiHash<QString, QString>& responseHeaders() const;
+    QMultiHash<QString, QString>& responseHeaders();
 
     QStringList responseHeaderKeys() const;
     bool containResponseHeaderKey(const QString& key) const;

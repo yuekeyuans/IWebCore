@@ -18,8 +18,8 @@ public:
     QStringList values();
 
 private:
-    IResponseRaw* m_raw{};
-    QString m_key;
+    IResponseRaw* m_raw;
+    const QString m_key;
 };
 
 $PackageWebCoreEnd

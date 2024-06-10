@@ -29,7 +29,7 @@ public:
 public:
     QString mime;
     IHttpStatusCode status {IHttpStatus::OK_200};
-    std::unordered_multimap<QString, QString> headers;
+    QMultiHash<QString, QString> headers;
     std::list<ICookiePart> cookies;
     IResponseContent content;
 };

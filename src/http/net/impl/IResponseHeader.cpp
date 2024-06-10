@@ -15,7 +15,7 @@ IResponseHeader::operator QString() noexcept
 
 const IResponseHeader& IResponseHeader::operator=(const QString &value)
 {
-    m_raw->headers.emplace(m_key, value);
+    m_raw->headers.replace(m_key, value);
     return *this;
 }
 
@@ -26,21 +26,12 @@ QString IResponseHeader::key()
 
 QString IResponseHeader::value()
 {
-    auto range = m_raw->headers.equal_range(m_key);
-    for(auto it = range.first; it != range.second; ++it){
-        return it->second;
-    }
-    return {};
+    return m_raw->headers.value(m_key);
 }
 
 QStringList IResponseHeader::values()
 {
-    QStringList ret;
-    auto range = m_raw->headers.equal_range(m_key);
-    for(auto it = range.first; it != range.second; ++it){
-        ret.append(it->second);
-    }
-    return ret;
+    return m_raw->headers.values(m_key);
 }
 
 $PackageWebCoreEnd

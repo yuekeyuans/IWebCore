@@ -176,9 +176,6 @@ IResponse& IResponse::setContent(IResponseWare *response)
     }
 
     if(!m_raw->m_response->headers().empty()){
-        // TODO: fix latter
-
-
         for(const auto& header : m_raw->m_responseRaw->headers){
             if(!response->m_raw->headers.contains(header)){
                 const auto& values = m_raw->m_response->headers().values(header);
@@ -219,7 +216,7 @@ IHttpStatusCode IResponse::status() const
     return m_raw->m_responseRaw->status;
 }
 
-const std::unordered_multimap<QString, QString>& IResponse::headers() const
+const QMultiHash<QString, QString>& IResponse::headers() const
 {
     return m_raw->m_responseRaw->headers;
 }
