@@ -17,11 +17,20 @@ public:
     IStringView(const std::string& data);
     IStringView(const QByteArray& data);
     IStringView(std::string_view data);
+    IStringView(const char* data);
 
-    // TODO: 考虑 operator QString() 这种自动类型转换？
+    operator QByteArray();
+    bool operator ==(const char*);
+    bool operator ==(IStringView);
+    bool operator <(IStringView);
 
 public:
     static uint qHash(const IWebCore::IStringView *obj, uint seed = 0);
+
+    // TODO: 这个将来要对用户隐藏，因为搞不好，这个东西会膨胀，耗费内存
+    static IStringView stash(const std::string& data);
+    static IStringView stash(const QByteArray& data);
+    static IStringView stash(const char* data);
 
 public:
     QString toQString() const;
@@ -31,7 +40,6 @@ public:
     QList<IStringView> split(char) const;
     bool startWith(IStringView prefix);
     bool endWith(IStringView suffix);
-
 };
 
 

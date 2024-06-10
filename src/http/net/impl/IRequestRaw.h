@@ -59,7 +59,7 @@ public:
     IStringView m_rawUrl;
     IStringView m_rawPath;
     IStringView m_rawPathArgs;
-    QByteArray m_url;
+    IStringView m_url;
 
     IHttpVersion m_httpVersion {IHttpVersion::UNKNOWN};
     IHttpMethod m_method {IHttpMethod::UNKNOWN};

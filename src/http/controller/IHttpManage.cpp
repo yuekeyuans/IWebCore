@@ -155,7 +155,7 @@ QString IHttpManage::getStaticFileActionPath(const IRequest &request)
 {
     static bool isResourceMapping = m_resourceMappings.isEnabled();
     if(isResourceMapping){
-        QString value = m_resourceMappings.getFilePath(request.url());
+        QString value = m_resourceMappings.getFilePath(request.url().toQString());
         if(!value.isEmpty()){
             return value;
         }
@@ -163,14 +163,14 @@ QString IHttpManage::getStaticFileActionPath(const IRequest &request)
 
     static bool isDirMapping = m_folderMappings.isEnabled();
     if(isDirMapping){
-        return m_folderMappings.getFilePath(request.url());
+        return m_folderMappings.getFilePath(request.url().toQString());
     }
     return {};
 }
 
 QStringList IHttpManage::getStaticFolderActionPath(const IRequest &request)
 {
-    auto url = request.url();
+    auto url = request.url().toQString();
     if(!url.endsWith("/")){
         url.append("/");
     }

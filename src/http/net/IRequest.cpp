@@ -108,7 +108,7 @@ IHttpMime IRequest::mime() const
     return impl->m_raw->m_requestMime;
 }
 
-const QByteArray &IRequest::url() const
+IStringView IRequest::url() const
 {
     return impl->m_raw->m_url;
 }

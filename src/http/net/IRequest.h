@@ -48,7 +48,7 @@ public:
 
     IHttpVersion version() const;
     IHttpMime mime() const;
-    const QByteArray& url() const;
+    IStringView url() const;
     IHttpMethod method() const;
 
     int bodyContentLength() const;
