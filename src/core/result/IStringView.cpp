@@ -99,9 +99,9 @@ IStringView IStringView::trimmed()
     return substr(left, right - left + 1);
 }
 
-QList<IStringView> IStringView::split(char delimiter) const
+IStringViewList IStringView::split(char delimiter) const
 {
-    QList<IStringView> tokens;
+    IStringViewList tokens;
     std::string_view::size_type start = 0;
     std::string_view::size_type end = this->find(delimiter);
 
@@ -125,5 +125,9 @@ bool IStringView::endWith(IStringView suffix)
     return this->substr(this->size() - suffix.size()) == suffix;
 }
 
+IStringViewList::IStringViewList(QList<IStringView> data)
+    : QList<IStringView>(std::move(data))
+{
+}
 
 $PackageWebCoreEnd

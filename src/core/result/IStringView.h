@@ -9,6 +9,7 @@
 
 $PackageWebCoreBegin
 
+class IStringViewList;
 class IStringView : public std::string_view, private IRegisterMetaTypeUnit<IStringView>
 {
     using std::string_view::basic_string_view;
@@ -37,16 +38,23 @@ public:
     QByteArray toQByteArray() const;
     IStringView substr(const size_type _Off, size_type _Count=std::string::npos) const;
     IStringView trimmed();
-    QList<IStringView> split(char) const;
+    IStringViewList split(char) const;
     bool startWith(IStringView prefix);
     bool endWith(IStringView suffix);
 };
 
 
-using IStringViewList = QList<IStringView>;
+//using IStringViewList = QList<IStringView>;
+class IStringViewList : public QList<IStringView>, public IRegisterMetaTypeUnit<IStringViewList>
+{
+public:
+    IStringViewList() = default;
+    IStringViewList(QList<IStringView> data);
+};
 
 
 Q_DECLARE_METATYPE(IStringView)
+Q_DECLARE_METATYPE(IStringViewList)
 
 
 $PackageWebCoreEnd

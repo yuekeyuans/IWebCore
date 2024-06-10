@@ -127,7 +127,7 @@ IUrlActionNode *IHttpManage::getUrlActionNode(IRequest &request)
         return nodePtr->getLeaf(method);
     }
 
-    QList<IStringView> fragments = url.split('/');
+    IStringViewList fragments = url.split('/');
     if(fragments.first().empty()){
         fragments.pop_front();
     }
