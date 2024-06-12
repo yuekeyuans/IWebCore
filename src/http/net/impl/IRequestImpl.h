@@ -49,9 +49,9 @@ public:
 //    QByteArray getSessionParameter(const QString &name, bool& ok) const;
 
 private:
-    QString getFormUrlValue(const QString &name, bool& ok) const;
-    QByteArray getMultiPartFormData(const QString &name, bool& ok) const;
-    QByteArray getJsonData(const QString &name, bool& ok) const;
+//    QString getFormUrlValue(const QString &name, bool& ok) const;
+//    QByteArray getMultiPartFormData(const QString &name, bool& ok) const;
+//    QByteArray getJsonData(const QString &name, bool& ok) const;
 //    QList<QPair<QString, FunType>> parameterResolverMap() const;
 
 public:
@@ -90,11 +90,10 @@ public:
 
 private:
     State m_readState{FirstLineState};
+    bool m_bodyInData{true};    // 表示数据存放在 data 上面
     int m_contentLength{};
     IStringView m_multipartBoundary;
     IStringView m_multipartBoundaryEnd;
-    IStringView m_bodyData{};
-    bool m_bodyInData{true};    // 表示数据存放在 data 上面
 
 private:
     std::list<QByteArray> m_stash;

@@ -44,8 +44,6 @@ public:
     bool endWith(IStringView suffix) const;
 };
 
-
-//using IStringViewList = QList<IStringView>;
 class IStringViewList : public QList<IStringView>, public IRegisterMetaTypeUnit<IStringViewList>
 {
 public:

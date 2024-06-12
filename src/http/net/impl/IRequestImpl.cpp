@@ -216,7 +216,6 @@ QByteArray IRequestImpl::getSessionParameter(const QString &name, bool& ok) cons
     return {};
 }
 
-*/
 
 QString IRequestImpl::getFormUrlValue(const QString &name, bool& ok) const
 {
@@ -291,6 +290,8 @@ QByteArray IRequestImpl::getJsonData(const QString &name, bool& ok) const
 //    };
 //    return map;
 //}
+
+*/
 
 void IRequestImpl::parseData()
 {
@@ -595,17 +596,17 @@ void IRequestImpl::resolveBodyContent()
         if(m_contentLength != readSize){
             return m_request->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
         }
-        m_bodyData = IStringView(m_data.m_data + m_data.m_parsedSize, readSize);
+        m_raw->m_requestBody = IStringView(m_data.m_data + m_data.m_parsedSize, readSize);
     }else{
         if(m_contentLength != m_data.m_buff.size()){
             return m_request->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
         }
-        m_bodyData = IStringView(asio::buffer_cast<const char*>(m_data.m_buff.data()), m_data.m_buff.size());
+        m_raw->m_requestBody = IStringView(asio::buffer_cast<const char*>(m_data.m_buff.data()), m_data.m_buff.size());
     }
 
     switch (m_raw->m_requestMime) {
     case IHttpMime::APPLICATION_WWW_FORM_URLENCODED:
-        resolveFormData(m_bodyData, true);
+        resolveFormData(m_raw->m_requestBody, true);
         break;
     case IHttpMime::APPLICATION_JSON:
     case IHttpMime::APPLICATION_JSON_UTF8:
@@ -622,15 +623,13 @@ void IRequestImpl::resolveBodyMultipart()
         if(m_contentLength != readSize){
             return m_request->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
         }
-        m_bodyData = IStringView(m_data.m_data + m_data.m_parsedSize, readSize);
+        m_raw->m_requestBody = IStringView(m_data.m_data + m_data.m_parsedSize, readSize);
     }else{
         if(m_contentLength != m_data.m_buff.size()){
             return m_request->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
         }
-        m_bodyData = IStringView(asio::buffer_cast<const char*>(m_data.m_buff.data()), m_data.m_buff.size());
+        m_raw->m_requestBody = IStringView(asio::buffer_cast<const char*>(m_data.m_buff.data()), m_data.m_buff.size());
     }
-
-    qDebug() << QString::fromStdString(std::string(m_bodyData));
 }
 
 void IRequestImpl::resolveFormData(IStringView view, bool isBody)

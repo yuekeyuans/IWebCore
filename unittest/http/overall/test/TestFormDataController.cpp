@@ -13,7 +13,7 @@ void TestFormDataController::testPostFormData()
 void TestFormDataController::testPostLargeFile()
 {
     ICurlResponse response = ICurl("/postData")
-            .withPostDataFile("D:/yuekeyuan.pdf")
+            .withPostDataFile("D:/yuekeyuan.pdf", "application/pdf")
             .execPost();
     qDebug() << response.m_status << response.m_body;
 }

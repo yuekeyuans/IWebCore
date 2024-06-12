@@ -25,7 +25,7 @@ ICurl &ICurl::withCookie(const QString& data)
 
 ICurl &ICurl::d(QString data)
 {
-    m_args.append("-d '" + data.toUtf8().toPercentEncoding()+ "'");
+    m_args.append("-d \"" + data.toUtf8().toPercentEncoding()+ "\"");
     return *this;
 }
 
@@ -34,9 +34,11 @@ ICurl &ICurl::withPostData(const QString& data)
     return d(data);
 }
 
-ICurl &ICurl::withPostDataFile(const QString& path)
+ICurl &ICurl::withPostDataFile(const QString &path, const QString &ContentType)
 {
-    return d("@"+path);
+    m_args.append("-H Content-Type:" + ContentType);
+    m_args.append("--data-binary \"@" + path + "\"");
+    return *this;
 }
 
 ICurl &ICurl::dataUrlencode(const QString& data)
@@ -134,6 +136,8 @@ ICurlResponse ICurl::exec()
     QProcess process;
     m_args.prepend("curl");
     process.start(m_args.join(" "));
+
+    qDebug().noquote() << m_args.join(" ");
 
     process.waitForStarted();
     process.waitForFinished();
