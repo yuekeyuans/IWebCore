@@ -31,7 +31,7 @@ namespace IRequestImplHelper{
 
 IRequestImpl::IRequestImpl(IRequest* self)
     : m_request(self), m_raw(new IRequestRaw(self)),
-      m_connection(self->m_connection), m_data(self->m_connection->m_data)
+     m_connection(self->m_connection), m_data(self->m_connection->m_data)
 {
 }
 
@@ -429,7 +429,7 @@ void IRequestImpl::parseFirstLine(IStringView line)
          return m_raw->setInvalid(IHttpBadRequestInvalid("request url is too long"));
     }
 
-    int pos{};
+    int pos = 0;
     // method
     auto index = line.find_first_of(' ', pos);
     if(index == std::string::npos){
