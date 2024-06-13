@@ -15,6 +15,7 @@ HEADERS += \
     $$PWD/core/application/IApplicationAnnomacro.h \
     $$PWD/core/application/IApplicationInterface.h \
     $$PWD/core/application/IAsioApplication.h \
+    $$PWD/core/application/IAsioManage.h \
     $$PWD/core/application/IQtApplication.h \
     $$PWD/core/base/ICodecUtil.h \
     $$PWD/core/base/IConstantUtil.h \
@@ -218,6 +219,7 @@ HEADERS += \
 SOURCES += \
     $$PWD/core/application/IApplicationInterface.cpp \
     $$PWD/core/application/IAsioApplication.cpp \
+    $$PWD/core/application/IAsioManage.cpp \
     $$PWD/core/application/IQtApplication.cpp \
     $$PWD/core/base/ICodecUtil.cpp \
     $$PWD/core/base/IConvertUtil.cpp \
