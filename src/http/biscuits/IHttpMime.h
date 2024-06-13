@@ -93,6 +93,7 @@ enum class IHttpMime{
     APPLICATION_FONT_WOFF                   , // "application/x-font-woff";
     APPLICATION_FONT_TTF                    , // "application/octet-stream";
     APPLICATION_OCTET_STREAM                , // "application/octet-stream";
+    APPLICATION_PDF                         , // "application/pdf"
 
     //multipart 12
     MULTIPART_ALTERNATIVE                   , // multipart/alternative;

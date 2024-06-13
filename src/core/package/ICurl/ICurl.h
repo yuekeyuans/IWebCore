@@ -2,10 +2,11 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "ICurlResponse.h"
+#include "http/biscuits/IHttpMime.h"
 
 $PackageWebCoreBegin
 
-// NOTE: this file is only for test request.
+
 class ICurl
 {
 public:
@@ -17,6 +18,7 @@ public:
 
     ICurl& d(QString);
     ICurl& withPostData(const QString&);
+    ICurl& withPostDataFile(const QString& path, IHttpMime);
     ICurl& withPostDataFile(const QString& path, const QString& ContentType);
     ICurl& dataUrlencode(const QString&);
     ICurl& withPostDataUrlEncode(const QString&);

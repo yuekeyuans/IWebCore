@@ -17,3 +17,9 @@ void TestFormDataController::testPostLargeFile()
             .execPost();
     qDebug() << response.m_status << response.m_body;
 }
+
+void TestFormDataController::testMultiPart()
+{
+//    ICurlResponse response = ICurl("/postData")
+//            .with
+}

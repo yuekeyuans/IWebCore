@@ -11,7 +11,6 @@ public:
     FormDataController();
 
 public:
-
     $PostMapping(postData, postData)
     QString postData(IRequest& request);
 };

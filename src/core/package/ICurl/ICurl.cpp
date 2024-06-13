@@ -34,6 +34,13 @@ ICurl &ICurl::withPostData(const QString& data)
     return d(data);
 }
 
+ICurl &ICurl::withPostDataFile(const QString &path, IHttpMime mime)
+{
+    m_args.append("-H Content-Type:" + IHttpMimeUtil::toString(mime));
+    m_args.append("--data-binary \"@" + path + "\"");
+    return *this;
+}
+
 ICurl &ICurl::withPostDataFile(const QString &path, const QString &ContentType)
 {
     m_args.append("-H Content-Type:" + ContentType);

@@ -98,6 +98,7 @@ namespace{
             "application/x-font-woff",                                  // APPLICATION_FONT_WOFF
             "application/octet-stream",                                 // APPLICATION_FONT_TTF
             "application/octet-stream",                                 // APPLICATION_OCTET_STREAM
+            "application/pdf",                                          // APPLICATION_PDF
 
             //MULTIPART 12
             "multipart/alternative",									// MULTIPART_ALTERNATIVE
@@ -212,7 +213,8 @@ namespace{
             {"json", IHttpMime::APPLICATION_JSON},
             {"js", IHttpMime::APPLICATION_JAVASCRIPT},
             {"bin", IHttpMime::APPLICATION_OCTET_STREAM},
-            {"exe", IHttpMime::APPLICATION_OCTET_STREAM}
+            {"exe", IHttpMime::APPLICATION_OCTET_STREAM},
+            {"pdf", IHttpMime::APPLICATION_PDF}
         };
         return suffixMimePair;
     };
