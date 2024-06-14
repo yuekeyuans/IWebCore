@@ -9,37 +9,35 @@ $PackageWebCoreBegin
 
 class ICurl
 {
+    enum BodyType{
+        FormData,
+        MultiPart,
+        File,
+        Json,
+        Raw,
+        None
+    };
+
 public:
     ICurl(const QString& url);
 
 public:
-    ICurl& b(const QString&);
-    ICurl& withCookie(const QString&);
 
-    ICurl& d(QString);
-    ICurl& withPostData(const QString&);
-    ICurl& withPostDataFile(const QString& path, IHttpMime);
-    ICurl& withPostDataFile(const QString& path, const QString& ContentType);
-    ICurl& dataUrlencode(const QString&);
-    ICurl& withPostDataUrlEncode(const QString&);
+    ICurl& withPathArg(const QString& data);
+    ICurl& withPathArg(const QString& name, const QString& value);
+    ICurl& withPathArgs(QMap<QString, QString> args);
 
-    ICurl& F(const QString&);
-    ICurl& withFormData(const QString& key, const QString& value);
-    ICurl& withFormDataFile(const QString& key, const QString& path, const QString& fileName="", const QString& type="");
-
-    ICurl& G();
-    ICurl& withGenerateUrlQuery();
-
-    ICurl& H(const QString&);
     ICurl& withHeader(const QString&);
     ICurl& withHeader(const QString&, const QString&);
-    ICurl& withHeaderContentType(const QString&);
+    ICurl& withContentType(IHttpMime);
+    ICurl& withContentType(const QString& contentType);
 
-    ICurl& limitRate(const QString&);
+    ICurl& withJsonBody(const QString& value);
+    ICurl& withFormData(const QString& value);
+    ICurl& withFormFile(const QString& value);
+
+
     ICurl& withLimitRate(const QString&);
-
-    ICurl& X(const QString&);
-    ICurl& withMethod(const QString&);
 
 public:
     ICurlResponse exec();
@@ -49,7 +47,11 @@ public:
     ICurlResponse execDelete();
 
 private:
-    QStringList m_args;
+    BodyType m_bodyType{None};
+    QStringList m_pathArgs;
+    QStringList m_headerArgs;
+    QStringList m_bodyArgs;
+    QStringList m_headers;
 };
 
 $PackageWebCoreEnd
