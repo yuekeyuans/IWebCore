@@ -10,7 +10,7 @@ $PackageWebCoreBegin
 class ICurl
 {
     enum BodyType{
-        FormData,
+        UrlEncoded,
         MultiPart,
         File,
         Json,
@@ -34,8 +34,13 @@ public:
 
     ICurl& withJsonBody(const QString& value);
     ICurl& withFormData(const QString& value);
-    ICurl& withFormFile(const QString& value);
+    ICurl& withFormData(const QString& key, const QString& value);
+    ICurl& withFormFile(const QString& name, const QString& path, const QString& fileName="", const QString& mime="");
 
+    ICurl& withEncodeData(const QString& value);
+    ICurl& withEncodeBinary(const QString& path);
+
+    ICurl& withRawData();
 
     ICurl& withLimitRate(const QString&);
 
@@ -50,6 +55,7 @@ private:
     BodyType m_bodyType{None};
     QStringList m_pathArgs;
     QStringList m_headerArgs;
+    QString m_contentType;
     QStringList m_bodyArgs;
     QStringList m_headers;
 };

@@ -51,7 +51,75 @@ ICurl &ICurl::withContentType(IHttpMime mime)
 
 ICurl &ICurl::withContentType(const QString &contentType)
 {
-    return withHeader("Content-Type", contentType);
+    if(!m_contentType.isEmpty() && m_contentType != contentType){
+        qFatal("Content-Type already set");
+    }
+
+    m_contentType = contentType;
+}
+
+ICurl &ICurl::withJsonBody(const QString &value)
+{
+    if(m_bodyType != BodyType::None){
+        qFatal("body already set");
+    }
+
+    withContentType(IHttpMime::APPLICATION_JSON);
+    m_bodyArgs.append("-d '" + value + "'");
+    m_bodyType = BodyType::Json;
+    return *this;
+}
+
+ICurl &ICurl::withFormData(const QString &value)
+{
+    if(m_bodyType != BodyType::None || m_bodyType != BodyType::MultiPart){
+        qFatal("other data already set");
+    }
+
+    withContentType(IHttpMime::MULTIPART_FORM_DATA);
+    m_bodyArgs.append("-F \"" + value + "\"");
+    return *this;
+}
+
+ICurl &ICurl::withFormData(const QString &key, const QString &value)
+{
+    return withFormData(key + "=" + value);
+}
+
+ICurl &ICurl::withFormFile(const QString &name, const QString &path, const QString &fileName, const QString &mime)
+{
+    QString data = name + "=@"+path;
+    if(!fileName.isEmpty()){
+        data += "filename="+fileName;
+    }
+    if(!mime.isEmpty()){
+        data += "type=" + mime;
+    }
+    return withFormData(data);
+}
+
+ICurl &ICurl::withEncodeData(const QString &value)
+{
+    if(m_bodyType != BodyType::None && m_bodyType != BodyType::UrlEncoded){
+        qFatal("other data already set");
+    }
+
+    m_bodyType = BodyType::UrlEncoded;
+    withContentType(IHttpMime::APPLICATION_WWW_FORM_URLENCODED);
+    m_bodyArgs.append("--data-urlencode \"" + value + "\"");
+    return *this;
+}
+
+ICurl &ICurl::withEncodeBinary(const QString &path)
+{
+    if(m_bodyType != BodyType::None && m_bodyType != BodyType::UrlEncoded){
+        qFatal("other data already set");
+    }
+
+    m_bodyType = BodyType::UrlEncoded;
+    withContentType(IHttpMime::APPLICATION_WWW_FORM_URLENCODED);
+    m_bodyArgs.append("--data-binary \"@" + path + "\"");
+    return *this;
 }
 
 ICurl &ICurl::withLimitRate(const QString& data)
