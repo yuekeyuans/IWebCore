@@ -10,6 +10,7 @@
 #include "core/config/IProfileImport.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/invalid/IHttpNotFoundInvalid.h"
+#include "http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.h"
 #include "http/jar/IHeaderJar.h"
 #include "http/net/IRequest.h"
 #include "http/net/server/ITcpConnection.h"
@@ -500,8 +501,7 @@ void IRequestImpl::parseHeader(IStringView line)
     }
 
     if(line.length() > headerMaxLength){
-        // TODO: IHttpStatus::REQUEST_HEADER_FIELDS_TOO_LARGE_431;
-        m_raw->setInvalid(IHttpBadRequestInvalid("header too long"));
+        m_raw->setInvalid(IHttpRequestHeaderFieldTooLargeInvalid());
     }
 
     auto key = line.substr(0, index).trimmed();

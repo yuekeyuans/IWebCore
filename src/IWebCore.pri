@@ -107,8 +107,8 @@ HEADERS += \
     $$PWD/http/invalid/IHttpInvalidUnit.h \
     $$PWD/http/invalid/IHttpInvalidWare.h \
     $$PWD/http/invalid/IHttpNotFoundInvalid.h \
+    $$PWD/http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.h \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.h \
-    $$PWD/http/invalid/IRegistInvalidUnit.h \
     $$PWD/http/net/IRequestManage.h \
     $$PWD/http/net/impl/IRequestRaw.h \
     $$PWD/http/net/impl/IResponseHeader.h \
@@ -277,6 +277,7 @@ SOURCES += \
     $$PWD/http/invalid/IHttpInvalidUnit.cpp \
     $$PWD/http/invalid/IHttpInvalidWare.cpp \
     $$PWD/http/invalid/IHttpNotFoundInvalid.cpp \
+    $$PWD/http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.cpp \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.cpp \
     $$PWD/http/net/IRequestManage.cpp \
     $$PWD/http/net/impl/IRequestRaw.cpp \
