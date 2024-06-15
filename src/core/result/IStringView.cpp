@@ -91,11 +91,11 @@ IStringView IStringView::substr(const size_type _Off, size_type _Count) const
 
 IStringView IStringView::trimmed()
 {
-    auto left = find_first_not_of(' ');
+    auto left = find_first_not_of(" \r\n\t");
     if (left == std::string_view::npos) {
         return "";
     }
-    auto right = find_last_not_of(' ');
+    auto right = find_last_not_of(" \r\n\t");
     return substr(left, right - left + 1);
 }
 
