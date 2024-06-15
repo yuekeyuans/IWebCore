@@ -506,16 +506,7 @@ void IRequestImpl::parseHeader(IStringView line)
 
     auto key = line.substr(0, index).trimmed();
     auto value = line.substr(index+1).trimmed();
-    int pos=value.length();
-    for(;;){
-        auto index = value.find_first_of(';', pos);
-        IStringView value_part = value.substr(index+1, value.length()-index).trimmed();
-        m_raw->m_requestHeaders.insertMulti(key, value_part);
-        if(index == std::string_view::npos){
-            break;
-        }
-        pos = index + 1;
-    }
+    m_raw->m_requestHeaders.insertMulti(key, value);
 }
 
 void IRequestImpl::resolveHeaders()
@@ -545,6 +536,7 @@ void IRequestImpl::resolveHeaders()
             }
         }
     }
+
     resolveCookieHeaders();
 }
 
@@ -655,7 +647,7 @@ void IRequestImpl::parseJsonData(IStringView data)
 
 void IRequestImpl::parseMultiPartData(IStringView data)
 {
-    qDebug() << "start to parse multipart" << data;
+    qDebug() << "start to parse multipart" << data.length() << m_multipartBoundary << (int)m_raw->m_requestMime << IHttpMimeUtil::toString(m_raw->m_requestMime);
 }
 
 IStringView IRequestImpl::getBoundary(IStringView data)

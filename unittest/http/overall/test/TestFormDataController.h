@@ -8,9 +8,11 @@ class TestFormDataController : public IHttpTestInterface<TestFormDataController>
 public:
     TestFormDataController() = default;
 
-private slots:
+//private slots:
     void testPostFormData();
     void testPostLargeFile();
+
+private slots:
     void testMultiPart();
 };
 
