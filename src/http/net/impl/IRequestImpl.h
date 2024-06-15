@@ -74,12 +74,13 @@ private:
     void resolveCookieHeaders();
     void resolvePathProcessor();
     void resolveBodyContent();
-    void resolveBodyMultipart();
-    void resolveFormData(IStringView data, bool isBody);
+    void resolveMultipartContent();
+    void parseUrlEncodedData(IStringView data, bool isBody);
+    void parseJsonData(IStringView data);
+    void parseMultiPartData(IStringView data);
 
 private:
     IStringView getBoundary(IStringView);
-    bool isPathValid(const QString&);
 
 public:
     IRequest* m_request{};

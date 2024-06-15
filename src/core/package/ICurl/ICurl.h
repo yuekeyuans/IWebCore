@@ -40,6 +40,9 @@ public:
     ICurl& withEncodeData(const QString& value);
     ICurl& withEncodeBinary(const QString& path);
 
+    ICurl& withBinary(const QString& path, QString mime);
+    ICurl& withBinary(const QString& path, IHttpMime type=IHttpMime::APPLICATION_OCTET_STREAM);
+
     ICurl& withRawData();
 
     ICurl& withLimitRate(const QString&);
@@ -53,11 +56,12 @@ public:
 
 private:
     BodyType m_bodyType{None};
+    QString m_url;
     QStringList m_pathArgs;
     QStringList m_headerArgs;
     QString m_contentType;
     QStringList m_bodyArgs;
-    QStringList m_headers;
+    QStringList m_cmds;
 };
 
 $PackageWebCoreEnd

@@ -24,10 +24,10 @@ $PackageWebCoreBegin
 
 $UseAssert(IRequestAssert)
 
-namespace IRequestImplHelper{
-    void checkDumplicatedParameters(const QList<QPair<QString, IRequestImpl::FunType>>& maps, const IRequestImpl* ptr, const QString& name);
-    QString getOriginName(const QString& name, const QString& suffix);
-}
+//namespace IRequestImplHelper{
+//    void checkDumplicatedParameters(const QList<QPair<QString, IRequestImpl::FunType>>& maps, const IRequestImpl* ptr, const QString& name);
+//    QString getOriginName(const QString& name, const QString& suffix);
+//}
 
 IRequestImpl::IRequestImpl(IRequest* self)
     : m_request(self), m_raw(new IRequestRaw(self)),
@@ -409,7 +409,24 @@ void IRequestImpl::bodyState()
     if(m_contentLength){
         resolveBodyContent();
     }else if(!m_multipartBoundary.empty()){
-        resolveBodyMultipart();
+        resolveMultipartContent();
+    }
+
+    if(m_request->isValid()){
+        switch (m_raw->m_requestMime) {
+        case IHttpMime::MULTIPART_FORM_DATA:
+            parseMultiPartData(m_raw->m_requestBody);
+            break;
+        case IHttpMime::APPLICATION_WWW_FORM_URLENCODED:
+            parseUrlEncodedData(m_raw->m_requestBody, true);
+            break;
+        case IHttpMime::APPLICATION_JSON:
+        case IHttpMime::APPLICATION_JSON_UTF8:
+            parseJsonData(m_raw->m_requestBody);
+            break;
+        default:
+            break;
+        }
     }
 
     m_readState = State::EndState;
@@ -443,19 +460,13 @@ void IRequestImpl::parseFirstLine(IStringView line)
     }
     pos = index + 1;
 
-    // path
+    // path TODO: 检查一下url 是否合规
     index = line.find_first_of(' ', pos);
     if(index == std::string_view::npos){
         return m_raw->setInvalid(IHttpBadRequestInvalid("request path is not correct"));
     }
     m_raw->m_rawUrl = line.substr(pos, index-pos);
     pos = index +1;
-
-    // 这个放到内容里面解析
-//    m_raw->m_decodedUrl = QByteArray::fromPercentEncoding(QByteArray(m_raw->m_rawUrl.data(), m_raw->m_rawUrl.length()));
-//    if(!isPathValid(m_raw->m_decodedUrl)){
-//        return m_raw->setInvalid(IHttpBadRequestInvalid("request url is not correct. url:" + QString::fromStdString(std::string(m_raw->m_rawUrl))));
-//    }
 
     // version
     m_raw->m_httpVersion = IHttpVersionUtil::toVersion(line.substr(pos));
@@ -477,7 +488,7 @@ void IRequestImpl::resolveFirstLine()
     m_raw->m_url = QByteArray::fromPercentEncoding(QByteArray(m_raw->m_rawUrl.data(), m_raw->m_rawUrl.length()));
 
     m_raw->m_rawPathArgs = m_raw->m_rawUrl.substr(index+1);
-    resolveFormData(m_raw->m_rawPathArgs, false);
+    parseUrlEncodedData(m_raw->m_rawPathArgs, false);
 }
 
 void IRequestImpl::parseHeader(IStringView line)
@@ -493,17 +504,17 @@ void IRequestImpl::parseHeader(IStringView line)
         m_raw->setInvalid(IHttpBadRequestInvalid("header too long"));
     }
 
-    auto key = line.substr(0, index);
-    auto value = line.substr(index+1);
+    auto key = line.substr(0, index).trimmed();
+    auto value = line.substr(index+1).trimmed();
     int pos=value.length();
     for(;;){
-        auto index = value.find_last_of(';', pos);
-        IStringView value_part = value.substr(index+1, value.length()-index);
+        auto index = value.find_first_of(';', pos);
+        IStringView value_part = value.substr(index+1, value.length()-index).trimmed();
         m_raw->m_requestHeaders.insertMulti(key, value_part);
         if(index == std::string_view::npos){
             break;
         }
-        pos = index;
+        pos = index + 1;
     }
 }
 
@@ -603,36 +614,21 @@ void IRequestImpl::resolveBodyContent()
         }
         m_raw->m_requestBody = IStringView(asio::buffer_cast<const char*>(m_data.m_buff.data()), m_data.m_buff.size());
     }
-
-    switch (m_raw->m_requestMime) {
-    case IHttpMime::APPLICATION_WWW_FORM_URLENCODED:
-        resolveFormData(m_raw->m_requestBody, true);
-        break;
-    case IHttpMime::APPLICATION_JSON:
-    case IHttpMime::APPLICATION_JSON_UTF8:
-        // do nothing
-    default:
-        break;
-    }
 }
 
-void IRequestImpl::resolveBodyMultipart()
+void IRequestImpl::resolveMultipartContent()
 {
     if(m_bodyInData){
-        auto readSize = m_data.m_readSize - m_data.m_parsedSize;
-        if(m_contentLength != readSize){
-            return m_request->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
-        }
-        m_raw->m_requestBody = IStringView(m_data.m_data + m_data.m_parsedSize, readSize);
+        m_raw->m_requestBody = IStringView(m_data.m_data + m_data.m_parsedSize, m_data.m_readSize - m_data.m_parsedSize);
     }else{
-        if(m_contentLength != m_data.m_buff.size()){
-            return m_request->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
-        }
         m_raw->m_requestBody = IStringView(asio::buffer_cast<const char*>(m_data.m_buff.data()), m_data.m_buff.size());
+    }
+    if(!m_raw->m_requestBody.endWith(m_multipartBoundaryEnd)){
+        m_request->setInvalid(IHttpBadRequestInvalid("multipart data do not have end tag"));
     }
 }
 
-void IRequestImpl::resolveFormData(IStringView view, bool isBody)
+void IRequestImpl::parseUrlEncodedData(IStringView view, bool isBody)
 {
     QByteArray data = QByteArray::fromPercentEncoding(QByteArray(view.data(), view.length()));
     int pos{};
@@ -652,7 +648,16 @@ void IRequestImpl::resolveFormData(IStringView view, bool isBody)
     }
 }
 
-// TODO: not correct
+void IRequestImpl::parseJsonData(IStringView data)
+{
+    qDebug() << "start to parse json data" << data;
+}
+
+void IRequestImpl::parseMultiPartData(IStringView data)
+{
+    qDebug() << "start to parse multipart" << data;
+}
+
 IStringView IRequestImpl::getBoundary(IStringView data)
 {
     static std::string prefix = "boundary=";
@@ -667,40 +672,33 @@ IStringView IRequestImpl::getBoundary(IStringView data)
     return view;
 }
 
-// TODO: 这里不对， 有路径没有被判断通过，
-bool IRequestImpl::isPathValid(const QString& path)
-{
-    static QRegularExpression exp(R"(([\/\w \.-]*)*\/?$)");
-    return exp.match(path).hasMatch();
-}
+//void IRequestImplHelper::checkDumplicatedParameters(const QList<QPair<QString, IRequestImpl::FunType>>& maps, const IRequestImpl* ptr, const QString& name)
+//{
+//    static const QByteArray fakeVal = "&y&u$e$k#e#y*u*a@n@";
+//    bool convertOk;
+//    if(IConstantUtil::DebugMode){
+//        int count = 0;
+//        for(auto pair : maps){
+//            std::mem_fn(pair.second)(ptr, name, convertOk);     // TODO:这里要检查一下
+//            if(convertOk){
+//                count ++;
+//            }
+//        }
 
-void IRequestImplHelper::checkDumplicatedParameters(const QList<QPair<QString, IRequestImpl::FunType>>& maps, const IRequestImpl* ptr, const QString& name)
-{
-    static const QByteArray fakeVal = "&y&u$e$k#e#y*u*a@n@";
-    bool convertOk;
-    if(IConstantUtil::DebugMode){
-        int count = 0;
-        for(auto pair : maps){
-            std::mem_fn(pair.second)(ptr, name, convertOk);     // TODO:这里要检查一下
-            if(convertOk){
-                count ++;
-            }
-        }
+//        if(count >1){
+//            IAssertInfo info;
+//            info.reason = name + " parameter exist more than one in (body, path, param, session, cookie), please check. name : " + name;
+//            $Ast->fatal("checkDumplicatedParameters_find_More_than_one_value", info);
+//        }
+//    }
+//}
 
-        if(count >1){
-            IAssertInfo info;
-            info.reason = name + " parameter exist more than one in (body, path, param, session, cookie), please check. name : " + name;
-            $Ast->fatal("checkDumplicatedParameters_find_More_than_one_value", info);
-        }
-    }
-}
-
-QString IRequestImplHelper::getOriginName(const QString& name, const QString& suffix)
-{
-    if(name.endsWith(suffix)){
-        return name.left(name.length() - suffix.length());
-    }
-    return name;
-}
+//QString IRequestImplHelper::getOriginName(const QString& name, const QString& suffix)
+//{
+//    if(name.endsWith(suffix)){
+//        return name.left(name.length() - suffix.length());
+//    }
+//    return name;
+//}
 
 $PackageWebCoreEnd

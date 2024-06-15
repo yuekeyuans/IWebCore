@@ -4,8 +4,7 @@
 void TestFormDataController::testPostFormData()
 {
     auto curl = ICurl("/postData")
-            .withEncodeData(R"({"foo": 1, "bar": "baz"})")
-            .withContentType(IHttpMime::APPLICATION_JSON);
+            .withJsonBody(R"({\"foo\": 1, \"bar\": \"baz\"})");
     auto response = curl.execPost();
     qDebug() << response.m_status << response.m_body;
 }
@@ -13,11 +12,16 @@ void TestFormDataController::testPostFormData()
 void TestFormDataController::testPostLargeFile()
 {
     ICurlResponse response = ICurl("/postData")
-            .withEncodeBinary("D:/yuekeyuan.pdf", "application/pdf")
+            .withBinary("D:/yuekeyuan.pdf")
             .execPost();
     qDebug() << response.m_status << response.m_body;
 }
 
 void TestFormDataController::testMultiPart()
 {
+    ICurlResponse response = ICurl("/postData")
+            .withFormData("hello", "world")
+            .withFormFile("file", "D:/yuekeyuan.pdf", "yuekeyuan.pdf", "application/pdf")
+            .execPost();
+    qDebug() <<response.m_status << response.m_body;
 }

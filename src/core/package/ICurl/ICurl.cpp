@@ -8,10 +8,9 @@ ICurl::ICurl(const QString& url)
     static $QString m_ip{"http.ip"};
     static $UShort m_port{"http.port"};
 
-    m_headers.append("-i");
-    m_headers.append("http://" + m_ip + ":" + QString::number(m_port)  + url);
+    m_cmds.append("curl -i");
+    m_url = "http://" + m_ip + ":" + QString::number(m_port)  + url;\
 }
-
 
 ICurl &ICurl::withPathArg(const QString &data)
 {
@@ -35,7 +34,7 @@ ICurl &ICurl::withPathArgs(QMap<QString, QString> args)
 
 ICurl &ICurl::withHeader(const QString& data)
 {
-    m_headers.append("-H \"" + data + "\"");
+    m_headerArgs.append("-H \"" + data + "\"");
     return *this;
 }
 
@@ -56,6 +55,7 @@ ICurl &ICurl::withContentType(const QString &contentType)
     }
 
     m_contentType = contentType;
+    return *this;
 }
 
 ICurl &ICurl::withJsonBody(const QString &value)
@@ -65,14 +65,14 @@ ICurl &ICurl::withJsonBody(const QString &value)
     }
 
     withContentType(IHttpMime::APPLICATION_JSON);
-    m_bodyArgs.append("-d '" + value + "'");
+    m_bodyArgs.append("-d \"" + value + "\"");
     m_bodyType = BodyType::Json;
     return *this;
 }
 
 ICurl &ICurl::withFormData(const QString &value)
 {
-    if(m_bodyType != BodyType::None || m_bodyType != BodyType::MultiPart){
+    if(m_bodyType != BodyType::None && m_bodyType != BodyType::MultiPart){
         qFatal("other data already set");
     }
 
@@ -90,10 +90,10 @@ ICurl &ICurl::withFormFile(const QString &name, const QString &path, const QStri
 {
     QString data = name + "=@"+path;
     if(!fileName.isEmpty()){
-        data += "filename="+fileName;
+        data += ";filename="+fileName;
     }
     if(!mime.isEmpty()){
-        data += "type=" + mime;
+        data += ";type=" + mime;
     }
     return withFormData(data);
 }
@@ -110,16 +110,21 @@ ICurl &ICurl::withEncodeData(const QString &value)
     return *this;
 }
 
-ICurl &ICurl::withEncodeBinary(const QString &path)
+ICurl &ICurl::withBinary(const QString &path, QString mime)
 {
-    if(m_bodyType != BodyType::None && m_bodyType != BodyType::UrlEncoded){
-        qFatal("other data already set");
+    if(m_bodyType != BodyType::None){
+        qFatal("other type already set");
     }
 
-    m_bodyType = BodyType::UrlEncoded;
-    withContentType(IHttpMime::APPLICATION_WWW_FORM_URLENCODED);
+    m_bodyType = BodyType::Raw;
+    withContentType(mime);
     m_bodyArgs.append("--data-binary \"@" + path + "\"");
     return *this;
+}
+
+ICurl &ICurl::withBinary(const QString &path, IHttpMime type)
+{
+    return withBinary(path, IHttpMimeUtil::toString(type));
 }
 
 ICurl &ICurl::withLimitRate(const QString& data)
@@ -130,10 +135,21 @@ ICurl &ICurl::withLimitRate(const QString& data)
 ICurlResponse ICurl::exec()
 {
     QProcess process;
-    m_headers.prepend("curl");
-    process.start(m_headers.join(" "));
 
-    qDebug().noquote() << m_headers.join(" ");
+    QString cmd;
+    cmd = m_cmds.join(" ");
+    cmd += " " + m_url;
+    cmd += " " + m_headerArgs.join(" ");
+    if(!m_contentType.isEmpty()){
+        cmd += "-H \"Content-Type: " + m_contentType + "\"";
+    }
+
+    if(!m_bodyArgs.isEmpty()){
+        cmd += " " + m_bodyArgs.join(" ");
+    }
+
+    process.start(cmd);
+    qDebug().noquote() << cmd;
 
     process.waitForStarted();
     process.waitForFinished();
@@ -142,25 +158,25 @@ ICurlResponse ICurl::exec()
 
 ICurlResponse ICurl::execGet()
 {
-    m_headers.append("-X GET");
+    m_cmds.append("-X GET");
     return exec();
 }
 
 ICurlResponse ICurl::execPost()
 {
-    m_headers.append("-X POST");
+    m_cmds.append("-X POST");
     return exec();
 }
 
 ICurlResponse ICurl::execPut()
 {
-    m_headers.append("-X PUT");
+    m_cmds.append("-X PUT");
     return exec();
 }
 
 ICurlResponse ICurl::execDelete()
 {
-    m_headers.append("-X DELETE");
+    m_cmds.append("-X DELETE");
     return exec();
 }
 
