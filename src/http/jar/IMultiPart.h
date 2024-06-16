@@ -19,8 +19,8 @@ public:
     };
 
 public:
-    IMultiPart();
-    IMultiPart(IStringView);
+    IMultiPart() = default;
+    IMultiPart(IStringView data);
 
     bool isValid() const;
 

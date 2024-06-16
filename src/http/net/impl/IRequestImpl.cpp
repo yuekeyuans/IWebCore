@@ -655,20 +655,19 @@ void IRequestImpl::parseMultiPartData(IStringView data)
         m_request->setInvalid(IHttpBadRequestInvalid("multipart end error"));
         return;
     }
-    auto content = data.substr(0, endPos);
 
     int pos{};
+    auto indexFirst = data.find(m_multipartBoundary, pos);
     for(;;){
-        auto index = content.find(m_multipartBoundary, pos);
-        if(index == IStringView::npos){
+        auto indexSecond = data.find(m_multipartBoundary, indexFirst+ m_multipartBoundary.length());
+        if(indexSecond == IStringView::npos){
             break;
         }
-        auto multiPartContent = content.substr(pos, index).trimmed();
-        m_raw->m_requestMultiParts.append(IMultiPart(multiPartContent));
-        pos = index + m_multipartBoundary.length();
+        auto content=data.substr(indexFirst + m_multipartBoundary.length(), indexSecond - m_multipartBoundary.length()).trimmed();
+        qDebug() << content;
+        m_raw->m_requestMultiParts.append(IMultiPart(content));
+        indexFirst = indexSecond;
     }
-
-//    qDebug() << "start to parse multipart" << data.length() << m_multipartBoundary << (int)m_raw->m_requestMime << IHttpMimeUtil::toString(m_raw->m_requestMime);
 }
 
 IStringView IRequestImpl::getBoundary(IStringView data)
@@ -679,10 +678,7 @@ IStringView IRequestImpl::getBoundary(IStringView data)
         return {};
     }
     auto view = data.substr(index + prefix.length());
-//    if(!view.startWith("--")){
-        return stash("--" + view.toQByteArray());
-//    }
-//    return view;
+    return stash("--" + view.toQByteArray());
 }
 
 //void IRequestImplHelper::checkDumplicatedParameters(const QList<QPair<QString, IRequestImpl::FunType>>& maps, const IRequestImpl* ptr, const QString& name)
