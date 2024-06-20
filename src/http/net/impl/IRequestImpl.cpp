@@ -45,9 +45,10 @@ IRequestImpl::~IRequestImpl()
     m_raw = nullptr;
 }
 
+// FIXBUG: check it
 QJsonValue IRequestImpl::requestJson(bool& ok) const
 {
-    return m_raw->getRequestJson(ok);
+    return m_raw->m_requestJson;
 }
 
 int IRequestImpl::contentLength() const
@@ -645,7 +646,12 @@ void IRequestImpl::parseUrlEncodedData(IStringView view, bool isBody)
 
 void IRequestImpl::parseJsonData(IStringView data)
 {
-    qDebug() << "start to parse json data" << data;
+    bool ok;
+    m_raw->m_requestJson = IJsonUtil::toJsonValue(data, ok);
+    if(!ok){
+        m_request->setInvalid(IHttpBadRequestInvalid("parse json failed"));
+    }
+    qDebug() << m_raw->m_requestJson << ok;
 }
 
 void IRequestImpl::parseMultiPartData(IStringView data)

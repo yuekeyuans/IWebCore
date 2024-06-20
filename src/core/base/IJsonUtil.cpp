@@ -82,6 +82,24 @@ QJsonValue IJsonUtil::toJsonValue(const QByteArray &value, bool& ok)
     return toJsonValue(QString(value), ok);
 }
 
+QJsonValue IJsonUtil::toJsonValue(IStringView value, bool &ok)
+{
+    return toJsonValue(value.toQString(), ok);
+//    IToeUtil::setOk(ok, true);
+//    QJsonDocument obj = QJsonDocument::fromRawData(value.data(), value.length());
+//    if(obj.isArray()){
+//        return obj.array();
+//    }else if(obj.isObject()){
+//        return obj.object();
+//    }else if(obj.isEmpty()){
+//        return QJsonValue();  // null 转化为 空值
+//    }else if(obj.isNull()){
+//        IToeUtil::setOk(ok, false);
+//        return {};
+//    }else{
+//        return QJsonValue(value.toQString());
+//    }
+}
 
 QJsonValue IJsonUtil::toJsonValue(bool content, bool& ok)
 {

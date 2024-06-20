@@ -55,26 +55,5 @@ void IRequestRaw::setInvalid(IHttpInvalidUnit ware)
     m_responseRaw->setContent(ware);
 }
 
-// TODO: 这里需要查看一下，感觉返回数据过于早了，应该统一处理的。
-QJsonValue IRequestRaw::getRequestJson(bool& ok)
-{
-    if(!isJsonInited){
-        m_requestJson = IJsonUtil::toJsonValue(m_requestBody, ok);
-        if(!ok){
-            setInvalid(IHttpBadRequestInvalid("convert body to json failed"));
-            return {}; // TODO: check here;
-        }
-        isJsonInited = true;
-    }
-    ok = true;
-    return m_requestJson;
-}
-
-IResult<QJsonValue> IRequestRaw::getRequestJson()
-{
-    bool ok;
-    auto value = getRequestJson(ok);
-    return {value, ok};
-}
 
 $PackageWebCoreEnd

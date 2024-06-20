@@ -11,8 +11,9 @@ public:
 //private slots:
     void testPostFormData();
     void testPostLargeFile();
+    void testMultiPart();
 
 private slots:
-    void testMultiPart();
+    void testJson();
 };
 

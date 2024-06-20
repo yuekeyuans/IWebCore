@@ -60,7 +60,7 @@ private:
     QStringList m_pathArgs;
     QStringList m_headerArgs;
     QString m_contentType;
-    QStringList m_bodyArgs;
+//    QStringList m_bodyArgs;
     QStringList m_cmds;
 };
 

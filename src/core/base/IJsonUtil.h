@@ -10,6 +10,7 @@ namespace IJsonUtil
     //! @note 当编写 文档时，注意 jsonvalue 的转换规则
     QJsonValue toJsonValue(const QString& content, bool& ok);
     QJsonValue toJsonValue(const QByteArray& value, bool& ok);
+    QJsonValue toJsonValue(IStringView value, bool& ok);
     QJsonValue toJsonValue(bool content, bool& ok);
     QJsonValue toJsonValue(qint64 content, bool& ok);
     QJsonValue toJsonValue(int content, bool& ok);

@@ -46,9 +46,6 @@ public:
     bool isValid() const;
     void setInvalid(IHttpInvalidUnit ware);
 
-    QJsonValue getRequestJson(bool& ok);
-    IResult<QJsonValue> getRequestJson();
-
 public:
     IResponseRaw* m_responseRaw{nullptr};
     IResponse*  m_response {nullptr};
@@ -79,10 +76,6 @@ public:
     ISessionJar* m_sessionJar{nullptr};
 
     ProcessUnit m_processer;
-
-private:    
-    bool isJsonInited   {false};
-    bool isXmlInited    {false};
     QJsonValue m_requestJson;                   // json 和 dom 不一定使用，也可能是延后加载
     QDomNode m_requestXml;
 };

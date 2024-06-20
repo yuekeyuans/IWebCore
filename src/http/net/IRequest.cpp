@@ -164,9 +164,11 @@ const QVector<IMultiPart> &IRequest::bodyMultiParts() const
     return impl->m_raw->m_requestMultiParts;
 }
 
+// TODO: check it
 QJsonValue IRequest::bodyJson(bool &ok) const
 {
-    return impl->requestJson(ok);
+//    return impl->requestJson(ok);
+    return impl->m_raw->m_requestJson;
 }
 
 /*

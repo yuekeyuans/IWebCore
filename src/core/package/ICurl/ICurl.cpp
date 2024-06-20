@@ -8,8 +8,9 @@ ICurl::ICurl(const QString& url)
     static $QString m_ip{"http.ip"};
     static $UShort m_port{"http.port"};
 
-    m_cmds.append("curl -i");
     m_url = "http://" + m_ip + ":" + QString::number(m_port)  + url;\
+    m_cmds << "-i";
+    m_cmds << "--url" << m_url;
 }
 
 ICurl &ICurl::withPathArg(const QString &data)
@@ -65,7 +66,7 @@ ICurl &ICurl::withJsonBody(const QString &value)
     }
 
     withContentType(IHttpMime::APPLICATION_JSON);
-    m_bodyArgs.append("-d \"" + value + "\"");
+    m_cmds << "-d" << value;
     m_bodyType = BodyType::Json;
     return *this;
 }
@@ -77,7 +78,7 @@ ICurl &ICurl::withFormData(const QString &value)
     }
 
     withContentType(IHttpMime::MULTIPART_FORM_DATA);
-    m_bodyArgs.append("-F \"" + value + "\"");
+    m_cmds << "-F" << value;
     return *this;
 }
 
@@ -106,7 +107,7 @@ ICurl &ICurl::withEncodeData(const QString &value)
 
     m_bodyType = BodyType::UrlEncoded;
     withContentType(IHttpMime::APPLICATION_WWW_FORM_URLENCODED);
-    m_bodyArgs.append("--data-urlencode \"" + value + "\"");
+    m_cmds << "--data-urlencode" << value;
     return *this;
 }
 
@@ -118,7 +119,7 @@ ICurl &ICurl::withBinary(const QString &path, QString mime)
 
     m_bodyType = BodyType::Raw;
     withContentType(mime);
-    m_bodyArgs.append("--data-binary \"@" + path + "\"");
+    m_cmds << "--data-binary" << "@" + path;
     return *this;
 }
 
@@ -136,20 +137,12 @@ ICurlResponse ICurl::exec()
 {
     QProcess process;
 
-    QString cmd;
-    cmd = m_cmds.join(" ");
-    cmd += " " + m_url;
-    cmd += " " + m_headerArgs.join(" ");
     if(!m_contentType.isEmpty()){
-        cmd += "-H \"Content-Type: " + m_contentType + "\"";
+        m_cmds << "-H" << "Content-Type: " + m_contentType;
     }
 
-    if(!m_bodyArgs.isEmpty()){
-        cmd += " " + m_bodyArgs.join(" ");
-    }
-
-    process.start(cmd);
-    qDebug().noquote() << cmd;
+    process.start("curl", m_cmds);
+    qDebug().noquote() << "curl" << m_cmds.join(" ");
 
     process.waitForStarted();
     process.waitForFinished();
@@ -158,25 +151,25 @@ ICurlResponse ICurl::exec()
 
 ICurlResponse ICurl::execGet()
 {
-    m_cmds.append("-X GET");
+    m_cmds << "-X" << "GET";
     return exec();
 }
 
 ICurlResponse ICurl::execPost()
 {
-    m_cmds.append("-X POST");
+    m_cmds << "-X" << "POST";
     return exec();
 }
 
 ICurlResponse ICurl::execPut()
 {
-    m_cmds.append("-X PUT");
+    m_cmds << "-X" << "PUT";
     return exec();
 }
 
 ICurlResponse ICurl::execDelete()
 {
-    m_cmds.append("-X DELETE");
+    m_cmds << "-X" << "DELETE";
     return exec();
 }
 
