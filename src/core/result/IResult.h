@@ -5,7 +5,7 @@
 template<typename T>
 struct IResult
 {
-    IResult(T value, bool ok = true);
+    IResult(T value, bool ok);
     operator T&();
     T& value();
     bool isOk();

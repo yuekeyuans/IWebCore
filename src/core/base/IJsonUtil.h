@@ -11,6 +11,8 @@ namespace IJsonUtil
     QJsonValue toJsonValue(const QString& content, bool& ok);
     QJsonValue toJsonValue(const QByteArray& value, bool& ok);
     QJsonValue toJsonValue(IStringView value, bool& ok);
+    IResult<QJsonValue> toJsonValue(IStringView value);
+
     QJsonValue toJsonValue(bool content, bool& ok);
     QJsonValue toJsonValue(qint64 content, bool& ok);
     QJsonValue toJsonValue(int content, bool& ok);
@@ -22,6 +24,7 @@ namespace IJsonUtil
     QJsonValue toJsonValue(const QStringList& list, bool& ok);
     QJsonValue toJsonValue(const QList<QVariant>& list, bool& ok);
     QJsonValue toJsonValue(const QVariant& value, bool& ok);
+
 
     template<typename T>
     QJsonValue toJsonValue(T value, bool& ok){

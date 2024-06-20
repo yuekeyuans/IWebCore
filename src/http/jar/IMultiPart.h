@@ -9,6 +9,7 @@
 $PackageWebCoreBegin
 
 class IMultiPartJar;
+class IRequest;
 class IMultiPart : IRegisterMetaTypeUnit<IMultiPart>
 {
 public:
@@ -20,12 +21,10 @@ public:
 
 public:
     IMultiPart() = default;
-    IMultiPart(IStringView data);
+    IMultiPart(IStringView data, IRequest* request);
 
+public:
     bool isValid() const;
-
-private:
-    void resolveHeaders(IStringView);
 
 public:
     IStringView name;

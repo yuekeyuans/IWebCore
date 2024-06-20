@@ -24,7 +24,7 @@ class ISessionJar;
 class IRequestImpl;
 class IRequestRaw;
 
-class IRequest : IRegisterMetaTypeUnit<IRequest>, public ITcpResolverInterface
+class IRequest : IRegisterMetaTypeUnit<IRequest>, public ITcpResolverInterface, public IStringViewStash
 {
 public:
     IRequest();

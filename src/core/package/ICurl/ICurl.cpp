@@ -8,14 +8,14 @@ ICurl::ICurl(const QString& url)
     static $QString m_ip{"http.ip"};
     static $UShort m_port{"http.port"};
 
-    m_url = "http://" + m_ip + ":" + QString::number(m_port)  + url;\
     m_cmds << "-i";
-    m_cmds << "--url" << m_url;
+    m_cmds << "--url" << "http://" + m_ip + ":" + QString::number(m_port)  + url;
 }
 
 ICurl &ICurl::withPathArg(const QString &data)
 {
-    m_pathArgs.append(data);
+    qDebug() << "check this";
+//    m_pathArgs.append(data);
     return *this;
 }
 
@@ -35,7 +35,7 @@ ICurl &ICurl::withPathArgs(QMap<QString, QString> args)
 
 ICurl &ICurl::withHeader(const QString& data)
 {
-    m_headerArgs.append("-H \"" + data + "\"");
+    m_cmds << "-H" << data;
     return *this;
 }
 

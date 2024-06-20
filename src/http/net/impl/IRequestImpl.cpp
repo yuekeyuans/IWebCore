@@ -336,12 +336,6 @@ std::vector<asio::const_buffer> IRequestImpl::getResult()
     return m_responseImpl->getContent();
 }
 
-IStringView IRequestImpl::stash(QByteArray data)
-{
-    m_stash.emplace_back(std::move(data));
-    return IStringView(m_stash.back().data(), m_stash.back().length());
-}
-
 void IRequestImpl::firstLineState(IStringView data)
 {
     m_data.m_parsedSize += data.length();
@@ -646,10 +640,11 @@ void IRequestImpl::parseUrlEncodedData(IStringView view, bool isBody)
 
 void IRequestImpl::parseJsonData(IStringView data)
 {
-    bool ok;
-    m_raw->m_requestJson = IJsonUtil::toJsonValue(data, ok);
-    if(!ok){
+    auto val = IJsonUtil::toJsonValue(data);
+    if(!val.isOk()){
         m_request->setInvalid(IHttpBadRequestInvalid("parse json failed"));
+    }else{
+        m_raw->m_requestJson = std::move(val.m_value);
     }
 }
 
@@ -661,16 +656,19 @@ void IRequestImpl::parseMultiPartData(IStringView data)
         return;
     }
 
-    int pos{};
-    auto indexFirst = data.find(m_multipartBoundary, pos);
+    auto indexFirst = data.find(m_multipartBoundary, 0);
     for(;;){
         auto indexSecond = data.find(m_multipartBoundary, indexFirst+ m_multipartBoundary.length());
         if(indexSecond == IStringView::npos){
             break;
         }
+
         auto content=data.substr(indexFirst + m_multipartBoundary.length(), indexSecond - m_multipartBoundary.length()).trimmed();
-        qDebug() << content;
-        m_raw->m_requestMultiParts.append(IMultiPart(content));
+        IMultiPart part(content, m_request);
+        if(!part.isValid()){
+            return;
+        }
+        m_raw->m_requestMultiParts.append(part);
         indexFirst = indexSecond;
     }
 }

@@ -20,7 +20,7 @@ class ITcpConnection;
 class IResponseImpl;
 struct ITcpConnectionData;
 
-class IRequestImpl
+class IRequestImpl : public IStringViewStash
 {
 public:
     enum State{
@@ -41,7 +41,6 @@ public:
 public:
     void parseData();
     std::vector<asio::const_buffer> getResult();
-    IStringView stash(QByteArray);
 
 private:
     void firstLineState(IStringView);

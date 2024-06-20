@@ -87,6 +87,13 @@ QJsonValue IJsonUtil::toJsonValue(IStringView value, bool &ok)
     return toJsonValue(value.toQString(), ok);
 }
 
+IResult<QJsonValue> IJsonUtil::toJsonValue(IStringView value)
+{
+    bool ok;
+    auto ret = toJsonValue(value, ok);
+    return {std::move(ret), ok};
+}
+
 QJsonValue IJsonUtil::toJsonValue(bool content, bool& ok)
 {
     IToeUtil::setOk(ok, true);

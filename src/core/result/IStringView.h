@@ -52,6 +52,17 @@ public:
 };
 
 
+class IStringViewStash
+{
+public:
+    IStringView stash(QByteArray data);
+
+private:
+    QMutex m_mutex;
+    std::list<QByteArray> m_stashed;
+};
+
+
 Q_DECLARE_METATYPE(IStringView)
 Q_DECLARE_METATYPE(IStringViewList)
 
