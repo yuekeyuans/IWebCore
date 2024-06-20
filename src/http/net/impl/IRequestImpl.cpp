@@ -651,7 +651,6 @@ void IRequestImpl::parseJsonData(IStringView data)
     if(!ok){
         m_request->setInvalid(IHttpBadRequestInvalid("parse json failed"));
     }
-    qDebug() << m_raw->m_requestJson << ok;
 }
 
 void IRequestImpl::parseMultiPartData(IStringView data)
@@ -683,7 +682,15 @@ IStringView IRequestImpl::getBoundary(IStringView data)
     if(index == std::string::npos){
         return {};
     }
+
     auto view = data.substr(index + prefix.length());
+    if(view.empty()){
+        return {};
+    }
+
+    if(view.startWith("\"") && view.endWith("\"")){
+        view = view.substr(1, view.length()-2);
+    }
     return stash("--" + view.toQByteArray());
 }
 
