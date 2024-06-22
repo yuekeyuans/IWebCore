@@ -9,6 +9,7 @@ class ITcpResolverInterface;
 
 class ITcpConnection
 {
+    friend class ITcpResolverInterface;
 public:
     ITcpConnection(asio::ip::tcp::socket socket);
     virtual ~ITcpConnection();
@@ -31,9 +32,6 @@ private:
     asio::ip::tcp::socket m_socket;
     ITcpResolverInterface* m_resolver{};
     bool m_closeConnection{true};
-
-public:
-    friend class ITcpResolverInterface;
 };
 
 $PackageWebCoreEnd

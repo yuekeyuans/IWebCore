@@ -7,27 +7,8 @@ $PackageWebCoreBegin
 
 namespace detail
 {
-    IStringViewList concatenateHeaders(const IStringViewList& list, IRequest* request){
-        IStringViewList ret;
-        if(list.empty()){
-            return ret;
-        }
-
-        int length = list.length();
-        for(int i=length-1; i>=0; i--){
-            auto view = list[i];
-            for(; view[0]==' '; ){
-                i--;
-                if(i==-1){
-                    request->setInvalid(IHttpBadRequestInvalid("multipart header error"));
-                    return {};
-                }
-                view = request->stash(list[i].toQByteArray() + view.toQByteArray().trimmed());
-            }
-            ret.append(view);
-        }
-        return ret;
-    }
+    void resolveHeaders(IMultiPart* self, IStringView data, IRequest* request);
+    IStringViewList concatenateHeaders(const IStringViewList& list, IRequest* request);
 }
 
 IMultiPart::IMultiPart(IStringView view, IRequest* request)
@@ -39,7 +20,7 @@ IMultiPart::IMultiPart(IStringView view, IRequest* request)
     }
 
     content = view.substr(index+4);
-    resolveHeaders(view.substr(0, index), request);
+    detail::resolveHeaders(this, view.substr(0, index), request);
 }
 
 bool IMultiPart::isValid() const
@@ -50,7 +31,7 @@ bool IMultiPart::isValid() const
 static IStringView FORMDATE_NAME("name=\"");
 static IStringView FORMDATA_FILE_NAME("filename=\"");
 static IStringView FORMDATA_CHARSET("charset=");
-void IMultiPart::resolveHeaders(IStringView data, IRequest* request)
+void detail::resolveHeaders(IMultiPart* self, IStringView data, IRequest* request)
 {
     auto lines = detail::concatenateHeaders(data.split(IStringView("\r\n")), request);
     for(auto line : lines){
@@ -65,40 +46,62 @@ void IMultiPart::resolveHeaders(IStringView data, IRequest* request)
         if(key == IHttpHeader::ContentDisposition){
             auto index = value.find(FORMDATE_NAME);
             if(index != std::string_view::npos){
-                name = value.substr(index+FORMDATE_NAME.length());
-                if(!name.empty() && name.startWith("\"")){
-                    name = name.substr(1, name.length()-2);
+                self->name = value.substr(index+FORMDATE_NAME.length());
+                if(!self->name.empty() && self->name.startWith("\"")){
+                    self->name = self->name.substr(1, self->name.length()-2);
                 }
             }
             index = value.find(FORMDATA_FILE_NAME);
             if(index != std::string_view::npos){
-                fileName = value.substr(index+FORMDATA_FILE_NAME.length());
-                if(!fileName.empty() && fileName.startWith("\"")){
-                    fileName = fileName.substr(1, fileName.length()-2);
+                self->fileName = value.substr(index+FORMDATA_FILE_NAME.length());
+                if(!self->fileName.empty() && self->fileName.startWith("\"")){
+                    self->fileName = self->fileName.substr(1, self->fileName.length()-2);
                 }
             }
 
         }else if(key == IHttpHeader::ContentType){
-            mime = IHttpMimeUtil::toMime(value);
+            self->mime = IHttpMimeUtil::toMime(value);
             auto index = value.find(FORMDATA_CHARSET);
             if(index != std::string_view::npos){
                 IStringViewList args = value.substr(index+FORMDATA_CHARSET.length()).split(";");
                 if(args.length() >= 1){
-                    charset= args.first().trimmed();
+                    self->charset= args.first().trimmed();
                 }
             }
         }else if(key ==  IHttpHeader::ContentTransferEncoding){
             if(value == "7bit"){
-                encoding = IMultiPart::BIT_7;
+                self->encoding = IMultiPart::BIT_7;
             }else if(value == "8bit"){
-                encoding = IMultiPart::BIT_8;
+                self->encoding = IMultiPart::BIT_8;
             }else if(value == "binary"){
-                encoding = IMultiPart::BINARY;
+                self->encoding = IMultiPart::BINARY;
             }else{
                 request->setInvalid(IHttpBadRequestInvalid("multipart header error with ContentTransferEncoding"));
             }
         }
     }
+}
+
+IStringViewList detail::concatenateHeaders(const IStringViewList& list, IRequest* request){
+    IStringViewList ret;
+    if(list.empty()){
+        return ret;
+    }
+
+    int length = list.length();
+    for(int i=length-1; i>=0; i--){
+        auto view = list[i];
+        for(; view[0]==' '; ){
+            i--;
+            if(i==-1){
+                request->setInvalid(IHttpBadRequestInvalid("multipart header error"));
+                return {};
+            }
+            view = request->stash(list[i].toQByteArray() + view.toQByteArray().trimmed());
+        }
+        ret.append(view);
+    }
+    return ret;
 }
 
 

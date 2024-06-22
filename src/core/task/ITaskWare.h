@@ -8,6 +8,7 @@ $PackageWebCoreBegin
 class ITaskCatagory;
 class ITaskWare : public IOrderUnit
 {
+    friend class ITaskCatagory;
 public:
     ITaskWare() = default;
     virtual ~ITaskWare() = default;
@@ -20,9 +21,6 @@ public:
 
 private:
     bool isTaskEnabled() const;
-
-private:
-    friend class ITaskCatagory;
 };
 
 $PackageWebCoreEnd

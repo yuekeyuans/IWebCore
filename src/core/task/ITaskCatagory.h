@@ -10,6 +10,7 @@ class ITaskManage;
 
 class ITaskCatagory : public IOrderUnit
 {
+    friend class ITaskManage;
 public:
     ITaskCatagory() = default;
     virtual ~ITaskCatagory() = default;
@@ -26,7 +27,6 @@ private:
     void printTaskInfo() const;
 
 private:
-    friend class ITaskManage;
     QList<ITaskWare*> m_taskWares;
 };
 

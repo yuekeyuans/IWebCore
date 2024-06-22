@@ -8,12 +8,12 @@ class IRequestRaw;
 
 class IJarUnit
 {
+    friend class IRequestRaw;
 public:
     IJarUnit(IRequestRaw* m_raw);
     virtual bool isValid() const;
 
 protected:
-    friend class IRequestRaw;
     IRequestRaw* m_raw{nullptr};
 };
 

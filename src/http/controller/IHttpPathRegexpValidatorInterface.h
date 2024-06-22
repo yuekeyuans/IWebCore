@@ -26,10 +26,8 @@ public:
 
 class IHttpPathRegexpValidatorInterfaceHelper
 {
-private:
     template<typename T, bool>
     friend class IHttpPathRegexpValidatorInterface;
-
 private:
     void registValidator(const QString& name, const QString&);
 };

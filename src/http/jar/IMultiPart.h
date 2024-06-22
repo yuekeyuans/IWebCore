@@ -12,6 +12,7 @@ class IMultiPartJar;
 class IRequest;
 class IMultiPart : IRegisterMetaTypeUnit<IMultiPart>
 {
+    friend class IMultiPartJar;
 public:
     enum TransferEncoding{      // rfc2046
         BIT_7,
@@ -26,9 +27,6 @@ public:
 public:
     bool isValid() const;
 
-private:
-    void resolveHeaders(IStringView data, IRequest* request);
-
 public:
     IStringView name;
     IStringView fileName;
@@ -37,9 +35,6 @@ public:
     IHttpMime mime {IHttpMime::UNKNOWN};
     TransferEncoding encoding{BIT_7};
     QMultiHash<IStringView, IStringView> headers; // TODO: 这个能不能变成可拷贝的一个内容？
-
-private:
-    friend class IMultiPartJar;
 };
 
 $PackageWebCoreEnd

@@ -27,10 +27,8 @@ public:
 
 class IHttpPathFunctorValidatorInterfaceHelper
 {
-private:
     template<typename T, bool>
     friend class IHttpPathFunctorValidatorInterface;
-
 private:
     static void registValidator(const QString& name, std::function<bool(const QString&)> validator);
 };

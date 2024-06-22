@@ -17,6 +17,7 @@ namespace IOrmDatabaseWareProxy{
 
 class IOrmDatabaseWare : public ITaskWare
 {
+    friend class IOrmDatabaseWareImpl;
 public:
     IOrmDatabaseWare();
     virtual ~IOrmDatabaseWare();
@@ -42,7 +43,6 @@ public:
     void registerView(const QString& sql = "");
 
 protected:
-    friend class IOrmDatabaseWareImpl;
     std::shared_ptr<IOrmDatabaseWareImpl> pimpl;
 };
 

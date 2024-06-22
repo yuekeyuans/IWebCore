@@ -11,6 +11,7 @@ class IOrmConditionImpl;
 
 class IOrmCondition
 {
+    friend class IOrmConditionImpl;
 public:
     enum Relation : uint8_t{
         And_Type,
@@ -142,15 +143,13 @@ public:
     bool isValid() const;
 
 private:
-    friend class IOrmConditionImpl;
     std::shared_ptr<IOrmConditionImpl> impl;
 };
 
 
-class IOrmConditionHelper{
-private:
+class IOrmConditionHelper
+{
     friend class IOrmCondition;
-
 private:
     void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<qint8>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
     void whereIn(std::shared_ptr<IOrmConditionImpl> impl, const QString& field, const QList<quint8>& range, IOrmCondition::Relation relation = IOrmCondition::And_Type);
