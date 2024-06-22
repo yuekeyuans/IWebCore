@@ -24,14 +24,15 @@ public:
     QString funName;
     QString expression;
 
-    QStringList paramNames;
-    QStringList paramTypeNames;
-    QStringList paramQualifiers;
-    QList<QMetaType::Type> paramTypeIds;
-
     QString returnTypeName;
     QMetaType::Type returnTypeId {QMetaType::UnknownType};
     QVector<IParamNode> paramNodes;
+
+public:
+    QStringList m_paramNames;
+    QStringList m_paramTypeNames;
+    QStringList m_paramQualifiers;
+    QList<QMetaType::Type> m_paramTypeIds;
 };
 
 $PackageWebCoreEnd

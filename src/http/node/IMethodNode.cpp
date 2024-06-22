@@ -24,8 +24,8 @@ IMethodNode IMethodNode::fromMetaMethod(void *handler, const QString &className,
     node.className = className;
     detail::assignBaseInfo(node, handler, method);
     detail::createFunctionParamNodes(node, method);
-    detail::createFunctionExpression(node);
     detail::resolveParamNode(node);
+    detail::createFunctionExpression(node);
 
     return node;
 }
@@ -37,22 +37,22 @@ int IMethodNode::getParamCount() const
 
 const QStringList& IMethodNode::getParamNames() const
 {
-    return paramNames;
+    return m_paramNames;
 }
 
 const QStringList& IMethodNode::getParamTypeNames() const
 {
-    return paramTypeNames;
+    return m_paramTypeNames;
 }
 
 const QStringList &IMethodNode::getParamQualifiers() const
 {
-    return paramQualifiers;
+    return m_paramQualifiers;
 }
 
 const QList<QMetaType::Type>& IMethodNode::getParamTypeIds() const
 {
-    return paramTypeIds;
+    return m_paramTypeIds;
 }
 
 void detail::assignBaseInfo(IMethodNode& node, void* handle, QMetaMethod method)
@@ -63,8 +63,7 @@ void detail::assignBaseInfo(IMethodNode& node, void* handle, QMetaMethod method)
     node.returnTypeName = method.typeName();
     node.returnTypeId = QMetaType::Type(method.returnType());
 
-    // return type
-    if(node.returnTypeId == QMetaType::UnknownType){
+    if(node.returnTypeId == QMetaType::UnknownType){ // return type
         IAssertInfo info;
         info.reason = QString("return Type Not Defined in QMeta System. type: ").append(node.returnTypeName)
                            .append(", Function: ").append(node.expression);
@@ -79,9 +78,8 @@ void detail::createFunctionExpression(IMethodNode& node)
     expression.append(node.className).append("::").append(node.funName).append("(");
 
     QStringList args;
-    for(const auto& param : node.paramNodes){
-        auto arg = QString(param.paramTypeName).append(' ').append(param.paramName);
-        args.append(arg);
+    for(int i=0; i<node.paramNodes.length(); i++){
+        args.append(node.getParamTypeNames()[i] + " " + node.getParamNames()[i]);
     }
 
     expression.append(args.join(", ")).append(")");
@@ -119,13 +117,13 @@ void detail::createFunctionParamNodes(IMethodNode& node, QMetaMethod method)
 void detail::resolveParamNode(IMethodNode &node)
 {
     for(const IParamNode& param : node.paramNodes){
-        node.paramTypeNames.append(param.paramTypeName);
-        node.paramTypeIds.append(QMetaType::Type(param.paramTypeId));
+        node.m_paramTypeNames.append(param.paramTypeName);
+        node.m_paramTypeIds.append(QMetaType::Type(param.paramTypeId));
 
         auto args = param.paramName.split("_$");
-        node.paramNames.append(args.first());
+        node.m_paramNames.append(args.first());
         args.pop_front();
-        node.paramQualifiers.append(args);
+        node.m_paramQualifiers.append(args);
     }
 }
 
