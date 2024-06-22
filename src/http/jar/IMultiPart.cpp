@@ -37,6 +37,7 @@ IMultiPart::IMultiPart(IStringView view, IRequest* request)
         request->setInvalid(IHttpBadRequestInvalid("multipart has no headers"));
         return;
     }
+
     content = view.substr(index+4);
     resolveHeaders(view.substr(0, index), request);
 }
@@ -48,13 +49,14 @@ bool IMultiPart::isValid() const
 
 static IStringView FORMDATE_NAME("name=\"");
 static IStringView FORMDATA_FILE_NAME("filename=\"");
+static IStringView FORMDATA_CHARSET("charset=");
 void IMultiPart::resolveHeaders(IStringView data, IRequest* request)
 {
     auto lines = detail::concatenateHeaders(data.split(IStringView("\r\n")), request);
     for(auto line : lines){
         auto index = line.find_first_of(':');
         if(index == std::string_view::npos){
-            name = {};
+            request->setInvalid(IHttpBadRequestInvalid("multipart header error without colon"));
             return;
         }
         IStringView key = line.substr(0, index).trimmed();
@@ -63,26 +65,24 @@ void IMultiPart::resolveHeaders(IStringView data, IRequest* request)
         if(key == IHttpHeader::ContentDisposition){
             auto index = value.find(FORMDATE_NAME);
             if(index != std::string_view::npos){
-                auto args = value.substr(index+FORMDATE_NAME.length()).split("\"");   // TODO: unsafe
-                if(args.length() > 1){
-                    name = args.first();
+                name = value.substr(index+FORMDATE_NAME.length());
+                if(!name.empty() && name.startWith("\"")){
+                    name = name.substr(1, name.length()-2);
                 }
             }
             index = value.find(FORMDATA_FILE_NAME);
             if(index != std::string_view::npos){
-                auto args = value.substr(index+FORMDATA_FILE_NAME.length()).split("\"");   // TODO: unsafe
-                if(args.length() > 1){
-                    fileName = args.first();
+                fileName = value.substr(index+FORMDATA_FILE_NAME.length());
+                if(!fileName.empty() && fileName.startWith("\"")){
+                    fileName = fileName.substr(1, fileName.length()-2);
                 }
             }
 
-
         }else if(key == IHttpHeader::ContentType){
             mime = IHttpMimeUtil::toMime(value);
-            static IStringView CHARSET("charset=");
-            auto index = value.find(CHARSET);
+            auto index = value.find(FORMDATA_CHARSET);
             if(index != std::string_view::npos){
-                IStringViewList args = value.substr(index+CHARSET.length()).split(";");   // TODO: unsafe
+                IStringViewList args = value.substr(index+FORMDATA_CHARSET.length()).split(";");
                 if(args.length() >= 1){
                     charset= args.first().trimmed();
                 }
@@ -95,7 +95,7 @@ void IMultiPart::resolveHeaders(IStringView data, IRequest* request)
             }else if(value == "binary"){
                 encoding = IMultiPart::BINARY;
             }else{
-                qFatal("error, and this will be removed latter to see whether other type of value");
+                request->setInvalid(IHttpBadRequestInvalid("multipart header error with ContentTransferEncoding"));
             }
         }
     }
