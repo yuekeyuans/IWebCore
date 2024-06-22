@@ -205,7 +205,6 @@ HEADERS += \
     $$PWD/http/response/IResponseTemplateRenderer.h \
     $$PWD/http/response/IResponseWare.h \
     $$PWD/http/response/response \
-    $$PWD/http/controller/pp/IControlVariablePreProcessor.h \
     $$PWD/http/controller/pp/IControllerPreProcessor.h \
     $$PWD/http/controller/pp/IDeleteMappingPreProcessor.h \
     $$PWD/http/controller/pp/IGetMappingPreProcessor.h \
