@@ -100,6 +100,7 @@ HEADERS += \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.h \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.h \
     $$PWD/http/core/defaultTask/IHttpUrlPathValidatorTask.h \
+    $$PWD/http/core/test/IHttpTestTool.h \
     $$PWD/http/invalid/IHttpBadRequestInvalid.h \
     $$PWD/http/invalid/IHttpInternalErrorInvalid.h \
     $$PWD/http/invalid/IHttpInvalidInterface.h \
@@ -270,6 +271,7 @@ SOURCES += \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.cpp \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.cpp \
     $$PWD/http/core/defaultTask/IHttpUrlPathValidatorTask.cpp \
+    $$PWD/http/core/test/IHttpTestTool.cpp \
     $$PWD/http/invalid/IHttpBadRequestInvalid.cpp \
     $$PWD/http/invalid/IHttpInternalErrorInvalid.cpp \
     $$PWD/http/invalid/IHttpInvalidManage.cpp \

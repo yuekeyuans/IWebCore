@@ -4,11 +4,11 @@
 
 using namespace IWebCore;
 
-class FormDataController : public IHttpControllerInterface<FormDataController>
+class FormDataController : public IHttpControllerInterface<FormDataController, false>
 {
     Q_GADGET
 public:
-    FormDataController();
+    FormDataController() = default;
 
 public:
     $PostMapping(postData, postData)

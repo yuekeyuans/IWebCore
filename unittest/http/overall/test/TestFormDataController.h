@@ -2,16 +2,15 @@
 
 #include <IHttp/IHttpTestInterface>
 
-class TestFormDataController : public IHttpTestInterface<TestFormDataController>
+class TestFormDataController : public IHttpTestInterface<TestFormDataController, false>
 {
     Q_OBJECT
 public:
     TestFormDataController() = default;
 
-//private slots:
+private slots:
     void testPostFormData();
     void testPostLargeFile();
-private slots:
     void testMultiPart();
 
 private:

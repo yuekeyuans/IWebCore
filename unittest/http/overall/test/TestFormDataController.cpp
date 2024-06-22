@@ -11,17 +11,19 @@ void TestFormDataController::testPostFormData()
 
 void TestFormDataController::testPostLargeFile()
 {
+    auto file = createRandomFile();
     ICurlResponse response = ICurl("/postData")
-            .withBinary("D:/yuekeyuan.pdf")
+            .withBinary(file)
             .execPost();
     qDebug() << response.m_status << response.m_body;
 }
 
 void TestFormDataController::testMultiPart()
 {
+    auto file = createRandomFile("abc.pdf");
     ICurlResponse response = ICurl("/postData")
             .withFormData("hello", "world")
-            .withFormFile("file", "D:/yuekeyuan.pdf", "yuekeyuan.pdf", "application/pdf")
+            .withFormFile("file", file, "abc.pdf", "application/pdf")
             .execPost();
     qDebug() <<response.m_status << response.m_body;
 }

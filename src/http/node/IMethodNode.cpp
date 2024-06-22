@@ -10,20 +10,22 @@ $UseAssert(IHttpAssert)
 
 static const QString& nmspace = $PackageWebCoreName;
 
-namespace IMethodNodeHelper
+namespace detail
 {
     void assignBaseInfo(IMethodNode& node, void* handle, QMetaMethod method);
     void createFunctionExpression(IMethodNode& node);
     void createFunctionParamNodes(IMethodNode& node, QMetaMethod method);
-};
+    void resolveParamNode(IMethodNode& node);
+}
 
 IMethodNode IMethodNode::fromMetaMethod(void *handler, const QString &className, const QMetaMethod &method)
 {
     IMethodNode node;
     node.className = className;
-    IMethodNodeHelper::assignBaseInfo(node, handler, method);
-    IMethodNodeHelper::createFunctionParamNodes(node, method);
-    IMethodNodeHelper::createFunctionExpression(node);
+    detail::assignBaseInfo(node, handler, method);
+    detail::createFunctionParamNodes(node, method);
+    detail::createFunctionExpression(node);
+    detail::resolveParamNode(node);
 
     return node;
 }
@@ -33,37 +35,27 @@ int IMethodNode::getParamCount() const
     return paramNodes.count();
 }
 
-QStringList IMethodNode::getParamNames() const
+const QStringList& IMethodNode::getParamNames() const
 {
-    QStringList ret;
-    for(const auto& param : paramNodes){
-        ret.append(param.paramName);
-    }
-
-    return ret;
+    return paramNames;
 }
 
-QStringList IMethodNode::getParamTypeNames() const
+const QStringList& IMethodNode::getParamTypeNames() const
 {
-    QStringList ret;
-    for(const auto& param : paramNodes){
-        ret.append(param.paramTypeName);
-    }
-
-    return ret;
+    return paramTypeNames;
 }
 
-QList<QMetaType::Type> IMethodNode::getParamTypeIds() const
+const QStringList &IMethodNode::getParamQualifiers() const
 {
-    QList<QMetaType::Type> ret;
-    for(const auto& param : paramNodes){
-        ret.append(QMetaType::Type(param.paramTypeId));
-    }
-
-    return ret;
+    return paramQualifiers;
 }
 
-void IMethodNodeHelper::assignBaseInfo(IMethodNode& node, void* handle, QMetaMethod method)
+const QList<QMetaType::Type>& IMethodNode::getParamTypeIds() const
+{
+    return paramTypeIds;
+}
+
+void detail::assignBaseInfo(IMethodNode& node, void* handle, QMetaMethod method)
 {
     node.handler = handle;
     node.metaMethod = method;
@@ -80,7 +72,7 @@ void IMethodNodeHelper::assignBaseInfo(IMethodNode& node, void* handle, QMetaMet
     }
 }
 
-void IMethodNodeHelper::createFunctionExpression(IMethodNode& node)
+void detail::createFunctionExpression(IMethodNode& node)
 {
     QString expression;
     expression.append(node.returnTypeName).append(' ');
@@ -96,7 +88,7 @@ void IMethodNodeHelper::createFunctionExpression(IMethodNode& node)
     node.expression = expression;
 }
 
-void IMethodNodeHelper::createFunctionParamNodes(IMethodNode& node, QMetaMethod method)
+void detail::createFunctionParamNodes(IMethodNode& node, QMetaMethod method)
 {
     auto names = method.parameterNames();
     auto types = method.parameterTypes();
@@ -121,6 +113,19 @@ void IMethodNodeHelper::createFunctionParamNodes(IMethodNode& node, QMetaMethod 
         paramNode.paramTypeName = types[i];
         paramNode.paramTypeId = ids[i];
         node.paramNodes.append(paramNode);
+    }
+}
+
+void detail::resolveParamNode(IMethodNode &node)
+{
+    for(const IParamNode& param : node.paramNodes){
+        node.paramTypeNames.append(param.paramTypeName);
+        node.paramTypeIds.append(QMetaType::Type(param.paramTypeId));
+
+        auto args = param.paramName.split("_$");
+        node.paramNames.append(args.first());
+        args.pop_front();
+        node.paramQualifiers.append(args);
     }
 }
 

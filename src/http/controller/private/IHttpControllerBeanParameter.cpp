@@ -539,10 +539,9 @@ bool IHttpControllerBeanParameter::isBeanResoveStrictMode()
 QStringList &IHttpControllerBeanParameter::getParameterSuffix()
 {
     static QStringList suffix = {
-        "_content", "_body",
-        "_param", "_url", "_header",
-        "_mixed",
-        "_cookie", "_session", "_app", "_system"
+        "_$content", "_$body",
+        "_$param", "_$url", "_$header",
+        "_$mixed", "_$cookie", "_$session"
     };
 
     return suffix;

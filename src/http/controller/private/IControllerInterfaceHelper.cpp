@@ -372,7 +372,8 @@ bool IControllerInterfaceHelper::isSpecialTypes(const QString& typeName)
         "ICookieJar",   "ICookieJar&",
         "ICookiePart",  "ICookiePart&"
         "ISessionJar",  "ISessionJar&",
-        "IHeaderJar",   "IHeaderJar&"
+        "IHeaderJar",   "IHeaderJar&",
+        "IStringView"
     };
 
     return specialExternalTypes.contains(typeName);
@@ -386,8 +387,8 @@ bool IControllerInterfaceHelper::isBeanType(const QString& typeName)
 bool IControllerInterfaceHelper::isParamNameWithSuffix(const QString& paramName)
 {
     static const QStringList suffixes = {
-        "_mixed", "_param", "_url", "_body", "_content", "_header",
-        "_cookie", "_session", "_app", "_system"
+        "_$mixed", "_$param", "_$url", "_$body", "_$content", "_$header",
+        "_$cookie", "_$session"
     };
 
     for(const auto& suffix : suffixes){
