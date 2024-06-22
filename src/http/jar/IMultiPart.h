@@ -34,7 +34,7 @@ public:
     IStringView content;
     IHttpMime mime {IHttpMime::UNKNOWN};
     TransferEncoding encoding{BIT_7};
-    QMultiHash<IStringView, IStringView> headers; // TODO: 这个能不能变成可拷贝的一个内容？
+    IStringViewList headers; // TODO: 这个能不能变成可拷贝的一个内容？
 };
 
 $PackageWebCoreEnd

@@ -7,8 +7,8 @@ $PackageWebCoreBegin
 
 namespace detail
 {
-    void resolveHeaders(IMultiPart* self, IStringView data, IRequest* request);
     IStringViewList concatenateHeaders(const IStringViewList& list, IRequest* request);
+    void resolveHeaders(IMultiPart* self, IStringView data, IRequest* request);
 }
 
 IMultiPart::IMultiPart(IStringView view, IRequest* request)
@@ -28,13 +28,35 @@ bool IMultiPart::isValid() const
     return !content.empty() && !name.empty();
 }
 
+IStringViewList detail::concatenateHeaders(const IStringViewList& list, IRequest* request){
+    IStringViewList ret;
+    if(list.empty()){
+        return ret;
+    }
+
+    int length = list.length();
+    for(int i=length-1; i>=0; i--){
+        auto view = list[i];
+        for(; view[0]==' '; ){
+            i--;
+            if(i==-1){
+                request->setInvalid(IHttpBadRequestInvalid("multipart header error"));
+                return {};
+            }
+            view = request->stash(list[i].toQByteArray() + view.toQByteArray().trimmed());
+        }
+        ret.append(view);
+    }
+    return ret;
+}
+
 static IStringView FORMDATE_NAME("name=\"");
 static IStringView FORMDATA_FILE_NAME("filename=\"");
 static IStringView FORMDATA_CHARSET("charset=");
 void detail::resolveHeaders(IMultiPart* self, IStringView data, IRequest* request)
 {
-    auto lines = detail::concatenateHeaders(data.split(IStringView("\r\n")), request);
-    for(auto line : lines){
+    self->headers = detail::concatenateHeaders(data.split(IStringView("\r\n")), request);
+    for(auto line : self->headers){
         auto index = line.find_first_of(':');
         if(index == std::string_view::npos){
             request->setInvalid(IHttpBadRequestInvalid("multipart header error without colon"));
@@ -81,28 +103,5 @@ void detail::resolveHeaders(IMultiPart* self, IStringView data, IRequest* reques
         }
     }
 }
-
-IStringViewList detail::concatenateHeaders(const IStringViewList& list, IRequest* request){
-    IStringViewList ret;
-    if(list.empty()){
-        return ret;
-    }
-
-    int length = list.length();
-    for(int i=length-1; i>=0; i--){
-        auto view = list[i];
-        for(; view[0]==' '; ){
-            i--;
-            if(i==-1){
-                request->setInvalid(IHttpBadRequestInvalid("multipart header error"));
-                return {};
-            }
-            view = request->stash(list[i].toQByteArray() + view.toQByteArray().trimmed());
-        }
-        ret.append(view);
-    }
-    return ret;
-}
-
 
 $PackageWebCoreEnd
