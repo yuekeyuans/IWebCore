@@ -19,6 +19,7 @@ public:
     IStringView(const QByteArray& data);
     IStringView(std::string_view data);
     IStringView(const char* data);
+    IStringView(const IStringView& data);
 
     operator QByteArray();
     bool operator ==(const char*);

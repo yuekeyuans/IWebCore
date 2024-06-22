@@ -14,9 +14,9 @@ class IMultiPart : IRegisterMetaTypeUnit<IMultiPart>
 {
 public:
     enum TransferEncoding{      // rfc2046
-        BIT_7,                  // ascii
-        BIT_8,                  // 不止 ascii, 但仍然包含字符
-        BINARY,                 // binary data
+        BIT_7,
+        BIT_8,
+        BINARY,
     };
 
 public:
@@ -25,6 +25,9 @@ public:
 
 public:
     bool isValid() const;
+
+private:
+    void resolveHeaders(IStringView data, IRequest* request);
 
 public:
     IStringView name;

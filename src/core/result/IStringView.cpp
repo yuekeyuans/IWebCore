@@ -25,6 +25,11 @@ IStringView::IStringView(const char *data)
 {
 }
 
+IStringView::IStringView(const IStringView& view)
+    : std::string_view(view.data(), view.length())
+{
+}
+
 IWebCore::IStringView::operator QByteArray()
 {
     return toQByteArray();
