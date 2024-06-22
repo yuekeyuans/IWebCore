@@ -1,4 +1,6 @@
 ﻿#include "IParamNode.h"
+#include "http/node/IHttpParameterRestrictManage.h"
+#include "http/node/IHttpParameterRestrictInterface.h"
 
 $PackageWebCoreBegin
 
@@ -7,7 +9,7 @@ namespace detail {
         "mixed", "param", "url", "header", "body", "content",  "cookie", "session"
     };
 
-    void checkQualifers(const QStringList& qualifers);
+    void checkQualifers(const QStringList& qualifers, const QString& type);
     IParamNode::Position getParamPosition(const QStringList& qualifiers);
 }
 
@@ -18,13 +20,13 @@ IParamNode::IParamNode(int paramTypeId, QString paramTypeName, QString paramName
     paramName = arg.first();
     arg.pop_front();
     paramQualifiers = arg;
-    detail::checkQualifers(paramQualifiers);
+    detail::checkQualifers(paramQualifiers, paramTypeName);
 
     position = detail::getParamPosition(paramQualifiers);
     nullable = paramQualifiers.contains("nullable");
 }
 
-void detail::checkQualifers(const QStringList &qualifers)
+void detail::checkQualifers(const QStringList &qualifers, const QString& type)
 {
     if(qualifers.length() != qualifers.toSet().size()){
         qFatal("error duplicated with controller function parameters");
@@ -34,8 +36,7 @@ void detail::checkQualifers(const QStringList &qualifers)
         qFatal("error option with controller function parameters");
     }
 
-    // TODO: 这个理论上应该是可以的，但是，现在给禁止掉
-    bool exist{false};
+    bool exist{false};              // TODO: 这个理论上应该是可以的，但是，现在给禁止掉
     for(auto name : qualifierNames){
         if(qualifers.contains(name)){
             if(exist){
@@ -45,7 +46,18 @@ void detail::checkQualifers(const QStringList &qualifers)
         }
     }
 
-    // 自定义用户注册的名称
+    const auto& userDefined = IHttpParameterRestrictManage::instance()->getRestrictNames();
+    for(auto arg : qualifers){
+        if(!qualifierNames.contains(arg) && !userDefined.contains(arg)){
+            qFatal("error undefined qualifer with controller function parameters ");
+        }
+        if(userDefined.contains(arg)){
+            auto obj = IHttpParameterRestrictManage::instance()->getInterface(arg);
+            if(!obj->supportedTypes().contains(type)){
+                qFatal("error unsupported type in user defined qualifer with controller function parameters ");
+            }
+        }
+    }
 }
 
 IParamNode::Position detail::getParamPosition(const QStringList &qualifiers)
@@ -53,7 +65,7 @@ IParamNode::Position detail::getParamPosition(const QStringList &qualifiers)
     int len= qualifierNames.length();
     for(int i=0; i<len; i++){
         if(qualifiers.contains(qualifierNames[i])){
-            reutrn IParamNode::Position(i);
+            return IParamNode::Position(i);
         }
     }
 

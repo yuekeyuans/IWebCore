@@ -122,6 +122,8 @@ HEADERS += \
     $$PWD/http/net/server/ITcpConnectionManage.h \
     $$PWD/http/net/server/ITcpResolverInterface.h \
     $$PWD/http/net/server/ITcpResolverManage.h \
+    $$PWD/http/node/IHttpParameterRestrictInterface.h \
+    $$PWD/http/node/IHttpParameterRestrictManage.h \
     $$PWD/http/nody/INody.h \
     $$PWD/http/nody/INodyManage.h \
     $$PWD/http/nody/INodyParser.h \
@@ -292,6 +294,8 @@ SOURCES += \
     $$PWD/http/net/server/ITcpConnectionManage.cpp \
     $$PWD/http/net/server/ITcpResolverInterface.cpp \
     $$PWD/http/net/server/ITcpResolverManage.cpp \
+    $$PWD/http/node/IHttpParameterRestrictInterface.cpp \
+    $$PWD/http/node/IHttpParameterRestrictManage.cpp \
     $$PWD/http/nody/INody.cpp \
     $$PWD/http/nody/INodyManage.cpp \
     $$PWD/http/nody/INodyParser.cpp \
