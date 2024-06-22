@@ -85,7 +85,6 @@ void detail::createFunctionParamNodes(IMethodNode& node, QMetaMethod method)
 {
     auto names = method.parameterNames();
     auto types = method.parameterTypes();
-    auto ids = QVector<QMetaType::Type>();
 
     for(int i=0;i<method.parameterCount(); i++){
         auto id = method.parameterType(i);
@@ -94,28 +93,16 @@ void detail::createFunctionParamNodes(IMethodNode& node, QMetaMethod method)
             info.reason = QString("parameter Type Not Defined in QMeta System. type: ").append(types[i])
                               .append(", Function: ").append(node.className).append("::").append(node.funName);
             $Ast->fatal("controller_invalid_parameter_type", info);
-
-        }else{
-            ids.append(QMetaType::Type(id));
         }
-    }
 
-    for(int i=0; i<method.parameterCount(); i++){
-        IParamNode paramNode;
-        auto name = names[i];
-        if(name.isEmpty()){
+        if(names[i].isEmpty()){
             IAssertInfo info;
             info.reason = QString("parameter name mission ")
                     .append(", Function: ").append(node.className).append("::").append(node.funName);
             $Ast->fatal("controller_param_must_has_name", info);
         }
 
-        auto arg = QString(names[i]).split("_$");
-        paramNode.paramName = arg.first();
-        arg.pop_front();
-        paramNode.paramQualifiers = arg;
-        paramNode.paramTypeName = types[i];
-        paramNode.paramTypeId = ids[i];
+        IParamNode paramNode(id, types[i], names[i]);
         node.paramNodes.append(paramNode);
     }
 }
