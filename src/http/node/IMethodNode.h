@@ -13,7 +13,6 @@ public:
     int getParamCount() const;
     const QStringList& getParamNames() const;
     const QStringList& getParamTypeNames() const;
-    const QStringList& getParamQualifiers() const;
     const QList<QMetaType::Type>& getParamTypeIds() const;
 
 public:
@@ -29,10 +28,9 @@ public:
     QVector<IParamNode> paramNodes;
 
 public:
-    QStringList m_paramNames;
-    QStringList m_paramTypeNames;
-    QStringList m_paramQualifiers;
-    QList<QMetaType::Type> m_paramTypeIds;
+    QStringList paramNames;
+    QStringList paramTypeNames;
+    QList<QMetaType::Type> paramTypeIds;
 };
 
 $PackageWebCoreEnd

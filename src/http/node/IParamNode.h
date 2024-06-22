@@ -9,6 +9,7 @@ struct IParamNode
     int paramTypeId;
     QString paramTypeName;
     QString paramName;
+    QStringList paramQualifiers;
 };
 
 $PackageWebCoreEnd

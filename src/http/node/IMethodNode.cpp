@@ -37,22 +37,17 @@ int IMethodNode::getParamCount() const
 
 const QStringList& IMethodNode::getParamNames() const
 {
-    return m_paramNames;
+    return paramNames;
 }
 
 const QStringList& IMethodNode::getParamTypeNames() const
 {
-    return m_paramTypeNames;
-}
-
-const QStringList &IMethodNode::getParamQualifiers() const
-{
-    return m_paramQualifiers;
+    return paramTypeNames;
 }
 
 const QList<QMetaType::Type>& IMethodNode::getParamTypeIds() const
 {
-    return m_paramTypeIds;
+    return paramTypeIds;
 }
 
 void detail::assignBaseInfo(IMethodNode& node, void* handle, QMetaMethod method)
@@ -97,7 +92,7 @@ void detail::createFunctionParamNodes(IMethodNode& node, QMetaMethod method)
         if(id == QMetaType::UnknownType){
             IAssertInfo info;
             info.reason = QString("parameter Type Not Defined in QMeta System. type: ").append(types[i])
-                              .append(", Function: ").append(node.expression);
+                              .append(", Function: ").append(node.className).append("::").append(node.funName);
             $Ast->fatal("controller_invalid_parameter_type", info);
 
         }else{
@@ -107,7 +102,18 @@ void detail::createFunctionParamNodes(IMethodNode& node, QMetaMethod method)
 
     for(int i=0; i<method.parameterCount(); i++){
         IParamNode paramNode;
-        paramNode.paramName = names[i];
+        auto name = names[i];
+        if(name.isEmpty()){
+            IAssertInfo info;
+            info.reason = QString("parameter name mission ")
+                    .append(", Function: ").append(node.className).append("::").append(node.funName);
+            $Ast->fatal("controller_param_must_has_name", info);
+        }
+
+        auto arg = QString(names[i]).split("_$");
+        paramNode.paramName = arg.first();
+        arg.pop_front();
+        paramNode.paramQualifiers = arg;
         paramNode.paramTypeName = types[i];
         paramNode.paramTypeId = ids[i];
         node.paramNodes.append(paramNode);
@@ -117,13 +123,9 @@ void detail::createFunctionParamNodes(IMethodNode& node, QMetaMethod method)
 void detail::resolveParamNode(IMethodNode &node)
 {
     for(const IParamNode& param : node.paramNodes){
-        node.m_paramTypeNames.append(param.paramTypeName);
-        node.m_paramTypeIds.append(QMetaType::Type(param.paramTypeId));
-
-        auto args = param.paramName.split("_$");
-        node.m_paramNames.append(args.first());
-        args.pop_front();
-        node.m_paramQualifiers.append(args);
+        node.paramTypeNames.append(param.paramTypeName);
+        node.paramTypeIds.append(QMetaType::Type(param.paramTypeId));
+        node.paramNames.append(param.paramName);
     }
 }
 
