@@ -5,6 +5,8 @@
 
 $PackageWebCoreBegin
 
+// TODO: 这个等回来补上具体功能
+
 class IHttpParameterRestrictInterface   // : public ITask...
 {
 public:

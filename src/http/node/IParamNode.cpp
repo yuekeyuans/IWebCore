@@ -13,15 +13,15 @@ namespace detail {
     static const QString notnullName = "notnull";
 }
 
-IParamNode::IParamNode(int paramTypeId, QString paramTypeName, QString paramName)
+IParamNode::IParamNode(int paramTypeId, QString paramTypeName, QString name)
     : paramTypeId(paramTypeId), paramTypeName(paramTypeName)
 {
 
-    auto arg = paramName.split("_$");
-    paramName = arg.first();
+    auto args = name.split("_$");
+    paramName = args.first();
     paramNameView = IHttpManage::instance()->stash(paramName.toUtf8());
-    arg.pop_front();
-    m_paramQualifiers = arg;
+    args.pop_front();
+    m_paramQualifiers = args;
 
     using CheckType = void(IParamNode::*)();
     QList<CheckType> checks = {
@@ -30,6 +30,7 @@ IParamNode::IParamNode(int paramTypeId, QString paramTypeName, QString paramName
         &IParamNode::checkParamDuplicated,
         &IParamNode::checkAndSetParamPosition,
         &IParamNode::checkAndSetParamOptional,
+        &IParamNode::checkContentPositionMustBeIStringView
     };
 
     for(auto check : checks){
@@ -111,5 +112,13 @@ void IParamNode::checkAndSetParamRestrictions()
         restricts.append(condition);
     }
 }
+
+void IParamNode::checkContentPositionMustBeIStringView()
+{
+    if(position == Position::Content && paramTypeName != "IStringView"){
+        m_error = "ParamPositionContentMustBeIStringViewType";
+    }
+}
+
 
 $PackageWebCoreEnd

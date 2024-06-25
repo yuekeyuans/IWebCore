@@ -21,6 +21,7 @@ private:
     void checkAndSetParamPosition();
     void checkAndSetParamOptional();
     void checkAndSetParamRestrictions();
+    void checkContentPositionMustBeIStringView();
 
 public:
     int paramTypeId;
