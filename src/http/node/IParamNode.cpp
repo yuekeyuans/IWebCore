@@ -1,6 +1,7 @@
 ﻿#include "IParamNode.h"
 #include "http/node/IHttpParameterRestrictManage.h"
 #include "http/node/IHttpParameterRestrictInterface.h"
+#include "http/controller/IHttpManage.h"
 
 $PackageWebCoreBegin
 
@@ -16,14 +17,23 @@ namespace detail {
 IParamNode::IParamNode(int paramTypeId, QString paramTypeName, QString paramName)
     : paramTypeId(paramTypeId), paramTypeName(paramTypeName)
 {
+
     auto arg = paramName.split("_$");
     paramName = arg.first();
+    paramNameView = IHttpManage::instance()->stash(paramName.toUtf8());
+
+
     arg.pop_front();
-    paramQualifiers = arg;
+    auto paramQualifiers = arg;
     detail::checkQualifers(paramQualifiers, paramTypeName);
 
     position = detail::getParamPosition(paramQualifiers);
-    nullable = paramQualifiers.contains("nullable");
+    optional = paramQualifiers.contains("nullable");
+}
+
+QString IParamNode::getError()
+{
+    return m_error;
 }
 
 void detail::checkQualifers(const QStringList &qualifers, const QString& type)

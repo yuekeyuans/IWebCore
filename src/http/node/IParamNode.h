@@ -4,6 +4,7 @@
 
 $PackageWebCoreBegin
 
+class IHttpParameterRestrictInterface;
 struct IParamNode
 {
     enum Position{
@@ -16,16 +17,22 @@ struct IParamNode
         Cookie,
         Session,
     };
-
 public:
     IParamNode(int paramTypeId, QString paramTypeName, QString paramName);
+    QString getError();
+
 public:
     int paramTypeId;
     QString paramTypeName;
     QString paramName;
-    QStringList paramQualifiers;
+    IStringView paramNameView;
+
     Position position{Mixed};
-    bool nullable{false};
+    bool optional{false};
+    QVector<IHttpParameterRestrictInterface*> restricts;
+
+private:
+    QString m_error;
 };
 
 $PackageWebCoreEnd

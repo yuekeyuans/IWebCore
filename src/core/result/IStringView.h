@@ -63,7 +63,6 @@ private:
     std::list<QByteArray> m_stashed;
 };
 
-
 Q_DECLARE_METATYPE(IStringView)
 Q_DECLARE_METATYPE(IStringViewList)
 

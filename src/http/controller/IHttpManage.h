@@ -12,7 +12,7 @@
 $PackageWebCoreBegin
 
 class IRequest;
-class IHttpManage : public ISingletonUnit<IHttpManage>
+class IHttpManage : public ISingletonUnit<IHttpManage>, public IStringViewStash
 {
     using ValidatorFun = std::function<bool(const QString&)>;
 public:
