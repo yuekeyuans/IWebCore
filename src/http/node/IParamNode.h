@@ -8,18 +8,19 @@ class IHttpParameterRestrictInterface;
 struct IParamNode
 {
     enum Position{
-        Mixed,
-        Param,
-        Url,
-        Header,
-        Body,
-        Content,
-        Cookie,
-        Session,
+        Mixed, Param, Url, Header, Body, Content, Cookie, Session,
     };
 public:
     IParamNode(int paramTypeId, QString paramTypeName, QString paramName);
     QString getError();
+
+private:
+    void checkParamType();
+    void checkParamNameEmpty();
+    void checkParamDuplicated();
+    void checkAndSetParamPosition();
+    void checkAndSetParamOptional();
+    void checkAndSetParamRestrictions();
 
 public:
     int paramTypeId;
@@ -33,6 +34,7 @@ public:
 
 private:
     QString m_error;
+    QStringList m_paramQualifiers;
 };
 
 $PackageWebCoreEnd

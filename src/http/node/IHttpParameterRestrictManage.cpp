@@ -13,7 +13,7 @@ QStringList IHttpParameterRestrictManage::getRestrictNames() const
     return m_map.keys();
 }
 
-IHttpParameterRestrictInterface *IHttpParameterRestrictManage::getInterface(const QString &name)
+IHttpParameterRestrictInterface *IHttpParameterRestrictManage::getRestrict(const QString &name)
 {
     if(m_map.contains(name)){
         return m_map[name];

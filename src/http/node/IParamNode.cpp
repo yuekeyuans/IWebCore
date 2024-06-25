@@ -9,9 +9,8 @@ namespace detail {
     static const QStringList qualifierNames = {
         "mixed", "param", "url", "header", "body", "content",  "cookie", "session"
     };
-
-    void checkQualifers(const QStringList& qualifers, const QString& type);
-    IParamNode::Position getParamPosition(const QStringList& qualifiers);
+    static const QString nullableName = "nullable";
+    static const QString notnullName = "notnull";
 }
 
 IParamNode::IParamNode(int paramTypeId, QString paramTypeName, QString paramName)
@@ -21,14 +20,24 @@ IParamNode::IParamNode(int paramTypeId, QString paramTypeName, QString paramName
     auto arg = paramName.split("_$");
     paramName = arg.first();
     paramNameView = IHttpManage::instance()->stash(paramName.toUtf8());
-
-
     arg.pop_front();
-    auto paramQualifiers = arg;
-    detail::checkQualifers(paramQualifiers, paramTypeName);
+    m_paramQualifiers = arg;
 
-    position = detail::getParamPosition(paramQualifiers);
-    optional = paramQualifiers.contains("nullable");
+    using CheckType = void(IParamNode::*)();
+    QList<CheckType> checks = {
+        &IParamNode::checkParamType,
+        &IParamNode::checkParamNameEmpty,
+        &IParamNode::checkParamDuplicated,
+        &IParamNode::checkAndSetParamPosition,
+        &IParamNode::checkAndSetParamOptional,
+    };
+
+    for(auto check : checks){
+        std::bind(check, this)();
+        if(!m_error.isEmpty()){
+            return;
+        }
+    }
 }
 
 QString IParamNode::getError()
@@ -36,50 +45,71 @@ QString IParamNode::getError()
     return m_error;
 }
 
-void detail::checkQualifers(const QStringList &qualifers, const QString& type)
+void IParamNode::checkParamType()
 {
-    if(qualifers.length() != qualifers.toSet().size()){
-        qFatal("error duplicated with controller function parameters");
+    if(paramTypeId == QMetaType::UnknownType){
+        m_error = "ParamErrorOfUnknowType";
     }
+}
 
-    if(qualifers.contains("nullable") && qualifers.contains("notnull")){
-        qFatal("error option with controller function parameters");
+void IParamNode::checkParamNameEmpty()
+{
+    if(paramName.trimmed().isEmpty()){
+        m_error = "ParamNameEmpty";
     }
+}
 
-    bool exist{false};              // TODO: 这个理论上应该是可以的，但是，现在给禁止掉
-    for(auto name : qualifierNames){
-        if(qualifers.contains(name)){
+void IParamNode::checkParamDuplicated()
+{
+    if(m_paramQualifiers.length() != m_paramQualifiers.toSet().size()){
+        m_error = "ParamQualifersDuplicated";
+    }
+}
+
+void IParamNode::checkAndSetParamPosition()
+{
+    bool exist{false};
+    for(auto name : detail::qualifierNames){
+        if(m_paramQualifiers.contains(name)){
             if(exist){
-                qFatal("error multiple positon with controller function parameters ");
+                m_error = "ParamPositionDuplicated";
+                return;
             }
+            position = Position(detail::qualifierNames.indexOf(name));
+            m_paramQualifiers.removeOne(name);
             exist = true;
-        }
-    }
-
-    const auto& userDefined = IHttpParameterRestrictManage::instance()->getRestrictNames();
-    for(auto arg : qualifers){
-        if(!qualifierNames.contains(arg) && !userDefined.contains(arg)){
-            qFatal("error undefined qualifer with controller function parameters ");
-        }
-        if(userDefined.contains(arg)){
-            auto obj = IHttpParameterRestrictManage::instance()->getInterface(arg);
-            if(!obj->supportedTypes().contains(type)){
-                qFatal("error unsupported type in user defined qualifer with controller function parameters ");
-            }
         }
     }
 }
 
-IParamNode::Position detail::getParamPosition(const QStringList &qualifiers)
+void IParamNode::checkAndSetParamOptional()
 {
-    int len= qualifierNames.length();
-    for(int i=0; i<len; i++){
-        if(qualifiers.contains(qualifierNames[i])){
-            return IParamNode::Position(i);
-        }
+    bool exist{false};
+    if(m_paramQualifiers.contains(detail::nullableName)){
+        optional = true;
+        m_paramQualifiers.removeAll(detail::nullableName);
+        exist = true;
     }
+    if(m_paramQualifiers.contains(detail::notnullName)){
+        if(exist){
+            m_error = "ParamNullableConflict";
+            return;
+        }
+        optional = false;
+        m_paramQualifiers.removeAll(detail::notnullName);
+    }
+}
 
-    return IParamNode::Mixed;
+void IParamNode::checkAndSetParamRestrictions()
+{
+    for(auto name : m_paramQualifiers){
+        auto condition = IHttpParameterRestrictManage::instance()->getRestrict(name);
+        if(condition == nullptr){
+            m_error = "ParamRestrictNotExist";
+            return;
+        }
+        restricts.append(condition);
+    }
 }
 
 $PackageWebCoreEnd

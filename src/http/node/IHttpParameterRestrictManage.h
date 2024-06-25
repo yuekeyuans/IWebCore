@@ -15,7 +15,7 @@ public:
 public:
     void addRestrict(IHttpParameterRestrictInterface*);
     QStringList getRestrictNames() const;
-    IHttpParameterRestrictInterface* getInterface(const QString& name);
+    IHttpParameterRestrictInterface* getRestrict(const QString& name);
 
 private:
     QMap<QString, IHttpParameterRestrictInterface*> m_map;
