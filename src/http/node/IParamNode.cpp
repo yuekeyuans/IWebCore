@@ -1,9 +1,28 @@
 ﻿#include "IParamNode.h"
+#include "core/assert/IAbortInterface.h"
 #include "http/node/IHttpParameterRestrictManage.h"
 #include "http/node/IHttpParameterRestrictInterface.h"
 #include "http/controller/IHttpManage.h"
 
 $PackageWebCoreBegin
+
+
+class IParamNodeAbort : public IAbortInterface<IParamNodeAbort>
+{
+public:
+    $AsAbort(
+        Error1,
+        Error2
+    )
+public:
+    virtual QMap<int, QString> getAbortInfo() const {
+        return {
+            {Error1, "hello"},
+            {Error2, "world"}
+        };
+    }
+
+};
 
 namespace detail {
     static const QStringList qualifierNames = {

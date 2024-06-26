@@ -17,6 +17,8 @@ HEADERS += \
     $$PWD/core/application/IAsioApplication.h \
     $$PWD/core/application/IAsioManage.h \
     $$PWD/core/application/IQtApplication.h \
+    $$PWD/core/assert/IAbortInterface.h \
+    $$PWD/core/assert/IAbortPreProcessor.h \
     $$PWD/core/base/ICodecUtil.h \
     $$PWD/core/base/IConstantUtil.h \
     $$PWD/core/base/IConvertUtil.h \
