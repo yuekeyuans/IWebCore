@@ -95,11 +95,7 @@ void detail::createFunctionParamNodes(IMethodNode& node, QMetaMethod method)
             $Ast->fatal("controller_invalid_parameter_type", info);
         }
 
-        IParamNode paramNode(id, types[i], names[i]);
-        if(!paramNode.getError().isEmpty()){
-            qFatal(paramNode.getError().toUtf8());
-        }
-        node.paramNodes.append(paramNode);
+        node.paramNodes.append(IParamNodeHelper::createParamNode(id, types[i], names[i]));
     }
 }
 

@@ -3,6 +3,7 @@
 #include "core/base/IPreProcessorUtil.h"
 
 #define PP_ABORT_FUNC(name) \
+    public: \
     static void abort ## name(){    \
         instance()->abort(name);    \
     }
@@ -48,5 +49,6 @@
 
 
 #define $AsAbort(...)   \
-    enum Type{__VA_ARGS__}; \
+public: \
+    enum Type{__VA_ARGS__, EndTag}; \
     PP_ABORT_EXPAND(__VA_ARGS__)

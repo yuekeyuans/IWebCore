@@ -9,134 +9,151 @@ $PackageWebCoreBegin
 
 class IParamNodeAbort : public IAbortInterface<IParamNodeAbort>
 {
-public:
     $AsAbort(
-        Error1,
-        Error2
+        ParamErrorOfUnknowType,
+        ParamNameEmpty,
+        ParamQualifersDuplicated,
+        ParamPositionDuplicated,
+        ParamNullableConflict,
+        ParamRestrictNotExist,
+        ParamPositionContentMustBeIStringViewType
     )
 public:
-    virtual QMap<int, QString> getAbortInfo() const {
+    virtual QMap<int, QString> getAbortDescription() const {
         return {
-            {Error1, "hello"},
-            {Error2, "world"}
+            {ParamErrorOfUnknowType, "request parameter use an unknown or unregistered or unsupported type"},
+            {ParamNameEmpty, "request parameter name is empty"},
+            {ParamQualifersDuplicated, "request parameter qualifiers duplicated, please check the annomacro and remove the duplicated annomacro"},
+            {ParamPositionDuplicated, "request parameter position annomacro can only has at most one. please remove the extra position annomacro"},
+            {ParamNullableConflict, "request parameter optional annomacro can only be $NotNull or $Nullable, both two can not be occurred at the same time"},
+            {ParamRestrictNotExist, "request parameter has restriction annomacro that not registered in system, please check the annomacro"},
+            {ParamPositionContentMustBeIStringViewType, "request parameter with $Content annomacro must use IStringView as its type"}
         };
     }
-
 };
 
-namespace detail {
-    static const QStringList qualifierNames = {
+struct IParamNodeDetail : public IParamNode
+{
+public:
+    IParamNodeDetail(int paramTypeId, QString paramTypeName, QString paramName);
+
+private:
+    void checkParamType();
+    void checkParamNameEmpty();
+    void checkParamDuplicated();
+    void checkAndSetParamPosition();
+    void checkAndSetParamOptional();
+    void checkAndSetParamRestrictions();
+    void checkContentPositionMustBeIStringView();
+
+private:
+    inline static const QStringList QualifierNames = {
         "mixed", "param", "url", "header", "body", "content",  "cookie", "session"
     };
-    static const QString nullableName = "nullable";
-    static const QString notnullName = "notnull";
-}
+    inline static const QString NullableName = "nullable";
+    inline static const QString NotnullName = "notnull";
+    QStringList m_paramQualifiers;
+};
 
-IParamNode::IParamNode(int paramTypeId, QString paramTypeName, QString name)
-    : paramTypeId(paramTypeId), paramTypeName(paramTypeName)
+inline IParamNodeDetail::IParamNodeDetail(int paramTypeId, QString paramTypeName, QString name)
 {
-    IParamNodeAbort::abortError1();
+    paramTypeId = paramTypeId;
+    paramTypeName = paramTypeName;
     auto args = name.split("_$");
     paramName = args.first();
     paramNameView = IHttpManage::instance()->stash(paramName.toUtf8());
     args.pop_front();
     m_paramQualifiers = args;
 
-    using CheckType = void(IParamNode::*)();
+    using CheckType = void(IParamNodeDetail::*)();
     QList<CheckType> checks = {
-        &IParamNode::checkParamType,
-        &IParamNode::checkParamNameEmpty,
-        &IParamNode::checkParamDuplicated,
-        &IParamNode::checkAndSetParamPosition,
-        &IParamNode::checkAndSetParamOptional,
-        &IParamNode::checkContentPositionMustBeIStringView
+        &IParamNodeDetail::checkParamType,
+        &IParamNodeDetail::checkParamNameEmpty,
+        &IParamNodeDetail::checkParamDuplicated,
+        &IParamNodeDetail::checkAndSetParamPosition,
+        &IParamNodeDetail::checkAndSetParamOptional,
+        &IParamNodeDetail::checkContentPositionMustBeIStringView
     };
 
     for(auto check : checks){
         std::bind(check, this)();
-        if(!m_error.isEmpty()){
-            return;
-        }
     }
 }
 
-QString IParamNode::getError()
-{
-    return m_error;
-}
-
-void IParamNode::checkParamType()
+inline void IParamNodeDetail::checkParamType()
 {
     if(paramTypeId == QMetaType::UnknownType){
-        m_error = "ParamErrorOfUnknowType";
+        IParamNodeAbort::abortParamErrorOfUnknowType();
     }
 }
 
-void IParamNode::checkParamNameEmpty()
+inline void IParamNodeDetail::checkParamNameEmpty()
 {
     if(paramName.trimmed().isEmpty()){
-        m_error = "ParamNameEmpty";
+        IParamNodeAbort::abortParamNameEmpty();
     }
 }
 
-void IParamNode::checkParamDuplicated()
+inline void IParamNodeDetail::checkParamDuplicated()
 {
     if(m_paramQualifiers.length() != m_paramQualifiers.toSet().size()){
-        m_error = "ParamQualifersDuplicated";
+        IParamNodeAbort::abortParamQualifersDuplicated();
     }
 }
 
-void IParamNode::checkAndSetParamPosition()
+inline void IParamNodeDetail::checkAndSetParamPosition()
 {
     bool exist{false};
-    for(auto name : detail::qualifierNames){
+    for(auto name : QualifierNames){
         if(m_paramQualifiers.contains(name)){
             if(exist){
-                m_error = "ParamPositionDuplicated";
-                return;
+                IParamNodeAbort::abortParamPositionDuplicated();
             }
-            position = Position(detail::qualifierNames.indexOf(name));
+            position = Position(QualifierNames.indexOf(name));
             m_paramQualifiers.removeOne(name);
             exist = true;
         }
     }
 }
 
-void IParamNode::checkAndSetParamOptional()
+inline void IParamNodeDetail::checkAndSetParamOptional()
 {
     bool exist{false};
-    if(m_paramQualifiers.contains(detail::nullableName)){
+    if(m_paramQualifiers.contains(NullableName)){
         optional = true;
-        m_paramQualifiers.removeAll(detail::nullableName);
+        m_paramQualifiers.removeAll(NullableName);
         exist = true;
     }
-    if(m_paramQualifiers.contains(detail::notnullName)){
+    if(m_paramQualifiers.contains(NotnullName)){
         if(exist){
-            m_error = "ParamNullableConflict";
-            return;
+            IParamNodeAbort::abortParamNullableConflict();
         }
         optional = false;
-        m_paramQualifiers.removeAll(detail::notnullName);
+        m_paramQualifiers.removeAll(NotnullName);
     }
 }
 
-void IParamNode::checkAndSetParamRestrictions()
+inline void IParamNodeDetail::checkAndSetParamRestrictions()
 {
     for(auto name : m_paramQualifiers){
         auto condition = IHttpParameterRestrictManage::instance()->getRestrict(name);
         if(condition == nullptr){
-            m_error = "ParamRestrictNotExist";
-            return;
+            IParamNodeAbort::abortParamRestrictNotExist();
         }
         restricts.append(condition);
     }
 }
 
-void IParamNode::checkContentPositionMustBeIStringView()
+inline void IParamNodeDetail::checkContentPositionMustBeIStringView()
 {
     if(position == Position::Content && paramTypeName != "IStringView"){
-        m_error = "ParamPositionContentMustBeIStringViewType";
+        IParamNodeAbort::abortParamPositionContentMustBeIStringViewType();
     }
+}
+
+IParamNode IParamNodeHelper::createParamNode(int paramTypeId, QString paramTypeName, QString paramName)
+{
+    return IParamNodeDetail(paramTypeId, paramTypeName, paramName);
 }
 
 
