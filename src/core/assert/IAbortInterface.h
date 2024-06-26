@@ -29,11 +29,10 @@ void IAbortInterface<T>::abort(int code)
 {
     auto infos = getAbortInfo();
     if(infos.contains(code)){
-        qFatal(infos[code]);
+        qFatal(infos[code].toUtf8());
     }else{
         qFatal("not found");
     }
-
 }
 
 $PackageWebCoreEnd

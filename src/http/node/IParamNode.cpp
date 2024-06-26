@@ -35,7 +35,7 @@ namespace detail {
 IParamNode::IParamNode(int paramTypeId, QString paramTypeName, QString name)
     : paramTypeId(paramTypeId), paramTypeName(paramTypeName)
 {
-
+    IParamNodeAbort::abortError1();
     auto args = name.split("_$");
     paramName = args.first();
     paramNameView = IHttpManage::instance()->stash(paramName.toUtf8());
