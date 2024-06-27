@@ -6,7 +6,6 @@
 
 $PackageWebCoreBegin
 
-
 class IParamNodeAbort : public IAbortInterface<IParamNodeAbort>
 {
     $AsAbort(
@@ -18,6 +17,7 @@ class IParamNodeAbort : public IAbortInterface<IParamNodeAbort>
         ParamRestrictNotExist,
         ParamPositionContentMustBeIStringViewType
     )
+
 public:
     virtual QMap<int, QString> getAbortDescription() const {
         return {
@@ -155,6 +155,5 @@ IParamNode IParamNodeHelper::createParamNode(int paramTypeId, QString paramTypeN
 {
     return IParamNodeDetail(paramTypeId, paramTypeName, paramName);
 }
-
 
 $PackageWebCoreEnd

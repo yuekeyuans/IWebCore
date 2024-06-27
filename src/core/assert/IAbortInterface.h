@@ -20,9 +20,10 @@ class IAbortInterface : public ISingletonUnit<T>
 public:
     IAbortInterface() = default;
 
-public:
+protected:
     void abort(int code);
     virtual QMap<int, QString> getAbortDescription() const = 0;
+    virtual QString extraInfo(){ return {};}        // 这个是用于提供对于此类型注解的公共信息
 
 private:
     void checkAbortInfoLength();
