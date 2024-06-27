@@ -3,8 +3,11 @@
 #include "core/base/IPreProcessorUtil.h"
 
 #define PP_ABORT_FUNC(name) \
-    static void abort ## name(){    \
-        instance()->abort(name);    \
+    static void abort ## name(ISourceLocation location){    \
+        instance()->abort(name, location);    \
+    }   \
+    static void abort ## name(const QString& description = {}, ISourceLocation location = {}){  \
+        instance()->abort(name, description, location);     \
     }
 
 #define PP_ABORT_EXPAND_1(arg_0)  \
