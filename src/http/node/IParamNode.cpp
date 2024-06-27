@@ -19,7 +19,7 @@ class IParamNodeAbort : public IAbortInterface<IParamNodeAbort>
     )
 
 public:
-    virtual QMap<int, QString> getAbortDescription() const {
+    virtual QMap<int, QString> abortDescription() const final{
         return {
             {ParamErrorOfUnknowType, "request parameter use an unknown or unregistered or unsupported type"},
             {ParamNameEmpty, "request parameter name is empty"},
@@ -29,6 +29,9 @@ public:
             {ParamRestrictNotExist, "request parameter has restriction annomacro that not registered in system, please check the annomacro"},
             {ParamPositionContentMustBeIStringViewType, "request parameter with $Content annomacro must use IStringView as its type"}
         };
+    }
+    virtual QString abortComment() final{
+        return "This abort only occurred at resolving controller parameter";
     }
 };
 

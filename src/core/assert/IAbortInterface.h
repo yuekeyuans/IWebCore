@@ -25,8 +25,9 @@ public:
 protected:
     void abort(int code, const QString& description, ISourceLocation location);
     void abort(int code, ISourceLocation location);
-    virtual QMap<int, QString> getAbortDescription() const = 0;
-    virtual QString extraInfo(){ return {};}        // 这个是用于提供对于此类型注解的公共信息
+    QString abortClass();
+    virtual QMap<int, QString> abortDescription() const = 0;
+    virtual QString abortComment() = 0;       // 这个是用于提供对于此类型注解的公共信息
 
 private:
     void checkAbortInfoLength();
@@ -43,11 +44,15 @@ void IAbortInterface<T>::abort(int code, const QString& description, ISourceLoca
 {
     checkAbortInfoLength();
     QStringList tips;
-    auto infos = getAbortDescription();
+    auto infos = abortDescription();
     if(infos.contains(code)){
         tips.append("ABORT: " + infos[code]);
     }else{
         qFatal("this should not exist!!!");
+    }
+    tips.append("ABORT CLASS: " + abortClass());
+    if(!abortComment().isEmpty()){
+        tips.append("ABORT COMMENT: " + abortComment());
     }
 
     if(!description.isEmpty()){
@@ -62,11 +67,17 @@ void IAbortInterface<T>::abort(int code, const QString& description, ISourceLoca
 }
 
 template<typename T>
+QString IAbortInterface<T>::abortClass()
+{
+    return IMetaUtil::getTypename<T>();
+}
+
+template<typename T>
 void IAbortInterface<T>::checkAbortInfoLength()
 {
     static std::once_flag flag;
     std::call_once(flag, [](){
-        if((int)T::EndTag != T::instance()->getAbortDescription().size()){
+        if((int)T::EndTag != T::instance()->abortDescription().size()){
             QString info = "Abort tag count and abort description count mismatch, please add abort description. Abort at ";
             info.append(IMetaUtil::getTypename<T>());
             qFatal(info.toUtf8());
