@@ -1,4 +1,5 @@
 ﻿#include "IMultiPartJar.h"
+#include "core/assert/IGlobalAbort.h"
 #include "http/IHttpAssert.h"
 #include "http/net/impl/IRequestRaw.h"
 
@@ -8,7 +9,7 @@ $UseAssert(IHttpAssert)
 
 IMultiPartJar::IMultiPartJar() : IJarUnit(nullptr)
 {
-    qFatal(IConstantUtil::UnVisibleMethod);
+    IGlobalAbort::abortUnVisibleMethod();
 }
 
 IMultiPart IMultiPartJar::operator[](const QString &name) const

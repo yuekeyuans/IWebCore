@@ -2,6 +2,7 @@
 
 #include "core/base/IConstantUtil.h"
 #include "core/assert/IGlobalAssert.h"
+#include "core/assert/IGlobalAbort.h"
 #include "http/biscuits/IHttpHeader.h"
 #include "http/IHttpAssert.h"
 #include "http/net/IRequest.h"
@@ -18,7 +19,7 @@ $UseGlobalAssert()
 
 IResponse::IResponse()
 {
-    qFatal(IConstantUtil::UnVisibleMethod);
+    IGlobalAbort::abortUnVisibleMethod();
 }
 
 IResponse::IResponse(IRequest *request) : m_raw(request->getRaw())
@@ -32,23 +33,23 @@ IResponse::~IResponse()
 
 IResponse::IResponse(const IResponse &)
 {
-    qFatal(IConstantUtil::UnVisibleMethod);
+    IGlobalAbort::abortUnVisibleMethod();
 }
 
 IResponse &IResponse::operator=(const IResponse &)
 {
-    qFatal(IConstantUtil::UnVisibleMethod);
+    IGlobalAbort::abortUnVisibleMethod();
     return *this;
 }
 
 IResponse::IResponse(IResponse &&)
 {
-    qFatal(IConstantUtil::UnVisibleMethod);
+    IGlobalAbort::abortUnVisibleMethod();
 }
 
 IResponse &IResponse::operator=(IResponse &&)
 {
-    qFatal(IConstantUtil::UnVisibleMethod);
+    IGlobalAbort::abortUnVisibleMethod();
     return *this;
 }
 

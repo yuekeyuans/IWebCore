@@ -1,4 +1,5 @@
 ﻿#include "ISessionJar.h"
+#include "core/assert/IGlobalAbort.h"
 #include "http/IHttpAssert.h"
 #include "http/session/ISessionManager.h"
 #include "http/session/ISessionInterface.h"
@@ -10,7 +11,7 @@ $UseAssert(IHttpAssert)
 
 ISessionJar::ISessionJar() : IJarUnit(nullptr)
 {
-    qFatal(IConstantUtil::UnVisibleMethod);
+    IGlobalAbort::abortUnVisibleMethod();
 }
 
 ISessionJar::ISessionJar(IRequestRaw *m_raw) : IJarUnit(m_raw)

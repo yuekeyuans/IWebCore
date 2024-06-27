@@ -19,6 +19,7 @@ HEADERS += \
     $$PWD/core/application/IQtApplication.h \
     $$PWD/core/assert/IAbortInterface.h \
     $$PWD/core/assert/IAbortPreProcessor.h \
+    $$PWD/core/assert/IGlobalAbort.h \
     $$PWD/core/base/ICodecUtil.h \
     $$PWD/core/base/IConstantUtil.h \
     $$PWD/core/base/IConvertUtil.h \
@@ -225,6 +226,7 @@ SOURCES += \
     $$PWD/core/application/IAsioApplication.cpp \
     $$PWD/core/application/IAsioManage.cpp \
     $$PWD/core/application/IQtApplication.cpp \
+    $$PWD/core/assert/IGlobalAbort.cpp \
     $$PWD/core/base/ICodecUtil.cpp \
     $$PWD/core/base/IConvertUtil.cpp \
     $$PWD/core/base/IFileUtil.cpp \

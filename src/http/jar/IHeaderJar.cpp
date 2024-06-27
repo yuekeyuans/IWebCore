@@ -1,6 +1,7 @@
 ﻿#include "IHeaderJar.h"
 
 #include "core/base/IToeUtil.h"
+#include "core/assert/IGlobalAbort.h"
 #include "http/net/impl/IRequestRaw.h"
 #include "http/net/impl/IResponseRaw.h"
 #include "http/IHttpAssert.h"
@@ -11,7 +12,7 @@ $UseAssert(IHttpAssert)
 
 IHeaderJar::IHeaderJar() : IJarUnit(nullptr)
 {
-    qFatal(IConstantUtil::UnVisibleMethod);
+    IGlobalAbort::abortUnVisibleMethod();
 }
 
 const QMultiHash<IStringView, IStringView>& IHeaderJar::requestHeaders() const

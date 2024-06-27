@@ -1,4 +1,5 @@
 ﻿#include "IInvalidResponse.h"
+#include "core/assert/IGlobalAbort.h"
 #include "http/net/impl/IResponseRaw.h"
 
 $PackageWebCoreBegin
@@ -6,7 +7,7 @@ $PackageWebCoreBegin
 IInvalidResponse::IInvalidResponse(const QString &value)
 {
     Q_UNUSED(value)
-    qFatal(IConstantUtil::UnVisibleMethod);
+    IGlobalAbort::abortUnVisibleMethod();
 }
 
 IInvalidResponse::IInvalidResponse(IHttpInvalidUnit ware)

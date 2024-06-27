@@ -6,6 +6,7 @@
 #include "core/base/IXmlUtil.h"
 #include "core/base/IToeUtil.h"
 #include "core/assert/IGlobalAssert.h"
+#include "core/assert/IGlobalAbort.h"
 #include "http/biscuits/IHttpHeader.h"
 #include "http/IHttpAssert.h"
 #include "http/invalid/IHttpRequestTimeoutInvalid.h"
@@ -23,7 +24,7 @@ $UseGlobalAssert()
 
 IRequest::IRequest() : ITcpResolverInterface(nullptr)
 {
-    qFatal(IConstantUtil::UnVisibleMethod);
+    IGlobalAbort::abortUnVisibleMethod($ISourceLocation);
 }
 
 IRequest::IRequest(ITcpConnection *connection) : ITcpResolverInterface(connection)
@@ -38,23 +39,23 @@ IRequest::~IRequest()
 
 IRequest::IRequest(const IRequest &) : ITcpResolverInterface(nullptr)
 {
-    qFatal(IConstantUtil::UnVisibleMethod);
+    IGlobalAbort::abortUnVisibleMethod($ISourceLocation);
 }
 
 IRequest &IRequest::operator=(const IRequest &)
 {
-    qFatal(IConstantUtil::UnVisibleMethod);
+    IGlobalAbort::abortUnVisibleMethod($ISourceLocation);
     return *this;
 }
 
 IRequest::IRequest(IRequest &&) : ITcpResolverInterface(nullptr)
 {
-    qFatal(IConstantUtil::UnVisibleMethod);
+    IGlobalAbort::abortUnVisibleMethod($ISourceLocation);
 }
 
 IRequest &IRequest::operator=(IRequest &&)
 {
-    qFatal(IConstantUtil::UnVisibleMethod);
+    IGlobalAbort::abortUnVisibleMethod($ISourceLocation);
     return *this;
 }
 

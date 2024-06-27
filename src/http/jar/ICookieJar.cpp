@@ -1,7 +1,8 @@
 ﻿#include "ICookieJar.h"
+#include "core/base/IToeUtil.h"
+#include "core/assert/IGlobalAbort.h"
 #include "http/net/impl/IRequestRaw.h"
 #include "http/IHttpAssert.h"
-#include "core/base/IToeUtil.h"
 
 $PackageWebCoreBegin
 
@@ -9,7 +10,7 @@ $UseAssert(IHttpAssert)
 
 ICookieJar::ICookieJar() : IJarUnit(nullptr)
 {
-    qFatal(IConstantUtil::UnVisibleMethod);
+    IGlobalAbort::abortUnVisibleMethod();
 }
 
 const QMultiHash<IStringView, IStringView> &ICookieJar::requestCookies() const

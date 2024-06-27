@@ -4,6 +4,7 @@
 #include "core/base/IToeUtil.h"
 #include "core/base/IJsonUtil.h"
 #include "core/base/IXmlUtil.h"
+#include "core/assert/IGlobalAbort.h"
 #include "http/IHttpAssert.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/jar/ICookieJar.h"
@@ -19,7 +20,7 @@ $UseAssert(IHttpAssert)
 
 IRequestRaw::IRequestRaw()
 {
-    qFatal(IConstantUtil::UnVisibleMethod);
+    IGlobalAbort::abortUnVisibleMethod();
 }
 
 IRequestRaw::IRequestRaw(IRequest *request)
