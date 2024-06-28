@@ -188,7 +188,7 @@ HEADERS += \
     $$PWD/http/jar/ISessionJar.h \
     $$PWD/http/net/IRequest.h \
     $$PWD/http/net/IResponse.h \
-    $$PWD/http/net/impl/IRequestAssert.h \
+#    $$PWD/http/net/impl/IRequestAssert.h \
     $$PWD/http/net/impl/IRequestImpl.h \
     $$PWD/http/net/impl/IResponseImpl.h \
     $$PWD/http/node/IFunctionNode.h \
@@ -266,6 +266,7 @@ SOURCES += \
     $$PWD/core/unit/IGadgetUnit.cpp \
     $$PWD/core/unit/IRegisterGadgetUnit.cpp \
     $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
+    $$PWD/core/unit/ISingletonUnit.cpp \
     $$PWD/http/IHttpAssert.cpp \
     $$PWD/http/IHttpControllerTaskCatagory.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
@@ -353,7 +354,7 @@ SOURCES += \
     $$PWD/http/jar/ISessionJar.cpp \
     $$PWD/http/net/IRequest.cpp \
     $$PWD/http/net/IResponse.cpp \
-    $$PWD/http/net/impl/IRequestAssert.cpp \
+#    $$PWD/http/net/impl/IRequestAssert.cpp \
     $$PWD/http/net/impl/IRequestImpl.cpp \
     $$PWD/http/net/impl/IResponseImpl.cpp \
     $$PWD/http/node/IFunctionNode.cpp \

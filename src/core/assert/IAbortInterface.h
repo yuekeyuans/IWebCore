@@ -27,7 +27,7 @@ protected:
     void abort(int code, ISourceLocation location);
     QString abortClass();
     virtual QMap<int, QString> abortDescription() const = 0;
-    virtual QString abortComment() = 0;       // 这个是用于提供对于此类型注解的公共信息
+    virtual QString abortComment() { return {}; }       // 这个是用于提供对于此类型注解的公共信息
 
 private:
     void checkAbortInfoLength();

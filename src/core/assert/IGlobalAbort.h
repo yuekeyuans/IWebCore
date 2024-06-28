@@ -10,7 +10,8 @@ class IGlobalAbort : public IAbortInterface<IGlobalAbort>
     $AsAbort(
         UnVisibleMethod,
         UnReachableCode,
-        UnImplimentedMethod
+        UnImplimentedMethod,
+        SingletonInstanceCreateError
     )
 public:
     IGlobalAbort() = default;

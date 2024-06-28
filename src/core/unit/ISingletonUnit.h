@@ -2,7 +2,6 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/base/IMetaUtil.h"
-#include "core/assert/IGlobalAssert.h"
 
 $PackageWebCoreBegin
 
@@ -20,13 +19,15 @@ public:
     static T* instance();
 };
 
-namespace ISingletonUnitUtil
+namespace ISingletonUnitDetail
 {
     template<typename T, typename = decltype(T::instance())>
     T* getInstance(void*);
 
     template<typename T>
     T* getInstance(...);
+
+    void abortError(QString);
 }
 
 template<typename T>
@@ -41,21 +42,19 @@ ISingletonUnit<T>::ISingletonUnit()
 {
     static std::atomic_bool flag{false};
     if(flag){
-        IAssertInfo info;
-        info.className = IMetaUtil::getTypename<T>();
-        IGlobalAssert::instance()->fatal("SingletonInstanceCreateError", info);
+        ISingletonUnitDetail::abortError("class name:" + IMetaUtil::getTypename<T>());
     }
     flag = true;
 }
 
 template<typename T, typename U>
-T* ISingletonUnitUtil::getInstance(void*)
+T* ISingletonUnitDetail::getInstance(void*)
 {
     return T::instance();
 }
 
 template<typename T>
-T* ISingletonUnitUtil::getInstance(...)
+T* ISingletonUnitDetail::getInstance(...)
 {
     static T t;
     return &t;

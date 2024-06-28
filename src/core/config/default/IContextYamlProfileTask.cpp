@@ -1,13 +1,10 @@
 ﻿#include "IContextYamlProfileTask.h"
-#include "core/assert/IGlobalAssert.h"
 #include "core/base/IFileUtil.h"
 #include "core/config/IProfileManage.h"
 #include "core/config/IContextImport.h"
 #include "Yaml.hpp"
 
 $PackageWebCoreBegin
-
-$UseGlobalAssert()
 
 static QJsonObject toObject(const Yaml::Node& node);
 static QJsonValue toValue( const Yaml::Node& node);

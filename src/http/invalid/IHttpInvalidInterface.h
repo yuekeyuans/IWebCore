@@ -49,7 +49,7 @@ QString IHttpInvalidInterface<T, enabled>::catagory() const
 template<typename T, bool enabled>
 void IHttpInvalidInterface<T, enabled>::task()
 {
-    IHttpInvalidManage::instance()->addWare(ISingletonUnitUtil::getInstance<T>(nullptr));
+    IHttpInvalidManage::instance()->addWare(ISingletonUnitDetail::getInstance<T>(nullptr));
 }
 
 $PackageWebCoreEnd

@@ -2,10 +2,8 @@
 
 $PackageWebCoreBegin
 
-inline void IGlobalAssert::loadAssert()
+inline void IGlobalAssert1::loadAssert()
 {
-    // IApplication
-    addFatal("IApplication_not_created", "you can not get any IApplication instance when IApplication not created");
 
     /// global
     addFatal("Assert_Load_Json_Error", "your json format is not correct");
@@ -39,9 +37,6 @@ inline void IGlobalAssert::loadAssert()
     addWarn("CatagoryRangeExceed", "catagory range ought to be in 0 and 100");
     addWarn("TaskRangeExceed", "catagory range ought to be in 0 and 100");
     addWarn("TaskWithErrorCatagory", "this task`s catagory does not exist, please check your code");
-
-    // unit
-    addFatal("SingletonInstanceCreateError", "error with singleton instance, you should not create anyother instance of this");
 
 }
 

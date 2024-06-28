@@ -16,8 +16,8 @@ public:     \
     }   \
 private:
 
-#define $UseGlobalAssert() \
-    $UseAssert(IGlobalAssert, $GlobalAssert)
+//#define $UseGlobalAssert() \
+//    $UseAssert(IGlobalAssert, $GlobalAssert)
 
 #define $UseAssert_1(klassName)  \
     static klassName* $Ast = klassName::instance();

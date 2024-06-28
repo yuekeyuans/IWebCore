@@ -1,5 +1,4 @@
 ﻿#include "IContextJsonProfileTask.h"
-#include "core/assert/IGlobalAssert.h"
 #include "core/base/IFileUtil.h"
 #include "core/base/IJsonUtil.h"
 #include "core/config/IProfileManage.h"
@@ -7,7 +6,6 @@
 
 $PackageWebCoreBegin
 
-$UseGlobalAssert()
 
 QJsonValue IContextJsonProfileTask::config()
 {

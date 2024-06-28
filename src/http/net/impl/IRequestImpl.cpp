@@ -1,7 +1,6 @@
 ﻿#include "IRequestImpl.h"
 
 #include <algorithm>
-#include "IRequestAssert.h"
 #include "core/application/IAsioApplication.h"
 #include "core/base/IConstantUtil.h"
 #include "core/base/IHeaderUtil.h"
@@ -23,7 +22,7 @@
 
 $PackageWebCoreBegin
 
-$UseAssert(IRequestAssert)
+//$UseAssert(IRequestAssert)
 
 //namespace IRequestImplHelper{
 //    void checkDumplicatedParameters(const QList<QPair<QString, IRequestImpl::FunType>>& maps, const IRequestImpl* ptr, const QString& name);

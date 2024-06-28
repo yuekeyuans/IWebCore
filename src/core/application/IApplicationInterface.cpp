@@ -1,9 +1,20 @@
 ﻿#include "IApplicationInterface.h"
-#include "core/assert/IGlobalAssert.h"
+#include "core/assert/IAbortInterface.h"
 
 $PackageWebCoreBegin
 
-$UseGlobalAssert()
+class IApplicationAbort : public IAbortInterface<IApplicationAbort>
+{
+    $AsAbort(
+        IApplicationNotCreated
+    )
+protected:
+    virtual QMap<int, QString> abortDescription() const final{
+        return {
+            {IApplicationNotCreated, "you can not get any IApplication instance when IApplication not created"}
+        };
+    }
+};
 
 IApplicationInterface* IApplicationInterface::m_instance = nullptr;
 
@@ -17,7 +28,7 @@ IApplicationInterface::IApplicationInterface(int arg, char **argv)
 IApplicationInterface *IApplicationInterface::instance()
 {
     if(!m_instance){
-        $GlobalAssert->fatal("IApplication_not_created");
+        IApplicationAbort::abortIApplicationNotCreated();
     }
 
     return m_instance;

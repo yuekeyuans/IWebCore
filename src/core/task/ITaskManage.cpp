@@ -1,13 +1,10 @@
 ﻿#include "ITaskManage.h"
 
-#include "core/assert/IGlobalAssert.h"
 #include "core/config/IContextImport.h"
 #include "core/task/ITaskWare.h"
 #include "core/task/ITaskCatagory.h"
 
 $PackageWebCoreBegin
-
-$UseGlobalAssert()
 
 void ITaskManage::run()
 {

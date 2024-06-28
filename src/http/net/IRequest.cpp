@@ -5,7 +5,6 @@
 #include "core/base/IJsonUtil.h"
 #include "core/base/IXmlUtil.h"
 #include "core/base/IToeUtil.h"
-#include "core/assert/IGlobalAssert.h"
 #include "core/assert/IGlobalAbort.h"
 #include "http/biscuits/IHttpHeader.h"
 #include "http/IHttpAssert.h"
@@ -20,7 +19,6 @@
 $PackageWebCoreBegin
 
 $UseAssert(IHttpAssert)
-$UseGlobalAssert()
 
 IRequest::IRequest() : ITcpResolverInterface(nullptr)
 {

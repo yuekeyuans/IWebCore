@@ -1,7 +1,6 @@
 ﻿#include "IResponse.h"
 
 #include "core/base/IConstantUtil.h"
-#include "core/assert/IGlobalAssert.h"
 #include "core/assert/IGlobalAbort.h"
 #include "http/biscuits/IHttpHeader.h"
 #include "http/IHttpAssert.h"
@@ -14,8 +13,6 @@
 $PackageWebCoreBegin
 
 $UseAssert(IHttpAssert)
-
-$UseGlobalAssert()
 
 IResponse::IResponse()
 {

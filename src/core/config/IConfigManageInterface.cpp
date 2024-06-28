@@ -1,10 +1,7 @@
 ﻿#include "IConfigManageInterface.h"
 #include "core/base/IToeUtil.h"
-#include "core/assert/IGlobalAssert.h"
 
 $PackageWebCoreBegin
-
-$UseGlobalAssert()
 
 namespace IConfigUnitHelper
 {

@@ -2,11 +2,8 @@
 #include "IToeUtil.h"
 #include "IConvertUtil.h"
 #include "IConstantUtil.h"
-#include "core/assert/IGlobalAssert.h"
 
 $PackageWebCoreBegin
-
-$UseGlobalAssert()
 
 // TODO: 这里的 path 定义 和 config 中的path 定义不大一致，可以在之后调整到这里时查看一下这个问题，并修复一下
 QJsonValue IJsonUtil::getJsonValue(const QJsonValue &obj, const QString &path, bool& ok)

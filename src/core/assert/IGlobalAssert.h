@@ -6,11 +6,11 @@
 
 $PackageWebCoreBegin
 
-class IGlobalAssert : public IAssertInterface
+class IGlobalAssert1 : public IAssertInterface
 {
-    $AsAssert(IGlobalAssert)
+    $AsAssert(IGlobalAssert1)
 private:
-    IGlobalAssert() = default;
+    IGlobalAssert1() = default;
     virtual void loadAssert() final;
 };
 
