@@ -1,5 +1,5 @@
 ﻿#include "IInvalidResponse.h"
-#include "core/assert/IGlobalAbort.h"
+#include "core/abort/IGlobalAbort.h"
 #include "http/net/impl/IResponseRaw.h"
 
 $PackageWebCoreBegin

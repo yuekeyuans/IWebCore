@@ -1,5 +1,5 @@
 ﻿#include "IApplicationInterface.h"
-#include "core/assert/IAbortInterface.h"
+#include "core/abort/IAbortInterface.h"
 
 $PackageWebCoreBegin
 

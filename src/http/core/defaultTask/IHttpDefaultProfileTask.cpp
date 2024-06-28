@@ -1,5 +1,6 @@
 ﻿#include "IHttpDefaultProfileTask.h"
 #include "core/base/IConvertUtil.h"
+#include "core/base/IJsonUtil.h"
 #include "core/config/IProfileManage.h"
 #include "core/base/IFileUtil.h"
 

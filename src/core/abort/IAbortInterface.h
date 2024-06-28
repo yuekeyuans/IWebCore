@@ -2,7 +2,7 @@
 
 #include "core/base/IHeaderUtil.h"
 #include "core/unit/ISingletonUnit.h"
-#include "core/assert/IAbortPreProcessor.h"
+#include "core/abort/IAbortPreProcessor.h"
 #include "core/base/IMetaUtil.h"
 
 $PackageWebCoreBegin

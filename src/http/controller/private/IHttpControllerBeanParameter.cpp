@@ -4,7 +4,7 @@
 #include "core/base/IConstantUtil.h"
 #include "core/base/IToeUtil.h"
 #include "core/bean/IBeanWare.h"
-#include "core/assert/IGlobalAbort.h"
+#include "core/abort/IGlobalAbort.h"
 #include "core/config/IContextImport.h"
 #include "http/node/IMethodNode.h"
 #include "http/node/IParamNode.h"

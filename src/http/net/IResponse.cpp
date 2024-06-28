@@ -1,7 +1,7 @@
 ﻿#include "IResponse.h"
 
 #include "core/base/IConstantUtil.h"
-#include "core/assert/IGlobalAbort.h"
+#include "core/abort/IGlobalAbort.h"
 #include "http/biscuits/IHttpHeader.h"
 #include "http/IHttpAssert.h"
 #include "http/net/IRequest.h"

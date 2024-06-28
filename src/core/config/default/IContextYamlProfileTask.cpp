@@ -2,6 +2,7 @@
 #include "core/base/IFileUtil.h"
 #include "core/config/IProfileManage.h"
 #include "core/config/IContextImport.h"
+#include "core/config/IConfigAbort.h"
 #include "Yaml.hpp"
 
 $PackageWebCoreBegin
@@ -64,10 +65,7 @@ static QJsonObject toJsonObject(const QString &content, bool& ok)
     try {
         Yaml::Parse(root, content.toStdString());
     } catch (Yaml::ParsingException e) {
-        ok = false;
-        IAssertInfo info;
-        info.reason = e.what();
-        $GlobalAssert->fatal("ConfigurationCovertYamlFailError", info);    // actually, it need not ok, but for compat, write here for future.
+         IConfigAbort::abortConfigurationCovertYamlFailError(e.what(), $ISourceLocation);
     }
     if(root.IsMap()){
         return toObject(root);
@@ -111,14 +109,12 @@ QJsonValue IContextYamlProfileTask::parseYamlFile(const QString &path, bool& ok)
     QJsonObject obj;
     QString content = IFileUtil::readFileAsString(path, ok);
     if(!ok){
-        $GlobalAssert->fatal("ConfigurationResolveJsonError");
+        IConfigAbort::abortConfigurationResolveJsonError($ISourceLocation);
     }
 
     obj = toJsonObject(content, ok);
     if(!ok){
-        IAssertInfo info;
-        info.reason = path;
-        $GlobalAssert->fatal("ConfigurationResolveJsonError", info);
+        IConfigAbort::abortConfigurationResolveJsonError(path, $ISourceLocation);
     }
     return obj;
 }

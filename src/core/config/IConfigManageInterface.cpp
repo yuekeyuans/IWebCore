@@ -1,5 +1,8 @@
 ﻿#include "IConfigManageInterface.h"
 #include "core/base/IToeUtil.h"
+#include "core/base/IConvertUtil.h"
+#include "core/abort/IAbortInterface.h"
+#include "core/config/IConfigAbort.h"
 
 $PackageWebCoreBegin
 
@@ -7,13 +10,13 @@ namespace IConfigUnitHelper
 {
     static void validatePath(const QStringList& args){
         if(args.isEmpty()){
-            $GlobalAssert->fatal("ContextAddPathInvalid");
+            IConfigAbort::abortContextAddPathInvalid($ISourceLocation);
         }
         if(args.contains("@^") && !args.endsWith("@^")){
-            $GlobalAssert->fatal("JsonMergeFatalWithArray");
+            IConfigAbort::abortJsonMergeFatalWithArray($ISourceLocation);
         }
         if(args.contains("@$") && !args.endsWith("@$")){
-            $GlobalAssert->fatal("JsonMergeFatalWithArray");
+            IConfigAbort::abortJsonMergeFatalWithArray($ISourceLocation);
         }
     }
 
@@ -48,7 +51,7 @@ namespace IConfigUnitHelper
                 if(obj[key].isObject() && obj2[key].isObject()){
                     ret[key] = mergeJsonObject(obj[key].toObject(), obj2[key].toObject());
                 }else{
-                    $GlobalAssert->warn("ContextMergeError");
+                    IConfigAbort::abortContextMergeError($ISourceLocation);
                 }
             }else if(obj[key].isArray() || obj2[key].isArray()){
                 if(obj[key].isArray() && obj2[key].isArray()){
@@ -56,7 +59,7 @@ namespace IConfigUnitHelper
                     array.append(obj2[key].toArray());
                     ret[key] = array;
                 }else{
-                    $GlobalAssert->warn("ContextMergeError");
+                    IConfigAbort::abortContextMergeError($ISourceLocation);
                 }
             }else{
                 ret[key] = obj2[key];   // 重写内容
@@ -71,7 +74,7 @@ namespace IConfigUnitHelper
         const auto& arg = args.first();
         if(arg == "@^" || arg == "@$"){
             if(!target.isArray() || !source.isArray()){
-                $GlobalAssert->fatal("JsonArrayMergeMismatch");
+                IConfigAbort::abortJsonArrayMergeMismatch($ISourceLocation);
             }
 
             QJsonArray array = target.toArray();
@@ -83,7 +86,7 @@ namespace IConfigUnitHelper
             return array;
         }else{
             if(!target.isObject() || !source.isObject()){
-                $GlobalAssert->fatal("JsonObjectMergeMismatch");
+                IConfigAbort::abortJsonArrayMergeMismatch($ISourceLocation);
             }
 
             QJsonObject obj = target.toObject();
@@ -111,7 +114,7 @@ namespace IConfigUnitHelper
         QJsonValue value = obj;
         for(const auto& arg : args){
             if(!value.isObject()){
-                $GlobalAssert->warn("JsonFetchNotSupportArrary");
+                IConfigAbort::abortJsonFetchNotSupportArrary($ISourceLocation);
                 IToeUtil::setOk(ok, false);
                 return {};
             }
@@ -131,7 +134,7 @@ void IConfigManageInterface::addConfig(const QJsonValue &value, const QString &p
 {
     if(path.trimmed().isEmpty()){
         if(!value.isObject()){
-            $GlobalAssert->fatal("ContextMergeError");
+            IConfigAbort::abortContextMergeError($ISourceLocation);
         }
         m_configs = IConfigUnitHelper::mergeJsonObject(m_configs, value.toObject());
     }else{

@@ -4,7 +4,7 @@
 #include "core/base/IToeUtil.h"
 #include "core/base/IJsonUtil.h"
 #include "core/base/IXmlUtil.h"
-#include "core/assert/IGlobalAbort.h"
+#include "core/abort/IGlobalAbort.h"
 #include "http/IHttpAssert.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/jar/ICookieJar.h"

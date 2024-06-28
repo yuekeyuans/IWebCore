@@ -12,14 +12,14 @@ HEADERS += \
 #    $$PWD/IWeb/IHttpControllerInterface \
     $$PWD/IHttp/IHttpControllerInterface \
     $$PWD/IHttp/IHttpTestInterface \
+    $$PWD/core/abort/IAbortInterface.h \
+    $$PWD/core/abort/IAbortPreProcessor.h \
+    $$PWD/core/abort/IGlobalAbort.h \
     $$PWD/core/application/IApplicationAnnomacro.h \
     $$PWD/core/application/IApplicationInterface.h \
     $$PWD/core/application/IAsioApplication.h \
     $$PWD/core/application/IAsioManage.h \
     $$PWD/core/application/IQtApplication.h \
-    $$PWD/core/assert/IAbortInterface.h \
-    $$PWD/core/assert/IAbortPreProcessor.h \
-    $$PWD/core/assert/IGlobalAbort.h \
     $$PWD/core/base/ICodecUtil.h \
     $$PWD/core/base/IConstantUtil.h \
     $$PWD/core/base/IConvertUtil.h \
@@ -43,6 +43,7 @@ HEADERS += \
     $$PWD/core/bean/IBeanPreProcessor.h \
     $$PWD/core/bean/IBeanTypeManage.h \
     $$PWD/core/bean/IBeanWare.h \
+    $$PWD/core/config/IConfigAbort.h \
     $$PWD/core/config/IConfigAnnomacro.h \
     $$PWD/core/config/IConfigImportInterface.h \
     $$PWD/core/config/IConfigManageInterface.h \
@@ -221,11 +222,11 @@ HEADERS += \
     $$PWD/http/session/ISessionWare.h
 
 SOURCES += \
+    $$PWD/core/abort/IGlobalAbort.cpp \
     $$PWD/core/application/IApplicationInterface.cpp \
     $$PWD/core/application/IAsioApplication.cpp \
     $$PWD/core/application/IAsioManage.cpp \
     $$PWD/core/application/IQtApplication.cpp \
-    $$PWD/core/assert/IGlobalAbort.cpp \
     $$PWD/core/base/ICodecUtil.cpp \
     $$PWD/core/base/IConvertUtil.cpp \
     $$PWD/core/base/IFileUtil.cpp \

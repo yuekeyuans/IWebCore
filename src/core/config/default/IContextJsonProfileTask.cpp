@@ -3,9 +3,23 @@
 #include "core/base/IJsonUtil.h"
 #include "core/config/IProfileManage.h"
 #include "core/config/IContextImport.h"
+#include "core/abort/IAbortInterface.h"
 
 $PackageWebCoreBegin
 
+class IContextAbort : public IAbortInterface<IContextAbort>
+{
+    $AsAbort(
+        ConfigurationResolveJsonError
+    )
+protected:
+    virtual QMap<int, QString> abortDescription() const final{
+        return {
+            {ConfigurationResolveJsonError, ""},
+
+        };
+    }
+};
 
 QJsonValue IContextJsonProfileTask::config()
 {
@@ -39,15 +53,13 @@ QJsonObject IContextJsonProfileTask::parseJsonFile(const QString &path) const
     bool ok;
     QString content = IFileUtil::readFileAsString(path, ok);
     if(!ok){
-        $GlobalAssert->fatal("ConfigurationResolveJsonError");
+        IContextAbort::abortConfigurationResolveJsonError($ISourceLocation);
         return obj;
     }
 
     obj = IJsonUtil::toJsonObject(content, ok);
     if(!ok){
-        IAssertInfo info;
-        info.reason = path;
-        $GlobalAssert->fatal("ConfigurationResolveJsonError", info);
+        IContextAbort::abortConfigurationResolveJsonError("path:" + path, $ISourceLocation);
     }
     return obj;
 }

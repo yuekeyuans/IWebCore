@@ -1,5 +1,5 @@
 ﻿#include "IParamNode.h"
-#include "core/assert/IAbortInterface.h"
+#include "core/abort/IAbortInterface.h"
 #include "http/node/IHttpParameterRestrictManage.h"
 #include "http/node/IHttpParameterRestrictInterface.h"
 #include "http/controller/IHttpManage.h"

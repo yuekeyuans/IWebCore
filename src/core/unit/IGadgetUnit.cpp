@@ -4,7 +4,7 @@
 #include "core/base/IConvertUtil.h"
 #include "core/base/IJsonUtil.h"
 #include "core/base/IMetaUtil.h"
-#include "core/assert/IGlobalAbort.h"
+#include "core/abort/IGlobalAbort.h"
 
 $PackageWebCoreBegin
 

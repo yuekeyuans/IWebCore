@@ -1,5 +1,5 @@
 ﻿#include "ISingletonUnit.h"
-#include "core/assert/IGlobalAbort.h"
+#include "core/abort/IGlobalAbort.h"
 
 $PackageWebCoreBegin
 

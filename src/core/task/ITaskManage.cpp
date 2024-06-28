@@ -3,8 +3,28 @@
 #include "core/config/IContextImport.h"
 #include "core/task/ITaskWare.h"
 #include "core/task/ITaskCatagory.h"
+#include "core/abort/IAbortInterface.h"
 
 $PackageWebCoreBegin
+
+class ITaskManageAbort : public IAbortInterface<ITaskManageAbort>
+{
+    $AsAbort(
+        TaskShouldNotBeRegistered,
+        CatagoryRangeExceed,
+        TaskRangeExceed,
+        TaskWithErrorCatagory
+    )
+protected:
+    virtual QMap<int, QString> abortDescription() const final{
+        return {
+            {TaskShouldNotBeRegistered, "task can not be registered when the task run finished"},
+            {CatagoryRangeExceed, "catagory range ought to be in 0 and 100"},
+            {TaskRangeExceed, "catagory range ought to be in 0 and 100"},
+            {TaskWithErrorCatagory, "this task`s catagory does not exist, please check your code"}
+        };
+    }
+};
 
 void ITaskManage::run()
 {
@@ -19,7 +39,7 @@ void ITaskManage::run()
 void ITaskManage::addTaskWare(ITaskWare *node)
 {
     if(m_isTaskFinished){
-        $GlobalAssert->fatal("TaskShouldNotBeRegistered");
+        ITaskManageAbort::abortTaskShouldNotBeRegistered($ISourceLocation);
     }
 
     m_taskWares.append(node);
@@ -43,9 +63,7 @@ void ITaskManage::checkCatagoryExceed()
 {
     for(const auto& cata : m_catagories){
         if(cata->order() < 0 || cata->order() > 100){
-            IAssertInfo info;
-            info.reason = QString("Catagory: ").append(cata->name());
-            $GlobalAssert->warn("CatagoryRangeExceed", info);
+            ITaskManageAbort::abortCatagoryRangeExceed(QString("Catagory: ").append(cata->name()), $ISourceLocation);
         }
     }
 }
@@ -54,9 +72,7 @@ void ITaskManage::checkTaskExceed()
 {
     for(const auto& task : m_taskWares){
         if(task->order() < 0 || task->order() > 100){
-            IAssertInfo info;
-            info.reason = QString("Task: ").append(task->name());
-            $GlobalAssert->warn("TaskRangeExceed", info);
+            ITaskManageAbort::abortTaskRangeExceed(QString("Task: ").append(task->name()), $ISourceLocation);
         }
     }
 }
@@ -82,9 +98,7 @@ void ITaskManage::mergetTasksToCatagores()
         }
 
         for(auto task: m_taskWares){
-            IAssertInfo info;
-            info.reason = QString("Task: ").append(task->name()).append(" have wrong catagory that not exist: ").append(task->catagory());
-            $GlobalAssert->warn("TaskWithErrorCatagory", info);
+            ITaskManageAbort::abortTaskWithErrorCatagory(QString("Task: ").append(task->name()).append(" have wrong catagory that not exist: ").append(task->catagory()), $ISourceLocation);
         }
     }
 }

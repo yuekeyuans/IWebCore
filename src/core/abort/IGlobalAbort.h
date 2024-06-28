@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "core/base/IHeaderUtil.h"
-#include "core/assert/IAbortInterface.h"
+#include "core/abort/IAbortInterface.h"
 
 $PackageWebCoreBegin
 
