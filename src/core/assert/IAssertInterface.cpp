@@ -1,5 +1,5 @@
 ﻿#include "IAssertInterface.h"
-#include "IGlobalAssert.h"
+//#include "IGlobalAssert.h"
 #include "core/base/IMetaUtil.h"
 
 $PackageWebCoreBegin

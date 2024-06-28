@@ -38,7 +38,7 @@ HEADERS += \
     $$PWD/core/assert/IAssertInfo.h \
     $$PWD/core/assert/IAssertInterface.h \
     $$PWD/core/assert/IAssertPreProcessor.h \
-    $$PWD/core/assert/IGlobalAssert.h \
+#    $$PWD/core/assert/IGlobalAssert.h \
     $$PWD/core/bean/IBeanInterface.h \
     $$PWD/core/bean/IBeanPreProcessor.h \
     $$PWD/core/bean/IBeanTypeManage.h \
@@ -133,7 +133,8 @@ HEADERS += \
     $$PWD/http/nody/INodyParser.h \
     $$PWD/http/nody/INodyRenderer.h \
     $$PWD/http/response/IStatusResponse.h \
-    $$PWD/orm/IOrmAssert.h \
+    $$PWD/orm/IOrmAbort.h \
+#    $$PWD/orm/IOrmAssert.h \
     $$PWD/orm/IOrmManage.h \
     $$PWD/orm/IOrmTaskCatagory.h \
     $$PWD/orm/IOrmUtil.h \
@@ -241,7 +242,7 @@ SOURCES += \
     $$PWD/core/base/IXmlUtil.cpp \
     $$PWD/core/assert/IAssertInfo.cpp \
     $$PWD/core/assert/IAssertInterface.cpp \
-    $$PWD/core/assert/IGlobalAssert.cpp \
+#    $$PWD/core/assert/IGlobalAssert.cpp \
     $$PWD/core/bean/IBeanTypeManage.cpp \
     $$PWD/core/config/IConfigManageInterface.cpp \
     $$PWD/core/config/IConfigTaskCatagory.cpp \
@@ -306,7 +307,7 @@ SOURCES += \
     $$PWD/http/nody/INodyParser.cpp \
     $$PWD/http/nody/INodyRenderer.cpp \
     $$PWD/http/response/IStatusResponse.cpp \
-    $$PWD/orm/IOrmAssert.cpp \
+#    $$PWD/orm/IOrmAssert.cpp \
     $$PWD/orm/IOrmManage.cpp \
     $$PWD/orm/IOrmTaskCatagory.cpp \
     $$PWD/orm/IOrmUtil.cpp \

@@ -16,8 +16,6 @@
 
 $PackageWebCoreBegin
 
-$UseAssert(IHttpAssert)
-
 IRequestRaw::IRequestRaw()
 {
     IGlobalAbort::abortUnVisibleMethod();

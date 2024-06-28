@@ -2,7 +2,7 @@
 
 $PackageWebCoreBegin
 
-inline void IGlobalAssert1::loadAssert()
+inline void IGlobalAssert::loadAssert()
 {
 
     /// global

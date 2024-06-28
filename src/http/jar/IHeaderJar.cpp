@@ -8,8 +8,6 @@
 
 $PackageWebCoreBegin
 
-$UseAssert(IHttpAssert)
-
 IHeaderJar::IHeaderJar() : IJarUnit(nullptr)
 {
     IGlobalAbort::abortUnVisibleMethod();

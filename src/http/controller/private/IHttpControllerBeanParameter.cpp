@@ -10,12 +10,9 @@
 #include "http/node/IParamNode.h"
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
-#include "http/IHttpAssert.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
 
 $PackageWebCoreBegin
-
-$UseAssert(IHttpAssert)
 
 void* IHttpControllerBeanParameter::getParamOfBean(const IParamNode &node, IRequest &request)
 {

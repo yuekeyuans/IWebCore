@@ -7,8 +7,6 @@
 
 $PackageWebCoreBegin
 
-$UseAssert(IHttpAssert)
-
 ISessionJar::ISessionJar() : IJarUnit(nullptr)
 {
     IGlobalAbort::abortUnVisibleMethod();

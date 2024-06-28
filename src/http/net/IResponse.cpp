@@ -12,8 +12,6 @@
 
 $PackageWebCoreBegin
 
-$UseAssert(IHttpAssert)
-
 IResponse::IResponse()
 {
     IGlobalAbort::abortUnVisibleMethod();

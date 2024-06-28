@@ -18,8 +18,6 @@
 
 $PackageWebCoreBegin
 
-$UseAssert(IHttpAssert)
-
 IRequest::IRequest() : ITcpResolverInterface(nullptr)
 {
     IGlobalAbort::abortUnVisibleMethod($ISourceLocation);

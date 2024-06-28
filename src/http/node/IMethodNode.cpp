@@ -6,7 +6,6 @@
 
 $PackageWebCoreBegin
 
-$UseAssert(IHttpAssert)
 
 static const QString& nmspace = $PackageWebCoreName;
 

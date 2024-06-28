@@ -20,11 +20,8 @@
 #include "http/response/IStatusResponse.h"
 #include "http/response/IJsonResponse.h"
 #include "http/response/IByteArrayResponse.h"
-#include "http/IHttpAssert.h"
 
 $PackageWebCoreBegin
-
-$UseAssert(IHttpAssert)
 
 namespace IControllerParameterHelper
 {

@@ -1,11 +1,8 @@
 ﻿#include "IMultiPartJar.h"
 #include "core/abort/IGlobalAbort.h"
-#include "http/IHttpAssert.h"
 #include "http/net/impl/IRequestRaw.h"
 
 $PackageWebCoreBegin
-
-$UseAssert(IHttpAssert)
 
 IMultiPartJar::IMultiPartJar() : IJarUnit(nullptr)
 {

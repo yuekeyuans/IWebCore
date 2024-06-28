@@ -5,11 +5,11 @@
 
 $PackageWebCoreBegin
 
-class IOrmAssert : public IAssertInterface
+class IOrmAssert1 : public IAssertInterface
 {
-    $AsAssert(IOrmAssert)
+    $AsAssert(IOrmAssert1)
 private:
-    IOrmAssert() = default;
+    IOrmAssert1() = default;
     virtual void loadAssert() final;
 };
 

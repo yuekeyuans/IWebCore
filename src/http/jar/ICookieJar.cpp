@@ -6,8 +6,6 @@
 
 $PackageWebCoreBegin
 
-$UseAssert(IHttpAssert)
-
 ICookieJar::ICookieJar() : IJarUnit(nullptr)
 {
     IGlobalAbort::abortUnVisibleMethod();

@@ -5,11 +5,11 @@
 
 $PackageWebCoreBegin
 
-class IHttpAssert : public IAssertInterface
+class IHttpAssert1 : public IAssertInterface
 {
-    $AsAssert(IHttpAssert)
+    $AsAssert(IHttpAssert1)
 private:
-    IHttpAssert() = default;
+    IHttpAssert1() = default;
     virtual void loadAssert() final;
 };
 

@@ -10,8 +10,6 @@
 
 $PackageWebCoreBegin
 
-$UseAssert(IHttpAssert)
-
 namespace detail
 {
     static QString getContentDispositionAttachment(const QString& filePath);

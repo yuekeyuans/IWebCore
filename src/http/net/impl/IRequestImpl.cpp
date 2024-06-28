@@ -22,8 +22,6 @@
 
 $PackageWebCoreBegin
 
-//$UseAssert(IRequestAssert)
-
 //namespace IRequestImplHelper{
 //    void checkDumplicatedParameters(const QList<QPair<QString, IRequestImpl::FunType>>& maps, const IRequestImpl* ptr, const QString& name);
 //    QString getOriginName(const QString& name, const QString& suffix);

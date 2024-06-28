@@ -4,8 +4,6 @@
 
 $PackageWebCoreBegin
 
-$UseAssert(IHttpAssert)
-
 IStatusResponse::IStatusResponse(QString num)
 {
     m_raw->status = IHttpStatus::toStatus(num);

@@ -1,13 +1,10 @@
 ﻿#include "IOrmDatabaseWareImpl.h"
-
 #include "orm/IOrmManage.h"
-#include "orm/IOrmAssert.h"
+#include "orm/IOrmAbort.h"
 #include "orm/tableview/IOrmTableInfo.h"
 #include "orm/tableview/IOrmViewInfo.h"
 
 $PackageWebCoreBegin
-
-$UseAssert(IOrmAssert)
 
 bool IOrmDatabaseWareImpl::openDatabase(IOrmDataSource &datasource)
 {
@@ -83,9 +80,7 @@ void IOrmDatabaseWareImpl::registerView(const IOrmViewInfo &info, const QString 
     }
     QString createSql = sql;
     if(sql.isEmpty()){
-        IAssertInfo info;
-        info.reason = QString("orm view ").append(viewName).append(" not exist, and no view create sql exist");
-        $Ast->fatal("orm_view_can_not_be_created", info);
+        IOrmAbort::abortOrmViewCantCreatetd(QString("orm view ").append(viewName).append(" not exist, and no view create sql exist"));
     }
     execSql(createSql);
     m_views.append(viewName);

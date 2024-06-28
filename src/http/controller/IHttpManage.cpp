@@ -5,11 +5,8 @@
 #include "core/config/IProfileImport.h"
 #include "http/net/IRequest.h"
 #include "http/net/impl/IRequestRaw.h"
-#include "http/IHttpAssert.h"
 
 $PackageWebCoreBegin
-
-$UseAssert(IHttpAssert)
 
 void IHttpManage::setIsServerStarted(bool value)
 {

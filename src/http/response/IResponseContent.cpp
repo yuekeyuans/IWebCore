@@ -4,8 +4,6 @@
 
 $PackageWebCoreBegin
 
-$UseAssert(IHttpAssert)
-
 namespace detail
 {
     inline static QString getTypename(IResponseContent::Type type)

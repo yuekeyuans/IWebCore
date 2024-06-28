@@ -7,8 +7,6 @@
 
 $PackageWebCoreBegin
 
-$UseAssert(IHttpAssert)
-
 IResponseWare::IResponseWare()
     : m_raw(new IResponseRaw())
 {

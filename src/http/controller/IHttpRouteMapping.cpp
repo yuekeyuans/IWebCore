@@ -1,11 +1,8 @@
 ﻿#include "IHttpRouteMapping.h"
 #include "IHttpManage.h"
-#include "http/IHttpAssert.h"
 #include "http/node/IUrlActionNode.h"
 
 $PackageWebCoreBegin
-
-$UseAssert(IHttpAssert)
 
 IHttpRouteMapping::IHttpRouteMapping(IHttpRouteMapping* parent, const QString& fragment)
 {
