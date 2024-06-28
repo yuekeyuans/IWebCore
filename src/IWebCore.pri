@@ -163,7 +163,6 @@ HEADERS += \
     $$PWD/orm/tableview/IOrmViewInfo.h \
     $$PWD/orm/tableview/IOrmViewInterface.h \
     $$PWD/orm/tableview/IOrmViewWare.h \
-    $$PWD/http/IInterceptInterface.h \
     $$PWD/http/biscuits/IHttpHeader.h \
     $$PWD/http/biscuits/IHttpMethod.h \
     $$PWD/http/biscuits/IHttpMime.h \
@@ -331,7 +330,6 @@ SOURCES += \
     $$PWD/orm/tableview/IOrmTableWare.cpp \
     $$PWD/orm/tableview/IOrmViewInfo.cpp \
     $$PWD/orm/tableview/IOrmViewWare.cpp \
-    $$PWD/http/IInterceptInterface.cpp \
     $$PWD/http/biscuits/IHttpMethod.cpp \
     $$PWD/http/biscuits/IHttpMime.cpp \
     $$PWD/http/biscuits/IHttpStatus.cpp \

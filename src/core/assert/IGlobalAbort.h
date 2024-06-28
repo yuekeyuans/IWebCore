@@ -8,7 +8,9 @@ $PackageWebCoreBegin
 class IGlobalAbort : public IAbortInterface<IGlobalAbort>
 {
     $AsAbort(
-        UnVisibleMethod
+        UnVisibleMethod,
+        UnReachableCode,
+        UnImplimentedMethod
     )
 public:
     IGlobalAbort() = default;

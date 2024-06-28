@@ -4,6 +4,7 @@
 #include "core/base/IConstantUtil.h"
 #include "core/base/IToeUtil.h"
 #include "core/bean/IBeanWare.h"
+#include "core/assert/IGlobalAbort.h"
 #include "core/config/IContextImport.h"
 #include "http/node/IMethodNode.h"
 #include "http/node/IParamNode.h"
@@ -190,7 +191,7 @@ void *IHttpControllerBeanParameter::assambleBeanWareWithCookie(IBeanWare *bean, 
 {
     Q_UNUSED(request)
 
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
     return bean;
 }
 
@@ -198,7 +199,7 @@ void *IHttpControllerBeanParameter::assambleBeanWareWithSession(IBeanWare *bean,
 {
     Q_UNUSED(request)
 
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
     return bean;
 }
 
@@ -206,7 +207,7 @@ void *IHttpControllerBeanParameter::assambleBeanWareWithApplication(IBeanWare *b
 {
     Q_UNUSED(request)
 
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
     return bean;
 }
 
@@ -214,7 +215,7 @@ void *IHttpControllerBeanParameter::assambleBeanWareWithSystem(IBeanWare *bean, 
 {
     Q_UNUSED(request)
 
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
     return bean;
 }
 

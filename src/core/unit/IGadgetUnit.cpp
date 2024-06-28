@@ -4,32 +4,33 @@
 #include "core/base/IConvertUtil.h"
 #include "core/base/IJsonUtil.h"
 #include "core/base/IMetaUtil.h"
+#include "core/assert/IGlobalAbort.h"
 
 $PackageWebCoreBegin
 
 const QString& IGadgetUnit::className() const
 {
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
     static QString name;
     return name;
 }
 
 QMetaObject IGadgetUnit::getMetaObject() const
 {
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
     return {};
 }
 
 const QVector<QMetaMethod>& IGadgetUnit::getMetaMethods() const
 {
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
     static QVector<QMetaMethod> m_vector;
     return m_vector;
 }
 
 const QMap<QString, QString>& IGadgetUnit::getMetaClassInfos() const
 {
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
     static QMap<QString, QString> m_info;
     return m_info;
 }
@@ -37,20 +38,20 @@ const QMap<QString, QString>& IGadgetUnit::getMetaClassInfos() const
 QMetaProperty IGadgetUnit::getMetaProperty(const QString &name) const
 {
     Q_UNUSED(name);
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
     return {};
 }
 
 const QVector<QMetaProperty>& IGadgetUnit::getMetaProperties() const
 {
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
     static QVector<QMetaProperty> m_props;
     return m_props;
 }
 
 const QStringList &IGadgetUnit::getMetaFieldNames() const
 {
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
     static QStringList names;
     return names;
 }
@@ -58,14 +59,14 @@ const QStringList &IGadgetUnit::getMetaFieldNames() const
 // 这个是指在 bean 自动装配的过程中, 这一个 field 可以被忽略
 const QStringList& IGadgetUnit::getIgnorableFieldNames() const
 {
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
     static const QStringList names;
     return names;
 }
 
 const QVector<int>& IGadgetUnit::getIgnorableFieldIndexes() const
 {
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
     static const QVector<int> indexes;
     return indexes;
 }
@@ -73,21 +74,21 @@ const QVector<int>& IGadgetUnit::getIgnorableFieldIndexes() const
 bool IGadgetUnit::isIgnorableField(const QString &name) const
 {
     Q_UNUSED(name)
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
     return {};
 }
 
 bool IGadgetUnit::isIgnorableField(int index) const
 {
     Q_UNUSED(index)
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
     return {};
 }
 
 QVariant IGadgetUnit::getFieldValue(const QString &name) const
 {
     Q_UNUSED(name);
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
     return {};
 }
 
@@ -95,12 +96,12 @@ void IGadgetUnit::setFieldValue(const QString &name, const QVariant &value)
 {
     Q_UNUSED(name);
     Q_UNUSED(value);
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
 }
 
 QJsonObject IGadgetUnit::toJson() const
 {
-    qFatal(IConstantUtil::UnImplimentedMethod);
+    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
     return {};
 }
 
