@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "core/base/IHeaderUtil.h"
+#include "core/util/IHeaderUtil.h"
 #include "orm/dialect/IOrmDialectWare.h"
 #include "orm/ISqlQuery.h"
 #include "orm/IOrmManage.h"

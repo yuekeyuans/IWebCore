@@ -6,7 +6,7 @@ CONFIG += c++17
 
 include($$PWD/core/package/package.pri)
 
-PRECOMPILED_HEADER = $$PWD/core/base/IHeaderUtil.h
+PRECOMPILED_HEADER = $$PWD/core/util/IHeaderUtil.h
 
 HEADERS += \
 #    $$PWD/IWeb/IHttpControllerInterface \
@@ -20,21 +20,21 @@ HEADERS += \
     $$PWD/core/application/IAsioApplication.h \
     $$PWD/core/application/IAsioManage.h \
     $$PWD/core/application/IQtApplication.h \
-    $$PWD/core/base/ICodecUtil.h \
-    $$PWD/core/base/IConstantUtil.h \
-    $$PWD/core/base/IConvertUtil.h \
-    $$PWD/core/base/IFileUtil.h \
-    $$PWD/core/base/IHeaderUtil.h \
-    $$PWD/core/base/IJsonUtil.h \
-    $$PWD/core/base/IJsonUtil_fromjson.h \
-    $$PWD/core/base/IJsonUtil_tojson.h \
-    $$PWD/core/base/IMetaUtil.h \
-    $$PWD/core/base/IPackageUtil.h \
-    $$PWD/core/base/IPreProcessorUtil.h \
-    $$PWD/core/base/ITicTacUtil.h \
-    $$PWD/core/base/IToeUtil.h \
-    $$PWD/core/base/ITraitUtil.h \
-    $$PWD/core/base/IXmlUtil.h \
+    $$PWD/core/util/ICodecUtil.h \
+    $$PWD/core/util/IConstantUtil.h \
+    $$PWD/core/util/IConvertUtil.h \
+    $$PWD/core/util/IFileUtil.h \
+    $$PWD/core/util/IHeaderUtil.h \
+    $$PWD/core/util/IJsonUtil.h \
+    $$PWD/core/util/IJsonUtil_fromjson.h \
+    $$PWD/core/util/IJsonUtil_tojson.h \
+    $$PWD/core/util/IMetaUtil.h \
+    $$PWD/core/util/IPackageUtil.h \
+    $$PWD/core/util/IPreProcessorUtil.h \
+    $$PWD/core/util/ITicTacUtil.h \
+    $$PWD/core/util/IToeUtil.h \
+    $$PWD/core/util/ITraitUtil.h \
+    $$PWD/core/util/IXmlUtil.h \
 #    $$PWD/core/assert/IAssertInfo.h \
 #    $$PWD/core/assert/IAssertInterface.h \
 #    $$PWD/core/assert/IAssertPreProcessor.h \
@@ -106,6 +106,7 @@ HEADERS += \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.h \
     $$PWD/http/core/defaultTask/IHttpUrlPathValidatorTask.h \
     $$PWD/http/core/test/IHttpTestTool.h \
+    $$PWD/http/core/unit/IRegisterResponseTypeUnit.h \
     $$PWD/http/invalid/IHttpBadRequestInvalid.h \
     $$PWD/http/invalid/IHttpInternalErrorInvalid.h \
     $$PWD/http/invalid/IHttpInvalidInterface.h \
@@ -229,18 +230,18 @@ SOURCES += \
     $$PWD/core/application/IAsioApplication.cpp \
     $$PWD/core/application/IAsioManage.cpp \
     $$PWD/core/application/IQtApplication.cpp \
-    $$PWD/core/base/ICodecUtil.cpp \
-    $$PWD/core/base/IConvertUtil.cpp \
-    $$PWD/core/base/IFileUtil.cpp \
-    $$PWD/core/base/IHeaderUtil.cpp \
-    $$PWD/core/base/IJsonUtil.cpp \
-    $$PWD/core/base/IJsonUtil_tojson.cpp \
-    $$PWD/core/base/IJsonUtil_tojson_impl.cpp \
-    $$PWD/core/base/IMetaUtil.cpp \
-    $$PWD/core/base/IPreProcessorUtil.cpp \
-    $$PWD/core/base/ITicTacUtil.cpp \
-    $$PWD/core/base/IToeUtil.cpp \
-    $$PWD/core/base/IXmlUtil.cpp \
+    $$PWD/core/util/ICodecUtil.cpp \
+    $$PWD/core/util/IConvertUtil.cpp \
+    $$PWD/core/util/IFileUtil.cpp \
+    $$PWD/core/util/IHeaderUtil.cpp \
+    $$PWD/core/util/IJsonUtil.cpp \
+    $$PWD/core/util/IJsonUtil_tojson.cpp \
+    $$PWD/core/util/IJsonUtil_tojson_impl.cpp \
+    $$PWD/core/util/IMetaUtil.cpp \
+    $$PWD/core/util/IPreProcessorUtil.cpp \
+    $$PWD/core/util/ITicTacUtil.cpp \
+    $$PWD/core/util/IToeUtil.cpp \
+    $$PWD/core/util/IXmlUtil.cpp \
 #    $$PWD/core/assert/IAssertInfo.cpp \
 #    $$PWD/core/assert/IAssertInterface.cpp \
 #    $$PWD/core/assert/IGlobalAssert.cpp \

@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "core/base/IHeaderUtil.h"
+#include "core/util/IHeaderUtil.h"
 #include "orm/database/IOrmDataSource.h"
 
 $PackageWebCoreBegin

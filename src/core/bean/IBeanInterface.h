@@ -2,8 +2,8 @@
 
 #include "IBeanWare.h"
 #include "IBeanTypeManage.h"
-#include "core/base/IHeaderUtil.h"
-#include "core/base/IMetaUtil.h"
+#include "core/util/IHeaderUtil.h"
+#include "core/util/IMetaUtil.h"
 #include "core/bean/IBeanPreProcessor.h"
 #include "core/task/unit/ITaskInstantUnit.h"
 

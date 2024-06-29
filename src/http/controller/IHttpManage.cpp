@@ -1,6 +1,6 @@
 ﻿#include "IHttpManage.h"
-#include "core/base/IConvertUtil.h"
-#include "core/base/IMetaUtil.h"
+#include "core/util/IConvertUtil.h"
+#include "core/util/IMetaUtil.h"
 #include "core/config/IContextManage.h"
 #include "core/config/IProfileImport.h"
 #include "http/controller/IControllerAbort.h"

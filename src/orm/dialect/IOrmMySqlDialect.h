@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "core/base/IHeaderUtil.h"
+#include "core/util/IHeaderUtil.h"
 #include "core/unit/ISingletonUnit.h"
 #include "orm/pp/IOrmPreProcessor.h"
 #include "orm/dialect/IOrmDialectInterface.h"

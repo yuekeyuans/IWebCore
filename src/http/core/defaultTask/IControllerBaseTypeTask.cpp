@@ -1,5 +1,5 @@
 ﻿#include "IControllerBaseTypeTask.h"
-#include "core/base/IMetaUtil.h"
+#include "core/util/IMetaUtil.h"
 
 $PackageWebCoreBegin
 

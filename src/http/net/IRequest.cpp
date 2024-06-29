@@ -1,11 +1,11 @@
 ﻿#include "IRequest.h"
 
-#include "core/base/IConvertUtil.h"
-#include "core/base/IConstantUtil.h"
-#include "core/base/IJsonUtil.h"
-#include "core/base/IXmlUtil.h"
-#include "core/base/IToeUtil.h"
 #include "core/abort/IGlobalAbort.h"
+#include "core/util/IConvertUtil.h"
+#include "core/util/IConstantUtil.h"
+#include "core/util/IJsonUtil.h"
+#include "core/util/IXmlUtil.h"
+#include "core/util/IToeUtil.h"
 #include "http/biscuits/IHttpHeader.h"
 #include "http/invalid/IHttpRequestTimeoutInvalid.h"
 #include "http/net/impl/IRequestImpl.h"
@@ -13,7 +13,6 @@
 #include "http/jar/ICookieJar.h"
 #include "http/jar/ISessionJar.h"
 #include "http/jar/IHeaderJar.h"
-#include "http/server/IHttpServerManage.h"
 
 $PackageWebCoreBegin
 

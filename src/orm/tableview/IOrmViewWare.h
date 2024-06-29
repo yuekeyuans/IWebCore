@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "core/base/IHeaderUtil.h"
+#include "core/util/IHeaderUtil.h"
 #include "orm/tableview/IOrmViewInfo.h"
 #include "orm/tableview/IOrmEntityWare.h"
 

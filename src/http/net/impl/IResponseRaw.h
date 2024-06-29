@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "core/base/IHeaderUtil.h"
+#include "core/util/IHeaderUtil.h"
 #include "http/biscuits/IHttpMime.h"
 #include "http/biscuits/IHttpStatus.h"
 #include "http/jar/ICookieJar.h"

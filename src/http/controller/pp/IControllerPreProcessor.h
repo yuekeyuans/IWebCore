@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "core/base/IPreProcessorUtil.h"
+#include "core/util/IPreProcessorUtil.h"
 
 #define $AsController(path) \
     Q_CLASSINFO(PP_STRING(iwebControllerMapping$), #path) \

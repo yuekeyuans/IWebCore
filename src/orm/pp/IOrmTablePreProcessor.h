@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "core/base/IPreProcessorUtil.h"
+#include "core/util/IPreProcessorUtil.h"
 #include "orm/pp/IOrmPreProcessor.h"
 
 #define PP_AS_TABLE_COMMON(klassName) \

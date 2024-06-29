@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "core/base/IHeaderUtil.h"
-#include "core/base/IMetaUtil.h"
+#include "core/util/IHeaderUtil.h"
+#include "core/util/IMetaUtil.h"
 #include "core/bean/IBeanPreProcessor.h"
 #include "core/unit/IRegisterMetaTypeUnit.h"
 #include "http/biscuits/IHttpStatus.h"

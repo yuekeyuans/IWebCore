@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include "core/base/IHeaderUtil.h"
-#include "core/base/IConvertUtil.h"
-#include "core/base/IJsonUtil.h"
+#include "core/util/IHeaderUtil.h"
+#include "core/util/IConvertUtil.h"
+#include "core/util/IJsonUtil.h"
 #include "core/config/IConfigImportInterface.h"
 #include "core/config/IProfileManage.h"
 

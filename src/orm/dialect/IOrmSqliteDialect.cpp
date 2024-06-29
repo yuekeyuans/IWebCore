@@ -1,7 +1,7 @@
 ﻿#include "IOrmSqliteDialect.h"
 
-#include "core/base/ITicTacUtil.h"
-#include "core/base/IConstantUtil.h"
+#include "core/util/ITicTacUtil.h"
+#include "core/util/IConstantUtil.h"
 #include "orm/IOrmUtil.h"
 #include "orm/tableview/IOrmTableInfo.h"
 #include "orm/ISqlQuery.h"

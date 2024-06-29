@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "core/base/IHeaderUtil.h"
-#include "core/base/IMetaUtil.h"
+#include "core/util/IHeaderUtil.h"
+#include "core/util/IMetaUtil.h"
 #include "core/bean/IBeanTypeManage.h"
 #include "core/task/unit/ITaskInstantUnit.h"
 #include "orm/tableview/IOrmViewWare.h"

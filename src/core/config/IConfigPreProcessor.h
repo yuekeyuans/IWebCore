@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include "core/base/IPreProcessorUtil.h"
-#include "core/base/IToeUtil.h"
+#include "core/util/IPreProcessorUtil.h"
+#include "core/util/IToeUtil.h"
 #include "core/config/IContextTaskInterface.h"
 #include "core/config/IProfileTaskInterface.h"
 #include "core/task/unit/ITaskInstantUnit.h"

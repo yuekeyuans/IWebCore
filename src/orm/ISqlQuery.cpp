@@ -1,5 +1,5 @@
 ﻿#include "ISqlQuery.h"
-#include "core/base/IConvertUtil.h"
+#include "core/util/IConvertUtil.h"
 #include "core/config/IContextManage.h"
 #include "orm/IOrmManage.h"
 

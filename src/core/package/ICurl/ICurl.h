@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "core/base/IHeaderUtil.h"
+#include "core/util/IHeaderUtil.h"
 #include "ICurlResponse.h"
 #include "http/biscuits/IHttpMime.h"
 

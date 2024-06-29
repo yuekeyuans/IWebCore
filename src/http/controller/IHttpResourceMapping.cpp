@@ -1,5 +1,5 @@
 ﻿#include "IHttpResourceMapping.h"
-#include "core/base/IFileUtil.h"
+#include "core/util/IFileUtil.h"
 #include "http/controller/IControllerAbort.h"
 
 $PackageWebCoreBegin

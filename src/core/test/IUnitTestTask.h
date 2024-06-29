@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "core/base/IHeaderUtil.h"
+#include "core/util/IHeaderUtil.h"
 #include "core/test/ITestTaskBaseInterface.h"
 #include "core/test/IUnitTestManage.h"
 

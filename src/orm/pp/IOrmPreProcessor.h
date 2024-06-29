@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "core/base/IPreProcessorUtil.h"
+#include "core/util/IPreProcessorUtil.h"
 #include "core/bean/IBeanPreProcessor.h"
 
 #define $Column(type, name) \

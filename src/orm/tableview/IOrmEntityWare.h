@@ -2,7 +2,7 @@
 
 #include "IOrmEntityInfoWare.h"
 #include "IOrmTableInfo.h"
-#include "core/base/IHeaderUtil.h"
+#include "core/util/IHeaderUtil.h"
 #include "core/bean/IBeanWare.h"
 
 $PackageWebCoreBegin

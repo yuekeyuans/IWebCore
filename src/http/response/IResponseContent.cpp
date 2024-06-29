@@ -1,6 +1,6 @@
 ﻿#include "IResponseContent.h"
-#include "core/base/IFileUtil.h"
-#include "core/base/IConstantUtil.h"
+#include "core/util/IFileUtil.h"
+#include "core/util/IConstantUtil.h"
 #include "core/abort/IAbortInterface.h"
 
 $PackageWebCoreBegin

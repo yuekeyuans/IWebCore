@@ -4,7 +4,7 @@
 #include <QtXml>
 #include <QtSql>
 #include <type_traits>
-#include "core/base/IPackageUtil.h"
+#include "core/util/IPackageUtil.h"
 #include "core/result/IStringView.h"
 #include <asio.hpp>
 

@@ -1,7 +1,7 @@
 ﻿
 #pragma once
 
-#include "core/base/IPreProcessorUtil.h"
+#include "core/util/IPreProcessorUtil.h"
 
 #define $AsResponse(klassName)  \
 public: \

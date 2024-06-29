@@ -1,7 +1,7 @@
 ﻿#include "IContextTomlProfileTask.h"
 #include "toml.hpp"
-#include "core/base/IFileUtil.h"
-#include "core/base/IConvertUtil.h"
+#include "core/util/IFileUtil.h"
+#include "core/util/IConvertUtil.h"
 #include "core/config/IContextImport.h"
 
 $PackageWebCoreBegin

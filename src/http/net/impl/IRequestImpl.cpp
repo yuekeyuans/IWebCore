@@ -2,10 +2,10 @@
 
 #include <algorithm>
 #include "core/application/IAsioApplication.h"
-#include "core/base/IConstantUtil.h"
-#include "core/base/IHeaderUtil.h"
-#include "core/base/ICodecUtil.h"
-#include "core/base/IToeUtil.h"
+#include "core/util/IConstantUtil.h"
+#include "core/util/IHeaderUtil.h"
+#include "core/util/ICodecUtil.h"
+#include "core/util/IToeUtil.h"
 #include "core/config/IProfileImport.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/invalid/IHttpNotFoundInvalid.h"

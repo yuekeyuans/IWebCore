@@ -1,9 +1,9 @@
-﻿#include "core/base/IHeaderUtil.h"
+﻿#include "core/util/IHeaderUtil.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include "IOrmCondition.h"
-#include "core/base/IConstantUtil.h"
+#include "core/util/IConstantUtil.h"
 #include "orm/ISqlQuery.h"
 #include "orm/dialect/IOrmDialectWare.h"
 #include "orm/private/IOrmConditionImpl.h"

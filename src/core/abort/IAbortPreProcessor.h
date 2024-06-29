@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "core/base/IPreProcessorUtil.h"
+#include "core/util/IPreProcessorUtil.h"
 
 #define PP_ABORT_FUNC(name) \
     static void abort ## name(ISourceLocation location){    \

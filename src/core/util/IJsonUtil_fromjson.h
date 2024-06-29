@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include "core/base/IHeaderUtil.h"
-#include "core/base/IToeUtil.h"
-#include "core/base/IJsonUtil.h"
+#include "core/util/IHeaderUtil.h"
+#include "core/util/IToeUtil.h"
+#include "core/util/IJsonUtil.h"
 #include "core/result/IResult.h"
 
 $PackageWebCoreBegin
@@ -66,7 +66,7 @@ IResult<QJsonValue> fromJson<QJsonValue>(const QJsonValue&);
 }
 
 // TODO: directly copy, this should be changed;
-#include "core/base/IConvertUtil.h"
+#include "core/util/IConvertUtil.h"
 
 template<>
 inline bool IJsonUtil::fromJson<bool>(const QJsonValue& value, bool& ok){

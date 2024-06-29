@@ -2,7 +2,7 @@
 
 #include "IResponseInterface.h"
 #include "IResponsePreProcessor.h"
-#include "core/base/IJsonUtil.h"
+#include "core/util/IJsonUtil.h"
 
 $PackageWebCoreBegin
 

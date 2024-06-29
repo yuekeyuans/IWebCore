@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include "core/base/IJsonUtil.h"
-#include "core/base/IXmlUtil.h"
-#include "core/base/IConvertUtil.h"
+#include "core/util/IJsonUtil.h"
+#include "core/util/IXmlUtil.h"
+#include "core/util/IConvertUtil.h"
 #include "core/result/IResult.h"
 #include "http/biscuits/IHttpHeader.h"
 #include "http/biscuits/IHttpVersion.h"

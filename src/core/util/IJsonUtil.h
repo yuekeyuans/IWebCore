@@ -1,6 +1,6 @@
 ﻿#pragma once
-#include "core/base/IHeaderUtil.h"
-#include "core/base/IJsonUtil_tojson.h"
+#include "core/util/IHeaderUtil.h"
+#include "core/util/IJsonUtil_tojson.h"
 
 $PackageWebCoreBegin
 namespace IJsonUtil
@@ -89,4 +89,4 @@ namespace IConvertUtil {
 
 $PackageWebCoreEnd
 
-#include "core/base/IJsonUtil_fromjson.h"
+#include "core/util/IJsonUtil_fromjson.h"

@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <HTTPRequest.hpp>
-#include "core/base/IHeaderUtil.h"
+#include "core/util/IHeaderUtil.h"
 #include "http/biscuits/IHttpStatus.h"
 
 $PackageWebCoreUsing
