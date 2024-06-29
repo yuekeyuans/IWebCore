@@ -7,7 +7,6 @@
 #include "core/base/IToeUtil.h"
 #include "core/abort/IGlobalAbort.h"
 #include "http/biscuits/IHttpHeader.h"
-#include "http/IHttpAssert.h"
 #include "http/invalid/IHttpRequestTimeoutInvalid.h"
 #include "http/net/impl/IRequestImpl.h"
 #include "http/net/impl/IRequestRaw.h"

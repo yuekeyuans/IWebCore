@@ -3,7 +3,6 @@
 #include "core/base/IConstantUtil.h"
 #include "http/net/impl/IResponseRaw.h"
 #include "http/response/IRedirectResponse.h"
-#include "http/IHttpAssert.h"
 
 $PackageWebCoreBegin
 

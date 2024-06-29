@@ -35,9 +35,9 @@ HEADERS += \
     $$PWD/core/base/IToeUtil.h \
     $$PWD/core/base/ITraitUtil.h \
     $$PWD/core/base/IXmlUtil.h \
-    $$PWD/core/assert/IAssertInfo.h \
-    $$PWD/core/assert/IAssertInterface.h \
-    $$PWD/core/assert/IAssertPreProcessor.h \
+#    $$PWD/core/assert/IAssertInfo.h \
+#    $$PWD/core/assert/IAssertInterface.h \
+#    $$PWD/core/assert/IAssertPreProcessor.h \
 #    $$PWD/core/assert/IGlobalAssert.h \
     $$PWD/core/bean/IBeanInterface.h \
     $$PWD/core/bean/IBeanPreProcessor.h \
@@ -93,7 +93,7 @@ HEADERS += \
     $$PWD/core/unit/ISingletonUnit.h \
     $$PWD/core/unit/IStackObjectUnit.h \
     $$PWD/http/IHttpAnnomacro.h \
-    $$PWD/http/IHttpAssert.h \
+#    $$PWD/http/IHttpAssert.h \
     $$PWD/http/IHttpControllerTaskCatagory.h \
     $$PWD/http/controller/IControllerAbort.h \
     $$PWD/http/controller/IHttpControllerInterface.h \
@@ -241,8 +241,8 @@ SOURCES += \
     $$PWD/core/base/ITicTacUtil.cpp \
     $$PWD/core/base/IToeUtil.cpp \
     $$PWD/core/base/IXmlUtil.cpp \
-    $$PWD/core/assert/IAssertInfo.cpp \
-    $$PWD/core/assert/IAssertInterface.cpp \
+#    $$PWD/core/assert/IAssertInfo.cpp \
+#    $$PWD/core/assert/IAssertInterface.cpp \
 #    $$PWD/core/assert/IGlobalAssert.cpp \
     $$PWD/core/bean/IBeanTypeManage.cpp \
     $$PWD/core/config/IConfigManageInterface.cpp \
@@ -270,7 +270,7 @@ SOURCES += \
     $$PWD/core/unit/IRegisterGadgetUnit.cpp \
     $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
     $$PWD/core/unit/ISingletonUnit.cpp \
-    $$PWD/http/IHttpAssert.cpp \
+#    $$PWD/http/IHttpAssert.cpp \
     $$PWD/http/IHttpControllerTaskCatagory.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.cpp \

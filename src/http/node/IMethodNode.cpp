@@ -3,11 +3,8 @@
 #include "core/base/IPackageUtil.h"
 #include "core/abort/IAbortInterface.h"
 #include "http/controller/private/IHttpControllerInfo.h"
-#include "http/IHttpAssert.h"
-
 
 $PackageWebCoreBegin
-
 
 static const QString& nmspace = $PackageWebCoreName;
 

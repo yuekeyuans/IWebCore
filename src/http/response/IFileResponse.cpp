@@ -3,7 +3,6 @@
 #include "core/base/IConstantUtil.h"
 #include "core/base/IFileUtil.h"
 #include "core/config/IProfileImport.h"
-#include "http/IHttpAssert.h"
 #include "http/biscuits/IHttpMime.h"
 #include "http/controller/IHttpManage.h"
 #include "http/invalid/IHttpNotFoundInvalid.h"

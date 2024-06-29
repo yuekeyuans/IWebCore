@@ -1,10 +1,9 @@
 ﻿#include "IResponseContent.h"
 #include "core/base/IFileUtil.h"
+#include "core/base/IConstantUtil.h"
 #include "core/abort/IAbortInterface.h"
-#include "http/IHttpAssert.h"
 
 $PackageWebCoreBegin
-
 
 class IResponseContentAbort : IAbortInterface<IResponseContentAbort>
 {
