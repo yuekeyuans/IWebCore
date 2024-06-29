@@ -1,4 +1,0 @@
-﻿#pragma once
-
-#include "IHttpServer.h"
-#include "IHttpServerManage.h"

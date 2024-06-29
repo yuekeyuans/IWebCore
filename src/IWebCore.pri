@@ -61,8 +61,8 @@ HEADERS += \
     $$PWD/core/config/default/IContextYamlProfileTask.h \
     $$PWD/core/config/default/ILoadProfileFileUnit.h \
     $$PWD/core/core.h \
-    $$PWD/core/result/IResult.h \
-    $$PWD/core/result/IStringView.h \
+    $$PWD/core/base/IResult.h \
+    $$PWD/core/base/IStringView.h \
     $$PWD/core/task/ITaskCatagory.h \
     $$PWD/core/task/ITaskCatagoryInterface.h \
     $$PWD/core/task/ITaskPreProcessor.h \
@@ -254,7 +254,7 @@ SOURCES += \
     $$PWD/core/config/default/IContextTomlProfileTask.cpp \
     $$PWD/core/config/default/IContextYamlProfileTask.cpp \
     $$PWD/core/config/default/ILoadProfileFileUnit.cpp \
-    $$PWD/core/result/IStringView.cpp \
+    $$PWD/core/base/IStringView.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \
     $$PWD/core/task/default/IBannerTask.cpp \
     $$PWD/core/task/default/IEndupTaskCatagory.cpp \

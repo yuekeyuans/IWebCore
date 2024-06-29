@@ -3,7 +3,7 @@
 #include "core/util/IHeaderUtil.h"
 #include "core/util/IToeUtil.h"
 #include "core/util/IJsonUtil.h"
-#include "core/result/IResult.h"
+#include "core/base/IResult.h"
 
 $PackageWebCoreBegin
 
