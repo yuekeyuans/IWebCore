@@ -1,5 +1,6 @@
 ﻿#include "IHttpResourceMapping.h"
 #include "core/base/IFileUtil.h"
+#include "http/controller/IControllerAbort.h"
 
 $PackageWebCoreBegin
 
@@ -65,11 +66,12 @@ void IHttpResourceMapping::travelPrint() const
 }
 
 // NOTE: 写的有点啰嗦，先这样吧
+// TODO: check warn
 void IControllerResourceNodeHelper::mountFilesToResourceMapping(QMap<QString, QString>& hash, const QString &path, const QString &prefix)
 {
     QDir dir(path);
     if(!dir.exists() || dir.isEmpty()){
-        $Ast->warn("static_file_dir_not_exist");
+//        $Ast->warn("static_file_dir_not_exist");
         return;
     }
 
@@ -113,10 +115,7 @@ bool IControllerResourceNodeHelper::mountFilePageToServer(QMap<QString, QString>
             hash[url] = filePath;
             return true;
         }
-
-        IAssertInfo info;
-        info.reason = QString("url: ").append(url).append(" path1: ").append(filePath).append(" path2: ").append(hash[url]);
-        $Ast->fatal("register_the_same_url", info);
+        IControllerAbort::abortregister_the_same_url(QString("url: ").append(url).append(" path1: ").append(filePath).append(" path2: ").append(hash[url]), $ISourceLocation);
     }
     return false;
 }

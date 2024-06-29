@@ -46,23 +46,19 @@
     PP_ABORT_FUNC(arg_0)
 
 #define PP_ABORT_EXPAND_10(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9)  \
-    PP_ABORT_EXPAND_8(arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9) \
+    PP_ABORT_EXPAND_9(arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9) \
     PP_ABORT_FUNC(arg_0)
 
 #define PP_ABORT_EXPAND_11(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10)  \
-    PP_ABORT_EXPAND_8(arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, , arg_10) \
+    PP_ABORT_EXPAND_10(arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10) \
     PP_ABORT_FUNC(arg_0)
 
-#define PP_ABORT_EXPAND_12(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, \
-                           arg_10, arg_11) \
-    PP_ABORT_EXPAND_11(arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10, \
-                       arg_11) \
+#define PP_ABORT_EXPAND_12(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10, arg_11) \
+    PP_ABORT_EXPAND_11(arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10, arg_11) \
     PP_ABORT_FUNC(arg_0)
 
-#define PP_ABORT_EXPAND_13(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, \
-                           arg_10, arg_11, arg_12) \
-    PP_ABORT_EXPAND_12(arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10, \
-                       arg_11, arg_12) \
+#define PP_ABORT_EXPAND_13(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10, arg_11, arg_12) \
+    PP_ABORT_EXPAND_12(arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, arg_10, arg_11, arg_12) \
     PP_ABORT_FUNC(arg_0)
 
 #define PP_ABORT_EXPAND_14(arg_0, arg_1, arg_2, arg_3, arg_4, arg_5, arg_6, arg_7, arg_8, arg_9, \
@@ -432,5 +428,7 @@ PP_ABORT_FUNC(arg_0)
     friend class IAbortInterface;   \
 protected: \
     enum Type{__VA_ARGS__, EndTag}; \
+    \
 public:     \
-    PP_ABORT_EXPAND(__VA_ARGS__)
+    PP_ABORT_EXPAND(__VA_ARGS__)    \
+private:

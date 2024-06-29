@@ -31,13 +31,14 @@ bool IHttpRouteMapping::isEmpty() const
     return true;
 }
 
+// TODO: WARN
 IUrlActionNode* IHttpRouteMapping::setLeaf(const IUrlActionNode &leafNode)
 {
     auto& ptr = getLeafRef(leafNode.httpMethod);
     if(ptr != nullptr){
         delete ptr;
         ptr = nullptr;
-        $Ast->warn("register_the_same_url");
+//        $Ast->warn("register_the_same_url");
     }
 
     auto leaf = new IUrlActionNode(leafNode);

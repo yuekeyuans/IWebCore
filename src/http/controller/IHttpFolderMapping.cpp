@@ -1,4 +1,5 @@
 ﻿#include "IHttpFolderMapping.h"
+#include "http/controller/IControllerAbort.h"
 
 $PackageWebCoreBegin
 
@@ -52,11 +53,13 @@ QStringList IHttpFolderMapping::getFileEntries(const QString &url)
     return ret;
 }
 
+// TODO: 这里的warn 验证
 void IHttpFolderMapping::mountMapping(const QString &path, const QString &prefix)
 {
     QDir dir(path);
     if(!dir.exists() || dir.isEmpty()){
-        $Ast->warn("static_file_dir_not_exist");
+//        $Ast->warn("static_file_dir_not_exist");
+        IControllerAbort::abortUrlBlankCharacter();
         return;
     }
 

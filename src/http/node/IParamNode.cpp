@@ -60,8 +60,6 @@ private:
 
 inline IParamNodeDetail::IParamNodeDetail(int paramTypeId, QString paramTypeName, QString name)
 {
-    IParamNodeAbort::abortParamErrorOfUnknowType($ISourceLocation);
-
     paramTypeId = paramTypeId;
     paramTypeName = paramTypeName;
     auto args = name.split("_$");

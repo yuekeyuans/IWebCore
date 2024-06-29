@@ -399,17 +399,18 @@ bool IHttpControllerParameter::releaseParamOfStringType(const IParamNode &node, 
     return true;
 }
 
+// TODO: 这里检查一下
 void IHttpControllerParameter::wrapVoidReturnInstance(IResponse &response, const IMethodNode &functionNode, ParamType &params)
 {
     Q_UNUSED(functionNode)
     Q_UNUSED(params)
     if(response.mime() == IHttpMimeUtil::MIME_UNKNOWN_STRING){
         response.setMime(IHttpMime::TEXT_PLAIN_UTF8);
-        $Ast->warn("process_void_return_with_request_not_set_mime_error");
+//        $Ast->warn("process_void_return_with_request_not_set_mime_error");
     }
     if(response.status() == IHttpStatusCode::UNKNOWN){
         response.setStatus(IHttpStatusCode::OK_200);
-        $Ast->warn("process_void_return_with_request_not_set_status_error");
+//        $Ast->warn("process_void_return_with_request_not_set_status_error");
     }
 }
 

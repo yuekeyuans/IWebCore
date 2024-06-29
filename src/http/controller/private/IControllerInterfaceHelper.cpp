@@ -2,6 +2,7 @@
 
 #include "core/bean/IBeanTypeManage.h"
 #include "http/controller/private/IHttpControllerInfo.h"
+#include "http/controller/IControllerAbort.h"
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
 
@@ -22,9 +23,7 @@ void IControllerInterfaceHelper::checkMappingOverloadFunctions(const QVector<QMe
     QStringList names;
     for(const auto& method : methods){
         if(names.contains(method.name())){
-            IAssertInfo info;
-            info.reason = QString("name: ").append(method.name());
-            $Ast->fatal("OverloadOrDefaultValueFunctionNotSupported", info);
+            IControllerAbort::abortOverloadOrDefaultValueFunctionNotSupported(QString("name: ").append(method.name()), $ISourceLocation);
         }
         names.append(method.name());
     }
@@ -44,9 +43,7 @@ void IControllerInterfaceHelper::checkMappingNameAndFunctionIsMatch(const IHttpC
 
     for(const auto& name : infoNames){
         if(!methodNames.contains(name)){
-            IAssertInfo info;
-            info.reason = QString("name: ").append(name);
-            $Ast->fatal("MappingMismatchFatal", info);
+            IControllerAbort::abortMappingMismatchFatal(QString("name: ").append(name), $ISourceLocation);
         }
     }
 }
@@ -98,21 +95,15 @@ void IControllerInterfaceHelper::chekcUrlErrorCommon(const QString &url)
         }
 
         if(!urlPieceReg.match(piece).hasMatch()){
-            IAssertInfo info;
-            info.reason = QString("url: ").append(url);
-            $Ast->fatal("UrlInvalidCharacter", info);
+            IControllerAbort::abortUrlInvalidCharacter(QString("url: ").append(url), $ISourceLocation);
         }
 
         if(piece == "." || piece == ".."){
-            IAssertInfo info;
-            info.reason = QString("url: ").append(url).append(" piece: ").append(piece);
-            $Ast->fatal("UrlError", info);
+            IControllerAbort::abortUrlError(QString("url: ").append(url).append(" piece: ").append(piece), $ISourceLocation);
         }
 
         if(piece.contains(' ') || piece.contains('\t')){
-            IAssertInfo info;
-            info.reason = QString("url: ").append(url);
-            $Ast->fatal("UrlBlankCharacter", info);
+            IControllerAbort::abortUrlBlankCharacter(QString("url: ").append(url), $ISourceLocation);
         }
     }
 }
@@ -242,17 +233,13 @@ void IControllerInterfaceHelper::checkMethodSupportedParamArgType(const IUrlActi
         if(typeId >= QMetaType::User){
             bool isSupportedType = isSpecialTypes(typeName) || isBeanType(typeName);
             if(!isSupportedType){
-                IAssertInfo info;
-                info.reason = QString("At Function: ").append(node.methodNode.expression)
-                                   .append(" At Param: ").append(typeName);
-                $Ast->fatal("controller_check_param_Type_has_unsupported_user_defined_type", info);
+                IControllerAbort::abortcontroller_check_param_Type_has_unsupported_user_defined_type( QString("At Function: ").append(node.methodNode.expression)
+                                                                                                      .append(" At Param: ").append(typeName), $ISourceLocation);
             }
         } else{
             if(!allowType.contains(typeId)){
-                IAssertInfo info;
-                info.reason = QString("At Function: ").append(node.methodNode.expression)
-                                   .append(" At Param: ").append(typeName);
-                $Ast->fatal("controller_check_param_Type_has_unsupported_inner_type", info);
+                IControllerAbort::abortcontroller_check_param_Type_has_unsupported_inner_type(QString("At Function: ").append(node.methodNode.expression)
+                                                                                              .append(" At Param: ").append(typeName), $ISourceLocation);
             }
         }
     }
@@ -311,9 +298,7 @@ void IControllerInterfaceHelper::checkMethodParamterWithSuffixProper(const IUrlA
     if(node.httpMethod == IHttpMethod::GET){
         for(const auto& param : argNodes){
             if(param.paramName.endsWith("_body") || param.paramName.endsWith("_content")){
-                IAssertInfo info;
-                info.reason = QString("At Function: ").append(node.methodNode.expression).append(" Parameter: ").append(param.paramName);
-                $Ast->fatal("controller_method_get_but_want_body_content", info);
+                IControllerAbort::abortcontroller_method_get_but_want_body_content(QString("At Function: ").append(node.methodNode.expression).append(" Parameter: ").append(param.paramName), $ISourceLocation);
             }
         }
     }
@@ -342,10 +327,8 @@ void IControllerInterfaceHelper::checkMethodParamterWithSuffixSet(const IUrlActi
         }
 
         if(!isParamNameWithSuffix(param.paramName)){
-            IAssertInfo info;
-            info.reason = QString("At Function: ").append(node.methodNode.expression)
-                              .append(" At Param: ").append(param.paramName);
-            $Ast->warn("irequest_controller_function_with_param_not_marked", info);
+            IControllerAbort::abortirequest_controller_function_with_param_not_marked(QString("At Function: ").append(node.methodNode.expression)
+                                                                                      .append(" At Param: ").append(param.paramName), $ISourceLocation);
         }
     }
 }
@@ -445,7 +428,7 @@ QStringList IControllerInterfaceHelper::toNormalUrl(const QString& url, const QS
     for(auto arg : tempArgs){
         arg = arg.trimmed();
         if(arg == "." || arg == ".."){
-            $Ast->fatal("UrlError");
+            IControllerAbort::abortUrlError($ISourceLocation);
         }
         if(!arg.trimmed().isEmpty()){
             ret.append(arg);

@@ -1,13 +1,29 @@
 ﻿#include "IMethodNode.h"
 
 #include "core/base/IPackageUtil.h"
+#include "core/abort/IAbortInterface.h"
 #include "http/controller/private/IHttpControllerInfo.h"
 #include "http/IHttpAssert.h"
+
 
 $PackageWebCoreBegin
 
 
 static const QString& nmspace = $PackageWebCoreName;
+
+class IMethodNodeAbort : public IAbortInterface<IMethodNodeAbort>
+{
+    $AsAbort(
+        controller_invalid_parameter_type
+    )
+protected:
+    virtual QMap<int, QString> abortDescription() const final{
+        return {
+            {controller_invalid_parameter_type, ""},
+        };
+    }
+};
+
 
 namespace detail
 {
@@ -58,10 +74,9 @@ void detail::assignBaseInfo(IMethodNode& node, void* handle, QMetaMethod method)
     node.returnTypeId = QMetaType::Type(method.returnType());
 
     if(node.returnTypeId == QMetaType::UnknownType){ // return type
-        IAssertInfo info;
-        info.reason = QString("return Type Not Defined in QMeta System. type: ").append(node.returnTypeName)
+        auto reason = QString("return Type Not Defined in QMeta System. type: ").append(node.returnTypeName)
                            .append(", Function: ").append(node.expression);
-        $Ast->fatal("controller_invalid_parameter_type", info);
+        IMethodNodeAbort::abortcontroller_invalid_parameter_type(reason, $ISourceLocation);
     }
 }
 
@@ -88,10 +103,9 @@ void detail::createFunctionParamNodes(IMethodNode& node, QMetaMethod method)
     for(int i=0;i<method.parameterCount(); i++){
         auto id = method.parameterType(i);
         if(id == QMetaType::UnknownType){
-            IAssertInfo info;
-            info.reason = QString("parameter Type Not Defined in QMeta System. type: ").append(types[i])
+            auto reason = QString("parameter Type Not Defined in QMeta System. type: ").append(types[i])
                               .append(", Function: ").append(node.className).append("::").append(node.funName);
-            $Ast->fatal("controller_invalid_parameter_type", info);
+            IMethodNodeAbort::abortcontroller_invalid_parameter_type(reason, $ISourceLocation);
         }
 
         node.paramNodes.append(IParamNodeHelper::createParamNode(id, types[i], names[i]));

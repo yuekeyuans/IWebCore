@@ -1,5 +1,6 @@
 ﻿#include "IHttpControllerInterface.h"
 #include "http/controller/IHttpManage.h"
+#include "http/controller/IControllerAbort.h"
 #include "http/controller/private/IHttpControllerInfo.h"
 #include "http/controller/private/IControllerInterfaceHelper.h"
 
@@ -23,7 +24,7 @@ void IControllerInterfaceHelper::registerController(void *handler, const QString
 
 void IControllerInterfaceHelper::registerError()
 {
-    $Ast->fatal("register_controller_do_not_use_singleton");
+    IControllerAbort::abortregister_controller_do_not_use_singleton($ISourceLocation);
 }
 
 $PackageWebCoreEnd

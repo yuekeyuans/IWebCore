@@ -1,7 +1,20 @@
 ﻿#include "IHttpMime.h"
-#include "core/assert/IAssertPreProcessor.h"
+#include "core/abort/IAbortInterface.h"
 
 $PackageWebCoreBegin
+
+class IHttpMimeAbort : IAbortInterface<IHttpMimeAbort>
+{
+    $AsAbort(
+        http_mime_already_exist
+    )
+protected:
+    virtual QMap<int, QString> abortDescription() const final {
+        return {
+            {http_mime_already_exist, "user register mime already exist, please duplicated this mime"}
+        };
+    }
+};
 
 namespace{
 
@@ -267,9 +280,7 @@ QString IHttpMimeUtil::getSuffixMime(const QString &suffix)
 void IHttpMimeUtil::registerSuffixMime(const QString &suffix, const QString &mime)
 {
     if(getSystemSuffixMimeMap().keys().contains(suffix.toLower())){
-        IAssertInfo info;
-        info.reason = QString("suffix: ").append(suffix).append(" mime: ").append(mime);
-        $Ast->fatal("http_mime_already_exist", info);
+        IHttpMimeAbort::aborthttp_mime_already_exist(QString("suffix: ").append(suffix).append(" mime: ").append(mime), $ISourceLocation);
     }
 
     if(!mimeSuffixes.contains(suffix)){

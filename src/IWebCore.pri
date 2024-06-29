@@ -95,6 +95,7 @@ HEADERS += \
     $$PWD/http/IHttpAnnomacro.h \
     $$PWD/http/IHttpAssert.h \
     $$PWD/http/IHttpControllerTaskCatagory.h \
+    $$PWD/http/controller/IControllerAbort.h \
     $$PWD/http/controller/IHttpControllerInterface.h \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.h \
     $$PWD/http/controller/private/IHttpControllerBeanParameter.h \

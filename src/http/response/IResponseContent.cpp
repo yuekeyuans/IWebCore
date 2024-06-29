@@ -1,8 +1,23 @@
 ﻿#include "IResponseContent.h"
 #include "core/base/IFileUtil.h"
+#include "core/abort/IAbortInterface.h"
 #include "http/IHttpAssert.h"
 
 $PackageWebCoreBegin
+
+
+class IResponseContentAbort : IAbortInterface<IResponseContentAbort>
+{
+    $AsAbort(
+        response_invalid_type_error
+    )
+protected:
+    virtual QMap<int, QString> abortDescription() const final{
+        return {
+            {response_invalid_type_error, "all invalid type should be preprocessed before response to user"}
+        };
+    }
+};
 
 namespace detail
 {
@@ -15,6 +30,7 @@ namespace detail
     }
 }
 
+// TODO: warn
 void IResponseContent::append(const QString &content)
 {
     switch (type) {
@@ -29,11 +45,12 @@ void IResponseContent::append(const QString &content)
         contentString.append(content);
         break;
     default:
-        $Ast->warn("response_incorrect_append", "current type is " + detail::getTypename(type));
+//        $Ast->warn("response_incorrect_append", "current type is " + detail::getTypename(type));
         return;
     }
 }
 
+// TODO: warn
 void IResponseContent::append(const QByteArray &content)
 {
     switch (type) {
@@ -48,7 +65,7 @@ void IResponseContent::append(const QByteArray &content)
         contentString.append(content);
         break;
     default:
-        $Ast->warn("response_incorrect_append", "current type is " + detail::getTypename(type));
+//        $Ast->warn("response_incorrect_append", "current type is " + detail::getTypename(type));
         return;
     }
 }
@@ -93,6 +110,7 @@ void IResponseContent::setContent(IHttpInvalidUnit ware)
     contentInvalid = ware;
 }
 
+// TODO:
 QByteArray IResponseContent::getAsBytes()
 {
     switch(type){
@@ -108,7 +126,7 @@ QByteArray IResponseContent::getAsBytes()
         }
         return IFileUtil::readFileAsByteArray(contentString);
     case Type::Invalid:
-        $Ast->fatal("response_invalid_type_error");
+        IResponseContentAbort::abortresponse_invalid_type_error($ISourceLocation);
     }
     return {};
 }
