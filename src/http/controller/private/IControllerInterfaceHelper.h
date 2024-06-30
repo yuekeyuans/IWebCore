@@ -34,15 +34,12 @@ namespace IControllerInterfaceHelper
     void checkMethodOfReturnVoid(const IUrlActionNode& node);
     void checkMethodBodyContentArgs(const IUrlActionNode& node);
     void checkMethodParamterWithSuffixProper(const IUrlActionNode& node);
-    void checkMethodParamterWithSuffixSet(const IUrlActionNode& node);
 
 //public:
     QVector<IUrlActionNode> createMappingLeaves(const IHttpControllerInfo& info);
 //private:
     bool isBeanType(const QString&);
     bool isSpecialTypes(const QString&);
-    bool isParamNameWithSuffix(const QString& paramName);
-    bool isIgnoreParamCheckFunction(const QString& funName, const QMap<QString, QString>& clsInfo);
 
     QVector<MappingInfo> getMethodMappingInfo(const QMap<QString, QString> &clsInfo);
     QStringList toNormalUrl(const QString& url, const QStringList& prefix);

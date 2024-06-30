@@ -65,10 +65,11 @@ void IControllerInterfaceHelper::checkMappingMethodArgsIsValid(const IHttpContro
     QList<CheckFunType> funs{
         chechMethodSupportedReturnType,
         checkMethodSupportedParamArgType,
+//        checkMethodArgNameIntegrality,
         checkMethodOfReturnVoid,
         checkMethodBodyContentArgs,
         checkMethodParamterWithSuffixProper,
-        checkMethodParamterWithSuffixSet,
+//        checkMethodParamterWithSuffixSet,
     };
 
     auto leaves = createMappingLeaves(info);
@@ -244,6 +245,20 @@ void IControllerInterfaceHelper::checkMethodSupportedParamArgType(const IUrlActi
     }
 }
 
+//void IControllerInterfaceHelper::checkMethodArgNameIntegrality(const IUrlActionNode &node)
+//{
+//    static const  QString info = "the controller function`s parameter should always define it`s name, the name can`t be omitted,\n\t"
+//                          "the error happened in Function : ";
+
+//    auto paramNames = node.methodNode.getParamNames();
+//    for(auto& name : paramNames){
+//        if(name.isEmpty()){
+//            auto funInfo = info + node.methodNode.funName;
+//            qFatal(funInfo.toUtf8());
+//        }
+//    }
+//}
+
 void IControllerInterfaceHelper::checkMethodOfReturnVoid(const IUrlActionNode &node)
 {
     if(node.methodNode.returnTypeId != QMetaType::Void){
@@ -290,33 +305,31 @@ void IControllerInterfaceHelper::checkMethodParamterWithSuffixProper(const IUrlA
 }
 
 // 检测是否可以添加后缀类型
-void IControllerInterfaceHelper::checkMethodParamterWithSuffixSet(const IUrlActionNode &node)
-{
-    static const QStringList externalTypes ={
-        "IRequest",     "IRequest&",
-        "IResponse",    "IResponse&",
-        "IMultiPart",   "IMultiPart&",
-        "ICookieJar",   "ICookieJar&",
-        "ICookiePart",  "ICookiePart&",
-        "IHeaderJar",   "IHeaderJar&",
-        "ISessionJar",  "ISessionJar&",
-        "QJsonValue",   "QJsonValue&",
-    };
-    if(node.ignoreParamCheck){
-        return;
-    }
-    const auto& nodes = node.methodNode.paramNodes;
-    for(auto param : nodes){
-        if(externalTypes.contains(param.paramTypeName)){
-            continue;
-        }
+// TODO: 这个可以检查一下, 如下自定义类型不得添加 位置标识, 因为位置已定
+//void IControllerInterfaceHelper::checkMethodParamterWithSuffixSet(const IUrlActionNode &node)
+//{
+//    static const QStringList externalTypes ={
+//        "IRequest",     "IRequest&",
+//        "IResponse",    "IResponse&",
+//        "IMultiPart",   "IMultiPart&",
+//        "ICookieJar",   "ICookieJar&",
+//        "ICookiePart",  "ICookiePart&",
+//        "IHeaderJar",   "IHeaderJar&",
+//        "ISessionJar",  "ISessionJar&",
+//        "QJsonValue",   "QJsonValue&",
+//    };
+//    const auto& nodes = node.methodNode.paramNodes;
+//    for(auto param : nodes){
+//        if(externalTypes.contains(param.paramTypeName)){
+//            continue;
+//        }
 
-        if(!isParamNameWithSuffix(param.paramName)){
-            IControllerAbort::abortirequest_controller_function_with_param_not_marked(QString("At Function: ").append(node.methodNode.expression)
-                                                                                      .append(" At Param: ").append(param.paramName), $ISourceLocation);
-        }
-    }
-}
+//        if(!isParamNameWithSuffix(param.paramName)){
+//            IControllerAbort::abortirequest_controller_function_with_param_not_marked(QString("At Function: ").append(node.methodNode.expression)
+//                                                                                      .append(" At Param: ").append(param.paramName), $ISourceLocation);
+//        }
+//    }
+//}
 
 QVector<IUrlActionNode> IControllerInterfaceHelper::createMappingLeaves(const IHttpControllerInfo& info)
 {
@@ -349,34 +362,34 @@ bool IControllerInterfaceHelper::isBeanType(const QString& typeName)
     return IBeanTypeManage::containBean(typeName);
 }
 
-bool IControllerInterfaceHelper::isParamNameWithSuffix(const QString& paramName)
-{
-    static const QStringList suffixes = {
-        "_$mixed", "_$param", "_$url", "_$body", "_$content", "_$header",
-        "_$cookie", "_$session"
-    };
+//bool IControllerInterfaceHelper::isParamNameWithSuffix(const QString& paramName)
+//{
+//    static const QStringList suffixes = {
+//        "_$mixed", "_$param", "_$url", "_$body", "_$content", "_$header",
+//        "_$cookie", "_$session"
+//    };
 
-    for(const auto& suffix : suffixes){
-        if(paramName.endsWith(suffix)){
-            return true;
-        }
-    }
-    return false;
-}
+//    for(const auto& suffix : suffixes){
+//        if(paramName.endsWith(suffix)){
+//            return true;
+//        }
+//    }
+//    return false;
+//}
 
-bool IControllerInterfaceHelper::isIgnoreParamCheckFunction(const QString& funName
-                                                               , const QMap<QString, QString>& clsInfo)
-{
-    static const QString ignoreAllKey = "ignore_all_controller_fun_name";
-    static const QString suffix = "ignore_controller_fun_name_";
+//bool IControllerInterfaceHelper::isIgnoreParamCheckFunction(const QString& funName
+//                                                               , const QMap<QString, QString>& clsInfo)
+//{
+//    static const QString ignoreAllKey = "ignore_all_controller_fun_name";
+//    static const QString suffix = "ignore_controller_fun_name_";
 
-    if(clsInfo.contains(ignoreAllKey)){
-        return true;
-    }
+//    if(clsInfo.contains(ignoreAllKey)){
+//        return true;
+//    }
 
-    auto key = suffix + funName;
-    return clsInfo.contains(key);
-}
+//    auto key = suffix + funName;
+//    return clsInfo.contains(key);
+//}
 
 QVector<MappingInfo> IControllerInterfaceHelper::getMethodMappingInfo(const QMap<QString, QString> &clsInfo)
 {
@@ -431,7 +444,6 @@ QVector<IUrlActionNode> IControllerInterfaceHelper::createFunctionMappingLeaves(
 
     IUrlActionNode node;
     auto funName = mapping.funName;
-    node.ignoreParamCheck = isIgnoreParamCheckFunction(funName, info.classInfo);
     node.httpMethod = mapping.method;
     QStringList pieces;
     for(const auto& method : info.classMethods){

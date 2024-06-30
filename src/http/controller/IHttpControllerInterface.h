@@ -20,9 +20,6 @@ public:
     virtual QString name() const final;
     virtual QString catagory() const final;
     virtual void task() final;
-    virtual void registerToBase();
-
-    virtual void registerController() final;
 };
 
 namespace IControllerInterfaceHelper
@@ -45,19 +42,7 @@ QString IHttpControllerInterface<T, enabled>::catagory() const
 }
 
 template<typename T, bool enabled>
-void IHttpControllerInterface<T, enabled>::registerToBase()
-{
-    ITaskManage::instance()->addTaskWare(T::instance());
-}
-
-template<typename T, bool enabled>
 void IHttpControllerInterface<T, enabled>::task()
-{
-    registerController();
-}
-
-template<typename T, bool enabled>
-void IHttpControllerInterface<T, enabled>::registerController()
 {
     if(this != T::instance()){
         IControllerInterfaceHelper::registerError();

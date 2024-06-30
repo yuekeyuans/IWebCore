@@ -62,6 +62,7 @@ inline IParamNodeDetail::IParamNodeDetail(int paramTypeId, QString paramTypeName
 {
     paramTypeId = paramTypeId;
     paramTypeName = paramTypeName;
+    paramNameRaw = name;
     auto args = name.split("_$");
     paramName = args.first();
     paramNameView = IGlobalStringViewStash(paramName);

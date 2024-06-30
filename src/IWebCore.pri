@@ -275,6 +275,7 @@ SOURCES += \
     $$PWD/core/unit/ISingletonUnit.cpp \
 #    $$PWD/http/IHttpAssert.cpp \
     $$PWD/http/IHttpControllerTaskCatagory.cpp \
+    $$PWD/http/controller/IHttpControllerInterface.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.cpp \
     $$PWD/http/controller/private/IHttpControllerBeanParameter.cpp \
@@ -378,7 +379,6 @@ SOURCES += \
     $$PWD/http/response/IResponseManage.cpp \
     $$PWD/http/response/IResponseTemplateRenderer.cpp \
     $$PWD/http/response/IResponseWare.cpp \
-    $$PWD/http/controller/IControllerInterface.cpp \
     $$PWD/http/session/ISessionInterface.cpp \
     $$PWD/http/session/ISessionManager.cpp \
     $$PWD/http/session/ISessionWare.cpp

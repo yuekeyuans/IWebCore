@@ -14,6 +14,7 @@ struct IParamNode
 
     int paramTypeId;
     QString paramTypeName;
+    QString paramNameRaw;
     QString paramName;
     IStringView paramNameView;
 
