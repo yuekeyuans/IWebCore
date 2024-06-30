@@ -17,7 +17,6 @@ public:
     virtual QString name() const override;
     virtual double order() const override;
     virtual QString catagory() const final;
-    virtual void registerToBase() final;
     virtual void task() final;
     virtual void registerSession() final;
 };
@@ -43,12 +42,6 @@ template<typename T, bool enabled>
 QString ISessionInterface<T, enabled>::catagory() const
 {
     return "HttpController";
-}
-
-template<typename T, bool enabled>
-void ISessionInterface<T, enabled>::registerToBase()
-{
-    // TODO:
 }
 
 template<typename T, bool enabled>

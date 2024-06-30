@@ -25,10 +25,6 @@ public:
     virtual QString name() const override;
     virtual QString catagory() const final;
     virtual double order() const override;
-
-
-//    virtual QString taskFinishTip() final;
-    virtual void registerToBase();
     virtual void task() final;
 
 };
@@ -66,12 +62,6 @@ double IOrmDatabaseInterface<T, enabled>::order() const{
 //    tip.append(" Opened");
 //    return tip;
 //}
-
-template<typename T, bool enabled>
-void IOrmDatabaseInterface<T, enabled>::registerToBase()
-{
-    ITaskManage::instance()->addTaskWare(T::instance());
-}
 
 template<typename T, bool enabled>
 void IOrmDatabaseInterface<T, enabled>::task()

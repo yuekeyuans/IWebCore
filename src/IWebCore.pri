@@ -89,7 +89,7 @@ HEADERS += \
     $$PWD/core/unit/IGadgetUnit.h \
     $$PWD/core/unit/INoConstructUnit.h \
     $$PWD/core/unit/IOrderUnit.h  \
-    $$PWD/core/unit/IRegisterGadgetUnit.h \
+#    $$PWD/core/unit/IRegisterGadgetUnit.h \
     $$PWD/core/unit/IRegisterMetaTypeUnit.h \
     $$PWD/core/unit/ISingletonUnit.h \
     $$PWD/core/unit/IStackObjectUnit.h \
@@ -270,7 +270,7 @@ SOURCES += \
     $$PWD/core/test/IUnitTestManage.cpp \
     $$PWD/core/test/IUnitTestTask.cpp \
     $$PWD/core/unit/IGadgetUnit.cpp \
-    $$PWD/core/unit/IRegisterGadgetUnit.cpp \
+#    $$PWD/core/unit/IRegisterGadgetUnit.cpp \
     $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
     $$PWD/core/unit/ISingletonUnit.cpp \
 #    $$PWD/http/IHttpAssert.cpp \
