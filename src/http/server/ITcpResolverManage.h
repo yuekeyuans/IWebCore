@@ -2,7 +2,7 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "core/unit/ISingletonUnit.h"
-#include "http/net/server/ITcpResolverInterface.h"
+#include "http/server/ITcpResolverInterface.h"
 
 $PackageWebCoreBegin
 

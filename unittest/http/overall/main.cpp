@@ -1,6 +1,6 @@
 ﻿#include <ICore/IApplication>
 #include <ICore/IContext>
-#include <http/net/server/IHttpServer.h>
+#include <http/server/IHttpServer.h>
 
 $EnableTaskOutput(true)
 //$DisableCatagory(Test)

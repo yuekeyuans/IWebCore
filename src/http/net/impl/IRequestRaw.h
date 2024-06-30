@@ -7,8 +7,8 @@
 #include "http/biscuits/IHttpMime.h"
 #include "http/biscuits/IHttpStatus.h"
 #include "http/biscuits/IHttpVersion.h"
-#include "http/jar/IMultiPart.h"
-#include "http/jar/ICookiePart.h"
+#include "http/net/IMultiPart.h"
+#include "http/net/ICookiePart.h"
 #include "http/net/impl/IResponseRaw.h"
 
 $PackageWebCoreBegin

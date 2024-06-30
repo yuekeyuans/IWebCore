@@ -1,5 +1,5 @@
 ﻿#include "ITcpConnectionManage.h"
-#include "http/net/server/ITcpConnection.h"
+#include "http/server/ITcpConnection.h"
 
 $PackageWebCoreBegin
 

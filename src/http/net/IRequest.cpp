@@ -10,9 +10,9 @@
 #include "http/invalid/IHttpRequestTimeoutInvalid.h"
 #include "http/net/impl/IRequestImpl.h"
 #include "http/net/impl/IRequestRaw.h"
-#include "http/jar/ICookieJar.h"
-#include "http/jar/ISessionJar.h"
-#include "http/jar/IHeaderJar.h"
+#include "http/net/ICookieJar.h"
+#include "http/net/ISessionJar.h"
+#include "http/net/IHeaderJar.h"
 
 $PackageWebCoreBegin
 

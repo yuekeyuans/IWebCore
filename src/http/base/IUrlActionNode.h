@@ -2,8 +2,8 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "http/biscuits/IHttpMethod.h"
-#include "http/node/IMethodNode.h"
-#include "http/node/IFunctionNode.h"
+#include "http/base/IMethodNode.h"
+#include "http/base/IFunctionNode.h"
 
 $PackageWebCoreBegin
 

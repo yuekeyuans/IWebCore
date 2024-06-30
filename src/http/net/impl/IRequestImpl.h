@@ -9,7 +9,7 @@
 #include "http/biscuits/IHttpMime.h"
 #include "http/biscuits/IHttpStatus.h"
 #include "http/biscuits/IHttpMethod.h"
-#include "http/jar/IMultiPart.h"
+#include "http/net/IMultiPart.h"
 
 $PackageWebCoreBegin
 

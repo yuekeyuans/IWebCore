@@ -3,7 +3,7 @@
 #include "core/util/IHeaderUtil.h"
 #include "core/unit/ISingletonUnit.h"
 #include "http/biscuits/IHttpMethod.h"
-#include "http/node/IUrlActionNode.h"
+#include "http/base/IUrlActionNode.h"
 
 #include "IHttpRouteMapping.h"
 #include "IHttpResourceMapping.h"

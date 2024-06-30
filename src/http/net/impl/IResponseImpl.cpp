@@ -1,7 +1,7 @@
 ﻿#include "IResponseImpl.h"
 #include "core/util/IConstantUtil.h"
 #include "http/net/impl/IRequestRaw.h"
-#include "http/jar/IHeaderJar.h"
+#include "http/net/IHeaderJar.h"
 #include "http/response/IResponseManage.h"
 #include "http/response/IResponseTemplateRenderer.h"
 #include "http/response/IRendererResponse.h"

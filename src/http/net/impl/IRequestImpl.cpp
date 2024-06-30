@@ -10,15 +10,15 @@
 #include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/invalid/IHttpNotFoundInvalid.h"
 #include "http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.h"
-#include "http/jar/IHeaderJar.h"
+#include "http/net/IHeaderJar.h"
 #include "http/net/IRequest.h"
-#include "http/net/server/ITcpConnection.h"
+#include "http/server/ITcpConnection.h"
 #include "http/net/IRequestManage.h"
 #include "http/controller/IHttpManage.h"
 #include "http/net/impl/IRequestRaw.h"
 #include "http/net/impl/IResponseRaw.h"
 #include "http/net/impl/IResponseImpl.h"
-#include "http/net/server/IHttpRequestHandler.h"
+#include "http/server/IHttpRequestHandler.h"
 
 $PackageWebCoreBegin
 

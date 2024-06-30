@@ -1,7 +1,7 @@
 ﻿#include "IParamNode.h"
 #include "core/abort/IAbortInterface.h"
-#include "http/node/IHttpParameterRestrictManage.h"
-#include "http/node/IHttpParameterRestrictInterface.h"
+#include "http/base/IHttpParameterRestrictManage.h"
+#include "http/base/IHttpParameterRestrictInterface.h"
 #include "http/controller/IHttpManage.h"
 
 $PackageWebCoreBegin

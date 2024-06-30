@@ -9,9 +9,9 @@
 #include "http/biscuits/IHttpVersion.h"
 #include "http/biscuits/IHttpStatus.h"
 #include "http/biscuits/IHttpMime.h"
-#include "http/jar/IMultiPart.h"
+#include "http/net/IMultiPart.h"
 #include "http/invalid/IHttpInvalidUnit.h"
-#include "http/net/server/ITcpResolverInterface.h"
+#include "http/server/ITcpResolverInterface.h"
 
 $PackageWebCoreBegin
 

@@ -3,7 +3,7 @@
 #include "core/util/IHeaderUtil.h"
 #include "core/util/IMetaUtil.h"
 #include "core/unit/IRegisterMetaTypeUnit.h"
-#include "http/jar/IJarUnit.h"
+#include "http/net/IJarUnit.h"
 
 $PackageWebCoreBegin
 

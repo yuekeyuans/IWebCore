@@ -1,6 +1,6 @@
 ﻿#include "IHttpRouteMapping.h"
 #include "IHttpManage.h"
-#include "http/node/IUrlActionNode.h"
+#include "http/base/IUrlActionNode.h"
 
 $PackageWebCoreBegin
 

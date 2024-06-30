@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
-#include "http/net/server/ITcpConnectionData.h"
+#include "http/server/ITcpConnectionData.h"
 
 $PackageWebCoreBegin
 

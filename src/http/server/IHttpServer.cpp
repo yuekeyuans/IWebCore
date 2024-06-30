@@ -3,9 +3,9 @@
 #include "core/application/IAsioApplication.h"
 #include "http/net/IRequest.h"
 #include "http/net/IRequestManage.h"
-#include "http/net/server/ITcpResolverManage.h"
-#include "http/net/server/ITcpConnection.h"
-#include "http/net/server/ITcpConnectionManage.h"
+#include "http/server/ITcpResolverManage.h"
+#include "http/server/ITcpConnection.h"
+#include "http/server/ITcpConnectionManage.h"
 
 $PackageWebCoreBegin
 

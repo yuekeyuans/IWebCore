@@ -5,7 +5,7 @@
 #include "http/biscuits/IHttpHeader.h"
 #include "http/net/IRequest.h"
 #include "http/net/impl/IRequestRaw.h"
-#include "http/jar/IHeaderJar.h"
+#include "http/net/IHeaderJar.h"
 #include "http/response/IResponseWare.h"
 
 $PackageWebCoreBegin

@@ -1,5 +1,5 @@
 ﻿#include "IHttpParameterRestrictManage.h"
-#include "http/node/IHttpParameterRestrictInterface.h"
+#include "http/base/IHttpParameterRestrictInterface.h"
 
 $PackageWebCoreBegin
 

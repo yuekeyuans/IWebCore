@@ -120,16 +120,16 @@ HEADERS += \
     $$PWD/http/net/impl/IRequestRaw.h \
     $$PWD/http/net/impl/IResponseHeader.h \
     $$PWD/http/net/impl/IResponseRaw.h \
-    $$PWD/http/net/server/IHttpConnection.h \
-    $$PWD/http/net/server/IHttpRequestHandler.h \
-    $$PWD/http/net/server/IHttpServer.h \
-    $$PWD/http/net/server/ITcpConnection.h \
-    $$PWD/http/net/server/ITcpConnectionData.h \
-    $$PWD/http/net/server/ITcpConnectionManage.h \
-    $$PWD/http/net/server/ITcpResolverInterface.h \
-    $$PWD/http/net/server/ITcpResolverManage.h \
-    $$PWD/http/node/IHttpParameterRestrictInterface.h \
-    $$PWD/http/node/IHttpParameterRestrictManage.h \
+    $$PWD/http/server/IHttpConnection.h \
+    $$PWD/http/server/IHttpRequestHandler.h \
+    $$PWD/http/server/IHttpServer.h \
+    $$PWD/http/server/ITcpConnection.h \
+    $$PWD/http/server/ITcpConnectionData.h \
+    $$PWD/http/server/ITcpConnectionManage.h \
+    $$PWD/http/server/ITcpResolverInterface.h \
+    $$PWD/http/server/ITcpResolverManage.h \
+    $$PWD/http/base/IHttpParameterRestrictInterface.h \
+    $$PWD/http/base/IHttpParameterRestrictManage.h \
     $$PWD/http/nody/INody.h \
     $$PWD/http/nody/INodyManage.h \
     $$PWD/http/nody/INodyParser.h \
@@ -183,22 +183,22 @@ HEADERS += \
     $$PWD/http/core/test/IHttpTestInterface.h \
     $$PWD/http/core/test/IHttpTestManage.h \
     $$PWD/http/core/test/IHttpTestTask.h \
-    $$PWD/http/jar/ICookieJar.h \
-    $$PWD/http/jar/ICookiePart.h \
-    $$PWD/http/jar/IHeaderJar.h \
-    $$PWD/http/jar/IJarUnit.h \
-    $$PWD/http/jar/IMultiPart.h \
-    $$PWD/http/jar/IMultiPartJar.h \
-    $$PWD/http/jar/ISessionJar.h \
+    $$PWD/http/net/ICookieJar.h \
+    $$PWD/http/net/ICookiePart.h \
+    $$PWD/http/net/IHeaderJar.h \
+    $$PWD/http/net/IJarUnit.h \
+    $$PWD/http/net/IMultiPart.h \
+    $$PWD/http/net/IMultiPartJar.h \
+    $$PWD/http/net/ISessionJar.h \
     $$PWD/http/net/IRequest.h \
     $$PWD/http/net/IResponse.h \
 #    $$PWD/http/net/impl/IRequestAssert.h \
     $$PWD/http/net/impl/IRequestImpl.h \
     $$PWD/http/net/impl/IResponseImpl.h \
-    $$PWD/http/node/IFunctionNode.h \
-    $$PWD/http/node/IMethodNode.h \
-    $$PWD/http/node/IParamNode.h \
-    $$PWD/http/node/IUrlActionNode.h \
+    $$PWD/http/base/IFunctionNode.h \
+    $$PWD/http/base/IMethodNode.h \
+    $$PWD/http/base/IParamNode.h \
+    $$PWD/http/base/IUrlActionNode.h \
     $$PWD/http/response/IByteArrayResponse.h \
     $$PWD/http/response/IFileResponse.h \
     $$PWD/http/response/IHtmlResponse.h \
@@ -294,16 +294,16 @@ SOURCES += \
     $$PWD/http/net/impl/IRequestRaw.cpp \
     $$PWD/http/net/impl/IResponseHeader.cpp \
     $$PWD/http/net/impl/IResponseRaw.cpp \
-    $$PWD/http/net/server/IHttpConnection.cpp \
-    $$PWD/http/net/server/IHttpRequestHandler.cpp \
-    $$PWD/http/net/server/IHttpServer.cpp \
-    $$PWD/http/net/server/ITcpConnection.cpp \
-    $$PWD/http/net/server/ITcpConnectionData.cpp \
-    $$PWD/http/net/server/ITcpConnectionManage.cpp \
-    $$PWD/http/net/server/ITcpResolverInterface.cpp \
-    $$PWD/http/net/server/ITcpResolverManage.cpp \
-    $$PWD/http/node/IHttpParameterRestrictInterface.cpp \
-    $$PWD/http/node/IHttpParameterRestrictManage.cpp \
+    $$PWD/http/server/IHttpConnection.cpp \
+    $$PWD/http/server/IHttpRequestHandler.cpp \
+    $$PWD/http/server/IHttpServer.cpp \
+    $$PWD/http/server/ITcpConnection.cpp \
+    $$PWD/http/server/ITcpConnectionData.cpp \
+    $$PWD/http/server/ITcpConnectionManage.cpp \
+    $$PWD/http/server/ITcpResolverInterface.cpp \
+    $$PWD/http/server/ITcpResolverManage.cpp \
+    $$PWD/http/base/IHttpParameterRestrictInterface.cpp \
+    $$PWD/http/base/IHttpParameterRestrictManage.cpp \
     $$PWD/http/nody/INody.cpp \
     $$PWD/http/nody/INodyManage.cpp \
     $$PWD/http/nody/INodyParser.cpp \
@@ -349,21 +349,21 @@ SOURCES += \
     $$PWD/http/core/test/IHttpTestInterface.cpp \
     $$PWD/http/core/test/IHttpTestManage.cpp \
     $$PWD/http/core/test/IHttpTestTask.cpp \
-    $$PWD/http/jar/ICookieJar.cpp \
-    $$PWD/http/jar/ICookiePart.cpp \
-    $$PWD/http/jar/IHeaderJar.cpp \
-    $$PWD/http/jar/IJarUnit.cpp \
-    $$PWD/http/jar/IMultiPart.cpp \
-    $$PWD/http/jar/IMultiPartJar.cpp \
-    $$PWD/http/jar/ISessionJar.cpp \
+    $$PWD/http/net/ICookieJar.cpp \
+    $$PWD/http/net/ICookiePart.cpp \
+    $$PWD/http/net/IHeaderJar.cpp \
+    $$PWD/http/net/IJarUnit.cpp \
+    $$PWD/http/net/IMultiPart.cpp \
+    $$PWD/http/net/IMultiPartJar.cpp \
+    $$PWD/http/net/ISessionJar.cpp \
     $$PWD/http/net/IRequest.cpp \
     $$PWD/http/net/IResponse.cpp \
 #    $$PWD/http/net/impl/IRequestAssert.cpp \
     $$PWD/http/net/impl/IRequestImpl.cpp \
     $$PWD/http/net/impl/IResponseImpl.cpp \
-    $$PWD/http/node/IFunctionNode.cpp \
-    $$PWD/http/node/IMethodNode.cpp \
-    $$PWD/http/node/IParamNode.cpp \
+    $$PWD/http/base/IFunctionNode.cpp \
+    $$PWD/http/base/IMethodNode.cpp \
+    $$PWD/http/base/IParamNode.cpp \
     $$PWD/http/response/IByteArrayResponse.cpp \
     $$PWD/http/response/IFileResponse.cpp \
     $$PWD/http/response/IHtmlResponse.cpp \

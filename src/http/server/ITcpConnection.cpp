@@ -1,7 +1,7 @@
 ﻿#include "ITcpConnection.h"
-#include "http/net/server/ITcpResolverManage.h"
-#include "http/net/server/ITcpResolverInterface.h"
-#include "http/net/server/ITcpConnectionManage.h"
+#include "http/server/ITcpResolverManage.h"
+#include "http/server/ITcpResolverInterface.h"
+#include "http/server/ITcpConnectionManage.h"
 
 $PackageWebCoreBegin
 

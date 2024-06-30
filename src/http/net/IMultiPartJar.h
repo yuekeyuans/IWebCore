@@ -4,8 +4,8 @@
 #include "core/util/IMetaUtil.h"
 #include "core/base/IResult.h"
 #include "core/unit/IRegisterMetaTypeUnit.h"
-#include "http/jar/IJarUnit.h"
-#include "http/jar/IMultiPart.h"
+#include "http/net/IJarUnit.h"
+#include "http/net/IMultiPart.h"
 
 $PackageWebCoreBegin
 
