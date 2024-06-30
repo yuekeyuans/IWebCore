@@ -64,7 +64,7 @@ inline IParamNodeDetail::IParamNodeDetail(int paramTypeId, QString paramTypeName
     paramTypeName = paramTypeName;
     auto args = name.split("_$");
     paramName = args.first();
-//    paramNameView = IHttpManage::instance()->stash(paramName.toUtf8());
+    paramNameView = IGlobalStringViewStash(paramName);
     args.pop_front();
     m_paramQualifiers = args;
 

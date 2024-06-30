@@ -23,6 +23,7 @@ private:
 
 class IGlobalStringViewStash
 {
+public:
     IGlobalStringViewStash() = delete;
     IGlobalStringViewStash(const char* data);
     IGlobalStringViewStash(const QByteArray& data);
