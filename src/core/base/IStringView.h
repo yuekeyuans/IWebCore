@@ -29,11 +29,6 @@ public:
 public:
     static uint qHash(const IWebCore::IStringView *obj, uint seed = 0);
 
-    // TODO: 这个将来要对用户隐藏，因为搞不好，这个东西会膨胀，耗费内存
-    static IStringView stash(const std::string& data);
-    static IStringView stash(const QByteArray& data);
-    static IStringView stash(const char* data);
-
 public:
     QString toQString() const;
     QByteArray toQByteArray() const;

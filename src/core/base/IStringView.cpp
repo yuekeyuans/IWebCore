@@ -2,9 +2,6 @@
 
 $PackageWebCoreBegin
 
-static QMutex s_stashMutex;
-static QList<QByteArray> s_stashData;
-
 IStringView::IStringView(const std::string &data)
     : std::string_view(data)
 {
@@ -56,27 +53,6 @@ uint IStringView::qHash(const IStringView *obj, uint seed)
         seed ^= std::hash<char>{}(*it) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
     }
     return seed;
-}
-
-IStringView IStringView::stash(const std::string &data)
-{
-    QMutexLocker locker(&s_stashMutex);
-    s_stashData.append(QByteArray(data.data(), data.length()));
-    return IStringView(s_stashData.last());
-}
-
-IStringView IStringView::stash(const QByteArray &data)
-{
-    QMutexLocker locker(&s_stashMutex);
-    s_stashData.append(data);
-    return IStringView(s_stashData.last());
-}
-
-IStringView IStringView::stash(const char *data)
-{
-    QMutexLocker locker(&s_stashMutex);
-    s_stashData.append(QByteArray(data));
-    return IStringView(s_stashData.last());
 }
 
 QString IStringView::toQString() const
