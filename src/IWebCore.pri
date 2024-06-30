@@ -20,6 +20,7 @@ HEADERS += \
     $$PWD/core/application/IAsioApplication.h \
     $$PWD/core/application/IAsioManage.h \
     $$PWD/core/application/IQtApplication.h \
+    $$PWD/core/base/IStringViewStash.h \
     $$PWD/core/util/ICodecUtil.h \
     $$PWD/core/util/IConstantUtil.h \
     $$PWD/core/util/IConvertUtil.h \
@@ -230,6 +231,7 @@ SOURCES += \
     $$PWD/core/application/IAsioApplication.cpp \
     $$PWD/core/application/IAsioManage.cpp \
     $$PWD/core/application/IQtApplication.cpp \
+    $$PWD/core/base/IStringViewStash.cpp \
     $$PWD/core/util/ICodecUtil.cpp \
     $$PWD/core/util/IConvertUtil.cpp \
     $$PWD/core/util/IFileUtil.cpp \
