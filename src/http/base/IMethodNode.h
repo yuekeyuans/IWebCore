@@ -9,7 +9,6 @@ struct IHttpControllerInfo;
 struct IMethodNode
 {
 public:
-    static IMethodNode fromMetaMethod(void* handler, const QString& className, const QMetaMethod& method);
     int getParamCount() const;
     const QStringList& getParamNames() const;
     const QStringList& getParamTypeNames() const;
@@ -17,9 +16,9 @@ public:
 
 public:
     void* handler{nullptr};
-
-    QMetaMethod metaMethod;
     QString className;
+    QMetaMethod metaMethod;
+
     QString funName;
     QString expression;
 
@@ -32,5 +31,10 @@ public:
     QStringList paramTypeNames;
     QList<QMetaType::Type> paramTypeIds;
 };
+
+namespace  IMethodNodeHelper
+{
+    IMethodNode fromMetaMethod(void* handler, const QString& className, const QMetaMethod& method);
+}
 
 $PackageWebCoreEnd

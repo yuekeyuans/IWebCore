@@ -451,7 +451,7 @@ QVector<IUrlActionNode> IControllerInterfaceHelper::createFunctionMappingLeaves(
     QStringList pieces;
     for(const auto& method : info.classMethods){
         if(method.name() == funName){
-            node.methodNode = IMethodNode::fromMetaMethod(info.handler, info.className, method);
+            node.methodNode = IMethodNodeHelper::fromMetaMethod(info.handler, info.className, method);
         }
     }
     for(const QString& arg : mapping.path){
