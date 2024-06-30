@@ -65,7 +65,6 @@ void IControllerInterfaceHelper::checkMappingMethodArgsIsValid(const IHttpContro
     QList<CheckFunType> funs{
         chechMethodSupportedReturnType,
         checkMethodSupportedParamArgType,
-        checkMethodArgNameIntegrality,
         checkMethodOfReturnVoid,
         checkMethodBodyContentArgs,
         checkMethodParamterWithSuffixProper,
@@ -241,20 +240,6 @@ void IControllerInterfaceHelper::checkMethodSupportedParamArgType(const IUrlActi
                 IControllerAbort::abortcontroller_check_param_Type_has_unsupported_inner_type(QString("At Function: ").append(node.methodNode.expression)
                                                                                               .append(" At Param: ").append(typeName), $ISourceLocation);
             }
-        }
-    }
-}
-
-void IControllerInterfaceHelper::checkMethodArgNameIntegrality(const IUrlActionNode &node)
-{
-    static const  QString info = "the controller function`s parameter should always define it`s name, the name can`t be omitted,\n\t"
-                          "the error happened in Function : ";
-
-    auto paramNames = node.methodNode.getParamNames();
-    for(auto& name : paramNames){
-        if(name.isEmpty()){
-            auto funInfo = info + node.methodNode.funName;
-            qFatal(funInfo.toUtf8());
         }
     }
 }

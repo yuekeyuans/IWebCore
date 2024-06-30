@@ -31,7 +31,6 @@ namespace IControllerInterfaceHelper
 
     void chechMethodSupportedReturnType(const IUrlActionNode& node);
     void checkMethodSupportedParamArgType(const IUrlActionNode& node);
-    void checkMethodArgNameIntegrality(const IUrlActionNode& node);
     void checkMethodOfReturnVoid(const IUrlActionNode& node);
     void checkMethodBodyContentArgs(const IUrlActionNode& node);
     void checkMethodParamterWithSuffixProper(const IUrlActionNode& node);
