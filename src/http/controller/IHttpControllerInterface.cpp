@@ -2,7 +2,7 @@
 #include "http/controller/IHttpManage.h"
 #include "http/controller/IControllerAbort.h"
 #include "http/controller/private/IHttpControllerInfo.h"
-#include "http/controller/private/IControllerInterfaceHelper.h"
+//#include "http/controller/private/IControllerInterfaceHelper.h"
 
 $PackageWebCoreBegin
 

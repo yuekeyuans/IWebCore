@@ -179,7 +179,7 @@ HEADERS += \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.h \
     $$PWD/http/controller/IHttpResourceMapping.h \
     $$PWD/http/controller/IHttpRouteMapping.h \
-    $$PWD/http/controller/private/IControllerInterfaceHelper.h \
+#    $$PWD/http/controller/private/IControllerInterfaceHelper.h \
     $$PWD/http/core/defaultTask/IControllerBaseTypeTask.h \
     $$PWD/http/core/defaultTask/INodyTemplateTask.h \
     $$PWD/http/core/test/IHttpTestInterface.h \
@@ -349,7 +349,7 @@ SOURCES += \
     $$PWD/http/controller/IHttpManage.cpp \
     $$PWD/http/controller/IHttpResourceMapping.cpp \
     $$PWD/http/controller/IHttpRouteMapping.cpp \
-    $$PWD/http/controller/private/IControllerInterfaceHelper.cpp \
+#    $$PWD/http/controller/private/IControllerInterfaceHelper.cpp \
     $$PWD/http/core/defaultTask/IControllerBaseTypeTask.cpp \
     $$PWD/http/core/defaultTask/INodyTemplateTask.cpp \
     $$PWD/http/core/test/IHttpTestInterface.cpp \
