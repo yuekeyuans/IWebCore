@@ -20,8 +20,7 @@ class IControllerAbort : public IAbortInterface<IControllerAbort>
         assamble_bean_when_bean_inner_parameter_not_found,
         static_file_dir_not_exist,
         register_the_same_url,
-        register_to_controllerManage_error,
-        register_controller_do_not_use_singleton
+        register_to_controllerManage_error
     )
 
 protected:
@@ -40,7 +39,6 @@ protected:
             ,{static_file_dir_not_exist, "your registered default static file dir not exist, please check"}
             ,{register_the_same_url, "registration can`t match the leaf or the leaf already exist"}
             ,{register_to_controllerManage_error, "you can not register anything when server is on"}
-            ,{register_controller_do_not_use_singleton, "when you register a controller, you should use controller singleton, do not intialize your own instance"}
         };
     }
 };

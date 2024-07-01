@@ -10,76 +10,77 @@ $PackageWebCoreBegin
 
 using namespace IControllerInterfaceHelper;
 
-void IControllerInterfaceHelper::checkUrlMappings(const IHttpControllerInfo& info)
-{
-    checkMappingOverloadFunctions(info.classMethods);
-    checkMappingNameAndFunctionIsMatch(info);
-    checkMappingUrlIsValid(info);
-    checkMappingMethodArgsIsValid(info);
-}
+//void IControllerInterfaceHelper::checkUrlMappings(const IHttpControllerInfo& info)
+//{
+//    checkMappingOverloadFunctions(info.classMethods);
+//    checkMappingNameAndFunctionIsMatch(info);
+//    checkMappingUrlIsValid(info);
+//    checkMappingMethodArgsIsValid(info);
+//}
 
-void IControllerInterfaceHelper::checkMappingOverloadFunctions(const QVector<QMetaMethod> &methods)
-{
-    QStringList names;
-    for(const auto& method : methods){
-        if(names.contains(method.name())){
-            IControllerAbort::abortOverloadOrDefaultValueFunctionNotSupported(QString("name: ").append(method.name()), $ISourceLocation);
-        }
-        names.append(method.name());
-    }
-}
+//void IControllerInterfaceHelper::checkMappingOverloadFunctions(const QVector<QMetaMethod> &methods)
+//{
+//    QStringList names;
+//    for(const auto& method : methods){
+//        if(names.contains(method.name())){
+//            IControllerAbort::abortOverloadOrDefaultValueFunctionNotSupported(QString("name: ").append(method.name()), $ISourceLocation);
+//        }
+//        names.append(method.name());
+//    }
+//}
 
-void IControllerInterfaceHelper::checkMappingNameAndFunctionIsMatch(const IHttpControllerInfo& info)
-{
-    QStringList methodNames;
-    for(const auto& method : info.classMethods){
-        methodNames.append(method.name());
-    }
-    auto infos = getMethodMappingInfo(info.classInfo);
-    QStringList infoNames;
-    for(const auto& info : infos){
-        infoNames.append (info.funName);
-    }
+//void IControllerInterfaceHelper::checkMappingNameAndFunctionIsMatch(const IHttpControllerInfo& info)
+//{
+//    QStringList methodNames;
+//    for(const auto& method : info.classMethods){
+//        methodNames.append(method.name());
+//    }
+//    auto infos = getMethodMappingInfo(info.classInfo);
+//    QStringList infoNames;
+//    for(const auto& info : infos){
+//        infoNames.append (info.funName);
+//    }
 
-    for(const auto& name : infoNames){
-        if(!methodNames.contains(name)){
-            IControllerAbort::abortMappingMismatchFatal(QString("name: ").append(name), $ISourceLocation);
-        }
-    }
-}
+//    for(const auto& name : infoNames){
+//        if(!methodNames.contains(name)){
+//            IControllerAbort::abortMappingMismatchFatal(QString("name: ").append(name), $ISourceLocation);
+//        }
+//    }
+//}
 
-void IControllerInterfaceHelper::checkMappingUrlIsValid(const IHttpControllerInfo &info)
-{
-    auto infos = getMethodMappingInfo(info.classInfo);
-    for(const MappingInfo& info : infos){
-        std::for_each(info.path.begin(), info.path.end(), [&](const QString& url){
-            chekcUrlErrorCommon(url);
-            CheckUrlErrorWildCard(url);
-        });
-    }
-}
+//void IControllerInterfaceHelper::checkMappingUrlIsValid(const IHttpControllerInfo &info)
+//{
+//    auto infos = getMethodMappingInfo(info.classInfo);
+//    for(const MappingInfo& info : infos){
+//        std::for_each(info.path.begin(), info.path.end(), [&](const QString& url){
+//            chekcUrlErrorCommon(url);
+//            CheckUrlErrorWildCard(url);
+//        });
+//    }
+//}
 
-void IControllerInterfaceHelper::checkMappingMethodArgsIsValid(const IHttpControllerInfo& info)
-{
-    using CheckFunType = std::function<void (const IUrlActionNode&)>;
-    QList<CheckFunType> funs{
-        chechMethodSupportedReturnType,
-        checkMethodSupportedParamArgType,
-//        checkMethodArgNameIntegrality,
-        checkMethodOfReturnVoid,
-        checkMethodBodyContentArgs,
-        checkMethodParamterWithSuffixProper,
-//        checkMethodParamterWithSuffixSet,
-    };
+//void IControllerInterfaceHelper::checkMappingMethodArgsIsValid(const IHttpControllerInfo& info)
+//{
+//    using CheckFunType = std::function<void (const IUrlActionNode&)>;
+//    QList<CheckFunType> funs{
+//        chechMethodSupportedReturnType,
+//        checkMethodSupportedParamArgType,
+////        checkMethodArgNameIntegrality,
+//        checkMethodOfReturnVoid,
+//        checkMethodBodyContentArgs,
+//        checkMethodParamterWithSuffixProper,
+////        checkMethodParamterWithSuffixSet,
+//    };
 
-    auto leaves = createMappingLeaves(info);
-    for(auto& leaf : leaves){
-        for(auto& fun : funs){
-            fun(leaf);
-        }
-    }
-}
+//    auto leaves = createMappingLeaves(info);
+//    for(auto& leaf : leaves){
+//        for(auto& fun : funs){
+//            fun(leaf);
+//        }
+//    }
+//}
 
+/*
 void IControllerInterfaceHelper::chekcUrlErrorCommon(const QString &url)
 {
     static QRegularExpression wildcard("^<.*>$");
@@ -107,7 +108,9 @@ void IControllerInterfaceHelper::chekcUrlErrorCommon(const QString &url)
         }
     }
 }
+*/
 
+/*
 void IControllerInterfaceHelper::CheckUrlErrorWildCard(const QString url)
 {
     static QRegularExpression validName("^[0-9a-zA-Z_]+$");
@@ -160,9 +163,10 @@ void IControllerInterfaceHelper::CheckUrlErrorWildCard(const QString url)
             qFatal(info.toUtf8());
         }
     }
-}
+}*/
 
 // ref to IControllerFunctionBase.cpp
+/*
 void IControllerInterfaceHelper::chechMethodSupportedReturnType(const IUrlActionNode &node)
 {
     const static QString info = "this kind of return type not supported, please change the return type! valid types are :\n\t"
@@ -244,6 +248,7 @@ void IControllerInterfaceHelper::checkMethodSupportedParamArgType(const IUrlActi
         }
     }
 }
+*/
 
 //void IControllerInterfaceHelper::checkMethodArgNameIntegrality(const IUrlActionNode &node)
 //{
@@ -259,50 +264,50 @@ void IControllerInterfaceHelper::checkMethodSupportedParamArgType(const IUrlActi
 //    }
 //}
 
-void IControllerInterfaceHelper::checkMethodOfReturnVoid(const IUrlActionNode &node)
-{
-    if(node.methodNode.returnTypeId != QMetaType::Void){
-        return;
-    }
+//void IControllerInterfaceHelper::checkMethodOfReturnVoid(const IUrlActionNode &node)
+//{
+//    if(node.methodNode.returnTypeId != QMetaType::Void){
+//        return;
+//    }
 
-    auto typeNames = node.methodNode.getParamTypeNames();
-    if(!typeNames.contains("IResponse") && !typeNames.contains("IResponse&")){
-        QString info = "mapping function that return void should include IResponse in side function parameters\n"
-                    "at Function : " + node.methodNode.funName;
-        qFatal(info.toUtf8());
-    }
-}
+//    auto typeNames = node.methodNode.getParamTypeNames();
+//    if(!typeNames.contains("IResponse") && !typeNames.contains("IResponse&")){
+//        QString info = "mapping function that return void should include IResponse in side function parameters\n"
+//                    "at Function : " + node.methodNode.funName;
+//        qFatal(info.toUtf8());
+//    }
+//}
 
 // 检查特殊的引用
-void IControllerInterfaceHelper::checkMethodBodyContentArgs(const IUrlActionNode &node)
-{
-    const auto& typeNames = node.methodNode.getParamTypeNames();
+//void IControllerInterfaceHelper::checkMethodBodyContentArgs(const IUrlActionNode &node)
+//{
+//    const auto& typeNames = node.methodNode.getParamTypeNames();
 
-    auto index = typeNames.indexOf("QJsonValue&");
-    if(index != -1){
-        const auto& paramNames = node.methodNode.getParamNames();
-        auto name = paramNames[index];
-        if(!name.endsWith("_content")){
-            QString info = "QJsonValue& can`t be used except in $Body expression\n"
-                           "at Function : " + node.methodNode.funName;
-            qFatal(info.toUtf8());
-        }
-    }
-}
+//    auto index = typeNames.indexOf("QJsonValue&");
+//    if(index != -1){
+//        const auto& paramNames = node.methodNode.getParamNames();
+//        auto name = paramNames[index];
+//        if(!name.endsWith("_content")){
+//            QString info = "QJsonValue& can`t be used except in $Body expression\n"
+//                           "at Function : " + node.methodNode.funName;
+//            qFatal(info.toUtf8());
+//        }
+//    }
+//}
 
-void IControllerInterfaceHelper::checkMethodParamterWithSuffixProper(const IUrlActionNode &node)
-{
-    const auto& argNodes = node.methodNode.paramNodes;
+//void IControllerInterfaceHelper::checkMethodParamterWithSuffixProper(const IUrlActionNode &node)
+//{
+//    const auto& argNodes = node.methodNode.paramNodes;
 
-    // get 中不能调用 body 的参数。
-    if(node.httpMethod == IHttpMethod::GET){
-        for(const auto& param : argNodes){
-            if(param.paramName.endsWith("_body") || param.paramName.endsWith("_content")){
-                IControllerAbort::abortcontroller_method_get_but_want_body_content(QString("At Function: ").append(node.methodNode.expression).append(" Parameter: ").append(param.paramName), $ISourceLocation);
-            }
-        }
-    }
-}
+//    // get 中不能调用 body 的参数。
+//    if(node.httpMethod == IHttpMethod::GET){
+//        for(const auto& param : argNodes){
+//            if(param.paramName.endsWith("_body") || param.paramName.endsWith("_content")){
+//                IControllerAbort::abortcontroller_method_get_but_want_body_content(QString("At Function: ").append(node.methodNode.expression).append(" Parameter: ").append(param.paramName), $ISourceLocation);
+//            }
+//        }
+//    }
+//}
 
 // 检测是否可以添加后缀类型
 // TODO: 这个可以检查一下, 如下自定义类型不得添加 位置标识, 因为位置已定
@@ -331,36 +336,36 @@ void IControllerInterfaceHelper::checkMethodParamterWithSuffixProper(const IUrlA
 //    }
 //}
 
-QVector<IUrlActionNode> IControllerInterfaceHelper::createMappingLeaves(const IHttpControllerInfo& info)
-{
-    QVector<IUrlActionNode> ret;
-    auto args = getMethodMappingInfo(info.classInfo);
-    for(const auto& arg : args){
-        ret.append(createFunctionMappingLeaves(info, arg));
-    }
-    return ret;
-}
+//QVector<IUrlActionNode> IControllerInterfaceHelper::createMappingLeaves(const IHttpControllerInfo& info)
+//{
+//    QVector<IUrlActionNode> ret;
+//    auto args = getMethodMappingInfo(info.classInfo);
+//    for(const auto& arg : args){
+//        ret.append(createFunctionMappingLeaves(info, arg));
+//    }
+//    return ret;
+//}
 
-bool IControllerInterfaceHelper::isSpecialTypes(const QString& typeName)
-{
-    static const QStringList specialExternalTypes = {
-        "IRequest",     "IRequest&",
-        "IResponse",    "IResponse&",
-        "IMultiPart",   "IMultiPart&",
-        "ICookieJar",   "ICookieJar&",
-        "ICookiePart",  "ICookiePart&"
-        "ISessionJar",  "ISessionJar&",
-        "IHeaderJar",   "IHeaderJar&",
-        "IStringView"
-    };
+//bool IControllerInterfaceHelper::isSpecialTypes(const QString& typeName)
+//{
+//    static const QStringList specialExternalTypes = {
+//        "IRequest",     "IRequest&",
+//        "IResponse",    "IResponse&",
+//        "IMultiPart",   "IMultiPart&",
+//        "ICookieJar",   "ICookieJar&",
+//        "ICookiePart",  "ICookiePart&"
+//        "ISessionJar",  "ISessionJar&",
+//        "IHeaderJar",   "IHeaderJar&",
+//        "IStringView"
+//    };
 
-    return specialExternalTypes.contains(typeName);
-}
+//    return specialExternalTypes.contains(typeName);
+//}
 
-bool IControllerInterfaceHelper::isBeanType(const QString& typeName)
-{
-    return IBeanTypeManage::containBean(typeName);
-}
+//bool IControllerInterfaceHelper::isBeanType(const QString& typeName)
+//{
+//    return IBeanTypeManage::containBean(typeName);
+//}
 
 //bool IControllerInterfaceHelper::isParamNameWithSuffix(const QString& paramName)
 //{
@@ -391,6 +396,7 @@ bool IControllerInterfaceHelper::isBeanType(const QString& typeName)
 //    return clsInfo.contains(key);
 //}
 
+/*
 QVector<MappingInfo> IControllerInterfaceHelper::getMethodMappingInfo(const QMap<QString, QString> &clsInfo)
 {
     static const QString CONTROLLER_MAPPING_FLAG = "iwebControllerMapping$";
@@ -418,7 +424,9 @@ QVector<MappingInfo> IControllerInterfaceHelper::getMethodMappingInfo(const QMap
 
     return infos;
 }
+*/
 
+/*
 QStringList IControllerInterfaceHelper::toNormalUrl(const QString& url, const QStringList& prefix)
 {
     QStringList ret = prefix;
@@ -437,29 +445,30 @@ QStringList IControllerInterfaceHelper::toNormalUrl(const QString& url, const QS
     }
     return ret;
 }
+*/
 
-QVector<IUrlActionNode> IControllerInterfaceHelper::createFunctionMappingLeaves(const IHttpControllerInfo& info, const MappingInfo& mapping)
-{
-    QVector<IUrlActionNode> ret;
+//QVector<IUrlActionNode> IControllerInterfaceHelper::createFunctionMappingLeaves(const IHttpControllerInfo& info, const MappingInfo& mapping)
+//{
+//    QVector<IUrlActionNode> ret;
 
-    IUrlActionNode node;
-    auto funName = mapping.funName;
-    node.httpMethod = mapping.method;
-    QStringList pieces;
-    for(const auto& method : info.classMethods){
-        if(method.name() == funName){
-            node.methodNode = IMethodNodeHelper::fromMetaMethod(info.handler, info.className, method);
-        }
-    }
-    for(const QString& arg : mapping.path){
-        if(arg.trimmed().isEmpty() || arg.trimmed() == "/"){
-            continue;
-        }
-        pieces.append(arg.trimmed());
-    }
-    node.url = pieces.join("/").prepend("/");
-    ret.append(node);
-    return ret;
-}
+//    IUrlActionNode node;
+//    auto funName = mapping.funName;
+//    node.httpMethod = mapping.method;
+//    QStringList pieces;
+//    for(const auto& method : info.classMethods){
+//        if(method.name() == funName){
+//            node.methodNode = IMethodNodeHelper::fromMetaMethod(info.handler, info.className, method);
+//        }
+//    }
+//    for(const QString& arg : mapping.path){
+//        if(arg.trimmed().isEmpty() || arg.trimmed() == "/"){
+//            continue;
+//        }
+//        pieces.append(arg.trimmed());
+//    }
+//    node.url = pieces.join("/").prepend("/");
+//    ret.append(node);
+//    return ret;
+//}
 
 $PackageWebCoreEnd

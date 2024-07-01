@@ -1,15 +1,18 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
+#include "core/base/IGadgetInfo.h"
 
 $PackageWebCoreBegin
 
-struct IHttpControllerInfo
+struct IHttpControllerInfo : public IGadgetInfo
 {
-    void* handler{};
-    QString className;
-    QMap<QString, QString> classInfo;
-    QVector<QMetaMethod> classMethods;
 };
+
+namespace IHttpControllerInfoHelper{
+
+IHttpControllerInfo construct(void *handler, const QString &className,
+                              const QMap<QString, QString> &classInfo, const QVector<QMetaMethod> &methods);
+}
 
 $PackageWebCoreEnd

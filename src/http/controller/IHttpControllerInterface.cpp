@@ -9,22 +9,13 @@ $PackageWebCoreBegin
 void IControllerInterfaceHelper::registerController(void *handler, const QString &className,
                                                    const QMap<QString, QString> &classInfo, const QVector<QMetaMethod> &methods)
 {
-    IHttpControllerInfo info;
-    info.handler = handler;
-    info.className = className;
-    info.classInfo = classInfo;
-    info.classMethods = methods;
+    auto info = IHttpControllerInfoHelper::construct(handler, className, classInfo, methods);
 
-    IControllerInterfaceHelper::checkUrlMappings(info);
-    auto functionNodes = IControllerInterfaceHelper::createMappingLeaves(info);
-    if(!functionNodes.empty()){
-        IHttpManage::instance()->registerUrlActionNodes(functionNodes);
-    }
-}
-
-void IControllerInterfaceHelper::registerError()
-{
-    IControllerAbort::abortregister_controller_do_not_use_singleton($ISourceLocation);
+//    IControllerInterfaceHelper::checkUrlMappings(info);
+//    auto functionNodes = info.createMappingLeaves(info);
+//    if(!functionNodes.empty()){
+//        IHttpManage::instance()->registerUrlActionNodes(functionNodes);
+//    }
 }
 
 $PackageWebCoreEnd

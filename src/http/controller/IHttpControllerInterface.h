@@ -26,7 +26,6 @@ namespace IControllerInterfaceHelper
 {
     void registerController(void* handler, const QString& className,
                             const QMap<QString, QString>& classMap, const QVector<QMetaMethod>& methods);
-    void registerError();
 }
 
 template<typename T, bool enabled>
@@ -44,10 +43,6 @@ QString IHttpControllerInterface<T, enabled>::catagory() const
 template<typename T, bool enabled>
 void IHttpControllerInterface<T, enabled>::task()
 {
-    if(this != T::instance()){
-        IControllerInterfaceHelper::registerError();
-    }
-
     auto className = IMetaUtil::getMetaClassName (T::staticMetaObject);
     auto classInfo = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
     auto classMethods = IMetaUtil::getMetaMethods(T::staticMetaObject);
