@@ -9,3 +9,9 @@
 #include "core/base/IStringView.h"
 #include <asio.hpp>
 
+$PackageWebCoreBegin
+
+template<typename T, typename ...Args>
+T construct(Args...);
+
+$PackageWebCoreEnd

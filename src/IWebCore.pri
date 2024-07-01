@@ -20,6 +20,7 @@ HEADERS += \
     $$PWD/core/application/IAsioApplication.h \
     $$PWD/core/application/IAsioManage.h \
     $$PWD/core/application/IQtApplication.h \
+    $$PWD/core/base/IGadgetInfo.h \
     $$PWD/core/base/IStringViewStash.h \
     $$PWD/core/util/ICodecUtil.h \
     $$PWD/core/util/IConstantUtil.h \
@@ -231,6 +232,7 @@ SOURCES += \
     $$PWD/core/application/IAsioApplication.cpp \
     $$PWD/core/application/IAsioManage.cpp \
     $$PWD/core/application/IQtApplication.cpp \
+    $$PWD/core/base/IGadgetInfo.cpp \
     $$PWD/core/base/IStringViewStash.cpp \
     $$PWD/core/util/ICodecUtil.cpp \
     $$PWD/core/util/IConvertUtil.cpp \
@@ -279,6 +281,7 @@ SOURCES += \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.cpp \
     $$PWD/http/controller/private/IHttpControllerBeanParameter.cpp \
+    $$PWD/http/controller/private/IHttpControllerInfo.cpp \
     $$PWD/http/controller/private/IHttpControllerParameter.cpp \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.cpp \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.cpp \
