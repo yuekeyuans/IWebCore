@@ -155,9 +155,25 @@ inline void IParamNodeDetail::checkContentPositionMustBeIStringView()
     }
 }
 
-IParamNode IParamNodeHelper::createParamNode(int paramTypeId, QString paramTypeName, QString paramName)
-{
-    return IParamNodeDetail(paramTypeId, paramTypeName, paramName);
+namespace ISpawnUtil {
+
+    template<>
+    IParamNode construct(int paramTypeId, const char* paramTypeName, const char* paramName)
+    {
+        return IParamNodeDetail(paramTypeId, paramTypeName, paramName);
+    }
+
+    template<>
+    IParamNode construct(int paramTypeId, QByteArray paramTypeName, QByteArray paramName)
+    {
+        return IParamNodeDetail(paramTypeId, paramTypeName, paramName);
+    }
+
+    template<>
+    IParamNode construct(int paramTypeId, QString paramTypeName, QString paramName)
+    {
+        return IParamNodeDetail(paramTypeId, paramTypeName, paramName);
+    }
 }
 
 $PackageWebCoreEnd

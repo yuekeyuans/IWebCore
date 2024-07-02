@@ -44,10 +44,12 @@ private:
 
 
 private:
-    QVector<MappingInfo> getMethodMappingInfo(const QMap<QString, QString> &clsInfo);
+    QVector<MappingInfo> getMethodMappingInfo();
     QVector<IUrlActionNode> createFunctionMappingLeaves(const MappingInfo& mapping);
     QVector<IUrlActionNode> createMappingLeaves();
 
+private:
+    QVector<MappingInfo> m_mappingInfos;
 };
 
 IHttpControllerInfo IHttpControllerInfoHelper::construct(void *handler, const QString &className, const QMap<QString, QString> &classInfo, const QVector<QMetaMethod> &methods)
@@ -62,6 +64,10 @@ inline IHttpControllerInfoDetail::IHttpControllerInfoDetail(void *handler_, cons
     this->className = className_;
     this->classInfo = classInfo_;
     this->classMethods = methods_;
+    checkUrlMappings();
+
+    m_mappingInfos = getMethodMappingInfo();
+//    createFunctionMappingLeaves()
 }
 
 inline void IHttpControllerInfoDetail::checkUrlMappings()
@@ -89,7 +95,7 @@ void IHttpControllerInfoDetail::checkMappingNameAndFunctionIsMatch()
     for(const auto& method : classMethods){
         methodNames.append(method.name());
     }
-    auto infos = getMethodMappingInfo(classInfo);
+    auto infos = getMethodMappingInfo();
     QStringList infoNames;
     for(const auto& info : infos){
         infoNames.append (info.funName);
@@ -104,7 +110,7 @@ void IHttpControllerInfoDetail::checkMappingNameAndFunctionIsMatch()
 
 void IHttpControllerInfoDetail::checkMappingUrlIsValid()
 {
-    auto infos = getMethodMappingInfo(classInfo);
+    auto infos = getMethodMappingInfo();
     for(const MappingInfo& info : infos){
         std::for_each(info.path.begin(), info.path.end(), [&](const QString& url){
             chekcUrlErrorCommon(url);
@@ -382,23 +388,23 @@ bool IHttpControllerInfoDetail::isSpecialTypes(const QString &typeName)
     return specialExternalTypes.contains(typeName);
 }
 
-QVector<MappingInfo> IHttpControllerInfoDetail::getMethodMappingInfo(const QMap<QString, QString> &clsInfo)
+QVector<MappingInfo> IHttpControllerInfoDetail::getMethodMappingInfo()
 {
     static const QString CONTROLLER_MAPPING_FLAG = "iwebControllerMapping$";
     QStringList rootPathArgs;
-    if(clsInfo.contains(CONTROLLER_MAPPING_FLAG)){
-        rootPathArgs =  clsInfo[CONTROLLER_MAPPING_FLAG].split("/");
+    if(classInfo.contains(CONTROLLER_MAPPING_FLAG)){
+        rootPathArgs =  classInfo[CONTROLLER_MAPPING_FLAG].split("/");
     }
 
     static const QString CONTROLLER_INFO_PREFIX = "iwebControllerFun$";
     QVector<MappingInfo> infos;
-    auto keys = clsInfo.keys();
+    auto keys = classInfo.keys();
     for(auto key : keys){
         if(key.startsWith(CONTROLLER_INFO_PREFIX)){
             QStringList args = key.split("$");
             MappingInfo info{
                 args[1],
-                toNormalUrl(clsInfo[key], rootPathArgs),
+                toNormalUrl(classInfo[key], rootPathArgs),
                 IHttpMethodUtil::toMethod(args[2]),
                 args[3].toInt()
             };
@@ -437,7 +443,7 @@ QVector<IUrlActionNode> IHttpControllerInfoDetail::createFunctionMappingLeaves(c
 QVector<IUrlActionNode> IHttpControllerInfoDetail::createMappingLeaves()
 {
     QVector<IUrlActionNode> ret;
-    auto args = getMethodMappingInfo(classInfo);
+    auto args = getMethodMappingInfo();
     for(const auto& arg : args){
         ret.append(createFunctionMappingLeaves(arg));
     }

@@ -33,6 +33,7 @@ HEADERS += \
     $$PWD/core/util/IMetaUtil.h \
     $$PWD/core/util/IPackageUtil.h \
     $$PWD/core/util/IPreProcessorUtil.h \
+    $$PWD/core/util/ISpawnUtil.h \
     $$PWD/core/util/ITicTacUtil.h \
     $$PWD/core/util/IToeUtil.h \
     $$PWD/core/util/ITraitUtil.h \
@@ -243,6 +244,7 @@ SOURCES += \
     $$PWD/core/util/IJsonUtil_tojson_impl.cpp \
     $$PWD/core/util/IMetaUtil.cpp \
     $$PWD/core/util/IPreProcessorUtil.cpp \
+    $$PWD/core/util/ISpawnUtil.cpp \
     $$PWD/core/util/ITicTacUtil.cpp \
     $$PWD/core/util/IToeUtil.cpp \
     $$PWD/core/util/IXmlUtil.cpp \

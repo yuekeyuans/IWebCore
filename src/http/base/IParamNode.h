@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
+#include "core/util/ISpawnUtil.h"
 
 $PackageWebCoreBegin
 
@@ -22,10 +23,5 @@ struct IParamNode
     bool optional{false};
     QVector<IHttpParameterRestrictInterface*> restricts;
 };
-
-namespace IParamNodeHelper
-{
-    IParamNode createParamNode(int paramTypeId, QString paramTypeName, QString paramName);
-}
 
 $PackageWebCoreEnd
