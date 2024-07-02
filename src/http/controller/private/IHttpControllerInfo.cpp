@@ -445,8 +445,10 @@ QVector<IUrlActionNode> IHttpControllerInfoDetail::createMappingLeaves()
     return ret;
 }
 
+
 namespace ISpawnUtil
 {
+    // this will  cause many copy action when const& missing, but I decide so because I dont care!
     template<>
     IHttpControllerInfo construct(void *handler, QString className, QMap<QString, QString> classInfo, QVector<QMetaMethod> methods)
     {

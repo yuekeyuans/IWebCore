@@ -32,15 +32,4 @@ public:
     QList<QMetaType::Type> paramTypeIds;
 };
 
-//namespace ISpawnUtil
-//{
-//    template<>
-//IMethodNode construct(void*, QString, QMetaMethod);
-//}
-
-//namespace  IMethodNodeHelper
-//{
-//    IMethodNode fromMetaMethod(void* handler, const QString& className, const QMetaMethod& method);
-//}
-
 $PackageWebCoreEnd
