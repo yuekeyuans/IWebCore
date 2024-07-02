@@ -9,11 +9,9 @@ IFunctionNode IFunctionNode::createFunctionNode(std::function<void(const IReques
     node.returnTypeId = QMetaType::Type::Void;
     node.funParamCount = 2;
 
-    IParamNode reqNode = ISpawnUtil::construct<IParamNode>(QMetaType::type("IRequest&"), "IRequest&", "request");
+    IParamNode reqNode = ISpawnUtil::construct<IParamNode, int, QString, QString>(QMetaType::type("IRequest&"), "IRequest&", "request");
     IParamNode resNode = ISpawnUtil::construct<IParamNode>(QMetaType::type("IResponse&"), "IResponse&", "response");
-//    IParamNode reqNode = IParamNodeHelper::createParamNode(QMetaType::type("IRequest&"), "IRequest&", "request");
     node.funParamNodes.append(reqNode);
-//    IParamNode resNode = IParamNodeHelper::createParamNode(QMetaType::type("IResponse&"), "IResponse&", "response");
     node.funParamNodes.append(resNode);
 
     return node;

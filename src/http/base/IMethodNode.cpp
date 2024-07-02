@@ -33,10 +33,7 @@ public:
     void resolveParamNode();
 };
 
-IMethodNode IMethodNodeHelper::fromMetaMethod(void *handler, const QString &className, const QMetaMethod &method)
-{
-    return IMethodNodeDetail(handler, className, method);
-}
+
 
 inline IMethodNodeDetail::IMethodNodeDetail(void *handler_, const QString &className_, const QMetaMethod &method_)
 {
@@ -125,5 +122,19 @@ inline void IMethodNodeDetail::resolveParamNode()
         paramNames.append(param.paramName);
     }
 }
+
+namespace ISpawnUtil
+{
+    template<>
+    IMethodNode construct(void *handler, QString className, QMetaMethod method)
+    {
+        return IMethodNodeDetail(handler, className, method);
+    }
+}
+
+//IMethodNode IMethodNodeHelper::fromMetaMethod(void *handler, const QString &className, const QMetaMethod &method)
+//{
+//    return IMethodNodeDetail(handler, className, method);
+//}
 
 $PackageWebCoreEnd

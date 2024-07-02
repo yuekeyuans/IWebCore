@@ -1,5 +1,6 @@
 ﻿#include "IHttpControllerInfo.h"
 #include "core/bean/IBeanTypeManage.h"
+#include "core/util/ISpawnUtil.h"
 #include "http/controller/IControllerAbort.h"
 #include "http/biscuits/IHttpMethod.h"
 #include "http/base/IUrlActionNode.h"
@@ -51,12 +52,6 @@ private:
 private:
     QVector<MappingInfo> m_mappingInfos;
 };
-
-IHttpControllerInfo IHttpControllerInfoHelper::construct(void *handler, const QString &className, const QMap<QString, QString> &classInfo, const QVector<QMetaMethod> &methods)
-{
-    IHttpControllerInfoDetail detail(handler, className, classInfo, methods);
-    return detail;
-}
 
 inline IHttpControllerInfoDetail::IHttpControllerInfoDetail(void *handler_, const QString &className_, const QMap<QString, QString> &classInfo_, const QVector<QMetaMethod> &methods_)
 {
@@ -426,7 +421,7 @@ QVector<IUrlActionNode> IHttpControllerInfoDetail::createFunctionMappingLeaves(c
     QStringList pieces;
     for(const auto& method : classMethods){
         if(method.name() == funName){
-            node.methodNode = IMethodNodeHelper::fromMetaMethod(this->handler, this->className, method);
+            node.methodNode = ISpawnUtil::construct<IMethodNode>(this->handler, this->className, method);
         }
     }
     for(const QString& arg : mapping.path){
@@ -450,5 +445,14 @@ QVector<IUrlActionNode> IHttpControllerInfoDetail::createMappingLeaves()
     return ret;
 }
 
+namespace ISpawnUtil
+{
+    template<>
+    IHttpControllerInfo construct(void *handler, QString className, QMap<QString, QString> classInfo, QVector<QMetaMethod> methods)
+    {
+        IHttpControllerInfoDetail detail(handler, className, classInfo, methods);
+        return detail;
+    }
+}
 
 $PackageWebCoreEnd
