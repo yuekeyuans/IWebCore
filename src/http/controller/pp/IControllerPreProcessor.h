@@ -3,11 +3,11 @@
 #include "core/util/IPreProcessorUtil.h"
 
 #define $AsController(path) \
-    Q_CLASSINFO(PP_STRING(iwebControllerMapping$), #path) \
+    Q_CLASSINFO(PP_STRING(IHttpControllerMapping$), #path) \
 private:
 
 #define PP_CONTROLLER_PROP(funName, type, index)    \
-    PP_STRING(iwebControllerFun ## $ ## funName ## $ ## type ## $ ## index)
+    PP_STRING(IHttpControllerFunMapping$ ## funName ## $ ## type ## $ ## index)
 
 
 #ifdef Q_MOC_RUN

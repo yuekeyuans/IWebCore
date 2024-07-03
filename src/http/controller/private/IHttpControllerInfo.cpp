@@ -387,7 +387,7 @@ bool IHttpControllerInfoDetail::isSpecialTypes(const QString &typeName)
 
 void IHttpControllerInfoDetail::parseRootPathArgs()
 {
-    static const QString CONTROLLER_MAPPING_FLAG = "iwebControllerMapping$";
+    static constexpr char CONTROLLER_MAPPING_FLAG[] = "IHttpControllerMapping$";
     QStringList rootPathArgs;
     if(classInfo.contains(CONTROLLER_MAPPING_FLAG)){
         rootPathArgs =  classInfo[CONTROLLER_MAPPING_FLAG].split("/");
@@ -396,7 +396,7 @@ void IHttpControllerInfoDetail::parseRootPathArgs()
 
 void IHttpControllerInfoDetail::parseMapppingInfos()
 {
-    static const QString CONTROLLER_INFO_PREFIX = "iwebControllerFun$";
+    static constexpr char CONTROLLER_INFO_PREFIX[] = "IHttpControllerFunMapping$";
     auto keys = classInfo.keys();
     for(auto key : keys){
         if(key.startsWith(CONTROLLER_INFO_PREFIX)){
