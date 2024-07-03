@@ -7,16 +7,16 @@
 
 $PackageWebCoreBegin
 
-struct MappingInfo
-{
-    QString funName;
-    QStringList path;
-    IHttpMethod method;
-    int index;
-};
 
 class IHttpControllerInfoDetail : public IHttpControllerInfo
 {
+    struct MappingInfo
+    {
+        QString funName;
+        QStringList path;
+        IHttpMethod method;
+        int index;
+    };
 public:
     IHttpControllerInfoDetail(void *handler, const QString &className,
                                                          const QMap<QString, QString> &classInfo, const QVector<QMetaMethod> &methods);
@@ -383,7 +383,7 @@ bool IHttpControllerInfoDetail::isSpecialTypes(const QString &typeName)
     return specialExternalTypes.contains(typeName);
 }
 
-QVector<MappingInfo> IHttpControllerInfoDetail::getMethodMappingInfo()
+QVector<IHttpControllerInfoDetail::MappingInfo> IHttpControllerInfoDetail::getMethodMappingInfo()
 {
     static const QString CONTROLLER_MAPPING_FLAG = "iwebControllerMapping$";
     QStringList rootPathArgs;
@@ -445,10 +445,8 @@ QVector<IUrlActionNode> IHttpControllerInfoDetail::createMappingLeaves()
     return ret;
 }
 
-
 namespace ISpawnUtil
 {
-    // this will  cause many copy action when const& missing, but I decide so because I dont care!
     template<>
     IHttpControllerInfo construct(void *handler, QString className, QMap<QString, QString> classInfo, QVector<QMetaMethod> methods)
     {
