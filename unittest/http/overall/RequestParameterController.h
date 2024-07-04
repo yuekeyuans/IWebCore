@@ -5,10 +5,10 @@
 class RequestParameterController : public IHttpControllerInterface<RequestParameterController>
 {
     Q_GADGET
+    $AsController(/hello/)
 public:
     RequestParameterController() = default;
 
     $GetMapping(fun1, fun1)
     QString fun1(IStringView $Body(data));
 };
-

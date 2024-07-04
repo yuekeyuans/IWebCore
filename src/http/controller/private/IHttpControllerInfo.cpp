@@ -66,7 +66,7 @@ inline IHttpControllerInfoDetail::IHttpControllerInfoDetail(void *handler_, cons
 
     checkUrlMappings();
 
-//    createFunctionMappingLeaves()
+    m_urlNodes = createMappingLeaves();
 }
 
 inline void IHttpControllerInfoDetail::checkUrlMappings()
