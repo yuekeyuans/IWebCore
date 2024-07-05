@@ -4,7 +4,7 @@
 #include "core/util/IHeaderUtil.h"
 #include "http/biscuits/IHttpStatus.h"
 
-$PackageWebCoreUsing
+
 
 namespace HttpRequestUtil
 {

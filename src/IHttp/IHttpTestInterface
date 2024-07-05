@@ -3,4 +3,4 @@
 #include "http/core/test/IHttpTestInterface.h"
 #include "ICurl.h"
 
-$PackageWebCoreUsing
+

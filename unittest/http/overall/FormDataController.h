@@ -2,8 +2,6 @@
 
 #include <IHttp/IHttpControllerInterface>
 
-using namespace IWebCore;
-
 class FormDataController : public IHttpControllerInterface<FormDataController, false>
 {
     Q_GADGET

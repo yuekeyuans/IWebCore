@@ -3,5 +3,3 @@
 #include "core/config/IProfileImport.h"
 #include "core/config/IProfileManage.h"
 #include "core/config/IProfileTaskInterface.h"
-
-$PackageWebCoreUsing

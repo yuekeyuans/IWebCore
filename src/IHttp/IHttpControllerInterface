@@ -11,5 +11,3 @@
 
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
-
-$PackageWebCoreUsing

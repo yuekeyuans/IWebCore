@@ -2,69 +2,69 @@
 
 #include "core/util/IPreProcessorUtil.h"
 
-// $PackageBegin
+// NOTE: this writing will be greatly improve in cpp20 latter
 #define $PackageBegin_1(name1) \
-namespace name1 {
+inline namespace name1 {
 
 #define $PackageBegin_2(name1, name2) \
-namespace name1 {   \
-    namespace name2 {
+inline namespace name1 {   \
+    inline namespace name2 {
 
 #define $PackageBegin_3(name1, name2, name3) \
-namespace name1 {   \
-    namespace name2 {   \
-        namespace name3
+inline namespace name1 {   \
+    inline namespace name2 {   \
+        inline namespace name3
 
 #define $PackageBegin_4(name1, name2, name3, name4) \
-namespace name1 {   \
-    namespace name2 {   \
-        namespace name3 \
-            namespace name4
+inline namespace name1 {   \
+    inline namespace name2 {   \
+        inline namespace name3 \
+            inline namespace name4
 
 #define $PackageBegin_5(name1, name2, name3, name4, name5) \
-namespace name1 {   \
-    namespace name2 {   \
-        namespace name3 \
-            namespace name4 \
-                namespace name5
+inline namespace name1 {   \
+    inline namespace name2 {   \
+        inline namespace name3 \
+            inline namespace name4 \
+                inline namespace name5
 
 #define $PackageBegin_6(name1, name2, name3, name4, name5, name6) \
-namespace name1 {   \
-    namespace name2 {   \
-        namespace name3 \
-            namespace name4 \
-                namespace name5 \
-                    namespace name6
+inline namespace name1 {   \
+    inline namespace name2 {   \
+        inline namespace name3 \
+            inline namespace name4 \
+                inline namespace name5 \
+                    inline namespace name6
 
 #define $PackageBegin_7(name1, name2, name3, name4, name5, name6, name7) \
-namespace name1 {   \
-    namespace name2 {   \
-        namespace name3 \
-            namespace name4 \
-                namespace name5 \
-                    namespace name6 \
-                        namespace name7
+inline namespace name1 {   \
+    inline namespace name2 {   \
+        inline namespace name3 \
+            inline namespace name4 \
+                inline namespace name5 \
+                    inline namespace name6 \
+                        inline namespace name7
 
 #define $PackageBegin_8(name1, name2, name3, name4, name5, name6, name7, name8) \
-namespace name1 {   \
-    namespace name2 {   \
-        namespace name3 \
-            namespace name4 \
-                namespace name5 \
-                    namespace name6 \
-                        namespace name7 \
-                            namespace name8
+inline namespace name1 {   \
+    inline namespace name2 {   \
+        inline namespace name3 \
+            inline namespace name4 \
+                inline namespace name5 \
+                    inline namespace name6 \
+                        inline namespace name7 \
+                            inline namespace name8
 
 #define $PackageBegin_9(name1, name2, name3, name4, name5, name6, name7, name8, name9) \
-namespace name1 {   \
-    namespace name2 {   \
-        namespace name3 \
-            namespace name4 \
-                namespace name5 \
-                    namespace name6 \
-                        namespace name7 \
-                            namespace name8 \
-                                namespace name9
+inline namespace name1 {   \
+    inline namespace name2 {   \
+        inline namespace name3 \
+            inline namespace name4 \
+                inline namespace name5 \
+                    inline namespace name6 \
+                        inline namespace name7 \
+                            inline namespace name8 \
+                                inline namespace name9
 
 #define $PackageBegin_(N) $PackageBegin_##N
 #define $PackageBegin_EVAL(N) $PackageBegin_(N)
@@ -140,7 +140,6 @@ namespace name1 {   \
 #define $PackageEnd(...) PP_EXPAND( $PackageEnd_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
 
 
-// $PackageUsing
 #define $PackageUsing_1(name1) \
     using namespace name1;
 
@@ -173,12 +172,9 @@ namespace name1 {   \
 #define $PackageUsing(...) PP_EXPAND( $PackageUsing_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__))
 
 #define $PackageWebCoreBegin \
-        $PackageBegin_1(IWebCore)
+    $PackageBegin(IWebCore)
 
 #define $PackageWebCoreEnd \
-        $PackageEnd_1(IWebCore)
-
-#define $PackageWebCoreUsing \
-        $PackageUsing_1(IWebCore)
+    $PackageEnd(IWebCore)
 
 #define $PackageWebCoreName "IWebCore"
