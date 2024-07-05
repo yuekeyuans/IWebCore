@@ -28,8 +28,8 @@ public:
 
 public:
     void assignBaseInfo();
-    void createFunctionExpression();
     void createFunctionParamNodes();
+    void createFunctionExpression();
     void resolveParamNode();
 };
 
@@ -108,13 +108,11 @@ inline void IMethodNodeDetail::createFunctionParamNodes()
             IMethodNodeAbort::abortcontroller_invalid_parameter_type(reason, $ISourceLocation);
         }
 
-        auto node = ISpawnUtil::construct<IParamNode>(id, types[i], names[i]);
-        paramNodes.append(node);
-//        paramNodes.append(IParamNodeHelper::createParamNode(id, types[i], names[i]));
+        paramNodes.append(ISpawnUtil::construct<IParamNode>(id, types[i], names[i]));
     }
 }
 
-inline void IMethodNodeDetail::resolveParamNode()
+void IMethodNodeDetail::resolveParamNode()
 {
     for(const IParamNode& param : paramNodes){
         paramTypeNames.append(param.paramTypeName);
@@ -131,10 +129,5 @@ namespace ISpawnUtil
         return IMethodNodeDetail(handler, className, method);
     }
 }
-
-//IMethodNode IMethodNodeHelper::fromMetaMethod(void *handler, const QString &className, const QMetaMethod &method)
-//{
-//    return IMethodNodeDetail(handler, className, method);
-//}
 
 $PackageWebCoreEnd

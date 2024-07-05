@@ -133,7 +133,7 @@ void IHttpControllerInfoDetail::checkMappingOverloadFunctions()
     QStringList names;
     for(const auto& method : classMethods){
         if(names.contains(method.name())){
-            IControllerAbort::abortOverloadOrDefaultValueFunctionNotSupported(QString("name: ").append(method.name()), $ISourceLocation);
+            IControllerAbort::abortOverloadOrDefaultValueFunctionNotSupported(QString("duplicated function name: ").append(method.name()), $ISourceLocation);
         }
         names.append(method.name());
     }
@@ -152,7 +152,7 @@ void IHttpControllerInfoDetail::checkMappingNameAndFunctionIsMatch()
 
     for(const auto& name : infoNames){
         if(!methodNames.contains(name)){
-            IControllerAbort::abortMappingMismatchFatal(QString("name: ").append(name), $ISourceLocation);
+            IControllerAbort::abortMappingMismatchFatal(QString("required function name: ").append(name), $ISourceLocation);
         }
     }
 }

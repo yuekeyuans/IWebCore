@@ -1,6 +1,6 @@
-﻿#include "RequestParameterController.h"
+﻿//#include "RequestParameterController.h"
 
-QString RequestParameterController::fun1(IStringView $Body(data))
-{
-    return data.toQString();
-}
+//QString RequestParameterController::fun1(IStringView $Body(data))
+//{
+//    return data.toQString();
+//}

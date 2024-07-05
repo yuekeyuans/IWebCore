@@ -58,12 +58,12 @@ private:
     QStringList m_paramQualifiers;
 };
 
-inline IParamNodeDetail::IParamNodeDetail(int paramTypeId, QString paramTypeName, QString name)
+inline IParamNodeDetail::IParamNodeDetail(int paramTypeId_, QString paramTypeName_, QString name_)
 {
-    paramTypeId = paramTypeId;
-    paramTypeName = paramTypeName;
-    paramNameRaw = name;
-    auto args = name.split("_$");
+    paramTypeId = paramTypeId_;
+    paramTypeName = paramTypeName_;
+    paramNameRaw = name_;
+    auto args = paramNameRaw.split("_$");
     paramName = args.first();
     paramNameView = IGlobalStringViewStash(paramName);
     args.pop_front();

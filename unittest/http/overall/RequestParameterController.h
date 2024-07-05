@@ -10,5 +10,7 @@ public:
     RequestParameterController() = default;
 
     $GetMapping(fun1, fun1)
-    QString fun1(IStringView $Body(data));
+    QString fun1(IStringView $Body(data)){
+        return QString("hello world");
+    }
 };
