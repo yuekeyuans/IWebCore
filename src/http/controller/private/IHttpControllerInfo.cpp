@@ -1,7 +1,7 @@
 ﻿#include "IHttpControllerInfo.h"
 #include "core/bean/IBeanTypeManage.h"
 #include "core/util/ISpawnUtil.h"
-#include "http/controller/IControllerAbort.h"
+#include "http/controller/IHttpControllerAbort.h"
 #include "http/biscuits/IHttpMethod.h"
 #include "http/base/IUrlActionNode.h"
 
@@ -74,7 +74,7 @@ QStringList IHttpControllerInfoDetail::MethodMappingInfo::toNormalUrl(const QStr
     for(auto arg : tempArgs){
         arg = arg.trimmed();
         if(arg == "." || arg == ".."){
-            IControllerAbort::abortUrlError($ISourceLocation);
+            IHttpControllerAbort::abortUrlError($ISourceLocation);
         }
         if(!arg.trimmed().isEmpty()){
             ret.append(arg);
@@ -133,7 +133,7 @@ void IHttpControllerInfoDetail::checkMappingOverloadFunctions()
     QStringList names;
     for(const auto& method : classMethods){
         if(names.contains(method.name())){
-            IControllerAbort::abortOverloadOrDefaultValueFunctionNotSupported(QString("duplicated function name: ").append(method.name()), $ISourceLocation);
+            IHttpControllerAbort::abortOverloadOrDefaultValueFunctionNotSupported(QString("duplicated function name: ").append(method.name()), $ISourceLocation);
         }
         names.append(method.name());
     }
@@ -152,7 +152,7 @@ void IHttpControllerInfoDetail::checkMappingNameAndFunctionIsMatch()
 
     for(const auto& name : infoNames){
         if(!methodNames.contains(name)){
-            IControllerAbort::abortMappingMismatchFatal(QString("required function name: ").append(name), $ISourceLocation);
+            IHttpControllerAbort::abortMappingMismatchFatal(QString("required function name: ").append(name), $ISourceLocation);
         }
     }
 }
@@ -182,15 +182,15 @@ void IHttpControllerInfoDetail::checkMappingUrlErrorCommon(const QString &url)
         }
 
         if(!urlPieceReg.match(piece).hasMatch()){
-            IControllerAbort::abortUrlInvalidCharacter(QString("url: ").append(url), $ISourceLocation);
+            IHttpControllerAbort::abortUrlInvalidCharacter(QString("url: ").append(url), $ISourceLocation);
         }
 
         if(piece == "." || piece == ".."){
-            IControllerAbort::abortUrlError(QString("url: ").append(url).append(" piece: ").append(piece), $ISourceLocation);
+            IHttpControllerAbort::abortUrlError(QString("url: ").append(url).append(" piece: ").append(piece), $ISourceLocation);
         }
 
         if(piece.contains(' ') || piece.contains('\t')){
-            IControllerAbort::abortUrlBlankCharacter(QString("url: ").append(url), $ISourceLocation);
+            IHttpControllerAbort::abortUrlBlankCharacter(QString("url: ").append(url), $ISourceLocation);
         }
     }
 }
@@ -337,12 +337,12 @@ void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IUrlActio
         if(typeId >= QMetaType::User){
             bool isSupportedType = isSpecialTypes(typeName) || isBeanType(typeName);
             if(!isSupportedType){
-                IControllerAbort::abortcontroller_check_param_Type_has_unsupported_user_defined_type( QString("At Function: ").append(node.methodNode.expression)
+                IHttpControllerAbort::abortcontroller_check_param_Type_has_unsupported_user_defined_type( QString("At Function: ").append(node.methodNode.expression)
                                                                                                       .append(" At Param: ").append(typeName), $ISourceLocation);
             }
         } else{
             if(!allowType.contains(typeId)){
-                IControllerAbort::abortcontroller_check_param_Type_has_unsupported_inner_type(QString("At Function: ").append(node.methodNode.expression)
+                IHttpControllerAbort::abortcontroller_check_param_Type_has_unsupported_inner_type(QString("At Function: ").append(node.methodNode.expression)
                                                                                               .append(" At Param: ").append(typeName), $ISourceLocation);
             }
         }
@@ -387,7 +387,7 @@ void IHttpControllerInfoDetail::checkMethodParamterWithSuffixProper(const IUrlAc
     if(node.httpMethod == IHttpMethod::GET){
         for(const auto& param : argNodes){
             if(param.paramName.endsWith("_body") || param.paramName.endsWith("_content")){
-                IControllerAbort::abortcontroller_method_get_but_want_body_content(QString("At Function: ").append(node.methodNode.expression).append(" Parameter: ").append(param.paramName), $ISourceLocation);
+                IHttpControllerAbort::abortcontroller_method_get_but_want_body_content(QString("At Function: ").append(node.methodNode.expression).append(" Parameter: ").append(param.paramName), $ISourceLocation);
             }
         }
     }

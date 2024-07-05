@@ -6,7 +6,7 @@
 #include "core/bean/IBeanWare.h"
 #include "core/abort/IGlobalAbort.h"
 #include "core/config/IContextImport.h"
-#include "http/controller/IControllerAbort.h"
+#include "http/controller/IHttpControllerAbort.h"
 #include "http/base/IMethodNode.h"
 #include "http/base/IParamNode.h"
 #include "http/net/IRequest.h"
@@ -294,7 +294,7 @@ QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(cons
                 request.setInvalid(IHttpBadRequestInvalid(QString(prop.name()).append(" format not correct")));
                 return map;
             }
-            IControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" format not correct"), $ISourceLocation);
+            IHttpControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" format not correct"), $ISourceLocation);
             continue;
         }
 
@@ -324,7 +324,7 @@ QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(cons
                 request.setInvalid(IHttpBadRequestInvalid(QString(prop.name()).append(" format not correct")));
                 return map;
             }
-            IControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" format not correct"), $ISourceLocation);
+            IHttpControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" format not correct"), $ISourceLocation);
             continue;
         }
 
@@ -363,7 +363,7 @@ QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(cons
                     request.setInvalid(IHttpBadRequestInvalid(QString(prop.name()).append(" format not correct")));
                     return map;
                 }
-                IControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" format not correct"), $ISourceLocation);
+                IHttpControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" format not correct"), $ISourceLocation);
                 continue;
             }
             map[name] = variant;
@@ -404,7 +404,7 @@ bool IHttpControllerBeanParameter::checkKeyInJsonAndBean(const QJsonObject &obj,
                 return false;
 
             }
-            IControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString("json do not contain pair :").append(prop.name()), $ISourceLocation);
+            IHttpControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString("json do not contain pair :").append(prop.name()), $ISourceLocation);
         }
     }
     return true;
@@ -432,7 +432,7 @@ bool IHttpControllerBeanParameter::checkKeyInMultiPart(const QVector<IMultiPart>
                 request.setInvalid(IHttpBadRequestInvalid(QString(prop.name()).append(" not found")));
                 return false;
             }
-            IControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" not found"), $ISourceLocation);
+            IHttpControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" not found"), $ISourceLocation);
             continue;
         }
     }
@@ -504,7 +504,7 @@ bool IHttpControllerBeanParameter::checkKeyInQStringMap(const QMap<QString, QStr
                 request.setInvalid(IHttpBadRequestInvalid(QString(prop.name()).append(" not found")));
                 return false;
             }
-            IControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" not found"), $ISourceLocation);
+            IHttpControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" not found"), $ISourceLocation);
             continue;
         }
     }

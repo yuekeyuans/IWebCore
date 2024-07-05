@@ -1,6 +1,6 @@
 ﻿#include "IHttpResourceMapping.h"
 #include "core/util/IFileUtil.h"
-#include "http/controller/IControllerAbort.h"
+#include "http/controller/IHttpControllerAbort.h"
 
 $PackageWebCoreBegin
 
@@ -115,7 +115,7 @@ bool IControllerResourceNodeHelper::mountFilePageToServer(QMap<QString, QString>
             hash[url] = filePath;
             return true;
         }
-        IControllerAbort::abortregister_the_same_url(QString("url: ").append(url).append(" path1: ").append(filePath).append(" path2: ").append(hash[url]), $ISourceLocation);
+        IHttpControllerAbort::abortregister_the_same_url(QString("url: ").append(url).append(" path1: ").append(filePath).append(" path2: ").append(hash[url]), $ISourceLocation);
     }
     return false;
 }

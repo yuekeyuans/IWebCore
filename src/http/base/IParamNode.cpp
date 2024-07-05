@@ -1,40 +1,12 @@
 ﻿#include "IParamNode.h"
-#include "core/abort/IAbortInterface.h"
 #include "http/base/IHttpParameterRestrictManage.h"
 #include "http/base/IHttpParameterRestrictInterface.h"
+#include "http/controller/IHttpControllerAbort.h"
 #include "http/controller/IHttpManage.h"
 
 $PackageWebCoreBegin
 
-class IParamNodeAbort : public IAbortInterface<IParamNodeAbort>
-{
-    $AsAbort(
-        ParamErrorOfUnknowType,
-        ParamNameEmpty,
-        ParamQualifersDuplicated,
-        ParamPositionDuplicated,
-        ParamNullableConflict,
-        ParamRestrictNotExist,
-        ParamPositionContentMustBeIStringViewType
-    )
-
-public:
-    virtual QMap<int, QString> abortDescription() const final{
-        return {
-            {ParamErrorOfUnknowType, "request parameter use an unknown or unregistered or unsupported type"},
-            {ParamNameEmpty, "request parameter name is empty"},
-            {ParamQualifersDuplicated, "request parameter qualifiers duplicated, please check the annomacro and remove the duplicated annomacro"},
-            {ParamPositionDuplicated, "request parameter position annomacro can only has at most one. please remove the extra position annomacro"},
-            {ParamNullableConflict, "request parameter optional annomacro can only be $NotNull or $Nullable, both two can not be occurred at the same time"},
-            {ParamRestrictNotExist, "request parameter has restriction annomacro that not registered in system, please check the annomacro"},
-            {ParamPositionContentMustBeIStringViewType, "request parameter with $Content annomacro must use IStringView as its type"}
-        };
-    }
-    virtual QString abortComment() final{
-        return "This abort only occurred at resolving controller parameter";
-    }
-};
-
+// TODO: 这里 Nullable/NotNull 替换为Optional, 具体的参数见文档
 struct IParamNodeDetail : public IParamNode
 {
 public:
@@ -87,21 +59,21 @@ inline IParamNodeDetail::IParamNodeDetail(int paramTypeId_, QString paramTypeNam
 inline void IParamNodeDetail::checkParamType()
 {
     if(paramTypeId == QMetaType::UnknownType){
-        IParamNodeAbort::abortParamErrorOfUnknowType();
+        IHttpControllerAbort::abortParamErrorOfUnknowType();
     }
 }
 
 inline void IParamNodeDetail::checkParamNameEmpty()
 {
     if(paramName.trimmed().isEmpty()){
-        IParamNodeAbort::abortParamNameEmpty();
+        IHttpControllerAbort::abortParamNameEmpty();
     }
 }
 
 inline void IParamNodeDetail::checkParamDuplicated()
 {
     if(m_paramQualifiers.length() != m_paramQualifiers.toSet().size()){
-        IParamNodeAbort::abortParamQualifersDuplicated();
+        IHttpControllerAbort::abortParamQualifersDuplicated();
     }
 }
 
@@ -111,7 +83,7 @@ inline void IParamNodeDetail::checkAndSetParamPosition()
     for(auto name : QualifierNames){
         if(m_paramQualifiers.contains(name)){
             if(exist){
-                IParamNodeAbort::abortParamPositionDuplicated();
+                IHttpControllerAbort::abortParamPositionDuplicated();
             }
             position = Position(QualifierNames.indexOf(name));
             m_paramQualifiers.removeOne(name);
@@ -130,7 +102,7 @@ inline void IParamNodeDetail::checkAndSetParamOptional()
     }
     if(m_paramQualifiers.contains(NotnullName)){
         if(exist){
-            IParamNodeAbort::abortParamNullableConflict();
+            IHttpControllerAbort::abortParamNullableConflict();
         }
         optional = false;
         m_paramQualifiers.removeAll(NotnullName);
@@ -142,7 +114,7 @@ inline void IParamNodeDetail::checkAndSetParamRestrictions()
     for(auto name : m_paramQualifiers){
         auto condition = IHttpParameterRestrictManage::instance()->getRestrict(name);
         if(condition == nullptr){
-            IParamNodeAbort::abortParamRestrictNotExist();
+            IHttpControllerAbort::abortParamRestrictNotExist();
         }
         restricts.append(condition);
     }
@@ -151,7 +123,7 @@ inline void IParamNodeDetail::checkAndSetParamRestrictions()
 inline void IParamNodeDetail::checkContentPositionMustBeIStringView()
 {
     if(position == Position::Content && paramTypeName != "IStringView"){
-        IParamNodeAbort::abortParamPositionContentMustBeIStringViewType();
+        IHttpControllerAbort::abortParamPositionContentMustBeIStringViewType();
     }
 }
 

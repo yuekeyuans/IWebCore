@@ -5,7 +5,7 @@
 
 $PackageWebCoreBegin
 
-class IControllerAbort : public IAbortInterface<IControllerAbort>
+class IHttpControllerAbort : public IAbortInterface<IHttpControllerAbort>
 {
     $AsAbort(
         OverloadOrDefaultValueFunctionNotSupported,
@@ -20,7 +20,14 @@ class IControllerAbort : public IAbortInterface<IControllerAbort>
         assamble_bean_when_bean_inner_parameter_not_found,
         static_file_dir_not_exist,
         register_the_same_url,
-        register_to_controllerManage_error
+        register_to_controllerManage_error,
+        ParamErrorOfUnknowType,
+        ParamNameEmpty,
+        ParamQualifersDuplicated,
+        ParamPositionDuplicated,
+        ParamNullableConflict,
+        ParamRestrictNotExist,
+        ParamPositionContentMustBeIStringViewType
     )
 
 protected:
@@ -39,6 +46,15 @@ protected:
             ,{static_file_dir_not_exist, "your registered default static file dir not exist, please check"}
             ,{register_the_same_url, "registration can`t match the leaf or the leaf already exist"}
             ,{register_to_controllerManage_error, "you can not register anything when server is on"}
+            ,{ParamErrorOfUnknowType, "request parameter use an unknown or unregistered or unsupported type"},
+            {ParamNameEmpty, "request parameter name is empty"},
+            {ParamQualifersDuplicated, "request parameter qualifiers duplicated, please check the annomacro and remove the duplicated annomacro"},
+            {ParamPositionDuplicated, "request parameter position annomacro can only has at most one. please remove the extra position annomacro"},
+            {ParamNullableConflict, "request parameter optional annomacro can only be $NotNull or $Nullable, both two can not be occurred at the same time"},
+            {ParamRestrictNotExist, "request parameter has restriction annomacro that not registered in system, please check the annomacro"},
+            {ParamPositionContentMustBeIStringViewType, "request parameter with $Content annomacro must use IStringView as its type"}
+
+
         };
     }
 };

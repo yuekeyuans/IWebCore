@@ -2,7 +2,7 @@
 
 #include "core/bean/IBeanTypeManage.h"
 #include "http/controller/private/IHttpControllerInfo.h"
-#include "http/controller/IControllerAbort.h"
+#include "http/controller/IHttpControllerAbort.h"
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
 

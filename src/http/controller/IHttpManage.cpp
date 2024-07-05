@@ -3,7 +3,7 @@
 #include "core/util/IMetaUtil.h"
 #include "core/config/IContextManage.h"
 #include "core/config/IProfileImport.h"
-#include "http/controller/IControllerAbort.h"
+#include "http/controller/IHttpControllerAbort.h"
 #include "http/net/IRequest.h"
 #include "http/net/impl/IRequestRaw.h"
 
@@ -43,7 +43,7 @@ void IHttpManage::registerStaticFiles(const QString &path, const QString &prefix
 
     QDir dir(path);
     if(!dir.exists()){
-        IControllerAbort::abortstatic_file_dir_not_exist(path, $ISourceLocation);
+        IHttpControllerAbort::abortstatic_file_dir_not_exist(path, $ISourceLocation);
     }
 
     $Bool enabledFileStaticMapping("http.fileService.staticMapping");
@@ -256,7 +256,7 @@ void IHttpManage::checkRegisterAvalible()
 {
     auto inst = instance();
     if(inst->m_isServerStarted){
-        IControllerAbort::abortregister_to_controllerManage_error($ISourceLocation);
+        IHttpControllerAbort::abortregister_to_controllerManage_error($ISourceLocation);
     }
 }
 
