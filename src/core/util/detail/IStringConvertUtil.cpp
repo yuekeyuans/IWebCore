@@ -8,6 +8,16 @@ namespace IConvertUtil2{
     IResult<bool> convertTo<bool>(const QString& value){
         return {value == "true", true};
     }
+    template<>
+    IResult<bool> convertTo<bool>(const char* value){
+        return convertTo<bool, QString>(value);
+    }
+    template<>
+    IResult<bool> convertTo<bool>(const QByteArray& data){
+        return convertTo<bool, QString>(data);
+    }
+
+    // 展开
 }
 
 $PackageWebCoreEnd
