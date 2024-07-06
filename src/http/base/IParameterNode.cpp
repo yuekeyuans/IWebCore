@@ -11,7 +11,7 @@ $PackageWebCoreBegin
 struct IParamNodeDetail : public IParameterNode
 {
 public:
-    IParamNodeDetail(int typeId, QString typeName, QString name);
+    IParamNodeDetail(int typeId, QString typeName, QString name, QString methodSignature);
 
 private:
     void checkParamType();
@@ -29,13 +29,15 @@ private:
     inline static const QString NullableName = "nullable";
     inline static const QString NotnullName = "notnull";
     QStringList m_paramQualifiers;
+    QString methodSignature;
 };
 
-inline IParamNodeDetail::IParamNodeDetail(int paramTypeId_, QString paramTypeName_, QString name_)
+inline IParamNodeDetail::IParamNodeDetail(int paramTypeId_, QString paramTypeName_, QString name_, QString methodSignature_)
 {
     typeId = paramTypeId_;
     typeName = paramTypeName_;
     nameRaw = name_;
+    methodSignature = methodSignature_;
     auto args = nameRaw.split("_$");
     name = args.first();
     args.pop_front();
@@ -130,21 +132,21 @@ inline void IParamNodeDetail::checkContentPositionMustBeIStringView()
 namespace ISpawnUtil {
 
     template<>
-    IParameterNode construct(int paramTypeId, const char* paramTypeName, const char* paramName)
+    IParameterNode construct(int paramTypeId, const char* paramTypeName, const char* paramName, QByteArray signature)
     {
-        return IParamNodeDetail(paramTypeId, paramTypeName, paramName);
+        return IParamNodeDetail(paramTypeId, paramTypeName, paramName, signature);
     }
 
     template<>
-    IParameterNode construct(int paramTypeId, QByteArray paramTypeName, QByteArray paramName)
+    IParameterNode construct(int paramTypeId, QByteArray paramTypeName, QByteArray paramName, QByteArray signature)
     {
-        return IParamNodeDetail(paramTypeId, paramTypeName, paramName);
+        return IParamNodeDetail(paramTypeId, paramTypeName, paramName, signature);
     }
 
     template<>
-    IParameterNode construct(int paramTypeId, QString paramTypeName, QString paramName)
+    IParameterNode construct(int paramTypeId, QString paramTypeName, QString paramName, QByteArray signature)
     {
-        return IParamNodeDetail(paramTypeId, paramTypeName, paramName);
+        return IParamNodeDetail(paramTypeId, paramTypeName, paramName, signature);
     }
 }
 

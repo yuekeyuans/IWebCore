@@ -89,7 +89,7 @@ inline void IMethodNodeDetail::createFunctionParamNodes()
             IMethodNodeAbort::abortcontroller_invalid_parameter_type(reason, $ISourceLocation);
         }
 
-        paramNodes.append(ISpawnUtil::construct<IParameterNode>(id, types[i], names[i]));
+        paramNodes.append(ISpawnUtil::construct<IParameterNode>(id, types[i], names[i], metaMethod.methodSignature()));
     }
 }
 

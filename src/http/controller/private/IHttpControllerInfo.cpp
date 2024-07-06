@@ -438,7 +438,7 @@ QVector<IHttpControllerActionNode> IHttpControllerInfoDetail::createFunctionMapp
     auto funName = mapping.funName;
     node.httpMethod = mapping.method;
     QStringList pieces;
-    for(const auto& method : classMethods){
+    for(const QMetaMethod& method : classMethods){
         if(method.name() == funName){
             node.methodNode = ISpawnUtil::construct<IMethodNode>(this->handler, this->className, method);
         }
