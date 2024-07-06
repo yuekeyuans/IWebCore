@@ -23,8 +23,8 @@ public:
     IAbortInterface() = default;
 
 protected:
-    void abort(int code, const QString& description, ISourceLocation location);
-    void abort(int code, ISourceLocation location);
+    void abort(int code, const char* data, const QString& description, ISourceLocation location);
+    void abort(int code, const char* data, ISourceLocation location);
     QString abortClass();
     virtual QMap<int, QString> abortDescription() const = 0;
     virtual QString abortComment() { return {}; }       // 这个是用于提供对于此类型注解的公共信息
@@ -34,17 +34,20 @@ private:
 };
 
 template<typename T>
-void IAbortInterface<T>::abort(int code, ISourceLocation location)
+void IAbortInterface<T>::abort(int code, const char* data, ISourceLocation location)
 {
-    return abort(code, {}, location);
+    return abort(code, data, {}, location);
 }
 
 template<typename T>
-void IAbortInterface<T>::abort(int code, const QString& description, ISourceLocation location)
+void IAbortInterface<T>::abort(int code, const char* data, const QString& description, ISourceLocation location)
 {
     checkAbortInfoLength();
     QStringList tips;
+    tips.append(QString("NAME: ").append(data));
+
     auto infos = abortDescription();
+
     if(infos.contains(code) && !infos[code].isEmpty()){
         tips.append("ABORT: " + infos[code]);
     }

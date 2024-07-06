@@ -68,7 +68,7 @@ void IMethodNodeDetail::createFunctionParamNodes()
     for(int i=0;i<metaMethod.parameterCount(); i++){
         auto id = metaMethod.parameterType(i);
         if(id == QMetaType::UnknownType){
-            auto reason = QString("parameter Type Not Defined in QMeta System. type: ").append(types[i])
+            auto reason = QString("unknown registered type: ").append(types[i])
                               .append(", Function: ").append(className).append("::").append(functionName);
             IMethodNodeAbort::abortcontroller_invalid_parameter_type(reason, $ISourceLocation);
         }
