@@ -11,7 +11,7 @@ $PackageWebCoreBegin
 struct IParamNodeDetail : public IParameterNode
 {
 public:
-    IParamNodeDetail(int typeId, QString typeName, QString name, QString methodSignature);
+    IParamNodeDetail(int typeId, QString typeName, QString name, QString m_methodSignature);
 
 private:
     void checkParamType();
@@ -21,6 +21,7 @@ private:
     void checkAndSetParamOptional();
     void checkAndSetParamRestrictions();
     void checkContentPositionMustBeIStringView();
+    void checkBareResponseOrConstResponseRef(); // IResponse or const IResponse& is not allowed
 
 private:
     inline static const QStringList QualifierNames = {
@@ -29,7 +30,7 @@ private:
     inline static const QString NullableName = "nullable";
     inline static const QString NotnullName = "notnull";
     QStringList m_paramQualifiers;
-    QString methodSignature;
+    QString m_methodSignature;
 };
 
 inline IParamNodeDetail::IParamNodeDetail(int paramTypeId_, QString paramTypeName_, QString name_, QString methodSignature_)
@@ -37,7 +38,7 @@ inline IParamNodeDetail::IParamNodeDetail(int paramTypeId_, QString paramTypeNam
     typeId = paramTypeId_;
     typeName = paramTypeName_;
     nameRaw = name_;
-    methodSignature = methodSignature_;
+    m_methodSignature = methodSignature_;
     auto args = nameRaw.split("_$");
     name = args.first();
     args.pop_front();
@@ -50,7 +51,8 @@ inline IParamNodeDetail::IParamNodeDetail(int paramTypeId_, QString paramTypeNam
         &IParamNodeDetail::checkParamDuplicated,
         &IParamNodeDetail::checkAndSetParamPosition,
         &IParamNodeDetail::checkAndSetParamOptional,
-        &IParamNodeDetail::checkContentPositionMustBeIStringView
+        &IParamNodeDetail::checkContentPositionMustBeIStringView,
+        &IParamNodeDetail::checkBareResponseOrConstResponseRef
     };
 
     for(auto check : checks){
@@ -126,6 +128,14 @@ inline void IParamNodeDetail::checkContentPositionMustBeIStringView()
 {
     if(position == Position::Content && typeName != "IStringView"){
         IHttpControllerAbort::abortParamPositionContentMustBeIStringViewType();
+    }
+}
+
+void IParamNodeDetail::checkBareResponseOrConstResponseRef()
+{
+    if(typeName == "IResponse"){
+        QString tip = "function at: " + m_methodSignature;
+        IHttpControllerAbort::abortParamBareResponseOrConstResponseRef(tip, $ISourceLocation);
     }
 }
 

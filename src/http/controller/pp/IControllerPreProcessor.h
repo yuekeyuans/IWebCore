@@ -12,8 +12,8 @@ private:
 
 #ifdef Q_MOC_RUN
     #define $Mixed(name)      name##_$mixed
-    #define $Param(name)      name##_$param
-    #define $Url(name)        name##_$url
+    #define $Query(name)      name##_$query
+    #define $Path(name)        name##_$path
     #define $Body(name)       name##_$body
     #define $Content(name)    name##_$content
     #define $Header(name)     name##_$header
@@ -24,8 +24,8 @@ private:
 
 #else
     #define $Mixed(name)      name
-    #define $Param(name)      name
-    #define $Url(name)        name
+    #define $Query(name)      name
+    #define $Path(name)       name
     #define $Body(name)       name
     #define $Content(name)    name
     #define $Header(name)     name

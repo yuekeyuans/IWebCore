@@ -6,11 +6,11 @@
  * 这个类仅仅测试函数请求参数是否能够设置成功,不要求能够执行,
  * 也就是能够编译,运行不报错就可以
  */
-class MethodParameterResolveTestController : public IHttpControllerInterface<MethodParameterResolveTestController>
+class RequestAndResponseParameterController : public IHttpControllerInterface<RequestAndResponseParameterController>
 {
     Q_GADGET
 public:
-    MethodParameterResolveTestController() = default;
+    RequestAndResponseParameterController() = default;
 
 //    $GetMapping(bareRequest)
 //    QString bareRequest(IRequest request){
@@ -36,10 +36,27 @@ public:
         return "hello world";
     }
 
-    $GetMapping(constResponse)
-    QString constResponse(const IResponse& request){
-        Q_UNUSED(request)
-        return "hello world";
+//    $GetMapping(bareResponse)
+//    QString bareResponse(IResponse request){
+//        Q_UNUSED(request)
+//        return "hello world";
+//    }
+
+//    $GetMapping(constResponse)
+//    QString constResponse(const IResponse& request){
+//        Q_UNUSED(request)
+//        return "hello world";
+//    }
+
+    $GetMapping(onlyResponse)
+    void onlyResponse(IResponse& response){
+        Q_UNUSED(response)
+    }
+
+    // decorators
+    $GetMapping(decoratorRequest)
+    QString decoratorRequest(IRequest& $Path(request)){
+        return {};
     }
 };
 

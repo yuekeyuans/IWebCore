@@ -27,7 +27,8 @@ class IHttpControllerAbort : public IAbortInterface<IHttpControllerAbort>
         ParamPositionDuplicated,
         ParamNullableConflict,
         ParamRestrictNotExist,
-        ParamPositionContentMustBeIStringViewType
+        ParamPositionContentMustBeIStringViewType,
+        ParamBareResponseOrConstResponseRef
     )
 
 protected:
@@ -53,8 +54,7 @@ protected:
             {ParamNullableConflict, "request parameter optional annomacro can only be $NotNull or $Nullable, both two can not be occurred at the same time"},
             {ParamRestrictNotExist, "request parameter has restriction annomacro that not registered in system, please check the annomacro"},
             {ParamPositionContentMustBeIStringViewType, "request parameter with $Content annomacro must use IStringView as its type"}
-
-
+            ,{ParamBareResponseOrConstResponseRef, "response argument can not be IResponse or const IResponse&, just IResponse& is valid"}
         };
     }
 };
