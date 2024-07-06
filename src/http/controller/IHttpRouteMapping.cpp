@@ -160,7 +160,7 @@ void IHttpRouteMapping::travelPrint(int space) const
             qDebug().noquote()<< QString().fill(' ', 4 * space)
                               << "    |::" + IHttpMethodUtil::toString(leaf->httpMethod)
                               << leaf->url
-                              << "\t==>" << leaf->methodNode.expression;
+                              << "\t==>" << leaf->methodNode.signature;
         }
     };
 

@@ -1,4 +1,5 @@
-﻿#include "IParamNode.h"
+﻿#include "IParameterNode.h"
+#include "core/util/ISpawnUtil.h"
 #include "http/base/IHttpParameterRestrictManage.h"
 #include "http/base/IHttpParameterRestrictInterface.h"
 #include "http/controller/IHttpControllerAbort.h"
@@ -7,10 +8,10 @@
 $PackageWebCoreBegin
 
 // TODO: 这里 Nullable/NotNull 替换为Optional, 具体的参数见文档
-struct IParamNodeDetail : public IParamNode
+struct IParamNodeDetail : public IParameterNode
 {
 public:
-    IParamNodeDetail(int paramTypeId, QString paramTypeName, QString paramName);
+    IParamNodeDetail(int typeId, QString typeName, QString name);
 
 private:
     void checkParamType();
@@ -32,12 +33,11 @@ private:
 
 inline IParamNodeDetail::IParamNodeDetail(int paramTypeId_, QString paramTypeName_, QString name_)
 {
-    paramTypeId = paramTypeId_;
-    paramTypeName = paramTypeName_;
-    paramNameRaw = name_;
-    auto args = paramNameRaw.split("_$");
-    paramName = args.first();
-    paramNameView = IGlobalStringViewStash(paramName);
+    typeId = paramTypeId_;
+    typeName = paramTypeName_;
+    nameRaw = name_;
+    auto args = nameRaw.split("_$");
+    name = args.first();
     args.pop_front();
     m_paramQualifiers = args;
 
@@ -58,14 +58,14 @@ inline IParamNodeDetail::IParamNodeDetail(int paramTypeId_, QString paramTypeNam
 
 inline void IParamNodeDetail::checkParamType()
 {
-    if(paramTypeId == QMetaType::UnknownType){
+    if(typeId == QMetaType::UnknownType){
         IHttpControllerAbort::abortParamErrorOfUnknowType();
     }
 }
 
 inline void IParamNodeDetail::checkParamNameEmpty()
 {
-    if(paramName.trimmed().isEmpty()){
+    if(name.trimmed().isEmpty()){
         IHttpControllerAbort::abortParamNameEmpty();
     }
 }
@@ -122,7 +122,7 @@ inline void IParamNodeDetail::checkAndSetParamRestrictions()
 
 inline void IParamNodeDetail::checkContentPositionMustBeIStringView()
 {
-    if(position == Position::Content && paramTypeName != "IStringView"){
+    if(position == Position::Content && typeName != "IStringView"){
         IHttpControllerAbort::abortParamPositionContentMustBeIStringViewType();
     }
 }
@@ -130,19 +130,19 @@ inline void IParamNodeDetail::checkContentPositionMustBeIStringView()
 namespace ISpawnUtil {
 
     template<>
-    IParamNode construct(int paramTypeId, const char* paramTypeName, const char* paramName)
+    IParameterNode construct(int paramTypeId, const char* paramTypeName, const char* paramName)
     {
         return IParamNodeDetail(paramTypeId, paramTypeName, paramName);
     }
 
     template<>
-    IParamNode construct(int paramTypeId, QByteArray paramTypeName, QByteArray paramName)
+    IParameterNode construct(int paramTypeId, QByteArray paramTypeName, QByteArray paramName)
     {
         return IParamNodeDetail(paramTypeId, paramTypeName, paramName);
     }
 
     template<>
-    IParamNode construct(int paramTypeId, QString paramTypeName, QString paramName)
+    IParameterNode construct(int paramTypeId, QString paramTypeName, QString paramName)
     {
         return IParamNodeDetail(paramTypeId, paramTypeName, paramName);
     }

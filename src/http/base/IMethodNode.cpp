@@ -1,6 +1,7 @@
 ﻿#include "IMethodNode.h"
 
 #include "core/util/IPackageUtil.h"
+#include "core/util/ISpawnUtil.h"
 #include "core/abort/IAbortInterface.h"
 #include "http/controller/private/IHttpControllerInfo.h"
 
@@ -47,35 +48,15 @@ inline IMethodNodeDetail::IMethodNodeDetail(void *handler_, const QString &class
     createFunctionExpression();
 }
 
-int IMethodNode::getParamCount() const
-{
-    return paramNodes.count();
-}
-
-const QStringList& IMethodNode::getParamNames() const
-{
-    return paramNames;
-}
-
-const QStringList& IMethodNode::getParamTypeNames() const
-{
-    return paramTypeNames;
-}
-
-const QList<QMetaType::Type>& IMethodNode::getParamTypeIds() const
-{
-    return paramTypeIds;
-}
-
 inline void IMethodNodeDetail::assignBaseInfo()
 {
-    funName = metaMethod.name();
+    functionName = metaMethod.name();
     returnTypeName = metaMethod.typeName();
     returnTypeId = QMetaType::Type(metaMethod.returnType());
 
     if(returnTypeId == QMetaType::UnknownType){ // return type
         auto reason = QString("return Type Not Defined in QMeta System. type: ").append(returnTypeName)
-                           .append(", Function: ").append(expression);
+                           .append(", Function: ").append(signature);
         IMethodNodeAbort::abortcontroller_invalid_parameter_type(reason, $ISourceLocation);
     }
 }
@@ -84,15 +65,15 @@ inline void IMethodNodeDetail::createFunctionExpression()
 {
     QString exp;
     exp.append(returnTypeName).append(' ');
-    exp.append(className).append("::").append(funName).append("(");
+    exp.append(className).append("::").append(functionName).append("(");
 
     QStringList args;
-    for(int i=0; i<paramNodes.length(); i++){
-        args.append(getParamTypeNames()[i] + " " + getParamNames()[i]);
+    for(const IParameterNode& node : paramNodes){
+        args.append(node.typeName + " " + node.name);
     }
 
     exp.append(args.join(", ")).append(")");
-    expression = exp;
+    signature = exp;
 }
 
 inline void IMethodNodeDetail::createFunctionParamNodes()
@@ -104,20 +85,20 @@ inline void IMethodNodeDetail::createFunctionParamNodes()
         auto id = metaMethod.parameterType(i);
         if(id == QMetaType::UnknownType){
             auto reason = QString("parameter Type Not Defined in QMeta System. type: ").append(types[i])
-                              .append(", Function: ").append(className).append("::").append(funName);
+                              .append(", Function: ").append(className).append("::").append(functionName);
             IMethodNodeAbort::abortcontroller_invalid_parameter_type(reason, $ISourceLocation);
         }
 
-        paramNodes.append(ISpawnUtil::construct<IParamNode>(id, types[i], names[i]));
+        paramNodes.append(ISpawnUtil::construct<IParameterNode>(id, types[i], names[i]));
     }
 }
 
 void IMethodNodeDetail::resolveParamNode()
 {
-    for(const IParamNode& param : paramNodes){
-        paramTypeNames.append(param.paramTypeName);
-        paramTypeIds.append(QMetaType::Type(param.paramTypeId));
-        paramNames.append(param.paramName);
+    for(const IParameterNode& param : paramNodes){
+        parameterTypeNames.append(param.typeName);
+        parameterTypeIds.append(QMetaType::Type(param.typeId));
+        parameterNames.append(param.name);
     }
 }
 

@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "core/util/IHeaderUtil.h"
-#include "IParamNode.h"
+#include "IParameterNode.h"
 
 $PackageWebCoreBegin
 
@@ -9,27 +9,21 @@ struct IHttpControllerInfo;
 struct IMethodNode
 {
 public:
-    int getParamCount() const;
-    const QStringList& getParamNames() const;
-    const QStringList& getParamTypeNames() const;
-    const QList<QMetaType::Type>& getParamTypeIds() const;
-
-public:
     void* handler{nullptr};
-    QString className;
     QMetaMethod metaMethod;
 
-    QString funName;
-    QString expression;
+    QString className;
+    QString functionName;
+    QString signature;
 
     QString returnTypeName;
     QMetaType::Type returnTypeId {QMetaType::UnknownType};
-    QVector<IParamNode> paramNodes;
 
-public:
-    QStringList paramNames;
-    QStringList paramTypeNames;
-    QList<QMetaType::Type> paramTypeIds;
+    int parameterCount;
+    QVector<IParameterNode> paramNodes;
+    QStringList parameterNames;
+    QStringList parameterTypeNames;
+    QList<QMetaType::Type> parameterTypeIds;
 };
 
 $PackageWebCoreEnd

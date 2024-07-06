@@ -8,18 +8,18 @@
 #include "core/config/IContextImport.h"
 #include "http/controller/IHttpControllerAbort.h"
 #include "http/base/IMethodNode.h"
-#include "http/base/IParamNode.h"
+#include "http/base/IParameterNode.h"
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
 
 $PackageWebCoreBegin
 
-void* IHttpControllerBeanParameter::getParamOfBean(const IParamNode &node, IRequest &request)
+void* IHttpControllerBeanParameter::getParamOfBean(const IParameterNode &node, IRequest &request)
 {
-    auto ptr = QMetaType::create(node.paramTypeId);
+    auto ptr = QMetaType::create(node.typeId);
     auto beanWare = static_cast<IBeanWare*>(ptr);
-    const auto& paramName = node.paramName;
+    const auto& paramName = node.name;
 
     // TODO: 这里没有区分 content 和 body 的区别。
 //    if((request.method() != IHttpMethod::GET)

@@ -98,6 +98,7 @@ HEADERS += \
     $$PWD/http/IHttpAnnomacro.h \
 #    $$PWD/http/IHttpAssert.h \
     $$PWD/http/IHttpControllerTaskCatagory.h \
+    $$PWD/http/base/IParameterNode.h \
     $$PWD/http/controller/IHttpControllerAbort.h \
     $$PWD/http/controller/IHttpControllerInterface.h \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.h \
@@ -201,7 +202,6 @@ HEADERS += \
     $$PWD/http/net/impl/IResponseImpl.h \
     $$PWD/http/base/IFunctionNode.h \
     $$PWD/http/base/IMethodNode.h \
-    $$PWD/http/base/IParamNode.h \
     $$PWD/http/response/IByteArrayResponse.h \
     $$PWD/http/response/IFileResponse.h \
     $$PWD/http/response/IHtmlResponse.h \
@@ -279,6 +279,7 @@ SOURCES += \
     $$PWD/core/unit/ISingletonUnit.cpp \
 #    $$PWD/http/IHttpAssert.cpp \
     $$PWD/http/IHttpControllerTaskCatagory.cpp \
+    $$PWD/http/base/IParameterNode.cpp \
     $$PWD/http/controller/IHttpControllerInterface.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.cpp \
@@ -371,7 +372,6 @@ SOURCES += \
     $$PWD/http/net/impl/IResponseImpl.cpp \
     $$PWD/http/base/IFunctionNode.cpp \
     $$PWD/http/base/IMethodNode.cpp \
-    $$PWD/http/base/IParamNode.cpp \
     $$PWD/http/response/IByteArrayResponse.cpp \
     $$PWD/http/response/IFileResponse.cpp \
     $$PWD/http/response/IHtmlResponse.cpp \

@@ -1,23 +1,21 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
-#include "core/util/ISpawnUtil.h"
 
 $PackageWebCoreBegin
 
 class IHttpParameterRestrictInterface;
 
-struct IParamNode
+struct IParameterNode
 {
     enum Position{
         Mixed, Param, Url, Header, Body, Content, Cookie, Session,
     };
 
-    int paramTypeId;
-    QString paramTypeName;
-    QString paramNameRaw;
-    QString paramName;
-    IStringView paramNameView;
+    int typeId;
+    QString typeName;
+    QString nameRaw;
+    QString name;
 
     Position position{Mixed};
     bool optional{false};

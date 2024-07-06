@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
-#include "IParamNode.h"
+#include "IParameterNode.h"
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
 
@@ -18,7 +18,7 @@ public:
 public:
     int returnTypeId {QMetaType::Void};
     int funParamCount{0};
-    QVector<IParamNode> funParamNodes;
+    QVector<IParameterNode> funParamNodes;
     std::function<void(IRequest&,  IResponse&)> function;
 };
 

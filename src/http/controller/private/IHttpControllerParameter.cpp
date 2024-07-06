@@ -10,7 +10,7 @@
 #include "http/net/IMultiPart.h"
 #include "http/base/IMethodNode.h"
 #include "http/base/IFunctionNode.h"
-#include "http/base/IParamNode.h"
+#include "http/base/IParameterNode.h"
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
 #include "http/net/impl/IRequestRaw.h"
@@ -31,7 +31,7 @@ using namespace IControllerParameterHelper;
 
 namespace IControllerFunctionBaseImplHelper
 {
-    void* convertParamToJson(const IParamNode &node, const QByteArray &content, bool& ok);
+    void* convertParamToJson(const IParameterNode &node, const QByteArray &content, bool& ok);
 }
 
 bool IHttpControllerParameter::createArguments(const IMethodNode& methodNode, ParamType& params, IRequest &request)
@@ -44,7 +44,7 @@ bool IHttpControllerParameter::createArguments(const IMethodNode& methodNode, Pa
     params[0] = inst->createReturnParam(methodNode.returnTypeId);
 
     bool ok;
-    for(int i=0; i<methodNode.getParamCount(); i++){
+    for(int i=0; i<methodNode.parameterCount; i++){
         params[i + 1] = inst->createArgParam(methodNode.paramNodes[i], request, ok);
         if(!ok){
             return false;
@@ -59,7 +59,7 @@ void IHttpControllerParameter::destroyArguments(const IMethodNode& node, void **
     auto inst = instance();
     inst->destroyReturnParam(params[0], node.returnTypeId);
 
-    for(int i=0; i<node.getParamCount(); i++){
+    for(int i=0; i<node.parameterCount; i++){
         inst->destroyArgParam(node.paramNodes[i], params[i+1]);
     }
 }
@@ -112,7 +112,7 @@ void *IHttpControllerParameter::createReturnParam(int paramTypeId)
     return QMetaType::create(paramTypeId);
 }
 
-void *IHttpControllerParameter::createArgParam(const IParamNode& node, IRequest &request, bool& ok)
+void *IHttpControllerParameter::createArgParam(const IParameterNode& node, IRequest &request, bool& ok)
 {
     static QVector<CreateParamFunType> funs = {
         &IHttpControllerParameter::getParamOfSystem,
@@ -127,7 +127,7 @@ void *IHttpControllerParameter::createArgParam(const IParamNode& node, IRequest 
     ok = true;
     static int length = m_judgeTypes.length();
     for(int i=0; i<length; i++){
-        if(m_judgeTypes[i].contains(node.paramTypeId)){
+        if(m_judgeTypes[i].contains(node.typeId)){
             return std::mem_fn(funs[i])(this, node, request, ok);
         }
     }
@@ -141,7 +141,7 @@ void IHttpControllerParameter::destroyReturnParam(void *obj, int paramTypeId)
     QMetaType::destroy(paramTypeId, obj);
 }
 
-void IHttpControllerParameter::destroyArgParam(const IParamNode& node, void *obj)
+void IHttpControllerParameter::destroyArgParam(const IParameterNode& node, void *obj)
 {
     static QVector<ReleaseParamFunType> funs = {
         &IHttpControllerParameter::releaseParamOfSystem,
@@ -159,7 +159,7 @@ void IHttpControllerParameter::destroyArgParam(const IParamNode& node, void *obj
 
     static int length = m_judgeTypes.length();
     for(int i=0; i<length; i++){
-        if(m_judgeTypes[i].contains(node.paramTypeId)){
+        if(m_judgeTypes[i].contains(node.typeId)){
             auto val = std::mem_fn(funs[i])(this, node, obj);
             if(val == false){
                 qFatal(GiveColorSeeSee.toUtf8());
@@ -171,10 +171,10 @@ void IHttpControllerParameter::destroyArgParam(const IParamNode& node, void *obj
 }
 
 // "IRequest", "IResponse", "ICookieJar", "IMultiPartJar", "IHeaderJar", "ISessionJar"
-void *IHttpControllerParameter::getParamOfSystem(const IParamNode& node, IRequest &request, bool& ok)
+void *IHttpControllerParameter::getParamOfSystem(const IParameterNode& node, IRequest &request, bool& ok)
 {
     Q_UNUSED(ok)
-    auto index = m_systemTypes.indexOf(node.paramTypeId);
+    auto index = m_systemTypes.indexOf(node.typeId);
 
     switch (index / 3) {
     case 0:
@@ -195,7 +195,7 @@ void *IHttpControllerParameter::getParamOfSystem(const IParamNode& node, IReques
     return nullptr;
 }
 
-void *IHttpControllerParameter::getParamOfMultipart(const IParamNode& node, IRequest &request, bool& ok)
+void *IHttpControllerParameter::getParamOfMultipart(const IParameterNode& node, IRequest &request, bool& ok)
 {
     // FIXME:
 //    auto& parts = request.getRaw()->m_requestMultiParts;
@@ -210,7 +210,7 @@ void *IHttpControllerParameter::getParamOfMultipart(const IParamNode& node, IReq
     return nullptr;
 }
 
-void *IHttpControllerParameter::getParamOfCookiePart(const IParamNode &node, IRequest &request, bool& ok)
+void *IHttpControllerParameter::getParamOfCookiePart(const IParameterNode &node, IRequest &request, bool& ok)
 {
     // FIXME:
     //    QStringList values = request.getRaw()->m_requestCookieParameters.values(node.paramName);
@@ -228,13 +228,13 @@ void *IHttpControllerParameter::getParamOfCookiePart(const IParamNode &node, IRe
     return nullptr;
 }
 
-void *IHttpControllerParameter::getParamOfBean(const IParamNode& node, IRequest &request, bool& ok)
+void *IHttpControllerParameter::getParamOfBean(const IParameterNode& node, IRequest &request, bool& ok)
 {
     Q_UNUSED(ok)
     return IHttpControllerBeanParameter::getParamOfBean(node, request);
 }
 
-void *IHttpControllerParameter::getParamOfJsonType(const IParamNode& node, IRequest &request, bool& ok)
+void *IHttpControllerParameter::getParamOfJsonType(const IParameterNode& node, IRequest &request, bool& ok)
 {
     // FIXME:
     return nullptr;
@@ -253,7 +253,7 @@ void *IHttpControllerParameter::getParamOfJsonType(const IParamNode& node, IRequ
 //    return ptr;
 }
 
-void *IHttpControllerParameter::getParamOfPrimitiveType(const IParamNode &node, IRequest &request, bool& ok)
+void *IHttpControllerParameter::getParamOfPrimitiveType(const IParameterNode &node, IRequest &request, bool& ok)
 {    
     // FIXME:
     return nullptr;
@@ -320,7 +320,7 @@ void *IHttpControllerParameter::getParamOfPrimitiveType(const IParamNode &node, 
     */
 }
 
-void *IHttpControllerParameter::getParamOfStringType(const IParamNode &node, IRequest &request, bool& ok)
+void *IHttpControllerParameter::getParamOfStringType(const IParameterNode &node, IRequest &request, bool& ok)
 {
     // FIXME:
 
@@ -339,21 +339,21 @@ void *IHttpControllerParameter::getParamOfStringType(const IParamNode &node, IRe
     return nullptr;
 }
 
-bool IHttpControllerParameter::releaseParamOfSystem(const IParamNode& node, void *obj)
+bool IHttpControllerParameter::releaseParamOfSystem(const IParameterNode& node, void *obj)
 {
     Q_UNUSED(node)
     Q_UNUSED(obj)
     return true;
 }
 
-bool IHttpControllerParameter::releaseParamOfMultipart(const IParamNode& node, void *obj)
+bool IHttpControllerParameter::releaseParamOfMultipart(const IParameterNode& node, void *obj)
 {
     Q_UNUSED(node)
     Q_UNUSED(obj)
     return true;
 }
 
-bool IHttpControllerParameter::releaseParamOfCookiePart(const IParamNode &node, void *obj)
+bool IHttpControllerParameter::releaseParamOfCookiePart(const IParameterNode &node, void *obj)
 {
     Q_UNUSED(node)
     if(obj != nullptr){
@@ -363,19 +363,19 @@ bool IHttpControllerParameter::releaseParamOfCookiePart(const IParamNode &node, 
     return true;
 }
 
-bool IHttpControllerParameter::releaseParamOfBean(const IParamNode& node, void *obj)
+bool IHttpControllerParameter::releaseParamOfBean(const IParameterNode& node, void *obj)
 {
     if(obj != nullptr){
-        QMetaType::destroy(node.paramTypeId, obj);
+        QMetaType::destroy(node.typeId, obj);
     }
     return true;
 }
 
-bool IHttpControllerParameter::releaseParamOfJsonType(const IParamNode& node, void *obj)
+bool IHttpControllerParameter::releaseParamOfJsonType(const IParameterNode& node, void *obj)
 {
     Q_UNUSED(obj)
     if(obj != nullptr){
-        auto id = node.paramTypeId;
+        auto id = node.typeId;
         if(id != QMetaType::QJsonValue){
             QMetaType::destroy(id, obj);
         }
@@ -383,18 +383,18 @@ bool IHttpControllerParameter::releaseParamOfJsonType(const IParamNode& node, vo
     return true;
 }
 
-bool IHttpControllerParameter::releaseParamOfPrimitiveType(const IParamNode &node, void *obj)
+bool IHttpControllerParameter::releaseParamOfPrimitiveType(const IParameterNode &node, void *obj)
 {
     if(obj != nullptr){
-        QMetaType::destroy(node.paramTypeId, obj);
+        QMetaType::destroy(node.typeId, obj);
     }
     return true;
 }
 
-bool IHttpControllerParameter::releaseParamOfStringType(const IParamNode &node, void *obj)
+bool IHttpControllerParameter::releaseParamOfStringType(const IParameterNode &node, void *obj)
 {
     if(obj != nullptr){
-        QMetaType::destroy(node.paramTypeId, obj);
+        QMetaType::destroy(node.typeId, obj);
     }
     return true;
 }
@@ -513,11 +513,11 @@ void IHttpControllerParameter::initBeanTypes(){
     });
 }
 
-void* IControllerFunctionBaseImplHelper::convertParamToJson(const IParamNode &node, const QByteArray &content, bool& ok)
+void* IControllerFunctionBaseImplHelper::convertParamToJson(const IParameterNode &node, const QByteArray &content, bool& ok)
 {
     IToeUtil::setOk(ok, true);
-    auto param = QMetaType::create(node.paramTypeId);
-    switch (node.paramTypeId) {
+    auto param = QMetaType::create(node.typeId);
+    switch (node.typeId) {
     case QMetaType::QJsonArray:
         *static_cast<QJsonArray*>(param) = IConvertUtil::toJsonArray(content, ok);
         break;

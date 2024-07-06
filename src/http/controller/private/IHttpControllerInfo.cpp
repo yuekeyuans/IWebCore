@@ -287,7 +287,7 @@ void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IHttpContro
     auto type = node.methodNode.returnTypeName;
     auto id = node.methodNode.returnTypeId;
     if(id == QMetaType::UnknownType){
-        auto errorInfo = info + "the error take place in Function : " + node.methodNode.funName;
+        auto errorInfo = info + "the error take place in Function : " + node.methodNode.functionName;
         qFatal(errorInfo.toUtf8());
     }
 
@@ -299,7 +299,7 @@ void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IHttpContro
         return;
     }
 
-    auto errorInfo = info + "the error take place in Function : " + node.methodNode.funName;
+    auto errorInfo = info + "the error take place in Function : " + node.methodNode.functionName;
     qFatal(errorInfo.toUtf8());
 }
 
@@ -327,9 +327,9 @@ void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IHttpCont
         QMetaType::QJsonValue,
     };
 
-    const auto& typeNames = node.methodNode.getParamTypeNames();
-    const auto& typeIds = node.methodNode.getParamTypeIds();
-    const auto& count = node.methodNode.getParamCount();
+    const auto& typeNames = node.methodNode.parameterTypeNames;
+    const auto& typeIds = node.methodNode.parameterTypeIds;
+    const auto& count = node.methodNode.parameterCount;
     for(int i=0; i<count; i++) {
         QString typeName = typeNames[i];
         auto typeId = typeIds[i];
@@ -337,12 +337,12 @@ void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IHttpCont
         if(typeId >= QMetaType::User){
             bool isSupportedType = isSpecialTypes(typeName) || isBeanType(typeName);
             if(!isSupportedType){
-                IHttpControllerAbort::abortcontroller_check_param_Type_has_unsupported_user_defined_type( QString("At Function: ").append(node.methodNode.expression)
+                IHttpControllerAbort::abortcontroller_check_param_Type_has_unsupported_user_defined_type( QString("At Function: ").append(node.methodNode.signature)
                                                                                                       .append(" At Param: ").append(typeName), $ISourceLocation);
             }
         } else{
             if(!allowType.contains(typeId)){
-                IHttpControllerAbort::abortcontroller_check_param_Type_has_unsupported_inner_type(QString("At Function: ").append(node.methodNode.expression)
+                IHttpControllerAbort::abortcontroller_check_param_Type_has_unsupported_inner_type(QString("At Function: ").append(node.methodNode.signature)
                                                                                               .append(" At Param: ").append(typeName), $ISourceLocation);
             }
         }
@@ -355,25 +355,24 @@ void IHttpControllerInfoDetail::checkMethodOfReturnVoid(const IHttpControllerAct
         return;
     }
 
-    auto typeNames = node.methodNode.getParamTypeNames();
+    const auto& typeNames = node.methodNode.parameterTypeNames;
     if(!typeNames.contains("IResponse") && !typeNames.contains("IResponse&")){
         QString info = "mapping function that return void should include IResponse in side function parameters\n"
-                    "at Function : " + node.methodNode.funName;
+                    "at Function : " + node.methodNode.functionName;
         qFatal(info.toUtf8());
     }
 }
 
 void IHttpControllerInfoDetail::checkMethodBodyContentArgs(const IHttpControllerActionNode &node)
 {
-    const auto& typeNames = node.methodNode.getParamTypeNames();
-
+    const auto& typeNames = node.methodNode.parameterTypeNames;
     auto index = typeNames.indexOf("QJsonValue&");
     if(index != -1){
-        const auto& paramNames = node.methodNode.getParamNames();
+        const auto& paramNames = node.methodNode.parameterNames;
         auto name = paramNames[index];
         if(!name.endsWith("_content")){
             QString info = "QJsonValue& can`t be used except in $Body expression\n"
-                           "at Function : " + node.methodNode.funName;
+                           "at Function : " + node.methodNode.functionName;
             qFatal(info.toUtf8());
         }
     }
@@ -385,9 +384,9 @@ void IHttpControllerInfoDetail::checkMethodParamterWithSuffixProper(const IHttpC
 
     // get 中不能调用 body 的参数。
     if(node.httpMethod == IHttpMethod::GET){
-        for(const auto& param : argNodes){
-            if(param.paramName.endsWith("_body") || param.paramName.endsWith("_content")){
-                IHttpControllerAbort::abortcontroller_method_get_but_want_body_content(QString("At Function: ").append(node.methodNode.expression).append(" Parameter: ").append(param.paramName), $ISourceLocation);
+        for(const IParameterNode& param : argNodes){
+            if(param.name.endsWith("_body") || param.name.endsWith("_content")){
+                IHttpControllerAbort::abortcontroller_method_get_but_want_body_content(QString("At Function: ").append(node.methodNode.signature).append(" Parameter: ").append(param.name), $ISourceLocation);
             }
         }
     }
