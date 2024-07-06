@@ -101,6 +101,7 @@ HEADERS += \
     $$PWD/http/controller/IHttpControllerAbort.h \
     $$PWD/http/controller/IHttpControllerInterface.h \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.h \
+    $$PWD/http/controller/private/IHttpControllerActionNode.h \
     $$PWD/http/controller/private/IHttpControllerBeanParameter.h \
     $$PWD/http/controller/private/IHttpControllerInfo.h \
     $$PWD/http/controller/private/IHttpControllerParameter.h \
@@ -201,7 +202,6 @@ HEADERS += \
     $$PWD/http/base/IFunctionNode.h \
     $$PWD/http/base/IMethodNode.h \
     $$PWD/http/base/IParamNode.h \
-    $$PWD/http/base/IUrlActionNode.h \
     $$PWD/http/response/IByteArrayResponse.h \
     $$PWD/http/response/IFileResponse.h \
     $$PWD/http/response/IHtmlResponse.h \

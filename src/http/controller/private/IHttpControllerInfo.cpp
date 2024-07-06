@@ -3,7 +3,7 @@
 #include "core/util/ISpawnUtil.h"
 #include "http/controller/IHttpControllerAbort.h"
 #include "http/biscuits/IHttpMethod.h"
-#include "http/base/IUrlActionNode.h"
+#include "http/controller/private/IHttpControllerActionNode.h"
 
 $PackageWebCoreBegin
 
@@ -36,11 +36,11 @@ private:
 
 private:
     void checkMethod();
-    void chechMethodSupportedReturnType(const IUrlActionNode& node);
-    void checkMethodSupportedParamArgType(const IUrlActionNode& node);
-    void checkMethodOfReturnVoid(const IUrlActionNode& node);
-    void checkMethodBodyContentArgs(const IUrlActionNode& node);
-    void checkMethodParamterWithSuffixProper(const IUrlActionNode& node);
+    void chechMethodSupportedReturnType(const IHttpControllerActionNode& node);
+    void checkMethodSupportedParamArgType(const IHttpControllerActionNode& node);
+    void checkMethodOfReturnVoid(const IHttpControllerActionNode& node);
+    void checkMethodBodyContentArgs(const IHttpControllerActionNode& node);
+    void checkMethodParamterWithSuffixProper(const IHttpControllerActionNode& node);
 
 private:
     bool isBeanType(const QString&);
@@ -48,7 +48,7 @@ private:
 
 private:
     QStringList parseRootPathArgs();
-    QVector<IUrlActionNode> createFunctionMappingLeaves(const MethodMappingInfo& mapping);
+    QVector<IHttpControllerActionNode> createFunctionMappingLeaves(const MethodMappingInfo& mapping);
 
 private:
     QVector<MethodMappingInfo> m_mappingInfos;
@@ -252,7 +252,7 @@ void IHttpControllerInfoDetail::CheckMappingUrlErrorWildCard(const QString& url)
 
 void IHttpControllerInfoDetail::checkMethod()
 {
-    using CheckFunType = void (IHttpControllerInfoDetail::*)(const IUrlActionNode&);
+    using CheckFunType = void (IHttpControllerInfoDetail::*)(const IHttpControllerActionNode&);
     QList<CheckFunType> funs {
         &IHttpControllerInfoDetail::chechMethodSupportedReturnType,
         &IHttpControllerInfoDetail::checkMethodSupportedParamArgType,
@@ -268,7 +268,7 @@ void IHttpControllerInfoDetail::checkMethod()
     }
 }
 
-void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IUrlActionNode &node)
+void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IHttpControllerActionNode &node)
 {
     const static QString info = "this kind of return type not supported, please change the return type! valid types are :\n\t"
                    "[void, int, QString, QJsonArray, QJsonObject, QJsonValue, QByteArray, QStringList, IxxxxResponse]\n\t";
@@ -303,7 +303,7 @@ void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IUrlActionN
     qFatal(errorInfo.toUtf8());
 }
 
-void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IUrlActionNode &node)
+void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IHttpControllerActionNode &node)
 {
     static const QString info = "the argument type is not valid, please use the correct type\n";
     static const QVector<QMetaType::Type> allowType = {
@@ -349,7 +349,7 @@ void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IUrlActio
     }
 }
 
-void IHttpControllerInfoDetail::checkMethodOfReturnVoid(const IUrlActionNode &node)
+void IHttpControllerInfoDetail::checkMethodOfReturnVoid(const IHttpControllerActionNode &node)
 {
     if(node.methodNode.returnTypeId != QMetaType::Void){
         return;
@@ -363,7 +363,7 @@ void IHttpControllerInfoDetail::checkMethodOfReturnVoid(const IUrlActionNode &no
     }
 }
 
-void IHttpControllerInfoDetail::checkMethodBodyContentArgs(const IUrlActionNode &node)
+void IHttpControllerInfoDetail::checkMethodBodyContentArgs(const IHttpControllerActionNode &node)
 {
     const auto& typeNames = node.methodNode.getParamTypeNames();
 
@@ -379,7 +379,7 @@ void IHttpControllerInfoDetail::checkMethodBodyContentArgs(const IUrlActionNode 
     }
 }
 
-void IHttpControllerInfoDetail::checkMethodParamterWithSuffixProper(const IUrlActionNode &node)
+void IHttpControllerInfoDetail::checkMethodParamterWithSuffixProper(const IHttpControllerActionNode &node)
 {
     const auto& argNodes = node.methodNode.paramNodes;
 
@@ -431,11 +431,11 @@ QStringList IHttpControllerInfoDetail::parseRootPathArgs()
     return ret;
 }
 
-QVector<IUrlActionNode> IHttpControllerInfoDetail::createFunctionMappingLeaves(const MethodMappingInfo &mapping)
+QVector<IHttpControllerActionNode> IHttpControllerInfoDetail::createFunctionMappingLeaves(const MethodMappingInfo &mapping)
 {
-    QVector<IUrlActionNode> ret;
+    QVector<IHttpControllerActionNode> ret;
 
-    IUrlActionNode node;
+    IHttpControllerActionNode node;
     auto funName = mapping.funName;
     node.httpMethod = mapping.method;
     QStringList pieces;

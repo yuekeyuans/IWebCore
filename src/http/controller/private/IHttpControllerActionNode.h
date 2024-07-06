@@ -7,7 +7,7 @@
 
 $PackageWebCoreBegin
 
-struct IUrlActionNode{
+struct IHttpControllerActionNode{
 
 public:
     enum Type{

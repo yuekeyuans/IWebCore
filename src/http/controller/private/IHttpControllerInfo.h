@@ -2,13 +2,13 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "core/base/IGadgetInfo.h"
-#include "http/base/IUrlActionNode.h"
+#include "http/controller/private/IHttpControllerActionNode.h"
 
 $PackageWebCoreBegin
 
 struct IHttpControllerInfo : public IGadgetInfo
 {
-    QVector<IUrlActionNode> m_urlNodes;
+    QVector<IHttpControllerActionNode> m_urlNodes;
 };
 
 $PackageWebCoreEnd

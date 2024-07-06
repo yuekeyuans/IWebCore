@@ -4,13 +4,13 @@
 
 $PackageWebCoreBegin
 
-struct IUrlActionNode;
+struct IHttpControllerActionNode;
 
 class IHttpRouteMapping
 {
 private:
     using ValidateFun = std::function<bool(const QString&)>;
-    using IUrlActionNodePtr = IUrlActionNode*;
+    using IUrlActionNodePtr = IHttpControllerActionNode*;
 
 public:
     enum NodeType{
@@ -25,8 +25,8 @@ public:
     explicit IHttpRouteMapping(IHttpRouteMapping* parent, const QString& fragment);
 
     bool isEmpty() const;
-    IUrlActionNode* setLeaf(const IUrlActionNode& leaf);
-    IUrlActionNode* getLeaf(IHttpMethod method);
+    IHttpControllerActionNode* setLeaf(const IHttpControllerActionNode& leaf);
+    IHttpControllerActionNode* getLeaf(IHttpMethod method);
     void removeLeaf(IHttpMethod method);
 
     void addChildNode(const IHttpRouteMapping& node);
@@ -61,11 +61,11 @@ public:
 
     QList<IHttpRouteMapping> children;
 
-    IUrlActionNode *getMethodLeaf{nullptr};
-    IUrlActionNode *putMethodLeaf{nullptr};
-    IUrlActionNode *postMethodLeaf{nullptr};
-    IUrlActionNode *deleteMethodLeaf{nullptr};
-    IUrlActionNode *patchMethodLeaf{nullptr};
+    IHttpControllerActionNode *getMethodLeaf{nullptr};
+    IHttpControllerActionNode *putMethodLeaf{nullptr};
+    IHttpControllerActionNode *postMethodLeaf{nullptr};
+    IHttpControllerActionNode *deleteMethodLeaf{nullptr};
+    IHttpControllerActionNode *patchMethodLeaf{nullptr};
     IHttpRouteMapping* parentNode{nullptr};
 };
 
