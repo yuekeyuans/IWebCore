@@ -2,4 +2,3 @@
 
 #include "http/server/IHttpServer.h"
 
-$PackageWebCoreUsing

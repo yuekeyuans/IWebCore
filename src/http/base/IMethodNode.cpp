@@ -7,8 +7,6 @@
 
 $PackageWebCoreBegin
 
-static const QString& nmspace = $PackageWebCoreName;
-
 class IMethodNodeAbort : public IAbortInterface<IMethodNodeAbort>
 {
     $AsAbort(
