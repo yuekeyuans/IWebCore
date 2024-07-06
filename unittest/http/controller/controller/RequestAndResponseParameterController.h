@@ -54,7 +54,7 @@ public:
     }
 
     // decorators
-    $GetMapping(decoratorRequest)
+//    $GetMapping(decoratorRequest)
     QString decoratorRequest(IRequest& $Path(request)){
         return {};
     }
