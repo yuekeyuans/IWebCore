@@ -30,11 +30,9 @@ public:
 public:
     void assignBaseInfo();
     void createFunctionParamNodes();
-    void createFunctionExpression();
     void resolveParamNode();
+    void createFunctionExpression();
 };
-
-
 
 inline IMethodNodeDetail::IMethodNodeDetail(void *handler_, const QString &className_, const QMetaMethod &method_)
 {
@@ -48,9 +46,10 @@ inline IMethodNodeDetail::IMethodNodeDetail(void *handler_, const QString &class
     createFunctionExpression();
 }
 
-inline void IMethodNodeDetail::assignBaseInfo()
+void IMethodNodeDetail::assignBaseInfo()
 {
     functionName = metaMethod.name();
+    parameterCount = metaMethod.parameterCount();
     returnTypeName = metaMethod.typeName();
     returnTypeId = QMetaType::Type(metaMethod.returnType());
 
@@ -61,22 +60,7 @@ inline void IMethodNodeDetail::assignBaseInfo()
     }
 }
 
-inline void IMethodNodeDetail::createFunctionExpression()
-{
-    QString exp;
-    exp.append(returnTypeName).append(' ');
-    exp.append(className).append("::").append(functionName).append("(");
-
-    QStringList args;
-    for(const IParameterNode& node : paramNodes){
-        args.append(node.typeName + " " + node.name);
-    }
-
-    exp.append(args.join(", ")).append(")");
-    signature = exp;
-}
-
-inline void IMethodNodeDetail::createFunctionParamNodes()
+void IMethodNodeDetail::createFunctionParamNodes()
 {
     auto names = metaMethod.parameterNames();
     auto types = metaMethod.parameterTypes();
@@ -100,6 +84,21 @@ void IMethodNodeDetail::resolveParamNode()
         parameterTypeIds.append(QMetaType::Type(param.typeId));
         parameterNames.append(param.name);
     }
+}
+
+void IMethodNodeDetail::createFunctionExpression()
+{
+    QString exp;
+    exp.append(returnTypeName).append(' ');
+    exp.append(className).append("::").append(functionName).append("(");
+
+    QStringList args;
+    for(const IParameterNode& node : paramNodes){
+        args.append(node.typeName + " " + node.name);
+    }
+
+    exp.append(args.join(", ")).append(")");
+    signature = exp;
 }
 
 namespace ISpawnUtil

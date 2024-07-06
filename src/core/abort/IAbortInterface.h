@@ -45,10 +45,8 @@ void IAbortInterface<T>::abort(int code, const QString& description, ISourceLoca
     checkAbortInfoLength();
     QStringList tips;
     auto infos = abortDescription();
-    if(infos.contains(code)){
+    if(infos.contains(code) && !infos[code].isEmpty()){
         tips.append("ABORT: " + infos[code]);
-    }else{
-        qFatal("this should not exist!!!");
     }
     tips.append("ABORT CLASS: " + abortClass());
     if(!abortComment().isEmpty()){
