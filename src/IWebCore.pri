@@ -25,6 +25,7 @@ HEADERS += \
     $$PWD/core/util/ICodecUtil.h \
     $$PWD/core/util/IConstantUtil.h \
     $$PWD/core/util/IConvertUtil.h \
+    $$PWD/core/util/IConvertUtil2.h \
     $$PWD/core/util/IFileUtil.h \
     $$PWD/core/util/IHeaderUtil.h \
     $$PWD/core/util/IJsonUtil.h \
@@ -278,6 +279,7 @@ SOURCES += \
     $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
     $$PWD/core/unit/ISingletonUnit.cpp \
 #    $$PWD/http/IHttpAssert.cpp \
+    $$PWD/core/util/detail/IStringConvertUtil.cpp \
     $$PWD/http/IHttpControllerTaskCatagory.cpp \
     $$PWD/http/base/IParameterNode.cpp \
     $$PWD/http/controller/IHttpControllerInterface.cpp \
