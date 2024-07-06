@@ -28,7 +28,8 @@ class IHttpControllerAbort : public IAbortInterface<IHttpControllerAbort>
         ParamNullableConflict,
         ParamRestrictNotExist,
         ParamPositionContentMustBeIStringViewType,
-        ParamBareResponseOrConstResponseRef
+        ParamBareResponseOrConstResponseRef,
+        ParamBuiltInTypeCanNotBeDecorated
     )
 
 protected:
@@ -55,6 +56,7 @@ protected:
             {ParamRestrictNotExist, "request parameter has restriction annomacro that not registered in system, please check the annomacro"},
             {ParamPositionContentMustBeIStringViewType, "request parameter with $Content annomacro must use IStringView as its type"}
             ,{ParamBareResponseOrConstResponseRef, "response argument can not be IResponse or const IResponse&, just IResponse& is valid"}
+            ,{ParamBuiltInTypeCanNotBeDecorated, "IRequest, IResponse can not be decorated with $Path and any other decorators"}
         };
     }
 };

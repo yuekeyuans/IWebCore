@@ -9,7 +9,7 @@ class IHttpParameterRestrictInterface;
 struct IParameterNode
 {
     enum Position{
-        Mixed, Param, Url, Header, Body, Content, Cookie, Session,
+        Auto, Param, Url, Header, Body, Content, Cookie, Session,
     };
 
     int typeId;
@@ -17,7 +17,7 @@ struct IParameterNode
     QString nameRaw;
     QString name;
 
-    Position position{Mixed};
+    Position position{Auto};
     bool optional{false};
     QVector<IHttpParameterRestrictInterface*> restricts;
 };

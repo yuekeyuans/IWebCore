@@ -22,10 +22,11 @@ private:
     void checkAndSetParamRestrictions();
     void checkContentPositionMustBeIStringView();
     void checkBareResponseOrConstResponseRef(); // IResponse or const IResponse& is not allowed
+    void checkResponseAndRequestWithoutDecorators();    // IRequest and Response can not be decorated
 
 private:
     inline static const QStringList QualifierNames = {
-        "mixed", "param", "url", "header", "body", "content",  "cookie", "session"
+        "auto", "query", "path", "header", "body", "content",  "cookie", "session"
     };
     inline static const QString NullableName = "nullable";
     inline static const QString NotnullName = "notnull";
@@ -52,7 +53,8 @@ inline IParamNodeDetail::IParamNodeDetail(int paramTypeId_, QString paramTypeNam
         &IParamNodeDetail::checkAndSetParamPosition,
         &IParamNodeDetail::checkAndSetParamOptional,
         &IParamNodeDetail::checkContentPositionMustBeIStringView,
-        &IParamNodeDetail::checkBareResponseOrConstResponseRef
+        &IParamNodeDetail::checkBareResponseOrConstResponseRef,
+        &IParamNodeDetail::checkResponseAndRequestWithoutDecorators,
     };
 
     for(auto check : checks){
@@ -136,6 +138,16 @@ void IParamNodeDetail::checkBareResponseOrConstResponseRef()
     if(typeName == "IResponse"){
         QString tip = "function at: " + m_methodSignature;
         IHttpControllerAbort::abortParamBareResponseOrConstResponseRef(tip, $ISourceLocation);
+    }
+}
+
+void IParamNodeDetail::checkResponseAndRequestWithoutDecorators()
+{
+    if(typeName.startsWith("IRequest") || typeName.startsWith("IResponse")){
+        if(position != Position::Auto || !restricts.isEmpty()){
+            QString tip = "function at: " + m_methodSignature;
+            IHttpControllerAbort::abortParamBuiltInTypeCanNotBeDecorated(tip, $ISourceLocation);
+        }
     }
 }
 
