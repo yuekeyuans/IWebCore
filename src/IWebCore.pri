@@ -96,6 +96,7 @@ HEADERS += \
     $$PWD/core/unit/IRegisterMetaTypeUnit.h \
     $$PWD/core/unit/ISingletonUnit.h \
     $$PWD/core/unit/IStackObjectUnit.h \
+    $$PWD/core/util/detail/IStringNumberConvert.h \
     $$PWD/http/IHttpAnnomacro.h \
 #    $$PWD/http/IHttpAssert.h \
     $$PWD/http/IHttpControllerTaskCatagory.h \

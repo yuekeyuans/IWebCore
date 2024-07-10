@@ -15,9 +15,20 @@ namespace IConvertUtil2{
     std::enable_if_t<std::is_arithmetic_v<Arg>, IResult<Ret>>
     convertTo(Arg);
 
+    template<typename Ret, typename Arg>
+    std::enable_if_t<std::is_arithmetic_v<Arg>, IResult<Ret>>
+    convertTo(Arg);
+
+//    template<typename Ret>
+//    IResult<Ret> convertTo(bool);
+
     template<typename Ret>
     IResult<Ret> convertTo(const char*);
 
+    template<typename Ret>
+    IResult<Ret> convertTo(IStringView);
 }
 
 $PackageWebCoreEnd
+
+#include "core/util/detail/IStringNumberConvert.h"
