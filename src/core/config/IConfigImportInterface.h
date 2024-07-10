@@ -93,7 +93,7 @@ T &IConfigImportInterface<T>::get() const
             if(value.isOk()){
                 auto realValue = IJsonUtil::fromJson<T>(value);
                 if(realValue.isOk()){
-                    m_data = realValue;
+                    m_data = realValue.m_value;
                     m_isFound = true;
                 }
             }

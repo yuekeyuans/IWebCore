@@ -5,32 +5,25 @@
 template<typename T>
 struct IResult
 {
-    IResult(T value, bool ok);
-    operator T&();
-    T& value();
-    bool isOk();
+    IResult(T value, bool ok) : m_value(std::move(value)), m_ok(ok){ }
+    operator const T&(){ return m_value; }
+    explicit operator bool() {return m_ok;}
+    const T& value() const{ return m_value; }
+    bool isOk() const{ return m_ok; }
 
 public:
     T m_value;
     bool m_ok;
 };
 
-template<typename T>
-inline IResult<T>::IResult(T value, bool ok) :m_value(std::forward<T>(value)), m_ok(ok)
+template<>
+struct IResult<bool>
 {
-}
-
-template<typename T>
-inline IResult<T>::operator T&() {
-    return m_value;
-}
-
-template<typename T>
-inline T & IResult<T>::value() {
-    return m_value;
-}
-
-template<typename T>
-inline bool IResult<T>::isOk() {    // 这个强制手动判断
-    return m_ok;
-}
+    IResult(bool value, bool ok) : m_value(std::move(value)), m_ok(ok) { }
+//    operator T&();
+    const bool& value() const { return m_value;}
+    bool isOk() const {return m_ok; }
+public:
+    bool m_value;
+    bool m_ok;
+};

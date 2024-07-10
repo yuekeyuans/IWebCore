@@ -96,7 +96,6 @@ HEADERS += \
     $$PWD/core/unit/IRegisterMetaTypeUnit.h \
     $$PWD/core/unit/ISingletonUnit.h \
     $$PWD/core/unit/IStackObjectUnit.h \
-    $$PWD/core/util/detail/IStringNumberConvert.h \
     $$PWD/http/IHttpAnnomacro.h \
 #    $$PWD/http/IHttpAssert.h \
     $$PWD/http/IHttpControllerTaskCatagory.h \
@@ -280,7 +279,7 @@ SOURCES += \
     $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
     $$PWD/core/unit/ISingletonUnit.cpp \
 #    $$PWD/http/IHttpAssert.cpp \
-    $$PWD/core/util/detail/IStringConvertUtil.cpp \
+    $$PWD/core/util/detail/IConvertUtilBaseTypeDetail.cpp \
     $$PWD/http/IHttpControllerTaskCatagory.cpp \
     $$PWD/http/base/IParameterNode.cpp \
     $$PWD/http/controller/IHttpControllerInterface.cpp \
