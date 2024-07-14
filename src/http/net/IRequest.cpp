@@ -297,7 +297,10 @@ IResult<QVariant> IRequest::getAttribute(const QString &name) const
 {
     bool ok;
     auto value = getAttribute(name, ok);
-    return {value, ok};
+    if(ok){
+        return value;
+    }
+    return std::nullopt;
 }
 
 bool IRequest::isValid() const

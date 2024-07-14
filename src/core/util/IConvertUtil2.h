@@ -3,6 +3,7 @@
 #include "core/util/IHeaderUtil.h"
 #include "core/base/IResult.h"
 #include "core/base/IStringView.h"
+#include "core/util/ITraitUtil.h"
 
 $PackageWebCoreBegin
 

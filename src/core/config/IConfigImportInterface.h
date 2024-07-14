@@ -90,10 +90,10 @@ T &IConfigImportInterface<T>::get() const
     if(!m_isFound){
         if(!m_isLoaded){
             auto value  = getConfigManage()->getConfig(m_path);
-            if(value.isOk()){
-                auto realValue = IJsonUtil::fromJson<T>(value);
-                if(realValue.isOk()){
-                    m_data = realValue.m_value;
+            if(value){
+                auto realValue = IJsonUtil::fromJson<T>(*value);
+                if(realValue){
+                    m_data = *std::move(realValue);
                     m_isFound = true;
                 }
             }

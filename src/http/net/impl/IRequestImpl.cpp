@@ -638,10 +638,10 @@ void IRequestImpl::parseUrlEncodedData(IStringView view, bool isBody)
 void IRequestImpl::parseJsonData(IStringView data)
 {
     auto val = IJsonUtil::toJsonValue(data);
-    if(!val.isOk()){
+    if(!val){
         m_request->setInvalid(IHttpBadRequestInvalid("parse json failed"));
     }else{
-        m_raw->m_requestJson = std::move(val.m_value);
+        m_raw->m_requestJson = *std::move(val);
     }
 }
 

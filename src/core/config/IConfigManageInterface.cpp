@@ -151,7 +151,10 @@ IResult<QJsonValue> IConfigManageInterface::getConfig(const QString &path)
 {
     bool ok;
     auto value = getConfig(path, ok);
-    return {value, ok};
+    if(ok){
+        return value;
+    }
+    return std::nullopt;
 }
 
 bool IConfigManageInterface::getConfigAsBool(const QString &path, bool& ok)
@@ -169,7 +172,10 @@ IResult<bool> IConfigManageInterface::getConfigAsBool(const QString &path)
 {
     bool ok;
     auto value = getConfigAsBool(path, ok);
-    return {value, ok};
+    if(ok){
+        return value;
+    }
+    return std::nullopt;
 }
 
 int IConfigManageInterface::getConfigAsInt(const QString &path, bool& ok)
@@ -187,7 +193,10 @@ IResult<int> IConfigManageInterface::getConfigAsInt(const QString &path)
 {
     bool ok;
     auto value = getConfigAsInt(path, ok);
-    return {value, ok};
+    if(ok){
+        return value;
+    }
+    return std::nullopt;
 }
 
 double IConfigManageInterface::getConfigAsDouble(const QString &path, bool& ok)
@@ -205,7 +214,10 @@ IResult<double> IConfigManageInterface::getConfigAsDouble(const QString &path)
 {
     bool ok;
     auto value = getConfigAsDouble(path, ok);
-    return {value, ok};
+    if(ok){
+        return value;
+    }
+    return std::nullopt;
 }
 
 // NOTE: 这个是对的，在具体的判断过程中，不应该把 Object array 等对象判断成为 String,
@@ -249,7 +261,10 @@ IResult<QString> IConfigManageInterface::getConfigAsString(const QString &path)
 {
     bool ok;
     auto value = getConfigAsString(path, ok);
-    return {value, ok};
+    if(ok){
+        return value;
+    }
+    return std::nullopt;
 }
 
 $PackageWebCoreEnd

@@ -123,7 +123,7 @@ QByteArray IResponseContent::getAsBytes()
         if(IConstantUtil::DebugMode){
             IFileUtil::assertWhenFileInvalid(contentString);
         }
-        return IFileUtil::readFileAsByteArray(contentString);
+        return *IFileUtil::readFileAsByteArray(contentString);  // TODO:
     case Type::Invalid:
         IResponseContentAbort::abortresponse_invalid_type_error($ISourceLocation);
     }

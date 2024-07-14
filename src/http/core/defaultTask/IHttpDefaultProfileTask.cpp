@@ -14,8 +14,14 @@ double IHttpDefaultProfileTask::order() const
 QJsonValue IHttpDefaultProfileTask::config()
 {
     auto content = IFileUtil::readFileAsString(":/resource/defaultWebConfig.json");
-    IResult<QJsonObject> json = IConvertUtil::toJsonObject(content);
-    return json.value();
+    if(!content){
+        return {};
+    }
+    IResult<QJsonObject> json = IConvertUtil::toJsonObject(*content);
+    if(!json){
+        return {};
+    }
+    return *std::move(json);
 }
 
 $PackageWebCoreEnd

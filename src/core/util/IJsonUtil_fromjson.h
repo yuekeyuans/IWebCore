@@ -76,7 +76,12 @@ template<>
 inline IResult<bool> IJsonUtil::fromJson<bool>(const QJsonValue& value){
     bool ok;
     auto val = IConvertUtil::toBool(value, ok);
-    return {val, ok};
+//    return {val, ok};
+    if(ok){
+        return val;
+    }else{
+        return std::nullopt;
+    }
 }
 
 template<>
@@ -88,7 +93,11 @@ template<>
 inline IResult<ushort> IJsonUtil::fromJson<ushort>(const QJsonValue& value){
     bool ok;
     auto val = IConvertUtil::toUShort(value, ok);
-    return {val, ok};
+    if(ok){
+        return val;
+    }else{
+        return std::nullopt;
+    }
 }
 
 template<>
@@ -100,7 +109,11 @@ template<>
 inline IResult<short> IJsonUtil::fromJson<short>(const QJsonValue& value){
     bool ok;
     auto val = IConvertUtil::toShort(value, ok);
-    return {val, ok};
+    if(ok){
+        return val;
+    }else{
+        return std::nullopt;
+    }
 }
 
 template<>
@@ -112,7 +125,11 @@ template<>
 inline IResult<int> IJsonUtil::fromJson<int>(const QJsonValue& value){
     bool ok;
     auto val = IConvertUtil::toInt(value, ok);
-    return {val, ok};
+    if(ok){
+        return val;
+    }else{
+        return std::nullopt;
+    }
 }
 
 template<>
@@ -124,7 +141,11 @@ template<>
 inline IResult<uint> IJsonUtil::fromJson<uint>(const QJsonValue& value){
     bool ok;
     auto val = IConvertUtil::toUInt(value, ok);
-    return {val, ok};
+    if(ok){
+        return val;
+    }else{
+        return std::nullopt;
+    }
 }
 
 template<>
@@ -136,7 +157,11 @@ template<>
 inline IResult<QString> IJsonUtil::fromJson<QString>(const QJsonValue& value){
     bool ok;
     auto val = IConvertUtil::toString(value, ok);
-    return {val, ok};
+    if(ok){
+        return val;
+    }else{
+        return std::nullopt;
+    }
 }
 
 template<>
@@ -148,7 +173,11 @@ template<>
 inline IResult<QStringList> IJsonUtil::fromJson<QStringList>(const QJsonValue& value){
     bool ok;
     auto val = IConvertUtil::toStringList(value, ok);
-    return {val, ok};
+    if(ok){
+        return val;
+    }else{
+        return std::nullopt;
+    }
 }
 
 template<>
@@ -159,7 +188,11 @@ template<>
 inline IResult<QJsonObject> IJsonUtil::fromJson<QJsonObject>(const QJsonValue& value){
     bool ok;
     auto val = fromJson<QJsonObject>(value, ok);
-    return {val, ok};
+    if(ok){
+        return val;
+    }else{
+        return std::nullopt;
+    }
 }
 
 template<>
@@ -170,7 +203,11 @@ template<>
 inline IResult<QJsonArray> IJsonUtil::fromJson<QJsonArray>(const QJsonValue& value){
     bool ok;
     auto val = fromJson<QJsonArray>(value, ok);
-    return {val, ok};
+    if(ok){
+        return val;
+    }else{
+        return std::nullopt;
+    }
 }
 
 template<>
@@ -181,7 +218,11 @@ template<>
 inline IResult<QJsonValue> IJsonUtil::fromJson<QJsonValue>(const QJsonValue& value){
     bool ok;
     auto val = fromJson<QJsonArray>(value, ok);
-    return {val, ok};
+    if(ok){
+        return val;
+    }else{
+        return std::nullopt;
+    }
 }
 
 $PackageWebCoreEnd

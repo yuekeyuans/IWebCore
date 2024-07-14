@@ -88,7 +88,10 @@ IResult<QJsonValue> IJsonUtil::toJsonValue(IStringView value)
 {
     bool ok;
     auto ret = toJsonValue(value, ok);
-    return {std::move(ret), ok};
+    if(ok){
+        return ret;
+    }
+    return std::nullopt;
 }
 
 QJsonValue IJsonUtil::toJsonValue(bool content, bool& ok)
@@ -284,7 +287,10 @@ IResult<QJsonObject> IJsonUtil::toJsonObject(const QString &value)
 {
     bool ok;
     QJsonObject val = toJsonObject(value, ok);
-    return {val, ok};
+    if(ok){
+        return val;
+    }
+    return std::nullopt;
 }
 
 

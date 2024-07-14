@@ -40,7 +40,11 @@ void INodyTemplateTask::travelFolder(const QString &path, const QString& root)
 
         auto fileName = entry.absoluteFilePath();
         if(fileName.endsWith(m_suffix)){
-            auto node = INodyManage::instance()->parseContent(IFileUtil::readFileAsString(fileName));
+            auto value = IFileUtil::readFileAsString(fileName);
+            if(!value){
+                qFatal("file read failed");
+            }
+            auto node = INodyManage::instance()->parseContent(*value);
             if(node){
                 auto realPath = fileName.replace(root, "");
                 m_template->addNody(realPath, node);

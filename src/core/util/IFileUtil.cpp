@@ -22,7 +22,10 @@ IResult<QString> IFileUtil::readFileAsString(const QString &path)
 {
     bool ok;
     auto content = readFileAsString(path, ok);
-    return {content, ok};
+    if(ok){
+        return content;
+    }
+    return std::nullopt;
 }
 
 QByteArray IFileUtil::readFileAsByteArray(const QString &path, bool& ok)
@@ -47,7 +50,10 @@ IResult<QByteArray> IFileUtil::readFileAsByteArray(const QString &path)
 {
     bool ok;
     auto value = readFileAsByteArray(path, ok);
-    return {value, ok};
+    if(ok){
+        return value;
+    }
+    return std::nullopt;
 }
 
 QString IFileUtil::getFileSuffix(const QString &path)
