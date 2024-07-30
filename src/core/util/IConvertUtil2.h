@@ -9,20 +9,19 @@ $PackageWebCoreBegin
 
 namespace IConvertUtil2
 {
-//    template<typename Ret, typename Arg>
-//    std::enable_if_t<!std::is_arithmetic_v<Arg>, IResult<Ret>>
-//    convertTo(const Arg&);
-
-//    template<typename Ret, typename Arg>
-//    std::enable_if_t<std::is_arithmetic_v<Arg>, IResult<Ret>>
-//    convertTo(Arg);
+    template<typename Ret, typename Arg>
+    std::enable_if_t<!ITraitUtil::isBasicType<Arg>,  IResult<Ret>> to(const Arg& arg);
 
     template<typename Ret, typename Arg>
-    IResult<Ret> convertTo(const Arg&);
+    IResult<Ret> to(const QList<Arg>& arg);
+
+    template<typename Ret, typename Arg>
+    IResult<Ret> to(const QMap<QString, Arg>& arg);
 
 #define PP_COMMON_CONVERT(Type)     \
     template<typename Ret>  \
     IResult<Ret> convertTo(Type);
+
     PP_COMMON_CONVERT(bool)
     PP_COMMON_CONVERT(char)
     PP_COMMON_CONVERT(signed char)

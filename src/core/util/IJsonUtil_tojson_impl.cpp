@@ -141,7 +141,7 @@ IJsonUtil::_objectToJson(const T& value, bool& ok)
 }
 
 template<class T>
-typename std::enable_if<ITraitUtil::is_bean<T>::value, QJsonValue>::type
+typename std::enable_if<ITraitUtil::isBean<T>::value, QJsonValue>::type
 IJsonUtil::_objectToJson(const T& value, bool& ok)
 {
     ok = true;

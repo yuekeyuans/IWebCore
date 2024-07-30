@@ -1,28 +1,32 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
+#include <type_traits>
 
 $PackageWebCoreBegin
 
 namespace ITraitUtil
 {
+//    template<typename Type, typename ... Args>
+//    struct isContain : std::bool_constant<(std::is_same_v<Type, Args>) || ...>{};
+
     template <typename T, typename = void>
-    struct is_gadget : std::false_type {};
+    struct isGadget : std::false_type {};
 
     template <typename T>
-    struct is_gadget<T, std::void_t<decltype(T::staticMetaObject)>> : std::true_type {};
+    struct isGadget<T, std::void_t<decltype(T::staticMetaObject)>> : std::true_type {};
 
     template<typename T>
-    constexpr bool is_gadget_v = is_gadget<T>::value;
+    constexpr bool is_gadget_v = isGadget<T>::value;
 
     template<typename T, typename = void>
-    struct is_bean
+    struct isBean
     {
         enum { value = false};
     };
 
     template<typename T>
-    struct is_bean<T, std::void_t<typename T::QtGadgetHelper>>
+    struct isBean<T, std::void_t<typename T::QtGadgetHelper>>
     {
         enum {
             value = std::is_class<T>::value == true
@@ -32,8 +36,16 @@ namespace ITraitUtil
         };
     };
 
+    // bean type
     template<typename T>
-    bool is_bean_v = is_bean<T>::value;
+    inline constexpr bool isBeanType = isBean<T>::value;
+
+    template<typename Type, typename ... Args>
+    inline constexpr bool isContain_v = isContain<Type, Args...>::value;
+
+    // 基础类型，数值类型 + const char*, IStringView
+    template<typename Arg>
+    inline constexpr bool isBasicType = (isContain_v<Arg, const char*, IStringView>) || std::is_arithmetic_v<Arg>;
 }
 
 $PackageWebCoreEnd

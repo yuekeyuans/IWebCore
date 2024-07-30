@@ -65,7 +65,7 @@ typename std::enable_if<std::is_arithmetic<T>::value, QJsonValue>::type
 _objectToJson(const T& value, bool &ok);
 
 template<class T>
-typename std::enable_if<ITraitUtil::is_bean<T>::value, QJsonValue>::type
+typename std::enable_if<ITraitUtil::isBean<T>::value, QJsonValue>::type
 _objectToJson(const T& value, bool &ok);
 
 }
