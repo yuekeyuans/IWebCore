@@ -32,7 +32,7 @@ namespace ITraitUtil
             value = std::is_class<T>::value == true
                     && is_gadget_v<T>
                     && (sizeof(&T::toJson) != 0)
-                    && sizeof(&T::toVariantMap) != 0
+//                    && sizeof(&T::toVariantMap) != 0
         };
     };
 

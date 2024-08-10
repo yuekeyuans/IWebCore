@@ -8,10 +8,10 @@
 
 $PackageWebCoreBegin
 
-class IOrmDataSource : public IBeanInterface<IOrmDataSource>
+class IOrmDataSource //: public IBeanInterface<IOrmDataSource>
 {
     Q_GADGET
-    $AsBean(IOrmDataSource)
+//    $AsBean(IOrmDataSource)
 public:
     IOrmDataSource() = default;
 

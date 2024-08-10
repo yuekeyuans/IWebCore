@@ -29,7 +29,7 @@ public:
     virtual void setFieldValue(const QString& name, const QVariant& value); // no const
 
     virtual QJsonObject toJson() const;
-    virtual QMap<QString, QVariant> toVariantMap() const;
+//    virtual QMap<QString, QVariant> toVariantMap() const;
     virtual QString toString() const;
 
     virtual void load(const QJsonObject& obj);

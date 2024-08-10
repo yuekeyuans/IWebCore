@@ -105,10 +105,10 @@ QJsonObject IGadgetUnit::toJson() const
     return {};
 }
 
-QMap<QString, QVariant> IGadgetUnit::toVariantMap() const
-{
-    return IMetaUtil::toVariantMap(this, getMetaObject());
-}
+//QMap<QString, QVariant> IGadgetUnit::toVariantMap() const
+//{
+//    return IMetaUtil::toVariantMap(this, getMetaObject());
+//}
 
 QString IGadgetUnit::toString() const
 {

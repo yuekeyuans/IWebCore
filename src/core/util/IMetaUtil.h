@@ -39,8 +39,8 @@ namespace IMetaUtil
     QVector<QMetaMethod> getMetaMethods(const QMetaObject& meta);
     QVector<QMetaMethod> getMetaMethods(const QMetaObject* meta);
 
-    QMap<QString, QVariant> toVariantMap(const void* handler, const QMetaObject& meta);
-    QMap<QString, QVariant> toVariantMap(const void* handler, const QMetaObject* meta);
+//    QMap<QString, QVariant> toVariantMap(const void* handler, const QMetaObject& meta);
+//    QMap<QString, QVariant> toVariantMap(const void* handler, const QMetaObject* meta);
 
     void fromJsonObject(void* handler, const QMetaObject&meta, const QJsonObject& obj);
     void fromJsonObject(void* handler, const QMetaObject*meta, const QJsonObject& obj);

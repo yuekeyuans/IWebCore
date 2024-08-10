@@ -2,8 +2,6 @@
 
 #include "core/util/IPreProcessorUtil.h"
 
-// TODO: check return IConvertUtil::toJsonObject(map, ok);
-
 #define $_UseGadget(klassName)   \
 public:\
     virtual const QString& className() const final {    \
@@ -37,12 +35,7 @@ public:\
         IMetaUtil::writeProperty(property, this, value);    \
     }   \
     virtual QJsonObject toJson() const final{   \
-        auto map = IMetaUtil::toVariantMap(this, staticMetaObject); \
-        bool ok;    \
-        return IConvertUtil::toJsonObject(map, ok); \
-    }   \
-    virtual QMap<QString, QVariant> toVariantMap() const final{ \
-        return IMetaUtil::toVariantMap(this, staticMetaObject); \
+        return {};  \
     }   \
     virtual const QStringList& getIgnorableFieldNames() const override{ \
         static QStringList ignoredFields = IMetaUtil::getIgnoredFields(staticMetaObject);   \

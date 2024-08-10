@@ -2,6 +2,7 @@
 
 int main(int argc, char *argv[])
 {
-    IApplication app(argc, argv);
-    app.run();
+    IApplication a(argc, argv);
+
+    return a.run();
 }

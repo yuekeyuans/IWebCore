@@ -221,25 +221,25 @@ QMap<QString, QMetaProperty> IMetaUtil::getMetaPropertyMap(const QMetaObject *me
     return ret;
 }
 
-QMap<QString, QVariant> IMetaUtil::toVariantMap(const void *handler, const QMetaObject &meta)
-{
-    QMap<QString, QVariant> map;
-    auto props = getMetaProperties(meta);
-    for(const auto& prop : props){
-        map[prop.name()] = readProperty(prop, handler);
-    }
-    return map;
-}
+//QMap<QString, QVariant> IMetaUtil::toVariantMap(const void *handler, const QMetaObject &meta)
+//{
+//    QMap<QString, QVariant> map;
+//    auto props = getMetaProperties(meta);
+//    for(const auto& prop : props){
+//        map[prop.name()] = readProperty(prop, handler);
+//    }
+//    return map;
+//}
 
-QMap<QString, QVariant> IMetaUtil::toVariantMap(const void *handler, const QMetaObject *meta)
-{
-    QMap<QString, QVariant> map;
-    auto props = getMetaProperties(meta);
-    for(const auto& prop : props){
-        map[prop.name()] = readProperty(prop, handler);
-    }
-    return map;
-}
+//QMap<QString, QVariant> IMetaUtil::toVariantMap(const void *handler, const QMetaObject *meta)
+//{
+//    QMap<QString, QVariant> map;
+//    auto props = getMetaProperties(meta);
+//    for(const auto& prop : props){
+//        map[prop.name()] = readProperty(prop, handler);
+//    }
+//    return map;
+//}
 
 // TODO: 感觉 神智不清这个之后开一线
 void IMetaUtil::fromJsonObject(void *handler, const QMetaObject &meta, const QJsonObject &obj)
