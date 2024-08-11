@@ -70,8 +70,57 @@ public:
         return obj;
     }
 
+    virtual void load(const QJsonValue& value){
+        const auto& fields= getMetaProperties();
+        auto obj = value.toObject();
+        for(const QMetaProperty& field : fields){
+            auto type = field.type();
+            if(type >= QMetaType::User){
+                // TODO:
+            }else{
+                switch (type) {
+                case QMetaType::Bool:
+                    field.writeOnGadget(this, obj[field.name()].toBool());
+                    break;
+                case QMetaType::UChar:
+                case QMetaType::SChar:
+                case QMetaType::Char:
+                case QMetaType::Short:
+                case QMetaType::UShort:
+                case QMetaType::Int:
+                    field.writeOnGadget(this, obj[field.name()].toInt());
+                    break;
+                case QMetaType::QString:
+                    field.writeOnGadget(this, obj[field.name()].toString());
+                    break;
+                case QMetaType::QByteArray:
+                    field.writeOnGadget(this, obj[field.name()].toString().toUtf8());
+                    break;
+                case QMetaType::QJsonObject:
+                    field.writeOnGadget(this, obj[field.name()].toObject());
+                    break;
+                case QMetaType::QJsonArray:
+                    field.writeOnGadget(this, obj[field.name()].toArray());
+                    break;
+                case QMetaType::QJsonValue:
+                    field.writeOnGadget(this, obj[field.name()].toVariant());
+                    break;
+                default:
+                    break;
+                }
+            }
+
+        }
+    }
+
+
 public:
     NameBean();
     $BeanField(QString, name, "hello world")
 };
+
+//class NameBeanList : public QList<NameBean>
+//{
+//    Q_GADGET
+//}
 

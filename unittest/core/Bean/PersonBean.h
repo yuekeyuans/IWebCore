@@ -74,7 +74,6 @@ public:
         return obj;
     }
 
-
     $BeanField(int, age, 10)
 
     $BeanField(NameBean, name1)
