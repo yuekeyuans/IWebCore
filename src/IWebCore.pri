@@ -22,6 +22,7 @@ HEADERS += \
     $$PWD/core/application/IQtApplication.h \
     $$PWD/core/base/IGadgetInfo.h \
     $$PWD/core/base/IStringViewStash.h \
+    $$PWD/core/unit/ITraceUnit.h \
     $$PWD/core/util/ICodecUtil.h \
     $$PWD/core/util/IConstantUtil.h \
     $$PWD/core/util/IConvertUtil.h \

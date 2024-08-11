@@ -4,13 +4,14 @@
 #include "IBeanTypeManage.h"
 #include "core/util/IHeaderUtil.h"
 #include "core/util/IMetaUtil.h"
+#include "core/unit/ITraceUnit.h"
 #include "core/bean/IBeanPreProcessor.h"
 #include "core/task/unit/ITaskInstantUnit.h"
 
 $PackageWebCoreBegin
 
 template<class T, bool enabled = true>
-class IBeanInterface : public IBeanWare, public ITaskInstantUnit<T, enabled>
+class IBeanInterface : public IBeanWare, public ITaskInstantUnit<T, enabled>, public ITraceUnit<T, false>
 {
 public:
     IBeanInterface() = default;

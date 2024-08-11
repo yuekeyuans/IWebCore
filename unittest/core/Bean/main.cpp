@@ -1,8 +1,8 @@
 ﻿#include <ICore/IApplication>
+#include "NameBean.h"
 
 int main(int argc, char *argv[])
 {
-    IApplication a(argc, argv);
-
-    return a.run();
+    NameBean bean;
+    qDebug() << bean.toJson();
 }

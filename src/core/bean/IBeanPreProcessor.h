@@ -34,9 +34,6 @@ public:\
         const auto& property = getMetaProperty(name);  \
         IMetaUtil::writeProperty(property, this, value);    \
     }   \
-    virtual QJsonObject toJson() const final{   \
-        return {};  \
-    }   \
     virtual const QStringList& getIgnorableFieldNames() const override{ \
         static QStringList ignoredFields = IMetaUtil::getIgnoredFields(staticMetaObject);   \
         return ignoredFields;   \
@@ -66,11 +63,6 @@ public: \
 public: \
     operator QString(){ \
         return toString(); \
-    } \
-    static klassName fromVariantMap(const QMap<QString, QVariant>&map){ \
-        klassName bean; \
-        IMetaUtil::fromVariantMap(&bean, bean.staticMetaObject, map); \
-        return bean; \
     } \
     static klassName fromJson(const QJsonObject& obj){ \
         klassName bean; \
