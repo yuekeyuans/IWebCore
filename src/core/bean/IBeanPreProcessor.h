@@ -75,14 +75,13 @@ public: \
         return !operator==(value);  \
     }   \
     klassName clone(){  \
-        return klassName(*this);    \
+        return *this;   \
     }   \
 private:
 
 #define $BeanFieldDeclare(type, name) \
     Q_PROPERTY(type name MEMBER name)
 
-//! @note 这里我们使用 空 列表初始化，来保证 基本类型被置为 0.
 #define $BeanField_2(type, name) \
     $BeanFieldDeclare(type, name) \
     type name {};
@@ -138,7 +137,6 @@ private:
 #define $BeanField_(N) $BeanField_##N
 #define $BeanField_EVAL(N) $BeanField_(N)
 #define $BeanField(...) PP_EXPAND( $BeanField_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
-
 
 #define PP_BEAN_INGNORED_KEY(name)  \
     PP_STRING(iwebcore_bean_field_ignorable_##name)

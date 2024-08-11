@@ -78,5 +78,17 @@ public:
     $BeanField(int, age, 10)
 
     $BeanField(NameBean, name1)
+
+    Q_PROPERTY(NameBean name2 MEMBER name2 WRITE writeNameBean)
+    NameBean name2;
+
+    const NameBean& readNameBean() const{
+        return name2;
+    }
+
+    void writeNameBean(const NameBean& bean){
+        name2 = bean;
+    }
+
 };
 
