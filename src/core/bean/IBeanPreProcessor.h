@@ -2,7 +2,7 @@
 
 #include "core/util/IPreProcessorUtil.h"
 
-#define $_UseGadget(klassName)   \
+#define $_UseGadget()   \
 public:\
     virtual const QString& className() const final {    \
         static const QString clsName = staticMetaObject.className();    \
@@ -57,9 +57,10 @@ public:\
 private:
 
 
+
 #define $AsBean(klassName) \
 public: \
-    $_UseGadget(klassName) \
+    $_UseGadget() \
 public: \
     operator QString(){ \
         return toString(); \
@@ -69,9 +70,12 @@ public: \
         IMetaUtil::fromJsonObject(&bean, bean.staticMetaObject, obj); \
         return bean; \
     } \
-    bool operator==(const klassName& that){ \
-        return isEqualTo(&that); \
-    } \
+    virtual bool operator==(const klassName& value) const {  \
+        return isEqualTo(value);    \
+    }   \
+    virtual bool operator!=(const klassName& value) const {  \
+        return !operator==(value);  \
+    }   \
     klassName clone(){  \
         return klassName(*this);    \
     }   \

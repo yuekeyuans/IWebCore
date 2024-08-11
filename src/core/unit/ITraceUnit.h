@@ -12,39 +12,39 @@ struct ITraceUnit
 {
     ITraceUnit() {
         if constexpr (enabled){
-            std::cout << getClassName() << "Default constructor called for " << std::endl;
+            std::cout << getClassName() << " Default constructor called" << std::endl;
         }
     }
 
     ITraceUnit(const ITraceUnit &other) {
         if constexpr (enabled){
-            std::cout << getClassName() << "Copy constructor called for " << std::endl;
+            std::cout << getClassName() << " Copy constructor called" << std::endl;
         }
     }
 
     ITraceUnit& operator=(const ITraceUnit &other) {
         if constexpr (enabled){
-            std::cout << getClassName() << "Copy assignment operator called for " << std::endl;
+            std::cout << getClassName() << " Copy assignment operator called" << std::endl;
         }
         return *this;
     }
 
     ITraceUnit(ITraceUnit &&other) noexcept {
         if constexpr (enabled){
-            std::cout << getClassName() << "Move constructor called for " << std::endl;
+            std::cout << getClassName() << " Move constructor called" << std::endl;
         }
     }
 
     ITraceUnit& operator=(ITraceUnit &&other) noexcept {
         if constexpr (enabled){
-            std::cout << getClassName() << "Move assignment operator called for " << std::endl;
+            std::cout << getClassName() << " Move assignment operator called" << std::endl;
         }
         return *this;
     }
 
     ~ITraceUnit() {
         if constexpr (enabled){
-            std::cout << getClassName()  << "Destructor called for "<< std::endl;
+            std::cout << getClassName() << " Destructor called"<< std::endl;
         }
     }
 

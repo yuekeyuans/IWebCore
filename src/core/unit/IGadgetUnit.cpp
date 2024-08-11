@@ -8,11 +8,6 @@
 
 $PackageWebCoreBegin
 
-int IGadgetUnit::classMetaTypeId() const
-{
-    return 0;
-}
-
 const QString& IGadgetUnit::className() const
 {
     IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
@@ -125,12 +120,12 @@ void IGadgetUnit::load(const QMap<QString, QVariant> &map)
     IMetaUtil::fromVariantMap(this, getMetaObject(), map);
 }
 
-bool IGadgetUnit::isEqualTo(const IGadgetUnit *gadget)
+bool IGadgetUnit::isEqualTo(const IGadgetUnit *gadget) const
 {
     return isEqualTo(*gadget);
 }
 
-bool IGadgetUnit::isEqualTo(const IGadgetUnit &gadget)
+bool IGadgetUnit::isEqualTo(const IGadgetUnit &gadget) const
 {
     if(gadget.className() != this->className()){
         return false;

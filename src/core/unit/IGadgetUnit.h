@@ -11,7 +11,6 @@ public:
     IGadgetUnit() = default;
     virtual ~IGadgetUnit() = default;
 
-    virtual int classMetaTypeId() const;
     virtual const QString& className() const;
     virtual QMetaObject getMetaObject() const;
     virtual const QVector<QMetaMethod>& getMetaMethods() const;
@@ -35,8 +34,8 @@ public:
     virtual void load(const QJsonObject& obj);
     virtual void load(const QMap<QString, QVariant>& variantMap);
 
-    virtual bool isEqualTo(const IGadgetUnit* gadget);
-    virtual bool isEqualTo(const IGadgetUnit& gadget);
+    virtual bool isEqualTo(const IGadgetUnit* gadget) const;
+    virtual bool isEqualTo(const IGadgetUnit& gadget) const;
 };
 
 $PackageWebCoreEnd

@@ -10,10 +10,6 @@ class PersonBean : public IBeanInterface<PersonBean>
 public:
     PersonBean();
 
-    bool operator==(const PersonBean& value) const {
-        return true;
-    }
-
 public:
     virtual QJsonValue toJson() const final{
         QJsonObject obj;

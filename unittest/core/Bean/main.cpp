@@ -10,4 +10,6 @@ int main(int argc, char *argv[])
     PersonBean person;
 
     qDebug() << person.toJson();
+
+    PersonBean bean2;
 }

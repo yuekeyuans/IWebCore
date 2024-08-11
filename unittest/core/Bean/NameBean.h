@@ -70,13 +70,6 @@ public:
         return obj;
     }
 
-    bool operator==(const NameBean& value) const {
-        return true;
-    }
-    bool operator!=(const NameBean& value) const {
-        return !operator==(value);
-    }
-
 public:
     NameBean();
     $BeanField(QString, name, "hello world")
