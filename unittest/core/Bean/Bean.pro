@@ -9,7 +9,9 @@ include(../../../src/IWebCore.pri)
 
 SOURCES += \
         NameBean.cpp \
+        PersonBean.cpp \
         main.cpp
 
 HEADERS += \
-    NameBean.h
+    NameBean.h \
+    PersonBean.h

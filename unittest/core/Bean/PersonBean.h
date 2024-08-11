@@ -1,11 +1,19 @@
 ﻿#pragma once
 
 #include "core/bean/IBeanInterface.h"
+#include "NameBean.h"
 
-class NameBean : public IBeanInterface<NameBean>
+class PersonBean : public IBeanInterface<PersonBean>
 {
     Q_GADGET
-    $AsBean(NameBean)
+    $AsBean(PersonBean)
+public:
+    PersonBean();
+
+    bool operator==(const PersonBean& value) const {
+        return true;
+    }
+
 public:
     virtual QJsonValue toJson() const final{
         QJsonObject obj;
@@ -15,7 +23,7 @@ public:
             ok = true;
             auto type = field.type();
             auto value = field.readOnGadget(this);
-            if(type > QMetaType::User){
+            if(type >= QMetaType::User){
                 ok = value.canConvert(QMetaType::QJsonValue);
                 if(ok){
                     obj[field.name()] = value.toJsonValue();
@@ -70,15 +78,9 @@ public:
         return obj;
     }
 
-    bool operator==(const NameBean& value) const {
-        return true;
-    }
-    bool operator!=(const NameBean& value) const {
-        return !operator==(value);
-    }
 
-public:
-    NameBean();
-    $BeanField(QString, name, "hello world")
+    $BeanField(int, age, 10)
+
+    $BeanField(NameBean, name1)
 };
 

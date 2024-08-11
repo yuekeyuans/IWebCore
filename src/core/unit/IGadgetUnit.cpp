@@ -8,6 +8,11 @@
 
 $PackageWebCoreBegin
 
+int IGadgetUnit::classMetaTypeId() const
+{
+    return 0;
+}
+
 const QString& IGadgetUnit::className() const
 {
     IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
@@ -99,16 +104,11 @@ void IGadgetUnit::setFieldValue(const QString &name, const QVariant &value)
     IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
 }
 
-QJsonObject IGadgetUnit::toJson() const
+QJsonValue IGadgetUnit::toJson() const
 {
     IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
     return {};
 }
-
-//QMap<QString, QVariant> IGadgetUnit::toVariantMap() const
-//{
-//    return IMetaUtil::toVariantMap(this, getMetaObject());
-//}
 
 QString IGadgetUnit::toString() const
 {

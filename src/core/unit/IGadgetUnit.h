@@ -11,6 +11,7 @@ public:
     IGadgetUnit() = default;
     virtual ~IGadgetUnit() = default;
 
+    virtual int classMetaTypeId() const;
     virtual const QString& className() const;
     virtual QMetaObject getMetaObject() const;
     virtual const QVector<QMetaMethod>& getMetaMethods() const;
@@ -28,8 +29,7 @@ public:
     virtual QVariant getFieldValue(const QString& name) const;
     virtual void setFieldValue(const QString& name, const QVariant& value); // no const
 
-    virtual QJsonObject toJson() const;
-//    virtual QMap<QString, QVariant> toVariantMap() const;
+    virtual QJsonValue toJson() const;
     virtual QString toString() const;
 
     virtual void load(const QJsonObject& obj);

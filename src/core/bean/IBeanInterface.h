@@ -11,7 +11,7 @@
 $PackageWebCoreBegin
 
 template<class T, bool enabled = true>
-class IBeanInterface : public IBeanWare, public ITaskInstantUnit<T, enabled>, public ITraceUnit<T, false>
+class IBeanInterface : public IBeanWare, public ITaskInstantUnit<T, enabled>, public ITraceUnit<T, true>
 {
 public:
     IBeanInterface() = default;
@@ -36,6 +36,11 @@ void IBeanInterface<T, enabled>::task()
         std::call_once(initRegisterFlag, [](){
             IBeanTypeManage::registerBeanType(typeid (T).name());   // register type
             IMetaUtil::registerMetaType<T>();
+            QMetaType::registerConverter<T, QJsonValue>(std::mem_fn(&T::toJson));
+
+//            const int typeId = qRegisterMetaType<T>();
+//            static const QtPrivate::BuiltInEqualsComparatorFunction<T> f;
+            QMetaType::registerEqualsComparator<T>();
         });
     }
 }
