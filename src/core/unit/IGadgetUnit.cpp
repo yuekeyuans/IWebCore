@@ -99,26 +99,26 @@ void IGadgetUnit::setFieldValue(const QString &name, const QVariant &value)
     IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
 }
 
-QJsonValue IGadgetUnit::toJson() const
-{
-    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
-    return {};
-}
+//QJsonValue IGadgetUnit::toJson() const
+//{
+//    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
+//    return {};
+//}
 
-QString IGadgetUnit::toString() const
-{
-    return IConvertUtil::toString(toJson());
-}
+//QString IGadgetUnit::toString() const
+//{
+//    return IConvertUtil::toString(toJson());
+//}
 
-void IGadgetUnit::load(const QJsonObject &obj)
-{
-    IMetaUtil::fromJsonObject(this, getMetaObject(), obj);
-}
+//void IGadgetUnit::load(const QJsonObject &obj)
+//{
+//    IMetaUtil::fromJsonObject(this, getMetaObject(), obj);
+//}
 
-void IGadgetUnit::load(const QMap<QString, QVariant> &map)
-{
-    IMetaUtil::fromVariantMap(this, getMetaObject(), map);
-}
+//void IGadgetUnit::load(const QMap<QString, QVariant> &map)
+//{
+//    IMetaUtil::fromVariantMap(this, getMetaObject(), map);
+//}
 
 bool IGadgetUnit::isEqualTo(const IGadgetUnit *gadget) const
 {

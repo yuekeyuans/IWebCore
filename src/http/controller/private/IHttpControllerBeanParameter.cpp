@@ -80,11 +80,12 @@ void *IHttpControllerBeanParameter::assambleBeanWareWithBody(IBeanWare *bean, IR
             request.setInvalid(IHttpBadRequestInvalid("body to jsonobject is not valid"));
         }
 
-        auto obj = value.toObject();
-        if(checkKeyInJsonAndBean(obj, bean, request)){
-            bean->load(obj);
-        }
-        return bean;
+        // TODO: changed, check latter
+//        auto obj = value.toObject();
+//        if(checkKeyInJsonAndBean(obj, bean, request)){
+//            bean->load(obj);
+//        }
+//        return bean;
     }
     if(request.mime() == IHttpMime::TEXT_XML){
         qFatal("current not support xml");
@@ -94,30 +95,32 @@ void *IHttpControllerBeanParameter::assambleBeanWareWithBody(IBeanWare *bean, IR
     return bean;
 }
 
+// TODO: check latter
 void *IHttpControllerBeanParameter::assambleBeanWareWithParameter(IBeanWare *bean, IRequest &request)
 {
-    const auto& parameters = request.paramParameters();
-    if(checkKeyInQByteArrayMap(parameters, bean, request)){
-        bool convertOk;
-        auto map = resolveBeanFieldAsMap(parameters, bean, request, convertOk);
-        if(convertOk){
-            bean->load(map);
-        }
-    }
+//    const auto& parameters = request.paramParameters();
+//    if(checkKeyInQByteArrayMap(parameters, bean, request)){
+//        bool convertOk;
+//        auto map = resolveBeanFieldAsMap(parameters, bean, request, convertOk);
+//        if(convertOk){
+//            bean->load(map);
+//        }
+//    }
     return bean;
 }
 
+// TODO: check latter
 void *IHttpControllerBeanParameter::assambleBeanWareWithUrl(IBeanWare *bean, IRequest &request)
 {
-    const auto& parameters = request.urlParameters();
+//    const auto& parameters = request.urlParameters();
 
-    if(checkKeyInQByteArrayMap(parameters, bean, request)){
-        bool convertOk;
-        auto map = resolveBeanFieldAsMap(parameters, bean, request, convertOk);
-        if(convertOk){
-            bean->load(map);
-        }
-    }
+//    if(checkKeyInQByteArrayMap(parameters, bean, request)){
+//        bool convertOk;
+//        auto map = resolveBeanFieldAsMap(parameters, bean, request, convertOk);
+//        if(convertOk){
+//            bean->load(map);
+//        }
+//    }
     return bean;
 }
 
@@ -217,47 +220,50 @@ void *IHttpControllerBeanParameter::assambleBeanWareWithSystem(IBeanWare *bean, 
     return bean;
 }
 
+// TODO: check latter
 void *IHttpControllerBeanParameter::resolveBodyForm(IBeanWare *bean, IRequest &request)
 {
-    const auto& parameters = request.bodyFormParameters();
+//    const auto& parameters = request.bodyFormParameters();
 
-    if(checkKeyInQByteArrayMap(parameters, bean, request)){
-        bool convertOk;
-        auto map = resolveBeanFieldAsMap(parameters, bean, request, convertOk);
-        if(convertOk){
-            bean->load(map);
-        }
-    }
+//    if(checkKeyInQByteArrayMap(parameters, bean, request)){
+//        bool convertOk;
+//        auto map = resolveBeanFieldAsMap(parameters, bean, request, convertOk);
+//        if(convertOk){
+//            bean->load(map);
+//        }
+//    }
     return bean;
 }
 
+// TODO: check latter
 void *IHttpControllerBeanParameter::resolveBodyMultiPart(IBeanWare *bean, IRequest &request)
 {
-    const auto& multiparts = request.bodyMultiParts();
+//    const auto& multiparts = request.bodyMultiParts();
 
-    if(checkKeyInMultiPart(multiparts, bean, request)){
-        bool convertOk;
-        auto map = resolveBeanFieldAsMap(multiparts, bean, request, convertOk);
-        if(convertOk){
-            bean->load(map);
-        }
-    }
+//    if(checkKeyInMultiPart(multiparts, bean, request)){
+//        bool convertOk;
+//        auto map = resolveBeanFieldAsMap(multiparts, bean, request, convertOk);
+//        if(convertOk){
+//            bean->load(map);
+//        }
+//    }
     return bean;
 }
 
+// TODO: check latter
 void *IHttpControllerBeanParameter::resolveBodyJson(IBeanWare *bean, IRequest &request)
 {
-    bool ok;
-    auto value = request.bodyJson(ok);
-    if(!ok || !value.isObject()){
-        request.setInvalid(IHttpBadRequestInvalid("json value is not ok"));
-        return bean;
-    }
+//    bool ok;
+//    auto value = request.bodyJson(ok);
+//    if(!ok || !value.isObject()){
+//        request.setInvalid(IHttpBadRequestInvalid("json value is not ok"));
+//        return bean;
+//    }
 
-    auto object = value.toObject();
-    if(checkKeyInJsonAndBean(object, bean, request)){
-        bean->load(object);
-    }
+//    auto object = value.toObject();
+//    if(checkKeyInJsonAndBean(object, bean, request)){
+//        bean->load(object);
+//    }
     return bean;
 }
 

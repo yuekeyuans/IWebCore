@@ -31,18 +31,19 @@ QString IBeanInterface<T, enabled>::name() const
 template<typename T, bool enabled>
 void IBeanInterface<T, enabled>::task()
 {
-    if(enabled){
+    if constexpr (enabled){
         static std::once_flag initRegisterFlag;
         std::call_once(initRegisterFlag, [](){
-            IBeanTypeManage::registerBeanType(typeid (T).name());   // register type
             IMetaUtil::registerMetaType<T>();
-            QMetaType::registerConverter<T, QJsonValue>(std::mem_fn(&T::toJson));
-
-//            const int typeId = qRegisterMetaType<T>();
-//            static const QtPrivate::BuiltInEqualsComparatorFunction<T> f;
-            QMetaType::registerEqualsComparator<T>();
+            IBeanTypeManage::registerBeanType(typeid (T).name());   // register type
+            auto id = qMetaTypeId<T>();
+            IBeanTypeManage::instance()->registerToJsonFun(id, [](void* ptr, bool* ok)->QJsonValue{
+                return static_cast<T*>(ptr)->toJson(ok);
+            });
+            IBeanTypeManage::instance()->registerLoadJsonFun(id, [](void* ptr, const QJsonValue& json)->bool{
+                return static_cast<T*>(ptr)->loadJson(json);
+            });
         });
     }
 }
-
 $PackageWebCoreEnd

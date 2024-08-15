@@ -60,9 +60,6 @@ private:
 public: \
     $_UseGadget() \
 public: \
-    operator QString(){ \
-        return toString(); \
-    } \
     static klassName fromJson(const QJsonObject& obj){ \
         klassName bean; \
         IMetaUtil::fromJsonObject(&bean, bean.staticMetaObject, obj); \
