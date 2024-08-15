@@ -11,16 +11,15 @@ public:
     IGadgetUnit() = default;
     virtual ~IGadgetUnit() = default;
 
-    virtual const QString& className() const;
-    virtual QMetaObject getMetaObject() const;
+    virtual const QString& className() const = 0;
+    virtual QMetaObject getMetaObject() const = 0;
     virtual int getMetaTypeId() const = 0;
-    virtual const QVector<QMetaMethod>& getMetaMethods() const;
-    virtual QMetaMethod getMetaMethod(const QString& name) const;
-    virtual const QMap<QString, QString>& getMetaClassInfos() const;
-    virtual QMetaProperty getMetaProperty(const QString& name) const;
-    virtual const QVector<QMetaProperty>& getMetaProperties() const;
-
-    virtual const QStringList& getMetaFieldNames() const;
+    virtual const QVector<QMetaMethod>& getMetaMethods() const = 0;
+    virtual QMetaMethod getMetaMethod(const QString& name) const = 0;
+    virtual const QMap<QString, QString>& getMetaClassInfos() const = 0;
+    virtual QMetaProperty getMetaProperty(const QString& name) const = 0;
+    virtual const QVector<QMetaProperty>& getMetaProperties() const = 0;
+    virtual const QStringList& getMetaFieldNames() const = 0;
 
     virtual const QStringList& getIgnorableFieldNames() const;
     virtual const QVector<int>& getIgnorableFieldIndexes() const;

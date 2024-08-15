@@ -28,7 +28,15 @@ public:
     virtual int getMetaTypeId() const{
         return qMetaTypeId<T>();
     }
-
+    virtual QMetaMethod getMetaMethod(const QString &name) const final {
+        const auto& methods = getMetaMethods();
+        for(const QMetaMethod& method : methods){
+            if(method.name() == name){
+                return method;
+            }
+        }
+        return {};
+    }
     virtual const QVector<QMetaMethod>& getMetaMethods() const final{
         static auto methods =  IMetaUtil::getMetaMethods(T::staticMetaObject);
         return methods;

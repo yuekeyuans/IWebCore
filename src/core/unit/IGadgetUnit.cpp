@@ -9,65 +9,6 @@
 
 $PackageWebCoreBegin
 
-const QString& IGadgetUnit::className() const
-{
-    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
-    static QString name;
-    return name;
-}
-
-QMetaObject IGadgetUnit::getMetaObject() const
-{
-    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
-    return {};
-}
-
-const QVector<QMetaMethod>& IGadgetUnit::getMetaMethods() const
-{
-    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
-    static QVector<QMetaMethod> m_vector;
-    return m_vector;
-}
-
-QMetaMethod IGadgetUnit::getMetaMethod(const QString &name) const
-{
-    const auto& methods = getMetaMethods();
-    for(const QMetaMethod& method : methods){
-        if(method.name() == name){
-            return method;
-        }
-    }
-    return {};
-}
-
-const QMap<QString, QString>& IGadgetUnit::getMetaClassInfos() const
-{
-    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
-    static QMap<QString, QString> m_info;
-    return m_info;
-}
-
-QMetaProperty IGadgetUnit::getMetaProperty(const QString &name) const
-{
-    Q_UNUSED(name);
-    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
-    return {};
-}
-
-const QVector<QMetaProperty>& IGadgetUnit::getMetaProperties() const
-{
-    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
-    static QVector<QMetaProperty> m_props;
-    return m_props;
-}
-
-const QStringList &IGadgetUnit::getMetaFieldNames() const
-{
-    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
-    static QStringList names;
-    return names;
-}
-
 // 这个是指在 bean 自动装配的过程中, 这一个 field 可以被忽略
 const QStringList& IGadgetUnit::getIgnorableFieldNames() const
 {

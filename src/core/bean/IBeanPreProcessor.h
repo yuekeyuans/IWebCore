@@ -5,21 +5,6 @@
 #define $AsBean(klassName) \
     template<typename U, bool>    \
     friend class IBeanInterface;    \
-public: \
-    static klassName fromJson(const QJsonObject& obj){ \
-        klassName bean; \
-        IMetaUtil::fromJsonObject(&bean, bean.staticMetaObject, obj); \
-        return bean; \
-    } \
-    virtual bool operator==(const klassName& value) const {  \
-        return isEqualTo(value);    \
-    }   \
-    virtual bool operator!=(const klassName& value) const {  \
-        return !operator==(value);  \
-    }   \
-    klassName clone(){  \
-        return *this;   \
-    }   \
 private:
 
 #define $BeanFieldDeclare(type, name) \
