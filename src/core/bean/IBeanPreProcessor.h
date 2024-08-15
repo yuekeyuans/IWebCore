@@ -77,7 +77,9 @@ public: \
 private:
 
 #define $BeanFieldDeclare(type, name) \
-    Q_PROPERTY(type name MEMBER name)
+    Q_PROPERTY(type name MEMBER name WRITE $write_##name##_value)   \
+    Q_INVOKABLE void* $get_ ## name ## _ptr(){ return & name; }     \
+    void $write_##name##_value(const type & value){this-> name = value; }
 
 #define $BeanField_2(type, name) \
     $BeanFieldDeclare(type, name) \
