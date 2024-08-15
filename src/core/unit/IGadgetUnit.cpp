@@ -1,10 +1,11 @@
 ﻿#include "IGadgetUnit.h"
 
+#include "core/abort/IGlobalAbort.h"
+#include "core/bean/IBeanTypeManage.h"
 #include "core/util/IConstantUtil.h"
 #include "core/util/IConvertUtil.h"
 #include "core/util/IJsonUtil.h"
 #include "core/util/IMetaUtil.h"
-#include "core/abort/IGlobalAbort.h"
 
 $PackageWebCoreBegin
 
@@ -26,6 +27,17 @@ const QVector<QMetaMethod>& IGadgetUnit::getMetaMethods() const
     IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
     static QVector<QMetaMethod> m_vector;
     return m_vector;
+}
+
+QMetaMethod IGadgetUnit::getMetaMethod(const QString &name) const
+{
+    const auto& methods = getMetaMethods();
+    for(const QMetaMethod& method : methods){
+        if(method.name() == name){
+            return method;
+        }
+    }
+    return {};
 }
 
 const QMap<QString, QString>& IGadgetUnit::getMetaClassInfos() const
@@ -99,27 +111,6 @@ void IGadgetUnit::setFieldValue(const QString &name, const QVariant &value)
     IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
 }
 
-//QJsonValue IGadgetUnit::toJson() const
-//{
-//    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
-//    return {};
-//}
-
-//QString IGadgetUnit::toString() const
-//{
-//    return IConvertUtil::toString(toJson());
-//}
-
-//void IGadgetUnit::load(const QJsonObject &obj)
-//{
-//    IMetaUtil::fromJsonObject(this, getMetaObject(), obj);
-//}
-
-//void IGadgetUnit::load(const QMap<QString, QVariant> &map)
-//{
-//    IMetaUtil::fromVariantMap(this, getMetaObject(), map);
-//}
-
 bool IGadgetUnit::isEqualTo(const IGadgetUnit *gadget) const
 {
     return isEqualTo(*gadget);
@@ -149,5 +140,89 @@ bool IGadgetUnit::isEqualTo(const IGadgetUnit &gadget) const
     }
     return true;
 }
+
+QJsonValue IGadgetUnit::toJson(bool *ok) const{
+    QJsonObject obj;
+    const auto& fields = getMetaProperties();
+    //        bool ok;
+    for(const QMetaProperty& field : fields){
+        //            ok = true;
+        auto type = field.type();
+        if(type >= QMetaType::User){
+            obj[field.name()] = toJsonValueOfBeanType(this, type);
+        }else{
+            auto value = field.readOnGadget(this);
+            obj[field.name()] = toJsonValueOfPlainType(type, value, ok);
+        }
+
+    }
+    return obj;
+}
+
+QJsonValue IGadgetUnit::toJsonValueOfBeanType(const void *handle, int type) const
+{
+    //            auto fun = IBeanTypeManage::instance()->getToJsonFun(getMetaTypeId());
+    //            auto ptr = getMetaMethod("$get_" + field.name() + "_ptr");
+    //            fun(this, value);
+    return {};
+}
+
+QJsonValue IGadgetUnit::toJsonValueOfPlainType(int type, const QVariant &value, bool* ok) const
+{
+    switch (type) {
+    case QMetaType::Bool:
+        return  value.toBool();
+        break;
+    case QMetaType::UChar:
+    case QMetaType::Char:
+    case QMetaType::SChar:
+    case QMetaType::Short:
+    case QMetaType::UShort:
+    case QMetaType::UInt:
+    case QMetaType::Int:
+    case QMetaType::Long:
+        return  value.toLongLong(ok);
+        break;
+    case QMetaType::ULong:
+    case QMetaType::ULongLong:
+        // TODO: 这里需要验证
+        return  value.toLongLong(ok);
+        break;
+    case QMetaType::Float:
+        return  value.toFloat(ok);
+        break;
+    case QMetaType::Double:
+        return  value.toDouble(ok);
+        break;
+    case QMetaType::QString:
+        return  value.toString();
+        break;
+    case QMetaType::QStringList:{
+        QJsonArray array;
+        auto strlist = value.toStringList();
+        for(const auto& str : strlist){
+            array.append(str);
+        }
+        return  array;
+    }
+        break;
+    case QMetaType::QByteArray:
+        return  QString(value.toByteArray());
+        break;
+    case QMetaType::QJsonArray:
+        return  value.toJsonArray();
+        break;
+    case QMetaType::QJsonObject:
+        return  value.toJsonObject();
+        break;
+    case QMetaType::QJsonValue:
+        return  value.toJsonValue();
+        break;
+    default:
+        ok = false;
+        break;
+    }
+}
+
 
 $PackageWebCoreEnd

@@ -18,6 +18,11 @@ public:
     virtual ~IBeanInterface() = default;
 
 public:
+    virtual int getMetaTypeId() const{
+        return qMetaTypeId<T>();
+    }
+
+public:
     virtual QString name() const;
     virtual void task() final;
 };
