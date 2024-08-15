@@ -32,14 +32,14 @@ public:
     virtual bool isEqualTo(const IGadgetUnit* gadget) const;
     virtual bool isEqualTo(const IGadgetUnit& gadget) const;
 
-    virtual QJsonValue toJson(bool* ok=nullptr) const final;
+    QJsonValue toJson(bool* ok=nullptr) const;
 
-    virtual bool loadJson(const QJsonValue& value){
+    bool loadJson(const QJsonValue& value){
         return true;
     }
 
 private:
-    QJsonValue toJsonValueOfBeanType(const void* handle, int type) const;
+    QJsonValue toJsonValueOfBeanType(const void* handle, const QMetaProperty& prop, bool* ok) const;
     QJsonValue toJsonValueOfPlainType(int, const QVariant& value, bool* ok) const;
 };
 

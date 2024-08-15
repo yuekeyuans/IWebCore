@@ -11,7 +11,7 @@
 $PackageWebCoreBegin
 
 template<class T, bool enabled = true>
-class IBeanInterface : public IBeanWare, public ITaskInstantUnit<T, enabled>, public ITraceUnit<T, true>
+class IBeanInterface : public IBeanWare, public ITaskInstantUnit<T, enabled> //, public ITraceUnit<T, true>
 {
 public:
     IBeanInterface() = default;

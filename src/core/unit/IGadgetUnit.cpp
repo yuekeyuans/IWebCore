@@ -90,7 +90,7 @@ QJsonValue IGadgetUnit::toJson(bool *ok) const{
         //            ok = true;
         auto type = field.type();
         if(type >= QMetaType::User){
-            obj[field.name()] = toJsonValueOfBeanType(this, type);
+            obj[field.name()] = toJsonValueOfBeanType(this, field, ok);
         }else{
             auto value = field.readOnGadget(this);
             obj[field.name()] = toJsonValueOfPlainType(type, value, ok);
@@ -100,12 +100,14 @@ QJsonValue IGadgetUnit::toJson(bool *ok) const{
     return obj;
 }
 
-QJsonValue IGadgetUnit::toJsonValueOfBeanType(const void *handle, int type) const
+QJsonValue IGadgetUnit::toJsonValueOfBeanType(const void *handle, const QMetaProperty& prop, bool* ok) const
 {
-    //            auto fun = IBeanTypeManage::instance()->getToJsonFun(getMetaTypeId());
-    //            auto ptr = getMetaMethod("$get_" + field.name() + "_ptr");
-    //            fun(this, value);
-    return {};
+    auto getPtrFun = getMetaMethod(QString("$get_") + prop.name() + "_ptr");
+    void* ptr{};
+    QGenericReturnArgument retVal("void*", &ptr);
+    getPtrFun.invokeOnGadget(const_cast<void*>(handle), retVal);
+    auto toJsonfun = IBeanTypeManage::instance()->getToJsonFun(getMetaTypeId());
+    return toJsonfun(ptr, ok);
 }
 
 QJsonValue IGadgetUnit::toJsonValueOfPlainType(int type, const QVariant &value, bool* ok) const

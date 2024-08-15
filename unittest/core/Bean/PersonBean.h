@@ -6,7 +6,7 @@
 class PersonBean : public IBeanInterface<PersonBean>
 {
     Q_GADGET
-    $AsBean(PersonBean)
+    $AsBean
 public:
     PersonBean();
 

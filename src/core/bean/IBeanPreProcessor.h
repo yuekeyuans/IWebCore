@@ -2,7 +2,7 @@
 
 #include "core/util/IPreProcessorUtil.h"
 
-#define $AsBean(klassName) \
+#define $AsBean \
     template<typename U, bool>    \
     friend class IBeanInterface;    \
 private:

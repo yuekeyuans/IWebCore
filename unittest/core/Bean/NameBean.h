@@ -5,7 +5,7 @@
 class NameBean : public IBeanInterface<NameBean>
 {
     Q_GADGET
-    $AsBean(NameBean)
+    $AsBean
 public:
 
 public:
