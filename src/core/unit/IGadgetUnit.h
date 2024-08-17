@@ -34,13 +34,14 @@ public:
 
     QJsonValue toJson(bool* ok=nullptr) const;
 
-    bool loadJson(const QJsonValue& value){
-        return true;
-    }
+    bool loadJson(const QJsonValue& value);
 
 private:
     QJsonValue toJsonValueOfBeanType(const void* handle, const QMetaProperty& prop, bool* ok) const;
     QJsonValue toJsonValueOfPlainType(int, const QVariant& value, bool* ok) const;
+
+    bool loadJsonValueOfBeanType(const void* handle, const QMetaProperty& prop, const QJsonValue& value);
+    bool loadJsonValueOfPlainType(const void* handle, const QMetaProperty& prop, const QJsonValue& value);
 };
 
 $PackageWebCoreEnd

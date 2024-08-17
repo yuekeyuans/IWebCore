@@ -82,12 +82,11 @@ bool IGadgetUnit::isEqualTo(const IGadgetUnit &gadget) const
     return true;
 }
 
-QJsonValue IGadgetUnit::toJson(bool *ok) const{
+QJsonValue IGadgetUnit::toJson(bool *ok) const
+{
     QJsonObject obj;
     const auto& fields = getMetaProperties();
-    //        bool ok;
     for(const QMetaProperty& field : fields){
-        //            ok = true;
         auto type = field.type();
         if(type >= QMetaType::User){
             obj[field.name()] = toJsonValueOfBeanType(this, field, ok);
@@ -98,6 +97,22 @@ QJsonValue IGadgetUnit::toJson(bool *ok) const{
 
     }
     return obj;
+}
+
+bool IGadgetUnit::loadJson(const QJsonValue &value)
+{
+    bool ok{true};
+    const auto& fields = getMetaProperties();
+    for(const QMetaProperty& field :fields){
+        auto type = field.type();
+        if(type >= QMetaType::User){
+            loadJsonValueOfBeanType(this, field, )
+        }else{
+
+        }
+    }
+
+    return ok;
 }
 
 QJsonValue IGadgetUnit::toJsonValueOfBeanType(const void *handle, const QMetaProperty& prop, bool* ok) const
@@ -165,6 +180,16 @@ QJsonValue IGadgetUnit::toJsonValueOfPlainType(int type, const QVariant &value, 
         ok = false;
         break;
     }
+}
+
+bool IGadgetUnit::loadJsonValueOfBeanType(const void *handle, const QMetaProperty &prop, const QJsonValue &value)
+{
+    return {};
+}
+
+bool IGadgetUnit::loadJsonValueOfPlainType(const void *handle, const QMetaProperty &prop, const QJsonValue &value)
+{
+    return {};
 }
 
 
