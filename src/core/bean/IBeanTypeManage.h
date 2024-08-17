@@ -3,6 +3,7 @@
 #include "core/util/IHeaderUtil.h"
 #include "core/unit/ISingletonUnit.h"
 #include <functional>
+#include <unordered_set>
 
 $PackageWebCoreBegin
 
@@ -23,11 +24,10 @@ public:
     ToJsonFun getToJsonFun(int id);
     LoadJsonFun getLoadJsonFun(int id);
 
-
 private:
-    QList<int> m_beanIds;
-    QMap<int, ToJsonFun> m_toJsonMap;
-    QMap<int, LoadJsonFun> m_loadJsonMap;
+    std::unordered_set<int> m_beanIds;
+    std::unordered_map<int, ToJsonFun> m_toJsonMap;
+    std::unordered_map<int, LoadJsonFun> m_loadJsonMap;
 };
 
 $PackageWebCoreEnd
