@@ -38,19 +38,19 @@ bool IGadgetUnit::isIgnorableField(int index) const
     return {};
 }
 
-QVariant IGadgetUnit::getFieldValue(const QString &name) const
-{
-    Q_UNUSED(name);
-    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
-    return {};
-}
+//QVariant IGadgetUnit::getFieldValue(const QString &name) const
+//{
+//    Q_UNUSED(name);
+//    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
+//    return {};
+//}
 
-void IGadgetUnit::setFieldValue(const QString &name, const QVariant &value)
-{
-    Q_UNUSED(name);
-    Q_UNUSED(value);
-    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
-}
+//void IGadgetUnit::setFieldValue(const QString &name, const QVariant &value)
+//{
+//    Q_UNUSED(name);
+//    Q_UNUSED(value);
+//    IGlobalAbort::abortUnImplimentedMethod($ISourceLocation);
+//}
 
 
 $PackageWebCoreEnd

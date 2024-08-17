@@ -1,16 +1,20 @@
 ﻿#include <ICore/IApplication>
+#include <ICore/IContext>
 #include "NameBean.h"
 #include "PersonBean.h"
 
+
+$EnableTaskOutput(true)
+
 int main(int argc, char *argv[])
 {
-//    NameBean bean;
-//    qDebug() << bean.toJson();
+    bool ok;
+    NameBean bean;
+    qDebug() << bean.toJson(&ok) << ok;
 
-//    PersonBean person;
+    PersonBean person;
 
-//    bool ok;
-//    qDebug() << person.toJson(&ok) << ok;
+    qDebug() << person.toJson(&ok) << ok;
 
 //    PersonBean bean2;
 }

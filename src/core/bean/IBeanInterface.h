@@ -19,7 +19,7 @@ public:
     IBeanInterface() = default;
     virtual ~IBeanInterface() = default;
 
-public:
+private:
     virtual const QString& className() const final {
         static const QString clsName = T::staticMetaObject.className();
         return clsName;
@@ -83,7 +83,8 @@ public:
         return fieldNames;
     }
 
-    virtual QJsonValue toJson(bool *ok) const override
+public:
+    virtual QJsonValue toJson(bool *ok) const
     {
         QJsonObject obj;
         const auto& fields = getMetaProperties();
@@ -100,7 +101,7 @@ public:
         return obj;
     }
 
-    virtual bool loadJson(const QJsonValue &value) override
+    virtual bool loadJson(const QJsonValue &value)
     {
         bool ok{true};
         const auto& fields = getMetaProperties();

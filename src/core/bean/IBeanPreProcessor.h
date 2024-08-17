@@ -2,11 +2,6 @@
 
 #include "core/util/IPreProcessorUtil.h"
 
-#define $AsBean \
-    template<typename U, bool>    \
-    friend class IBeanInterface;    \
-private:
-
 #define $BeanFieldDeclare(type, name) \
     Q_PROPERTY(type name MEMBER name WRITE $write_##name##_value)   \
     Q_INVOKABLE void* $get_ ## name ## _ptr(){ return & name; }     \

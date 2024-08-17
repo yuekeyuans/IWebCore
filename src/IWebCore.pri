@@ -90,7 +90,7 @@ HEADERS += \
     $$PWD/core/test/IUnitTestInterface.h \
     $$PWD/core/test/IUnitTestManage.h \
     $$PWD/core/test/IUnitTestTask.h \
-    $$PWD/core/unit/IGadgetUnit.h \
+#    $$PWD/core/unit/IGadgetUnit.h \
     $$PWD/core/unit/INoConstructUnit.h \
     $$PWD/core/unit/IOrderUnit.h  \
 #    $$PWD/core/unit/IRegisterGadgetUnit.h \
@@ -275,7 +275,7 @@ SOURCES += \
     $$PWD/core/test/IUnitTestInterface.cpp \
     $$PWD/core/test/IUnitTestManage.cpp \
     $$PWD/core/test/IUnitTestTask.cpp \
-    $$PWD/core/unit/IGadgetUnit.cpp \
+#    $$PWD/core/unit/IGadgetUnit.cpp \
 #    $$PWD/core/unit/IRegisterGadgetUnit.cpp \
     $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
     $$PWD/core/unit/ISingletonUnit.cpp \
