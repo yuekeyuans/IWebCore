@@ -13,7 +13,7 @@ public:
     virtual ~IBeanWare() = default;
 
 public:
-    virtual QString name() const = 0;
+//    virtual QString name() const = 0;
 };
 
 $PackageWebCoreEnd

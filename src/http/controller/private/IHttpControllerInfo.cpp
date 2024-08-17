@@ -43,7 +43,7 @@ private:
     void checkMethodParamterWithSuffixProper(const IHttpControllerActionNode& node);
 
 private:
-    bool isBeanType(const QString&);
+//    bool isBeanType(const QString&);
     bool isSpecialTypes(const QString&);
 
 private:
@@ -335,7 +335,7 @@ void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IHttpCont
         auto typeId = typeIds[i];
 
         if(typeId >= QMetaType::User){
-            bool isSupportedType = isSpecialTypes(typeName) || isBeanType(typeName);
+            bool isSupportedType = isSpecialTypes(typeName) || IBeanTypeManage::instance()->isBeanIdExist(typeId) /*isBeanType(typeName)*/;
             if(!isSupportedType){
                 IHttpControllerAbort::abortcontroller_check_param_Type_has_unsupported_user_defined_type( QString("At Function: ").append(node.methodNode.signature)
                                                                                                       .append(" At Param: ").append(typeName), $ISourceLocation);
@@ -392,10 +392,10 @@ void IHttpControllerInfoDetail::checkMethodParamterWithSuffixProper(const IHttpC
     }
 }
 
-bool IHttpControllerInfoDetail::isBeanType(const QString &typeName)
-{
-    return IBeanTypeManage::containBean(typeName);
-}
+//bool IHttpControllerInfoDetail::isBeanType(const QString &typeName)
+//{
+//    return IBeanTypeManage::containBean(typeName);
+//}
 
 bool IHttpControllerInfoDetail::isSpecialTypes(const QString &typeName)
 {

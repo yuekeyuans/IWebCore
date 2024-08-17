@@ -16,11 +16,8 @@ public:
     IBeanTypeManage() = default;
 
 public:
-    // TODO: 这里重新处理吧
-    static void registerBeanType(const QString& typeName);
-    static bool containBean(const QString& typeName);
-
-public:
+    void registerBeanId(int id);
+    bool isBeanIdExist(int id);
     void registerToJsonFun(int id, ToJsonFun);
     void registerLoadJsonFun(int id, LoadJsonFun);
     ToJsonFun getToJsonFun(int id);
@@ -28,7 +25,7 @@ public:
 
 
 private:
-    QStringList m_beanNames;
+    QList<int> m_beanIds;
     QMap<int, ToJsonFun> m_toJsonMap;
     QMap<int, LoadJsonFun> m_loadJsonMap;
 };

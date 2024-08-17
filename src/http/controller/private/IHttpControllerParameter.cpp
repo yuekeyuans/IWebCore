@@ -506,7 +506,7 @@ void IHttpControllerParameter::initBeanTypes(){
             if(name.isEmpty()){
                 break;
             }
-            if(IBeanTypeManage::containBean(name)){
+            if(IBeanTypeManage::instance()->isBeanIdExist(id)){
                 m_beanTypes << id;
             }
         }

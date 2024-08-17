@@ -7,10 +7,10 @@ int main(int argc, char *argv[])
 //    NameBean bean;
 //    qDebug() << bean.toJson();
 
-    PersonBean person;
+//    PersonBean person;
 
-    bool ok;
-    qDebug() << person.toJson(&ok) << ok;
+//    bool ok;
+//    qDebug() << person.toJson(&ok) << ok;
 
-    PersonBean bean2;
+//    PersonBean bean2;
 }

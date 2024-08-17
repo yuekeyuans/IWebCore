@@ -11,8 +11,10 @@
 $PackageWebCoreBegin
 
 template<class T, bool enabled = true>
-class IBeanInterface : public IBeanWare, public ITaskInstantUnit<T, enabled> //, public ITraceUnit<T, true>
+class IBeanInterface : public IBeanWare, public ITaskInstantUnit<T, enabled>, public ITraceUnit<T, true>
 {
+    template<typename U, bool>
+    friend class ITaskIstantUnit;
 public:
     IBeanInterface() = default;
     virtual ~IBeanInterface() = default;
@@ -81,41 +83,7 @@ public:
         return fieldNames;
     }
 
-
-
-
-
-//    bool isEqualTo(const  *gadget) const
-//    {
-//        return isEqualTo(*gadget);
-//    }
-
-//    bool isEqualTo(const IGadgetUnit &gadget) const
-//    {
-//        if(gadget.className() != this->className()){
-//            return false;
-//        }
-
-//        auto props = this->getMetaProperties();
-//        for(const auto& prop : props){
-//            QString propName = prop.name();
-//            auto val1 = this->getFieldValue(propName);
-//            auto val2 = gadget.getFieldValue(propName);
-//            if(val1.type() == QVariant::Bool){
-//                bool ok;
-//                auto thisBool = IConvertUtil::toBool(val1.toBool(), ok);
-//                auto thatBool = IConvertUtil::toBool(val2.toBool(), ok);
-//                if(thisBool != thatBool){
-//                    return false;
-//                }
-//            }else if(val1 != val2){
-//                return false;
-//            }
-//        }
-//        return true;
-//    }
-
-    QJsonValue toJson(bool *ok) const
+    virtual QJsonValue toJson(bool *ok) const override
     {
         QJsonObject obj;
         const auto& fields = getMetaProperties();
@@ -132,7 +100,7 @@ public:
         return obj;
     }
 
-    bool loadJson(const QJsonValue &value)
+    virtual bool loadJson(const QJsonValue &value) override
     {
         bool ok{true};
         const auto& fields = getMetaProperties();
@@ -275,18 +243,9 @@ public:
         return ok;
     }
 
-
-
-public:
-    virtual QString name() const;
+private:
     virtual void task() final;
 };
-
-template <typename T, bool enabled>
-QString IBeanInterface<T, enabled>::name() const
-{
-    return IMetaUtil::getTypename<T>();
-}
 
 template<typename T, bool enabled>
 void IBeanInterface<T, enabled>::task()
@@ -294,9 +253,9 @@ void IBeanInterface<T, enabled>::task()
     if constexpr (enabled){
         static std::once_flag initRegisterFlag;
         std::call_once(initRegisterFlag, [](){
-            IMetaUtil::registerMetaType<T>();
-            IBeanTypeManage::registerBeanType(typeid (T).name());   // register type
             auto id = qMetaTypeId<T>();
+            IMetaUtil::registerMetaType<T>();
+            IBeanTypeManage::instance()->registerBeanId(id);
             IBeanTypeManage::instance()->registerToJsonFun(id, [](void* ptr, bool* ok)->QJsonValue{
                 return static_cast<T*>(ptr)->toJson(ok);
             });
