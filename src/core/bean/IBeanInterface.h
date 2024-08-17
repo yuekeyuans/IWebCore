@@ -2,10 +2,9 @@
 
 #include "IBeanWare.h"
 #include "IBeanTypeManage.h"
-#include "core/util/IHeaderUtil.h"
+#include "IBeanPreProcessor.h"
 #include "core/util/IMetaUtil.h"
 #include "core/unit/ITraceUnit.h"
-#include "core/bean/IBeanPreProcessor.h"
 #include "core/task/unit/ITaskInstantUnit.h"
 
 $PackageWebCoreBegin
@@ -20,17 +19,30 @@ public:
     virtual ~IBeanInterface() = default;
 
 private:
-    virtual const QString& className() const final {
-        static const QString clsName = T::staticMetaObject.className();
+    const QString& className() const {
+        static const QString clsName = IMetaUtil::getTypename<T>();
         return clsName;
     }
-    virtual QMetaObject getMetaObject() const final{
-        return T::staticMetaObject;
-    }
-    virtual int getMetaTypeId() const{
+
+    int getMetaTypeId() const {
         return qMetaTypeId<T>();
     }
-    virtual QMetaMethod getMetaMethod(const QString &name) const final {
+
+    const QVector<QMetaMethod>& getMetaMethods() const {
+        static auto methods =  IMetaUtil::getMetaMethods(T::staticMetaObject);
+        return methods;
+    }
+
+    const QMap<QString, QString>& getMetaClassInfos() const {
+        static auto clsInfos = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
+        return clsInfos;
+    }
+    const QVector<QMetaProperty>& getMetaProperties() const {
+        static auto props = IMetaUtil::getMetaProperties(T::staticMetaObject);
+        return props;
+    }
+
+    QMetaMethod getMetaMethod(const QString &name) const {
         const auto& methods = getMetaMethods();
         for(const QMetaMethod& method : methods){
             if(method.name() == name){
@@ -39,25 +51,16 @@ private:
         }
         return {};
     }
-    virtual const QVector<QMetaMethod>& getMetaMethods() const final{
-        static auto methods =  IMetaUtil::getMetaMethods(T::staticMetaObject);
-        return methods;
-    }
-    virtual const QMap<QString, QString>& getMetaClassInfos() const final{
-        static auto clsInfos = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
-        return clsInfos;
-    }
-    virtual QMetaProperty getMetaProperty(const QString& name) const final {
+
+    QMetaProperty getMetaProperty(const QString& name) const {
         return IMetaUtil::getMetaPropertyByName(T::staticMetaObject, name);
     }
-    virtual const QVector<QMetaProperty>& getMetaProperties() const final {
-        static auto props = IMetaUtil::getMetaProperties(T::staticMetaObject);
-        return props;
-    }
+
     virtual QVariant getFieldValue(const QString& name) const final {
         const auto& property = getMetaProperty(name);
         return IMetaUtil::readProperty(property, this);
     }
+
     virtual void setFieldValue(const QString& name, const QVariant& value) final{
         const auto& property = getMetaProperty(name);
         IMetaUtil::writeProperty(property, this, value);
@@ -181,13 +184,14 @@ public:
             break;
         default:
             ok = false;
-            break;
+            return {};
         }
+        ok = false;
+        return {};
     }
 
     bool loadJsonValueOfBeanType(const void *handle, const QMetaProperty &prop, const QJsonValue &value)
     {
-        bool ok{true};
         auto getPtrFun = getMetaMethod(QString("$get_") + prop.name() + "_ptr");
         void* ptr{};
         QGenericReturnArgument retVal("void*", &ptr);
