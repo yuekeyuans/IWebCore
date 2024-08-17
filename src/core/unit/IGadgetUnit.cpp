@@ -103,12 +103,13 @@ bool IGadgetUnit::loadJson(const QJsonValue &value)
 {
     bool ok{true};
     const auto& fields = getMetaProperties();
+    QJsonObject obj = value.toObject();
     for(const QMetaProperty& field :fields){
         auto type = field.type();
         if(type >= QMetaType::User){
-            loadJsonValueOfBeanType(this, field, )
+            loadJsonValueOfBeanType(this, field, obj[field.name()]);
         }else{
-
+            loadJsonValueOfPlainType(this, field, obj[field.name()]);
         }
     }
 
@@ -184,12 +185,61 @@ QJsonValue IGadgetUnit::toJsonValueOfPlainType(int type, const QVariant &value, 
 
 bool IGadgetUnit::loadJsonValueOfBeanType(const void *handle, const QMetaProperty &prop, const QJsonValue &value)
 {
-    return {};
+    bool ok{true};
+    auto getPtrFun = getMetaMethod(QString("$get_") + prop.name() + "_ptr");
+    void* ptr{};
+    QGenericReturnArgument retVal("void*", &ptr);
+    getPtrFun.invokeOnGadget(const_cast<void*>(handle), retVal);
+
+    auto loadJsonFun = IBeanTypeManage::instance()->getLoadJsonFun(getMetaTypeId());
+    return loadJsonFun(ptr, value);
 }
 
+// TODO: 一定要吧 Json 库给换掉，太恶心了。
 bool IGadgetUnit::loadJsonValueOfPlainType(const void *handle, const QMetaProperty &prop, const QJsonValue &value)
 {
-    return {};
+    bool ok{true};
+    auto type = prop.type();
+    switch (type) {
+    case QMetaType::Bool:
+        prop.writeOnGadget(const_cast<void*>(handle), value.toBool());
+        break;
+    case QMetaType::UChar:
+    case QMetaType::Char:
+    case QMetaType::SChar:
+    case QMetaType::UShort:
+    case QMetaType::Short:
+    case QMetaType::Int:
+    case QMetaType::UInt:
+    case QMetaType::Long:
+    case QMetaType::ULong:
+    case QMetaType::LongLong:
+    case QMetaType::ULongLong:
+        prop.writeOnGadget(const_cast<void*>(handle), value.toInt());
+        break;
+    case QMetaType::Float:
+    case QMetaType::Double:
+        prop.writeOnGadget(const_cast<void*>(handle), value.toDouble());
+        break;
+    case QMetaType::QString:
+        prop.writeOnGadget(const_cast<void*>(handle), value.toString());
+        break;
+    case QMetaType::QStringList:
+    {
+        QStringList ret;
+        auto array = value.toArray();
+        for(auto val : array){
+            ret.append(val.toString());
+        }
+        prop.writeOnGadget(const_cast<void*>(handle), ret);
+    }
+    case QMetaType::QByteArray:
+        prop.writeOnGadget(const_cast<void*>(handle), value.toString().toUtf8());
+        break;
+    default:
+        return false;
+    }
+    return ok;
 }
 
 
