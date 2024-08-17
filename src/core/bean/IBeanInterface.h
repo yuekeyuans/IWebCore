@@ -60,26 +60,222 @@ public:
         const auto& property = getMetaProperty(name);
         IMetaUtil::writeProperty(property, this, value);
     }
-    virtual const QStringList& getIgnorableFieldNames() const override{
+    virtual const QStringList& getIgnorableFieldNames() const{
         static QStringList ignoredFields = IMetaUtil::getIgnoredFields(T::staticMetaObject);
         return ignoredFields;
     }
-    virtual const QVector<int>& getIgnorableFieldIndexes() const override{
+    virtual const QVector<int>& getIgnorableFieldIndexes() const{
         static QVector<int> ignoredFields = IMetaUtil::getIgnoredFieldIndexes(T::staticMetaObject);
         return ignoredFields;
     }
-    virtual bool isIgnorableField(const QString& name) const override{
+    virtual bool isIgnorableField(const QString& name) const{
         static const QStringList ignoredFields = getIgnorableFieldNames();
         return ignoredFields.contains(name);
     }
-    virtual bool isIgnorableField(int index) const override{
+    virtual bool isIgnorableField(int index) const{
         static const QVector<int> ignoredFields = getIgnorableFieldIndexes();
         return ignoredFields.contains(index);
     }
-    virtual const QStringList& getMetaFieldNames() const override{
+    virtual const QStringList& getMetaFieldNames() const{
         static QStringList fieldNames = IMetaUtil::getMetaPropertyNames(T::staticMetaObject);
         return fieldNames;
     }
+
+
+
+
+
+//    bool isEqualTo(const  *gadget) const
+//    {
+//        return isEqualTo(*gadget);
+//    }
+
+//    bool isEqualTo(const IGadgetUnit &gadget) const
+//    {
+//        if(gadget.className() != this->className()){
+//            return false;
+//        }
+
+//        auto props = this->getMetaProperties();
+//        for(const auto& prop : props){
+//            QString propName = prop.name();
+//            auto val1 = this->getFieldValue(propName);
+//            auto val2 = gadget.getFieldValue(propName);
+//            if(val1.type() == QVariant::Bool){
+//                bool ok;
+//                auto thisBool = IConvertUtil::toBool(val1.toBool(), ok);
+//                auto thatBool = IConvertUtil::toBool(val2.toBool(), ok);
+//                if(thisBool != thatBool){
+//                    return false;
+//                }
+//            }else if(val1 != val2){
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
+
+    QJsonValue toJson(bool *ok) const
+    {
+        QJsonObject obj;
+        const auto& fields = getMetaProperties();
+        for(const QMetaProperty& field : fields){
+            auto type = field.type();
+            if(type >= QMetaType::User){
+                obj[field.name()] = toJsonValueOfBeanType(this, field, ok);
+            }else{
+                auto value = field.readOnGadget(this);
+                obj[field.name()] = toJsonValueOfPlainType(type, value, ok);
+            }
+
+        }
+        return obj;
+    }
+
+    bool loadJson(const QJsonValue &value)
+    {
+        bool ok{true};
+        const auto& fields = getMetaProperties();
+        QJsonObject obj = value.toObject();
+        for(const QMetaProperty& field :fields){
+            auto type = field.type();
+            if(type >= QMetaType::User){
+                loadJsonValueOfBeanType(this, field, obj[field.name()]);
+            }else{
+                loadJsonValueOfPlainType(this, field, obj[field.name()]);
+            }
+        }
+
+        return ok;
+    }
+
+    QJsonValue toJsonValueOfBeanType(const void *handle, const QMetaProperty& prop, bool* ok) const
+    {
+        auto getPtrFun = getMetaMethod(QString("$get_") + prop.name() + "_ptr");
+        void* ptr{};
+        QGenericReturnArgument retVal("void*", &ptr);
+        getPtrFun.invokeOnGadget(const_cast<void*>(handle), retVal);
+        auto toJsonfun = IBeanTypeManage::instance()->getToJsonFun(getMetaTypeId());
+        return toJsonfun(ptr, ok);
+    }
+
+    QJsonValue toJsonValueOfPlainType(int type, const QVariant &value, bool* ok) const
+    {
+        switch (type) {
+        case QMetaType::Bool:
+            return  value.toBool();
+            break;
+        case QMetaType::UChar:
+        case QMetaType::Char:
+        case QMetaType::SChar:
+        case QMetaType::Short:
+        case QMetaType::UShort:
+        case QMetaType::UInt:
+        case QMetaType::Int:
+        case QMetaType::Long:
+            return  value.toLongLong(ok);
+            break;
+        case QMetaType::ULong:
+        case QMetaType::ULongLong:
+            // TODO: 这里需要验证
+            return  value.toLongLong(ok);
+            break;
+        case QMetaType::Float:
+            return  value.toFloat(ok);
+            break;
+        case QMetaType::Double:
+            return  value.toDouble(ok);
+            break;
+        case QMetaType::QString:
+            return  value.toString();
+            break;
+        case QMetaType::QStringList:{
+            QJsonArray array;
+            auto strlist = value.toStringList();
+            for(const auto& str : strlist){
+                array.append(str);
+            }
+            return  array;
+        }
+            break;
+        case QMetaType::QByteArray:
+            return  QString(value.toByteArray());
+            break;
+        case QMetaType::QJsonArray:
+            return  value.toJsonArray();
+            break;
+        case QMetaType::QJsonObject:
+            return  value.toJsonObject();
+            break;
+        case QMetaType::QJsonValue:
+            return  value.toJsonValue();
+            break;
+        default:
+            ok = false;
+            break;
+        }
+    }
+
+    bool loadJsonValueOfBeanType(const void *handle, const QMetaProperty &prop, const QJsonValue &value)
+    {
+        bool ok{true};
+        auto getPtrFun = getMetaMethod(QString("$get_") + prop.name() + "_ptr");
+        void* ptr{};
+        QGenericReturnArgument retVal("void*", &ptr);
+        getPtrFun.invokeOnGadget(const_cast<void*>(handle), retVal);
+
+        auto loadJsonFun = IBeanTypeManage::instance()->getLoadJsonFun(getMetaTypeId());
+        return loadJsonFun(ptr, value);
+    }
+
+    // TODO: 一定要吧 Json 库给换掉，太恶心了。
+    bool loadJsonValueOfPlainType(const void *handle, const QMetaProperty &prop, const QJsonValue &value)
+    {
+        bool ok{true};
+        auto type = prop.type();
+        switch (type) {
+        case QMetaType::Bool:
+            prop.writeOnGadget(const_cast<void*>(handle), value.toBool());
+            break;
+        case QMetaType::UChar:
+        case QMetaType::Char:
+        case QMetaType::SChar:
+        case QMetaType::UShort:
+        case QMetaType::Short:
+        case QMetaType::Int:
+        case QMetaType::UInt:
+        case QMetaType::Long:
+        case QMetaType::ULong:
+        case QMetaType::LongLong:
+        case QMetaType::ULongLong:
+            prop.writeOnGadget(const_cast<void*>(handle), value.toInt());
+            break;
+        case QMetaType::Float:
+        case QMetaType::Double:
+            prop.writeOnGadget(const_cast<void*>(handle), value.toDouble());
+            break;
+        case QMetaType::QString:
+            prop.writeOnGadget(const_cast<void*>(handle), value.toString());
+            break;
+        case QMetaType::QStringList:
+        {
+            QStringList ret;
+            auto array = value.toArray();
+            for(auto val : array){
+                ret.append(val.toString());
+            }
+            prop.writeOnGadget(const_cast<void*>(handle), ret);
+        }
+        case QMetaType::QByteArray:
+            prop.writeOnGadget(const_cast<void*>(handle), value.toString().toUtf8());
+            break;
+        default:
+            return false;
+        }
+        return ok;
+    }
+
+
 
 public:
     virtual QString name() const;

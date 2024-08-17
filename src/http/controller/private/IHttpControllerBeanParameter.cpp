@@ -280,32 +280,32 @@ QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(cons
     IToeUtil::setOk(ok, true);
     QMap<QString, QVariant> map;
 
-    bool convertOk;
-    auto props = bean->getMetaProperties();
-    for(const auto& prop : props){
-        QString value;
-        for(const auto& pair : list){
-            if(pair.first == prop.name()){
-                value = pair.second;
-            }
-        }
+//    bool convertOk;
+//    auto props = bean->getMetaProperties();
+//    for(const auto& prop : props){
+//        QString value;
+//        for(const auto& pair : list){
+//            if(pair.first == prop.name()){
+//                value = pair.second;
+//            }
+//        }
 
-        auto variant = IConvertUtil::toVariant(value, QMetaType::Type(prop.type()), convertOk);
-        if(!convertOk){
-            if(bean->isIgnorableField(prop.propertyIndex())){
-                continue;
-            }
-            if(isBeanResoveStrictMode()){
-                IToeUtil::setOk(ok, false);
-                request.setInvalid(IHttpBadRequestInvalid(QString(prop.name()).append(" format not correct")));
-                return map;
-            }
-            IHttpControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" format not correct"), $ISourceLocation);
-            continue;
-        }
+//        auto variant = IConvertUtil::toVariant(value, QMetaType::Type(prop.type()), convertOk);
+//        if(!convertOk){
+//            if(bean->isIgnorableField(prop.propertyIndex())){
+//                continue;
+//            }
+//            if(isBeanResoveStrictMode()){
+//                IToeUtil::setOk(ok, false);
+//                request.setInvalid(IHttpBadRequestInvalid(QString(prop.name()).append(" format not correct")));
+//                return map;
+//            }
+//            IHttpControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" format not correct"), $ISourceLocation);
+//            continue;
+//        }
 
-        map[prop.name()] = variant;
-    }
+//        map[prop.name()] = variant;
+//    }
     return map;
 }
 
@@ -316,26 +316,26 @@ QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(cons
     IToeUtil::setOk(ok, true);
     QMap<QString, QVariant> map;
 
-    bool convertOk;
-    auto props = bean->getMetaProperties();
-    for(const auto& prop : props){
-        auto value = raw[prop.name()];
-        auto variant = IConvertUtil::toVariant(value, QMetaType::Type(prop.type()), convertOk);
-        if(!convertOk){
-            if(bean->isIgnorableField(prop.propertyIndex())){
-                continue;
-            }
-            if(isBeanResoveStrictMode()){
-                IToeUtil::setOk(ok, false);
-                request.setInvalid(IHttpBadRequestInvalid(QString(prop.name()).append(" format not correct")));
-                return map;
-            }
-            IHttpControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" format not correct"), $ISourceLocation);
-            continue;
-        }
+//    bool convertOk;
+//    auto props = bean->getMetaProperties();
+//    for(const auto& prop : props){
+//        auto value = raw[prop.name()];
+//        auto variant = IConvertUtil::toVariant(value, QMetaType::Type(prop.type()), convertOk);
+//        if(!convertOk){
+//            if(bean->isIgnorableField(prop.propertyIndex())){
+//                continue;
+//            }
+//            if(isBeanResoveStrictMode()){
+//                IToeUtil::setOk(ok, false);
+//                request.setInvalid(IHttpBadRequestInvalid(QString(prop.name()).append(" format not correct")));
+//                return map;
+//            }
+//            IHttpControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" format not correct"), $ISourceLocation);
+//            continue;
+//        }
 
-        map[prop.name()] = variant;
-    }
+//        map[prop.name()] = variant;
+//    }
     return map;
 }
 
@@ -350,31 +350,31 @@ QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(cons
                                                                             IBeanWare *bean, IRequest &request, bool &ok)
 {
     QMap<QString, QVariant> map;
-    const QStringList& fieldNames = bean->getMetaFieldNames();
+//    const QStringList& fieldNames = bean->getMetaFieldNames();
 
-    // FIXME:
-    bool convertOk;
-    for(auto part : parts){
-        QString name = part.name.toQString();
-        if(fieldNames.contains(name)){
-            auto value = part.content;
-            auto prop = bean->getMetaProperty(name);        // should optimized
-            auto variant = IConvertUtil::toVariant(value, QMetaType::Type(prop.type()), convertOk);
-            if(!convertOk){
-                if(bean->isIgnorableField(prop.propertyIndex())){
-                    continue;
-                }
-                if(isBeanResoveStrictMode()){
-                    IToeUtil::setOk(ok, false);
-                    request.setInvalid(IHttpBadRequestInvalid(QString(prop.name()).append(" format not correct")));
-                    return map;
-                }
-                IHttpControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" format not correct"), $ISourceLocation);
-                continue;
-            }
-            map[name] = variant;
-        }
-    }
+//    // FIXME:
+//    bool convertOk;
+//    for(auto part : parts){
+//        QString name = part.name.toQString();
+//        if(fieldNames.contains(name)){
+//            auto value = part.content;
+//            auto prop = bean->getMetaProperty(name);        // should optimized
+//            auto variant = IConvertUtil::toVariant(value, QMetaType::Type(prop.type()), convertOk);
+//            if(!convertOk){
+//                if(bean->isIgnorableField(prop.propertyIndex())){
+//                    continue;
+//                }
+//                if(isBeanResoveStrictMode()){
+//                    IToeUtil::setOk(ok, false);
+//                    request.setInvalid(IHttpBadRequestInvalid(QString(prop.name()).append(" format not correct")));
+//                    return map;
+//                }
+//                IHttpControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" format not correct"), $ISourceLocation);
+//                continue;
+//            }
+//            map[name] = variant;
+//        }
+//    }
     return map;
 
 }
@@ -394,54 +394,54 @@ QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(cons
 
 bool IHttpControllerBeanParameter::checkKeyInJsonAndBean(const QJsonObject &obj, IBeanWare* bean, IRequest& request)
 {
-    if(IConstantUtil::ReleaseMode){
-        return true;
-    }
+//    if(IConstantUtil::ReleaseMode){
+//        return true;
+//    }
 
-    auto props = bean->getMetaProperties();
-    for(const auto& prop : props){
-        if(bean->isIgnorableField(prop.propertyIndex())){        // ignored, check pass
-            continue;
-        }
+//    auto props = bean->getMetaProperties();
+//    for(const auto& prop : props){
+//        if(bean->isIgnorableField(prop.propertyIndex())){        // ignored, check pass
+//            continue;
+//        }
 
-        if(!obj.contains(prop.name())){
-            if(isBeanResoveStrictMode()){
-                request.setInvalid(IHttpBadRequestInvalid(QString("json do not contain pair :").append(prop.name())));
-                return false;
+//        if(!obj.contains(prop.name())){
+//            if(isBeanResoveStrictMode()){
+//                request.setInvalid(IHttpBadRequestInvalid(QString("json do not contain pair :").append(prop.name())));
+//                return false;
 
-            }
-            IHttpControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString("json do not contain pair :").append(prop.name()), $ISourceLocation);
-        }
-    }
+//            }
+//            IHttpControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString("json do not contain pair :").append(prop.name()), $ISourceLocation);
+//        }
+//    }
     return true;
 }
 
 bool IHttpControllerBeanParameter::checkKeyInMultiPart(const QVector<IMultiPart> &parts, IBeanWare *bean, IRequest &request)
 {
-    if(IConstantUtil::ReleaseMode){
-        return true;
-    }
+//    if(IConstantUtil::ReleaseMode){
+//        return true;
+//    }
 
-    QStringList multiPartNames;
-    for(const auto& part : parts){
-        multiPartNames.append(part.name.toQString());   // FIXME:
-    }
+//    QStringList multiPartNames;
+//    for(const auto& part : parts){
+//        multiPartNames.append(part.name.toQString());   // FIXME:
+//    }
 
-    auto props = bean->getMetaProperties();
-    for(auto prop : props){
-        if(bean->isIgnorableField(prop.propertyIndex())){
-            continue;
-        }
+//    auto props = bean->getMetaProperties();
+//    for(auto prop : props){
+//        if(bean->isIgnorableField(prop.propertyIndex())){
+//            continue;
+//        }
 
-        if(!multiPartNames.contains(prop.name())){
-            if(isBeanResoveStrictMode()){
-                request.setInvalid(IHttpBadRequestInvalid(QString(prop.name()).append(" not found")));
-                return false;
-            }
-            IHttpControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" not found"), $ISourceLocation);
-            continue;
-        }
-    }
+//        if(!multiPartNames.contains(prop.name())){
+//            if(isBeanResoveStrictMode()){
+//                request.setInvalid(IHttpBadRequestInvalid(QString(prop.name()).append(" not found")));
+//                return false;
+//            }
+//            IHttpControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" not found"), $ISourceLocation);
+//            continue;
+//        }
+//    }
     return true;
 }
 
@@ -495,25 +495,25 @@ bool IHttpControllerBeanParameter::checkKeyInListPair(const QMultiHash<IStringVi
 
 bool IHttpControllerBeanParameter::checkKeyInQStringMap(const QMap<QString, QString> &map, IBeanWare *bean, IRequest &request)
 {
-    if(IConstantUtil::ReleaseMode){
-        return true;
-    }
+//    if(IConstantUtil::ReleaseMode){
+//        return true;
+//    }
 
-    auto props = bean->getMetaProperties();
-    for(const auto& prop : props){
-        if(bean->isIgnorableField(prop.propertyIndex())){
-            continue;
-        }
+//    auto props = bean->getMetaProperties();
+//    for(const auto& prop : props){
+//        if(bean->isIgnorableField(prop.propertyIndex())){
+//            continue;
+//        }
 
-        if(!map.contains(prop.name())){
-            if(isBeanResoveStrictMode()){
-                request.setInvalid(IHttpBadRequestInvalid(QString(prop.name()).append(" not found")));
-                return false;
-            }
-            IHttpControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" not found"), $ISourceLocation);
-            continue;
-        }
-    }
+//        if(!map.contains(prop.name())){
+//            if(isBeanResoveStrictMode()){
+//                request.setInvalid(IHttpBadRequestInvalid(QString(prop.name()).append(" not found")));
+//                return false;
+//            }
+//            IHttpControllerAbort::abortassamble_bean_when_bean_inner_parameter_not_found(QString(prop.name()).append(" not found"), $ISourceLocation);
+//            continue;
+//        }
+//    }
     return true;
 }
 
