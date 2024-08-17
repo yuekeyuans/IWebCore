@@ -1,7 +1,8 @@
 ﻿#pragma once
 
-#include "core/util/IHeaderUtil.h"
+#include "core/util/IPackageUtil.h"
 #include "core/task/ITaskPreProcessor.h"
+#include <mutex>
 
 $PackageWebCoreBegin
 

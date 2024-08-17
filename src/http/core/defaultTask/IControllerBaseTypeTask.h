@@ -1,4 +1,6 @@
-﻿#include "core/util/IHeaderUtil.h"
+﻿#pragma once
+
+#include "core/util/IPackageUtil.h"
 #include "core/task/unit/ITaskInstantUnit.h"
 
 $PackageWebCoreBegin

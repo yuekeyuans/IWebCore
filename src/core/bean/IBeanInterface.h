@@ -10,7 +10,7 @@
 $PackageWebCoreBegin
 
 template<class T, bool enabled = true>
-class IBeanInterface : public IBeanWare, public ITaskInstantUnit<T, enabled>, public ITraceUnit<T, true>
+class IBeanInterface : public IBeanWare, public ITaskInstantUnit<T, enabled>, public ITraceUnit<T, false>
 {
     template<typename U, bool>
     friend class ITaskIstantUnit;
