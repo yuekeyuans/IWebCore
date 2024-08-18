@@ -8,6 +8,7 @@
 #include "core/base/IStringViewStash.h"
 #include "core/base/IStringView.h"
 #include <asio.hpp>
+#include <IJson.h>
 
 $PackageWebCoreBegin
 

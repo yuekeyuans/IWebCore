@@ -9,13 +9,13 @@ int main(int argc, char *argv[])
 {
     bool ok;
     NameBean bean;
-    std::cout << bean.toJson(&ok).dump(4);
+    std::cout << bean.toJson(&ok).dump(4) << std::endl;
 
     PersonBean person;
 
 //    person.name2.append(NameBean{});
 
-    std::cout << person.toJson(&ok) << ok;
+    std::cout << person.toJson(&ok).dump(4) << std::endl;
 
 //    PersonBean bean2;
 }

@@ -10,15 +10,17 @@ $PackageWebCoreBegin
 using IJson = nlohmann::json;
 
 Q_DECLARE_METATYPE(IJson)
+Q_DECLARE_METATYPE(std::string)
 
 namespace detail{
-    class IJsonPrivate{
+    class IDefaultRegisterType{
     public:
-        IJsonPrivate(){
+        IDefaultRegisterType(){
             qRegisterMetaType<IJson>();
+            qRegisterMetaType<std::string>();
         }
     };
-    static IJsonPrivate jsonPrivate;
+    static IDefaultRegisterType s_type;
 }
 
 namespace IJsonUtil2

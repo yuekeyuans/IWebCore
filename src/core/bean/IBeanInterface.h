@@ -90,11 +90,13 @@ public:
 public:
     virtual IJson toJson(bool *ok) const
     {
+        static auto stdStringId = qMetaTypeId<std::string>();
+
         IJson obj;
         const auto& fields = getMetaProperties();
         for(const QMetaProperty& field : fields){
             auto type = field.type();
-            if(type >= QMetaType::User){
+            if(type >= QMetaType::User && type != stdStringId){
                 obj[field.name()] = toJsonValueOfBeanType(this, field, ok);
             }else{
                 auto value = field.readOnGadget(this);
@@ -137,6 +139,11 @@ public:
 
     IJson toJsonValueOfPlainType(int type, const QVariant &value, bool* ok) const
     {
+        static auto stdStringId = qMetaTypeId<std::string>();
+        if(stdStringId == type){
+            return value.value<std::string>();
+        }
+
         switch (type) {
         case QMetaType::Bool:
             return  value.toBool();
@@ -165,6 +172,7 @@ public:
         case QMetaType::QString:
             return  value.toString().toStdString();
             break;
+
 //        case QMetaType::QStringList:{
 //            QJsonArray array;
 //            auto strlist = value.toStringList();
