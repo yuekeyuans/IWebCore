@@ -18,7 +18,7 @@ public:
     IBeanInterface() = default;
     virtual ~IBeanInterface() = default;
 
-private:
+public:
     const QString& className() const {
         static const QString clsName = IMetaUtil::getTypename<T>();
         return clsName;
@@ -173,15 +173,15 @@ public:
         case QMetaType::QByteArray:
             return  QString(value.toByteArray());
             break;
-        case QMetaType::QJsonArray:
-            return  value.toJsonArray();
-            break;
-        case QMetaType::QJsonObject:
-            return  value.toJsonObject();
-            break;
-        case QMetaType::QJsonValue:
-            return  value.toJsonValue();
-            break;
+//        case QMetaType::QJsonArray:
+//            return  value.toJsonArray();
+//            break;
+//        case QMetaType::QJsonObject:
+//            return  value.toJsonObject();
+//            break;
+//        case QMetaType::QJsonValue:
+//            return  value.toJsonValue();
+//            break;
         default:
             ok = false;
             return {};

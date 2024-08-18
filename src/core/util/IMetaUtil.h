@@ -41,9 +41,6 @@ namespace IMetaUtil
     template<typename T>
     void registerMetaType();
 
-//    template<typename T>
-//    void registerBaseType(const QString& name);
-
     template<typename T>
     QString getTypename();
 
@@ -79,13 +76,6 @@ void IMetaUtil::registerMetaType()
         qRegisterMetaType<T>(QString((name + "&")).toUtf8());
     }
 }
-
-//template<typename T>
-//void IMetaUtil::registerBaseType(const QString &name)
-//{
-//    qRegisterMetaType<T>(name.toUtf8());
-//    qRegisterMetaType<T>(QString((name + "&")).toUtf8());
-//}
 
 template<typename T>
 QString IMetaUtil::getTypename(){

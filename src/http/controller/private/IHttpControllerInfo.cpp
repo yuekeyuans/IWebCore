@@ -43,7 +43,6 @@ private:
     void checkMethodParamterWithSuffixProper(const IHttpControllerActionNode& node);
 
 private:
-//    bool isBeanType(const QString&);
     bool isSpecialTypes(const QString&);
 
 private:
@@ -391,11 +390,6 @@ void IHttpControllerInfoDetail::checkMethodParamterWithSuffixProper(const IHttpC
         }
     }
 }
-
-//bool IHttpControllerInfoDetail::isBeanType(const QString &typeName)
-//{
-//    return IBeanTypeManage::containBean(typeName);
-//}
 
 bool IHttpControllerInfoDetail::isSpecialTypes(const QString &typeName)
 {

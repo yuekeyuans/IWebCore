@@ -6,8 +6,3 @@ HEADERS += \
 
 SOURCES += \
     $$PWD/Yaml.cpp
-
-
-
-
-

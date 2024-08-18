@@ -1,4 +1,5 @@
 ﻿#include "IControllerBaseTypeTask.h"
+#include "IJson.h"
 
 $PackageWebCoreBegin
 
