@@ -4,14 +4,15 @@
 #include "core/unit/ISingletonUnit.h"
 #include <functional>
 #include <unordered_set>
+#include "IJson.h"
 
 $PackageWebCoreBegin
 
 class IBeanTypeManage : public ISingletonUnit<IBeanTypeManage>
 {
 public:
-    using ToJsonFun = std::function<QJsonValue(void*, bool*)>;
-    using LoadJsonFun = std::function<bool(void*, const QJsonValue&)>;
+    using ToJsonFun = std::function<IJson(void*, bool*)>;
+    using LoadJsonFun = std::function<bool(void*, const IJson&)>;
 
 public:
     IBeanTypeManage() = default;

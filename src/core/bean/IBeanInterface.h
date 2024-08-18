@@ -6,6 +6,7 @@
 #include "core/util/IMetaUtil.h"
 #include "core/unit/ITraceUnit.h"
 #include "core/task/unit/ITaskInstantUnit.h"
+#include "IJson.h"
 
 $PackageWebCoreBegin
 
@@ -87,9 +88,9 @@ public:
     }
 
 public:
-    virtual QJsonValue toJson(bool *ok) const
+    virtual IJson toJson(bool *ok) const
     {
-        QJsonObject obj;
+        IJson obj;
         const auto& fields = getMetaProperties();
         for(const QMetaProperty& field : fields){
             auto type = field.type();
@@ -104,24 +105,27 @@ public:
         return obj;
     }
 
-    virtual bool loadJson(const QJsonValue &value)
+    virtual bool loadJson(const IJson &value)
     {
+        if(!value.is_object()){
+            return false;
+        }
+
         bool ok{true};
         const auto& fields = getMetaProperties();
-        QJsonObject obj = value.toObject();
         for(const QMetaProperty& field :fields){
             auto type = field.type();
             if(type >= QMetaType::User){
-                loadJsonValueOfBeanType(this, field, obj[field.name()]);
+                loadJsonValueOfBeanType(this, field, value[field.name()]);
             }else{
-                loadJsonValueOfPlainType(this, field, obj[field.name()]);
+                loadJsonValueOfPlainType(this, field, value[field.name()]);
             }
         }
 
         return ok;
     }
 
-    QJsonValue toJsonValueOfBeanType(const void *handle, const QMetaProperty& prop, bool* ok) const
+    IJson toJsonValueOfBeanType(const void *handle, const QMetaProperty& prop, bool* ok) const
     {
         auto getPtrFun = getMetaMethod(QString("$get_") + prop.name() + "_ptr");
         void* ptr{};
@@ -131,7 +135,7 @@ public:
         return toJsonfun(ptr, ok);
     }
 
-    QJsonValue toJsonValueOfPlainType(int type, const QVariant &value, bool* ok) const
+    IJson toJsonValueOfPlainType(int type, const QVariant &value, bool* ok) const
     {
         switch (type) {
         case QMetaType::Bool:
@@ -159,20 +163,20 @@ public:
             return  value.toDouble(ok);
             break;
         case QMetaType::QString:
-            return  value.toString();
+            return  value.toString().toStdString();
             break;
-        case QMetaType::QStringList:{
-            QJsonArray array;
-            auto strlist = value.toStringList();
-            for(const auto& str : strlist){
-                array.append(str);
-            }
-            return  array;
-        }
-            break;
-        case QMetaType::QByteArray:
-            return  QString(value.toByteArray());
-            break;
+//        case QMetaType::QStringList:{
+//            QJsonArray array;
+//            auto strlist = value.toStringList();
+//            for(const auto& str : strlist){
+//                array.append(str);
+//            }
+//            return  array;
+//        }
+//            break;
+//        case QMetaType::QByteArray:
+//            return  QString(value.toByteArray());
+//            break;
 //        case QMetaType::QJsonArray:
 //            return  value.toJsonArray();
 //            break;
@@ -190,7 +194,7 @@ public:
         return {};
     }
 
-    bool loadJsonValueOfBeanType(const void *handle, const QMetaProperty &prop, const QJsonValue &value)
+    bool loadJsonValueOfBeanType(const void *handle, const QMetaProperty &prop, const IJson &value)
     {
         auto getPtrFun = getMetaMethod(QString("$get_") + prop.name() + "_ptr");
         void* ptr{};
@@ -202,13 +206,13 @@ public:
     }
 
     // TODO: 一定要吧 Json 库给换掉，太恶心了。
-    bool loadJsonValueOfPlainType(const void *handle, const QMetaProperty &prop, const QJsonValue &value)
+    bool loadJsonValueOfPlainType(const void *handle, const QMetaProperty &prop, const IJson &value)
     {
         bool ok{true};
         auto type = prop.type();
         switch (type) {
         case QMetaType::Bool:
-            prop.writeOnGadget(const_cast<void*>(handle), value.toBool());
+            prop.writeOnGadget(const_cast<void*>(handle), value.get<bool>());
             break;
         case QMetaType::UChar:
         case QMetaType::Char:
@@ -221,27 +225,27 @@ public:
         case QMetaType::ULong:
         case QMetaType::LongLong:
         case QMetaType::ULongLong:
-            prop.writeOnGadget(const_cast<void*>(handle), value.toInt());
+            prop.writeOnGadget(const_cast<void*>(handle), value.get<int>());
             break;
         case QMetaType::Float:
         case QMetaType::Double:
-            prop.writeOnGadget(const_cast<void*>(handle), value.toDouble());
+            prop.writeOnGadget(const_cast<void*>(handle), value.get<double>());
             break;
         case QMetaType::QString:
-            prop.writeOnGadget(const_cast<void*>(handle), value.toString());
+            prop.writeOnGadget(const_cast<void*>(handle), QString::fromStdString(value.get<std::string>()));
             break;
-        case QMetaType::QStringList:
-        {
-            QStringList ret;
-            auto array = value.toArray();
-            for(auto val : array){
-                ret.append(val.toString());
-            }
-            prop.writeOnGadget(const_cast<void*>(handle), ret);
-        }
-        case QMetaType::QByteArray:
-            prop.writeOnGadget(const_cast<void*>(handle), value.toString().toUtf8());
-            break;
+//        case QMetaType::QStringList:
+//        {
+//            QStringList ret;
+//            auto array = value.toArray();
+//            for(auto val : array){
+//                ret.append(val.toString());
+//            }
+//            prop.writeOnGadget(const_cast<void*>(handle), ret);
+//        }
+//        case QMetaType::QByteArray:
+//            prop.writeOnGadget(const_cast<void*>(handle), value.toString().toUtf8());
+//            break;
         default:
             return false;
         }
@@ -261,10 +265,10 @@ void IBeanInterface<T, enabled>::task()
             auto id = qMetaTypeId<T>();
             IMetaUtil::registerMetaType<T>();
             IBeanTypeManage::instance()->registerBeanId(id);
-            IBeanTypeManage::instance()->registerToJsonFun(id, [](void* ptr, bool* ok)->QJsonValue{
+            IBeanTypeManage::instance()->registerToJsonFun(id, [](void* ptr, bool* ok)->IJson{
                 return static_cast<T*>(ptr)->toJson(ok);
             });
-            IBeanTypeManage::instance()->registerLoadJsonFun(id, [](void* ptr, const QJsonValue& json)->bool{
+            IBeanTypeManage::instance()->registerLoadJsonFun(id, [](void* ptr, const IJson& json)->bool{
                 return static_cast<T*>(ptr)->loadJson(json);
             });
         });
