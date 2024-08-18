@@ -68,3 +68,33 @@
 
 #define $FieldIgnorable(name) \
     Q_CLASSINFO(PP_BEAN_INGNORED_KEY(name), #name)
+
+#define $AsBeanList(klassName)  \
+class klassName ## List : public QList< klassName >, public IBeanInterface< klassName ## List >    \
+{   \
+    Q_GADGET    \
+public: \
+    virtual QJsonValue toJson(bool *ok) const final {   \
+        QJsonArray json;    \
+        for(const klassName & bean : *this){    \
+            json.append(bean.toJson(ok));   \
+            if(ok != nullptr && *ok ==false){   \
+                return json;    \
+            }   \
+        }  \
+        return json;    \
+    }   \
+    virtual bool loadJson(const QJsonValue &value) final{   \
+        if(!value.isArray()){ return false; }       \
+        auto array = value.toArray();   \
+        for(const QJsonValue& value : array){   \
+            klassName bean;  \
+            if(!bean.loadJson(value)){  \
+                return false;   \
+            }   \
+            this->append(bean);     \
+        }   \
+        return true;    \
+    }   \
+};
+

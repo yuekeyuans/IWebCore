@@ -12,5 +12,8 @@ public:
 public:
     $BeanField(int, age, 10)
     $BeanField(NameBean, name1)
+    $BeanField(NameBeanList, name2)
 };
+
+$AsBeanList(PersonBean)
 

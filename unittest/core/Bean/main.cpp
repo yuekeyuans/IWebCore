@@ -3,7 +3,6 @@
 #include "NameBean.h"
 #include "PersonBean.h"
 
-
 $EnableTaskOutput(true)
 
 int main(int argc, char *argv[])
@@ -13,6 +12,8 @@ int main(int argc, char *argv[])
     qDebug() << bean.toJson(&ok) << ok;
 
     PersonBean person;
+
+    person.name2.append(NameBean{});
 
     qDebug() << person.toJson(&ok) << ok;
 
