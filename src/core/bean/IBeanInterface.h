@@ -106,8 +106,7 @@ public:
                     qDebug() << "warn";
                 }
             }else{
-                auto value = field.readOnGadget(this);
-                obj[field.name()] = toJsonValueOfPlainType(type, value, ok);
+                obj[field.name()] = toJsonValueOfPlainType(type, field, ok);
             }
 
         }
@@ -144,35 +143,30 @@ public:
         return toJsonfun(ptr, ok);
     }
 
-    IJson toJsonValueOfPlainType(int type, const QVariant &value, bool* ok) const
+    IJson toJsonValueOfPlainType(int type, const QMetaProperty &prop, bool* ok) const
     {
-        static auto stdStringId = qMetaTypeId<std::string>();
-        if(stdStringId == type){
-            return value.value<std::string>();
-        }
+        auto value = prop.readOnGadget(this);
 
         switch (type) {
         case QMetaType::Bool:
             return  value.toBool();
             break;
         case QMetaType::UChar:
+        case QMetaType::UShort:
+        case QMetaType::UInt:
+        case QMetaType::ULong:
+        case QMetaType::ULongLong:
+            return value.toULongLong(ok);
+
         case QMetaType::Char:
         case QMetaType::SChar:
         case QMetaType::Short:
-        case QMetaType::UShort:
-        case QMetaType::UInt:
         case QMetaType::Int:
         case QMetaType::Long:
+        case QMetaType::LongLong:
             return  value.toLongLong(ok);
-            break;
-        case QMetaType::ULong:
-        case QMetaType::ULongLong:
-            // TODO: 这里需要验证
-            return  value.toLongLong(ok);
-            break;
+
         case QMetaType::Float:
-            return  value.toFloat(ok);
-            break;
         case QMetaType::Double:
             return  value.toDouble(ok);
             break;
@@ -180,30 +174,14 @@ public:
             return  value.toString().toStdString();
             break;
 
-//        case QMetaType::QStringList:{
-//            QJsonArray array;
-//            auto strlist = value.toStringList();
-//            for(const auto& str : strlist){
-//                array.append(str);
-//            }
-//            return  array;
-//        }
-//            break;
-//        case QMetaType::QByteArray:
-//            return  QString(value.toByteArray());
-//            break;
-//        case QMetaType::QJsonArray:
-//            return  value.toJsonArray();
-//            break;
-//        case QMetaType::QJsonObject:
-//            return  value.toJsonObject();
-//            break;
-//        case QMetaType::QJsonValue:
-//            return  value.toJsonValue();
-//            break;
-        default:
-            ok = false;
-            return {};
+        case QMetaType::QStringList:{
+            IJson array;
+            auto strlist = value.toStringList();
+            for(const QString& str : strlist){
+                array.push_back(str.toStdString());
+            }
+            return  array;
+        }
         }
         ok = false;
         return {};
