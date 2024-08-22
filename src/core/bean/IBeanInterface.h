@@ -96,8 +96,15 @@ public:
         const auto& fields = getMetaProperties();
         for(const QMetaProperty& field : fields){
             auto type = field.type();
-            if(type >= QMetaType::User && type != stdStringId){
-                obj[field.name()] = toJsonValueOfBeanType(this, field, ok);
+            if(type == stdStringId){
+                auto value = field.readOnGadget(this);
+                obj[field.name()] = value.value<std::string>();
+            }else if(type >= QMetaType::User){
+                if(IBeanTypeManage::instance()->isBeanIdExist(type)){
+                    obj[field.name()] = toJsonValueOfBeanType(this, field, ok);
+                }else{
+                    qDebug() << "warn";
+                }
             }else{
                 auto value = field.readOnGadget(this);
                 obj[field.name()] = toJsonValueOfPlainType(type, value, ok);
