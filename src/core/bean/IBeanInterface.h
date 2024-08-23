@@ -215,7 +215,6 @@ public:
         case QMetaType::ULongLong:
             prop.writeOnGadget(const_cast<void*>(handle), value.get<uint64_t>());
             break;
-
         case QMetaType::Char:
         case QMetaType::Short:
         case QMetaType::Int:
@@ -230,18 +229,14 @@ public:
         case QMetaType::QString:
             prop.writeOnGadget(const_cast<void*>(handle), QString::fromStdString(value.get<std::string>()));
             break;
-//        case QMetaType::QStringList:
-//        {
-//            QStringList ret;
-//            auto array = value.toArray();
-//            for(auto val : array){
-//                ret.append(val.toString());
-//            }
-//            prop.writeOnGadget(const_cast<void*>(handle), ret);
-//        }
-//        case QMetaType::QByteArray:
-//            prop.writeOnGadget(const_cast<void*>(handle), value.toString().toUtf8());
-//            break;
+        case QMetaType::QStringList:
+        {
+            QStringList ret;
+            for(auto val : value){
+                ret.append(QString::fromStdString(val.get<std::string>()));
+            }
+            prop.writeOnGadget(const_cast<void*>(handle), ret);
+        }
         default:
             return false;
         }
