@@ -208,17 +208,20 @@ public:
             prop.writeOnGadget(const_cast<void*>(handle), value.get<bool>());
             break;
         case QMetaType::UChar:
-        case QMetaType::Char:
         case QMetaType::SChar:
         case QMetaType::UShort:
+        case QMetaType::UInt:
+        case QMetaType::ULong:
+        case QMetaType::ULongLong:
+            prop.writeOnGadget(const_cast<void*>(handle), value.get<uint64_t>());
+            break;
+
+        case QMetaType::Char:
         case QMetaType::Short:
         case QMetaType::Int:
-        case QMetaType::UInt:
         case QMetaType::Long:
-        case QMetaType::ULong:
         case QMetaType::LongLong:
-        case QMetaType::ULongLong:
-            prop.writeOnGadget(const_cast<void*>(handle), value.get<int>());
+            prop.writeOnGadget(const_cast<void*>(handle), value.get<int64_t>());
             break;
         case QMetaType::Float:
         case QMetaType::Double:
