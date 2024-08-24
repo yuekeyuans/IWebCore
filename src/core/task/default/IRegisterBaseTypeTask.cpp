@@ -1,4 +1,4 @@
-﻿#include "IControllerBaseTypeTask.h"
+﻿#include "IRegisterBaseTypeTask.h"
 #include "IJson.h"
 
 $PackageWebCoreBegin
@@ -10,8 +10,9 @@ void registerBaseType(const QString &name)
     qRegisterMetaType<T>(QString((name + "&")).toUtf8());
 }
 
-void IControllerBaseTypeTask::task()
+void IRegisterBaseTypeTask::task()
 {
+    registerBaseType<std::string>("std::string");
     registerBaseType<bool>("bool");
     registerBaseType<char>("char");
     registerBaseType<uchar>("uchar");

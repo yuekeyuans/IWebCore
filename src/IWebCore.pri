@@ -22,6 +22,7 @@ HEADERS += \
     $$PWD/core/application/IQtApplication.h \
     $$PWD/core/base/IGadgetInfo.h \
     $$PWD/core/base/IStringViewStash.h \
+    $$PWD/core/task/default/IRegisterBaseTypeTask.h \
     $$PWD/core/unit/ITraceUnit.h \
     $$PWD/core/util/ICodecUtil.h \
     $$PWD/core/util/IConstantUtil.h \
@@ -185,7 +186,6 @@ HEADERS += \
     $$PWD/http/controller/IHttpResourceMapping.h \
     $$PWD/http/controller/IHttpRouteMapping.h \
 #    $$PWD/http/controller/private/IControllerInterfaceHelper.h \
-    $$PWD/http/core/defaultTask/IControllerBaseTypeTask.h \
     $$PWD/http/core/defaultTask/INodyTemplateTask.h \
     $$PWD/http/core/test/IHttpTestInterface.h \
     $$PWD/http/core/test/IHttpTestManage.h \
@@ -237,6 +237,7 @@ SOURCES += \
     $$PWD/core/application/IQtApplication.cpp \
     $$PWD/core/base/IGadgetInfo.cpp \
     $$PWD/core/base/IStringViewStash.cpp \
+    $$PWD/core/task/default/IRegisterBaseTypeTask.cpp \
     $$PWD/core/util/ICodecUtil.cpp \
     $$PWD/core/util/IConvertUtil.cpp \
     $$PWD/core/util/IFileUtil.cpp \
@@ -356,7 +357,6 @@ SOURCES += \
     $$PWD/http/controller/IHttpResourceMapping.cpp \
     $$PWD/http/controller/IHttpRouteMapping.cpp \
 #    $$PWD/http/controller/private/IControllerInterfaceHelper.cpp \
-    $$PWD/http/core/defaultTask/IControllerBaseTypeTask.cpp \
     $$PWD/http/core/defaultTask/INodyTemplateTask.cpp \
     $$PWD/http/core/test/IHttpTestInterface.cpp \
     $$PWD/http/core/test/IHttpTestManage.cpp \

@@ -39,7 +39,7 @@ namespace IMetaUtil
     QVariant readProperty(const QMetaProperty& prop, const void* handler);
 
     template<typename T>
-    void registerMetaType();
+    int registerMetaType();
 
     template<typename T>
     QString getTypename();
@@ -59,7 +59,7 @@ private:
 };
 
 template<typename T>
-void IMetaUtil::registerMetaType()
+int IMetaUtil::registerMetaType()
 {
     QStringList names;
     QString name = getTypename<T>();
@@ -71,10 +71,13 @@ void IMetaUtil::registerMetaType()
         names.append(name.split("::").last());
     }
 
+    QList<int> ids;
     for(auto name : names){
-        qRegisterMetaType<T>(name.toUtf8());
-        qRegisterMetaType<T>(QString((name + "&")).toUtf8());
+        ids << qRegisterMetaType<T>(name.toUtf8());
+        ids << qRegisterMetaType<T>(QString((name + "&")).toUtf8());
     }
+//    qDebug() << ids << names.first();
+    return ids.first();
 }
 
 template<typename T>

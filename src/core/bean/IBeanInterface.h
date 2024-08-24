@@ -90,12 +90,16 @@ public:
 public:
     virtual IJson toJson(bool *ok) const
     {
-        static auto stdStringId = qMetaTypeId<std::string>();
+//        static auto stdStringId = qMetaTypeId<std::string>();
+        static auto stdStringId = QMetaType::type("std::string");
+        qDebug() << stdStringId << "std::string id";
+//        static int stdStringId = 1024;
+
 
         IJson obj;
         const auto& fields = getMetaProperties();
         for(const QMetaProperty& field : fields){
-            auto type = field.type();
+            auto type = field.userType();
             if(type == stdStringId){
                 auto value = field.readOnGadget(this);
                 obj[field.name()] = value.value<std::string>();
@@ -103,7 +107,8 @@ public:
                 if(IBeanTypeManage::instance()->isBeanIdExist(type)){
                     obj[field.name()] = toJsonValueOfBeanType(this, field, ok);
                 }else{
-                    qDebug() << "warn";
+                    qDebug() << "user type" << field.userType();
+                    qDebug() << "warn" << (int)type << QMetaType::typeName(type) << field.name() << field.typeName();
                 }
             }else{
                 obj[field.name()] = toJsonValueOfPlainType(type, field, ok);
@@ -253,8 +258,8 @@ void IBeanInterface<T, enabled>::task()
     if constexpr (enabled){
         static std::once_flag initRegisterFlag;
         std::call_once(initRegisterFlag, [](){
-            auto id = qMetaTypeId<T>();
-            IMetaUtil::registerMetaType<T>();
+            auto id = IMetaUtil::registerMetaType<T>();
+
             IBeanTypeManage::instance()->registerBeanId(id);
             IBeanTypeManage::instance()->registerToJsonFun(id, [](void* ptr, bool* ok)->IJson{
                 return static_cast<T*>(ptr)->toJson(ok);

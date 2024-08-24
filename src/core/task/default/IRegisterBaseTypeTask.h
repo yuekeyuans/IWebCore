@@ -5,10 +5,10 @@
 
 $PackageWebCoreBegin
 
-class IControllerBaseTypeTask : public ITaskInstantUnit<IControllerBaseTypeTask, true>
+class IRegisterBaseTypeTask : public ITaskInstantUnit<IRegisterBaseTypeTask, true>
 {
 public:
-    IControllerBaseTypeTask() = default;
+    IRegisterBaseTypeTask() = default;
 
 public:
     virtual void task() final;
