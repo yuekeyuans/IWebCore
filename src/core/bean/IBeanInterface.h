@@ -38,7 +38,7 @@ public:
         static auto clsInfos = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
         return clsInfos;
     }
-    const QVector<QMetaProperty>& getMetaProperties() const {
+    const std::vector<QMetaProperty>& getMetaProperties() const {
         static auto props = IMetaUtil::getMetaProperties(T::staticMetaObject);
         return props;
     }
@@ -262,6 +262,7 @@ void IBeanInterface<T, enabled>::task()
         std::call_once(initRegisterFlag, [](){
             auto id = IMetaUtil::registerMetaType<T>();
             IBeanTypeManage::instance()->registerBeanId(id);
+            IBeanTypeManage::instance()->registerBeanProperties(id, IMetaUtil::getMetaProperties(T::staticMetaObject));
             IBeanTypeManage::instance()->registerToJsonFun(id, [](void* ptr, bool* ok)->IJson{
                 return static_cast<T*>(ptr)->toJson(ok);
             });

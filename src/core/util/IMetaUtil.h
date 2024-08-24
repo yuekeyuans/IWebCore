@@ -17,23 +17,22 @@ namespace IMetaUtil
     QString getMetaClassInfoByName(const QMetaObject& meta, const QString& name, const QString& defaultVal = "");
     QString getMetaClassInfoByName(const QMap<QString, QString>& map, const QString& name, const QString& defaultVal = "");
 
-    QVector<QMetaProperty> getMetaProperties(const QMetaObject &meta);
+    std::vector<QMetaProperty> getMetaProperties(const QMetaObject &meta);
 
     QStringList getMetaPropertyNames(const QMetaObject& meta);
 
     QMap<QString, QMetaProperty> getMetaPropertyMap(const QMetaObject& meta);
 
     QMetaProperty getMetaPropertyByName(const QMetaObject& meta, QString name);
-    QMetaProperty getMetaPropertyByName(const QVector<QMetaProperty>& props, QString name);
+    QMetaProperty getMetaPropertyByName(const std::vector<QMetaProperty>& props, QString name);
 
     QStringList getIgnoredFields(const QMetaObject& meta);
     QVector<int> getIgnoredFieldIndexes(const QMetaObject& meta);
 
     QVector<QMetaMethod> getMetaMethods(const QMetaObject& meta);
 
-    void fromJsonObject(void* handler, const QMetaObject&meta, const QJsonObject& obj);
-
-    void fromVariantMap(void* handler, const QMetaObject&meta, const QMap<QString, QVariant>& map);
+//    void fromJsonObject(void* handler, const QMetaObject&meta, const QJsonObject& obj);
+//    void fromVariantMap(void* handler, const QMetaObject&meta, const QMap<QString, QVariant>& map);
 
     bool writeProperty(const QMetaProperty& prop, void* handler,  const QVariant& value);
     QVariant readProperty(const QMetaProperty& prop, const void* handler);

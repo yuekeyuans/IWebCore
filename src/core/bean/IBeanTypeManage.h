@@ -18,10 +18,11 @@ public:
     IBeanTypeManage() = default;
 
 public:
-    void registerBeanId(int id);
     bool isBeanIdExist(int id);
+    void registerBeanId(int id);
     void registerToJsonFun(int id, ToJsonFun);
     void registerLoadJsonFun(int id, LoadJsonFun);
+    void registerBeanProperties(int id, std::vector<QMetaProperty> properties);
     ToJsonFun getToJsonFun(int id);
     LoadJsonFun getLoadJsonFun(int id);
 
@@ -29,6 +30,7 @@ private:
     std::unordered_set<int> m_beanIds;
     std::unordered_map<int, ToJsonFun> m_toJsonMap;
     std::unordered_map<int, LoadJsonFun> m_loadJsonMap;
+    std::unordered_map<int, std::vector<QMetaProperty>> m_propertiesMap;
 };
 
 $PackageWebCoreEnd
