@@ -75,8 +75,7 @@ int IMetaUtil::registerMetaType()
     for(auto name : names){
         ids << qRegisterMetaType<T>(name.toUtf8());
         ids << qRegisterMetaType<T>(QString((name + "&")).toUtf8());
-    }
-//    qDebug() << ids << names.first();
+    };
     return ids.first();
 }
 

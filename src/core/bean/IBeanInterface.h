@@ -90,11 +90,7 @@ public:
 public:
     virtual IJson toJson(bool *ok) const
     {
-//        static auto stdStringId = qMetaTypeId<std::string>();
-        static auto stdStringId = QMetaType::type("std::string");
-        qDebug() << stdStringId << "std::string id";
-//        static int stdStringId = 1024;
-
+        static auto stdStringId = qMetaTypeId<std::string>();
 
         IJson obj;
         const auto& fields = getMetaProperties();
@@ -107,8 +103,7 @@ public:
                 if(IBeanTypeManage::instance()->isBeanIdExist(type)){
                     obj[field.name()] = toJsonValueOfBeanType(this, field, ok);
                 }else{
-                    qDebug() << "user type" << field.userType();
-                    qDebug() << "warn" << (int)type << QMetaType::typeName(type) << field.name() << field.typeName();
+                    qDebug() << "This should be Tested" << (int)type << QMetaType::typeName(type) << field.name() << field.typeName();
                 }
             }else{
                 obj[field.name()] = toJsonValueOfPlainType(type, field, ok);
@@ -120,6 +115,7 @@ public:
 
     virtual bool loadJson(const IJson &value)
     {
+        static auto stdStringId = qMetaTypeId<std::string>();
         if(!value.is_object()){
             return false;
         }
@@ -127,8 +123,15 @@ public:
         bool ok{true};
         const auto& fields = getMetaProperties();
         for(const QMetaProperty& field :fields){
-            auto type = field.type();
-            if(type >= QMetaType::User){
+            if(!value.contains(field.name())){
+                qDebug() << "not contain";
+                continue;
+            }
+            auto type = field.userType();
+            if(type == stdStringId){
+                const std::string val = value[field.name()].get<std::string>();
+                field.writeOnGadget(this, QVariant(stdStringId, &val));
+            }else if(type >= QMetaType::User){
                 loadJsonValueOfBeanType(this, field, value[field.name()]);
             }else{
                 loadJsonValueOfPlainType(this, field, value[field.name()]);
@@ -203,8 +206,7 @@ public:
         return loadJsonFun(ptr, value);
     }
 
-    // TODO: 一定要吧 Json 库给换掉，太恶心了。
-    bool loadJsonValueOfPlainType(const void *handle, const QMetaProperty &prop, const IJson &value)
+    bool loadJsonValueOfPlainType(void *handle, const QMetaProperty &prop, const IJson &value)
     {
         bool ok{true};
         auto type = prop.type();
@@ -213,7 +215,6 @@ public:
             prop.writeOnGadget(const_cast<void*>(handle), value.get<bool>());
             break;
         case QMetaType::UChar:
-        case QMetaType::SChar:
         case QMetaType::UShort:
         case QMetaType::UInt:
         case QMetaType::ULong:
@@ -221,6 +222,7 @@ public:
             prop.writeOnGadget(const_cast<void*>(handle), value.get<uint64_t>());
             break;
         case QMetaType::Char:
+        case QMetaType::SChar:
         case QMetaType::Short:
         case QMetaType::Int:
         case QMetaType::Long:

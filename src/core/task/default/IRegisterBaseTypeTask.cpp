@@ -28,6 +28,8 @@ void IRegisterBaseTypeTask::task()
     registerBaseType<float>("float");
     registerBaseType<double>("double");
 
+    registerBaseType<uint8_t>("uint8_t");
+    registerBaseType<int8_t>("int8_t");
     registerBaseType<int16_t>("int16_t");
     registerBaseType<uint16_t>("uint16_t");
     registerBaseType<int32_t>("int32_t");
@@ -35,11 +37,12 @@ void IRegisterBaseTypeTask::task()
     registerBaseType<int64_t>("int64_t");
     registerBaseType<uint64_t>("uint64_t");
 
-    registerBaseType<QString>("QString");
-    registerBaseType<QByteArray>("QByteArray");
-    registerBaseType<QJsonValue>("QJsonValue");
-    registerBaseType<QJsonArray>("QJsonArray");
-    registerBaseType<QJsonObject>("QJsonObject");
+    // TODO: 查看一下，这个为什么会被加进来
+//    registerBaseType<QString>("QString");
+//    registerBaseType<QByteArray>("QByteArray");
+//    registerBaseType<QJsonValue>("QJsonValue");
+//    registerBaseType<QJsonArray>("QJsonArray");
+//    registerBaseType<QJsonObject>("QJsonObject");
 }
 
 $PackageWebCoreEnd
