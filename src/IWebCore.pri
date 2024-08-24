@@ -22,6 +22,7 @@ HEADERS += \
     $$PWD/core/application/IQtApplication.h \
     $$PWD/core/base/IGadgetInfo.h \
     $$PWD/core/base/IStringViewStash.h \
+    $$PWD/core/task/default/IBeanTypeCheckTask.h \
     $$PWD/core/task/default/IRegisterBaseTypeTask.h \
     $$PWD/core/unit/ITraceUnit.h \
     $$PWD/core/util/ICodecUtil.h \
@@ -237,6 +238,7 @@ SOURCES += \
     $$PWD/core/application/IQtApplication.cpp \
     $$PWD/core/base/IGadgetInfo.cpp \
     $$PWD/core/base/IStringViewStash.cpp \
+    $$PWD/core/task/default/IBeanTypeCheckTask.cpp \
     $$PWD/core/task/default/IRegisterBaseTypeTask.cpp \
     $$PWD/core/util/ICodecUtil.cpp \
     $$PWD/core/util/IConvertUtil.cpp \

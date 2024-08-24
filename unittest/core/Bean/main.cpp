@@ -4,9 +4,10 @@
 #include "PersonBean.h"
 
 $EnableTaskOutput(true)
-
 int main(int argc, char *argv[])
 {
+    IApplication app(argc, argv);
+
     bool ok;
 //    NameBean bean;
 //    std::cout << bean.toJson(&ok).dump(4) << std::endl;
@@ -25,4 +26,6 @@ int main(int argc, char *argv[])
 
 
 //    PersonBean bean2;
+
+    return app.run();
 }

@@ -124,7 +124,7 @@ public:
         const auto& fields = getMetaProperties();
         for(const QMetaProperty& field :fields){
             if(!value.contains(field.name())){
-                qDebug() << "not contain";
+                qDebug() << "skip field" << field.name();
                 continue;
             }
             auto type = field.userType();
@@ -261,7 +261,6 @@ void IBeanInterface<T, enabled>::task()
         static std::once_flag initRegisterFlag;
         std::call_once(initRegisterFlag, [](){
             auto id = IMetaUtil::registerMetaType<T>();
-
             IBeanTypeManage::instance()->registerBeanId(id);
             IBeanTypeManage::instance()->registerToJsonFun(id, [](void* ptr, bool* ok)->IJson{
                 return static_cast<T*>(ptr)->toJson(ok);
