@@ -7,9 +7,6 @@ $PackageWebCoreBegin
 
 namespace IMetaUtil
 {
-    int getMetaTypeId(const QString& name);
-    QString getMetaTypeName(int id);
-
     QString getMetaClassName(const QMetaObject& meta);
 
     QMap<QString, QString> getMetaClassInfoMap(const QMetaObject& meta);  // resolve for Q_GADGET
@@ -30,9 +27,6 @@ namespace IMetaUtil
     QVector<int> getIgnoredFieldIndexes(const QMetaObject& meta);
 
     QVector<QMetaMethod> getMetaMethods(const QMetaObject& meta);
-
-//    void fromJsonObject(void* handler, const QMetaObject&meta, const QJsonObject& obj);
-//    void fromVariantMap(void* handler, const QMetaObject&meta, const QMap<QString, QVariant>& map);
 
     bool writeProperty(const QMetaProperty& prop, void* handler,  const QVariant& value);
     QVariant readProperty(const QMetaProperty& prop, const void* handler);

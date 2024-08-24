@@ -18,7 +18,7 @@ IGadgetInfo construct(T* obj)
 {
     IGadgetInfo info;
     info.ptr = obj;
-    info.className = IMetaUtil::getMetaClassName (T::staticMetaObject);
+    info.className = IMetaUtil::getTypename<T>();
     info.classInfo = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
     info.classMethods = IMetaUtil::getMetaMethods(T::staticMetaObject);
     return info;

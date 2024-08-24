@@ -4,34 +4,10 @@
 
 $PackageWebCoreBegin
 
-int IMetaUtil::getMetaTypeId(const QString &name)
-{
-    for(int index=QMetaType::User; ;index++){
-        QString typeName = QMetaType::typeName(index);
-        if(typeName.isEmpty()){
-            break;
-        }
-        if(typeName == name){
-            return index;
-        }
-    }
-    return QMetaType::type(name.toUtf8());
-}
-
-QString IMetaUtil::getMetaTypeName(int id)
-{
-    return QMetaType::typeName(id);
-}
-
 QString IMetaUtil::getMetaClassName(const QMetaObject &meta)
 {
     return meta.className();
 }
-
-//QString IMetaUtil::getMetaClassName(const QMetaObject *meta)
-//{
-//    return meta->className();
-//}
 
 QMap<QString, QString> IMetaUtil::getMetaClassInfoMap(const QMetaObject& meta)
 {
@@ -162,25 +138,6 @@ QMap<QString, QMetaProperty> IMetaUtil::getMetaPropertyMap(const QMetaObject &me
     }
     return ret;
 }
-
-// TODO: 感觉 神智不清这个之后开一线
-//void IMetaUtil::fromJsonObject(void *handler, const QMetaObject &meta, const QJsonObject &obj)
-//{
-//    bool ok;
-//    auto map = IConvertUtil::toMap(obj, ok);
-//    return fromVariantMap(handler, meta, map);
-//}
-
-//void IMetaUtil::fromVariantMap(void *handler, const QMetaObject &meta, const QMap<QString, QVariant> &map)
-//{
-//    auto props = getMetaProperties(meta);
-//    for(const auto& prop : props){
-//        QString name = prop.name();
-//        if(map.contains(name)){
-//            writeProperty(prop, handler, map[name]);
-//        }
-//    }
-//}
 
 bool IMetaUtil::writeProperty(const QMetaProperty &prop, void *handler, const QVariant &value)
 {
