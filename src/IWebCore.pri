@@ -22,6 +22,7 @@ HEADERS += \
     $$PWD/core/application/IQtApplication.h \
     $$PWD/core/base/IGadgetInfo.h \
     $$PWD/core/base/IStringViewStash.h \
+    $$PWD/core/bean/IBeanAbort.h \
     $$PWD/core/task/default/IBeanTypeCheckTask.h \
     $$PWD/core/task/default/IRegisterBaseTypeTask.h \
     $$PWD/core/unit/ITraceUnit.h \

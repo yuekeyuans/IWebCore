@@ -1,5 +1,6 @@
 ﻿#include "IBeanTypeCheckTask.h"
 #include "core/bean/IBeanTypeManage.h"
+#include "core/bean/IBeanAbort.h"
 
 $PackageWebCoreBegin
 
@@ -7,7 +8,7 @@ void IBeanTypeCheckTask::task()
 {
     const auto& propMap = IBeanTypeManage::instance()->m_propertiesMap;
     for(const std::pair<int, std::vector<QMetaProperty>>& pair : propMap){
-        auto id = pair.first;
+//        auto id = pair.first;
         const std::vector<QMetaProperty>& props = pair.second;
         for(const auto& prop : props){
             checkPropertyType(prop);
@@ -35,11 +36,11 @@ void IBeanTypeCheckTask::checkPropertyType(const QMetaProperty &prop)
         return;
     } else if(type >= QMetaType::User){
         if(!IBeanTypeManage::instance()->isBeanIdExist(type)){
-            qFatal("not supported type");
+            IBeanAbort::abortinvalid_bean_embended_type(QString("type: ") + QMetaType::typeName(type));
         }
     } else {
         if(std::find(allowedTypes.begin(), allowedTypes.end(), type) == allowedTypes.end()){
-            qFatal("not supported primitive type");
+            IBeanAbort::abortinvalid_bean_field_type(QString("type: ") + QMetaType::typeName(type));
         }
     }
 }
