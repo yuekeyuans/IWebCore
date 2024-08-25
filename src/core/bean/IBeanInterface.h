@@ -20,42 +20,12 @@ public:
     virtual ~IBeanInterface() = default;
 
 public:
-    const QString& className() const {
-        static const QString clsName = IMetaUtil::getTypename<T>();
-        return clsName;
-    }
-
-    int getMetaTypeId() const {
-        return qMetaTypeId<T>();
-    }
-
-    const QVector<QMetaMethod>& getMetaMethods() const {
-        static auto methods =  IMetaUtil::getMetaMethods(T::staticMetaObject);
-        return methods;
-    }
-
-    const QMap<QString, QString>& getMetaClassInfos() const {
-        static auto clsInfos = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
-        return clsInfos;
-    }
-    const std::vector<QMetaProperty>& getMetaProperties() const {
-        static auto props = IMetaUtil::getMetaProperties(T::staticMetaObject);
-        return props;
-    }
-
-    QMetaMethod getMetaMethod(const QString &name) const {
-        const auto& methods = getMetaMethods();
-        for(const QMetaMethod& method : methods){
-            if(method.name() == name){
-                return method;
-            }
-        }
-        return {};
-    }
-
-    QMetaProperty getMetaProperty(const QString& name) const {
-        return IMetaUtil::getMetaPropertyByName(T::staticMetaObject, name);
-    }
+    int getMetaTypeId() const;
+    const QVector<QMetaMethod>& getMetaMethods() const;
+    const QMap<QString, QString>& getMetaClassInfos() const;
+    const std::vector<QMetaProperty>& getMetaProperties() const;
+    QMetaMethod getMetaMethod(const QString &name) const;
+    QMetaProperty getMetaProperty(const QString& name) const;
 
     virtual QVariant getFieldValue(const QString& name) const final {
         const auto& property = getMetaProperty(name);
@@ -66,26 +36,22 @@ public:
         const auto& property = getMetaProperty(name);
         IMetaUtil::writeProperty(property, this, value);
     }
-    virtual const QStringList& getIgnorableFieldNames() const{
-        static QStringList ignoredFields = IMetaUtil::getIgnoredFields(T::staticMetaObject);
-        return ignoredFields;
-    }
-    virtual const QVector<int>& getIgnorableFieldIndexes() const{
-        static QVector<int> ignoredFields = IMetaUtil::getIgnoredFieldIndexes(T::staticMetaObject);
-        return ignoredFields;
-    }
-    virtual bool isIgnorableField(const QString& name) const{
-        static const QStringList ignoredFields = getIgnorableFieldNames();
-        return ignoredFields.contains(name);
-    }
-    virtual bool isIgnorableField(int index) const{
-        static const QVector<int> ignoredFields = getIgnorableFieldIndexes();
-        return ignoredFields.contains(index);
-    }
-    virtual const QStringList& getMetaFieldNames() const{
-        static QStringList fieldNames = IMetaUtil::getMetaPropertyNames(T::staticMetaObject);
-        return fieldNames;
-    }
+//    virtual const QStringList& getIgnorableFieldNames() const{
+//        static QStringList ignoredFields = IMetaUtil::getIgnoredFields(T::staticMetaObject);
+//        return ignoredFields;
+//    }
+//    virtual const QVector<int>& getIgnorableFieldIndexes() const{
+//        static QVector<int> ignoredFields = IMetaUtil::getIgnoredFieldIndexes(T::staticMetaObject);
+//        return ignoredFields;
+//    }
+//    virtual bool isIgnorableField(const QString& name) const{
+//        static const QStringList ignoredFields = getIgnorableFieldNames();
+//        return ignoredFields.contains(name);
+//    }
+//    virtual bool isIgnorableField(int index) const{
+//        static const QVector<int> ignoredFields = getIgnorableFieldIndexes();
+//        return ignoredFields.contains(index);
+//    }
 
 public:
     virtual IJson toJson(bool *ok) const
@@ -253,6 +219,51 @@ public:
 private:
     virtual void task() final;
 };
+
+template<class T, bool enabled>
+int IBeanInterface<T, enabled>::getMetaTypeId() const
+{
+    static int id = qMetaTypeId<T>();
+    return id;
+}
+
+template<typename T, bool enabled>
+const QVector<QMetaMethod>& IBeanInterface<T, enabled>::getMetaMethods() const
+{
+    static auto methods =  IMetaUtil::getMetaMethods(T::staticMetaObject);
+    return methods;
+}
+
+template<typename T, bool enabled>
+const QMap<QString, QString>& IBeanInterface<T, enabled>::getMetaClassInfos() const
+{
+    static auto clsInfos = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
+    return clsInfos;
+}
+
+template<typename T, bool enabled>
+const std::vector<QMetaProperty>& IBeanInterface<T, enabled>::getMetaProperties() const
+{
+    static auto properties = IMetaUtil::getMetaProperties(T::staticMetaObject);
+    return properties;
+}
+
+template<typename T, bool enabled>
+QMetaMethod IBeanInterface<T, enabled>::getMetaMethod(const QString &name) const
+{
+    const auto& methods = getMetaMethods();
+    for(const QMetaMethod& method : methods){
+        if(method.name() == name){
+            return method;
+        }
+    }
+    return {};
+}
+
+template<typename T, bool enabled>
+QMetaProperty IBeanInterface<T, enabled>::getMetaProperty(const QString& name) const {
+    return IMetaUtil::getMetaPropertyByName(T::staticMetaObject, name);
+}
 
 template<typename T, bool enabled>
 void IBeanInterface<T, enabled>::task()

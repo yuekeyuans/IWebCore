@@ -20,18 +20,6 @@ QMap<QString, QString> IMetaUtil::getMetaClassInfoMap(const QMetaObject& meta)
     return ret;
 }
 
-//QMap<QString, QString> IMetaUtil::getMetaClassInfoMap(const QMetaObject* meta)
-//{
-//    QMap<QString, QString> ret;
-//    int count = meta->classInfoCount();
-//    for(int i=0; i<count; i++){
-//        auto info = meta->classInfo(i);
-//        ret[info.name()] = info.value();
-//    }
-//    return ret;
-//}
-
-// no recomended,
 QString IMetaUtil::getMetaClassInfoByName(const QMetaObject &meta, const QString &name, const QString &defaultVal)
 {
     auto metaClsInfo = getMetaClassInfoMap(meta);
