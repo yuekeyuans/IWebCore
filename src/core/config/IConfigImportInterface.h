@@ -84,23 +84,25 @@ const QString &IConfigImportInterface<T>::path()
     return m_path;
 }
 
+// TODO: unfinished
 template<typename T>
 T &IConfigImportInterface<T>::get() const
 {
-    if(!m_isFound){
-        if(!m_isLoaded){
-            auto value  = getConfigManage()->getConfig(m_path);
-            if(value){
-                auto realValue = IJsonUtil::fromJson<T>(*value);
-                if(realValue){
-                    m_data = *std::move(realValue);
-                    m_isFound = true;
-                }
-            }
-        }
-        m_isLoaded = true;
-    }
+//    if(!m_isFound){
+//        if(!m_isLoaded){
+//            auto value  = getConfigManage()->getConfig(m_path);
+//            if(value){
+//                auto realValue = IJsonUtil::fromJson<T>(*value);
+//                if(realValue){
+//                    m_data = *std::move(realValue);
+//                    m_isFound = true;
+//                }
+//            }
+//        }
+//        m_isLoaded = true;
+//    }
     return m_data;
+//    return T{};
 }
 
 $PackageWebCoreEnd

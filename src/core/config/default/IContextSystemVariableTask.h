@@ -9,10 +9,10 @@ $PackageWebCoreBegin
 class IContextSystemVariableTask : public IContextTaskInterface<IContextSystemVariableTask, false>
 {
 public:
-    virtual QJsonValue config();
+    virtual IJson config();
 
 private:
-    QJsonObject getSystemEnvironment();
+    IJson getSystemEnvironment();
 };
 
 $PackageWebCoreEnd

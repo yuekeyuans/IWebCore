@@ -2,20 +2,20 @@
 #include "core/config/IContextManage.h"
 $PackageWebCoreBegin
 
-QJsonValue IContextSystemVariableTask::config()
+IJson IContextSystemVariableTask::config()
 {
     return getSystemEnvironment();
 }
 
-QJsonObject IContextSystemVariableTask::getSystemEnvironment(){
-    QJsonObject obj;
+IJson IContextSystemVariableTask::getSystemEnvironment(){
+    IJson obj = IJson::object();
     QStringList environment = QProcess::systemEnvironment();
     for(auto str : environment)
     {
         auto index = str.indexOf('=');
         auto key = str.left(index);
         auto value = str.mid(index +1 );
-        obj[key] = value;
+        obj[key.toStdString()] = value.toStdString();
     }
     return obj;
 }

@@ -11,17 +11,18 @@ double IHttpDefaultProfileTask::order() const
     return 1;
 }
 
-QJsonValue IHttpDefaultProfileTask::config()
+IJson IHttpDefaultProfileTask::config()
 {
-    auto content = IFileUtil::readFileAsString(":/resource/defaultWebConfig.json");
+    IResult<QString> content = IFileUtil::readFileAsString(":/resource/defaultWebConfig.json");
     if(!content){
-        return {};
+        return nullptr;
     }
-    IResult<QJsonObject> json = IConvertUtil::toJsonObject(*content);
-    if(!json){
-        return {};
+    auto stdStringContent = (*content).toStdString();
+    if(IJson::accept(stdStringContent)){
+        return IJson::parse(stdStringContent);
     }
-    return *std::move(json);
+
+    return nullptr;
 }
 
 $PackageWebCoreEnd

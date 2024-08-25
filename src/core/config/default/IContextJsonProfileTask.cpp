@@ -21,7 +21,7 @@ protected:
     }
 };
 
-QJsonValue IContextJsonProfileTask::config()
+IJson IContextJsonProfileTask::config()
 {
     $ContextBool enableConfigFiles{"config.enableConfigFiles", false};
     if(!enableConfigFiles.isFound() || !enableConfigFiles){
@@ -47,21 +47,22 @@ QStringList IContextJsonProfileTask::nameFilters() const
     return {"*.json"};
 }
 
-QJsonObject IContextJsonProfileTask::parseJsonFile(const QString &path) const
+IJson IContextJsonProfileTask::parseJsonFile(const QString &path) const
 {
-    QJsonObject obj;
     bool ok;
     QString content = IFileUtil::readFileAsString(path, ok);
     if(!ok){
         IContextAbort::abortConfigurationResolveJsonError($ISourceLocation);
-        return obj;
+        return nullptr;
     }
 
-    obj = IJsonUtil::toJsonObject(content, ok);
-    if(!ok){
+    auto stdStringContent = content.toStdString();
+    if(IJson::accept(stdStringContent)){
+        return IJson::parse(stdStringContent);
+    }else{
         IContextAbort::abortConfigurationResolveJsonError("path:" + path, $ISourceLocation);
     }
-    return obj;
+    return nullptr;
 }
 
 $PackageWebCoreEnd

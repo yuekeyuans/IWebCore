@@ -130,42 +130,37 @@ namespace IConfigUnitHelper
     }
 }
 
-void IConfigManageInterface::addConfig(const QJsonValue &value, const QString &path)
+void IConfigManageInterface::addConfig(const IJson &value, const QString &path)
 {
     if(path.trimmed().isEmpty()){
-        if(!value.isObject()){
+        if(!value.is_object()){
             IConfigAbort::abortContextMergeError($ISourceLocation);
         }
-        m_configs = IConfigUnitHelper::mergeJsonObject(m_configs, value.toObject());
+        IJson::json_pointer pointer(path.toStdString());
+        IJson obj = IJson::object();
+        obj[pointer] = value;
+        m_configs.merge_patch(obj);
+//        m_configs = IConfigUnitHelper::mergeJsonObject(m_configs, value.toObject());
     }else{
-        m_configs = IConfigUnitHelper::addToJsonObject(m_configs, path, value);
+        m_configs.merge_patch(value);
+//        m_configs = IConfigUnitHelper::addToJsonObject(m_configs, path, value);
     }
 }
 
-QJsonValue IConfigManageInterface::getConfig(const QString &path, bool& ok)
+IJson IConfigManageInterface::getConfig(const QString &path)
 {
-    return IConfigUnitHelper::getJsonValue(m_configs, path, ok);
-}
-
-IResult<QJsonValue> IConfigManageInterface::getConfig(const QString &path)
-{
-    bool ok;
-    auto value = getConfig(path, ok);
-    if(ok){
-        return value;
-    }
-    return std::nullopt;
+    return m_configs.value(IJson::json_pointer(path.toStdString()), nullptr);
 }
 
 bool IConfigManageInterface::getConfigAsBool(const QString &path, bool& ok)
 {
-    auto value = getConfig(path, ok);
-    if(ok){
-        return IConvertUtil::toBool(value, ok);
+    auto value = getConfig(path);
+    if(value.is_null() || !value.is_boolean()){
+        ok = false;
+        return false;
     }
-
-    ok = false;
-    return {};
+    ok = true;
+    return value.get<bool>();
 }
 
 IResult<bool> IConfigManageInterface::getConfigAsBool(const QString &path)
@@ -180,13 +175,13 @@ IResult<bool> IConfigManageInterface::getConfigAsBool(const QString &path)
 
 int IConfigManageInterface::getConfigAsInt(const QString &path, bool& ok)
 {
-    auto value = getConfig(path, ok);
-    if(ok){
-        return IConvertUtil::toInt(value, ok);
+    auto value = getConfig(path);
+    if(value.is_null() || !value.is_number_integer()){
+        ok = false;
+        return {};
     }
 
-    ok = false;
-    return {};
+    return value.get<int>();
 }
 
 IResult<int> IConfigManageInterface::getConfigAsInt(const QString &path)
@@ -201,13 +196,13 @@ IResult<int> IConfigManageInterface::getConfigAsInt(const QString &path)
 
 double IConfigManageInterface::getConfigAsDouble(const QString &path, bool& ok)
 {
-    auto value = getConfig(path, ok);
-    if(ok){
-        return IConvertUtil::toDouble(value, ok);
+    auto value = getConfig(path);
+    if(value.is_null() || !value.is_number()){
+        ok = false;
+        return {};
     }
 
-    ok = false;
-    return {};
+    return value.get<double>();
 }
 
 IResult<double> IConfigManageInterface::getConfigAsDouble(const QString &path)
@@ -248,13 +243,12 @@ static QString jsonValueToString(const QJsonValue& value, bool& ok)
 
 QString IConfigManageInterface::getConfigAsString(const QString &path, bool& ok)
 {
-    auto value = getConfig(path, ok);
-    if(ok){
-        return jsonValueToString(value, ok);    // This convertion differs to IConvertUtil::toString(QJsonValue) because we wang single value;
+    auto value = getConfig(path);
+    if(value.is_null() || !value.is_string()){
+        ok = false;
+        return {};
     }
-
-    ok = false;
-    return {};
+    return QString::fromStdString(value.get<std::string>());
 }
 
 IResult<QString> IConfigManageInterface::getConfigAsString(const QString &path)

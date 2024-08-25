@@ -14,7 +14,7 @@ public:
     IProfileTaskInterface() = default;
 
 public:
-    virtual QJsonValue config() = 0;
+    virtual IJson config() = 0;
     virtual QString path() const;
 
 protected:
@@ -45,7 +45,7 @@ template<typename T, bool enabled>
 void IProfileTaskInterface<T, enabled>::task()
 {
     auto value = config();
-    if(!value.isNull() && !value.isUndefined()){
+    if(!value.is_null()){
         IProfileManage::instance()->addConfig(value, path());
     }
 }

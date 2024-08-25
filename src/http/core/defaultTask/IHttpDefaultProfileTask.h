@@ -12,7 +12,7 @@ public:
 
 public:
     virtual double order() const final;
-    virtual QJsonValue config() final;
+    virtual IJson config() final;
 };
 
 $PackageWebCoreEnd

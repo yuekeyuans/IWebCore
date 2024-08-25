@@ -9,10 +9,10 @@ $PackageWebCoreBegin
 class IConfigManageInterface
 {
 public:
-    void addConfig(const QJsonValue& value, const QString& path="");
+    void addConfig(const IJson& value, const QString& path="");
 
-    QJsonValue getConfig(const QString& path, bool& ok);
-    IResult<QJsonValue> getConfig(const QString& path);
+    IJson getConfig(const QString& path);
+//    IResult<IJson> getConfig(const QString& path);
 
     bool getConfigAsBool(const QString& path, bool& ok);
     IResult<bool> getConfigAsBool(const QString& path);
@@ -30,13 +30,14 @@ public:
     T getBean(const QString& path, bool& ok);
 
 protected:
-    QJsonObject m_configs;
+//    QJsonObject m_configs;
+    IJson m_configs;
 };
 
 template<typename T>
 T IConfigManageInterface::getBean(const QString& path, bool& ok)
 {
-    auto value = getConfig(path, ok);
+//    auto value = getConfig(path, ok);
 //    if(ok){
 //         return T::fromJson(value.toObject());
 //    }

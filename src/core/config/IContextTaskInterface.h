@@ -15,7 +15,7 @@ public:
     IContextTaskInterface() = default;
 
 public:
-    virtual QJsonValue config() = 0;
+    virtual IJson config() = 0;
     virtual QString path() const;
 
 protected:
@@ -45,8 +45,8 @@ QString IContextTaskInterface<T, enabled>::catagory() const
 template<typename T, bool enabled>
 void IContextTaskInterface<T, enabled>::task()
 {
-    auto value = config();
-    if(!value.isNull() && !value.isUndefined()){
+    IJson value = config();
+    if(!value.is_null()){
         IContextManage::instance()->addConfig(value, path());
     }
 }

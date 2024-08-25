@@ -16,7 +16,7 @@ public:     \
     klassName() {};  \
     virtual void task() final {  \
         QString key = IToeUtil::trimQuote( #path_ ); \
-        QJsonValue obj = QJsonValue(value); \
+        IJson obj = IJson(value); \
         IContextManage::instance()->addConfig(obj, key); \
     }    \
 };      \
@@ -28,7 +28,7 @@ class klassName : public IContextTaskInterface < klassName, true >  \
 {   \
 public:     \
     klassName() {};  \
-    virtual QJsonValue config() final   {  return value; }  \
+    virtual IJson config() final   {  return value; }  \
     virtual QString path() const final { return IToeUtil::trimQuote( #path_ ); }  \
 };  \
 $PackageWebCoreEnd
@@ -39,7 +39,7 @@ class klassName : public IProfileTaskInterface < klassName, true >  \
 {   \
 public:     \
     klassName() {};  \
-    virtual QJsonValue config() final   {  return value; }  \
+    virtual IJson config() final   {  return value; }  \
     virtual QString path() const final { return IToeUtil::trimQuote( #path_ ); }  \
 };  \
 $PackageWebCoreEnd
