@@ -12,7 +12,7 @@ public:
 public:
     $BeanField(int, age, 10)
     $BeanField(NameBean, name1)
-    $BeanField(uint8_t, gender, 1)
+    $BeanField(ushort, gender, 1)
     $BeanField(std::string, friendName, "yuekeyuan")
 
 //    $BeanField(NameBeanList, name2)

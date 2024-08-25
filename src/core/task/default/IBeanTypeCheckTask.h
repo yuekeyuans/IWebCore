@@ -9,6 +9,9 @@ class IBeanTypeCheckTask : public IStartupTaskInterface<IBeanTypeCheckTask>
 private:
     virtual void task() final;
     virtual double order() const final;
+
+private:
+    void checkPropertyType(const QMetaProperty& prop);
 };
 
 $PackageWebCoreEnd
