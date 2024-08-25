@@ -15,9 +15,12 @@ int main(int argc, char *argv[])
     PersonBean person;
 
 //    person.name2.append(NameBean{});
-    std::cout << person.toJson(&ok).dump(4) << std::endl;
+
+    person.name2.append(NameBean{});
+    person.name2.append(NameBean{});
 
     auto json = person.toJson(&ok);
+    std::cout << person.toJson(&ok).dump(4) << std::endl;
 
     PersonBean bean2;
     bean2.loadJson(json);
