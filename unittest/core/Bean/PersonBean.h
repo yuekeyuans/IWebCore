@@ -17,4 +17,4 @@ public:
     $BeanField(NameBeanList, name2)
 };
 
-//$AsBeanList(PersonBean)
+$AsBeanList(PersonBean)
