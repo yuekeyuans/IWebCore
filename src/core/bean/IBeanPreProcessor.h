@@ -69,7 +69,6 @@
 #define $FieldIgnorable(name) \
     Q_CLASSINFO(PP_BEAN_INGNORED_KEY(name), #name)
 
-
 #define $AsBeanList(klassName)                                                                         \
 class klassName ## List : public QList< klassName >, public IBeanInterface< klassName ## List >        \
 {                                                                                                      \

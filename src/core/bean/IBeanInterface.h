@@ -191,14 +191,12 @@ IJson IBeanInterface<T, enabled>::toJsonValueOfPlainType(int type, const QMetaPr
     switch (type) {
     case QMetaType::Bool:
         return  value.toBool();
-        break;
     case QMetaType::UChar:
     case QMetaType::UShort:
     case QMetaType::UInt:
     case QMetaType::ULong:
     case QMetaType::ULongLong:
         return value.toULongLong(ok);
-
     case QMetaType::Char:
     case QMetaType::SChar:
     case QMetaType::Short:
@@ -206,15 +204,11 @@ IJson IBeanInterface<T, enabled>::toJsonValueOfPlainType(int type, const QMetaPr
     case QMetaType::Long:
     case QMetaType::LongLong:
         return  value.toLongLong(ok);
-
     case QMetaType::Float:
     case QMetaType::Double:
         return  value.toDouble(ok);
-        break;
     case QMetaType::QString:
         return  value.toString().toStdString();
-        break;
-
     case QMetaType::QStringList:{
         IJson array;
         auto strlist = value.toStringList();
@@ -223,6 +217,8 @@ IJson IBeanInterface<T, enabled>::toJsonValueOfPlainType(int type, const QMetaPr
         }
         return  array;
     }
+    default:
+        return nullptr;
     }
     ok = false;
     return {};
@@ -231,10 +227,12 @@ IJson IBeanInterface<T, enabled>::toJsonValueOfPlainType(int type, const QMetaPr
 template<typename T, bool enabled>
 bool IBeanInterface<T, enabled>::loadJsonValueOfPlainType(void *handle, const QMetaProperty &prop, const IJson &value)
 {
-    bool ok{true};
     auto type = prop.type();
     switch (type) {
     case QMetaType::Bool:
+        if(!value.is_boolean()){
+            return false;
+        }
         prop.writeOnGadget(const_cast<void*>(handle), value.get<bool>());
         break;
     case QMetaType::UChar:
@@ -242,6 +240,7 @@ bool IBeanInterface<T, enabled>::loadJsonValueOfPlainType(void *handle, const QM
     case QMetaType::UInt:
     case QMetaType::ULong:
     case QMetaType::ULongLong:
+        if(!value.is_number_unsigned()){ return false; }
         prop.writeOnGadget(const_cast<void*>(handle), value.get<uint64_t>());
         break;
     case QMetaType::Char:
@@ -250,19 +249,25 @@ bool IBeanInterface<T, enabled>::loadJsonValueOfPlainType(void *handle, const QM
     case QMetaType::Int:
     case QMetaType::Long:
     case QMetaType::LongLong:
+        if(!value.is_number_integer()){ return false; }
         prop.writeOnGadget(const_cast<void*>(handle), value.get<int64_t>());
         break;
     case QMetaType::Float:
     case QMetaType::Double:
+        if(!value.is_number_float()) { return false; }
         prop.writeOnGadget(const_cast<void*>(handle), value.get<double>());
         break;
     case QMetaType::QString:
+        if(!value.is_string()){ return false; }
         prop.writeOnGadget(const_cast<void*>(handle), QString::fromStdString(value.get<std::string>()));
         break;
     case QMetaType::QStringList:
     {
+        if(value.is_null()){break;}
+        if(!value.is_array()){ return false;}
         QStringList ret;
         for(auto val : value){
+            if(!val.is_string()){ return false;}
             ret.append(QString::fromStdString(val.get<std::string>()));
         }
         prop.writeOnGadget(const_cast<void*>(handle), ret);
@@ -270,7 +275,7 @@ bool IBeanInterface<T, enabled>::loadJsonValueOfPlainType(void *handle, const QM
     default:
         return false;
     }
-    return ok;
+    return true;
 }
 
 template<typename T, bool enabled>
