@@ -16,26 +16,26 @@ struct ITraceUnit
         }
     }
 
-    ITraceUnit(const ITraceUnit &other) {
+    ITraceUnit(const ITraceUnit &) {
         if constexpr (enabled){
             std::cout << getClassName() << " Copy constructor called" << std::endl;
         }
     }
 
-    ITraceUnit& operator=(const ITraceUnit &other) {
+    ITraceUnit& operator=(const ITraceUnit &) {
         if constexpr (enabled){
             std::cout << getClassName() << " Copy assignment operator called" << std::endl;
         }
         return *this;
     }
 
-    ITraceUnit(ITraceUnit &&other) noexcept {
+    ITraceUnit(ITraceUnit &&) noexcept {
         if constexpr (enabled){
             std::cout << getClassName() << " Move constructor called" << std::endl;
         }
     }
 
-    ITraceUnit& operator=(ITraceUnit &&other) noexcept {
+    ITraceUnit& operator=(ITraceUnit &&) noexcept {
         if constexpr (enabled){
             std::cout << getClassName() << " Move assignment operator called" << std::endl;
         }
