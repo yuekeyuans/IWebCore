@@ -26,16 +26,8 @@ public:
     const std::vector<QMetaProperty>& getMetaProperties() const;
     QMetaMethod getMetaMethod(const QString &name) const;
     QMetaProperty getMetaProperty(const QString& name) const;
-
-    virtual QVariant getFieldValue(const QString& name) const final {
-        const auto& property = getMetaProperty(name);
-        return IMetaUtil::readProperty(property, this);
-    }
-
-    virtual void setFieldValue(const QString& name, const QVariant& value) final{
-        const auto& property = getMetaProperty(name);
-        IMetaUtil::writeProperty(property, this, value);
-    }
+    virtual QVariant getFieldValue(const QString& name) const final;
+    virtual void setFieldValue(const QString& name, const QVariant& value) final;
 //    virtual const QStringList& getIgnorableFieldNames() const{
 //        static QStringList ignoredFields = IMetaUtil::getIgnoredFields(T::staticMetaObject);
 //        return ignoredFields;
@@ -261,8 +253,23 @@ QMetaMethod IBeanInterface<T, enabled>::getMetaMethod(const QString &name) const
 }
 
 template<typename T, bool enabled>
-QMetaProperty IBeanInterface<T, enabled>::getMetaProperty(const QString& name) const {
+QMetaProperty IBeanInterface<T, enabled>::getMetaProperty(const QString& name) const
+{
     return IMetaUtil::getMetaPropertyByName(T::staticMetaObject, name);
+}
+
+template<typename T, bool enabled>
+QVariant IBeanInterface<T, enabled>::getFieldValue(const QString& name) const
+{
+    const auto& property = getMetaProperty(name);
+    return IMetaUtil::readProperty(property, this);
+}
+
+template<typename T, bool enabled>
+void IBeanInterface<T, enabled>::setFieldValue(const QString& name, const QVariant& value)
+{
+    const auto& property = getMetaProperty(name);
+    IMetaUtil::writeProperty(property, this, value);
 }
 
 template<typename T, bool enabled>
