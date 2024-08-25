@@ -273,8 +273,6 @@ bool IBeanInterface<T, enabled>::loadJsonValueOfPlainType(void *handle, const QM
     return ok;
 }
 
-
-
 template<typename T, bool enabled>
 void IBeanInterface<T, enabled>::task()
 {

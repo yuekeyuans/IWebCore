@@ -10,6 +10,10 @@ $PackageWebCoreBegin
 
 class IBeanTypeManage : public ISingletonUnit<IBeanTypeManage>
 {
+    template<typename, bool>
+    friend class IBeanInterface;
+    friend class IBeanTypeCheckTask;
+
 public:
     using ToJsonFun = std::function<IJson(void*, bool*)>;
     using LoadJsonFun = std::function<bool(void*, const IJson&)>;
@@ -19,6 +23,8 @@ public:
 
 public:
     bool isBeanIdExist(int id);
+
+private:
     void registerBeanId(int id);
     void registerToJsonFun(int id, ToJsonFun);
     void registerLoadJsonFun(int id, LoadJsonFun);
