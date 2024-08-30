@@ -1,22 +1,22 @@
-﻿#pragma once
+﻿//#pragma once
 
-#include "core/util/IHeaderUtil.h"
-#include "core/config/IContextTaskInterface.h"
-#include "core/config/IConfigPreProcessor.h"
-#include "core/config/default/ILoadProfileFileUnit.h"
+//#include "core/util/IHeaderUtil.h"
+//#include "core/config/IContextTaskInterface.h"
+//#include "core/config/IConfigPreProcessor.h"
+//#include "core/config/default/ILoadProfileFileUnit.h"
 
-$PackageWebCoreBegin
+//$PackageWebCoreBegin
 
-class IContextYamlProfileTask : public IContextTaskInterface<IContextYamlProfileTask>, public ILoadProfileFileUnit
-{
-public:
-    virtual IJson config();
+//class IContextYamlProfileTask : public IContextTaskInterface<IContextYamlProfileTask>, public ILoadProfileFileUnit
+//{
+//public:
+//    virtual IJson config();
 
-private:
-    virtual double order() const final;
-    virtual QStringList nameFilters() const final;
-    IJson parseYamlFile(const QString& path, bool&ok);
-};
+//private:
+//    virtual double order() const final;
+//    virtual QStringList nameFilters() const final;
+//    IJson parseYamlFile(const QString& path, bool&ok);
+//};
 
-$PackageWebCoreEnd
+//$PackageWebCoreEnd
 

@@ -66,7 +66,7 @@ HEADERS += \
     $$PWD/core/config/default/IContextJsonProfileTask.h \
     $$PWD/core/config/default/IContextSystemVariableTask.h \
     $$PWD/core/config/default/IContextTomlProfileTask.h \
-    $$PWD/core/config/default/IContextYamlProfileTask.h \
+#    $$PWD/core/config/default/IContextYamlProfileTask.h \
     $$PWD/core/config/default/ILoadProfileFileUnit.h \
     $$PWD/core/core.h \
     $$PWD/core/base/IResult.h \
@@ -264,7 +264,7 @@ SOURCES += \
     $$PWD/core/config/default/IContextJsonProfileTask.cpp \
     $$PWD/core/config/default/IContextSystemVariableTask.cpp \
     $$PWD/core/config/default/IContextTomlProfileTask.cpp \
-    $$PWD/core/config/default/IContextYamlProfileTask.cpp \
+#    $$PWD/core/config/default/IContextYamlProfileTask.cpp \
     $$PWD/core/config/default/ILoadProfileFileUnit.cpp \
     $$PWD/core/base/IStringView.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \
