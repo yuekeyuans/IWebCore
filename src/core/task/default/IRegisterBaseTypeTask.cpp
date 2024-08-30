@@ -40,9 +40,6 @@ void IRegisterBaseTypeTask::task()
     // TODO: 查看一下，这个为什么会被加进来
 //    registerBaseType<QString>("QString");
 //    registerBaseType<QByteArray>("QByteArray");
-//    registerBaseType<QJsonValue>("QJsonValue");
-//    registerBaseType<QJsonArray>("QJsonArray");
-//    registerBaseType<QJsonObject>("QJsonObject");
 }
 
 $PackageWebCoreEnd
