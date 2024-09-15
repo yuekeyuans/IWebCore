@@ -18,5 +18,6 @@ private:
     IJson parseToml(const QString &path, bool &ok);
 };
 
-
 $PackageWebCoreEnd
+
+// TODO: not tested !!!

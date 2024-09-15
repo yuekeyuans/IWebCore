@@ -30,7 +30,6 @@ public:
     T getBean(const QString& path, bool& ok);
 
 protected:
-//    QJsonObject m_configs;
     IJson m_configs;
 };
 
