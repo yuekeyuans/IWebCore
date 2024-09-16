@@ -43,6 +43,7 @@ using $Context = IContextImport<T>;
 using $ContextBool = $Context<bool>;
 using $ContextChar = $Context<char>;
 using $ContextUChar = $Context<uchar>;
+using $ContextSChar = $Context<signed char>;
 using $ContextShort = $Context<short>;
 using $ContextUShort = $Context<ushort>;
 using $ContextInt = $Context<int>;
@@ -56,6 +57,7 @@ using $ContextDouble = $Context<double>;
 using $ContextLongDouble = $Context<long double>;
 
 using $ContextQString = $Context<QString>;
+using $ContextStdString = $Context<std::string>;
 using $ContextQStringList = $Context<QStringList>;
 
 $PackageWebCoreEnd

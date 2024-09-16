@@ -48,6 +48,7 @@ using $Profile = IProfileImport<T>;
 using $ProfileBool = $Profile<bool>;
 using $ProfileChar = $Profile<char>;
 using $ProfileUChar = $Profile<uchar>;
+using $ProfileSChar = $Profile<signed char>;
 using $ProfileShort = $Profile<short>;
 using $ProfileUShort = $Profile<ushort>;
 using $ProfileInt = $Profile<int>;
@@ -61,11 +62,13 @@ using $ProfileDouble = $Profile<double>;
 using $ProfileLongDouble = $Profile<long double>;
 
 using $ProfileQString = $Profile<QString>;
+using $ProfileStdString = $Profile<std::string>;
 using $ProfileQStringList = $Profile<QStringList>;
 
 using $Bool = $Profile<bool>;
 using $Char = $Profile<char>;
 using $UChar = $Profile<uchar>;
+using $SChar = $Profile<signed char>;
 using $Short = $Profile<short>;
 using $UShort = $Profile<ushort>;
 using $Int = $Profile<int>;
@@ -79,6 +82,7 @@ using $Double = $Profile<double>;
 using $LongDouble = $Profile<long double>;
 
 using $QString = $Profile<QString>;
+using $StdString = $Profile<std::string>;
 using $QStringList = $Profile<QStringList>;
 
 $PackageWebCoreEnd

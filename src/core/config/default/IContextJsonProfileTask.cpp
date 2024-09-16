@@ -16,7 +16,6 @@ protected:
     virtual QMap<int, QString> abortDescription() const final{
         return {
             {ConfigurationResolveJsonError, ""},
-
         };
     }
 };
