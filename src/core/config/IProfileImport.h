@@ -12,28 +12,26 @@ template<typename T>
 class IProfileImport : public IConfigImportInterface<T>
 {
 public:
-    IProfileImport(QString path, T value = {});
+    IProfileImport(QString path);
+    IProfileImport(QString path, T value);
 
 public:
-    IProfileImport& operator =(const T& value);
+    IProfileImport& operator =(const T& value) = delete;
 
 protected:
     virtual IConfigManageInterface* getConfigManage() const final;
 };
 
 template<typename T>
-IProfileImport<T>::IProfileImport(QString path, T value) : IConfigImportInterface<T>(path, value)
+IProfileImport<T>::IProfileImport(QString path)
+    : IConfigImportInterface(std::move(path))
 {
 }
 
-// NOTE: 设置值之后，就不会再加载了
 template<typename T>
-IProfileImport<T>& IProfileImport<T>::operator =(const T& value)
+IProfileImport<T>::IProfileImport(QString path, T value)
+    : IConfigImportInterface<T>(std::move(path), std::move(value))
 {
-    this->m_isLoaded = false;
-    this->m_isFound = true;
-    this->m_data = value;
-    return *this;
 }
 
 template<typename T>

@@ -12,7 +12,17 @@ $PackageWebCoreBegin
 template<typename T>
 class IConfigImportInterface : public IStackObjectUnit
 {
+public:
+    // 0x01 initialzedValue, 0x02 defaultValue, 0x03 loadedValue;
+    struct ValueType {
+        ValueType();
+        uint valueType : 3;
+        bool isLoaded : 1;
+        bool isFound  : 1;
+    };
+
 protected:
+    explicit IConfigImportInterface(QString path);
     explicit IConfigImportInterface(QString path, T value);
 
 public:
@@ -31,17 +41,31 @@ protected:
 private:
     T& get() const;
 
+public:
+    // TODO: 这里需要改成 enum 么？
+    static constexpr inline uint InitializedValue = 0x01;
+    static constexpr inline uint DefaultValue = 0x02;
+    static constexpr inline uint LoadedValue = 0x04;
+
 protected:
-    mutable T m_data {};
-    mutable bool m_isFound{false};      // this value is not default value;
     const QString m_path;
-    mutable std::atomic_bool m_isLoaded{false};     // this value is loaded value.
+    mutable T m_data {};
+    mutable ValueType m_valueType;
+
 };
 
 template<typename T>
-IConfigImportInterface<T>::IConfigImportInterface(QString path, T value)
-    :  m_data(std::move(value)), m_path(std::move(path))
+IConfigImportInterface<T>::IConfigImportInterface(QString path)
+    : m_path(std::move(path))
 {
+    m_valueType.valueType = InitializedValue;
+}
+
+template<typename T>
+IConfigImportInterface<T>::IConfigImportInterface(QString path, T value)
+    : m_path(std::move(path)), m_data(std::move(value))
+{
+    m_valueType.valueType = DefaultValue;
 }
 
 template<typename T>
@@ -65,17 +89,13 @@ const T &IConfigImportInterface<T>::value() const
 template<typename T>
 bool IConfigImportInterface<T>::isLoaded() const
 {
-    return m_isLoaded;
+    return m_valueType.isLoaded;
 }
 
 template<typename T>
 bool IConfigImportInterface<T>::isFound() const
 {
-    if(!m_isLoaded){    // lazy load
-        value();
-    }
-
-    return m_isFound;
+    return m_valueType.isFound;
 }
 
 template<typename T>
@@ -88,21 +108,58 @@ const QString &IConfigImportInterface<T>::path()
 template<typename T>
 T &IConfigImportInterface<T>::get() const
 {
-//    if(!m_isFound){
-//        if(!m_isLoaded){
-//            auto value  = getConfigManage()->getConfig(m_path);
-//            if(value){
-//                auto realValue = IJsonUtil::fromJson<T>(*value);
-//                if(realValue){
-//                    m_data = *std::move(realValue);
-//                    m_isFound = true;
-//                }
-//            }
-//        }
-//        m_isLoaded = true;
-//    }
+    if(!m_valueType.isLoaded){
+        auto value = getConfigManage()->getConfig(m_path);
+        if(value.is_null()){
+            m_valueType.isFound = false;
+        }
+
+
+
+        if constexpr (std::is_same_v<T, IJson>){
+            m_data = value;
+            m_valueType.isFound = true;
+        } else if constexpr (std::is_same_v<T, bool>){
+            m_valueType.isFound = value.is_boolean();
+            if(m_valueType.isFound){
+                m_data = value.get<bool>();
+                m_valueType.isFound = true;
+            }
+        } else if constexpr (std::is_integral_v<T> && std::is_signed_v<T>){
+            m_valueType.isFound = value.is_number();
+            if(m_valueType.isFound){
+                m_data = value.get<int64_t>();
+            }
+        } else if constexpr (std::is_integral_v<T> && !std::is_signed_v<T>){
+            m_valueType.isFound = value.is_number();
+            if(m_valueType.isFound){
+                m_data = value.get<uint64_t>();
+            }
+        } else if constexpr (std::is_floating_point_v<T>){
+            m_valueType.isFound = value.is_number();
+            if(m_valueType.isFound){
+                m_data = value.get<double>();
+            }
+        } else if constexpr (std::is_same_v<std::string, T>){
+
+        } else if constexpr (std::is_same_v<QString, T>){
+
+        } else if constexpr (std::is_same_v<QStringList, T>){
+
+        } else {
+            static_assert(true, "not supported config type");
+        }
+
+        m_valueType.isLoaded = true;
+    }
+
     return m_data;
-//    return T{};
+}
+
+template<typename T>
+IConfigImportInterface<T>::ValueType::ValueType()
+{
+    memset((void*)this, 0, sizeof(ValueType));
 }
 
 $PackageWebCoreEnd
