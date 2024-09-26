@@ -97,7 +97,7 @@ void IControllerResourceNodeHelper::mountFilesToResourceMapping(QMap<QString, QS
 
 void IControllerResourceNodeHelper::mountFirstPageToServer(QMap<QString, QString>& hash, const QString& path, const QString& prefix)
 {
-    $IJson defaultPages{"/http/defaultPageNames"};
+    $QStringList defaultPages{"/http/defaultPageNames"};
     for(const auto& name : defaultPages.value()){
         auto pagePath = IFileUtil::joinPath(path, name);
         if(mountFilePageToServer(hash, pagePath, prefix)){
