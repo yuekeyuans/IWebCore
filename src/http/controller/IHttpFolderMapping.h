@@ -23,7 +23,7 @@ private:
 private:
     QMap<QString, QString> m_map;
     bool m_enabled{false};
-    $QStringList defaultPages{"http.defaultPageNames"};
+    $QStringList defaultPages{"/http/defaultPageNames"};
 };
 
 $PackageWebCoreEnd

@@ -83,8 +83,7 @@ void IHttpFolderMapping::travelPrint() const
 
 QString IHttpFolderMapping::getFolderDefaultFilePath(const QString &path) const
 {
-    static const QStringList& pages = defaultPages.value();
-    for(const QString& name : pages){
+    for(const QString& name : defaultPages.value()){
         QFileInfo file(path + name);
         if(file.exists() && file.isFile()){
             return file.absoluteFilePath();

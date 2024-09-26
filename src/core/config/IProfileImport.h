@@ -43,6 +43,7 @@ IConfigManageInterface *IProfileImport<T>::getConfigManage() const
 template<typename T>
 using $Profile = IProfileImport<T>;
 
+using $ProfileIJson = $Profile<IJson>;
 using $ProfileBool = $Profile<bool>;
 using $ProfileChar = $Profile<char>;
 using $ProfileUChar = $Profile<uchar>;
@@ -63,6 +64,7 @@ using $ProfileQString = $Profile<QString>;
 using $ProfileStdString = $Profile<std::string>;
 using $ProfileQStringList = $Profile<QStringList>;
 
+using $IJson = $ProfileIJson;
 using $Bool = $ProfileBool;
 using $Char = $ProfileChar;
 using $UChar = $ProfileUChar;
@@ -82,5 +84,6 @@ using $LongDouble = $ProfileLongDouble;
 using $QString = $ProfileQString;
 using $StdString = $ProfileStdString;
 using $QStringList = $ProfileQStringList;
+
 
 $PackageWebCoreEnd

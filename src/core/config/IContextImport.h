@@ -41,6 +41,7 @@ IConfigManageInterface *IContextImport<T>::getConfigManage() const
 template<typename T>
 using $Context = IContextImport<T>;
 
+using $ContextJson = $Context<IJson>;
 using $ContextBool = $Context<bool>;
 using $ContextChar = $Context<char>;
 using $ContextUChar = $Context<uchar>;
