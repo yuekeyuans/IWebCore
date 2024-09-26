@@ -5,8 +5,6 @@
 #include "core/config/IProfileTaskInterface.h"
 #include "core/task/unit/ITaskInstantUnit.h"
 
-// NOTE: klassName() = default; 会出错，不知道为啥
-
 #define PP_PRIVILIGE_CONTEXT_CONFIG(klassName, path_, value)   \
 $PackageWebCoreBegin  \
 class klassName : public ITaskInstantUnit < klassName, true >  \

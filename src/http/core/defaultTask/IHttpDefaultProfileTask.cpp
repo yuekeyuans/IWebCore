@@ -3,6 +3,7 @@
 #include "core/util/IJsonUtil.h"
 #include "core/config/IProfileManage.h"
 #include "core/util/IFileUtil.h"
+#include "core/config/IConfigAbort.h"
 
 $PackageWebCoreBegin
 
@@ -13,13 +14,22 @@ double IHttpDefaultProfileTask::order() const
 
 IJson IHttpDefaultProfileTask::config()
 {
-    IResult<QString> content = IFileUtil::readFileAsString(":/resource/defaultWebConfig.json");
+    if(!QFile(CONFIG_FILE_PATH).exists()){
+        return nullptr;
+    }
+
+    IResult<QString> content = IFileUtil::readFileAsString(CONFIG_FILE_PATH);
     if(!content){
         return nullptr;
     }
+
     auto stdStringContent = (*content).toStdString();
-    if(IJson::accept(stdStringContent)){
-        return IJson::parse(stdStringContent);
+    try {
+        IJson parsedJson = IJson::parse(stdStringContent);
+        return parsedJson;
+    } catch (nlohmann::json::parse_error& e) {
+        QString tip  = QString("File At: ") + CONFIG_FILE_PATH + " Reason:" + e.what();
+        IConfigAbort::abortConfigurationResolveJsonError(tip, $ISourceLocation);
     }
 
     return nullptr;
