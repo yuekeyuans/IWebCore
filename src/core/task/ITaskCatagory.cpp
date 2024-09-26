@@ -11,7 +11,7 @@ bool ITaskCatagory::isCatagoryDefaultEnabled() const
 
 bool ITaskCatagory::isCatagoryEnabled() const
 {
-    auto path = QString("CATAGORY_ENABLE_STATE_").append(name());
+    auto path = QString("/CATAGORY_ENABLE_STATE_").append(name());
     $ContextBool value{path, true};
     return value.isFound() ? value :  isCatagoryDefaultEnabled();
 }
@@ -38,7 +38,7 @@ void ITaskCatagory::execTaskNodes() const
 
 void ITaskCatagory::printTaskInfo() const
 {
-    $ContextBool value{"SYSTEM_ENABLE_TASK_OUTPUT", false};
+    $ContextBool value{"/SYSTEM_ENABLE_TASK_OUTPUT", false};
     if(value.isFound() && value){
         qDebug() << Qt::endl << "Catagory: " << name() << ", order: " << order();
     }

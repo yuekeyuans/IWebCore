@@ -14,7 +14,7 @@ INodyTemplateTask::INodyTemplateTask()
 
 void INodyTemplateTask::task()
 {
-    $Bool nodyEnabled{"http.templates.nody.enabled"};
+    $Bool nodyEnabled{"/http/templates/nody/enabled"};
     if(!nodyEnabled){
         return;
     }

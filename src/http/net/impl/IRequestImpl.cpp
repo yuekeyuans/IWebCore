@@ -570,7 +570,7 @@ void IRequestImpl::resolvePathProcessor()
             return;
         }
 
-        static $Bool handleDir{"http.fileService.folderHandled"};
+        static $Bool handleDir{"/http/fileService/folderHandled"};
         if(handleDir){
             m_raw->m_processer.entries = controllerManage->getStaticFolderActionPath(*m_request);
             if(!m_raw->m_processer.entries.isEmpty()){

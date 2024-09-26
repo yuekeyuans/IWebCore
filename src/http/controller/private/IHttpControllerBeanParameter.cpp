@@ -522,7 +522,7 @@ bool IHttpControllerBeanParameter::isBeanResoveStrictMode()
     static bool isStrict;
     static std::once_flag flag;
     std::call_once(flag, [](){
-        $ContextBool value{"BEAN_RESOLVE_IS_STRICT_MODE"};
+        $ContextBool value{"/BEAN_RESOLVE_IS_STRICT_MODE"};
         isStrict = value.isFound() ? value : true;
     });
 

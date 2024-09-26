@@ -13,7 +13,7 @@ double IContextTomlProfileTask::order() const
 
 IJson IContextTomlProfileTask::config()
 {
-    $ContextBool enableConfigFiles{"config.enableConfigFiles", false};
+    $ContextBool enableConfigFiles{"/config/enableConfigFiles", false};
     if(!enableConfigFiles.isFound() || !enableConfigFiles){
         return nullptr;
     }

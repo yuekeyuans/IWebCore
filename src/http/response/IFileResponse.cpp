@@ -77,8 +77,8 @@ bool detail::setFilePath(IResponseRaw* raw, const QString& path)
 
 void detail::checkAndUpdateContentDisposition(IResponseRaw* raw)
 {
-    static $Bool enabled {"http.fileService.contentDisposition.enabled"};
-    static $QStringList suffixes{"http.fileService.contentDisposition.suffixes"};
+    static $Bool enabled {"/http/fileService/contentDisposition/enabled"};
+    static $QStringList suffixes{"http/fileService/contentDisposition/suffixes"};
     if(enabled
             && raw->content.type == IResponseContent::Type::File
             && !raw->content.contentString.isEmpty()

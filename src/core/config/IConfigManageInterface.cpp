@@ -25,7 +25,11 @@ void IConfigManageInterface::addConfig(const IJson &value, const QString &path)
 
 IJson IConfigManageInterface::getConfig(const QString &path)
 {
-    return m_configs.value(IJson::json_pointer(path.toStdString()), nullptr);
+    IJson::json_pointer p(path.toStdString());
+    if(m_configs.contains(p)){
+        return m_configs[p];
+    }
+    return nullptr;
 }
 
 bool IConfigManageInterface::getConfigAsBool(const QString &path, bool& ok)
