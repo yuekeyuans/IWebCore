@@ -101,13 +101,13 @@
 
 // below is config files anomacro
 #define $EnableConfigFiles(value)    \
-    PP_NORMAL_CONTEXT_CONFIG(EnableConfigFiles, config.enableConfigFiles, value)
+    PP_NORMAL_CONTEXT_CONFIG(EnableConfigFiles, /config/enableConfigFiles, value)
 
 #define $EnableExternalConfigFiles(value)    \
-    PP_NORMAL_CONTEXT_CONFIG(EnableExternalConfigFiles, config.enableExternalConfigFiles, value)
+    PP_NORMAL_CONTEXT_CONFIG(EnableExternalConfigFiles, /config/enableExternalConfigFiles, value)
 
 #define $SetConfigFilesFilter(value)    \
-    PP_NORMAL_CONTEXT_CONFIG(SetConfigFilesFilter, config.configFilesFilter, value)
+    PP_NORMAL_CONTEXT_CONFIG(SetConfigFilesFilter, /config/configFilesFilter, value)
 
 
 // SetConfigFilesPath

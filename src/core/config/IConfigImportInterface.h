@@ -34,6 +34,9 @@ public:
     const T& value() const;
 
 public:
+    bool isInitializedValue() const;
+    bool isDefaultedValue() const;
+    bool isLoadedValue() const;
     bool isLoaded() const;
     bool isFound() const;
     const QString& path();
@@ -81,6 +84,25 @@ const T &IConfigImportInterface<T>::value() const
 {
     return get();
 }
+
+template<typename T>
+bool IConfigImportInterface<T>::isInitializedValue() const
+{
+    return !isLoadedValue() && (m_valueMark.valueType == ValueType::InitializedValue);
+}
+
+template<typename T>
+bool IConfigImportInterface<T>::isDefaultedValue() const
+{
+    return !isLoadedValue() && (m_valueMark.valueType == ValueType::DefaultValue);
+}
+
+template<typename T>
+bool IConfigImportInterface<T>::isLoadedValue() const
+{
+    return m_valueMark.isLoaded && m_valueMark.isFound;
+}
+
 
 template<typename T>
 bool IConfigImportInterface<T>::isLoaded() const

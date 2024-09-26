@@ -14,34 +14,8 @@ public:
     IJson getConfig(const QString& path);
     IJson getConfig(const std::string& path);
 
-//    bool getConfigAsBool(const QString& path, bool& ok);
-//    IResult<bool> getConfigAsBool(const QString& path);
-
-//    int getConfigAsInt(const QString& path, bool& ok);
-//    IResult<int> getConfigAsInt(const QString& path);
-
-//    double getConfigAsDouble(const QString& path, bool& ok);
-//    IResult<double> getConfigAsDouble(const QString& path);
-
-//    QString getConfigAsString(const QString& path, bool& ok);
-//    IResult<QString> getConfigAsString(const QString& path);
-
-//    template<typename T>
-//    T getBean(const QString& path, bool& ok);
-
 protected:
     IJson m_configs = IJson::object();
 };
-
-//template<typename T>
-//T IConfigManageInterface::getBean(const QString& path, bool& ok)
-//{
-////    auto value = getConfig(path, ok);
-////    if(ok){
-////         return T::fromJson(value.toObject());
-////    }
-
-//    return {};
-//}
 
 $PackageWebCoreEnd

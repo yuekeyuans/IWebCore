@@ -8,8 +8,8 @@ QStringList ILoadProfileFileUnit::getValidatedPaths() const
 {
     auto paths = getConfigFiles();
 
-    $ContextQString exp{"config.configFilesFilter", ""};
-    if(!exp.isFound() || exp == ""){
+    $ContextQString exp{"/config/configFilesFilter", ""};
+    if(exp.value().isEmpty()){
         return paths;
     }
 
@@ -24,19 +24,26 @@ QStringList ILoadProfileFileUnit::getValidatedPaths() const
     return ret;
 }
 
+// TODO: 这个需要重新设计,之后在看
 QStringList ILoadProfileFileUnit::getConfigDirs() const
 {
-    QStringList ret;
-    $Context<QJsonObject> paths{"config.configFilePaths"};
-    if(!paths.isFound()){
-        return ret;
-    }
+//    $Context<IJson> paths{"/config/configFilePaths"};
+//    if(!paths.value().is_object()){
+//        return {};
+//    }
 
-    QStringList keys = paths.value().keys();
-    for(const auto& key : keys){
-        ret.append(paths.value()[key].toString());
-    }
+    QStringList ret;
+//    for(auto&[key, value] : paths.value().items()){
+//        ret.append(QString::fromStdString(value.get<std::string>()));
+//    }
+
     return ret;
+
+//    QStringList keys = paths.value().keys();
+//    for(const auto& key : keys){
+//        ret.append(paths.value()[key].toString());
+//    }
+//    return ret;
 }
 
 QStringList ILoadProfileFileUnit::getConfigFiles() const

@@ -23,7 +23,7 @@ protected:
 IJson IContextJsonProfileTask::config()
 {
     $ContextBool enableConfigFiles{"/config/enableConfigFiles", false};
-    if(!enableConfigFiles.isFound() || !enableConfigFiles){
+    if(!enableConfigFiles.value()){
         return {};
     }
 

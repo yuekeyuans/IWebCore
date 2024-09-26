@@ -3,6 +3,7 @@
 #include "NameBean.h"
 #include "PersonBean.h"
 
+$EnableConfigFiles(true)
 $EnableTaskOutput(true)
 int main(int argc, char *argv[])
 {
