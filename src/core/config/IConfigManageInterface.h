@@ -9,7 +9,7 @@ $PackageWebCoreBegin
 class IConfigManageInterface
 {
 public:
-    void addConfig(const IJson& value, const QString& path="");
+    void addConfig(const IJson& value, const std::string& path="");
 
     IJson getConfig(const QString& path);
     IJson getConfig(const std::string& path);
@@ -31,7 +31,7 @@ public:
     T getBean(const QString& path, bool& ok);
 
 protected:
-    IJson m_configs;
+    IJson m_configs = IJson::object();
 };
 
 template<typename T>

@@ -16,7 +16,7 @@ public:
 
 public:
     virtual IJson config() = 0;
-    virtual QString path() const;
+    virtual std::string path() const;
 
 protected:
     virtual QString name() const final;
@@ -25,7 +25,7 @@ protected:
 };
 
 template<typename T, bool enabled>
-QString IContextTaskInterface<T, enabled>::path() const
+std::string IContextTaskInterface<T, enabled>::path() const
 {
     return {};
 }

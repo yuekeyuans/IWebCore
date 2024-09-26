@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "core/util/IPreProcessorUtil.h"
-#include "core/util/IToeUtil.h"
 #include "core/config/IContextTaskInterface.h"
 #include "core/config/IProfileTaskInterface.h"
 #include "core/task/unit/ITaskInstantUnit.h"
@@ -15,7 +14,7 @@ class klassName : public ITaskInstantUnit < klassName, true >  \
 public:     \
     klassName() {};  \
     virtual void task() final {  \
-        QString key = IToeUtil::trimQuote( #path_ ); \
+        std::string key = #path_ ; \
         IJson obj = IJson(value); \
         IContextManage::instance()->addConfig(obj, key); \
     }    \
@@ -29,7 +28,7 @@ class klassName : public IContextTaskInterface < klassName, true >  \
 public:     \
     klassName() {};  \
     virtual IJson config() final   {  return value; }  \
-    virtual QString path() const final { return IToeUtil::trimQuote( #path_ ); }  \
+    virtual std::string path() const final { return #path_ ; }  \
 };  \
 $PackageWebCoreEnd
 
@@ -40,6 +39,6 @@ class klassName : public IProfileTaskInterface < klassName, true >  \
 public:     \
     klassName() {};  \
     virtual IJson config() final   {  return value; }  \
-    virtual QString path() const final { return IToeUtil::trimQuote( #path_ ); }  \
+    virtual std::string path() const final { return #path_ ; }  \
 };  \
 $PackageWebCoreEnd
