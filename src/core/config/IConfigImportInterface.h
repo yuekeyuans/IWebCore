@@ -48,7 +48,7 @@ private:
     T& get() const;
 
 protected:
-    const std::string m_path;
+    std::string m_path;
     mutable T m_data {};
     mutable ValueMark m_valueMark{};
 
@@ -58,6 +58,10 @@ template<typename T>
 IConfigImportInterface<T>::IConfigImportInterface(std::string path)
     : m_path(std::move(path))
 {
+    std::replace(m_path.begin(), m_path.end(), '.', '/');
+    if (m_path.empty() || m_path[0] != '/') {
+        m_path.insert(m_path.begin(), '/');
+    }
 }
 
 template<typename T>
@@ -65,6 +69,11 @@ IConfigImportInterface<T>::IConfigImportInterface(std::string path, T value)
     : m_path(std::move(path)), m_data(std::move(value))
 {
     m_valueMark.valueType = ValueType::DefaultValue;
+
+    std::replace(m_path.begin(), m_path.end(), '.', '/');
+    if (m_path.empty() || m_path[0] != '/') {
+        m_path.insert(m_path.begin(), '/');
+    }
 }
 
 template<typename T>
