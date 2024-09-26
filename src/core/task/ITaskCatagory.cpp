@@ -12,7 +12,7 @@ bool ITaskCatagory::isCatagoryDefaultEnabled() const
 bool ITaskCatagory::isCatagoryEnabled() const
 {
     auto path = QString("/CATAGORY_ENABLE_STATE_").append(name());
-    $ContextBool value{path, true};
+    $ContextBool value{path.toStdString(), true};
     return value.isFound() ? value :  isCatagoryDefaultEnabled();
 }
 

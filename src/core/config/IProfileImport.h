@@ -12,8 +12,8 @@ template<typename T>
 class IProfileImport : public IConfigImportInterface<T>
 {
 public:
-    IProfileImport(QString path);
-    IProfileImport(QString path, T value);
+    IProfileImport(std::string path);
+    IProfileImport(std::string path, T value);
 
 public:
     IProfileImport& operator =(const T& value) = delete;
@@ -23,13 +23,13 @@ protected:
 };
 
 template<typename T>
-IProfileImport<T>::IProfileImport(QString path)
+IProfileImport<T>::IProfileImport(std::string path)
     : IConfigImportInterface(std::move(path))
 {
 }
 
 template<typename T>
-IProfileImport<T>::IProfileImport(QString path, T value)
+IProfileImport<T>::IProfileImport(std::string path, T value)
     : IConfigImportInterface<T>(std::move(path), std::move(value))
 {
 }

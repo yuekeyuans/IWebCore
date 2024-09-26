@@ -22,8 +22,8 @@ public:
     };
 
 protected:
-    explicit IConfigImportInterface(QString path);
-    explicit IConfigImportInterface(QString path, T value);
+    explicit IConfigImportInterface(std::string path);
+    explicit IConfigImportInterface(std::string path, T value);
 
 public:
     bool operator !=(const T& value) const;
@@ -48,21 +48,21 @@ public:
     static constexpr inline uint LoadedValue = 0x04;
 
 protected:
-    const QString m_path;
+    const std::string m_path;
     mutable T m_data {};
     mutable ValueType m_valueType;
 
 };
 
 template<typename T>
-IConfigImportInterface<T>::IConfigImportInterface(QString path)
+IConfigImportInterface<T>::IConfigImportInterface(std::string path)
     : m_path(std::move(path))
 {
     m_valueType.valueType = InitializedValue;
 }
 
 template<typename T>
-IConfigImportInterface<T>::IConfigImportInterface(QString path, T value)
+IConfigImportInterface<T>::IConfigImportInterface(std::string path, T value)
     : m_path(std::move(path)), m_data(std::move(value))
 {
     m_valueType.valueType = DefaultValue;
@@ -113,8 +113,6 @@ T &IConfigImportInterface<T>::get() const
         if(value.is_null()){
             m_valueType.isFound = false;
         }
-
-
 
         if constexpr (std::is_same_v<T, IJson>){
             m_data = value;

@@ -12,6 +12,7 @@ public:
     void addConfig(const IJson& value, const QString& path="");
 
     IJson getConfig(const QString& path);
+    IJson getConfig(const std::string& path);
 //    IResult<IJson> getConfig(const QString& path);
 
     bool getConfigAsBool(const QString& path, bool& ok);

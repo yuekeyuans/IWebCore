@@ -10,8 +10,8 @@ template<typename T>
 class IContextImport : public IConfigImportInterface<T>
 {
 public:
-    IContextImport(QString path);
-    IContextImport(QString path, T value);
+    IContextImport(std::string path);
+    IContextImport(std::string path, T value);
 
 public:
     IContextImport& operator=(const T& value) = delete;
@@ -21,13 +21,13 @@ protected:
 };
 
 template<typename T>
-IContextImport<T>::IContextImport(QString path)
+IContextImport<T>::IContextImport(std::string path)
     : IConfigImportInterface<T>(std::move(path))
 {
 }
 
 template<typename T>
-IContextImport<T>::IContextImport(QString path, T value)
+IContextImport<T>::IContextImport(std::string path, T value)
     : IConfigImportInterface<T>(std::move(path), std::move(value))
 {
 }
