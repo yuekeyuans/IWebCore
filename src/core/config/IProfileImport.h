@@ -63,24 +63,24 @@ using $ProfileQString = $Profile<QString>;
 using $ProfileStdString = $Profile<std::string>;
 using $ProfileQStringList = $Profile<QStringList>;
 
-using $Bool = $Profile<bool>;
-using $Char = $Profile<char>;
-using $UChar = $Profile<uchar>;
-using $SChar = $Profile<signed char>;
-using $Short = $Profile<short>;
-using $UShort = $Profile<ushort>;
-using $Int = $Profile<int>;
-using $UInt = $Profile<uint>;
-using $Long = $Profile<long>;
-using $ULong = $Profile<ulong>;
-using $LongLong = $Profile<long long>;
-using $ULongLong = $Profile<qulonglong>;
-using $Float = $Profile<float>;
-using $Double = $Profile<double>;
-using $LongDouble = $Profile<long double>;
+using $Bool = $ProfileBool;
+using $Char = $ProfileChar;
+using $UChar = $ProfileUChar;
+using $SChar = $ProfileSChar;
+using $Short = $ProfileShort;
+using $UShort = $ProfileUShort;
+using $Int = $ProfileInt;
+using $UInt = $ProfileUInt;
+using $Long = $ProfileLong;
+using $ULong = $ProfileULong;
+using $LongLong = $ProfileLongLong;
+using $ULongLong = $ProfileULongLong;
+using $Float = $ProfileFloat;
+using $Double = $ProfileDouble;
+using $LongDouble = $ProfileLongDouble;
 
-using $QString = $Profile<QString>;
-using $StdString = $Profile<std::string>;
-using $QStringList = $Profile<QStringList>;
+using $QString = $ProfileQString;
+using $StdString = $ProfileStdString;
+using $QStringList = $ProfileQStringList;
 
 $PackageWebCoreEnd
