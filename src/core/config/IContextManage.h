@@ -10,18 +10,6 @@ class IContextManage final : public IConfigManageInterface, public ISingletonUni
 {
 public:
     IContextManage() = default;
-
-public:
-    template<typename T>
-    static T getBean(const QString& path, bool& ok);
 };
 
-template<typename T>
-T IContextManage::getBean(const QString &path, bool& ok)
-{
-    return static_cast<IConfigManageInterface*>(IContextManage::instance())->getBean<T>(path, ok);
-}
-
 $PackageWebCoreEnd
-
-#define IContextManageInstance IContextManage::instance()

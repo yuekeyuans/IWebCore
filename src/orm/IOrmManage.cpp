@@ -84,15 +84,17 @@ void IOrmManage::unregisterDatabase(const QString &dbName)
     }
 }
 
+// TODO: fix latter
 IOrmDataSource IOrmManage::getDataSource(const QString &name)
 {
-    auto path = QString("dataSource.").append(name);
-    bool ok;
-    auto bean = IProfileManage::instance()->getBean<IOrmDataSource>(path, ok);
-    if(!ok){
-        qFatal("datasource config error");
-    }
-    return bean;
+//    auto path = QString("dataSource.").append(name);
+//    bool ok;
+//    auto bean = IProfileManage::instance()->getBean<IOrmDataSource>(path, ok);
+//    if(!ok){
+//        qFatal("datasource config error");
+//    }
+//    return bean;
+    return IOrmDataSource{};
 }
 
 IOrmDialectWare *IOrmManage::getDialect(const QString &name)

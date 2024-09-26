@@ -10,16 +10,6 @@ class IProfileManage final : public IConfigManageInterface, public ISingletonUni
 {
 public:
     IProfileManage() = default;
-
-public:
-    template<typename T>
-    static T getBean(const QString& path, bool& ok);
 };
-
-template<typename T>
-T IProfileManage::getBean(const QString& path, bool& ok)
-{
-    return static_cast<IConfigManageInterface*>(IProfileManage::instance())->getBean<T>(path, ok);
-}
 
 $PackageWebCoreEnd
