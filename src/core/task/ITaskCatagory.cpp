@@ -12,8 +12,8 @@ bool ITaskCatagory::isCatagoryDefaultEnabled() const
 bool ITaskCatagory::isCatagoryEnabled() const
 {
     auto path = QString("/CATAGORY_ENABLE_STATE_").append(name());
-    $ContextBool value{path.toStdString(), true};
-    return value.isFound() ? value :  isCatagoryDefaultEnabled();
+    $ContextBool value{path.toStdString(), isCatagoryDefaultEnabled()};
+    return *value;
 }
 
 void ITaskCatagory::addTask(ITaskWare *ware)
@@ -38,8 +38,8 @@ void ITaskCatagory::execTaskNodes() const
 
 void ITaskCatagory::printTaskInfo() const
 {
-    $ContextBool value{"/SYSTEM_ENABLE_TASK_OUTPUT", false};
-    if(value.isFound() && value){
+    static $ContextBool value{"/SYSTEM_ENABLE_TASK_OUTPUT", false};
+    if(*value){
         qDebug() << Qt::endl << "Catagory: " << name() << ", order: " << order();
     }
 
@@ -48,7 +48,7 @@ void ITaskCatagory::printTaskInfo() const
             continue;
         }
 
-        if(value.isFound() && value){
+        if(*value){
             QString tip = QString("`").append(node->name()).append("` registered.");
             if(!tip.isEmpty()){
                 qDebug().noquote() << "    " << QStringLiteral("[√]  ") << tip << " order: " << node->order();

@@ -9,7 +9,7 @@ ITcpConnectionData::ITcpConnectionData()
 
     // TODO: retrive from cache.
     if(!m_data){
-        m_maxSize = MAX_SIZE;
+        m_maxSize = *MAX_SIZE;
         m_data = new char[m_maxSize];
     }
 }

@@ -14,8 +14,8 @@ INodyTemplateTask::INodyTemplateTask()
 
 void INodyTemplateTask::task()
 {
-    $Bool nodyEnabled{"/http/templates/nody/enabled"};
-    if(!nodyEnabled){
+    $Bool nodyEnabled{"/http/templates/nody/enabled", false};
+    if(*nodyEnabled){
         return;
     }
 
@@ -23,8 +23,8 @@ void INodyTemplateTask::task()
     delete IResponseManage::instance()->getTemplateRenderer();
     IResponseManage::instance()->setTemplateRenderer(m_template);
 
-    if(!m_templateDir.value().isEmpty() && QFileInfo(m_templateDir).exists() && QFileInfo(m_templateDir).isDir()){
-        travelFolder(m_templateDir, m_templateDir);
+    if(!m_templateDir.value().isEmpty() && QFileInfo(m_templateDir.value()).exists() && QFileInfo(m_templateDir.value()).isDir()){
+        travelFolder(*m_templateDir, *m_templateDir);
     }
 }
 
@@ -39,7 +39,7 @@ void INodyTemplateTask::travelFolder(const QString &path, const QString& root)
         }
 
         auto fileName = entry.absoluteFilePath();
-        if(fileName.endsWith(m_suffix)){
+        if(fileName.endsWith(*m_suffix)){
             auto value = IFileUtil::readFileAsString(fileName);
             if(!value){
                 qFatal("file read failed");

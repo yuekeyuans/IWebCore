@@ -11,8 +11,8 @@ bool ITaskWare::isTaskDefaultEnabled() const
 bool ITaskWare::isTaskEnabled() const
 {
     auto path = QString("/TASK_ENABLE_STATE_").append(catagory()).append("_").append(name());
-    $ContextBool value{path.toStdString()};
-    return value.isFound() ? value : this->isTaskDefaultEnabled();
+    $ContextBool value{path.toStdString(), this->isTaskDefaultEnabled()};
+    return *value;
 }
 
 $PackageWebCoreEnd

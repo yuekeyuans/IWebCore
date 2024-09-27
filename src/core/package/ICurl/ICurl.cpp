@@ -9,7 +9,7 @@ ICurl::ICurl(const QString& url)
     static $UShort m_port{"http.port"};
 
     m_cmds << "-i";
-    m_cmds << "--url" << "http://" + m_ip + ":" + QString::number(m_port)  + url;
+    m_cmds << "--url" << "http://" + *m_ip + ":" + *m_port  + url;
 }
 
 ICurl &ICurl::withPathArg(const QString &data)

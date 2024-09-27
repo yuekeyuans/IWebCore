@@ -7,15 +7,15 @@ $PackageWebCoreBegin
 void IHttpFileServiceTask::task()
 {
     $QString staticPath{"http.fileService.path"};
-    if(!staticPath.isFound() || staticPath.value().isEmpty()){
+    if(staticPath.value().isEmpty()){
         return;
     }
 
     $QString staticUrl{"http.fileService.url"};
-    if(!staticUrl.isFound() || staticUrl.value().isEmpty()){
+    if(staticUrl.value().isEmpty()){
         return;
     }
-    IHttpManage::instance()->registerStaticFiles(staticPath, staticUrl);
+    IHttpManage::instance()->registerStaticFiles(*staticPath, *staticUrl);
 }
 
 $PackageWebCoreEnd

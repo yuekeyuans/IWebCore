@@ -60,10 +60,9 @@ bool detail::setFilePath(IResponseRaw* raw, const QString& path)
 {
     QString realPath = path;
     if(!path.startsWith(":/") && !QFileInfo(path).exists()){
-        $QString prefix{"http.fileService.path"};
-        if(prefix.isFound()){
-            realPath.prepend(prefix);
-        }
+        $QString prefix{"/http/fileService/path"};
+        realPath.prepend(*prefix);
+
     }
 
     if(QFile(realPath).exists()){
@@ -78,11 +77,10 @@ bool detail::setFilePath(IResponseRaw* raw, const QString& path)
 void detail::checkAndUpdateContentDisposition(IResponseRaw* raw)
 {
     static $Bool enabled {"/http/fileService/contentDisposition/enabled"};
-    static $QStringList suffixes{"http/fileService/contentDisposition/suffixes"};
-    if(enabled
+    static $QStringList suffixes{"/http/fileService/contentDisposition/suffixes"};
+    if(*enabled
             && raw->content.type == IResponseContent::Type::File
             && !raw->content.contentString.isEmpty()
-            && suffixes.isFound()
             && suffixes.value().contains(IFileUtil::getFileSuffix(raw->content.contentString)))
     {
         raw->headers.insert("Content-Disposition",

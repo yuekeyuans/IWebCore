@@ -30,17 +30,17 @@ QString INodyRenderer::render(const QString &path, const QJsonObject &object)
 
 QString INodyRenderer::getPage(IHttpStatusCode status)
 {
-    QString pagePath = QString(m_userDefinedPrefix).append("/").append(IHttpStatus::toString(status)).append(".yky");
+    QString pagePath = QString(*m_userDefinedPrefix).append("/").append(IHttpStatus::toString(status)).append(".yky");
     if(isPathExist(pagePath)){
         return pagePath;
     }
 
-    pagePath = QString(m_userDefinedPrefix).append("/").append("errorPage.yky");
+    pagePath = QString(*m_userDefinedPrefix).append("/").append("errorPage.yky");
     if(isPathExist(pagePath)){
         return pagePath;
     }
 
-    pagePath = QString(m_defaultPrefix).append("/").append("errorPage.yky");
+    pagePath = QString(*m_defaultPrefix).append("/").append("errorPage.yky");
     if(isPathExist(pagePath)){
         return pagePath;
     }
@@ -54,11 +54,11 @@ QString INodyRenderer::getPage(IResponseTemplateRenderer::PageType type)
         {PageType::Directory, "folder.yky"}
     };
 
-    QString pagePath = QString(m_userDefinedPrefix).append("/").append(PAGES[type]);
+    QString pagePath = QString(*m_userDefinedPrefix).append("/").append(PAGES[type]);
     if(isPathExist(pagePath)){
         return pagePath;
     }
-    pagePath = QString(m_defaultPrefix).append("/").append(PAGES[type]);
+    pagePath = QString(*m_defaultPrefix).append("/").append(PAGES[type]);
     if(isPathExist(pagePath)){
         return pagePath;
     }

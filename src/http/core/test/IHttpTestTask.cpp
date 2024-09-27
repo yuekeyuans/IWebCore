@@ -10,7 +10,7 @@ void IWebCore::IHttpTestTask::task()
             return;
         }
         $Int delay{"/http/test/delayDuration", 1000};
-        std::this_thread::sleep_for(std::chrono::milliseconds(delay));
+        std::this_thread::sleep_for(std::chrono::milliseconds(*delay));
         IHttpTestManage::instance()->invokeTests();
     });
     thread.detach();

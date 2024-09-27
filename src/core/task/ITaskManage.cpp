@@ -105,11 +105,11 @@ void ITaskManage::mergetTasksToCatagores()
 
 void ITaskManage::execEachCatagory()
 {
-    $ContextBool printable{"/SYSTEM_ENABLE_TASK_OUTPUT"};
+    static $ContextBool printable{"/SYSTEM_ENABLE_TASK_OUTPUT", false};
     for(const auto& node : m_catagories){
         if(node->isCatagoryEnabled()){
             node->sortTask();
-            if(printable.isFound() && printable){
+            if(*printable){
                node->printTaskInfo();
             }
         }

@@ -6,8 +6,8 @@ $PackageWebCoreBegin
 
 void IHttpPrintTraceTask::task()
 {
-    $Bool condition{"/http/printTrace"};
-    if(condition.isFound() && condition){
+    $Bool condition{"/http/printTrace", false};
+    if(condition.value()){
         IHttpManage::travalPrintUrlTree();
     }
 }

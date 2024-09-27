@@ -30,8 +30,8 @@ protected:
 
 public:
     bool operator !=(const T& value) const;
-    operator const T&() const;
     const T& value() const;
+    const T& operator *() const;
 
 public:
     bool isInitializedValue() const;
@@ -45,7 +45,7 @@ protected:
     virtual IConfigManageInterface* getConfigManage() const = 0;
 
 private:
-    T& get() const;
+    const T& get() const;
 
 protected:
     std::string m_path;
@@ -83,13 +83,13 @@ bool IConfigImportInterface<T>::operator !=(const T &value) const
 }
 
 template<typename T>
-IConfigImportInterface<T>::operator const T&() const
+const T &IConfigImportInterface<T>::value() const
 {
     return get();
 }
 
 template<typename T>
-const T &IConfigImportInterface<T>::value() const
+const T& IConfigImportInterface<T>::operator *() const
 {
     return get();
 }
@@ -132,7 +132,7 @@ const QString &IConfigImportInterface<T>::path()
 }
 
 template<typename T>
-T &IConfigImportInterface<T>::get() const
+const T &IConfigImportInterface<T>::get() const
 {
     if(m_valueMark.isLoaded){
         return m_data;

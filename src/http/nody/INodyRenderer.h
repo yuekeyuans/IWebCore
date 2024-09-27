@@ -23,8 +23,8 @@ public:
 
 private:
     QHash<QString, INody*> m_nodyHash;
-    $QString m_defaultPrefix{"http.templates.nody.defaultNodyTemplatePrefix"};
-    $QString m_userDefinedPrefix{"http.templates.nody.userDefinedNodyTemplatePrefix"};
+    $QString m_defaultPrefix{"/http/templates/nody/defaultNodyTemplatePrefix"};
+    $QString m_userDefinedPrefix{"/http/templates/nody/userDefinedNodyTemplatePrefix"};
 };
 
 }

@@ -436,7 +436,7 @@ void IRequestImpl::endState()
 void IRequestImpl::parseFirstLine(IStringView line)
 {
     static $UInt urlMaxLength("http.urlMaxLength");
-    if(line.length() >= urlMaxLength){
+    if(line.length() >= *urlMaxLength){
          return m_raw->setInvalid(IHttpBadRequestInvalid("request url is too long"));
     }
 
@@ -492,7 +492,7 @@ void IRequestImpl::parseHeader(IStringView line)
         return m_raw->setInvalid(IHttpBadRequestInvalid("server do not support headers item multiline, or without key/value pair"));  // SEE: 默认不支持 headers 换行书写
     }
 
-    if(line.length() > headerMaxLength){
+    if(line.length() > *headerMaxLength){
         m_raw->setInvalid(IHttpRequestHeaderFieldTooLargeInvalid());
     }
 
@@ -510,7 +510,7 @@ void IRequestImpl::resolveHeaders()
             return m_raw->setInvalid(IHttpBadRequestInvalid("ContentLength error"));
         }
         static $Int bodyMaxLength("http.bodyMaxLength");
-        if(m_contentLength > bodyMaxLength){
+        if(m_contentLength > *bodyMaxLength){
             return m_raw->setInvalid(IHttpBadRequestInvalid("Content Length too large to accept"));
         }
     }
@@ -570,8 +570,8 @@ void IRequestImpl::resolvePathProcessor()
             return;
         }
 
-        static $Bool handleDir{"/http/fileService/folderHandled"};
-        if(handleDir){
+        static $Bool handleDir{"/http/fileService/folderHandled", false};
+        if(*handleDir){
             m_raw->m_processer.entries = controllerManage->getStaticFolderActionPath(*m_request);
             if(!m_raw->m_processer.entries.isEmpty()){
                 m_raw->m_processer.type = IRequestRaw::ProcessUnit::Type::Directory;

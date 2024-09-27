@@ -47,7 +47,7 @@ void IHttpManage::registerStaticFiles(const QString &path, const QString &prefix
     }
 
     $Bool enabledFileStaticMapping("/http/fileService/staticMapping");
-    if(enabledFileStaticMapping){
+    if(*enabledFileStaticMapping){
         m_resourceMappings.mountMapping(dir.absolutePath(), prefix);
     }else{
         m_folderMappings.mountMapping(dir.absolutePath(), prefix);
