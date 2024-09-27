@@ -208,7 +208,7 @@ const T &IConfigImportInterface<T>::get() const
 
     // not supported
     else{
-        static_assert(true, "not supported Config type");
+        static_assert(false, "unsupported config type, please check your code and change the config query type!");
     }
 
     return m_data;

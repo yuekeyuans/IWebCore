@@ -28,7 +28,5 @@ int main(int argc, char *argv[])
 
     std::cout << bean2.toJson(&ok).dump(4) << std::endl;
 
-//    PersonBean bean2;
-
     return app.run();
 }
