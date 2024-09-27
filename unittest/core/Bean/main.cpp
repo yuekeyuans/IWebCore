@@ -3,7 +3,8 @@
 #include "NameBean.h"
 #include "PersonBean.h"
 
-$EnableConfigFiles(true)
+$EnableDefaultConfigFiles
+//$SetConfigFilesPath("D:/image/")
 $EnableTaskOutput(true)
 int main(int argc, char *argv[])
 {

@@ -6,12 +6,12 @@ $PackageWebCoreBegin
 
 void IHttpFileServiceTask::task()
 {
-    $QString staticPath{"http.fileService.path"};
+    $QString staticPath{"/http/fileService/path"};
     if(staticPath.value().isEmpty()){
         return;
     }
 
-    $QString staticUrl{"http.fileService.url"};
+    $QString staticUrl{"/http/fileService/url"};
     if(staticUrl.value().isEmpty()){
         return;
     }

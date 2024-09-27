@@ -43,6 +43,9 @@ IConfigManageInterface *IProfileImport<T>::getConfigManage() const
 template<typename T>
 using $Profile = IProfileImport<T>;
 
+template<typename T>
+using $ProfileMap = IProfileImport<std::map<std::string, T>>;
+
 using $ProfileIJson = $Profile<IJson>;
 using $ProfileBool = $Profile<bool>;
 using $ProfileChar = $Profile<char>;
@@ -60,6 +63,7 @@ using $ProfileFloat = $Profile<float>;
 using $ProfileDouble = $Profile<double>;
 using $ProfileLongDouble = $Profile<long double>;
 
+using $ProfileMapStdString = $ProfileMap<std::string>;
 using $ProfileQString = $Profile<QString>;
 using $ProfileStdString = $Profile<std::string>;
 using $ProfileQStringList = $Profile<QStringList>;
@@ -81,6 +85,7 @@ using $Float = $ProfileFloat;
 using $Double = $ProfileDouble;
 using $LongDouble = $ProfileLongDouble;
 
+using $MapStdString = $ProfileMapStdString;
 using $QString = $ProfileQString;
 using $StdString = $ProfileStdString;
 using $QStringList = $ProfileQStringList;

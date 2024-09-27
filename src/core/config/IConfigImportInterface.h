@@ -137,6 +137,7 @@ const T &IConfigImportInterface<T>::get() const
     if(m_valueMark.isLoaded){
         return m_data;
     }
+
     auto value = getConfigManage()->getConfig(m_path);
     if(value.is_null()){
         m_valueMark.isFound = false;
@@ -184,6 +185,7 @@ const T &IConfigImportInterface<T>::get() const
             m_data = value.get<std::string>();
         }
     }
+
     // QString
     else if constexpr (std::is_same_v<QString, T>){
         m_valueMark.isFound = value.is_string();
@@ -199,11 +201,26 @@ const T &IConfigImportInterface<T>::get() const
                 if(val.is_string()){
                     m_data.append(QString::fromStdString(val.get<std::string>()));
                 }else{
+                    // TODO: 这个要特殊处理以下，定一个规则
                     qFatal("error, not all value are string");
                 }
             }
             m_valueMark.isFound = true;
         }
+    }
+
+    // std::map<std::string, std::string>
+    else if constexpr (std::is_same_v<std::map<std::string, std::string>, T>){
+        auto found = value.is_object();
+        for(auto& [key, val] : value.items()){
+            if(val.is_string()){
+                m_data[key] = val.get<std::string>();
+            }else{
+                // TODO: 这个要特殊处理以下，定一个规则
+                qFatal("error, not all value are std::string");
+            }
+        }
+        m_valueMark.isFound = true;
     }
 
     // not supported

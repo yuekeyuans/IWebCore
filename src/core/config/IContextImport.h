@@ -41,6 +41,9 @@ IConfigManageInterface *IContextImport<T>::getConfigManage() const
 template<typename T>
 using $Context = IContextImport<T>;
 
+template<typename T>
+using $ContextMap = IContextImport<std::map<std::string, T>>;
+
 using $ContextJson = $Context<IJson>;
 using $ContextBool = $Context<bool>;
 using $ContextChar = $Context<char>;
@@ -58,6 +61,7 @@ using $ContextFloat = $Context<float>;
 using $ContextDouble = $Context<double>;
 using $ContextLongDouble = $Context<long double>;
 
+using $ContextMapStdString = $ContextMap<std::string>;
 using $ContextQString = $Context<QString>;
 using $ContextStdString = $Context<std::string>;
 using $ContextQStringList = $Context<QStringList>;
