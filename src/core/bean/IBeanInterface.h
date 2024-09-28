@@ -24,8 +24,8 @@ public:
     const QVector<QMetaMethod>& getMetaMethods() const;
     const QMap<QString, QString>& getMetaClassInfos() const;
     const std::vector<QMetaProperty>& getMetaProperties() const;
-    QMetaMethod getMetaMethod(const QString &name) const;
-    QMetaProperty getMetaProperty(const QString& name) const;
+    const QMetaMethod& getMetaMethod(const QString &name) const;
+    const QMetaProperty& getMetaProperty(const QString& name) const;
     virtual QVariant getFieldValue(const QString& name) const final;
     virtual void setFieldValue(const QString& name, const QVariant& value) final;
 
@@ -73,7 +73,7 @@ const std::vector<QMetaProperty>& IBeanInterface<T, enabled>::getMetaProperties(
 }
 
 template<typename T, bool enabled>
-QMetaMethod IBeanInterface<T, enabled>::getMetaMethod(const QString &name) const
+const QMetaMethod& IBeanInterface<T, enabled>::getMetaMethod(const QString &name) const
 {
     const auto& methods = getMetaMethods();
     for(const QMetaMethod& method : methods){
@@ -87,9 +87,17 @@ QMetaMethod IBeanInterface<T, enabled>::getMetaMethod(const QString &name) const
 }
 
 template<typename T, bool enabled>
-QMetaProperty IBeanInterface<T, enabled>::getMetaProperty(const QString& name) const
+const QMetaProperty& IBeanInterface<T, enabled>::getMetaProperty(const QString& name) const
 {
-    return IMetaUtil::getMetaPropertyByName(T::staticMetaObject, name);
+    const auto props = getMetaProperties();
+    for(const QMetaProperty& prop : props){
+        if(prop.name() == name){
+            return prop;
+        }
+    }
+
+    static QMetaProperty s_prop{};
+    return s_prop;
 }
 
 template<typename T, bool enabled>
