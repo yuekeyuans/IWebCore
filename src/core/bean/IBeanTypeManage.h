@@ -13,8 +13,6 @@ class IBeanTypeManage : public ISingletonUnit<IBeanTypeManage>
     template<typename, bool>
     friend class IBeanInterface;
     friend class IBeanTypeCheckTask;
-
-public:
     using ToJsonFun = std::function<IJson(void*, bool*)>;
     using LoadJsonFun = std::function<bool(void*, const IJson&)>;
 

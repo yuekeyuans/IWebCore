@@ -12,7 +12,7 @@ QStringList ILoadProfileFileUnit::getFilteredPaths() const
     }
 
     QList<QRegExp> filters;
-    for(auto &[key, val] : map.value()){
+    for(const auto &[key, val] : map.value()){
         QRegExp reg(QString::fromStdString(val));
         reg.setPatternSyntax(QRegExp::Wildcard);
         filters.append(reg);

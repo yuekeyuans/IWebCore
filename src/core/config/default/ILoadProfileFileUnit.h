@@ -18,7 +18,6 @@ public:
 private:
     QStringList getConfigDirs() const;
     QStringList getConfigFiles() const;
-
 };
 
 $PackageWebCoreEnd
