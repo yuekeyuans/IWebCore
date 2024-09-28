@@ -10,14 +10,14 @@ $PackageWebCoreBegin
 class IBeanAbort : public IAbortInterface<IBeanAbort>
 {
     $AsAbort(
-        invalid_bean_field_type,
-        invalid_bean_embended_type
+        InvalidBeanEmbededBeanType,
+        InvalidBeanEmbededPrimitiveType
     )
 protected:
     virtual QMap<int, QString> abortDescription() const final{
         return {
-            {invalid_bean_field_type, "this type is not supported bean field type"},
-            {invalid_bean_embended_type, "this type is not suppoted bean embended type. its not a bean type"}
+            {InvalidBeanEmbededBeanType, "this bean type is not supported as bean field type"},
+            {InvalidBeanEmbededPrimitiveType, "this primitive type is not suppoted bean embended type. its not a bean type"}
         };
     }
 };

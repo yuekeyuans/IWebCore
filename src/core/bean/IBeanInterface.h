@@ -119,7 +119,7 @@ IJson IBeanInterface<T, enabled>::toJson(bool *ok) const
 {
     static auto stdStringId = qMetaTypeId<std::string>();
 
-    IJson obj;
+    IJson obj = IJson::object();
     const auto& fields = getMetaProperties();
     for(const QMetaProperty& field : fields){
         auto type = field.userType();

@@ -11,14 +11,6 @@
     $BeanFieldDeclare(type, name) \
     type name {};
 
-#define $BeanField_3(type, name, value) \
-    $BeanFieldDeclare(type, name) \
-    type name {value};
-
-#define $BeanField_3(type, name, value) \
-    $BeanFieldDeclare(type, name) \
-    type name {value};
-
 #define $BeanField_3(type, name, value1) \
     $BeanFieldDeclare(type, name) \
     type name {value1};
