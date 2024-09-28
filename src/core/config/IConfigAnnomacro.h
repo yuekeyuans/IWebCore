@@ -2,7 +2,7 @@
 
 #include "IConfigPreProcessor.h"
 
-// begin task
+// catagory
 #define $EnableCatagory(catagoryName) \
     PP_NORMAL_CONTEXT_CONFIG(EnableCatagory_##catagoryName, /CATAGORY_ENABLE_STATE_##catagoryName, true)
 
@@ -14,9 +14,7 @@
 
 #define $DisableTask(catagoryName, taskName) \
     PP_NORMAL_CONTEXT_CONFIG(DisableTask_##catagoryName##_##taskName, /TASK_ENABLE_STATE_##catagoryName##_##taskName, false)
-// end task
 
-// begin test
 #define $EnableTest_(N) $EnableTest_##N
 #define $EnableTest_EVAL(N) $EnableTest_(N)
 #define $EnableTest(...) PP_EXPAND( $EnableTest_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
@@ -186,5 +184,3 @@
     $SetConfigFileFilters("*.json")    \
     $SetConfigFilePaths(":/config/")
 
-
-// TODO: 主界面 上报错，是最后一行的调用问题， 之后再调试
