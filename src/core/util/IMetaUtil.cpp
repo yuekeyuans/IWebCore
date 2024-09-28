@@ -51,44 +51,44 @@ QMetaProperty IMetaUtil::getMetaPropertyByName(const std::vector<QMetaProperty> 
     return {};
 }
 
-QStringList IMetaUtil::getIgnoredFields(const QMetaObject &meta)
-{
-    QStringList ignoredFields;
-    static const QString prefix = "iwebcore_bean_field_ignorable_";
-    auto clsInfo = IMetaUtil::getMetaClassInfoMap(meta);
-    auto keys = clsInfo.keys();
-    for(auto key : keys){
-        if(key.startsWith(prefix)){
-            ignoredFields.append(clsInfo[key]);
-        }
-    }
-    return ignoredFields;
-}
+//QStringList IMetaUtil::getIgnoredFields(const QMetaObject &meta)
+//{
+//    QStringList ignoredFields;
+//    static const QString prefix = "iwebcore_bean_field_ignorable_";
+//    auto clsInfo = IMetaUtil::getMetaClassInfoMap(meta);
+//    auto keys = clsInfo.keys();
+//    for(auto key : keys){
+//        if(key.startsWith(prefix)){
+//            ignoredFields.append(clsInfo[key]);
+//        }
+//    }
+//    return ignoredFields;
+//}
 
-QVector<int> IMetaUtil::getIgnoredFieldIndexes(const QMetaObject &meta)
-{
-    static const QString prefix = "iwebcore_bean_field_ignorable_";
+//QVector<int> IMetaUtil::getIgnoredFieldIndexes(const QMetaObject &meta)
+//{
+//    static const QString prefix = "iwebcore_bean_field_ignorable_";
 
-    QVector<int> ignoredFields;
-    auto clsInfo = getMetaClassInfoMap(meta);
-    auto props = getMetaProperties(meta);
-    auto keys = clsInfo.keys();
-    for(auto key : keys){
-        if(key.startsWith(prefix)){
-            QString name = clsInfo[key];
-            int i=0;
-            for(const auto& prop : props){
-                if(name == prop.name()){
-                    ignoredFields.append(i);
-                    break;
-                }
-                i++;
-            }
+//    QVector<int> ignoredFields;
+//    auto clsInfo = getMetaClassInfoMap(meta);
+//    auto props = getMetaProperties(meta);
+//    auto keys = clsInfo.keys();
+//    for(auto key : keys){
+//        if(key.startsWith(prefix)){
+//            QString name = clsInfo[key];
+//            int i=0;
+//            for(const auto& prop : props){
+//                if(name == prop.name()){
+//                    ignoredFields.append(i);
+//                    break;
+//                }
+//                i++;
+//            }
 
-        }
-    }
-    return ignoredFields;
-}
+//        }
+//    }
+//    return ignoredFields;
+//}
 
 QVector<QMetaMethod> IMetaUtil::getMetaMethods(const QMetaObject &meta)
 {

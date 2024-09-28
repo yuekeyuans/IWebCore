@@ -55,11 +55,11 @@
 #define $BeanField_EVAL(N) $BeanField_(N)
 #define $BeanField(...) PP_EXPAND( $BeanField_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
 
-#define PP_BEAN_INGNORED_KEY(name)  \
-    PP_STRING(iwebcore_bean_field_ignorable_##name)
+//#define PP_BEAN_INGNORED_KEY(name)  \
+//    PP_STRING(iwebcore_bean_field_ignorable_##name)
 
-#define $FieldIgnorable(name) \
-    Q_CLASSINFO(PP_BEAN_INGNORED_KEY(name), #name)
+//#define $FieldIgnorable(name) \
+//    Q_CLASSINFO(PP_BEAN_INGNORED_KEY(name), #name)
 
 #define $AsBeanList(klassName)                                                                         \
 class klassName ## List : public QList< klassName >, public IBeanInterface< klassName ## List >        \

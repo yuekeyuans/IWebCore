@@ -22,8 +22,8 @@ namespace IMetaUtil
     QMetaProperty getMetaPropertyByName(const QMetaObject& meta, QString name);
     QMetaProperty getMetaPropertyByName(const std::vector<QMetaProperty>& props, QString name);
 
-    QStringList getIgnoredFields(const QMetaObject& meta);
-    QVector<int> getIgnoredFieldIndexes(const QMetaObject& meta);
+//    QStringList getIgnoredFields(const QMetaObject& meta);
+//    QVector<int> getIgnoredFieldIndexes(const QMetaObject& meta);
 
     QVector<QMetaMethod> getMetaMethods(const QMetaObject& meta);
 
