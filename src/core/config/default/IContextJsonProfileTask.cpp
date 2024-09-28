@@ -27,7 +27,7 @@ IJson IContextJsonProfileTask::config()
         return {};
     }
 
-    auto paths = getValidatedPaths();
+    auto paths = getFilteredPaths();
     for(auto path : paths){
         auto obj = parseJsonFile(path);
         IProfileManage::instance()->addConfig(obj);

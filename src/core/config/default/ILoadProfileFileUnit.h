@@ -13,7 +13,7 @@ protected:
     virtual QStringList nameFilters() const = 0;
 
 public:
-    QStringList getValidatedPaths() const;
+    QStringList getFilteredPaths() const;
 
 private:
     QStringList getConfigDirs() const;

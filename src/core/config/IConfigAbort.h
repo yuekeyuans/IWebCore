@@ -7,12 +7,14 @@ $PackageWebCoreBegin
 class IConfigAbort : public IAbortInterface<IConfigAbort>
 {
     $AsAbort(
-        ConfigurationResolveJsonError
+        ConfigurationResolveJsonError,
+        ConfigurationResolveTomlError
     )
 protected:
     virtual QMap<int, QString> abortDescription() const final{
         return {
-            {ConfigurationResolveJsonError, ""}
+            {ConfigurationResolveJsonError, "error when parse json files"},
+            {ConfigurationResolveTomlError, "error when parse toml files"}
         };
     }
 };

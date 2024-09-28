@@ -4,7 +4,7 @@
 
 $PackageWebCoreBegin
 
-QStringList ILoadProfileFileUnit::getValidatedPaths() const
+QStringList ILoadProfileFileUnit::getFilteredPaths() const
 {
     $ContextMapStdString map{"/config/configFileFilters"};
     if(map.value().empty()){
@@ -33,11 +33,9 @@ QStringList ILoadProfileFileUnit::getValidatedPaths() const
             }
         }
     }
-    qDebug() << "matched path" << ret;
     return ret;
 }
 
-// TODO: 这个需要重新设计,之后在看
 QStringList ILoadProfileFileUnit::getConfigDirs() const
 {
 
@@ -59,7 +57,6 @@ QStringList ILoadProfileFileUnit::getConfigFiles() const
     auto dirs = getConfigDirs();
     for(auto dirPath : dirs){
         QDir dir(dirPath);
-        qDebug() << dirPath << nameFilters();
         auto entries = dir.entryInfoList(nameFilters());
         for(const auto& fileInfo : entries){
             if(fileInfo.isFile()){

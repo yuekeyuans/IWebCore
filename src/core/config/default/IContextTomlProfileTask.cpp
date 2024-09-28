@@ -3,6 +3,7 @@
 #include "core/util/IFileUtil.h"
 #include "core/util/IConvertUtil.h"
 #include "core/config/IContextImport.h"
+#include "core/config/IConfigAbort.h"
 
 $PackageWebCoreBegin
 
@@ -18,7 +19,7 @@ IJson IContextTomlProfileTask::config()
         return nullptr;
     }
 
-    auto paths = getValidatedPaths();
+    auto paths = getFilteredPaths();
     for(auto path : paths){
         bool ok;
         auto obj = parseToml(path, ok);
@@ -73,18 +74,7 @@ static IJson tomlToJson(const toml::value& value) {
         }
         return ret;
     }
-//    if(value.is_local_date()){
-//        return IConvertUtil::toString(tomlLocalDateToQDate(value.as_local_date()));
-//    }
-//    if(value.is_local_datetime()){
-//        return IConvertUtil::toString(tomlLocalDateTimeToQDateTime(value.as_local_datetime()));
-//    }
-//    if(value.is_local_time()){
-//        return IConvertUtil::toString(tomlLocalTimeToQTime(value.as_local_time()));
-//    }
-//    if(value.is_offset_datetime()){
-//        qFatal("not supported");
-//    }
+
     if(value.is_uninitialized()){
         return nullptr;
     }
@@ -104,14 +94,23 @@ IJson IContextTomlProfileTask::parseToml(const QString &path, bool &ok)
         QString content = IFileUtil::readFileAsString(path, ok);
         if(ok){
             auto vec = toVector(content.toStdString());
-            auto value = toml::detail::parse(vec, path.toStdString());
-            return tomlToJson(value);
+            try{
+                auto value = toml::detail::parse(vec, path.toStdString());
+                return tomlToJson(value);
+            } catch(...){
+                QString tip = "File: " + path;
+                IConfigAbort::ConfigurationResolveJsonError(tip, $ISourceLocation);
+            }
         }
-    }else{
-        auto value = toml::parse(path.toStdString());
-        return tomlToJson(value);
     }
 
+    try{
+        auto value = toml::parse(path.toStdString());
+        return tomlToJson(value);
+    }catch(...){
+        QString tip = "File: " + path;
+        IConfigAbort::ConfigurationResolveJsonError(tip, $ISourceLocation);
+    }
     return nullptr;
 }
 
