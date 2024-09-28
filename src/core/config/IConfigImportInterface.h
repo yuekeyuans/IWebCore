@@ -212,15 +212,17 @@ const T &IConfigImportInterface<T>::get() const
     // std::map<std::string, std::string>
     else if constexpr (std::is_same_v<std::map<std::string, std::string>, T>){
         auto found = value.is_object();
-        for(auto& [key, val] : value.items()){
-            if(val.is_string()){
-                m_data[key] = val.get<std::string>();
-            }else{
-                // TODO: 这个要特殊处理以下，定一个规则
-                qFatal("error, not all value are std::string");
+        if(found){
+            for(auto& [key, val] : value.items()){
+                if(val.is_string()){
+                    m_data[key] = val.get<std::string>();
+                }else{
+                    // TODO: 这个要特殊处理以下，定一个规则
+                    qFatal("error, not all value are std::string");
+                }
             }
+            m_valueMark.isFound = true;
         }
-        m_valueMark.isFound = true;
     }
 
     // not supported
@@ -228,6 +230,7 @@ const T &IConfigImportInterface<T>::get() const
         static_assert(false, "unsupported config type, please check your code and change the config query type!");
     }
 
+    m_valueMark.isLoaded = true;
     return m_data;
 }
 

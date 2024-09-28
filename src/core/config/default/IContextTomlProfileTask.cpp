@@ -120,5 +120,4 @@ QStringList IContextTomlProfileTask::nameFilters() const
     return {"*.toml", "*.tml"};
 }
 
-
 $PackageWebCoreEnd

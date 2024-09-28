@@ -3,9 +3,12 @@
 #include "NameBean.h"
 #include "PersonBean.h"
 
-$EnableDefaultConfigFiles
 //$SetConfigFilesPath("D:/image/")
+$EnableConfigFiles(true)
+$SetConfigFileFilters("*.toml", "*.json", "*.tml")
+$SetConfigFilePaths("C:/Users/Yue/.vscode/extensions/bodil.prettier-toml-0.1.0/node_modules/@toml-tools/parser/benchmark/samples/lolbench")
 $EnableTaskOutput(true)
+
 int main(int argc, char *argv[])
 {
     IApplication app(argc, argv);

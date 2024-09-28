@@ -6,21 +6,34 @@ $PackageWebCoreBegin
 
 QStringList ILoadProfileFileUnit::getValidatedPaths() const
 {
-    auto paths = getConfigFiles();
+    $ContextMapStdString map{"/config/configFileFilters"};
+    if(map.value().empty()){
+        return {};
+    }
 
-    $ContextQString exp{"/config/configFilesFilter", ""};
-    if(exp.value().isEmpty()){
-        return paths;
+    QList<QRegExp> filters;
+    for(auto &[key, val] : map.value()){
+        QRegExp reg(QString::fromStdString(val));
+        reg.setPatternSyntax(QRegExp::Wildcard);
+        filters.append(reg);
+    }
+
+    auto paths = getConfigFiles();
+    if(paths.isEmpty()){
+        return {};
     }
 
     QStringList ret;
-    QRegExp reg(exp.value());
-    reg.setPatternSyntax(QRegExp::Wildcard);
+
     for(const auto& path : paths){
-        if(reg.exactMatch(QFileInfo(path).fileName())){
-            ret.append(path);
+        for(auto filter : filters){
+            if(filter.exactMatch(QFileInfo(path).fileName())){
+                ret.append(path);
+                break;
+            }
         }
     }
+    qDebug() << "matched path" << ret;
     return ret;
 }
 
@@ -46,6 +59,7 @@ QStringList ILoadProfileFileUnit::getConfigFiles() const
     auto dirs = getConfigDirs();
     for(auto dirPath : dirs){
         QDir dir(dirPath);
+        qDebug() << dirPath << nameFilters();
         auto entries = dir.entryInfoList(nameFilters());
         for(const auto& fileInfo : entries){
             if(fileInfo.isFile()){
