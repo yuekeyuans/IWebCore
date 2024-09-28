@@ -81,7 +81,9 @@ QMetaMethod IBeanInterface<T, enabled>::getMetaMethod(const QString &name) const
             return method;
         }
     }
-    return {};
+
+    static QMetaMethod s_emptyMethod{};
+    return s_emptyMethod;
 }
 
 template<typename T, bool enabled>
@@ -163,7 +165,8 @@ bool IBeanInterface<T, enabled>::loadJson(const IJson &value)
 template<typename T, bool enabled>
 IJson IBeanInterface<T, enabled>::toJsonValueOfBeanType(const void *handle, const QMetaProperty& prop, bool* ok) const
 {
-    auto getPtrFun = getMetaMethod(QString("$get_") + prop.name() + "_ptr");
+    const QMetaMethod& getPtrFun = getMetaMethod(QString("$get_") + prop.name() + "_ptr");
+
     void* ptr{};
     QGenericReturnArgument retVal("void*", &ptr);
     getPtrFun.invokeOnGadget(const_cast<void*>(handle), retVal);
@@ -174,7 +177,7 @@ IJson IBeanInterface<T, enabled>::toJsonValueOfBeanType(const void *handle, cons
 template<typename T, bool enabled>
 bool IBeanInterface<T, enabled>::loadJsonValueOfBeanType(const void *handle, const QMetaProperty &prop, const IJson &value)
 {
-    auto getPtrFun = getMetaMethod(QString("$get_") + prop.name() + "_ptr");
+    const QMetaMethod& getPtrFun = getMetaMethod(QString("$get_") + prop.name() + "_ptr");
     void* ptr{};
     QGenericReturnArgument retVal("void*", &ptr);
     getPtrFun.invokeOnGadget(const_cast<void*>(handle), retVal);
