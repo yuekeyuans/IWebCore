@@ -99,7 +99,7 @@ IJson IContextTomlProfileTask::parseToml(const QString &path, bool &ok)
                 return tomlToJson(value);
             } catch(...){
                 QString tip = "File: " + path;
-                IConfigAbort::ConfigurationResolveJsonError(tip, $ISourceLocation);
+                IConfigAbort::abortConfigurationResolveTomlError(tip, $ISourceLocation);
             }
         }
     }
@@ -109,7 +109,7 @@ IJson IContextTomlProfileTask::parseToml(const QString &path, bool &ok)
         return tomlToJson(value);
     }catch(...){
         QString tip = "File: " + path;
-        IConfigAbort::ConfigurationResolveJsonError(tip, $ISourceLocation);
+        IConfigAbort::abortConfigurationResolveTomlError(tip, $ISourceLocation);
     }
     return nullptr;
 }
