@@ -42,10 +42,8 @@ namespace IMetaUtil
 
 class IMetaUtilHelper
 {
-private:
     template<typename T>
     friend QString IMetaUtil::getTypename<T>();
-
 private:
     static QString demangleName(const char*);
 };
