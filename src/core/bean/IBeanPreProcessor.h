@@ -79,9 +79,9 @@ public:                                                                         
     virtual bool loadJson(const IJson &value) final{                                                   \
         if(value.is_null()){ return true; }                                                            \
         if(!value.is_array()){ return false; }                                                         \
-        for(const IJson& value : value){                                                               \
+        for(const IJson& val : value){                                                               \
             klassName bean;                                                                            \
-            if(!bean.loadJson(value)){                                                                 \
+            if(!bean.loadJson(val)){                                                                 \
                 return false;                                                                          \
             }                                                                                          \
             this->append(bean);                                                                        \
