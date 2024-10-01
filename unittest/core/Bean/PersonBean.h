@@ -15,5 +15,5 @@ public:
     $BeanField(NameBean, name1)
     $BeanField(ushort, gender, 1)
     $BeanField(std::string, friendName, "yuekeyuan")
-//    $BeanField(NameBeanList, name2)
+    $BeanField(std::vector<NameBean>, name2)
 };

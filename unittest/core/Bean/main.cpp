@@ -32,9 +32,9 @@ int main(int argc, char *argv[])
 
     PersonBean person;
 
-//    person.name2.append(NameBean{});
-//    person.name2.append(NameBean{});
-//    person.name2.append(NameBean{});
+    person.name2.push_back(NameBean{});
+    person.name2.push_back(NameBean{});
+    person.name2.push_back(NameBean{});
 
     std::cout << person.toJson().dump(4) << std::endl;
 

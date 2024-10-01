@@ -6,6 +6,7 @@
 
 $PackageWebCoreBegin
 
+// TODO: 考虑删掉这个东西
 class IBeanWare
 {
 public:

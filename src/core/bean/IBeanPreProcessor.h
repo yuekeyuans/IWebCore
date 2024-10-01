@@ -30,7 +30,7 @@ IJson WrapQStringListType(const T& value)
 }
 
 template<typename T>
-IJson WrapStdVectorType( const T& name )
+IJson WrapStdVectorType( const T& value )
 {
     IJson array = IJson::array();
     for(const auto& name : value){
@@ -112,11 +112,13 @@ IJson toJson(const T& value)
 }
 
 #define $BeanFieldDeclare(type, name)                                                               \
+private:                                                                                            \
     Q_PROPERTY(type name MEMBER name WRITE $write_##name##_value)                                   \
     void $write_##name##_value(const type & value){this-> name = value; }                           \
     Q_INVOKABLE IJson $##name##_toJsonValue() const {                                               \
         return detail::toJson< type > ( name );                                                     \
-    }
+    }                                                                                               \
+public:
 
 #define $BeanField_2(type, name) \
     type name {};                \
