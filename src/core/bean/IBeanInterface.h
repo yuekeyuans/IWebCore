@@ -12,7 +12,7 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true, typename U=IBeanDefaultTrait>
-class IBeanInterface : public IBeanWare, public ITaskInstantUnit<T, enabled>, /*public ITraceUnit<T, false>,*/ protected U
+class IBeanInterface : protected IBeanWare, public ITaskInstantUnit<T, enabled>, /*public ITraceUnit<T, false>,*/ protected U
 {
 public:
     IBeanInterface() = default;
@@ -29,7 +29,7 @@ private:
 
 public:
     IJson toJson() const;
-    virtual bool loadJson(const IJson &value);
+    auto loadJson(const IJson &value) -> std::conditional_t<U::CONFIG_USE_OPTIONAL, bool, void>;
 
 private:
     virtual void task() final;
@@ -127,7 +127,8 @@ IJson IBeanInterface<T, enabled, U>::toJson() const
 }
 
 template<typename T, bool enabled, typename U>
-bool IBeanInterface<T, enabled, U>::loadJson(const IJson &value){
+auto IBeanInterface<T, enabled, U>::loadJson(const IJson &value) -> std::conditional_t<U::CONFIG_USE_OPTIONAL, bool, void>
+{
     static std::map<std::string, const QMetaMethod*> methodPair;
     static std::once_flag flag;
     std::call_once(flag, [this](){
@@ -143,7 +144,11 @@ bool IBeanInterface<T, enabled, U>::loadJson(const IJson &value){
             method->invokeOnGadget(const_cast<void*>(static_cast<const void*>(this)), Q_ARG(IJson, val));
         }
     }
-    return true;
+    if constexpr (U::CONFIG_USE_OPTIONAL){
+        return true;
+    }else{
+        return;
+    }
 }
 
 template<typename T, bool enabled, typename U>
