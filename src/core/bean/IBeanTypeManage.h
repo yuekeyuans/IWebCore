@@ -8,13 +8,13 @@
 
 $PackageWebCoreBegin
 
+// TODO: 到时候看看这个可能被废弃掉！！！
+
 class IBeanTypeManage : public ISingletonUnit<IBeanTypeManage>
 {
     template<typename, bool, typename>
     friend class IBeanInterface;
     friend class IBeanTypeCheckTask;
-    using ToJsonFun = std::function<IJson(void*, bool*)>;
-    using LoadJsonFun = std::function<bool(void*, const IJson&)>;
 
 public:
     IBeanTypeManage() = default;
@@ -24,17 +24,9 @@ public:
 
 private:
     void registerBeanId(int id);
-    void registerToJsonFun(int id, ToJsonFun);
-    void registerLoadJsonFun(int id, LoadJsonFun);
-    void registerBeanProperties(int id, std::vector<QMetaProperty> properties);
-    ToJsonFun getToJsonFun(int id);
-    LoadJsonFun getLoadJsonFun(int id);
 
 private:
     std::unordered_set<int> m_beanIds;
-    std::unordered_map<int, ToJsonFun> m_toJsonMap;
-    std::unordered_map<int, LoadJsonFun> m_loadJsonMap;
-    std::unordered_map<int, std::vector<QMetaProperty>> m_propertiesMap;
 };
 
 $PackageWebCoreEnd

@@ -1,17 +1,19 @@
-﻿#pragma once
-#include "core/util/IHeaderUtil.h"
-#include "IStartupTaskInterface.h"
+﻿//#pragma once
+//#include "core/util/IHeaderUtil.h"
+//#include "IStartupTaskInterface.h"
 
-$PackageWebCoreBegin
+//$PackageWebCoreBegin
 
-class IBeanTypeCheckTask : public IStartupTaskInterface<IBeanTypeCheckTask>
-{
-private:
-    virtual void task() final;
-    virtual double order() const final;
+//class IBeanTypeCheckTask : public IStartupTaskInterface<IBeanTypeCheckTask>
+//{
+//private:
+//    virtual void task() final;
+//    virtual double order() const final;
 
-private:
-    void checkPropertyType(const QMetaProperty& prop);
-};
+//private:
+//    void checkPropertyType(const QMetaProperty& prop);
+//};
 
-$PackageWebCoreEnd
+//$PackageWebCoreEnd
+
+// TODO: 废弃
