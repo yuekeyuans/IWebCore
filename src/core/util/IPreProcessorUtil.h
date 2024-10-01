@@ -18,14 +18,3 @@
     30, 29, 28, 27, 26, 25, 24, 23, 22, 21, \
     20, 19, 18, 17, 16, 15, 14, 13, 12, 11, \
     10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0
-
-#define PP_CLASS_HAS_MEMBER(member)                                      \
-    template <typename T, typename = void>                             \
-    struct $HAS_CLASS_MEMBER_##member : std::false_type {};                          \
-                                                                       \
-    template <typename T>                                              \
-    struct $HAS_CLASS_MEMBER_##member<T, std::void_t<decltype(&T::member)>> : std::true_type {};
-
-
-
-PP_CLASS_HAS_MEMBER(toJson)

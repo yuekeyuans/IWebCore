@@ -1,13 +1,117 @@
 ﻿#pragma once
 
 #include "core/util/IPreProcessorUtil.h"
+#include "core/util/ITraitUtil.h"
 
-#define $BeanFieldDeclare(type, name)                                          \
-    Q_PROPERTY(type name MEMBER name WRITE $write_##name##_value)               \
-    void $write_##name##_value(const type & value){this-> name = value; }      \
-    Q_INVOKABLE IJson name##_toJsonValue() const {                                         \
-        return 1;                                                              \
+namespace detail{
+
+template<typename T>
+IJson WrapPlainType(T value) {
+    return value;
+}
+
+template<typename T>
+IJson WrapQStringType(const T& value){
+    return value.toStdString();
+}
+
+template<typename T>
+IJson WrapQStringListType(const T& value){
+    IJson array = IJson::array();
+    for(const QString& val : value){
+        array.push_back(val.toStdString());
     }
+    return array;
+}
+
+template<typename T>
+IJson WrapStdVectorType( const T& value ){
+    IJson array = IJson::array();
+    for(const T& name : value){
+        if constexpr (std::is_arithmetic_v< T >){
+            array.push_back( detail::WrapPlainType( name ) );
+        } else if constexpr (std::is_same_v<std::string, T >){
+            array.push_back( detail::WrapPlainType( name ) );
+        } else if constexpr (std::is_same_v<QString, T >) {
+            array.push_back( detail::WrapQStringType< T >( name ));
+        } else if constexpr (std::is_same_v<QStringList, T >){
+            array.push_back( detail::WrapQStringListType< T >( name ));
+        } else if constexpr (ITraitUtil::is_std_vector_v< T >){
+            array.push_back( detail::WrapStdVectorType<T>(name));
+        } else{
+            qDebug() << "failed type" << typeid(T).name();
+        }
+        return 1;
+    }
+    return array;
+}
+
+template<typename T>
+IJson WrapBeanType( const T& value){
+    return value.toJson();
+}
+
+//template<typename T>
+//IJson WrapQVectorType( const T& value){
+//    return 1;
+//}
+
+//template<typename T>
+//IJson WrapStdMapType(const T& value){
+//    return 2;
+//}
+
+//template<typename T>
+//IJson WrapQMapType(const T& value){
+//    return 3;
+//}
+
+}
+
+#define $BeanFieldDeclare(type, name)                                              \
+    Q_PROPERTY(type name MEMBER name WRITE $write_##name##_value)                  \
+    void $write_##name##_value(const type & value){this-> name = value; }          \
+    Q_INVOKABLE IJson $##name##_toJsonValue() const {                              \
+        if constexpr (std::is_arithmetic_v< type >){                               \
+            return detail::WrapPlainType( name );                                  \
+        } else if constexpr (std::is_same_v<std::string, type >){                  \
+            return detail::WrapPlainType( name );                                  \
+        } else if constexpr (std::is_same_v<QString, type >) {                     \
+            return detail::WrapQStringType< type >( name );                        \
+        } else if constexpr (std::is_same_v<QStringList, type >){                  \
+            return detail::WrapQStringListType< type >( name );                    \
+        } else if constexpr ( ITraitUtil::is_std_vector_v< type >){                \
+            return detail::WrapStdVectorType< type >( name );                      \
+        } else if constexpr (ITraitUtil::$HAS_CLASS_MEMBER_toJson< type >::value){ \
+            return detail::WrapBeanType< type > ( name );                          \
+        }                                                                          \
+                                                                                   \
+            else{                                                                  \
+            qDebug() << "failed" << #name << #type;                                \
+            return nullptr;                                                        \
+        }                                                                          \
+    }
+
+
+
+//#define $BeanFieldDeclare(type, name)                                              \
+//    Q_PROPERTY(type name MEMBER name WRITE $write_##name##_value)                  \
+//    void $write_##name##_value(const type & value){this-> name = value; }          \
+//    Q_INVOKABLE IJson $##name##_toJsonValue() const {                              \
+//        if constexpr (std::is_arithmetic_v< type >){                               \
+//            return detail::WrapPlainType( name );                                  \
+//        } else if constexpr (std::is_same_v<std::string, type >){                  \
+//            return detail::WrapPlainType( name );                                  \
+//        } else if constexpr (std::is_same_v<QString, type >) {                     \
+//            return detail::WrapQStringType< type >( name );                        \
+//        } else if constexpr (std::is_same_v<QStringList, type >){                  \
+//            return detail::WrapQStringListType< type >( name );                    \
+//        } else if constexpr (ITraitUtil::is_std_vector_v< type >){                 \
+//            return detail::WrapStdVectorType< type >( name );                      \
+//        } else{                                                                    \
+//            static_assert(false, #type );                                          \
+//        }                                                                          \
+//    }
 
 #define $BeanField_2(type, name) \
     $BeanFieldDeclare(type, name) \

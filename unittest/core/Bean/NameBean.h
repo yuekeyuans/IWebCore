@@ -8,6 +8,8 @@ class NameBean : public IBeanInterface<NameBean>
 public:
     NameBean();
     $BeanField(QString, name, "hello world")
+
+    $BeanField(QStringList, value)
 };
 
 //$AsBeanList(NameBean)

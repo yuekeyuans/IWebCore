@@ -2,6 +2,7 @@
 #pragma once
 
 #include "core/bean/IBeanInterface.h"
+#include "core/util/ITraitUtil.h"
 #include "JsonHeader.h"
 
 

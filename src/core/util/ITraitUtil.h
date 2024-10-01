@@ -5,6 +5,13 @@
 
 $PackageWebCoreBegin
 
+#define PP_CLASS_HAS_MEMBER(member)                                      \
+    template <typename T, typename = void>                             \
+    struct $HAS_CLASS_MEMBER_##member : std::false_type {};                          \
+                                                                       \
+    template <typename T>                                              \
+    struct $HAS_CLASS_MEMBER_##member<T, std::void_t<decltype(&T::member)>> : std::true_type {};
+
 namespace ITraitUtil
 {
 //    template<typename Type, typename ... Args>
@@ -90,6 +97,10 @@ namespace ITraitUtil
 
     template<typename T>
     inline constexpr bool is_q_map_v = is_q_map<T>::value;
+
+    // has member json
+    PP_CLASS_HAS_MEMBER(toJson)
+
 }
 
 $PackageWebCoreEnd

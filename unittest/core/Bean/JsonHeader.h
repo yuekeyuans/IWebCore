@@ -35,7 +35,7 @@ struct ProcessWith<std::vector<T>>
                 array.push_back(IJson(val));
             }  else if constexpr (ITraitUtil::is_std_vector_v< T >){
                 array.push_back( WrapProcessWith<T>(val) );
-            } else if constexpr ($HAS_CLASS_MEMBER_toJson< T >::value){
+            } else if constexpr (ITraitUtil::$HAS_CLASS_MEMBER_toJson< T >::value){
                 array.push_back( WrapBeanType( val ));
             }
         }
@@ -60,7 +60,7 @@ IJson WrapProcessWith(const T& value){
             return WrapPlainType(name);                                                                 \
         }  else if constexpr (ITraitUtil::is_std_vector_v< type >){                        \
             return WrapProcessWith< type >( name );                                         \
-        }  else if constexpr ($HAS_CLASS_MEMBER_toJson< type >::value){                     \
+        }  else if constexpr (ITraitUtil::$HAS_CLASS_MEMBER_toJson< type >::value){                     \
             return WrapBeanType(name);                                                     \
         }                                                                             \
         return nullptr;                                                                  \

@@ -8,6 +8,9 @@
 
 $PackageWebCoreBegin
 
+
+// TODO:
+
 class IOrmDataSource //: public IBeanInterface<IOrmDataSource>
 {
     Q_GADGET
@@ -15,20 +18,27 @@ class IOrmDataSource //: public IBeanInterface<IOrmDataSource>
 public:
     IOrmDataSource() = default;
 
-    $BeanField(QString, driverName)
+    QString driverName;
+    QString databaseName;
+    int port;
+    QString host;
+    QString userName;
+    QString password;
 
-    $BeanField(QString, databaseName)
+//    $BeanField(QString, driverName)
 
-    $BeanFieldDeclare(QString, connectionName)
+//    $BeanField(QString, databaseName)
+
+//    $BeanFieldDeclare(QString, connectionName)
     QString connectionName = "default";
 
-    $BeanField(int, port)
+//    $BeanField(int, port)
 
-    $BeanField(QString, host)
+//    $BeanField(QString, host)
 
-    $BeanField(QString, userName)
+//    $BeanField(QString, userName)
 
-    $BeanField(QString, password)
+//    $BeanField(QString, password)
 };
 
 $PackageWebCoreEnd

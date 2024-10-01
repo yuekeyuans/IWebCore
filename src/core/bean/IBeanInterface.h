@@ -123,7 +123,7 @@ IJson IBeanInterface<T, enabled, U>::toJson() const
     std::call_once(flag, [this](){
         const auto& props = getMetaProperties();
         for(const auto& prop : props){
-            methodPair[prop.name()] = &getMetaMethod(QString(prop.name()) + "_toJsonValue");
+            methodPair[prop.name()] = &getMetaMethod("$" + QString(prop.name()) + "_toJsonValue");
         }
     });
 
