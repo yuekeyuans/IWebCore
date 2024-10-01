@@ -22,47 +22,47 @@ bool IConvertUtil::toBool(const QString &value, bool& ok)
     return IToeUtil::isTruthy(value);
 }
 
-bool IConvertUtil::toBool(const QJsonValue &value, bool& ok)
-{
-    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined()){
-        ok = false;
-        return false;
-    }
+//bool IConvertUtil::toBool(const QJsonValue &value, bool& ok)
+//{
+//    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined()){
+//        ok = false;
+//        return false;
+//    }
 
-    ok = true;
-    if(value.isBool()){
-        return value.toBool();
-    }else if(value.isDouble()){
-        return value.toInt() != 0;
-    }else if(value.isString()){
-        return toBool(value.toString(), ok);
-    }
-    // unreachable
-    ok = false;
-    return {};
-}
+//    ok = true;
+//    if(value.isBool()){
+//        return value.toBool();
+//    }else if(value.isDouble()){
+//        return value.toInt() != 0;
+//    }else if(value.isString()){
+//        return toBool(value.toString(), ok);
+//    }
+//    // unreachable
+//    ok = false;
+//    return {};
+//}
 
 short IConvertUtil::toShort(const QString &value, bool& ok, int base)
 {
     return std::mem_fn(&QString::toShort)(value, &ok, base);
 }
 
-short IConvertUtil::toShort(const QJsonValue &value, bool& ok)
-{
-    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
-        IToeUtil::setOk(ok, false);
-        return 0;
-    }
+//short IConvertUtil::toShort(const QJsonValue &value, bool& ok)
+//{
+//    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
+//        IToeUtil::setOk(ok, false);
+//        return 0;
+//    }
 
-    IToeUtil::setOk(ok, true);
-    if(value.isDouble()){
-        return toShort(value.toDouble(), ok);
-    }else if(value.isString()){
-        return toShort(value.toString(), ok);
-    }
-    IToeUtil::setOk(ok, false);
-    return 0;
-}
+//    IToeUtil::setOk(ok, true);
+//    if(value.isDouble()){
+//        return toShort(value.toDouble(), ok);
+//    }else if(value.isString()){
+//        return toShort(value.toString(), ok);
+//    }
+//    IToeUtil::setOk(ok, false);
+//    return 0;
+//}
 
 short IConvertUtil::toShort(double value, bool& ok)
 {
@@ -75,22 +75,22 @@ ushort IConvertUtil::toUShort(const QString &value, bool& ok, int base)
     return std::mem_fn(&QString::toUShort)(value, &ok, base);
 }
 
-ushort IConvertUtil::toUShort(const QJsonValue &value, bool& ok)
-{
-    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
-        IToeUtil::setOk(ok, false);
-        return 0;
-    }
+//ushort IConvertUtil::toUShort(const QJsonValue &value, bool& ok)
+//{
+//    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
+//        IToeUtil::setOk(ok, false);
+//        return 0;
+//    }
 
-    IToeUtil::setOk(ok, true);
-    if(value.isDouble()){
-        return toUShort(value.toDouble(), ok);
-    }else if(value.isString()){
-        return toUShort(value.toString(), ok);
-    }
-    IToeUtil::setOk(ok, false);
-    return 0;
-}
+//    IToeUtil::setOk(ok, true);
+//    if(value.isDouble()){
+//        return toUShort(value.toDouble(), ok);
+//    }else if(value.isString()){
+//        return toUShort(value.toString(), ok);
+//    }
+//    IToeUtil::setOk(ok, false);
+//    return 0;
+//}
 
 ushort IConvertUtil::toUShort(double value, bool& ok)
 {
@@ -103,22 +103,22 @@ int IConvertUtil::toInt(const QString &value, bool& ok, int base)
     return std::mem_fn(&QString::toInt)(value, &ok, base);
 }
 
-int IConvertUtil::toInt(const QJsonValue &value, bool& ok)
-{
-    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
-        IToeUtil::setOk(ok, false);
-        return 0;
-    }
+//int IConvertUtil::toInt(const QJsonValue &value, bool& ok)
+//{
+//    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
+//        IToeUtil::setOk(ok, false);
+//        return 0;
+//    }
 
-    IToeUtil::setOk(ok, true);
-    if(value.isDouble()){
-        return value.toInt();
-    }else if(value.isString()){
-        return toInt(value.toString(), ok);
-    }
-    IToeUtil::setOk(ok, false);
-    return 0;
-}
+//    IToeUtil::setOk(ok, true);
+//    if(value.isDouble()){
+//        return value.toInt();
+//    }else if(value.isString()){
+//        return toInt(value.toString(), ok);
+//    }
+//    IToeUtil::setOk(ok, false);
+//    return 0;
+//}
 
 int IConvertUtil::toInt(double value, bool& ok)
 {
@@ -131,22 +131,22 @@ uint IConvertUtil::toUInt(const QString &value, bool& ok, int base)
     return std::mem_fn(&QString::toUInt)(value, &ok, base);
 }
 
-uint IConvertUtil::toUInt(const QJsonValue &value, bool& ok)
-{
-    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
-        IToeUtil::setOk(ok, false);
-        return 0;
-    }
+//uint IConvertUtil::toUInt(const QJsonValue &value, bool& ok)
+//{
+//    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
+//        IToeUtil::setOk(ok, false);
+//        return 0;
+//    }
 
-    IToeUtil::setOk(ok, true);
-    if(value.isDouble()){
-        return toUInt(value.toDouble(), ok);
-    }else if(value.isString()){
-        return toInt(value.toString(), ok);
-    }
-    IToeUtil::setOk(ok, false);
-    return {};
-}
+//    IToeUtil::setOk(ok, true);
+//    if(value.isDouble()){
+//        return toUInt(value.toDouble(), ok);
+//    }else if(value.isString()){
+//        return toInt(value.toString(), ok);
+//    }
+//    IToeUtil::setOk(ok, false);
+//    return {};
+//}
 
 uint IConvertUtil::toUInt(double value, bool& ok)
 {
@@ -165,22 +165,22 @@ long IConvertUtil::toLong(double value, bool& ok)
     return static_cast<long>(value);
 }
 
-long IConvertUtil::toLong(const QJsonValue &value, bool& ok)
-{
-    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
-        IToeUtil::setOk(ok, false);
-        return 0;
-    }
+//long IConvertUtil::toLong(const QJsonValue &value, bool& ok)
+//{
+//    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
+//        IToeUtil::setOk(ok, false);
+//        return 0;
+//    }
 
-    IToeUtil::setOk(ok, true);
-    if(value.isDouble()){
-        return toLong(value.toDouble(), ok);
-    }else if(value.isString()){
-        return toLong(value.toString(), ok);
-    }
-    IToeUtil::setOk(ok, false);
-    return {};
-}
+//    IToeUtil::setOk(ok, true);
+//    if(value.isDouble()){
+//        return toLong(value.toDouble(), ok);
+//    }else if(value.isString()){
+//        return toLong(value.toString(), ok);
+//    }
+//    IToeUtil::setOk(ok, false);
+//    return {};
+//}
 
 ulong IConvertUtil::toULong(const QString &value, bool& ok, int base)
 {
@@ -193,22 +193,22 @@ ulong IConvertUtil::toULong(double value, bool& ok)
     return static_cast<ulong>(value);
 }
 
-ulong IConvertUtil::toULong(const QJsonValue &value, bool& ok)
-{
-    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
-        IToeUtil::setOk(ok, false);
-        return 0;
-    }
+//ulong IConvertUtil::toULong(const QJsonValue &value, bool& ok)
+//{
+//    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
+//        IToeUtil::setOk(ok, false);
+//        return 0;
+//    }
 
-    IToeUtil::setOk(ok, true);
-    if(value.isDouble()){
-        return toULong(value.toDouble(), ok);
-    }else if(value.isString()){
-        return toULong(value.toString(), ok);
-    }
-    IToeUtil::setOk(ok, false);
-    return {};
-}
+//    IToeUtil::setOk(ok, true);
+//    if(value.isDouble()){
+//        return toULong(value.toDouble(), ok);
+//    }else if(value.isString()){
+//        return toULong(value.toString(), ok);
+//    }
+//    IToeUtil::setOk(ok, false);
+//    return {};
+//}
 
 qlonglong IConvertUtil::toLongLong(const QString &value, bool& ok, int base)
 {
@@ -221,22 +221,22 @@ qlonglong IConvertUtil::toLongLong(double value, bool& ok)
     return static_cast<qlonglong>(value);
 }
 
-qlonglong IConvertUtil::toLongLong(const QJsonValue &value, bool& ok)
-{
-    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
-        IToeUtil::setOk(ok, false);
-        return 0;
-    }
+//qlonglong IConvertUtil::toLongLong(const QJsonValue &value, bool& ok)
+//{
+//    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
+//        IToeUtil::setOk(ok, false);
+//        return 0;
+//    }
 
-    IToeUtil::setOk(ok, true);
-    if(value.isDouble()){
-        return toLongLong(value.toDouble(), ok);
-    }else if(value.isString()){
-        return toLongLong(value.toString(), ok);
-    }
-    IToeUtil::setOk(ok, false);
-    return {};
-}
+//    IToeUtil::setOk(ok, true);
+//    if(value.isDouble()){
+//        return toLongLong(value.toDouble(), ok);
+//    }else if(value.isString()){
+//        return toLongLong(value.toString(), ok);
+//    }
+//    IToeUtil::setOk(ok, false);
+//    return {};
+//}
 
 qulonglong IConvertUtil::toULongLong(const QString &value, bool& ok, int base)
 {
@@ -249,22 +249,22 @@ qulonglong IConvertUtil::toULongLong(double value, bool& ok)
     return static_cast<qulonglong>(value);
 }
 
-qulonglong IConvertUtil::toULongLong(const QJsonValue &value, bool& ok)
-{
-    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
-        IToeUtil::setOk(ok, false);
-        return 0;
-    }
+//qulonglong IConvertUtil::toULongLong(const QJsonValue &value, bool& ok)
+//{
+//    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
+//        IToeUtil::setOk(ok, false);
+//        return 0;
+//    }
 
-    IToeUtil::setOk(ok, true);
-    if(value.isDouble()){
-        return toULongLong(value.toDouble(), ok);
-    }else if(value.isString()){
-        return toULongLong(value.toString(), ok);
-    }
-    IToeUtil::setOk(ok, false);
-    return {};
-}
+//    IToeUtil::setOk(ok, true);
+//    if(value.isDouble()){
+//        return toULongLong(value.toDouble(), ok);
+//    }else if(value.isString()){
+//        return toULongLong(value.toString(), ok);
+//    }
+//    IToeUtil::setOk(ok, false);
+//    return {};
+//}
 
 float IConvertUtil::toFloat(const QString &value, bool& ok)
 {
@@ -277,22 +277,22 @@ float IConvertUtil::toFloat(double value, bool& ok)
     return static_cast<float>(value);
 }
 
-float IConvertUtil::toFloat(const QJsonValue &value, bool& ok)
-{
-    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
-        IToeUtil::setOk(ok, false);
-        return 0;
-    }
+//float IConvertUtil::toFloat(const QJsonValue &value, bool& ok)
+//{
+//    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
+//        IToeUtil::setOk(ok, false);
+//        return 0;
+//    }
 
-    IToeUtil::setOk(ok, true);
-    if(value.isDouble()){
-        return toFloat(value.toDouble(), ok);
-    }else if(value.isString()){
-        return toFloat(value.toString(), ok);
-    }
-    IToeUtil::setOk(ok, false);
-    return 0;
-}
+//    IToeUtil::setOk(ok, true);
+//    if(value.isDouble()){
+//        return toFloat(value.toDouble(), ok);
+//    }else if(value.isString()){
+//        return toFloat(value.toString(), ok);
+//    }
+//    IToeUtil::setOk(ok, false);
+//    return 0;
+//}
 
 double IConvertUtil::toDouble(const QString &value, bool& ok)
 {
@@ -300,22 +300,22 @@ double IConvertUtil::toDouble(const QString &value, bool& ok)
 }
 
 
-double IConvertUtil::toDouble(const QJsonValue &value, bool& ok)
-{
-    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
-        IToeUtil::setOk(ok, false);
-        return 0;
-    }
+//double IConvertUtil::toDouble(const QJsonValue &value, bool& ok)
+//{
+//    if(value.isArray() || value.isObject() || value.isNull() || value.isUndefined() || value.isBool()){
+//        IToeUtil::setOk(ok, false);
+//        return 0;
+//    }
 
-    IToeUtil::setOk(ok, true);
-    if(value.isDouble()){
-        return value.toDouble();
-    }else if(value.isString()){
-        return toDouble(value.toString(), ok);
-    }
-    IToeUtil::setOk(ok, false);
-    return 0;
-}
+//    IToeUtil::setOk(ok, true);
+//    if(value.isDouble()){
+//        return value.toDouble();
+//    }else if(value.isString()){
+//        return toDouble(value.toString(), ok);
+//    }
+//    IToeUtil::setOk(ok, false);
+//    return 0;
+//}
 
 QString IConvertUtil::toString(bool value)
 {
@@ -412,32 +412,32 @@ QString IConvertUtil::toString(const QTime &time)
     return time.toString(IConstantUtil::TimeFormat);
 }
 
-QString IConvertUtil::toString(const QJsonValue &value, bool& ok)
-{
-    if(value.isUndefined() || value.isNull()){
-        IToeUtil::setOk(ok, false);
-        return {};
-    }
+//QString IConvertUtil::toString(const QJsonValue &value, bool& ok)
+//{
+//    if(value.isUndefined() || value.isNull()){
+//        IToeUtil::setOk(ok, false);
+//        return {};
+//    }
 
-    IToeUtil::setOk(ok, true);
-    if(value.isObject()){
-        return toString(value.toObject());
-    }else if(value.isArray()){
-        return toString(value.toArray());
-    }else{
-        return value.toString();
-    }
-}
+//    IToeUtil::setOk(ok, true);
+//    if(value.isObject()){
+//        return toString(value.toObject());
+//    }else if(value.isArray()){
+//        return toString(value.toArray());
+//    }else{
+//        return value.toString();
+//    }
+//}
 
-QString IConvertUtil::toString(const QJsonArray &json)
-{
-    return QString(QJsonDocument(json).toJson(QJsonDocument::Compact));
-}
+//QString IConvertUtil::toString(const QJsonArray &json)
+//{
+//    return QString(QJsonDocument(json).toJson(QJsonDocument::Compact));
+//}
 
-QString IConvertUtil::toString(const QJsonObject &json)
-{
-    return QString(QJsonDocument(json).toJson(QJsonDocument::Compact));
-}
+//QString IConvertUtil::toString(const QJsonObject &json)
+//{
+//    return QString(QJsonDocument(json).toJson(QJsonDocument::Compact));
+//}
 
 QDate IConvertUtil::toDate(const QString &val, bool& ok)
 {

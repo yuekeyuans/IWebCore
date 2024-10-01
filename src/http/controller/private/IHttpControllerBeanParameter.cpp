@@ -392,6 +392,7 @@ QMap<QString, QVariant> IHttpControllerBeanParameter::resolveBeanFieldAsMap(cons
     return {};
 }
 
+// TODO: json
 bool IHttpControllerBeanParameter::checkKeyInJsonAndBean(const QJsonObject &obj, IBeanWare* bean, IRequest& request)
 {
 //    if(IConstantUtil::ReleaseMode){

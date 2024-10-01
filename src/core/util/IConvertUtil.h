@@ -9,46 +9,46 @@ namespace  IConvertUtil
 {
     bool toBool(bool value, bool& ok);
     bool toBool(const QString& vaue, bool& ok);
-    bool toBool(const QJsonValue& value, bool& ok);
+//    bool toBool(const QJsonValue& value, bool& ok);
 
     short  toShort(const QString& value, bool& ok, int base=10);
-    short toShort(const QJsonValue& value, bool& ok);
+//    short toShort(const QJsonValue& value, bool& ok);
     short toShort(double value, bool& ok);
 
     ushort toUShort(const QString& value, bool& ok, int base=10);
-    ushort toUShort(const QJsonValue& value, bool& ok);
+//    ushort toUShort(const QJsonValue& value, bool& ok);
     ushort toUShort(double value, bool& ok);
 
     int toInt(const QString& value, bool& ok, int base=10);
-    int toInt(const QJsonValue& value, bool& ok);
+//    int toInt(const QJsonValue& value, bool& ok);
     int toInt(double value, bool& ok);
 
     uint toUInt(const QString& value, bool& ok, int base=10);
-    uint toUInt(const QJsonValue& value, bool& ok);
+//    uint toUInt(const QJsonValue& value, bool& ok);
     uint toUInt(double value, bool& ok);
 
     long toLong(const QString& value, bool& ok, int base=10);
     long toLong(double value, bool& ok);
-    long toLong(const QJsonValue& value, bool& ok);
+//    long toLong(const QJsonValue& value, bool& ok);
 
     ulong toULong(const QString& value, bool& ok, int base=10);
     ulong toULong(double value, bool& ok);
-    ulong toULong(const QJsonValue& value, bool& ok);
+//    ulong toULong(const QJsonValue& value, bool& ok);
 
     qlonglong toLongLong(const QString& value, bool& ok, int base=10);
     qlonglong toLongLong(double value, bool &ok);
-    qlonglong toLongLong(const QJsonValue& value, bool& ok);
+//    qlonglong toLongLong(const QJsonValue& value, bool& ok);
 
     qulonglong toULongLong(const QString& value, bool& ok, int base=10);
     qulonglong toULongLong(double value, bool &ok);
-    qulonglong toULongLong(const QJsonValue& value, bool& ok);
+//    qulonglong toULongLong(const QJsonValue& value, bool& ok);
 
     float toFloat(const QString& value, bool &ok);
     float toFloat(double value, bool &ok);
-    float toFloat(const QJsonValue& value, bool& ok);
+//    float toFloat(const QJsonValue& value, bool& ok);
 
     double toDouble(const QString& value, bool &ok);
-    double toDouble(const QJsonValue& value, bool &ok);
+//    double toDouble(const QJsonValue& value, bool &ok);
 
     QString toString(bool value);
     QString toString(double value, char format = 'g', int precision = 6);
@@ -66,9 +66,9 @@ namespace  IConvertUtil
     QString toString(const QDateTime& datetime);
     QString toString(const QTime& time);
 
-    QString toString(const QJsonValue& value, bool& ok);
-    QString toString(const QJsonObject &json);
-    QString toString(const QJsonArray &json);
+//    QString toString(const QJsonValue& value, bool& ok);
+//    QString toString(const QJsonObject &json);
+//    QString toString(const QJsonArray &json);
 
 //    QStringList toStringList(const QJsonValue& value, bool& ok);
 

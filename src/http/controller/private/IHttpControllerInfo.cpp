@@ -267,6 +267,7 @@ void IHttpControllerInfoDetail::checkMethod()
     }
 }
 
+// TODO: json
 void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IHttpControllerActionNode &node)
 {
     const static QString info = "this kind of return type not supported, please change the return type! valid types are :\n\t"
