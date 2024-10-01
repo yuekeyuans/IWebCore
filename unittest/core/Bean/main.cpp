@@ -39,10 +39,12 @@ int main(int argc, char *argv[])
 //    std::cout << person.toJson().dump(4) << std::endl;
 
     auto json = person.toJson();
+    std::cout << "before" << json.dump(4) << std::endl;
+
     PersonBean bean2;
     bean2.loadJson(json);
 
-    std::cout << bean2.toJson().dump(4) << std::endl;
+    std::cout << "after" << bean2.toJson().dump(4) << std::endl;
 
     return app.run();
 }
