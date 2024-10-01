@@ -3,6 +3,7 @@
 #include "IBeanWare.h"
 #include "IBeanTypeManage.h"
 #include "IBeanPreProcessor.h"
+#include "IBeanTraitInterface.h"
 #include "core/util/IMetaUtil.h"
 #include "core/unit/ITraceUnit.h"
 #include "core/task/unit/ITaskInstantUnit.h"
@@ -10,10 +11,7 @@
 
 $PackageWebCoreBegin
 
-struct DefaultConfig
-{};
-
-template<typename T, bool enabled = true, typename U=DefaultConfig>
+template<typename T, bool enabled = true, typename U=IBeanDefaultTrait>
 class IBeanInterface : public IBeanWare, public ITaskInstantUnit<T, enabled>, public ITraceUnit<T, false>, protected U
 {
 public:
