@@ -50,9 +50,6 @@ IJson WrapProcessWith(const T& value){
     return ProcessWith<T>::toJson(value);
 }
 
-
-
-
 #define TO_JSON(type, name)                                                                \
     type name;                                                                             \
     Q_INVOKABLE IJson name##_toJson () const                                      \

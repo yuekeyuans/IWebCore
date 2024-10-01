@@ -14,8 +14,16 @@ int main(int argc, char *argv[])
 {
     IApplication app(argc, argv);
 
-    TestJson json;
-    std::cout << json.toJson(nullptr).dump(4) << std::endl;
+    TestJson bean;
+    bool ok;
+//    std::cout << json.toJson(nullptr).dump(4) << std::endl;
+    auto json = bean.toJson(&ok);
+
+    TestJson bean2;
+    bean2.loadJson(json);
+
+
+    std::cout << bean2.toJson(&ok).dump(4);
 
 
 //    bool ok;

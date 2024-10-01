@@ -29,7 +29,9 @@ public:
     virtual void setFieldValue(const QString& name, const QVariant& value) final;
 
 public:
-    virtual IJson toJson(bool *ok) const;
+    IJson toJson() const;
+
+//    virtual IJson toJson(bool *ok) const;
     virtual bool loadJson(const IJson &value);
 
 private:
@@ -114,30 +116,35 @@ void IBeanInterface<T, enabled, U>::setFieldValue(const QString& name, const QVa
 }
 
 template<typename T, bool enabled, typename U>
-IJson IBeanInterface<T, enabled, U>::toJson(bool *ok) const
+IJson IBeanInterface<T, enabled, U>::toJson() const
 {
-    static auto stdStringId = qMetaTypeId<std::string>();
-
-    IJson obj = IJson::object();
-    const auto& fields = getMetaProperties();
-    for(const QMetaProperty& field : fields){
-        auto type = field.userType();
-        if(type == stdStringId){
-            auto value = field.readOnGadget(this);
-            obj[field.name()] = value.value<std::string>();
-        }else if(type >= QMetaType::User){
-            if(IBeanTypeManage::instance()->isBeanIdExist(type)){
-                obj[field.name()] = toJsonValueOfBeanType(this, field, ok);
-            }else{
-                qDebug() << "This should be Tested" << (int)type << QMetaType::typeName(type) << field.name() << field.typeName();
-            }
-        }else{
-            obj[field.name()] = toJsonValueOfPlainType(type, field, ok);
-        }
-
-    }
-    return obj;
+    return nullptr;
 }
+//template<typename T, bool enabled, typename U>
+//IJson IBeanInterface<T, enabled, U>::toJson(bool *ok) const
+//{
+//    static auto stdStringId = qMetaTypeId<std::string>();
+
+//    IJson obj = IJson::object();
+//    const auto& fields = getMetaProperties();
+//    for(const QMetaProperty& field : fields){
+//        auto type = field.userType();
+//        if(type == stdStringId){
+//            auto value = field.readOnGadget(this);
+//            obj[field.name()] = value.value<std::string>();
+//        }else if(type >= QMetaType::User){
+//            if(IBeanTypeManage::instance()->isBeanIdExist(type)){
+//                obj[field.name()] = toJsonValueOfBeanType(this, field, ok);
+//            }else{
+//                qDebug() << "This should be Tested" << (int)type << QMetaType::typeName(type) << field.name() << field.typeName();
+//            }
+//        }else{
+//            obj[field.name()] = toJsonValueOfPlainType(type, field, ok);
+//        }
+
+//    }
+//    return obj;
+//}
 
 template<typename T, bool enabled, typename U>
 bool IBeanInterface<T, enabled, U>::loadJson(const IJson &value)
@@ -151,11 +158,13 @@ bool IBeanInterface<T, enabled, U>::loadJson(const IJson &value)
     const auto& fields = getMetaProperties();
     for(const QMetaProperty& field :fields){
         if(!value.contains(field.name())){
-            qDebug() << "skip field" << field.name();
             continue;
         }
+
         auto type = field.userType();
-        if(type == stdStringId){
+        if(type == 0){
+            // 处理 std::vector 相关的内容
+        } else if(type == stdStringId){
             const std::string val = value[field.name()].get<std::string>();
             field.writeOnGadget(this, QVariant(stdStringId, &val));
         }else if(type >= QMetaType::User){
@@ -297,9 +306,9 @@ void IBeanInterface<T, enabled, U>::task()
             auto id = IMetaUtil::registerMetaType<T>();
             IBeanTypeManage::instance()->registerBeanId(id);
             IBeanTypeManage::instance()->registerBeanProperties(id, IMetaUtil::getMetaProperties(T::staticMetaObject));
-            IBeanTypeManage::instance()->registerToJsonFun(id, [](void* ptr, bool* ok)->IJson{
-                return static_cast<T*>(ptr)->toJson(ok);
-            });
+//            IBeanTypeManage::instance()->registerToJsonFun(id, [](void* ptr, bool* ok)->IJson{
+//                return static_cast<T*>(ptr)->toJson(/*ok*/);    // TODO: check it latter
+//            });
             IBeanTypeManage::instance()->registerLoadJsonFun(id, [](void* ptr, const IJson& json)->bool{
                 return static_cast<T*>(ptr)->loadJson(json);
             });

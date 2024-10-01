@@ -10,6 +10,6 @@ public:
     $BeanField(QString, name, "hello world")
 };
 
-$AsBeanList(NameBean)
+//$AsBeanList(NameBean)
 
 

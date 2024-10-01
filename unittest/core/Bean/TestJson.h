@@ -33,6 +33,21 @@ inline TestJson::TestJson()
     vecBean.push_back({});
 }
 
+inline bool TestJson::loadJson(const IJson &value)
+{
+    if(value.is_null()){
+        return true;                // kong
+    }
+    if(!value.is_object()){
+        return false;               // 非对象类型
+    }
+
+    for(const auto& [key, value] : value.items()){
+        std::cout << key << value << std::endl;
+    }
+    return true;
+}
+
 inline IJson TestJson::toJson(bool *ok) const
 {
     IJson obj = IJson::object();
@@ -44,3 +59,4 @@ inline IJson TestJson::toJson(bool *ok) const
 
     return obj;
 }
+
