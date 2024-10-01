@@ -109,6 +109,12 @@ IJson toJson(const T& value)
     }
 }
 
+template<typename T>
+void fromJson(T* ptr, const IJson& json)
+{
+    std::cout << typeid(T).name() << json << ptr;
+}
+
 }
 
 #define $BeanFieldDeclare(type, name)                                                               \
@@ -117,6 +123,9 @@ private:                                                                        
     void $write_##name##_value(const type & value){this-> name = value; }                           \
     Q_INVOKABLE IJson $##name##_toJsonValue() const {                                               \
         return detail::toJson< type > ( name );                                                     \
+    }                                                                                               \
+    Q_INVOKABLE void $##name##_fromJsonValue(const IJson& json) {                                   \
+        detail::fromJson< type >(& name, json);                                                     \
     }                                                                                               \
 public:
 

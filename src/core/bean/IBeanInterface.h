@@ -16,7 +16,6 @@ class IBeanInterface : public IBeanWare, public ITaskInstantUnit<T, enabled>, /*
 {
 public:
     IBeanInterface() = default;
-    virtual ~IBeanInterface() = default;
 
 private:
     int getMetaTypeId() const;
@@ -30,8 +29,6 @@ private:
 
 public:
     IJson toJson() const;
-
-//    virtual IJson toJson(bool *ok) const;
     virtual bool loadJson(const IJson &value);
 
 private:
@@ -136,63 +133,58 @@ IJson IBeanInterface<T, enabled, U>::toJson() const
     return obj;
 }
 
+template<typename T, bool enabled, typename U>
+bool IBeanInterface<T, enabled, U>::loadJson(const IJson &value){
+    static std::map<const char*, const QMetaMethod*> methodPair;
+    static std::once_flag flag;
+    std::call_once(flag, [this](){
+        const auto& props = getMetaProperties();
+        for(const auto& prop : props){
+            methodPair[prop.name()] = &getMetaMethod("$" + QString(prop.name()) + "_fromJsonValue");
+        }
+    });
+
+    IJson obj = IJson::object();
+    for(const auto& [key, method] : methodPair){
+        qDebug() << key;
+//        IJson json;
+//        method->invokeOnGadget(const_cast<void*>(static_cast<const void*>(this)), Q_RETURN_ARG(IJson, json));
+//        obj[key] = std::move(json);
+    }
+    return true;
+//    return obj;
+}
 
 //template<typename T, bool enabled, typename U>
-//IJson IBeanInterface<T, enabled, U>::toJson(bool *ok) const
+//bool IBeanInterface<T, enabled, U>::loadJson(const IJson &value)
 //{
 //    static auto stdStringId = qMetaTypeId<std::string>();
+//    if(!value.is_object()){
+//        return false;
+//    }
 
-//    IJson obj = IJson::object();
+//    bool ok{true};
 //    const auto& fields = getMetaProperties();
-//    for(const QMetaProperty& field : fields){
-//        auto type = field.userType();
-//        if(type == stdStringId){
-//            auto value = field.readOnGadget(this);
-//            obj[field.name()] = value.value<std::string>();
-//        }else if(type >= QMetaType::User){
-//            if(IBeanTypeManage::instance()->isBeanIdExist(type)){
-//                obj[field.name()] = toJsonValueOfBeanType(this, field, ok);
-//            }else{
-//                qDebug() << "This should be Tested" << (int)type << QMetaType::typeName(type) << field.name() << field.typeName();
-//            }
-//        }else{
-//            obj[field.name()] = toJsonValueOfPlainType(type, field, ok);
+//    for(const QMetaProperty& field :fields){
+//        if(!value.contains(field.name())){
+//            continue;
 //        }
 
+//        auto type = field.userType();
+//        if(type == 0){
+//            // 处理 std::vector 相关的内容
+//        } else if(type == stdStringId){
+//            const std::string val = value[field.name()].get<std::string>();
+//            field.writeOnGadget(this, QVariant(stdStringId, &val));
+//        }else if(type >= QMetaType::User){
+//            loadJsonValueOfBeanType(this, field, value[field.name()]);
+//        }else{
+//            loadJsonValueOfPlainType(this, field, value[field.name()]);
+//        }
 //    }
-//    return obj;
+
+//    return ok;
 //}
-
-template<typename T, bool enabled, typename U>
-bool IBeanInterface<T, enabled, U>::loadJson(const IJson &value)
-{
-    static auto stdStringId = qMetaTypeId<std::string>();
-    if(!value.is_object()){
-        return false;
-    }
-
-    bool ok{true};
-    const auto& fields = getMetaProperties();
-    for(const QMetaProperty& field :fields){
-        if(!value.contains(field.name())){
-            continue;
-        }
-
-        auto type = field.userType();
-        if(type == 0){
-            // 处理 std::vector 相关的内容
-        } else if(type == stdStringId){
-            const std::string val = value[field.name()].get<std::string>();
-            field.writeOnGadget(this, QVariant(stdStringId, &val));
-        }else if(type >= QMetaType::User){
-            loadJsonValueOfBeanType(this, field, value[field.name()]);
-        }else{
-            loadJsonValueOfPlainType(this, field, value[field.name()]);
-        }
-    }
-
-    return ok;
-}
 
 
 template<typename T, bool enabled, typename U>

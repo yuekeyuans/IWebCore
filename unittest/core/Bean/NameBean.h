@@ -11,16 +11,9 @@ class NameBean : public IBeanInterface<NameBean>
 public:
     NameBean();
     $BeanField(QString, name, "hello world")
-
-
     $BeanField(QStringList, value)
     $BeanField(QVector<int>, va1)
     $BeanField(stdStringMap<NameBean>, val2)
-
-
-//    $BeanField(QPoint, point)
-
-
 };
 
 

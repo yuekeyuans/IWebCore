@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 
     NameBean bean;
     bean.val2["hello"] = {};
-    std::cout << bean.toJson().dump(4) << std::endl;
+//    std::cout << bean.toJson().dump(4) << std::endl;
 
     PersonBean person;
 
@@ -36,12 +36,13 @@ int main(int argc, char *argv[])
     person.name2.push_back(NameBean{});
     person.name2.push_back(NameBean{});
 
-    std::cout << person.toJson().dump(4) << std::endl;
+//    std::cout << person.toJson().dump(4) << std::endl;
 
-//    PersonBean bean2;
-//    bean2.loadJson(json);
+    auto json = person.toJson();
+    PersonBean bean2;
+    bean2.loadJson(json);
 
-//    std::cout << bean2.toJson().dump(4) << std::endl;
+    std::cout << bean2.toJson().dump(4) << std::endl;
 
     return app.run();
 }
