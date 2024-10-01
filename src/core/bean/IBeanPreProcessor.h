@@ -50,7 +50,8 @@ IJson WrapQVectorType( const T& value)
 }
 
 template<typename T>
-IJson WrapStdStringMapType(const T& value){
+IJson WrapStdStringMapType(const T& value)
+{
     IJson obj = IJson::object();
     for (const auto& pair : value) {
         obj[pair.first] = toJson(pair.second);
@@ -80,34 +81,35 @@ void WrapAssertError(const char* data)
     IBeanAbort::abortInvalidBeanEmbededBeanType(typeid(T).name());
 }
 
-template<typename type>
-IJson toJson(const type& name){
-    if constexpr (std::is_arithmetic_v< type >){
-        return detail::WrapPlainType( name );
-    } else if constexpr (std::is_same_v<std::string, type >){
-        return detail::WrapPlainType( name );
-    } else if constexpr (std::is_same_v<QString, type >) {
-        return detail::WrapQStringType< type >( name );
-    } else if constexpr (std::is_same_v<QStringList, type >){
-        return detail::WrapQStringListType< type >( name );
-    } else if constexpr ( ITraitUtil::is_std_vector_v< type >){
-        return detail::WrapStdVectorType< type >( name );
-    } else if constexpr (ITraitUtil::is_q_vector_v< type >){
-        return detail::WrapQVectorType< type >( name );
-    } else if constexpr (ITraitUtil::is_std_string_map_v< type >) {
-        return detail::WrapStdStringMapType< type > ( name );
-    } else if constexpr (ITraitUtil::is_q_string_map_v< type >){
-        return detail::WrapQStringMapType< type >( name );
-    } else if constexpr (ITraitUtil::has_class_member_toJson_v< type >){
-        return detail::WrapBeanType< type > ( name );
+template<typename T>
+IJson toJson(const T& value)
+{
+    if constexpr (std::is_arithmetic_v<T>){
+        return detail::WrapPlainType( value );
+    } else if constexpr (std::is_same_v<std::string, T >){
+        return detail::WrapPlainType( value );
+    }else if constexpr( std::is_same_v<IJson, T>){
+        return detail::WrapPlainType(value);
+    } else if constexpr (std::is_same_v<QString, T >) {
+        return detail::WrapQStringType< T >( value );
+    } else if constexpr (std::is_same_v<QStringList, T >){
+        return detail::WrapQStringListType< T >( value );
+    } else if constexpr ( ITraitUtil::is_std_vector_v< T >){
+        return detail::WrapStdVectorType< T >( value );
+    } else if constexpr (ITraitUtil::is_q_vector_v< T >){
+        return detail::WrapQVectorType< T >( value );
+    } else if constexpr (ITraitUtil::is_std_string_map_v< T >) {
+        return detail::WrapStdStringMapType< T > ( value );
+    } else if constexpr (ITraitUtil::is_q_string_map_v< T >){
+        return detail::WrapQStringMapType< T >( value );
+    } else if constexpr (ITraitUtil::has_class_member_toJson_v< T >){
+        return detail::WrapBeanType< T > ( value );
     } else{
         IBeanAbort::abortInvalidBeanEmbededBeanType(typeid(T).name());
     }
 }
 
-
 }
-
 
 #define $BeanFieldDeclare(type, name)                                                               \
     Q_PROPERTY(type name MEMBER name WRITE $write_##name##_value)                                   \
