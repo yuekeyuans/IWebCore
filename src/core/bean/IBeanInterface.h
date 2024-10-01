@@ -10,8 +10,11 @@
 
 $PackageWebCoreBegin
 
-template<class T, bool enabled = true>
-class IBeanInterface : public IBeanWare, public ITaskInstantUnit<T, enabled>, public ITraceUnit<T, false>
+struct DefaultConfig
+{};
+
+template<typename T, bool enabled = true, typename U=DefaultConfig>
+class IBeanInterface : public IBeanWare, public ITaskInstantUnit<T, enabled>, public ITraceUnit<T, false>, protected U
 {
 public:
     IBeanInterface() = default;
@@ -42,36 +45,36 @@ private:
     virtual void task() final;
 };
 
-template<class T, bool enabled>
-int IBeanInterface<T, enabled>::getMetaTypeId() const
+template<typename T, bool enabled, typename U>
+int IBeanInterface<T, enabled, U>::getMetaTypeId() const
 {
     static int id = qMetaTypeId<T>();
     return id;
 }
 
-template<typename T, bool enabled>
-const QVector<QMetaMethod>& IBeanInterface<T, enabled>::getMetaMethods() const
+template<typename T, bool enabled, typename U>
+const QVector<QMetaMethod>& IBeanInterface<T, enabled, U>::getMetaMethods() const
 {
     static auto methods =  IMetaUtil::getMetaMethods(T::staticMetaObject);
     return methods;
 }
 
-template<typename T, bool enabled>
-const QMap<QString, QString>& IBeanInterface<T, enabled>::getMetaClassInfos() const
+template<typename T, bool enabled, typename U>
+const QMap<QString, QString>& IBeanInterface<T, enabled, U>::getMetaClassInfos() const
 {
     static auto clsInfos = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
     return clsInfos;
 }
 
-template<typename T, bool enabled>
-const std::vector<QMetaProperty>& IBeanInterface<T, enabled>::getMetaProperties() const
+template<typename T, bool enabled, typename U>
+const std::vector<QMetaProperty>& IBeanInterface<T, enabled, U>::getMetaProperties() const
 {
     static auto properties = IMetaUtil::getMetaProperties(T::staticMetaObject);
     return properties;
 }
 
-template<typename T, bool enabled>
-const QMetaMethod& IBeanInterface<T, enabled>::getMetaMethod(const QString &name) const
+template<typename T, bool enabled, typename U>
+const QMetaMethod& IBeanInterface<T, enabled, U>::getMetaMethod(const QString &name) const
 {
     const auto& methods = getMetaMethods();
     for(const QMetaMethod& method : methods){
@@ -84,8 +87,8 @@ const QMetaMethod& IBeanInterface<T, enabled>::getMetaMethod(const QString &name
     return s_emptyMethod;
 }
 
-template<typename T, bool enabled>
-const QMetaProperty& IBeanInterface<T, enabled>::getMetaProperty(const QString& name) const
+template<typename T, bool enabled, typename U>
+const QMetaProperty& IBeanInterface<T, enabled, U>::getMetaProperty(const QString& name) const
 {
     const auto props = getMetaProperties();
     for(const QMetaProperty& prop : props){
@@ -98,22 +101,22 @@ const QMetaProperty& IBeanInterface<T, enabled>::getMetaProperty(const QString& 
     return s_prop;
 }
 
-template<typename T, bool enabled>
-QVariant IBeanInterface<T, enabled>::getFieldValue(const QString& name) const
+template<typename T, bool enabled, typename U>
+QVariant IBeanInterface<T, enabled, U>::getFieldValue(const QString& name) const
 {
     const auto& property = getMetaProperty(name);
     return IMetaUtil::readProperty(property, this);
 }
 
-template<typename T, bool enabled>
-void IBeanInterface<T, enabled>::setFieldValue(const QString& name, const QVariant& value)
+template<typename T, bool enabled, typename U>
+void IBeanInterface<T, enabled, U>::setFieldValue(const QString& name, const QVariant& value)
 {
     const auto& property = getMetaProperty(name);
     IMetaUtil::writeProperty(property, this, value);
 }
 
-template<typename T, bool enabled>
-IJson IBeanInterface<T, enabled>::toJson(bool *ok) const
+template<typename T, bool enabled, typename U>
+IJson IBeanInterface<T, enabled, U>::toJson(bool *ok) const
 {
     static auto stdStringId = qMetaTypeId<std::string>();
 
@@ -138,8 +141,8 @@ IJson IBeanInterface<T, enabled>::toJson(bool *ok) const
     return obj;
 }
 
-template<typename T, bool enabled>
-bool IBeanInterface<T, enabled>::loadJson(const IJson &value)
+template<typename T, bool enabled, typename U>
+bool IBeanInterface<T, enabled, U>::loadJson(const IJson &value)
 {
     static auto stdStringId = qMetaTypeId<std::string>();
     if(!value.is_object()){
@@ -168,8 +171,8 @@ bool IBeanInterface<T, enabled>::loadJson(const IJson &value)
 }
 
 
-template<typename T, bool enabled>
-IJson IBeanInterface<T, enabled>::toJsonValueOfBeanType(const void *handle, const QMetaProperty& prop, bool* ok) const
+template<typename T, bool enabled, typename U>
+IJson IBeanInterface<T, enabled, U>::toJsonValueOfBeanType(const void *handle, const QMetaProperty& prop, bool* ok) const
 {
     const QMetaMethod& getPtrFun = getMetaMethod(QString("$get_") + prop.name() + "_ptr");
 
@@ -180,8 +183,8 @@ IJson IBeanInterface<T, enabled>::toJsonValueOfBeanType(const void *handle, cons
     return toJsonfun(ptr, ok);
 }
 
-template<typename T, bool enabled>
-bool IBeanInterface<T, enabled>::loadJsonValueOfBeanType(const void *handle, const QMetaProperty &prop, const IJson &value)
+template<typename T, bool enabled, typename U>
+bool IBeanInterface<T, enabled, U>::loadJsonValueOfBeanType(const void *handle, const QMetaProperty &prop, const IJson &value)
 {
     const QMetaMethod& getPtrFun = getMetaMethod(QString("$get_") + prop.name() + "_ptr");
     void* ptr{};
@@ -192,8 +195,8 @@ bool IBeanInterface<T, enabled>::loadJsonValueOfBeanType(const void *handle, con
     return loadJsonFun(ptr, value);
 }
 
-template<typename T, bool enabled>
-IJson IBeanInterface<T, enabled>::toJsonValueOfPlainType(int type, const QMetaProperty &prop, bool* ok) const
+template<typename T, bool enabled, typename U>
+IJson IBeanInterface<T, enabled, U>::toJsonValueOfPlainType(int type, const QMetaProperty &prop, bool* ok) const
 {
     auto value = prop.readOnGadget(this);
 
@@ -233,8 +236,8 @@ IJson IBeanInterface<T, enabled>::toJsonValueOfPlainType(int type, const QMetaPr
     return {};
 }
 
-template<typename T, bool enabled>
-bool IBeanInterface<T, enabled>::loadJsonValueOfPlainType(void *handle, const QMetaProperty &prop, const IJson &value)
+template<typename T, bool enabled, typename U>
+bool IBeanInterface<T, enabled, U>::loadJsonValueOfPlainType(void *handle, const QMetaProperty &prop, const IJson &value)
 {
     auto type = prop.type();
     switch (type) {
@@ -287,8 +290,8 @@ bool IBeanInterface<T, enabled>::loadJsonValueOfPlainType(void *handle, const QM
     return true;
 }
 
-template<typename T, bool enabled>
-void IBeanInterface<T, enabled>::task()
+template<typename T, bool enabled, typename U>
+void IBeanInterface<T, enabled, U>::task()
 {
     if constexpr (enabled){
         static std::once_flag initRegisterFlag;

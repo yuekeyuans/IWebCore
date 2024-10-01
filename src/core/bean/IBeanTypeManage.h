@@ -10,7 +10,7 @@ $PackageWebCoreBegin
 
 class IBeanTypeManage : public ISingletonUnit<IBeanTypeManage>
 {
-    template<typename, bool>
+    template<typename, bool, typename>
     friend class IBeanInterface;
     friend class IBeanTypeCheckTask;
     using ToJsonFun = std::function<IJson(void*, bool*)>;
