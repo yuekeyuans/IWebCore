@@ -12,7 +12,7 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true, typename U=IBeanDefaultTrait>
-class IBeanInterface : public IBeanWare, public ITaskInstantUnit<T, enabled>, public ITraceUnit<T, false>, protected U
+class IBeanInterface : public IBeanWare, public ITaskInstantUnit<T, enabled>, /*public ITraceUnit<T, false>,*/ protected U
 {
 public:
     IBeanInterface() = default;

@@ -46,6 +46,50 @@ namespace ITraitUtil
     // 基础类型，数值类型 + const char*, IStringView
     template<typename Arg>
     inline constexpr bool isBasicType = (isContain_v<Arg, const char*, IStringView>) || std::is_arithmetic_v<Arg>;
+
+
+    // std::vector
+    template<typename T>
+    struct is_std_vector : std::false_type {};
+
+    template<typename T, typename Alloc>
+    struct is_std_vector<std::vector<T, Alloc>> : std::true_type {};
+
+    template<typename T>
+    inline constexpr bool is_std_vector_v = is_std_vector<T>::value;
+
+
+    // QVector
+    template<typename T>
+    struct is_q_vector : std::false_type {};
+
+    template<typename T>
+    struct is_q_vector<QVector<T>> : std::true_type {};
+
+    template<typename T>
+    inline constexpr bool is_q_vector_v = is_q_vector<T>::value;
+
+
+    // std::map
+    template<typename T>
+    struct is_std_map : std::false_type {};
+
+    template<typename Key, typename Value, typename Compare, typename Alloc>
+    struct is_std_map<std::map<Key, Value, Compare, Alloc>> : std::true_type {};
+
+    template<typename T>
+    inline constexpr bool is_std_map_v = is_std_map<T>::value;
+
+
+    // QMap
+    template<typename T>
+    struct is_q_map : std::false_type {};
+
+    template<typename Key, typename Value>
+    struct is_q_map<QMap<Key, Value>> : std::true_type {};
+
+    template<typename T>
+    inline constexpr bool is_q_map_v = is_q_map<T>::value;
 }
 
 $PackageWebCoreEnd

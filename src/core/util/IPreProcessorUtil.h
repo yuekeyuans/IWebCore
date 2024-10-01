@@ -26,3 +26,6 @@
     template <typename T>                                              \
     struct $HAS_CLASS_MEMBER_##member<T, std::void_t<decltype(&T::member)>> : std::true_type {};
 
+
+
+PP_CLASS_HAS_MEMBER(toJson)
