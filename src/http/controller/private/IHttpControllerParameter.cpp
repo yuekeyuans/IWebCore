@@ -513,21 +513,22 @@ void IHttpControllerParameter::initBeanTypes(){
     });
 }
 
+// TODO: check
 void* IControllerFunctionBaseImplHelper::convertParamToJson(const IParameterNode &node, const QByteArray &content, bool& ok)
 {
     IToeUtil::setOk(ok, true);
     auto param = QMetaType::create(node.typeId);
-    switch (node.typeId) {
-    case QMetaType::QJsonArray:
-        *static_cast<QJsonArray*>(param) = IConvertUtil::toJsonArray(content, ok);
-        break;
-    case QMetaType::QJsonObject:
-        *static_cast<QJsonObject*>(param) = IConvertUtil::toJsonObject(content, ok);
-        break;
-    case QMetaType::QJsonValue:
-        *static_cast<QJsonValue*>(param) = IConvertUtil::toJsonValue(QString(content), ok);
-        break;
-    }
+//    switch (node.typeId) {
+//    case QMetaType::QJsonArray:
+//        *static_cast<QJsonArray*>(param) = IConvertUtil::toJsonArray(content, ok);
+//        break;
+//    case QMetaType::QJsonObject:
+//        *static_cast<QJsonObject*>(param) = IConvertUtil::toJsonObject(content, ok);
+//        break;
+//    case QMetaType::QJsonValue:
+//        *static_cast<QJsonValue*>(param) = IConvertUtil::toJsonValue(QString(content), ok);
+//        break;
+//    }
     return param;
 }
 

@@ -143,21 +143,22 @@ void IOrmManage::registerDefaultValueGenerator()
     m_valueGeneratorMap[QMetaType::QString] = generator;
 }
 
+// TODO: check it
 void IOrmManage::registerDefaultQueryLog()
 {
-    static QueryLogFunction log = [](const QSqlQuery& query){
-        const QSqlError& error = query.lastError();
-        if(error.type() != QSqlError::NoError){
-            qDebug() << error;
-        }
+//    static QueryLogFunction log = [](const QSqlQuery& query){
+//        const QSqlError& error = query.lastError();
+//        if(error.type() != QSqlError::NoError){
+//            qDebug() << error;
+//        }
 
-        qDebug() << query.lastQuery();
-        const QMap<QString, QVariant>& values = query.boundValues();
-        if(!values.isEmpty()){
-            qDebug().noquote() << IConvertUtil::toString(values);
-        }
-    };
-    m_queryLogList.append(log);
+//        qDebug() << query.lastQuery();
+//        const QMap<QString, QVariant>& values = query.boundValues();
+//        if(!values.isEmpty()){
+//            qDebug().noquote() << IConvertUtil::toString(values);
+//        }
+//    };
+//    m_queryLogList.append(log);
 }
 
 $PackageWebCoreEnd

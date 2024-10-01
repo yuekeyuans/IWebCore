@@ -61,7 +61,7 @@ namespace  IConvertUtil
     QString toString(const QString& value);
     QString toString(const QByteArray& value);
     QString toString(const QStringList& value);
-    QString toString(const QMap<QString, QVariant>& value);
+//    QString toString(const QMap<QString, QVariant>& value);
     QString toString(const QDate& date);
     QString toString(const QDateTime& datetime);
     QString toString(const QTime& time);
@@ -70,19 +70,19 @@ namespace  IConvertUtil
     QString toString(const QJsonObject &json);
     QString toString(const QJsonArray &json);
 
-    QStringList toStringList(const QJsonValue& value, bool& ok);
+//    QStringList toStringList(const QJsonValue& value, bool& ok);
 
     QByteArray toByteArray(const QString& value);
     QByteArray toByteArray(const QByteArray& value);
-    QByteArray toByteArray(const QJsonValue& value);
+//    QByteArray toByteArray(const QJsonValue& value);
 
     // json -> list,map 转换
     QList<QVariant> toList(const QVariant& value, bool& ok);
     QMap<QString, QVariant> toMap(const QVariant& value, bool& ok);
 
-    QVariant toVariant(const QJsonValue& value, bool& ok);
-    QVariant toVariant(const QJsonArray& arrray, bool& ok);
-    QVariant toVariant(const QJsonObject& object, bool& ok);
+//    QVariant toVariant(const QJsonValue& value, bool& ok);
+//    QVariant toVariant(const QJsonArray& arrray, bool& ok);
+//    QVariant toVariant(const QJsonObject& object, bool& ok);
     QVariant toVariant(const QByteArray& value, QMetaType::Type destType, bool& ok);
     QVariant toVariant(const QString& value, QMetaType::Type destType, bool& ok);
     QVariant toVariant(IStringView value, QMetaType::Type destType, bool& ok);

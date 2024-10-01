@@ -198,21 +198,22 @@ QMap<QString, QVariant> IOrmUtil::getMap(QSqlQuery &query, bool& ok)
     return map;
 }
 
+// TODO: json
 QJsonObject IOrmUtil::getJsonObject(QSqlQuery &query, bool& ok)
 {
     QJsonObject obj;
-    size_t count = 0;
-    auto fields = getFieldNames(query);
-    while(query.next()){
-        count ++;
-        for(const auto& field : fields){
-            obj[field] = IConvertUtil::toJsonValue(query.value(field), ok);
-            if(!ok){
-                return {};
-            }
-        }
-    }
-    IToeUtil::setOk(ok, count == 1);
+//    size_t count = 0;
+//    auto fields = getFieldNames(query);
+//    while(query.next()){
+//        count ++;
+//        for(const auto& field : fields){
+//            obj[field] = IConvertUtil::toJsonValue(query.value(field), ok);
+//            if(!ok){
+//                return {};
+//            }
+//        }
+//    }
+//    IToeUtil::setOk(ok, count == 1);
     return obj;
 }
 
@@ -230,19 +231,20 @@ QList<QMap<QString, QVariant> > IOrmUtil::getMapList(QSqlQuery &query)
     return ret;
 }
 
+// TODO: json
 QJsonArray IOrmUtil::getJsonObjectArray(QSqlQuery &query)
 {
     bool ok;
     QJsonArray ret;
-    auto fields = getFieldNames(query);
-    while(query.next()){
-        QJsonObject obj;
-        for(const auto& field : fields){
-            obj[field] = IConvertUtil::toJsonValue(query.value(field), ok);
-            assert(ok);
-        }
-        ret.append(std::move(obj));
-    }
+//    auto fields = getFieldNames(query);
+//    while(query.next()){
+//        QJsonObject obj;
+//        for(const auto& field : fields){
+//            obj[field] = IConvertUtil::toJsonValue(query.value(field), ok);
+//            assert(ok);
+//        }
+//        ret.append(std::move(obj));
+//    }
     return ret;
 }
 
@@ -489,26 +491,26 @@ QList<QDateTime> IOrmUtil::getDateTimeList(QSqlQuery &query, bool& ok)
     return ret;
 }
 
-QMap<QString, QVariant> IOrmUtil::toMap(const QJsonObject &obj, bool& ok)
-{
-    return IConvertUtil::toMap(IConvertUtil::toVariant(obj, ok), ok);
-}
+//QMap<QString, QVariant> IOrmUtil::toMap(const QJsonObject &obj, bool& ok)
+//{
+//    return IConvertUtil::toMap(IConvertUtil::toVariant(obj, ok), ok);
+//}
 
-QList<QMap<QString, QVariant>> IOrmUtil::toMapList(const QJsonArray &array, bool& ok)
-{
-    QList<QMap<QString, QVariant>>  ret;
-    for(const QJsonValue& value : array){
-        if(!value.isObject()){
-            ok = false;
-            return ret;
-        }
-        ret.append(IOrmUtil::toMap(value.toObject(), ok));
-        if(!ok){
-            return {};
-        }
-    }
-    ok = true;
-    return ret;
-}
+//QList<QMap<QString, QVariant>> IOrmUtil::toMapList(const QJsonArray &array, bool& ok)
+//{
+//    QList<QMap<QString, QVariant>>  ret;
+//    for(const QJsonValue& value : array){
+//        if(!value.isObject()){
+//            ok = false;
+//            return ret;
+//        }
+//        ret.append(IOrmUtil::toMap(value.toObject(), ok));
+//        if(!ok){
+//            return {};
+//        }
+//    }
+//    ok = true;
+//    return ret;
+//}
 
 $PackageWebCoreEnd

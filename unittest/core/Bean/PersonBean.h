@@ -11,7 +11,6 @@ public:
     PersonBean();
 public:
     $BeanField(int, age, 10)
-
     $BeanField(NameBean, name1)
     $BeanField(ushort, gender, 1)
     $BeanField(std::string, friendName, "yuekeyuan")

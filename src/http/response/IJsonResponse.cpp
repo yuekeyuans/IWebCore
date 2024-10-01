@@ -15,23 +15,25 @@ IJsonResponse::IJsonResponse(const QString& value) : IResponseInterface()
     m_raw->setContent(value);
 }
 
-IJsonResponse::IJsonResponse(const QJsonValue &value) : IResponseInterface()
-{
-    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    m_raw->setContent(IJsonUtil::toString(value));
-}
+// TODO: json
 
-IJsonResponse::IJsonResponse(const QJsonArray &array) : IResponseInterface()
-{
-    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    m_raw->setContent(IJsonUtil::toString(array));
-}
+//IJsonResponse::IJsonResponse(const QJsonValue &value) : IResponseInterface()
+//{
+//    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
+//    m_raw->setContent(IJsonUtil::toString(value));
+//}
 
-IJsonResponse::IJsonResponse(const QJsonObject &object) : IResponseInterface()
-{
-    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    m_raw->setContent(IJsonUtil::toString(object));
-}
+//IJsonResponse::IJsonResponse(const QJsonArray &array) : IResponseInterface()
+//{
+//    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
+//    m_raw->setContent(IJsonUtil::toString(array));
+//}
+
+//IJsonResponse::IJsonResponse(const QJsonObject &object) : IResponseInterface()
+//{
+//    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
+//    m_raw->setContent(IJsonUtil::toString(object));
+//}
 
 QString IJsonResponse::getPrefixMatcher()
 {

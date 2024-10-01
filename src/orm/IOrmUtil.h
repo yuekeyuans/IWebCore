@@ -61,11 +61,11 @@ namespace IOrmUtil
 
     template <class T>
     QMap<QString, QVariant> toMap(const T& t, bool& ok);
-    QMap<QString, QVariant> toMap(const QJsonObject&, bool& ok);
+//    QMap<QString, QVariant> toMap(const QJsonObject&, bool& ok);
 
     template <class T>
     QList<QMap<QString, QVariant>> toMapList(QList<T>& list, bool& ok);
-    QList<QMap<QString, QVariant>> toMapList(const QJsonArray& array, bool& ok);
+//    QList<QMap<QString, QVariant>> toMapList(const QJsonArray& array, bool& ok);
 
     template <class T>
     T toBean(const QMap<QString, QVariant>& map, bool& ok);

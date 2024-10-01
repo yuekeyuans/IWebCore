@@ -376,11 +376,11 @@ QString IConvertUtil::toString(const QStringList &value)
 }
 
 // TODO: 这个函数做的比较麻烦，后面可以改进
-QString IConvertUtil::toString(const QMap<QString, QVariant> &value)
-{
-    bool ok;
-    return IJsonUtil::toString(IJsonUtil::toJsonValue(value, ok));
-}
+//QString IConvertUtil::toString(const QMap<QString, QVariant> &value)
+//{
+////    bool ok;
+////    return IJsonUtil::toString(IJsonUtil::toJsonValue(value, ok));
+//}
 
 QByteArray IConvertUtil::toByteArray(const QString &value)
 {
@@ -392,10 +392,10 @@ QByteArray IConvertUtil::toByteArray(const QByteArray &value)
     return value;
 }
 
-QByteArray IConvertUtil::toByteArray(const QJsonValue &value)
-{
-    return toString(value).toUtf8();
-}
+//QByteArray IConvertUtil::toByteArray(const QJsonValue &value)
+//{
+//    return toString(value).toUtf8();
+//}
 
 QString IConvertUtil::toString(const QDate &date)
 {
@@ -483,58 +483,58 @@ QMap<QString, QVariant> IConvertUtil::toMap(const QVariant &value, bool& ok)
     return {};
 }
 
-QVariant IConvertUtil::toVariant(const QJsonValue &value, bool& ok)
-{
-    IToeUtil::setOk(ok, true);
-    switch (value.type()) {
-    case QJsonValue::Bool:
-        return value.toBool();
-    case QJsonValue::Null:
-        IToeUtil::setOk(ok, false);
-        return {};
-    case QJsonValue::Undefined:
-        IToeUtil::setOk(ok, false);
-        return {};
-    case QJsonValue::Double:
-        return value.toDouble();
-    case QJsonValue::String:
-        return value.toString();
-    case QJsonValue::Array:
-        return toVariant(value.toArray(), ok);
-    case QJsonValue::Object:
-        return toVariant(value.toObject(), ok);
-    }
-    IToeUtil::setOk(ok, false);
-    return {};
-}
+//QVariant IConvertUtil::toVariant(const QJsonValue &value, bool& ok)
+//{
+//    IToeUtil::setOk(ok, true);
+//    switch (value.type()) {
+//    case QJsonValue::Bool:
+//        return value.toBool();
+//    case QJsonValue::Null:
+//        IToeUtil::setOk(ok, false);
+//        return {};
+//    case QJsonValue::Undefined:
+//        IToeUtil::setOk(ok, false);
+//        return {};
+//    case QJsonValue::Double:
+//        return value.toDouble();
+//    case QJsonValue::String:
+//        return value.toString();
+//    case QJsonValue::Array:
+//        return toVariant(value.toArray(), ok);
+//    case QJsonValue::Object:
+//        return toVariant(value.toObject(), ok);
+//    }
+//    IToeUtil::setOk(ok, false);
+//    return {};
+//}
 
-QVariant IConvertUtil::toVariant(const QJsonArray &array, bool& ok)
-{
-    QList<QVariant> ret;
-    for(const QJsonValue& value : array){
-        ret.append(toVariant(value, ok));
-        if(!ok){
-            return {};
-        }
-    }
+//QVariant IConvertUtil::toVariant(const QJsonArray &array, bool& ok)
+//{
+//    QList<QVariant> ret;
+//    for(const QJsonValue& value : array){
+//        ret.append(toVariant(value, ok));
+//        if(!ok){
+//            return {};
+//        }
+//    }
 
-    ok = true;
-    return ret;
-}
+//    ok = true;
+//    return ret;
+//}
 
-QVariant IConvertUtil::toVariant(const QJsonObject &obj, bool& ok)
-{
-    IToeUtil::setOk(ok, true);
-    QMap<QString, QVariant> ret;
-    const auto& keys = obj.keys();
-    for(const auto& key : keys){
-        ret[key] = toVariant(obj[key], ok);
-        if(!ok){
-            break;
-        }
-    }
-    return ret;
-}
+//QVariant IConvertUtil::toVariant(const QJsonObject &obj, bool& ok)
+//{
+//    IToeUtil::setOk(ok, true);
+//    QMap<QString, QVariant> ret;
+//    const auto& keys = obj.keys();
+//    for(const auto& key : keys){
+//        ret[key] = toVariant(obj[key], ok);
+//        if(!ok){
+//            break;
+//        }
+//    }
+//    return ret;
+//}
 
 QVariant IConvertUtil::toVariant(const QByteArray &value, QMetaType::Type destType, bool& ok)
 {
@@ -580,12 +580,12 @@ QVariant IConvertUtil::toVariant(const QString &value, QMetaType::Type destType,
     case QMetaType::QByteArray:
         return IConvertUtil::toByteArray(value);
 
-    case QMetaType::QJsonArray:
-        return IConvertUtil::toJsonArray(value, ok);
-    case QMetaType::QJsonValue:
-        return IConvertUtil::toJsonObject(value, ok);
-    case QMetaType::QJsonObject:
-        return IConvertUtil::toJsonObject(value, ok);
+//    case QMetaType::QJsonArray:
+//        return IConvertUtil::toJsonArray(value, ok);
+//    case QMetaType::QJsonValue:
+//        return IConvertUtil::toJsonObject(value, ok);
+//    case QMetaType::QJsonObject:
+//        return IConvertUtil::toJsonObject(value, ok);
 
     case QMetaType::QDate:
         return IConvertUtil::toDate(value, ok);
@@ -628,21 +628,21 @@ QString IConvertUtil::toUtcString(const QDateTime& dateTime)
     return str;
 }
 
-QStringList IConvertUtil::toStringList(const QJsonValue &value, bool &ok)
-{
-    QStringList ret;
-    if(!value.isArray()){
-        ok = false;
-        return ret;
-    }
+//QStringList IConvertUtil::toStringList(const QJsonValue &value, bool &ok)
+//{
+//    QStringList ret;
+//    if(!value.isArray()){
+//        ok = false;
+//        return ret;
+//    }
 
-    auto array = value.toArray();
-    for(const auto& val : array){
-        ret.append(IConvertUtil::toString(val));
-    }
+//    auto array = value.toArray();
+//    for(const auto& val : array){
+//        ret.append(IConvertUtil::toString(val));
+//    }
 
-    ok = true;
-    return ret;
-}
+//    ok = true;
+//    return ret;
+//}
 
 $PackageWebCoreEnd
