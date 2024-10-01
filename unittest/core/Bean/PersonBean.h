@@ -17,5 +17,3 @@ public:
     $BeanField(std::string, friendName, "yuekeyuan")
 //    $BeanField(NameBeanList, name2)
 };
-
-//$AsBeanList(PersonBean)

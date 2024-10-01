@@ -103,7 +103,6 @@ IJson toJson(const type& name){
     } else{
         IBeanAbort::abortInvalidBeanEmbededBeanType(typeid(T).name());
     }
-    return nullptr;
 }
 
 
@@ -164,33 +163,3 @@ IJson toJson(const type& name){
 #define $BeanField_(N) $BeanField_##N
 #define $BeanField_EVAL(N) $BeanField_(N)
 #define $BeanField(...) PP_EXPAND( $BeanField_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
-
-
-#define $AsBeanList(klassName)                                                                         \
-class klassName ## List : public QList< klassName >, public IBeanInterface< klassName ## List >        \
-{                                                                                                      \
-    Q_GADGET                                                                                           \
-public:                                                                                                \
-    virtual IJson toJson(bool *ok) const final {                                                       \
-        IJson json = IJson::array();                                                                   \
-        for(const klassName & bean : *this){                                                           \
-            json.push_back(bean.toJson(ok));                                                           \
-            if(ok != nullptr && *ok ==false){                                                          \
-                return json;                                                                           \
-            }                                                                                          \
-        }                                                                                              \
-        return json;                                                                                   \
-    }                                                                                                  \
-    virtual bool loadJson(const IJson &value) final{                                                   \
-        if(value.is_null()){ return true; }                                                            \
-        if(!value.is_array()){ return false; }                                                         \
-        for(const IJson& val : value){                                                               \
-            klassName bean;                                                                            \
-            if(!bean.loadJson(val)){                                                                 \
-                return false;                                                                          \
-            }                                                                                          \
-            this->append(bean);                                                                        \
-        }                                                                                              \
-        return true;                                                                                   \
-    }                                                                                                  \
-};
