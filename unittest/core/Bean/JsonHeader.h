@@ -9,6 +9,18 @@
 #define JSON_HEADER__PP
 
 template<typename T>
+IJson WrapPlainType(const T& value){
+    return value;
+}
+
+template<typename T>
+IJson WrapBeanType(const T& value)
+{
+    bool ok;
+    return value.toJson(&ok);
+}
+
+template<typename T>
 struct ProcessWith;
 
 template<typename T>
@@ -23,6 +35,8 @@ struct ProcessWith<std::vector<T>>
                 array.push_back(IJson(val));
             }  else if constexpr (ITraitUtil::is_std_vector_v< T >){
                 array.push_back( WrapProcessWith<T>(val) );
+            } else if constexpr ($HAS_CLASS_MEMBER_toJson< T >::value){
+                array.push_back( WrapBeanType( val ));
             }
         }
 
@@ -36,17 +50,7 @@ IJson WrapProcessWith(const T& value){
     return ProcessWith<T>::toJson(value);
 }
 
-template<typename T>
-IJson WrapPlainType(const T& value){
-    return value;
-}
 
-template<typename T>
-IJson WrapBeanType(const T& value)
-{
-    bool ok;
-    return value.toJson(&ok);
-}
 
 
 #define TO_JSON(type, name)                                                                \
@@ -54,13 +58,13 @@ IJson WrapBeanType(const T& value)
     Q_INVOKABLE IJson name##_toJson () const                                      \
     {                                                                                      \
         if constexpr (std::is_arithmetic_v< type >){                                           \
-            return name;                                                                 \
+            return WrapPlainType(name);                                                               \
         } else if constexpr (std::is_same_v<std::string, type >){                     \
-            return IJson( name );                                                                 \
+            return WrapPlainType(name);                                                                 \
         }  else if constexpr (ITraitUtil::is_std_vector_v< type >){                        \
             return WrapProcessWith< type >( name );                                         \
         }  else if constexpr ($HAS_CLASS_MEMBER_toJson< type >::value){                     \
-            qDebug() << "call here";                                                       \
+            return WrapBeanType(name);                                                     \
         }                                                                             \
         return nullptr;                                                                  \
     }
