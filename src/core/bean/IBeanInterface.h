@@ -118,8 +118,25 @@ void IBeanInterface<T, enabled, U>::setFieldValue(const QString& name, const QVa
 template<typename T, bool enabled, typename U>
 IJson IBeanInterface<T, enabled, U>::toJson() const
 {
-    return nullptr;
+    static std::map<const char*, const QMetaMethod*> methodPair;
+    static std::once_flag flag;
+    std::call_once(flag, [this](){
+        const auto& props = getMetaProperties();
+        for(const auto& prop : props){
+            methodPair[prop.name()] = &getMetaMethod(QString(prop.name()) + "_toJsonValue");
+        }
+    });
+
+    IJson obj = IJson::object();
+    for(const auto& [key, method] : methodPair){
+        IJson json;
+        method->invokeOnGadget(const_cast<void*>(static_cast<const void*>(this)), Q_RETURN_ARG(IJson, json));
+        obj[key] = std::move(json);
+    }
+    return obj;
 }
+
+
 //template<typename T, bool enabled, typename U>
 //IJson IBeanInterface<T, enabled, U>::toJson(bool *ok) const
 //{

@@ -14,35 +14,35 @@ int main(int argc, char *argv[])
 {
     IApplication app(argc, argv);
 
-    TestJson bean;
-    bool ok;
-//    std::cout << json.toJson(nullptr).dump(4) << std::endl;
-    auto json = bean.toJson(&ok);
-
-    TestJson bean2;
-    bean2.loadJson(json);
-
-
-    std::cout << bean2.toJson(&ok).dump(4);
-
-
+//    TestJson bean;
 //    bool ok;
-//    NameBean bean;
-//    std::cout << bean.toJson(&ok).dump(4) << std::endl;
+////    std::cout << json.toJson(nullptr).dump(4) << std::endl;
+//    auto json = bean.toJson(&ok);
 
-//    PersonBean person;
+//    TestJson bean2;
+//    bean2.loadJson(json);
+
+
+//    std::cout << bean2.toJson(&ok).dump(4);
+
+
+    bool ok;
+    NameBean bean;
+    std::cout << bean.toJson().dump(4) << std::endl;
+
+    PersonBean person;
 
 //    person.name2.append(NameBean{});
 //    person.name2.append(NameBean{});
 //    person.name2.append(NameBean{});
 
-//    auto json = person.toJson(&ok);
-//    std::cout << person.toJson(&ok).dump(4) << std::endl;
+    auto json = person.toJson();
+    std::cout << person.toJson().dump(4) << std::endl;
 
 //    PersonBean bean2;
 //    bean2.loadJson(json);
 
-//    std::cout << bean2.toJson(&ok).dump(4) << std::endl;
+//    std::cout << bean2.toJson().dump(4) << std::endl;
 
     return app.run();
 }

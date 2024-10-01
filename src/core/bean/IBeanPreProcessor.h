@@ -2,10 +2,12 @@
 
 #include "core/util/IPreProcessorUtil.h"
 
-#define $BeanFieldDeclare(type, name) \
-    Q_PROPERTY(type name MEMBER name WRITE $write_##name##_value)   \
-    Q_INVOKABLE void* $get_ ## name ## _ptr(){ return & name; }     \
-    void $write_##name##_value(const type & value){this-> name = value; }
+#define $BeanFieldDeclare(type, name)                                          \
+    Q_PROPERTY(type name MEMBER name WRITE $write_##name##_value)               \
+    void $write_##name##_value(const type & value){this-> name = value; }      \
+    Q_INVOKABLE IJson name##_toJsonValue() const {                                         \
+        return 1;                                                              \
+    }
 
 #define $BeanField_2(type, name) \
     $BeanFieldDeclare(type, name) \
@@ -55,11 +57,6 @@
 #define $BeanField_EVAL(N) $BeanField_(N)
 #define $BeanField(...) PP_EXPAND( $BeanField_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
 
-//#define PP_BEAN_INGNORED_KEY(name)  \
-//    PP_STRING(iwebcore_bean_field_ignorable_##name)
-
-//#define $FieldIgnorable(name) \
-//    Q_CLASSINFO(PP_BEAN_INGNORED_KEY(name), #name)
 
 #define $AsBeanList(klassName)                                                                         \
 class klassName ## List : public QList< klassName >, public IBeanInterface< klassName ## List >        \
