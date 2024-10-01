@@ -6,7 +6,7 @@ class NameBean : public IBeanInterface<NameBean>
 {
     Q_GADGET
 public:
-    NameBean() = default;
+    NameBean();
     $BeanField(QString, name, "hello world")
 };
 

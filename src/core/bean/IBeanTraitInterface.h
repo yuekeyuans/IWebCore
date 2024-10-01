@@ -1,11 +1,10 @@
 ﻿#pragma once
 
-template<typename Ts>
-struct IBeanTraitInterface
+#include "core/trait/IExceptionTrait.h"
+
+template<typename T, typename ...U>
+struct IBeanTraitInterface : public U...
 {
-//    static constexpr bool IS_USE_EXCEPTION(){
-//        if constexpr
-//    }
 };
 
 struct IBeanDefaultTrait : public IBeanTraitInterface<IBeanDefaultTrait>
