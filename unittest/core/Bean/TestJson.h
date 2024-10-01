@@ -33,8 +33,6 @@ inline TestJson::TestJson()
     vecBean.push_back({});
 }
 
-
-
 inline IJson TestJson::toJson(bool *ok) const
 {
     IJson obj = IJson::object();
