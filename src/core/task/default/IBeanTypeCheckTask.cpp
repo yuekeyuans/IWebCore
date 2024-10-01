@@ -30,18 +30,18 @@ void IBeanTypeCheckTask::checkPropertyType(const QMetaProperty &prop)
         QMetaType::Float, QMetaType::Double,
         QMetaType::QString, QMetaType::QStringList,
     };
-    auto type = prop.userType();
-    if(type == stdStringId){
-        return;
-    } else if(type >= QMetaType::User){
-        if(!IBeanTypeManage::instance()->isBeanIdExist(type)){
-            IBeanAbort::abortInvalidBeanEmbededBeanType(QString("type: ") + QMetaType::typeName(type));
-        }
-    } else {
-        if(std::find(allowedTypes.begin(), allowedTypes.end(), type) == allowedTypes.end()){
-            IBeanAbort::abortInvalidBeanEmbededPrimitiveType(QString("type: ") + QMetaType::typeName(type));
-        }
-    }
+//    auto type = prop.userType();
+//    if(type == stdStringId){
+//        return;
+//    } else if(type >= QMetaType::User){
+//        if(!IBeanTypeManage::instance()->isBeanIdExist(type)){
+//            IBeanAbort::abortInvalidBeanEmbededBeanType(QString("type: ") + QMetaType::typeName(type));
+//        }
+//    } else {
+//        if(std::find(allowedTypes.begin(), allowedTypes.end(), type) == allowedTypes.end()){
+//            IBeanAbort::abortInvalidBeanEmbededPrimitiveType(QString("type: ") + QMetaType::typeName(type));
+//        }
+//    }
 }
 
 $PackageWebCoreEnd

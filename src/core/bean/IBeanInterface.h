@@ -18,7 +18,7 @@ public:
     IBeanInterface() = default;
     virtual ~IBeanInterface() = default;
 
-public:
+private:
     int getMetaTypeId() const;
     const QVector<QMetaMethod>& getMetaMethods() const;
     const QMap<QString, QString>& getMetaClassInfos() const;

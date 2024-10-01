@@ -26,7 +26,6 @@ int main(int argc, char *argv[])
 //    std::cout << bean2.toJson(&ok).dump(4);
 
 
-    bool ok;
     NameBean bean;
     std::cout << bean.toJson().dump(4) << std::endl;
 
@@ -36,7 +35,6 @@ int main(int argc, char *argv[])
 //    person.name2.append(NameBean{});
 //    person.name2.append(NameBean{});
 
-    auto json = person.toJson();
     std::cout << person.toJson().dump(4) << std::endl;
 
 //    PersonBean bean2;

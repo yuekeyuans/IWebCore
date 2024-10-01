@@ -5,12 +5,15 @@
 
 $PackageWebCoreBegin
 
-#define PP_CLASS_HAS_MEMBER(member)                                      \
-    template <typename T, typename = void>                             \
-    struct $HAS_CLASS_MEMBER_##member : std::false_type {};                          \
-                                                                       \
-    template <typename T>                                              \
-    struct $HAS_CLASS_MEMBER_##member<T, std::void_t<decltype(&T::member)>> : std::true_type {};
+#define PP_CLASS_HAS_MEMBER(member)                                                                      \
+    template <typename T, typename = void>                                                               \
+    struct has_class_member_##member : std::false_type {};                                               \
+                                                                                                         \
+    template <typename T>                                                                                \
+    struct has_class_member_##member<T, std::void_t<decltype(&T::member)>> : std::true_type {};          \
+                                                                                                         \
+    template<typename T>                                                                                 \
+    inline constexpr bool has_class_member_##member##_v = has_class_member_##member <T>::value;
 
 namespace ITraitUtil
 {
@@ -79,28 +82,27 @@ namespace ITraitUtil
 
     // std::map
     template<typename T>
-    struct is_std_map : std::false_type {};
+    struct is_std_string_map : std::false_type {};
 
-    template<typename Key, typename Value, typename Compare, typename Alloc>
-    struct is_std_map<std::map<Key, Value, Compare, Alloc>> : std::true_type {};
+    template<typename Value, typename Compare, typename Alloc>
+    struct is_std_string_map<std::map<std::string, Value, Compare, Alloc>> : std::true_type {};
 
     template<typename T>
-    inline constexpr bool is_std_map_v = is_std_map<T>::value;
+    inline constexpr bool is_std_string_map_v = is_std_string_map<T>::value;
 
 
     // QMap
     template<typename T>
-    struct is_q_map : std::false_type {};
+    struct is_q_string_map : std::false_type {};
 
-    template<typename Key, typename Value>
-    struct is_q_map<QMap<Key, Value>> : std::true_type {};
+    template<typename Value>
+    struct is_q_string_map<QMap<QString, Value>> : std::true_type {};
 
     template<typename T>
-    inline constexpr bool is_q_map_v = is_q_map<T>::value;
+    inline constexpr bool is_q_string_map_v = is_q_string_map<T>::value;
 
     // has member json
     PP_CLASS_HAS_MEMBER(toJson)
-
 }
 
 $PackageWebCoreEnd

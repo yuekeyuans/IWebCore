@@ -35,7 +35,7 @@ struct ProcessWith<std::vector<T>>
                 array.push_back(IJson(val));
             }  else if constexpr (ITraitUtil::is_std_vector_v< T >){
                 array.push_back( WrapProcessWith<T>(val) );
-            } else if constexpr (ITraitUtil::$HAS_CLASS_MEMBER_toJson< T >::value){
+            } else if constexpr (ITraitUtil::has_class_member_toJson_v<T>){
                 array.push_back( WrapBeanType( val ));
             }
         }
@@ -50,20 +50,20 @@ IJson WrapProcessWith(const T& value){
     return ProcessWith<T>::toJson(value);
 }
 
-#define TO_JSON(type, name)                                                                \
-    type name;                                                                             \
-    Q_INVOKABLE IJson name##_toJson () const                                      \
-    {                                                                                      \
-        if constexpr (std::is_arithmetic_v< type >){                                           \
-            return WrapPlainType(name);                                                               \
-        } else if constexpr (std::is_same_v<std::string, type >){                     \
-            return WrapPlainType(name);                                                                 \
-        }  else if constexpr (ITraitUtil::is_std_vector_v< type >){                        \
-            return WrapProcessWith< type >( name );                                         \
-        }  else if constexpr (ITraitUtil::$HAS_CLASS_MEMBER_toJson< type >::value){                     \
-            return WrapBeanType(name);                                                     \
-        }                                                                             \
-        return nullptr;                                                                  \
+#define TO_JSON(type, name)                                                                   \
+    type name;                                                                                \
+    Q_INVOKABLE IJson name##_toJson () const                                                  \
+    {                                                                                         \
+        if constexpr (std::is_arithmetic_v< type >){                                          \
+            return WrapPlainType(name);                                                       \
+        } else if constexpr (std::is_same_v<std::string, type >){                             \
+            return WrapPlainType(name);                                                       \
+        }  else if constexpr (ITraitUtil::is_std_vector_v< type >){                           \
+            return WrapProcessWith< type >( name );                                           \
+        }  else if constexpr (ITraitUtil::has_class_member_toJson_v< type >){                 \
+            return WrapBeanType(name);                                                        \
+        }                                                                                     \
+        return nullptr;                                                                       \
     }
 
 #endif
