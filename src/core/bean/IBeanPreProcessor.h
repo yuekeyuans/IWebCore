@@ -8,19 +8,19 @@
 namespace detail{
 
 template<typename T>
-IJson ReadJsonOfPlainType(T value)
+IJson readJsonOfPlainType(T value)
 {
     return value;
 }
 
 template<typename T>
-IJson ReadJsonOfQStringType(const T& value)
+IJson readJsonOfQStringType(const T& value)
 {
     return value.toStdString();
 }
 
 template<typename T>
-IJson ReadJsonOfQStringListType(const T& value)
+IJson readJsonOfQStringListType(const T& value)
 {
     IJson array = IJson::array();
     for(const QString& val : value){
@@ -30,7 +30,7 @@ IJson ReadJsonOfQStringListType(const T& value)
 }
 
 template<typename T>
-IJson ReadJsonOfStdVectorType( const T& value )
+IJson readJsonOfStdVectorType( const T& value )
 {
     IJson array = IJson::array();
     for(const auto& name : value){
@@ -40,7 +40,7 @@ IJson ReadJsonOfStdVectorType( const T& value )
 }
 
 template<typename T>
-IJson ReadJsonOfQVectorType( const T& value)
+IJson readJsonOfQVectorType( const T& value)
 {
     IJson array = IJson::array();
     for(const auto& val : value){
@@ -50,7 +50,7 @@ IJson ReadJsonOfQVectorType( const T& value)
 }
 
 template<typename T>
-IJson ReadJsonOfStdStringMapType(const T& value)
+IJson readJsonOfStdStringMapType(const T& value)
 {
     IJson obj = IJson::object();
     for (const auto& pair : value) {
@@ -60,7 +60,7 @@ IJson ReadJsonOfStdStringMapType(const T& value)
 }
 
 template<typename T>
-IJson ReadJsonOfQStringMapType(const T& value)
+IJson readJsonOfQStringMapType(const T& value)
 {
     IJson obj = IJson::object();
     for(const auto& it=value.cbegin(); it!=value.cend(); it++){
@@ -70,13 +70,13 @@ IJson ReadJsonOfQStringMapType(const T& value)
 }
 
 template<typename T>
-IJson ReadJsonOfBeanType( const T& value)
+IJson readJsonOfBeanType( const T& value)
 {
     return value.toJson();
 }
 
 template<typename T>
-void ReadJsonOfAssertError(const char* data)
+void readJsonOfAssertError(const char* data)
 {
     IBeanAbort::abortInvalidBeanEmbededBeanType(typeid(T).name());
 }
@@ -85,25 +85,25 @@ template<typename T>
 IJson toJson(const T& value)
 {
     if constexpr (std::is_arithmetic_v<T>){
-        return detail::ReadJsonOfPlainType( value );
+        return detail::readJsonOfPlainType( value );
     } else if constexpr (std::is_same_v<std::string, T >){
-        return detail::ReadJsonOfPlainType( value );
+        return detail::readJsonOfPlainType( value );
     }else if constexpr( std::is_same_v<IJson, T>){
-        return detail::ReadJsonOfPlainType(value);
+        return detail::readJsonOfPlainType(value);
     } else if constexpr (std::is_same_v<QString, T >) {
-        return detail::ReadJsonOfQStringType< T >( value );
+        return detail::readJsonOfQStringType< T >( value );
     } else if constexpr (std::is_same_v<QStringList, T >){
-        return detail::ReadJsonOfQStringListType< T >( value );
+        return detail::readJsonOfQStringListType< T >( value );
     } else if constexpr ( ITraitUtil::is_std_vector_v< T >){
-        return detail::ReadJsonOfStdVectorType< T >( value );
+        return detail::readJsonOfStdVectorType< T >( value );
     } else if constexpr (ITraitUtil::is_q_vector_v< T >){
-        return detail::ReadJsonOfQVectorType< T >( value );
+        return detail::readJsonOfQVectorType< T >( value );
     } else if constexpr (ITraitUtil::is_std_string_map_v< T >) {
-        return detail::ReadJsonOfStdStringMapType< T > ( value );
+        return detail::readJsonOfStdStringMapType< T > ( value );
     } else if constexpr (ITraitUtil::is_q_string_map_v< T >){
-        return detail::ReadJsonOfQStringMapType< T >( value );
+        return detail::readJsonOfQStringMapType< T >( value );
     } else if constexpr (ITraitUtil::has_class_member_toJson_v< T >){
-        return detail::ReadJsonOfBeanType< T > ( value );
+        return detail::readJsonOfBeanType< T > ( value );
     } else{
         IBeanAbort::abortInvalidBeanEmbededBeanType(typeid(T).name());
     }

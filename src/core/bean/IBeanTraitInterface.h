@@ -10,5 +10,4 @@ struct IBeanTraitInterface : public U...
 
 struct IBeanDefaultTrait : public IBeanTraitInterface<IBeanDefaultTrait>
 {
-
 };
