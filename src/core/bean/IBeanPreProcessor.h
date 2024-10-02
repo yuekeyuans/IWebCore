@@ -110,126 +110,159 @@ IJson toJson(const T& value)
 }
 
 template<typename T>
-void writeJsonOfBoolType(T* ptr, const IJson& val)
+bool writeJsonOfBoolType(T* ptr, const IJson& val)
 {
     if(val.is_boolean()){
         *ptr = val.get<bool>();
+        return true;
     }
+    return false;
 }
 
 template<typename T>
-void writeJsonOfNumberType(T*ptr, const IJson& val)
+bool writeJsonOfNumberType(T*ptr, const IJson& val)
 {
     if(val.is_number()){
         *ptr = val.get<T>();
+        return true;
     }
+    return false;
 }
 
 template<typename T>
-void writeJsonOfStdStringType(T* ptr, const IJson& value){
+bool writeJsonOfStdStringType(T* ptr, const IJson& value){
     if(value.is_string()){
         *ptr = value.get<std::string>();
+        return true;
     }
+    return false;
 }
 
 template<typename T>
-void writeJsonOfIJsonType(T* ptr, const IJson& value)
+bool writeJsonOfIJsonType(T* ptr, const IJson& value)
 {
     *ptr = value;
+    return true;
 }
 
 template<typename T>
-void writeJsonOfQStringType(T* ptr, const IJson& value){
+bool writeJsonOfQStringType(T* ptr, const IJson& value){
     if(value.is_string()){
         *ptr = QString::fromStdString(value.get<std::string>());
+        return true;
     }
+    return false;
 }
 
 template<typename T>
-void writeJsonOfQStringListType(T* ptr, const IJson& value){
+bool writeJsonOfQStringListType(T* ptr, const IJson& value){
     if(value.is_array()){
         QStringList data;
         for(const auto& val : value){
             if(val.is_string()){
                 data.append(QString::fromStdString(val.get<std::string>()));
             }else{
-                return;     // stop once error occured
+                return false;     // stop once error occured
             }
         }
         *ptr = data;
+        return true;
     }
+    return false;
 }
 
 // TODO: check exception
 template<typename T>
-void writeJsonOfStdVectorType(T* ptr, const IJson& value){
+bool writeJsonOfStdVectorType(T* ptr, const IJson& value){
     using U = std::remove_cv_t<T::value_type>;
     if(value.is_array()){
         T data;
         for(const auto& val : value){
             U item;
-            fromJson(&item, val);
-            data.push_back(std::move(item));
+            if(fromJson(&item, val)){
+                data.push_back(std::move(item));
+            }else{
+                return false;
+            }
         }
         *ptr = std::move(data);
+        return true;
     }
+    return false;
 }
 
 // TODO: check exception
 template<typename T>
-void writeJsonOfQVectorType(T* ptr, const IJson& value)
+bool writeJsonOfQVectorType(T* ptr, const IJson& value)
 {
     using U = std::remove_cv_t<T::value_type>;
     if(value.is_array()){
         T data;
         for(const auto& val : value){
             U item;
-            fromJson(&item, val);
-            data.append(std::move(item));
+            if(fromJson(&item, val)){
+                data.append(std::move(item));
+            }else{
+                return false;
+            }
         }
         *ptr = std::move(data);
+        return true;
     }
+    return false;
 }
 
 
 template<typename T>
-void writeJsonOfStdStringMapType(T*ptr, const IJson& value)
+bool writeJsonOfStdStringMapType(T*ptr, const IJson& value)
 {
     using U = std::remove_cv_t<T::mapped_type>;
     if(value.is_object()){
         T data;
         for(const auto& [key, val] : value.items()){
             U item;
-            fromJson(&item, val);
-            data[key] = item;
+            if(fromJson(&item, val)){
+                data[key] = std::move(item);
+            }else{
+                return false;
+            }
         }
         *ptr = std::move(data);
+        return true;
     }
+    return false;
 }
 
 // slow, check
 template<typename T>
-void writeJsonOfQStringMapType(T*ptr, const IJson& value)
+bool writeJsonOfQStringMapType(T*ptr, const IJson& value)
 {
     using U = std::remove_cv_t<T::value_type>;
     if(value.is_object()){
         T data;
         for(const auto& [key, val] : value.items()){
             U item;
-            data[key] = fromJson(&item, val);
+            if(fromJson(&item, val)){
+                data[key] = std::move(item);
+            }else{
+                return false;
+            }
         }
         *ptr = std::move(data);
+        reutrn true;
     }
+    return false;
 }
 
+// TODO: 神智有点不清， 之后检查
 template<typename T>
-void writeJsonOfBeanType(T* ptr, const IJson& value)
+bool writeJsonOfBeanType(T* ptr, const IJson& value)
 {
-    ptr->loadJson(value);
+    return ptr->loadJson(value);
 }
 
 template<typename T>
-void fromJson(T* ptr, const IJson& json)
+bool fromJson(T* ptr, const IJson& json)
 {
     if constexpr (std::is_same_v<T, bool>){
         return detail::writeJsonOfBoolType(ptr, json);
@@ -267,8 +300,8 @@ private:                                                                        
     Q_INVOKABLE IJson $##name##_toJsonValue() const {                                               \
         return detail::toJson< type > ( name );                                                     \
     }                                                                                               \
-    Q_INVOKABLE void $##name##_fromJsonValue(const IJson& json) {                                   \
-        detail::fromJson< type >(& name, json);                                                     \
+    Q_INVOKABLE bool $##name##_fromJsonValue(const IJson& json) {                                   \
+        return detail::fromJson< type >(& name, json);                                                     \
     }                                                                                               \
 public:
 

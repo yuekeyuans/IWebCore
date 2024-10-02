@@ -16,9 +16,12 @@ template<typename T, bool enabled = true, typename U=IBeanDefaultTrait>
 class IBeanInterface : protected IBeanWare, public ITaskInstantUnit<T, enabled>, /*public ITraceUnit<T, false>,*/ protected U
 {
 public:
-    static inline constexpr bool IS_USE_EXCEPTION = U::ERROR_HANDLE_TYPE == IBeanDefaultTrait::ErrorHandleType::Exception;
+//    static inline constexpr bool IS_USE_EXCEPTION = U::ERROR_HANDLE_TYPE == IBeanDefaultTrait::ErrorHandleType::Exception;
+    static inline constexpr bool IS_USE_EXCEPTION = false;
+
+//    using LoadJsonReturnType = bool;
     using LoadsonReturnType = std::conditional_t<IS_USE_EXCEPTION, void, bool>;
-    using ToJsonReturnType =  std::conditional_t<IS_USE_EXCEPTION, IJson, std::optional<IJson>>;
+//    using ToJsonReturnType =  std::conditional_t<IS_USE_EXCEPTION, IJson, std::optional<IJson>>;
 public:
     IBeanInterface() = default;
 
@@ -34,7 +37,7 @@ private:
 
 public:
     IJson toJson() const;
-    LoadsonReturnType loadJson(const IJson &value);
+    bool loadJson(const IJson &value);
 
 private:
     virtual void task() final;
@@ -118,7 +121,11 @@ IJson IBeanInterface<T, enabled, U>::toJson() const
     std::call_once(flag, [this](){
         const auto& props = getMetaProperties();
         for(const auto& prop : props){
-            methodPair[prop.name()] = &getMetaMethod("$" + QString(prop.name()) + "_toJsonValue");
+            const auto& method = getMetaMethod("$" + QString(prop.name()) + "_toJsonValue");
+            if(!method.isValid()){
+                IBeanAbort::abortToJsonMethodNotExist(prop.name(), $ISourceLocation);
+            }
+            methodPair[prop.name()] = &method;
         }
     });
 
@@ -132,26 +139,32 @@ IJson IBeanInterface<T, enabled, U>::toJson() const
 }
 
 template<typename T, bool enabled, typename U>
-typename IBeanInterface<T, enabled, U>::LoadsonReturnType IBeanInterface<T, enabled, U>::loadJson(const IJson &value)
+bool IBeanInterface<T, enabled, U>::loadJson(const IJson &value)
 {
     static std::map<std::string, const QMetaMethod*> methodPair;
     static std::once_flag flag;
     std::call_once(flag, [this](){
         const auto& props = getMetaProperties();
         for(const auto& prop : props){
-            methodPair[prop.name()] = &getMetaMethod("$" + QString(prop.name()) + "_fromJsonValue");
+            const auto& method = getMetaMethod("$" + QString(prop.name()) + "_fromJsonValue");
+            if(!method.isValid()){
+                IBeanAbort::abortLoadJsonMethodNotExist(prop.name(), $ISourceLocation);
+            }
+            methodPair[prop.name()] = &method;
         }
     });
 
     for(const auto& [key, method] : methodPair){
         if(value.contains(key)){
             auto val = value[key];
-            method->invokeOnGadget(const_cast<void*>(static_cast<const void*>(this)), Q_ARG(IJson, val));
+            bool ok;
+            method->invokeOnGadget(const_cast<void*>(static_cast<const void*>(this)),Q_RETURN_ARG(bool, ok), Q_ARG(IJson, val));
+            if(!ok){
+                return false;
+            }
         }
     }
-    if constexpr (std::is_same_v<LoadsonReturnType, bool>){
-        return true;
-    }
+    return true;
 }
 
 template<typename T, bool enabled, typename U>
