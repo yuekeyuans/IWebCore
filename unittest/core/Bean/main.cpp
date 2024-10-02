@@ -24,10 +24,8 @@ int main(int argc, char *argv[])
 
 //    std::cout << bean2.toJson(&ok).dump(4);
 
-
     NameBean bean;
     bean.val2["hello"] = {};
-//    std::cout << bean.toJson().dump(4) << std::endl;
 
     PersonBean person;
 

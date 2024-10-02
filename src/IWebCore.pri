@@ -23,6 +23,8 @@ HEADERS += \
     $$PWD/core/base/IGadgetInfo.h \
     $$PWD/core/base/IStringViewStash.h \
     $$PWD/core/bean/IBeanAbort.h \
+    $$PWD/core/bean/IBeanJsonSerializeWare.h \
+    $$PWD/core/bean/IBeanSerializableInterface.h \
     $$PWD/core/bean/IBeanTraitInterface.h \
     $$PWD/core/task/default/IBeanTypeCheckTask.h \
     $$PWD/core/task/default/IRegisterBaseTypeTask.h \

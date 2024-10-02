@@ -3,6 +3,8 @@
 #include "core/util/IPreProcessorUtil.h"
 #include "core/util/ITraitUtil.h"
 #include "core/bean/IBeanAbort.h"
+#include "core/bean/IBeanTypeManage.h"
+#include "core/bean/IBeanJsonSerializeWare.h"
 #include <typeinfo>
 
 namespace detail{
@@ -76,9 +78,23 @@ IJson readJsonOfBeanType( const T& value)
 }
 
 template<typename T>
+IJson readJsonOfUserDefineType(const T& value)
+{
+    const auto& wares = IBeanTypeManage::instance()->getSerializeWares();
+    auto name = typeid(std::remove_cv_t<T>).name();
+    for(const auto& ware : wares){
+        if(ware->isMatch(name)){
+            return ware->serialize(&value);
+        }
+    }
+    jsonFieldAssertError<T>();
+    return nullptr;
+}
+
+template<typename T>
 void jsonFieldAssertError()
 {
-    IBeanAbort::InvalidFieldType(typeid(T).name());
+    IBeanAbort::abortInvalidFieldType(typeid(T).name());
 }
 
 template<typename T>
@@ -105,7 +121,7 @@ IJson toJson(const T& value)
     } else if constexpr (ITraitUtil::has_class_member_toJson_v< T >){
         return detail::readJsonOfBeanType< T > ( value );
     } else{
-        detail::jsonFieldAssertError<T>();
+        return detail::readJsonOfUserDefineType<T>(value);
     }
 }
 
@@ -261,6 +277,19 @@ bool writeJsonOfBeanType(T* ptr, const IJson& value)
 }
 
 template<typename T>
+bool writeJsonOfUserDefinedType(T* ptr, const IJson& json)
+{
+    const auto& wares = IBeanTypeManage::instance()->getSerializeWares();
+    const char* name = typeid(T).name();
+    for(const auto& ware : wares){
+        if(ware->isMatch(name)){
+            return ware->deserialize(static_cast<void*>(ptr), json);
+        }
+    }
+    return false;
+}
+
+template<typename T>
 bool fromJson(T* ptr, const IJson& json)
 {
     if constexpr (std::is_same_v<T, bool>){
@@ -286,8 +315,10 @@ bool fromJson(T* ptr, const IJson& json)
     } else if constexpr (ITraitUtil::has_class_member_toJson_v< T >){
         return detail::writeJsonOfBeanType< T > ( ptr, json );
     } else{
-        detail::jsonFieldAssertError<T>();
+        return detail::writeJsonOfUserDefinedType<T>(ptr, json);
+//         detail::jsonFieldAssertError<T>();
     }
+    return false;
 }
 
 }

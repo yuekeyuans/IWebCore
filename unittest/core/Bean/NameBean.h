@@ -14,6 +14,7 @@ public:
     $BeanField(QStringList, value)
     $BeanField(QVector<int>, va1)
     $BeanField(stdStringMap<NameBean>, val2)
+    $BeanField(QDate, date, QDate::currentDate())
 };
 
 
