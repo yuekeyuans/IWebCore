@@ -10,12 +10,9 @@ include(../../../src/IWebCore.pri)
 SOURCES += \
         NameBean.cpp \
         PersonBean.cpp \
-        TestJson.cpp \
         main.cpp
 
 HEADERS += \
     JsonHeader.h \
     NameBean.h \
-    PersonBean.h \
-    TestJson.h \
-    TestJson2.h
+    PersonBean.h

@@ -2,14 +2,11 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "core/unit/ISingletonUnit.h"
-#include <functional>
 #include <unordered_set>
-#include "IJson.h"
 
 $PackageWebCoreBegin
 
 // TODO: 到时候看看这个可能被废弃掉！！！
-
 class IBeanTypeManage : public ISingletonUnit<IBeanTypeManage>
 {
     template<typename, bool, typename>

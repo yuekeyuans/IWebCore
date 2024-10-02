@@ -1,12 +1,10 @@
 ﻿#pragma once
 
-#include <QString>
-#include <QVariant>
 #include "core/util/IPackageUtil.h"
 
 $PackageWebCoreBegin
 
-// TODO: 考虑删掉这个东西
+// TODO: 应该会被废弃掉
 class IBeanWare
 {
 public:

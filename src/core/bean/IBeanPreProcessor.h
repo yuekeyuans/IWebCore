@@ -254,7 +254,6 @@ bool writeJsonOfQStringMapType(T*ptr, const IJson& value)
     return false;
 }
 
-// TODO: 神智有点不清， 之后检查
 template<typename T>
 bool writeJsonOfBeanType(T* ptr, const IJson& value)
 {

@@ -6,11 +6,11 @@ template<typename T, typename ...U>
 struct IBeanTraitInterface : public U...
 {
     enum class ErrorHandleType {
-        StdOptional,            // 使用 std::optional
-        Exception               // 使用 throw exception
+        Optional,
+        Exception
     };
 
-    static constexpr inline ErrorHandleType ERROR_HANDLE_TYPE = ErrorHandleType::StdOptional;
+    static constexpr inline ErrorHandleType ERROR_HANDLE_TYPE = ErrorHandleType::Optional;
 };
 
 struct IBeanDefaultTrait : public IBeanTraitInterface<IBeanDefaultTrait>

@@ -2,7 +2,6 @@
 #include <ICore/IContext>
 #include "NameBean.h"
 #include "PersonBean.h"
-#include "TestJson.h"
 
 //$SetConfigFilesPath("D:/image/")
 $EnableConfigFiles(true)
