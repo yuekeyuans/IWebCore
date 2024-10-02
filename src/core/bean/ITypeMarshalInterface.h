@@ -4,15 +4,15 @@
 #include "core/util/IMetaUtil.h"
 #include "core/bean/IBeanTypeManage.h"
 #include "core/task/unit/ITaskInstantUnit.h"
-#include "IBeanJsonSerializeWare.h"
+#include "ITypeMarshalWare.h"
 
 $PackageWebCoreBegin
 
 template<typename T, typename U, bool enabled=true>
-class IBeanSerializableInterface : public IBeanJsonSerializeWare, public ITaskInstantUnit<T, enabled>
+class ITypeMarshalInterface : public ITypeMarshalWare, public ITaskInstantUnit<T, enabled>
 {
 public:
-    IBeanSerializableInterface() = default;
+    ITypeMarshalInterface() = default;
 
 public:
     virtual const char* getTypeName() const final;
@@ -22,13 +22,13 @@ private:
 };
 
 template<typename T, typename U, bool enabled>
-const char* IBeanSerializableInterface<T, U, enabled>::getTypeName() const
+const char* ITypeMarshalInterface<T, U, enabled>::getTypeName() const
 {
     return typeid(U).name();
 }
 
 template<typename T, typename U, bool enabled>
-void IBeanSerializableInterface<T, U, enabled>::task()
+void ITypeMarshalInterface<T, U, enabled>::task()
 {
     if constexpr (enabled){
         static std::once_flag flag;

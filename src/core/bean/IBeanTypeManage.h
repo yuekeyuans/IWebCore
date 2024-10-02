@@ -6,7 +6,7 @@
 
 $PackageWebCoreBegin
 
-struct IBeanJsonSerializeWare;
+struct ITypeMarshalWare;
 class IBeanTypeManage : public ISingletonUnit<IBeanTypeManage>
 {
     template<typename, bool, typename>
@@ -18,14 +18,14 @@ public:
 
 public:
     bool isBeanIdExist(int id);
-    void registerSerializeWare(IBeanJsonSerializeWare* ware);
-    const std::vector<IBeanJsonSerializeWare*>& getSerializeWares();
+    void registerSerializeWare(ITypeMarshalWare* ware);
+    const std::vector<ITypeMarshalWare*>& getSerializeWares();
 private:
     void registerBeanId(int id);
 
 private:
     std::unordered_set<int> m_beanIds;
-    std::vector<IBeanJsonSerializeWare*> m_serializeWares;
+    std::vector<ITypeMarshalWare*> m_serializeWares;
 };
 
 $PackageWebCoreEnd

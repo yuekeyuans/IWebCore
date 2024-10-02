@@ -7,7 +7,6 @@ IJson IBeanDateSerialize::serialize(const void *ptr) const
         return date->toString().toStdString();
     }
     return date->toString("yyyy.MM.dd").toStdString();
-
 }
 
 bool IBeanDateSerialize::deserialize(void *ptr, const IJson &json) const
