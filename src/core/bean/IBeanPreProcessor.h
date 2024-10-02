@@ -110,7 +110,7 @@ IJson toJson(const T& value)
 }
 
 template<typename T>
-void WriteJsonOfBoolType(T* ptr, const IJson& val)
+void writeJsonOfBoolType(T* ptr, const IJson& val)
 {
     if(val.is_boolean()){
         *ptr = val.get<bool>();
@@ -118,7 +118,7 @@ void WriteJsonOfBoolType(T* ptr, const IJson& val)
 }
 
 template<typename T>
-void WriteJsonOfNumberType(T*ptr, const IJson& val)
+void writeJsonOfNumberType(T*ptr, const IJson& val)
 {
     if(val.is_number()){
         *ptr = val.get<T>();
@@ -126,27 +126,27 @@ void WriteJsonOfNumberType(T*ptr, const IJson& val)
 }
 
 template<typename T>
-void WriteJsonOfStdStringType(T* ptr, const IJson& value){
+void writeJsonOfStdStringType(T* ptr, const IJson& value){
     if(value.is_string()){
         *ptr = value.get<std::string>();
     }
 }
 
 template<typename T>
-void WriteJsonOfIJsonType(T* ptr, const IJson& value)
+void writeJsonOfIJsonType(T* ptr, const IJson& value)
 {
     *ptr = value;
 }
 
 template<typename T>
-void WriteJsonOfQStringType(T* ptr, const IJson& value){
+void writeJsonOfQStringType(T* ptr, const IJson& value){
     if(value.is_string()){
         *ptr = QString::fromStdString(value.get<std::string>());
     }
 }
 
 template<typename T>
-void WriteJsonOfQStringListType(T* ptr, const IJson& value){
+void writeJsonOfQStringListType(T* ptr, const IJson& value){
     if(value.is_array()){
         QStringList data;
         for(const auto& val : value){
@@ -162,7 +162,7 @@ void WriteJsonOfQStringListType(T* ptr, const IJson& value){
 
 // TODO: check exception
 template<typename T>
-void WriteJsonOfStdVectorType(T* ptr, const IJson& value){
+void writeJsonOfStdVectorType(T* ptr, const IJson& value){
     using U = std::remove_cv_t<T::value_type>;
     if(value.is_array()){
         T data;
@@ -177,7 +177,7 @@ void WriteJsonOfStdVectorType(T* ptr, const IJson& value){
 
 // TODO: check exception
 template<typename T>
-void WriteJsonOfQVectorType(T* ptr, const IJson& value)
+void writeJsonOfQVectorType(T* ptr, const IJson& value)
 {
     using U = std::remove_cv_t<T::value_type>;
     if(value.is_array()){
@@ -193,7 +193,7 @@ void WriteJsonOfQVectorType(T* ptr, const IJson& value)
 
 
 template<typename T>
-void WriteJsonOfStdStringMapType(T*ptr, const IJson& value)
+void writeJsonOfStdStringMapType(T*ptr, const IJson& value)
 {
     using U = std::remove_cv_t<T::mapped_type>;
     if(value.is_object()){
@@ -209,7 +209,7 @@ void WriteJsonOfStdStringMapType(T*ptr, const IJson& value)
 
 // slow, check
 template<typename T>
-void WriteJsonOfQStringMapType(T*ptr, const IJson& value)
+void writeJsonOfQStringMapType(T*ptr, const IJson& value)
 {
     using U = std::remove_cv_t<T::value_type>;
     if(value.is_object()){
@@ -223,7 +223,7 @@ void WriteJsonOfQStringMapType(T*ptr, const IJson& value)
 }
 
 template<typename T>
-void WriteJsonOfBeanType(T* ptr, const IJson& value)
+void writeJsonOfBeanType(T* ptr, const IJson& value)
 {
     ptr->loadJson(value);
 }
@@ -232,27 +232,27 @@ template<typename T>
 void fromJson(T* ptr, const IJson& json)
 {
     if constexpr (std::is_same_v<T, bool>){
-        return detail::WriteJsonOfBoolType(ptr, json);
+        return detail::writeJsonOfBoolType(ptr, json);
     }else if constexpr (std::is_floating_point_v<T> || std::is_integral_v<T>){
-        return detail::WriteJsonOfNumberType(ptr, json );
+        return detail::writeJsonOfNumberType(ptr, json );
     } else if constexpr (std::is_same_v<std::string, T >){
-        return detail::WriteJsonOfStdStringType( ptr, json );
+        return detail::writeJsonOfStdStringType( ptr, json );
     }else if constexpr( std::is_same_v<IJson, T>){
-        return detail::WriteJsonOfIJsonType(ptr, json);
+        return detail::writeJsonOfIJsonType(ptr, json);
     } else if constexpr (std::is_same_v<QString, T >) {
-        return detail::WriteJsonOfQStringType< T >( ptr, json );
+        return detail::writeJsonOfQStringType< T >( ptr, json );
     } else if constexpr (std::is_same_v<QStringList, T >){
-        return detail::WriteJsonOfQStringListType< T >( ptr, json );
+        return detail::writeJsonOfQStringListType< T >( ptr, json );
     } else if constexpr ( ITraitUtil::is_std_vector_v< T >){
-        return detail::WriteJsonOfStdVectorType< T >( ptr, json );
+        return detail::writeJsonOfStdVectorType< T >( ptr, json );
     } else if constexpr (ITraitUtil::is_q_vector_v< T >){
-        return detail::WriteJsonOfQVectorType< T >( ptr, json );
+        return detail::writeJsonOfQVectorType< T >( ptr, json );
     } else if constexpr (ITraitUtil::is_std_string_map_v< T >) {
-        return detail::WriteJsonOfStdStringMapType< T > ( ptr, json );
+        return detail::writeJsonOfStdStringMapType< T > ( ptr, json );
     } else if constexpr (ITraitUtil::is_q_string_map_v< T >){
-        return detail::WriteJsonOfQStringMapType< T >( ptr, json );
+        return detail::writeJsonOfQStringMapType< T >( ptr, json );
     } else if constexpr (ITraitUtil::has_class_member_toJson_v< T >){
-        return detail::WriteJsonOfBeanType< T > ( ptr, json );
+        return detail::writeJsonOfBeanType< T > ( ptr, json );
     } else{
         IBeanAbort::abortInvalidBeanEmbededBeanType(typeid(T).name());
     }

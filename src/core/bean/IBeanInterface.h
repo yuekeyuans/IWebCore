@@ -8,12 +8,17 @@
 #include "core/unit/ITraceUnit.h"
 #include "core/task/unit/ITaskInstantUnit.h"
 #include "IJson.h"
+#include <optional>
 
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true, typename U=IBeanDefaultTrait>
 class IBeanInterface : protected IBeanWare, public ITaskInstantUnit<T, enabled>, /*public ITraceUnit<T, false>,*/ protected U
 {
+public:
+    static inline constexpr bool IS_USE_EXCEPTION = U::ERROR_HANDLE_TYPE == IBeanDefaultTrait::ErrorHandleType::Exception;
+    using LoadsonReturnType = std::conditional_t<IS_USE_EXCEPTION, void, bool>;
+    using ToJsonReturnType =  std::conditional_t<IS_USE_EXCEPTION, IJson, std::optional<IJson>>;
 public:
     IBeanInterface() = default;
 
@@ -29,7 +34,7 @@ private:
 
 public:
     IJson toJson() const;
-    auto loadJson(const IJson &value) -> std::conditional_t<U::CONFIG_USE_OPTIONAL, bool, void>;
+    LoadsonReturnType loadJson(const IJson &value);
 
 private:
     virtual void task() final;
@@ -127,7 +132,7 @@ IJson IBeanInterface<T, enabled, U>::toJson() const
 }
 
 template<typename T, bool enabled, typename U>
-auto IBeanInterface<T, enabled, U>::loadJson(const IJson &value) -> std::conditional_t<U::CONFIG_USE_OPTIONAL, bool, void>
+typename IBeanInterface<T, enabled, U>::LoadsonReturnType IBeanInterface<T, enabled, U>::loadJson(const IJson &value)
 {
     static std::map<std::string, const QMetaMethod*> methodPair;
     static std::once_flag flag;
@@ -144,10 +149,8 @@ auto IBeanInterface<T, enabled, U>::loadJson(const IJson &value) -> std::conditi
             method->invokeOnGadget(const_cast<void*>(static_cast<const void*>(this)), Q_ARG(IJson, val));
         }
     }
-    if constexpr (U::CONFIG_USE_OPTIONAL){
+    if constexpr (std::is_same_v<LoadsonReturnType, bool>){
         return true;
-    }else{
-        return;
     }
 }
 
