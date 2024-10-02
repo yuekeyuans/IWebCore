@@ -76,9 +76,9 @@ IJson readJsonOfBeanType( const T& value)
 }
 
 template<typename T>
-void readJsonOfAssertError(const char* data)
+void jsonFieldAssertError()
 {
-    IBeanAbort::abortInvalidBeanEmbededBeanType(typeid(T).name());
+    IBeanAbort::InvalidFieldType(typeid(T).name());
 }
 
 template<typename T>
@@ -105,7 +105,7 @@ IJson toJson(const T& value)
     } else if constexpr (ITraitUtil::has_class_member_toJson_v< T >){
         return detail::readJsonOfBeanType< T > ( value );
     } else{
-        IBeanAbort::abortInvalidBeanEmbededBeanType(typeid(T).name());
+        detail::jsonFieldAssertError<T>();
     }
 }
 
@@ -287,7 +287,7 @@ bool fromJson(T* ptr, const IJson& json)
     } else if constexpr (ITraitUtil::has_class_member_toJson_v< T >){
         return detail::writeJsonOfBeanType< T > ( ptr, json );
     } else{
-        IBeanAbort::abortInvalidBeanEmbededBeanType(typeid(T).name());
+        detail::jsonFieldAssertError<T>();
     }
 }
 

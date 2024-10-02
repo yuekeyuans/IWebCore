@@ -16,12 +16,8 @@ template<typename T, bool enabled = true, typename U=IBeanDefaultTrait>
 class IBeanInterface : protected IBeanWare, public ITaskInstantUnit<T, enabled>, /*public ITraceUnit<T, false>,*/ protected U
 {
 public:
-//    static inline constexpr bool IS_USE_EXCEPTION = U::ERROR_HANDLE_TYPE == IBeanDefaultTrait::ErrorHandleType::Exception;
-    static inline constexpr bool IS_USE_EXCEPTION = false;
+    static inline constexpr bool IS_USE_EXCEPTION = U::ERROR_HANDLE_TYPE == IBeanDefaultTrait::ErrorHandleType::Exception;
 
-//    using LoadJsonReturnType = bool;
-    using LoadsonReturnType = std::conditional_t<IS_USE_EXCEPTION, void, bool>;
-//    using ToJsonReturnType =  std::conditional_t<IS_USE_EXCEPTION, IJson, std::optional<IJson>>;
 public:
     IBeanInterface() = default;
 
