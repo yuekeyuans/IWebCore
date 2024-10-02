@@ -19,13 +19,13 @@ public:
 public:
     bool isBeanIdExist(int id);
     void registerSerializeWare(ITypeMarshalWare* ware);
-    const std::vector<ITypeMarshalWare*>& getSerializeWares();
+    const std::list<ITypeMarshalWare*>& getSerializeWares();
 private:
     void registerBeanId(int id);
 
 private:
     std::unordered_set<int> m_beanIds;
-    std::vector<ITypeMarshalWare*> m_serializeWares;
+    std::list<ITypeMarshalWare*> m_serializeWares;
 };
 
 $PackageWebCoreEnd

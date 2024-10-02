@@ -1,8 +1,9 @@
 ﻿#pragma once
 
-#include "core/bean/ITypeMarshalInterface.h"
+#include "core/bean/ITypeMarshalInstantInterface.h"
+#include "core/bean/ITypeMarshalTaskInterface.h"
 
-class IBeanDateSerialize : public ITypeMarshalInterface<IBeanDateSerialize, QDate>
+class IBeanDateSerialize : public ITypeMarshalTaskInterface<IBeanDateSerialize, QDate>
 {
 public:
     IBeanDateSerialize() = default;

@@ -8,12 +8,13 @@ void IBeanTypeManage::registerBeanId(int id)
     m_beanIds.insert(id);
 }
 
+// 通过这种方式，可以将一设置的对象冲掉
 void IBeanTypeManage::registerSerializeWare(ITypeMarshalWare *ware)
 {
-    m_serializeWares.push_back(ware);
+    m_serializeWares.push_front(ware);
 }
 
-const std::vector<ITypeMarshalWare *> &IBeanTypeManage::getSerializeWares()
+const std::list<ITypeMarshalWare *> &IBeanTypeManage::getSerializeWares()
 {
     return m_serializeWares;
 }
