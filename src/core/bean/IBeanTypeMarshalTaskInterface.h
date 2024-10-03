@@ -3,16 +3,16 @@
 #include "core/util/IHeaderUtil.h"
 #include "core/bean/IBeanTypeManage.h"
 #include "core/task/unit/ITaskWareUnit.h"
-#include "ITypeMarshalWare.h"
+#include "IBeanTypeMarshalWare.h"
 
 $PackageWebCoreBegin
 
 template<typename T, typename U, bool enabled=true>
-class ITypeMarshalTaskInterface
-    : public ITypeMarshalWare, public ITaskWareUnit<T, enabled>
+class IBeanTypeMarshalTaskInterface
+    : public IBeanTypeMarshalWare, public ITaskWareUnit<T, enabled>
 {
 public:
-    ITypeMarshalTaskInterface() = default;
+    IBeanTypeMarshalTaskInterface() = default;
 
 public:
     virtual const char* getTypeName() const final;
@@ -24,25 +24,25 @@ private:
 };
 
 template<typename T, typename U, bool enabled>
-const char* ITypeMarshalTaskInterface<T, U, enabled>::getTypeName() const
+const char* IBeanTypeMarshalTaskInterface<T, U, enabled>::getTypeName() const
 {
     return typeid(U).name();
 }
 
 template<typename T, typename U, bool enabled>
-QString ITypeMarshalTaskInterface<T, U, enabled>::name() const
+QString IBeanTypeMarshalTaskInterface<T, U, enabled>::name() const
 {
     return IMetaUtil::getTypename<T>();
 }
 
 template<typename T, typename U, bool enabled>
-QString ITypeMarshalTaskInterface<T, U, enabled>::catagory() const
+QString IBeanTypeMarshalTaskInterface<T, U, enabled>::catagory() const
 {
     return "Config";
 }
 
 template<typename T, typename U, bool enabled>
-void ITypeMarshalTaskInterface<T, U, enabled>::task()
+void IBeanTypeMarshalTaskInterface<T, U, enabled>::task()
 {
     if constexpr (enabled){
         static std::once_flag flag;

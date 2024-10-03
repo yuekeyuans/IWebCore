@@ -24,9 +24,9 @@ HEADERS += \
     $$PWD/core/base/IStringViewStash.h \
     $$PWD/core/bean/IBeanAbort.h \
     $$PWD/core/bean/IBeanTraitInterface.h \
-    $$PWD/core/bean/ITypeMarshalInstantInterface.h \
-    $$PWD/core/bean/ITypeMarshalTaskInterface.h \
-    $$PWD/core/bean/ITypeMarshalWare.h \
+    $$PWD/core/bean/IBeanTypeMarshalInstantInterface.h \
+    $$PWD/core/bean/IBeanTypeMarshalTaskInterface.h \
+    $$PWD/core/bean/IBeanTypeMarshalWare.h \
     $$PWD/core/task/default/IBeanTypeCheckTask.h \
     $$PWD/core/task/default/IRegisterBaseTypeTask.h \
     $$PWD/core/trait/IExceptionTrait.h \

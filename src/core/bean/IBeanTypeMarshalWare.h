@@ -4,11 +4,11 @@
 
 $PackageWebCoreBegin
 
-struct ITypeMarshalWare
+struct IBeanTypeMarshalWare
 {
 public:
-    ITypeMarshalWare() = default;
-    virtual ~ITypeMarshalWare() = default;
+    IBeanTypeMarshalWare() = default;
+    virtual ~IBeanTypeMarshalWare() = default;
 
 public:
     bool isMatch(const char* data) const;
@@ -19,7 +19,7 @@ protected:
     virtual const char* getTypeName() const = 0;
 };
 
-inline bool ITypeMarshalWare::isMatch(const char *data) const
+inline bool IBeanTypeMarshalWare::isMatch(const char *data) const
 {
     const char* name = getTypeName();
     return (name == data || strcmp(name, data) == 0);

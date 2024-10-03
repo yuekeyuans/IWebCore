@@ -3,15 +3,15 @@
 #include "core/util/IHeaderUtil.h"
 #include "core/bean/IBeanTypeManage.h"
 #include "core/task/unit/ITaskInstantUnit.h"
-#include "ITypeMarshalWare.h"
+#include "IBeanTypeMarshalWare.h"
 
 $PackageWebCoreBegin
 
 template<typename T, typename U, bool enabled=true>
-class ITypeMarshalInstantInterface : public ITypeMarshalWare, public ITaskInstantUnit<T, enabled>
+class IBeanTypeMarshalInstantInterface : public IBeanTypeMarshalWare, public ITaskInstantUnit<T, enabled>
 {
 public:
-    ITypeMarshalInstantInterface() = default;
+    IBeanTypeMarshalInstantInterface() = default;
 
 public:
     virtual const char* getTypeName() const final;
@@ -21,13 +21,13 @@ private:
 };
 
 template<typename T, typename U, bool enabled>
-const char* ITypeMarshalInstantInterface<T, U, enabled>::getTypeName() const
+const char* IBeanTypeMarshalInstantInterface<T, U, enabled>::getTypeName() const
 {
     return typeid(U).name();
 }
 
 template<typename T, typename U, bool enabled>
-void ITypeMarshalInstantInterface<T, U, enabled>::task()
+void IBeanTypeMarshalInstantInterface<T, U, enabled>::task()
 {
     if constexpr (enabled){
         static std::once_flag flag;

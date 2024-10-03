@@ -4,7 +4,7 @@
 #include "core/util/ITraitUtil.h"
 #include "core/bean/IBeanAbort.h"
 #include "core/bean/IBeanTypeManage.h"
-#include "core/bean/ITypeMarshalWare.h"
+#include "core/bean/IBeanTypeMarshalWare.h"
 #include <typeinfo>
 
 namespace detail{
