@@ -53,11 +53,11 @@ namespace IOrmUtil
     QList<QDateTime> getDateTimeList(QSqlQuery& query, bool& ok);
 
 // toXX 转换  (bean, QJsonObject， map, list 互相转换)
-    template <class T>
-    QJsonObject toJsonObject(const T& bean, bool& ok);
+//    template <class T>
+//    QJsonObject toJsonObject(const T& bean, bool& ok);
 
-    template <class T>
-    QJsonArray toJsonQbjectArray(const QList<T>&, bool& ok);
+//    template <class T>
+//    QJsonArray toJsonQbjectArray(const QList<T>&, bool& ok);
 
     template <class T>
     QMap<QString, QVariant> toMap(const T& t, bool& ok);
@@ -85,16 +85,16 @@ namespace IOrmUtil
     QStringList getFieldNames(const QVector<QMetaProperty>& props, const QStringList& keys);
     QStringList getFieldNames(const QSqlQuery& query);
     QStringList getFieldNames(const QSqlQuery& query, const IOrmEntityInfoWare& info);
-};
-
-namespace  IConvertUtil{
-    using IOrmUtil::toMap;
-    using IOrmUtil::toBean;
-    using IOrmUtil::toBeans;
-    using IOrmUtil::toMapList;
-    using IOrmUtil::toJsonObject;
-    using IOrmUtil::toJsonQbjectArray;
 }
+
+//namespace  IConvertUtil{
+//    using IOrmUtil::toMap;
+//    using IOrmUtil::toBean;
+//    using IOrmUtil::toBeans;
+//    using IOrmUtil::toMapList;
+////    using IOrmUtil::toJsonObject;
+////    using IOrmUtil::toJsonQbjectArray;
+//}
 
 template<class T>
 T IOrmUtil::getBean(QSqlQuery &query)
@@ -128,24 +128,24 @@ QList<T> IOrmUtil::getBeans(QSqlQuery &query)
     return beans;
 }
 
-template<class T>
-QJsonObject IOrmUtil::toJsonObject(const T &t, bool& ok)
-{
-    return IConvertUtil::toJsonObject(IOrmUtil::toMap<T>(t, ok));
-}
+//template<class T>
+//QJsonObject IOrmUtil::toJsonObject(const T &t, bool& ok)
+//{
+//    return IConvertUtil::toJsonObject(IOrmUtil::toMap<T>(t, ok));
+//}
 
-template<class T>
-QJsonArray IOrmUtil::toJsonQbjectArray(const QList<T> &list, bool& ok)
-{
-    IToeUtil::setOk(ok, true);
-    QJsonArray array;
-    bool convertOk;
-    for(const T& t : list){
-        array.append(IOrmUtil::toJsonObject<T>(t, convertOk));
-        IToeUtil::setOkAnd(ok, convertOk);
-    }
-    return array;
-}
+//template<class T>
+//QJsonArray IOrmUtil::toJsonQbjectArray(const QList<T> &list, bool& ok)
+//{
+//    IToeUtil::setOk(ok, true);
+//    QJsonArray array;
+//    bool convertOk;
+//    for(const T& t : list){
+//        array.append(IOrmUtil::toJsonObject<T>(t, convertOk));
+//        IToeUtil::setOkAnd(ok, convertOk);
+//    }
+//    return array;
+//}
 
 template<class T>
 QMap<QString, QVariant> IOrmUtil::toMap(const T &t, bool& ok)
