@@ -1,5 +1,4 @@
 ﻿#include "IStatusResponse.h"
-#include "core/util/IConvertUtil.h"
 #include "core/abort/IAbortInterface.h"
 
 $PackageWebCoreBegin

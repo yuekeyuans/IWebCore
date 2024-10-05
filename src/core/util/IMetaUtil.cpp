@@ -1,5 +1,4 @@
 ﻿#include "IMetaUtil.h"
-#include "core/util/IConvertUtil.h"
 #include <vector>
 
 $PackageWebCoreBegin

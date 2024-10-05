@@ -1,5 +1,4 @@
 ﻿#include "IRedirectResponse.h"
-#include "core/util/IConvertUtil.h"
 #include "core/util/ICodecUtil.h"
 
 $PackageWebCoreBegin

@@ -1,6 +1,5 @@
 ﻿#include "IHttpControllerBeanParameter.h"
 
-#include "core/util/IConvertUtil.h"
 #include "core/util/IConstantUtil.h"
 #include "core/util/IToeUtil.h"
 #include "core/bean/IBeanWare.h"
