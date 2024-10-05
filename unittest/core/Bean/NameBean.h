@@ -16,6 +16,3 @@ public:
     $BeanField(stdStringMap<NameBean>, val2)
     $BeanField(QDate, date, QDate::currentDate())
 };
-
-
-

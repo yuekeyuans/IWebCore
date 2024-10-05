@@ -4,7 +4,7 @@ IJson IBeanDateSerialize::serialize(const void *ptr) const
 {
     auto date = static_cast<const QDate*>(ptr);
     if(date->isNull() || !date->isValid()){
-        return date->toString().toStdString();
+        return nullptr;
     }
     return date->toString("yyyy.MM.dd").toStdString();
 }

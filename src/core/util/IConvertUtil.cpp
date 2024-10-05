@@ -397,20 +397,20 @@ QByteArray IConvertUtil::toByteArray(const QByteArray &value)
 //    return toString(value).toUtf8();
 //}
 
-QString IConvertUtil::toString(const QDate &date)
-{
-    return date.toString(IConstantUtil::DateFormat);
-}
+//QString IConvertUtil::toString(const QDate &date)
+//{
+//    return date.toString(IConstantUtil::DateFormat);
+//}
 
-QString IConvertUtil::toString(const QDateTime &datetime)
-{
-    return datetime.toString(IConstantUtil::DateTimeFormat);
-}
+//QString IConvertUtil::toString(const QDateTime &datetime)
+//{
+//    return datetime.toString(IConstantUtil::DateTimeFormat);
+//}
 
-QString IConvertUtil::toString(const QTime &time)
-{
-    return time.toString(IConstantUtil::TimeFormat);
-}
+//QString IConvertUtil::toString(const QTime &time)
+//{
+//    return time.toString(IConstantUtil::TimeFormat);
+//}
 
 //QString IConvertUtil::toString(const QJsonValue &value, bool& ok)
 //{

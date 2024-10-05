@@ -14,9 +14,9 @@ namespace IConstantUtil
     inline static constexpr bool ReleaseMode = true;
 #endif
 
-    inline static constexpr char DateFormat[] = "yyyy-MM-dd";
-    inline static constexpr char TimeFormat[] = "hh:mm:ss.zzz";
-    inline static constexpr char DateTimeFormat[] = "yyyy-MM-dd hh:mm:ss.zzz";
+//    inline static constexpr char DateFormat[] = "yyyy-MM-dd";
+//    inline static constexpr char TimeFormat[] = "hh:mm:ss.zzz";
+//    inline static constexpr char DateTimeFormat[] = "yyyy-MM-dd hh:mm:ss.zzz";
 }
 
 $PackageWebCoreEnd
