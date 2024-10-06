@@ -10,16 +10,28 @@
 
 $PackageWebCoreBegin
 
-IHttpServer::IHttpServer()
+IHttpServer::IHttpServer(asio::io_context* context)
+    : m_context(context)
 {
+    if(context == nullptr){
+        auto application = dynamic_cast<IAsioApplication*>(IApplicationInterface::instance());
+        if(!application){
+            qFatal("application not supported");
+            return;
+        }
+        m_context = &application->ioContext();
+    }
 
+    m_acceptor = new asio::ip::tcp::acceptor(*m_context);
 }
 
-// TODO: check m_acceptor closed or not
 IHttpServer::~IHttpServer()
 {
     if(m_acceptor){
-        m_acceptor->close();
+        if(m_acceptor->is_open()){
+            m_acceptor->close();
+        }
+
         delete m_acceptor;
         m_acceptor = nullptr;
     }
@@ -27,25 +39,22 @@ IHttpServer::~IHttpServer()
 
 void IHttpServer::listen()
 {
-    auto application = dynamic_cast<IAsioApplication*>(IApplicationInterface::instance());
-    if(!application){
-        qFatal("application not supported");
-        return;
+    if(m_acceptor->is_open()){
+        qFatal("server started already");
     }
 
-    $QString ip{"/http/ip", "0.0.0.0"};
-    $Int port{"/http/port", 8550};
-    asio::ip::tcp::resolver resolver(application->ioContext());
-    asio::ip::tcp::endpoint endpoint =
-            *resolver.resolve(ip.value().toStdString(), QString::number(port.value()).toStdString()).begin();
-    m_acceptor = new asio::ip::tcp::acceptor(application->ioContext());
+    asio::ip::tcp::resolver resolver(*m_context);
+    asio::ip::tcp::endpoint endpoint = *resolver.resolve(
+                ip.value().toStdString(),
+                QString::number(port.value()).toStdString()).begin();
     m_acceptor->open(endpoint.protocol());
     m_acceptor->set_option(asio::ip::tcp::acceptor::reuse_address(true));
     m_acceptor->bind(endpoint);
     m_acceptor->listen();
-    qDebug() << "server started, listen at " << *ip + ":" + QString::number(*port);
 
     doAccept();
+
+    qDebug() << "server started, listen at " << *ip + ":" + QString::number(*port);
 }
 
 void IHttpServer::doAccept()

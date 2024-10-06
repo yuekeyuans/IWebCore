@@ -5,7 +5,6 @@
 #include "core/task/ITaskManage.h"
 #include "asio/io_context.hpp"
 
-
 $PackageWebCoreBegin
 
 class IAsioApplication : public IApplicationInterface
