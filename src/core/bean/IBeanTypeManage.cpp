@@ -8,7 +8,6 @@ void IBeanTypeManage::registerBeanId(int id)
     m_beanIds.insert(id);
 }
 
-// NOTE: 通过这种方式，可以将一设置的对象冲掉
 void IBeanTypeManage::registerSerializeWare(IBeanTypeMarshalWare *ware)
 {
     m_serializeWares.push_front(ware);

@@ -2,6 +2,8 @@
 
 $PackageWebCoreBegin
 
+// TODO: 监控事件的优雅停止
+
 IAsioApplication::IAsioApplication(int argc, char **argv)
     :IApplicationInterface(argc, argv)
 {

@@ -1,6 +1,7 @@
 ﻿#include "IHttpServer.h"
 #include "core/application/IApplicationInterface.h"
 #include "core/application/IAsioApplication.h"
+#include "core/config/IProfileImport.h"
 #include "http/net/IRequest.h"
 #include "http/net/IRequestManage.h"
 #include "http/server/ITcpResolverManage.h"
@@ -8,6 +9,21 @@
 #include "http/server/ITcpConnectionManage.h"
 
 $PackageWebCoreBegin
+
+IHttpServer::IHttpServer()
+{
+
+}
+
+// TODO: check m_acceptor closed or not
+IHttpServer::~IHttpServer()
+{
+    if(m_acceptor){
+        m_acceptor->close();
+        delete m_acceptor;
+        m_acceptor = nullptr;
+    }
+}
 
 void IHttpServer::listen()
 {
@@ -17,6 +33,8 @@ void IHttpServer::listen()
         return;
     }
 
+    $QString ip{"/http/ip", "0.0.0.0"};
+    $Int port{"/http/port", 8550};
     asio::ip::tcp::resolver resolver(application->ioContext());
     asio::ip::tcp::endpoint endpoint =
             *resolver.resolve(ip.value().toStdString(), QString::number(port.value()).toStdString()).begin();
@@ -38,7 +56,7 @@ void IHttpServer::doAccept()
         }
 
         if(!ec){
-            $Int m_timeout{"http.readTimeOut"};
+            $Int m_timeout{"/http/readTimeOut"};
             socket.set_option(asio::detail::socket_option::integer<SOL_SOCKET, SO_RCVTIMEO>{ m_timeout.value() });
             auto connection = new ITcpConnection(std::move(socket));
             ITcpConnectionManage::instance()->addTcpConnection(connection);

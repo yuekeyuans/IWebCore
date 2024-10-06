@@ -316,7 +316,6 @@ bool fromJson(T* ptr, const IJson& json)
         return detail::writeJsonOfBeanType< T > ( ptr, json );
     } else{
         return detail::writeJsonOfUserDefinedType<T>(ptr, json);
-//         detail::jsonFieldAssertError<T>();
     }
     return false;
 }
