@@ -9,8 +9,8 @@ $PackageWebCoreBegin
 struct IBeanTypeMarshalWare;
 class IBeanTypeManage : public ISingletonUnit<IBeanTypeManage>
 {
-    template<typename, bool, typename>
-    friend class IBeanInterface;
+//    template<typename, bool, typename>
+//    friend class IBeanInterface;
     friend class IBeanTypeCheckTask;
 
 public:

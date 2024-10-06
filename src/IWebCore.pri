@@ -27,7 +27,6 @@ HEADERS += \
     $$PWD/core/bean/IBeanTypeMarshalInstantInterface.h \
     $$PWD/core/bean/IBeanTypeMarshalTaskInterface.h \
     $$PWD/core/bean/IBeanTypeMarshalWare.h \
-    $$PWD/core/task/default/IBeanTypeCheckTask.h \
     $$PWD/core/task/default/IRegisterBaseTypeTask.h \
     $$PWD/core/trait/IExceptionTrait.h \
     $$PWD/core/unit/ITraceUnit.h \
@@ -244,7 +243,6 @@ SOURCES += \
     $$PWD/core/base/IGadgetInfo.cpp \
     $$PWD/core/base/IStringViewStash.cpp \
     $$PWD/core/bean/IBeanTraitInterface.cpp \
-    $$PWD/core/task/default/IBeanTypeCheckTask.cpp \
     $$PWD/core/task/default/IRegisterBaseTypeTask.cpp \
     $$PWD/core/util/ICodecUtil.cpp \
     $$PWD/core/util/IConvertUtil.cpp \

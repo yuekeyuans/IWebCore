@@ -8,8 +8,7 @@
 $PackageWebCoreBegin
 
 template<typename T, typename U, bool enabled=true>
-class IBeanTypeMarshalTaskInterface
-    : public IBeanTypeMarshalWare, public ITaskWareUnit<T, enabled>
+class IBeanTypeMarshalTaskInterface : public IBeanTypeMarshalWare, public ITaskWareUnit<T, enabled>
 {
 public:
     IBeanTypeMarshalTaskInterface() = default;
@@ -22,6 +21,7 @@ private:
     virtual QString catagory() const;
     virtual void task() final;
 };
+
 
 template<typename T, typename U, bool enabled>
 const char* IBeanTypeMarshalTaskInterface<T, U, enabled>::getTypeName() const
@@ -52,6 +52,5 @@ void IBeanTypeMarshalTaskInterface<T, U, enabled>::task()
         });
     }
 }
-
 
 $PackageWebCoreEnd
