@@ -4,7 +4,6 @@
 
 $PackageWebCoreBegin
 
-class ITcpConnection;
 class IHttpServer
 {
 public:
