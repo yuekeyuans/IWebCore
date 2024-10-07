@@ -21,6 +21,7 @@ public:
 
 public:
     virtual QString $name() const final;
+
 private:
     bool isCatagoryEnabled() const;
     void addTask(ITaskWare*);

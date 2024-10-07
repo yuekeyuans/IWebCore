@@ -44,20 +44,16 @@ void ITaskCatagory::execTaskNodes() const
 void ITaskCatagory::printTaskInfo() const
 {
     static $ContextBool value{"/SYSTEM_ENABLE_TASK_OUTPUT", false};
-    if(*value){
-        qDebug() << Qt::endl << "Catagory: " << $name() << ", order: " << $order();
+    if(!value.value()){
+        return;
     }
 
+    qDebug() << Qt::endl << "Catagory: " << $name() << ", order: " << $order();
     for(const auto& node : m_taskWares){
-        if(!node->isTaskEnabled()){
-            continue;
-        }
-
-        if(*value){
-            QString tip = QString("`").append(node->$name()).append("` registered.");
-            if(!tip.isEmpty()){
-                qDebug().noquote() << "    " << QStringLiteral("[√]  ") << tip << " order: " << node->$order();
-            }
+        if(node->isTaskEnabled()){
+            qDebug().noquote() << QStringLiteral("\t[√]  ")
+                               << QString("`").append(node->$name()).append("` registered.")
+                               << " order: " << node->$order();
         }
     }
 }
