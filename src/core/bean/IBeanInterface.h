@@ -36,7 +36,7 @@ private:
     virtual void setFieldValue(const QString& name, const QVariant& value) final;
 
 private:
-    virtual void task() final;
+    virtual void $task() final;
 };
 
 template<typename T, bool enabled, typename U>
@@ -164,7 +164,7 @@ void IBeanInterface<T, enabled, U>::setFieldValue(const QString& name, const QVa
 }
 
 template<typename T, bool enabled, typename U>
-void IBeanInterface<T, enabled, U>::task()
+void IBeanInterface<T, enabled, U>::$task()
 {
     if constexpr (enabled){
         static std::once_flag initRegisterFlag;

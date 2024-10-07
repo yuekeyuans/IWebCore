@@ -12,7 +12,7 @@ public:
     INodyTemplateTask();
 
 public:
-    virtual void task() final;
+    virtual void $task() final;
 
 private:
     void travelFolder(const QString& path, const QString& root);

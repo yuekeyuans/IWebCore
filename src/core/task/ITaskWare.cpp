@@ -3,15 +3,15 @@
 
 $PackageWebCoreBegin
 
-bool ITaskWare::isTaskDefaultEnabled() const
+bool ITaskWare::$isTaskDefaultEnabled() const
 {
     return true;
 }
 
 bool ITaskWare::isTaskEnabled() const
 {
-    auto path = QString("/TASK_ENABLE_STATE_").append(catagory()).append("_").append(name());
-    $ContextBool value{path.toStdString(), this->isTaskDefaultEnabled()};
+    auto path = QString("/TASK_ENABLE_STATE_").append($catagory()).append("_").append($name());
+    $ContextBool value{path.toStdString(), this->$isTaskDefaultEnabled()};
     return *value;
 }
 

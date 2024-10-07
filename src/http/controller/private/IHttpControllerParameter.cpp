@@ -531,7 +531,7 @@ void* IControllerFunctionBaseImplHelper::convertParamToJson(const IParameterNode
     return param;
 }
 
-void IHttpControllerParameter::task()
+void IHttpControllerParameter::$task()
 {
     initPrimitiveTypes();
     initSystemTypes();

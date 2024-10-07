@@ -4,7 +4,7 @@
 
 $PackageWebCoreBegin
 
-void IHttpFileServiceTask::task()
+void IHttpFileServiceTask::$task()
 {
     $QString staticPath{"/http/fileService/path"};
     if(staticPath.value().isEmpty()){

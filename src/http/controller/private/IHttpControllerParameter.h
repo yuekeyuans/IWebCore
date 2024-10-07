@@ -63,7 +63,7 @@ private:
     void initBeanTypes();
 
 private:
-    virtual void task() final;
+    virtual void $task() final;
 
 private:
     QVector<int> m_systemTypes;

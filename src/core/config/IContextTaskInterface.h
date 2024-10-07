@@ -19,9 +19,9 @@ public:
     virtual std::string path() const;
 
 protected:
-    virtual QString name() const final;
-    virtual QString catagory() const final;
-    virtual void task() final;
+    virtual QString $name() const final;
+    virtual QString $catagory() const final;
+    virtual void $task() final;
 };
 
 template<typename T, bool enabled>
@@ -31,19 +31,19 @@ std::string IContextTaskInterface<T, enabled>::path() const
 }
 
 template<typename T, bool enabled>
-QString IContextTaskInterface<T, enabled>::name() const
+QString IContextTaskInterface<T, enabled>::$name() const
 {
     return IMetaUtil::getBareTypeName<T>();
 }
 
 template<typename T, bool enabled>
-QString IContextTaskInterface<T, enabled>::catagory() const
+QString IContextTaskInterface<T, enabled>::$catagory() const
 {
     return "Config";
 }
 
 template<typename T, bool enabled>
-void IContextTaskInterface<T, enabled>::task()
+void IContextTaskInterface<T, enabled>::$task()
 {
     IJson value = config();
     if(!value.is_null()){

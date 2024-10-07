@@ -14,10 +14,10 @@ public:
 
 public:
     IHttpPathRegexpValidatorInterface() = default;
-    virtual void task() final;
-    virtual QString name() const final;
-    virtual QString catagory() const final;
-    virtual double order() const final;
+    virtual void $task() final;
+    virtual QString $name() const final;
+    virtual QString $catagory() const final;
+    virtual double $order() const final;
 
 public:
     virtual QString marker() const  = 0;
@@ -33,25 +33,25 @@ private:
 };
 
 template<typename T, bool enabled>
-void IHttpPathRegexpValidatorInterface<T, enabled>::task()
+void IHttpPathRegexpValidatorInterface<T, enabled>::$task()
 {
     IHttpPathFunctorValidatorInterfaceHelper::registValidator(this->marker(), this->validator());
 }
 
 template<typename T, bool enabled>
-QString IHttpPathRegexpValidatorInterface<T, enabled>::name() const
+QString IHttpPathRegexpValidatorInterface<T, enabled>::$name() const
 {
     return IMetaUtil::getTypename<T>();
 }
 
 template<typename T, bool enabled>
-QString IHttpPathRegexpValidatorInterface<T, enabled>::catagory() const
+QString IHttpPathRegexpValidatorInterface<T, enabled>::$catagory() const
 {
     return "HttpController";
 }
 
 template<typename T, bool enabled>
-double IHttpPathRegexpValidatorInterface<T, enabled>::order() const
+double IHttpPathRegexpValidatorInterface<T, enabled>::$order() const
 {
     return 49;
 }

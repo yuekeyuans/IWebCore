@@ -2,12 +2,12 @@
 
 $PackageWebCoreBegin
 
-QString IOrmTaskCatagory::name() const
+QString IOrmTaskCatagory::$name() const
 {
     return "Orm";
 }
 
-double IOrmTaskCatagory::order() const
+double IOrmTaskCatagory::$order() const
 {
     return 4;
 }

@@ -10,7 +10,7 @@ $PackageWebCoreBegin
 class IContextTomlProfileTask : public IContextTaskInterface<IContextTomlProfileTask>, public ILoadProfileFileUnit
 {
 public:
-    virtual double order() const;
+    virtual double $order() const final;
     virtual IJson config();
 
 private:

@@ -11,7 +11,7 @@ public:
     IHttpDefaultProfileTask() = default;
 
 public:
-    virtual double order() const final;
+    virtual double $order() const final;
     virtual IJson config() final;
 
 private:

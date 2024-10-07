@@ -62,8 +62,8 @@ void ITaskManage::invokeTaskCatagories()
 void ITaskManage::checkCatagoryExceed()
 {
     for(const auto& cata : m_catagories){
-        if(cata->order() < 0 || cata->order() > 100){
-            ITaskManageAbort::abortCatagoryRangeExceed(QString("Catagory: ").append(cata->name()), $ISourceLocation);
+        if(cata->$order() < 0 || cata->$order() > 100){
+            ITaskManageAbort::abortCatagoryRangeExceed(QString("Catagory: ").append(cata->$name()), $ISourceLocation);
         }
     }
 }
@@ -71,8 +71,8 @@ void ITaskManage::checkCatagoryExceed()
 void ITaskManage::checkTaskExceed()
 {
     for(const auto& task : m_taskWares){
-        if(task->order() < 0 || task->order() > 100){
-            ITaskManageAbort::abortTaskRangeExceed(QString("Task: ").append(task->name()), $ISourceLocation);
+        if(task->$order() < 0 || task->$order() > 100){
+            ITaskManageAbort::abortTaskRangeExceed(QString("Task: ").append(task->$name()), $ISourceLocation);
         }
     }
 }
@@ -84,7 +84,7 @@ void ITaskManage::mergetTasksToCatagores()
     QList<ITaskWare*> wares;
     for(auto task : m_taskWares){
         for(auto& cata : m_catagories){
-            if(cata->name() == task->catagory()){
+            if(cata->$name() == task->$catagory()){
                 cata->addTask(task);
                 wares.append(task);
                 break;
@@ -98,7 +98,7 @@ void ITaskManage::mergetTasksToCatagores()
         }
 
         for(auto task: m_taskWares){
-            ITaskManageAbort::abortTaskWithErrorCatagory(QString("Task: ").append(task->name()).append(" have wrong catagory that not exist: ").append(task->catagory()), $ISourceLocation);
+            ITaskManageAbort::abortTaskWithErrorCatagory(QString("Task: ").append(task->$name()).append(" have wrong catagory that not exist: ").append(task->$catagory()), $ISourceLocation);
         }
     }
 }

@@ -35,7 +35,7 @@ IJson IContextJsonProfileTask::config()
     return {};
 }
 
-double IContextJsonProfileTask::order() const
+double IContextJsonProfileTask::$order() const
 {
     return 99.0;
 }

@@ -16,10 +16,10 @@ public:
     IHttpInvalidInterface(IHttpStatusCode code, const QString& description="");
 
 protected:
-    virtual double order() const final;
-    virtual QString name() const final;
-    virtual QString catagory() const final;
-    virtual void task() final;
+    virtual double $order() const final;
+    virtual QString $name() const final;
+    virtual QString $catagory() const final;
+    virtual void $task() final;
 };
 
 template<typename T, bool enabled>
@@ -29,27 +29,29 @@ IHttpInvalidInterface<T, enabled>::IHttpInvalidInterface(IHttpStatusCode status,
 }
 
 template<typename T, bool enabled>
-double IHttpInvalidInterface<T, enabled>::order() const
+double IHttpInvalidInterface<T, enabled>::$order() const
 {
     return 49;
 }
 
 template<typename T, bool enabled>
-QString IHttpInvalidInterface<T, enabled>::name() const
+QString IHttpInvalidInterface<T, enabled>::$name() const
 {
     return IMetaUtil::getBareTypeName<T>();
 }
 
 template<typename T, bool enabled>
-QString IHttpInvalidInterface<T, enabled>::catagory() const
+QString IHttpInvalidInterface<T, enabled>::$catagory() const
 {
     return "HttpController";
 }
 
 template<typename T, bool enabled>
-void IHttpInvalidInterface<T, enabled>::task()
+void IHttpInvalidInterface<T, enabled>::$task()
 {
-    IHttpInvalidManage::instance()->addWare(ISingletonUnitDetail::getInstance<T>(nullptr));
+    if constexpr (enabled){
+        IHttpInvalidManage::instance()->addWare(ISingletonUnitDetail::getInstance<T>(nullptr));
+    }
 }
 
 $PackageWebCoreEnd

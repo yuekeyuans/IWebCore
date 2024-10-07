@@ -11,12 +11,12 @@ static const char BANNER[] = R"(
  \___/  \/  \/  \___||_.__/  \____/ \___/ |_|   \___|
 )";
 
-void IBannerTask::task()
+void IBannerTask::$task()
 {
     qDebug() << BANNER;
 }
 
-double IBannerTask::order() const
+double IBannerTask::$order() const
 {
     return 0;
 }

@@ -2,12 +2,12 @@
 
 $PackageWebCoreBegin
 
-QString IEndupTaskCatagory::name() const
+QString IEndupTaskCatagory::$name() const
 {
     return "EndUp";
 }
 
-double IEndupTaskCatagory::order() const
+double IEndupTaskCatagory::$order() const
 {
     return 100;
 }

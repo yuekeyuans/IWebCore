@@ -5,7 +5,7 @@
 
 $PackageWebCoreBegin
 
-double IHttpDefaultProfileTask::order() const
+double IHttpDefaultProfileTask::$order() const
 {
     return 1;
 }

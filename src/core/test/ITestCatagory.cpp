@@ -2,12 +2,12 @@
 
 $PackageWebCoreBegin
 
-QString ITestCatagory::name() const
+QString ITestCatagory::$name() const
 {
     return "Test";
 }
 
-double ITestCatagory::order() const
+double ITestCatagory::$order() const
 {
     return 99;
 }

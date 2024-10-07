@@ -9,7 +9,7 @@ public:
     IHttpUrlPathValidatorTask() = default;
 
 public:
-    virtual void task() final;
+    virtual void $task() final;
 };
 
 $PackageWebCoreEnd

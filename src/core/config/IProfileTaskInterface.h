@@ -18,9 +18,9 @@ public:
     virtual std::string path() const;
 
 protected:
-    virtual QString name() const final;
-    virtual QString catagory() const final;
-    virtual void task() final;
+    virtual QString $name() const final;
+    virtual QString $catagory() const final;
+    virtual void $task() final;
 };
 
 template<typename T, bool enabled>
@@ -30,19 +30,19 @@ std::string IProfileTaskInterface<T, enabled>::path() const
 }
 
 template<typename T, bool enabled>
-QString IProfileTaskInterface<T, enabled>::name() const
+QString IProfileTaskInterface<T, enabled>::$name() const
 {
     return IMetaUtil::getBareTypeName<T>();
 }
 
 template<typename T, bool enabled>
-QString IProfileTaskInterface<T, enabled>::catagory() const
+QString IProfileTaskInterface<T, enabled>::$catagory() const
 {
     return "Config";
 }
 
 template<typename T, bool enabled>
-void IProfileTaskInterface<T, enabled>::task()
+void IProfileTaskInterface<T, enabled>::$task()
 {
     auto value = config();
     if(!value.is_null()){

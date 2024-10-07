@@ -11,8 +11,8 @@ public:
     IConfigTaskCatagory() = default;
 
 public:
-    virtual QString name() const final;
-    virtual double order() const final;
+    virtual QString $name() const final;
+    virtual double $order() const final;
 };
 
 $PackageWebCoreEnd

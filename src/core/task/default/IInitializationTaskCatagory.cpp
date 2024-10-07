@@ -2,12 +2,12 @@
 
 $PackageWebCoreBegin
 
-QString IInitializationTaskCatagory::name() const
+QString IInitializationTaskCatagory::$name() const
 {
     return "Initialization";
 }
 
-double IInitializationTaskCatagory::order() const
+double IInitializationTaskCatagory::$order() const
 {
     return 2;
 }

@@ -22,16 +22,18 @@ public:
     virtual QString getLimitString(quint64 start, quint64 count) override = 0;
 
 public:
-    virtual double order() const{ return 2;}
-    virtual QString name() const final { return IMetaUtil::getBareTypeName<T>();}
-    virtual QString catagory() const final { return "Orm"; }
-    virtual void task() final;
+    virtual double $order() const{ return 2;}
+    virtual QString $name() const final { return IMetaUtil::getBareTypeName<T>();}
+    virtual QString $catagory() const final { return "Orm"; }
+    virtual void $task() final;
 };
 
 template<typename T, bool enabled>
-void IOrmDialectInterface<T, enabled>::task() {
-    auto inst = T::instance();
-    IOrmManage::registerDialect(inst);
+void IOrmDialectInterface<T, enabled>::$task() {
+    if constexpr (enabled){
+        auto inst = T::instance();
+        IOrmManage::registerDialect(inst);
+    }
 }
 
 $PackageWebCoreEnd

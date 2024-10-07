@@ -16,27 +16,27 @@ public:
     virtual ~IOrmViewInterface() = default;
 
 public:
-    virtual QString name() const override;
-    virtual QString catagory() const final;
-    virtual void task() final;
+    virtual QString $name() const override;
+    virtual QString $catagory() const final;
+    virtual void $task() final;
     virtual const IOrmViewInfo* getOrmEntityInfo() const override = 0;
 };
 
 template<typename T, bool enabled>
-QString IOrmViewInterface<T, enabled>::name() const
+QString IOrmViewInterface<T, enabled>::$name() const
 {
     return IMetaUtil::getMetaClassName(T::staticMetaObject);
 }
 
 template<typename T, bool enabled>
-QString IOrmViewInterface<T, enabled>::catagory() const
+QString IOrmViewInterface<T, enabled>::$catagory() const
 {
     return "Orm";
 }
 
 template<typename T, bool enabled>
-void IOrmViewInterface<T, enabled>::task(){
-    if(enabled){
+void IOrmViewInterface<T, enabled>::$task(){
+    if constexpr (enabled){
         static std::once_flag initRegisterFlag;
         std::call_once(initRegisterFlag, [](){
             IBeanTypeManage::registerBeanType(typeid (T).name());   // register type

@@ -2,7 +2,7 @@
 #include "http/core/test/IHttpTestManage.h"
 #include "core/config/IProfileImport.h"
 
-void IWebCore::IHttpTestTask::task()
+void IWebCore::IHttpTestTask::$task()
 {
     std::thread thread([](){
         $Bool enabled{"/http/test/enabled", false};

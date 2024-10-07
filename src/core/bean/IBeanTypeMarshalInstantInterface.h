@@ -17,7 +17,7 @@ public:
     virtual const char* getTypeName() const final;
 
 private:
-    virtual void task() final;
+    virtual void $task() final;
 };
 
 template<typename T, typename U, bool enabled>
@@ -27,7 +27,7 @@ const char* IBeanTypeMarshalInstantInterface<T, U, enabled>::getTypeName() const
 }
 
 template<typename T, typename U, bool enabled>
-void IBeanTypeMarshalInstantInterface<T, U, enabled>::task()
+void IBeanTypeMarshalInstantInterface<T, U, enabled>::$task()
 {
     if constexpr (enabled){
         static std::once_flag flag;

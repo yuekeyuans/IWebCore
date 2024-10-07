@@ -6,7 +6,7 @@
 
 $PackageWebCoreBegin
 
-double IContextTomlProfileTask::order() const
+double IContextTomlProfileTask::$order() const
 {
     return 99.0;
 }

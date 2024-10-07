@@ -14,7 +14,7 @@ public:
     ITaskInstantUnit() = default;
 
 protected:
-    virtual void task() = 0;
+    virtual void $task() = 0;
 };
 
 $UseTaskUnit(ITaskInstantUnit)

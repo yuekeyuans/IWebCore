@@ -4,7 +4,7 @@
 
 $PackageWebCoreBegin
 
-void IHttpPrintTraceTask::task()
+void IHttpPrintTraceTask::$task()
 {
     $Bool condition{"/http/printTrace", false};
     if(condition.value()){

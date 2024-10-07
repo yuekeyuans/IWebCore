@@ -13,7 +13,7 @@ public:
     virtual IJson config() final;
 
 private:
-    virtual double order() const;
+    virtual double $order() const final;
     virtual QStringList nameFilters() const final;
     IJson parseJsonFile(const QString& path) const;
 };

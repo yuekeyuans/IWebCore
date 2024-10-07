@@ -15,27 +15,27 @@ public:
     IStartupTaskInterface() = default;
 
 public:
-    virtual void task() = 0;
+    virtual void $task() = 0;
 
-    virtual QString name() const override;
-    virtual double order() const override;
-    virtual QString catagory() const final;
+    virtual QString $name() const override;
+    virtual double $order() const override;
+    virtual QString $catagory() const final;
 };
 
 template<typename T, bool enabled>
-QString IStartupTaskInterface<T, enabled>::name() const
+QString IStartupTaskInterface<T, enabled>::$name() const
 {
     return IMetaUtil::getBareTypeName<T>();
 }
 
 template<typename T, bool enabled>
-double IStartupTaskInterface<T, enabled>::order() const
+double IStartupTaskInterface<T, enabled>::$order() const
 {
     return 50;
 }
 
 template<typename T, bool enabled>
-QString IStartupTaskInterface<T, enabled>::catagory() const
+QString IStartupTaskInterface<T, enabled>::$catagory() const
 {
     return "StartUp";
 }

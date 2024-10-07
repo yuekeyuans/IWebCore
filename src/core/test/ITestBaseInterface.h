@@ -14,25 +14,25 @@ public:
     ITestBaseInterface() = default;
 
 public:
-    virtual QString name() const override;
-    virtual QString catagory() const override;
-    virtual void task() final;
+    virtual QString $name() const override;
+    virtual QString $catagory() const override;
+    virtual void $task() final;
 };
 
 template<typename T, typename Manage,  bool enabled>
-QString ITestBaseInterface<T, Manage, enabled>::name() const
+QString ITestBaseInterface<T, Manage, enabled>::$name() const
 {
     return IMetaUtil::getMetaClassName(T::staticMetaObject);
 }
 
 template<typename T, typename Manage, bool enabled>
-QString ITestBaseInterface<T, Manage, enabled>::catagory() const
+QString ITestBaseInterface<T, Manage, enabled>::$catagory() const
 {
     return "Test";
 }
 
 template<typename T, typename Manage, bool enabled>
-void ITestBaseInterface<T, Manage, enabled>::task()
+void ITestBaseInterface<T, Manage, enabled>::$task()
 {
     Manage::instance()->addTest(T::instance());
 }

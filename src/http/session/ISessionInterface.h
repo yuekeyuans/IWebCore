@@ -14,10 +14,10 @@ public:
     ISessionInterface() = default;
 
 public:
-    virtual QString name() const override;
-    virtual double order() const override;
-    virtual QString catagory() const final;
-    virtual void task() final;
+    virtual QString $name() const override;
+    virtual double $order() const override;
+    virtual QString $catagory() const final;
+    virtual void $task() final;
     virtual void registerSession() final;
 };
 
@@ -27,30 +27,32 @@ namespace ISessionInterfaceProxy
 }
 
 template<typename T, bool enabled>
-QString ISessionInterface<T, enabled>::name() const
+QString ISessionInterface<T, enabled>::$name() const
 {
     return IMetaUtil::getMetaClassName(T::staticMetaObject);
 }
 
 template<typename T, bool enabled>
-double ISessionInterface<T, enabled>::order() const
+double ISessionInterface<T, enabled>::$order() const
 {
     return 49;
 }
 
 template<typename T, bool enabled>
-QString ISessionInterface<T, enabled>::catagory() const
+QString ISessionInterface<T, enabled>::$catagory() const
 {
     return "HttpController";
 }
 
 template<typename T, bool enabled>
-void ISessionInterface<T, enabled>::task ()
+void ISessionInterface<T, enabled>::$task ()
 {
-    static std::once_flag flag;
-    std::call_once(flag, [&](){
-        registerSession ();
-    });
+    if constexpr (enabled){
+        static std::once_flag flag;
+        std::call_once(flag, [&](){
+            registerSession ();
+        });
+    }
 }
 
 template<typename T, bool enabled>

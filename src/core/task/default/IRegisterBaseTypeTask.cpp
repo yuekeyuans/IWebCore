@@ -10,7 +10,7 @@ void registerBaseType(const QString &name)
     qRegisterMetaType<T>(QString((name + "&")).toUtf8());
 }
 
-void IRegisterBaseTypeTask::task()
+void IRegisterBaseTypeTask::$task()
 {
     registerBaseType<std::string>("std::string");
     registerBaseType<bool>("bool");

@@ -16,8 +16,8 @@ public:
     virtual ~ITaskCatagory() = default;
 
 public:
-    virtual QString name() const = 0;
-    virtual bool isCatagoryDefaultEnabled() const;
+    virtual QString $name() const = 0;
+    virtual bool $isCatagoryDefaultEnabled() const;
 
 private:
     bool isCatagoryEnabled() const;

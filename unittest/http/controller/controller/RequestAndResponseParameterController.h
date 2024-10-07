@@ -42,11 +42,11 @@ public:
 //        return "hello world";
 //    }
 
-//    $GetMapping(constResponse)
-//    QString constResponse(const IResponse& request){
-//        Q_UNUSED(request)
-//        return "hello world";
-//    }
+    $GetMapping(constResponse)
+    QString constResponse(IResponse& request){
+        Q_UNUSED(request)
+        return "hello world";
+    }
 
     $GetMapping(onlyResponse)
     void onlyResponse(IResponse& response){

@@ -17,20 +17,20 @@ public:
     virtual ~IOrmTableInterface() = default;
 
 public:
-    virtual QString name() const override;
-    virtual QString catagory() const final;
-    virtual void task() override;
+    virtual QString $name() const override;
+    virtual QString $catagory() const final;
+    virtual void $task() override;
     virtual const IOrmTableInfo* getOrmEntityInfo() const = 0;
 };
 
 template<typename T, bool enabled>
-QString IOrmTableInterface<T, enabled>::name() const
+QString IOrmTableInterface<T, enabled>::$name() const
 {
     return IMetaUtil::getMetaClassName(T::staticMetaObject);
 }
 
 template<typename T, bool enabled>
-QString IOrmTableInterface<T, enabled>::catagory() const
+QString IOrmTableInterface<T, enabled>::$catagory() const
 {
     return "Orm";
 }
@@ -38,7 +38,7 @@ QString IOrmTableInterface<T, enabled>::catagory() const
 // TODO: view detail whether this is right?
 template<typename T, bool enabled>
 void IOrmTableInterface<T, enabled>::task(){
-    if(enabled){
+    if constexpr (enabled){
         static std::once_flag initRegisterFlag;
         std::call_once(initRegisterFlag, [](){
             IBeanTypeManage::registerBeanType(typeid (T).name());   // register type

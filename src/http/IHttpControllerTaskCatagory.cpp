@@ -2,7 +2,7 @@
 
 $PackageWebCoreBegin
 
-QString IHttpControllerTaskCatagory::name() const
+QString IHttpControllerTaskCatagory::$name() const
 {
     return "HttpController";
 }

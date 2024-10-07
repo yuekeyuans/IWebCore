@@ -2,12 +2,12 @@
 
 $PackageWebCoreBegin
 
-QString IConfigTaskCatagory::name() const
+QString IConfigTaskCatagory::$name() const
 {
     return "Config";
 }
 
-double IConfigTaskCatagory::order() const
+double IConfigTaskCatagory::$order() const
 {
     return  0;
 }

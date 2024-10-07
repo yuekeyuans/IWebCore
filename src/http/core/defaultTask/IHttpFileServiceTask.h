@@ -11,7 +11,7 @@ public:
     IHttpFileServiceTask() = default;
 
 protected:
-    virtual void task() final;
+    virtual void $task() final;
 };
 
 $PackageWebCoreEnd

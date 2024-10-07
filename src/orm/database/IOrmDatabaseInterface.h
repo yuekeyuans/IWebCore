@@ -22,26 +22,26 @@ public:
     virtual void registerEntities() override  =0;
 
 public:
-    virtual QString name() const override;
-    virtual QString catagory() const final;
-    virtual double order() const override;
-    virtual void task() final;
+    virtual QString $name() const override;
+    virtual QString $catagory() const final;
+    virtual double $order() const override;
+    virtual void $task() final;
 
 };
 
 template<typename T, bool enabled>
-QString IOrmDatabaseInterface<T, enabled>::name() const{
+QString IOrmDatabaseInterface<T, enabled>::$name() const{
     return IMetaUtil::getMetaClassName(T::staticMetaObject);
 }
 
 template<typename T, bool enabled>
-QString IOrmDatabaseInterface<T, enabled>::catagory() const
+QString IOrmDatabaseInterface<T, enabled>::$catagory() const
 {
     return "Orm";
 }
 
 template<typename T, bool enabled>
-double IOrmDatabaseInterface<T, enabled>::order() const{
+double IOrmDatabaseInterface<T, enabled>::$order() const{
     return 49;
 }
 
@@ -64,16 +64,17 @@ double IOrmDatabaseInterface<T, enabled>::order() const{
 //}
 
 template<typename T, bool enabled>
-void IOrmDatabaseInterface<T, enabled>::task()
+void IOrmDatabaseInterface<T, enabled>::$task()
 {
-    openDatabase();
-
-    auto name = this->getDatabase().connectionName();
-    if(name.isEmpty() || name == "qt_sql_default_connection"){
-        name = "default";
+    if constexpr (enabled){
+        openDatabase();
+        auto name = this->getDatabase().connectionName();
+        if(name.isEmpty() || name == "qt_sql_default_connection"){
+            name = "default";
+        }
+        IOrmManage::registerDataBase(name, this);
     }
 
-    IOrmManage::registerDataBase(name, this);
 }
 
 $PackageWebCoreEnd

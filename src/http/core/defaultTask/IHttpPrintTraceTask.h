@@ -11,7 +11,7 @@ public:
     IHttpPrintTraceTask() = default;
 
 public:
-    virtual void task();
+    virtual void $task() final;
 };
 
 $PackageWebCoreEnd

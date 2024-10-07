@@ -14,21 +14,21 @@ public:
     IInitializationTaskInterface() = default;
 
 public:
-    virtual void task() = 0;
+    virtual void $task() = 0;
 
 protected:
-    virtual QString name() const final;
-    virtual QString catagory() const final;
+    virtual QString $name() const final;
+    virtual QString $catagory() const final;
 };
 
 template<typename T, bool enabled>
-QString IInitializationTaskInterface<T, enabled>::name() const
+QString IInitializationTaskInterface<T, enabled>::$name() const
 {
     return IMetaUtil::getBareTypeName<T>();
 }
 
 template<typename T, bool enabled>
-QString IInitializationTaskInterface<T, enabled>::catagory() const
+QString IInitializationTaskInterface<T, enabled>::$catagory() const
 {
     return "Initialization";
 }

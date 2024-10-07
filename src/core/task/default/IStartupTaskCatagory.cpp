@@ -2,12 +2,12 @@
 
 $PackageWebCoreBegin
 
-QString IStartupTaskCatagory::name() const
+QString IStartupTaskCatagory::$name() const
 {
     return "StartUp";
 }
 
-double IStartupTaskCatagory::order() const
+double IStartupTaskCatagory::$order() const
 {
     return 1;
 }

@@ -11,7 +11,7 @@ class klassName : public ITaskInstantUnit < klassName, true >  \
 {   \
 public:     \
     klassName() {};  \
-    virtual void task() final {  \
+    virtual void $task() final {  \
         std::string key = #path_ ; \
         IJson obj = IJson(value); \
         IContextManage::instance()->addConfig(obj, key); \

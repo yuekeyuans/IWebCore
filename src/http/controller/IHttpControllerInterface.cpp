@@ -6,7 +6,7 @@
 
 $PackageWebCoreBegin
 
-void IControllerInterfaceHelper::registerController(void *handler, const QString &className,
+void detail::registerController(void *handler, const QString &className,
                                                    const QMap<QString, QString> &classInfo, const QVector<QMetaMethod> &methods)
 {
     auto info = ISpawnUtil::construct<IHttpControllerInfo>(handler, className, classInfo, methods);
