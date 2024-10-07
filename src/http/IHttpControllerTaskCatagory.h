@@ -8,7 +8,7 @@ $PackageWebCoreBegin
 class IHttpControllerTaskCatagory : public ITaskCatagoryInterface<IHttpControllerTaskCatagory>
 {
 public:
-    virtual QString $name() const final;
+    virtual const char* $catagory() const final;
 };
 
 $PackageWebCoreEnd

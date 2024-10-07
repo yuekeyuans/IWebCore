@@ -7,7 +7,7 @@ $PackageWebCoreBegin
 
 namespace IMetaUtil
 {
-    QString getMetaClassName(const QMetaObject& meta);
+    const char* getMetaClassName(const QMetaObject& meta);
 
     QMap<QString, QString> getMetaClassInfoMap(const QMetaObject& meta);  // resolve for Q_GADGET
 

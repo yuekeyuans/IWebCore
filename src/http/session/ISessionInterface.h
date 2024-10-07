@@ -16,7 +16,7 @@ public:
 public:
     virtual QString $name() const override;
     virtual double $order() const override;
-    virtual QString $catagory() const final;
+    virtual const char* $catagory() const final;
     virtual void $task() final;
     virtual void registerSession() final;
 };
@@ -39,7 +39,7 @@ double ISessionInterface<T, enabled>::$order() const
 }
 
 template<typename T, bool enabled>
-QString ISessionInterface<T, enabled>::$catagory() const
+const char* ISessionInterface<T, enabled>::$catagory() const
 {
     return "HttpController";
 }

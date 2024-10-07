@@ -2,7 +2,7 @@
 
 $PackageWebCoreBegin
 
-QString IConfigTaskCatagory::$name() const
+const char* IConfigTaskCatagory::$catagory() const
 {
     return "Config";
 }

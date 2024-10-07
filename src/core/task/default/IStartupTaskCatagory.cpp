@@ -2,7 +2,7 @@
 
 $PackageWebCoreBegin
 
-QString IStartupTaskCatagory::$name() const
+const char* IStartupTaskCatagory::$catagory() const
 {
     return "StartUp";
 }

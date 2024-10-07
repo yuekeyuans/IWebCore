@@ -9,6 +9,11 @@ bool ITaskCatagory::$isCatagoryDefaultEnabled() const
     return true;
 }
 
+QString ITaskCatagory::$name() const
+{
+    return $catagory();
+}
+
 bool ITaskCatagory::isCatagoryEnabled() const
 {
     auto path = QString("/CATAGORY_ENABLE_STATE_").append($name());

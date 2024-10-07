@@ -2,7 +2,7 @@
 
 $PackageWebCoreBegin
 
-QString ITestCatagory::$name() const
+const char* ITestCatagory::$catagory() const
 {
     return "Test";
 }

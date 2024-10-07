@@ -18,7 +18,7 @@ public:
 
 protected:
     virtual QString $name() const final;
-    virtual QString $catagory() const final;
+    virtual const char* $catagory() const final;
 };
 
 template<typename T, bool enabled>
@@ -28,7 +28,7 @@ QString IInitializationTaskInterface<T, enabled>::$name() const
 }
 
 template<typename T, bool enabled>
-QString IInitializationTaskInterface<T, enabled>::$catagory() const
+const char* IInitializationTaskInterface<T, enabled>::$catagory() const
 {
     return "Initialization";
 }

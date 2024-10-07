@@ -19,7 +19,7 @@ public:
 
     virtual QString $name() const override;
     virtual double $order() const override;
-    virtual QString $catagory() const final;
+    virtual const char* $catagory() const final;
 };
 
 template<typename T, bool enabled>
@@ -35,7 +35,7 @@ double IStartupTaskInterface<T, enabled>::$order() const
 }
 
 template<typename T, bool enabled>
-QString IStartupTaskInterface<T, enabled>::$catagory() const
+const char* IStartupTaskInterface<T, enabled>::$catagory() const
 {
     return "StartUp";
 }

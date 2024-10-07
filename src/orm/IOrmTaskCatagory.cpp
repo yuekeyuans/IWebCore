@@ -2,7 +2,7 @@
 
 $PackageWebCoreBegin
 
-QString IOrmTaskCatagory::$name() const
+const char* IOrmTaskCatagory::$catagory() const
 {
     return "Orm";
 }

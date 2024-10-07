@@ -19,7 +19,7 @@ public:
 
 protected:
     virtual QString $name() const final;
-    virtual QString $catagory() const final;
+    virtual const char* $catagory() const final;
 };
 
 template<typename T, bool enabled>
@@ -29,7 +29,7 @@ QString IEndupTaskInterface<T, enabled>::$name() const
 }
 
 template<typename T, bool enabled>
-QString IEndupTaskInterface<T, enabled>::$catagory() const
+const char* IEndupTaskInterface<T, enabled>::$catagory() const
 {
     return "EndUp";
 }

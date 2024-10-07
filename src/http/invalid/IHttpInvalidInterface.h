@@ -18,7 +18,7 @@ public:
 protected:
     virtual double $order() const final;
     virtual QString $name() const final;
-    virtual QString $catagory() const final;
+    virtual const char* $catagory() const final;
     virtual void $task() final;
 };
 
@@ -41,7 +41,7 @@ QString IHttpInvalidInterface<T, enabled>::$name() const
 }
 
 template<typename T, bool enabled>
-QString IHttpInvalidInterface<T, enabled>::$catagory() const
+const char* IHttpInvalidInterface<T, enabled>::$catagory() const
 {
     return "HttpController";
 }

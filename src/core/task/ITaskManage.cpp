@@ -54,8 +54,8 @@ void ITaskManage::invokeTaskCatagories()
 {
     checkCatagoryExceed();
     checkTaskExceed();
-
     mergetTasksToCatagores();
+
     execEachCatagory();
 }
 
@@ -84,7 +84,7 @@ void ITaskManage::mergetTasksToCatagores()
     QList<ITaskWare*> wares;
     for(auto task : m_taskWares){
         for(auto& cata : m_catagories){
-            if(cata->$name() == task->$catagory()){
+            if(strcmp(cata->$catagory(), task->$catagory()) == 0){
                 cata->addTask(task);
                 wares.append(task);
                 break;
@@ -109,14 +109,9 @@ void ITaskManage::execEachCatagory()
     for(const auto& node : m_catagories){
         if(node->isCatagoryEnabled()){
             node->sortTask();
-            if(*printable){
+            if(printable.value()){
                node->printTaskInfo();
             }
-        }
-    }
-
-    for(auto& node : m_catagories){
-        if(node->isCatagoryEnabled()){
             node->execTaskNodes();
         }
     }

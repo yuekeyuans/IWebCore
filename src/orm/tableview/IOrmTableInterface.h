@@ -18,7 +18,7 @@ public:
 
 public:
     virtual QString $name() const override;
-    virtual QString $catagory() const final;
+    virtual const char* $catagory() const final;
     virtual void $task() override;
     virtual const IOrmTableInfo* getOrmEntityInfo() const = 0;
 };

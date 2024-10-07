@@ -2,7 +2,7 @@
 
 $PackageWebCoreBegin
 
-QString IEndupTaskCatagory::$name() const
+const char* IEndupTaskCatagory::$catagory() const
 {
     return "EndUp";
 }

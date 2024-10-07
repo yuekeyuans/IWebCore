@@ -16,9 +16,11 @@ public:
     virtual ~ITaskCatagory() = default;
 
 public:
-    virtual QString $name() const = 0;
+    virtual const char* $catagory() const = 0;
     virtual bool $isCatagoryDefaultEnabled() const;
 
+public:
+    virtual QString $name() const final;
 private:
     bool isCatagoryEnabled() const;
     void addTask(ITaskWare*);

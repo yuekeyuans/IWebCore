@@ -20,7 +20,7 @@ public:
 
 protected:
     virtual QString $name() const final;
-    virtual QString $catagory() const final;
+    virtual const char* $catagory() const final;
     virtual void $task() final;
 };
 
@@ -37,7 +37,7 @@ QString IContextTaskInterface<T, enabled>::$name() const
 }
 
 template<typename T, bool enabled>
-QString IContextTaskInterface<T, enabled>::$catagory() const
+const char* IContextTaskInterface<T, enabled>::$catagory() const
 {
     return "Config";
 }

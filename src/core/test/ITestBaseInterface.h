@@ -15,7 +15,7 @@ public:
 
 public:
     virtual QString $name() const override;
-    virtual QString $catagory() const override;
+    virtual const char* $catagory() const override;
     virtual void $task() final;
 };
 
@@ -26,7 +26,7 @@ QString ITestBaseInterface<T, Manage, enabled>::$name() const
 }
 
 template<typename T, typename Manage, bool enabled>
-QString ITestBaseInterface<T, Manage, enabled>::$catagory() const
+const char* ITestBaseInterface<T, Manage, enabled>::$catagory() const
 {
     return "Test";
 }

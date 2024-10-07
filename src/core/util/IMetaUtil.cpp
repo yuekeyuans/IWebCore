@@ -3,7 +3,7 @@
 
 $PackageWebCoreBegin
 
-QString IMetaUtil::getMetaClassName(const QMetaObject &meta)
+const char* IMetaUtil::getMetaClassName(const QMetaObject &meta)
 {
     return meta.className();
 }

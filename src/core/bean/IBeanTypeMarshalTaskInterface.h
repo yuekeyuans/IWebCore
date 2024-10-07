@@ -18,7 +18,7 @@ public:
 
 private:
     virtual QString $name() const;
-    virtual QString $catagory() const;
+    virtual const char* $catagory() const;
     virtual void $task() final;
 };
 

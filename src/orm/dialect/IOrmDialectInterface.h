@@ -24,7 +24,7 @@ public:
 public:
     virtual double $order() const{ return 2;}
     virtual QString $name() const final { return IMetaUtil::getBareTypeName<T>();}
-    virtual QString $catagory() const final { return "Orm"; }
+    virtual const char* $catagory() const final { return "Orm"; }
     virtual void $task() final;
 };
 

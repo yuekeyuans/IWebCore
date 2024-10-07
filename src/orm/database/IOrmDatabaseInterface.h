@@ -23,7 +23,7 @@ public:
 
 public:
     virtual QString $name() const override;
-    virtual QString $catagory() const final;
+    virtual const char* $catagory() const final;
     virtual double $order() const override;
     virtual void $task() final;
 
@@ -35,7 +35,7 @@ QString IOrmDatabaseInterface<T, enabled>::$name() const{
 }
 
 template<typename T, bool enabled>
-QString IOrmDatabaseInterface<T, enabled>::$catagory() const
+const char* IOrmDatabaseInterface<T, enabled>::$catagory() const
 {
     return "Orm";
 }

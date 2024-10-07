@@ -23,7 +23,7 @@ public:
 
 public:
     virtual QString $name() const final;
-    virtual QString $catagory() const final;
+    virtual const char* $catagory() const final;
     virtual void $task() final;
 };
 
@@ -34,7 +34,7 @@ QString IHttpControllerInterface<T, enabled>::$name() const
 }
 
 template<typename T, bool enabled>
-QString IHttpControllerInterface<T, enabled>::$catagory() const
+const char* IHttpControllerInterface<T, enabled>::$catagory() const
 {
     return "HttpController";
 }
