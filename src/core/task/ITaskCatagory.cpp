@@ -48,14 +48,15 @@ void ITaskCatagory::printTaskInfo() const
         return;
     }
 
-    qDebug() << Qt::endl << "Catagory: " << $name() << ", order: " << $order();
+    qDebug().noquote().nospace() << "[+] " << QString::number($order()).leftJustified(4, ' ') << $name() << " Catagory:";
     for(const auto& node : m_taskWares){
         if(node->isTaskEnabled()){
-            qDebug().noquote() << QStringLiteral("\t[√]  ")
-                               << QString("`").append(node->$name()).append("` registered.")
-                               << " order: " << node->$order();
+            qDebug().noquote().nospace() << QStringLiteral("    [√] ")
+                               << QString::number(node->$order()).leftJustified(4, ' ')
+                               << node->$name();
         }
     }
+    qDebug() << Qt::endl;
 }
 
 $PackageWebCoreEnd

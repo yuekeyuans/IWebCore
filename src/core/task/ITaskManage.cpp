@@ -112,6 +112,11 @@ void ITaskManage::execEachCatagory()
             if(printable.value()){
                node->printTaskInfo();
             }
+        }
+    }
+
+    for(const auto& node : m_catagories){
+        if(node->isCatagoryEnabled()){
             node->execTaskNodes();
         }
     }
