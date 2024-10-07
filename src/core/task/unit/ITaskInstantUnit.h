@@ -23,7 +23,7 @@ $UseTaskUnit(ITaskInstantUnit)
         static std::once_flag flag;
         std::call_once(flag, []{
             T value{};
-            static_cast<ITaskInstantUnit*>(&value)->task();
+            static_cast<ITaskInstantUnit*>(&value)->$task();
         });
     }
 }
