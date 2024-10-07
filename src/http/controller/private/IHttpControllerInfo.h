@@ -1,13 +1,19 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
-#include "core/base/IGadgetInfo.h"
 #include "http/controller/private/IHttpControllerActionNode.h"
 
 $PackageWebCoreBegin
 
-struct IHttpControllerInfo : public IGadgetInfo
+struct IHttpControllerInfo
 {
+public: //: public IGadgetInfo
+    void* handler{};
+    QString className;
+    QMap<QString, QString> classInfo;
+    QVector<QMetaMethod> classMethods;
+
+public:
     QVector<IHttpControllerActionNode> m_urlNodes;
 };
 

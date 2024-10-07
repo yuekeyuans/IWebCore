@@ -5,6 +5,7 @@
 
 $PackageWebCoreBegin
 
+// dead code
 struct IGadgetInfo
 {
     void* handler{};
