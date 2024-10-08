@@ -2,7 +2,7 @@
 #include "core/util/ISpawnUtil.h"
 #include "http/controller/IHttpManage.h"
 #include "http/controller/IHttpControllerAbort.h"
-#include "http/controller/private/IHttpControllerInfo.h"
+#include "http/controller/detail/IHttpControllerInfo.h"
 
 $PackageWebCoreBegin
 

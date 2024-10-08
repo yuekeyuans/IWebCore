@@ -9,6 +9,9 @@ class IHttpControllerTaskCatagory : public ITaskCatagoryInterface<IHttpControlle
 {
 public:
     virtual const char* $catagory() const final;
+
+public:
+    static inline constexpr char CATAGORY[] = "HttpController";
 };
 
 $PackageWebCoreEnd

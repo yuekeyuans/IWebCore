@@ -110,10 +110,10 @@ HEADERS += \
     $$PWD/http/controller/IHttpControllerAbort.h \
     $$PWD/http/controller/IHttpControllerInterface.h \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.h \
-    $$PWD/http/controller/private/IHttpControllerActionNode.h \
-    $$PWD/http/controller/private/IHttpControllerBeanParameter.h \
-    $$PWD/http/controller/private/IHttpControllerInfo.h \
-    $$PWD/http/controller/private/IHttpControllerParameter.h \
+    $$PWD/http/controller/detail/IHttpControllerActionNode.h \
+    $$PWD/http/controller/detail/IHttpControllerBeanParameter.h \
+    $$PWD/http/controller/detail/IHttpControllerInfo.h \
+    $$PWD/http/controller/detail/IHttpControllerParameter.h \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.h \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.h \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.h \
@@ -190,7 +190,7 @@ HEADERS += \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.h \
     $$PWD/http/controller/IHttpResourceMapping.h \
     $$PWD/http/controller/IHttpRouteMapping.h \
-#    $$PWD/http/controller/private/IControllerInterfaceHelper.h \
+#    $$PWD/http/controller/detail/IControllerInterfaceHelper.h \
     $$PWD/http/core/defaultTask/INodyTemplateTask.h \
     $$PWD/http/core/test/IHttpTestInterface.h \
     $$PWD/http/core/test/IHttpTestManage.h \
@@ -291,9 +291,9 @@ SOURCES += \
     $$PWD/http/controller/IHttpControllerInterface.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.cpp \
-    $$PWD/http/controller/private/IHttpControllerBeanParameter.cpp \
-    $$PWD/http/controller/private/IHttpControllerInfo.cpp \
-    $$PWD/http/controller/private/IHttpControllerParameter.cpp \
+    $$PWD/http/controller/detail/IHttpControllerBeanParameter.cpp \
+    $$PWD/http/controller/detail/IHttpControllerInfo.cpp \
+    $$PWD/http/controller/detail/IHttpControllerParameter.cpp \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.cpp \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.cpp \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.cpp \
@@ -360,7 +360,7 @@ SOURCES += \
     $$PWD/http/controller/IHttpManage.cpp \
     $$PWD/http/controller/IHttpResourceMapping.cpp \
     $$PWD/http/controller/IHttpRouteMapping.cpp \
-#    $$PWD/http/controller/private/IControllerInterfaceHelper.cpp \
+#    $$PWD/http/controller/detail/IControllerInterfaceHelper.cpp \
     $$PWD/http/core/defaultTask/INodyTemplateTask.cpp \
     $$PWD/http/core/test/IHttpTestInterface.cpp \
     $$PWD/http/core/test/IHttpTestManage.cpp \

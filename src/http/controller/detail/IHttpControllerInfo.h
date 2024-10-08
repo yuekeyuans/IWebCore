@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
-#include "http/controller/private/IHttpControllerActionNode.h"
+#include "http/controller/detail/IHttpControllerActionNode.h"
 
 $PackageWebCoreBegin
 

@@ -3,7 +3,7 @@
 #include "core/util/IPackageUtil.h"
 #include "core/util/ISpawnUtil.h"
 #include "core/abort/IAbortInterface.h"
-#include "http/controller/private/IHttpControllerInfo.h"
+#include "http/controller/detail/IHttpControllerInfo.h"
 
 $PackageWebCoreBegin
 

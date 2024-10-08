@@ -4,7 +4,7 @@ $PackageWebCoreBegin
 
 const char* IHttpControllerTaskCatagory::$catagory() const
 {
-    return "HttpController";
+    return CATAGORY;
 }
 
 $PackageWebCoreEnd

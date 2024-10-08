@@ -3,6 +3,7 @@
 #include "core/util/IHeaderUtil.h"
 #include "core/task/unit/ITaskInstantUnit.h"
 #include "core/unit/ISingletonUnit.h"
+#include "http/IHttpControllerTaskCatagory.h"
 
 $PackageWebCoreBegin
 
@@ -47,7 +48,7 @@ QString IHttpPathRegexpValidatorInterface<T, enabled>::$name() const
 template<typename T, bool enabled>
 const char* IHttpPathRegexpValidatorInterface<T, enabled>::$catagory() const
 {
-    return "HttpController";
+    return IHttpControllerTaskCatagory::CATAGORY;
 }
 
 template<typename T, bool enabled>

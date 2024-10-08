@@ -9,7 +9,6 @@ private:
 #define PP_CONTROLLER_PROP(funName, type, index)    \
     PP_STRING(IHttpControllerFunMapping$ ## funName ## $ ## type ## $ ## index)
 
-
 #ifdef Q_MOC_RUN
     #define $Query(name)      name##_$query
     #define $Path(name)        name##_$path

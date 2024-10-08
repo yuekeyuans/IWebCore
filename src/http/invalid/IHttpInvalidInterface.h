@@ -6,6 +6,7 @@
 #include "http/biscuits/IHttpStatus.h"
 #include "http/invalid/IHttpInvalidWare.h"
 #include "http/invalid/IHttpInvalidManage.h"
+#include "http/IHttpControllerTaskCatagory.h"
 
 $PackageWebCoreBegin
 
@@ -43,7 +44,7 @@ QString IHttpInvalidInterface<T, enabled>::$name() const
 template<typename T, bool enabled>
 const char* IHttpInvalidInterface<T, enabled>::$catagory() const
 {
-    return "HttpController";
+    return IHttpControllerTaskCatagory::CATAGORY;
 }
 
 template<typename T, bool enabled>

@@ -4,7 +4,7 @@
 #include "core/bean/IBeanWare.h"
 #include "core/bean/IBeanTypeManage.h"
 #include "core/task/ITaskManage.h"
-#include "http/controller/private/IHttpControllerBeanParameter.h"
+#include "http/controller/detail/IHttpControllerBeanParameter.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/net/IMultiPart.h"
 #include "http/base/IMethodNode.h"

@@ -3,7 +3,7 @@
 #include "core/util/ISpawnUtil.h"
 #include "http/controller/IHttpControllerAbort.h"
 #include "http/biscuits/IHttpMethod.h"
-#include "http/controller/private/IHttpControllerActionNode.h"
+#include "http/controller/detail/IHttpControllerActionNode.h"
 
 $PackageWebCoreBegin
 

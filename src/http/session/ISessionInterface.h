@@ -4,6 +4,7 @@
 #include "core/util/IMetaUtil.h"
 #include "core/task/unit/ITaskWareUnit.h"
 #include "http/session/ISessionWare.h"
+#include "http/IHttpControllerTaskCatagory.h"
 
 $PackageWebCoreBegin
 
@@ -18,7 +19,7 @@ public:
     virtual double $order() const override;
     virtual const char* $catagory() const final;
     virtual void $task() final;
-    virtual void registerSession() final;
+//    virtual void registerSession() final;
 };
 
 namespace ISessionInterfaceProxy
@@ -41,7 +42,7 @@ double ISessionInterface<T, enabled>::$order() const
 template<typename T, bool enabled>
 const char* ISessionInterface<T, enabled>::$catagory() const
 {
-    return "HttpController";
+    return IHttpControllerTaskCatagory::CATAGORY;
 }
 
 template<typename T, bool enabled>
@@ -50,16 +51,15 @@ void ISessionInterface<T, enabled>::$task ()
     if constexpr (enabled){
         static std::once_flag flag;
         std::call_once(flag, [&](){
-            registerSession ();
+            ISessionInterfaceProxy::registerSession (T::instance());
         });
     }
 }
 
-template<typename T, bool enabled>
-void ISessionInterface<T, enabled>::registerSession ()
-{
-    ISessionInterfaceProxy::registerSession (T::instance());
-}
-
+//template<typename T, bool enabled>
+//void ISessionInterface<T, enabled>::registerSession ()
+//{
+//    ISessionInterfaceProxy::registerSession (T::instance());
+//}
 
 $PackageWebCoreEnd

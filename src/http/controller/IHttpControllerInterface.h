@@ -5,15 +5,9 @@
 #include "core/task/ITaskManage.h"
 #include "core/task/unit/ITaskWareUnit.h"
 #include "core/unit/ISingletonUnit.h"
+#include "http/IHttpControllerTaskCatagory.h"
 
 $PackageWebCoreBegin
-
-namespace detail
-{
-    void registerController(void* handler, const QString& className,
-                            const QMap<QString, QString>& classMap,
-                            const QVector<QMetaMethod>& methods);
-}
 
 template<typename T, bool enabled = true>
 class IHttpControllerInterface : public ITaskWareUnit<T, enabled>, public ISingletonUnit<T>
@@ -36,7 +30,14 @@ QString IHttpControllerInterface<T, enabled>::$name() const
 template<typename T, bool enabled>
 const char* IHttpControllerInterface<T, enabled>::$catagory() const
 {
-    return "HttpController";
+    return IHttpControllerTaskCatagory::CATAGORY;
+}
+
+namespace detail
+{
+    void registerController(void* handler, const QString& className,
+                            const QMap<QString, QString>& classMap,
+                            const QVector<QMetaMethod>& methods);
 }
 
 template<typename T, bool enabled>
