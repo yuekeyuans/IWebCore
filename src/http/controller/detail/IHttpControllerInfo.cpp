@@ -7,17 +7,18 @@
 
 $PackageWebCoreBegin
 
+struct IHttpMethodMappingInfo
+{
+    IHttpMethodMappingInfo(const QString& key, const QString& value, const QStringList&rootPath);
+    QStringList toNormalUrl(const QString& url, const QStringList& prefix);
+    QString funName;
+    QStringList path;
+    IHttpMethod method;
+    int index;
+};
+
 class IHttpControllerInfoDetail : public IHttpControllerInfo
 {
-    struct MethodMappingInfo
-    {
-        MethodMappingInfo(const QString& key, const QString& value, const QStringList&rootPath);
-        QStringList toNormalUrl(const QString& url, const QStringList& prefix);
-        QString funName;
-        QStringList path;
-        IHttpMethod method;
-        int index;
-    };
 public:
     IHttpControllerInfoDetail(void *handler, const QString &className,
                               const QMap<QString, QString> &classInfo,
@@ -46,27 +47,31 @@ private:
     bool isSpecialTypes(const QString&);
 
 private:
-    QStringList parseRootPathArgs();
-    QVector<IHttpControllerActionNode> createFunctionMappingLeaves(const MethodMappingInfo& mapping);
+    QStringList parseRootPaths();
+    QVector<IHttpControllerActionNode> createFunctionMappingLeaves(const IHttpMethodMappingInfo& mapping);
 
 private:
-    QVector<MethodMappingInfo> m_mappingInfos;
+    QVector<IHttpMethodMappingInfo> m_mappingInfos;
 };
 
 
-IHttpControllerInfoDetail::MethodMappingInfo::MethodMappingInfo(const QString &key, const QString &value, const QStringList& rootPath)
+IHttpMethodMappingInfo::IHttpMethodMappingInfo(const QString &key, const QString &value, const QStringList& rootPath)
 {
-    auto args = key.split("$");
+    auto args = key.split("$$$");
+    args.pop_front();
+
     index = args.last().toInt();
     args.pop_back();
+
     method = IHttpMethodUtil::toMethod(args.last());
     args.pop_back();
-    args.pop_front();
+
+    // TODO here exist bug， when name start with $
     funName = args.join("$");
     path = toNormalUrl(value, rootPath);
 }
 
-QStringList IHttpControllerInfoDetail::MethodMappingInfo::toNormalUrl(const QString &url, const QStringList &prefix)
+QStringList IHttpMethodMappingInfo::toNormalUrl(const QString &url, const QStringList &prefix)
 {
     QStringList ret = prefix;
     auto tempArgs = url.split("/");
@@ -98,8 +103,8 @@ IHttpControllerInfoDetail::IHttpControllerInfoDetail(void *handler_, const QStri
 
 void IHttpControllerInfoDetail::parseMapppingInfos()
 {
-    static constexpr char CONTROLLER_INFO_PREFIX[] = "IHttpControllerFunMapping$";
-    auto rootPath = parseRootPathArgs();
+    static constexpr char CONTROLLER_INFO_PREFIX[] = "IHttpControllerFunMapping$$$";
+    auto rootPath = parseRootPaths();
     auto keys = classInfo.keys();
     for(auto key : keys){
         if(key.startsWith(CONTROLLER_INFO_PREFIX)){
@@ -158,7 +163,7 @@ void IHttpControllerInfoDetail::checkMappingNameAndFunctionIsMatch()
 
 void IHttpControllerInfoDetail::checkMappingUrl()
 {
-    for(const MethodMappingInfo& info : m_mappingInfos){
+    for(const IHttpMethodMappingInfo& info : m_mappingInfos){
         std::for_each(info.path.begin(), info.path.end(), [&](const QString& url){
             checkMappingUrlErrorCommon(url);
             CheckMappingUrlErrorWildCard(url);
@@ -410,7 +415,7 @@ bool IHttpControllerInfoDetail::isSpecialTypes(const QString &typeName)
 }
 
 // FIXME: check segment valid or not
-QStringList IHttpControllerInfoDetail::parseRootPathArgs()
+QStringList IHttpControllerInfoDetail::parseRootPaths()
 {
     static constexpr char CONTROLLER_MAPPING_FLAG[] = "IHttpControllerMapping$";
     QStringList ret;
@@ -425,7 +430,7 @@ QStringList IHttpControllerInfoDetail::parseRootPathArgs()
     return ret;
 }
 
-QVector<IHttpControllerActionNode> IHttpControllerInfoDetail::createFunctionMappingLeaves(const MethodMappingInfo &mapping)
+QVector<IHttpControllerActionNode> IHttpControllerInfoDetail::createFunctionMappingLeaves(const IHttpMethodMappingInfo &mapping)
 {
     QVector<IHttpControllerActionNode> ret;
 
