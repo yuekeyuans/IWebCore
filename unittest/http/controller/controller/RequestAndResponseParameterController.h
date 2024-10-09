@@ -18,8 +18,8 @@ public:
 //        return "hello world";
 //    }
 
-    $GetMapping($request)
-    QString $request(IRequest& request){
+    $GetMapping(request, regerw)
+    QString request(IRequest& request){
         Q_UNUSED(request)
         return "hello world";
     }

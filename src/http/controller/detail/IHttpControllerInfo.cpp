@@ -10,7 +10,7 @@ $PackageWebCoreBegin
 struct IHttpMethodMappingInfo
 {
     IHttpMethodMappingInfo(const QString& key, const QString& value, const QStringList&rootPath);
-    QStringList toNormalUrl(const QString& url, const QStringList& prefix);
+    QStringList normalizeUrl(const QString& url, const QStringList& prefix);
     QString funName;
     QStringList path;
     IHttpMethod method;
@@ -28,12 +28,13 @@ private:
     void parseMappingLeaves();
 
 private:
-    void checkMapping();
+    void checkUrlAndMethodMapping();
     void checkMappingOverloadFunctions();
     void checkMappingNameAndFunctionIsMatch();
     void checkMappingUrl();
     void checkMappingUrlErrorCommon(const QString& url);
     void CheckMappingUrlErrorWildCard(const QString& url);
+    bool isPieceWildCard(const QString& piece);
 
 private:
     void checkMethod();
@@ -55,32 +56,33 @@ private:
 };
 
 
-IHttpMethodMappingInfo::IHttpMethodMappingInfo(const QString &key, const QString &value, const QStringList& rootPath)
+IHttpMethodMappingInfo::IHttpMethodMappingInfo(const QString &key, const QString &value, const QStringList& rootPaths)
 {
     auto args = key.split("$$$");
-    args.pop_front();
+    if(args.length() != 4){
+        qFatal("error");
+    }
 
-    index = args.last().toInt();
+    this->index = args.last().toInt();
     args.pop_back();
 
-    method = IHttpMethodUtil::toMethod(args.last());
+    this->method = IHttpMethodUtil::toMethod(args.last());
     args.pop_back();
 
-    // TODO here exist bug， when name start with $
-    funName = args.join("$");
-    path = toNormalUrl(value, rootPath);
+    this->funName = args.last();
+    this->path = normalizeUrl(value, rootPaths);
 }
 
-QStringList IHttpMethodMappingInfo::toNormalUrl(const QString &url, const QStringList &prefix)
+QStringList IHttpMethodMappingInfo::normalizeUrl(const QString &url, const QStringList &rootPaths)
 {
-    QStringList ret = prefix;
+    QStringList ret = rootPaths;
     auto tempArgs = url.split("/");
     for(auto arg : tempArgs){
         arg = arg.trimmed();
         if(arg == "." || arg == ".."){
-            IHttpControllerAbort::abortUrlError($ISourceLocation);
+            IHttpControllerAbort::abortUrlDotAndDotDotError(url);
         }
-        if(!arg.trimmed().isEmpty()){
+        if(!arg.isEmpty()){
             ret.append(arg);
         }
     }
@@ -104,15 +106,15 @@ IHttpControllerInfoDetail::IHttpControllerInfoDetail(void *handler_, const QStri
 void IHttpControllerInfoDetail::parseMapppingInfos()
 {
     static constexpr char CONTROLLER_INFO_PREFIX[] = "IHttpControllerFunMapping$$$";
-    auto rootPath = parseRootPaths();
+    auto rootPaths = parseRootPaths();
     auto keys = classInfo.keys();
     for(auto key : keys){
         if(key.startsWith(CONTROLLER_INFO_PREFIX)){
-            m_mappingInfos.append({key, classInfo[key], rootPath});
+            m_mappingInfos.append({key, classInfo[key], rootPaths});
         }
     }
 
-    checkMapping();
+    checkUrlAndMethodMapping();
 }
 
 void IHttpControllerInfoDetail::parseMappingLeaves()
@@ -124,8 +126,7 @@ void IHttpControllerInfoDetail::parseMappingLeaves()
     checkMethod();
 }
 
-
-void IHttpControllerInfoDetail::checkMapping()
+void IHttpControllerInfoDetail::checkUrlAndMethodMapping()
 {
     checkMappingOverloadFunctions();
     checkMappingNameAndFunctionIsMatch();
@@ -134,29 +135,38 @@ void IHttpControllerInfoDetail::checkMapping()
 
 void IHttpControllerInfoDetail::checkMappingOverloadFunctions()
 {
+    QSet<QString> usedMethods;
+    for(const IHttpMethodMappingInfo& info : m_mappingInfos){
+        usedMethods.insert(info.funName);
+    }
+
     QStringList names;
     for(const auto& method : classMethods){
-        if(names.contains(method.name())){
-            IHttpControllerAbort::abortOverloadOrDefaultValueFunctionNotSupported(QString("duplicated function name: ").append(method.name()), $ISourceLocation);
+        if(usedMethods.contains(method.name())){
+            if(names.contains(method.name())){
+                IHttpControllerAbort::abortOverloadOrDefaultValueFunctionNotSupported(QString("duplicated overloaded function name: ").append(method.name()));
+            }
+            names.append(method.name());
         }
-        names.append(method.name());
     }
 }
 
 void IHttpControllerInfoDetail::checkMappingNameAndFunctionIsMatch()
 {
-    QStringList methodNames;
-    for(const auto& method : classMethods){
-        methodNames.append(method.name());
-    }
-    QStringList infoNames;
+    QSet<QString> infoNames;
     for(const auto& info : m_mappingInfos){
-        infoNames.append (info.funName);
+        infoNames.insert(info.funName);
+    }
+
+    QSet<QString> methodNames;
+    for(const auto& method : classMethods){
+        methodNames.insert(method.name());
     }
 
     for(const auto& name : infoNames){
         if(!methodNames.contains(name)){
-            IHttpControllerAbort::abortMappingMismatchFatal(QString("required function name: ").append(name), $ISourceLocation);
+            IHttpControllerAbort::abortMappingMismatchFatal(
+                        QString("required function name: ").append(name), $ISourceLocation);
         }
     }
 }
@@ -164,93 +174,89 @@ void IHttpControllerInfoDetail::checkMappingNameAndFunctionIsMatch()
 void IHttpControllerInfoDetail::checkMappingUrl()
 {
     for(const IHttpMethodMappingInfo& info : m_mappingInfos){
-        std::for_each(info.path.begin(), info.path.end(), [&](const QString& url){
-            checkMappingUrlErrorCommon(url);
-            CheckMappingUrlErrorWildCard(url);
+        std::for_each(info.path.begin(), info.path.end(), [&](const QString& piece){
+            if(piece.isEmpty()){
+                return;
+            }
+            if(isPieceWildCard(piece)){`
+                CheckMappingUrlErrorWildCard(piece);
+            }else{
+                checkMappingUrlErrorCommon(piece);
+            }
         });
     }
 }
 
-void IHttpControllerInfoDetail::checkMappingUrlErrorCommon(const QString &url)
+void IHttpControllerInfoDetail::checkMappingUrlErrorCommon(const QString &piece)
 {
-    static QRegularExpression wildcard("^<.*>$");
-    static QRegularExpression urlPieceReg("^[0-9a-zA-Z\\$\\.\\+\\*\\(\\)\\,!_\\$']+$");    // TODO: I don`t know whether it right or not see: https://www.cnblogs.com/cxygg/p/9278542.html
-    auto pieces = url.split('/');
+//    static QRegularExpression urlPieceReg("^[0-9a-zA-Z\\$\\.\\+\\*\\(\\)\\,!_\\$']+$");    // TODO: I don`t know whether it right or not see: https://www.cnblogs.com/cxygg/p/9278542.html
+//    static QRegularExpression regexInclude(R"([a-zA-Z0-9\-_.]+|%(?:[0-9a-fA-F]{2})+)");
+    static QRegularExpression regexExclude(R"([^ \t\n\r\f\v~`!@#$%^&*()+=|\[\]{}\'\";:/?,.<>]+)");
+    // 允许字母（大小写）、数字、连字符、下划线、点号、问号、等号、与号、斜杠、逗号、分号、冒号、破折号、波浪线、井号、星号、加号、方括号、圆括号、竖线、反斜杠、竖线、单引号、双引号、尖括号、美元符号、感叹号、at 符号以及百分号编码（%XX 形式）
+    static QRegularExpression regexInclude(R"([a-zA-Z0-9\-\._\?\=\&\|/,\:;\'\"\-\~\#\*\+\[\]\(\)\|\$\!\@]+|%(?:[0-9a-fA-F]{2})+)");
 
-    for(const auto& piece : pieces){
-        if(piece.isEmpty()){
-            continue;
-        }
-        if(wildcard.match(piece).hasMatch()){ // do not check wild card.
-            continue;
-        }
-
-        if(!urlPieceReg.match(piece).hasMatch()){
-            IHttpControllerAbort::abortUrlInvalidCharacter(QString("url: ").append(url), $ISourceLocation);
-        }
-
-        if(piece == "." || piece == ".."){
-            IHttpControllerAbort::abortUrlError(QString("url: ").append(url).append(" piece: ").append(piece), $ISourceLocation);
-        }
-
-        if(piece.contains(' ') || piece.contains('\t')){
-            IHttpControllerAbort::abortUrlBlankCharacter(QString("url: ").append(url), $ISourceLocation);
-        }
+    if(!regexExclude.match(piece).hasMatch() || !regexInclude.match(piece).hasMatch()){
+        IHttpControllerAbort::abortUrlInvalidCharacter(QString("url: ").append(piece), $ISourceLocation);
     }
 }
 
-void IHttpControllerInfoDetail::CheckMappingUrlErrorWildCard(const QString& url)
+void IHttpControllerInfoDetail::CheckMappingUrlErrorWildCard(const QString& piece)
 {
     static QRegularExpression validName("^[0-9a-zA-Z_]+$");
-    static QRegularExpression conoExpression0("^<(.*)>$");
-    static QRegularExpression conoExpression1("^<(.*):(.*)>$");
-    static QRegularExpression conoExpression2("^<(reg)?:(.*):(.*)>$");
+    static QRegularExpression expression0("^<(.*)>$");
+    static QRegularExpression expression1("^<(.*):(.*)>$");
+    static QRegularExpression expression2("^<(reg)?:(.*):(.*)>$");
 
-    auto pieces = url.split('/');
-    for(auto& piece : pieces){
-        if(!(piece.startsWith('<') && piece.endsWith('>'))){
-            continue;
-        }
-        int conoCount = piece.count(':');
-        if(conoCount == 0){
-            auto result = conoExpression0.match(url);
-            if(result.hasMatch()){
-                auto name = result.captured(1);
-                if(!validName.match(name).isValid()){
-                    QString info = "not a valid name in wideCard expression:\n\t" + url;
-                    qFatal(info.toUtf8());
-                }
-            }
-        } else if(conoCount == 1){
-            auto result = conoExpression1.match(url);
+    if(!(piece.startsWith('<') && piece.endsWith('>'))){
+        continue;
+    }
+
+    int colonCount = piece.count(':');
+    if(colonCount == 0){
+        auto result = expression0.match(url);
+        if(result.hasMatch()){
             auto name = result.captured(1);
-            auto validator = result.captured(2);
-            if(!validName.match(name).isValid() || !validName.match(validator).isValid()){
-                QString info = "not a valid name or validator name in wideCard expression:\n\t" + url;
-                qFatal(info.toUtf8());
-            }
-        } else if(conoCount == 2){
-            auto result = conoExpression2.match(url);
-            if(!result.hasMatch()){
-                QString info = "not a valid regexpression wideCard expression:\n\t" + url;
-                qFatal(info.toUtf8());
-            }
-            auto name = result.captured(2);
-            auto regexp = result.captured(3);
             if(!validName.match(name).isValid()){
                 QString info = "not a valid name in wideCard expression:\n\t" + url;
                 qFatal(info.toUtf8());
             }
-            QRegularExpression exp(regexp);
-            if(!exp.isValid()){
-                QString info = "not a valid regexp in wideCard expression:\n\t" + url;
-                qFatal(info.toUtf8());
-            }
-        }else {
-            QString info = "wideCard do not supoort for expression more than two conos: \n\t" + url;
+        }
+    } else if(colonCount == 1){
+        auto result = expression1.match(url);
+        auto name = result.captured(1);
+        auto validator = result.captured(2);
+        if(!validName.match(name).isValid() || !validName.match(validator).isValid()){
+            QString info = "not a valid name or validator name in wideCard expression:\n\t" + url;
             qFatal(info.toUtf8());
         }
+    } else if(colonCount == 2){
+        auto result = expression2.match(url);
+        if(!result.hasMatch()){
+            QString info = "not a valid regexpression wideCard expression:\n\t" + url;
+            qFatal(info.toUtf8());
+        }
+        auto name = result.captured(2);
+        auto regexp = result.captured(3);
+        if(!validName.match(name).isValid()){
+            QString info = "not a valid name in wideCard expression:\n\t" + url;
+            qFatal(info.toUtf8());
+        }
+        QRegularExpression exp(regexp);
+        if(!exp.isValid()){
+            QString info = "not a valid regexp in wideCard expression:\n\t" + url;
+            qFatal(info.toUtf8());
+        }
+    }else {
+        QString info = "wideCard do not supoort for expression more than two conos: \n\t" + url;
+        qFatal(info.toUtf8());
     }
+
+}
+
+bool IHttpControllerInfoDetail::isPieceWildCard(const QString &piece)
+{
+    static QRegularExpression wildcard("^<.*>$");
+    return wildcard.match(piece).hasMatch();
 }
 
 
@@ -414,16 +420,19 @@ bool IHttpControllerInfoDetail::isSpecialTypes(const QString &typeName)
     return specialExternalTypes.contains(typeName);
 }
 
-// FIXME: check segment valid or not
 QStringList IHttpControllerInfoDetail::parseRootPaths()
 {
     static constexpr char CONTROLLER_MAPPING_FLAG[] = "IHttpControllerMapping$";
     QStringList ret;
-    if(classInfo.contains(CONTROLLER_MAPPING_FLAG)){
+    if(classInfo.contains(CONTROLLER_MAPPING_FLAG) && !classInfo[CONTROLLER_MAPPING_FLAG].isEmpty()){
         auto args =  classInfo[CONTROLLER_MAPPING_FLAG].split("/");
         for(const QString& arg : args){
-            if(!arg.isEmpty()){
-                ret.append(arg);
+            auto piece = arg.trimmed();
+            if(piece == "." || piece == ".."){
+                IHttpControllerAbort::abortUrlDotAndDotDotError("Controller mapping:" + classInfo[CONTROLLER_MAPPING_FLAG]);
+            }
+            if(!piece.isEmpty()){
+                ret.append(piece);
             }
         }
     }
@@ -435,7 +444,7 @@ QVector<IHttpControllerActionNode> IHttpControllerInfoDetail::createFunctionMapp
     QVector<IHttpControllerActionNode> ret;
 
     IHttpControllerActionNode node;
-    auto funName = mapping.funName;
+    const auto& funName = mapping.funName;
     node.httpMethod = mapping.method;
     QStringList pieces;
     for(const QMetaMethod& method : classMethods){

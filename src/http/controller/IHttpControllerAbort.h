@@ -11,7 +11,7 @@ class IHttpControllerAbort : public IAbortInterface<IHttpControllerAbort>
         OverloadOrDefaultValueFunctionNotSupported,
         MappingMismatchFatal,
         UrlInvalidCharacter,
-        UrlError,
+        UrlDotAndDotDotError,
         UrlBlankCharacter,
         controller_check_param_Type_has_unsupported_inner_type,
         controller_check_param_Type_has_unsupported_user_defined_type,
@@ -38,7 +38,7 @@ protected:
             {OverloadOrDefaultValueFunctionNotSupported, "function that is overloaded or use default value in it`s arguments is not supported. the controller functions must not use overloaded function or default arguments"}
             ,{MappingMismatchFatal, "$xxxMapping can`t match any function defined in controller. please check your route definition"}
             ,{UrlInvalidCharacter,  "url has invalid character"}
-            ,{UrlError, "url fragment should not contain . or .. , please remove . or .. in url"}
+            ,{UrlDotAndDotDotError, "url fragment should not contain . or .. , please remove . or .. in url now"}
             ,{UrlBlankCharacter, "url has invalid character"}
             ,{controller_check_param_Type_has_unsupported_inner_type, ""}   // TODO:
             ,{controller_check_param_Type_has_unsupported_user_defined_type, ""}    // TODO:
