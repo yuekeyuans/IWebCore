@@ -5,8 +5,12 @@ CONFIG -= app_bundle
 
 include(../../../src/IWebCore.pri)
 SOURCES += \
+        bean/StudentBean.cpp \
+        controller/ReturnTypeController.cpp \
         main.cpp
 
 HEADERS += \
-    controller/RequestAndResponseParameterController.h
+    bean/StudentBean.h \
+    controller/RequestAndResponseParameterController.h \
+    controller/ReturnTypeController.h
 

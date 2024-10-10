@@ -7,18 +7,25 @@
 
 $PackageWebCoreBegin
 
-struct IHttpControllerActionNode{
+struct IHttpControllerActionNode
+{
+    enum class ReturnType{
+        Void,
+//        Int,
+        String,
+        Bean,
+        IResponse,
+    };
 
-public:
-    enum Type{
+    enum class CallableType{
         Method,
         Function
     };
 public:
     IHttpMethod httpMethod;
-    Type type {Method};
+    CallableType type {CallableType::Method};
     void* parentNode{nullptr};
-    
+
     QString url;
     IMethodNode methodNode;
     IFunctionNode functionNode;

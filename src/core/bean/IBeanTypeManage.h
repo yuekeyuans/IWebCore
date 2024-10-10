@@ -13,12 +13,12 @@ public:
     IBeanTypeManage() = default;
 
 public:
+    void registerBeanId(int id);
     bool isBeanIdExist(int id) const;
+
     void registerSerializeWare(IBeanTypeMarshalWare* ware);
     const std::list<IBeanTypeMarshalWare*>& getSerializeWares() const;
 
-private:
-    void registerBeanId(int id);
 
 private:
     std::unordered_set<int> m_beanIds;

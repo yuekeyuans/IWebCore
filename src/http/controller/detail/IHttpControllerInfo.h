@@ -5,6 +5,7 @@
 
 $PackageWebCoreBegin
 
+
 struct IHttpControllerInfo
 {
 public: //: public IGadgetInfo

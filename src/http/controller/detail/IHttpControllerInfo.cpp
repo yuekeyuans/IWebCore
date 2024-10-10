@@ -10,7 +10,10 @@ $PackageWebCoreBegin
 struct IHttpMethodMappingInfo
 {
     IHttpMethodMappingInfo(const QString& key, const QString& value, const QStringList&rootPath);
-    QStringList normalizeUrl(const QString& url, const QStringList& prefix);
+    QStringList normalizeUrlPiece(const QString& url, const QStringList& prefix);
+    IMethodNode toMethodNode(void* handler, const QString& className, const QVector<QMetaMethod>& methods) const;
+    QString toUrl() const;
+
     QString funName;
     QStringList path;
     IHttpMethod method;
@@ -45,11 +48,13 @@ private:
     void checkMethodParamterWithSuffixProper(const IHttpControllerActionNode& node);
 
 private:
+    bool isReturnTypeEmbeded(const IHttpControllerActionNode&);
+
+private:
     bool isSpecialTypes(const QString&);
 
 private:
     QStringList parseRootPaths();
-    QVector<IHttpControllerActionNode> createFunctionMappingLeaves(const IHttpMethodMappingInfo& mapping);
 
 private:
     QVector<IHttpMethodMappingInfo> m_mappingInfos;
@@ -70,10 +75,10 @@ IHttpMethodMappingInfo::IHttpMethodMappingInfo(const QString &key, const QString
     args.pop_back();
 
     this->funName = args.last();
-    this->path = normalizeUrl(value, rootPaths);
+    this->path = normalizeUrlPiece(value, rootPaths);
 }
 
-QStringList IHttpMethodMappingInfo::normalizeUrl(const QString &url, const QStringList &rootPaths)
+QStringList IHttpMethodMappingInfo::normalizeUrlPiece(const QString &url, const QStringList &rootPaths)
 {
     QStringList ret = rootPaths;
     auto tempArgs = url.split("/");
@@ -86,10 +91,29 @@ QStringList IHttpMethodMappingInfo::normalizeUrl(const QString &url, const QStri
             ret.append(arg);
         }
     }
-    if(ret.isEmpty()){
-        ret.append("/");
-    }
     return ret;
+}
+
+IMethodNode IHttpMethodMappingInfo::toMethodNode(void *handler, const QString &className, const QVector<QMetaMethod> &methods) const
+{
+    for(const QMetaMethod& method : methods){
+        if(this->funName == method.name()){
+            return ISpawnUtil::construct<IMethodNode>(handler, className, method);
+        }
+    }
+    qFatal("this should always not be called");
+}
+
+QString IHttpMethodMappingInfo::toUrl() const
+{
+    QStringList pieces;
+    for(const QString& arg : this->path){
+        if(arg.trimmed().isEmpty() || arg.trimmed() == "/"){
+            continue;
+        }
+        pieces.append(arg.trimmed());
+    }
+    return pieces.join("/").prepend("/");
 }
 
 IHttpControllerInfoDetail::IHttpControllerInfoDetail(void *handler_, const QString &className_, const QMap<QString, QString> &classInfo_, const QVector<QMetaMethod> &methods_)
@@ -119,8 +143,12 @@ void IHttpControllerInfoDetail::parseMapppingInfos()
 
 void IHttpControllerInfoDetail::parseMappingLeaves()
 {
-    for(const auto& arg : m_mappingInfos){
-        m_urlNodes.append(createFunctionMappingLeaves(arg));
+    for(const auto& mapping : m_mappingInfos){
+        IHttpControllerActionNode node;
+        node.httpMethod = mapping.method;
+        node.url = mapping.toUrl();
+        node.methodNode = mapping.toMethodNode(this, this->className, this->classMethods);
+        m_urlNodes.append(node);
     }
 
     checkMethod();
@@ -178,7 +206,7 @@ void IHttpControllerInfoDetail::checkMappingUrl()
             if(piece.isEmpty()){
                 return;
             }
-            if(isPieceWildCard(piece)){`
+            if(isPieceWildCard(piece)){
                 CheckMappingUrlErrorWildCard(piece);
             }else{
                 checkMappingUrlErrorCommon(piece);
@@ -208,46 +236,46 @@ void IHttpControllerInfoDetail::CheckMappingUrlErrorWildCard(const QString& piec
     static QRegularExpression expression2("^<(reg)?:(.*):(.*)>$");
 
     if(!(piece.startsWith('<') && piece.endsWith('>'))){
-        continue;
+        return;
     }
 
     int colonCount = piece.count(':');
     if(colonCount == 0){
-        auto result = expression0.match(url);
+        auto result = expression0.match(piece);
         if(result.hasMatch()){
             auto name = result.captured(1);
             if(!validName.match(name).isValid()){
-                QString info = "not a valid name in wideCard expression:\n\t" + url;
+                QString info = "not a valid name in wideCard expression:\n\t" + piece;
                 qFatal(info.toUtf8());
             }
         }
     } else if(colonCount == 1){
-        auto result = expression1.match(url);
+        auto result = expression1.match(piece);
         auto name = result.captured(1);
         auto validator = result.captured(2);
         if(!validName.match(name).isValid() || !validName.match(validator).isValid()){
-            QString info = "not a valid name or validator name in wideCard expression:\n\t" + url;
+            QString info = "not a valid name or validator name in wideCard expression:\n\t" + piece;
             qFatal(info.toUtf8());
         }
     } else if(colonCount == 2){
-        auto result = expression2.match(url);
+        auto result = expression2.match(piece);
         if(!result.hasMatch()){
-            QString info = "not a valid regexpression wideCard expression:\n\t" + url;
+            QString info = "not a valid regexpression wideCard expression:\n\t" + piece;
             qFatal(info.toUtf8());
         }
         auto name = result.captured(2);
         auto regexp = result.captured(3);
         if(!validName.match(name).isValid()){
-            QString info = "not a valid name in wideCard expression:\n\t" + url;
+            QString info = "not a valid name in wideCard expression:\n\t" + piece;
             qFatal(info.toUtf8());
         }
         QRegularExpression exp(regexp);
         if(!exp.isValid()){
-            QString info = "not a valid regexp in wideCard expression:\n\t" + url;
+            QString info = "not a valid regexp in wideCard expression:\n\t" + piece;
             qFatal(info.toUtf8());
         }
     }else {
-        QString info = "wideCard do not supoort for expression more than two conos: \n\t" + url;
+        QString info = "wideCard do not supoort for expression more than two conos: \n\t" + piece;
         qFatal(info.toUtf8());
     }
 
@@ -281,8 +309,7 @@ void IHttpControllerInfoDetail::checkMethod()
 // TODO: json
 void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IHttpControllerActionNode &node)
 {
-    const static QString info = "this kind of return type not supported, please change the return type! valid types are :\n\t"
-                   "[void, int, QString, QJsonArray, QJsonObject, QJsonValue, QByteArray, QStringList, IxxxxResponse]\n\t";
+    const static QString info = "this kind of return type not supported, please change the return type!";
 
     const static  QVector<QMetaType::Type> validMetaType = {
         QMetaType::Void,
@@ -295,19 +322,26 @@ void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IHttpContro
 //        QMetaType::QStringList,
     };
 
+
     auto type = node.methodNode.returnTypeName;
     auto id = node.methodNode.returnTypeId;
-    if(id == QMetaType::UnknownType){
-        auto errorInfo = info + "the error take place in Function : " + node.methodNode.functionName;
-        qFatal(errorInfo.toUtf8());
-    }
+    qDebug() << "type " << type << "id " << id;
 
     if(validMetaType.contains(id)){
         return;
     }
 
+    if(IBeanTypeManage::instance()->isBeanIdExist(id)){
+        return;
+    }
+
     if(type.startsWith("I") && type.endsWith("Response")){
         return;
+    }
+
+    if(id == QMetaType::UnknownType){
+        auto errorInfo = info + "the error take place in Function : " + node.methodNode.functionName;
+        qFatal(errorInfo.toUtf8());
     }
 
     auto errorInfo = info + "the error take place in Function : " + node.methodNode.functionName;
@@ -436,30 +470,6 @@ QStringList IHttpControllerInfoDetail::parseRootPaths()
             }
         }
     }
-    return ret;
-}
-
-QVector<IHttpControllerActionNode> IHttpControllerInfoDetail::createFunctionMappingLeaves(const IHttpMethodMappingInfo &mapping)
-{
-    QVector<IHttpControllerActionNode> ret;
-
-    IHttpControllerActionNode node;
-    const auto& funName = mapping.funName;
-    node.httpMethod = mapping.method;
-    QStringList pieces;
-    for(const QMetaMethod& method : classMethods){
-        if(method.name() == funName){
-            node.methodNode = ISpawnUtil::construct<IMethodNode>(this->handler, this->className, method);
-        }
-    }
-    for(const QString& arg : mapping.path){
-        if(arg.trimmed().isEmpty() || arg.trimmed() == "/"){
-            continue;
-        }
-        pieces.append(arg.trimmed());
-    }
-    node.url = pieces.join("/").prepend("/");
-    ret.append(node);
     return ret;
 }
 

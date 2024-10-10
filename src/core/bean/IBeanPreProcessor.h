@@ -7,6 +7,8 @@
 #include "core/bean/IBeanTypeMarshalWare.h"
 #include <typeinfo>
 
+$PackageWebCoreBegin
+
 namespace detail{
 
 template<typename T>
@@ -321,6 +323,9 @@ bool fromJson(T* ptr, const IJson& json)
 }
 
 }
+
+
+$PackageWebCoreEnd
 
 #define $BeanFieldDeclare(type, name)                                                               \
 private:                                                                                            \

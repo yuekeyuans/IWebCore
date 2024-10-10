@@ -52,7 +52,7 @@ void IHttpRequestHandler::handleRequest(IRequest &request, IResponse &response)
     case IRequestRaw::ProcessUnit::Function:
     {
         auto function = process.node;
-        if(function->type == IHttpControllerActionNode::Method){
+        if(function->type == IHttpControllerActionNode::CallableType::Method){
             return processInMethodMode(request, response, function);
         }
         return processInFunctionMode(request, response, function);
