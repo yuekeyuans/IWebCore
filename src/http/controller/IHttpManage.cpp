@@ -241,7 +241,7 @@ bool IHttpManage::checkUrlDuplicateName(const IHttpControllerActionNode *node)
 
     while(parent != nullptr){
         auto name = parent->routeNode.name;
-        if(parent->routeNode.type != IHttpRouteMapping::TEXT_MATCH && !name.isEmpty()){
+        if(parent->routeNode.type != IHttpRouteNode::TEXT_MATCH && !name.isEmpty()){
             if(names.contains(name)){
                 auto info = name + " path variable name duplicated, please change one to annother name";
                 qFatal(info.toUtf8());

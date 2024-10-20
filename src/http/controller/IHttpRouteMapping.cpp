@@ -7,7 +7,7 @@ $PackageWebCoreBegin
 IHttpRouteMapping::IHttpRouteMapping(IHttpRouteMapping* parent, const QString& fragment)
 {
     this->parentNode = parent;
-    evaluateNode(fragment);
+    routeNode = IHttpRouteNode::createNode(fragment);`
 }
 
 bool IHttpRouteMapping::isEmpty() const
@@ -69,9 +69,9 @@ void IHttpRouteMapping::removeLeaf(IHttpMethod method)
 
 void IHttpRouteMapping::addChildNode(const IHttpRouteMapping& node)
 {
-    if(node.routeNode.type == NodeType::TEXT_MATCH){
+    if(node.routeNode.type == IHttpRouteNode::TEXT_MATCH){
         return this->children.prepend(node);
-    }else if(node.routeNode.type == NodeType::FULL_MATCH){
+    }else if(node.routeNode.type == IHttpRouteNode::FULL_MATCH){
         return this->children.append(node);
     }
 
@@ -79,7 +79,7 @@ void IHttpRouteMapping::addChildNode(const IHttpRouteMapping& node)
     // 需不需要 合并 fullMatch？, 答案是不需要，因为不仅仅是 需要正则式匹配，更是需要 名称绑定
     int index;
     for(index=0; index<children.length(); index++){
-        if(children[index].routeNode.type != NodeType::TEXT_MATCH){
+        if(children[index].routeNode.type != IHttpRouteNode::TEXT_MATCH){
             break;
         }
     }
@@ -96,13 +96,13 @@ QVector<IHttpRouteMapping *> IHttpRouteMapping::getChildNodes(IStringView name)
     auto nodeName = name.toQString();   // TODO: fix latter;
     QVector<IHttpRouteMapping*> nodes;
     for(auto& val : children){
-        if(val.routeNode.type == NodeType::TEXT_MATCH && val.routeNode.fragment == nodeName){
+        if(val.routeNode.type == IHttpRouteNode::TEXT_MATCH && val.routeNode.fragment == nodeName){
             nodes.append(&val);
-        }else if(val.routeNode.type == NodeType::REGEXP_MATCH && val.routeNode.regexpValidator.match(nodeName).hasMatch()){
+        }else if(val.routeNode.type == IHttpRouteNode::REGEXP_MATCH && val.routeNode.regexpValidator.match(nodeName).hasMatch()){
             nodes.append(&val);
-        }else if(val.routeNode.type == NodeType::FUNC_MATCH && val.routeNode.funValidator(nodeName)){
+        }else if(val.routeNode.type == IHttpRouteNode::FUNC_MATCH && val.routeNode.funValidator(nodeName)){
             nodes.append(&val);
-        }else if(val.routeNode.type == NodeType::FULL_MATCH){
+        }else if(val.routeNode.type == IHttpRouteNode::FULL_MATCH){
             nodes.append(&val);
         }
     }
@@ -220,119 +220,6 @@ bool IHttpRouteMapping::containFragment(const QString& fragment)
         }
     }
     return false;
-}
-
-// TODO: 这个可以考虑和 IHttpControllerInfo 中的path 判断合并
-void IHttpRouteMapping::evaluateNode(const QString &fragment)
-{
-    using FunType = bool (IHttpRouteMapping::*)(const QString&);
-    static FunType funs[] = {
-        &IHttpRouteMapping::evaluateTypeEmptyNode,
-        &IHttpRouteMapping::evaluateNameOnlyNode,
-        &IHttpRouteMapping::evaluateNameTypeNode,
-        &IHttpRouteMapping::evaluateRegTypeNode,
-        &IHttpRouteMapping::evaluatePlainText,
-        &IHttpRouteMapping::evaluateUnMatchedNode
-    };
-
-    this->routeNode.fragment = fragment;
-    this->routeNode.type = IHttpRouteNote::REGEXP_MATCH;
-    for(const auto& fun : funs){
-        if(std::mem_fn(fun)(this, fragment) == true){
-            break;
-        }
-    }
-}
-
-bool IHttpRouteMapping::evaluatePlainText(const QString& nodeName)
-{
-    static QRegularExpression plainTextType("^\\w+$");
-    auto result = plainTextType.match(nodeName);
-    if(result.hasMatch()){
-        this->routeNode.type = IHttpRouteNote::TEXT_MATCH;
-        return true;
-    }
-    return false;
-}
-
-bool IHttpRouteMapping::evaluateTypeEmptyNode(const QString &nodeName)
-{
-    static QRegularExpression regTypeEmpty("^<>$");
-    auto result = regTypeEmpty.match(nodeName);
-    if(result.hasMatch()){
-        this->routeNode.type = IHttpRouteNote::FULL_MATCH;
-        return true;
-    }
-    return false;
-}
-
-bool IHttpRouteMapping::evaluateNameOnlyNode(const QString &nodeName)
-{
-    static QRegularExpression regTypeNameOnly("^<(\\w+)>$");
-    auto result = regTypeNameOnly.match(nodeName);
-    if(result.hasMatch()){
-        this->routeNode.name = result.captured(1);
-        this->routeNode.type = IHttpRouteNote::FULL_MATCH;
-        return true;
-    }
-    return false;
-}
-
-bool IHttpRouteMapping::evaluateNameTypeNode(const QString &nodeName)
-{
-    static QRegularExpression regTypeNameValue("^<(\\w*):(\\w*)>$");
-    auto result = regTypeNameValue.match(nodeName);
-    if(!result.hasMatch()){
-        return false;
-    }
-
-    this->routeNode.name = result.captured(1);
-    auto valueType = result.captured(2);
-    if(!valueType.isEmpty()){
-        auto express = IHttpManage::queryPathRegValidator(valueType);
-        if(!express.isEmpty()){
-            this->routeNode.regexpValidator = QRegularExpression(express);
-            this->routeNode.type = IHttpRouteNote::REGEXP_MATCH;
-            return true;
-        }
-
-        auto fun = IHttpManage::queryPathFunValidator(valueType);
-        if(fun != nullptr){
-            this->routeNode.funValidator = fun;
-            this->routeNode.type = IHttpRouteNote::FUNC_MATCH;
-            return true;
-        }
-    }else  {
-        this->routeNode.type = IHttpRouteNote::FULL_MATCH;
-        return true;
-    }
-    return false;
-}
-
-bool IHttpRouteMapping::evaluateRegTypeNode(const QString &nodeName)
-{
-    static QRegularExpression regTypeNameReg("^<(reg)?:(\\w*):(\\w*)>$");
-    if(regTypeNameReg.match(nodeName).hasMatch()){
-        auto result = regTypeNameReg.match(nodeName);
-        this->routeNode.type = IHttpRouteNote::REGEXP_MATCH;
-        this->routeNode.name = result.captured(2);
-
-        auto expression = result.captured(3);
-        this->routeNode.regexpValidator = QRegularExpression(expression);
-        if(!this->routeNode.regexpValidator.isValid()){
-            QString info = nodeName + " has invalid regular expression, please check it";
-            qFatal(info.toUtf8());
-        }
-        return true;
-    }
-    return false;
-}
-
-bool IHttpRouteMapping::evaluateUnMatchedNode(const QString &nodeName)
-{
-    auto info = nodeName + " is not a valid expression, please check it";
-    qFatal(info.toUtf8());
-    return true;
 }
 
 $PackageWebCoreEnd

@@ -29,7 +29,7 @@ public:
     void* parentNode{nullptr};
 
     QString url;
-    QList<IHttpRouteNote> routeNode;  // TODO:
+    QList<IHttpRouteNode> routeNode;  // TODO:
     IMethodNode methodNode;
     IFunctionNode functionNode;
 };

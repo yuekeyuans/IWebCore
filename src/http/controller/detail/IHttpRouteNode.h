@@ -2,10 +2,11 @@
 
 #include "core/util/IHeaderUtil.h"
 
-struct IHttpRouteNote
+$PackageWebCoreBegin
+
+struct IHttpRouteNode
 {
     using ValidateFun = std::function<bool(const QString&)>;
-
     enum NodeType{
         TEXT_MATCH,
         REGEXP_MATCH,
@@ -13,9 +14,15 @@ struct IHttpRouteNote
         FULL_MATCH
     };
 
+public:
+    static IHttpRouteNode createNode(const QString& segment);
+
+public:
+    QString fragment;
     NodeType type;
     QString name;
-    QString fragment;
     QRegularExpression regexpValidator;     // 使用 正则式验证数据的正确性与否
     ValidateFun funValidator;               // 使用 函数 验证数据是否正确
 };
+
+$PackageWebCoreEnd

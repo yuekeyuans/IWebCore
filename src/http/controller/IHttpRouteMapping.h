@@ -14,14 +14,6 @@ private:
     using IUrlActionNodePtr = IHttpControllerActionNode*;
 
 public:
-    enum NodeType{
-        TEXT_MATCH,
-        REGEXP_MATCH,
-        FUNC_MATCH,
-        FULL_MATCH
-    };
-
-public:
     IHttpRouteMapping() = default;
     explicit IHttpRouteMapping(IHttpRouteMapping* parent, const QString& fragment);
 
@@ -54,22 +46,14 @@ private:
     bool evaluateUnMatchedNode(const QString& nodeName);
 
 public:
-//    NodeType type;
-//    QString name;
-//    QString fragment;
-//    QRegularExpression regexpValidator;     // 使用 正则式验证数据的正确性与否
-//    ValidateFun funValidator;               // 使用 函数 验证数据是否正确
-
-    IHttpRouteNote routeNode;       // TODO: 上面的五项替换成这个 routeNode
-
-    QList<IHttpRouteMapping> children;
-
+    IHttpRouteNode routeNode;
+    IHttpRouteMapping* parentNode{nullptr};
     IHttpControllerActionNode *getMethodLeaf{nullptr};
     IHttpControllerActionNode *putMethodLeaf{nullptr};
     IHttpControllerActionNode *postMethodLeaf{nullptr};
     IHttpControllerActionNode *deleteMethodLeaf{nullptr};
     IHttpControllerActionNode *patchMethodLeaf{nullptr};
-    IHttpRouteMapping* parentNode{nullptr};
+    QList<IHttpRouteMapping> children;
 };
 
 $PackageWebCoreEnd
