@@ -111,13 +111,13 @@ HEADERS += \
     $$PWD/http/controller/IHttpControllerInterface.h \
     $$PWD/http/controller/IHttpMappingInterface.h \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.h \
-    $$PWD/http/controller/IHttpRouteNode.h \
+    $$PWD/http/controller/IHttpRouteInnerNode.h \
     $$PWD/http/controller/detail/IHttpControllerBeanParameter.h \
     $$PWD/http/controller/detail/IHttpControllerInfo.h \
     $$PWD/http/controller/detail/IHttpControllerParameter.h \
     $$PWD/http/controller/detail/IHttpControllerParameterTask.h \
     $$PWD/http/controller/detail/IHttpCtlReturnTypeManage.h \
-    $$PWD/http/controller/detail/IHttpRouteLeaf.h \
+    $$PWD/http/controller/detail/IHttpRouteLeafNode.h \
     $$PWD/http/controller/detail/IUrlFragmentNode.h \
     $$PWD/http/controller/detail/IUrlNode.h \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.h \
@@ -296,7 +296,7 @@ SOURCES += \
     $$PWD/http/controller/IHttpControllerInterface.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.cpp \
-    $$PWD/http/controller/IHttpRouteNode.cpp \
+    $$PWD/http/controller/IHttpRouteInnerNode.cpp \
     $$PWD/http/controller/detail/IHttpControllerBeanParameter.cpp \
     $$PWD/http/controller/detail/IHttpControllerInfo.cpp \
     $$PWD/http/controller/detail/IHttpControllerParameter.cpp \

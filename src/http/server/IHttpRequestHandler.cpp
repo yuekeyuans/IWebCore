@@ -10,7 +10,7 @@
 #include "http/invalid/IHttpNotFoundInvalid.h"
 #include "http/base/IFunctionNode.h"
 #include "http/base/IMethodNode.h"
-#include "http/controller/detail/IHttpRouteLeaf.h"
+#include "http/controller/detail/IHttpRouteLeafNode.h"
 #include "http/response/IFileResponse.h"
 #include "http/response/IRendererResponse.h"
 #include "http/response/IResponseTemplateRenderer.h"
@@ -52,7 +52,7 @@ void IHttpRequestHandler::handleRequest(IRequest &request, IResponse &response)
     case IRequestRaw::ProcessUnit::Function:
     {
         auto function = process.node;
-        if(function->type == IHttpRouteLeaf::CallableType::Method){
+        if(function->type == IHttpRouteLeafNode::CallableType::Method){
             return processInMethodMode(request, response, function);
         }
         return processInFunctionMode(request, response, function);
@@ -117,7 +117,7 @@ QStringList IHttpRequestHandler::handleOptionsRequest(IRequest &request, IRespon
     return options;
 }
 
-void IHttpRequestHandler::processInMethodMode(IRequest &request, IResponse &response, IHttpRouteLeaf *node)
+void IHttpRequestHandler::processInMethodMode(IRequest &request, IResponse &response, IHttpRouteLeafNode *node)
 {
     IHttpControllerParameter::ParamType params;
     auto ok = IHttpControllerParameter::createArguments(node->methodNode, params, request);
@@ -141,7 +141,7 @@ void IHttpRequestHandler::processInMethodMode(IRequest &request, IResponse &resp
     IHttpControllerParameter::destroyArguments(node->methodNode, params);
 }
 
-void IHttpRequestHandler::processInFunctionMode(IRequest &request, IResponse &response, IHttpRouteLeaf *node)
+void IHttpRequestHandler::processInFunctionMode(IRequest &request, IResponse &response, IHttpRouteLeafNode *node)
 {
     node->functionNode.function(request, response);
 }

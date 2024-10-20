@@ -7,12 +7,12 @@ IHttpCtlReturnTypeManage::IHttpCtlReturnTypeManage()
 
 }
 
-IHttpRouteLeaf::ReturnType IHttpCtlReturnTypeManage::parseReturnType(const IHttpRouteLeaf &node)
+IHttpRouteLeafNode::ReturnType IHttpCtlReturnTypeManage::parseReturnType(const IHttpRouteLeafNode &node)
 {
-    return IHttpRouteLeaf::ReturnType::Void;
+    return IHttpRouteLeafNode::ReturnType::Void;
 }
 
-bool IHttpCtlReturnTypeManage::isReturnTypeValid(const IHttpRouteLeaf &node)
+bool IHttpCtlReturnTypeManage::isReturnTypeValid(const IHttpRouteLeafNode &node)
 {
     return true;
 }
