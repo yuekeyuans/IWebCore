@@ -109,13 +109,15 @@ HEADERS += \
     $$PWD/http/base/IParameterNode.h \
     $$PWD/http/controller/IHttpControllerAbort.h \
     $$PWD/http/controller/IHttpControllerInterface.h \
+    $$PWD/http/controller/IHttpMappingInterface.h \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.h \
-    $$PWD/http/controller/detail/IHttpControllerActionNode.h \
+    $$PWD/http/controller/IHttpRouteNode.h \
     $$PWD/http/controller/detail/IHttpControllerBeanParameter.h \
     $$PWD/http/controller/detail/IHttpControllerInfo.h \
     $$PWD/http/controller/detail/IHttpControllerParameter.h \
     $$PWD/http/controller/detail/IHttpControllerParameterTask.h \
     $$PWD/http/controller/detail/IHttpCtlReturnTypeManage.h \
+    $$PWD/http/controller/detail/IHttpRouteLeaf.h \
     $$PWD/http/controller/detail/IUrlFragmentNode.h \
     $$PWD/http/controller/detail/IUrlNode.h \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.h \
@@ -193,7 +195,6 @@ HEADERS += \
     $$PWD/http/controller/IHttpManage.h \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.h \
     $$PWD/http/controller/IHttpResourceMapping.h \
-    $$PWD/http/controller/IHttpRouteMapping.h \
 #    $$PWD/http/controller/detail/IControllerInterfaceHelper.h \
     $$PWD/http/core/defaultTask/INodyTemplateTask.h \
     $$PWD/http/core/test/IHttpTestInterface.h \
@@ -295,6 +296,7 @@ SOURCES += \
     $$PWD/http/controller/IHttpControllerInterface.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.cpp \
+    $$PWD/http/controller/IHttpRouteNode.cpp \
     $$PWD/http/controller/detail/IHttpControllerBeanParameter.cpp \
     $$PWD/http/controller/detail/IHttpControllerInfo.cpp \
     $$PWD/http/controller/detail/IHttpControllerParameter.cpp \
@@ -367,7 +369,6 @@ SOURCES += \
     $$PWD/http/controller/IHttpFolderMapping.cpp \
     $$PWD/http/controller/IHttpManage.cpp \
     $$PWD/http/controller/IHttpResourceMapping.cpp \
-    $$PWD/http/controller/IHttpRouteMapping.cpp \
 #    $$PWD/http/controller/detail/IControllerInterfaceHelper.cpp \
     $$PWD/http/core/defaultTask/INodyTemplateTask.cpp \
     $$PWD/http/core/test/IHttpTestInterface.cpp \

@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
-#include "http/controller/detail/IHttpControllerActionNode.h"
+#include "http/controller/detail/IHttpRouteLeaf.h"
 
 $PackageWebCoreBegin
 
@@ -15,7 +15,7 @@ public:
     QVector<QMetaMethod> classMethods;
 
 public:
-    QVector<IHttpControllerActionNode> m_urlNodes;
+    QVector<IHttpRouteLeaf> m_urlNodes;
 };
 
 $PackageWebCoreEnd

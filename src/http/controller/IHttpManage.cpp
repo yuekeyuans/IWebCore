@@ -16,7 +16,7 @@ void IHttpManage::setIsServerStarted(bool value)
     // TODO: here check path variable duplicated
 }
 
-void IHttpManage::registerUrlActionNode(IHttpControllerActionNode node)
+void IHttpManage::registerUrlActionNode(IHttpRouteLeaf node)
 {
     checkRegisterAvalible();
 
@@ -31,7 +31,7 @@ void IHttpManage::registerUrlActionNode(IHttpControllerActionNode node)
     checkUrlDuplicateName(newLeaf);  // TODO: delete from here
 }
 
-void IHttpManage::registerUrlActionNodes(const QVector<IHttpControllerActionNode> &functionNodes)
+void IHttpManage::registerUrlActionNodes(const QVector<IHttpRouteLeaf> &functionNodes)
 {
     for(auto& node : functionNodes){
         registerUrlActionNode(node);
@@ -115,7 +115,7 @@ bool IHttpManage::isUrlActionNodeEnabled() const
     return !m_urlMapppings.isEmpty();
 }
 
-IHttpControllerActionNode *IHttpManage::getUrlActionNode(IRequest &request)
+IHttpRouteLeaf *IHttpManage::getUrlActionNode(IRequest &request)
 {
     IStringView url = request.url();
     IHttpMethod method = request.method();
@@ -131,7 +131,7 @@ IHttpControllerActionNode *IHttpManage::getUrlActionNode(IRequest &request)
         fragments.pop_front();
     }
 
-    QVector<IHttpControllerActionNode*> nodes =  queryFunctionNodes(nodePtr, fragments, method);
+    QVector<IHttpRouteLeaf*> nodes =  queryFunctionNodes(nodePtr, fragments, method);
     if(nodes.length() == 0){
         return nullptr;
     }else if(nodes.length() > 1){
@@ -185,12 +185,12 @@ QStringList IHttpManage::getStaticFolderActionPath(const IRequest &request)
     return {};
 }
 
-QVector<IHttpControllerActionNode *> IHttpManage::queryFunctionNodes(IHttpRouteMapping *parentNode,
+QVector<IHttpRouteLeaf *> IHttpManage::queryFunctionNodes(IHttpRouteNode *parentNode,
                                                              const IStringViewList &fragments, IHttpMethod method)
 {
     // FIXME:
 
-    QVector<IHttpControllerActionNode*> ret;
+    QVector<IHttpRouteLeaf*> ret;
     auto childNodes = parentNode->getChildNodes(fragments.first());
     if(fragments.length() == 1){
         for(const auto& val : childNodes){
@@ -234,10 +234,10 @@ QMap<IStringView, IStringView> IHttpManage::getPathVariable(void* node, const IS
 }
 
 //TODO: 这个可以放置在server start 的时候， 或者 END 的时候检测，而不必要事实检测
-bool IHttpManage::checkUrlDuplicateName(const IHttpControllerActionNode *node)
+bool IHttpManage::checkUrlDuplicateName(const IHttpRouteLeaf *node)
 {
     QStringList names;
-    auto parent = static_cast<IHttpRouteMapping*>(node->parentNode);
+    auto parent = static_cast<IHttpRouteNode*>(node->parentNode);
 
     while(parent != nullptr){
         auto name = parent->routeNode.name;

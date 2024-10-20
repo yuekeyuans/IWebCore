@@ -8,7 +8,7 @@
 
 $PackageWebCoreBegin
 
-struct IHttpControllerActionNode
+struct IHttpRouteLeaf
 {
     enum class ReturnType{
         Void,

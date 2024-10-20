@@ -1,16 +1,16 @@
-﻿#include "IHttpRouteMapping.h"
+﻿#include "IHttpRouteNode.h"
 #include "IHttpManage.h"
-#include "http/controller/detail/IHttpControllerActionNode.h"
+#include "http/controller/detail/IHttpRouteLeaf.h"
 
 $PackageWebCoreBegin
 
-IHttpRouteMapping::IHttpRouteMapping(IHttpRouteMapping* parent, const QString& fragment)
+IHttpRouteNode::IHttpRouteNode(IHttpRouteNode* parent, const QString& fragment)
 {
     this->parentNode = parent;
     routeNode = IUrlFragmentNode::createNode(fragment);
 }
 
-bool IHttpRouteMapping::operator==(const IHttpRouteMapping &node)
+bool IHttpRouteNode::operator==(const IHttpRouteNode &node)
 {
     return  routeNode.name == node.routeNode.name
             && routeNode.type == node.routeNode.type
@@ -18,8 +18,7 @@ bool IHttpRouteMapping::operator==(const IHttpRouteMapping &node)
             && children == node.children;
 }
 
-
-bool IHttpRouteMapping::isEmpty() const
+bool IHttpRouteNode::isEmpty() const
 {
     if(!children.isEmpty()){
         return false;
@@ -41,7 +40,7 @@ bool IHttpRouteMapping::isEmpty() const
 }
 
 // TODO: WARN
-IHttpControllerActionNode* IHttpRouteMapping::setLeaf(const IHttpControllerActionNode &leafNode)
+IHttpRouteLeaf* IHttpRouteNode::setLeaf(const IHttpRouteLeaf &leafNode)
 {
     auto& ptr = getLeafRef(leafNode.httpMethod);
     if(ptr != nullptr){
@@ -50,7 +49,7 @@ IHttpControllerActionNode* IHttpRouteMapping::setLeaf(const IHttpControllerActio
 //        $Ast->warn("register_the_same_url");
     }
 
-    auto leaf = new IHttpControllerActionNode(leafNode);
+    auto leaf = new IHttpRouteLeaf(leafNode);
     leaf->parentNode = this;
     ptr = leaf;
 
@@ -58,7 +57,7 @@ IHttpControllerActionNode* IHttpRouteMapping::setLeaf(const IHttpControllerActio
 }
 
 // @see https://hc.apache.org/httpclient-legacy/methods/head.html
-IHttpControllerActionNode* IHttpRouteMapping::getLeaf(IHttpMethod method)
+IHttpRouteLeaf* IHttpRouteNode::getLeaf(IHttpMethod method)
 {
     if(method == IHttpMethod::OPTIONS){
         return nullptr;
@@ -67,7 +66,7 @@ IHttpControllerActionNode* IHttpRouteMapping::getLeaf(IHttpMethod method)
     return getLeafRef(method);
 }
 
-void IHttpRouteMapping::removeLeaf(IHttpMethod method)
+void IHttpRouteNode::removeLeaf(IHttpMethod method)
 {
     auto& ptr = getLeafRef(method);
     if(ptr != nullptr){
@@ -76,7 +75,7 @@ void IHttpRouteMapping::removeLeaf(IHttpMethod method)
     }
 }
 
-void IHttpRouteMapping::addChildNode(const IHttpRouteMapping& node)
+void IHttpRouteNode::addChildNode(const IHttpRouteNode& node)
 {
     if(node.routeNode.type == IUrlFragmentNode::TEXT_MATCH){
         return this->children.prepend(node);
@@ -95,15 +94,15 @@ void IHttpRouteMapping::addChildNode(const IHttpRouteMapping& node)
     children.insert(index, node);
 }
 
-void IHttpRouteMapping::removeChildNode(const IHttpRouteMapping &node)
+void IHttpRouteNode::removeChildNode(const IHttpRouteNode &node)
 {
     children.removeOne(node);
 }
 
-QVector<IHttpRouteMapping *> IHttpRouteMapping::getChildNodes(IStringView name)
+QVector<IHttpRouteNode *> IHttpRouteNode::getChildNodes(IStringView name)
 {
     auto nodeName = name.toQString();   // TODO: fix latter;
-    QVector<IHttpRouteMapping*> nodes;
+    QVector<IHttpRouteNode*> nodes;
     for(auto& val : children){
         if(val.routeNode.type == IUrlFragmentNode::TEXT_MATCH && val.routeNode.fragment == nodeName){
             nodes.append(&val);
@@ -118,10 +117,10 @@ QVector<IHttpRouteMapping *> IHttpRouteMapping::getChildNodes(IStringView name)
     return nodes;
 }
 
-QVector<IHttpRouteMapping *> IHttpRouteMapping::getParentNodes()
+QVector<IHttpRouteNode *> IHttpRouteNode::getParentNodes()
 {
-    QVector<IHttpRouteMapping*> parentNodes;
-    IHttpRouteMapping* val = this;
+    QVector<IHttpRouteNode*> parentNodes;
+    IHttpRouteNode* val = this;
     while(val != nullptr){
         parentNodes.prepend(val);
         val = val->parentNode;
@@ -129,10 +128,10 @@ QVector<IHttpRouteMapping *> IHttpRouteMapping::getParentNodes()
     return parentNodes;
 }
 
-IHttpRouteMapping *IHttpRouteMapping::getOrAppendChildNode(const QString &fragment)
+IHttpRouteNode *IHttpRouteNode::getOrAppendChildNode(const QString &fragment)
 {
     if(!this->containFragment(fragment)){
-        IHttpRouteMapping childNode(this, fragment);
+        IHttpRouteNode childNode(this, fragment);
         this->addChildNode(childNode);
     }
 
@@ -144,7 +143,7 @@ IHttpRouteMapping *IHttpRouteMapping::getOrAppendChildNode(const QString &fragme
     return nullptr;
 }
 
-IHttpRouteMapping *IHttpRouteMapping::getChildNode(const QString &fragment)
+IHttpRouteNode *IHttpRouteNode::getChildNode(const QString &fragment)
 {
     for(auto& child : children){
         if(child.routeNode.fragment == fragment){
@@ -154,7 +153,7 @@ IHttpRouteMapping *IHttpRouteMapping::getChildNode(const QString &fragment)
     return nullptr;
 }
 
-void IHttpRouteMapping::travelPrint(int space) const
+void IHttpRouteNode::travelPrint(int space) const
 {
     if(isEmpty()){
         return;
@@ -164,7 +163,7 @@ void IHttpRouteMapping::travelPrint(int space) const
         qDebug() << "Controller Url Mapping:";
     }
 
-    auto print = [](IHttpControllerActionNode* leaf, int space){
+    auto print = [](IHttpRouteLeaf* leaf, int space){
         if(leaf != nullptr){
             qDebug().noquote()<< QString().fill(' ', 4 * space)
                               << "    |::" + IHttpMethodUtil::toString(leaf->httpMethod)
@@ -190,7 +189,7 @@ void IHttpRouteMapping::travelPrint(int space) const
     }
 }
 
-IHttpRouteMapping::IUrlActionNodePtr &IHttpRouteMapping::getLeafRef(IHttpMethod method)
+IHttpRouteNode::IUrlActionNodePtr &IHttpRouteNode::getLeafRef(IHttpMethod method)
 {
     switch (method) {
     case IHttpMethod::GET:
@@ -213,7 +212,7 @@ IHttpRouteMapping::IUrlActionNodePtr &IHttpRouteMapping::getLeafRef(IHttpMethod 
     return getMethodLeaf;
 }
 
-bool IHttpRouteMapping::containFragment(const QString& fragment)
+bool IHttpRouteNode::containFragment(const QString& fragment)
 {
     for(const auto& child : children){
         if(child.routeNode.fragment == fragment){

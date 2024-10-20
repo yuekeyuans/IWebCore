@@ -3,7 +3,7 @@
 #include "core/util/ISpawnUtil.h"
 #include "http/controller/IHttpControllerAbort.h"
 #include "http/biscuits/IHttpMethod.h"
-#include "http/controller/detail/IHttpControllerActionNode.h"
+#include "http/controller/detail/IHttpRouteLeaf.h"
 
 $PackageWebCoreBegin
 
@@ -41,14 +41,14 @@ private:
 
 private:
     void checkMethod();
-    void chechMethodSupportedReturnType(const IHttpControllerActionNode& node);
-    void checkMethodSupportedParamArgType(const IHttpControllerActionNode& node);
-    void checkMethodOfReturnVoid(const IHttpControllerActionNode& node);
-    void checkMethodBodyContentArgs(const IHttpControllerActionNode& node);
-    void checkMethodParamterWithSuffixProper(const IHttpControllerActionNode& node);
+    void chechMethodSupportedReturnType(const IHttpRouteLeaf& node);
+    void checkMethodSupportedParamArgType(const IHttpRouteLeaf& node);
+    void checkMethodOfReturnVoid(const IHttpRouteLeaf& node);
+    void checkMethodBodyContentArgs(const IHttpRouteLeaf& node);
+    void checkMethodParamterWithSuffixProper(const IHttpRouteLeaf& node);
 
 private:
-    bool isReturnTypeEmbeded(const IHttpControllerActionNode&);
+    bool isReturnTypeEmbeded(const IHttpRouteLeaf&);
 
 private:
     bool isSpecialTypes(const QString&);
@@ -144,7 +144,7 @@ void IHttpControllerInfoDetail::parseMapppingInfos()
 void IHttpControllerInfoDetail::parseMappingLeaves()
 {
     for(const auto& mapping : m_mappingInfos){
-        IHttpControllerActionNode node;
+        IHttpRouteLeaf node;
         node.httpMethod = mapping.method;
         node.url = mapping.toUrl();
         node.methodNode = mapping.toMethodNode(this, this->className, this->classMethods);
@@ -290,7 +290,7 @@ bool IHttpControllerInfoDetail::isPieceWildCard(const QString &piece)
 
 void IHttpControllerInfoDetail::checkMethod()
 {
-    using CheckFunType = void (IHttpControllerInfoDetail::*)(const IHttpControllerActionNode&);
+    using CheckFunType = void (IHttpControllerInfoDetail::*)(const IHttpRouteLeaf&);
     QList<CheckFunType> funs {
         &IHttpControllerInfoDetail::chechMethodSupportedReturnType,
         &IHttpControllerInfoDetail::checkMethodSupportedParamArgType,
@@ -307,7 +307,7 @@ void IHttpControllerInfoDetail::checkMethod()
 }
 
 // TODO: json
-void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IHttpControllerActionNode &node)
+void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IHttpRouteLeaf &node)
 {
     const static QString info = "this kind of return type not supported, please change the return type!";
 
@@ -348,7 +348,7 @@ void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IHttpContro
     qFatal(errorInfo.toUtf8());
 }
 
-void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IHttpControllerActionNode &node)
+void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IHttpRouteLeaf &node)
 {
     static const QString info = "the argument type is not valid, please use the correct type\n";
     static const QVector<QMetaType::Type> allowType = {
@@ -394,7 +394,7 @@ void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IHttpCont
     }
 }
 
-void IHttpControllerInfoDetail::checkMethodOfReturnVoid(const IHttpControllerActionNode &node)
+void IHttpControllerInfoDetail::checkMethodOfReturnVoid(const IHttpRouteLeaf &node)
 {
     if(node.methodNode.returnTypeId != QMetaType::Void){
         return;
@@ -408,7 +408,7 @@ void IHttpControllerInfoDetail::checkMethodOfReturnVoid(const IHttpControllerAct
     }
 }
 
-void IHttpControllerInfoDetail::checkMethodBodyContentArgs(const IHttpControllerActionNode &node)
+void IHttpControllerInfoDetail::checkMethodBodyContentArgs(const IHttpRouteLeaf &node)
 {
     const auto& typeNames = node.methodNode.parameterTypeNames;
     auto index = typeNames.indexOf("QJsonValue&");
@@ -423,7 +423,7 @@ void IHttpControllerInfoDetail::checkMethodBodyContentArgs(const IHttpController
     }
 }
 
-void IHttpControllerInfoDetail::checkMethodParamterWithSuffixProper(const IHttpControllerActionNode &node)
+void IHttpControllerInfoDetail::checkMethodParamterWithSuffixProper(const IHttpRouteLeaf &node)
 {
     const auto& argNodes = node.methodNode.paramNodes;
 
