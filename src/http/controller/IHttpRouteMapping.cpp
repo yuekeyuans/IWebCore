@@ -7,8 +7,17 @@ $PackageWebCoreBegin
 IHttpRouteMapping::IHttpRouteMapping(IHttpRouteMapping* parent, const QString& fragment)
 {
     this->parentNode = parent;
-    routeNode = IHttpRouteNode::createNode(fragment);`
+    routeNode = IUrlFragmentNode::createNode(fragment);
 }
+
+bool IHttpRouteMapping::operator==(const IHttpRouteMapping &node)
+{
+    return  routeNode.name == node.routeNode.name
+            && routeNode.type == node.routeNode.type
+            && routeNode.fragment == node.routeNode.fragment
+            && children == node.children;
+}
+
 
 bool IHttpRouteMapping::isEmpty() const
 {
@@ -69,9 +78,9 @@ void IHttpRouteMapping::removeLeaf(IHttpMethod method)
 
 void IHttpRouteMapping::addChildNode(const IHttpRouteMapping& node)
 {
-    if(node.routeNode.type == IHttpRouteNode::TEXT_MATCH){
+    if(node.routeNode.type == IUrlFragmentNode::TEXT_MATCH){
         return this->children.prepend(node);
-    }else if(node.routeNode.type == IHttpRouteNode::FULL_MATCH){
+    }else if(node.routeNode.type == IUrlFragmentNode::FULL_MATCH){
         return this->children.append(node);
     }
 
@@ -79,7 +88,7 @@ void IHttpRouteMapping::addChildNode(const IHttpRouteMapping& node)
     // 需不需要 合并 fullMatch？, 答案是不需要，因为不仅仅是 需要正则式匹配，更是需要 名称绑定
     int index;
     for(index=0; index<children.length(); index++){
-        if(children[index].routeNode.type != IHttpRouteNode::TEXT_MATCH){
+        if(children[index].routeNode.type != IUrlFragmentNode::TEXT_MATCH){
             break;
         }
     }
@@ -96,13 +105,13 @@ QVector<IHttpRouteMapping *> IHttpRouteMapping::getChildNodes(IStringView name)
     auto nodeName = name.toQString();   // TODO: fix latter;
     QVector<IHttpRouteMapping*> nodes;
     for(auto& val : children){
-        if(val.routeNode.type == IHttpRouteNode::TEXT_MATCH && val.routeNode.fragment == nodeName){
+        if(val.routeNode.type == IUrlFragmentNode::TEXT_MATCH && val.routeNode.fragment == nodeName){
             nodes.append(&val);
-        }else if(val.routeNode.type == IHttpRouteNode::REGEXP_MATCH && val.routeNode.regexpValidator.match(nodeName).hasMatch()){
+        }else if(val.routeNode.type == IUrlFragmentNode::REGEXP_MATCH && val.routeNode.regexpValidator.match(nodeName).hasMatch()){
             nodes.append(&val);
-        }else if(val.routeNode.type == IHttpRouteNode::FUNC_MATCH && val.routeNode.funValidator(nodeName)){
+        }else if(val.routeNode.type == IUrlFragmentNode::FUNC_MATCH && val.routeNode.funValidator(nodeName)){
             nodes.append(&val);
-        }else if(val.routeNode.type == IHttpRouteNode::FULL_MATCH){
+        }else if(val.routeNode.type == IUrlFragmentNode::FULL_MATCH){
             nodes.append(&val);
         }
     }
@@ -179,14 +188,6 @@ void IHttpRouteMapping::travelPrint(int space) const
     if(space == 0){
         qDebug() << "";
     }
-}
-
-bool IHttpRouteMapping::operator==(const IHttpRouteMapping &node)
-{
-    return  routeNode.name == node.routeNode.name
-            && routeNode.type == node.routeNode.type
-            && routeNode.fragment == node.routeNode.fragment
-            && children == node.children;
 }
 
 IHttpRouteMapping::IUrlActionNodePtr &IHttpRouteMapping::getLeafRef(IHttpMethod method)

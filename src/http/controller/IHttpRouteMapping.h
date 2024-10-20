@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "core/util/IHeaderUtil.h"
 #include "http/biscuits/IHttpMethod.h"
-#include "http/controller/detail/IHttpRouteNode.h"
+#include "http/controller/detail/IUrlFragmentNode.h"
 
 $PackageWebCoreBegin
 
@@ -10,13 +10,14 @@ struct IHttpControllerActionNode;
 class IHttpRouteMapping
 {
 private:
-    using ValidateFun = std::function<bool(const QString&)>;
     using IUrlActionNodePtr = IHttpControllerActionNode*;
 
 public:
     IHttpRouteMapping() = default;
     explicit IHttpRouteMapping(IHttpRouteMapping* parent, const QString& fragment);
+    bool operator==(const IHttpRouteMapping& node);
 
+public:
     bool isEmpty() const;
     IHttpControllerActionNode* setLeaf(const IHttpControllerActionNode& leaf);
     IHttpControllerActionNode* getLeaf(IHttpMethod method);
@@ -32,14 +33,12 @@ public:
 
     void travelPrint(int space=0) const;
 
-    bool operator==(const IHttpRouteMapping& node);
-
 private:
     IUrlActionNodePtr& getLeafRef(IHttpMethod method);
     bool containFragment(const QString& fragment);
 
 public:
-    IHttpRouteNode routeNode;
+    IUrlFragmentNode routeNode;
     IHttpRouteMapping* parentNode{nullptr};
     IHttpControllerActionNode *getMethodLeaf{nullptr};
     IHttpControllerActionNode *putMethodLeaf{nullptr};

@@ -1,4 +1,4 @@
-﻿#include "IHttpRouteNode.h"
+﻿#include "IUrlFragmentNode.h"
 #include "http/controller/IHttpManage.h"
 
 $PackageWebCoreBegin
@@ -6,7 +6,7 @@ $PackageWebCoreBegin
 // TODO: 重构
 namespace detail
 {
-    struct IHttpRouteNodeDetail : public IHttpRouteNode
+    struct IHttpRouteNodeDetail : public IUrlFragmentNode
     {
         IHttpRouteNodeDetail(const QString& _fragment)
         {
@@ -21,7 +21,7 @@ namespace detail
             };
 
             fragment = _fragment;
-            type = IHttpRouteNode::REGEXP_MATCH;
+            type = IUrlFragmentNode::REGEXP_MATCH;
             for(const auto& fun : funs){
                 if(std::mem_fn(fun)(this, fragment) == true){
                     break;
@@ -34,7 +34,7 @@ namespace detail
             static QRegularExpression plainTextType("^\\w+$");
             auto result = plainTextType.match(nodeName);
             if(result.hasMatch()){
-                this->type = IHttpRouteNode::TEXT_MATCH;
+                this->type = IUrlFragmentNode::TEXT_MATCH;
                 return true;
             }
             return false;
@@ -45,7 +45,7 @@ namespace detail
             static QRegularExpression regTypeEmpty("^<>$");
             auto result = regTypeEmpty.match(nodeName);
             if(result.hasMatch()){
-                this->type = IHttpRouteNode::FULL_MATCH;
+                this->type = IUrlFragmentNode::FULL_MATCH;
                 return true;
             }
             return false;
@@ -57,7 +57,7 @@ namespace detail
             auto result = regTypeNameOnly.match(nodeName);
             if(result.hasMatch()){
                 this->name = result.captured(1);
-                this->type = IHttpRouteNode::FULL_MATCH;
+                this->type = IUrlFragmentNode::FULL_MATCH;
                 return true;
             }
             return false;
@@ -77,18 +77,18 @@ namespace detail
                 auto express = IHttpManage::queryPathRegValidator(valueType);
                 if(!express.isEmpty()){
                     this->regexpValidator = QRegularExpression(express);
-                    this->type = IHttpRouteNode::REGEXP_MATCH;
+                    this->type = IUrlFragmentNode::REGEXP_MATCH;
                     return true;
                 }
 
                 auto fun = IHttpManage::queryPathFunValidator(valueType);
                 if(fun != nullptr){
                     this->funValidator = fun;
-                    this->type = IHttpRouteNode::FUNC_MATCH;
+                    this->type = IUrlFragmentNode::FUNC_MATCH;
                     return true;
                 }
             }else  {
-                this->type = IHttpRouteNode::FULL_MATCH;
+                this->type = IUrlFragmentNode::FULL_MATCH;
                 return true;
             }
             return false;
@@ -99,7 +99,7 @@ namespace detail
             static QRegularExpression regTypeNameReg("^<(reg)?:(\\w*):(\\w*)>$");
             if(regTypeNameReg.match(nodeName).hasMatch()){
                 auto result = regTypeNameReg.match(nodeName);
-                this->type = IHttpRouteNode::REGEXP_MATCH;
+                this->type = IUrlFragmentNode::REGEXP_MATCH;
                 this->name = result.captured(2);
 
                 auto expression = result.captured(3);
@@ -122,7 +122,7 @@ namespace detail
     };
 }
 
-IHttpRouteNode IHttpRouteNode::createNode(const QString &segment)
+IUrlFragmentNode IUrlFragmentNode::createNode(const QString &segment)
 {
     return detail::IHttpRouteNodeDetail(segment);
 }
