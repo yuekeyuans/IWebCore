@@ -116,7 +116,7 @@ HEADERS += \
     $$PWD/http/controller/detail/IHttpControllerParameter.h \
     $$PWD/http/controller/detail/IHttpControllerParameterTask.h \
     $$PWD/http/controller/detail/IHttpCtlReturnTypeManage.h \
-    $$PWD/http/controller/detail/IHttpRouteNode.h \
+    $$PWD/http/controller/detail/IUrlFragmentNode.h \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.h \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.h \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.h \
@@ -299,7 +299,7 @@ SOURCES += \
     $$PWD/http/controller/detail/IHttpControllerParameter.cpp \
     $$PWD/http/controller/detail/IHttpControllerParameterTask.cpp \
     $$PWD/http/controller/detail/IHttpCtlReturnTypeManage.cpp \
-    $$PWD/http/controller/detail/IHttpRouteNode.cpp \
+    $$PWD/http/controller/detail/IUrlFragmentNode.cpp \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.cpp \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.cpp \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.cpp \

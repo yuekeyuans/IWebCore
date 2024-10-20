@@ -4,7 +4,7 @@
 #include "http/biscuits/IHttpMethod.h"
 #include "http/base/IMethodNode.h"
 #include "http/base/IFunctionNode.h"
-#include "http/controller/detail/IHttpRouteNode.h"
+#include "http/controller/detail/IUrlFragmentNode.h"
 
 $PackageWebCoreBegin
 
@@ -29,7 +29,7 @@ public:
     void* parentNode{nullptr};
 
     QString url;
-    QList<IHttpRouteNode> routeNode;  // TODO:
+    QList<IUrlFragmentNode> routeNode;  // TODO:
     IMethodNode methodNode;
     IFunctionNode functionNode;
 };

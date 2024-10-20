@@ -4,7 +4,7 @@
 
 $PackageWebCoreBegin
 
-struct IHttpRouteNode
+struct IUrlFragmentNode
 {
     using ValidateFun = std::function<bool(const QString&)>;
     enum NodeType{
@@ -15,7 +15,7 @@ struct IHttpRouteNode
     };
 
 public:
-    static IHttpRouteNode createNode(const QString& segment);
+    static IUrlFragmentNode createNode(const QString& segment);
 
 public:
     QString fragment;

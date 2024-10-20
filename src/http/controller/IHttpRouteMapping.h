@@ -37,13 +37,6 @@ public:
 private:
     IUrlActionNodePtr& getLeafRef(IHttpMethod method);
     bool containFragment(const QString& fragment);
-    void evaluateNode(const QString& fragment);
-    bool evaluatePlainText(const QString& nodeName);
-    bool evaluateTypeEmptyNode(const QString& nodeName);
-    bool evaluateNameOnlyNode(const QString& nodeName);
-    bool evaluateNameTypeNode(const QString& nodeName);
-    bool evaluateRegTypeNode(const QString& nodeName);
-    bool evaluateUnMatchedNode(const QString& nodeName);
 
 public:
     IHttpRouteNode routeNode;
