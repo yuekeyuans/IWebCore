@@ -12,6 +12,8 @@ void IHttpManage::setIsServerStarted(bool value)
 {
     auto inst = instance();
     inst->m_isServerStarted = value;
+
+    // TODO: here check path variable duplicated
 }
 
 void IHttpManage::registerUrlActionNode(IHttpControllerActionNode node)
@@ -26,7 +28,7 @@ void IHttpManage::registerUrlActionNode(IHttpControllerActionNode node)
         }
     }
     auto newLeaf = nodePtr->setLeaf(node);
-    checkUrlDuplicateName(newLeaf);
+    checkUrlDuplicateName(newLeaf);  // TODO: delete from here
 }
 
 void IHttpManage::registerUrlActionNodes(const QVector<IHttpControllerActionNode> &functionNodes)
@@ -231,14 +233,15 @@ QMap<IStringView, IStringView> IHttpManage::getPathVariable(void* node, const IS
 //    return ret;
 }
 
+//TODO: 这个可以放置在server start 的时候， 或者 END 的时候检测，而不必要事实检测
 bool IHttpManage::checkUrlDuplicateName(const IHttpControllerActionNode *node)
 {
     QStringList names;
     auto parent = static_cast<IHttpRouteMapping*>(node->parentNode);
 
     while(parent != nullptr){
-        auto name = parent->name;
-        if(parent->type != IHttpRouteMapping::TEXT_MATCH && !name.isEmpty()){
+        auto name = parent->routeNode.name;
+        if(parent->routeNode.type != IHttpRouteMapping::TEXT_MATCH && !name.isEmpty()){
             if(names.contains(name)){
                 auto info = name + " path variable name duplicated, please change one to annother name";
                 qFatal(info.toUtf8());

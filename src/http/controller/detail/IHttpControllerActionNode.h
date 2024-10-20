@@ -4,6 +4,7 @@
 #include "http/biscuits/IHttpMethod.h"
 #include "http/base/IMethodNode.h"
 #include "http/base/IFunctionNode.h"
+#include "http/controller/detail/IHttpRouteNode.h"
 
 $PackageWebCoreBegin
 
@@ -21,12 +22,14 @@ struct IHttpControllerActionNode
         Method,
         Function
     };
+
 public:
     IHttpMethod httpMethod;
     CallableType type {CallableType::Method};
     void* parentNode{nullptr};
 
     QString url;
+    QList<IHttpRouteNote> routeNode;  // TODO:
     IMethodNode methodNode;
     IFunctionNode functionNode;
 };

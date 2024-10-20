@@ -4,8 +4,6 @@
 
 $PackageWebCoreBegin
 
-struct IHttpControllerInfo;
-
 struct IMethodNode
 {
 public:

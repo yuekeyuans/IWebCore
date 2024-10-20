@@ -69,9 +69,9 @@ void IHttpRouteMapping::removeLeaf(IHttpMethod method)
 
 void IHttpRouteMapping::addChildNode(const IHttpRouteMapping& node)
 {
-    if(node.type == NodeType::TEXT_MATCH){
+    if(node.routeNode.type == NodeType::TEXT_MATCH){
         return this->children.prepend(node);
-    }else if(node.type == NodeType::FULL_MATCH){
+    }else if(node.routeNode.type == NodeType::FULL_MATCH){
         return this->children.append(node);
     }
 
@@ -79,7 +79,7 @@ void IHttpRouteMapping::addChildNode(const IHttpRouteMapping& node)
     // 需不需要 合并 fullMatch？, 答案是不需要，因为不仅仅是 需要正则式匹配，更是需要 名称绑定
     int index;
     for(index=0; index<children.length(); index++){
-        if(children[index].type != NodeType::TEXT_MATCH){
+        if(children[index].routeNode.type != NodeType::TEXT_MATCH){
             break;
         }
     }
@@ -96,13 +96,13 @@ QVector<IHttpRouteMapping *> IHttpRouteMapping::getChildNodes(IStringView name)
     auto nodeName = name.toQString();   // TODO: fix latter;
     QVector<IHttpRouteMapping*> nodes;
     for(auto& val : children){
-        if(val.type == NodeType::TEXT_MATCH && val.fragment == nodeName){
+        if(val.routeNode.type == NodeType::TEXT_MATCH && val.routeNode.fragment == nodeName){
             nodes.append(&val);
-        }else if(val.type == NodeType::REGEXP_MATCH && val.regexpValidator.match(nodeName).hasMatch()){
+        }else if(val.routeNode.type == NodeType::REGEXP_MATCH && val.routeNode.regexpValidator.match(nodeName).hasMatch()){
             nodes.append(&val);
-        }else if(val.type == NodeType::FUNC_MATCH && val.funValidator(nodeName)){
+        }else if(val.routeNode.type == NodeType::FUNC_MATCH && val.routeNode.funValidator(nodeName)){
             nodes.append(&val);
-        }else if(val.type == NodeType::FULL_MATCH){
+        }else if(val.routeNode.type == NodeType::FULL_MATCH){
             nodes.append(&val);
         }
     }
@@ -128,7 +128,7 @@ IHttpRouteMapping *IHttpRouteMapping::getOrAppendChildNode(const QString &fragme
     }
 
     for(auto& child : children){
-        if(child.fragment == fragment){
+        if(child.routeNode.fragment == fragment){
             return &child;
         }
     }
@@ -138,7 +138,7 @@ IHttpRouteMapping *IHttpRouteMapping::getOrAppendChildNode(const QString &fragme
 IHttpRouteMapping *IHttpRouteMapping::getChildNode(const QString &fragment)
 {
     for(auto& child : children){
-        if(child.fragment == fragment){
+        if(child.routeNode.fragment == fragment){
             return &child;
         }
     }
@@ -165,7 +165,7 @@ void IHttpRouteMapping::travelPrint(int space) const
     };
 
     qDebug().noquote() << QString().fill(' ', 4* space)
-                       << "|" + this->fragment;
+                       << "|" + this->routeNode.fragment;
 
     print(this->getMethodLeaf, space);
     print(this->putMethodLeaf, space);
@@ -183,7 +183,10 @@ void IHttpRouteMapping::travelPrint(int space) const
 
 bool IHttpRouteMapping::operator==(const IHttpRouteMapping &node)
 {
-    return this->name == node.name && type == node.type && fragment == node.fragment && children == node.children;
+    return  routeNode.name == node.routeNode.name
+            && routeNode.type == node.routeNode.type
+            && routeNode.fragment == node.routeNode.fragment
+            && children == node.children;
 }
 
 IHttpRouteMapping::IUrlActionNodePtr &IHttpRouteMapping::getLeafRef(IHttpMethod method)
@@ -212,14 +215,14 @@ IHttpRouteMapping::IUrlActionNodePtr &IHttpRouteMapping::getLeafRef(IHttpMethod 
 bool IHttpRouteMapping::containFragment(const QString& fragment)
 {
     for(const auto& child : children){
-        if(child.fragment == fragment){
+        if(child.routeNode.fragment == fragment){
             return true;
         }
     }
     return false;
 }
 
-
+// TODO: 这个可以考虑和 IHttpControllerInfo 中的path 判断合并
 void IHttpRouteMapping::evaluateNode(const QString &fragment)
 {
     using FunType = bool (IHttpRouteMapping::*)(const QString&);
@@ -232,8 +235,8 @@ void IHttpRouteMapping::evaluateNode(const QString &fragment)
         &IHttpRouteMapping::evaluateUnMatchedNode
     };
 
-    this->fragment = fragment;
-    this->type = NodeType::REGEXP_MATCH;
+    this->routeNode.fragment = fragment;
+    this->routeNode.type = IHttpRouteNote::REGEXP_MATCH;
     for(const auto& fun : funs){
         if(std::mem_fn(fun)(this, fragment) == true){
             break;
@@ -246,7 +249,7 @@ bool IHttpRouteMapping::evaluatePlainText(const QString& nodeName)
     static QRegularExpression plainTextType("^\\w+$");
     auto result = plainTextType.match(nodeName);
     if(result.hasMatch()){
-        this->type = TEXT_MATCH;
+        this->routeNode.type = IHttpRouteNote::TEXT_MATCH;
         return true;
     }
     return false;
@@ -257,7 +260,7 @@ bool IHttpRouteMapping::evaluateTypeEmptyNode(const QString &nodeName)
     static QRegularExpression regTypeEmpty("^<>$");
     auto result = regTypeEmpty.match(nodeName);
     if(result.hasMatch()){
-        this->type = FULL_MATCH;
+        this->routeNode.type = IHttpRouteNote::FULL_MATCH;
         return true;
     }
     return false;
@@ -268,8 +271,8 @@ bool IHttpRouteMapping::evaluateNameOnlyNode(const QString &nodeName)
     static QRegularExpression regTypeNameOnly("^<(\\w+)>$");
     auto result = regTypeNameOnly.match(nodeName);
     if(result.hasMatch()){
-        this->name = result.captured(1);
-        this->type = FULL_MATCH;
+        this->routeNode.name = result.captured(1);
+        this->routeNode.type = IHttpRouteNote::FULL_MATCH;
         return true;
     }
     return false;
@@ -283,24 +286,24 @@ bool IHttpRouteMapping::evaluateNameTypeNode(const QString &nodeName)
         return false;
     }
 
-    this->name = result.captured(1);
+    this->routeNode.name = result.captured(1);
     auto valueType = result.captured(2);
     if(!valueType.isEmpty()){
         auto express = IHttpManage::queryPathRegValidator(valueType);
         if(!express.isEmpty()){
-            this->regexpValidator = QRegularExpression(express);
-            this->type = REGEXP_MATCH;
+            this->routeNode.regexpValidator = QRegularExpression(express);
+            this->routeNode.type = IHttpRouteNote::REGEXP_MATCH;
             return true;
         }
 
         auto fun = IHttpManage::queryPathFunValidator(valueType);
         if(fun != nullptr){
-            this->funValidator = fun;
-            this->type = FUNC_MATCH;
+            this->routeNode.funValidator = fun;
+            this->routeNode.type = IHttpRouteNote::FUNC_MATCH;
             return true;
         }
     }else  {
-        this->type = FULL_MATCH;
+        this->routeNode.type = IHttpRouteNote::FULL_MATCH;
         return true;
     }
     return false;
@@ -311,12 +314,12 @@ bool IHttpRouteMapping::evaluateRegTypeNode(const QString &nodeName)
     static QRegularExpression regTypeNameReg("^<(reg)?:(\\w*):(\\w*)>$");
     if(regTypeNameReg.match(nodeName).hasMatch()){
         auto result = regTypeNameReg.match(nodeName);
-        this->type = REGEXP_MATCH;
-        this->name = result.captured(2);
+        this->routeNode.type = IHttpRouteNote::REGEXP_MATCH;
+        this->routeNode.name = result.captured(2);
 
         auto expression = result.captured(3);
-        this->regexpValidator = QRegularExpression(expression);
-        if(!this->regexpValidator.isValid()){
+        this->routeNode.regexpValidator = QRegularExpression(expression);
+        if(!this->routeNode.regexpValidator.isValid()){
             QString info = nodeName + " has invalid regular expression, please check it";
             qFatal(info.toUtf8());
         }

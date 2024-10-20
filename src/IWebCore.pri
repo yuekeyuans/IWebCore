@@ -116,6 +116,7 @@ HEADERS += \
     $$PWD/http/controller/detail/IHttpControllerParameter.h \
     $$PWD/http/controller/detail/IHttpControllerParameterTask.h \
     $$PWD/http/controller/detail/IHttpCtlReturnTypeManage.h \
+    $$PWD/http/controller/detail/IHttpRouteNode.h \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.h \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.h \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.h \

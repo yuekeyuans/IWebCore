@@ -8,7 +8,7 @@ $PackageWebCoreBegin
 
 struct IHttpControllerInfo
 {
-public: //: public IGadgetInfo
+public:
     void* handler{};
     QString className;
     QMap<QString, QString> classInfo;
