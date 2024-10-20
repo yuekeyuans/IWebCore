@@ -1,16 +1,16 @@
-﻿#include "IHttpRouteNode.h"
+﻿#include "IHttpRouteInnerNode.h"
 #include "IHttpManage.h"
-#include "http/controller/detail/IHttpRouteLeaf.h"
+#include "http/controller/detail/IHttpRouteLeafNode.h"
 
 $PackageWebCoreBegin
 
-IHttpRouteNode::IHttpRouteNode(IHttpRouteNode* parent, const QString& fragment)
+IHttpRouteInnerNode::IHttpRouteInnerNode(IHttpRouteInnerNode* parent, const QString& fragment)
 {
     this->parentNode = parent;
     routeNode = IUrlFragmentNode::createNode(fragment);
 }
 
-bool IHttpRouteNode::operator==(const IHttpRouteNode &node)
+bool IHttpRouteInnerNode::operator==(const IHttpRouteInnerNode &node)
 {
     return  routeNode.name == node.routeNode.name
             && routeNode.type == node.routeNode.type
@@ -18,7 +18,7 @@ bool IHttpRouteNode::operator==(const IHttpRouteNode &node)
             && children == node.children;
 }
 
-bool IHttpRouteNode::isEmpty() const
+bool IHttpRouteInnerNode::isEmpty() const
 {
     if(!children.isEmpty()){
         return false;
@@ -40,7 +40,7 @@ bool IHttpRouteNode::isEmpty() const
 }
 
 // TODO: WARN
-IHttpRouteLeaf* IHttpRouteNode::setLeaf(const IHttpRouteLeaf &leafNode)
+IHttpRouteLeafNode* IHttpRouteInnerNode::setLeaf(const IHttpRouteLeafNode &leafNode)
 {
     auto& ptr = getLeafRef(leafNode.httpMethod);
     if(ptr != nullptr){
@@ -49,7 +49,7 @@ IHttpRouteLeaf* IHttpRouteNode::setLeaf(const IHttpRouteLeaf &leafNode)
 //        $Ast->warn("register_the_same_url");
     }
 
-    auto leaf = new IHttpRouteLeaf(leafNode);
+    auto leaf = new IHttpRouteLeafNode(leafNode);
     leaf->parentNode = this;
     ptr = leaf;
 
@@ -57,7 +57,7 @@ IHttpRouteLeaf* IHttpRouteNode::setLeaf(const IHttpRouteLeaf &leafNode)
 }
 
 // @see https://hc.apache.org/httpclient-legacy/methods/head.html
-IHttpRouteLeaf* IHttpRouteNode::getLeaf(IHttpMethod method)
+IHttpRouteLeafNode* IHttpRouteInnerNode::getLeaf(IHttpMethod method)
 {
     if(method == IHttpMethod::OPTIONS){
         return nullptr;
@@ -66,7 +66,7 @@ IHttpRouteLeaf* IHttpRouteNode::getLeaf(IHttpMethod method)
     return getLeafRef(method);
 }
 
-void IHttpRouteNode::removeLeaf(IHttpMethod method)
+void IHttpRouteInnerNode::removeLeaf(IHttpMethod method)
 {
     auto& ptr = getLeafRef(method);
     if(ptr != nullptr){
@@ -75,7 +75,7 @@ void IHttpRouteNode::removeLeaf(IHttpMethod method)
     }
 }
 
-void IHttpRouteNode::addChildNode(const IHttpRouteNode& node)
+void IHttpRouteInnerNode::addChildNode(const IHttpRouteInnerNode& node)
 {
     if(node.routeNode.type == IUrlFragmentNode::TEXT_MATCH){
         return this->children.prepend(node);
@@ -94,15 +94,15 @@ void IHttpRouteNode::addChildNode(const IHttpRouteNode& node)
     children.insert(index, node);
 }
 
-void IHttpRouteNode::removeChildNode(const IHttpRouteNode &node)
+void IHttpRouteInnerNode::removeChildNode(const IHttpRouteInnerNode &node)
 {
     children.removeOne(node);
 }
 
-QVector<IHttpRouteNode *> IHttpRouteNode::getChildNodes(IStringView name)
+QVector<IHttpRouteInnerNode *> IHttpRouteInnerNode::getChildNodes(IStringView name)
 {
     auto nodeName = name.toQString();   // TODO: fix latter;
-    QVector<IHttpRouteNode*> nodes;
+    QVector<IHttpRouteInnerNode*> nodes;
     for(auto& val : children){
         if(val.routeNode.type == IUrlFragmentNode::TEXT_MATCH && val.routeNode.fragment == nodeName){
             nodes.append(&val);
@@ -117,10 +117,10 @@ QVector<IHttpRouteNode *> IHttpRouteNode::getChildNodes(IStringView name)
     return nodes;
 }
 
-QVector<IHttpRouteNode *> IHttpRouteNode::getParentNodes()
+QVector<IHttpRouteInnerNode *> IHttpRouteInnerNode::getParentNodes()
 {
-    QVector<IHttpRouteNode*> parentNodes;
-    IHttpRouteNode* val = this;
+    QVector<IHttpRouteInnerNode*> parentNodes;
+    IHttpRouteInnerNode* val = this;
     while(val != nullptr){
         parentNodes.prepend(val);
         val = val->parentNode;
@@ -128,10 +128,10 @@ QVector<IHttpRouteNode *> IHttpRouteNode::getParentNodes()
     return parentNodes;
 }
 
-IHttpRouteNode *IHttpRouteNode::getOrAppendChildNode(const QString &fragment)
+IHttpRouteInnerNode *IHttpRouteInnerNode::getOrAppendChildNode(const QString &fragment)
 {
     if(!this->containFragment(fragment)){
-        IHttpRouteNode childNode(this, fragment);
+        IHttpRouteInnerNode childNode(this, fragment);
         this->addChildNode(childNode);
     }
 
@@ -143,7 +143,7 @@ IHttpRouteNode *IHttpRouteNode::getOrAppendChildNode(const QString &fragment)
     return nullptr;
 }
 
-IHttpRouteNode *IHttpRouteNode::getChildNode(const QString &fragment)
+IHttpRouteInnerNode *IHttpRouteInnerNode::getChildNode(const QString &fragment)
 {
     for(auto& child : children){
         if(child.routeNode.fragment == fragment){
@@ -153,7 +153,7 @@ IHttpRouteNode *IHttpRouteNode::getChildNode(const QString &fragment)
     return nullptr;
 }
 
-void IHttpRouteNode::travelPrint(int space) const
+void IHttpRouteInnerNode::travelPrint(int space) const
 {
     if(isEmpty()){
         return;
@@ -163,7 +163,7 @@ void IHttpRouteNode::travelPrint(int space) const
         qDebug() << "Controller Url Mapping:";
     }
 
-    auto print = [](IHttpRouteLeaf* leaf, int space){
+    auto print = [](IHttpRouteLeafNode* leaf, int space){
         if(leaf != nullptr){
             qDebug().noquote()<< QString().fill(' ', 4 * space)
                               << "    |::" + IHttpMethodUtil::toString(leaf->httpMethod)
@@ -189,7 +189,7 @@ void IHttpRouteNode::travelPrint(int space) const
     }
 }
 
-IHttpRouteNode::IUrlActionNodePtr &IHttpRouteNode::getLeafRef(IHttpMethod method)
+IHttpRouteInnerNode::IUrlActionNodePtr &IHttpRouteInnerNode::getLeafRef(IHttpMethod method)
 {
     switch (method) {
     case IHttpMethod::GET:
@@ -212,7 +212,7 @@ IHttpRouteNode::IUrlActionNodePtr &IHttpRouteNode::getLeafRef(IHttpMethod method
     return getMethodLeaf;
 }
 
-bool IHttpRouteNode::containFragment(const QString& fragment)
+bool IHttpRouteInnerNode::containFragment(const QString& fragment)
 {
     for(const auto& child : children){
         if(child.routeNode.fragment == fragment){

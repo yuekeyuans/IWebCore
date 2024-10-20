@@ -120,6 +120,7 @@ HEADERS += \
     $$PWD/http/controller/detail/IHttpRouteLeafNode.h \
     $$PWD/http/controller/detail/IUrlFragmentNode.h \
     $$PWD/http/controller/detail/IUrlNode.h \
+    $$PWD/http/controller/mapping/IHttpRouteMapping.h \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.h \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.h \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.h \
@@ -304,6 +305,7 @@ SOURCES += \
     $$PWD/http/controller/detail/IHttpCtlReturnTypeManage.cpp \
     $$PWD/http/controller/detail/IUrlFragmentNode.cpp \
     $$PWD/http/controller/detail/IUrlNode.cpp \
+    $$PWD/http/controller/mapping/IHttpRouteMapping.cpp \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.cpp \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.cpp \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.cpp \

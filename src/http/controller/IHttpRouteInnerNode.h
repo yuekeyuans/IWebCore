@@ -5,31 +5,31 @@
 
 $PackageWebCoreBegin
 
-struct IHttpRouteLeaf;
+struct IHttpRouteLeafNode;
 
-class IHttpRouteNode
+class IHttpRouteInnerNode
 {
 private:
-    using IUrlActionNodePtr = IHttpRouteLeaf*;
+    using IUrlActionNodePtr = IHttpRouteLeafNode*;
 
 public:
-    IHttpRouteNode() = default;
-    explicit IHttpRouteNode(IHttpRouteNode* parent, const QString& fragment);
-    bool operator==(const IHttpRouteNode& node);
+    IHttpRouteInnerNode() = default;
+    explicit IHttpRouteInnerNode(IHttpRouteInnerNode* parent, const QString& fragment);
+    bool operator==(const IHttpRouteInnerNode& node);
 
 public:
     bool isEmpty() const;
-    IHttpRouteLeaf* setLeaf(const IHttpRouteLeaf& leaf);
-    IHttpRouteLeaf* getLeaf(IHttpMethod method);
+    IHttpRouteLeafNode* setLeaf(const IHttpRouteLeafNode& leaf);
+    IHttpRouteLeafNode* getLeaf(IHttpMethod method);
     void removeLeaf(IHttpMethod method);
 
-    void addChildNode(const IHttpRouteNode& node);
-    void removeChildNode(const IHttpRouteNode& node);
+    void addChildNode(const IHttpRouteInnerNode& node);
+    void removeChildNode(const IHttpRouteInnerNode& node);
 
-    QVector<IHttpRouteNode*> getChildNodes(IStringView nodeName);
-    QVector<IHttpRouteNode*> getParentNodes();
-    IHttpRouteNode* getOrAppendChildNode(const QString& fragment);
-    IHttpRouteNode* getChildNode(const QString& fragment);
+    QVector<IHttpRouteInnerNode*> getChildNodes(IStringView nodeName);
+    QVector<IHttpRouteInnerNode*> getParentNodes();
+    IHttpRouteInnerNode* getOrAppendChildNode(const QString& fragment);
+    IHttpRouteInnerNode* getChildNode(const QString& fragment);
 
     void travelPrint(int space=0) const;
 
@@ -39,13 +39,13 @@ private:
 
 public:
     IUrlFragmentNode routeNode;
-    IHttpRouteNode* parentNode{nullptr};
-    IHttpRouteLeaf *getMethodLeaf{nullptr};
-    IHttpRouteLeaf *putMethodLeaf{nullptr};
-    IHttpRouteLeaf *postMethodLeaf{nullptr};
-    IHttpRouteLeaf *deleteMethodLeaf{nullptr};
-    IHttpRouteLeaf *patchMethodLeaf{nullptr};
-    QList<IHttpRouteNode> children;
+    IHttpRouteInnerNode* parentNode{nullptr};
+    IHttpRouteLeafNode *getMethodLeaf{nullptr};
+    IHttpRouteLeafNode *putMethodLeaf{nullptr};
+    IHttpRouteLeafNode *postMethodLeaf{nullptr};
+    IHttpRouteLeafNode *deleteMethodLeaf{nullptr};
+    IHttpRouteLeafNode *patchMethodLeaf{nullptr};
+    QList<IHttpRouteInnerNode> children;
 };
 
 $PackageWebCoreEnd

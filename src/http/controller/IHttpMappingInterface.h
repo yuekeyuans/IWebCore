@@ -7,11 +7,11 @@
 
 $PackageWebCoreBegin
 
-template<typename T, bool enabled>
-class IHttpMappingInterface : public ITaskWareUnit<T, enabled>, public ISingletonUnit<T>
+template<typename T, bool enabled = true>
+class IHttpMappingInterface : public ITaskWareUnit<T, enabled> //, public ISingletonUnit<T>
 {
 public:
-    IHttpMappingInterface();
+    IHttpMappingInterface() = default;
 
 public:
     virtual QString $name() const final;
@@ -20,19 +20,19 @@ public:
 };
 
 template<typename T, bool enabled>
-QString IHttpMappingInterface::$name() const
+QString IHttpMappingInterface<T, enabled>::$name() const
 {
     return IMetaUtil::getTypename<T>();
 }
 
 template<typename T, bool enabled>
-const char *IHttpMappingInterface::$catagory() const
+const char *IHttpMappingInterface<T, enabled>::$catagory() const
 {
     return IHttpControllerTaskCatagory::CATAGORY;
 }
 
 template<typename T, bool enabled>
-void IHttpMappingInterface::$task()
+void IHttpMappingInterface<T, enabled>::$task()
 {
     if constexpr (enabled){
         // TODO: 注册
