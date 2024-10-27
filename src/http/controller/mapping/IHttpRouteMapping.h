@@ -12,8 +12,25 @@ class IHttpRouteMapping : public IHttpMappingInterface<IHttpRouteMapping>
 public:
     IHttpRouteMapping() = default;
 
+public:
+    void registerUrlActionNode(IHttpRouteLeaf node);
+    void registerUrlActionNodes(const QVector<IHttpRouteLeaf>& functionNodes);
+
+public:
+    virtual void travelPrint() final;
+    virtual IHttpRouteLeaf* getUrlActionNode(IRequest &request);
+
 private:
-    IHttpRouteNode m_node;
+    bool checkUrlDuplicateName(const IHttpRouteLeaf* node);
+    void checkRegisterAvalible();    // 检查是否能够注册
+    QVector<IHttpRouteLeaf*> queryFunctionNodes(IHttpRouteNode* parentNode, const IStringViewList& fragments, IHttpMethod method);
+    QMap<IStringView, IStringView> getPathVariable(void* node, const IStringViewList& fragments);
+
+
+
+private:
+    IHttpRouteNode m_urlMapppings;
+
 };
 
 $PackageWebCoreEnd

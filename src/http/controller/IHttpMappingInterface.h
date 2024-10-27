@@ -5,11 +5,12 @@
 #include "core/unit/ISingletonUnit.h"
 #include "http/IHttpControllerTaskCatagory.h"
 #include "http/controller/mapping/IHttpMappingWare.h"
+#include "http/controller/IHttpManage.h"
 
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true>
-class IHttpMappingInterface : public ITaskWareUnit<T, enabled>, public IHttpMappingWare //, public ISingletonUnit<T>
+class IHttpMappingInterface : public ITaskWareUnit<T, enabled>, public IHttpMappingWare, public ISingletonUnit<T>
 {
 public:
     IHttpMappingInterface() = default;
@@ -36,7 +37,7 @@ template<typename T, bool enabled>
 void IHttpMappingInterface<T, enabled>::$task()
 {
     if constexpr (enabled){
-        // TODO: 注册
+        IHttpManage::instance()->registMappingWare(T::instance());
     }
 }
 

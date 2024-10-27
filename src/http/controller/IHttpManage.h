@@ -22,8 +22,8 @@ public:
 public:
     static void setIsServerStarted(bool);
 
-    void registerUrlActionNode(IHttpRouteLeaf node);
-    void registerUrlActionNodes(const QVector<IHttpRouteLeaf>& functionNodes);
+//    void registerUrlActionNode(IHttpRouteLeaf node);
+//    void registerUrlActionNodes(const QVector<IHttpRouteLeaf>& functionNodes);
 
     void registerStaticFiles(const QString& path, const QString& prefix);
 
@@ -42,8 +42,8 @@ public:
     QStringList getStaticFolderActionPath(const IRequest& request);
 
 private:
-    static QVector<IHttpRouteLeaf*> queryFunctionNodes(IHttpRouteNode* parentNode, const IStringViewList& fragments, IHttpMethod method);
-    static QMap<IStringView, IStringView> getPathVariable(void* node, const IStringViewList& fragments);
+//    static QVector<IHttpRouteLeaf*> queryFunctionNodes(IHttpRouteNode* parentNode, const IStringViewList& fragments, IHttpMethod method);
+//    static QMap<IStringView, IStringView> getPathVariable(void* node, const IStringViewList& fragments);
 
     // 这里实现 url 时 需要防止  /<name>/<name>/  这种重复类型的 url
     static bool checkUrlDuplicateName(const IHttpRouteLeaf* node);
@@ -51,7 +51,7 @@ private:
 
 private:
     bool m_isServerStarted{false};
-    IHttpRouteNode m_urlMapppings;
+//    IHttpRouteNode m_urlMapppings;
     IHttpResourceMapping m_resourceMappings;
     IHttpFolderMapping m_folderMappings;
 
