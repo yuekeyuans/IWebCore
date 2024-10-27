@@ -6,6 +6,8 @@
 #include "http/net/IRequest.h"
 #include "http/net/impl/IRequestRaw.h"
 
+#include "http/controller/mapping/IHttpMappingWare.h"
+
 $PackageWebCoreBegin
 
 void IHttpManage::setIsServerStarted(bool value)
@@ -260,6 +262,11 @@ void IHttpManage::checkRegisterAvalible()
     if(inst->m_isServerStarted){
         IHttpControllerAbort::abortregister_to_controllerManage_error($ISourceLocation);
     }
+}
+
+void IHttpManage::registMappingWare(IHttpMappingWare *ware)
+{
+    m_mappingWares.append(ware);
 }
 
 

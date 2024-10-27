@@ -4,7 +4,7 @@
 #include "core/unit/ISingletonUnit.h"
 #include "http/biscuits/IHttpMethod.h"
 #include "http/controller/detail/IHttpRouteLeaf.h"
-
+#include "http/controller/IHttpMappingInterface.h"
 #include "http/controller/detail/IHttpRouteNode.h"
 #include "IHttpResourceMapping.h"
 #include "IHttpFolderMapping.h"
@@ -12,6 +12,7 @@
 $PackageWebCoreBegin
 
 class IRequest;
+class IHttpMappingWare;
 class IHttpManage : public ISingletonUnit<IHttpManage>
 {
     using ValidatorFun = std::function<bool(const QString&)>;
@@ -56,6 +57,12 @@ private:
 
     QMap<QString, QString> m_pathRegValidators;
     QMap<QString, ValidatorFun> m_pathFunValidators;
+
+public:
+    void registMappingWare(IHttpMappingWare* ware);
+
+private:
+    QVector<IHttpMappingWare*> m_mappingWares;
 };
 
 $PackageWebCoreEnd

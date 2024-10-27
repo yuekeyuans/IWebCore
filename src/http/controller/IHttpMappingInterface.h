@@ -4,11 +4,12 @@
 #include "core/task/unit/ITaskWareUnit.h"
 #include "core/unit/ISingletonUnit.h"
 #include "http/IHttpControllerTaskCatagory.h"
+#include "http/controller/mapping/IHttpMappingWare.h"
 
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true>
-class IHttpMappingInterface : public ITaskWareUnit<T, enabled> //, public ISingletonUnit<T>
+class IHttpMappingInterface : public ITaskWareUnit<T, enabled>, public IHttpMappingWare //, public ISingletonUnit<T>
 {
 public:
     IHttpMappingInterface() = default;

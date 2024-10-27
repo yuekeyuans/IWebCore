@@ -120,6 +120,7 @@ HEADERS += \
     $$PWD/http/controller/detail/IHttpRouteNode.h \
     $$PWD/http/controller/detail/IUrlFragmentNode.h \
     $$PWD/http/controller/detail/IUrlNode.h \
+    $$PWD/http/controller/mapping/IHttpMappingWare.h \
     $$PWD/http/controller/mapping/IHttpRouteMapping.h \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.h \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.h \
@@ -305,6 +306,7 @@ SOURCES += \
     $$PWD/http/controller/detail/IHttpRouteNode.cpp \
     $$PWD/http/controller/detail/IUrlFragmentNode.cpp \
     $$PWD/http/controller/detail/IUrlNode.cpp \
+    $$PWD/http/controller/mapping/IHttpMappingWare.cpp \
     $$PWD/http/controller/mapping/IHttpRouteMapping.cpp \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.cpp \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.cpp \
