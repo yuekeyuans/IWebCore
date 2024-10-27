@@ -46,8 +46,8 @@ private:
 //    static QMap<IStringView, IStringView> getPathVariable(void* node, const IStringViewList& fragments);
 
     // 这里实现 url 时 需要防止  /<name>/<name>/  这种重复类型的 url
-    static bool checkUrlDuplicateName(const IHttpRouteLeaf* node);
-    static void checkRegisterAvalible();    // 检查是否能够注册
+//    static bool checkUrlDuplicateName(const IHttpRouteLeaf* node);
+//    static void checkRegisterAvalible();    // 检查是否能够注册
 
 private:
     bool m_isServerStarted{false};

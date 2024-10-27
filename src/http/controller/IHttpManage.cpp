@@ -42,7 +42,7 @@ void IHttpManage::setIsServerStarted(bool value)
 
 void IHttpManage::registerStaticFiles(const QString &path, const QString &prefix)
 {
-    checkRegisterAvalible();
+//    checkRegisterAvalible();
 
     QDir dir(path);
     if(!dir.exists()){
@@ -59,7 +59,7 @@ void IHttpManage::registerStaticFiles(const QString &path, const QString &prefix
 
 void IHttpManage::registerPathValidator(const QString &name, const QString &regexp)
 {
-    checkRegisterAvalible();
+//    checkRegisterAvalible();
 
     QRegularExpression exp(regexp);
     if(!exp.isValid()){
@@ -77,7 +77,7 @@ void IHttpManage::registerPathValidator(const QString &name, const QString &rege
 
 void IHttpManage::registerPathValidator(const QString &name, ValidatorFun fun)
 {
-    checkRegisterAvalible();
+//    checkRegisterAvalible();
 
     if(m_pathFunValidators.contains(name) || m_pathFunValidators.contains(name)){
         auto info = name + " validator already registered";
@@ -250,34 +250,34 @@ QStringList IHttpManage::getStaticFolderActionPath(const IRequest &request)
 ////    return ret;
 //}
 
-//TODO: 这个可以放置在server start 的时候， 或者 END 的时候检测，而不必要事实检测
-bool IHttpManage::checkUrlDuplicateName(const IHttpRouteLeaf *node)
-{
-    QStringList names;
-    auto parent = static_cast<IHttpRouteNode*>(node->parentNode);
+////TODO: 这个可以放置在server start 的时候， 或者 END 的时候检测，而不必要事实检测
+//bool IHttpManage::checkUrlDuplicateName(const IHttpRouteLeaf *node)
+//{
+//    QStringList names;
+//    auto parent = static_cast<IHttpRouteNode*>(node->parentNode);
 
-    while(parent != nullptr){
-        auto name = parent->routeNode.name;
-        if(parent->routeNode.type != IUrlFragmentNode::TEXT_MATCH && !name.isEmpty()){
-            if(names.contains(name)){
-                auto info = name + " path variable name duplicated, please change one to annother name";
-                qFatal(info.toUtf8());
-                return false;
-            }
-            names.append(name);
-        }
-        parent = parent->parentNode;
-    }
-    return true;
-}
+//    while(parent != nullptr){
+//        auto name = parent->routeNode.name;
+//        if(parent->routeNode.type != IUrlFragmentNode::TEXT_MATCH && !name.isEmpty()){
+//            if(names.contains(name)){
+//                auto info = name + " path variable name duplicated, please change one to annother name";
+//                qFatal(info.toUtf8());
+//                return false;
+//            }
+//            names.append(name);
+//        }
+//        parent = parent->parentNode;
+//    }
+//    return true;
+//}
 
-void IHttpManage::checkRegisterAvalible()
-{
-    auto inst = instance();
-    if(inst->m_isServerStarted){
-        IHttpControllerAbort::abortregister_to_controllerManage_error($ISourceLocation);
-    }
-}
+//void IHttpManage::checkRegisterAvalible()
+//{
+//    auto inst = instance();
+//    if(inst->m_isServerStarted){
+//        IHttpControllerAbort::abortregister_to_controllerManage_error($ISourceLocation);
+//    }
+//}
 
 void IHttpManage::registMappingWare(IHttpMappingWare *ware)
 {
