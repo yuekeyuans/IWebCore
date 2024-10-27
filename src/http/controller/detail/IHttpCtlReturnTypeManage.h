@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "core/unit/ISingletonUnit.h"
-#include "http/controller/detail/IHttpRouteLeafNode.h"
+#include "http/controller/detail/IHttpRouteLeaf.h"
 
 $PackageWebCoreBegin
 
@@ -11,8 +11,8 @@ public:
     IHttpCtlReturnTypeManage();
 
 public:
-    IHttpRouteLeafNode::ReturnType parseReturnType(const IHttpRouteLeafNode& node);
-    bool isReturnTypeValid(const IHttpRouteLeafNode& node);
+    IHttpRouteLeaf::ReturnType parseReturnType(const IHttpRouteLeaf& node);
+    bool isReturnTypeValid(const IHttpRouteLeaf& node);
 };
 
 $PackageWebCoreEnd

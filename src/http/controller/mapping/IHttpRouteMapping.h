@@ -3,7 +3,7 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "http/controller/IHttpMappingInterface.h"
-#include "http/controller/IHttpRouteInnerNode.h"
+#include "http/controller/detail/IHttpRouteNode.h"
 
 $PackageWebCoreBegin
 
@@ -13,7 +13,7 @@ public:
     IHttpRouteMapping() = default;
 
 private:
-    IHttpRouteInnerNode m_node;
+    IHttpRouteNode m_node;
 };
 
 $PackageWebCoreEnd
