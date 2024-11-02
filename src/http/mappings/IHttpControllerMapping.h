@@ -18,12 +18,12 @@ public:
 
 public:
     virtual void travelPrint() final;
-    virtual IHttpControllerAction* getUrlActionNode(IRequest &request);
+    virtual std::vector<IHttpAction*> getActions(IRequest &request);
 
 private:
     bool checkUrlDuplicateName(const IHttpControllerAction* node);
     void checkRegisterAvalible();    // 检查是否能够注册
-    QVector<IHttpControllerAction*> queryFunctionNodes(IHttpRouteNode* parentNode, const IStringViewList& fragments, IHttpMethod method);
+    std::vector<IHttpAction*> queryFunctionNodes(IHttpRouteNode* parentNode, const IStringViewList& fragments, IHttpMethod method);
     QMap<IStringView, IStringView> getPathVariable(void* node, const IStringViewList& fragments);
 
 

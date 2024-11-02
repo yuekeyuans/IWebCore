@@ -545,43 +545,45 @@ void IRequestImpl::resolveCookieHeaders()
     }
 }
 
+// TODO:
 void IRequestImpl::resolvePathProcessor()
 {
-    if(m_raw->m_method == IHttpMethod::OPTIONS){
-        m_raw->m_processer.type = IRequestRaw::ProcessUnit::Type::Option;
-        return;
-    }
+//    if(m_raw->m_method == IHttpMethod::OPTIONS){
+//        m_raw->m_processer.type = IRequestRaw::ProcessUnit::Type::Option;
+//        return;
+//    }
 
-    static auto controllerManage = IHttpManage::instance();
-    static const bool isUrlActionEnabled = controllerManage->isUrlActionNodeEnabled();     // process as dynamic server first
-    if(isUrlActionEnabled){
-        m_raw->m_processer.node = controllerManage->getUrlActionNode(*m_request);
-        if(m_raw->m_processer.node != nullptr){
-            m_raw->m_processer.type = IRequestRaw::ProcessUnit::Type::Function;
-            return;
-        }
-    }
+//    // TODO: 这里需要看一下
+//    static auto controllerManage = IHttpManage::instance();
+////    static const bool isUrlActionEnabled = controllerManage->isUrlActionNodeEnabled();     // process as dynamic server first
+//    if(true){
+//        m_raw->m_processer.node = controllerManage->getAction(*m_request);
+//        if(m_raw->m_processer.node != nullptr){
+//            m_raw->m_processer.type = IRequestRaw::ProcessUnit::Type::Function;
+//            return;
+//        }
+//    }
 
-    static bool isStaticFileEnabled = controllerManage->isStaticFileActionPathEnabled();        // process as static file server then
-    if(isStaticFileEnabled && m_request->method() == IHttpMethod::GET){
-        m_raw->m_processer.path = controllerManage->getStaticFileActionPath(*m_request);
-        if(!m_raw->m_processer.path.isEmpty()){
-            m_raw->m_processer.type = IRequestRaw::ProcessUnit::Type::Path;
-            return;
-        }
+//    static bool isStaticFileEnabled = controllerManage->isStaticFileActionPathEnabled();        // process as static file server then
+//    if(isStaticFileEnabled && m_request->method() == IHttpMethod::GET){
+//        m_raw->m_processer.path = controllerManage->getStaticFileActionPath(*m_request);
+//        if(!m_raw->m_processer.path.isEmpty()){
+//            m_raw->m_processer.type = IRequestRaw::ProcessUnit::Type::Path;
+//            return;
+//        }
 
-        static $Bool handleDir{"/http/fileService/folderHandled", false};
-        if(*handleDir){
-            m_raw->m_processer.entries = controllerManage->getStaticFolderActionPath(*m_request);
-            if(!m_raw->m_processer.entries.isEmpty()){
-                m_raw->m_processer.type = IRequestRaw::ProcessUnit::Type::Directory;
-                return;
-            }
-        }
-    }
+//        static $Bool handleDir{"/http/fileService/folderHandled", false};
+//        if(*handleDir){
+//            m_raw->m_processer.entries = controllerManage->getStaticFolderActionPath(*m_request);
+//            if(!m_raw->m_processer.entries.isEmpty()){
+//                m_raw->m_processer.type = IRequestRaw::ProcessUnit::Type::Directory;
+//                return;
+//            }
+//        }
+//    }
 
-    QString info = m_request->url().toQString() + " " + IHttpMethodUtil::toString(m_request->method()) + " has no function to handle";
-    m_request->setInvalid(IHttpNotFoundInvalid(std::move(info)));
+//    QString info = m_request->url().toQString() + " " + IHttpMethodUtil::toString(m_request->method()) + " has no function to handle";
+//    m_request->setInvalid(IHttpNotFoundInvalid(std::move(info)));
 }
 
 void IRequestImpl::resolveBodyContent()

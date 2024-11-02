@@ -33,7 +33,9 @@ void IHttpControllerMapping::travelPrint()
     m_urlMapppings.travelPrint();
 }
 
-IHttpControllerAction *IHttpControllerMapping::getUrlActionNode(IRequest &request)
+
+// TODO: 这个需要检查一下
+std::vector<IHttpAction *> IHttpControllerMapping::getActions(IRequest &request)
 {
     IStringView url = request.url();
     IHttpMethod method = request.method();
@@ -41,7 +43,7 @@ IHttpControllerAction *IHttpControllerMapping::getUrlActionNode(IRequest &reques
     auto nodePtr = &instance()->m_urlMapppings;
 
     if(url == "/"){
-        return nodePtr->getLeaf(method);
+        return {nodePtr->getLeaf(method)};
     }
 
     IStringViewList fragments = url.split('/');
@@ -49,17 +51,20 @@ IHttpControllerAction *IHttpControllerMapping::getUrlActionNode(IRequest &reques
         fragments.pop_front();
     }
 
-    QVector<IHttpControllerAction*> nodes =  queryFunctionNodes(nodePtr, fragments, method);
-    if(nodes.length() == 0){
-        return nullptr;
-    }else if(nodes.length() > 1){
-        auto info = url.toQString() + " : " + IHttpMethodUtil::toString(method) + " matched multi-functions, please check";
-        qFatal(info.toUtf8());
-    }
+    return queryFunctionNodes(nodePtr, fragments, method);
 
-    auto node = nodes.first();
-    request.getRaw()->m_requestUrlParameters = getPathVariable(node->parentNode, fragments);
-    return node;
+// TODO: 这里对于 PathVariable 需要重新处理
+//    std::vector<IHttpControllerAction*> nodes =  queryFunctionNodes(nodePtr, fragments, method);
+//    if(nodes.length() == 0){
+//        return {};
+//    }else if(nodes.length() > 1){
+//        auto info = url.toQString() + " : " + IHttpMethodUtil::toString(method) + " matched multi-functions, please check";
+//        qFatal(info.toUtf8());
+//    }
+
+//    auto node = nodes.first();
+//    request.getRaw()->m_requestUrlParameters = getPathVariable(node->parentNode, fragments);
+//    return {node};
 }
 
 bool IHttpControllerMapping::checkUrlDuplicateName(const IHttpControllerAction *node)
@@ -87,25 +92,27 @@ void IHttpControllerMapping::checkRegisterAvalible()
     // do nothing
 }
 
-QVector<IHttpControllerAction *> IHttpControllerMapping::queryFunctionNodes(IHttpRouteNode *parentNode, const IStringViewList &fragments, IHttpMethod method)
+std::vector<IHttpAction *> IHttpControllerMapping::queryFunctionNodes(IHttpRouteNode *parentNode, const IStringViewList &fragments, IHttpMethod method)
 {
     // FIXME:
 
-    QVector<IHttpControllerAction*> ret;
+    std::vector<IHttpAction*> ret;
     auto childNodes = parentNode->getChildNodes(fragments.first());
     if(fragments.length() == 1){
         for(const auto& val : childNodes){
             auto leaf = val->getLeaf(method);
             if(leaf != nullptr){
-                ret.append(leaf);
+                ret.push_back(leaf);
             }
         }
     }else{
         auto childFragments = fragments.mid(1);
         for(auto& val : childNodes){
             auto result = queryFunctionNodes(val, childFragments, method);
-            if(!result.isEmpty()){
-                ret.append(result);
+            if(!result.empty()){
+                for(auto action : result){
+                    ret.push_back(action);
+                }
             }
         }
     }

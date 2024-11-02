@@ -3,7 +3,6 @@
 #include "core/util/IHeaderUtil.h"
 #include "core/unit/ISingletonUnit.h"
 #include "http/biscuits/IHttpMethod.h"
-#include "http/controller/detail/IHttpControllerAction.h"
 #include "http/mappings//IHttpMappingInterface.h"
 #include "http/controller/detail/IHttpRouteNode.h"
 #include "IHttpResourceMapping.h"
@@ -12,6 +11,7 @@
 $PackageWebCoreBegin
 
 class IRequest;
+class IHttpAction;
 class IHttpMappingWare;
 class IHttpManage : public ISingletonUnit<IHttpManage>
 {
@@ -34,8 +34,7 @@ public:
     static QString queryPathRegValidator(const QString& path);
     static ValidatorFun queryPathFunValidator(const QString& path);
 
-    bool isUrlActionNodeEnabled() const;
-    IHttpControllerAction* getUrlActionNode(IRequest& request);
+    IHttpAction* getAction(IRequest& request);
 
     bool isStaticFileActionPathEnabled();
     QString getStaticFileActionPath(const IRequest& request);

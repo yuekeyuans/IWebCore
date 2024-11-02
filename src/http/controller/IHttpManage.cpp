@@ -116,21 +116,21 @@ IHttpManage::ValidatorFun IHttpManage::queryPathFunValidator(const QString &path
     return nullptr;
 }
 
-// TODO: 这里需要查看以下
-bool IHttpManage::isUrlActionNodeEnabled() const
-{
-    return true;
-//    return !m_urlMapppings.isEmpty();
-}
-
-IHttpControllerAction *IHttpManage::getUrlActionNode(IRequest &request)
+IHttpAction *IHttpManage::getAction(IRequest &request)
 {
     for(IHttpMappingWare* ware : m_mappingWares){
-        auto ret = ware->getUrlActionNode(request);
-        if(ret != nullptr){
-            return ret;
+        auto ret = ware->getActions(request);
+        auto size = ret.size();
+        if(size == 0){
+            continue;
+        }else if(size == 1){
+            return ret.front();
+        }else{
+            // 这里返回一个内置的Action
+            // TODO: 异常处理
         }
     }
+
 
     return nullptr;
 

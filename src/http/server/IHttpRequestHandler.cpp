@@ -100,7 +100,7 @@ QStringList IHttpRequestHandler::handleOptionsRequest(IRequest &request, IRespon
     auto origin = raw->m_method;
     for (auto key : keys) {
         raw->m_method = key;
-        if(controllerManage->getUrlActionNode(request) != nullptr){
+        if(controllerManage->getAction(request) != nullptr){
             options.append(mappings[key]);
         }
     }
