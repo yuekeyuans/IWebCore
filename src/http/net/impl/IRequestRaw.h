@@ -19,24 +19,9 @@ class IHeaderJar;
 class ICookieJar;
 class ISessionJar;
 class IMultiPartJar;
-struct IHttpControllerAction;
+class IHttpAction;
 class IRequestRaw
 {
-public:
-    struct ProcessUnit{
-        enum Type{
-            Invalid,    // 非法
-            Function,   // 处理函数
-            Path,       // 文件路径
-            Directory,  // 请求路径在 directory 当中
-            Option,     // 处理 option
-        };
-        Type type{Invalid};
-        IHttpControllerAction* node;
-        QString path;
-        QStringList entries;
-    };
-
 public:
     IRequestRaw();
     IRequestRaw(IRequest* request);
@@ -75,7 +60,7 @@ public:
     IMultiPartJar* m_multiPartJar{nullptr};
     ISessionJar* m_sessionJar{nullptr};
 
-    ProcessUnit m_processer;
+    IHttpAction* m_action{};   // 最终处理请求的 动作。
     QJsonValue m_requestJson;                   // json 和 dom 不一定使用，也可能是延后加载
     QDomNode m_requestXml;
 };

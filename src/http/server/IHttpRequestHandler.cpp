@@ -38,35 +38,38 @@ void IHttpRequestHandler::handle(IRequest &request)
     request.m_connection->doWrite();
 }
 
+// TODO: 这里的路径理论上都能拆开成为新的路径
 void IHttpRequestHandler::handleRequest(IRequest &request, IResponse &response)
 {
-    const auto& process = request.getRaw()->m_processer;
+    request.getRaw()->m_action->invoke(request);
 
-    if(process.type == IRequestRaw::ProcessUnit::Option){
-        runOptionsFunction(request, response);
-    }
+//    const auto& process = request.getRaw()->m_processer;
 
-    switch (process.type) {
-    case IRequestRaw::ProcessUnit::Option:
-        return runOptionsFunction(request, response);
-    case IRequestRaw::ProcessUnit::Function:
-    {
-        auto function = process.node;
-        if(function->type == IHttpControllerAction::CallableType::Method){
-            return processInMethodMode(request, response, function);
-        }
-        return processInFunctionMode(request, response, function);
-    }
-    case IRequestRaw::ProcessUnit::Path:
-        return processInStaticFileMode(request, response, process.path);
-    case IRequestRaw::ProcessUnit::Directory:
-        return processInStaticFolderMode(request, response, process.entries);
-    default:
-    {
-        QString info = request.url().toQString() + " " + IHttpMethodUtil::toString(request.method()) + " has no function to handle";
-        response.setContent(IHttpNotFoundInvalid(info));
-    }
-    }
+//    if(process.type == IRequestRaw::ProcessUnit::Option){
+//        runOptionsFunction(request, response);
+//    }
+
+//    switch (process.type) {
+//    case IRequestRaw::ProcessUnit::Option:
+//        return runOptionsFunction(request, response);
+//    case IRequestRaw::ProcessUnit::Function:
+//    {
+//        auto function = process.node;
+//        if(function->type == IHttpControllerAction::CallableType::Method){
+//            return processInMethodMode(request, response, function);
+//        }
+//        return processInFunctionMode(request, response, function);
+//    }
+//    case IRequestRaw::ProcessUnit::Path:
+//        return processInStaticFileMode(request, response, process.path);
+//    case IRequestRaw::ProcessUnit::Directory:
+//        return processInStaticFolderMode(request, response, process.entries);
+//    default:
+//    {
+//        QString info = request.url().toQString() + " " + IHttpMethodUtil::toString(request.method()) + " has no function to handle";
+//        response.setContent(IHttpNotFoundInvalid(info));
+//    }
+//    }
 }
 
 void IHttpRequestHandler::runOptionsFunction(IRequest &request, IResponse &response)
