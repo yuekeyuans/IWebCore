@@ -4,6 +4,8 @@
 
 $PackageWebCoreBegin
 
+// TODO: 这个能删除么？
+
 class ITcpConnection;
 class ITcpResolverInterface
 {

@@ -73,11 +73,11 @@ void *IHttpControllerBeanParameter::assambleBeanWareWithBody(IBeanWare *bean, IR
     // 在 body 当中存在嵌套数据的，目前仅有 Json 和 xml 能够办到
     if(request.mime() == IHttpMime::APPLICATION_JSON
         ||request.mime() == IHttpMime::APPLICATION_JSON_UTF8){
-        bool ok;
-        const auto& value = request.bodyJson(ok);
-        if(!ok || value.isObject()){
-            request.setInvalid(IHttpBadRequestInvalid("body to jsonobject is not valid"));
-        }
+//        bool ok;
+//        const auto& value = request.bodyJson(ok);
+//        if(!ok || value.isObject()){
+//            request.setInvalid(IHttpBadRequestInvalid("body to jsonobject is not valid"));
+//        }
 
         // TODO: changed, check latter
 //        auto obj = value.toObject();

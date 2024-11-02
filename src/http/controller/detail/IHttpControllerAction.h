@@ -13,7 +13,6 @@ struct IHttpControllerAction : public IHttpActionInterface
 {
     enum class ReturnType{
         Void,
-//        Int,
         String,
         Bean,
         IResponse,
@@ -36,8 +35,6 @@ public:
     QList<IUrlFragmentNode> routeNode;  // TODO:
     IMethodNode methodNode;
     IFunctionNode functionNode;
-
-    // IHttpAction interface
 };
 
 inline void IHttpControllerAction::invoke(IRequest &request) const
