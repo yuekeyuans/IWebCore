@@ -38,23 +38,6 @@ std::vector<asio::const_buffer> IResponseImpl::getContent()
     return result;
 }
 
-//bool IResponseImpl::respond()
-//{
-//    const auto& content = raw->m_responseRaw->content.getAsBytes();
-//    raw->writeSocket(generateFirstLine());
-//    if(!content.isEmpty()){
-//        raw->writeSocket(generateHeadersContent(content.size()));
-//    }
-//    raw->writeSocket(NEW_LINE);
-
-//    if(!content.isEmpty() && raw->m_method != IHttpMethod::HEAD){       // 处理 head 方法
-//        raw->writeSocket(content);
-//    }
-
-//    raw->flushSocket();
-//    return true;
-//}
-
 QByteArray IResponseImpl::generateFirstLine()
 {
     QByteArray firstLine;
