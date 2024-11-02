@@ -19,7 +19,7 @@ class IHeaderJar;
 class ICookieJar;
 class ISessionJar;
 class IMultiPartJar;
-struct IHttpAction;
+struct IHttpControllerAction;
 class IRequestRaw
 {
 public:
@@ -32,7 +32,7 @@ public:
             Option,     // 处理 option
         };
         Type type{Invalid};
-        IHttpAction* node;
+        IHttpControllerAction* node;
         QString path;
         QStringList entries;
     };

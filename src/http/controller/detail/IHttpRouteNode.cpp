@@ -1,6 +1,6 @@
 ﻿#include "IHttpRouteNode.h"
 #include "http/controller/IHttpManage.h"
-#include "http/controller/detail/IHttpAction.h"
+#include "http/controller/detail/IHttpControllerAction.h"
 
 $PackageWebCoreBegin
 
@@ -40,7 +40,7 @@ bool IHttpRouteNode::isEmpty() const
 }
 
 // TODO: WARN
-IHttpAction* IHttpRouteNode::setLeaf(const IHttpAction &leafNode)
+IHttpControllerAction* IHttpRouteNode::setLeaf(const IHttpControllerAction &leafNode)
 {
     auto& ptr = getLeafRef(leafNode.httpMethod);
     if(ptr != nullptr){
@@ -49,7 +49,7 @@ IHttpAction* IHttpRouteNode::setLeaf(const IHttpAction &leafNode)
 //        $Ast->warn("register_the_same_url");
     }
 
-    auto leaf = new IHttpAction(leafNode);
+    auto leaf = new IHttpControllerAction(leafNode);
     leaf->parentNode = this;
     ptr = leaf;
 
@@ -57,7 +57,7 @@ IHttpAction* IHttpRouteNode::setLeaf(const IHttpAction &leafNode)
 }
 
 // @see https://hc.apache.org/httpclient-legacy/methods/head.html
-IHttpAction* IHttpRouteNode::getLeaf(IHttpMethod method)
+IHttpControllerAction* IHttpRouteNode::getLeaf(IHttpMethod method)
 {
     if(method == IHttpMethod::OPTIONS){
         return nullptr;
@@ -163,7 +163,7 @@ void IHttpRouteNode::travelPrint(int space) const
         qDebug() << "Controller Url Mapping:";
     }
 
-    auto print = [](IHttpAction* leaf, int space){
+    auto print = [](IHttpControllerAction* leaf, int space){
         if(leaf != nullptr){
             qDebug().noquote()<< QString().fill(' ', 4 * space)
                               << "    |::" + IHttpMethodUtil::toString(leaf->httpMethod)

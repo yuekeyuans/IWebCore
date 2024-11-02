@@ -4,11 +4,12 @@
 #include "http/biscuits/IHttpMethod.h"
 #include "http/base/IMethodNode.h"
 #include "http/base/IFunctionNode.h"
+#include "http/mappings/IHttpAction.h"
 #include "http/controller/detail/IUrlFragmentNode.h"
 
 $PackageWebCoreBegin
 
-struct IHttpAction
+struct IHttpControllerAction : public IHttpActionInterface
 {
     enum class ReturnType{
         Void,
@@ -24,6 +25,9 @@ struct IHttpAction
     };
 
 public:
+    virtual void invoke(IRequest &req) final;
+
+public:
     IHttpMethod httpMethod;
     CallableType type {CallableType::Method};
     void* parentNode{nullptr};
@@ -32,6 +36,13 @@ public:
     QList<IUrlFragmentNode> routeNode;  // TODO:
     IMethodNode methodNode;
     IFunctionNode functionNode;
+
+    // IHttpAction interface
 };
+
+inline void IHttpControllerAction::invoke(IRequest &request)
+{
+    // TODO: this will be intialized latter
+}
 
 $PackageWebCoreEnd

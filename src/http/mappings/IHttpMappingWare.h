@@ -5,7 +5,7 @@
 $PackageWebCoreBegin
 
 class IRequest;
-class IHttpAction;
+struct IHttpControllerAction;
 class IHttpMappingWare
 {
 public:
@@ -14,7 +14,7 @@ public:
 
 public:
     virtual void travelPrint() = 0;
-    virtual IHttpAction* getUrlActionNode(IRequest& request) = 0;
+    virtual IHttpControllerAction* getUrlActionNode(IRequest& request) = 0;
 
 };
 

@@ -7,7 +7,7 @@ $PackageWebCoreBegin
 
 class IRequest;
 class IResponse;
-struct IHttpAction;
+struct IHttpControllerAction;
 class IHttpRequestHandler : public ISingletonUnit<IHttpRequestHandler>
 {
 public:
@@ -23,8 +23,8 @@ private:
     void runOptionsFunction(IRequest &request, IResponse &response);
     QStringList handleOptionsRequest(IRequest& request, IResponse& response);
 
-    void processInMethodMode(IRequest &request, IResponse &response, IHttpAction *node);
-    void processInFunctionMode(IRequest &request, IResponse &response, IHttpAction *node);
+    void processInMethodMode(IRequest &request, IResponse &response, IHttpControllerAction *node);
+    void processInFunctionMode(IRequest &request, IResponse &response, IHttpControllerAction *node);
     void processInStaticFileMode(IRequest &request, IResponse &response, const QString &path);
     void processInStaticFolderMode(IRequest &request, IResponse &response, const QStringList& entries);
 };

@@ -6,7 +6,7 @@
 #include "http/net/IRequest.h"
 #include "http/net/impl/IRequestRaw.h"
 
-#include "http/controller/mapping/IHttpMappingWare.h"
+#include "http/mappings/IHttpMappingWare.h"
 
 $PackageWebCoreBegin
 
@@ -123,7 +123,7 @@ bool IHttpManage::isUrlActionNodeEnabled() const
 //    return !m_urlMapppings.isEmpty();
 }
 
-IHttpAction *IHttpManage::getUrlActionNode(IRequest &request)
+IHttpControllerAction *IHttpManage::getUrlActionNode(IRequest &request)
 {
     for(IHttpMappingWare* ware : m_mappingWares){
         auto ret = ware->getUrlActionNode(request);

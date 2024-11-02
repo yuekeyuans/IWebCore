@@ -3,7 +3,7 @@
 #include "core/util/ISpawnUtil.h"
 #include "http/controller/IHttpControllerAbort.h"
 #include "http/biscuits/IHttpMethod.h"
-#include "http/controller/detail/IHttpAction.h"
+#include "http/controller/detail/IHttpControllerAction.h"
 
 $PackageWebCoreBegin
 
@@ -41,14 +41,14 @@ private:
 
 private:
     void checkMethod();
-    void chechMethodSupportedReturnType(const IHttpAction& node);
-    void checkMethodSupportedParamArgType(const IHttpAction& node);
-    void checkMethodOfReturnVoid(const IHttpAction& node);
-    void checkMethodBodyContentArgs(const IHttpAction& node);
-    void checkMethodParamterWithSuffixProper(const IHttpAction& node);
+    void chechMethodSupportedReturnType(const IHttpControllerAction& node);
+    void checkMethodSupportedParamArgType(const IHttpControllerAction& node);
+    void checkMethodOfReturnVoid(const IHttpControllerAction& node);
+    void checkMethodBodyContentArgs(const IHttpControllerAction& node);
+    void checkMethodParamterWithSuffixProper(const IHttpControllerAction& node);
 
 private:
-    bool isReturnTypeEmbeded(const IHttpAction&);
+    bool isReturnTypeEmbeded(const IHttpControllerAction&);
 
 private:
     bool isSpecialTypes(const QString&);
@@ -144,7 +144,7 @@ void IHttpControllerInfoDetail::parseMapppingInfos()
 void IHttpControllerInfoDetail::parseMappingLeaves()
 {
     for(const auto& mapping : m_mappingInfos){
-        IHttpAction node;
+        IHttpControllerAction node;
         node.httpMethod = mapping.method;
         node.url = mapping.toUrl();
         node.methodNode = mapping.toMethodNode(this, this->className, this->classMethods);
@@ -290,7 +290,7 @@ bool IHttpControllerInfoDetail::isPieceWildCard(const QString &piece)
 
 void IHttpControllerInfoDetail::checkMethod()
 {
-    using CheckFunType = void (IHttpControllerInfoDetail::*)(const IHttpAction&);
+    using CheckFunType = void (IHttpControllerInfoDetail::*)(const IHttpControllerAction&);
     QList<CheckFunType> funs {
         &IHttpControllerInfoDetail::chechMethodSupportedReturnType,
         &IHttpControllerInfoDetail::checkMethodSupportedParamArgType,
@@ -307,7 +307,7 @@ void IHttpControllerInfoDetail::checkMethod()
 }
 
 // TODO: json
-void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IHttpAction &node)
+void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IHttpControllerAction &node)
 {
     const static QString info = "this kind of return type not supported, please change the return type!";
 
@@ -348,7 +348,7 @@ void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IHttpAction
     qFatal(errorInfo.toUtf8());
 }
 
-void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IHttpAction &node)
+void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IHttpControllerAction &node)
 {
     static const QString info = "the argument type is not valid, please use the correct type\n";
     static const QVector<QMetaType::Type> allowType = {
@@ -394,7 +394,7 @@ void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IHttpActi
     }
 }
 
-void IHttpControllerInfoDetail::checkMethodOfReturnVoid(const IHttpAction &node)
+void IHttpControllerInfoDetail::checkMethodOfReturnVoid(const IHttpControllerAction &node)
 {
     if(node.methodNode.returnTypeId != QMetaType::Void){
         return;
@@ -408,7 +408,7 @@ void IHttpControllerInfoDetail::checkMethodOfReturnVoid(const IHttpAction &node)
     }
 }
 
-void IHttpControllerInfoDetail::checkMethodBodyContentArgs(const IHttpAction &node)
+void IHttpControllerInfoDetail::checkMethodBodyContentArgs(const IHttpControllerAction &node)
 {
     const auto& typeNames = node.methodNode.parameterTypeNames;
     auto index = typeNames.indexOf("QJsonValue&");
@@ -423,7 +423,7 @@ void IHttpControllerInfoDetail::checkMethodBodyContentArgs(const IHttpAction &no
     }
 }
 
-void IHttpControllerInfoDetail::checkMethodParamterWithSuffixProper(const IHttpAction &node)
+void IHttpControllerInfoDetail::checkMethodParamterWithSuffixProper(const IHttpControllerAction &node)
 {
     const auto& argNodes = node.methodNode.paramNodes;
 

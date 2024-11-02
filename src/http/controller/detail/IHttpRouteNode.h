@@ -5,12 +5,12 @@
 
 $PackageWebCoreBegin
 
-struct IHttpAction;
+struct IHttpControllerAction;
 
 class IHttpRouteNode
 {
 private:
-    using IUrlActionNodePtr = IHttpAction*;
+    using IUrlActionNodePtr = IHttpControllerAction*;
 
 public:
     IHttpRouteNode() = default;
@@ -19,8 +19,8 @@ public:
 
 public:
     bool isEmpty() const;
-    IHttpAction* setLeaf(const IHttpAction& leaf);
-    IHttpAction* getLeaf(IHttpMethod method);
+    IHttpControllerAction* setLeaf(const IHttpControllerAction& leaf);
+    IHttpControllerAction* getLeaf(IHttpMethod method);
     void removeLeaf(IHttpMethod method);
 
     void addChildNode(const IHttpRouteNode& node);
@@ -40,11 +40,11 @@ private:
 public:
     IUrlFragmentNode routeNode;
     IHttpRouteNode* parentNode{nullptr};
-    IHttpAction *getMethodLeaf{nullptr};
-    IHttpAction *putMethodLeaf{nullptr};
-    IHttpAction *postMethodLeaf{nullptr};
-    IHttpAction *deleteMethodLeaf{nullptr};
-    IHttpAction *patchMethodLeaf{nullptr};
+    IHttpControllerAction *getMethodLeaf{nullptr};
+    IHttpControllerAction *putMethodLeaf{nullptr};
+    IHttpControllerAction *postMethodLeaf{nullptr};
+    IHttpControllerAction *deleteMethodLeaf{nullptr};
+    IHttpControllerAction *patchMethodLeaf{nullptr};
     QList<IHttpRouteNode> children;
 };
 

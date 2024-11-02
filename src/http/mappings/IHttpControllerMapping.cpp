@@ -1,12 +1,12 @@
-﻿#include "IHttpRouteMapping.h"
-#include "http/controller/detail/IHttpAction.h"
+﻿#include "IHttpControllerMapping.h"
+#include "http/controller/detail/IHttpControllerAction.h"
 #include "http/controller/detail/IHttpRouteNode.h"
 #include "http/net/IRequest.h"
 #include "http/net/impl/IRequestRaw.h"
 
 $PackageWebCoreBegin
 
-void IHttpRouteMapping::registerUrlActionNode(IHttpAction node)
+void IHttpControllerMapping::registerUrlActionNode(IHttpControllerAction node)
 {
     checkRegisterAvalible();
 
@@ -21,19 +21,19 @@ void IHttpRouteMapping::registerUrlActionNode(IHttpAction node)
     checkUrlDuplicateName(newLeaf);  // TODO: delete from here
 }
 
-void IHttpRouteMapping::registerUrlActionNodes(const QVector<IHttpAction> &functionNodes)
+void IHttpControllerMapping::registerUrlActionNodes(const QVector<IHttpControllerAction> &functionNodes)
 {
     for(auto& node : functionNodes){
         registerUrlActionNode(node);
     }
 }
 
-void IHttpRouteMapping::travelPrint()
+void IHttpControllerMapping::travelPrint()
 {
     m_urlMapppings.travelPrint();
 }
 
-IHttpAction *IHttpRouteMapping::getUrlActionNode(IRequest &request)
+IHttpControllerAction *IHttpControllerMapping::getUrlActionNode(IRequest &request)
 {
     IStringView url = request.url();
     IHttpMethod method = request.method();
@@ -49,7 +49,7 @@ IHttpAction *IHttpRouteMapping::getUrlActionNode(IRequest &request)
         fragments.pop_front();
     }
 
-    QVector<IHttpAction*> nodes =  queryFunctionNodes(nodePtr, fragments, method);
+    QVector<IHttpControllerAction*> nodes =  queryFunctionNodes(nodePtr, fragments, method);
     if(nodes.length() == 0){
         return nullptr;
     }else if(nodes.length() > 1){
@@ -62,7 +62,7 @@ IHttpAction *IHttpRouteMapping::getUrlActionNode(IRequest &request)
     return node;
 }
 
-bool IHttpRouteMapping::checkUrlDuplicateName(const IHttpAction *node)
+bool IHttpControllerMapping::checkUrlDuplicateName(const IHttpControllerAction *node)
 {
     QStringList names;
     auto parent = static_cast<IHttpRouteNode*>(node->parentNode);
@@ -82,16 +82,16 @@ bool IHttpRouteMapping::checkUrlDuplicateName(const IHttpAction *node)
     return true;
 }
 
-void IHttpRouteMapping::checkRegisterAvalible()
+void IHttpControllerMapping::checkRegisterAvalible()
 {
     // do nothing
 }
 
-QVector<IHttpAction *> IHttpRouteMapping::queryFunctionNodes(IHttpRouteNode *parentNode, const IStringViewList &fragments, IHttpMethod method)
+QVector<IHttpControllerAction *> IHttpControllerMapping::queryFunctionNodes(IHttpRouteNode *parentNode, const IStringViewList &fragments, IHttpMethod method)
 {
     // FIXME:
 
-    QVector<IHttpAction*> ret;
+    QVector<IHttpControllerAction*> ret;
     auto childNodes = parentNode->getChildNodes(fragments.first());
     if(fragments.length() == 1){
         for(const auto& val : childNodes){
@@ -112,7 +112,7 @@ QVector<IHttpAction *> IHttpRouteMapping::queryFunctionNodes(IHttpRouteNode *par
     return ret;
 }
 
-QMap<IStringView, IStringView> IHttpRouteMapping::getPathVariable(void *node, const IStringViewList &fragments)
+QMap<IStringView, IStringView> IHttpControllerMapping::getPathVariable(void *node, const IStringViewList &fragments)
 {
     // FIXME:
     return {};

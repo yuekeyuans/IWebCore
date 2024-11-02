@@ -3,8 +3,8 @@
 #include "core/util/IHeaderUtil.h"
 #include "core/unit/ISingletonUnit.h"
 #include "http/biscuits/IHttpMethod.h"
-#include "http/controller/detail/IHttpAction.h"
-#include "http/controller/IHttpMappingInterface.h"
+#include "http/controller/detail/IHttpControllerAction.h"
+#include "http/mappings//IHttpMappingInterface.h"
 #include "http/controller/detail/IHttpRouteNode.h"
 #include "IHttpResourceMapping.h"
 #include "IHttpFolderMapping.h"
@@ -35,7 +35,7 @@ public:
     static ValidatorFun queryPathFunValidator(const QString& path);
 
     bool isUrlActionNodeEnabled() const;
-    IHttpAction* getUrlActionNode(IRequest& request);
+    IHttpControllerAction* getUrlActionNode(IRequest& request);
 
     bool isStaticFileActionPathEnabled();
     QString getStaticFileActionPath(const IRequest& request);

@@ -9,7 +9,6 @@ include($$PWD/core/package/package.pri)
 PRECOMPILED_HEADER = $$PWD/core/util/IHeaderUtil.h
 
 HEADERS += \
-#    $$PWD/IWeb/IHttpControllerInterface \
     $$PWD/IHttp/IHttpControllerInterface \
     $$PWD/IHttp/IHttpTestInterface \
     $$PWD/core/abort/IAbortInterface.h \
@@ -20,7 +19,6 @@ HEADERS += \
     $$PWD/core/application/IAsioApplication.h \
     $$PWD/core/application/IAsioManage.h \
     $$PWD/core/application/IQtApplication.h \
-#    $$PWD/core/base/IGadgetInfo.h \
     $$PWD/core/base/IStringViewStash.h \
     $$PWD/core/bean/IBeanAbort.h \
     $$PWD/core/bean/IBeanTraitInterface.h \
@@ -35,9 +33,6 @@ HEADERS += \
     $$PWD/core/util/IConvertUtil.h \
     $$PWD/core/util/IFileUtil.h \
     $$PWD/core/util/IHeaderUtil.h \
-#    $$PWD/core/util/IJsonUtil.h \
-#    $$PWD/core/util/IJsonUtil_fromjson.h \
-#    $$PWD/core/util/IJsonUtil_tojson.h \
     $$PWD/core/util/IMetaUtil.h \
     $$PWD/core/util/IPackageUtil.h \
     $$PWD/core/util/IPreProcessorUtil.h \
@@ -46,10 +41,6 @@ HEADERS += \
     $$PWD/core/util/IToeUtil.h \
     $$PWD/core/util/ITraitUtil.h \
     $$PWD/core/util/IXmlUtil.h \
-#    $$PWD/core/assert/IAssertInfo.h \
-#    $$PWD/core/assert/IAssertInterface.h \
-#    $$PWD/core/assert/IAssertPreProcessor.h \
-#    $$PWD/core/assert/IGlobalAssert.h \
     $$PWD/core/bean/IBeanInterface.h \
     $$PWD/core/bean/IBeanPreProcessor.h \
     $$PWD/core/bean/IBeanTypeManage.h \
@@ -69,7 +60,6 @@ HEADERS += \
     $$PWD/core/config/default/IContextJsonProfileTask.h \
     $$PWD/core/config/default/IContextSystemVariableTask.h \
     $$PWD/core/config/default/IContextTomlProfileTask.h \
-#    $$PWD/core/config/default/IContextYamlProfileTask.h \
     $$PWD/core/config/default/ILoadProfileFileUnit.h \
     $$PWD/core/core.h \
     $$PWD/core/base/IResult.h \
@@ -96,22 +86,18 @@ HEADERS += \
     $$PWD/core/test/IUnitTestInterface.h \
     $$PWD/core/test/IUnitTestManage.h \
     $$PWD/core/test/IUnitTestTask.h \
-#    $$PWD/core/unit/IGadgetUnit.h \
     $$PWD/core/unit/INoConstructUnit.h \
     $$PWD/core/unit/IOrderUnit.h  \
-#    $$PWD/core/unit/IRegisterGadgetUnit.h \
     $$PWD/core/unit/IRegisterMetaTypeUnit.h \
     $$PWD/core/unit/ISingletonUnit.h \
     $$PWD/core/unit/IStackObjectUnit.h \
     $$PWD/http/IHttpAnnomacro.h \
-#    $$PWD/http/IHttpAssert.h \
     $$PWD/http/IHttpControllerTaskCatagory.h \
     $$PWD/http/base/IParameterNode.h \
     $$PWD/http/controller/IHttpControllerAbort.h \
     $$PWD/http/controller/IHttpControllerInterface.h \
-    $$PWD/http/controller/IHttpMappingInterface.h \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.h \
-    $$PWD/http/controller/detail/IHttpAction.h \
+    $$PWD/http/controller/detail/IHttpControllerAction.h \
     $$PWD/http/controller/detail/IHttpControllerBeanParameter.h \
     $$PWD/http/controller/detail/IHttpControllerInfo.h \
     $$PWD/http/controller/detail/IHttpControllerParameter.h \
@@ -120,8 +106,6 @@ HEADERS += \
     $$PWD/http/controller/detail/IHttpRouteNode.h \
     $$PWD/http/controller/detail/IUrlFragmentNode.h \
     $$PWD/http/controller/detail/IUrlNode.h \
-    $$PWD/http/controller/mapping/IHttpMappingWare.h \
-    $$PWD/http/controller/mapping/IHttpRouteMapping.h \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.h \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.h \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.h \
@@ -137,6 +121,10 @@ HEADERS += \
     $$PWD/http/invalid/IHttpNotFoundInvalid.h \
     $$PWD/http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.h \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.h \
+    $$PWD/http/mappings/IHttpAction.h \
+    $$PWD/http/mappings/IHttpControllerMapping.h \
+    $$PWD/http/mappings/IHttpMappingInterface.h \
+    $$PWD/http/mappings/IHttpMappingWare.h \
     $$PWD/http/net/IRequestManage.h \
     $$PWD/http/net/impl/IRequestRaw.h \
     $$PWD/http/net/impl/IResponseHeader.h \
@@ -197,7 +185,6 @@ HEADERS += \
     $$PWD/http/controller/IHttpManage.h \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.h \
     $$PWD/http/controller/IHttpResourceMapping.h \
-#    $$PWD/http/controller/detail/IControllerInterfaceHelper.h \
     $$PWD/http/core/defaultTask/INodyTemplateTask.h \
     $$PWD/http/core/test/IHttpTestInterface.h \
     $$PWD/http/core/test/IHttpTestManage.h \
@@ -306,8 +293,6 @@ SOURCES += \
     $$PWD/http/controller/detail/IHttpRouteNode.cpp \
     $$PWD/http/controller/detail/IUrlFragmentNode.cpp \
     $$PWD/http/controller/detail/IUrlNode.cpp \
-    $$PWD/http/controller/mapping/IHttpMappingWare.cpp \
-    $$PWD/http/controller/mapping/IHttpRouteMapping.cpp \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.cpp \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.cpp \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.cpp \
@@ -321,6 +306,9 @@ SOURCES += \
     $$PWD/http/invalid/IHttpNotFoundInvalid.cpp \
     $$PWD/http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.cpp \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.cpp \
+    $$PWD/http/mappings/IHttpAction.cpp \
+    $$PWD/http/mappings/IHttpControllerMapping.cpp \
+    $$PWD/http/mappings/IHttpMappingWare.cpp \
     $$PWD/http/net/IRequestManage.cpp \
     $$PWD/http/net/impl/IRequestRaw.cpp \
     $$PWD/http/net/impl/IResponseHeader.cpp \
