@@ -25,7 +25,7 @@ struct IHttpControllerAction : public IHttpActionInterface
     };
 
 public:
-    virtual void invoke(IRequest &req) final;
+    virtual void invoke(IRequest &req) const final;
 
 public:
     IHttpMethod httpMethod;
@@ -40,7 +40,7 @@ public:
     // IHttpAction interface
 };
 
-inline void IHttpControllerAction::invoke(IRequest &request)
+inline void IHttpControllerAction::invoke(IRequest &request) const
 {
     // TODO: this will be intialized latter
 }

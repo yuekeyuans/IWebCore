@@ -12,7 +12,7 @@ public:
     virtual ~IHttpAction() = default;
 
 public:
-    virtual void invoke(IRequest& request) = 0;
+    virtual void invoke(IRequest& request) const = 0;
 
 public:
     bool m_isDeleted{false};    // should be delete after used?
