@@ -3,7 +3,7 @@
 #include "core/util/ISpawnUtil.h"
 #include "http/controller/IHttpControllerAbort.h"
 #include "http/biscuits/IHttpMethod.h"
-#include "http/controller/detail/IHttpRouteLeaf.h"
+#include "http/controller/detail/IHttpAction.h"
 
 $PackageWebCoreBegin
 
@@ -41,14 +41,14 @@ private:
 
 private:
     void checkMethod();
-    void chechMethodSupportedReturnType(const IHttpRouteLeaf& node);
-    void checkMethodSupportedParamArgType(const IHttpRouteLeaf& node);
-    void checkMethodOfReturnVoid(const IHttpRouteLeaf& node);
-    void checkMethodBodyContentArgs(const IHttpRouteLeaf& node);
-    void checkMethodParamterWithSuffixProper(const IHttpRouteLeaf& node);
+    void chechMethodSupportedReturnType(const IHttpAction& node);
+    void checkMethodSupportedParamArgType(const IHttpAction& node);
+    void checkMethodOfReturnVoid(const IHttpAction& node);
+    void checkMethodBodyContentArgs(const IHttpAction& node);
+    void checkMethodParamterWithSuffixProper(const IHttpAction& node);
 
 private:
-    bool isReturnTypeEmbeded(const IHttpRouteLeaf&);
+    bool isReturnTypeEmbeded(const IHttpAction&);
 
 private:
     bool isSpecialTypes(const QString&);
@@ -144,7 +144,7 @@ void IHttpControllerInfoDetail::parseMapppingInfos()
 void IHttpControllerInfoDetail::parseMappingLeaves()
 {
     for(const auto& mapping : m_mappingInfos){
-        IHttpRouteLeaf node;
+        IHttpAction node;
         node.httpMethod = mapping.method;
         node.url = mapping.toUrl();
         node.methodNode = mapping.toMethodNode(this, this->className, this->classMethods);
@@ -290,7 +290,7 @@ bool IHttpControllerInfoDetail::isPieceWildCard(const QString &piece)
 
 void IHttpControllerInfoDetail::checkMethod()
 {
-    using CheckFunType = void (IHttpControllerInfoDetail::*)(const IHttpRouteLeaf&);
+    using CheckFunType = void (IHttpControllerInfoDetail::*)(const IHttpAction&);
     QList<CheckFunType> funs {
         &IHttpControllerInfoDetail::chechMethodSupportedReturnType,
         &IHttpControllerInfoDetail::checkMethodSupportedParamArgType,
@@ -307,7 +307,7 @@ void IHttpControllerInfoDetail::checkMethod()
 }
 
 // TODO: json
-void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IHttpRouteLeaf &node)
+void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IHttpAction &node)
 {
     const static QString info = "this kind of return type not supported, please change the return type!";
 
@@ -348,7 +348,7 @@ void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IHttpRouteL
     qFatal(errorInfo.toUtf8());
 }
 
-void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IHttpRouteLeaf &node)
+void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IHttpAction &node)
 {
     static const QString info = "the argument type is not valid, please use the correct type\n";
     static const QVector<QMetaType::Type> allowType = {
@@ -394,7 +394,7 @@ void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IHttpRout
     }
 }
 
-void IHttpControllerInfoDetail::checkMethodOfReturnVoid(const IHttpRouteLeaf &node)
+void IHttpControllerInfoDetail::checkMethodOfReturnVoid(const IHttpAction &node)
 {
     if(node.methodNode.returnTypeId != QMetaType::Void){
         return;
@@ -408,7 +408,7 @@ void IHttpControllerInfoDetail::checkMethodOfReturnVoid(const IHttpRouteLeaf &no
     }
 }
 
-void IHttpControllerInfoDetail::checkMethodBodyContentArgs(const IHttpRouteLeaf &node)
+void IHttpControllerInfoDetail::checkMethodBodyContentArgs(const IHttpAction &node)
 {
     const auto& typeNames = node.methodNode.parameterTypeNames;
     auto index = typeNames.indexOf("QJsonValue&");
@@ -423,7 +423,7 @@ void IHttpControllerInfoDetail::checkMethodBodyContentArgs(const IHttpRouteLeaf 
     }
 }
 
-void IHttpControllerInfoDetail::checkMethodParamterWithSuffixProper(const IHttpRouteLeaf &node)
+void IHttpControllerInfoDetail::checkMethodParamterWithSuffixProper(const IHttpAction &node)
 {
     const auto& argNodes = node.methodNode.paramNodes;
 

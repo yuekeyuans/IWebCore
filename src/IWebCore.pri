@@ -111,12 +111,12 @@ HEADERS += \
     $$PWD/http/controller/IHttpControllerInterface.h \
     $$PWD/http/controller/IHttpMappingInterface.h \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.h \
+    $$PWD/http/controller/detail/IHttpAction.h \
     $$PWD/http/controller/detail/IHttpControllerBeanParameter.h \
     $$PWD/http/controller/detail/IHttpControllerInfo.h \
     $$PWD/http/controller/detail/IHttpControllerParameter.h \
     $$PWD/http/controller/detail/IHttpControllerParameterTask.h \
     $$PWD/http/controller/detail/IHttpCtlReturnTypeManage.h \
-    $$PWD/http/controller/detail/IHttpRouteLeaf.h \
     $$PWD/http/controller/detail/IHttpRouteNode.h \
     $$PWD/http/controller/detail/IUrlFragmentNode.h \
     $$PWD/http/controller/detail/IUrlNode.h \

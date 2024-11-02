@@ -13,17 +13,17 @@ public:
     IHttpRouteMapping() = default;
 
 public:
-    void registerUrlActionNode(IHttpRouteLeaf node);
-    void registerUrlActionNodes(const QVector<IHttpRouteLeaf>& functionNodes);
+    void registerUrlActionNode(IHttpAction node);
+    void registerUrlActionNodes(const QVector<IHttpAction>& functionNodes);
 
 public:
     virtual void travelPrint() final;
-    virtual IHttpRouteLeaf* getUrlActionNode(IRequest &request);
+    virtual IHttpAction* getUrlActionNode(IRequest &request);
 
 private:
-    bool checkUrlDuplicateName(const IHttpRouteLeaf* node);
+    bool checkUrlDuplicateName(const IHttpAction* node);
     void checkRegisterAvalible();    // 检查是否能够注册
-    QVector<IHttpRouteLeaf*> queryFunctionNodes(IHttpRouteNode* parentNode, const IStringViewList& fragments, IHttpMethod method);
+    QVector<IHttpAction*> queryFunctionNodes(IHttpRouteNode* parentNode, const IStringViewList& fragments, IHttpMethod method);
     QMap<IStringView, IStringView> getPathVariable(void* node, const IStringViewList& fragments);
 
 

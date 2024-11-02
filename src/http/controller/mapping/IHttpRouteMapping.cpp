@@ -1,12 +1,12 @@
 ﻿#include "IHttpRouteMapping.h"
-#include "http/controller/detail/IHttpRouteLeaf.h"
+#include "http/controller/detail/IHttpAction.h"
 #include "http/controller/detail/IHttpRouteNode.h"
 #include "http/net/IRequest.h"
 #include "http/net/impl/IRequestRaw.h"
 
 $PackageWebCoreBegin
 
-void IHttpRouteMapping::registerUrlActionNode(IHttpRouteLeaf node)
+void IHttpRouteMapping::registerUrlActionNode(IHttpAction node)
 {
     checkRegisterAvalible();
 
@@ -21,7 +21,7 @@ void IHttpRouteMapping::registerUrlActionNode(IHttpRouteLeaf node)
     checkUrlDuplicateName(newLeaf);  // TODO: delete from here
 }
 
-void IHttpRouteMapping::registerUrlActionNodes(const QVector<IHttpRouteLeaf> &functionNodes)
+void IHttpRouteMapping::registerUrlActionNodes(const QVector<IHttpAction> &functionNodes)
 {
     for(auto& node : functionNodes){
         registerUrlActionNode(node);
@@ -33,7 +33,7 @@ void IHttpRouteMapping::travelPrint()
     m_urlMapppings.travelPrint();
 }
 
-IHttpRouteLeaf *IHttpRouteMapping::getUrlActionNode(IRequest &request)
+IHttpAction *IHttpRouteMapping::getUrlActionNode(IRequest &request)
 {
     IStringView url = request.url();
     IHttpMethod method = request.method();
@@ -49,7 +49,7 @@ IHttpRouteLeaf *IHttpRouteMapping::getUrlActionNode(IRequest &request)
         fragments.pop_front();
     }
 
-    QVector<IHttpRouteLeaf*> nodes =  queryFunctionNodes(nodePtr, fragments, method);
+    QVector<IHttpAction*> nodes =  queryFunctionNodes(nodePtr, fragments, method);
     if(nodes.length() == 0){
         return nullptr;
     }else if(nodes.length() > 1){
@@ -62,7 +62,7 @@ IHttpRouteLeaf *IHttpRouteMapping::getUrlActionNode(IRequest &request)
     return node;
 }
 
-bool IHttpRouteMapping::checkUrlDuplicateName(const IHttpRouteLeaf *node)
+bool IHttpRouteMapping::checkUrlDuplicateName(const IHttpAction *node)
 {
     QStringList names;
     auto parent = static_cast<IHttpRouteNode*>(node->parentNode);
@@ -87,11 +87,11 @@ void IHttpRouteMapping::checkRegisterAvalible()
     // do nothing
 }
 
-QVector<IHttpRouteLeaf *> IHttpRouteMapping::queryFunctionNodes(IHttpRouteNode *parentNode, const IStringViewList &fragments, IHttpMethod method)
+QVector<IHttpAction *> IHttpRouteMapping::queryFunctionNodes(IHttpRouteNode *parentNode, const IStringViewList &fragments, IHttpMethod method)
 {
     // FIXME:
 
-    QVector<IHttpRouteLeaf*> ret;
+    QVector<IHttpAction*> ret;
     auto childNodes = parentNode->getChildNodes(fragments.first());
     if(fragments.length() == 1){
         for(const auto& val : childNodes){

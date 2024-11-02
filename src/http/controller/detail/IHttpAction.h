@@ -8,12 +8,7 @@
 
 $PackageWebCoreBegin
 
-// 所有的返回类型都统一成这个类型，
-// 资源类型返回的是自定义的类型，这里之后会完善
-
-// TODO:
-
-struct IHttpRouteLeaf
+struct IHttpAction
 {
     enum class ReturnType{
         Void,

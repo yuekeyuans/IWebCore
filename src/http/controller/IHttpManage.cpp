@@ -123,7 +123,7 @@ bool IHttpManage::isUrlActionNodeEnabled() const
 //    return !m_urlMapppings.isEmpty();
 }
 
-IHttpRouteLeaf *IHttpManage::getUrlActionNode(IRequest &request)
+IHttpAction *IHttpManage::getUrlActionNode(IRequest &request)
 {
     for(IHttpMappingWare* ware : m_mappingWares){
         auto ret = ware->getUrlActionNode(request);
