@@ -61,7 +61,7 @@ public:
     ISessionJar* m_sessionJar{nullptr};
 
     IHttpAction* m_action{};   // 最终处理请求的 动作。
-    QJsonValue m_requestJson;                   // json 和 dom 不一定使用，也可能是延后加载
+//    QJsonValue m_requestJson;                   // json 和 dom 不一定使用，也可能是延后加载
     QDomNode m_requestXml;
 };
 

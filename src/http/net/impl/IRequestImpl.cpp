@@ -43,10 +43,10 @@ IRequestImpl::~IRequestImpl()
 }
 
 // FIXBUG: check it
-QJsonValue IRequestImpl::requestJson(bool& ok) const
-{
-    return m_raw->m_requestJson;
-}
+//QJsonValue IRequestImpl::requestJson(bool& ok) const
+//{
+//    return m_raw->m_requestJson;
+//}
 
 int IRequestImpl::contentLength() const
 {
