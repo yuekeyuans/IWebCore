@@ -49,6 +49,7 @@ bool IRequestRaw::isValid() const
 void IRequestRaw::setInvalid(IHttpInvalidUnit ware)
 {
     m_responseRaw->setMime(IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8));
+    m_responseRaw->status = ware.status;
     m_responseRaw->setContent(ware);
 }
 
