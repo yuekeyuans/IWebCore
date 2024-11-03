@@ -1,66 +1,21 @@
 ﻿#include "IHttpManage.h"
-#include "core/util/IMetaUtil.h"
-#include "core/config/IContextManage.h"
-#include "core/config/IProfileImport.h"
-#include "http/controller/IHttpControllerAbort.h"
 #include "http/net/IRequest.h"
-#include "http/net/impl/IRequestRaw.h"
-
 #include "http/mappings/IHttpMappingWare.h"
 
 $PackageWebCoreBegin
 
 void IHttpManage::setIsServerStarted(bool value)
 {
-    auto inst = instance();
-    inst->m_isServerStarted = value;
-
-    // TODO: here check path variable duplicated
+    m_isServerStarted = value;
 }
 
-//void IHttpManage::registerUrlActionNode(IHttpRouteLeaf node)
-//{
-//    checkRegisterAvalible();
-
-//    auto fragments = node.url.split("/");
-//    auto nodePtr = &m_urlMapppings;
-//    for(auto it=fragments.begin(); it!= fragments.end(); ++it){
-//        if(!it->isEmpty()){     // this step to guarantee the root element to settle properly
-//            nodePtr = nodePtr->getOrAppendChildNode(*it);
-//        }
-//    }
-//    auto newLeaf = nodePtr->setLeaf(node);
-//    checkUrlDuplicateName(newLeaf);  // TODO: delete from here
-//}
-
-//void IHttpManage::registerUrlActionNodes(const QVector<IHttpRouteLeaf> &functionNodes)
-//{
-//    for(auto& node : functionNodes){
-//        registerUrlActionNode(node);
-//    }
-//}
-
-//void IHttpManage::registerStaticFiles(const QString &path, const QString &prefix)
-//{
-////    checkRegisterAvalible();
-
-//    QDir dir(path);
-//    if(!dir.exists()){
-//        IHttpControllerAbort::abortstatic_file_dir_not_exist(path, $ISourceLocation);
-//    }
-
-//    $Bool enabledFileStaticMapping("/http/fileService/staticMapping");
-//    if(*enabledFileStaticMapping){
-//        m_resourceMappings.mountMapping(dir.absolutePath(), prefix);
-//    }else{
-//        m_folderMappings.mountMapping(dir.absolutePath(), prefix);
-//    }
-//}
+void IHttpManage::registMappingWare(IHttpMappingWare *ware)
+{
+    m_mappingWares.append(ware);
+}
 
 void IHttpManage::registerPathValidator(const QString &name, const QString &regexp)
 {
-//    checkRegisterAvalible();
-
     QRegularExpression exp(regexp);
     if(!exp.isValid()){
         auto info = regexp + " : regular expression is not valid";
@@ -77,8 +32,6 @@ void IHttpManage::registerPathValidator(const QString &name, const QString &rege
 
 void IHttpManage::registerPathValidator(const QString &name, ValidatorFun fun)
 {
-//    checkRegisterAvalible();
-
     if(m_pathFunValidators.contains(name) || m_pathFunValidators.contains(name)){
         auto info = name + " validator already registered";
         qFatal(info.toUtf8());
@@ -92,10 +45,6 @@ void IHttpManage::travalPrintUrlTree()
     for(IHttpMappingWare* ware : instance()->m_mappingWares){
         ware->travelPrint();
     }
-
-//    instance()->m_urlMapppings.travelPrint();
-//    instance()->m_resourceMappings.travelPrint();
-//    instance()->m_folderMappings.travelPrint();
 }
 
 QString IHttpManage::queryPathRegValidator(const QString &path)
@@ -130,159 +79,7 @@ IHttpAction *IHttpManage::getAction(IRequest &request)
             // TODO: 异常处理
         }
     }
-
-
     return nullptr;
-
-//    IStringView url = request.url();
-//    IHttpMethod method = request.method();
-
-//    auto nodePtr = &instance()->m_urlMapppings;
-
-//    if(url == "/"){
-//        return nodePtr->getLeaf(method);
-//    }
-
-//    IStringViewList fragments = url.split('/');
-//    if(fragments.first().empty()){
-//        fragments.pop_front();
-//    }
-
-//    QVector<IHttpRouteLeaf*> nodes =  queryFunctionNodes(nodePtr, fragments, method);
-//    if(nodes.length() == 0){
-//        return nullptr;
-//    }else if(nodes.length() > 1){
-//        auto info = url.toQString() + " : " + IHttpMethodUtil::toString(method) + " matched multi-functions, please check";
-//        qFatal(info.toUtf8());
-//    }
-
-//    auto node = nodes.first();
-//    request.getRaw()->m_requestUrlParameters = getPathVariable(node->parentNode, fragments);
-//    return node;
 }
-
-//bool IHttpManage::isStaticFileActionPathEnabled()
-//{
-//    return m_resourceMappings.isEnabled() || m_folderMappings.isEnabled();
-//}
-
-//QString IHttpManage::getStaticFileActionPath(const IRequest &request)
-//{
-//    static bool isResourceMapping = m_resourceMappings.isEnabled();
-//    if(isResourceMapping){
-//        QString value = m_resourceMappings.getFilePath(request.url());
-//        if(!value.isEmpty()){
-//            return value;
-//        }
-//    }
-
-//    static bool isDirMapping = m_folderMappings.isEnabled();
-//    if(isDirMapping){
-//        return m_folderMappings.getFilePath(request.url());
-//    }
-//    return {};
-//}
-
-//QStringList IHttpManage::getStaticFolderActionPath(const IRequest &request)
-//{
-//    auto url = request.url().toQString();
-//    if(!url.endsWith("/")){
-//        url.append("/");
-//    }
-//    static bool isResourceMapping = m_resourceMappings.isEnabled();
-//    if(isResourceMapping){
-//        return m_resourceMappings.getFileEntries(url);
-//    }
-
-//    static bool isDirMapping = m_folderMappings.isEnabled();
-//    if(isDirMapping){
-//        return m_folderMappings.getFileEntries(url);
-//    }
-
-//    return {};
-//}
-
-//QVector<IHttpRouteLeaf *> IHttpManage::queryFunctionNodes(IHttpRouteNode *parentNode,
-//                                                             const IStringViewList &fragments, IHttpMethod method)
-//{
-//    // FIXME:
-
-//    QVector<IHttpRouteLeaf*> ret;
-//    auto childNodes = parentNode->getChildNodes(fragments.first());
-//    if(fragments.length() == 1){
-//        for(const auto& val : childNodes){
-//            auto leaf = val->getLeaf(method);
-//            if(leaf != nullptr){
-//                ret.append(leaf);
-//            }
-//        }
-//    }else{
-//        auto childFragments = fragments.mid(1);
-//        for(auto& val : childNodes){
-//            auto result = queryFunctionNodes(val, childFragments, method);
-//            if(!result.isEmpty()){
-//                ret.append(result);
-//            }
-//        }
-//    }
-//    return ret;
-//}
-
-//QMap<IStringView, IStringView> IHttpManage::getPathVariable(void* node, const IStringViewList &fragments)
-//{
-//    // FIXME:
-//    return {};
-
-//    //    QMap<QString, QString> ret;
-////    if(node == nullptr){
-////        return ret;
-////    }
-
-////    IHttpRouteMapping* routeNode = static_cast<IHttpRouteMapping*>(node);
-////    QVector<IHttpRouteMapping *>  nodes = routeNode->getParentNodes();
-////    nodes.pop_front();      // 去掉第一个node， 因为第一个 node 是 / 根节点，不参与。
-////    assert(nodes.length() == fragments.length());
-////    for(int i=0;i<nodes.length();i++){
-////        if(nodes[i]->type != IHttpRouteMapping::TEXT_MATCH && !nodes[i]->name.isEmpty()){
-////            ret[nodes[i]->name] = fragments[i];
-////        }
-////    }
-////    return ret;
-//}
-
-////TODO: 这个可以放置在server start 的时候， 或者 END 的时候检测，而不必要事实检测
-//bool IHttpManage::checkUrlDuplicateName(const IHttpRouteLeaf *node)
-//{
-//    QStringList names;
-//    auto parent = static_cast<IHttpRouteNode*>(node->parentNode);
-
-//    while(parent != nullptr){
-//        auto name = parent->routeNode.name;
-//        if(parent->routeNode.type != IUrlFragmentNode::TEXT_MATCH && !name.isEmpty()){
-//            if(names.contains(name)){
-//                auto info = name + " path variable name duplicated, please change one to annother name";
-//                qFatal(info.toUtf8());
-//                return false;
-//            }
-//            names.append(name);
-//        }
-//        parent = parent->parentNode;
-//    }
-//    return true;
-//}
-
-//void IHttpManage::checkRegisterAvalible()
-//{
-//    auto inst = instance();
-//    if(inst->m_isServerStarted){
-//        IHttpControllerAbort::abortregister_to_controllerManage_error($ISourceLocation);
-//    }
-//}
-
-void IHttpManage::registMappingWare(IHttpMappingWare *ware)
-{
-    m_mappingWares.append(ware);
-}
-
 
 $PackageWebCoreEnd
