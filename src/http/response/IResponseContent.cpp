@@ -125,6 +125,8 @@ QByteArray IResponseContent::getAsBytes()
         }
         return *IFileUtil::readFileAsByteArray(contentString);  // TODO:
     case Type::Invalid:
+        return contentInvalid.tag.toUtf8();
+        // TODO: 这里invalid 的处理需要再看一下
         IResponseContentAbort::abortresponse_invalid_type_error($ISourceLocation);
     }
     return {};

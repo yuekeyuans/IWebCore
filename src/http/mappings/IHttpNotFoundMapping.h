@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "http/mappings/IHttpMappingInterface.h"
+#include "http/mappings/IHttpNotFoundAction.h"
 
 $PackageWebCoreBegin
 
@@ -15,6 +16,9 @@ public:
 
 private:
     virtual double $order() const final;
+
+private:
+    IHttpNotFoundAction m_action;
 };
 
 $PackageWebCoreEnd

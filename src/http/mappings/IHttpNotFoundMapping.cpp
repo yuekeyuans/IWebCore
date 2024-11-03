@@ -10,7 +10,8 @@ void IHttpNotFoundMapping::travelPrint() const
 
 IHttpAction *IHttpNotFoundMapping::getAction(IRequest &request) const
 {
-    return nullptr;
+    Q_UNUSED(request)
+    return const_cast<IHttpNotFoundAction*>(&m_action);
 }
 
 double IHttpNotFoundMapping::$order() const

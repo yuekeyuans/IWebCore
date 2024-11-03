@@ -127,6 +127,7 @@ HEADERS += \
     $$PWD/http/mappings/IHttpFolderMapping.h \
     $$PWD/http/mappings/IHttpMappingInterface.h \
     $$PWD/http/mappings/IHttpMappingWare.h \
+    $$PWD/http/mappings/IHttpNotFoundAction.h \
     $$PWD/http/mappings/IHttpNotFoundMapping.h \
     $$PWD/http/mappings/IHttpResourceMapping.h \
     $$PWD/http/net/IRequestManage.h \
@@ -313,6 +314,7 @@ SOURCES += \
     $$PWD/http/mappings/IHttpControllerMapping.cpp \
     $$PWD/http/mappings/IHttpFolderMapping.cpp \
     $$PWD/http/mappings/IHttpMappingWare.cpp \
+    $$PWD/http/mappings/IHttpNotFoundAction.cpp \
     $$PWD/http/mappings/IHttpNotFoundMapping.cpp \
     $$PWD/http/mappings/IHttpResourceMapping.cpp \
     $$PWD/http/net/IRequestManage.cpp \
