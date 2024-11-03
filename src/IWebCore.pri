@@ -287,6 +287,7 @@ SOURCES += \
     $$PWD/http/controller/IHttpControllerNode.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.cpp \
+    $$PWD/http/controller/detail/IHttpControllerAction.cpp \
     $$PWD/http/controller/detail/IHttpControllerBeanParameter.cpp \
     $$PWD/http/controller/detail/IHttpControllerInfo.cpp \
     $$PWD/http/controller/detail/IHttpControllerParameter.cpp \

@@ -26,8 +26,6 @@ private:
     std::vector<IHttpAction*> queryFunctionNodes(IHttpControllerNode* parentNode, const IStringViewList& fragments, IHttpMethod method);
     QMap<IStringView, IStringView> getPathVariable(void* node, const IStringViewList& fragments);
 
-
-
 private:
     IHttpControllerNode m_urlMapppings;
 

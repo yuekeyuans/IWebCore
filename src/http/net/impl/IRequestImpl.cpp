@@ -18,15 +18,9 @@
 #include "http/net/impl/IRequestRaw.h"
 #include "http/net/impl/IResponseRaw.h"
 #include "http/net/impl/IResponseImpl.h"
-//#include "http/server/IHttpRequestHandler.h"
 #include "http/mappings/IHttpAction.h"
 
 $PackageWebCoreBegin
-
-//namespace IRequestImplHelper{
-//    void checkDumplicatedParameters(const QList<QPair<QString, IRequestImpl::FunType>>& maps, const IRequestImpl* ptr, const QString& name);
-//    QString getOriginName(const QString& name, const QString& suffix);
-//}
 
 IRequestImpl::IRequestImpl(IRequest* self)
     : m_request(self), m_raw(new IRequestRaw(self)),

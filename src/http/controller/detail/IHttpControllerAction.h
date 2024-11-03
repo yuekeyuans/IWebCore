@@ -30,12 +30,4 @@ public:
     IMethodNode methodNode;
 };
 
-
-// TODO: 这里写下使用的方法
-inline void IHttpControllerAction::invoke(IRequest &request) const
-{
-//    Q_UNUSED(request);
-    // TODO: this will be intialized latter
-}
-
 $PackageWebCoreEnd

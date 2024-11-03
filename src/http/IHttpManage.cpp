@@ -16,6 +16,10 @@ void IHttpManage::registMappingWare(IHttpMappingWare *ware)
 
 IHttpAction *IHttpManage::getAction(IRequest &request)
 {
+    if(!request.isValid()){
+        return m_statusActionMap[IHttpStatus::BAD_REQUEST_400];
+    }
+
     for(IHttpMappingWare* ware : m_mappingWares){
         auto ret = ware->getActions(request);
         auto size = ret.size();
