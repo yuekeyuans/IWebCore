@@ -31,6 +31,8 @@ void IHttpControllerMapping::registerUrlActionNodes(const QVector<IHttpControlle
 
 void IHttpControllerMapping::travelPrint() const
 {
+
+    qDebug() << "Controller Url Mapping:" << $order();
     m_urlMapppings.travelPrint();
 }
 

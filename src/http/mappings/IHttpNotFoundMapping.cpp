@@ -1,20 +1,21 @@
-﻿//#include "IHttpNotFoundMapping.h"
+﻿#include "IHttpNotFoundMapping.h"
 
-//$PackageWebCoreBegin
+$PackageWebCoreBegin
 
-//void IHttpNotFoundMapping::travelPrint() const
-//{
+void IHttpNotFoundMapping::travelPrint() const
+{
+    qDebug() << "NotFound Mapping:" << $order();
+    qDebug().noquote() << "  " << $name();
+}
 
-//}
+IHttpAction *IHttpNotFoundMapping::getAction(IRequest &request) const
+{
+    return nullptr;
+}
 
-//IHttpAction *IHttpNotFoundMapping::getActions(IRequest &request) const
-//{
-//    return nullptr;
-//}
+double IHttpNotFoundMapping::$order() const
+{
+    return 100.0;
+}
 
-//double IHttpNotFoundMapping::$order()
-//{
-//    return 100.0;
-//}
-
-//$PackageWebCoreEnd
+$PackageWebCoreEnd

@@ -23,7 +23,8 @@ IHttpAction *IHttpManage::getAction(IRequest &request)
     }
 
     for(IHttpMappingWare* ware : m_mappingWares){
-        if(auto action = ware->getAction(request); action != nullptr){
+        auto action = ware->getAction(request);
+        if(action != nullptr){
             return action;
         }
     }

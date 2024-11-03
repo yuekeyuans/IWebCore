@@ -156,11 +156,8 @@ IHttpControllerNode *IHttpControllerNode::getChildNode(const QString &fragment)
 void IHttpControllerNode::travelPrint(int space) const
 {
     if(isEmpty()){
+        qDebug().noquote() << "  empty mapping";
         return;
-    }
-
-    if(space == 0){
-        qDebug() << "Controller Url Mapping:";
     }
 
     auto print = [](IHttpControllerAction* leaf, int space){
