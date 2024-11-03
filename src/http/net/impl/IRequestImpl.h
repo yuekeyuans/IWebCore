@@ -33,7 +33,7 @@ public:
     IRequestImpl(IRequest* self);
     ~IRequestImpl();
 
-//    QJsonValue requestJson(bool& ok) const;
+    IJson requestJson() const;
     int contentLength() const;
     IStringView contentType() const;
 

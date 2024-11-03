@@ -18,27 +18,23 @@ struct IHttpControllerAction : public IHttpActionInterface
         IResponse,
     };
 
-    enum class CallableType{
-        Method,
-        Function
-    };
-
 public:
     virtual void invoke(IRequest &req) const final;
 
 public:
     IHttpMethod httpMethod;
-    CallableType type {CallableType::Method};
     void* parentNode{nullptr};
 
     QString url;
     QList<IUrlFragmentNode> routeNode;  // TODO:
     IMethodNode methodNode;
-    IFunctionNode functionNode;
 };
 
+
+// TODO: 这里写下使用的方法
 inline void IHttpControllerAction::invoke(IRequest &request) const
 {
+    Q_UNUSED(request);
     // TODO: this will be intialized latter
 }
 

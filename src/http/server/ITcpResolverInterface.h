@@ -4,7 +4,7 @@
 
 $PackageWebCoreBegin
 
-// TODO: 这个能删除么？
+// NOTE: 这个设计的目的是能够扩展使用范围，不仅仅是 http 协议能够使用，其他协议也能够使用。
 
 class ITcpConnection;
 class ITcpResolverInterface

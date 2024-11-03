@@ -18,7 +18,8 @@
 #include "http/net/impl/IRequestRaw.h"
 #include "http/net/impl/IResponseRaw.h"
 #include "http/net/impl/IResponseImpl.h"
-#include "http/server/IHttpRequestHandler.h"
+//#include "http/server/IHttpRequestHandler.h"
+#include "http/mappings/IHttpAction.h"
 
 $PackageWebCoreBegin
 
@@ -42,11 +43,10 @@ IRequestImpl::~IRequestImpl()
     m_raw = nullptr;
 }
 
-// FIXBUG: check it
-//QJsonValue IRequestImpl::requestJson(bool& ok) const
-//{
-//    return m_raw->m_requestJson;
-//}
+IJson IRequestImpl::requestJson() const
+{
+    return m_raw->m_requestJson;
+}
 
 int IRequestImpl::contentLength() const
 {
@@ -292,6 +292,7 @@ QByteArray IRequestImpl::getJsonData(const QString &name, bool& ok) const
 
 */
 
+// TODO: 这个解析 FirstLine 没有考虑到 header 换行的情况
 void IRequestImpl::parseData()
 {
     int line[2];
@@ -376,9 +377,9 @@ bool IRequestImpl::headerGapState()
             m_connection->doRead(); // 继续读取
         }else{
             m_bodyInData = false;   // 表示数据存放在 buffer 中
-            auto data = asio::buffer_cast<char*>(m_data.m_buff.prepare(m_contentLength));
+            auto data = asio::buffer_cast<char*>(m_data.m_buffer.prepare(m_contentLength));
             memcpy(data, m_data.m_data + m_data.m_parsedSize, readLength); // 拷贝数据
-            m_data.m_buff.commit(readLength);
+            m_data.m_buffer.commit(readLength);
             m_connection->doReadStreamBy(m_contentLength-readLength);
         }
     }else if(!m_multipartBoundary.empty()){
@@ -388,10 +389,10 @@ bool IRequestImpl::headerGapState()
         }
 
         m_bodyInData = false;
-        auto data = asio::buffer_cast<char*>(m_data.m_buff.prepare(readLength * 2));
+        auto data = asio::buffer_cast<char*>(m_data.m_buffer.prepare(readLength * 2));
         memcpy(data, m_data.m_data + m_data.m_parsedSize, readLength); // 拷贝数据
         m_connection->doReadStreamBy(m_contentLength-readLength);
-        m_data.m_buff.commit(readLength);
+        m_data.m_buffer.commit(readLength);
         m_connection->doReadStreamUntil(m_multipartBoundaryEnd);
     }
     return false;
@@ -429,7 +430,10 @@ void IRequestImpl::endState()
 {
     auto application = dynamic_cast<IAsioApplication*>(IApplicationInterface::instance());
     asio::post(application->ioContext(), [=](){
-        IHttpRequestHandler::instance()->handle(*m_request);
+        m_request->getRaw()->m_action = IHttpManage::instance()->getAction(*m_request);
+        m_request->getRaw()->m_action->invoke(*m_request);
+//        action->invoke(*m_request);
+//        IHttpRequestHandler::instance()->handle(*m_request);
     });
 }
 
@@ -595,10 +599,10 @@ void IRequestImpl::resolveBodyContent()
         }
         m_raw->m_requestBody = IStringView(m_data.m_data + m_data.m_parsedSize, readSize);
     }else{
-        if(m_contentLength != m_data.m_buff.size()){
+        if(m_contentLength != m_data.m_buffer.size()){
             return m_request->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
         }
-        m_raw->m_requestBody = IStringView(asio::buffer_cast<const char*>(m_data.m_buff.data()), m_data.m_buff.size());
+        m_raw->m_requestBody = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), m_data.m_buffer.size());
     }
 }
 
@@ -607,7 +611,7 @@ void IRequestImpl::resolveMultipartContent()
     if(m_bodyInData){
         m_raw->m_requestBody = IStringView(m_data.m_data + m_data.m_parsedSize, m_data.m_readSize - m_data.m_parsedSize);
     }else{
-        m_raw->m_requestBody = IStringView(asio::buffer_cast<const char*>(m_data.m_buff.data()), m_data.m_buff.size());
+        m_raw->m_requestBody = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), m_data.m_buffer.size());
     }
     if(!m_raw->m_requestBody.endWith(m_multipartBoundaryEnd)){
         m_request->setInvalid(IHttpBadRequestInvalid("multipart data do not have end tag"));

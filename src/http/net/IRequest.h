@@ -61,9 +61,9 @@ public:
     const QMap<IStringView, IStringView>& paramParameters() const;
     const QMap<IStringView, IStringView>& bodyFormParameters() const;
     const QVector<IMultiPart>& bodyMultiParts() const;
-/*
-    QJsonValue bodyJson(bool& ok) const;
+    IJson bodyJson() const;
 
+    /*
 
     IStringView getParameter(const QString& name, bool& ok) const;
     IResult<IStringView> getParameter(const QString& name) const;      // 考虑删掉

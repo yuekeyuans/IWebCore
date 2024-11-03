@@ -17,6 +17,8 @@
 
 $PackageWebCoreBegin
 
+
+// TODO: 考虑将 doWrite 放置在 Action 当中。
 void IHttpRequestHandler::handle(IRequest &request)
 {
     IResponse response(&request);
@@ -35,6 +37,7 @@ void IHttpRequestHandler::handle(IRequest &request)
         auto process = IHttpInvalidManage::instance()->getWare(request.getRaw()->m_responseRaw->content.contentInvalid.tag);
         process->process(request, response);
     }
+
     request.m_connection->doWrite();
 }
 
@@ -146,7 +149,7 @@ void IHttpRequestHandler::processInMethodMode(IRequest &request, IResponse &resp
 
 void IHttpRequestHandler::processInFunctionMode(IRequest &request, IResponse &response, IHttpControllerAction *node)
 {
-    node->functionNode.function(request, response);
+//    node->functionNode.function(request, response);
 }
 
 void IHttpRequestHandler::processInStaticFileMode(IRequest &request, IResponse &response, const QString &path)

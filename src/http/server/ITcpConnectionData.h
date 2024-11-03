@@ -15,7 +15,6 @@ public:
     }
 
     bool getLine(int*) const;
-    bool endWith(QByteArray);
     void resetForReuse();
 
 public:
@@ -25,7 +24,7 @@ public:
     int m_parsedSize{};
 
 public:
-    asio::streambuf m_buff; // 存储超过请求的内容，这个表示额外的内容
+    asio::streambuf m_buffer; // 存储超过请求的内容，这个表示额外的内容
 };
 
 $PackageWebCoreEnd

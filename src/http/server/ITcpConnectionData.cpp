@@ -32,12 +32,6 @@ bool ITcpConnectionData::getLine(int *value) const
     return false;
 }
 
-bool ITcpConnectionData::endWith(QByteArray)
-{
-    // TODO:
-    return false;
-}
-
 void ITcpConnectionData::resetForReuse()
 {
     // TODO: do nothing, but clear now;
