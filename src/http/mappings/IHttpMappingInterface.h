@@ -10,7 +10,7 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true>
-class IHttpMappingInterface : public ITaskWareUnit<T, enabled>, public IHttpMappingWare, public ISingletonUnit<T>
+class IHttpMappingInterface : public IHttpMappingWare, public ITaskWareUnit<T, enabled>, public ISingletonUnit<T>
 {
 public:
     IHttpMappingInterface() = default;
@@ -19,6 +19,10 @@ public:
     virtual QString $name() const final;
     virtual const char* $catagory() const final;
     virtual void $task() final;
+
+public:
+    virtual void travelPrint() const = 0;
+    virtual IHttpAction* getActions(IRequest &request) const = 0;
 };
 
 template<typename T, bool enabled>

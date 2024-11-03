@@ -1,6 +1,10 @@
 ﻿#include "IHttpControllerAction.h"
 #include "http/controller/detail/IHttpControllerParameter.h"
 #include "http/server/ITcpConnection.h"
+#include "http/invalid/IHttpInvalidManage.h"
+#include "http/net/IRequest.h"
+#include "http/net/impl/IResponseRaw.h"
+#include "http/net/impl/IRequestRaw.h"
 
 $PackageWebCoreBegin
 
@@ -27,6 +31,12 @@ void IHttpControllerAction::invoke(IRequest &request) const
     }
 
     IHttpControllerParameter::destroyArguments(methodNode, params);
+
+    if(!request.isValid()){
+        auto process = IHttpInvalidManage::instance()->getWare(request.getRaw()->m_responseRaw->content.contentInvalid.tag);
+        process->process(request, response);
+    }
+
     request.m_connection->doWrite();
 }
 

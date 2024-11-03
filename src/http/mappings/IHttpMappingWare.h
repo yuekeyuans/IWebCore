@@ -13,8 +13,8 @@ public:
     virtual ~IHttpMappingWare() = default;
 
 public:
-    virtual void travelPrint() = 0;
-    virtual std::vector<IHttpAction*> getActions(IRequest& request) = 0;
+    virtual void travelPrint() const = 0;
+    virtual IHttpAction* getActions(IRequest& request) const = 0;
 
 };
 

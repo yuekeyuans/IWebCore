@@ -1,5 +1,6 @@
 ﻿#include "IHttpManage.h"
 #include "http/net/IRequest.h"
+#include "http/mappings/IHttpAction.h"
 #include "http/mappings/IHttpMappingWare.h"
 
 $PackageWebCoreBegin
@@ -14,6 +15,7 @@ void IHttpManage::registMappingWare(IHttpMappingWare *ware)
     m_mappingWares.append(ware);
 }
 
+// TODO: 这里对于异常的处理需要重新思考
 IHttpAction *IHttpManage::getAction(IRequest &request)
 {
     if(!request.isValid()){
@@ -21,17 +23,13 @@ IHttpAction *IHttpManage::getAction(IRequest &request)
     }
 
     for(IHttpMappingWare* ware : m_mappingWares){
-        auto ret = ware->getActions(request);
-        auto size = ret.size();
-        if(size == 0){
-            continue;
-        }else if(size == 1){
-            return ret.front();
-        }else{
-            qFatal("error");
-            return m_statusActionMap[IHttpStatus::MULTIPLE_CHOICE_300];
+        IHttpAction* action = ware->getActions(*request);
+        if(action != nullptr){
+            return action;
         }
     }
+
+    qFatal("error here");
     return m_statusActionMap[IHttpStatus::NOT_FOUND_404];
 }
 

@@ -1,4 +1,5 @@
 ﻿#include "IHttpControllerMapping.h"
+#include "core/util/IConstantUtil.h"
 #include "http/controller/detail/IHttpControllerAction.h"
 #include "http/controller/IHttpControllerNode.h"
 #include "http/net/IRequest.h"
@@ -28,14 +29,14 @@ void IHttpControllerMapping::registerUrlActionNodes(const QVector<IHttpControlle
     }
 }
 
-void IHttpControllerMapping::travelPrint()
+void IHttpControllerMapping::travelPrint() const
 {
     m_urlMapppings.travelPrint();
 }
 
 
 // TODO: 这个需要检查一下
-std::vector<IHttpAction *> IHttpControllerMapping::getActions(IRequest &request)
+IHttpAction * IHttpControllerMapping::getActions(IRequest &request) const
 {
     IStringView url = request.url();
     IHttpMethod method = request.method();
@@ -51,7 +52,18 @@ std::vector<IHttpAction *> IHttpControllerMapping::getActions(IRequest &request)
         fragments.pop_front();
     }
 
-    return queryFunctionNodes(nodePtr, fragments, method);
+    auto actions = queryFunctionNodes(nodePtr, fragments, method);
+    if(actions.empty()){
+        return nullptr;
+    }else if(actions.size() == 1){
+        return actions.front();
+    }else{
+        if(IConstantUtil::DebugMode){
+            qFatal("error");            // TODO: 这里替换成为正常的数据。
+        }else{
+            return actions.front();
+        }
+    }
 
 // TODO: 这里对于 PathVariable 需要重新处理
 //    std::vector<IHttpControllerAction*> nodes =  queryFunctionNodes(nodePtr, fragments, method);
@@ -92,7 +104,7 @@ void IHttpControllerMapping::checkRegisterAvalible()
     // do nothing
 }
 
-std::vector<IHttpAction *> IHttpControllerMapping::queryFunctionNodes(IHttpControllerNode *parentNode, const IStringViewList &fragments, IHttpMethod method)
+std::vector<IHttpAction *> IHttpControllerMapping::queryFunctionNodes(IHttpControllerNode *parentNode, const IStringViewList &fragments, IHttpMethod method) const
 {
     // FIXME:
 

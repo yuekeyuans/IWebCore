@@ -17,13 +17,13 @@ public:
     void registerUrlActionNodes(const QVector<IHttpControllerAction>& functionNodes);
 
 public:
-    virtual void travelPrint() final;
-    virtual std::vector<IHttpAction*> getActions(IRequest &request);
+    virtual void travelPrint() const final;
+    virtual IHttpAction* getActions(IRequest &request) const;
 
 private:
     bool checkUrlDuplicateName(const IHttpControllerAction* node);
     void checkRegisterAvalible();    // 检查是否能够注册
-    std::vector<IHttpAction*> queryFunctionNodes(IHttpControllerNode* parentNode, const IStringViewList& fragments, IHttpMethod method);
+    std::vector<IHttpAction*> queryFunctionNodes(IHttpControllerNode* parentNode, const IStringViewList& fragments, IHttpMethod method) const;
     QMap<IStringView, IStringView> getPathVariable(void* node, const IStringViewList& fragments);
 
 private:
