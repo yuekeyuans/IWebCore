@@ -3,7 +3,7 @@
 #include "http/base/IHttpParameterRestrictManage.h"
 #include "http/base/IHttpParameterRestrictInterface.h"
 #include "http/controller/IHttpControllerAbort.h"
-#include "http/controller/IHttpManage.h"
+#include "http/IHttpManage.h"
 
 $PackageWebCoreBegin
 

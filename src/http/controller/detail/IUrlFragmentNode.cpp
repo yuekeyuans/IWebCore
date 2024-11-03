@@ -1,5 +1,5 @@
 ﻿#include "IUrlFragmentNode.h"
-#include "http/controller/IHttpManage.h"
+#include "http/IHttpManage.h"
 
 $PackageWebCoreBegin
 

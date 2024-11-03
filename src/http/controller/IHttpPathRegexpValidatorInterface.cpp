@@ -1,5 +1,5 @@
 ﻿#include "IHttpPathRegexpValidatorInterface.h"
-#include "IHttpManage.h"
+#include "http/IHttpManage.h"
 
 $PackageWebCoreBegin
 

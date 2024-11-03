@@ -4,7 +4,6 @@
 #include "core/util/IFileUtil.h"
 #include "core/config/IProfileImport.h"
 #include "http/biscuits/IHttpMime.h"
-#include "http/controller/IHttpManage.h"
 #include "http/invalid/IHttpNotFoundInvalid.h"
 
 $PackageWebCoreBegin

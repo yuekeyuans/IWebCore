@@ -7,15 +7,15 @@ $PackageWebCoreBegin
 
 struct IHttpControllerAction;
 
-class IHttpRouteNode
+class IHttpControllerNode
 {
 private:
     using IUrlActionNodePtr = IHttpControllerAction*;
 
 public:
-    IHttpRouteNode() = default;
-    explicit IHttpRouteNode(IHttpRouteNode* parent, const QString& fragment);
-    bool operator==(const IHttpRouteNode& node);
+    IHttpControllerNode() = default;
+    explicit IHttpControllerNode(IHttpControllerNode* parent, const QString& fragment);
+    bool operator==(const IHttpControllerNode& node);
 
 public:
     bool isEmpty() const;
@@ -23,13 +23,13 @@ public:
     IHttpControllerAction* getLeaf(IHttpMethod method);
     void removeLeaf(IHttpMethod method);
 
-    void addChildNode(const IHttpRouteNode& node);
-    void removeChildNode(const IHttpRouteNode& node);
+    void addChildNode(const IHttpControllerNode& node);
+    void removeChildNode(const IHttpControllerNode& node);
 
-    QVector<IHttpRouteNode*> getChildNodes(IStringView nodeName);
-    QVector<IHttpRouteNode*> getParentNodes();
-    IHttpRouteNode* getOrAppendChildNode(const QString& fragment);
-    IHttpRouteNode* getChildNode(const QString& fragment);
+    QVector<IHttpControllerNode*> getChildNodes(IStringView nodeName);
+    QVector<IHttpControllerNode*> getParentNodes();
+    IHttpControllerNode* getOrAppendChildNode(const QString& fragment);
+    IHttpControllerNode* getChildNode(const QString& fragment);
 
     void travelPrint(int space=0) const;
 
@@ -39,13 +39,13 @@ private:
 
 public:
     IUrlFragmentNode routeNode;
-    IHttpRouteNode* parentNode{nullptr};
+    IHttpControllerNode* parentNode{nullptr};
     IHttpControllerAction *getMethodLeaf{nullptr};
     IHttpControllerAction *putMethodLeaf{nullptr};
     IHttpControllerAction *postMethodLeaf{nullptr};
     IHttpControllerAction *deleteMethodLeaf{nullptr};
     IHttpControllerAction *patchMethodLeaf{nullptr};
-    QList<IHttpRouteNode> children;
+    QList<IHttpControllerNode> children;
 };
 
 $PackageWebCoreEnd

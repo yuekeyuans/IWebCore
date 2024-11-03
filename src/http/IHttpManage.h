@@ -2,9 +2,11 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "core/unit/ISingletonUnit.h"
+#include "http/biscuits/IHttpStatus.h"
 
 $PackageWebCoreBegin
 
+// TODO: 这个 path 验证需要重新封装一下。
 class IRequest;
 class IHttpAction;
 class IHttpMappingWare;
@@ -18,6 +20,10 @@ public:
     void setIsServerStarted(bool);
 
     void registMappingWare(IHttpMappingWare* ware);
+    IHttpAction* getAction(IRequest& request);
+
+    // TODO: statusAction
+    void registStatusAction(IHttpStatusCode, IHttpAction*);
 
     void registerPathValidator(const QString& name, const QString& regexp);
     void registerPathValidator(const QString& name, ValidatorFun fun);
@@ -26,16 +32,13 @@ public:
     static QString queryPathRegValidator(const QString& path);
     static ValidatorFun queryPathFunValidator(const QString& path);
 
-    IHttpAction* getAction(IRequest& request);
 
 private:
     bool m_isServerStarted{false};
+    std::map<IHttpStatusCode, IHttpAction*> m_statusActionMap;
+    QVector<IHttpMappingWare*> m_mappingWares;
     QMap<QString, QString> m_pathRegValidators;
     QMap<QString, ValidatorFun> m_pathFunValidators;
-
-
-private:
-    QVector<IHttpMappingWare*> m_mappingWares;
 };
 
 $PackageWebCoreEnd

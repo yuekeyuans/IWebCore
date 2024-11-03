@@ -3,7 +3,7 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "http/mappings/IHttpMappingInterface.h"
-#include "http/controller/detail/IHttpRouteNode.h"
+#include "http/controller/IHttpControllerNode.h"
 
 $PackageWebCoreBegin
 
@@ -23,13 +23,13 @@ public:
 private:
     bool checkUrlDuplicateName(const IHttpControllerAction* node);
     void checkRegisterAvalible();    // 检查是否能够注册
-    std::vector<IHttpAction*> queryFunctionNodes(IHttpRouteNode* parentNode, const IStringViewList& fragments, IHttpMethod method);
+    std::vector<IHttpAction*> queryFunctionNodes(IHttpControllerNode* parentNode, const IStringViewList& fragments, IHttpMethod method);
     QMap<IStringView, IStringView> getPathVariable(void* node, const IStringViewList& fragments);
 
 
 
 private:
-    IHttpRouteNode m_urlMapppings;
+    IHttpControllerNode m_urlMapppings;
 
 };
 

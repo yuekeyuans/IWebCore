@@ -97,6 +97,7 @@ HEADERS += \
     $$PWD/http/base/IParameterNode.h \
     $$PWD/http/controller/IHttpControllerAbort.h \
     $$PWD/http/controller/IHttpControllerInterface.h \
+    $$PWD/http/controller/IHttpControllerNode.h \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.h \
     $$PWD/http/controller/detail/IHttpControllerAction.h \
     $$PWD/http/controller/detail/IHttpControllerBeanParameter.h \
@@ -104,7 +105,6 @@ HEADERS += \
     $$PWD/http/controller/detail/IHttpControllerParameter.h \
     $$PWD/http/controller/detail/IHttpControllerParameterTask.h \
     $$PWD/http/controller/detail/IHttpCtlReturnTypeManage.h \
-    $$PWD/http/controller/detail/IHttpRouteNode.h \
     $$PWD/http/controller/detail/IUrlFragmentNode.h \
     $$PWD/http/controller/detail/IUrlNode.h \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.h \
@@ -124,8 +124,10 @@ HEADERS += \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.h \
     $$PWD/http/mappings/IHttpAction.h \
     $$PWD/http/mappings/IHttpControllerMapping.h \
+    $$PWD/http/mappings/IHttpFolderMapping.h \
     $$PWD/http/mappings/IHttpMappingInterface.h \
     $$PWD/http/mappings/IHttpMappingWare.h \
+    $$PWD/http/mappings/IHttpResourceMapping.h \
     $$PWD/http/net/IRequestManage.h \
     $$PWD/http/net/impl/IRequestRaw.h \
     $$PWD/http/net/impl/IResponseHeader.h \
@@ -182,9 +184,7 @@ HEADERS += \
     $$PWD/http/biscuits/IHttpMime.h \
     $$PWD/http/biscuits/IHttpStatus.h \
     $$PWD/http/biscuits/IHttpVersion.h \
-    $$PWD/http/controller/IHttpFolderMapping.h \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.h \
-    $$PWD/http/controller/IHttpResourceMapping.h \
     $$PWD/http/core/defaultTask/INodyTemplateTask.h \
     $$PWD/http/core/test/IHttpTestInterface.h \
     $$PWD/http/core/test/IHttpTestManage.h \
@@ -284,6 +284,7 @@ SOURCES += \
     $$PWD/http/IHttpManage.cpp \
     $$PWD/http/base/IParameterNode.cpp \
     $$PWD/http/controller/IHttpControllerInterface.cpp \
+    $$PWD/http/controller/IHttpControllerNode.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.cpp \
     $$PWD/http/controller/detail/IHttpControllerBeanParameter.cpp \
@@ -291,7 +292,6 @@ SOURCES += \
     $$PWD/http/controller/detail/IHttpControllerParameter.cpp \
     $$PWD/http/controller/detail/IHttpControllerParameterTask.cpp \
     $$PWD/http/controller/detail/IHttpCtlReturnTypeManage.cpp \
-    $$PWD/http/controller/detail/IHttpRouteNode.cpp \
     $$PWD/http/controller/detail/IUrlFragmentNode.cpp \
     $$PWD/http/controller/detail/IUrlNode.cpp \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.cpp \
@@ -309,7 +309,9 @@ SOURCES += \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.cpp \
     $$PWD/http/mappings/IHttpAction.cpp \
     $$PWD/http/mappings/IHttpControllerMapping.cpp \
+    $$PWD/http/mappings/IHttpFolderMapping.cpp \
     $$PWD/http/mappings/IHttpMappingWare.cpp \
+    $$PWD/http/mappings/IHttpResourceMapping.cpp \
     $$PWD/http/net/IRequestManage.cpp \
     $$PWD/http/net/impl/IRequestRaw.cpp \
     $$PWD/http/net/impl/IResponseHeader.cpp \
@@ -359,8 +361,8 @@ SOURCES += \
     $$PWD/http/biscuits/IHttpMime.cpp \
     $$PWD/http/biscuits/IHttpStatus.cpp \
     $$PWD/http/biscuits/IHttpVersion.cpp \
-    $$PWD/http/controller/IHttpFolderMapping.cpp \
-    $$PWD/http/controller/IHttpResourceMapping.cpp \
+#    $$PWD/http/controller/IHttpFolderMapping.cpp \
+#    $$PWD/http/controller/IHttpResourceMapping.cpp \
 #    $$PWD/http/controller/detail/IControllerInterfaceHelper.cpp \
     $$PWD/http/core/defaultTask/INodyTemplateTask.cpp \
     $$PWD/http/core/test/IHttpTestInterface.cpp \

@@ -1,6 +1,6 @@
 ﻿#include "IHttpControllerMapping.h"
 #include "http/controller/detail/IHttpControllerAction.h"
-#include "http/controller/detail/IHttpRouteNode.h"
+#include "http/controller/IHttpControllerNode.h"
 #include "http/net/IRequest.h"
 #include "http/net/impl/IRequestRaw.h"
 
@@ -70,7 +70,7 @@ std::vector<IHttpAction *> IHttpControllerMapping::getActions(IRequest &request)
 bool IHttpControllerMapping::checkUrlDuplicateName(const IHttpControllerAction *node)
 {
     QStringList names;
-    auto parent = static_cast<IHttpRouteNode*>(node->parentNode);
+    auto parent = static_cast<IHttpControllerNode*>(node->parentNode);
 
     while(parent != nullptr){
         auto name = parent->routeNode.name;
@@ -92,7 +92,7 @@ void IHttpControllerMapping::checkRegisterAvalible()
     // do nothing
 }
 
-std::vector<IHttpAction *> IHttpControllerMapping::queryFunctionNodes(IHttpRouteNode *parentNode, const IStringViewList &fragments, IHttpMethod method)
+std::vector<IHttpAction *> IHttpControllerMapping::queryFunctionNodes(IHttpControllerNode *parentNode, const IStringViewList &fragments, IHttpMethod method)
 {
     // FIXME:
 

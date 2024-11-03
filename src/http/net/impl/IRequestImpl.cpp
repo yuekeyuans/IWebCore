@@ -14,7 +14,7 @@
 #include "http/net/IRequest.h"
 #include "http/server/ITcpConnection.h"
 #include "http/net/IRequestManage.h"
-#include "http/controller/IHttpManage.h"
+#include "http/IHttpManage.h"
 #include "http/net/impl/IRequestRaw.h"
 #include "http/net/impl/IResponseRaw.h"
 #include "http/net/impl/IResponseImpl.h"

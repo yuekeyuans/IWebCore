@@ -1,6 +1,6 @@
 ﻿#include "IHttpPrintTraceTask.h"
 #include "core/config/IProfileImport.h"
-#include "http/controller/IHttpManage.h"
+#include "http/IHttpManage.h"
 
 $PackageWebCoreBegin
 
