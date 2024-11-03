@@ -1,5 +1,5 @@
 ﻿#include "IHttpRouteNode.h"
-#include "http/controller/IHttpManage.h"
+#include "http/IHttpManage.h"
 #include "http/controller/detail/IHttpControllerAction.h"
 
 $PackageWebCoreBegin

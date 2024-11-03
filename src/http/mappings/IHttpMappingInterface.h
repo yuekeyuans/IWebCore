@@ -5,7 +5,7 @@
 #include "core/unit/ISingletonUnit.h"
 #include "http/IHttpControllerTaskCatagory.h"
 #include "http/mappings/IHttpMappingWare.h"
-#include "http/controller/IHttpManage.h"
+#include "http/IHttpManage.h"
 
 $PackageWebCoreBegin
 

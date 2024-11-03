@@ -3,7 +3,7 @@
 #include "http/net/IResponse.h"
 #include "http/net/impl/IRequestRaw.h"
 #include "http/net/impl/IResponseRaw.h"
-#include "http/controller/IHttpManage.h"
+#include "http/IHttpManage.h"
 #include "http/controller/detail/IHttpControllerParameter.h"
 #include "http/server/IHttpConnection.h"
 #include "http/invalid/IHttpInvalidManage.h"

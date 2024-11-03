@@ -93,6 +93,7 @@ HEADERS += \
     $$PWD/core/unit/IStackObjectUnit.h \
     $$PWD/http/IHttpAnnomacro.h \
     $$PWD/http/IHttpControllerTaskCatagory.h \
+    $$PWD/http/IHttpManage.h \
     $$PWD/http/base/IParameterNode.h \
     $$PWD/http/controller/IHttpControllerAbort.h \
     $$PWD/http/controller/IHttpControllerInterface.h \
@@ -182,7 +183,6 @@ HEADERS += \
     $$PWD/http/biscuits/IHttpStatus.h \
     $$PWD/http/biscuits/IHttpVersion.h \
     $$PWD/http/controller/IHttpFolderMapping.h \
-    $$PWD/http/controller/IHttpManage.h \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.h \
     $$PWD/http/controller/IHttpResourceMapping.h \
     $$PWD/http/core/defaultTask/INodyTemplateTask.h \
@@ -281,6 +281,7 @@ SOURCES += \
 #    $$PWD/http/IHttpAssert.cpp \
 #    $$PWD/core/util/detail/IConvertUtilBaseTypeDetail.cpp \
     $$PWD/http/IHttpControllerTaskCatagory.cpp \
+    $$PWD/http/IHttpManage.cpp \
     $$PWD/http/base/IParameterNode.cpp \
     $$PWD/http/controller/IHttpControllerInterface.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
@@ -359,7 +360,6 @@ SOURCES += \
     $$PWD/http/biscuits/IHttpStatus.cpp \
     $$PWD/http/biscuits/IHttpVersion.cpp \
     $$PWD/http/controller/IHttpFolderMapping.cpp \
-    $$PWD/http/controller/IHttpManage.cpp \
     $$PWD/http/controller/IHttpResourceMapping.cpp \
 #    $$PWD/http/controller/detail/IControllerInterfaceHelper.cpp \
     $$PWD/http/core/defaultTask/INodyTemplateTask.cpp \

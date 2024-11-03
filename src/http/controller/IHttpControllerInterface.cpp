@@ -1,6 +1,6 @@
 ﻿#include "IHttpControllerInterface.h"
 #include "core/util/ISpawnUtil.h"
-#include "http/controller/IHttpManage.h"
+#include "http/IHttpManage.h"
 #include "http/controller/IHttpControllerAbort.h"
 #include "http/controller/detail/IHttpControllerInfo.h"
 #include "http/mappings/IHttpControllerMapping.h"

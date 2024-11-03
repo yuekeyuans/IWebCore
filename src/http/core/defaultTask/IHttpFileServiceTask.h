@@ -5,6 +5,8 @@
 
 $PackageWebCoreBegin
 
+// TODO: this will be moved to plugin latter
+
 class IHttpFileServiceTask : public IInitializationTaskInterface<IHttpFileServiceTask>
 {
 public:

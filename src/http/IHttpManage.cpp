@@ -40,22 +40,22 @@ void IHttpManage::setIsServerStarted(bool value)
 //    }
 //}
 
-void IHttpManage::registerStaticFiles(const QString &path, const QString &prefix)
-{
-//    checkRegisterAvalible();
+//void IHttpManage::registerStaticFiles(const QString &path, const QString &prefix)
+//{
+////    checkRegisterAvalible();
 
-    QDir dir(path);
-    if(!dir.exists()){
-        IHttpControllerAbort::abortstatic_file_dir_not_exist(path, $ISourceLocation);
-    }
+//    QDir dir(path);
+//    if(!dir.exists()){
+//        IHttpControllerAbort::abortstatic_file_dir_not_exist(path, $ISourceLocation);
+//    }
 
-    $Bool enabledFileStaticMapping("/http/fileService/staticMapping");
-    if(*enabledFileStaticMapping){
-        m_resourceMappings.mountMapping(dir.absolutePath(), prefix);
-    }else{
-        m_folderMappings.mountMapping(dir.absolutePath(), prefix);
-    }
-}
+//    $Bool enabledFileStaticMapping("/http/fileService/staticMapping");
+//    if(*enabledFileStaticMapping){
+//        m_resourceMappings.mountMapping(dir.absolutePath(), prefix);
+//    }else{
+//        m_folderMappings.mountMapping(dir.absolutePath(), prefix);
+//    }
+//}
 
 void IHttpManage::registerPathValidator(const QString &name, const QString &regexp)
 {
@@ -94,8 +94,8 @@ void IHttpManage::travalPrintUrlTree()
     }
 
 //    instance()->m_urlMapppings.travelPrint();
-    instance()->m_resourceMappings.travelPrint();
-    instance()->m_folderMappings.travelPrint();
+//    instance()->m_resourceMappings.travelPrint();
+//    instance()->m_folderMappings.travelPrint();
 }
 
 QString IHttpManage::queryPathRegValidator(const QString &path)
@@ -161,46 +161,46 @@ IHttpAction *IHttpManage::getAction(IRequest &request)
 //    return node;
 }
 
-bool IHttpManage::isStaticFileActionPathEnabled()
-{
-    return m_resourceMappings.isEnabled() || m_folderMappings.isEnabled();
-}
+//bool IHttpManage::isStaticFileActionPathEnabled()
+//{
+//    return m_resourceMappings.isEnabled() || m_folderMappings.isEnabled();
+//}
 
-QString IHttpManage::getStaticFileActionPath(const IRequest &request)
-{
-    static bool isResourceMapping = m_resourceMappings.isEnabled();
-    if(isResourceMapping){
-        QString value = m_resourceMappings.getFilePath(request.url());
-        if(!value.isEmpty()){
-            return value;
-        }
-    }
+//QString IHttpManage::getStaticFileActionPath(const IRequest &request)
+//{
+//    static bool isResourceMapping = m_resourceMappings.isEnabled();
+//    if(isResourceMapping){
+//        QString value = m_resourceMappings.getFilePath(request.url());
+//        if(!value.isEmpty()){
+//            return value;
+//        }
+//    }
 
-    static bool isDirMapping = m_folderMappings.isEnabled();
-    if(isDirMapping){
-        return m_folderMappings.getFilePath(request.url());
-    }
-    return {};
-}
+//    static bool isDirMapping = m_folderMappings.isEnabled();
+//    if(isDirMapping){
+//        return m_folderMappings.getFilePath(request.url());
+//    }
+//    return {};
+//}
 
-QStringList IHttpManage::getStaticFolderActionPath(const IRequest &request)
-{
-    auto url = request.url().toQString();
-    if(!url.endsWith("/")){
-        url.append("/");
-    }
-    static bool isResourceMapping = m_resourceMappings.isEnabled();
-    if(isResourceMapping){
-        return m_resourceMappings.getFileEntries(url);
-    }
+//QStringList IHttpManage::getStaticFolderActionPath(const IRequest &request)
+//{
+//    auto url = request.url().toQString();
+//    if(!url.endsWith("/")){
+//        url.append("/");
+//    }
+//    static bool isResourceMapping = m_resourceMappings.isEnabled();
+//    if(isResourceMapping){
+//        return m_resourceMappings.getFileEntries(url);
+//    }
 
-    static bool isDirMapping = m_folderMappings.isEnabled();
-    if(isDirMapping){
-        return m_folderMappings.getFileEntries(url);
-    }
+//    static bool isDirMapping = m_folderMappings.isEnabled();
+//    if(isDirMapping){
+//        return m_folderMappings.getFileEntries(url);
+//    }
 
-    return {};
-}
+//    return {};
+//}
 
 //QVector<IHttpRouteLeaf *> IHttpManage::queryFunctionNodes(IHttpRouteNode *parentNode,
 //                                                             const IStringViewList &fragments, IHttpMethod method)

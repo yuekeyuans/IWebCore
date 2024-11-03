@@ -5,8 +5,8 @@
 #include "http/biscuits/IHttpMethod.h"
 #include "http/mappings//IHttpMappingInterface.h"
 #include "http/controller/detail/IHttpRouteNode.h"
-#include "IHttpResourceMapping.h"
-#include "IHttpFolderMapping.h"
+//#include "IHttpResourceMapping.h"
+//#include "IHttpFolderMapping.h"
 
 $PackageWebCoreBegin
 
@@ -22,10 +22,7 @@ public:
 public:
     static void setIsServerStarted(bool);
 
-//    void registerUrlActionNode(IHttpRouteLeaf node);
-//    void registerUrlActionNodes(const QVector<IHttpRouteLeaf>& functionNodes);
-
-    void registerStaticFiles(const QString& path, const QString& prefix);
+//    void registerStaticFiles(const QString& path, const QString& prefix);
 
     void registerPathValidator(const QString& name, const QString& regexp);
     void registerPathValidator(const QString& name, ValidatorFun fun);
@@ -36,9 +33,9 @@ public:
 
     IHttpAction* getAction(IRequest& request);
 
-    bool isStaticFileActionPathEnabled();
-    QString getStaticFileActionPath(const IRequest& request);
-    QStringList getStaticFolderActionPath(const IRequest& request);
+//    bool isStaticFileActionPathEnabled();
+//    QString getStaticFileActionPath(const IRequest& request);
+//    QStringList getStaticFolderActionPath(const IRequest& request);
 
 private:
 //    static QVector<IHttpRouteLeaf*> queryFunctionNodes(IHttpRouteNode* parentNode, const IStringViewList& fragments, IHttpMethod method);
@@ -50,9 +47,8 @@ private:
 
 private:
     bool m_isServerStarted{false};
-//    IHttpRouteNode m_urlMapppings;
-    IHttpResourceMapping m_resourceMappings;
-    IHttpFolderMapping m_folderMappings;
+//    IHttpResourceMapping m_resourceMappings;
+//    IHttpFolderMapping m_folderMappings;
 
     QMap<QString, QString> m_pathRegValidators;
     QMap<QString, ValidatorFun> m_pathFunValidators;

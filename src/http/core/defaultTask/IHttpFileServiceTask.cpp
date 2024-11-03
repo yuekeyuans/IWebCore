@@ -1,6 +1,6 @@
 ﻿#include "IHttpFileServiceTask.h"
 #include "core/config/IProfileImport.h"
-#include "http/controller/IHttpManage.h"
+#include "http/IHttpManage.h"
 
 $PackageWebCoreBegin
 
@@ -15,7 +15,7 @@ void IHttpFileServiceTask::$task()
     if(staticUrl.value().isEmpty()){
         return;
     }
-    IHttpManage::instance()->registerStaticFiles(*staticPath, *staticUrl);
+//    IHttpManage::instance()->registerStaticFiles(*staticPath, *staticUrl);
 }
 
 $PackageWebCoreEnd
