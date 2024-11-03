@@ -14,8 +14,7 @@ public:
 
 public:
     virtual void travelPrint() const = 0;
-    virtual IHttpAction* getActions(IRequest& request) const = 0;
-
+    virtual IHttpAction* getAction(IRequest& request) const = 0;
 };
 
 $PackageWebCoreEnd

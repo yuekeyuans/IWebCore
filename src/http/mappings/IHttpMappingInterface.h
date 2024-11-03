@@ -19,10 +19,6 @@ public:
     virtual QString $name() const final;
     virtual const char* $catagory() const final;
     virtual void $task() final;
-
-public:
-    virtual void travelPrint() const = 0;
-    virtual IHttpAction* getActions(IRequest &request) const = 0;
 };
 
 template<typename T, bool enabled>

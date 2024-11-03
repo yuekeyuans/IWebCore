@@ -18,7 +18,7 @@ public:
 
 public:
     virtual void travelPrint() const final;
-    virtual IHttpAction* getActions(IRequest &request) const;
+    virtual IHttpAction* getAction(IRequest &request) const;
 
 private:
     bool checkUrlDuplicateName(const IHttpControllerAction* node);

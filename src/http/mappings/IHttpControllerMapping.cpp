@@ -36,7 +36,7 @@ void IHttpControllerMapping::travelPrint() const
 
 
 // TODO: 这个需要检查一下
-IHttpAction * IHttpControllerMapping::getActions(IRequest &request) const
+IHttpAction * IHttpControllerMapping::getAction(IRequest &request) const
 {
     IStringView url = request.url();
     IHttpMethod method = request.method();
