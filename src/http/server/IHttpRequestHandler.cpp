@@ -6,7 +6,7 @@
 #include "http/IHttpManage.h"
 #include "http/controller/detail/IHttpControllerParameter.h"
 #include "http/server/IHttpConnection.h"
-#include "http/invalid/IHttpInvalidManage.h"
+//#include "http/invalid/IHttpInvalidManage.h"
 #include "http/invalid/IHttpNotFoundInvalid.h"
 #include "http/base/IFunctionNode.h"
 #include "http/base/IMethodNode.h"
@@ -33,10 +33,10 @@ void IHttpRequestHandler::handle(IRequest &request)
         }
     }while(0);
 
-    if(!request.isValid()){
-        auto process = IHttpInvalidManage::instance()->getWare(request.getRaw()->m_responseRaw->content.contentInvalid.tag);
-        process->process(request, response);
-    }
+//    if(!request.isValid()){
+//        auto process = IHttpInvalidManage::instance()->getWare(request.getRaw()->m_responseRaw->content.contentInvalid.tag);
+//        process->process(request, response);
+//    }
 
     request.m_connection->doWrite();
 }

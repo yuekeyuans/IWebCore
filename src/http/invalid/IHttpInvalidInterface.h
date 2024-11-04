@@ -5,7 +5,7 @@
 #include "core/task/unit/ITaskWareUnit.h"
 #include "http/biscuits/IHttpStatus.h"
 #include "http/invalid/IHttpInvalidWare.h"
-#include "http/invalid/IHttpInvalidManage.h"
+//#include "http/invalid/IHttpInvalidManage.h"
 #include "http/IHttpControllerTaskCatagory.h"
 
 $PackageWebCoreBegin
@@ -50,9 +50,9 @@ const char* IHttpInvalidInterface<T, enabled>::$catagory() const
 template<typename T, bool enabled>
 void IHttpInvalidInterface<T, enabled>::$task()
 {
-    if constexpr (enabled){
-        IHttpInvalidManage::instance()->addWare(ISingletonUnitDetail::getInstance<T>(nullptr));
-    }
+//    if constexpr (enabled){
+//        IHttpInvalidManage::instance()->addWare(ISingletonUnitDetail::getInstance<T>(nullptr));
+//    }
 }
 
 $PackageWebCoreEnd

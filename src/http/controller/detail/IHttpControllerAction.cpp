@@ -1,7 +1,6 @@
 ﻿#include "IHttpControllerAction.h"
 #include "http/controller/detail/IHttpControllerParameter.h"
 #include "http/server/ITcpConnection.h"
-#include "http/invalid/IHttpInvalidManage.h"
 #include "http/net/IRequest.h"
 #include "http/net/impl/IResponseRaw.h"
 #include "http/net/impl/IRequestRaw.h"
@@ -26,16 +25,15 @@ void IHttpControllerAction::invoke(IRequest &request) const
 
     IResponse response(&request);
     IHttpControllerParameter::resolveReturnValue(response, methodNode, params);
-    if(!request.isValid()){
-        return;
+    if(request.isValid()){
+        IHttpControllerParameter::destroyArguments(methodNode, params);
     }
 
-    IHttpControllerParameter::destroyArguments(methodNode, params);
 
-    if(!request.isValid()){
-        auto process = IHttpInvalidManage::instance()->getWare(request.getRaw()->m_responseRaw->content.contentInvalid.tag);
-        process->process(request, response);
-    }
+//    if(!request.isValid()){
+//        auto process = IHttpInvalidManage::instance()->getWare(request.getRaw()->m_responseRaw->content.contentInvalid.tag);
+//        process->process(request, response);
+//    }
 
     request.m_connection->doWrite();
 }
