@@ -8,7 +8,8 @@ $PackageWebCoreBegin
 class IHttpInternalErrorInvalid : public IHttpInvalidInterface<IHttpInternalErrorInvalid>
 {
 public:
-    IHttpInternalErrorInvalid(const QString& description="");
+    IHttpInternalErrorInvalid();
+    IHttpInternalErrorInvalid(const QString& description);
 };
 
 $PackageWebCoreEnd

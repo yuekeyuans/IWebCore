@@ -1,10 +1,10 @@
 ﻿#pragma once
 
-#include "core/util/IHeaderUtil.h"
 #include "http/biscuits/IHttpStatus.h"
 
 $PackageWebCoreBegin
 
+// TODO: 检查一下这里使用使用右值进行操作了
 class IRequest;
 class IResponse;
 class IHttpInvalidWare

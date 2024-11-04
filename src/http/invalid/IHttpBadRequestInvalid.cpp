@@ -5,7 +5,6 @@ $PackageWebCoreBegin
 IHttpBadRequestInvalid::IHttpBadRequestInvalid()
     : IHttpInvalidInterface(IHttpStatus::BAD_REQUEST_400)
 {
-
 }
 
 IHttpBadRequestInvalid::IHttpBadRequestInvalid(const QString &description)

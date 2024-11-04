@@ -1,17 +1,12 @@
 ﻿#pragma once
 
-#include "core/util/IHeaderUtil.h"
-#include "core/util/IPreProcessorUtil.h"
-#include "core/util/IMetaUtil.h"
 #include "core/base/IResult.h"
 #include "core/unit/IRegisterMetaTypeUnit.h"
 #include "http/biscuits/IHttpMethod.h"
 #include "http/biscuits/IHttpVersion.h"
-#include "http/biscuits/IHttpStatus.h"
 #include "http/biscuits/IHttpMime.h"
 #include "http/net/IMultiPart.h"
 #include "http/invalid/IHttpInvalidWare.h"
-//#include "http/invalid/IHttpInvalidUnit.h"
 #include "http/server/ITcpResolverInterface.h"
 
 $PackageWebCoreBegin
@@ -108,11 +103,6 @@ protected:
 private:
     IRequestImpl* impl{nullptr};
 };
-
-#ifdef USE_INLINE
-#define __IN_LINE__ inline
-#include "IRequest.ipp"
-#endif
 
 $PackageWebCoreEnd
 

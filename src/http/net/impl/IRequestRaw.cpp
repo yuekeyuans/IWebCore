@@ -50,7 +50,7 @@ void IRequestRaw::setInvalid(IHttpInvalidWare ware)
 {
     m_responseRaw->setMime(IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8));
     m_responseRaw->status = ware.status;
-    m_responseRaw->setContent(ware);
+    m_responseRaw->setContent(std::move(ware));
 }
 
 
