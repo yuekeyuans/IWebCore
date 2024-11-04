@@ -123,6 +123,8 @@ HEADERS += \
     $$PWD/http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.h \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.h \
     $$PWD/http/mappings/IHttpAction.h \
+    $$PWD/http/mappings/IHttpActionInterface.h \
+    $$PWD/http/mappings/IHttpBadRequestAction.h \
     $$PWD/http/mappings/IHttpControllerMapping.h \
     $$PWD/http/mappings/IHttpFolderMapping.h \
     $$PWD/http/mappings/IHttpMappingInterface.h \
@@ -311,6 +313,8 @@ SOURCES += \
     $$PWD/http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.cpp \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.cpp \
     $$PWD/http/mappings/IHttpAction.cpp \
+    $$PWD/http/mappings/IHttpActionInterface.cpp \
+    $$PWD/http/mappings/IHttpBadRequestAction.cpp \
     $$PWD/http/mappings/IHttpControllerMapping.cpp \
     $$PWD/http/mappings/IHttpFolderMapping.cpp \
     $$PWD/http/mappings/IHttpMappingWare.cpp \

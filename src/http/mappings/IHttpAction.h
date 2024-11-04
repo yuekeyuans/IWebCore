@@ -15,9 +15,9 @@ public:
     virtual void invoke(IRequest& request) const = 0;
 
 public:
-    bool m_isDeleted{false};    // should be delete after used?
+    bool m_autoRecycle{false};    // auto recycle after used
 };
 
-using IHttpActionInterface = IHttpAction;
+//using IHttpActionInterface = IHttpAction;
 
 $PackageWebCoreEnd

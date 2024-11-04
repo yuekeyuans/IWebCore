@@ -2,6 +2,8 @@
 #include "http/net/IRequest.h"
 #include "http/mappings/IHttpAction.h"
 #include "http/mappings/IHttpMappingWare.h"
+#include "http/mappings/IHttpNotFoundAction.h"
+#include "http/mappings/IHttpBadRequestAction.h"
 
 $PackageWebCoreBegin
 
@@ -15,28 +17,18 @@ void IHttpManage::registMappingWare(IHttpMappingWare *ware)
     m_mappingWares.append(ware);
 }
 
-// TODO: 这里对于异常的处理需要重新思考
 IHttpAction *IHttpManage::getAction(IRequest &request)
 {
-    if(!request.isValid()){
-        return m_statusActionMap[IHttpStatus::BAD_REQUEST_400];
-    }
-
-    for(IHttpMappingWare* ware : m_mappingWares){
-        auto action = ware->getAction(request);
-        if(action != nullptr){
-            return action;
+    if(request.isValid()){
+        for(IHttpMappingWare* ware : m_mappingWares){
+            auto action = ware->getAction(request);
+            if(action != nullptr){
+                return action;
+            }
         }
+        return IHttpNotFoundAction::instance();
     }
-
-    qFatal("error here");
-    return m_statusActionMap[IHttpStatus::NOT_FOUND_404];
-}
-
-// TODO: 这里有很多注册项
-void IHttpManage::registStatusAction(IHttpStatusCode status, IHttpAction * action)
-{
-    m_statusActionMap[status] = action;
+    return IHttpBadRequestAction::instance();
 }
 
 void IHttpManage::registerPathValidator(const QString &name, const QString &regexp)

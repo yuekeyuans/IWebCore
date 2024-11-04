@@ -1,10 +1,10 @@
 ﻿#pragma once
 
-#include "http/mappings/IHttpAction.h"
+#include "http/mappings/IHttpActionInterface.h"
 
 $PackageWebCoreBegin
 
-class IHttpNotFoundAction : public IHttpAction
+class IHttpNotFoundAction : public IHttpActionInterface<IHttpNotFoundAction>
 {
 public:
     IHttpNotFoundAction() = default;
@@ -12,7 +12,6 @@ public:
 public:
     virtual void invoke(IRequest &request) const final;
 };
-
 
 $PackageWebCoreEnd
 

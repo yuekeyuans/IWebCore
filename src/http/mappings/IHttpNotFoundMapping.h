@@ -1,24 +1,26 @@
-﻿#pragma once
+﻿//#pragma once
 
-#include "http/mappings/IHttpMappingInterface.h"
-#include "http/mappings/IHttpNotFoundAction.h"
+//#include "http/mappings/IHttpMappingInterface.h"
+//#include "http/mappings/IHttpNotFoundAction.h"
 
-$PackageWebCoreBegin
+//$PackageWebCoreBegin
 
-class IHttpNotFoundMapping : public IHttpMappingInterface<IHttpNotFoundMapping>
-{
-public:
-    IHttpNotFoundMapping() = default;
+//// TODO: 思考，这个有没有必要保留
 
-public:
-    virtual void travelPrint() const final;
-    virtual IHttpAction *getAction(IRequest &request) const final;
+//class IHttpNotFoundMapping : public IHttpMappingInterface<IHttpNotFoundMapping>
+//{
+//public:
+//    IHttpNotFoundMapping() = default;
 
-private:
-    virtual double $order() const final;
+//public:
+//    virtual void travelPrint() const final;
+//    virtual IHttpAction *getAction(IRequest &request) const final;
 
-private:
-    IHttpNotFoundAction m_action;
-};
+//private:
+//    virtual double $order() const final;
 
-$PackageWebCoreEnd
+//private:
+//    IHttpNotFoundAction m_action;
+//};
+
+//$PackageWebCoreEnd

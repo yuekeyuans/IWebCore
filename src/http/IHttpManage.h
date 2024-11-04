@@ -22,9 +22,6 @@ public:
     void registMappingWare(IHttpMappingWare* ware);
     IHttpAction* getAction(IRequest& request);
 
-    // TODO: statusAction
-    void registStatusAction(IHttpStatusCode, IHttpAction*);
-
     void registerPathValidator(const QString& name, const QString& regexp);
     void registerPathValidator(const QString& name, ValidatorFun fun);
 
@@ -35,7 +32,6 @@ public:
 
 private:
     bool m_isServerStarted{false};
-    std::map<IHttpStatusCode, IHttpAction*> m_statusActionMap;
     QVector<IHttpMappingWare*> m_mappingWares;
     QMap<QString, QString> m_pathRegValidators;
     QMap<QString, ValidatorFun> m_pathFunValidators;

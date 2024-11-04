@@ -1,15 +1,14 @@
 ﻿#pragma once
 
-#include "core/util/IHeaderUtil.h"
 #include "http/biscuits/IHttpMethod.h"
 #include "http/base/IMethodNode.h"
 #include "http/base/IFunctionNode.h"
-#include "http/mappings/IHttpAction.h"
+#include "http/mappings/IHttpActionInterface.h"
 #include "http/controller/detail/IUrlFragmentNode.h"
 
 $PackageWebCoreBegin
 
-struct IHttpControllerAction : public IHttpActionInterface
+struct IHttpControllerAction : public IHttpActionInterface<IHttpControllerAction>
 {
     enum class ReturnType{
         Void,

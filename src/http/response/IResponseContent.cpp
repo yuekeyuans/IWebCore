@@ -5,31 +5,6 @@
 
 $PackageWebCoreBegin
 
-class IResponseContentAbort : IAbortInterface<IResponseContentAbort>
-{
-    $AsAbort(
-        response_invalid_type_error
-    )
-protected:
-    virtual QMap<int, QString> abortDescription() const final{
-        return {
-            {response_invalid_type_error, "all invalid type should be preprocessed before response to user"}
-        };
-    }
-};
-
-namespace detail
-{
-    inline static QString getTypename(IResponseContent::Type type)
-    {
-        QStringList typeString = {
-            "Empty", "String", "Bytes", "File", "Invalid",
-        };
-        return typeString[(int)type];
-    }
-}
-
-// TODO: warn
 void IResponseContent::append(const QString &content)
 {
     switch (type) {
@@ -41,15 +16,12 @@ void IResponseContent::append(const QString &content)
         contentBytes.append(content.toUtf8());
         break;
     case Type::String:
+    case Type::Invalid:
         contentString.append(content);
         break;
-    default:
-//        $Ast->warn("response_incorrect_append", "current type is " + detail::getTypename(type));
-        return;
     }
 }
 
-// TODO: warn
 void IResponseContent::append(const QByteArray &content)
 {
     switch (type) {
@@ -61,11 +33,9 @@ void IResponseContent::append(const QByteArray &content)
         contentBytes.append(content);
         break;
     case Type::String:
+    case Type::Invalid:
         contentString.append(content);
         break;
-    default:
-//        $Ast->warn("response_incorrect_append", "current type is " + detail::getTypename(type));
-        return;
     }
 }
 
@@ -112,7 +82,6 @@ void IResponseContent::setContent(IHttpInvalidWare ware)
     }
 }
 
-// TODO:
 QByteArray IResponseContent::getAsBytes()
 {
     switch(type){
