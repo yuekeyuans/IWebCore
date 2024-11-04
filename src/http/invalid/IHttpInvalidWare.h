@@ -10,7 +10,6 @@ class IResponse;
 class IHttpInvalidWare
 {
 public:
-    IHttpInvalidWare() = default;
     IHttpInvalidWare(IHttpStatusCode, QString description);
     virtual ~IHttpInvalidWare() = default;
 
