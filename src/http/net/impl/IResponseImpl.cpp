@@ -16,6 +16,12 @@ IResponseImpl::IResponseImpl(IRequestRaw *raw) : raw(raw)
 
 std::vector<asio::const_buffer> IResponseImpl::getContent()
 {
+    // note: invalidFunction 在这个地方被调用
+    // TODO: 这个不美观，之后考虑改进吧
+    if(raw->m_responseRaw->content.type == IResponseContent::Type::Invalid && raw->m_responseRaw->content.invalidFunction){
+        raw->m_responseRaw->content.invalidFunction(*raw->m_request);
+    }
+
     const auto& content = raw->m_responseRaw->content.getAsBytes();
 
     m_content.emplace_back(generateFirstLine());

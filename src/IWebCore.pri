@@ -116,8 +116,8 @@ HEADERS += \
     $$PWD/http/invalid/IHttpBadRequestInvalid.h \
     $$PWD/http/invalid/IHttpInternalErrorInvalid.h \
     $$PWD/http/invalid/IHttpInvalidInterface.h \
-    $$PWD/http/invalid/IHttpInvalidManage.h \
-    $$PWD/http/invalid/IHttpInvalidUnit.h \
+#    $$PWD/http/invalid/IHttpInvalidManage.h \
+#    $$PWD/http/invalid/IHttpInvalidUnit.h \
     $$PWD/http/invalid/IHttpInvalidWare.h \
     $$PWD/http/invalid/IHttpNotFoundInvalid.h \
     $$PWD/http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.h \
@@ -304,8 +304,8 @@ SOURCES += \
     $$PWD/http/core/test/IHttpTestTool.cpp \
     $$PWD/http/invalid/IHttpBadRequestInvalid.cpp \
     $$PWD/http/invalid/IHttpInternalErrorInvalid.cpp \
-    $$PWD/http/invalid/IHttpInvalidManage.cpp \
-    $$PWD/http/invalid/IHttpInvalidUnit.cpp \
+#    $$PWD/http/invalid/IHttpInvalidManage.cpp \
+#    $$PWD/http/invalid/IHttpInvalidUnit.cpp \
     $$PWD/http/invalid/IHttpInvalidWare.cpp \
     $$PWD/http/invalid/IHttpNotFoundInvalid.cpp \
     $$PWD/http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.cpp \

@@ -11,12 +11,8 @@ IHttpInvalidWare::IHttpInvalidWare(IHttpStatusCode code, QString description)
 {
 }
 
-void IHttpInvalidWare::process(IRequest&, IResponse&)
+void IHttpInvalidWare::process(IRequest&)
 {
-//    Q_UNUSED(req);
-//    auto responseRaw = res.getRaw()->m_responseRaw;
-//    responseRaw->status = status;
-    //    responseRaw->setContent(responseRaw->content.contentInvalid.description);
 }
 
 $PackageWebCoreEnd

@@ -36,7 +36,7 @@ public:
     Type type{Type::Empty};
     QString contentString;
     QByteArray contentBytes;
-//    IHttpInvalidWare contentInvalid;
+    std::function<void(IRequest&)> invalidFunction{};
 };
 
 $PackageWebCoreEnd

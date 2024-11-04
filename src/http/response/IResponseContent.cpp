@@ -107,7 +107,9 @@ void IResponseContent::setContent(IHttpInvalidWare ware)
 {
     type = Type::Invalid;
     contentString = ware.description;
-//    contentInvalid = ware;
+    if(ware.m_function){
+        invalidFunction = ware.m_function;
+    }
 }
 
 // TODO:
@@ -126,10 +128,7 @@ QByteArray IResponseContent::getAsBytes()
         }
         return *IFileUtil::readFileAsByteArray(contentString);  // TODO:
     case Type::Invalid:
-        return contentString.toUtf8();
-//        return contentInvalid.tag.toUtf8();
-        // TODO: 这里invalid 的处理需要再看一下
-//        IResponseContentAbort::abortresponse_invalid_type_error($ISourceLocation);
+        return contentString.toUtf8();  // this maybe ajusted in invalidFunction
     }
     return {};
 }
