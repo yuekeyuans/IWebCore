@@ -1,4 +1,5 @@
 ﻿#include "IHttpInvalidWare.h"
+#include "core/abort/IGlobalAbort.h"
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
 #include "http/net/impl/IRequestRaw.h"
@@ -13,6 +14,7 @@ IHttpInvalidWare::IHttpInvalidWare(IHttpStatusCode code, QString description)
 
 void IHttpInvalidWare::process(IRequest&)
 {
+    IGlobalAbort::abortUnReachableCode($ISourceLocation);
 }
 
 $PackageWebCoreEnd

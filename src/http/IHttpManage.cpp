@@ -14,7 +14,7 @@ void IHttpManage::setIsServerStarted(bool value)
 
 void IHttpManage::registMappingWare(IHttpMappingWare *ware)
 {
-    m_mappingWares.append(ware);
+    m_mappingWares.push_back(ware);
 }
 
 IHttpAction *IHttpManage::getAction(IRequest &request)
@@ -57,7 +57,7 @@ void IHttpManage::registerPathValidator(const QString &name, ValidatorFun fun)
     m_pathFunValidators[name] = fun;
 }
 
-void IHttpManage::travalPrintUrlTree()
+void IHttpManage::travalPrintWareTrace()
 {
     for(IHttpMappingWare* ware : instance()->m_mappingWares){
         ware->travelPrint();

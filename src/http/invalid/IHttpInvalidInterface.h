@@ -4,11 +4,12 @@
 #include "core/util/IMetaUtil.h"
 #include "http/biscuits/IHttpStatus.h"
 #include "http/invalid/IHttpInvalidWare.h"
+#include <functional>
 
 $PackageWebCoreBegin
 
 template<typename T, bool enabled=true>
-class IHttpInvalidInterface : public IHttpInvalidWare
+class IHttpInvalidInterface : public IHttpInvalidWare //, public ISingletonUnit<T>
 {
 public:
     IHttpInvalidInterface(IHttpStatusCode code);
@@ -20,7 +21,9 @@ IHttpInvalidInterface<T, enabled>::IHttpInvalidInterface(IHttpStatusCode status)
     : IHttpInvalidWare(status, IMetaUtil::getBareTypeName<T>())
 {
     if constexpr(&T::process != &IHttpInvalidWare::process){
-        m_function = std::mem_fun(&T::process, this);
+        m_function  = [](IRequest& request){
+            ISingletonUnitDetail::getInstance<T>()->T::process(request);
+        };
     }
 }
 
@@ -29,7 +32,9 @@ IHttpInvalidInterface<T, enabled>::IHttpInvalidInterface(IHttpStatusCode status,
     : IHttpInvalidWare(status, description)
 {
     if constexpr(&T::process != &IHttpInvalidWare::process){
-        m_function = std::mem_fun(&T::process, this);
+        m_function  = [](IRequest& request){
+            ISingletonUnitDetail::getInstance<T>()->process(request);
+        };
     }
 }
 

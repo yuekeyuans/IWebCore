@@ -12,4 +12,9 @@ IHttpNotFoundInvalid::IHttpNotFoundInvalid(QString description)
 {
 }
 
+void IHttpNotFoundInvalid::process(IRequest &)
+{
+    qDebug() << "calll here";
+}
+
 $PackageWebCoreEnd

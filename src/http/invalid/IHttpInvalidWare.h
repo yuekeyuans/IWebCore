@@ -21,6 +21,7 @@ public:
     IHttpStatusCode status{IHttpStatus::UNKNOWN};
     QString description;
     std::function<void(IRequest&)> m_function{};
+    IHttpInvalidWare* m_self{};
 };
 
 $PackageWebCoreEnd

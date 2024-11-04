@@ -8,7 +8,11 @@ $PackageWebCoreBegin
 class IHttpBadRequestInvalid : public IHttpInvalidInterface<IHttpBadRequestInvalid>
 {
 public:
-    IHttpBadRequestInvalid(const QString& description = "");
+    IHttpBadRequestInvalid();
+    IHttpBadRequestInvalid(const QString& description);
+
+public:
+    virtual void process(IRequest&) final;
 };
 
 $PackageWebCoreEnd

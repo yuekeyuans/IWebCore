@@ -6,7 +6,6 @@
 
 $PackageWebCoreBegin
 
-// TODO: 这个 path 验证需要重新封装一下。
 class IRequest;
 class IHttpAction;
 class IHttpMappingWare;
@@ -21,18 +20,19 @@ public:
 
     void registMappingWare(IHttpMappingWare* ware);
     IHttpAction* getAction(IRequest& request);
+    void travalPrintWareTrace();
 
     void registerPathValidator(const QString& name, const QString& regexp);
     void registerPathValidator(const QString& name, ValidatorFun fun);
 
-    static void travalPrintUrlTree();
     static QString queryPathRegValidator(const QString& path);
     static ValidatorFun queryPathFunValidator(const QString& path);
 
-
 private:
     bool m_isServerStarted{false};
-    QVector<IHttpMappingWare*> m_mappingWares;
+    std::vector<IHttpMappingWare*> m_mappingWares;
+//    std::map<IHttpStatusCode,
+
     QMap<QString, QString> m_pathRegValidators;
     QMap<QString, ValidatorFun> m_pathFunValidators;
 };
