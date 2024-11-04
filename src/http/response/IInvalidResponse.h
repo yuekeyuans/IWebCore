@@ -16,7 +16,7 @@ public:
 public:
     IInvalidResponse() = default;
     IInvalidResponse(const QString& value);
-    IInvalidResponse(IHttpInvalidUnit ware);
+    IInvalidResponse(IHttpInvalidWare ware);
 };
 
 $PackageWebCoreEnd

@@ -46,11 +46,11 @@ bool IRequestRaw::isValid() const
     return m_responseRaw->isValid();
 }
 
-void IRequestRaw::setInvalid(IHttpInvalidUnit ware)
+void IRequestRaw::setInvalid(IHttpInvalidWare ware)
 {
     m_responseRaw->setMime(IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8));
     m_responseRaw->status = ware.status;
-    m_responseRaw->setContent(ware);
+    m_responseRaw->setContent(ware.description);
 }
 
 

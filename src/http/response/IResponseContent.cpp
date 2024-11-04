@@ -103,10 +103,11 @@ void IResponseContent::setContent(const char *content)
     setContent(QByteArray(content));
 }
 
-void IResponseContent::setContent(IHttpInvalidUnit ware)
+void IResponseContent::setContent(IHttpInvalidWare ware)
 {
     type = Type::Invalid;
-    contentInvalid = ware;
+    contentString = ware.description;
+//    contentInvalid = ware;
 }
 
 // TODO:
@@ -125,9 +126,10 @@ QByteArray IResponseContent::getAsBytes()
         }
         return *IFileUtil::readFileAsByteArray(contentString);  // TODO:
     case Type::Invalid:
-        return contentInvalid.tag.toUtf8();
+        return contentString.toUtf8();
+//        return contentInvalid.tag.toUtf8();
         // TODO: 这里invalid 的处理需要再看一下
-        IResponseContentAbort::abortresponse_invalid_type_error($ISourceLocation);
+//        IResponseContentAbort::abortresponse_invalid_type_error($ISourceLocation);
     }
     return {};
 }

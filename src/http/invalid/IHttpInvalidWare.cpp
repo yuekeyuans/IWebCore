@@ -6,12 +6,17 @@
 
 $PackageWebCoreBegin
 
-void IHttpInvalidWare::process(IRequest & req, IResponse &res)
+IHttpInvalidWare::IHttpInvalidWare(IHttpStatusCode code, QString description)
+    : status(code), description(std::move(description))
 {
-    Q_UNUSED(req);
-    auto responseRaw = res.getRaw()->m_responseRaw;
-    responseRaw->status = status;
-    responseRaw->setContent(responseRaw->content.contentInvalid.description);
+}
+
+void IHttpInvalidWare::process(IRequest&, IResponse&)
+{
+//    Q_UNUSED(req);
+//    auto responseRaw = res.getRaw()->m_responseRaw;
+//    responseRaw->status = status;
+    //    responseRaw->setContent(responseRaw->content.contentInvalid.description);
 }
 
 $PackageWebCoreEnd

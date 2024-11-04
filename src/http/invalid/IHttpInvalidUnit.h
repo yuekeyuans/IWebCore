@@ -1,20 +1,20 @@
-﻿#pragma once
+﻿//#pragma once
 
-#include "core/util/IHeaderUtil.h"
-#include "http/biscuits/IHttpStatus.h"
+//#include "core/util/IHeaderUtil.h"
+//#include "http/biscuits/IHttpStatus.h"
 
-$PackageWebCoreBegin
+//$PackageWebCoreBegin
 
-struct IHttpInvalidUnit
-{
-public:
-    IHttpInvalidUnit() = default;
-    explicit IHttpInvalidUnit(IHttpStatusCode status, const QString& tag, const QString& description="");
+//struct IHttpInvalidUnit
+//{
+//public:
+//    IHttpInvalidUnit() = default;
+//    explicit IHttpInvalidUnit(IHttpStatusCode status, const QString& tag, const QString& description="");
 
-public:
-    IHttpStatusCode status{IHttpStatus::UNKNOWN};
-    QString tag;
-    QString description;
-};
+//public:
+//    IHttpStatusCode status{IHttpStatus::UNKNOWN};
+//    QString tag;
+//    QString description;
+//};
 
-$PackageWebCoreEnd
+//$PackageWebCoreEnd

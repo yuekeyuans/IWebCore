@@ -10,7 +10,8 @@
 #include "http/biscuits/IHttpStatus.h"
 #include "http/biscuits/IHttpMime.h"
 #include "http/net/IMultiPart.h"
-#include "http/invalid/IHttpInvalidUnit.h"
+#include "http/invalid/IHttpInvalidWare.h"
+//#include "http/invalid/IHttpInvalidUnit.h"
 #include "http/server/ITcpResolverInterface.h"
 
 $PackageWebCoreBegin
@@ -97,8 +98,8 @@ public:
     IResult<QVariant> getAttribute(const QString &name) const;
 
     bool isValid() const;
-    void setInvalidIf(bool condition, IHttpInvalidUnit) const;
-    void setInvalid(IHttpInvalidUnit) const;
+    void setInvalidIf(bool condition, IHttpInvalidWare) const;
+    void setInvalid(IHttpInvalidWare) const;
 
 protected:
     virtual void resolve() final;

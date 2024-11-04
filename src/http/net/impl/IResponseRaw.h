@@ -10,6 +10,7 @@ $PackageWebCoreBegin
 struct IResponseRaw
 {
 public:
+    IResponseRaw() = default;
     void setMime(IHttpMime mime);
     void setMime(const QString& mime);
 
@@ -20,7 +21,7 @@ public:
     void setContent(const char* content);
     void setContent(const QFileInfo& content);
     void setContent(const QFile& file); // TODO: 这个不一定行， 得具体测试一下看看
-    void setContent(IHttpInvalidUnit ware);
+    void setContent(IHttpInvalidWare ware);
     void setFileContent(const QString& filePath);
 
 public:

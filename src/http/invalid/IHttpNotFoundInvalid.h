@@ -9,7 +9,8 @@ $PackageWebCoreBegin
 class IHttpNotFoundInvalid : public IHttpInvalidInterface<IHttpNotFoundInvalid>
 {
 public:
-    IHttpNotFoundInvalid(QString description="");
+    IHttpNotFoundInvalid();
+    IHttpNotFoundInvalid(QString description);
 };
 
 $PackageWebCoreEnd

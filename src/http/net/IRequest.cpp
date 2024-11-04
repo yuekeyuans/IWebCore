@@ -312,14 +312,14 @@ bool IRequest::isValid() const
     return impl->m_raw->isValid();
 }
 
-void IRequest::setInvalidIf(bool condition, IHttpInvalidUnit ware) const
+void IRequest::setInvalidIf(bool condition, IHttpInvalidWare ware) const
 {
     if(condition){
         impl->m_raw->setInvalid(ware);
     }
 }
 
-void IRequest::setInvalid(IHttpInvalidUnit ware) const
+void IRequest::setInvalid(IHttpInvalidWare ware) const
 {
     return impl->m_raw->setInvalid(ware);
 }

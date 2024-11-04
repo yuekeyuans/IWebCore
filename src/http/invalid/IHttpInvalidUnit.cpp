@@ -1,10 +1,10 @@
-﻿#include "IHttpInvalidUnit.h"
+﻿//#include "IHttpInvalidUnit.h"
 
-$PackageWebCoreBegin
+//$PackageWebCoreBegin
 
-IWebCore::IHttpInvalidUnit::IHttpInvalidUnit(IHttpStatusCode status, const QString &tag, const QString &description)
-    :status(status), tag(tag), description(description)
-{
-}
+//IWebCore::IHttpInvalidUnit::IHttpInvalidUnit(IHttpStatusCode status, const QString &tag, const QString &description)
+//    :status(status), tag(tag), description(description)
+//{
+//}
 
-$PackageWebCoreEnd
+//$PackageWebCoreEnd

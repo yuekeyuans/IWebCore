@@ -10,6 +10,7 @@
 #include "http/net/IMultiPart.h"
 #include "http/net/ICookiePart.h"
 #include "http/net/impl/IResponseRaw.h"
+#include "http/invalid/IHttpInvalidWare.h"
 
 $PackageWebCoreBegin
 
@@ -29,7 +30,7 @@ public:
 
 public:
     bool isValid() const;
-    void setInvalid(IHttpInvalidUnit ware);
+    void setInvalid(IHttpInvalidWare ware);
 
 public:
     IResponseRaw* m_responseRaw{nullptr};

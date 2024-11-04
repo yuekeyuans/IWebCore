@@ -54,7 +54,7 @@ void IResponseRaw::setContent(const QFile &file)
     content.contentString = QFileInfo(file).absoluteFilePath();
 }
 
-void IResponseRaw::setContent(IHttpInvalidUnit ware)
+void IResponseRaw::setContent(IHttpInvalidWare ware)
 {
     content.setContent(std::move(ware));
 }

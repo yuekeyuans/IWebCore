@@ -7,7 +7,7 @@
 #include "http/biscuits/IHttpStatus.h"
 #include "http/biscuits/IHttpVersion.h"
 #include "http/biscuits/IHttpMime.h"
-#include "http/invalid/IHttpInvalidUnit.h"
+#include "http/invalid/IHttpInvalidWare.h"
 #include "http/net/impl/IResponseHeader.h"
 #include "http/response/IResponsePreProcessor.h"
 
@@ -57,7 +57,7 @@ public:
     IResponse& setContent(const char* content);
     IResponse& setContent(IResponseWare *response);
     IResponse& setContent(IResponseWare& response);
-    IResponse& setContent(IHttpInvalidUnit unit);
+    IResponse& setContent(IHttpInvalidWare unit);
 
     IHttpVersion version() const;
     QString mime() const;

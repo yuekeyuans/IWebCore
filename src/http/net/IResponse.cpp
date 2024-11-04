@@ -190,7 +190,7 @@ IResponse &IResponse::setContent(IResponseWare &response)
     return setContent(&response);
 }
 
-IResponse &IResponse::setContent(IHttpInvalidUnit unit)
+IResponse &IResponse::setContent(IHttpInvalidWare unit)
 {
     m_raw->setInvalid(unit);
     return *this;
