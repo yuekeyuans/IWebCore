@@ -10,7 +10,7 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true>
-class IContextTaskInterface : public ITaskWareUnit<T, enabled>, public ISingletonUnit<T>
+class IContextTaskInterface : public ITaskWareUnit<T, IConfigTaskCatagory, enabled>, public ISingletonUnit<T>
 {
 public:
     IContextTaskInterface() = default;
@@ -20,7 +20,6 @@ public:
     virtual std::string path() const;
 
 protected:
-    virtual const QString& $catagory() const final;
     virtual void $task() final;
 };
 
@@ -28,12 +27,6 @@ template<typename T, bool enabled>
 std::string IContextTaskInterface<T, enabled>::path() const
 {
     return {};
-}
-
-template<typename T, bool enabled>
-const QString& IContextTaskInterface<T, enabled>::$catagory() const
-{
-    return IConfigTaskCatagory::CATAGORY;
 }
 
 template<typename T, bool enabled>

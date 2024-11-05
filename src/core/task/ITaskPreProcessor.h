@@ -20,3 +20,14 @@ private:    \
              klassName<T, enabled>:: \
              klassName ## InitPrivate ::     \
              klassName ## InitPrivate ()
+
+
+#define $UseTaskUnit2(klassName) \
+    template<typename T, typename C, bool enabled>  \
+    typename klassName <T, C, enabled>:: \
+             klassName ## InitPrivate \
+             klassName <T, C, enabled>::m_private;    \
+    template<typename T, typename C, bool enabled>  \
+             klassName<T, C, enabled>:: \
+             klassName ## InitPrivate ::     \
+             klassName ## InitPrivate ()

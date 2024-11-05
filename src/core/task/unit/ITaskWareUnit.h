@@ -8,7 +8,7 @@
 
 $PackageWebCoreBegin
 
-template<class T, bool enabled = true>
+template<typename T, typename Catagory, bool enabled = true>
 class ITaskWareUnit : public ITaskWare
 {
     $AsTaskUnit(ITaskWareUnit)
@@ -19,15 +19,23 @@ protected:
 
 protected:
     virtual QString $name() const final;
+    virtual const QString& $catagory() const final;
 };
 
-template<typename T, bool enabled>
-QString ITaskWareUnit<T, enabled>::$name() const
+template<typename T, typename Catagory, bool enabled>
+QString ITaskWareUnit<T, Catagory, enabled>::$name() const
 {
     return IMetaUtil::getBareTypeName<T>();
 }
 
-$UseTaskUnit(ITaskWareUnit)
+template<typename T, typename Catagory, bool enabled>
+const QString& ITaskWareUnit<T, Catagory, enabled>::$catagory() const
+{
+    return Catagory::CATAGORY;
+}
+
+
+$UseTaskUnit2(ITaskWareUnit)
 {
     if constexpr (enabled){
         static std::once_flag flag;

@@ -9,21 +9,14 @@
 $PackageWebCoreBegin
 
 template<typename T, typename Manage, bool enabled =true>
-class ITestBaseInterface : public ITaskWareUnit<T, enabled>, public QObject, public ISingletonUnit<T>
+class ITestBaseInterface : public ITaskWareUnit<T, ITestCatagory, enabled>, public QObject, public ISingletonUnit<T>
 {
 public:
     ITestBaseInterface() = default;
 
 public:
-    virtual const QString& $catagory() const override;
     virtual void $task() final;
 };
-
-template<typename T, typename Manage, bool enabled>
-const QString& ITestBaseInterface<T, Manage, enabled>::$catagory() const
-{
-    return ITestCatagory::CATAGORY;
-}
 
 template<typename T, typename Manage, bool enabled>
 void ITestBaseInterface<T, Manage, enabled>::$task()

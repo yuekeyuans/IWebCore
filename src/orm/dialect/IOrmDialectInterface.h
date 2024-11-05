@@ -10,7 +10,7 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true>
-class IOrmDialectInterface : public IOrmDialectWare, public ITaskWareUnit<T, enabled>, public ISingletonUnit<T>
+class IOrmDialectInterface : public IOrmDialectWare, public ITaskWareUnit<T, IOrmTaskCatagory, enabled>, public ISingletonUnit<T>
 {
 public:
     IOrmDialectInterface() = default;
@@ -24,15 +24,8 @@ public:
 
 public:
     virtual double $order() const{ return 2;}
-    virtual const QString& $catagory() const final;
     virtual void $task() final;
 };
-
-template<typename T, bool enabled>
-const QString& IOrmDialectInterface<T, enabled>::$catagory() const
-{
-    return IOrmTaskCatagory::CATAGORY;
-}
 
 template<typename T, bool enabled>
 void IOrmDialectInterface<T, enabled>::$task() {

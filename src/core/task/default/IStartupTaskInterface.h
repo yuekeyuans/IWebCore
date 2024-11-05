@@ -10,27 +10,20 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled=true>
-class IStartupTaskInterface : public ITaskWareUnit<T, enabled>, public ISingletonUnit<T>
+class IStartupTaskInterface : public ITaskWareUnit<T, IStartupTaskCatagory, enabled>, public ISingletonUnit<T>
 {
 public:
     IStartupTaskInterface() = default;
 
 public:
-    virtual void $task() = 0;
     virtual double $order() const override;
-    virtual const QString& $catagory() const final;
+    virtual void $task() = 0;
 };
 
 template<typename T, bool enabled>
 double IStartupTaskInterface<T, enabled>::$order() const
 {
     return 50;
-}
-
-template<typename T, bool enabled>
-const QString& IStartupTaskInterface<T, enabled>::$catagory() const
-{
-    return IStartupTaskCatagory::CATAGORY;
 }
 
 $PackageWebCoreEnd

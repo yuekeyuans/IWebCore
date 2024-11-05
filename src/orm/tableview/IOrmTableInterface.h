@@ -18,23 +18,9 @@ public:
     virtual ~IOrmTableInterface() = default;
 
 public:
-//    virtual QString $name() const override;
-//    virtual const QString& $catagory() const final;
     virtual void $task() override;
     virtual const IOrmTableInfo* getOrmEntityInfo() const = 0;
 };
-
-//template<typename T, bool enabled>
-//QString IOrmTableInterface<T, enabled>::$name() const
-//{
-//    return IMetaUtil::getMetaClassName(T::staticMetaObject);
-//}
-
-//template<typename T, bool enabled>
-//QString IOrmTableInterface<T, enabled>::$catagory() const
-//{
-//    return "Orm";
-//}
 
 // TODO: view detail whether this is right?
 template<typename T, bool enabled>

@@ -6,7 +6,6 @@
 
 $PackageWebCoreBegin
 
-struct IBeanTypeMarshalWare;
 class IBeanTypeManage : public ISingletonUnit<IBeanTypeManage>
 {
 public:
@@ -16,13 +15,8 @@ public:
     void registerBeanId(int id);
     bool isBeanIdExist(int id) const;
 
-    void registerSerializeWare(IBeanTypeMarshalWare* ware);
-    const std::list<IBeanTypeMarshalWare*>& getSerializeWares() const;
-
-
 private:
     std::unordered_set<int> m_beanIds;
-    std::list<IBeanTypeMarshalWare*> m_serializeWares;
 };
 
 $PackageWebCoreEnd

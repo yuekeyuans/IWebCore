@@ -10,21 +10,11 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true>
-class IHttpControllerInterface : public ITaskWareUnit<T, enabled>, public ISingletonUnit<T>
+class IHttpControllerInterface : public ITaskWareUnit<T, IHttpTaskCatagory, enabled>, public ISingletonUnit<T>
 {
 public:
-    IHttpControllerInterface() = default;
-
-public:
-    virtual const QString& $catagory() const final;
     virtual void $task() final;
 };
-
-template<typename T, bool enabled>
-const QString& IHttpControllerInterface<T, enabled>::$catagory() const
-{
-    return IHttpTaskCatagory::CATAGORY;
-}
 
 namespace detail
 {

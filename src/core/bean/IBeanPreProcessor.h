@@ -4,7 +4,6 @@
 #include "core/util/ITraitUtil.h"
 #include "core/bean/IBeanAbort.h"
 #include "core/bean/IBeanTypeManage.h"
-#include "core/bean/IBeanTypeMarshalWare.h"
 #include <typeinfo>
 
 $PackageWebCoreBegin

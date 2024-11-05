@@ -9,22 +9,13 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled=true>
-class IInitializationTaskInterface : public ITaskWareUnit<T, enabled>, public ISingletonUnit<T>
+class IInitializationTaskInterface : public ITaskWareUnit<T, IInitializationTaskCatagory, enabled>, public ISingletonUnit<T>
 {
 public:
     IInitializationTaskInterface() = default;
 
 public:
     virtual void $task() = 0;
-
-protected:
-    virtual const QString& $catagory() const final;
 };
-
-template<typename T, bool enabled>
-const QString& IInitializationTaskInterface<T, enabled>::$catagory() const
-{
-    return IInitializationTaskCatagory::CATAGORY;
-}
 
 $PackageWebCoreEnd

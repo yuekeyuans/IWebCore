@@ -12,7 +12,7 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true>
-class IOrmDatabaseInterface : public IOrmDatabaseWare, public ITaskWareUnit<T, enabled>
+class IOrmDatabaseInterface : public IOrmDatabaseWare, public ITaskWareUnit<T, IOrmTaskCatagory, enabled>
 {
     Q_DISABLE_COPY_MOVE(IOrmDatabaseInterface)
 public:
@@ -23,17 +23,10 @@ public:
     virtual void registerEntities() override  =0;
 
 public:
-    virtual const QString& $catagory() const final;
     virtual double $order() const override;
     virtual void $task() final;
 
 };
-
-template<typename T, bool enabled>
-const QString& IOrmDatabaseInterface<T, enabled>::$catagory() const
-{
-    return IOrmTaskCatagory::CATAGORY;
-}
 
 template<typename T, bool enabled>
 double IOrmDatabaseInterface<T, enabled>::$order() const{

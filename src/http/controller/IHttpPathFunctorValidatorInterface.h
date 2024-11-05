@@ -9,15 +9,13 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled=true>
-class IHttpPathFunctorValidatorInterface : public ITaskWareUnit<T, enabled>, public ISingletonUnit<T>
+class IHttpPathFunctorValidatorInterface : public ITaskWareUnit<T, IHttpTaskCatagory, enabled>, public ISingletonUnit<T>
 {
 public:
     using Validator = std::function<bool(const QString&)>;
 
 public:
-    IHttpPathFunctorValidatorInterface() = default;
     virtual void $task() final;
-    virtual const QString& $catagory() const final;
     virtual double $order() const final;
 
 public:
@@ -37,12 +35,6 @@ template<typename T, bool enabled>
 void IHttpPathFunctorValidatorInterface<T, enabled>::$task()
 {
     IHttpPathFunctorValidatorInterfaceHelper::registValidator(this->marker(), this->validator());
-}
-
-template<typename T, bool enabled>
-const QString& IHttpPathFunctorValidatorInterface<T, enabled>::$catagory() const
-{
-    return IHttpTaskCatagory::CATAGORY;
 }
 
 template<typename T, bool enabled>

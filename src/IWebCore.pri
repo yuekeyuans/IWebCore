@@ -22,9 +22,6 @@ HEADERS += \
     $$PWD/core/base/IStringViewStash.h \
     $$PWD/core/bean/IBeanAbort.h \
     $$PWD/core/bean/IBeanTraitInterface.h \
-    $$PWD/core/bean/IBeanTypeMarshalInstantInterface.h \
-    $$PWD/core/bean/IBeanTypeMarshalTaskInterface.h \
-    $$PWD/core/bean/IBeanTypeMarshalWare.h \
     $$PWD/core/task/default/IRegisterBaseTypeTask.h \
     $$PWD/core/trait/IExceptionTrait.h \
     $$PWD/core/unit/ITraceUnit.h \

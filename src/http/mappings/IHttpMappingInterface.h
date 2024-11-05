@@ -10,21 +10,14 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true>
-class IHttpMappingInterface : public IHttpMappingWare, public ITaskWareUnit<T, enabled>, public ISingletonUnit<T>
+class IHttpMappingInterface : public IHttpMappingWare, public ITaskWareUnit<T, IHttpTaskCatagory, enabled>, public ISingletonUnit<T>
 {
 public:
     IHttpMappingInterface() = default;
 
 public:
-    virtual const QString& $catagory() const final;
     virtual void $task() final;
 };
-
-template<typename T, bool enabled>
-const QString& IHttpMappingInterface<T, enabled>::$catagory() const
-{
-    return IHttpTaskCatagory::CATAGORY;
-}
 
 template<typename T, bool enabled>
 void IHttpMappingInterface<T, enabled>::$task()

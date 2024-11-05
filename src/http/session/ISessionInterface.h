@@ -9,14 +9,13 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled=true>
-class ISessionInterface : public ISessionWare, public ITaskWareUnit<T, enabled>
+class ISessionInterface : public ISessionWare, public ITaskWareUnit<T, IHttpTaskCatagory, enabled>
 {
 public:
     ISessionInterface() = default;
 
 public:
     virtual double $order() const override;
-    virtual const QString& $catagory() const final;
     virtual void $task() final;
 };
 
@@ -29,12 +28,6 @@ template<typename T, bool enabled>
 double ISessionInterface<T, enabled>::$order() const
 {
     return 49;
-}
-
-template<typename T, bool enabled>
-const QString& ISessionInterface<T, enabled>::$catagory() const
-{
-    return IHttpTaskCatagory::CATAGORY;
 }
 
 template<typename T, bool enabled>
