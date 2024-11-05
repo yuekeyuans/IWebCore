@@ -8,7 +8,7 @@
 
 $PackageWebCoreBegin
 
-template<typename T, typename Catagory, bool enabled = true>
+template<typename T, typename Catagory, bool enabled=true>
 class ITaskWareUnit : public ITaskWare
 {
     $AsTaskUnit(ITaskWareUnit)
@@ -33,7 +33,6 @@ const QString& ITaskWareUnit<T, Catagory, enabled>::$catagory() const
 {
     return Catagory::CATAGORY;
 }
-
 
 $UseTaskUnit2(ITaskWareUnit)
 {
