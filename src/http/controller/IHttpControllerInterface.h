@@ -5,7 +5,7 @@
 #include "core/task/ITaskManage.h"
 #include "core/task/unit/ITaskWareUnit.h"
 #include "core/unit/ISingletonUnit.h"
-#include "http/IHttpControllerTaskCatagory.h"
+#include "http/IHttpTaskCatagory.h"
 
 $PackageWebCoreBegin
 
@@ -23,7 +23,7 @@ public:
 template<typename T, bool enabled>
 const char* IHttpControllerInterface<T, enabled>::$catagory() const
 {
-    return IHttpControllerTaskCatagory::CATAGORY;
+    return IHttpTaskCatagory::CATAGORY;
 }
 
 namespace detail

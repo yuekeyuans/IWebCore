@@ -4,6 +4,7 @@
 #include "core/unit/ISingletonUnit.h"
 #include "core/util/IMetaUtil.h"
 #include "core/config/IContextManage.h"
+#include "core/config/IConfigTaskCatagory.h"
 #include "core/task/unit/ITaskWareUnit.h"
 
 $PackageWebCoreBegin
@@ -32,7 +33,7 @@ std::string IContextTaskInterface<T, enabled>::path() const
 template<typename T, bool enabled>
 const char* IContextTaskInterface<T, enabled>::$catagory() const
 {
-    return "Config";
+    return IConfigTaskCatagory::CATAGORY;
 }
 
 template<typename T, bool enabled>

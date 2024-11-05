@@ -2,6 +2,7 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "core/config/IProfileManage.h"
+#include "core/config/IConfigTaskCatagory.h"
 #include "core/task/unit/ITaskWareUnit.h"
 #include "core/unit/ISingletonUnit.h"
 
@@ -31,7 +32,7 @@ std::string IProfileTaskInterface<T, enabled>::path() const
 template<typename T, bool enabled>
 const char* IProfileTaskInterface<T, enabled>::$catagory() const
 {
-    return "Config";
+    return IConfigTaskCatagory::CATAGORY;
 }
 
 template<typename T, bool enabled>

@@ -4,6 +4,7 @@
 #include "core/util/IMetaUtil.h"
 #include "core/task/unit/ITaskWareUnit.h"
 #include "core/unit/ISingletonUnit.h"
+#include "core/task/default/IInitializationTaskCatagory.h"
 
 $PackageWebCoreBegin
 
@@ -23,7 +24,7 @@ protected:
 template<typename T, bool enabled>
 const char* IInitializationTaskInterface<T, enabled>::$catagory() const
 {
-    return "Initialization";
+    return IInitializationTaskCatagory::CATAGORY;
 }
 
 $PackageWebCoreEnd

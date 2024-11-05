@@ -8,7 +8,6 @@ $PackageWebCoreBegin
 class ITestCatagory : public ITaskCatagoryInterface<ITestCatagory>
 {
 public:
-    virtual const char* $catagory() const final;
     virtual double $order() const final;
 };
 

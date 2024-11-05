@@ -84,7 +84,7 @@ void ITaskManage::mergetTasksToCatagores()
     QList<ITaskWare*> wares;
     for(auto task : m_taskWares){
         for(auto& cata : m_catagories){
-            if(strcmp(cata->$catagory(), task->$catagory()) == 0){
+            if(cata->$catagory() == task->$catagory()){
                 cata->addTask(task);
                 wares.append(task);
                 break;

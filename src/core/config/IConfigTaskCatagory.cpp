@@ -2,11 +2,6 @@
 
 $PackageWebCoreBegin
 
-const char* IConfigTaskCatagory::$catagory() const
-{
-    return "Config";
-}
-
 double IConfigTaskCatagory::$order() const
 {
     return  0;

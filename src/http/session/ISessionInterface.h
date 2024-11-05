@@ -4,7 +4,7 @@
 #include "core/util/IMetaUtil.h"
 #include "core/task/unit/ITaskWareUnit.h"
 #include "http/session/ISessionWare.h"
-#include "http/IHttpControllerTaskCatagory.h"
+#include "http/IHttpTaskCatagory.h"
 
 $PackageWebCoreBegin
 
@@ -34,7 +34,7 @@ double ISessionInterface<T, enabled>::$order() const
 template<typename T, bool enabled>
 const char* ISessionInterface<T, enabled>::$catagory() const
 {
-    return IHttpControllerTaskCatagory::CATAGORY;
+    return IHttpTaskCatagory::CATAGORY;
 }
 
 template<typename T, bool enabled>

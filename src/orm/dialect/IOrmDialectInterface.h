@@ -5,6 +5,7 @@
 #include "core/unit/ISingletonUnit.h"
 #include "orm/dialect/IOrmDialectWare.h"
 #include "orm/IOrmManage.h"
+#include "orm/IOrmTaskCatagory.h"
 
 $PackageWebCoreBegin
 
@@ -23,9 +24,15 @@ public:
 
 public:
     virtual double $order() const{ return 2;}
-    virtual const char* $catagory() const final { return "Orm"; }
+    virtual const char* $catagory() const final;
     virtual void $task() final;
 };
+
+template<typename T, bool enabled>
+const char* IOrmDialectInterface<T, enabled>::$catagory() const
+{
+    return IOrmTaskCatagory::CATAGORY;
+}
 
 template<typename T, bool enabled>
 void IOrmDialectInterface<T, enabled>::$task() {

@@ -4,6 +4,7 @@
 #include "core/util/IMetaUtil.h"
 #include "core/test/ITestManageBaseInterface.h"
 #include "core/task/unit/ITaskWareUnit.h"
+#include "core/test/ITestCatagory.h"
 
 $PackageWebCoreBegin
 
@@ -21,7 +22,7 @@ public:
 template<typename T, typename Manage, bool enabled>
 const char* ITestBaseInterface<T, Manage, enabled>::$catagory() const
 {
-    return "Test";
+    return ITestCatagory::CATAGORY;
 }
 
 template<typename T, typename Manage, bool enabled>

@@ -4,6 +4,7 @@
 #include "core/util/IMetaUtil.h"
 #include "core/unit/ISingletonUnit.h"
 #include "core/task/ITaskManage.h"
+#include "core/task/default/IStartupTaskCatagory.h"
 #include "core/task/unit/ITaskWareUnit.h"
 
 $PackageWebCoreBegin
@@ -29,7 +30,7 @@ double IStartupTaskInterface<T, enabled>::$order() const
 template<typename T, bool enabled>
 const char* IStartupTaskInterface<T, enabled>::$catagory() const
 {
-    return "StartUp";
+    return IStartupTaskCatagory::CATAGORY;
 }
 
 $PackageWebCoreEnd

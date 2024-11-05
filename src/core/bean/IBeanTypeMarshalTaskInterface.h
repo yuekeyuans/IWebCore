@@ -3,6 +3,7 @@
 #include "core/util/IHeaderUtil.h"
 #include "core/bean/IBeanTypeManage.h"
 #include "core/task/unit/ITaskWareUnit.h"
+#include "core/config/IConfigTaskCatagory.h"
 #include "IBeanTypeMarshalWare.h"
 
 $PackageWebCoreBegin
@@ -31,7 +32,7 @@ const char* IBeanTypeMarshalTaskInterface<T, U, enabled>::getTypeName() const
 template<typename T, typename U, bool enabled>
 QString IBeanTypeMarshalTaskInterface<T, U, enabled>::$catagory() const
 {
-    return "Config";
+    return IConfigTaskCatagory::$catagory();
 }
 
 template<typename T, typename U, bool enabled>

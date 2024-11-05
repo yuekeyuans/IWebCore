@@ -92,8 +92,8 @@ HEADERS += \
     $$PWD/core/unit/ISingletonUnit.h \
     $$PWD/core/unit/IStackObjectUnit.h \
     $$PWD/http/IHttpAnnomacro.h \
-    $$PWD/http/IHttpControllerTaskCatagory.h \
     $$PWD/http/IHttpManage.h \
+    $$PWD/http/IHttpTaskCatagory.h \
     $$PWD/http/base/IParameterNode.h \
     $$PWD/http/controller/IHttpControllerAbort.h \
     $$PWD/http/controller/IHttpControllerInterface.h \
@@ -284,8 +284,8 @@ SOURCES += \
     $$PWD/core/unit/ISingletonUnit.cpp \
 #    $$PWD/http/IHttpAssert.cpp \
 #    $$PWD/core/util/detail/IConvertUtilBaseTypeDetail.cpp \
-    $$PWD/http/IHttpControllerTaskCatagory.cpp \
     $$PWD/http/IHttpManage.cpp \
+    $$PWD/http/IHttpTaskCatagory.cpp \
     $$PWD/http/base/IParameterNode.cpp \
     $$PWD/http/controller/IHttpControllerInterface.cpp \
     $$PWD/http/controller/IHttpControllerNode.cpp \

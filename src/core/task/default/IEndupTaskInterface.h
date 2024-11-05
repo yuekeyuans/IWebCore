@@ -4,6 +4,7 @@
 #include "core/util/IMetaUtil.h"
 #include "core/task/ITaskManage.h"
 #include "core/task/unit/ITaskWareUnit.h"
+#include "core/task/default/IEndupTaskCatagory.h"
 #include "core/unit/ISingletonUnit.h"
 
 $PackageWebCoreBegin
@@ -24,7 +25,7 @@ protected:
 template<typename T, bool enabled>
 const char* IEndupTaskInterface<T, enabled>::$catagory() const
 {
-    return "EndUp";
+    return IEndupTaskCatagory::CATAGORY;
 }
 
 $PackageWebCoreEnd
