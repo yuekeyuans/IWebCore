@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include "core/util/IHeaderUtil.h"
 #include "core/util/ITraitUtil.h"
 
 $PackageWebCoreBegin

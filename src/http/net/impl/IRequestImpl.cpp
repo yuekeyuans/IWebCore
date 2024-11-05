@@ -424,11 +424,8 @@ void IRequestImpl::endState()
 {
     auto application = dynamic_cast<IAsioApplication*>(IApplicationInterface::instance());
     asio::post(application->ioContext(), [=](){
-        m_request->getRaw()->m_action = IHttpManage::instance()->getAction(*m_request);
-
-        m_request->getRaw()->m_action->invoke(*m_request);
-//        action->invoke(*m_request);
-//        IHttpRequestHandler::instance()->handle(*m_request);
+        auto action = IHttpManage::instance()->getAction(*m_request);
+        action->invoke(*m_request);
     });
 }
 

@@ -19,32 +19,32 @@ $PackageWebCoreBegin
 
 
 // TODO: 考虑将 doWrite 放置在 Action 当中。
-void IHttpRequestHandler::handle(IRequest &request)
-{
-    IResponse response(&request);
-    do{
-        if(!request.isValid()){
-            break;
-        }
+//void IHttpRequestHandler::handle(IRequest &request)
+//{
+//    IResponse response(&request);
+//    do{
+//        if(!request.isValid()){
+//            break;
+//        }
 
-        handleRequest(request, response);
-        if(!request.isValid()){
-            break;
-        }
-    }while(0);
+//        handleRequest(request, response);
+//        if(!request.isValid()){
+//            break;
+//        }
+//    }while(0);
 
-//    if(!request.isValid()){
-//        auto process = IHttpInvalidManage::instance()->getWare(request.getRaw()->m_responseRaw->content.contentInvalid.tag);
-//        process->process(request, response);
-//    }
+////    if(!request.isValid()){
+////        auto process = IHttpInvalidManage::instance()->getWare(request.getRaw()->m_responseRaw->content.contentInvalid.tag);
+////        process->process(request, response);
+////    }
 
-    request.m_connection->doWrite();
-}
+//    request.m_connection->doWrite();
+//}
 
 // TODO: 这里的路径理论上都能拆开成为新的路径
-void IHttpRequestHandler::handleRequest(IRequest &request, IResponse &response)
-{
-    request.getRaw()->m_action->invoke(request);
+//void IHttpRequestHandler::handleRequest(IRequest &request, IResponse &response)
+//{
+//    request.getRaw()->m_action->invoke(request);
 
 //    const auto& process = request.getRaw()->m_processer;
 
@@ -73,7 +73,7 @@ void IHttpRequestHandler::handleRequest(IRequest &request, IResponse &response)
 //        response.setContent(IHttpNotFoundInvalid(info));
 //    }
 //    }
-}
+//}
 
 void IHttpRequestHandler::runOptionsFunction(IRequest &request, IResponse &response)
 {

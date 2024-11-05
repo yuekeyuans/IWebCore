@@ -12,6 +12,7 @@
 #include "http/net/ICookieJar.h"
 #include "http/net/ISessionJar.h"
 #include "http/net/IHeaderJar.h"
+#include "http/mappings/IHttpAction.h"
 
 $PackageWebCoreBegin
 
@@ -322,6 +323,11 @@ void IRequest::setInvalidIf(bool condition, IHttpInvalidWare ware) const
 void IRequest::setInvalid(IHttpInvalidWare ware) const
 {
     return impl->m_raw->setInvalid(ware);
+}
+
+void IRequest::doAction(IHttpAction *action)
+{
+    action->invoke(*this);
 }
 
 void IRequest::resolve()

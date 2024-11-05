@@ -16,10 +16,10 @@ public:
     IHttpRequestHandler() = default;
 
 public:
-    void handle(IRequest& request);
+//    void handle(IRequest& request);
 
 private:
-    void handleRequest(IRequest& request, IResponse& response);
+//    void handleRequest(IRequest& request, IResponse& response);
 
 private:
     void runOptionsFunction(IRequest &request, IResponse &response);

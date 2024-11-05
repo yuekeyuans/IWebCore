@@ -19,7 +19,7 @@ class IMultiPartJar;
 class ISessionJar;
 class IRequestImpl;
 class IRequestRaw;
-
+class IHttpAction;
 class IRequest : IRegisterMetaTypeUnit<IRequest>, public ITcpResolverInterface, public IStringViewStash
 {
 public:
@@ -95,6 +95,9 @@ public:
     bool isValid() const;
     void setInvalidIf(bool condition, IHttpInvalidWare) const;
     void setInvalid(IHttpInvalidWare) const;
+
+public:
+    void doAction(IHttpAction* action);
 
 protected:
     virtual void resolve() final;
