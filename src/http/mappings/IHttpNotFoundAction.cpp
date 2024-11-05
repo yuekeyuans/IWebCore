@@ -8,7 +8,7 @@ $PackageWebCoreBegin
 void IHttpNotFoundAction::invoke(IRequest &request) const
 {
     request.setInvalid(IHttpNotFoundInvalid());
-    request.m_connection->doWrite();
+    request.doWrite();
 }
 
 $PackageWebCoreEnd

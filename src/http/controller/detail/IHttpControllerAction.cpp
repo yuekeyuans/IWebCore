@@ -35,7 +35,7 @@ void IHttpControllerAction::invoke(IRequest &request) const
 //        process->process(request, response);
 //    }
 
-    request.m_connection->doWrite();
+    request.doWrite();
 }
 
 $PackageWebCoreEnd

@@ -98,6 +98,7 @@ public:
 
 public:
     void doAction(IHttpAction* action);
+    void doWrite();
 
 protected:
     virtual void resolve() final;

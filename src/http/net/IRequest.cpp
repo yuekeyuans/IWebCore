@@ -7,12 +7,13 @@
 #include "core/util/IToeUtil.h"
 #include "http/biscuits/IHttpHeader.h"
 #include "http/invalid/IHttpRequestTimeoutInvalid.h"
+#include "http/mappings/IHttpAction.h"
 #include "http/net/impl/IRequestImpl.h"
 #include "http/net/impl/IRequestRaw.h"
 #include "http/net/ICookieJar.h"
 #include "http/net/ISessionJar.h"
 #include "http/net/IHeaderJar.h"
-#include "http/mappings/IHttpAction.h"
+#include "http/server/IHttpConnection.h"
 
 $PackageWebCoreBegin
 
@@ -327,7 +328,14 @@ void IRequest::setInvalid(IHttpInvalidWare ware) const
 
 void IRequest::doAction(IHttpAction *action)
 {
+    // TODO: 这里 action 有可能需要被释放，这里需要异步，不能在一个函数里面释放当前的对象
     action->invoke(*this);
+}
+
+void IRequest::doWrite()
+{
+    // TODO: 这里也需要异步处理
+    m_connection->doWrite();
 }
 
 void IRequest::resolve()
