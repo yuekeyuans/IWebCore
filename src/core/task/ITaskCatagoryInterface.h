@@ -23,7 +23,6 @@ public:
 template<typename T, bool enabled>
 const QString& ITaskCatagoryInterface<T, enabled>::$catagory() const
 {
-//    qDebug() << CATAGORY << typeid(T).name();
     return CATAGORY;
 }
 

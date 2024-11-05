@@ -285,7 +285,6 @@ SOURCES += \
 #    $$PWD/http/IHttpAssert.cpp \
 #    $$PWD/core/util/detail/IConvertUtilBaseTypeDetail.cpp \
     $$PWD/http/IHttpManage.cpp \
-    $$PWD/http/IHttpTaskCatagory.cpp \
     $$PWD/http/base/IParameterNode.cpp \
     $$PWD/http/controller/IHttpControllerInterface.cpp \
     $$PWD/http/controller/IHttpControllerNode.cpp \
