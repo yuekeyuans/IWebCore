@@ -29,12 +29,6 @@ void IHttpControllerAction::invoke(IRequest &request) const
         IHttpControllerParameter::destroyArguments(methodNode, params);
     }
 
-
-//    if(!request.isValid()){
-//        auto process = IHttpInvalidManage::instance()->getWare(request.getRaw()->m_responseRaw->content.contentInvalid.tag);
-//        process->process(request, response);
-//    }
-
     request.doWrite();
 }
 

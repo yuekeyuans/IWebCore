@@ -17,7 +17,6 @@ public:
 public:
     IHttpPathFunctorValidatorInterface() = default;
     virtual void $task() final;
-    virtual QString $name() const final;
     virtual const char* $catagory() const final;
     virtual double $order() const final;
 
@@ -38,12 +37,6 @@ template<typename T, bool enabled>
 void IHttpPathFunctorValidatorInterface<T, enabled>::$task()
 {
     IHttpPathFunctorValidatorInterfaceHelper::registValidator(this->marker(), this->validator());
-}
-
-template<typename T, bool enabled>
-QString IHttpPathFunctorValidatorInterface<T, enabled>::$name() const
-{
-    return IMetaUtil::getTypename<T>();
 }
 
 template<typename T, bool enabled>

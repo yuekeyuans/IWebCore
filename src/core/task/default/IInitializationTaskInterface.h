@@ -17,15 +17,8 @@ public:
     virtual void $task() = 0;
 
 protected:
-    virtual QString $name() const final;
     virtual const char* $catagory() const final;
 };
-
-template<typename T, bool enabled>
-QString IInitializationTaskInterface<T, enabled>::$name() const
-{
-    return IMetaUtil::getBareTypeName<T>();
-}
 
 template<typename T, bool enabled>
 const char* IInitializationTaskInterface<T, enabled>::$catagory() const

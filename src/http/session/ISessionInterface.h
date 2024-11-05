@@ -15,22 +15,14 @@ public:
     ISessionInterface() = default;
 
 public:
-    virtual QString $name() const override;
     virtual double $order() const override;
     virtual const char* $catagory() const final;
     virtual void $task() final;
-//    virtual void registerSession() final;
 };
 
 namespace ISessionInterfaceProxy
 {
     void registerSession(ISessionWare*);
-}
-
-template<typename T, bool enabled>
-QString ISessionInterface<T, enabled>::$name() const
-{
-    return IMetaUtil::getMetaClassName(T::staticMetaObject);
 }
 
 template<typename T, bool enabled>

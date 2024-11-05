@@ -14,16 +14,9 @@ public:
     ITestBaseInterface() = default;
 
 public:
-    virtual QString $name() const override;
     virtual const char* $catagory() const override;
     virtual void $task() final;
 };
-
-template<typename T, typename Manage,  bool enabled>
-QString ITestBaseInterface<T, Manage, enabled>::$name() const
-{
-    return IMetaUtil::getMetaClassName(T::staticMetaObject);
-}
 
 template<typename T, typename Manage, bool enabled>
 const char* ITestBaseInterface<T, Manage, enabled>::$catagory() const

@@ -115,6 +115,7 @@ HEADERS += \
     $$PWD/http/core/unit/IRegisterResponseTypeUnit.h \
     $$PWD/http/invalid/IHttpBadRequestInvalid.h \
     $$PWD/http/invalid/IHttpInternalErrorInvalid.h \
+    $$PWD/http/invalid/IHttpInvalidHandlerInterface.h \
     $$PWD/http/invalid/IHttpInvalidInterface.h \
 #    $$PWD/http/invalid/IHttpInvalidManage.h \
 #    $$PWD/http/invalid/IHttpInvalidUnit.h \
@@ -126,12 +127,11 @@ HEADERS += \
     $$PWD/http/mappings/IHttpActionInterface.h \
     $$PWD/http/mappings/IHttpBadRequestAction.h \
     $$PWD/http/mappings/IHttpControllerMapping.h \
-    $$PWD/http/mappings/IHttpFolderMapping.h \
+#    $$PWD/http/mappings/IHttpFolderMapping.h \
     $$PWD/http/mappings/IHttpMappingInterface.h \
     $$PWD/http/mappings/IHttpMappingWare.h \
     $$PWD/http/mappings/IHttpNotFoundAction.h \
-    $$PWD/http/mappings/IHttpNotFoundMapping.h \
-    $$PWD/http/mappings/IHttpResourceMapping.h \
+#    $$PWD/http/mappings/IHttpResourceMapping.h \
     $$PWD/http/net/IRequestManage.h \
     $$PWD/http/net/impl/IRequestRaw.h \
     $$PWD/http/net/impl/IResponseHeader.h \
@@ -308,6 +308,7 @@ SOURCES += \
     $$PWD/http/invalid/IHttpInternalErrorInvalid.cpp \
 #    $$PWD/http/invalid/IHttpInvalidManage.cpp \
 #    $$PWD/http/invalid/IHttpInvalidUnit.cpp \
+    $$PWD/http/invalid/IHttpInvalidHandlerInterface.cpp \
     $$PWD/http/invalid/IHttpInvalidWare.cpp \
     $$PWD/http/invalid/IHttpNotFoundInvalid.cpp \
     $$PWD/http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.cpp \
@@ -316,11 +317,10 @@ SOURCES += \
     $$PWD/http/mappings/IHttpActionInterface.cpp \
     $$PWD/http/mappings/IHttpBadRequestAction.cpp \
     $$PWD/http/mappings/IHttpControllerMapping.cpp \
-    $$PWD/http/mappings/IHttpFolderMapping.cpp \
+#    $$PWD/http/mappings/IHttpFolderMapping.cpp \
     $$PWD/http/mappings/IHttpMappingWare.cpp \
     $$PWD/http/mappings/IHttpNotFoundAction.cpp \
-    $$PWD/http/mappings/IHttpNotFoundMapping.cpp \
-    $$PWD/http/mappings/IHttpResourceMapping.cpp \
+#    $$PWD/http/mappings/IHttpResourceMapping.cpp \
     $$PWD/http/net/IRequestManage.cpp \
     $$PWD/http/net/impl/IRequestRaw.cpp \
     $$PWD/http/net/impl/IResponseHeader.cpp \

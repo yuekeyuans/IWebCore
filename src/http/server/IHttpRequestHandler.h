@@ -1,34 +1,34 @@
-﻿#pragma once
+﻿//#pragma once
 
-#include "core/util/IHeaderUtil.h"
-#include "core/unit/ISingletonUnit.h"
+//#include "core/util/IHeaderUtil.h"
+//#include "core/unit/ISingletonUnit.h"
 
-$PackageWebCoreBegin
+//$PackageWebCoreBegin
 
-// TODO: this will be removed latter when http finished
+//// TODO: this will be removed latter when http finished
 
-class IRequest;
-class IResponse;
-struct IHttpControllerAction;
-class IHttpRequestHandler : public ISingletonUnit<IHttpRequestHandler>
-{
-public:
-    IHttpRequestHandler() = default;
+//class IRequest;
+//class IResponse;
+//struct IHttpControllerAction;
+//class IHttpRequestHandler : public ISingletonUnit<IHttpRequestHandler>
+//{
+//public:
+//    IHttpRequestHandler() = default;
 
-public:
-//    void handle(IRequest& request);
+//public:
+////    void handle(IRequest& request);
 
-private:
-//    void handleRequest(IRequest& request, IResponse& response);
+//private:
+////    void handleRequest(IRequest& request, IResponse& response);
 
-private:
-    void runOptionsFunction(IRequest &request, IResponse &response);
-    QStringList handleOptionsRequest(IRequest& request, IResponse& response);
+//private:
+//    void runOptionsFunction(IRequest &request, IResponse &response);
+//    QStringList handleOptionsRequest(IRequest& request, IResponse& response);
 
-    void processInMethodMode(IRequest &request, IResponse &response, IHttpControllerAction *node);
-    void processInFunctionMode(IRequest &request, IResponse &response, IHttpControllerAction *node);
-    void processInStaticFileMode(IRequest &request, IResponse &response, const QString &path);
-    void processInStaticFolderMode(IRequest &request, IResponse &response, const QStringList& entries);
-};
+//    void processInMethodMode(IRequest &request, IResponse &response, IHttpControllerAction *node);
+//    void processInFunctionMode(IRequest &request, IResponse &response, IHttpControllerAction *node);
+//    void processInStaticFileMode(IRequest &request, IResponse &response, const QString &path);
+//    void processInStaticFolderMode(IRequest &request, IResponse &response, const QStringList& entries);
+//};
 
-$PackageWebCoreEnd
+//$PackageWebCoreEnd

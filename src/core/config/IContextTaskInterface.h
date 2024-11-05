@@ -19,7 +19,6 @@ public:
     virtual std::string path() const;
 
 protected:
-    virtual QString $name() const final;
     virtual const char* $catagory() const final;
     virtual void $task() final;
 };
@@ -28,12 +27,6 @@ template<typename T, bool enabled>
 std::string IContextTaskInterface<T, enabled>::path() const
 {
     return {};
-}
-
-template<typename T, bool enabled>
-QString IContextTaskInterface<T, enabled>::$name() const
-{
-    return IMetaUtil::getBareTypeName<T>();
 }
 
 template<typename T, bool enabled>

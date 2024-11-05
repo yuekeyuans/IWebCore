@@ -16,17 +16,9 @@ public:
 
 public:
     virtual void $task() = 0;
-
-    virtual QString $name() const override;
     virtual double $order() const override;
     virtual const char* $catagory() const final;
 };
-
-template<typename T, bool enabled>
-QString IStartupTaskInterface<T, enabled>::$name() const
-{
-    return IMetaUtil::getBareTypeName<T>();
-}
 
 template<typename T, bool enabled>
 double IStartupTaskInterface<T, enabled>::$order() const

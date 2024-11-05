@@ -22,17 +22,11 @@ public:
     virtual void registerEntities() override  =0;
 
 public:
-    virtual QString $name() const override;
     virtual const char* $catagory() const final;
     virtual double $order() const override;
     virtual void $task() final;
 
 };
-
-template<typename T, bool enabled>
-QString IOrmDatabaseInterface<T, enabled>::$name() const{
-    return IMetaUtil::getMetaClassName(T::staticMetaObject);
-}
 
 template<typename T, bool enabled>
 const char* IOrmDatabaseInterface<T, enabled>::$catagory() const

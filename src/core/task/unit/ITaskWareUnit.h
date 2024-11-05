@@ -16,7 +16,16 @@ class ITaskWareUnit : public ITaskWare
 protected:
     ITaskWareUnit() = default;
     virtual ~ITaskWareUnit() = default;
+
+protected:
+    virtual QString $name() const final;
 };
+
+template<typename T, bool enabled>
+QString ITaskWareUnit<T, enabled>::$name() const
+{
+    return IMetaUtil::getBareTypeName<T>();
+}
 
 $UseTaskUnit(ITaskWareUnit)
 {

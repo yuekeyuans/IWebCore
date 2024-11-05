@@ -16,16 +16,9 @@ public:
     IHttpControllerInterface() = default;
 
 public:
-    virtual QString $name() const final;
     virtual const char* $catagory() const final;
     virtual void $task() final;
 };
-
-template<typename T, bool enabled>
-QString IHttpControllerInterface<T, enabled>::$name() const
-{
-    return IMetaUtil::getTypename<T>();
-}
 
 template<typename T, bool enabled>
 const char* IHttpControllerInterface<T, enabled>::$catagory() const
