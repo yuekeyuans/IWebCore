@@ -48,7 +48,7 @@ void ITaskCatagory::printTaskInfo() const
         return;
     }
 
-    qDebug().noquote().nospace() << "[+] " << QString::number($order()).leftJustified(4, ' ') << $name() << " Catagory:";
+    qDebug().noquote().nospace() << "[+] " << QString::number($order()).leftJustified(4, ' ') << $name();
     for(const auto& node : m_taskWares){
         if(node->isTaskEnabled()){
             qDebug().noquote().nospace() << QStringLiteral("    [√] ")

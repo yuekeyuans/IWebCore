@@ -258,7 +258,6 @@ SOURCES += \
 #    $$PWD/core/assert/IGlobalAssert.cpp \
     $$PWD/core/bean/IBeanTypeManage.cpp \
     $$PWD/core/config/IConfigManageInterface.cpp \
-    $$PWD/core/config/IConfigTaskCatagory.cpp \
     $$PWD/core/config/IProfileManage.cpp \
     $$PWD/core/config/default/IContextJsonProfileTask.cpp \
     $$PWD/core/config/default/IContextSystemVariableTask.cpp \
@@ -268,12 +267,8 @@ SOURCES += \
     $$PWD/core/base/IStringView.cpp \
     $$PWD/core/task/ITaskCatagory.cpp \
     $$PWD/core/task/default/IBannerTask.cpp \
-    $$PWD/core/task/default/IEndupTaskCatagory.cpp \
-    $$PWD/core/task/default/IInitializationTaskCatagory.cpp \
-    $$PWD/core/task/default/IStartupTaskCatagory.cpp \
     $$PWD/core/task/ITaskManage.cpp \
     $$PWD/core/task/ITaskWare.cpp \
-    $$PWD/core/test/ITestCatagory.cpp \
     $$PWD/core/test/ITestTask.cpp \
     $$PWD/core/test/IUnitTestInterface.cpp \
     $$PWD/core/test/IUnitTestManage.cpp \
@@ -341,7 +336,6 @@ SOURCES += \
     $$PWD/http/response/IStatusResponse.cpp \
 #    $$PWD/orm/IOrmAssert.cpp \
     $$PWD/orm/IOrmManage.cpp \
-    $$PWD/orm/IOrmTaskCatagory.cpp \
     $$PWD/orm/IOrmUtil.cpp \
     $$PWD/orm/database/IOrmDataSource.cpp \
     $$PWD/orm/database/IOrmDatabaseInterface.cpp \

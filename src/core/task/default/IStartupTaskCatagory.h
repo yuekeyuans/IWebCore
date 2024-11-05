@@ -8,7 +8,10 @@ $PackageWebCoreBegin
 class IStartupTaskCatagory : public ITaskCatagoryInterface<IStartupTaskCatagory>
 {
 private:
-    virtual double $order() const final;
+    virtual double $order() const final
+    {
+        return 1;
+    }
 };
 
 $PackageWebCoreEnd

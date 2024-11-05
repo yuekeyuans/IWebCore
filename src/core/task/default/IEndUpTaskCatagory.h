@@ -8,10 +8,10 @@ $PackageWebCoreBegin
 class IEndupTaskCatagory : public ITaskCatagoryInterface<IEndupTaskCatagory>
 {
 public:
-    IEndupTaskCatagory() = default;
-
-public:
-    virtual double $order() const final;
+    virtual double $order() const final
+    {
+        return 100;
+    }
 };
 
 $PackageWebCoreEnd

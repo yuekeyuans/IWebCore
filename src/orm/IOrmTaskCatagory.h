@@ -8,7 +8,10 @@ $PackageWebCoreBegin
 class IOrmTaskCatagory : public ITaskCatagoryInterface<IOrmTaskCatagory>
 {
 public:
-    virtual double $order() const final;
+    virtual double $order() const final
+    {
+        return 4;
+    }
 };
 
 $PackageWebCoreEnd

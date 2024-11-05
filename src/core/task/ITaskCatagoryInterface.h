@@ -27,6 +27,6 @@ const QString& ITaskCatagoryInterface<T, enabled>::$catagory() const
 }
 
 template<typename T, bool enabled>
-const QString ITaskCatagoryInterface<T, enabled>::CATAGORY = typeid(T).name();
+const QString ITaskCatagoryInterface<T, enabled>::CATAGORY = IMetaUtil::getBareTypeName<T>();
 
 $PackageWebCoreEnd

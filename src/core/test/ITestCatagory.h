@@ -8,7 +8,10 @@ $PackageWebCoreBegin
 class ITestCatagory : public ITaskCatagoryInterface<ITestCatagory>
 {
 public:
-    virtual double $order() const final;
+    virtual double $order() const final
+    {
+        return 99;
+    }
 };
 
 $PackageWebCoreEnd

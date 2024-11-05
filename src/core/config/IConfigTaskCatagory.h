@@ -8,10 +8,11 @@ $PackageWebCoreBegin
 class IConfigTaskCatagory : public ITaskCatagoryInterface<IConfigTaskCatagory>
 {
 public:
-    IConfigTaskCatagory() = default;
-
-public:
-    virtual double $order() const final;
+    virtual double $order() const final
+    {
+        return 0;
+    }
 };
+
 
 $PackageWebCoreEnd

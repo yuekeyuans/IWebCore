@@ -325,7 +325,6 @@ void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IHttpContro
 
     auto type = node.methodNode.returnTypeName;
     auto id = node.methodNode.returnTypeId;
-    qDebug() << "type " << type << "id " << id;
 
     if(validMetaType.contains(id)){
         return;
