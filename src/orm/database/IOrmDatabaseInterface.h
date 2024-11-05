@@ -5,6 +5,7 @@
 #include "core/task/unit/ITaskWareUnit.h"
 #include "core/task/ITaskManage.h"
 #include "orm/IOrmManage.h"
+#include "orm/IOrmTaskCatagory.h"
 #include "orm/database/IOrmDatabaseWare.h"
 #include "orm/pp/IOrmPreProcessor.h"
 
@@ -22,16 +23,16 @@ public:
     virtual void registerEntities() override  =0;
 
 public:
-    virtual const char* $catagory() const final;
+    virtual const QString& $catagory() const final;
     virtual double $order() const override;
     virtual void $task() final;
 
 };
 
 template<typename T, bool enabled>
-const char* IOrmDatabaseInterface<T, enabled>::$catagory() const
+const QString& IOrmDatabaseInterface<T, enabled>::$catagory() const
 {
-    return "Orm";
+    return IOrmTaskCatagory::CATAGORY;
 }
 
 template<typename T, bool enabled>

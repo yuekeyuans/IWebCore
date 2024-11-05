@@ -16,7 +16,7 @@ public:
 
 public:
     virtual double $order() const override;
-    virtual const char* $catagory() const final;
+    virtual const QString& $catagory() const final;
     virtual void $task() final;
 };
 
@@ -32,7 +32,7 @@ double ISessionInterface<T, enabled>::$order() const
 }
 
 template<typename T, bool enabled>
-const char* ISessionInterface<T, enabled>::$catagory() const
+const QString& ISessionInterface<T, enabled>::$catagory() const
 {
     return IHttpTaskCatagory::CATAGORY;
 }

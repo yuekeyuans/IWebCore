@@ -18,7 +18,7 @@ public:
     virtual const char* getTypeName() const final;
 
 private:
-    virtual const char* $catagory() const;
+    virtual const QString& $catagory() const;
     virtual void $task() final;
 };
 

@@ -16,12 +16,12 @@ public:
     IHttpMappingInterface() = default;
 
 public:
-    virtual const char* $catagory() const final;
+    virtual const QString& $catagory() const final;
     virtual void $task() final;
 };
 
 template<typename T, bool enabled>
-const char *IHttpMappingInterface<T, enabled>::$catagory() const
+const QString& IHttpMappingInterface<T, enabled>::$catagory() const
 {
     return IHttpTaskCatagory::CATAGORY;
 }

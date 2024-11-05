@@ -16,7 +16,7 @@ public:
 public:
     virtual QString $name() const = 0;
     virtual void $task() = 0;
-    virtual const char* $catagory() const = 0;
+    virtual const QString& $catagory() const = 0;
     virtual bool $isTaskDefaultEnabled() const;
 
 private:

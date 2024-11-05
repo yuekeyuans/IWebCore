@@ -15,12 +15,12 @@ public:
     ITestBaseInterface() = default;
 
 public:
-    virtual const char* $catagory() const override;
+    virtual const QString& $catagory() const override;
     virtual void $task() final;
 };
 
 template<typename T, typename Manage, bool enabled>
-const char* ITestBaseInterface<T, Manage, enabled>::$catagory() const
+const QString& ITestBaseInterface<T, Manage, enabled>::$catagory() const
 {
     return ITestCatagory::CATAGORY;
 }

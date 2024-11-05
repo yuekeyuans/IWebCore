@@ -18,11 +18,11 @@ public:
     virtual void $task() = 0;
 
 protected:
-    virtual const char* $catagory() const final;
+    virtual const QString& $catagory() const final;
 };
 
 template<typename T, bool enabled>
-const char* IInitializationTaskInterface<T, enabled>::$catagory() const
+const QString& IInitializationTaskInterface<T, enabled>::$catagory() const
 {
     return IInitializationTaskCatagory::CATAGORY;
 }

@@ -24,12 +24,12 @@ public:
 
 public:
     virtual double $order() const{ return 2;}
-    virtual const char* $catagory() const final;
+    virtual const QString& $catagory() const final;
     virtual void $task() final;
 };
 
 template<typename T, bool enabled>
-const char* IOrmDialectInterface<T, enabled>::$catagory() const
+const QString& IOrmDialectInterface<T, enabled>::$catagory() const
 {
     return IOrmTaskCatagory::CATAGORY;
 }

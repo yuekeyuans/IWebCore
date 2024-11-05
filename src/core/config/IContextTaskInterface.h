@@ -20,7 +20,7 @@ public:
     virtual std::string path() const;
 
 protected:
-    virtual const char* $catagory() const final;
+    virtual const QString& $catagory() const final;
     virtual void $task() final;
 };
 
@@ -31,7 +31,7 @@ std::string IContextTaskInterface<T, enabled>::path() const
 }
 
 template<typename T, bool enabled>
-const char* IContextTaskInterface<T, enabled>::$catagory() const
+const QString& IContextTaskInterface<T, enabled>::$catagory() const
 {
     return IConfigTaskCatagory::CATAGORY;
 }

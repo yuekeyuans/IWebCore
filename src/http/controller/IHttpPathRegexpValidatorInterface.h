@@ -16,7 +16,7 @@ public:
 public:
     IHttpPathRegexpValidatorInterface() = default;
     virtual void $task() final;
-    virtual const char* $catagory() const final;
+    virtual const QString& $catagory() const final;
     virtual double $order() const final;
 
 public:
@@ -39,7 +39,7 @@ void IHttpPathRegexpValidatorInterface<T, enabled>::$task()
 }
 
 template<typename T, bool enabled>
-const char* IHttpPathRegexpValidatorInterface<T, enabled>::$catagory() const
+const QString& IHttpPathRegexpValidatorInterface<T, enabled>::$catagory() const
 {
     return IHttpTaskCatagory::CATAGORY;
 }

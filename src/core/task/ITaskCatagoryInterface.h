@@ -14,19 +14,20 @@ public:
     ITaskCatagoryInterface() = default;
 
 public:
-    virtual const char* $catagory() const final;
+    virtual const QString& $catagory() const final;
 
 public:
-    inline static const char* CATAGORY;
+    static const QString CATAGORY;
 };
 
 template<typename T, bool enabled>
-const char* ITaskCatagoryInterface<T, enabled>::$catagory() const
+const QString& ITaskCatagoryInterface<T, enabled>::$catagory() const
 {
+//    qDebug() << CATAGORY << typeid(T).name();
     return CATAGORY;
 }
 
 template<typename T, bool enabled>
-const char* ITaskCatagoryInterface<T, enabled>::CATAGORY = typeid(T).name();
+const QString ITaskCatagoryInterface<T, enabled>::CATAGORY = typeid(T).name();
 
 $PackageWebCoreEnd
