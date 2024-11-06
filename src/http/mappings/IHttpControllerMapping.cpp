@@ -2,6 +2,7 @@
 #include "core/util/IConstantUtil.h"
 #include "http/controller/detail/IHttpControllerAction.h"
 #include "http/controller/IHttpControllerNode.h"
+#include "http/mappings/IHttpInternalErrorAction.h"
 #include "http/net/IRequest.h"
 #include "http/net/impl/IRequestRaw.h"
 
@@ -59,13 +60,9 @@ IHttpAction * IHttpControllerMapping::getAction(IRequest &request) const
         return nullptr;
     }else if(actions.size() == 1){
         return actions.front();
-    }else{
-        if(IConstantUtil::DebugMode){
-            qFatal("error");            // TODO: 这里替换成为正常的数据。
-        }else{
-            return actions.front();
-        }
     }
+    return IHttpInternalErrorAction::instance();
+
 
 // TODO: 这里对于 PathVariable 需要重新处理
 //    std::vector<IHttpControllerAction*> nodes =  queryFunctionNodes(nodePtr, fragments, method);

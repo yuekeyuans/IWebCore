@@ -123,6 +123,7 @@ HEADERS += \
     $$PWD/http/mappings/IHttpBadRequestAction.h \
     $$PWD/http/mappings/IHttpControllerMapping.h \
 #    $$PWD/http/mappings/IHttpFolderMapping.h \
+    $$PWD/http/mappings/IHttpInternalErrorAction.h \
     $$PWD/http/mappings/IHttpMappingInterface.h \
     $$PWD/http/mappings/IHttpMappingWare.h \
     $$PWD/http/mappings/IHttpNotFoundAction.h \
@@ -304,6 +305,7 @@ SOURCES += \
     $$PWD/http/mappings/IHttpBadRequestAction.cpp \
     $$PWD/http/mappings/IHttpControllerMapping.cpp \
 #    $$PWD/http/mappings/IHttpFolderMapping.cpp \
+    $$PWD/http/mappings/IHttpInternalErrorAction.cpp \
     $$PWD/http/mappings/IHttpMappingWare.cpp \
     $$PWD/http/mappings/IHttpNotFoundAction.cpp \
 #    $$PWD/http/mappings/IHttpResourceMapping.cpp \
