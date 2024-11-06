@@ -266,7 +266,6 @@ SOURCES += \
     $$PWD/core/task/ITaskManage.cpp \
     $$PWD/core/task/ITaskWare.cpp \
     $$PWD/core/test/ITestTask.cpp \
-    $$PWD/core/test/IUnitTestInterface.cpp \
     $$PWD/core/test/IUnitTestManage.cpp \
     $$PWD/core/test/IUnitTestTask.cpp \
 #    $$PWD/core/unit/IGadgetUnit.cpp \
@@ -360,7 +359,6 @@ SOURCES += \
 #    $$PWD/http/controller/IHttpResourceMapping.cpp \
 #    $$PWD/http/controller/detail/IControllerInterfaceHelper.cpp \
     $$PWD/http/core/defaultTask/INodyTemplateTask.cpp \
-    $$PWD/http/core/test/IHttpTestInterface.cpp \
     $$PWD/http/core/test/IHttpTestManage.cpp \
     $$PWD/http/core/test/IHttpTestTask.cpp \
     $$PWD/http/net/ICookieJar.cpp \

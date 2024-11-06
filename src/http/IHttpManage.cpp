@@ -59,7 +59,7 @@ void IHttpManage::registerPathValidator(const QString &name, ValidatorFun fun)
 
 void IHttpManage::travalPrintWareTrace()
 {
-    for(IHttpMappingWare* ware : instance()->m_mappingWares){
+    for(IHttpMappingWare* ware : m_mappingWares){
         ware->travelPrint();
     }
 }

@@ -9,7 +9,7 @@ class IHttpTaskCatagory : public ITaskCatagoryInterface<IHttpTaskCatagory>
 public:
     virtual double $order() const final
     {
-        return 100;
+        return 50;
     }
 };
 

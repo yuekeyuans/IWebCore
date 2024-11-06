@@ -31,7 +31,7 @@ QString ITaskWareUnit<T, Catagory, enabled>::$name() const
 template<typename T, typename Catagory, bool enabled>
 const QString& ITaskWareUnit<T, Catagory, enabled>::$catagory() const
 {
-    return Catagory::CATAGORY;
+    return Catagory::CLASS_NAME;
 }
 
 $UseTaskUnit2(ITaskWareUnit)

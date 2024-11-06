@@ -17,6 +17,9 @@ public:
 
 public:
     virtual void $task() final;
+
+public:
+    static const QString CLASS_NAME;
 };
 
 template<typename T, bool enabled>
@@ -26,5 +29,8 @@ void IHttpMappingInterface<T, enabled>::$task()
         IHttpManage::instance()->registMappingWare(T::instance());
     }
 }
+
+template<typename T, bool enabled>
+const QString IHttpMappingInterface<T, enabled>::CLASS_NAME = IMetaUtil::getBareTypeName<T>();
 
 $PackageWebCoreEnd

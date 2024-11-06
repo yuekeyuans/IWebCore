@@ -17,16 +17,16 @@ public:
     virtual const QString& $catagory() const final;
 
 public:
-    static const QString CATAGORY;
+    static const QString CLASS_NAME;
 };
 
 template<typename T, bool enabled>
 const QString& ITaskCatagoryInterface<T, enabled>::$catagory() const
 {
-    return CATAGORY;
+    return CLASS_NAME;
 }
 
 template<typename T, bool enabled>
-const QString ITaskCatagoryInterface<T, enabled>::CATAGORY = IMetaUtil::getBareTypeName<T>();
+const QString ITaskCatagoryInterface<T, enabled>::CLASS_NAME = IMetaUtil::getBareTypeName<T>();
 
 $PackageWebCoreEnd

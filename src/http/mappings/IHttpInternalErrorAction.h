@@ -4,12 +4,11 @@
 
 $PackageWebCoreBegin
 
-class IHttpInternalErrorAction : public IHttpActionInterface
+class IHttpInternalErrorAction : public IHttpActionInterface<IHttpInternalErrorAction>
 {
 public:
-    IHttpInternalErrorAction();
+    IHttpInternalErrorAction() = default;
 
-    // IHttpAction interface
 public:
     virtual void invoke(IRequest &request) const final;
 };
