@@ -2,7 +2,6 @@
 
 #include "IResponseInterface.h"
 #include "IResponsePreProcessor.h"
-#include "http/invalid/IHttpInvalidUnit.h"
 
 $PackageWebCoreBegin
 

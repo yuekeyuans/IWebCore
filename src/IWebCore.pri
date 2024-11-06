@@ -200,7 +200,7 @@ HEADERS += \
 #    $$PWD/http/net/impl/IRequestAssert.h \
     $$PWD/http/net/impl/IRequestImpl.h \
     $$PWD/http/net/impl/IResponseImpl.h \
-    $$PWD/http/base/IFunctionNode.h \
+#    $$PWD/http/base/IFunctionNode.h \
     $$PWD/http/base/IMethodNode.h \
     $$PWD/http/response/IByteArrayResponse.h \
     $$PWD/http/response/IFileResponse.h \
@@ -319,7 +319,6 @@ SOURCES += \
     $$PWD/http/server/ITcpConnectionManage.cpp \
     $$PWD/http/server/ITcpResolverInterface.cpp \
     $$PWD/http/server/ITcpResolverManage.cpp \
-    $$PWD/http/base/IHttpParameterRestrictInterface.cpp \
     $$PWD/http/base/IHttpParameterRestrictManage.cpp \
     $$PWD/http/nody/INody.cpp \
     $$PWD/http/nody/INodyManage.cpp \
@@ -374,7 +373,7 @@ SOURCES += \
 #    $$PWD/http/net/impl/IRequestAssert.cpp \
     $$PWD/http/net/impl/IRequestImpl.cpp \
     $$PWD/http/net/impl/IResponseImpl.cpp \
-    $$PWD/http/base/IFunctionNode.cpp \
+#    $$PWD/http/base/IFunctionNode.cpp \
     $$PWD/http/base/IMethodNode.cpp \
     $$PWD/http/response/IByteArrayResponse.cpp \
     $$PWD/http/response/IFileResponse.cpp \
