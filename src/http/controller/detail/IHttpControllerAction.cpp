@@ -2,6 +2,7 @@
 #include "http/controller/detail/IHttpControllerParameter.h"
 #include "http/server/ITcpConnection.h"
 #include "http/net/IRequest.h"
+#include "http/net/IResponse.h"
 #include "http/net/impl/IResponseRaw.h"
 #include "http/net/impl/IRequestRaw.h"
 
