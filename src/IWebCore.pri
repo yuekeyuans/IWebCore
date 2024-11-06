@@ -37,7 +37,7 @@ HEADERS += \
     $$PWD/core/util/ITicTacUtil.h \
     $$PWD/core/util/IToeUtil.h \
     $$PWD/core/util/ITraitUtil.h \
-    $$PWD/core/util/IXmlUtil.h \
+#    $$PWD/core/util/IXmlUtil.h \
     $$PWD/core/bean/IBeanInterface.h \
     $$PWD/core/bean/IBeanPreProcessor.h \
     $$PWD/core/bean/IBeanTypeManage.h \
@@ -247,7 +247,7 @@ SOURCES += \
     $$PWD/core/util/ISpawnUtil.cpp \
     $$PWD/core/util/ITicTacUtil.cpp \
     $$PWD/core/util/IToeUtil.cpp \
-    $$PWD/core/util/IXmlUtil.cpp \
+#    $$PWD/core/util/IXmlUtil.cpp \
 #    $$PWD/core/assert/IAssertInfo.cpp \
 #    $$PWD/core/assert/IAssertInterface.cpp \
 #    $$PWD/core/assert/IGlobalAssert.cpp \

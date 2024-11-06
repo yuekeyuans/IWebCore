@@ -2,7 +2,7 @@
 
 #include "http/biscuits/IHttpMethod.h"
 #include "http/base/IMethodNode.h"
-#include "http/base/IFunctionNode.h"
+//#include "http/base/IFunctionNode.h"
 #include "http/mappings/IHttpActionInterface.h"
 #include "http/controller/detail/IUrlFragmentNode.h"
 

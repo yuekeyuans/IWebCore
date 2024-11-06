@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "core/util/IXmlUtil.h"
+//#include "core/util/IXmlUtil.h"
 #include "core/util/IConvertUtil.h"
 #include "core/base/IResult.h"
 #include "http/biscuits/IHttpHeader.h"
