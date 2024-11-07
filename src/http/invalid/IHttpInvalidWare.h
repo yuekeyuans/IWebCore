@@ -8,7 +8,7 @@ class IRequest;
 class IHttpInvalidWare
 {
 public:
-    IHttpInvalidWare(IHttpStatusCode, QString description);
+    IHttpInvalidWare(IHttpStatusCode, const QString& description);
     virtual ~IHttpInvalidWare() = default;
 
 public:
@@ -17,7 +17,7 @@ public:
 public:
     IHttpStatusCode status{IHttpStatus::UNKNOWN};
     QString description;
-    std::function<void(IRequest&)> m_function{};
+    std::function<void(IRequest&)> m_function{nullptr};
 };
 
 $PackageWebCoreEnd

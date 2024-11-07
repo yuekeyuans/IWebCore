@@ -22,6 +22,7 @@ public:
     void registInvalidHandler(const QString& name, IHttpInvalidHandlerWare*);
 
     IHttpAction* getAction(IRequest& request);
+    IHttpInvalidHandlerWare* getInvalidHandler(const QString& name) const;
     void printMappingTrace();
 
 

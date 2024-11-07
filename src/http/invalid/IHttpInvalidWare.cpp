@@ -7,8 +7,8 @@
 
 $PackageWebCoreBegin
 
-IHttpInvalidWare::IHttpInvalidWare(IHttpStatusCode code, QString description)
-    : status(code), description(std::move(description))
+IHttpInvalidWare::IHttpInvalidWare(IHttpStatusCode code, const QString& description)
+    : status(code), description(description)
 {
 }
 

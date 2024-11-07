@@ -37,6 +37,14 @@ IHttpAction *IHttpManage::getAction(IRequest &request)
     return IHttpBadRequestAction::instance();
 }
 
+IHttpInvalidHandlerWare *IHttpManage::getInvalidHandler(const QString &name) const
+{
+    if(m_invalidHandlers.find(name) != m_invalidHandlers.end()){
+        return m_invalidHandlers.at(name);
+    }
+    return nullptr;
+}
+
 void IHttpManage::registerPathValidator(const QString &name, const QString &regexp)
 {
     QRegularExpression exp(regexp);
