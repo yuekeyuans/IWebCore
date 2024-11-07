@@ -4,12 +4,13 @@
 #include "core/util/IMetaUtil.h"
 #include "http/biscuits/IHttpStatus.h"
 #include "http/invalid/IHttpInvalidWare.h"
+#include "core/unit/IClassNameUnit.h"
 #include <functional>
 
 $PackageWebCoreBegin
 
 template<typename T, bool enabled=true>
-class IHttpInvalidInterface : public IHttpInvalidWare //, public ISingletonUnit<T>
+class IHttpInvalidInterface : public IHttpInvalidWare, public IClassNameUnit<T>
 {
 public:
     IHttpInvalidInterface(IHttpStatusCode code);

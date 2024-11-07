@@ -4,9 +4,7 @@
 
 $PackageWebCoreBegin
 
-// TODO: 检查一下这里使用使用右值进行操作了
 class IRequest;
-class IResponse;
 class IHttpInvalidWare
 {
 public:
@@ -20,7 +18,6 @@ public:
     IHttpStatusCode status{IHttpStatus::UNKNOWN};
     QString description;
     std::function<void(IRequest&)> m_function{};
-    IHttpInvalidWare* m_self{};
 };
 
 $PackageWebCoreEnd

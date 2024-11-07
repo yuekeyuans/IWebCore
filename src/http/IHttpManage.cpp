@@ -4,6 +4,7 @@
 #include "http/mappings/IHttpMappingWare.h"
 #include "http/mappings/IHttpNotFoundAction.h"
 #include "http/mappings/IHttpBadRequestAction.h"
+#include "http/invalid/IHttpInvalidHandlerInterface.h"
 
 $PackageWebCoreBegin
 
@@ -12,15 +13,20 @@ void IHttpManage::setIsServerStarted(bool value)
     m_isServerStarted = value;
 }
 
-void IHttpManage::registMappingWare(IHttpMappingWare *ware)
+void IHttpManage::registMapping(IHttpMappingWare *ware)
 {
-    m_mappingWares.push_back(ware);
+    m_mappings.push_back(ware);
+}
+
+void IHttpManage::registInvalidHandler(const QString& name, IHttpInvalidHandlerWare * ware)
+{
+    m_invalidHandlers[name] = ware;
 }
 
 IHttpAction *IHttpManage::getAction(IRequest &request)
 {
     if(request.isValid()){
-        for(IHttpMappingWare* ware : m_mappingWares){
+        for(IHttpMappingWare* ware : m_mappings){
             auto action = ware->getAction(request);
             if(action != nullptr){
                 return action;
@@ -57,9 +63,9 @@ void IHttpManage::registerPathValidator(const QString &name, ValidatorFun fun)
     m_pathFunValidators[name] = fun;
 }
 
-void IHttpManage::travalPrintWareTrace()
+void IHttpManage::printMappingTrace()
 {
-    for(IHttpMappingWare* ware : m_mappingWares){
+    for(IHttpMappingWare* ware : m_mappings){
         ware->travelPrint();
     }
 }

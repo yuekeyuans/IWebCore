@@ -8,6 +8,7 @@ $PackageWebCoreBegin
 class IRequest;
 class IHttpAction;
 class IHttpMappingWare;
+class IHttpInvalidHandlerWare;
 class IHttpManage : public ISingletonUnit<IHttpManage>
 {
     using ValidatorFun = std::function<bool(const QString&)>;
@@ -17,9 +18,12 @@ public:
 public:
     void setIsServerStarted(bool);
 
-    void registMappingWare(IHttpMappingWare* ware);
+    void registMapping(IHttpMappingWare* ware);
+    void registInvalidHandler(const QString& name, IHttpInvalidHandlerWare*);
+
     IHttpAction* getAction(IRequest& request);
-    void travalPrintWareTrace();
+    void printMappingTrace();
+
 
     void registerPathValidator(const QString& name, const QString& regexp);
     void registerPathValidator(const QString& name, ValidatorFun fun);
@@ -29,8 +33,8 @@ public:
 
 private:
     bool m_isServerStarted{false};
-    std::vector<IHttpMappingWare*> m_mappingWares;
-//    std::map<IHttpStatusCode,
+    std::vector<IHttpMappingWare*> m_mappings;
+    std::map<QString, IHttpInvalidHandlerWare*> m_invalidHandlers;
 
     QMap<QString, QString> m_pathRegValidators;
     QMap<QString, ValidatorFun> m_pathFunValidators;

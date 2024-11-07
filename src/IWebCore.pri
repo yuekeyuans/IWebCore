@@ -24,6 +24,7 @@ HEADERS += \
     $$PWD/core/bean/IBeanTraitInterface.h \
     $$PWD/core/task/default/IRegisterBaseTypeTask.h \
     $$PWD/core/trait/IExceptionTrait.h \
+    $$PWD/core/unit/IClassNameUnit.h \
     $$PWD/core/unit/ITraceUnit.h \
     $$PWD/core/util/ICodecUtil.h \
     $$PWD/core/util/IConstantUtil.h \

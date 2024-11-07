@@ -83,11 +83,6 @@ bool IHttpControllerMapping::checkUrlDuplicateName(const IHttpControllerAction *
     return true;
 }
 
-//void IHttpControllerMapping::checkRegisterAvalible()
-//{
-//    // do nothing
-//}
-
 std::vector<IHttpAction *> IHttpControllerMapping::queryFunctionNodes(IHttpControllerNode *parentNode, const IStringViewList &fragments, IHttpMethod method) const
 {
     // FIXME:

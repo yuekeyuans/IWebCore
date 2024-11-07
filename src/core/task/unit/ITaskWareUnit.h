@@ -5,11 +5,12 @@
 #include "core/task/ITaskManage.h"
 #include "core/task/ITaskPreProcessor.h"
 #include "core/unit/ISingletonUnit.h"
+#include "core/unit/IClassNameUnit.h"
 
 $PackageWebCoreBegin
 
 template<typename T, typename Catagory, bool enabled=true>
-class ITaskWareUnit : public ITaskWare
+class ITaskWareUnit : public ITaskWare, public IClassNameUnit<T>
 {
     $AsTaskUnit(ITaskWareUnit)
     Q_DISABLE_COPY_MOVE(ITaskWareUnit)
@@ -20,9 +21,6 @@ protected:
 protected:
     virtual QString $name() const final;
     virtual const QString& $catagory() const final;
-
-public:
-    static const QString CLASS_NAME;
 };
 
 template<typename T, typename Catagory, bool enabled>
@@ -36,9 +34,6 @@ const QString& ITaskWareUnit<T, Catagory, enabled>::$catagory() const
 {
     return Catagory::CLASS_NAME;
 }
-
-template<typename T, typename Catagory, bool enabled>
-const QString ITaskWareUnit<T, Catagory, enabled>::CLASS_NAME = IMetaUtil::getBareTypeName<T>();
 
 $UseTaskUnit2(ITaskWareUnit)
 {

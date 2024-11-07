@@ -12,9 +12,11 @@ SOURCES += \
         FormDataController.cpp \
         RequestParameterController.cpp \
         main.cpp \
+        test/NotFoundInvalidHandler.cpp \
         test/TestFormDataController.cpp
 
 HEADERS += \
     FormDataController.h \
     RequestParameterController.h \
+    test/NotFoundInvalidHandler.h \
     test/TestFormDataController.h
