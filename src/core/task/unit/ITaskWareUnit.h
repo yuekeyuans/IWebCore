@@ -20,12 +20,15 @@ protected:
 protected:
     virtual QString $name() const final;
     virtual const QString& $catagory() const final;
+
+public:
+    static const QString CLASS_NAME;
 };
 
 template<typename T, typename Catagory, bool enabled>
 QString ITaskWareUnit<T, Catagory, enabled>::$name() const
 {
-    return IMetaUtil::getBareTypeName<T>();
+    return ITaskWareUnit::CLASS_NAME;
 }
 
 template<typename T, typename Catagory, bool enabled>
@@ -33,6 +36,9 @@ const QString& ITaskWareUnit<T, Catagory, enabled>::$catagory() const
 {
     return Catagory::CLASS_NAME;
 }
+
+template<typename T, typename Catagory, bool enabled>
+const QString ITaskWareUnit<T, Catagory, enabled>::CLASS_NAME = IMetaUtil::getBareTypeName<T>();
 
 $UseTaskUnit2(ITaskWareUnit)
 {

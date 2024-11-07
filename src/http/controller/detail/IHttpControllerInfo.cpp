@@ -102,6 +102,7 @@ IMethodNode IHttpMethodMappingInfo::toMethodNode(void *handler, const QString &c
         }
     }
     qFatal("this should always not be called");
+    return {};
 }
 
 QString IHttpMethodMappingInfo::toUrl() const
