@@ -58,16 +58,6 @@ IHttpAction * IHttpControllerMapping::getAction(IRequest &request) const
     }
     return IHttpInternalErrorAction::instance();
 
-
-// TODO: 这里对于 PathVariable 需要重新处理
-//    std::vector<IHttpControllerAction*> nodes =  queryFunctionNodes(nodePtr, fragments, method);
-//    if(nodes.length() == 0){
-//        return {};
-//    }else if(nodes.length() > 1){
-//        auto info = url.toQString() + " : " + IHttpMethodUtil::toString(method) + " matched multi-functions, please check";
-//        qFatal(info.toUtf8());
-//    }
-
 //    auto node = nodes.first();
 //    request.getRaw()->m_requestUrlParameters = getPathVariable(node->parentNode, fragments);
 //    return {node};
