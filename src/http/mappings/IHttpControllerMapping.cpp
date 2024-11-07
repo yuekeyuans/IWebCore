@@ -1,10 +1,8 @@
 ﻿#include "IHttpControllerMapping.h"
-#include "core/util/IConstantUtil.h"
 #include "http/controller/detail/IHttpControllerAction.h"
 #include "http/controller/IHttpControllerNode.h"
 #include "http/mappings/IHttpInternalErrorAction.h"
 #include "http/net/IRequest.h"
-#include "http/net/impl/IRequestRaw.h"
 
 $PackageWebCoreBegin
 
