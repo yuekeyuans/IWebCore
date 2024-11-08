@@ -11,7 +11,7 @@ public:
     IHttpCtlReturnTypeManage();
 
 public:
-    IHttpControllerAction::ReturnType parseReturnType(const IHttpControllerAction& node);
+//    IHttpControllerAction::ReturnType parseReturnType(const IHttpControllerAction& node);
     bool isReturnTypeValid(const IHttpControllerAction& node);
 };
 

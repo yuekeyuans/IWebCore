@@ -4,8 +4,9 @@
 
 $PackageWebCoreBegin
 
-struct IUrlFragmentNode
+struct IHttpUrlFragment
 {
+public:
     using ValidateFun = std::function<bool(const QString&)>;
     enum NodeType{
         TEXT_MATCH,
@@ -13,9 +14,6 @@ struct IUrlFragmentNode
         FUNC_MATCH,
         FULL_MATCH
     };
-
-public:
-    static IUrlFragmentNode createNode(const QString& segment);
 
 public:
     QString fragment;

@@ -104,8 +104,8 @@ HEADERS += \
     $$PWD/http/controller/detail/IHttpControllerParameter.h \
     $$PWD/http/controller/detail/IHttpControllerParameterTask.h \
     $$PWD/http/controller/detail/IHttpCtlReturnTypeManage.h \
-    $$PWD/http/controller/detail/IUrlFragmentNode.h \
-    $$PWD/http/controller/detail/IUrlNode.h \
+    $$PWD/http/controller/detail/IHttpUrl.h \
+    $$PWD/http/controller/detail/IHttpUrlFragment.h \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.h \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.h \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.h \
@@ -247,7 +247,6 @@ SOURCES += \
 #    $$PWD/core/util/IJsonUtil_tojson_impl.cpp \
     $$PWD/core/util/IMetaUtil.cpp \
     $$PWD/core/util/IPreProcessorUtil.cpp \
-    $$PWD/core/util/ISpawnUtil.cpp \
     $$PWD/core/util/ITicTacUtil.cpp \
     $$PWD/core/util/IToeUtil.cpp \
 #    $$PWD/core/util/IXmlUtil.cpp \
@@ -289,8 +288,8 @@ SOURCES += \
     $$PWD/http/controller/detail/IHttpControllerParameter.cpp \
     $$PWD/http/controller/detail/IHttpControllerParameterTask.cpp \
     $$PWD/http/controller/detail/IHttpCtlReturnTypeManage.cpp \
-    $$PWD/http/controller/detail/IUrlFragmentNode.cpp \
-    $$PWD/http/controller/detail/IUrlNode.cpp \
+    $$PWD/http/controller/detail/IHttpUrl.cpp \
+    $$PWD/http/controller/detail/IHttpUrlFragment.cpp \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.cpp \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.cpp \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.cpp \

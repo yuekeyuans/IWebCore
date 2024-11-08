@@ -8,10 +8,10 @@
 $PackageWebCoreBegin
 
 // TODO: 这里 Nullable/NotNull 替换为Optional, 具体的参数见文档
-struct IParamNodeDetail : public IArgumentTypeNode
+struct IArgumentTypeNodeDetail : public IArgumentTypeNode
 {
 public:
-    IParamNodeDetail(int typeId, QString typeName, QString name, QString m_methodSignature);
+    IArgumentTypeNodeDetail(int typeId, QString typeName, QString name, QString m_methodSignature);
 
 private:
     void checkParamType();
@@ -34,7 +34,7 @@ private:
     QString m_methodSignature;
 };
 
-inline IParamNodeDetail::IParamNodeDetail(int paramTypeId_, QString paramTypeName_, QString name_, QString methodSignature_)
+inline IArgumentTypeNodeDetail::IArgumentTypeNodeDetail(int paramTypeId_, QString paramTypeName_, QString name_, QString methodSignature_)
 {
     typeId = paramTypeId_;
     typeName = paramTypeName_;
@@ -45,16 +45,16 @@ inline IParamNodeDetail::IParamNodeDetail(int paramTypeId_, QString paramTypeNam
     args.pop_front();
     m_paramQualifiers = args;
 
-    using CheckType = void(IParamNodeDetail::*)();
+    using CheckType = void(IArgumentTypeNodeDetail::*)();
     QList<CheckType> checks = {
-        &IParamNodeDetail::checkParamType,
-        &IParamNodeDetail::checkParamNameEmpty,
-        &IParamNodeDetail::checkParamDuplicated,
-        &IParamNodeDetail::checkAndSetParamPosition,
-        &IParamNodeDetail::checkAndSetParamOptional,
-        &IParamNodeDetail::checkContentPositionMustBeIStringView,
-        &IParamNodeDetail::checkBareResponseOrConstResponseRef,
-        &IParamNodeDetail::checkResponseAndRequestWithoutDecorators,
+        &IArgumentTypeNodeDetail::checkParamType,
+        &IArgumentTypeNodeDetail::checkParamNameEmpty,
+        &IArgumentTypeNodeDetail::checkParamDuplicated,
+        &IArgumentTypeNodeDetail::checkAndSetParamPosition,
+        &IArgumentTypeNodeDetail::checkAndSetParamOptional,
+        &IArgumentTypeNodeDetail::checkContentPositionMustBeIStringView,
+        &IArgumentTypeNodeDetail::checkBareResponseOrConstResponseRef,
+        &IArgumentTypeNodeDetail::checkResponseAndRequestWithoutDecorators,
     };
 
     for(auto check : checks){
@@ -62,28 +62,28 @@ inline IParamNodeDetail::IParamNodeDetail(int paramTypeId_, QString paramTypeNam
     }
 }
 
-inline void IParamNodeDetail::checkParamType()
+inline void IArgumentTypeNodeDetail::checkParamType()
 {
     if(typeId == QMetaType::UnknownType){
         IHttpControllerAbort::abortParamErrorOfUnknowType();
     }
 }
 
-inline void IParamNodeDetail::checkParamNameEmpty()
+inline void IArgumentTypeNodeDetail::checkParamNameEmpty()
 {
     if(name.trimmed().isEmpty()){
         IHttpControllerAbort::abortParamNameEmpty();
     }
 }
 
-inline void IParamNodeDetail::checkParamDuplicated()
+inline void IArgumentTypeNodeDetail::checkParamDuplicated()
 {
     if(m_paramQualifiers.length() != m_paramQualifiers.toSet().size()){
         IHttpControllerAbort::abortParamQualifersDuplicated();
     }
 }
 
-inline void IParamNodeDetail::checkAndSetParamPosition()
+inline void IArgumentTypeNodeDetail::checkAndSetParamPosition()
 {
     bool exist{false};
     for(auto name : QualifierNames){
@@ -98,7 +98,7 @@ inline void IParamNodeDetail::checkAndSetParamPosition()
     }
 }
 
-inline void IParamNodeDetail::checkAndSetParamOptional()
+inline void IArgumentTypeNodeDetail::checkAndSetParamOptional()
 {
     bool exist{false};
     if(m_paramQualifiers.contains(NullableName)){
@@ -115,7 +115,7 @@ inline void IParamNodeDetail::checkAndSetParamOptional()
     }
 }
 
-inline void IParamNodeDetail::checkAndSetParamRestrictions()
+inline void IArgumentTypeNodeDetail::checkAndSetParamRestrictions()
 {
     for(auto name : m_paramQualifiers){
         auto condition = IHttpParameterRestrictManage::instance()->getRestrict(name);
@@ -126,14 +126,14 @@ inline void IParamNodeDetail::checkAndSetParamRestrictions()
     }
 }
 
-inline void IParamNodeDetail::checkContentPositionMustBeIStringView()
+inline void IArgumentTypeNodeDetail::checkContentPositionMustBeIStringView()
 {
     if(position == Position::Content && typeName != "IStringView"){
         IHttpControllerAbort::abortParamPositionContentMustBeIStringViewType();
     }
 }
 
-void IParamNodeDetail::checkBareResponseOrConstResponseRef()
+void IArgumentTypeNodeDetail::checkBareResponseOrConstResponseRef()
 {
     if(typeName == "IResponse"){
         QString tip = "function at: " + m_methodSignature;
@@ -141,7 +141,7 @@ void IParamNodeDetail::checkBareResponseOrConstResponseRef()
     }
 }
 
-void IParamNodeDetail::checkResponseAndRequestWithoutDecorators()
+void IArgumentTypeNodeDetail::checkResponseAndRequestWithoutDecorators()
 {
     if(typeName.startsWith("IRequest") || typeName.startsWith("IResponse")){
         if(position != Position::Auto || !restricts.isEmpty()){
@@ -156,19 +156,19 @@ namespace ISpawnUtil {
     template<>
     IArgumentTypeNode construct(int paramTypeId, const char* paramTypeName, const char* paramName, QByteArray signature)
     {
-        return IParamNodeDetail(paramTypeId, paramTypeName, paramName, signature);
+        return IArgumentTypeNodeDetail(paramTypeId, paramTypeName, paramName, signature);
     }
 
     template<>
     IArgumentTypeNode construct(int paramTypeId, QByteArray paramTypeName, QByteArray paramName, QByteArray signature)
     {
-        return IParamNodeDetail(paramTypeId, paramTypeName, paramName, signature);
+        return IArgumentTypeNodeDetail(paramTypeId, paramTypeName, paramName, signature);
     }
 
     template<>
     IArgumentTypeNode construct(int paramTypeId, QString paramTypeName, QString paramName, QByteArray signature)
     {
-        return IParamNodeDetail(paramTypeId, paramTypeName, paramName, signature);
+        return IArgumentTypeNodeDetail(paramTypeId, paramTypeName, paramName, signature);
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿#include "IHttpControllerNode.h"
 #include "http/IHttpManage.h"
+#include "core/util/ISpawnUtil.h"
 #include "http/controller/detail/IHttpControllerAction.h"
 
 $PackageWebCoreBegin
@@ -7,7 +8,7 @@ $PackageWebCoreBegin
 IHttpControllerNode::IHttpControllerNode(IHttpControllerNode* parent, const QString& fragment)
 {
     this->parentNode = parent;
-    routeNode = IUrlFragmentNode::createNode(fragment);
+    routeNode = ISpawnUtil::construct<IHttpUrlFragment>(fragment);
 }
 
 bool IHttpControllerNode::operator==(const IHttpControllerNode &node)
@@ -77,9 +78,9 @@ void IHttpControllerNode::removeLeaf(IHttpMethod method)
 
 void IHttpControllerNode::addChildNode(const IHttpControllerNode& node)
 {
-    if(node.routeNode.type == IUrlFragmentNode::TEXT_MATCH){
+    if(node.routeNode.type == IHttpUrlFragment::TEXT_MATCH){
         return this->children.prepend(node);
-    }else if(node.routeNode.type == IUrlFragmentNode::FULL_MATCH){
+    }else if(node.routeNode.type == IHttpUrlFragment::FULL_MATCH){
         return this->children.append(node);
     }
 
@@ -87,7 +88,7 @@ void IHttpControllerNode::addChildNode(const IHttpControllerNode& node)
     // 需不需要 合并 fullMatch？, 答案是不需要，因为不仅仅是 需要正则式匹配，更是需要 名称绑定
     int index;
     for(index=0; index<children.length(); index++){
-        if(children[index].routeNode.type != IUrlFragmentNode::TEXT_MATCH){
+        if(children[index].routeNode.type != IHttpUrlFragment::TEXT_MATCH){
             break;
         }
     }
@@ -104,13 +105,13 @@ QVector<IHttpControllerNode *> IHttpControllerNode::getChildNodes(IStringView na
     auto nodeName = name.toQString();   // TODO: fix latter;
     QVector<IHttpControllerNode*> nodes;
     for(auto& val : children){
-        if(val.routeNode.type == IUrlFragmentNode::TEXT_MATCH && val.routeNode.fragment == nodeName){
+        if(val.routeNode.type == IHttpUrlFragment::TEXT_MATCH && val.routeNode.fragment == nodeName){
             nodes.append(&val);
-        }else if(val.routeNode.type == IUrlFragmentNode::REGEXP_MATCH && val.routeNode.regexpValidator.match(nodeName).hasMatch()){
+        }else if(val.routeNode.type == IHttpUrlFragment::REGEXP_MATCH && val.routeNode.regexpValidator.match(nodeName).hasMatch()){
             nodes.append(&val);
-        }else if(val.routeNode.type == IUrlFragmentNode::FUNC_MATCH && val.routeNode.funValidator(nodeName)){
+        }else if(val.routeNode.type == IHttpUrlFragment::FUNC_MATCH && val.routeNode.funValidator(nodeName)){
             nodes.append(&val);
-        }else if(val.routeNode.type == IUrlFragmentNode::FULL_MATCH){
+        }else if(val.routeNode.type == IHttpUrlFragment::FULL_MATCH){
             nodes.append(&val);
         }
     }

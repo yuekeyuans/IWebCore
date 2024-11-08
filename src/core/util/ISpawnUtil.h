@@ -7,7 +7,10 @@ $PackageWebCoreBegin
 namespace ISpawnUtil
 {
     template<typename Ret, typename ... Args>
-    Ret construct(Args...);
+    Ret construct(Args... args);
+
+    template<typename Ret, typename ... Args>
+    Ret construct(Args... args);
 }
 
 $PackageWebCoreEnd

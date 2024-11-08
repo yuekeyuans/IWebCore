@@ -4,18 +4,18 @@
 #include "http/base/IMethodNode.h"
 //#include "http/base/IFunctionNode.h"
 #include "http/mappings/IHttpActionInterface.h"
-#include "http/controller/detail/IUrlFragmentNode.h"
+#include "http/controller/detail/IHttpUrlFragment.h"
 
 $PackageWebCoreBegin
 
 struct IHttpControllerAction : public IHttpActionInterface<IHttpControllerAction>
 {
-    enum class ReturnType{
-        Void,
-        String,
-        Bean,
-        IResponse,
-    };
+//    enum class ReturnType{
+//        Void,
+//        String,
+//        Bean,
+//        IResponse,
+//    };
 
 public:
     virtual void invoke(IRequest &req) const final;
@@ -25,7 +25,7 @@ public:
     void* parentNode{nullptr};
 
     QString url;
-    QList<IUrlFragmentNode> routeNode;  // TODO:
+    QList<IHttpUrlFragment> routeNode;  // TODO:
     IMethodNode methodNode;
 };
 

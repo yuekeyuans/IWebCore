@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "core/util/IHeaderUtil.h"
 #include "http/biscuits/IHttpMethod.h"
-#include "http/controller/detail/IUrlFragmentNode.h"
+#include "http/controller/detail/IHttpUrlFragment.h"
 
 $PackageWebCoreBegin
 
@@ -38,7 +38,7 @@ private:
     bool containFragment(const QString& fragment);
 
 public:
-    IUrlFragmentNode routeNode;
+    IHttpUrlFragment routeNode;
     IHttpControllerNode* parentNode{nullptr};
     IHttpControllerAction *getMethodLeaf{nullptr};
     IHttpControllerAction *putMethodLeaf{nullptr};

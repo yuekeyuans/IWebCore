@@ -70,7 +70,7 @@ bool IHttpControllerMapping::checkUrlDuplicateName(const IHttpControllerAction *
 
     while(parent != nullptr){
         auto name = parent->routeNode.name;
-        if(parent->routeNode.type != IUrlFragmentNode::TEXT_MATCH && !name.isEmpty()){
+        if(parent->routeNode.type != IHttpUrlFragment::TEXT_MATCH && !name.isEmpty()){
             if(names.contains(name)){
                 auto info = name + " path variable name duplicated, please change one to annother name";
                 qFatal(info.toUtf8());
