@@ -9,9 +9,7 @@ $PackageWebCoreBegin
 
 class IMethodNodeAbort : public IAbortInterface<IMethodNodeAbort>
 {
-    $AsAbort(
-        controller_invalid_parameter_type
-    )
+    $AsAbort(controller_invalid_parameter_type)
 protected:
     virtual QMap<int, QString> abortDescription() const final{
         return {
@@ -26,39 +24,31 @@ public:
     IMethodNodeDetail(void *handler, const QString &className, const QMetaMethod &metaMethod);
 
 public:
-    void assignBaseInfo();
-    void createFunctionParamNodes();
-    void resolveParamNode();
-    void createFunctionExpression();
+    void createReturnNode();
+    void createArgumentNodes();
+    void createSignature();
 };
 
-inline IMethodNodeDetail::IMethodNodeDetail(void *handler_, const QString &className_, const QMetaMethod &method_)
+IMethodNodeDetail::IMethodNodeDetail(void *handler_, const QString &className_, const QMetaMethod &method_)
+    : IMethodNode{handler_, className_, method_}
 {
-    this->handler = handler_;
-    this->className = className_;
-    this->metaMethod = method_;
-
-    assignBaseInfo();
-    createFunctionParamNodes();
-    resolveParamNode();
-    createFunctionExpression();
+    createReturnNode();
+    createArgumentNodes();
+    createSignature();
 }
 
-void IMethodNodeDetail::assignBaseInfo()
+void IMethodNodeDetail::createReturnNode()
 {
-    functionName = metaMethod.name();
-//    parameterCount = metaMethod.parameterCount();
     returnNode.typeName = metaMethod.typeName();
     returnNode.typeId = QMetaType::Type(metaMethod.returnType());
-
-    if(returnNode.typeId == QMetaType::UnknownType){ // return type
+    if(returnNode.typeId == QMetaType::UnknownType){
         auto reason = QString("return Type Not Defined in QMeta System. type: ").append(returnNode.typeName)
                            .append(", Function: ").append(signature);
         IMethodNodeAbort::abortcontroller_invalid_parameter_type(reason, $ISourceLocation);
     }
 }
 
-void IMethodNodeDetail::createFunctionParamNodes()
+void IMethodNodeDetail::createArgumentNodes()
 {
     auto names = metaMethod.parameterNames();
     auto types = metaMethod.parameterTypes();
@@ -67,36 +57,24 @@ void IMethodNodeDetail::createFunctionParamNodes()
         auto id = metaMethod.parameterType(i);
         if(id == QMetaType::UnknownType){
             auto reason = QString("unknown registered type: ").append(types[i])
-                              .append(", Function: ").append(className).append("::").append(functionName);
+                              .append(", Function: ").append(className).append("::").append(metaMethod.name());
             IMethodNodeAbort::abortcontroller_invalid_parameter_type(reason, $ISourceLocation);
         }
 
-        paramNodes.append(ISpawnUtil::construct<IArgumentTypeNode>(id, types[i], names[i], metaMethod.methodSignature()));
+        argumentNodes.append(ISpawnUtil::construct<IArgumentTypeNode>(id, types[i], names[i], metaMethod.methodSignature()));
     }
 }
 
-void IMethodNodeDetail::resolveParamNode()
+void IMethodNodeDetail::createSignature()
 {
-//    for(const IArgumentTypeNode& param : paramNodes){
-//        parameterTypeNames.append(param.typeName);
-//        parameterTypeIds.append(QMetaType::Type(param.typeId));
-//        parameterNames.append(param.name);
-//    }
-}
-
-void IMethodNodeDetail::createFunctionExpression()
-{
-    QString exp;
-    exp.append(returnNode.typeName).append(' ');
-    exp.append(className).append("::").append(functionName).append("(");
-
     QStringList args;
-    for(const IArgumentTypeNode& node : paramNodes){
+    for(const IArgumentTypeNode& node : argumentNodes){
         args.append(node.typeName + " " + node.name);
     }
 
-    exp.append(args.join(", ")).append(")");
-    signature = exp;
+    signature.append(returnNode.typeName).append(' ')
+            .append(className).append("::").append(metaMethod.name()).append("(")
+            .append(args.join(", ")).append(")");
 }
 
 namespace ISpawnUtil

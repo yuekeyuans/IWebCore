@@ -340,11 +340,11 @@ void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IHttpContro
     }
 
     if(id == QMetaType::UnknownType){
-        auto errorInfo = info + "the error take place in Function : " + node.methodNode.functionName;
+        auto errorInfo = info + "the error take place in Function : " + node.methodNode.signature;
         qFatal(errorInfo.toUtf8());
     }
 
-    auto errorInfo = info + "the error take place in Function : " + node.methodNode.functionName;
+    auto errorInfo = info + "the error take place in Function : " + node.methodNode.signature;
     qFatal(errorInfo.toUtf8());
 }
 
@@ -372,7 +372,7 @@ void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IHttpCont
         QMetaType::QJsonValue,
     };
 
-    for(const IArgumentTypeNode& info : node.methodNode.paramNodes){
+    for(const IArgumentTypeNode& info : node.methodNode.argumentNodes){
         const auto& typeName = info.typeName;
         const auto& typeId = info.typeId;
         if(typeId >= QMetaType::User){
@@ -399,14 +399,14 @@ void IHttpControllerInfoDetail::checkMethodOfReturnVoid(const IHttpControllerAct
     static const QStringList s_nodeNames ={
         "IResponse", "IResponse&", "IRequest", "IRequest&"
     };
-    for(const IArgumentTypeNode& info : node.methodNode.paramNodes){
+    for(const IArgumentTypeNode& info : node.methodNode.argumentNodes){
         if(s_nodeNames.contains(info.typeName)){
            return;
         }
     }
 
     QString info = "mapping function that return void should include IResponse in side function parameters\n"
-                "at Function : " + node.methodNode.functionName;
+                "at Function : " + node.methodNode.signature;
     qFatal(info.toUtf8());
 }
 
@@ -428,7 +428,7 @@ void IHttpControllerInfoDetail::checkMethodBodyContentArgs(const IHttpController
 
 void IHttpControllerInfoDetail::checkMethodParamterWithSuffixProper(const IHttpControllerAction &node)
 {
-    const auto& argNodes = node.methodNode.paramNodes;
+    const auto& argNodes = node.methodNode.argumentNodes;
 
     // get 中不能调用 body 的参数。
     if(node.httpMethod == IHttpMethod::GET){

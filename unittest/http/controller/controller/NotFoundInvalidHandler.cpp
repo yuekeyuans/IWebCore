@@ -2,7 +2,6 @@
 
 NotFoundInvalidHandler::NotFoundInvalidHandler()
 {
-    qDebug() << "invokeddddddd";
 }
 
 void NotFoundInvalidHandler::handle(IRequest &) const

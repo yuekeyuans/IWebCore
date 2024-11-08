@@ -9,18 +9,12 @@ struct IMethodNode
 {
 public:
     void* handler{nullptr};
+    QString className;
     QMetaMethod metaMethod;
 
-    QString className;
-    QString functionName;
     QString signature;
-
     IReturnTypeNode returnNode;
-    QVector<IArgumentTypeNode> paramNodes;
-//    int parameterCount;
-//    QStringList parameterNames;
-//    QStringList parameterTypeNames;
-//    QList<QMetaType::Type> parameterTypeIds;
+    QVector<IArgumentTypeNode> argumentNodes;
 };
 
 $PackageWebCoreEnd

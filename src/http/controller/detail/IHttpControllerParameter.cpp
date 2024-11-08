@@ -45,9 +45,9 @@ bool IHttpControllerParameter::createArguments(const IMethodNode& methodNode, Pa
     bool ok;
 
     // TODO: 这个 create 能不能放置在 IArgumentNode 中实现？
-    auto count = methodNode.paramNodes.size();
+    auto count = methodNode.argumentNodes.size();
     for(int i=0; i<count; i++){
-        params[i + 1] = inst->createArgParam(methodNode.paramNodes[i], request, ok);
+        params[i + 1] = inst->createArgParam(methodNode.argumentNodes[i], request, ok);
         if(!ok){
             return false;
         }
@@ -62,9 +62,9 @@ void IHttpControllerParameter::destroyArguments(const IMethodNode& node, void **
     inst->destroyReturnParam(params[0], node.returnNode.typeId);
 
     // TODO: 这个 create 能不能放置在 IArgumentNode 中实现？
-    auto count = node.paramNodes.size();
+    auto count = node.argumentNodes.size();
     for(int i=0; i<count; i++){
-        inst->destroyArgParam(node.paramNodes[i], params[i+1]);
+        inst->destroyArgParam(node.argumentNodes[i], params[i+1]);
     }
 }
 

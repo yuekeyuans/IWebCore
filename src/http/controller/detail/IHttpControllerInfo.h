@@ -5,7 +5,6 @@
 
 $PackageWebCoreBegin
 
-
 struct IHttpControllerInfo
 {
 public:
