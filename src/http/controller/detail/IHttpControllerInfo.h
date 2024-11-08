@@ -1,20 +1,14 @@
-﻿#pragma once
+﻿//#pragma once
 
-#include "core/util/IHeaderUtil.h"
-#include "http/controller/detail/IHttpControllerAction.h"
+//#include "core/util/IHeaderUtil.h"
+//#include "http/controller/detail/IHttpControllerAction.h"
 
-$PackageWebCoreBegin
+//$PackageWebCoreBegin
 
-struct IHttpControllerInfo
-{
-public:
-    void* handler{};
-    QString className;
-    QMap<QString, QString> classInfo;
-    QVector<QMetaMethod> classMethods;
+//struct IHttpControllerInfo
+//{
+//public:
+//    QVector<IHttpControllerAction> m_urlNodes;
+//};
 
-public:
-    QVector<IHttpControllerAction> m_urlNodes;
-};
-
-$PackageWebCoreEnd
+//$PackageWebCoreEnd

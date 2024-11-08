@@ -2,7 +2,6 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "core/util/IMetaUtil.h"
-#include "core/task/ITaskManage.h"
 #include "core/task/unit/ITaskWareUnit.h"
 #include "core/unit/ISingletonUnit.h"
 #include "http/IHttpTaskCatagory.h"

@@ -175,4 +175,11 @@ inline namespace name1 {   \
 #define $PackageWebCoreEnd \
     $IPackageEnd(IWebCore)
 
+#define $PackageDetailBegin \
+    $IPackageBegin(detail)
+
+#define $PackageDetailEnd   \
+    $IPackageEnd(detail)
+
+
 #define $PackageWebCoreName "IWebCore"
