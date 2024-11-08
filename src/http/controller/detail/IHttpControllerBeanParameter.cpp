@@ -7,14 +7,14 @@
 #include "core/config/IContextImport.h"
 #include "http/controller/IHttpControllerAbort.h"
 #include "http/base/IMethodNode.h"
-#include "http/base/IParameterNode.h"
+#include "http/base/IArgumentTypeNode.h"
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
 
 $PackageWebCoreBegin
 
-void* IHttpControllerBeanParameter::getParamOfBean(const IParameterNode &node, IRequest &request)
+void* IHttpControllerBeanParameter::getParamOfBean(const IArgumentTypeNode &node, IRequest &request)
 {
     auto ptr = QMetaType::create(node.typeId);
     auto beanWare = static_cast<IBeanWare*>(ptr);

@@ -324,8 +324,8 @@ void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IHttpContro
     };
 
 
-    auto type = node.methodNode.returnTypeName;
-    auto id = node.methodNode.returnTypeId;
+    const auto& type = node.methodNode.returnNode.typeName;
+    auto id = node.methodNode.returnNode.typeId;
 
     if(validMetaType.contains(id)){
         return;
@@ -372,13 +372,9 @@ void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IHttpCont
         QMetaType::QJsonValue,
     };
 
-    const auto& typeNames = node.methodNode.parameterTypeNames;
-    const auto& typeIds = node.methodNode.parameterTypeIds;
-    const auto& count = node.methodNode.parameterCount;
-    for(int i=0; i<count; i++) {
-        QString typeName = typeNames[i];
-        auto typeId = typeIds[i];
-
+    for(const IArgumentTypeNode& info : node.methodNode.paramNodes){
+        const auto& typeName = info.typeName;
+        const auto& typeId = info.typeId;
         if(typeId >= QMetaType::User){
             bool isSupportedType = isSpecialTypes(typeName) || IBeanTypeManage::instance()->isBeanIdExist(typeId) /*isBeanType(typeName)*/;
             if(!isSupportedType){
@@ -386,7 +382,7 @@ void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IHttpCont
                                                                                                       .append(" At Param: ").append(typeName), $ISourceLocation);
             }
         } else{
-            if(!allowType.contains(typeId)){
+            if(!allowType.contains((QMetaType::Type)typeId)){
                 IHttpControllerAbort::abortcontroller_check_param_Type_has_unsupported_inner_type(QString("At Function: ").append(node.methodNode.signature)
                                                                                               .append(" At Param: ").append(typeName), $ISourceLocation);
             }
@@ -394,33 +390,40 @@ void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IHttpCont
     }
 }
 
+// TODO: 这里Request
 void IHttpControllerInfoDetail::checkMethodOfReturnVoid(const IHttpControllerAction &node)
 {
-    if(node.methodNode.returnTypeId != QMetaType::Void){
+    if(node.methodNode.returnNode.typeId != QMetaType::Void){
         return;
     }
-
-    const auto& typeNames = node.methodNode.parameterTypeNames;
-    if(!typeNames.contains("IResponse") && !typeNames.contains("IResponse&")){
-        QString info = "mapping function that return void should include IResponse in side function parameters\n"
-                    "at Function : " + node.methodNode.functionName;
-        qFatal(info.toUtf8());
-    }
-}
-
-void IHttpControllerInfoDetail::checkMethodBodyContentArgs(const IHttpControllerAction &node)
-{
-    const auto& typeNames = node.methodNode.parameterTypeNames;
-    auto index = typeNames.indexOf("QJsonValue&");
-    if(index != -1){
-        const auto& paramNames = node.methodNode.parameterNames;
-        auto name = paramNames[index];
-        if(!name.endsWith("_content")){
-            QString info = "QJsonValue& can`t be used except in $Body expression\n"
-                           "at Function : " + node.methodNode.functionName;
-            qFatal(info.toUtf8());
+    static const QStringList s_nodeNames ={
+        "IResponse", "IResponse&", "IRequest", "IRequest&"
+    };
+    for(const IArgumentTypeNode& info : node.methodNode.paramNodes){
+        if(s_nodeNames.contains(info.typeName)){
+           return;
         }
     }
+
+    QString info = "mapping function that return void should include IResponse in side function parameters\n"
+                "at Function : " + node.methodNode.functionName;
+    qFatal(info.toUtf8());
+}
+
+// TODO: 这个关于 json 的需要修改
+void IHttpControllerInfoDetail::checkMethodBodyContentArgs(const IHttpControllerAction &node)
+{
+//    const auto& typeNames = node.methodNode.parameterTypeNames;
+//    auto index = typeNames.indexOf("QJsonValue&");
+//    if(index != -1){
+//        const auto& paramNames = node.methodNode.parameterNames;
+//        auto name = paramNames[index];
+//        if(!name.endsWith("_content")){
+//            QString info = "QJsonValue& can`t be used except in $Body expression\n"
+//                           "at Function : " + node.methodNode.functionName;
+//            qFatal(info.toUtf8());
+//        }
+//    }
 }
 
 void IHttpControllerInfoDetail::checkMethodParamterWithSuffixProper(const IHttpControllerAction &node)
@@ -429,7 +432,7 @@ void IHttpControllerInfoDetail::checkMethodParamterWithSuffixProper(const IHttpC
 
     // get 中不能调用 body 的参数。
     if(node.httpMethod == IHttpMethod::GET){
-        for(const IParameterNode& param : argNodes){
+        for(const IArgumentTypeNode& param : argNodes){
             if(param.name.endsWith("_body") || param.name.endsWith("_content")){
                 IHttpControllerAbort::abortcontroller_method_get_but_want_body_content(QString("At Function: ").append(node.methodNode.signature).append(" Parameter: ").append(param.name), $ISourceLocation);
             }

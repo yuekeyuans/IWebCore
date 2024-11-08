@@ -92,7 +92,8 @@ HEADERS += \
     $$PWD/http/IHttpAnnomacro.h \
     $$PWD/http/IHttpManage.h \
     $$PWD/http/IHttpTaskCatagory.h \
-    $$PWD/http/base/IParameterNode.h \
+    $$PWD/http/base/IArgumentTypeNode.h \
+    $$PWD/http/base/IReturnTypeNode.h \
     $$PWD/http/controller/IHttpControllerAbort.h \
     $$PWD/http/controller/IHttpControllerInterface.h \
     $$PWD/http/controller/IHttpControllerNode.h \
@@ -276,7 +277,8 @@ SOURCES += \
 #    $$PWD/http/IHttpAssert.cpp \
 #    $$PWD/core/util/detail/IConvertUtilBaseTypeDetail.cpp \
     $$PWD/http/IHttpManage.cpp \
-    $$PWD/http/base/IParameterNode.cpp \
+    $$PWD/http/base/IArgumentTypeNode.cpp \
+    $$PWD/http/base/IReturnTypeNode.cpp \
     $$PWD/http/controller/IHttpControllerInterface.cpp \
     $$PWD/http/controller/IHttpControllerNode.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \

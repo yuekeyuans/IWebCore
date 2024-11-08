@@ -6,7 +6,7 @@ $PackageWebCoreBegin
 
 class IHttpParameterRestrictInterface;
 
-struct IParameterNode
+struct IArgumentTypeNode
 {
     enum Position{
         Auto, Param, Url, Header, Body, Content, Cookie, Session,

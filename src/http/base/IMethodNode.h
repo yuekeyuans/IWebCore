@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "core/util/IHeaderUtil.h"
-#include "IParameterNode.h"
+#include "IArgumentTypeNode.h"
+#include "IReturnTypeNode.h"
 
 $PackageWebCoreBegin
 
@@ -14,14 +15,12 @@ public:
     QString functionName;
     QString signature;
 
-    QString returnTypeName;
-    QMetaType::Type returnTypeId {QMetaType::UnknownType};
-
-    int parameterCount;
-    QVector<IParameterNode> paramNodes;
-    QStringList parameterNames;
-    QStringList parameterTypeNames;
-    QList<QMetaType::Type> parameterTypeIds;
+    IReturnTypeNode returnNode;
+    QVector<IArgumentTypeNode> paramNodes;
+//    int parameterCount;
+//    QStringList parameterNames;
+//    QStringList parameterTypeNames;
+//    QList<QMetaType::Type> parameterTypeIds;
 };
 
 $PackageWebCoreEnd

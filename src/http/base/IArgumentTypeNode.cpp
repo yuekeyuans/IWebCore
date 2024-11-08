@@ -1,4 +1,4 @@
-﻿#include "IParameterNode.h"
+﻿#include "IArgumentTypeNode.h"
 #include "core/util/ISpawnUtil.h"
 #include "http/base/IHttpParameterRestrictManage.h"
 #include "http/base/IHttpParameterRestrictInterface.h"
@@ -8,7 +8,7 @@
 $PackageWebCoreBegin
 
 // TODO: 这里 Nullable/NotNull 替换为Optional, 具体的参数见文档
-struct IParamNodeDetail : public IParameterNode
+struct IParamNodeDetail : public IArgumentTypeNode
 {
 public:
     IParamNodeDetail(int typeId, QString typeName, QString name, QString m_methodSignature);
@@ -154,19 +154,19 @@ void IParamNodeDetail::checkResponseAndRequestWithoutDecorators()
 namespace ISpawnUtil {
 
     template<>
-    IParameterNode construct(int paramTypeId, const char* paramTypeName, const char* paramName, QByteArray signature)
+    IArgumentTypeNode construct(int paramTypeId, const char* paramTypeName, const char* paramName, QByteArray signature)
     {
         return IParamNodeDetail(paramTypeId, paramTypeName, paramName, signature);
     }
 
     template<>
-    IParameterNode construct(int paramTypeId, QByteArray paramTypeName, QByteArray paramName, QByteArray signature)
+    IArgumentTypeNode construct(int paramTypeId, QByteArray paramTypeName, QByteArray paramName, QByteArray signature)
     {
         return IParamNodeDetail(paramTypeId, paramTypeName, paramName, signature);
     }
 
     template<>
-    IParameterNode construct(int paramTypeId, QString paramTypeName, QString paramName, QByteArray signature)
+    IArgumentTypeNode construct(int paramTypeId, QString paramTypeName, QString paramName, QByteArray signature)
     {
         return IParamNodeDetail(paramTypeId, paramTypeName, paramName, signature);
     }

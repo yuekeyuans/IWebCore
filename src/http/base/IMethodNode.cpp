@@ -47,12 +47,12 @@ inline IMethodNodeDetail::IMethodNodeDetail(void *handler_, const QString &class
 void IMethodNodeDetail::assignBaseInfo()
 {
     functionName = metaMethod.name();
-    parameterCount = metaMethod.parameterCount();
-    returnTypeName = metaMethod.typeName();
-    returnTypeId = QMetaType::Type(metaMethod.returnType());
+//    parameterCount = metaMethod.parameterCount();
+    returnNode.typeName = metaMethod.typeName();
+    returnNode.typeId = QMetaType::Type(metaMethod.returnType());
 
-    if(returnTypeId == QMetaType::UnknownType){ // return type
-        auto reason = QString("return Type Not Defined in QMeta System. type: ").append(returnTypeName)
+    if(returnNode.typeId == QMetaType::UnknownType){ // return type
+        auto reason = QString("return Type Not Defined in QMeta System. type: ").append(returnNode.typeName)
                            .append(", Function: ").append(signature);
         IMethodNodeAbort::abortcontroller_invalid_parameter_type(reason, $ISourceLocation);
     }
@@ -71,27 +71,27 @@ void IMethodNodeDetail::createFunctionParamNodes()
             IMethodNodeAbort::abortcontroller_invalid_parameter_type(reason, $ISourceLocation);
         }
 
-        paramNodes.append(ISpawnUtil::construct<IParameterNode>(id, types[i], names[i], metaMethod.methodSignature()));
+        paramNodes.append(ISpawnUtil::construct<IArgumentTypeNode>(id, types[i], names[i], metaMethod.methodSignature()));
     }
 }
 
 void IMethodNodeDetail::resolveParamNode()
 {
-    for(const IParameterNode& param : paramNodes){
-        parameterTypeNames.append(param.typeName);
-        parameterTypeIds.append(QMetaType::Type(param.typeId));
-        parameterNames.append(param.name);
-    }
+//    for(const IArgumentTypeNode& param : paramNodes){
+//        parameterTypeNames.append(param.typeName);
+//        parameterTypeIds.append(QMetaType::Type(param.typeId));
+//        parameterNames.append(param.name);
+//    }
 }
 
 void IMethodNodeDetail::createFunctionExpression()
 {
     QString exp;
-    exp.append(returnTypeName).append(' ');
+    exp.append(returnNode.typeName).append(' ');
     exp.append(className).append("::").append(functionName).append("(");
 
     QStringList args;
-    for(const IParameterNode& node : paramNodes){
+    for(const IArgumentTypeNode& node : paramNodes){
         args.append(node.typeName + " " + node.name);
     }
 
