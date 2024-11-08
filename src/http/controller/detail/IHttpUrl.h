@@ -8,7 +8,7 @@ $PackageWebCoreBegin
 struct IHttpUrl
 {
 public:
-    QString url;
+    QString path;
     std::vector<IHttpUrlFragment> fragments;
 };
 

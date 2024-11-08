@@ -12,7 +12,7 @@ struct IHttpMethodMappingInfo
     IHttpMethodMappingInfo(const QString& key, const QString& value, const QStringList&rootPath);
     QStringList normalizeUrlPiece(const QString& url, const QStringList& prefix);
     IMethodNode toMethodNode(void* handler, const QString& className, const QVector<QMetaMethod>& methods) const;
-    QString toUrl() const;
+//    QString toUrl() const;
 
     QString funName;
     QStringList path;
@@ -105,17 +105,17 @@ IMethodNode IHttpMethodMappingInfo::toMethodNode(void *handler, const QString &c
     return {};
 }
 
-QString IHttpMethodMappingInfo::toUrl() const
-{
-    QStringList pieces;
-    for(const QString& arg : this->path){
-        if(arg.trimmed().isEmpty() || arg.trimmed() == "/"){
-            continue;
-        }
-        pieces.append(arg.trimmed());
-    }
-    return pieces.join("/").prepend("/");
-}
+//QString IHttpMethodMappingInfo::toUrl() const
+//{
+//    QStringList pieces;
+//    for(const QString& arg : this->path){
+//        if(arg.trimmed().isEmpty() || arg.trimmed() == "/"){
+//            continue;
+//        }
+//        pieces.append(arg.trimmed());
+//    }
+//    return pieces.join("/").prepend("/");
+//}
 
 IHttpControllerInfoDetail::IHttpControllerInfoDetail(void *handler_, const QString &className_, const QMap<QString, QString> &classInfo_, const QVector<QMetaMethod> &methods_)
 {
@@ -144,10 +144,11 @@ void IHttpControllerInfoDetail::parseMapppingInfos()
 
 void IHttpControllerInfoDetail::parseMappingLeaves()
 {
-    for(const auto& mapping : m_mappingInfos){
+    for(const IHttpMethodMappingInfo& mapping : m_mappingInfos){
         IHttpControllerAction node;
         node.httpMethod = mapping.method;
-        node.url = mapping.toUrl();
+        node.route = ISpawnUtil::construct<IHttpUrl>(mapping.path);
+//        node.url = mapping.toUrl();
         node.methodNode = mapping.toMethodNode(this, this->className, this->classMethods);
         m_urlNodes.append(node);
     }

@@ -8,13 +8,11 @@ $PackageWebCoreBegin
 
 void IHttpControllerMapping::registerUrlActionNode(IHttpControllerAction node)
 {
-    auto fragments = node.url.split("/");
     auto nodePtr = &m_urlMapppings;
-    for(auto it=fragments.begin(); it!= fragments.end(); ++it){
-        if(!it->isEmpty()){     // this step to guarantee the root element to settle properly
-            nodePtr = nodePtr->getOrAppendChildNode(*it);
-        }
+    for(const auto& fragment : node.route.fragments){
+        nodePtr = nodePtr->getOrAppendChildNode(fragment.fragment);
     }
+
     auto newLeaf = nodePtr->setLeaf(node);
     checkUrlDuplicateName(newLeaf);  // TODO: delete from here
 }
@@ -57,10 +55,6 @@ IHttpAction * IHttpControllerMapping::getAction(IRequest &request) const
         return actions.front();
     }
     return IHttpInternalErrorAction::instance();
-
-//    auto node = nodes.first();
-//    request.getRaw()->m_requestUrlParameters = getPathVariable(node->parentNode, fragments);
-//    return {node};
 }
 
 bool IHttpControllerMapping::checkUrlDuplicateName(const IHttpControllerAction *node)

@@ -6,25 +6,32 @@ $PackageWebCoreBegin
 struct IHttpUrlDetail : public IHttpUrl
 {
 public:
-    IHttpUrlDetail(const QString&);
+    IHttpUrlDetail(const QStringList& args);
 };
 
+IHttpUrlDetail::IHttpUrlDetail(const QStringList& args)
+{
+    QStringList m_urlPieces;
+    for(const QString& arg : args){
+        if(!arg.trimmed().isEmpty() && arg.trimmed() != "/"){
+            m_urlPieces.append(arg.trimmed());
+        }
+    }
+
+    this->path = m_urlPieces.join("/").prepend("/");
+    for(const QString piece : m_urlPieces){
+        fragments.emplace_back(ISpawnUtil::construct<IHttpUrlFragment>(piece));
+    }
+}
 
 namespace ISpawnUtil
 {
     template<>
-    IHttpUrl construct(QString data)
+    IHttpUrl construct(QStringList args)
     {
-        return IHttpUrlDetail(data);
+        return IHttpUrlDetail(args);
     }
-
 }
-
-IHttpUrlDetail::IHttpUrlDetail(const QString &)
-{
-
-}
-
 
 $PackageWebCoreEnd
 

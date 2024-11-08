@@ -165,7 +165,7 @@ void IHttpControllerNode::travelPrint(int space) const
         if(leaf != nullptr){
             qDebug().noquote()<< QString().fill(' ', 4 * space)
                               << "    |::" + IHttpMethodUtil::toString(leaf->httpMethod)
-                              << leaf->url
+                              << leaf->route.path
                               << "\t==>" << leaf->methodNode.signature;
         }
     };
