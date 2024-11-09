@@ -8,9 +8,6 @@ $PackageWebCoreBegin
 struct IHttpControllerAction;
 class IHttpControllerNode
 {
-private:
-    using IHttpControllerActionPtr = IHttpControllerAction*;
-
 public:
     IHttpControllerNode() = default;
     explicit IHttpControllerNode(IHttpControllerNode* parent, const IHttpUrlFragment& fragment);
