@@ -142,27 +142,20 @@ void IHttpControllerNode::travelPrint(int space) const
         qDebug().noquote() << "  empty mapping";
         return;
     }
-    qDebug().noquote() << QString().fill(' ', 4* space) << "|" + this->urlFragment.fragment;
-
     auto print = [](IHttpControllerAction* action, int space){
-        if(action != nullptr){
+        if(action){
             qDebug().noquote()<< QString().fill(' ', 4 * space)
                               << "    |::" + IHttpMethodUtil::toString(action->httpMethod)
                               << action->route.path << "\t==>" << action->methodNode.signature;
         }
     };
-
+    qDebug().noquote() << QString().fill(' ', 4* space) << "|" + this->urlFragment.fragment;
     print(this->getMethodAction, space);
     print(this->putMethodAction, space);
     print(this->postMethodAction, space);
     print(this->deleteMethodAction, space);
-
     for(const auto& child: children){
         child.travelPrint(space + 1);
-    }
-
-    if(space == 0){
-        qDebug() << "";
     }
 }
 

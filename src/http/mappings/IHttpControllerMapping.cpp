@@ -22,6 +22,7 @@ void IHttpControllerMapping::travelPrint() const
 {
     qDebug().noquote() << CLASS_NAME << $order();
     m_urlMapppings.travelPrint();
+    qDebug() << endl;
 }
 
 IHttpAction * IHttpControllerMapping::getAction(IRequest &request) const
@@ -30,7 +31,6 @@ IHttpAction * IHttpControllerMapping::getAction(IRequest &request) const
     IHttpMethod method = request.method();
 
     auto nodePtr = &instance()->m_urlMapppings;
-
     if(url == "/"){
         return {nodePtr->getAction(method)};
     }
