@@ -5,7 +5,7 @@
 
 $PackageWebCoreBegin
 
-IHttpControllerNode::IHttpControllerNode(IHttpControllerNode* parent, const IHttpUrlFragment& fragment)
+IHttpControllerNode::IHttpControllerNode(const IHttpUrlFragment& fragment)
 {
     urlFragment = fragment;
 }
@@ -25,11 +25,11 @@ bool IHttpControllerNode::isEmpty() const
     }
 
     auto funs = {
-        getMethodLeaf,
-        putMethodLeaf,
-        postMethodLeaf,
-        deleteMethodLeaf,
-        patchMethodLeaf
+        getMethodAction,
+        putMethodAction,
+        postMethodAction,
+        deleteMethodAction,
+        patchMethodAction
     };
     for(auto fun : funs){
         if(fun != nullptr){
@@ -39,69 +39,66 @@ bool IHttpControllerNode::isEmpty() const
     return true;
 }
 
-void IHttpControllerNode::setLeaf(const IHttpControllerAction &leafNode)
+void IHttpControllerNode::setAction(const IHttpControllerAction &action)
 {
-    auto ptr = getLeaf(leafNode.httpMethod);
+    auto ptr = getAction(action.httpMethod);
     if(ptr){
-        qFatal("Leaf already registered");
+        qFatal("action already registered");
     }
 
-    auto leaf = new IHttpControllerAction(leafNode);
-    leaf->parentNode = this;
-    switch (leafNode.httpMethod) {
+    auto newAction = new IHttpControllerAction(action);
+    newAction->parentNode = this;
+    switch (action.httpMethod) {
     case IHttpMethod::GET:
-        getMethodLeaf = leaf;
+        getMethodAction = newAction;
         break;
     case IHttpMethod::POST:
-        postMethodLeaf = leaf;
+        postMethodAction = newAction;
         break;
     case IHttpMethod::PUT:
-        putMethodLeaf = leaf;
+        putMethodAction = newAction;
         break;
     case IHttpMethod::DELETED:
-        deleteMethodLeaf = leaf;
+        deleteMethodAction = newAction;
         break;
     case IHttpMethod::PATCH:
-        patchMethodLeaf = leaf;
+        patchMethodAction = newAction;
         break;
     case IHttpMethod::HEAD:
-        getMethodLeaf = leaf;
+        getMethodAction = newAction;
         break;
     default:
         break;
     }
 }
 
-IHttpControllerAction* IHttpControllerNode::getLeaf(IHttpMethod method)
+IHttpControllerAction* IHttpControllerNode::getAction(IHttpMethod method) const
 {
     switch (method) {
     case IHttpMethod::GET:
-        return getMethodLeaf;
+        return getMethodAction;
     case IHttpMethod::POST:
-        return postMethodLeaf;
+        return postMethodAction;
     case IHttpMethod::PUT:
-        return putMethodLeaf;
+        return putMethodAction;
     case IHttpMethod::DELETED:
-        return deleteMethodLeaf;
+        return deleteMethodAction;
     case IHttpMethod::PATCH:
-        return patchMethodLeaf;
+        return patchMethodAction;
     case IHttpMethod::HEAD:
-        return getMethodLeaf;
+        return getMethodAction;
     }
     return nullptr;
 }
 
-void IHttpControllerNode::addChildNode(const IHttpUrlFragment &fragment)
+void IHttpControllerNode::addChild(const IHttpUrlFragment &fragment)
 {
-    if(this->getChildNode(fragment)){
-        return;
+    if(!this->getChild(fragment)){
+        this->addChild(IHttpControllerNode{fragment});
     }
-
-    IHttpControllerNode childNode(this, fragment);
-    this->addChildNode(childNode);
 }
 
-void IHttpControllerNode::addChildNode(const IHttpControllerNode& node)
+void IHttpControllerNode::addChild(const IHttpControllerNode& node)
 {
     if(node.urlFragment.type == IHttpUrlFragment::TEXT_MATCH){
         return this->children.prepend(node);
@@ -118,7 +115,7 @@ void IHttpControllerNode::addChildNode(const IHttpControllerNode& node)
     children.insert(index, node);
 }
 
-IHttpControllerNode *IHttpControllerNode::getChildNode(const IHttpUrlFragment &fragment)
+IHttpControllerNode *IHttpControllerNode::getChild(const IHttpUrlFragment &fragment)
 {
     for(auto& child : children){
         if(child.urlFragment.fragment == fragment.fragment){
@@ -128,18 +125,11 @@ IHttpControllerNode *IHttpControllerNode::getChildNode(const IHttpUrlFragment &f
     return nullptr;
 }
 
-QVector<IHttpControllerNode *> IHttpControllerNode::getChildNodes(IStringView name)
+QVector<IHttpControllerNode *> IHttpControllerNode::getChildren(IStringView name)
 {
-    auto nodeName = name.toQString();   // TODO: fix latter;
     QVector<IHttpControllerNode*> nodes;
     for(auto& val : children){
-        if(val.urlFragment.type == IHttpUrlFragment::TEXT_MATCH && val.urlFragment.fragment == nodeName){
-            nodes.append(&val);
-        }else if(val.urlFragment.type == IHttpUrlFragment::REGEXP_MATCH && val.urlFragment.regexpValidator.match(nodeName).hasMatch()){
-            nodes.append(&val);
-        }else if(val.urlFragment.type == IHttpUrlFragment::FUNC_MATCH && val.urlFragment.funValidator(nodeName)){
-            nodes.append(&val);
-        }else if(val.urlFragment.type == IHttpUrlFragment::FULL_MATCH){
+        if(val.urlFragment.isMatch(name)){
             nodes.append(&val);
         }
     }
@@ -154,18 +144,18 @@ void IHttpControllerNode::travelPrint(int space) const
     }
     qDebug().noquote() << QString().fill(' ', 4* space) << "|" + this->urlFragment.fragment;
 
-    auto print = [](IHttpControllerAction* leaf, int space){
-        if(leaf != nullptr){
+    auto print = [](IHttpControllerAction* action, int space){
+        if(action != nullptr){
             qDebug().noquote()<< QString().fill(' ', 4 * space)
-                              << "    |::" + IHttpMethodUtil::toString(leaf->httpMethod)
-                              << leaf->route.path << "\t==>" << leaf->methodNode.signature;
+                              << "    |::" + IHttpMethodUtil::toString(action->httpMethod)
+                              << action->route.path << "\t==>" << action->methodNode.signature;
         }
     };
 
-    print(this->getMethodLeaf, space);
-    print(this->putMethodLeaf, space);
-    print(this->postMethodLeaf, space);
-    print(this->deleteMethodLeaf, space);
+    print(this->getMethodAction, space);
+    print(this->putMethodAction, space);
+    print(this->postMethodAction, space);
+    print(this->deleteMethodAction, space);
 
     for(const auto& child: children){
         child.travelPrint(space + 1);

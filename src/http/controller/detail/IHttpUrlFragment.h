@@ -16,6 +16,10 @@ public:
     };
 
 public:
+    bool isMatch(IStringView);
+    bool isMatch(const QString&);
+
+public:
     QString fragment;
     NodeType type;
     QString name;

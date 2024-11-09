@@ -10,29 +10,29 @@ class IHttpControllerNode
 {
 public:
     IHttpControllerNode() = default;
-    explicit IHttpControllerNode(IHttpControllerNode* parent, const IHttpUrlFragment& fragment);
+    explicit IHttpControllerNode(const IHttpUrlFragment& fragment);
     bool operator==(const IHttpControllerNode& node);
 
 public:
     bool isEmpty() const;
 
-    void setLeaf(const IHttpControllerAction& leaf);
-    IHttpControllerAction* getLeaf(IHttpMethod method);
+    void setAction(const IHttpControllerAction& action);
+    IHttpControllerAction* getAction(IHttpMethod method) const;
 
-    void addChildNode(const IHttpUrlFragment& fragment);
-    void addChildNode(const IHttpControllerNode& node);
-    IHttpControllerNode* getChildNode(const IHttpUrlFragment& fragment);
+    void addChild(const IHttpUrlFragment& fragment);
+    void addChild(const IHttpControllerNode& node);
+    IHttpControllerNode* getChild(const IHttpUrlFragment& fragment);
 
-    QVector<IHttpControllerNode*> getChildNodes(IStringView nodeName);
+    QVector<IHttpControllerNode*> getChildren(IStringView nodeName);
     void travelPrint(int space=0) const;
 
 public:
     IHttpUrlFragment urlFragment;
-    IHttpControllerAction *getMethodLeaf{nullptr};
-    IHttpControllerAction *putMethodLeaf{nullptr};
-    IHttpControllerAction *postMethodLeaf{nullptr};
-    IHttpControllerAction *deleteMethodLeaf{nullptr};
-    IHttpControllerAction *patchMethodLeaf{nullptr};
+    IHttpControllerAction *getMethodAction{nullptr};
+    IHttpControllerAction *putMethodAction{nullptr};
+    IHttpControllerAction *postMethodAction{nullptr};
+    IHttpControllerAction *deleteMethodAction{nullptr};
+    IHttpControllerAction *patchMethodAction{nullptr};
     QList<IHttpControllerNode> children;
 };
 

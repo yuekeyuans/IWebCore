@@ -10,13 +10,12 @@ void IHttpControllerMapping::registerUrlActionNode(const IHttpControllerAction& 
 {
     auto ptr = &m_urlMapppings;
     for(const auto& fragment : node.route.fragments){
-        if(!ptr->getChildNode(fragment)){
-            ptr->addChildNode(fragment);
+        if(!ptr->getChild(fragment)){
+            ptr->addChild(fragment);
         }
-        ptr = ptr->getChildNode(fragment);
+        ptr = ptr->getChild(fragment);
     }
-
-    ptr->setLeaf(node);
+    ptr->setAction(node);
 }
 
 void IHttpControllerMapping::travelPrint() const
@@ -25,7 +24,6 @@ void IHttpControllerMapping::travelPrint() const
     m_urlMapppings.travelPrint();
 }
 
-// TODO: 这个需要检查一下
 IHttpAction * IHttpControllerMapping::getAction(IRequest &request) const
 {
     IStringView url = request.url();
@@ -34,7 +32,7 @@ IHttpAction * IHttpControllerMapping::getAction(IRequest &request) const
     auto nodePtr = &instance()->m_urlMapppings;
 
     if(url == "/"){
-        return {nodePtr->getLeaf(method)};
+        return {nodePtr->getAction(method)};
     }
 
     IStringViewList fragments = url.split('/');
@@ -53,14 +51,13 @@ IHttpAction * IHttpControllerMapping::getAction(IRequest &request) const
 
 std::vector<IHttpAction *> IHttpControllerMapping::queryFunctionNodes(IHttpControllerNode *parentNode, const IStringViewList &fragments, IHttpMethod method) const
 {
-    // FIXME:
     std::vector<IHttpAction*> ret;
-    auto childNodes = parentNode->getChildNodes(fragments.first());
+    auto childNodes = parentNode->getChildren(fragments.first());
     if(fragments.length() == 1){
-        for(const auto& val : childNodes){
-            auto leaf = val->getLeaf(method);
-            if(leaf != nullptr){
-                ret.push_back(leaf);
+        for(const IHttpControllerNode& val : childNodes){
+            auto action = val->getAction(method);
+            if(action != nullptr){
+                ret.push_back(action);
             }
         }
     }else{

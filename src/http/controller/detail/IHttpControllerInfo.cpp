@@ -1,12 +1,10 @@
 ﻿#include "IHttpControllerInfo.h"
 #include "core/bean/IBeanTypeManage.h"
 #include "core/util/ISpawnUtil.h"
-#include "http/controller/IHttpControllerAbort.h"
-#include "http/biscuits/IHttpMethod.h"
-#include "http/controller/detail/IHttpControllerAction.h"
-
 #include "core/util/IHeaderUtil.h"
-#include "http/controller/detail/IHttpControllerAction.h"
+#include "http/biscuits/IHttpMethod.h"
+#include "http/controller/IHttpControllerAbort.h"
+#include "http/controller/IHttpControllerAction.h"
 
 $PackageWebCoreBegin
 $PackageDetailBegin
@@ -303,9 +301,9 @@ void IHttpControllerInfoDetail::checkMethod()
         &IHttpControllerInfoDetail::checkMethodParamterWithSuffixProper,
     };
 
-    for(auto& leaf : m_urlNodes){
+    for(auto& action : m_urlNodes){
         for(auto& fun : funs){
-            std::mem_fn(fun)(this, leaf);
+            std::mem_fn(fun)(this, action);
         }
     }
 }

@@ -46,7 +46,7 @@ protected:
             ,{irequest_controller_function_with_param_not_marked, ""}
             ,{assamble_bean_when_bean_inner_parameter_not_found, ""}
             ,{static_file_dir_not_exist, "your registered default static file dir not exist, please check"}
-            ,{register_the_same_url, "registration can`t match the leaf or the leaf already exist"}
+            ,{register_the_same_url, "registration can`t match the action or the action already exist"}
             ,{register_to_controllerManage_error, "you can not register anything when server is on"}
             ,{ParamErrorOfUnknowType, "request parameter use an unknown or unregistered or unsupported type"},
             {ParamNameEmpty, "request parameter name is empty"},
