@@ -1,13 +1,12 @@
 ﻿#include "IHttpControllerNode.h"
 #include "http/IHttpManage.h"
 #include "core/util/ISpawnUtil.h"
-#include "http/controller/detail/IHttpControllerAction.h"
+#include "http/controller/IHttpControllerAction.h"
 
 $PackageWebCoreBegin
 
 IHttpControllerNode::IHttpControllerNode(IHttpControllerNode* parent, const IHttpUrlFragment& fragment)
 {
-//    this->parentNode = parent;
     urlFragment = fragment;
 }
 
@@ -104,7 +103,7 @@ void IHttpControllerNode::addChildNode(const IHttpUrlFragment &fragment)
 
 void IHttpControllerNode::addChildNode(const IHttpControllerNode& node)
 {
-    if(node.urlFragment.type == IHttpUrlFragment::TEXT_MATCH || ){
+    if(node.urlFragment.type == IHttpUrlFragment::TEXT_MATCH){
         return this->children.prepend(node);
     }else if(node.urlFragment.type == IHttpUrlFragment::FULL_MATCH){
         return this->children.append(node);

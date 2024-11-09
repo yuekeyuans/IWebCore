@@ -28,7 +28,6 @@ public:
 
 public:
     IHttpUrlFragment urlFragment;
-//    IHttpControllerNode* parentNode{nullptr};
     IHttpControllerAction *getMethodLeaf{nullptr};
     IHttpControllerAction *putMethodLeaf{nullptr};
     IHttpControllerAction *postMethodLeaf{nullptr};

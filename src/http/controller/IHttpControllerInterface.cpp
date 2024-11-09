@@ -1,6 +1,6 @@
 ﻿#include "IHttpControllerInterface.h"
 #include "core/util/ISpawnUtil.h"
-#include "http/controller/detail/IHttpControllerAction.h"
+#include "http/controller/IHttpControllerAction.h"
 #include "http/mappings/IHttpControllerMapping.h"
 
 $PackageWebCoreBegin

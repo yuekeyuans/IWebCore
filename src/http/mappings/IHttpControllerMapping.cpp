@@ -1,5 +1,5 @@
 ﻿#include "IHttpControllerMapping.h"
-#include "http/controller/detail/IHttpControllerAction.h"
+#include "http/controller/IHttpControllerAction.h"
 #include "http/controller/IHttpControllerNode.h"
 #include "http/mappings/IHttpInternalErrorAction.h"
 #include "http/net/IRequest.h"
