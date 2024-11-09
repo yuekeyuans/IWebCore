@@ -9,10 +9,10 @@ struct IHttpUrlFragment
 public:
     using ValidateFun = std::function<bool(const QString&)>;
     enum NodeType{
-        TEXT_MATCH,
-        REGEXP_MATCH,
-        FUNC_MATCH,
-        FULL_MATCH
+        TEXT_MATCH,     // match text
+        REGEXP_MATCH,   // match reg
+        FUNC_MATCH,     // match function
+        FULL_MATCH      // empty node match, match any thing
     };
 
 public:

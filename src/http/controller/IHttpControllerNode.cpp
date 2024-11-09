@@ -7,15 +7,15 @@ $PackageWebCoreBegin
 
 IHttpControllerNode::IHttpControllerNode(IHttpControllerNode* parent, const IHttpUrlFragment& fragment)
 {
-    this->parentNode = parent;
-    routeNode = fragment;
+//    this->parentNode = parent;
+    urlFragment = fragment;
 }
 
 bool IHttpControllerNode::operator==(const IHttpControllerNode &node)
 {
-    return  routeNode.name == node.routeNode.name
-            && routeNode.type == node.routeNode.type
-            && routeNode.fragment == node.routeNode.fragment
+    return  urlFragment.name == node.urlFragment.name
+            && urlFragment.type == node.urlFragment.type
+            && urlFragment.fragment == node.urlFragment.fragment
             && children == node.children;
 }
 
@@ -104,17 +104,15 @@ void IHttpControllerNode::addChildNode(const IHttpUrlFragment &fragment)
 
 void IHttpControllerNode::addChildNode(const IHttpControllerNode& node)
 {
-    if(node.routeNode.type == IHttpUrlFragment::TEXT_MATCH){
+    if(node.urlFragment.type == IHttpUrlFragment::TEXT_MATCH || ){
         return this->children.prepend(node);
-    }else if(node.routeNode.type == IHttpUrlFragment::FULL_MATCH){
+    }else if(node.urlFragment.type == IHttpUrlFragment::FULL_MATCH){
         return this->children.append(node);
     }
 
-    // process regMatch, this is placed between plain_Text and fullMatch
-    // 需不需要 合并 fullMatch？, 答案是不需要，因为不仅仅是 需要正则式匹配，更是需要 名称绑定
     int index;
     for(index=0; index<children.length(); index++){
-        if(children[index].routeNode.type != IHttpUrlFragment::TEXT_MATCH){
+        if(children[index].urlFragment.type != IHttpUrlFragment::TEXT_MATCH){
             break;
         }
     }
@@ -124,7 +122,7 @@ void IHttpControllerNode::addChildNode(const IHttpControllerNode& node)
 IHttpControllerNode *IHttpControllerNode::getChildNode(const IHttpUrlFragment &fragment)
 {
     for(auto& child : children){
-        if(child.routeNode.fragment == fragment.fragment){
+        if(child.urlFragment.fragment == fragment.fragment){
             return &child;
         }
     }
@@ -136,13 +134,13 @@ QVector<IHttpControllerNode *> IHttpControllerNode::getChildNodes(IStringView na
     auto nodeName = name.toQString();   // TODO: fix latter;
     QVector<IHttpControllerNode*> nodes;
     for(auto& val : children){
-        if(val.routeNode.type == IHttpUrlFragment::TEXT_MATCH && val.routeNode.fragment == nodeName){
+        if(val.urlFragment.type == IHttpUrlFragment::TEXT_MATCH && val.urlFragment.fragment == nodeName){
             nodes.append(&val);
-        }else if(val.routeNode.type == IHttpUrlFragment::REGEXP_MATCH && val.routeNode.regexpValidator.match(nodeName).hasMatch()){
+        }else if(val.urlFragment.type == IHttpUrlFragment::REGEXP_MATCH && val.urlFragment.regexpValidator.match(nodeName).hasMatch()){
             nodes.append(&val);
-        }else if(val.routeNode.type == IHttpUrlFragment::FUNC_MATCH && val.routeNode.funValidator(nodeName)){
+        }else if(val.urlFragment.type == IHttpUrlFragment::FUNC_MATCH && val.urlFragment.funValidator(nodeName)){
             nodes.append(&val);
-        }else if(val.routeNode.type == IHttpUrlFragment::FULL_MATCH){
+        }else if(val.urlFragment.type == IHttpUrlFragment::FULL_MATCH){
             nodes.append(&val);
         }
     }
@@ -155,7 +153,7 @@ void IHttpControllerNode::travelPrint(int space) const
         qDebug().noquote() << "  empty mapping";
         return;
     }
-    qDebug().noquote() << QString().fill(' ', 4* space) << "|" + this->routeNode.fragment;
+    qDebug().noquote() << QString().fill(' ', 4* space) << "|" + this->urlFragment.fragment;
 
     auto print = [](IHttpControllerAction* leaf, int space){
         if(leaf != nullptr){

@@ -15,6 +15,7 @@ public:
 
 public:
     bool isEmpty() const;
+
     void setLeaf(const IHttpControllerAction& leaf);
     IHttpControllerAction* getLeaf(IHttpMethod method);
 
@@ -26,8 +27,8 @@ public:
     void travelPrint(int space=0) const;
 
 public:
-    IHttpUrlFragment routeNode;
-    IHttpControllerNode* parentNode{nullptr};
+    IHttpUrlFragment urlFragment;
+//    IHttpControllerNode* parentNode{nullptr};
     IHttpControllerAction *getMethodLeaf{nullptr};
     IHttpControllerAction *putMethodLeaf{nullptr};
     IHttpControllerAction *postMethodLeaf{nullptr};
