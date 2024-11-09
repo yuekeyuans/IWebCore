@@ -15,21 +15,15 @@ public:
 
 public:
     bool isEmpty() const;
-    IHttpControllerAction* setLeaf(const IHttpControllerAction& leaf);
+    void setLeaf(const IHttpControllerAction& leaf);
     IHttpControllerAction* getLeaf(IHttpMethod method);
 
+    void addChildNode(const IHttpUrlFragment& fragment);
     void addChildNode(const IHttpControllerNode& node);
-    void removeChildNode(const IHttpControllerNode& node);
+    IHttpControllerNode* getChildNode(const IHttpUrlFragment& fragment);
 
     QVector<IHttpControllerNode*> getChildNodes(IStringView nodeName);
-    QVector<IHttpControllerNode*> getParentNodes();
-    IHttpControllerNode* getOrAppendChildNode(const IHttpUrlFragment& fragment);
-    IHttpControllerNode* getChildNode(const QString& fragment);
-
     void travelPrint(int space=0) const;
-
-private:
-    bool containFragment(const QString& fragment);
 
 public:
     IHttpUrlFragment routeNode;

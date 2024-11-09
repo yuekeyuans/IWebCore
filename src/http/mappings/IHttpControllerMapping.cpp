@@ -8,13 +8,15 @@ $PackageWebCoreBegin
 
 void IHttpControllerMapping::registerUrlActionNode(const IHttpControllerAction& node)
 {
-    auto nodePtr = &m_urlMapppings;
+    auto ptr = &m_urlMapppings;
     for(const auto& fragment : node.route.fragments){
-        nodePtr = nodePtr->getOrAppendChildNode(fragment);
+        if(!ptr->getChildNode(fragment)){
+            ptr->addChildNode(fragment);
+        }
+        ptr = ptr->getChildNode(fragment);
     }
 
-    auto newLeaf = nodePtr->setLeaf(node);
-    checkUrlDuplicateName(newLeaf);  // TODO: delete from here
+    ptr->setLeaf(node);
 }
 
 void IHttpControllerMapping::travelPrint() const
@@ -49,30 +51,9 @@ IHttpAction * IHttpControllerMapping::getAction(IRequest &request) const
     return IHttpInternalErrorAction::instance();
 }
 
-bool IHttpControllerMapping::checkUrlDuplicateName(const IHttpControllerAction *node)
-{
-    QStringList names;
-    auto parent = static_cast<IHttpControllerNode*>(node->parentNode);
-
-    while(parent != nullptr){
-        auto name = parent->routeNode.name;
-        if(parent->routeNode.type != IHttpUrlFragment::TEXT_MATCH && !name.isEmpty()){
-            if(names.contains(name)){
-                auto info = name + " path variable name duplicated, please change one to annother name";
-                qFatal(info.toUtf8());
-                return false;
-            }
-            names.append(name);
-        }
-        parent = parent->parentNode;
-    }
-    return true;
-}
-
 std::vector<IHttpAction *> IHttpControllerMapping::queryFunctionNodes(IHttpControllerNode *parentNode, const IStringViewList &fragments, IHttpMethod method) const
 {
     // FIXME:
-
     std::vector<IHttpAction*> ret;
     auto childNodes = parentNode->getChildNodes(fragments.first());
     if(fragments.length() == 1){
@@ -95,6 +76,26 @@ std::vector<IHttpAction *> IHttpControllerMapping::queryFunctionNodes(IHttpContr
     }
     return ret;
 }
+
+//bool IHttpControllerMapping::checkUrlDuplicateName(const IHttpControllerAction *node)
+//{
+//    QStringList names;
+//    auto parent = static_cast<IHttpControllerNode*>(node->parentNode);
+
+//    while(parent != nullptr){
+//        auto name = parent->routeNode.name;
+//        if(parent->routeNode.type != IHttpUrlFragment::TEXT_MATCH && !name.isEmpty()){
+//            if(names.contains(name)){
+//                auto info = name + " path variable name duplicated, please change one to annother name";
+//                qFatal(info.toUtf8());
+//                return false;
+//            }
+//            names.append(name);
+//        }
+//        parent = parent->parentNode;
+//    }
+//    return true;
+//}
 
 //QMap<IStringView, IStringView> IHttpControllerMapping::getPathVariable(void *node, const IStringViewList &fragments)
 //{

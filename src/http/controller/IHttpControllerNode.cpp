@@ -40,7 +40,7 @@ bool IHttpControllerNode::isEmpty() const
     return true;
 }
 
-IHttpControllerAction* IHttpControllerNode::setLeaf(const IHttpControllerAction &leafNode)
+void IHttpControllerNode::setLeaf(const IHttpControllerAction &leafNode)
 {
     auto ptr = getLeaf(leafNode.httpMethod);
     if(ptr){
@@ -71,7 +71,6 @@ IHttpControllerAction* IHttpControllerNode::setLeaf(const IHttpControllerAction 
     default:
         break;
     }
-    return leaf;
 }
 
 IHttpControllerAction* IHttpControllerNode::getLeaf(IHttpMethod method)
@@ -93,6 +92,16 @@ IHttpControllerAction* IHttpControllerNode::getLeaf(IHttpMethod method)
     return nullptr;
 }
 
+void IHttpControllerNode::addChildNode(const IHttpUrlFragment &fragment)
+{
+    if(this->getChildNode(fragment)){
+        return;
+    }
+
+    IHttpControllerNode childNode(this, fragment);
+    this->addChildNode(childNode);
+}
+
 void IHttpControllerNode::addChildNode(const IHttpControllerNode& node)
 {
     if(node.routeNode.type == IHttpUrlFragment::TEXT_MATCH){
@@ -112,9 +121,14 @@ void IHttpControllerNode::addChildNode(const IHttpControllerNode& node)
     children.insert(index, node);
 }
 
-void IHttpControllerNode::removeChildNode(const IHttpControllerNode &node)
+IHttpControllerNode *IHttpControllerNode::getChildNode(const IHttpUrlFragment &fragment)
 {
-    children.removeOne(node);
+    for(auto& child : children){
+        if(child.routeNode.fragment == fragment.fragment){
+            return &child;
+        }
+    }
+    return nullptr;
 }
 
 QVector<IHttpControllerNode *> IHttpControllerNode::getChildNodes(IStringView name)
@@ -135,61 +149,21 @@ QVector<IHttpControllerNode *> IHttpControllerNode::getChildNodes(IStringView na
     return nodes;
 }
 
-QVector<IHttpControllerNode *> IHttpControllerNode::getParentNodes()
-{
-    QVector<IHttpControllerNode*> parentNodes;
-    IHttpControllerNode* val = this;
-    while(val != nullptr){
-        parentNodes.prepend(val);
-        val = val->parentNode;
-    }
-    return parentNodes;
-}
-
-// TODO: 看看是否能够省略这个东西
-IHttpControllerNode *IHttpControllerNode::getOrAppendChildNode(const IHttpUrlFragment &fragment)
-{
-    if(!this->containFragment(fragment.fragment)){
-        IHttpControllerNode childNode(this, fragment);
-        this->addChildNode(childNode);
-    }
-
-    for(auto& child : children){
-        if(child.routeNode.fragment == fragment.fragment){
-            return &child;
-        }
-    }
-    return nullptr;
-}
-
-IHttpControllerNode *IHttpControllerNode::getChildNode(const QString &fragment)
-{
-    for(auto& child : children){
-        if(child.routeNode.fragment == fragment){
-            return &child;
-        }
-    }
-    return nullptr;
-}
-
 void IHttpControllerNode::travelPrint(int space) const
 {
     if(isEmpty()){
         qDebug().noquote() << "  empty mapping";
         return;
     }
+    qDebug().noquote() << QString().fill(' ', 4* space) << "|" + this->routeNode.fragment;
 
     auto print = [](IHttpControllerAction* leaf, int space){
         if(leaf != nullptr){
             qDebug().noquote()<< QString().fill(' ', 4 * space)
                               << "    |::" + IHttpMethodUtil::toString(leaf->httpMethod)
-                              << leaf->route.path
-                              << "\t==>" << leaf->methodNode.signature;
+                              << leaf->route.path << "\t==>" << leaf->methodNode.signature;
         }
     };
-
-    qDebug().noquote() << QString().fill(' ', 4* space)
-                       << "|" + this->routeNode.fragment;
 
     print(this->getMethodLeaf, space);
     print(this->putMethodLeaf, space);
@@ -203,16 +177,6 @@ void IHttpControllerNode::travelPrint(int space) const
     if(space == 0){
         qDebug() << "";
     }
-}
-
-bool IHttpControllerNode::containFragment(const QString& fragment)
-{
-    for(const auto& child : children){
-        if(child.routeNode.fragment == fragment){
-            return true;
-        }
-    }
-    return false;
 }
 
 $PackageWebCoreEnd

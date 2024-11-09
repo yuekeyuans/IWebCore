@@ -19,7 +19,6 @@ public:
     virtual IHttpAction* getAction(IRequest &request) const;
 
 private:
-    bool checkUrlDuplicateName(const IHttpControllerAction* node);
     std::vector<IHttpAction*> queryFunctionNodes(IHttpControllerNode* parentNode, const IStringViewList& fragments, IHttpMethod method) const;
 //    QMap<IStringView, IStringView> getPathVariable(void* node, const IStringViewList& fragments);
 
