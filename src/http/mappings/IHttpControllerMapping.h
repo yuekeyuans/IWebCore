@@ -19,7 +19,7 @@ public:
     virtual IHttpAction* getAction(IRequest &request) const;
 
 private:
-    std::vector<IHttpAction*> queryFunctionNodes(IHttpControllerNode* parentNode, const IStringViewList& fragments, IHttpMethod method) const;
+    std::vector<IHttpAction*> queryFunctionNodes(const IHttpControllerNode* parentNode, const IStringViewList& fragments, IHttpMethod method) const;
 
 private:
     IHttpControllerNode m_urlMapppings;

@@ -125,9 +125,9 @@ IHttpControllerNode *IHttpControllerNode::getChild(const IHttpUrlFragment &fragm
     return nullptr;
 }
 
-QVector<IHttpControllerNode *> IHttpControllerNode::getChildren(IStringView name)
+QVector<const IHttpControllerNode *> IHttpControllerNode::getChildren(IStringView name) const
 {
-    QVector<IHttpControllerNode*> nodes;
+    QVector<const IHttpControllerNode*> nodes;
     for(auto& val : children){
         if(val.urlFragment.isMatch(name)){
             nodes.append(&val);

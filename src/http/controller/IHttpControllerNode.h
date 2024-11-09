@@ -23,7 +23,7 @@ public:
     void addChild(const IHttpControllerNode& node);
     IHttpControllerNode* getChild(const IHttpUrlFragment& fragment);
 
-    QVector<IHttpControllerNode*> getChildren(IStringView nodeName);
+    QVector<const IHttpControllerNode*> getChildren(IStringView nodeName) const;
     void travelPrint(int space=0) const;
 
 public:

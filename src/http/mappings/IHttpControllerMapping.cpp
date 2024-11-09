@@ -49,12 +49,12 @@ IHttpAction * IHttpControllerMapping::getAction(IRequest &request) const
     return IHttpInternalErrorAction::instance();
 }
 
-std::vector<IHttpAction *> IHttpControllerMapping::queryFunctionNodes(IHttpControllerNode *parentNode, const IStringViewList &fragments, IHttpMethod method) const
+std::vector<IHttpAction *> IHttpControllerMapping::queryFunctionNodes(const IHttpControllerNode *parentNode, const IStringViewList &fragments, IHttpMethod method) const
 {
     std::vector<IHttpAction*> ret;
     auto childNodes = parentNode->getChildren(fragments.first());
     if(fragments.length() == 1){
-        for(const IHttpControllerNode& val : childNodes){
+        for(const auto& val : childNodes){
             auto action = val->getAction(method);
             if(action != nullptr){
                 ret.push_back(action);
@@ -62,7 +62,7 @@ std::vector<IHttpAction *> IHttpControllerMapping::queryFunctionNodes(IHttpContr
         }
     }else{
         auto childFragments = fragments.mid(1);
-        for(auto& val : childNodes){
+        for(const auto& val : childNodes){
             auto result = queryFunctionNodes(val, childFragments, method);
             if(!result.empty()){
                 for(auto action : result){

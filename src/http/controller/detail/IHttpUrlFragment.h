@@ -16,8 +16,8 @@ public:
     };
 
 public:
-    bool isMatch(IStringView);
-    bool isMatch(const QString&);
+    bool isMatch(IStringView) const;
+    bool isMatch(const QString&) const;
 
 public:
     QString fragment;

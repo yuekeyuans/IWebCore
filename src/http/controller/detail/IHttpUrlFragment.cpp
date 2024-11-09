@@ -4,12 +4,12 @@
 
 $PackageWebCoreBegin
 
-bool IHttpUrlFragment::isMatch(IStringView value)
+bool IHttpUrlFragment::isMatch(IStringView value) const
 {
     return isMatch(value.toQString());
 }
 
-bool IHttpUrlFragment::isMatch(const QString &nodeName)
+bool IHttpUrlFragment::isMatch(const QString &nodeName) const
 {
     return false
             || type == IHttpUrlFragment::TEXT_MATCH && fragment == nodeName
@@ -17,6 +17,7 @@ bool IHttpUrlFragment::isMatch(const QString &nodeName)
             || type == IHttpUrlFragment::FUNC_MATCH && funValidator(nodeName)
             || type == IHttpUrlFragment::FULL_MATCH;
 }
+
 
 struct IHttpUrlFragmentDetail : public IHttpUrlFragment
 {
