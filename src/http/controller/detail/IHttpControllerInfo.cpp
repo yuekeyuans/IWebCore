@@ -44,7 +44,7 @@ private:
 
 private:
     void checkMethod();
-    void chechMethodSupportedReturnType(const IHttpControllerAction& node);
+//    void chechMethodSupportedReturnType(const IHttpControllerAction& node);
     void checkMethodSupportedParamArgType(const IHttpControllerAction& node);
     void checkMethodOfReturnVoid(const IHttpControllerAction& node);
     void checkMethodBodyContentArgs(const IHttpControllerAction& node);
@@ -294,7 +294,6 @@ void IHttpControllerInfoDetail::checkMethod()
 {
     using CheckFunType = void (IHttpControllerInfoDetail::*)(const IHttpControllerAction&);
     QList<CheckFunType> funs {
-        &IHttpControllerInfoDetail::chechMethodSupportedReturnType,
         &IHttpControllerInfoDetail::checkMethodSupportedParamArgType,
         &IHttpControllerInfoDetail::checkMethodOfReturnVoid,
         &IHttpControllerInfoDetail::checkMethodBodyContentArgs,
@@ -306,47 +305,6 @@ void IHttpControllerInfoDetail::checkMethod()
             std::mem_fn(fun)(this, action);
         }
     }
-}
-
-// TODO: json
-void IHttpControllerInfoDetail::chechMethodSupportedReturnType(const IHttpControllerAction &node)
-{
-    const static QString info = "this kind of return type not supported, please change the return type!";
-
-    const static  QVector<QMetaType::Type> validMetaType = {
-        QMetaType::Void,
-        QMetaType::Int,
-        QMetaType::QString,
-        QMetaType::QJsonArray,
-        QMetaType::QJsonObject,
-        QMetaType::QJsonValue,
-        QMetaType::QByteArray,
-//        QMetaType::QStringList,
-    };
-
-
-    const auto& type = node.methodNode.returnNode.typeName;
-    auto id = node.methodNode.returnNode.typeId;
-
-    if(validMetaType.contains(id)){
-        return;
-    }
-
-    if(IBeanTypeManage::instance()->isBeanIdExist(id)){
-        return;
-    }
-
-    if(type.startsWith("I") && type.endsWith("Response")){
-        return;
-    }
-
-    if(id == QMetaType::UnknownType){
-        auto errorInfo = info + "the error take place in Function : " + node.methodNode.signature;
-        qFatal(errorInfo.toUtf8());
-    }
-
-    auto errorInfo = info + "the error take place in Function : " + node.methodNode.signature;
-    qFatal(errorInfo.toUtf8());
 }
 
 void IHttpControllerInfoDetail::checkMethodSupportedParamArgType(const IHttpControllerAction &node)

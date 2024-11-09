@@ -39,13 +39,7 @@ IMethodNodeDetail::IMethodNodeDetail(void *handler_, const QString &className_, 
 
 void IMethodNodeDetail::createReturnNode()
 {
-    returnNode.typeName = metaMethod.typeName();
-    returnNode.typeId = QMetaType::Type(metaMethod.returnType());
-    if(returnNode.typeId == QMetaType::UnknownType){
-        auto reason = QString("return Type Not Defined in QMeta System. type: ").append(returnNode.typeName)
-                           .append(", Function: ").append(signature);
-        IMethodNodeAbort::abortcontroller_invalid_parameter_type(reason, $ISourceLocation);
-    }
+    returnNode = ISpawnUtil::construct<IReturnTypeNode>(metaMethod.returnType(), metaMethod.typeName());
 }
 
 void IMethodNodeDetail::createArgumentNodes()
