@@ -12,8 +12,7 @@ public:
     IHttpControllerMapping() = default;
 
 public:
-    void registerUrlActionNode(IHttpControllerAction node);
-    void registerUrlActionNodes(const QVector<IHttpControllerAction>& functionNodes);
+    void registerUrlActionNode(const IHttpControllerAction& node);
 
 public:
     virtual void travelPrint() const final;
@@ -21,7 +20,6 @@ public:
 
 private:
     bool checkUrlDuplicateName(const IHttpControllerAction* node);
-//    void checkRegisterAvalible();    // 检查是否能够注册
     std::vector<IHttpAction*> queryFunctionNodes(IHttpControllerNode* parentNode, const IStringViewList& fragments, IHttpMethod method) const;
 //    QMap<IStringView, IStringView> getPathVariable(void* node, const IStringViewList& fragments);
 

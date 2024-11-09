@@ -11,7 +11,9 @@ void detail::registerController(void *handler,
                                 const QVector<QMetaMethod> &methods)
 {
     auto actions = ISpawnUtil::construct<QVector<IHttpControllerAction>>(handler, className, classInfo, methods);
-    IHttpControllerMapping::instance()->registerUrlActionNodes(actions);
+    for(const auto& action : actions){
+        IHttpControllerMapping::instance()->registerUrlActionNode(action);
+    }
 }
 
 $PackageWebCoreEnd

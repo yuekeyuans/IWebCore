@@ -169,17 +169,13 @@ inline namespace name1 {   \
 #define $PackageUsing_EVAL(N) $PackageUsing_(N)
 #define $PackageUsing(...) PP_EXPAND( $PackageUsing_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__))
 
-#define $PackageWebCoreBegin \
-    $IPackageBegin(IWebCore)
+#define $PackageWebCoreBegin  $IPackageBegin(IWebCore)
 
-#define $PackageWebCoreEnd \
-    $IPackageEnd(IWebCore)
+#define $PackageWebCoreEnd    $IPackageEnd(IWebCore)
 
-#define $PackageDetailBegin \
-    $IPackageBegin(detail)
+#define $PackageDetailBegin   $IPackageBegin(detail)
 
-#define $PackageDetailEnd   \
-    $IPackageEnd(detail)
+#define $PackageDetailEnd     $IPackageEnd(detail)
 
 
 #define $PackageWebCoreName "IWebCore"

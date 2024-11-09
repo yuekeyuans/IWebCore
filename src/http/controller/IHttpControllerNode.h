@@ -6,35 +6,32 @@
 $PackageWebCoreBegin
 
 struct IHttpControllerAction;
-
 class IHttpControllerNode
 {
 private:
-    using IUrlActionNodePtr = IHttpControllerAction*;
+    using IHttpControllerActionPtr = IHttpControllerAction*;
 
 public:
     IHttpControllerNode() = default;
-    explicit IHttpControllerNode(IHttpControllerNode* parent, const QString& fragment);
+    explicit IHttpControllerNode(IHttpControllerNode* parent, const IHttpUrlFragment& fragment);
     bool operator==(const IHttpControllerNode& node);
 
 public:
     bool isEmpty() const;
     IHttpControllerAction* setLeaf(const IHttpControllerAction& leaf);
     IHttpControllerAction* getLeaf(IHttpMethod method);
-    void removeLeaf(IHttpMethod method);
 
     void addChildNode(const IHttpControllerNode& node);
     void removeChildNode(const IHttpControllerNode& node);
 
     QVector<IHttpControllerNode*> getChildNodes(IStringView nodeName);
     QVector<IHttpControllerNode*> getParentNodes();
-    IHttpControllerNode* getOrAppendChildNode(const QString& fragment);
+    IHttpControllerNode* getOrAppendChildNode(const IHttpUrlFragment& fragment);
     IHttpControllerNode* getChildNode(const QString& fragment);
 
     void travelPrint(int space=0) const;
 
 private:
-    IUrlActionNodePtr& getLeafRef(IHttpMethod method);
     bool containFragment(const QString& fragment);
 
 public:

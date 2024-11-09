@@ -5,10 +5,10 @@
 
 $PackageWebCoreBegin
 
-IHttpControllerNode::IHttpControllerNode(IHttpControllerNode* parent, const QString& fragment)
+IHttpControllerNode::IHttpControllerNode(IHttpControllerNode* parent, const IHttpUrlFragment& fragment)
 {
     this->parentNode = parent;
-    routeNode = ISpawnUtil::construct<IHttpUrlFragment>(fragment);
+    routeNode = fragment;
 }
 
 bool IHttpControllerNode::operator==(const IHttpControllerNode &node)
@@ -40,40 +40,57 @@ bool IHttpControllerNode::isEmpty() const
     return true;
 }
 
-// TODO: WARN
 IHttpControllerAction* IHttpControllerNode::setLeaf(const IHttpControllerAction &leafNode)
 {
-    auto& ptr = getLeafRef(leafNode.httpMethod);
-    if(ptr != nullptr){
-        delete ptr;
-        ptr = nullptr;
-//        $Ast->warn("register_the_same_url");
+    auto ptr = getLeaf(leafNode.httpMethod);
+    if(ptr){
+        qFatal("Leaf already registered");
     }
 
     auto leaf = new IHttpControllerAction(leafNode);
     leaf->parentNode = this;
-    ptr = leaf;
-
+    switch (leafNode.httpMethod) {
+    case IHttpMethod::GET:
+        getMethodLeaf = leaf;
+        break;
+    case IHttpMethod::POST:
+        postMethodLeaf = leaf;
+        break;
+    case IHttpMethod::PUT:
+        putMethodLeaf = leaf;
+        break;
+    case IHttpMethod::DELETED:
+        deleteMethodLeaf = leaf;
+        break;
+    case IHttpMethod::PATCH:
+        patchMethodLeaf = leaf;
+        break;
+    case IHttpMethod::HEAD:
+        getMethodLeaf = leaf;
+        break;
+    default:
+        break;
+    }
     return leaf;
 }
 
-// @see https://hc.apache.org/httpclient-legacy/methods/head.html
 IHttpControllerAction* IHttpControllerNode::getLeaf(IHttpMethod method)
 {
-    if(method == IHttpMethod::OPTIONS){
-        return nullptr;
+    switch (method) {
+    case IHttpMethod::GET:
+        return getMethodLeaf;
+    case IHttpMethod::POST:
+        return postMethodLeaf;
+    case IHttpMethod::PUT:
+        return putMethodLeaf;
+    case IHttpMethod::DELETED:
+        return deleteMethodLeaf;
+    case IHttpMethod::PATCH:
+        return patchMethodLeaf;
+    case IHttpMethod::HEAD:
+        return getMethodLeaf;
     }
-
-    return getLeafRef(method);
-}
-
-void IHttpControllerNode::removeLeaf(IHttpMethod method)
-{
-    auto& ptr = getLeafRef(method);
-    if(ptr != nullptr){
-        delete ptr;
-        ptr = nullptr;
-    }
+    return nullptr;
 }
 
 void IHttpControllerNode::addChildNode(const IHttpControllerNode& node)
@@ -129,15 +146,16 @@ QVector<IHttpControllerNode *> IHttpControllerNode::getParentNodes()
     return parentNodes;
 }
 
-IHttpControllerNode *IHttpControllerNode::getOrAppendChildNode(const QString &fragment)
+// TODO: 看看是否能够省略这个东西
+IHttpControllerNode *IHttpControllerNode::getOrAppendChildNode(const IHttpUrlFragment &fragment)
 {
-    if(!this->containFragment(fragment)){
+    if(!this->containFragment(fragment.fragment)){
         IHttpControllerNode childNode(this, fragment);
         this->addChildNode(childNode);
     }
 
     for(auto& child : children){
-        if(child.routeNode.fragment == fragment){
+        if(child.routeNode.fragment == fragment.fragment){
             return &child;
         }
     }
@@ -185,29 +203,6 @@ void IHttpControllerNode::travelPrint(int space) const
     if(space == 0){
         qDebug() << "";
     }
-}
-
-IHttpControllerNode::IUrlActionNodePtr &IHttpControllerNode::getLeafRef(IHttpMethod method)
-{
-    switch (method) {
-    case IHttpMethod::GET:
-        return getMethodLeaf;
-    case IHttpMethod::POST:
-        return postMethodLeaf;
-    case IHttpMethod::PUT:
-        return putMethodLeaf;
-    case IHttpMethod::DELETED:
-        return deleteMethodLeaf;
-    case IHttpMethod::PATCH:
-        return patchMethodLeaf;
-    case IHttpMethod::HEAD:
-        return getMethodLeaf;
-    case IHttpMethod::OPTIONS:
-        qFatal("options should not go here");
-    default:
-        qFatal("unknown method, this warning should not present");
-    }
-    return getMethodLeaf;
 }
 
 bool IHttpControllerNode::containFragment(const QString& fragment)

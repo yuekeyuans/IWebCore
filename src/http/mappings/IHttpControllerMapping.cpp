@@ -6,22 +6,15 @@
 
 $PackageWebCoreBegin
 
-void IHttpControllerMapping::registerUrlActionNode(IHttpControllerAction node)
+void IHttpControllerMapping::registerUrlActionNode(const IHttpControllerAction& node)
 {
     auto nodePtr = &m_urlMapppings;
     for(const auto& fragment : node.route.fragments){
-        nodePtr = nodePtr->getOrAppendChildNode(fragment.fragment);
+        nodePtr = nodePtr->getOrAppendChildNode(fragment);
     }
 
     auto newLeaf = nodePtr->setLeaf(node);
     checkUrlDuplicateName(newLeaf);  // TODO: delete from here
-}
-
-void IHttpControllerMapping::registerUrlActionNodes(const QVector<IHttpControllerAction> &functionNodes)
-{
-    for(auto& node : functionNodes){
-        registerUrlActionNode(node);
-    }
 }
 
 void IHttpControllerMapping::travelPrint() const
@@ -29,7 +22,6 @@ void IHttpControllerMapping::travelPrint() const
     qDebug().noquote() << CLASS_NAME << $order();
     m_urlMapppings.travelPrint();
 }
-
 
 // TODO: 这个需要检查一下
 IHttpAction * IHttpControllerMapping::getAction(IRequest &request) const
