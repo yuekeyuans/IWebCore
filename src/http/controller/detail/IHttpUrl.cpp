@@ -123,6 +123,20 @@ namespace ISpawnUtil
     {
         return IHttpUrlDetail(args);
     }
+
+    template<>
+    IHttpUrl construct(std::vector<IHttpUrlFragment> fragments_)
+    {
+        QStringList args;
+        for(const auto& info : fragments_){
+            args.push_back(info.fragment);
+        }
+
+        IHttpUrl url;
+        url.path = args.join("/");
+        url.fragments = fragments_;
+        return url;
+    }
 }
 
 $PackageWebCoreEnd
