@@ -105,7 +105,7 @@ void IHttpControllerInfo::parseMappingLeaves()
     for(const IHttpMethodMappingInfo& mapping : m_mappingInfos){
         IHttpControllerAction node;
         node.httpMethod = mapping.method;
-        node.route = ISpawnUtil::construct<IHttpUrl>(mapping.fragments);
+        node.route = ISpawnUtil::construct<IHttpUrl, const std::vector<IHttpUrlFragment>&>(mapping.fragments);
         node.methodNode = getHttpMethodNode(mapping.funName);
         m_urlNodes.append(node);
     }
@@ -184,7 +184,6 @@ IMethodNode IHttpControllerInfo::getHttpMethodNode(const QString &name)
     qFatal("this will never be called");
     return {};
 }
-
 
 void detail::registerController(void *handler,
                                 const QString &className,

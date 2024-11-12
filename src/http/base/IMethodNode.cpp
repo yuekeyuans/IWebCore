@@ -3,7 +3,6 @@
 #include "core/util/IPackageUtil.h"
 #include "core/util/ISpawnUtil.h"
 #include "core/abort/IAbortInterface.h"
-#include "http/controller/detail/IHttpControllerInfo.h"
 
 $PackageWebCoreBegin
 
@@ -29,7 +28,7 @@ public:
     void createSignature();
 
 private:
-//    void checkMethodOfReturnVoid(const IHttpControllerAction &node);
+    void checkMethodOfReturnVoid();
 };
 
 IMethodNodeDetail::IMethodNodeDetail(void *handler_, const QString &className_, const QMetaMethod &method_)
@@ -38,6 +37,8 @@ IMethodNodeDetail::IMethodNodeDetail(void *handler_, const QString &className_, 
     createReturnNode();
     createArgumentNodes();
     createSignature();
+
+    checkMethodOfReturnVoid();
 }
 
 void IMethodNodeDetail::createReturnNode()
@@ -74,24 +75,24 @@ void IMethodNodeDetail::createSignature()
             .append(args.join(", ")).append(")");
 }
 
-//void IMethodNodeDetail::checkMethodOfReturnVoid(const IHttpControllerAction &node)
-//{
-//    if(node.methodNode.returnNode.typeId != QMetaType::Void){
-//        return;
-//    }
-//    static const QStringList s_nodeNames ={
-//        "IResponse", "IResponse&", "IRequest", "IRequest&"
-//    };
-//    for(const IArgumentTypeNode& info : node.methodNode.argumentNodes){
-//        if(s_nodeNames.contains(info.typeName)){
-//            return;
-//        }
-//    }
+void IMethodNodeDetail::checkMethodOfReturnVoid()
+{
+    if(returnNode.typeId != QMetaType::Void){
+        return;
+    }
+    static const QStringList s_nodeNames ={
+        "IResponse", "IResponse&", "IRequest", "IRequest&"
+    };
+    for(const IArgumentTypeNode& info : argumentNodes){
+        if(s_nodeNames.contains(info.typeName)){
+            return;
+        }
+    }
 
-//    QString info = "mapping function that return void should include IResponse in side function parameters\n"
-//                   "at Function : " + node.methodNode.signature;
-//    qFatal(info.toUtf8());
-//}
+    QString info = "mapping function that return void should include IResponse in side function parameters\n"
+                   "at Function : " + signature;
+    qFatal(info.toUtf8());
+}
 
 namespace ISpawnUtil
 {

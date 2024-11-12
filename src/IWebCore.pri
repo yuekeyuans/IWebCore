@@ -100,7 +100,6 @@ HEADERS += \
     $$PWD/http/controller/IHttpControllerNode.h \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.h \
     $$PWD/http/controller/detail/IHttpControllerBeanParameter.h \
-    $$PWD/http/controller/detail/IHttpControllerInfo.h \
     $$PWD/http/controller/detail/IHttpControllerParameter.h \
     $$PWD/http/controller/detail/IHttpControllerParameterTask.h \
     $$PWD/http/controller/detail/IHttpCtlReturnTypeManage.h \
@@ -284,7 +283,6 @@ SOURCES += \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.cpp \
     $$PWD/http/controller/detail/IHttpControllerBeanParameter.cpp \
-    $$PWD/http/controller/detail/IHttpControllerInfo.cpp \
     $$PWD/http/controller/detail/IHttpControllerParameter.cpp \
     $$PWD/http/controller/detail/IHttpControllerParameterTask.cpp \
     $$PWD/http/controller/detail/IHttpCtlReturnTypeManage.cpp \
