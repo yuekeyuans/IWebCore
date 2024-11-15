@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "core/unit/ISingletonUnit.h"
-#include "http/controller/detail/IHttpControllerAction.h"
+#include "http/controller/IHttpControllerAction.h"
 
 $PackageWebCoreBegin
 

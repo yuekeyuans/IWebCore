@@ -8,6 +8,7 @@
 
 $PackageWebCoreBegin
 
+// TODO: 这个要被删掉，保留一个接口
 template<typename T, typename Manage, bool enabled =true>
 class ITestBaseInterface : public ITaskWareUnit<T, ITestCatagory, enabled>, public QObject, public ISingletonUnit<T>
 {

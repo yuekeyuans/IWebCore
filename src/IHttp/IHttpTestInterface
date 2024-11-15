@@ -1,6 +1,6 @@
-﻿#pragma once
+﻿//#pragma once
 
-#include "http/core/test/IHttpTestInterface.h"
-#include "ICurl.h"
+//#include "http/core/test/IHttpTestInterface.h"
+//#include "ICurl.h"
 
 

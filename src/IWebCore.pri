@@ -10,7 +10,7 @@ PRECOMPILED_HEADER = $$PWD/core/util/IHeaderUtil.h
 
 HEADERS += \
     $$PWD/IHttp/IHttpControllerInterface \
-    $$PWD/IHttp/IHttpTestInterface \
+#    $$PWD/IHttp/IHttpTestInterface \
     $$PWD/core/abort/IAbortInterface.h \
     $$PWD/core/abort/IAbortPreProcessor.h \
     $$PWD/core/abort/IGlobalAbort.h \
@@ -23,6 +23,7 @@ HEADERS += \
     $$PWD/core/bean/IBeanAbort.h \
     $$PWD/core/bean/IBeanTraitInterface.h \
     $$PWD/core/task/default/IRegisterBaseTypeTask.h \
+    $$PWD/core/test/ITestTaskInterface.h \
     $$PWD/core/trait/IExceptionTrait.h \
     $$PWD/core/unit/IClassNameUnit.h \
     $$PWD/core/unit/ITraceUnit.h \
@@ -109,7 +110,7 @@ HEADERS += \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.h \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.h \
     $$PWD/http/core/defaultTask/IHttpUrlPathValidatorTask.h \
-    $$PWD/http/core/test/IHttpTestTool.h \
+#    $$PWD/http/core/test/IHttpTestTool.h \
     $$PWD/http/core/unit/IRegisterResponseTypeUnit.h \
     $$PWD/http/invalid/IHttpBadRequestInvalid.h \
     $$PWD/http/invalid/IHttpInternalErrorInvalid.h \
@@ -187,9 +188,9 @@ HEADERS += \
     $$PWD/http/biscuits/IHttpVersion.h \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.h \
     $$PWD/http/core/defaultTask/INodyTemplateTask.h \
-    $$PWD/http/core/test/IHttpTestInterface.h \
-    $$PWD/http/core/test/IHttpTestManage.h \
-    $$PWD/http/core/test/IHttpTestTask.h \
+#    $$PWD/http/core/test/IHttpTestInterface.h \
+#    $$PWD/http/core/test/IHttpTestManage.h \
+#    $$PWD/http/core/test/IHttpTestTask.h \
     $$PWD/http/net/ICookieJar.h \
     $$PWD/http/net/ICookiePart.h \
     $$PWD/http/net/IHeaderJar.h \
@@ -292,7 +293,7 @@ SOURCES += \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.cpp \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.cpp \
     $$PWD/http/core/defaultTask/IHttpUrlPathValidatorTask.cpp \
-    $$PWD/http/core/test/IHttpTestTool.cpp \
+#    $$PWD/http/core/test/IHttpTestTool.cpp \
     $$PWD/http/invalid/IHttpBadRequestInvalid.cpp \
     $$PWD/http/invalid/IHttpInternalErrorInvalid.cpp \
     $$PWD/http/invalid/IHttpInvalidWare.cpp \
@@ -359,8 +360,8 @@ SOURCES += \
 #    $$PWD/http/controller/IHttpResourceMapping.cpp \
 #    $$PWD/http/controller/detail/IControllerInterfaceHelper.cpp \
     $$PWD/http/core/defaultTask/INodyTemplateTask.cpp \
-    $$PWD/http/core/test/IHttpTestManage.cpp \
-    $$PWD/http/core/test/IHttpTestTask.cpp \
+#    $$PWD/http/core/test/IHttpTestManage.cpp \
+#    $$PWD/http/core/test/IHttpTestTask.cpp \
     $$PWD/http/net/ICookieJar.cpp \
     $$PWD/http/net/ICookiePart.cpp \
     $$PWD/http/net/IHeaderJar.cpp \
