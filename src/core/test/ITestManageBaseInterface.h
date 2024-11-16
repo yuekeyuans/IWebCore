@@ -37,5 +37,4 @@ void ITestManageBaseInterface<T>::invokeTests()
     }
 }
 
-
 $PackageWebCoreEnd
