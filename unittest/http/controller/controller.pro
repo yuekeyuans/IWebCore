@@ -4,6 +4,9 @@ CONFIG += c++17 console
 CONFIG -= app_bundle
 
 include(../../../src/IWebCore.pri)
+
+DEFINES += QMAKE_PROJECT_DIR=\\\"$$PWD\\\"
+
 SOURCES += \
         bean/StudentBean.cpp \
         controller/NotFoundInvalidHandler.cpp \
@@ -15,4 +18,3 @@ HEADERS += \
     controller/NotFoundInvalidHandler.h \
     controller/RequestAndResponseParameterController.h \
     controller/ReturnTypeController.h
-

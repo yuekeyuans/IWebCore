@@ -23,7 +23,11 @@ public:
     };
 
 protected:
+    explicit IConfigImportInterface(const QString& path);
+    explicit IConfigImportInterface(const char* path);
     explicit IConfigImportInterface(std::string path);
+    explicit IConfigImportInterface(const QString& path, T value);
+    explicit IConfigImportInterface(const char* path, T value);
     explicit IConfigImportInterface(std::string path, T value);
 
 public:
@@ -35,8 +39,8 @@ public:
     bool isInitializedValue() const;
     bool isDefaultedValue() const;
     bool isLoadedValue() const;
-    bool isLoaded() const;
-    bool isFound() const;
+
+private:
     const QString& path();
 
 protected:
@@ -53,13 +57,39 @@ protected:
 };
 
 template<typename T>
+IConfigImportInterface<T>::IConfigImportInterface(const QString &path)
+    : IConfigManageInterface(path.toStdString())
+{
+}
+
+template<typename T>
+IConfigImportInterface<T>::IConfigImportInterface(const char *path)
+    : IConfigManageInterface(std::string(path))
+{
+}
+
+template<typename T>
 IConfigImportInterface<T>::IConfigImportInterface(std::string path)
     : m_path(std::move(path))
 {
+    m_valueMark.valueType = ValueType::InitializedValue;
+
     std::replace(m_path.begin(), m_path.end(), '.', '/');
     if (m_path.empty() || m_path[0] != '/') {
         m_path.insert(m_path.begin(), '/');
     }
+}
+
+template<typename T>
+IConfigImportInterface<T>::IConfigImportInterface(const QString &path, T value)
+    : IConfigManageInterface(path.toStdString(), std::forward<T>(value))
+{
+}
+
+template<typename T>
+IConfigImportInterface<T>::IConfigImportInterface(const char *path, T value)
+    : IConfigManageInterface(std::string(path), std::forward<T>(value))
+{
 }
 
 template<typename T>
@@ -95,38 +125,28 @@ const T& IConfigImportInterface<T>::operator *() const
 template<typename T>
 bool IConfigImportInterface<T>::isInitializedValue() const
 {
+//    get();
     return !isLoadedValue() && (m_valueMark.valueType == ValueType::InitializedValue);
 }
 
 template<typename T>
 bool IConfigImportInterface<T>::isDefaultedValue() const
 {
+//    get();
     return !isLoadedValue() && (m_valueMark.valueType == ValueType::DefaultValue);
 }
 
 template<typename T>
 bool IConfigImportInterface<T>::isLoadedValue() const
 {
+    get();
     return m_valueMark.isLoaded && m_valueMark.isFound;
-}
-
-
-template<typename T>
-bool IConfigImportInterface<T>::isLoaded() const
-{
-    return m_valueMark.isLoaded;
-}
-
-template<typename T>
-bool IConfigImportInterface<T>::isFound() const
-{
-    return m_valueMark.isFound;
 }
 
 template<typename T>
 const QString &IConfigImportInterface<T>::path()
 {
-    return m_path;
+    return QString::fromStdString(m_path);
 }
 
 template<typename T>
@@ -154,7 +174,6 @@ const T &IConfigImportInterface<T>::get() const
             m_data = value.get<bool>();
         }
     }
-
     // signed
     else if constexpr (std::is_integral_v<T> && std::is_signed_v<T>){
         m_valueMark.isFound = value.is_number();
