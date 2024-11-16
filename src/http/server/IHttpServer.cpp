@@ -2,6 +2,7 @@
 #include "core/application/IApplicationInterface.h"
 #include "core/application/IAsioApplication.h"
 #include "core/config/IProfileImport.h"
+#include "core/config/IContextManage.h"
 #include "http/net/IRequest.h"
 #include "http/net/IRequestManage.h"
 #include "http/server/ITcpResolverManage.h"
@@ -51,9 +52,10 @@ void IHttpServer::listen()
     m_acceptor->set_option(asio::ip::tcp::acceptor::reuse_address(true));
     m_acceptor->bind(endpoint);
     m_acceptor->listen();
-
     doAccept();
 
+    IContextManage::instance()->addConfig(IJson(ip.value().toStdString()), "/runtime/ip");
+    IContextManage::instance()->addConfig(IJson(*port), "/runtime/port");
     qDebug() << "server started, listen at " << *ip + ":" + QString::number(*port);
 }
 

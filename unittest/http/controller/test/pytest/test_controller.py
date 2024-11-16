@@ -1,2 +1,6 @@
+import requests
+from ServerConfig import *
+
 def test_controller():
-    assert True
+    val = requests.get(serverAddress + "/ReturnTypeController/beanGet")
+    print(val.text)
