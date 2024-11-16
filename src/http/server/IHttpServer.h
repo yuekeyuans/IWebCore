@@ -17,7 +17,6 @@ public:
 private:
     void doAccept();
 
-
 private:
     $QString ip{"/http/ip", "0.0.0.0"};
     $Int port{"/http/port", 8550};

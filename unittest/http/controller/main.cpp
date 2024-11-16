@@ -5,7 +5,7 @@
 
 $EnableTaskOutput(true)
 $EnableHttpPythonTest(true)
-//$SetHttpPythonScriptDir(D:/test)
+////$SetHttpPythonScriptDir(D:/test)
 int main(int argc, char *argv[])
 {
     IApplication app(argc, argv);
