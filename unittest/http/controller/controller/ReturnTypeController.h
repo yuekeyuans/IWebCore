@@ -11,8 +11,8 @@ public:
     ReturnTypeController();
 
 public:
-    $GetMapping(index)
-    QString index(){
+    $GetMapping(qstring)
+    QString qstring(){
         return "hello world";
     }
 };

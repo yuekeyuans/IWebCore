@@ -13,14 +13,6 @@ class IMethodParameterManage : public ISingletonUnit<IMethodParameterManage>
     using DestroyReturnFun = std::function<void(void*ptr)>;
 public:
     IMethodParameterManage();
-
-public:
-    void registCreateReturnFun(IMetaType node, CreateReturnFun);
-    void registDestroyReturnFun(IMetaType node, DestroyReturnFun);
-
-public:
-    QMap<IMetaType, CreateReturnFun> m_createReturnFun{};
-    QMap<IMetaType, DestroyReturnFun> m_destroyReturnFun{};
 };
 
 $PackageWebCoreEnd
