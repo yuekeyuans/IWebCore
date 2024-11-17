@@ -9,12 +9,14 @@ DEFINES += QMAKE_PROJECT_DIR=\\\"$$PWD\\\"
 
 SOURCES += \
         bean/StudentBean.cpp \
-        controller/NotFoundInvalidHandler.cpp \
+#        controller/NotFoundInvalidHandler.cpp \
+    controller/ArgumentTypeController.cpp \
         controller/ReturnTypeController.cpp \
         main.cpp
 
 HEADERS += \
     bean/StudentBean.h \
-    controller/NotFoundInvalidHandler.h \
+#    controller/NotFoundInvalidHandler.h \
+    controller/ArgumentTypeController.h \
     controller/RequestAndResponseParameterController.h \
     controller/ReturnTypeController.h

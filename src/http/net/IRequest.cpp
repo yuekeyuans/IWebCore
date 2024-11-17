@@ -34,23 +34,23 @@ IRequest::~IRequest()
 
 IRequest::IRequest(const IRequest &) : ITcpResolverInterface(nullptr)
 {
-    IGlobalAbort::abortUnVisibleMethod($ISourceLocation);
+    IGlobalAbort::abortUnVisibleMethod("IRequest can not be copied", $ISourceLocation);
 }
 
 IRequest &IRequest::operator=(const IRequest &)
 {
-    IGlobalAbort::abortUnVisibleMethod($ISourceLocation);
+    IGlobalAbort::abortUnVisibleMethod("IRequest can not be copied", $ISourceLocation);
     return *this;
 }
 
 IRequest::IRequest(IRequest &&) : ITcpResolverInterface(nullptr)
 {
-    IGlobalAbort::abortUnVisibleMethod($ISourceLocation);
+    IGlobalAbort::abortUnVisibleMethod("IRequest can not be moved", $ISourceLocation);
 }
 
 IRequest &IRequest::operator=(IRequest &&)
 {
-    IGlobalAbort::abortUnVisibleMethod($ISourceLocation);
+    IGlobalAbort::abortUnVisibleMethod("IRequest can not be moved", $ISourceLocation);
     return *this;
 }
 

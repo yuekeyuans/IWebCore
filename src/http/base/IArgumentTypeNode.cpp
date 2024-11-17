@@ -1,5 +1,6 @@
 ﻿#include "IArgumentTypeNode.h"
 #include "core/util/ISpawnUtil.h"
+#include "core/bean/IBeanTypeManage.h"
 #include "http/base/IHttpParameterRestrictManage.h"
 #include "http/base/IHttpParameterRestrictInterface.h"
 #include "http/controller/IHttpControllerAbort.h"
@@ -24,11 +25,12 @@ private:
     void checkBareResponseOrConstResponseRef(); // IResponse or const IResponse& is not allowed
     void checkResponseAndRequestWithoutDecorators();    // IRequest and Response can not be decorated
 
-//private: // TODO: check
-//    void checkMethodSupportedParamArgType();
-//    void checkMethodBodyContentArgs(const IHttpControllerAction &node);
-//    void checkMethodParamterWithSuffixProper(const IHttpControllerAction &node);
-//    bool isSpecialTypes(const QString &typeName);
+private: // TODO: check
+    void checkMethodSupportedParamArgType();
+    void checkMethodBodyContentArgs();
+    void checkMethodParamterWithSuffixProper();
+    bool isDefinedType();
+    bool isEmbendedType();
 
 private:
     inline static const QStringList QualifierNames = {
@@ -46,6 +48,7 @@ inline IArgumentTypeNodeDetail::IArgumentTypeNodeDetail(int paramTypeId_, QStrin
     typeName = paramTypeName_;
     nameRaw = name_;
     m_methodSignature = methodSignature_;
+
     auto args = nameRaw.split("_$");
     name = args.first();
     args.pop_front();
@@ -77,7 +80,7 @@ inline void IArgumentTypeNodeDetail::checkParamType()
 
 inline void IArgumentTypeNodeDetail::checkParamNameEmpty()
 {
-    if(name.trimmed().isEmpty()){
+    if(!isEmbendedType() && name.trimmed().isEmpty()){
         IHttpControllerAbort::abortParamNameEmpty();
     }
 }
@@ -157,68 +160,63 @@ void IArgumentTypeNodeDetail::checkResponseAndRequestWithoutDecorators()
     }
 }
 
+void IArgumentTypeNodeDetail::checkMethodSupportedParamArgType()
+{
+    static const QVector<QMetaType::Type> allowType = {
+        QMetaType::Bool,
+        QMetaType::Short,
+        QMetaType::UShort,
+        QMetaType::Int,
+        QMetaType::UInt,
+        QMetaType::Long,
+        QMetaType::ULong,
+        QMetaType::LongLong,
+        QMetaType::ULongLong,
+        QMetaType::Float,
+        QMetaType::Double,
 
+        QMetaType::QString,
+        QMetaType::QByteArray,
 
+        QMetaType::QJsonArray,
+        QMetaType::QJsonObject,
+        QMetaType::QJsonValue,
+    };
 
-//void IArgumentTypeNodeDetail::checkMethodSupportedParamArgType()
-//{
-//    static const QString info = "the argument type is not valid, please use the correct type\n";
-//    static const QVector<QMetaType::Type> allowType = {
-//        QMetaType::Bool,
-//        QMetaType::Short,
-//        QMetaType::UShort,
-//        QMetaType::Int,
-//        QMetaType::UInt,
-//        QMetaType::Long,
-//        QMetaType::ULong,
-//        QMetaType::LongLong,
-//        QMetaType::ULongLong,
-//        QMetaType::Float,
-//        QMetaType::Double,
-
-//        QMetaType::QString,
-//        QMetaType::QByteArray,
-
-//        QMetaType::QJsonArray,
-//        QMetaType::QJsonObject,
-//        QMetaType::QJsonValue,
-//    };
-
-//    for(const IArgumentTypeNode& info : node.methodNode.argumentNodes){
-//        const auto& typeName = info.typeName;
-//        const auto& typeId = info.typeId;
-//        if(typeId >= QMetaType::User){
-//            bool isSupportedType = isSpecialTypes(typeName) || IBeanTypeManage::instance()->isBeanIdExist(typeId) /*isBeanType(typeName)*/;
-//            if(!isSupportedType){
+    if(typeId >= QMetaType::User){
+        if(isEmbendedType()
+            || isDefinedType()
+            || IBeanTypeManage::instance()->isBeanIdExist(typeId)){
+            qFatal("error exist");
 //                IHttpControllerAbort::abortcontroller_check_param_Type_has_unsupported_user_defined_type( QString("At Function: ").append(node.methodNode.signature)
 //                                                                                                          .append(" At Param: ").append(typeName), $ISourceLocation);
-//            }
-//        } else{
-//            if(!allowType.contains((QMetaType::Type)typeId)){
+        }
+    } else{
+        if(!allowType.contains((QMetaType::Type)typeId)){
+            qFatal("error exist");
 //                IHttpControllerAbort::abortcontroller_check_param_Type_has_unsupported_inner_type(QString("At Function: ").append(node.methodNode.signature)
 //                                                                                                  .append(" At Param: ").append(typeName), $ISourceLocation);
+        }
+    }
+}
+
+void IArgumentTypeNodeDetail::checkMethodBodyContentArgs()
+{
+//        const auto& typeNames = node.methodNode.parameterTypeNames;
+//        auto index = typeNames.indexOf("QJsonValue&");
+//        if(index != -1){
+//            const auto& paramNames = node.methodNode.parameterNames;
+//            auto name = paramNames[index];
+//            if(!name.endsWith("_content")){
+//                QString info = "QJsonValue& can`t be used except in $Body expression\n"
+//                               "at Function : " + node.methodNode.functionName;
+//                qFatal(info.toUtf8());
 //            }
 //        }
-//    }
-//}
+}
 
-//void IArgumentTypeNodeDetail::checkMethodBodyContentArgs(const IHttpControllerAction &node)
-//{
-//    //    const auto& typeNames = node.methodNode.parameterTypeNames;
-//    //    auto index = typeNames.indexOf("QJsonValue&");
-//    //    if(index != -1){
-//    //        const auto& paramNames = node.methodNode.parameterNames;
-//    //        auto name = paramNames[index];
-//    //        if(!name.endsWith("_content")){
-//    //            QString info = "QJsonValue& can`t be used except in $Body expression\n"
-//    //                           "at Function : " + node.methodNode.functionName;
-//    //            qFatal(info.toUtf8());
-//    //        }
-//    //    }
-//}
-
-//void IArgumentTypeNodeDetail::checkMethodParamterWithSuffixProper(const IHttpControllerAction &node)
-//{
+void IArgumentTypeNodeDetail::checkMethodParamterWithSuffixProper()
+{
 //    const auto& argNodes = node.methodNode.argumentNodes;
 
 //    // get 中不能调用 body 的参数。
@@ -229,24 +227,31 @@ void IArgumentTypeNodeDetail::checkResponseAndRequestWithoutDecorators()
 //            }
 //        }
 //    }
-//}
+}
 
-//bool IArgumentTypeNodeDetail::isSpecialTypes(const QString &typeName)
-//{
+// TODO: 这两个类型没有校验
+bool IArgumentTypeNodeDetail::isDefinedType()
+{
+    static const QStringList specialExternalTypes = {
+        "IStringView",  "IJson"
+    };
 
-//    static const QStringList specialExternalTypes = {
-//        "IRequest",     "IRequest&",
-//        "IResponse",    "IResponse&",
-//        "IMultiPart",   "IMultiPart&",
-//        "ICookieJar",   "ICookieJar&",
-//        "ICookiePart",  "ICookiePart&"
-//        "ISessionJar",  "ISessionJar&",
-//        "IHeaderJar",   "IHeaderJar&",
-//        "IStringView"
-//    };
+    return specialExternalTypes.contains(typeName);
+}
 
-//    return specialExternalTypes.contains(typeName);
-//}
+bool IArgumentTypeNodeDetail::isEmbendedType()
+{
+    static const QStringList s_embendedType = {
+        "IRequest",     "IRequest&",
+        "IResponse",    "IResponse&",
+        "IMultiPart",   "IMultiPart&",
+        "ICookieJar",   "ICookieJar&",
+        "ICookiePart",  "ICookiePart&"
+        "ISessionJar",  "ISessionJar&",
+        "IHeaderJar",   "IHeaderJar&",
+    };
+    return s_embendedType.contains(typeName);
+}
 
 namespace ISpawnUtil {
 

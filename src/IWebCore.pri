@@ -10,7 +10,6 @@ PRECOMPILED_HEADER = $$PWD/core/util/IHeaderUtil.h
 
 HEADERS += \
     $$PWD/IHttp/IHttpControllerInterface \
-#    $$PWD/IHttp/IHttpTestInterface \
     $$PWD/core/abort/IAbortInterface.h \
     $$PWD/core/abort/IAbortPreProcessor.h \
     $$PWD/core/abort/IGlobalAbort.h \
@@ -39,7 +38,6 @@ HEADERS += \
     $$PWD/core/util/ITicTacUtil.h \
     $$PWD/core/util/IToeUtil.h \
     $$PWD/core/util/ITraitUtil.h \
-#    $$PWD/core/util/IXmlUtil.h \
     $$PWD/core/bean/IBeanInterface.h \
     $$PWD/core/bean/IBeanPreProcessor.h \
     $$PWD/core/bean/IBeanTypeManage.h \

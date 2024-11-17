@@ -27,10 +27,10 @@ public:
     explicit IRequest(ITcpConnection*);
     ~IRequest();
 
-    IRequest(const IRequest &);
-    IRequest &operator=(const IRequest &);
-    IRequest(IRequest&&);
-    IRequest& operator=(IRequest&&);
+    IRequest(const IRequest &) /*=delete*/;
+    IRequest &operator=(const IRequest &) /*=delete*/;
+    IRequest(IRequest&&) /*=delete*/;
+    IRequest& operator=(IRequest&&) /*=delete*/;
 
     IStringView operator[](IStringView header) const;
     IStringView operator[](const QString& header) const;

@@ -6,7 +6,7 @@
  * 这个类仅仅测试函数请求参数是否能够设置成功,不要求能够执行,
  * 也就是能够编译,运行不报错就可以
  */
-class RequestAndResponseParameterController : public IHttpControllerInterface<RequestAndResponseParameterController>
+class RequestAndResponseParameterController : public IHttpControllerInterface<RequestAndResponseParameterController, false>
 {
     Q_GADGET
 public:

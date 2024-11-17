@@ -96,7 +96,7 @@ void IHttpControllerParameter::resolveReturnValue(IResponse& response, const IMe
         responseWare = QSharedPointer<IByteArrayResponse>::create(*static_cast<QByteArray*>(params[0]));
         break;
     case QMetaType::QStringList:
-        responseWare = QSharedPointer<IPlainTextResponse>::create(IConvertUtil::toString(*static_cast<QStringList*>(params[0])));
+//        responseWare = QSharedPointer<IPlainTextResponse>::create(IConvertUtil::toString(*static_cast<QStringList*>(params[0])));
         break;
     default:
         auto type = functionNode.returnNode.typeName;

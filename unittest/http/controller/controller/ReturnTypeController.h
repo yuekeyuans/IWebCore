@@ -10,10 +10,5 @@ class ReturnTypeController : public IHttpControllerInterface<ReturnTypeControlle
 public:
     ReturnTypeController();
 
-    $GetMapping(beanGet)
-    StudentBean beanGet(){
-        return StudentBean();
-    }
-
 };
 
