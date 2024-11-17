@@ -67,8 +67,11 @@ void IHttpControllerParameter::destroyArguments(const IMethodNode& node, void **
     }
 }
 
-void IHttpControllerParameter::resolveReturnValue(IResponse& response, const IMethodNode& functionNode, ParamType &params)
+void IHttpControllerParameter::resolveReturnValue(IResponse& response, const IMethodNode& functionNode, void* paramVal)
 {
+    ParamType params;
+    params[0] = paramVal;
+
     QMetaType::Type typeId = functionNode.returnNode.typeId;
     QSharedPointer<IResponseWare> responseWare;
     auto inst = instance();

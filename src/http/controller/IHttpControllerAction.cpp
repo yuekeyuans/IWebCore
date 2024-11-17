@@ -17,7 +17,9 @@ void IHttpControllerAction::invoke(IRequest &request) const
         auto enclosingObject = methodNode.metaMethod.enclosingMetaObject();
         enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params.data());
         if(request.isValid()){
-            methodNode.returnNode.resolveValue(request, params[0]);
+//            methodNode.returnNode.resolveValue(request, params[0]);
+            IResponse response(&request);
+            IHttpControllerParameter::resolveReturnValue(response, methodNode, params[0]);
         }
     }
 
@@ -53,7 +55,7 @@ void IHttpControllerAction::invoke(IRequest &request) const
 IHttpControllerAction::ParamType IHttpControllerAction::createParams(IRequest& request) const
 {
     ParamType params;
-    params[0] = methodNode.returnNode.create(request);
+    params[0] = methodNode.returnNode.create();
     int len = methodNode.argumentNodes.length();
     for(int i=0; i<len; i++){
         params[i+1] = methodNode.argumentNodes[i].create(request);

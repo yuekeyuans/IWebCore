@@ -25,7 +25,7 @@ public:
 public:
     static bool createArguments(const IMethodNode& methodNode, ParamType& params, IRequest& request);
     static void destroyArguments(const IMethodNode& node, void **params);
-    static void resolveReturnValue(IResponse& response, const IMethodNode& functionNode, ParamType &params);
+    static void resolveReturnValue(IResponse& response, const IMethodNode& functionNode, void* ptr);
 
 private:
     void *createReturnParam(int paramTypeId);

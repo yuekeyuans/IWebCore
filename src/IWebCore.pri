@@ -279,6 +279,7 @@ SOURCES += \
     $$PWD/http/base/IArgumentTypeNode.cpp \
     $$PWD/http/base/IMethodParameterManage.cpp \
     $$PWD/http/base/IReturnTypeNode.cpp \
+    $$PWD/http/base/ITypeNode.cpp \
     $$PWD/http/controller/IHttpControllerAction.cpp \
     $$PWD/http/controller/IHttpControllerInterface.cpp \
     $$PWD/http/controller/IHttpControllerNode.cpp \

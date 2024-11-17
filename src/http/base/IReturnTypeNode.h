@@ -12,12 +12,12 @@ struct IReturnTypeNode : public ITypeNode
 public:
     IReturnTypeNode() = default;
     IReturnTypeNode(QMetaType::Type, const QString& name);
-    void* create(IRequest&) const;
+    void* create() const;
     void destroy(void*ptr) const;
     void resolveValue(IRequest& request, void* ptr) const;
 
 private:
-    std::function<void*(IRequest&)> m_createFun{};
+    std::function<void*()> m_createFun{};
     std::function<void(void*)> m_destroyFun{};
     std::function<void(IRequest&, void*)> m_resolveFun{};
 };

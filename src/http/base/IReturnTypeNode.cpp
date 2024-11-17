@@ -1,6 +1,7 @@
 ﻿#include "IReturnTypeNode.h"
 #include "core/util/ISpawnUtil.h"
 #include "core/bean/IBeanTypeManage.h"
+#include "http/base/IMethodParameterManage.h"
 
 $PackageWebCoreBegin
 
@@ -74,11 +75,18 @@ namespace ISpawnUtil
 IReturnTypeNode::IReturnTypeNode(QMetaType::Type type, const QString &name)
     :ITypeNode{type, name}
 {
+    if(IMethodParameterManage::instance()->m_createReturnFun.contains(*this)){
+        m_createFun = IMethodParameterManage::instance()->m_createReturnFun[*this];
+    }
+
+    if(IMethodParameterManage::instance()->m_destroyReturnFun.contains(*this)){
+        m_destroyFun = IMethodParameterManage::instance()->m_destroyReturnFun[*this];
+    }
 }
 
-void *IReturnTypeNode::create(IRequest &request) const
+void *IReturnTypeNode::create() const
 {
-    return m_createFun(request);
+    return m_createFun();
 }
 
 void IReturnTypeNode::destroy(void *ptr) const
