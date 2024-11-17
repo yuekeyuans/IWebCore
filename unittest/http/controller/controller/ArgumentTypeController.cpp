@@ -15,3 +15,14 @@ QString ArgumentTypeController::constIRequestRef(const IRequest & req)
 {
     return req.url();
 }
+
+QString ArgumentTypeController::irequest(IRequest)
+{
+    return "hello world";
+}
+
+QString ArgumentTypeController::iresponseRef(IResponse &response)
+{
+    response.setHeader("hello", "world");
+    return "hello world";
+}

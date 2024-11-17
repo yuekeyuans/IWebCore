@@ -1,14 +1,25 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
+#include "ITypeNode.h"
+#include <functional>
 
 $PackageWebCoreBegin
 
-// TODO: 后续支持创建和销毁
-struct IReturnTypeNode
+class IRequest;
+struct IReturnTypeNode : public ITypeNode
 {
-    QMetaType::Type typeId {QMetaType::UnknownType};
-    QString typeName;
+public:
+    IReturnTypeNode() = default;
+    IReturnTypeNode(QMetaType::Type, const QString& name);
+    void* create(IRequest&) const;
+    void destroy(void*ptr) const;
+    void resolveValue(IRequest& request, void* ptr) const;
+
+private:
+    std::function<void*(IRequest&)> m_createFun{};
+    std::function<void(void*)> m_destroyFun{};
+    std::function<void(IRequest&, void*)> m_resolveFun{};
 };
 
 $PackageWebCoreEnd

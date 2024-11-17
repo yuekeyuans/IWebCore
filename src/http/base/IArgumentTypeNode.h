@@ -1,19 +1,24 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
+#include "ITypeNode.h"
 
 $PackageWebCoreBegin
 
 class IHttpParameterRestrictInterface;
 
-struct IArgumentTypeNode
+class IRequest;
+struct IArgumentTypeNode : public ITypeNode
 {
+public:
+    void* create(IRequest&) const;
+    void destory(void*) const;
+
+public:
     enum Position{
         Auto, Param, Url, Header, Body, Content, Cookie, Session,
     };
 
-    int typeId;
-    QString typeName;
     QString nameRaw;
     QString name;
 

@@ -7,6 +7,7 @@
 
 $PackageWebCoreBegin
 
+// TODO: 废弃这个东西
 class IRequest;
 class IResponse;
 struct IMethodNode;

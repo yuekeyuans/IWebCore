@@ -27,7 +27,6 @@ void IReturnTypeNodeDetail::chechMethodSupportedReturnType()
 //        IMethodNodeAbort::abortcontroller_invalid_parameter_type(reason, $ISourceLocation);
     }
 
-
     const static QString info = "this kind of return type not supported, please change the return type!";
 
     const static  QVector<QMetaType::Type> validMetaType = {
@@ -70,6 +69,26 @@ namespace ISpawnUtil
     {
         return IReturnTypeNodeDetail(QMetaType::Type(type), name);
     }
+}
+
+IReturnTypeNode::IReturnTypeNode(QMetaType::Type type, const QString &name)
+    :ITypeNode{type, name}
+{
+}
+
+void *IReturnTypeNode::create(IRequest &request) const
+{
+    return m_createFun(request);
+}
+
+void IReturnTypeNode::destroy(void *ptr) const
+{
+    return m_destroyFun(ptr);
+}
+
+void IReturnTypeNode::resolveValue(IRequest &request, void *ptr) const
+{
+    return m_resolveFun(request, ptr);
 }
 
 $PackageWebCoreEnd

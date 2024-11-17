@@ -8,7 +8,6 @@
 #include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/net/IMultiPart.h"
 #include "http/base/IMethodNode.h"
-//#include "http/base/IFunctionNode.h"
 #include "http/base/IArgumentTypeNode.h"
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"

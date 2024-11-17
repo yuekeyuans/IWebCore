@@ -2,7 +2,7 @@
 
 #include <IHttp/IHttpControllerInterface>
 
-class ArgumentTypeController : public IHttpControllerInterface<ArgumentTypeController>
+class ArgumentTypeController : public IHttpControllerInterface<ArgumentTypeController, false>
 {
     Q_GADGET
     $AsController(ArgumentTypeController)
@@ -19,6 +19,9 @@ public:
     QString constIRequestRef(const IRequest&);
 
     $GetMapping(irequest)
-    QString irequest(IRequest){ return "hello world";}
+    QString irequest(IRequest);
+
+    $GetMapping(iresponseRef)
+    QString iresponseRef(IResponse&);
 };
 

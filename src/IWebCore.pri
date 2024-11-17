@@ -92,7 +92,9 @@ HEADERS += \
     $$PWD/http/IHttpManage.h \
     $$PWD/http/IHttpTaskCatagory.h \
     $$PWD/http/base/IArgumentTypeNode.h \
+    $$PWD/http/base/IMethodParameterManage.h \
     $$PWD/http/base/IReturnTypeNode.h \
+    $$PWD/http/base/ITypeNode.h \
     $$PWD/http/controller/IHttpControllerAbort.h \
     $$PWD/http/controller/IHttpControllerAction.h \
     $$PWD/http/controller/IHttpControllerInterface.h \
@@ -275,6 +277,7 @@ SOURCES += \
 #    $$PWD/core/util/detail/IConvertUtilBaseTypeDetail.cpp \
     $$PWD/http/IHttpManage.cpp \
     $$PWD/http/base/IArgumentTypeNode.cpp \
+    $$PWD/http/base/IMethodParameterManage.cpp \
     $$PWD/http/base/IReturnTypeNode.cpp \
     $$PWD/http/controller/IHttpControllerAction.cpp \
     $$PWD/http/controller/IHttpControllerInterface.cpp \

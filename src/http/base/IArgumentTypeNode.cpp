@@ -44,7 +44,7 @@ private:
 
 inline IArgumentTypeNodeDetail::IArgumentTypeNodeDetail(int paramTypeId_, QString paramTypeName_, QString name_, QString methodSignature_)
 {
-    typeId = paramTypeId_;
+    typeId = (QMetaType::Type)paramTypeId_;
     typeName = paramTypeName_;
     nameRaw = name_;
     m_methodSignature = methodSignature_;
@@ -272,6 +272,16 @@ IArgumentTypeNode construct(int paramTypeId, QString paramTypeName, QString para
 {
     return IArgumentTypeNodeDetail(paramTypeId, paramTypeName, paramName, signature);
 }
+}
+
+void *IArgumentTypeNode::create(IRequest &) const
+{
+    return nullptr;
+}
+
+void IArgumentTypeNode::destory(void *ptr) const
+{
+    // do nothing here
 }
 
 $PackageWebCoreEnd
