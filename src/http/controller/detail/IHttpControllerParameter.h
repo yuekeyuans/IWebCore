@@ -11,13 +11,13 @@ $PackageWebCoreBegin
 class IRequest;
 class IResponse;
 struct IMethodNode;
-struct IArgumentTypeNode;
+struct IArgumentType;
 class IHttpControllerParameter  : public IInitializationTaskInterface<IHttpControllerParameter>
 {
 public:
     using ParamType = void*[11];
-    using CreateParamFunType = void*(IHttpControllerParameter::*)(const IArgumentTypeNode& node, IRequest& request, bool& ok);
-    using ReleaseParamFunType = bool (IHttpControllerParameter::*)(const IArgumentTypeNode& node, void *obj);
+    using CreateParamFunType = void*(IHttpControllerParameter::*)(const IArgumentType& node, IRequest& request, bool& ok);
+    using ReleaseParamFunType = bool (IHttpControllerParameter::*)(const IArgumentType& node, void *obj);
 
 public:
     IHttpControllerParameter() = default;
@@ -29,27 +29,27 @@ public:
 
 private:
     void *createReturnParam(int paramTypeId);
-    void *createArgParam(const IArgumentTypeNode&node, IRequest& request, bool& ok);
+    void *createArgParam(const IArgumentType&node, IRequest& request, bool& ok);
     void destroyReturnParam(void *obj, int paramTypeId);
-    void destroyArgParam(const IArgumentTypeNode& node, void *obj);
+    void destroyArgParam(const IArgumentType& node, void *obj);
 
 private:
-    void* getParamOfSystem(const IArgumentTypeNode& node, IRequest& request, bool& ok);
-    void* getParamOfMultipart(const IArgumentTypeNode& node, IRequest& request, bool& ok);
-    void* getParamOfCookiePart(const IArgumentTypeNode& node, IRequest& request, bool& ok);
-    void* getParamOfSession(const IArgumentTypeNode& node, IRequest& request, bool& ok);
-    void* getParamOfBean(const IArgumentTypeNode& node, IRequest& request, bool& ok);
-    void* getParamOfJsonType(const IArgumentTypeNode& node, IRequest& request, bool& ok);
-    void* getParamOfPrimitiveType(const IArgumentTypeNode& node, IRequest& request, bool& ok);
-    void* getParamOfStringType(const IArgumentTypeNode& node, IRequest& request, bool& ok);
+    void* getParamOfSystem(const IArgumentType& node, IRequest& request, bool& ok);
+    void* getParamOfMultipart(const IArgumentType& node, IRequest& request, bool& ok);
+    void* getParamOfCookiePart(const IArgumentType& node, IRequest& request, bool& ok);
+    void* getParamOfSession(const IArgumentType& node, IRequest& request, bool& ok);
+    void* getParamOfBean(const IArgumentType& node, IRequest& request, bool& ok);
+    void* getParamOfJsonType(const IArgumentType& node, IRequest& request, bool& ok);
+    void* getParamOfPrimitiveType(const IArgumentType& node, IRequest& request, bool& ok);
+    void* getParamOfStringType(const IArgumentType& node, IRequest& request, bool& ok);
 
-    bool releaseParamOfSystem(const IArgumentTypeNode& node, void *obj);
-    bool releaseParamOfMultipart(const IArgumentTypeNode& node, void *obj);
-    bool releaseParamOfCookiePart(const IArgumentTypeNode& node, void *obj);
-    bool releaseParamOfBean(const IArgumentTypeNode& node, void *obj);
-    bool releaseParamOfJsonType(const IArgumentTypeNode& node, void *obj);
-    bool releaseParamOfPrimitiveType(const IArgumentTypeNode& node, void *obj);
-    bool releaseParamOfStringType(const IArgumentTypeNode& node, void *obj);
+    bool releaseParamOfSystem(const IArgumentType& node, void *obj);
+    bool releaseParamOfMultipart(const IArgumentType& node, void *obj);
+    bool releaseParamOfCookiePart(const IArgumentType& node, void *obj);
+    bool releaseParamOfBean(const IArgumentType& node, void *obj);
+    bool releaseParamOfJsonType(const IArgumentType& node, void *obj);
+    bool releaseParamOfPrimitiveType(const IArgumentType& node, void *obj);
+    bool releaseParamOfStringType(const IArgumentType& node, void *obj);
 
 private:
     void wrapVoidReturnInstance(IResponse& response, const IMethodNode& functionNode, ParamType &params);

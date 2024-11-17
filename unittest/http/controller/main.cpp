@@ -4,7 +4,7 @@
 #include "IHttpPythonTestAnnomacro.h"
 
 $EnableTaskOutput(true)
-$EnableHttpPythonTest(false)
+$EnableHttpPythonTest(true)
 ////$SetHttpPythonScriptDir(D:/test)
 int main(int argc, char *argv[])
 {

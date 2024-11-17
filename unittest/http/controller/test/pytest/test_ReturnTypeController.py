@@ -1,3 +1,6 @@
 from ServerConfig import *
+import requests
 
-# def test_
+def test_QString():
+    val = requests.get(serverAddress + "/ReturnTypeController/index")
+    assert val.status_code == 200

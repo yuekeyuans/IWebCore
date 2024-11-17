@@ -43,7 +43,7 @@ IMethodNodeDetail::IMethodNodeDetail(void *handler_, const QString &className_, 
 
 void IMethodNodeDetail::createReturnNode()
 {
-    returnNode = ISpawnUtil::construct<IReturnTypeNode>(metaMethod.returnType(), metaMethod.typeName());
+    returnNode = ISpawnUtil::construct<IReturnType>(metaMethod.returnType(), metaMethod.typeName());
 }
 
 void IMethodNodeDetail::createArgumentNodes()
@@ -59,14 +59,14 @@ void IMethodNodeDetail::createArgumentNodes()
             IMethodNodeAbort::abortcontroller_invalid_parameter_type(reason, $ISourceLocation);
         }
 
-        argumentNodes.append(ISpawnUtil::construct<IArgumentTypeNode>(id, types[i], names[i], metaMethod.methodSignature()));
+        argumentNodes.append(ISpawnUtil::construct<IArgumentType>(id, types[i], names[i], metaMethod.methodSignature()));
     }
 }
 
 void IMethodNodeDetail::createSignature()
 {
     QStringList args;
-    for(const IArgumentTypeNode& node : argumentNodes){
+    for(const IArgumentType& node : argumentNodes){
         args.append(node.typeName + " " + node.name);
     }
 
@@ -83,7 +83,7 @@ void IMethodNodeDetail::checkMethodOfReturnVoid()
     static const QStringList s_nodeNames ={
         "IResponse", "IResponse&", "IRequest", "IRequest&"
     };
-    for(const IArgumentTypeNode& info : argumentNodes){
+    for(const IArgumentType& info : argumentNodes){
         if(s_nodeNames.contains(info.typeName)){
             return;
         }

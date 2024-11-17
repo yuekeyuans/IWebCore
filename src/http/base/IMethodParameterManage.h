@@ -2,7 +2,7 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "core/unit/ISingletonUnit.h"
-#include "http/base/ITypeNode.h"
+#include "http/base/IMetaType.h"
 
 $PackageWebCoreBegin
 
@@ -11,17 +11,16 @@ class IMethodParameterManage : public ISingletonUnit<IMethodParameterManage>
 {
     using CreateReturnFun = std::function<void*()>;
     using DestroyReturnFun = std::function<void(void*ptr)>;
-
 public:
     IMethodParameterManage();
 
 public:
-    void registCreateReturnFun(ITypeNode node, CreateReturnFun);
-    void registDestroyReturnFun(ITypeNode node, DestroyReturnFun);
+    void registCreateReturnFun(IMetaType node, CreateReturnFun);
+    void registDestroyReturnFun(IMetaType node, DestroyReturnFun);
 
 public:
-    QMap<ITypeNode, CreateReturnFun> m_createReturnFun{};
-    QMap<ITypeNode, DestroyReturnFun> m_destroyReturnFun{};
+    QMap<IMetaType, CreateReturnFun> m_createReturnFun{};
+    QMap<IMetaType, DestroyReturnFun> m_destroyReturnFun{};
 };
 
 $PackageWebCoreEnd

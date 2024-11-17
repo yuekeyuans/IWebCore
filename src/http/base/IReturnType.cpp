@@ -1,11 +1,11 @@
-﻿#include "IReturnTypeNode.h"
+﻿#include "IReturnType.h"
 #include "core/util/ISpawnUtil.h"
 #include "core/bean/IBeanTypeManage.h"
 #include "http/base/IMethodParameterManage.h"
 
 $PackageWebCoreBegin
 
-class IReturnTypeNodeDetail : public IReturnTypeNode
+class IReturnTypeNodeDetail : public IReturnType
 {
 public:
     IReturnTypeNodeDetail(QMetaType::Type type, const QString& name);
@@ -15,7 +15,7 @@ private:
 };
 
 IReturnTypeNodeDetail::IReturnTypeNodeDetail(QMetaType::Type type, const QString& name)
-    : IReturnTypeNode{type, name}
+    : IReturnType{type, name}
 {
     chechMethodSupportedReturnType();
 }
@@ -66,14 +66,14 @@ void IReturnTypeNodeDetail::chechMethodSupportedReturnType()
 namespace ISpawnUtil
 {
     template<>
-    IReturnTypeNode construct(int type, const char* name)
+    IReturnType construct(int type, const char* name)
     {
         return IReturnTypeNodeDetail(QMetaType::Type(type), name);
     }
 }
 
-IReturnTypeNode::IReturnTypeNode(QMetaType::Type type, const QString &name)
-    :ITypeNode{type, name}
+IReturnType::IReturnType(QMetaType::Type type, const QString &name)
+    :IMetaType{type, name}
 {
     if(IMethodParameterManage::instance()->m_createReturnFun.contains(*this)){
         m_createFun = IMethodParameterManage::instance()->m_createReturnFun[*this];
@@ -84,17 +84,17 @@ IReturnTypeNode::IReturnTypeNode(QMetaType::Type type, const QString &name)
     }
 }
 
-void *IReturnTypeNode::create() const
+void *IReturnType::create() const
 {
     return m_createFun();
 }
 
-void IReturnTypeNode::destroy(void *ptr) const
+void IReturnType::destroy(void *ptr) const
 {
     return m_destroyFun(ptr);
 }
 
-void IReturnTypeNode::resolveValue(IRequest &request, void *ptr) const
+void IReturnType::resolveValue(IRequest &request, void *ptr) const
 {
     return m_resolveFun(request, ptr);
 }

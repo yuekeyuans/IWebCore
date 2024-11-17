@@ -72,3 +72,6 @@ compile_commands.json
 *_qmlcache.qrc
 unittest/http/controller/test/pytest/report.html
 unittest/http/controller/test/pytest/ServerConfig.py
+unittest/http/controller/test/pytest/report.html
+unittest/http/controller/test/pytest/index.html
+unittest/http/controller/test/pytest/assets/style.css

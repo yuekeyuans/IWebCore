@@ -6,6 +6,7 @@
 class ReturnTypeController : public IHttpControllerInterface<ReturnTypeController, true>
 {
     Q_GADGET
+    $AsController(ReturnTypeController)
 public:
     ReturnTypeController();
 

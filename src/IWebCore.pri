@@ -91,10 +91,10 @@ HEADERS += \
     $$PWD/http/IHttpAnnomacro.h \
     $$PWD/http/IHttpManage.h \
     $$PWD/http/IHttpTaskCatagory.h \
-    $$PWD/http/base/IArgumentTypeNode.h \
+    $$PWD/http/base/IArgumentType.h \
+    $$PWD/http/base/IMetaType.h \
     $$PWD/http/base/IMethodParameterManage.h \
-    $$PWD/http/base/IReturnTypeNode.h \
-    $$PWD/http/base/ITypeNode.h \
+    $$PWD/http/base/IReturnType.h \
     $$PWD/http/controller/IHttpControllerAbort.h \
     $$PWD/http/controller/IHttpControllerAction.h \
     $$PWD/http/controller/IHttpControllerInterface.h \
@@ -276,10 +276,10 @@ SOURCES += \
 #    $$PWD/http/IHttpAssert.cpp \
 #    $$PWD/core/util/detail/IConvertUtilBaseTypeDetail.cpp \
     $$PWD/http/IHttpManage.cpp \
-    $$PWD/http/base/IArgumentTypeNode.cpp \
+    $$PWD/http/base/IArgumentType.cpp \
+    $$PWD/http/base/IMetaType.cpp \
     $$PWD/http/base/IMethodParameterManage.cpp \
-    $$PWD/http/base/IReturnTypeNode.cpp \
-    $$PWD/http/base/ITypeNode.cpp \
+    $$PWD/http/base/IReturnType.cpp \
     $$PWD/http/controller/IHttpControllerAction.cpp \
     $$PWD/http/controller/IHttpControllerInterface.cpp \
     $$PWD/http/controller/IHttpControllerNode.cpp \

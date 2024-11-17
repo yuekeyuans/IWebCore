@@ -1,14 +1,14 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
-#include "ITypeNode.h"
+#include "IMetaType.h"
 
 $PackageWebCoreBegin
 
 class IHttpParameterRestrictInterface;
 
 class IRequest;
-struct IArgumentTypeNode : public ITypeNode
+struct IArgumentType : public IMetaType
 {
 public:
     void* create(IRequest&) const;

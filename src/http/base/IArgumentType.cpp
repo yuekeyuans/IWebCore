@@ -1,4 +1,4 @@
-﻿#include "IArgumentTypeNode.h"
+﻿#include "IArgumentType.h"
 #include "core/util/ISpawnUtil.h"
 #include "core/bean/IBeanTypeManage.h"
 #include "http/base/IHttpParameterRestrictManage.h"
@@ -9,7 +9,7 @@
 $PackageWebCoreBegin
 
 // TODO: 这里 Nullable/NotNull 替换为Optional, 具体的参数见文档
-struct IArgumentTypeNodeDetail : public IArgumentTypeNode
+struct IArgumentTypeNodeDetail : public IArgumentType
 {
 public:
     IArgumentTypeNodeDetail(int typeId, QString typeName, QString name, QString m_methodSignature);
@@ -256,30 +256,30 @@ bool IArgumentTypeNodeDetail::isEmbendedType()
 namespace ISpawnUtil {
 
 template<>
-IArgumentTypeNode construct(int paramTypeId, const char* paramTypeName, const char* paramName, QByteArray signature)
+IArgumentType construct(int paramTypeId, const char* paramTypeName, const char* paramName, QByteArray signature)
 {
     return IArgumentTypeNodeDetail(paramTypeId, paramTypeName, paramName, signature);
 }
 
 template<>
-IArgumentTypeNode construct(int paramTypeId, QByteArray paramTypeName, QByteArray paramName, QByteArray signature)
+IArgumentType construct(int paramTypeId, QByteArray paramTypeName, QByteArray paramName, QByteArray signature)
 {
     return IArgumentTypeNodeDetail(paramTypeId, paramTypeName, paramName, signature);
 }
 
 template<>
-IArgumentTypeNode construct(int paramTypeId, QString paramTypeName, QString paramName, QByteArray signature)
+IArgumentType construct(int paramTypeId, QString paramTypeName, QString paramName, QByteArray signature)
 {
     return IArgumentTypeNodeDetail(paramTypeId, paramTypeName, paramName, signature);
 }
 }
 
-void *IArgumentTypeNode::create(IRequest &) const
+void *IArgumentType::create(IRequest &) const
 {
     return nullptr;
 }
 
-void IArgumentTypeNode::destory(void *ptr) const
+void IArgumentType::destory(void *ptr) const
 {
     // do nothing here
 }

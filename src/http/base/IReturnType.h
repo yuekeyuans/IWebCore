@@ -1,17 +1,17 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
-#include "ITypeNode.h"
+#include "IMetaType.h"
 #include <functional>
 
 $PackageWebCoreBegin
 
 class IRequest;
-struct IReturnTypeNode : public ITypeNode
+struct IReturnType : public IMetaType
 {
 public:
-    IReturnTypeNode() = default;
-    IReturnTypeNode(QMetaType::Type, const QString& name);
+    IReturnType() = default;
+    IReturnType(QMetaType::Type, const QString& name);
     void* create() const;
     void destroy(void*ptr) const;
     void resolveValue(IRequest& request, void* ptr) const;

@@ -9,7 +9,7 @@ class IBeanWare;
 class IRequest;
 class IResponse;
 
-struct IArgumentTypeNode;
+struct IArgumentType;
 
 // 由于 bean 的装配比较复杂，代码再这里单写一份
 class IHttpControllerBeanParameter
@@ -20,7 +20,7 @@ public:
 public:
     IHttpControllerBeanParameter() = default;
 
-    static void* getParamOfBean(const IArgumentTypeNode& node, IRequest &request);
+    static void* getParamOfBean(const IArgumentType& node, IRequest &request);
 
 private:
     static void* assamleBeanWareWithContent(IBeanWare* bean, IRequest& request);

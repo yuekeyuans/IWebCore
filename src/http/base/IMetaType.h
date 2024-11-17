@@ -4,13 +4,13 @@
 
 $PackageWebCoreBegin
 
-struct ITypeNode
+struct IMetaType
 {
 public:
-    ITypeNode() = default;
-    ITypeNode(QMetaType::Type, const QString& = {});
-    bool operator ==(const ITypeNode&) const;
-    bool operator <(const ITypeNode&) const;
+    IMetaType() = default;
+    IMetaType(QMetaType::Type, const QString& = {});
+    bool operator ==(const IMetaType&) const;
+    bool operator <(const IMetaType&) const;
 
 public:
     QMetaType::Type typeId{QMetaType::UnknownType};
