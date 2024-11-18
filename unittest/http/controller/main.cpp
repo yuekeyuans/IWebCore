@@ -3,6 +3,8 @@
 #include <IWeb/IHttpServer>
 #include "IHttpPythonTestAnnomacro.h"
 
+#include "http/response/IJsonResponse.h"
+
 $EnableTaskOutput(true)
 $EnableHttpPythonTest(true)
 ////$SetHttpPythonScriptDir(D:/test)

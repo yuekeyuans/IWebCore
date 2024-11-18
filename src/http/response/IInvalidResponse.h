@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "IJson.h"
 #include "IResponseInterface.h"
 #include "IResponsePreProcessor.h"
 

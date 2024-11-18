@@ -4,12 +4,14 @@
 #include "core/bean/IBeanWare.h"
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
-#include "http/response/IStatusResponse.h"
 #include "http/response/IJsonResponse.h"
 #include "http/response/IByteArrayResponse.h"
 #include "http/response/IFileResponse.h"
 #include "http/response/IResponseWare.h"
 #include "http/response/IPlainTextResponse.h"
+#include "http/response/IInvalidResponse.h"
+#include "http/response/IStatusResponse.h"
+#include "http/response/IRedirectResponse.h"
 
 $PackageWebCoreBegin
 
@@ -100,7 +102,7 @@ QSharedPointer<IResponseWare> createStdStringReturnInstance(void*ptr)
 }
 
 void IReturnType::resolveValue(IRequest &request, void *ptr) const
-{ 
+{
     IResponse response(&request);
     if(IResponseManage::instance()->containResponseType(typeName)){
         response.setContent(static_cast<IResponseWare*>(ptr));
@@ -135,14 +137,15 @@ void IReturnType::resolveValue(IRequest &request, void *ptr) const
 
     if(!responseWare){
         if(IBeanTypeManage::instance()->isBeanIdExist(typeId)){
-            auto json = static_cast<IBeanWare*>(ptr)->toJson();
-            responseWare = QSharedPointer<IJsonResponse>::create(std::move(json));
+            IJson json = static_cast<IBeanWare*>(ptr)->toJson();
+            responseWare = QSharedPointer<IJsonResponse>::create(json.dump());
         }
         if(typeId == static_cast<QMetaType::Type>(qMetaTypeId<std::string>())){
             responseWare = createStdStringReturnInstance(ptr);
         }
         if(typeId == static_cast<QMetaType::Type>(qMetaTypeId<IJson>())){
-            responseWare = QSharedPointer<IJsonResponse>::create(*static_cast<IJson*>(ptr));
+            IJson json = *static_cast<IJson*>(ptr);
+            responseWare = QSharedPointer<IJsonResponse>::create(json.dump());
         }
     }
 

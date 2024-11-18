@@ -9,11 +9,10 @@ IJsonResponse::IJsonResponse() : IResponseInterface()
     m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8); // this must be initialized, the only return type;
 }
 
-// TODO: check fromStdString latter
-IJsonResponse::IJsonResponse(IJson value)
+IJsonResponse::IJsonResponse(std::string value)
 {
     m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    m_raw->setContent(QString::fromStdString(value.dump()));
+    m_raw->setContent(QString::fromStdString(value));
 }
 
 IJsonResponse::IJsonResponse(const QString& value) : IResponseInterface()

@@ -16,6 +16,7 @@
 #include "http/response/IResponseManage.h"
 #include "http/response/IPlainTextResponse.h"
 #include "http/response/IStatusResponse.h"
+#include "http/response/IInvalidResponse.h"
 #include "http/response/IJsonResponse.h"
 #include "http/response/IByteArrayResponse.h"
 
