@@ -13,7 +13,7 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true, typename U=IBeanDefaultTrait>
-class IBeanInterface : protected IBeanWare, public ITaskInstantUnit<T, enabled>, /*public ITraceUnit<T, false>,*/ protected U
+class IBeanInterface : protected IBeanWare, public ITaskInstantUnit<T, enabled>, protected U
 {
 public:
     static inline constexpr bool IS_USE_EXCEPTION = U::ERROR_HANDLE_TYPE == IBeanDefaultTrait::ErrorHandleType::Exception;
@@ -22,8 +22,8 @@ public:
     IBeanInterface() = default;
 
 public:
-    IJson toJson() const;
-    bool loadJson(const IJson &value);
+    virtual IJson toJson() const final;
+    virtual bool loadJson(const IJson &value) final;
 
 private:
     int getMetaTypeId() const;

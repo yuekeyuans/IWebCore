@@ -1,20 +1,22 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
-#include "IMetaType.h"
 #include <functional>
 
 $PackageWebCoreBegin
 
 class IRequest;
-struct IReturnType : public IMetaType
+struct IReturnType
 {
-    friend class IReturnTypeDetail;
 public:
     IReturnType() = default;
     void* create() const;
     void destroy(void*ptr) const;
     void resolveValue(IRequest& request, void* ptr) const;
+
+public:
+    QMetaType::Type typeId{QMetaType::UnknownType};
+    QString typeName;
 };
 
 $PackageWebCoreEnd

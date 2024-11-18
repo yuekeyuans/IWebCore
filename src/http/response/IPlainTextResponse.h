@@ -19,19 +19,12 @@ public:
 
     IPlainTextResponse(QString&& value);
     IPlainTextResponse(const QString& value);
-    template<class T>
-    IPlainTextResponse(const T& value);     // TODO: 这里要不要考虑给限制掉？
+    IPlainTextResponse(const std::string& value);
+    IPlainTextResponse(const char* value);
 
 public:
     virtual QString getPrefixMatcher() final;
 };
-
-template<class T>
-IPlainTextResponse::IPlainTextResponse(const T& value){
-    m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
-    auto textValue = IConvertUtil::toString(value);
-    m_raw->setContent(textValue);
-}
 
 IPlainTextResponse operator"" _text(const char* str, size_t size);
 

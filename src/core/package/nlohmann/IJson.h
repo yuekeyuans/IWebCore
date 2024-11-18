@@ -9,10 +9,6 @@
 $PackageWebCoreBegin
 
 using IJson = nlohmann::json;
-
-namespace IJsonUtil2
-{
-
-}
+Q_DECLARE_METATYPE(IJson)
 
 $PackageWebCoreEnd

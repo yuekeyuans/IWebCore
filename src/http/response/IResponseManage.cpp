@@ -10,16 +10,26 @@ IResponseManage::~IResponseManage()
     delete m_templateRenderer;
 }
 
-void IResponseManage::registerResponseType(IResponseWare *response)
+void IResponseManage::registerResponseType(const QString& name, IResponseWare *response)
 {
-    m_responses.append(response);
+    assert(!m_responses.contains(name));
+    m_responses[name] = response;
+
     if(!response->getPrefixMatcher().isEmpty()){
-        if(m_convertResponses.contains(response->getPrefixMatcher())){
-            QString tip = QString("already contain response prefix matcher. name : ").append(response->getPrefixMatcher());
-            qFatal(tip.toUtf8());
-        }
+        assert(!m_convertResponses.contains(response->getPrefixMatcher()));
         m_convertResponses[response->getPrefixMatcher()] = response;
     }
+}
+
+bool IResponseManage::containResponseType(const QString &name)
+{
+    const auto& keys = m_responses.keys();
+    for(const auto& key : keys){
+        if(key.endsWith(name)){
+            return true;
+        }
+    }
+    return false;
 }
 
 IResponseWare* IResponseManage::convertMatch(const QString &content)

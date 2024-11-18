@@ -4,12 +4,15 @@
 
 $PackageWebCoreBegin
 
-// TODO: 应该会被废弃掉
 class IBeanWare
 {
 public:
     IBeanWare() = default;
     virtual ~IBeanWare() = default;
+
+public:
+    virtual IJson toJson() const = 0;
+    virtual bool loadJson(const IJson&) = 0;
 
 public:
     virtual QVariant getFieldValue(const QString& name) const = 0;

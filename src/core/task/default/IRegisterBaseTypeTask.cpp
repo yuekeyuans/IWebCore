@@ -13,6 +13,7 @@ void registerBaseType(const QString &name)
 void IRegisterBaseTypeTask::$task()
 {
     registerBaseType<std::string>("std::string");
+    registerBaseType<IJson>("IJson");
     registerBaseType<bool>("bool");
     registerBaseType<char>("char");
     registerBaseType<uchar>("uchar");
@@ -36,10 +37,6 @@ void IRegisterBaseTypeTask::$task()
     registerBaseType<uint32_t>("uint32_t");
     registerBaseType<int64_t>("int64_t");
     registerBaseType<uint64_t>("uint64_t");
-
-    // TODO: 查看一下，这个为什么会被加进来
-//    registerBaseType<QString>("QString");
-//    registerBaseType<QByteArray>("QByteArray");
 }
 
 $PackageWebCoreEnd

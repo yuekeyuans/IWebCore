@@ -17,8 +17,9 @@ $UseTaskUnit(IRegisterResponseTypeUnit)
 {
     static std::once_flag flag;
     std::call_once(flag, [](){
-        static T t;
-        IResponseManage::instance()->registerResponseType(&t);
+        auto t = ISingletonUnitDetail::getInstance<T>();
+        qDebug() << IMetaUtil::getBareTypeName<T>();
+        IResponseManage::instance()->registerResponseType(IMetaUtil::getBareTypeName<T>(), t);
     });
 }
 

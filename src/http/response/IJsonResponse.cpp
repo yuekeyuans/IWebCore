@@ -9,31 +9,44 @@ IJsonResponse::IJsonResponse() : IResponseInterface()
     m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8); // this must be initialized, the only return type;
 }
 
+// TODO: check fromStdString latter
+IJsonResponse::IJsonResponse(IJson value)
+{
+    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
+    m_raw->setContent(QString::fromStdString(value.dump()));
+}
+
 IJsonResponse::IJsonResponse(const QString& value) : IResponseInterface()
 {
     m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
     m_raw->setContent(value);
 }
 
-// TODO: json
+IJsonResponse::IJsonResponse(const QJsonValue &value) : IResponseInterface()
+{
+    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
+    if(value.isArray()){
+        m_raw->setContent(QJsonDocument(value.toArray()).toJson());
+    }else if(value.isObject()){
+        m_raw->setContent(QJsonDocument(value.toObject()).toJson());
+    }else if(value.isString()){
+        m_raw->setContent(value.toString());
+    }else if(value.isDouble()){
+        m_raw->setContent(QString::number(value.toDouble()));
+    }
+}
 
-//IJsonResponse::IJsonResponse(const QJsonValue &value) : IResponseInterface()
-//{
-//    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-//    m_raw->setContent(IJsonUtil::toString(value));
-//}
+IJsonResponse::IJsonResponse(const QJsonArray &array) : IResponseInterface()
+{
+    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
+    m_raw->setContent(QJsonDocument(array).toJson());
+}
 
-//IJsonResponse::IJsonResponse(const QJsonArray &array) : IResponseInterface()
-//{
-//    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-//    m_raw->setContent(IJsonUtil::toString(array));
-//}
-
-//IJsonResponse::IJsonResponse(const QJsonObject &object) : IResponseInterface()
-//{
-//    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-//    m_raw->setContent(IJsonUtil::toString(object));
-//}
+IJsonResponse::IJsonResponse(const QJsonObject &object) : IResponseInterface()
+{
+    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
+    m_raw->setContent(QJsonDocument(object).toJson());
+}
 
 QString IJsonResponse::getPrefixMatcher()
 {

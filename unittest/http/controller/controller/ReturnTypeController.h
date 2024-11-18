@@ -15,5 +15,15 @@ public:
     QString qstring(){
         return "hello world";
     }
+
+    $GetMapping(stdString)
+    std::string stdString(){
+        return "stdString";
+    }
+
+    $GetMapping(ijson)
+    IJson ijson(){
+        return IJson({"hello", "world"});
+    }
 };
 
