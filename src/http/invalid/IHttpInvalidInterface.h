@@ -15,13 +15,13 @@ template<typename T, bool enabled=true>
 class IHttpInvalidInterface : public IHttpInvalidWare, public IClassNameUnit<T>
 {
 public:
-    IHttpInvalidInterface(IHttpStatusCode code);
-    IHttpInvalidInterface(IHttpStatusCode code, const QString& description);
+    IHttpInvalidInterface(IHttpStatus code);
+    IHttpInvalidInterface(IHttpStatus code, const QString& description);
 };
 
 // TODO: 写的有点烦
 template<typename T, bool enabled>
-IHttpInvalidInterface<T, enabled>::IHttpInvalidInterface(IHttpStatusCode status)
+IHttpInvalidInterface<T, enabled>::IHttpInvalidInterface(IHttpStatus status)
     : IHttpInvalidWare(status, IMetaUtil::getBareTypeName<T>())
 {
     static std::function<void(IRequest&)> s_funs {nullptr};
@@ -46,7 +46,7 @@ IHttpInvalidInterface<T, enabled>::IHttpInvalidInterface(IHttpStatusCode status)
 }
 
 template<typename T, bool enabled>
-IHttpInvalidInterface<T, enabled>::IHttpInvalidInterface(IHttpStatusCode status, const QString& description)
+IHttpInvalidInterface<T, enabled>::IHttpInvalidInterface(IHttpStatus status, const QString& description)
     : IHttpInvalidWare(status, description)
 {
     if constexpr(&T::process != &IHttpInvalidWare::process){

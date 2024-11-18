@@ -55,12 +55,12 @@ void IResponseWare::setMime(IHttpMime mime)
     m_raw->setMime(mime);
 }
 
-IHttpStatusCode IResponseWare::status() const
+IHttpStatus IResponseWare::status() const
 {
     return m_raw->status;
 }
 
-void IResponseWare::setStatus(IHttpStatusCode statusCode)
+void IResponseWare::setStatus(IHttpStatus statusCode)
 {
     m_raw->status = statusCode;
 }

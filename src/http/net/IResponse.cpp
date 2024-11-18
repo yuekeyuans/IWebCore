@@ -90,7 +90,7 @@ IResponse &IResponse::setHeader(const QString &key, const QString &value)
     return *this;
 }
 
-IResponse &IResponse::setStatus(IHttpStatusCode statusCode)
+IResponse &IResponse::setStatus(IHttpStatus statusCode)
 {
     m_raw->m_responseRaw->status = statusCode;
     return *this;
@@ -98,7 +98,7 @@ IResponse &IResponse::setStatus(IHttpStatusCode statusCode)
 
 IResponse &IResponse::setStatus(int statusCode)
 {
-    m_raw->m_responseRaw->status = IHttpStatus::toStatus(statusCode);
+    m_raw->m_responseRaw->status = IHttpStatusUtil::toStatus(statusCode);
     return *this;
 }
 
@@ -206,7 +206,7 @@ QString IResponse::mime() const
     return m_raw->m_responseRaw->mime;
 }
 
-IHttpStatusCode IResponse::status() const
+IHttpStatus IResponse::status() const
 {
     return m_raw->m_responseRaw->status;
 }

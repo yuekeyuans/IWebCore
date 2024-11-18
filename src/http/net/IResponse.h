@@ -41,7 +41,7 @@ public:
     IRequestRaw* getRaw() const;
 
     IResponse& setHeader(const QString &key, const QString &value);
-    IResponse& setStatus(IHttpStatusCode statusCode);
+    IResponse& setStatus(IHttpStatus statusCode);
     IResponse& setStatus(int statusCode);
     IResponse& setMime(IHttpMime mime);
     IResponse& setMime(const QString mime);
@@ -61,7 +61,7 @@ public:
 
     IHttpVersion version() const;
     QString mime() const;
-    IHttpStatusCode status() const;
+    IHttpStatus status() const;
     const QMultiHash<QString, QString>& headers() const;
 
     const QMap<QString, QVariant>& attributes() const;

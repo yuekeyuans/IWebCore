@@ -5,12 +5,12 @@ $PackageWebCoreBegin
 
 IRedirectResponse::IRedirectResponse()
 {
-    m_raw->status = IHttpStatusCode::FOUND_302;
+    m_raw->status = IHttpStatus::FOUND_302;
 }
 
 IRedirectResponse::IRedirectResponse(const QString &path)
 {
-    m_raw->status = IHttpStatusCode::FOUND_302;
+    m_raw->status = IHttpStatus::FOUND_302;
     this->redirectPath = path;
     updateLocationPath();
 }

@@ -415,8 +415,8 @@ void IHttpControllerParameter::wrapVoidReturnInstance(IResponse &response, const
         response.setMime(IHttpMime::TEXT_PLAIN_UTF8);
 //        $Ast->warn("process_void_return_with_request_not_set_mime_error");
     }
-    if(response.status() == IHttpStatusCode::UNKNOWN){
-        response.setStatus(IHttpStatusCode::OK_200);
+    if(response.status() == IHttpStatus::UNKNOWN){
+        response.setStatus(IHttpStatus::OK_200);
 //        $Ast->warn("process_void_return_with_request_not_set_status_error");
     }
 }

@@ -79,7 +79,7 @@
 //{
 //    QStringList  options = handleOptionsRequest(request, response);
 
-//    response.setStatus(IHttpStatusCode::OK_200);
+//    response.setStatus(IHttpStatus::OK_200);
 //    if(options.isEmpty()) {
 //        response.setHeader("Allow" , "NONE");
 //    } else {

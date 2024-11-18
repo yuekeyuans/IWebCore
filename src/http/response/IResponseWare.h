@@ -28,8 +28,8 @@ public:
     const QString& mime() const;
     void setMime(IHttpMime);
     
-    IHttpStatusCode status() const;
-    void setStatus(IHttpStatusCode statusCode);
+    IHttpStatus status() const;
+    void setStatus(IHttpStatus statusCode);
 
     const QMultiHash<QString, QString>& headers() const;
     QMultiHash<QString, QString>& headers();

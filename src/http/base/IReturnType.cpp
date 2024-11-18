@@ -71,8 +71,8 @@ void wrapVoidReturnInstance(IResponse &response)
     if(response.mime() == IHttpMimeUtil::MIME_UNKNOWN_STRING){
         response.setMime(IHttpMime::TEXT_PLAIN_UTF8);
     }
-    if(response.status() == IHttpStatusCode::UNKNOWN){
-        response.setStatus(IHttpStatusCode::OK_200);
+    if(response.status() == IHttpStatus::UNKNOWN){
+        response.setStatus(IHttpStatus::OK_200);
     }
 }
 

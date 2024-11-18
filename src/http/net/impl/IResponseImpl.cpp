@@ -48,8 +48,8 @@ QByteArray IResponseImpl::generateFirstLine()
 {
     QByteArray firstLine;
     firstLine.append(IHttpVersionUtil::toString(raw->m_httpVersion)).append(" ")
-        .append(IHttpStatus::toString(raw->m_responseRaw->status)).append(" ")
-        .append(IHttpStatus::toStringDescription(raw->m_responseRaw->status)).append(NEW_LINE);
+        .append(IHttpStatusUtil::toString(raw->m_responseRaw->status)).append(" ")
+        .append(IHttpStatusUtil::toStringDescription(raw->m_responseRaw->status)).append(NEW_LINE);
 
     return firstLine;
 }

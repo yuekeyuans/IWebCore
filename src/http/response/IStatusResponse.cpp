@@ -18,16 +18,16 @@ protected:
 
 IStatusResponse::IStatusResponse(QString num)
 {
-    m_raw->status = IHttpStatus::toStatus(num);
-    if(m_raw->status == IHttpStatusCode::UNKNOWN){
+    m_raw->status = IHttpStatusUtil::toStatus(num);
+    if(m_raw->status == IHttpStatus::UNKNOWN){
         IStatusResponseAbort::aborthttp_status_code_convert_failed($ISourceLocation);
     }
 }
 
 IStatusResponse::IStatusResponse(int code, const QString& errorMsg)
 {
-    m_raw->status = IHttpStatus::toStatus(code);
-    if(m_raw->status == IHttpStatusCode::UNKNOWN){
+    m_raw->status = IHttpStatusUtil::toStatus(code);
+    if(m_raw->status == IHttpStatus::UNKNOWN){
         IStatusResponseAbort::aborthttp_status_code_convert_failed($ISourceLocation);
     }
 
@@ -37,7 +37,7 @@ IStatusResponse::IStatusResponse(int code, const QString& errorMsg)
     }
 }
 
-IStatusResponse::IStatusResponse(IHttpStatusCode status, const QString &errorMsg)
+IStatusResponse::IStatusResponse(IHttpStatus status, const QString &errorMsg)
 {
     m_raw->status = status;
 
