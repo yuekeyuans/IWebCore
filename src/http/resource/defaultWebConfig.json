@@ -1,0 +1,38 @@
+﻿{
+    "http": {
+        "ip": "127.0.0.1",
+        "port": 8550,
+        "printTrace": true,
+        "urlMaxLength" : 2083,
+        "headerMaxLength":8192,
+        "urlHeaderMaxLength": 10275,
+        "readTimeOut" : 10000,
+        "bodyMaxLength": 4194304,
+        "defaultPageNames": [
+            "index.html",
+            "index.htm",
+            "default.html",
+            "default.htm"
+        ],
+        "fileService": {
+            "folderHandled": true,
+            "staticMapping" : true,
+            "path" : "",
+            "url" : "/",
+            "contentDisposition" : {
+                "enabled" : false,
+                "suffixes" : []
+            }
+        },
+        "templates" : {
+            "enableErrorTemplate" : true,
+            "nody" : {
+                "enabled" : true,
+                "templateDir" : ":/resource/templates/",
+                "defaultNodyTemplatePrefix" : "defaultNodyTemplate",
+                "userDefinedNodyTemplatePrefix" : "userDefinedNodyTemplate",
+                "suffix" : "yky"
+            }
+        }
+    }
+}
