@@ -106,6 +106,9 @@ const QMap<int, QString> &IHttpStatusUtil::getStatusDescription()
         {508, "Loop Detected"},
         {510, "Not Extended"},
         {511, "Network Authentication Required"},
+
+        // other
+        {1024, "UNKNOWN"}
     };
     return descriptionTable;
 }
