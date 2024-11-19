@@ -19,11 +19,15 @@ public:
     void setContent(IHttpInvalidWare ware);
     void setFileContent(const QString& path);
 
-    QByteArray getAsBytes();
+    IStringView getContent();
+
+//    QByteArray getAsBytes();
 
 public:
     bool isValid{true};
     std::list<IResponseContentWare*> m_contents;
+
+    // TODO:
 //    std::function<void(IRequest&)> invalidFunction{};
 };
 

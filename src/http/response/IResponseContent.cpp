@@ -46,25 +46,33 @@ void IResponseContent::setFileContent(const QString &path)
     // TODO:
 }
 
-QByteArray IResponseContent::getAsBytes()
+IStringView IResponseContent::getContent()
 {
-    return {};
-//    switch(type){
-//    case Type::Empty:
-//        return {};
-//    case Type::Bytes:
-//        return contentBytes;
-//    case Type::String:
-//        return contentString.toUtf8();
-//    case Type::File:
-//        if(IConstantUtil::DebugMode){
-//            IFileUtil::assertWhenFileInvalid(contentString);
-//        }
-//        return *IFileUtil::readFileAsByteArray(contentString);  // TODO:
-//    case Type::Invalid:
-//        return contentString.toUtf8();  // this maybe ajusted in invalidFunction
-//    }
-//    return {};
+    if(m_contents.empty()){
+        return IStringView{};
+    }
+    return m_contents.back()->getContent();
 }
+
+//QByteArray IResponseContent::getAsBytes()
+//{
+//    return {};
+////    switch(type){
+////    case Type::Empty:
+////        return {};
+////    case Type::Bytes:
+////        return contentBytes;
+////    case Type::String:
+////        return contentString.toUtf8();
+////    case Type::File:
+////        if(IConstantUtil::DebugMode){
+////            IFileUtil::assertWhenFileInvalid(contentString);
+////        }
+////        return *IFileUtil::readFileAsByteArray(contentString);  // TODO:
+////    case Type::Invalid:
+////        return contentString.toUtf8();  // this maybe ajusted in invalidFunction
+////    }
+////    return {};
+//}
 
 $PackageWebCoreEnd

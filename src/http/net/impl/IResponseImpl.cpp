@@ -22,22 +22,26 @@ std::vector<asio::const_buffer> IResponseImpl::getContent()
 //        raw->m_responseRaw->content.invalidFunction(*raw->m_request);
 //    }
 
-    const auto& content = raw->m_responseRaw->content.getAsBytes();
+    const auto& content = raw->m_responseRaw->content.getContent();
 
     m_content.emplace_back(generateFirstLine());
-    if(!content.isEmpty()){
+    if(content.size() != 0){
         m_content.emplace_back(generateHeadersContent(content.size()));
     }
     m_content.emplace_back(NEW_LINE);
 
 
-    if(!content.isEmpty() && raw->m_method != IHttpMethod::HEAD){       // 处理 head 方法
-        m_content.emplace_back(content);
-    }
+//    if(!content.isEmpty() && raw->m_method != IHttpMethod::HEAD){       // 处理 head 方法
+//        m_content.emplace_back(content);
+//    }
 
     std::vector<asio::const_buffer> result;
 
     for(const auto& content : m_content){
+        result.emplace_back(asio::buffer(content.data(), content.length()));
+    }
+
+    if(!content.empty()  && raw->m_method != IHttpMethod::HEAD){
         result.emplace_back(asio::buffer(content.data(), content.length()));
     }
 
