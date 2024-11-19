@@ -1,6 +1,5 @@
 ﻿#include "ArgumentTypeController.h"
 
-
 QString ArgumentTypeController::emptyRequest()
 {
     return "hello world";

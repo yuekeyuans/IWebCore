@@ -46,23 +46,23 @@ IResponse &IResponse::operator=(IResponse &&)
     return *this;
 }
 
-IResponse &IResponse::operator<<(const QString &content)
-{
-    m_raw->m_responseRaw->content.append(content);
-    return *this;
-}
+//IResponse &IResponse::operator<<(const QString &content)
+//{
+//    m_raw->m_responseRaw->content.append(content);
+//    return *this;
+//}
 
-IResponse &IResponse::operator<<(const QByteArray &content)
-{
-    m_raw->m_responseRaw->content.append(content);
-    return *this;
-}
+//IResponse &IResponse::operator<<(const QByteArray &content)
+//{
+//    m_raw->m_responseRaw->content.append(content);
+//    return *this;
+//}
 
-IResponse &IResponse::operator<<(const char *content)
-{
-    m_raw->m_responseRaw->content.append(QByteArray(content));
-    return *this;
-}
+//IResponse &IResponse::operator<<(const char *content)
+//{
+//    m_raw->m_responseRaw->content.append(QByteArray(content));
+//    return *this;
+//}
 
 IResponseHeader IResponse::operator[](const QString &header) const
 {
@@ -120,23 +120,23 @@ IResponse &IResponse::addCookie(ICookiePart cookiePart)
     return *this;
 }
 
-IResponse &IResponse::appendContent(const QString &content)
-{
-    m_raw->m_responseRaw->content.append(content);
-    return *this;
-}
+//IResponse &IResponse::appendContent(const QString &content)
+//{
+//    m_raw->m_responseRaw->content.append(content);
+//    return *this;
+//}
 
-IResponse &IResponse::appendContent(const QByteArray &content)
-{
-    m_raw->m_responseRaw->content.append(content);
-    return *this;
-}
+//IResponse &IResponse::appendContent(const QByteArray &content)
+//{
+//    m_raw->m_responseRaw->content.append(content);
+//    return *this;
+//}
 
-IResponse &IResponse::appendContent(const char *content)
-{
-    m_raw->m_responseRaw->content.append(content);
-    return *this;
-}
+//IResponse &IResponse::appendContent(const char *content)
+//{
+//    m_raw->m_responseRaw->content.append(content);
+//    return *this;
+//}
 
 IResponse &IResponse::setContent(const QString &content)
 {

@@ -32,9 +32,10 @@ public:
     IResponse(IResponse &&);
     IResponse &operator=(IResponse &&);
 
-    IResponse& operator<<(const QString& content);
-    IResponse& operator<<(const QByteArray& content);
-    IResponse& operator<<(const char* content);
+    // TODO: 仔细考虑一下这个可有必要
+//    IResponse& operator<<(const QString& content);
+//    IResponse& operator<<(const QByteArray& content);
+//    IResponse& operator<<(const char* content);
     IResponseHeader operator[](const QString& header) const;
 
     IRequest* request() const;
@@ -47,9 +48,9 @@ public:
     IResponse& setMime(const QString mime);
     IResponse& addCookie(ICookiePart cookiePart);
 
-    IResponse& appendContent(const QString& content);
-    IResponse& appendContent(const QByteArray& content);
-    IResponse& appendContent(const char* content);
+//    IResponse& appendContent(const QString& content);
+//    IResponse& appendContent(const QByteArray& content);
+//    IResponse& appendContent(const char* content);
 
     IResponse& setContent(const QString& content);
     IResponse& setContent(const QByteArray& content);

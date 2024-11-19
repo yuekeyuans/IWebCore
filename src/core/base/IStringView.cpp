@@ -22,6 +22,11 @@ IStringView::IStringView(const char *data)
 {
 }
 
+IStringView::IStringView(const char *data, std::size_t length)
+    : std::string_view(data, length)
+{
+}
+
 IStringView::IStringView(const IStringView& view)
     : std::string_view(view.data(), view.length())
 {

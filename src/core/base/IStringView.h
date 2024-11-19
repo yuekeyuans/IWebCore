@@ -20,6 +20,7 @@ public:
     IStringView(const QByteArray& data);
     IStringView(std::string_view data);
     IStringView(const char* data);
+    IStringView(const char* data, std::size_t length);
     IStringView(const IStringView& data);
 
     operator QByteArray();

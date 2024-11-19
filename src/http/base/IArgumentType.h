@@ -1,14 +1,13 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
-#include "IMetaType.h"
 
 $PackageWebCoreBegin
 
 class IHttpParameterRestrictInterface;
 
 class IRequest;
-struct IArgumentType : public IMetaType
+struct IArgumentType
 {
 public:
     void* create(IRequest&) const;
@@ -18,6 +17,10 @@ public:
     enum Position{
         Auto, Param, Url, Header, Body, Content, Cookie, Session,
     };
+
+public:
+    QMetaType::Type typeId{QMetaType::UnknownType};
+    QString typeName;
 
     QString nameRaw;
     QString name;

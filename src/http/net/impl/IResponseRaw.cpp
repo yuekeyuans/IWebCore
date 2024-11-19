@@ -14,44 +14,32 @@ void IResponseRaw::setMime(const QString &mime)
 
 void IResponseRaw::setContent(QString &&value)
 {
-    content.type = IResponseContent::Type::String;
-    std::swap(content.contentString, value);
+    content.setContent(std::move(value));
 }
 
 void IResponseRaw::setContent(const QString &value)
 {
-    content.type = IResponseContent::Type::String;
-    content.contentString = value;
+    content.setContent(value);
 }
 
 void IResponseRaw::setContent(QByteArray &&value)
 {
-    content.type = IResponseContent::Type::Bytes;
-    std::swap(content.contentBytes, value);
+    content.setContent(std::move(value));
 }
 
 void IResponseRaw::setContent(const QByteArray &value)
 {
-    content.type = IResponseContent::Type::Bytes;
-    content.contentBytes = value;
+    content.setContent(value);
 }
 
 void IResponseRaw::setContent(const char *value)
 {
-    content.type = IResponseContent::Type::Bytes;
-    content.contentBytes = QByteArray(value);
+    content.setContent(QByteArray(value));
 }
 
 void IResponseRaw::setContent(const QFileInfo &value)
 {
-    content.type = IResponseContent::Type::File;
-    content.contentString = value.absoluteFilePath();
-}
-
-void IResponseRaw::setContent(const QFile &file)
-{
-    content.type = IResponseContent::Type::File;
-    content.contentString = QFileInfo(file).absoluteFilePath();
+    content.setFileContent(value.absoluteFilePath());
 }
 
 void IResponseRaw::setContent(IHttpInvalidWare ware)
@@ -59,15 +47,10 @@ void IResponseRaw::setContent(IHttpInvalidWare ware)
     content.setContent(std::move(ware));
 }
 
-void IResponseRaw::setFileContent(const QString &filePath)
-{
-    content.type = IResponseContent::Type::File;
-    content.contentString = filePath;
-}
-
 bool IResponseRaw::isValid()
 {
-    return content.type != IResponseContent::Type::Invalid;
+    return content.isValid;
+//    return content.type != IResponseContent::Type::Invalid;
 }
 
 $PackageWebCoreEnd

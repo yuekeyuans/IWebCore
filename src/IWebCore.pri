@@ -134,6 +134,9 @@ HEADERS += \
     $$PWD/http/net/impl/IRequestRaw.h \
     $$PWD/http/net/impl/IResponseHeader.h \
     $$PWD/http/net/impl/IResponseRaw.h \
+    $$PWD/http/response/content/IQByteArrayResposneContent.h \
+    $$PWD/http/response/content/IQStringResponseContent.h \
+    $$PWD/http/response/content/IResponseContentWare.h \
     $$PWD/http/server/IHttpConnection.h \
     $$PWD/http/server/IHttpRequestHandler.h \
     $$PWD/http/server/IHttpServer.h \
@@ -315,6 +318,8 @@ SOURCES += \
     $$PWD/http/net/impl/IRequestRaw.cpp \
     $$PWD/http/net/impl/IResponseHeader.cpp \
     $$PWD/http/net/impl/IResponseRaw.cpp \
+    $$PWD/http/response/content/IQByteArrayResposneContent.cpp \
+    $$PWD/http/response/content/IQStringResponseContent.cpp \
     $$PWD/http/server/IHttpConnection.cpp \
     $$PWD/http/server/IHttpRequestHandler.cpp \
     $$PWD/http/server/IHttpServer.cpp \
@@ -402,7 +407,7 @@ HEADERS += \
     $$PWD/ICore/IUnitTestInterface \
 #    $$PWD/IWeb/IHttpTestInterface   \
     $$PWD/IWeb/IHttpInvalidInterface \
-    $$PWD/IWeb/HttpRequest \
+    $$PWD/IWeb/HttpRequest
 
 DISTFILES +=
 

@@ -20,9 +20,7 @@ public:
     void setContent(const QByteArray& content);
     void setContent(const char* content);
     void setContent(const QFileInfo& content);
-    void setContent(const QFile& file); // TODO: 这个不一定行， 得具体测试一下看看
     void setContent(IHttpInvalidWare ware);
-    void setFileContent(const QString& filePath);
 
 public:
     bool isValid();
