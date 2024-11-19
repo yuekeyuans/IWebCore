@@ -1,7 +1,0 @@
-﻿#pragma once
-
-#include "core/config/IConfigAnnomacro.h"
-#include "core/config/IContextManage.h"
-#include "core/config/IContextImport.h"
-#include "core/config/IProfileImport.h"
-

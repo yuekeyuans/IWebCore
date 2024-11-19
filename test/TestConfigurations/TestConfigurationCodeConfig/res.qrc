@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>config.json</file>
-        <file>subdir/abc-config.json</file>
-        <file>config.yaml</file>
-    </qresource>
-</RCC>

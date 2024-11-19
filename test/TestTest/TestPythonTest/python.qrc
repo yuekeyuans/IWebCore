@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>python/TestDemo.py</file>
-        <file>config.json</file>
-    </qresource>
-</RCC>

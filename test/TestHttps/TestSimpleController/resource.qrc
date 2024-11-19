@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>config/config.json</file>
-        <file>config/config.toml</file>
-        <file>config/config.yaml</file>
-        <file>template/index.yky</file>
-    </qresource>
-</RCC>

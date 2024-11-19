@@ -1,6 +1,0 @@
-﻿<html>
-    <body>
-        <h1>Error: ${{status_code}}</h1>
-        <p> ${{error_info}}</p>
-    </body>
-</html>

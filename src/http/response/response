@@ -1,8 +1,0 @@
-﻿#pragma once
-
-#include "IResponseInterface.h"
-#include "IRedirectResponse.h"
-#include "IJsonResponse.h"
-#include "IByteArrayResponse.h"
-#include "IPlainTextResponse.h"
-#include "IHtmlResponse.h"
