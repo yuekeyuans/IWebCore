@@ -65,10 +65,10 @@ IStringView IRequest::operator[](const QString &header) const
     return operator [](IStringView(temp));
 }
 
-IResponse *IRequest::response() const
-{
-    return impl->m_raw->m_response;
-}
+//IResponse *IRequest::response() const
+//{
+//    return impl->m_raw->m_response;
+//}
 
 ICookieJar *IRequest::cookieJar() const
 {

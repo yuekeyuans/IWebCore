@@ -187,7 +187,8 @@ void *IHttpControllerParameter::getParamOfSystem(const IArgumentType& node, IReq
     case 0:
         return &request;
     case 1:
-        return request.response();
+        return new IResponse(&request); // TODO: 这个要删除
+//        return request.response();
     case 2:
         return request.cookieJar();
     case 3:

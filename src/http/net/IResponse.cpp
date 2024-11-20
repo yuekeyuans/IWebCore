@@ -17,7 +17,6 @@ IResponse::IResponse()
 
 IResponse::IResponse(IRequest *request) : m_raw(request->getRaw())
 {
-    m_raw->m_response = this;
 }
 
 IResponse::~IResponse()
@@ -170,10 +169,10 @@ IResponse& IResponse::setContent(IResponseWare *response)
         }
     }
 
-    if(!m_raw->m_response->headers().empty()){
+    if(!headers().empty()){
         for(const auto& header : m_raw->m_responseRaw->headers){
             if(!response->m_raw->headers.contains(header)){
-                const auto& values = m_raw->m_response->headers().values(header);
+                const auto& values = headers().values(header);
                 for(auto value : values){
                     response->m_raw->headers.insertMulti(header, value);
                 }

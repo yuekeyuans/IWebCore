@@ -35,7 +35,7 @@ public:
     IStringView operator[](IStringView header) const;
     IStringView operator[](const QString& header) const;
 
-    IResponse* response() const;
+//    IResponse* response() const;
     ICookieJar* cookieJar() const;
     ISessionJar* sessionJar() const;
     IHeaderJar* headerJar() const;

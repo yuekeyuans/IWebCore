@@ -399,7 +399,7 @@ void IRequestImpl::bodyState()
         resolveMultipartContent();
     }
 
-    if(m_request->isValid()){
+    if(m_raw->isValid()){
         switch (m_raw->m_requestMime) {
         case IHttpMime::MULTIPART_FORM_DATA:
             parseMultiPartData(m_raw->m_requestBody);
@@ -516,7 +516,7 @@ void IRequestImpl::resolveHeaders()
         if(m_raw->m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
             m_multipartBoundary = getBoundary(contentType);
             if(m_multipartBoundary.empty()){
-                m_request->setInvalid(IHttpBadRequestInvalid("multipart request has no boundary"));
+                m_raw->setInvalid(IHttpBadRequestInvalid("multipart request has no boundary"));
                 return;
             }else{
                 m_multipartBoundaryEnd = stash(m_multipartBoundary.toQByteArray() + "--");
@@ -586,12 +586,12 @@ void IRequestImpl::resolveBodyContent()
     if(m_bodyInData){
         auto readSize = m_data.m_readSize - m_data.m_parsedSize;
         if(m_contentLength != readSize){
-            return m_request->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
+            return m_raw->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
         }
         m_raw->m_requestBody = IStringView(m_data.m_data + m_data.m_parsedSize, readSize);
     }else{
         if(m_contentLength != m_data.m_buffer.size()){
-            return m_request->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
+            return m_raw->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
         }
         m_raw->m_requestBody = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), m_data.m_buffer.size());
     }
@@ -605,7 +605,7 @@ void IRequestImpl::resolveMultipartContent()
         m_raw->m_requestBody = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), m_data.m_buffer.size());
     }
     if(!m_raw->m_requestBody.endWith(m_multipartBoundaryEnd)){
-        m_request->setInvalid(IHttpBadRequestInvalid("multipart data do not have end tag"));
+        m_raw->setInvalid(IHttpBadRequestInvalid("multipart data do not have end tag"));
     }
 }
 
@@ -647,7 +647,7 @@ void IRequestImpl::parseMultiPartData(IStringView data)
 {
     auto endPos = data.find(m_multipartBoundaryEnd);
     if(endPos == IStringView::npos){
-        m_request->setInvalid(IHttpBadRequestInvalid("multipart end error"));
+        m_raw->setInvalid(IHttpBadRequestInvalid("multipart end error"));
         return;
     }
 

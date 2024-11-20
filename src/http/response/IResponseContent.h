@@ -21,8 +21,6 @@ public:
 
     IStringView getContent();
 
-//    QByteArray getAsBytes();
-
 public:
     bool isValid{true};
     std::list<IResponseContentWare*> m_contents;
