@@ -4,13 +4,15 @@
 
 $PackageWebCoreBegin
 
+class IRequest;
 class IRequestImpl;
 class IJarUnit
 {
-    friend class IRequestImpl;
+//    friend class IRequestImpl;
 public:
+    IJarUnit();
     IJarUnit(IRequestImpl& m_raw);
-//    virtual bool isValid() const;
+    IJarUnit(IRequest&);
 
 protected:
     IRequestImpl& m_raw;

@@ -42,6 +42,7 @@ public:
     IHeaderJar* headerJar() const;
     IMultiPartJar* multiPartJar() const;
     IRequestRaw* getRaw() const;
+    IRequestImpl& getImpl() const;
 
     IHttpVersion version() const;
     IHttpMime mime() const;

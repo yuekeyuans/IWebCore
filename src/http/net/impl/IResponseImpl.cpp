@@ -1,6 +1,8 @@
 ﻿#include "IResponseImpl.h"
 #include "core/util/IConstantUtil.h"
 #include "http/net/impl/IRequestRaw.h"
+#include "http/net/impl/IResponseRaw.h"
+#include "http/net/impl/IRequestImpl.h"
 #include "http/net/IHeaderJar.h"
 #include "http/response/IResponseManage.h"
 #include "http/response/IResponseTemplateRenderer.h"
@@ -10,7 +12,7 @@ $PackageWebCoreBegin
 
 inline static constexpr char NEW_LINE[] = "\r\n";
 
-IResponseImpl::IResponseImpl(IRequestRaw& raw) : m_raw(raw)
+IResponseImpl::IResponseImpl(IRequestImpl& raw) : m_raw(raw)
 {
 }
 
@@ -23,7 +25,7 @@ std::vector<asio::const_buffer> IResponseImpl::getContent()
 //    }
 
 
-    const auto& content = m_raw.m_responseRaw->content.getContent();;
+    const auto& content = m_raw.m_respRaw.content.getContent();;
 
     m_content.emplace_back(generateFirstLine());
     if(content.size() != 0){
@@ -42,7 +44,7 @@ std::vector<asio::const_buffer> IResponseImpl::getContent()
         result.emplace_back(asio::buffer(content.data(), content.length()));
     }
 
-    if(!content.empty()  && m_raw.m_method != IHttpMethod::HEAD){
+    if(!content.empty()  && m_raw.m_reqRaw.m_method != IHttpMethod::HEAD){
         result.emplace_back(asio::buffer(content.data(), content.length()));
     }
 
@@ -52,9 +54,9 @@ std::vector<asio::const_buffer> IResponseImpl::getContent()
 QByteArray IResponseImpl::generateFirstLine()
 {
     QByteArray firstLine;
-    firstLine.append(IHttpVersionUtil::toString(m_raw.m_httpVersion)).append(" ")
-        .append(IHttpStatusUtil::toString(m_raw.m_responseRaw->status)).append(" ")
-        .append(IHttpStatusUtil::toStringDescription(m_raw.m_responseRaw->status)).append(NEW_LINE);
+    firstLine.append(IHttpVersionUtil::toString(m_raw.m_reqRaw.m_httpVersion)).append(" ")
+        .append(IHttpStatusUtil::toString(m_raw.m_respRaw.status)).append(" ")
+        .append(IHttpStatusUtil::toStringDescription(m_raw.m_respRaw.status)).append(NEW_LINE);
 
     return firstLine;
 }
@@ -62,17 +64,17 @@ QByteArray IResponseImpl::generateFirstLine()
 QByteArray IResponseImpl::generateHeadersContent(int contentSize)
 {
     if(contentSize != 0){
-        m_raw.m_headerJar->setResponseHeader(IHttpHeader::ContentLength, QString::number(contentSize));
-        if(!m_raw.m_headerJar->containResponseHeaderKey(IHttpHeader::ContentType)
-                && !m_raw.m_responseRaw->mime.isEmpty()){
-            m_raw.m_headerJar->setResponseHeader(IHttpHeader::ContentType, m_raw.m_responseRaw->mime);
+        m_raw.m_reqRaw.m_headerJar->setResponseHeader(IHttpHeader::ContentLength, QString::number(contentSize));
+        if(!m_raw.m_reqRaw.m_headerJar->containResponseHeaderKey(IHttpHeader::ContentType)
+                && !m_raw.m_respRaw.mime.isEmpty()){
+            m_raw.m_reqRaw.m_headerJar->setResponseHeader(IHttpHeader::ContentType, m_raw.m_respRaw.mime);
         }
     }
 
     QByteArray headersContent;
-    auto keys = m_raw.m_responseRaw->headers.uniqueKeys();
+    auto keys = m_raw.m_respRaw.headers.uniqueKeys();
     for(const auto& key : keys){
-        auto values = m_raw.m_responseRaw->headers.values(key);
+        auto values = m_raw.m_respRaw.headers.values(key);
         headersContent.append(key).append(":").append(values.join(";")).append(NEW_LINE);
     }
 
@@ -93,7 +95,7 @@ void IResponseImpl::generateExternalHeadersContent(QByteArray& content)
 QString IResponseImpl::generateCookieHeaders()
 {
     QStringList contents;
-    const auto& cookies = m_raw.m_responseRaw->cookies;
+    const auto& cookies = m_raw.m_respRaw.cookies;
     for(auto cookie : cookies){
         auto val = cookie.toHeaderString();
         if(!val.isEmpty()){

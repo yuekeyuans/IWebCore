@@ -320,7 +320,7 @@ void IRequestImpl::parseData()
 
 std::vector<asio::const_buffer> IRequestImpl::getResult()
 {
-    m_responseImpl = new IResponseImpl(m_reqRaw);
+    m_responseImpl = new IResponseImpl(*this);
     return m_responseImpl->getContent();
 }
 

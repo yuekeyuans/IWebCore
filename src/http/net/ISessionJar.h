@@ -12,10 +12,10 @@ class ISessionJar : public IJarUnit, IRegisterMetaTypeUnit<ISessionJar>
 {
 public:
     ISessionJar();
-    ISessionJar(IRequestRaw* m_raw);
+    ISessionJar(IRequest& m_raw);
 
 public:
-    bool isValid() const override;
+    bool isValid() const;
     QVariant value(const QString key);
     void setValue(const QString key, QVariant);
 

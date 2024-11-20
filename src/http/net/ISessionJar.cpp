@@ -3,18 +3,19 @@
 #include "http/session/ISessionManager.h"
 #include "http/session/ISessionInterface.h"
 #include "http/net/impl/IRequestRaw.h"
+#include "http/net/impl/IRequestImpl.h"
 
 $PackageWebCoreBegin
 
-ISessionJar::ISessionJar() : IJarUnit(nullptr)
+ISessionJar::ISessionJar() : IJarUnit()
 {
     IGlobalAbort::abortUnVisibleMethod();
 }
 
-ISessionJar::ISessionJar(IRequestRaw *m_raw) : IJarUnit(m_raw)
+ISessionJar::ISessionJar(IRequest& request) : IJarUnit(request)
 {
     m_sessionWare = ISessionManager::instance()->getSessionWare();
-    m_sessionId = m_sessionWare->getSessionId(m_raw);
+    m_sessionId = m_sessionWare->getSessionId(&m_raw.m_reqRaw);
 }
 
 bool ISessionJar::isValid() const

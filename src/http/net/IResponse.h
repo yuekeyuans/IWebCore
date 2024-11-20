@@ -60,7 +60,8 @@ public:
     QVariant getAttribute(const QString& name, const QVariant& defaultValue = {}) const;
 
 private:
-    IRequestRaw& m_raw;
+    IRequestImpl& m_impl;
+//    IRequestRaw& m_raw;
 };
 
 $PackageWebCoreEnd

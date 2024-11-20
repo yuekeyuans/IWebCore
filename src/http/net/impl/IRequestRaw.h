@@ -55,6 +55,7 @@ public:
     QVector<IMultiPart> m_requestMultiParts;
     QMultiHash<IStringView, IStringView> m_requestCookieParameters;
 
+    // TODO: 这几个放置到顶层
     IHeaderJar* m_headerJar{nullptr};
     ICookieJar* m_cookieJar{nullptr};                                       // TODO: 这两个是否需要指针?
     IMultiPartJar* m_multiPartJar{nullptr};

@@ -95,6 +95,11 @@ IRequestRaw *IRequest::getRaw() const
     return &(impl->m_reqRaw);
 }
 
+IRequestImpl& IRequest::getImpl() const
+{
+    return *impl;
+}
+
 IHttpVersion IRequest::version() const
 {
     return impl->m_reqRaw.m_httpVersion;

@@ -46,8 +46,6 @@ public:
     void addResponseCookie(QString key, QString value);
     void addResponseCookie(QString key, QString value, int maxAge, bool secure=false, bool httpOnly=false);
     void addResponseCookie(QString key, QString value, QDateTime expires, bool secure=false, bool httpOnly=false);
-
-    virtual bool isValid() const final;
 };
 
 template<typename T>
