@@ -103,7 +103,7 @@ QSharedPointer<IResponseWare> createStdStringReturnInstance(void*ptr)
 
 void IReturnType::resolveValue(IRequest &request, void *ptr) const
 {
-    IResponse response(&request);
+    IResponse response(request);
     if(IResponseManage::instance()->containResponseType(typeName)){
         response.setContent(static_cast<IResponseWare*>(ptr));
         return;

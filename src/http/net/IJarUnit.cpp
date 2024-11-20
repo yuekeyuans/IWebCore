@@ -1,15 +1,23 @@
 ﻿#include "IJarUnit.h"
 #include "core/util/IConstantUtil.h"
+#include "http/net/impl/IRequestImpl.h"
+
 
 $PackageWebCoreBegin
 
-IJarUnit::IJarUnit(IRequestRaw* raw){
-    m_raw = raw;
+IJarUnit::IJarUnit() : m_raw(*static_cast<IRequestImpl*>(nullptr))
+{
+        IGlobalAbort::abortUnVisibleMethod();
 }
 
-bool IJarUnit::isValid() const
+IJarUnit::IJarUnit(IRequestImpl& raw)
+    : m_raw(raw)
 {
-    return m_raw != nullptr;
 }
+
+//bool IJarUnit::isValid() const
+//{
+//    return m_raw != nullptr;
+//}
 
 $PackageWebCoreEnd

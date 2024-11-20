@@ -15,7 +15,6 @@ $PackageWebCoreBegin
 
 class IResponse;
 class IRequest;
-class IRequestRaw;
 class ITcpConnection;
 class IResponseImpl;
 struct ITcpConnectionData;
@@ -68,6 +67,7 @@ private:
 public:
     IRequest& m_request;
     IRequestRaw m_reqRaw{};
+    IResponseRaw m_respRaw{};
     ITcpConnection* m_connection{};
     ITcpConnectionData& m_data;
     IResponseImpl* m_responseImpl{};    // TODO: 这个应该可以去掉的。

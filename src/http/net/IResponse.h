@@ -24,7 +24,7 @@ class IResponse : IRegisterMetaTypeUnit<IResponse>
 {
 public:
     IResponse();
-    explicit IResponse(IRequest* response);
+    explicit IResponse(IRequest& request);
     ~IResponse();
 
     IResponse(const IResponse&);
@@ -33,9 +33,6 @@ public:
     IResponse &operator=(IResponse &&);
 
     IResponseHeader operator[](const QString& header) const;
-
-//    IRequest* request() const;
-//    IRequestRaw* getRaw() const;
 
     IResponse& setHeader(const QString &key, const QString &value);
     IResponse& setStatus(IHttpStatus statusCode);
@@ -63,7 +60,7 @@ public:
     QVariant getAttribute(const QString& name, const QVariant& defaultValue = {}) const;
 
 private:
-    IRequestRaw* m_raw{nullptr};    // 这个可以使用引用类型,一会再该
+    IRequestRaw& m_raw;
 };
 
 $PackageWebCoreEnd

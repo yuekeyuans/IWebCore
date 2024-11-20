@@ -18,7 +18,7 @@ void IHttpControllerAction::invoke(IRequest &request) const
         enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params.data());
         if(request.isValid()){
 //            methodNode.returnNode.resolveValue(request, params[0]);
-            IResponse response(&request);
+            IResponse response(request);
             IHttpControllerParameter::resolveReturnValue(response, methodNode, params[0]);
         }
     }

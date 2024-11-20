@@ -11,12 +11,12 @@
 
 $PackageWebCoreBegin
 
-IResponse::IResponse()
+IResponse::IResponse() : m_raw(*static_cast<IRequestRaw*>(nullptr))
 {
     IGlobalAbort::abortUnVisibleMethod();
 }
 
-IResponse::IResponse(IRequest *request) : m_raw(&request->impl->m_reqRaw)
+IResponse::IResponse(IRequest& request) : m_raw(request.impl->m_reqRaw)
 {
 }
 
@@ -24,7 +24,7 @@ IResponse::~IResponse()
 {
 }
 
-IResponse::IResponse(const IResponse &)
+IResponse::IResponse(const IResponse &) : m_raw(*static_cast<IRequestRaw*>(nullptr))
 {
     IGlobalAbort::abortUnVisibleMethod();
 }
@@ -35,7 +35,7 @@ IResponse &IResponse::operator=(const IResponse &)
     return *this;
 }
 
-IResponse::IResponse(IResponse &&)
+IResponse::IResponse(IResponse &&) : m_raw(*static_cast<IRequestRaw*>(nullptr))
 {
     IGlobalAbort::abortUnVisibleMethod();
 }
@@ -48,18 +48,8 @@ IResponse &IResponse::operator=(IResponse &&)
 
 IResponseHeader IResponse::operator[](const QString &header) const
 {
-    return {m_raw->m_responseRaw, header};
+    return {m_raw.m_responseRaw, header};
 }
-
-//IRequest *IResponse::request() const
-//{
-//    return &m_raw->m_request;
-//}
-
-//IRequestRaw *IResponse::getRaw() const
-//{
-//    return m_raw;
-//}
 
 // TODO: warn
 IResponse &IResponse::setHeader(const QString &key, const QString &value)
@@ -68,74 +58,74 @@ IResponse &IResponse::setHeader(const QString &key, const QString &value)
 //        $Ast->warn("iresponse_setHeader_with_empty_value_or_key");
     }
 
-    m_raw->m_headerJar->setResponseHeader(key, value);
+    m_raw.m_headerJar->setResponseHeader(key, value);
     return *this;
 }
 
 IResponse &IResponse::setStatus(IHttpStatus statusCode)
 {
-    m_raw->m_responseRaw->status = statusCode;
+    m_raw.m_responseRaw->status = statusCode;
     return *this;
 }
 
 IResponse &IResponse::setStatus(int statusCode)
 {
-    m_raw->m_responseRaw->status = IHttpStatusUtil::toStatus(statusCode);
+    m_raw.m_responseRaw->status = IHttpStatusUtil::toStatus(statusCode);
     return *this;
 }
 
 IResponse &IResponse::setMime(IHttpMime mime)
 {
-    m_raw->m_responseRaw->mime = IHttpMimeUtil::toString(mime);
+    m_raw.m_responseRaw->mime = IHttpMimeUtil::toString(mime);
     return *this;
 }
 
 IResponse &IResponse::setMime(const QString mime)
 {
-    m_raw->m_responseRaw->mime = mime;
+    m_raw.m_responseRaw->mime = mime;
     return *this;
 }
 
 IResponse &IResponse::addCookie(ICookiePart cookiePart)
 {
-    m_raw->m_responseRaw->cookies.push_back(std::move(cookiePart));
+    m_raw.m_responseRaw->cookies.push_back(std::move(cookiePart));
     return *this;
 }
 
 IResponse &IResponse::setContent(const QString &content)
 {
-    m_raw->m_responseRaw->content.setContent(content);
+    m_raw.m_responseRaw->content.setContent(content);
     return *this;
 }
 
 IResponse &IResponse::setContent(const QByteArray &content)
 {
-    m_raw->m_responseRaw->content.setContent(content);
+    m_raw.m_responseRaw->content.setContent(content);
     return *this;
 }
 
 IResponse &IResponse::setContent(QByteArray &&content)
 {
-    m_raw->m_responseRaw->content.setContent(std::forward<QByteArray&&>(content));
+    m_raw.m_responseRaw->content.setContent(std::forward<QByteArray&&>(content));
     return *this;
 }
 
 IResponse &IResponse::setContent(const char *content)
 {
-    m_raw->m_responseRaw->content.setContent(content);
+    m_raw.m_responseRaw->content.setContent(content);
     return *this;
 }
 
 IResponse& IResponse::setContent(IResponseWare *response)
 {
-    if(!m_raw->m_responseRaw->cookies.empty()){
-        for(auto val : m_raw->m_responseRaw->cookies){
+    if(!m_raw.m_responseRaw->cookies.empty()){
+        for(auto val : m_raw.m_responseRaw->cookies){
             response->m_raw->cookies.push_back(val);    // TODO: see whether other effecient way.
         }
     }
 
     if(!headers().empty()){
-        for(const auto& header : m_raw->m_responseRaw->headers){
+        for(const auto& header : m_raw.m_responseRaw->headers){
             if(!response->m_raw->headers.contains(header)){
                 const auto& values = headers().values(header);
                 for(auto value : values){
@@ -145,7 +135,7 @@ IResponse& IResponse::setContent(IResponseWare *response)
         }
     }
 
-    std::swap(m_raw->m_responseRaw, response->m_raw);
+    std::swap(m_raw.m_responseRaw, response->m_raw);
     return *this;
 }
 
@@ -156,49 +146,49 @@ IResponse &IResponse::setContent(IResponseWare &response)
 
 IResponse &IResponse::setContent(IHttpInvalidWare unit)
 {
-    m_raw->setInvalid(unit);
+    m_raw.setInvalid(unit);
     return *this;
 }
 
 IHttpVersion IResponse::version() const
 {
-    return m_raw->m_httpVersion;
+    return m_raw.m_httpVersion;
 }
 
 QString IResponse::mime() const
 {
-    return m_raw->m_responseRaw->mime;
+    return m_raw.m_responseRaw->mime;
 }
 
 IHttpStatus IResponse::status() const
 {
-    return m_raw->m_responseRaw->status;
+    return m_raw.m_responseRaw->status;
 }
 
 const QMultiHash<QString, QString>& IResponse::headers() const
 {
-    return m_raw->m_responseRaw->headers;
+    return m_raw.m_responseRaw->headers;
 }
 
 const QMap<QString, QVariant> &IResponse::attributes() const
 {
-    return m_raw->m_attribute;
+    return m_raw.m_attribute;
 }
 
 bool IResponse::hasAttribute(const QString &name) const
 {
-    return m_raw->m_attribute.contains(name);
+    return m_raw.m_attribute.contains(name);
 }
 
 void IResponse::setAttribute(const QString &name, const QVariant &value)
 {
-    m_raw->m_attribute[name] = value;
+    m_raw.m_attribute[name] = value;
 }
 
 QVariant IResponse::getAttribute(const QString &name, const QVariant &defaultValue) const
 {
-    if(m_raw->m_attribute.contains(name)){
-        return m_raw->m_attribute[name];
+    if(m_raw.m_attribute.contains(name)){
+        return m_raw.m_attribute[name];
     }
     return defaultValue;
 }
