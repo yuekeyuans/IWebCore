@@ -10,7 +10,7 @@ $PackageWebCoreBegin
 
 inline static constexpr char NEW_LINE[] = "\r\n";
 
-IResponseImpl::IResponseImpl(IRequestRaw *raw) : raw(raw)
+IResponseImpl::IResponseImpl(IRequestRaw& raw) : m_raw(raw)
 {
 }
 
@@ -18,11 +18,12 @@ std::vector<asio::const_buffer> IResponseImpl::getContent()
 {
     // note: invalidFunction 在这个地方被调用
     // TODO: 这个不美观，之后考虑改进吧
-//    if(raw->m_responseRaw->content.type == IResponseContent::Type::Invalid && raw->m_responseRaw->content.invalidFunction){
-//        raw->m_responseRaw->content.invalidFunction(*raw->m_request);
+//    if(raw.m_responseRaw->content.type == IResponseContent::Type::Invalid && raw.m_responseRaw->content.invalidFunction){
+//        raw.m_responseRaw->content.invalidFunction(*raw.m_request);
 //    }
 
-    const auto& content = raw->m_responseRaw->content.getContent();
+
+    const auto& content = m_raw.m_responseRaw->content.getContent();;
 
     m_content.emplace_back(generateFirstLine());
     if(content.size() != 0){
@@ -31,7 +32,7 @@ std::vector<asio::const_buffer> IResponseImpl::getContent()
     m_content.emplace_back(NEW_LINE);
 
 
-//    if(!content.isEmpty() && raw->m_method != IHttpMethod::HEAD){       // 处理 head 方法
+//    if(!content.isEmpty() && raw.m_method != IHttpMethod::HEAD){       // 处理 head 方法
 //        m_content.emplace_back(content);
 //    }
 
@@ -41,7 +42,7 @@ std::vector<asio::const_buffer> IResponseImpl::getContent()
         result.emplace_back(asio::buffer(content.data(), content.length()));
     }
 
-    if(!content.empty()  && raw->m_method != IHttpMethod::HEAD){
+    if(!content.empty()  && m_raw.m_method != IHttpMethod::HEAD){
         result.emplace_back(asio::buffer(content.data(), content.length()));
     }
 
@@ -51,9 +52,9 @@ std::vector<asio::const_buffer> IResponseImpl::getContent()
 QByteArray IResponseImpl::generateFirstLine()
 {
     QByteArray firstLine;
-    firstLine.append(IHttpVersionUtil::toString(raw->m_httpVersion)).append(" ")
-        .append(IHttpStatusUtil::toString(raw->m_responseRaw->status)).append(" ")
-        .append(IHttpStatusUtil::toStringDescription(raw->m_responseRaw->status)).append(NEW_LINE);
+    firstLine.append(IHttpVersionUtil::toString(m_raw.m_httpVersion)).append(" ")
+        .append(IHttpStatusUtil::toString(m_raw.m_responseRaw->status)).append(" ")
+        .append(IHttpStatusUtil::toStringDescription(m_raw.m_responseRaw->status)).append(NEW_LINE);
 
     return firstLine;
 }
@@ -61,17 +62,17 @@ QByteArray IResponseImpl::generateFirstLine()
 QByteArray IResponseImpl::generateHeadersContent(int contentSize)
 {
     if(contentSize != 0){
-        raw->m_headerJar->setResponseHeader(IHttpHeader::ContentLength, QString::number(contentSize));
-        if(!raw->m_headerJar->containResponseHeaderKey(IHttpHeader::ContentType)
-                && !raw->m_responseRaw->mime.isEmpty()){
-            raw->m_headerJar->setResponseHeader(IHttpHeader::ContentType, raw->m_responseRaw->mime);
+        m_raw.m_headerJar->setResponseHeader(IHttpHeader::ContentLength, QString::number(contentSize));
+        if(!m_raw.m_headerJar->containResponseHeaderKey(IHttpHeader::ContentType)
+                && !m_raw.m_responseRaw->mime.isEmpty()){
+            m_raw.m_headerJar->setResponseHeader(IHttpHeader::ContentType, m_raw.m_responseRaw->mime);
         }
     }
 
     QByteArray headersContent;
-    auto keys = raw->m_responseRaw->headers.uniqueKeys();
+    auto keys = m_raw.m_responseRaw->headers.uniqueKeys();
     for(const auto& key : keys){
-        auto values = raw->m_responseRaw->headers.values(key);
+        auto values = m_raw.m_responseRaw->headers.values(key);
         headersContent.append(key).append(":").append(values.join(";")).append(NEW_LINE);
     }
 
@@ -92,7 +93,7 @@ void IResponseImpl::generateExternalHeadersContent(QByteArray& content)
 QString IResponseImpl::generateCookieHeaders()
 {
     QStringList contents;
-    const auto& cookies = raw->m_responseRaw->cookies;
+    const auto& cookies = m_raw.m_responseRaw->cookies;
     for(auto cookie : cookies){
         auto val = cookie.toHeaderString();
         if(!val.isEmpty()){

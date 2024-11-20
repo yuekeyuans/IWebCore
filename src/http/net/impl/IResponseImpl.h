@@ -5,11 +5,10 @@
 $PackageWebCoreBegin
 
 class IRequestRaw;
-
 class IResponseImpl
 {
 public:
-    IResponseImpl(IRequestRaw* raw);
+    IResponseImpl(IRequestRaw& m_raw);
 
 public:
     std::vector<asio::const_buffer> getContent();
@@ -21,7 +20,7 @@ private:
     QString generateCookieHeaders();
 
 public:
-    IRequestRaw* raw{nullptr};
+    IRequestRaw& m_raw;
     std::vector<QByteArray> m_content;
 };
 

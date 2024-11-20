@@ -8,6 +8,8 @@
 #include "http/biscuits/IHttpStatus.h"
 #include "http/biscuits/IHttpMethod.h"
 #include "http/net/IMultiPart.h"
+#include "http/net/impl/IResponseRaw.h"
+#include "http/net/impl/IRequestRaw.h"
 
 $PackageWebCoreBegin
 
@@ -65,7 +67,8 @@ private:
 
 public:
     IRequest* m_request{};
-    IRequestRaw* m_raw{};
+
+    IRequestRaw m_reqRaw{};
     ITcpConnection* m_connection{};
     ITcpConnectionData& m_data;
     IResponseImpl* m_responseImpl{};    // TODO: 这个应该可以去掉的。

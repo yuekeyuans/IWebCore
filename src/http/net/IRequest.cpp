@@ -56,7 +56,7 @@ IRequest &IRequest::operator=(IRequest &&)
 
 IStringView IRequest::operator[](IStringView header) const
 {
-    return impl->m_raw->m_headerJar->getRequestHeaderValue(header);
+    return impl->m_reqRaw.m_headerJar->getRequestHeaderValue(header);
 }
 
 IStringView IRequest::operator[](const QString &header) const
@@ -72,47 +72,47 @@ IStringView IRequest::operator[](const QString &header) const
 
 ICookieJar *IRequest::cookieJar() const
 {
-    return impl->m_raw->m_cookieJar;
+    return impl->m_reqRaw.m_cookieJar;
 }
 
 ISessionJar *IRequest::sessionJar() const
 {
-    return impl->m_raw->m_sessionJar;
+    return impl->m_reqRaw.m_sessionJar;
 }
 
 IHeaderJar *IRequest::headerJar() const
 {
-    return impl->m_raw->m_headerJar;
+    return impl->m_reqRaw.m_headerJar;
 }
 
 IMultiPartJar *IRequest::multiPartJar() const
 {
-    return impl->m_raw->m_multiPartJar;
+    return impl->m_reqRaw.m_multiPartJar;
 }
 
 IRequestRaw *IRequest::getRaw() const
 {
-    return impl->m_raw;
+    return &(impl->m_reqRaw);
 }
 
 IHttpVersion IRequest::version() const
 {
-    return impl->m_raw->m_httpVersion;
+    return impl->m_reqRaw.m_httpVersion;
 }
 
 IHttpMime IRequest::mime() const
 {
-    return impl->m_raw->m_requestMime;
+    return impl->m_reqRaw.m_requestMime;
 }
 
 IStringView IRequest::url() const
 {
-    return impl->m_raw->m_url;
+    return impl->m_reqRaw.m_url;
 }
 
 IHttpMethod IRequest::method() const
 {
-    return impl->m_raw->m_method;
+    return impl->m_reqRaw.m_method;
 }
 
 int IRequest::bodyContentLength() const
@@ -127,43 +127,43 @@ IStringView IRequest::bodyContentType() const
 
 IStringView IRequest::bodyContent() const
 {
-    return impl->m_raw->m_requestBody;
+    return impl->m_reqRaw.m_requestBody;
 }
 
 QMultiHash<IStringView, IStringView> &IRequest::headers()
 {
-    return impl->m_raw->m_requestHeaders;
+    return impl->m_reqRaw.m_requestHeaders;
 }
 
 const QMultiHash<IStringView, IStringView> &IRequest::headers() const
 {
-    return impl->m_raw->m_requestHeaders;
+    return impl->m_reqRaw.m_requestHeaders;
 }
 
 const QMap<IStringView, IStringView> &IRequest::urlParameters() const
 {
-    return impl->m_raw->m_requestUrlParameters;
+    return impl->m_reqRaw.m_requestUrlParameters;
 }
 
 const QMap<IStringView, IStringView> &IRequest::paramParameters() const
 {
-    return impl->m_raw->m_requestPathParameters;
+    return impl->m_reqRaw.m_requestPathParameters;
 }
 
 const QMap<IStringView, IStringView> &IRequest::bodyFormParameters() const
 {
-    return impl->m_raw->m_requestBodyParameters;
+    return impl->m_reqRaw.m_requestBodyParameters;
 }
 
 const QVector<IMultiPart> &IRequest::bodyMultiParts() const
 {
-    return impl->m_raw->m_requestMultiParts;
+    return impl->m_reqRaw.m_requestMultiParts;
 }
 
 // TODO: check it
 IJson IRequest::bodyJson() const
 {
-    return impl->m_raw->m_requestJson;
+    return impl->m_reqRaw.m_requestJson;
 }
 
 /*
@@ -276,24 +276,24 @@ IResult<QByteArray> IRequest::getSessionParameter(const QString &name) const
 
 const QMap<QString, QVariant> &IRequest::attributes() const
 {
-    return impl->m_raw->m_attribute;
+    return impl->m_reqRaw.m_attribute;
 }
 
 bool IRequest::hasAttribute(const QString &name) const
 {
-    return impl->m_raw->m_attribute.contains(name);
+    return impl->m_reqRaw.m_attribute.contains(name);
 }
 
 void IRequest::setAttribute(const QString &name, const QVariant &value)
 {
-    impl->m_raw->m_attribute[name] = value;
+    impl->m_reqRaw.m_attribute[name] = value;
 }
 
 QVariant IRequest::getAttribute(const QString &name, bool& ok) const
 {
-    if(impl->m_raw->m_attribute.contains(name)){
+    if(impl->m_reqRaw.m_attribute.contains(name)){
         ok = true;
-        return impl->m_raw->m_attribute[name];
+        return impl->m_reqRaw.m_attribute[name];
     }
     ok = false;
     return {};
@@ -311,19 +311,19 @@ IResult<QVariant> IRequest::getAttribute(const QString &name) const
 
 bool IRequest::isValid() const
 {
-    return impl->m_raw->isValid();
+    return impl->m_reqRaw.isValid();
 }
 
 void IRequest::setInvalidIf(bool condition, IHttpInvalidWare ware) const
 {
     if(condition){
-        impl->m_raw->setInvalid(ware);
+        impl->m_reqRaw.setInvalid(ware);
     }
 }
 
 void IRequest::setInvalid(IHttpInvalidWare ware) const
 {
-    return impl->m_raw->setInvalid(ware);
+    return impl->m_reqRaw.setInvalid(ware);
 }
 
 void IRequest::doAction(IHttpAction *action)

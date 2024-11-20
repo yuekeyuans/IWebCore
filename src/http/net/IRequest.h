@@ -22,6 +22,7 @@ class IRequestRaw;
 class IHttpAction;
 class IRequest : IRegisterMetaTypeUnit<IRequest>, public ITcpResolverInterface, public IStringViewStash
 {
+    friend class IResponse;
 public:
     IRequest();
     explicit IRequest(ITcpConnection*);

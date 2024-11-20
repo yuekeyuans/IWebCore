@@ -32,10 +32,6 @@ public:
     IResponse(IResponse &&);
     IResponse &operator=(IResponse &&);
 
-    // TODO: 仔细考虑一下这个可有必要
-//    IResponse& operator<<(const QString& content);
-//    IResponse& operator<<(const QByteArray& content);
-//    IResponse& operator<<(const char* content);
     IResponseHeader operator[](const QString& header) const;
 
     IRequest* request() const;
@@ -47,10 +43,6 @@ public:
     IResponse& setMime(IHttpMime mime);
     IResponse& setMime(const QString mime);
     IResponse& addCookie(ICookiePart cookiePart);
-
-//    IResponse& appendContent(const QString& content);
-//    IResponse& appendContent(const QByteArray& content);
-//    IResponse& appendContent(const char* content);
 
     IResponse& setContent(const QString& content);
     IResponse& setContent(const QByteArray& content);
@@ -71,7 +63,7 @@ public:
     QVariant getAttribute(const QString& name, const QVariant& defaultValue = {}) const;
 
 private:
-    IRequestRaw* m_raw{nullptr};
+    IRequestRaw* m_raw{nullptr};    // 这个可以使用引用类型,一会再该
 };
 
 $PackageWebCoreEnd

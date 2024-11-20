@@ -22,7 +22,7 @@
 $PackageWebCoreBegin
 
 IRequestImpl::IRequestImpl(IRequest* self)
-    : m_request(self), m_raw(new IRequestRaw(self)),
+    : m_request(self), m_reqRaw(IRequestRaw(self)),
      m_connection(self->m_connection), m_data(self->m_connection->m_data)
 {
 }
@@ -31,24 +31,21 @@ IRequestImpl::~IRequestImpl()
 {
     delete m_responseImpl;
     m_responseImpl = nullptr;
-
-    delete m_raw;
-    m_raw = nullptr;
 }
 
 IJson IRequestImpl::requestJson() const
 {
-    return m_raw->m_requestJson;
+    return m_reqRaw.m_requestJson;
 }
 
 int IRequestImpl::contentLength() const
 {
-    return m_raw->m_requestHeaders.value(IHttpHeader::ContentLength).toQString().toInt();
+    return m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentLength).toQString().toInt();
 }
 
 IStringView IRequestImpl::contentType() const
 {
-    return m_raw->m_requestHeaders.value(IHttpHeader::ContentType);
+    return m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentType);
 }
 
 /*
@@ -315,7 +312,7 @@ void IRequestImpl::parseData()
             return endState();
         }
 
-        if(!m_raw->isValid()){
+        if(!m_reqRaw.isValid()){
             m_readState = State::EndState;
         }
     }
@@ -323,7 +320,7 @@ void IRequestImpl::parseData()
 
 std::vector<asio::const_buffer> IRequestImpl::getResult()
 {
-    m_responseImpl = new IResponseImpl(m_raw);
+    m_responseImpl = new IResponseImpl(m_reqRaw);
     return m_responseImpl->getContent();
 }
 
@@ -331,7 +328,7 @@ void IRequestImpl::firstLineState(IStringView data)
 {
     m_data.m_parsedSize += data.length();
     parseFirstLine(data.substr(0, data.length()-2));
-    if(!m_raw->isValid()){
+    if(!m_reqRaw.isValid()){
         return;
     }
 
@@ -399,17 +396,17 @@ void IRequestImpl::bodyState()
         resolveMultipartContent();
     }
 
-    if(m_raw->isValid()){
-        switch (m_raw->m_requestMime) {
+    if(m_reqRaw.isValid()){
+        switch (m_reqRaw.m_requestMime) {
         case IHttpMime::MULTIPART_FORM_DATA:
-            parseMultiPartData(m_raw->m_requestBody);
+            parseMultiPartData(m_reqRaw.m_requestBody);
             break;
         case IHttpMime::APPLICATION_WWW_FORM_URLENCODED:
-            parseUrlEncodedData(m_raw->m_requestBody, true);
+            parseUrlEncodedData(m_reqRaw.m_requestBody, true);
             break;
         case IHttpMime::APPLICATION_JSON:
         case IHttpMime::APPLICATION_JSON_UTF8:
-            parseJsonData(m_raw->m_requestBody);
+            parseJsonData(m_reqRaw.m_requestBody);
             break;
         default:
             break;
@@ -432,51 +429,51 @@ void IRequestImpl::parseFirstLine(IStringView line)
 {
     static $UInt urlMaxLength("http.urlMaxLength");
     if(line.length() >= *urlMaxLength){
-         return m_raw->setInvalid(IHttpBadRequestInvalid("request url is too long"));
+         return m_reqRaw.setInvalid(IHttpBadRequestInvalid("request url is too long"));
     }
 
     int pos = 0;
     // method
     auto index = line.find_first_of(' ', pos);
     if(index == std::string::npos){
-        return m_raw->setInvalid(IHttpBadRequestInvalid("can not resolve current method type"));
+        return m_reqRaw.setInvalid(IHttpBadRequestInvalid("can not resolve current method type"));
     }
     auto method = line.substr(pos, index);
-    m_raw->m_method = IHttpMethodUtil::toMethod(method);
-    if(m_raw->m_method == IHttpMethod::UNKNOWN){
-        return m_raw->setInvalid(IHttpBadRequestInvalid("can not resolve current method type"));
+    m_reqRaw.m_method = IHttpMethodUtil::toMethod(method);
+    if(m_reqRaw.m_method == IHttpMethod::UNKNOWN){
+        return m_reqRaw.setInvalid(IHttpBadRequestInvalid("can not resolve current method type"));
     }
     pos = index + 1;
 
     // path TODO: 检查一下url 是否合规
     index = line.find_first_of(' ', pos);
     if(index == std::string_view::npos){
-        return m_raw->setInvalid(IHttpBadRequestInvalid("request path is not correct"));
+        return m_reqRaw.setInvalid(IHttpBadRequestInvalid("request path is not correct"));
     }
-    m_raw->m_rawUrl = line.substr(pos, index-pos);
+    m_reqRaw.m_rawUrl = line.substr(pos, index-pos);
     pos = index +1;
 
     // version
-    m_raw->m_httpVersion = IHttpVersionUtil::toVersion(line.substr(pos));
-    if(m_raw->m_httpVersion == IHttpVersion::UNKNOWN){
-        return m_raw->setInvalid(IHttpBadRequestInvalid("current version is not supported"));
+    m_reqRaw.m_httpVersion = IHttpVersionUtil::toVersion(line.substr(pos));
+    if(m_reqRaw.m_httpVersion == IHttpVersion::UNKNOWN){
+        return m_reqRaw.setInvalid(IHttpBadRequestInvalid("current version is not supported"));
     }
 }
 
 void IRequestImpl::resolveFirstLine()
 {
-    auto index = m_raw->m_rawUrl.find_first_of('?');
+    auto index = m_reqRaw.m_rawUrl.find_first_of('?');
     if(index == std::string_view::npos){
-        m_raw->m_rawPath = m_raw->m_rawUrl;
-        m_raw->m_url = stash(QByteArray::fromPercentEncoding(QByteArray(m_raw->m_rawUrl.data(), m_raw->m_rawUrl.length())));
+        m_reqRaw.m_rawPath = m_reqRaw.m_rawUrl;
+        m_reqRaw.m_url = stash(QByteArray::fromPercentEncoding(QByteArray(m_reqRaw.m_rawUrl.data(), m_reqRaw.m_rawUrl.length())));
         return;
     }
 
-    m_raw->m_rawPath = m_raw->m_rawUrl.substr(0, index);
-    m_raw->m_url = QByteArray::fromPercentEncoding(QByteArray(m_raw->m_rawUrl.data(), m_raw->m_rawUrl.length()));
+    m_reqRaw.m_rawPath = m_reqRaw.m_rawUrl.substr(0, index);
+    m_reqRaw.m_url = QByteArray::fromPercentEncoding(QByteArray(m_reqRaw.m_rawUrl.data(), m_reqRaw.m_rawUrl.length()));
 
-    m_raw->m_rawPathArgs = m_raw->m_rawUrl.substr(index+1);
-    parseUrlEncodedData(m_raw->m_rawPathArgs, false);
+    m_reqRaw.m_rawPathArgs = m_reqRaw.m_rawUrl.substr(index+1);
+    parseUrlEncodedData(m_reqRaw.m_rawPathArgs, false);
 }
 
 void IRequestImpl::parseHeader(IStringView line)
@@ -484,39 +481,39 @@ void IRequestImpl::parseHeader(IStringView line)
     static $UInt headerMaxLength("http.headerMaxLength");
     auto index = line.find_first_of(':');
     if(index == std::string_view::npos){
-        return m_raw->setInvalid(IHttpBadRequestInvalid("server do not support headers item multiline, or without key/value pair"));  // SEE: 默认不支持 headers 换行书写
+        return m_reqRaw.setInvalid(IHttpBadRequestInvalid("server do not support headers item multiline, or without key/value pair"));  // SEE: 默认不支持 headers 换行书写
     }
 
     if(line.length() > *headerMaxLength){
-        m_raw->setInvalid(IHttpRequestHeaderFieldTooLargeInvalid());
+        m_reqRaw.setInvalid(IHttpRequestHeaderFieldTooLargeInvalid());
     }
 
     auto key = line.substr(0, index).trimmed();
     auto value = line.substr(index+1).trimmed();
-    m_raw->m_requestHeaders.insertMulti(key, value);
+    m_reqRaw.m_requestHeaders.insertMulti(key, value);
 }
 
 void IRequestImpl::resolveHeaders()
 {
-    if(m_raw->m_requestHeaders.contains(IHttpHeader::ContentLength)){
+    if(m_reqRaw.m_requestHeaders.contains(IHttpHeader::ContentLength)){
         bool ok;
-        m_contentLength = m_raw->m_requestHeaders.value(IHttpHeader::ContentLength).toQString().toUInt(&ok);
+        m_contentLength = m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentLength).toQString().toUInt(&ok);
         if(!ok){
-            return m_raw->setInvalid(IHttpBadRequestInvalid("ContentLength error"));
+            return m_reqRaw.setInvalid(IHttpBadRequestInvalid("ContentLength error"));
         }
         static $Int bodyMaxLength("http.bodyMaxLength");
         if(m_contentLength > *bodyMaxLength){
-            return m_raw->setInvalid(IHttpBadRequestInvalid("Content Length too large to accept"));
+            return m_reqRaw.setInvalid(IHttpBadRequestInvalid("Content Length too large to accept"));
         }
     }
 
-    auto contentType = m_raw->m_requestHeaders.value(IHttpHeader::ContentType);
+    auto contentType = m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentType);
     if(!contentType.empty()){
-        m_raw->m_requestMime = IHttpMimeUtil::toMime(contentType);
-        if(m_raw->m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
+        m_reqRaw.m_requestMime = IHttpMimeUtil::toMime(contentType);
+        if(m_reqRaw.m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
             m_multipartBoundary = getBoundary(contentType);
             if(m_multipartBoundary.empty()){
-                m_raw->setInvalid(IHttpBadRequestInvalid("multipart request has no boundary"));
+                m_reqRaw.setInvalid(IHttpBadRequestInvalid("multipart request has no boundary"));
                 return;
             }else{
                 m_multipartBoundaryEnd = stash(m_multipartBoundary.toQByteArray() + "--");
@@ -529,13 +526,13 @@ void IRequestImpl::resolveHeaders()
 
 void IRequestImpl::resolveCookieHeaders()
 {
-    auto cookies = m_raw->m_requestHeaders.values(IHttpHeader::Cookie);
+    auto cookies = m_reqRaw.m_requestHeaders.values(IHttpHeader::Cookie);
     for(const auto& cookie : cookies){
         auto args = cookie.split('=');
         if(args.length() == 1){
-            m_raw->m_requestCookieParameters.insertMulti(args.first(), args.first());
+            m_reqRaw.m_requestCookieParameters.insertMulti(args.first(), args.first());
         }else{
-            m_raw->m_requestCookieParameters.insertMulti(args.first(), args.last());
+            m_reqRaw.m_requestCookieParameters.insertMulti(args.first(), args.last());
         }
     }
 }
@@ -586,26 +583,26 @@ void IRequestImpl::resolveBodyContent()
     if(m_bodyInData){
         auto readSize = m_data.m_readSize - m_data.m_parsedSize;
         if(m_contentLength != readSize){
-            return m_raw->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
+            return m_reqRaw.setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
         }
-        m_raw->m_requestBody = IStringView(m_data.m_data + m_data.m_parsedSize, readSize);
+        m_reqRaw.m_requestBody = IStringView(m_data.m_data + m_data.m_parsedSize, readSize);
     }else{
         if(m_contentLength != m_data.m_buffer.size()){
-            return m_raw->setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
+            return m_reqRaw.setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
         }
-        m_raw->m_requestBody = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), m_data.m_buffer.size());
+        m_reqRaw.m_requestBody = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), m_data.m_buffer.size());
     }
 }
 
 void IRequestImpl::resolveMultipartContent()
 {
     if(m_bodyInData){
-        m_raw->m_requestBody = IStringView(m_data.m_data + m_data.m_parsedSize, m_data.m_readSize - m_data.m_parsedSize);
+        m_reqRaw.m_requestBody = IStringView(m_data.m_data + m_data.m_parsedSize, m_data.m_readSize - m_data.m_parsedSize);
     }else{
-        m_raw->m_requestBody = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), m_data.m_buffer.size());
+        m_reqRaw.m_requestBody = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), m_data.m_buffer.size());
     }
-    if(!m_raw->m_requestBody.endWith(m_multipartBoundaryEnd)){
-        m_raw->setInvalid(IHttpBadRequestInvalid("multipart data do not have end tag"));
+    if(!m_reqRaw.m_requestBody.endWith(m_multipartBoundaryEnd)){
+        m_reqRaw.setInvalid(IHttpBadRequestInvalid("multipart data do not have end tag"));
     }
 }
 
@@ -621,12 +618,12 @@ void IRequestImpl::parseUrlEncodedData(IStringView view, bool isBody)
         auto value = data.substr(pos, index).trimmed();
         auto partIndex = value.find_first_of('=');
         if(partIndex == IStringView::npos){
-            m_raw->setInvalid(IHttpBadRequestInvalid("the parameters in body should be pair"));
+            m_reqRaw.setInvalid(IHttpBadRequestInvalid("the parameters in body should be pair"));
         }
         if(isBody){
-            m_raw->m_requestBodyParameters[value.substr(0, partIndex).trimmed()] = value.substr(partIndex + 1).trimmed();
+            m_reqRaw.m_requestBodyParameters[value.substr(0, partIndex).trimmed()] = value.substr(partIndex + 1).trimmed();
         }else{
-            m_raw->m_requestPathParameters[value.substr(0, partIndex).trimmed()] = value.substr(partIndex + 1).trimmed();
+            m_reqRaw.m_requestPathParameters[value.substr(0, partIndex).trimmed()] = value.substr(partIndex + 1).trimmed();
         }
         pos = index+1;
     }
@@ -647,7 +644,7 @@ void IRequestImpl::parseMultiPartData(IStringView data)
 {
     auto endPos = data.find(m_multipartBoundaryEnd);
     if(endPos == IStringView::npos){
-        m_raw->setInvalid(IHttpBadRequestInvalid("multipart end error"));
+        m_reqRaw.setInvalid(IHttpBadRequestInvalid("multipart end error"));
         return;
     }
 
@@ -663,7 +660,7 @@ void IRequestImpl::parseMultiPartData(IStringView data)
         if(!part.isValid()){
             return;
         }
-        m_raw->m_requestMultiParts.append(part);
+        m_reqRaw.m_requestMultiParts.append(part);
         indexFirst = indexSecond;
     }
 }

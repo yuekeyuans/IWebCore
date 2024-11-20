@@ -34,7 +34,6 @@ public:
 
 public:
     IResponseRaw* m_responseRaw{nullptr};
-//    IResponse*  m_response {nullptr};
     IRequest*   m_request  {nullptr};
     QMap<QString, QVariant> m_attribute;                // 用户或系统可以自己放置内容的地方。
 

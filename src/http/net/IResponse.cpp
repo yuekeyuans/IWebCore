@@ -4,6 +4,7 @@
 #include "core/abort/IGlobalAbort.h"
 #include "http/biscuits/IHttpHeader.h"
 #include "http/net/IRequest.h"
+#include "http/net/impl/IRequestImpl.h"
 #include "http/net/impl/IRequestRaw.h"
 #include "http/net/IHeaderJar.h"
 #include "http/response/IResponseWare.h"
@@ -15,7 +16,7 @@ IResponse::IResponse()
     IGlobalAbort::abortUnVisibleMethod();
 }
 
-IResponse::IResponse(IRequest *request) : m_raw(request->getRaw())
+IResponse::IResponse(IRequest *request) : m_raw(&request->impl->m_reqRaw)
 {
 }
 
@@ -44,24 +45,6 @@ IResponse &IResponse::operator=(IResponse &&)
     IGlobalAbort::abortUnVisibleMethod();
     return *this;
 }
-
-//IResponse &IResponse::operator<<(const QString &content)
-//{
-//    m_raw->m_responseRaw->content.append(content);
-//    return *this;
-//}
-
-//IResponse &IResponse::operator<<(const QByteArray &content)
-//{
-//    m_raw->m_responseRaw->content.append(content);
-//    return *this;
-//}
-
-//IResponse &IResponse::operator<<(const char *content)
-//{
-//    m_raw->m_responseRaw->content.append(QByteArray(content));
-//    return *this;
-//}
 
 IResponseHeader IResponse::operator[](const QString &header) const
 {
@@ -118,24 +101,6 @@ IResponse &IResponse::addCookie(ICookiePart cookiePart)
     m_raw->m_responseRaw->cookies.push_back(std::move(cookiePart));
     return *this;
 }
-
-//IResponse &IResponse::appendContent(const QString &content)
-//{
-//    m_raw->m_responseRaw->content.append(content);
-//    return *this;
-//}
-
-//IResponse &IResponse::appendContent(const QByteArray &content)
-//{
-//    m_raw->m_responseRaw->content.append(content);
-//    return *this;
-//}
-
-//IResponse &IResponse::appendContent(const char *content)
-//{
-//    m_raw->m_responseRaw->content.append(content);
-//    return *this;
-//}
 
 IResponse &IResponse::setContent(const QString &content)
 {
