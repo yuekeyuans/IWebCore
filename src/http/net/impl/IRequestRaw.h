@@ -8,34 +8,12 @@
 #include "http/biscuits/IHttpStatus.h"
 #include "http/biscuits/IHttpVersion.h"
 #include "http/net/IMultiPart.h"
-#include "http/net/ICookiePart.h"
-#include "http/net/impl/IResponseRaw.h"
-#include "http/invalid/IHttpInvalidWare.h"
 
 $PackageWebCoreBegin
 
-class IResponse;
-class IRequest;
-class IHeaderJar;
-class ICookieJar;
-class ISessionJar;
-class IMultiPartJar;
-class IHttpAction;
 class IRequestRaw
 {
 public:
-    IRequestRaw() = default;
-//    IRequestRaw(IRequest& request);
-    ~IRequestRaw() = default;
-
-public:
-//    bool isValid() const;
-//    void setInvalid(IHttpInvalidWare ware);
-
-public:
-//    IRequest&   m_request;
-
-    // request
     IStringView m_rawUrl;
     IStringView m_rawPath;
     IStringView m_rawPathArgs;

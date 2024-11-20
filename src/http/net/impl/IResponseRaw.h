@@ -21,10 +21,6 @@ public:
     void setContent(const char* content);
     void setContent(const QFileInfo& content);
     void setContent(IHttpInvalidWare ware);
-    void setInvalid(IHttpInvalidWare);
-
-public:
-    bool isValid();
 
 public:
     QString mime;

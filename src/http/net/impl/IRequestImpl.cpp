@@ -57,13 +57,13 @@ IStringView IRequestImpl::contentType() const
 
 bool IRequestImpl::isValid() const
 {
-    // TODO:
-    return true;
+    return m_isValid;
 }
 
-void IRequestImpl::setInvalid(IHttpInvalidWare)
+void IRequestImpl::setInvalid(IHttpInvalidWare ware)
 {
-    // TODO:
+    m_isValid = false;
+    m_respRaw.setContent(ware);
 }
 
 /*
@@ -330,7 +330,7 @@ void IRequestImpl::parseData()
             return endState();
         }
 
-        if(!m_respRaw.isValid()){
+        if(!m_isValid){
             m_readState = State::EndState;
         }
     }

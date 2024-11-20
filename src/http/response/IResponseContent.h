@@ -2,7 +2,6 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "http/invalid/IHttpInvalidWare.h"
-//#include "http/invalid/IHttpInvalidUnit.h"
 #include <array>
 
 $PackageWebCoreBegin
@@ -22,7 +21,6 @@ public:
     IStringView getContent();
 
 public:
-    bool isValid{true};
     std::list<IResponseContentWare*> m_contents;
 };
 

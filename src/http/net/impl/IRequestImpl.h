@@ -13,6 +13,7 @@
 #include "http/net/IHeaderJar.h"
 #include "http/net/IMultiPartJar.h"
 #include "http/net/ICookieJar.h"
+#include "http/net/ISessionJar.h"
 
 $PackageWebCoreBegin
 
@@ -80,7 +81,9 @@ public:
     // 是否考虑把 session 放置到 attribute 当中？
 
 public:
-    // TODO: 这几个放置到顶层
+    bool m_isValid{true};
+
+public:
     IHeaderJar m_headerJar;
     ICookieJar m_cookieJar;                                       // TODO: 这两个是否需要指针?
     IMultiPartJar m_multiPartJar;
