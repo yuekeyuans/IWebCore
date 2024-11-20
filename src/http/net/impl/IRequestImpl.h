@@ -67,10 +67,19 @@ private:
 public:
     IRequest& m_request;
     IRequestRaw m_reqRaw{};
+    IResponseImpl* m_responseImpl{};    // TODO: 这个应该可以去掉的。
     IResponseRaw m_respRaw{};
+
+public:
+    // TODO: 这几个放置到顶层
+    IHeaderJar* m_headerJar{nullptr};
+    ICookieJar* m_cookieJar{nullptr};                                       // TODO: 这两个是否需要指针?
+    IMultiPartJar* m_multiPartJar{nullptr};
+    ISessionJar* m_sessionJar{nullptr};
+
+public:
     ITcpConnection* m_connection{};
     ITcpConnectionData& m_data;
-    IResponseImpl* m_responseImpl{};    // TODO: 这个应该可以去掉的。
 
 private:
     State m_readState{FirstLineState};

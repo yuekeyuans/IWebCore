@@ -23,21 +23,10 @@ IRequestRaw::IRequestRaw()
 IRequestRaw::IRequestRaw(IRequest& request)
     : m_request(request)
 {
-    m_headerJar = new IHeaderJar(request);
-    m_cookieJar = new ICookieJar(request);
-    m_multiPartJar = new IMultiPartJar(request);
-
-    if(ISessionManager::instance()->getSessionWare() != nullptr){
-        m_sessionJar = new ISessionJar(request);
-    }
 }
 
 IRequestRaw::~IRequestRaw()
 {
-    delete m_headerJar;
-    delete m_cookieJar;
-    delete m_multiPartJar;
-    delete m_sessionJar;
 }
 
 bool IRequestRaw::isValid() const

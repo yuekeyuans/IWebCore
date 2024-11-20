@@ -64,10 +64,10 @@ QByteArray IResponseImpl::generateFirstLine()
 QByteArray IResponseImpl::generateHeadersContent(int contentSize)
 {
     if(contentSize != 0){
-        m_raw.m_reqRaw.m_headerJar->setResponseHeader(IHttpHeader::ContentLength, QString::number(contentSize));
-        if(!m_raw.m_reqRaw.m_headerJar->containResponseHeaderKey(IHttpHeader::ContentType)
+        m_raw.m_headerJar->setResponseHeader(IHttpHeader::ContentLength, QString::number(contentSize));
+        if(!m_raw.m_headerJar->containResponseHeaderKey(IHttpHeader::ContentType)
                 && !m_raw.m_respRaw.mime.isEmpty()){
-            m_raw.m_reqRaw.m_headerJar->setResponseHeader(IHttpHeader::ContentType, m_raw.m_respRaw.mime);
+            m_raw.m_headerJar->setResponseHeader(IHttpHeader::ContentType, m_raw.m_respRaw.mime);
         }
     }
 

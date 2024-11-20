@@ -24,9 +24,6 @@ public:
 public:
     bool isValid{true};
     std::list<IResponseContentWare*> m_contents;
-
-    // TODO:
-//    std::function<void(IRequest&)> invalidFunction{};
 };
 
 $PackageWebCoreEnd

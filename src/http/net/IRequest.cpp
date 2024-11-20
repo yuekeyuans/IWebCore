@@ -56,7 +56,7 @@ IRequest &IRequest::operator=(IRequest &&)
 
 IStringView IRequest::operator[](IStringView header) const
 {
-    return impl->m_reqRaw.m_headerJar->getRequestHeaderValue(header);
+    return impl->m_headerJar->getRequestHeaderValue(header);
 }
 
 IStringView IRequest::operator[](const QString &header) const
@@ -72,22 +72,22 @@ IStringView IRequest::operator[](const QString &header) const
 
 ICookieJar *IRequest::cookieJar() const
 {
-    return impl->m_reqRaw.m_cookieJar;
+    return impl->m_cookieJar;
 }
 
 ISessionJar *IRequest::sessionJar() const
 {
-    return impl->m_reqRaw.m_sessionJar;
+    return impl->m_sessionJar;
 }
 
 IHeaderJar *IRequest::headerJar() const
 {
-    return impl->m_reqRaw.m_headerJar;
+    return impl->m_headerJar;
 }
 
 IMultiPartJar *IRequest::multiPartJar() const
 {
-    return impl->m_reqRaw.m_multiPartJar;
+    return impl->m_multiPartJar;
 }
 
 IRequestRaw *IRequest::getRaw() const
