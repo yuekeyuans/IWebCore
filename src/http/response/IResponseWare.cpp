@@ -42,7 +42,7 @@ IResponseWare &IResponseWare::operator = (IResponseWare && rhs)
 
 IResponseHeader IResponseWare::operator[](const QString &header)
 {
-    return IResponseHeader(m_raw, header);
+    return IResponseHeader(*m_raw, header);
 }
 
 const QString& IResponseWare::mime() const
@@ -94,6 +94,5 @@ QString IResponseWare::getPrefixMatcher()
 {
     return {};
 }
-
 
 $PackageWebCoreEnd

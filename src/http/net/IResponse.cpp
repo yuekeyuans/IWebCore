@@ -49,7 +49,7 @@ IResponse &IResponse::operator=(IResponse &&)
 
 IResponseHeader IResponse::operator[](const QString &header) const
 {
-    return {&m_impl.m_respRaw, header};
+    return {m_impl.m_respRaw, header};
 }
 
 // TODO: warn

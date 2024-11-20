@@ -33,7 +33,6 @@ public:
     void setInvalid(IHttpInvalidWare ware);
 
 public:
-//    IResponseRaw* m_responseRaw{nullptr};
     IRequest&   m_request;
     QMap<QString, QVariant> m_attribute;                // 用户或系统可以自己放置内容的地方。
 

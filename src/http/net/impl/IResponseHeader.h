@@ -8,7 +8,7 @@ struct IResponseRaw;
 class IResponseHeader
 {
 public:
-    IResponseHeader(IResponseRaw* raw, const QString& key);
+    IResponseHeader(IResponseRaw& raw, const QString& key);
 
 public:
     operator QString() noexcept;
@@ -18,7 +18,7 @@ public:
     QStringList values();
 
 private:
-    IResponseRaw* m_raw;
+    IResponseRaw& m_raw;
     const QString m_key;
 };
 

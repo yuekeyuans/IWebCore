@@ -61,7 +61,6 @@ public:
 
 private:
     IRequestImpl& m_impl;
-//    IRequestRaw& m_raw;
 };
 
 $PackageWebCoreEnd
