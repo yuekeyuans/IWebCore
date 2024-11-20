@@ -37,10 +37,11 @@ public:
     IStringView operator[](const QString& header) const;
 
 //    IResponse* response() const;
-    ICookieJar* cookieJar() const;
+    ICookieJar& cookieJar() const;
     ISessionJar* sessionJar() const;
-    IHeaderJar* headerJar() const;
-    IMultiPartJar* multiPartJar() const;
+    IHeaderJar& headerJar() const;
+    IMultiPartJar& multiPartJar() const;
+
     IRequestRaw* getRaw() const;
     IRequestImpl& getImpl() const;
 
@@ -107,7 +108,7 @@ protected:
     virtual std::vector<asio::const_buffer> getResult() final;
 
 private:
-    IRequestImpl* impl{nullptr};
+    IRequestImpl* m_impl{nullptr};
 };
 
 $PackageWebCoreEnd

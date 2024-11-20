@@ -190,11 +190,11 @@ void *IHttpControllerParameter::getParamOfSystem(const IArgumentType& node, IReq
         return new IResponse(request); // TODO: 这个要删除
 //        return request.response();
     case 2:
-        return request.cookieJar();
+        return &request.cookieJar();
     case 3:
-        return request.multiPartJar();
+        return &request.multiPartJar();
     case 4:
-        return request.headerJar();
+        return &request.headerJar();
     case 5:
         return request.sessionJar();
     default:

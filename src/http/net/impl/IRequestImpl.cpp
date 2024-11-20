@@ -9,8 +9,6 @@
 #include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/invalid/IHttpNotFoundInvalid.h"
 #include "http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.h"
-#include "http/net/IHeaderJar.h"
-#include "http/net/IMultiPartJar.h"
 #include "http/net/IRequest.h"
 #include "http/net/IRequestManage.h"
 #include "http/net/impl/IRequestRaw.h"
@@ -26,12 +24,10 @@ $PackageWebCoreBegin
 
 IRequestImpl::IRequestImpl(IRequest& self)
     : m_request(self), m_reqRaw(IRequestRaw(self)),
-     m_connection(self.m_connection), m_data(self.m_connection->m_data)
+     m_connection(self.m_connection), m_data(self.m_connection->m_data),
+     m_headerJar(IHeaderJar(self)), m_cookieJar(ICookieJar(m_request)),
+     m_multiPartJar(IMultiPartJar(m_request))
 {
-    m_headerJar = new IHeaderJar(m_request);
-    m_cookieJar = new ICookieJar(m_request);
-    m_multiPartJar = new IMultiPartJar(m_request);
-
     if(ISessionManager::instance()->getSessionWare() != nullptr){
         m_sessionJar = new ISessionJar(m_request);
     }
@@ -39,9 +35,6 @@ IRequestImpl::IRequestImpl(IRequest& self)
 
 IRequestImpl::~IRequestImpl()
 {
-    delete m_headerJar;
-    delete m_cookieJar;
-    delete m_multiPartJar;
     delete m_sessionJar;
 
     delete m_responseImpl;

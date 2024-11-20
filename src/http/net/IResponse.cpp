@@ -59,7 +59,7 @@ IResponse &IResponse::setHeader(const QString &key, const QString &value)
 //        $Ast->warn("iresponse_setHeader_with_empty_value_or_key");
     }
 
-    m_impl.m_headerJar->setResponseHeader(key, value);
+    m_impl.m_headerJar.setResponseHeader(key, value);
     return *this;
 }
 

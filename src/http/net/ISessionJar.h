@@ -12,7 +12,7 @@ class ISessionJar : public IJarUnit, IRegisterMetaTypeUnit<ISessionJar>
 {
 public:
     ISessionJar();
-    ISessionJar(IRequest& m_raw);
+    ISessionJar(IRequest& m_impl);
 
 public:
     bool isValid() const;

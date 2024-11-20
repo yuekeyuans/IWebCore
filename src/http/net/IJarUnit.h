@@ -8,14 +8,13 @@ class IRequest;
 class IRequestImpl;
 class IJarUnit
 {
-//    friend class IRequestImpl;
 public:
     IJarUnit();
-    IJarUnit(IRequestImpl& m_raw);
-    IJarUnit(IRequest&);
+    IJarUnit(IRequestImpl& impl);
+    IJarUnit(IRequest& request);
 
 protected:
-    IRequestImpl& m_raw;
+    IRequestImpl& m_impl;
 };
 
 $PackageWebCoreEnd

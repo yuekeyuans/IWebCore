@@ -24,12 +24,12 @@ IRequest::IRequest() : ITcpResolverInterface(nullptr)
 
 IRequest::IRequest(ITcpConnection *connection) : ITcpResolverInterface(connection)
 {
-    impl = new IRequestImpl(*this);
+    m_impl = new IRequestImpl(*this);
 }
 
 IRequest::~IRequest()
 {
-    delete impl;
+    delete m_impl;
 }
 
 IRequest::IRequest(const IRequest &) : ITcpResolverInterface(nullptr)
@@ -56,7 +56,7 @@ IRequest &IRequest::operator=(IRequest &&)
 
 IStringView IRequest::operator[](IStringView header) const
 {
-    return impl->m_headerJar->getRequestHeaderValue(header);
+    return m_impl->m_headerJar.getRequestHeaderValue(header);
 }
 
 IStringView IRequest::operator[](const QString &header) const
@@ -70,105 +70,105 @@ IStringView IRequest::operator[](const QString &header) const
 //    return impl->m_raw->m_response;
 //}
 
-ICookieJar *IRequest::cookieJar() const
+ICookieJar& IRequest::cookieJar() const
 {
-    return impl->m_cookieJar;
+    return m_impl->m_cookieJar;
 }
 
 ISessionJar *IRequest::sessionJar() const
 {
-    return impl->m_sessionJar;
+    return m_impl->m_sessionJar;
 }
 
-IHeaderJar *IRequest::headerJar() const
+IHeaderJar& IRequest::headerJar() const
 {
-    return impl->m_headerJar;
+    return m_impl->m_headerJar;
 }
 
-IMultiPartJar *IRequest::multiPartJar() const
+IMultiPartJar& IRequest::multiPartJar() const
 {
-    return impl->m_multiPartJar;
+    return m_impl->m_multiPartJar;
 }
 
 IRequestRaw *IRequest::getRaw() const
 {
-    return &(impl->m_reqRaw);
+    return &(m_impl->m_reqRaw);
 }
 
 IRequestImpl& IRequest::getImpl() const
 {
-    return *impl;
+    return *m_impl;
 }
 
 IHttpVersion IRequest::version() const
 {
-    return impl->m_reqRaw.m_httpVersion;
+    return m_impl->m_reqRaw.m_httpVersion;
 }
 
 IHttpMime IRequest::mime() const
 {
-    return impl->m_reqRaw.m_requestMime;
+    return m_impl->m_reqRaw.m_requestMime;
 }
 
 IStringView IRequest::url() const
 {
-    return impl->m_reqRaw.m_url;
+    return m_impl->m_reqRaw.m_url;
 }
 
 IHttpMethod IRequest::method() const
 {
-    return impl->m_reqRaw.m_method;
+    return m_impl->m_reqRaw.m_method;
 }
 
 int IRequest::bodyContentLength() const
 {
-    return impl->contentLength();
+    return m_impl->contentLength();
 }
 
 IStringView IRequest::bodyContentType() const
 {
-    return impl->contentType();
+    return m_impl->contentType();
 }
 
 IStringView IRequest::bodyContent() const
 {
-    return impl->m_reqRaw.m_requestBody;
+    return m_impl->m_reqRaw.m_requestBody;
 }
 
 QMultiHash<IStringView, IStringView> &IRequest::headers()
 {
-    return impl->m_reqRaw.m_requestHeaders;
+    return m_impl->m_reqRaw.m_requestHeaders;
 }
 
 const QMultiHash<IStringView, IStringView> &IRequest::headers() const
 {
-    return impl->m_reqRaw.m_requestHeaders;
+    return m_impl->m_reqRaw.m_requestHeaders;
 }
 
 const QMap<IStringView, IStringView> &IRequest::urlParameters() const
 {
-    return impl->m_reqRaw.m_requestUrlParameters;
+    return m_impl->m_reqRaw.m_requestUrlParameters;
 }
 
 const QMap<IStringView, IStringView> &IRequest::paramParameters() const
 {
-    return impl->m_reqRaw.m_requestPathParameters;
+    return m_impl->m_reqRaw.m_requestPathParameters;
 }
 
 const QMap<IStringView, IStringView> &IRequest::bodyFormParameters() const
 {
-    return impl->m_reqRaw.m_requestBodyParameters;
+    return m_impl->m_reqRaw.m_requestBodyParameters;
 }
 
 const QVector<IMultiPart> &IRequest::bodyMultiParts() const
 {
-    return impl->m_reqRaw.m_requestMultiParts;
+    return m_impl->m_reqRaw.m_requestMultiParts;
 }
 
 // TODO: check it
 IJson IRequest::bodyJson() const
 {
-    return impl->m_reqRaw.m_requestJson;
+    return m_impl->m_reqRaw.m_requestJson;
 }
 
 /*
@@ -281,24 +281,24 @@ IResult<QByteArray> IRequest::getSessionParameter(const QString &name) const
 
 const QMap<QString, QVariant> &IRequest::attributes() const
 {
-    return impl->m_reqRaw.m_attribute;
+    return m_impl->m_reqRaw.m_attribute;
 }
 
 bool IRequest::hasAttribute(const QString &name) const
 {
-    return impl->m_reqRaw.m_attribute.contains(name);
+    return m_impl->m_reqRaw.m_attribute.contains(name);
 }
 
 void IRequest::setAttribute(const QString &name, const QVariant &value)
 {
-    impl->m_reqRaw.m_attribute[name] = value;
+    m_impl->m_reqRaw.m_attribute[name] = value;
 }
 
 QVariant IRequest::getAttribute(const QString &name, bool& ok) const
 {
-    if(impl->m_reqRaw.m_attribute.contains(name)){
+    if(m_impl->m_reqRaw.m_attribute.contains(name)){
         ok = true;
-        return impl->m_reqRaw.m_attribute[name];
+        return m_impl->m_reqRaw.m_attribute[name];
     }
     ok = false;
     return {};
@@ -316,19 +316,19 @@ IResult<QVariant> IRequest::getAttribute(const QString &name) const
 
 bool IRequest::isValid() const
 {
-    return impl->m_reqRaw.isValid();
+    return m_impl->m_reqRaw.isValid();
 }
 
 void IRequest::setInvalidIf(bool condition, IHttpInvalidWare ware) const
 {
     if(condition){
-        impl->m_reqRaw.setInvalid(ware);
+        m_impl->m_reqRaw.setInvalid(ware);
     }
 }
 
 void IRequest::setInvalid(IHttpInvalidWare ware) const
 {
-    return impl->m_reqRaw.setInvalid(ware);
+    return m_impl->m_reqRaw.setInvalid(ware);
 }
 
 void IRequest::doAction(IHttpAction *action)
@@ -345,12 +345,12 @@ void IRequest::doWrite()
 
 void IRequest::resolve()
 {
-    impl->parseData();
+    m_impl->parseData();
 }
 
 std::vector<asio::const_buffer> IRequest::getResult()
 {
-    return impl->getResult();
+    return m_impl->getResult();
 }
 
 $PackageWebCoreEnd

@@ -15,7 +15,7 @@ ISessionJar::ISessionJar() : IJarUnit()
 ISessionJar::ISessionJar(IRequest& request) : IJarUnit(request)
 {
     m_sessionWare = ISessionManager::instance()->getSessionWare();
-    m_sessionId = m_sessionWare->getSessionId(&m_raw.m_reqRaw);
+    m_sessionId = m_sessionWare->getSessionId(&m_impl.m_reqRaw);
 }
 
 bool ISessionJar::isValid() const

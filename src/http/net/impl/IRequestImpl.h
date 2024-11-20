@@ -7,9 +7,12 @@
 #include "http/biscuits/IHttpMime.h"
 #include "http/biscuits/IHttpStatus.h"
 #include "http/biscuits/IHttpMethod.h"
-#include "http/net/IMultiPart.h"
 #include "http/net/impl/IResponseRaw.h"
 #include "http/net/impl/IRequestRaw.h"
+#include "http/net/IMultiPart.h"
+#include "http/net/IHeaderJar.h"
+#include "http/net/IMultiPartJar.h"
+#include "http/net/ICookieJar.h"
 
 $PackageWebCoreBegin
 
@@ -72,9 +75,9 @@ public:
 
 public:
     // TODO: 这几个放置到顶层
-    IHeaderJar* m_headerJar{nullptr};
-    ICookieJar* m_cookieJar{nullptr};                                       // TODO: 这两个是否需要指针?
-    IMultiPartJar* m_multiPartJar{nullptr};
+    IHeaderJar m_headerJar;
+    ICookieJar m_cookieJar;                                       // TODO: 这两个是否需要指针?
+    IMultiPartJar m_multiPartJar;
     ISessionJar* m_sessionJar{nullptr};
 
 public:

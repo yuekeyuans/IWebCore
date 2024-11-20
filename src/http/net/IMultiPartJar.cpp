@@ -19,7 +19,7 @@ IMultiPart IMultiPartJar::operator[](const QString &name) const
 
 IMultiPart IMultiPartJar::operator[](IStringView name) const
 {
-    const auto& jar = m_raw.m_reqRaw.m_requestMultiParts;
+    const auto& jar = m_impl.m_reqRaw.m_requestMultiParts;
     for(const auto& part : jar){
         if(part.name == name){
             return part;
@@ -30,7 +30,7 @@ IMultiPart IMultiPartJar::operator[](IStringView name) const
 
 bool IMultiPartJar::containRequestMulitPartName(IStringView name) const
 {
-    const auto& jar = m_raw.m_reqRaw.m_requestMultiParts;
+    const auto& jar = m_impl.m_reqRaw.m_requestMultiParts;
     for(const auto& part : jar){
         if(part.name == name){
             return true;
@@ -48,7 +48,7 @@ bool IMultiPartJar::containRequestMulitPartName(const QString &name) const
 IStringViewList IMultiPartJar::getRequestMultiPartNames() const
 {
     IStringViewList ret;
-    const auto& jar = m_raw.m_reqRaw.m_requestMultiParts;
+    const auto& jar = m_impl.m_reqRaw.m_requestMultiParts;
     for(const auto& part : jar){
         ret.append (part.name);
     }
@@ -57,7 +57,7 @@ IStringViewList IMultiPartJar::getRequestMultiPartNames() const
 
 IMultiPart IMultiPartJar::getRequestMultiPart(IStringView name) const
 {
-    const auto& jar = m_raw.m_reqRaw.m_requestMultiParts;
+    const auto& jar = m_impl.m_reqRaw.m_requestMultiParts;
     for(const auto& part : jar){
         if(part.name == name){
             return part;
@@ -74,13 +74,13 @@ IMultiPart IMultiPartJar::getRequestMultiPart(const QString &name) const
 
 const QVector<IMultiPart> &IMultiPartJar::getRequestMultiParts() const
 {
-    return m_raw.m_reqRaw.m_requestMultiParts;
+    return m_impl.m_reqRaw.m_requestMultiParts;
 }
 
 QVector<IMultiPart> IMultiPartJar::getRequestFileMultiParts() const
 {
     QVector<IMultiPart> ret;
-    const auto& jar = m_raw.m_reqRaw.m_requestMultiParts;
+    const auto& jar = m_impl.m_reqRaw.m_requestMultiParts;
     for(const auto& part : jar){
         if(!part.fileName.empty ()){
             ret.append (part);
