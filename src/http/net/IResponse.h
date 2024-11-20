@@ -17,7 +17,6 @@ class IRequest;
 class IResponseWare;
 class IRequestImpl;
 class IRequestRaw;
-class IResponseImpl;
 class ICookiePart;
 
 class IResponse : IRegisterMetaTypeUnit<IResponse>

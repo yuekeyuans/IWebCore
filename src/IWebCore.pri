@@ -205,7 +205,6 @@ HEADERS += \
     $$PWD/http/net/IResponse.h \
 #    $$PWD/http/net/impl/IRequestAssert.h \
     $$PWD/http/net/impl/IRequestImpl.h \
-    $$PWD/http/net/impl/IResponseImpl.h \
 #    $$PWD/http/base/IFunctionNode.h \
     $$PWD/http/base/IMethodNode.h \
     $$PWD/http/response/IByteArrayResponse.h \
@@ -380,7 +379,6 @@ SOURCES += \
     $$PWD/http/net/IResponse.cpp \
 #    $$PWD/http/net/impl/IRequestAssert.cpp \
     $$PWD/http/net/impl/IRequestImpl.cpp \
-    $$PWD/http/net/impl/IResponseImpl.cpp \
 #    $$PWD/http/base/IFunctionNode.cpp \
     $$PWD/http/base/IMethodNode.cpp \
     $$PWD/http/response/IByteArrayResponse.cpp \

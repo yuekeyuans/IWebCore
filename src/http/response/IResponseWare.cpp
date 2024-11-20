@@ -47,7 +47,7 @@ IResponseHeader IResponseWare::operator[](const QString &header)
 
 const QString& IResponseWare::mime() const
 {
-    return m_raw->mime;
+    return m_raw->m_mime;
 }
 
 void IResponseWare::setMime(IHttpMime mime)
@@ -57,37 +57,37 @@ void IResponseWare::setMime(IHttpMime mime)
 
 IHttpStatus IResponseWare::status() const
 {
-    return m_raw->status;
+    return m_raw->m_status;
 }
 
 void IResponseWare::setStatus(IHttpStatus statusCode)
 {
-    m_raw->status = statusCode;
+    m_raw->m_status = statusCode;
 }
 
 const QMultiHash<QString, QString>& IResponseWare::headers() const
 {
-    return m_raw->headers;
+    return m_raw->m_headers;
 }
 
 QMultiHash<QString, QString> &IResponseWare::headers()
 {
-    return m_raw->headers;
+    return m_raw->m_headers;
 }
 
 void IResponseWare::setHeader(const QString &key, const QString &value)
 {
-    m_raw->headers.insert(key, value);
+    m_raw->m_headers.insert(key, value);
 }
 
 void IResponseWare::addHeader(const QString &key, const QString &value)
 {
-    m_raw->headers.insertMulti(key, value);
+    m_raw->m_headers.insertMulti(key, value);
 }
 
 IResponseContent &IResponseWare::getContent()
 {
-    return m_raw->content;
+    return m_raw->m_responseContent;
 }
 
 QString IResponseWare::getPrefixMatcher()

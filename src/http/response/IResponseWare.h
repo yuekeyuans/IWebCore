@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
-#include "core/base/IResult.h"
 #include "http/biscuits/IHttpMime.h"
 #include "http/biscuits/IHttpStatus.h"
 #include "http/net/impl/IResponseRaw.h"

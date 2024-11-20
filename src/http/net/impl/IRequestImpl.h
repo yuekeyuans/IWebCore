@@ -20,7 +20,6 @@ $PackageWebCoreBegin
 class IResponse;
 class IRequest;
 class ITcpConnection;
-class IResponseImpl;
 struct ITcpConnectionData;
 
 class IRequestImpl : public IStringViewStash
@@ -75,7 +74,6 @@ private:
 public:
     IRequest& m_request;
     IRequestRaw m_reqRaw{};
-    IResponseImpl* m_responseImpl{};    // TODO: 这个应该可以去掉的。
     IResponseRaw m_respRaw{};
     QMap<QString, QVariant> m_attribute;                // 用户或系统可以自己放置内容的地方。
     // 是否考虑把 session 放置到 attribute 当中？

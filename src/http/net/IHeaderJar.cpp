@@ -61,55 +61,55 @@ IStringViewList IHeaderJar::getRequestHeaderValues(const QString &key) const
 
 const QMultiHash<QString, QString> &IHeaderJar::responseHeaders() const
 {
-    return m_impl.m_respRaw.headers;
+    return m_impl.m_respRaw.m_headers;
 }
 
 QMultiHash<QString, QString> &IHeaderJar::responseHeaders()
 {
-    return m_impl.m_respRaw.headers;
+    return m_impl.m_respRaw.m_headers;
 }
 
 QStringList IHeaderJar::responseHeaderKeys() const
 {
-    return m_impl.m_respRaw.headers.keys();
+    return m_impl.m_respRaw.m_headers.keys();
 }
 
 bool IHeaderJar::containResponseHeaderKey(const QString &key) const
 {
-    auto range = m_impl.m_respRaw.headers.equal_range(key);
+    auto range = m_impl.m_respRaw.m_headers.equal_range(key);
     return range.first != range.second;
 }
 
 // NOTE: 注意这两者之间的差别， setReponseHeader是，如果有这个值，就替换， addResponseHeader 表示不管怎样，直接添加。
 void IHeaderJar::addResponseHeader(QString key, QString value)
 {
-    m_impl.m_respRaw.headers.insertMulti(std::move(key), std::move(value));
+    m_impl.m_respRaw.m_headers.insertMulti(std::move(key), std::move(value));
 }
 
 void IHeaderJar::addResponseHeader(QString key, const QStringList &values)
 {
     for(const auto& value : values){
-        m_impl.m_respRaw.headers.insertMulti(std::move(key), value);
+        m_impl.m_respRaw.m_headers.insertMulti(std::move(key), value);
     }
 }
 
 void IHeaderJar::setResponseHeader(QString key, QString value)
 {
     deleteReponseHeader(key);
-    m_impl.m_respRaw.headers.insert(std::move(key), std::move(value));
+    m_impl.m_respRaw.m_headers.insert(std::move(key), std::move(value));
 }
 
 void IHeaderJar::setResponseHeader(QString key, const QStringList &values)
 {
     deleteReponseHeader(key);
     for(const auto& value : values){
-        m_impl.m_respRaw.headers.insert(key, value);
+        m_impl.m_respRaw.m_headers.insert(key, value);
     }
 }
 
 void IHeaderJar::deleteReponseHeader(const QString &key)
 {
-    auto& headers = m_impl.m_respRaw.headers;
+    auto& headers = m_impl.m_respRaw.m_headers;
     auto i = headers.find(key);
     while (i != headers.end() && i.key() == key) {
         if (i.value() == 0) {

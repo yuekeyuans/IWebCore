@@ -15,7 +15,7 @@ IResponseHeader::operator QString() noexcept
 
 const IResponseHeader& IResponseHeader::operator=(const QString &value)
 {
-    m_raw.headers.replace(m_key, value);
+    m_raw.m_headers.replace(m_key, value);
     return *this;
 }
 
@@ -26,12 +26,12 @@ QString IResponseHeader::key()
 
 QString IResponseHeader::value()
 {
-    return m_raw.headers.value(m_key);
+    return m_raw.m_headers.value(m_key);
 }
 
 QStringList IResponseHeader::values()
 {
-    return m_raw.headers.values(m_key);
+    return m_raw.m_headers.values(m_key);
 }
 
 $PackageWebCoreEnd

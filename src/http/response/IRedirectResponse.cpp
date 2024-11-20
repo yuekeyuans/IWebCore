@@ -5,12 +5,12 @@ $PackageWebCoreBegin
 
 IRedirectResponse::IRedirectResponse()
 {
-    m_raw->status = IHttpStatus::FOUND_302;
+    m_raw->m_status = IHttpStatus::FOUND_302;
 }
 
 IRedirectResponse::IRedirectResponse(const QString &path)
 {
-    m_raw->status = IHttpStatus::FOUND_302;
+    m_raw->m_status = IHttpStatus::FOUND_302;
     this->redirectPath = path;
     updateLocationPath();
 }
@@ -49,7 +49,7 @@ void IRedirectResponse::updateLocationPath()
 //                    .append(ICodecUtil::urlEncode(attributes[key]));
 //        }
 //    }
-    m_raw->headers.insert("Location", path);
+    m_raw->m_headers.insert("Location", path);
 }
 
 IRedirectResponse operator"" _redirect(const char* str, size_t size)

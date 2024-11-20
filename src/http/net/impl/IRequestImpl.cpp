@@ -13,7 +13,6 @@
 #include "http/net/IRequestManage.h"
 #include "http/net/impl/IRequestRaw.h"
 #include "http/net/impl/IResponseRaw.h"
-#include "http/net/impl/IResponseImpl.h"
 #include "http/net/ISessionJar.h"
 #include "http/mappings/IHttpAction.h"
 #include "http/session/ISessionManager.h"
@@ -35,9 +34,6 @@ IRequestImpl::IRequestImpl(IRequest& self)
 IRequestImpl::~IRequestImpl()
 {
     delete m_sessionJar;
-
-    delete m_responseImpl;
-    m_responseImpl = nullptr;
 }
 
 IJson IRequestImpl::requestJson() const
@@ -338,8 +334,7 @@ void IRequestImpl::parseData()
 
 std::vector<asio::const_buffer> IRequestImpl::getResult()
 {
-    m_responseImpl = new IResponseImpl(*this);
-    return m_responseImpl->getContent();
+    return m_respRaw.getContent(*this);
 }
 
 void IRequestImpl::firstLineState(IStringView data)

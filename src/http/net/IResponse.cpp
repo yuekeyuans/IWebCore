@@ -65,72 +65,72 @@ IResponse &IResponse::setHeader(const QString &key, const QString &value)
 
 IResponse &IResponse::setStatus(IHttpStatus statusCode)
 {
-    m_impl.m_respRaw.status = statusCode;
+    m_impl.m_respRaw.m_status = statusCode;
     return *this;
 }
 
 IResponse &IResponse::setStatus(int statusCode)
 {
-    m_impl.m_respRaw.status = IHttpStatusUtil::toStatus(statusCode);
+    m_impl.m_respRaw.m_status = IHttpStatusUtil::toStatus(statusCode);
     return *this;
 }
 
 IResponse &IResponse::setMime(IHttpMime mime)
 {
-    m_impl.m_respRaw.mime = IHttpMimeUtil::toString(mime);
+    m_impl.m_respRaw.m_mime = IHttpMimeUtil::toString(mime);
     return *this;
 }
 
 IResponse &IResponse::setMime(const QString mime)
 {
-    m_impl.m_respRaw.mime = mime;
+    m_impl.m_respRaw.m_mime = mime;
     return *this;
 }
 
 IResponse &IResponse::addCookie(ICookiePart cookiePart)
 {
-    m_impl.m_respRaw.cookies.push_back(std::move(cookiePart));
+    m_impl.m_respRaw.m_cookies.push_back(std::move(cookiePart));
     return *this;
 }
 
 IResponse &IResponse::setContent(const QString &content)
 {
-    m_impl.m_respRaw.content.setContent(content);
+    m_impl.m_respRaw.m_responseContent.setContent(content);
     return *this;
 }
 
 IResponse &IResponse::setContent(const QByteArray &content)
 {
-    m_impl.m_respRaw.content.setContent(content);
+    m_impl.m_respRaw.m_responseContent.setContent(content);
     return *this;
 }
 
 IResponse &IResponse::setContent(QByteArray &&content)
 {
-    m_impl.m_respRaw.content.setContent(std::forward<QByteArray&&>(content));
+    m_impl.m_respRaw.m_responseContent.setContent(std::forward<QByteArray&&>(content));
     return *this;
 }
 
 IResponse &IResponse::setContent(const char *content)
 {
-    m_impl.m_respRaw.content.setContent(content);
+    m_impl.m_respRaw.m_responseContent.setContent(content);
     return *this;
 }
 
 IResponse& IResponse::setContent(IResponseWare *response)
 {
-    if(!m_impl.m_respRaw.cookies.empty()){
-        for(auto val : m_impl.m_respRaw.cookies){
-            response->m_raw->cookies.push_back(val);    // TODO: see whether other effecient way.
+    if(!m_impl.m_respRaw.m_cookies.empty()){
+        for(auto val : m_impl.m_respRaw.m_cookies){
+            response->m_raw->m_cookies.push_back(val);    // TODO: see whether other effecient way.
         }
     }
 
     if(!headers().empty()){
-        for(const auto& header : m_impl.m_respRaw.headers){
-            if(!response->m_raw->headers.contains(header)){
+        for(const auto& header : m_impl.m_respRaw.m_headers){
+            if(!response->m_raw->m_headers.contains(header)){
                 const auto& values = headers().values(header);
                 for(auto value : values){
-                    response->m_raw->headers.insertMulti(header, value);
+                    response->m_raw->m_headers.insertMulti(header, value);
                 }
             }
         }
@@ -159,17 +159,17 @@ IHttpVersion IResponse::version() const
 
 QString IResponse::mime() const
 {
-    return m_impl.m_respRaw.mime;
+    return m_impl.m_respRaw.m_mime;
 }
 
 IHttpStatus IResponse::status() const
 {
-    return m_impl.m_respRaw.status;
+    return m_impl.m_respRaw.m_status;
 }
 
 const QMultiHash<QString, QString>& IResponse::headers() const
 {
-    return m_impl.m_respRaw.headers;
+    return m_impl.m_respRaw.m_headers;
 }
 
 const QMap<QString, QVariant> &IResponse::attributes() const
