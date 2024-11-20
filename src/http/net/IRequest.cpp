@@ -24,7 +24,7 @@ IRequest::IRequest() : ITcpResolverInterface(nullptr)
 
 IRequest::IRequest(ITcpConnection *connection) : ITcpResolverInterface(connection)
 {
-    impl = new IRequestImpl(this);
+    impl = new IRequestImpl(*this);
 }
 
 IRequest::~IRequest()

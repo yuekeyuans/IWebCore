@@ -21,9 +21,9 @@
 
 $PackageWebCoreBegin
 
-IRequestImpl::IRequestImpl(IRequest* self)
+IRequestImpl::IRequestImpl(IRequest& self)
     : m_request(self), m_reqRaw(IRequestRaw(self)),
-     m_connection(self->m_connection), m_data(self->m_connection->m_data)
+     m_connection(self.m_connection), m_data(self.m_connection->m_data)
 {
 }
 
@@ -420,8 +420,8 @@ void IRequestImpl::endState()
 {
     auto application = dynamic_cast<IAsioApplication*>(IApplicationInterface::instance());
     asio::post(application->ioContext(), [=](){
-        auto action = IHttpManage::instance()->getAction(*m_request);
-        action->invoke(*m_request);
+        auto action = IHttpManage::instance()->getAction(m_request);
+        action->invoke(m_request);
     });
 }
 
@@ -656,7 +656,7 @@ void IRequestImpl::parseMultiPartData(IStringView data)
         }
 
         auto content=data.substr(indexFirst + m_multipartBoundary.length(), indexSecond - m_multipartBoundary.length()).trimmed();
-        IMultiPart part(content, m_request);
+        IMultiPart part(content, &m_request);
         if(!part.isValid()){
             return;
         }

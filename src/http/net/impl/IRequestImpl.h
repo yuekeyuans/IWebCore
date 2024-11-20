@@ -31,7 +31,7 @@ public:
     using FunType = QByteArray (IRequestImpl::*)(const QString& name, bool& ok) const;
 
 public:
-    IRequestImpl(IRequest* self);
+    IRequestImpl(IRequest& self);
     ~IRequestImpl();
 
     IJson requestJson() const;
@@ -66,8 +66,7 @@ private:
     IStringView getBoundary(IStringView);
 
 public:
-    IRequest* m_request{};
-
+    IRequest& m_request;
     IRequestRaw m_reqRaw{};
     ITcpConnection* m_connection{};
     ITcpConnectionData& m_data;

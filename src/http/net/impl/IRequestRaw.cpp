@@ -15,13 +15,14 @@
 $PackageWebCoreBegin
 
 IRequestRaw::IRequestRaw()
+    : m_request(*static_cast<IRequest*>(nullptr))
 {
     IGlobalAbort::abortUnVisibleMethod();
 }
 
-IRequestRaw::IRequestRaw(IRequest *request)
+IRequestRaw::IRequestRaw(IRequest& request)
+    : m_request(request)
 {
-    m_request = request;
     m_headerJar = new IHeaderJar(this);
     m_cookieJar = new ICookieJar(this);
     m_multiPartJar = new IMultiPartJar(this);

@@ -34,8 +34,8 @@ public:
 
     IResponseHeader operator[](const QString& header) const;
 
-    IRequest* request() const;
-    IRequestRaw* getRaw() const;
+//    IRequest* request() const;
+//    IRequestRaw* getRaw() const;
 
     IResponse& setHeader(const QString &key, const QString &value);
     IResponse& setStatus(IHttpStatus statusCode);

@@ -51,15 +51,15 @@ IResponseHeader IResponse::operator[](const QString &header) const
     return {m_raw->m_responseRaw, header};
 }
 
-IRequest *IResponse::request() const
-{
-    return m_raw->m_request;
-}
+//IRequest *IResponse::request() const
+//{
+//    return &m_raw->m_request;
+//}
 
-IRequestRaw *IResponse::getRaw() const
-{
-    return m_raw;
-}
+//IRequestRaw *IResponse::getRaw() const
+//{
+//    return m_raw;
+//}
 
 // TODO: warn
 IResponse &IResponse::setHeader(const QString &key, const QString &value)
