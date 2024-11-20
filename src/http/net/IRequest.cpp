@@ -90,11 +90,6 @@ IMultiPartJar& IRequest::multiPartJar() const
     return m_impl->m_multiPartJar;
 }
 
-IRequestRaw *IRequest::getRaw() const
-{
-    return &(m_impl->m_reqRaw);
-}
-
 IRequestImpl& IRequest::getImpl() const
 {
     return *m_impl;
@@ -281,24 +276,24 @@ IResult<QByteArray> IRequest::getSessionParameter(const QString &name) const
 
 const QMap<QString, QVariant> &IRequest::attributes() const
 {
-    return m_impl->m_reqRaw.m_attribute;
+    return m_impl->m_attribute;
 }
 
 bool IRequest::hasAttribute(const QString &name) const
 {
-    return m_impl->m_reqRaw.m_attribute.contains(name);
+    return m_impl->m_attribute.contains(name);
 }
 
 void IRequest::setAttribute(const QString &name, const QVariant &value)
 {
-    m_impl->m_reqRaw.m_attribute[name] = value;
+    m_impl->m_attribute[name] = value;
 }
 
 QVariant IRequest::getAttribute(const QString &name, bool& ok) const
 {
-    if(m_impl->m_reqRaw.m_attribute.contains(name)){
+    if(m_impl->m_attribute.contains(name)){
         ok = true;
-        return m_impl->m_reqRaw.m_attribute[name];
+        return m_impl->m_attribute[name];
     }
     ok = false;
     return {};
@@ -316,19 +311,19 @@ IResult<QVariant> IRequest::getAttribute(const QString &name) const
 
 bool IRequest::isValid() const
 {
-    return m_impl->m_reqRaw.isValid();
+    return m_impl->m_respRaw.isValid();
 }
 
 void IRequest::setInvalidIf(bool condition, IHttpInvalidWare ware) const
 {
     if(condition){
-        m_impl->m_reqRaw.setInvalid(ware);
+        m_impl->setInvalid(ware);
     }
 }
 
 void IRequest::setInvalid(IHttpInvalidWare ware) const
 {
-    return m_impl->m_reqRaw.setInvalid(ware);
+    return m_impl->setInvalid(ware);
 }
 
 void IRequest::doAction(IHttpAction *action)

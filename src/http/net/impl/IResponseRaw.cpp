@@ -47,6 +47,11 @@ void IResponseRaw::setContent(IHttpInvalidWare ware)
     content.setContent(std::move(ware));
 }
 
+void IResponseRaw::setInvalid(IHttpInvalidWare)
+{
+    // TODO:
+}
+
 bool IResponseRaw::isValid()
 {
     return content.isValid;

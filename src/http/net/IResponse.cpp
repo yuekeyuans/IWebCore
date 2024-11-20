@@ -174,23 +174,23 @@ const QMultiHash<QString, QString>& IResponse::headers() const
 
 const QMap<QString, QVariant> &IResponse::attributes() const
 {
-    return m_impl.m_reqRaw.m_attribute;
+    return m_impl.m_attribute;
 }
 
 bool IResponse::hasAttribute(const QString &name) const
 {
-    return m_impl.m_reqRaw.m_attribute.contains(name);
+    return m_impl.m_attribute.contains(name);
 }
 
 void IResponse::setAttribute(const QString &name, const QVariant &value)
 {
-    m_impl.m_reqRaw.m_attribute[name] = value;
+    m_impl.m_attribute[name] = value;
 }
 
 QVariant IResponse::getAttribute(const QString &name, const QVariant &defaultValue) const
 {
-    if(m_impl.m_reqRaw.m_attribute.contains(name)){
-        return m_impl.m_reqRaw.m_attribute[name];
+    if(m_impl.m_attribute.contains(name)){
+        return m_impl.m_attribute[name];
     }
     return defaultValue;
 }

@@ -41,6 +41,10 @@ public:
     IStringView contentType() const;
 
 public:
+    bool isValid() const;
+    void setInvalid(IHttpInvalidWare);
+
+public:
     void parseData();
     std::vector<asio::const_buffer> getResult();
 
@@ -72,6 +76,8 @@ public:
     IRequestRaw m_reqRaw{};
     IResponseImpl* m_responseImpl{};    // TODO: 这个应该可以去掉的。
     IResponseRaw m_respRaw{};
+    QMap<QString, QVariant> m_attribute;                // 用户或系统可以自己放置内容的地方。
+    // 是否考虑把 session 放置到 attribute 当中？
 
 public:
     // TODO: 这几个放置到顶层

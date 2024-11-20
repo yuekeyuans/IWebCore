@@ -14,32 +14,32 @@
 
 $PackageWebCoreBegin
 
-IRequestRaw::IRequestRaw()
-    : m_request(*static_cast<IRequest*>(nullptr))
-{
-    IGlobalAbort::abortUnVisibleMethod();
-}
+//IRequestRaw::IRequestRaw()
+////    : m_request(*static_cast<IRequest*>(nullptr))
+//{
+////    IGlobalAbort::abortUnVisibleMethod();
+//}
 
-IRequestRaw::IRequestRaw(IRequest& request)
-    : m_request(request)
-{
-}
+//IRequestRaw::IRequestRaw(IRequest& request)
+////    : m_request(request)
+//{
+//}
 
-IRequestRaw::~IRequestRaw()
-{
-}
+//IRequestRaw::~IRequestRaw()
+//{
+//}
 
-bool IRequestRaw::isValid() const
-{
-    return m_request.getImpl().m_respRaw.isValid();
-}
+//bool IRequestRaw::isValid() const
+//{
+//    return m_request.getImpl().m_respRaw.isValid();
+//}
 
-void IRequestRaw::setInvalid(IHttpInvalidWare ware)
-{
-    auto& respRaw = m_request.getImpl().m_respRaw;
-    respRaw.setMime(IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8));
-    respRaw.status = ware.status;
-    respRaw.setContent(std::move(ware));
-}
+//void IRequestRaw::setInvalid(IHttpInvalidWare ware)
+//{
+//    auto& respRaw = m_request.getImpl().m_respRaw;
+//    respRaw.setMime(IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8));
+//    respRaw.status = ware.status;
+//    respRaw.setContent(std::move(ware));
+//}
 
 $PackageWebCoreEnd

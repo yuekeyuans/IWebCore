@@ -24,17 +24,16 @@ class IHttpAction;
 class IRequestRaw
 {
 public:
-    IRequestRaw();
-    IRequestRaw(IRequest& request);
-    ~IRequestRaw();
+    IRequestRaw() = default;
+//    IRequestRaw(IRequest& request);
+    ~IRequestRaw() = default;
 
 public:
-    bool isValid() const;
-    void setInvalid(IHttpInvalidWare ware);
+//    bool isValid() const;
+//    void setInvalid(IHttpInvalidWare ware);
 
 public:
-    IRequest&   m_request;
-    QMap<QString, QVariant> m_attribute;                // 用户或系统可以自己放置内容的地方。
+//    IRequest&   m_request;
 
     // request
     IStringView m_rawUrl;
