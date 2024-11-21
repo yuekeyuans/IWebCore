@@ -3,6 +3,9 @@
 #include "http/biscuits/IHttpVersion.h"
 #include "Http/net/impl/IRequestImpl.h"
 
+#include "http/response/content/IQStringResponseContent.h"
+#include "http/response/content/IQByteArrayResposneContent.h"
+
 $PackageWebCoreBegin
 
 inline static constexpr char NEW_LINE[] = "\r\n";
@@ -19,45 +22,48 @@ void IResponseRaw::setMime(const QString &mime)
 
 void IResponseRaw::setContent(QString &&value)
 {
-    m_responseContent.setContent(std::move(value));
+    m_contents.push_back(new IQStringResponseContent(std::move(value)));
 }
 
 void IResponseRaw::setContent(const QString &value)
 {
-    m_responseContent.setContent(value);
+    m_contents.push_back(new IQStringResponseContent(value));
 }
 
 void IResponseRaw::setContent(QByteArray &&value)
 {
-    m_responseContent.setContent(std::move(value));
+    m_contents.push_back(new IQByteArrayResposneContent(std::move(value)));
 }
 
 void IResponseRaw::setContent(const QByteArray &value)
 {
-    m_responseContent.setContent(value);
+    m_contents.push_back(new IQByteArrayResposneContent(value));
 }
 
 void IResponseRaw::setContent(const char *value)
 {
-    m_responseContent.setContent(QByteArray(value));
+//    m_contents.push_back(new IQByteArrayResposneContent(value));
 }
 
 void IResponseRaw::setContent(const QFileInfo &value)
 {
-    m_responseContent.setFileContent(value.absoluteFilePath());
+//    m_responseContent.setFileContent(value.absoluteFilePath());
 }
 
 void IResponseRaw::setContent(IHttpInvalidWare ware)
 {
-    m_responseContent.setContent(std::move(ware));
+//    m_responseContent.setContent(std::move(ware));
 }
 
 std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
 {
     std::vector<asio::const_buffer> result;
-
     m_store.emplace_back(generateFirstLine(impl));
-    const auto& content = m_responseContent.getContent();;
+
+    IStringView content{};
+    if(!m_contents.empty()){
+        content = m_contents.back()->getContent();
+    }
     if(content.size() != 0){
         m_store.emplace_back(generateHeadersContent(impl, content.size()));
     }

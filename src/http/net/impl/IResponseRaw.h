@@ -3,7 +3,8 @@
 #include "http/biscuits/IHttpMime.h"
 #include "http/biscuits/IHttpStatus.h"
 #include "http/net/ICookiePart.h"
-#include "http/response/IResponseContent.h"
+#include "http/response/content/IResponseContentWare.h"
+#include "http/invalid/IHttpInvalidWare.h"
 
 $PackageWebCoreBegin
 
@@ -36,7 +37,7 @@ public:
     IHttpStatus m_status {IHttpStatus::OK_200};
     QMultiHash<QString, QString> m_headers;
     std::list<ICookiePart> m_cookies;
-    IResponseContent m_responseContent;
+    std::list<IResponseContentWare*> m_contents;
 
 private:
     std::vector<QByteArray> m_store;

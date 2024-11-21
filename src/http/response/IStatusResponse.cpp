@@ -33,7 +33,7 @@ IStatusResponse::IStatusResponse(int code, const QString& errorMsg)
 
     if(!errorMsg.isEmpty()){
         m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
-        m_raw->m_responseContent.setContent(errorMsg);
+        m_raw->setContent(errorMsg);
     }
 }
 
@@ -43,7 +43,7 @@ IStatusResponse::IStatusResponse(IHttpStatus status, const QString &errorMsg)
 
     if(!errorMsg.isEmpty()){
         m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
-        m_raw->m_responseContent.setContent(errorMsg);
+        m_raw->setContent(errorMsg);
     }
 }
 

@@ -85,10 +85,10 @@ void IResponseWare::addHeader(const QString &key, const QString &value)
     m_raw->m_headers.insertMulti(key, value);
 }
 
-IResponseContent &IResponseWare::getContent()
-{
-    return m_raw->m_responseContent;
-}
+//IResponseContent &IResponseWare::getContent()
+//{
+//    return m_raw->m_responseContent;
+//}
 
 QString IResponseWare::getPrefixMatcher()
 {

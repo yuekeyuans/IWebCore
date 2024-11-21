@@ -95,25 +95,25 @@ IResponse &IResponse::addCookie(ICookiePart cookiePart)
 
 IResponse &IResponse::setContent(const QString &content)
 {
-    m_impl.m_respRaw.m_responseContent.setContent(content);
+    m_impl.m_respRaw.setContent(content);
     return *this;
 }
 
 IResponse &IResponse::setContent(const QByteArray &content)
 {
-    m_impl.m_respRaw.m_responseContent.setContent(content);
+    m_impl.m_respRaw.setContent(content);
     return *this;
 }
 
 IResponse &IResponse::setContent(QByteArray &&content)
 {
-    m_impl.m_respRaw.m_responseContent.setContent(std::forward<QByteArray&&>(content));
+    m_impl.m_respRaw.setContent(std::forward<QByteArray&&>(content));
     return *this;
 }
 
 IResponse &IResponse::setContent(const char *content)
 {
-    m_impl.m_respRaw.m_responseContent.setContent(content);
+    m_impl.m_respRaw.setContent(content);
     return *this;
 }
 

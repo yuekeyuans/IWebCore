@@ -11,7 +11,7 @@ $PackageWebCoreBegin
 
 class IRedirectResponse;
 
-class IResponseWare //: public IResponseContent
+class IResponseWare
 {
 public:
     IResponseWare();
@@ -35,7 +35,7 @@ public:
     void setHeader(const QString& key, const QString& value);
     void addHeader(const QString& key, const QString& value);
 
-    IResponseContent& getContent();
+//    IResponseContent& getContent();
 
     virtual QString getPrefixMatcher();
 
