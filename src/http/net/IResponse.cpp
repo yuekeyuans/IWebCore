@@ -119,25 +119,41 @@ IResponse &IResponse::setContent(const char *content)
 
 IResponse& IResponse::setContent(IResponseWare *response)
 {
-    if(!m_impl.m_respRaw.m_cookies.empty()){
-        for(auto val : m_impl.m_respRaw.m_cookies){
-            response->m_raw->m_cookies.push_back(val);    // TODO: see whether other effecient way.
+//    if(!m_impl.m_respRaw.m_cookies.empty()){
+//        for(auto val : m_impl.m_respRaw.m_cookies){
+//            response->m_raw->m_cookies.push_back(val);    // TODO: see whether other effecient way.
+//        }
+//    }
+
+//    if(!headers().empty()){
+//        for(const auto& header : m_impl.m_respRaw.m_headers){
+//            if(!response->m_raw->m_headers.contains(header)){
+//                const auto& values = headers().values(header);
+//                for(auto value : values){
+//                    response->m_raw->m_headers.insertMulti(header, value);
+//                }
+//            }
+//        }
+//    }
+    if(!response->mime().isEmpty()){
+        m_impl.m_respRaw.m_mime = response->mime();
+    }
+    if(!(int)response->status() != (int)IHttpStatus::UNKNOWN){
+        m_impl.m_respRaw.m_status = response->status();
+    }
+    if(!response->headers().isEmpty()){
+        for(auto header : response->headers()){
+//            m_impl.m_respRaw.m_headers    // TODO: 先不做
         }
+    }
+    while(!response->m_raw->m_contents.empty()){
+        m_impl.m_respRaw.m_contents.push_back(response->m_raw->m_contents.front());
+        response->m_raw->m_contents.pop_front();
     }
 
-    if(!headers().empty()){
-        for(const auto& header : m_impl.m_respRaw.m_headers){
-            if(!response->m_raw->m_headers.contains(header)){
-                const auto& values = headers().values(header);
-                for(auto value : values){
-                    response->m_raw->m_headers.insertMulti(header, value);
-                }
-            }
-        }
-    }
 
     // TODO: 检查一下
-    std::swap(m_impl.m_respRaw, *(response->m_raw));
+//    std::swap(m_impl.m_respRaw, *(response->m_raw));
     return *this;
 }
 

@@ -6,13 +6,11 @@
 
 $PackageWebCoreBegin
 
-IResponseWare::IResponseWare()
-    : m_raw(new IResponseRaw())
+IResponseWare::IResponseWare() : m_raw(new IResponseRaw())
 {
 }
 
-IResponseWare::IResponseWare(const IResponseWare &rhs)
-    : m_raw(new IResponseRaw(*rhs.m_raw))
+IResponseWare::IResponseWare(const IResponseWare &rhs) : m_raw(new IResponseRaw(*rhs.m_raw))
 {
 }
 
@@ -55,6 +53,11 @@ void IResponseWare::setMime(IHttpMime mime)
     m_raw->setMime(mime);
 }
 
+void IResponseWare::setMime(const QString &mime)
+{
+    m_raw->setMime(mime);
+}
+
 IHttpStatus IResponseWare::status() const
 {
     return m_raw->m_status;
@@ -84,11 +87,6 @@ void IResponseWare::addHeader(const QString &key, const QString &value)
 {
     m_raw->m_headers.insertMulti(key, value);
 }
-
-//IResponseContent &IResponseWare::getContent()
-//{
-//    return m_raw->m_responseContent;
-//}
 
 QString IResponseWare::getPrefixMatcher()
 {

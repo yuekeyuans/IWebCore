@@ -25,6 +25,7 @@ public:
 public:
     const QString& mime() const;
     void setMime(IHttpMime);
+    void setMime(const QString& mime);
     
     IHttpStatus status() const;
     void setStatus(IHttpStatus statusCode);
@@ -33,8 +34,6 @@ public:
     QMultiHash<QString, QString>& headers();
     void setHeader(const QString& key, const QString& value);
     void addHeader(const QString& key, const QString& value);
-
-//    IResponseContent& getContent();
 
     virtual QString getPrefixMatcher();
 
