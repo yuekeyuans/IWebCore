@@ -157,7 +157,7 @@ IHttpVersion IResponse::version() const
     return m_impl.m_reqRaw.m_httpVersion;
 }
 
-QString IResponse::mime() const
+const QString& IResponse::mime() const
 {
     return m_impl.m_respRaw.m_mime;
 }

@@ -11,7 +11,7 @@ $PackageWebCoreBegin
 
 class IRedirectResponse;
 
-class IResponseWare
+class IResponseWare //: public IResponseContent
 {
 public:
     IResponseWare();

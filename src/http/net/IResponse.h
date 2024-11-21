@@ -49,7 +49,7 @@ public:
     IResponse& setContent(IHttpInvalidWare unit);
 
     IHttpVersion version() const;
-    QString mime() const;
+    const QString& mime() const;
     IHttpStatus status() const;
     const QMultiHash<QString, QString>& headers() const;
 
