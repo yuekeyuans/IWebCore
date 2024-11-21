@@ -42,7 +42,7 @@ void IResponseRaw::setContent(const QByteArray &value)
 
 void IResponseRaw::setContent(const char *value)
 {
-//    m_contents.push_back(new IQByteArrayResposneContent(value));
+    m_contents.push_back(new IQByteArrayResposneContent(value));
 }
 
 void IResponseRaw::setContent(const QFileInfo &value)

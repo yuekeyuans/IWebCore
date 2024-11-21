@@ -215,7 +215,6 @@ HEADERS += \
     $$PWD/http/response/IPlainTextResponse.h \
     $$PWD/http/response/IRedirectResponse.h \
     $$PWD/http/response/IRendererResponse.h \
-    $$PWD/http/response/IResponseContent.h \
     $$PWD/http/response/IResponseInterface.h \
     $$PWD/http/response/IResponseManage.h \
     $$PWD/http/response/IResponsePreProcessor.h \
@@ -388,7 +387,6 @@ SOURCES += \
     $$PWD/http/response/IPlainTextResponse.cpp \
     $$PWD/http/response/IRedirectResponse.cpp \
     $$PWD/http/response/IRendererResponse.cpp \
-    $$PWD/http/response/IResponseContent.cpp \
     $$PWD/http/response/IResponseManage.cpp \
     $$PWD/http/response/IResponseTemplateRenderer.cpp \
     $$PWD/http/response/IResponseWare.cpp \

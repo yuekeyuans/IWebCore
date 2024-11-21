@@ -5,7 +5,6 @@
 #include "http/biscuits/IHttpStatus.h"
 #include "http/net/impl/IResponseRaw.h"
 #include "http/net/impl/IResponseHeader.h"
-#include "IResponseContent.h"
 
 $PackageWebCoreBegin
 
