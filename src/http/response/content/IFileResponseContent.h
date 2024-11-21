@@ -4,11 +4,10 @@
 
 $PackageWebCoreBegin
 
-class IQByteArrayResposneContent : public IResponseContentWare
+class IFileResponseContent : public IResponseContentWare
 {
 public:
-    IQByteArrayResposneContent(QByteArray&&);
-    IQByteArrayResposneContent(const QByteArray&);
+    IFileResponseContent(const QString& path);
 
 public:
     virtual int getSize() final;
@@ -17,6 +16,7 @@ public:
     virtual QString getSuggestedMime() final;
 
 private:
+    QString m_path;
     QByteArray m_content;
 };
 

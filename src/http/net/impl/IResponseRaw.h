@@ -13,6 +13,7 @@ struct IResponseRaw
 {
 public:
     IResponseRaw() = default;
+    ~IResponseRaw();
     void setMime(IHttpMime m_mime);
     void setMime(const QString& m_mime);
 

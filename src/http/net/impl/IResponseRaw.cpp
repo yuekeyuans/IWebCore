@@ -4,11 +4,19 @@
 #include "Http/net/impl/IRequestImpl.h"
 
 #include "http/response/content/IQStringResponseContent.h"
-#include "http/response/content/IQByteArrayResposneContent.h"
+#include "http/response/content/IQByteArrayResponseContent.h"
 
 $PackageWebCoreBegin
 
 inline static constexpr char NEW_LINE[] = "\r\n";
+
+IResponseRaw::~IResponseRaw()
+{
+    while(!m_contents.empty()){
+        delete m_contents.front();
+        m_contents.pop_front();
+    }
+}
 
 void IResponseRaw::setMime(IHttpMime mime)
 {
@@ -32,17 +40,17 @@ void IResponseRaw::setContent(const QString &value)
 
 void IResponseRaw::setContent(QByteArray &&value)
 {
-    m_contents.push_back(new IQByteArrayResposneContent(std::move(value)));
+    m_contents.push_back(new IQByteArrayResponseContent(std::move(value)));
 }
 
 void IResponseRaw::setContent(const QByteArray &value)
 {
-    m_contents.push_back(new IQByteArrayResposneContent(value));
+    m_contents.push_back(new IQByteArrayResponseContent(value));
 }
 
 void IResponseRaw::setContent(const char *value)
 {
-    m_contents.push_back(new IQByteArrayResposneContent(value));
+    m_contents.push_back(new IQByteArrayResponseContent(value));
 }
 
 void IResponseRaw::setContent(const QFileInfo &value)
@@ -57,6 +65,12 @@ void IResponseRaw::setContent(IHttpInvalidWare ware)
 
 std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
 {
+    // prepare
+    if(!m_contents.empty() && m_mime.isEmpty()){
+        m_mime = m_contents.back()->getSuggestedMime();
+    }
+
+    // data
     std::vector<asio::const_buffer> result;
     m_store.emplace_back(generateFirstLine(impl));
 
@@ -72,7 +86,6 @@ std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
     for(const auto& val : m_store){
         result.emplace_back(asio::buffer(val.data(), val.length()));
     }
-
     if(!content.empty()  && impl.m_reqRaw.m_method != IHttpMethod::HEAD){
         result.emplace_back(asio::buffer(content.data(), content.length()));
     }
