@@ -23,15 +23,8 @@ public:
     void setContent(const QByteArray& m_responseContent);
     void setContent(const char* m_responseContent);
     void setContent(const QFileInfo& m_responseContent);
-    void setContent(IHttpInvalidWare ware);
-
-    // 这一堆要再看一下
-public:
+    void setContent(const IHttpInvalidWare& ware);
     std::vector<asio::const_buffer> getContent(IRequestImpl&);
-    QByteArray generateFirstLine(IRequestImpl&);
-    QByteArray generateHeadersContent(IRequestImpl&, int contentSize); // 丑，但是好用啊
-    void generateExternalHeadersContent(QByteArray& m_responseContent);
-    QString generateCookieHeaders();
 
 public:
     QString m_mime;
@@ -41,7 +34,7 @@ public:
     std::list<IResponseContentWare*> m_contents;
 
 private:
-    std::vector<QByteArray> m_store;
+    std::vector<QByteArray> m_store;    // TODO: 这里用 stash 代替
 };
 
 $PackageWebCoreEnd

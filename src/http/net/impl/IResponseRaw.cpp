@@ -5,10 +5,71 @@
 
 #include "http/response/content/IQStringResponseContent.h"
 #include "http/response/content/IQByteArrayResponseContent.h"
+#include "http/response/content/IInvalidReponseContent.h"
+#include "http/response/content/IFileResponseContent.h"
 
 $PackageWebCoreBegin
 
 inline static constexpr char NEW_LINE[] = "\r\n";
+
+
+namespace detail
+{
+
+QByteArray generateFirstLine(IRequestImpl& impl)
+{
+    QByteArray firstLine;
+    firstLine.append(IHttpVersionUtil::toString(impl.m_reqRaw.m_httpVersion)).append(" ")
+            .append(IHttpStatusUtil::toString(impl.m_respRaw.m_status)).append(" ")
+            .append(IHttpStatusUtil::toStringDescription(impl.m_respRaw.m_status)).append(NEW_LINE);
+
+    return firstLine;
+}
+
+QString generateCookieHeaders(IResponseRaw& raw)
+{
+    QStringList contents;
+    for(const auto& cookie : raw.m_cookies){
+        auto val = cookie.toHeaderString();
+        if(!val.isEmpty()){
+            contents.push_back(val);
+        }
+    }
+    return contents.join(NEW_LINE);
+}
+
+void generateExternalHeadersContent(IResponseRaw& raw, QByteArray &content)
+{
+    content.append("Server: IWebCore").append(NEW_LINE);
+
+    auto cookieContent = generateCookieHeaders(raw);
+    if(!cookieContent.isEmpty()){
+        content.append(cookieContent).append(NEW_LINE);
+    }
+}
+
+QByteArray generateHeadersContent(IRequestImpl& m_raw, int contentSize)
+{
+    if(contentSize != 0){
+        m_raw.m_headerJar.setResponseHeader(IHttpHeader::ContentLength, QString::number(contentSize));
+        if(!m_raw.m_headerJar.containResponseHeaderKey(IHttpHeader::ContentType)
+                && !m_raw.m_respRaw.m_mime.isEmpty()){
+            m_raw.m_headerJar.setResponseHeader(IHttpHeader::ContentType, m_raw.m_respRaw.m_mime);
+        }
+    }
+
+    QByteArray headersContent;
+    auto keys = m_raw.m_respRaw.m_headers.uniqueKeys();
+    for(const auto& key : keys){
+        auto values = m_raw.m_respRaw.m_headers.values(key);
+        headersContent.append(key).append(":").append(values.join(";")).append(NEW_LINE);
+    }
+
+    detail::generateExternalHeadersContent(m_raw.m_respRaw, headersContent);
+    return headersContent;
+}
+
+}
 
 IResponseRaw::~IResponseRaw()
 {
@@ -55,12 +116,12 @@ void IResponseRaw::setContent(const char *value)
 
 void IResponseRaw::setContent(const QFileInfo &value)
 {
-//    m_responseContent.setFileContent(value.absoluteFilePath());
+    m_contents.push_back(new IFileResponseContent(value.absoluteFilePath()));
 }
 
-void IResponseRaw::setContent(IHttpInvalidWare ware)
+void IResponseRaw::setContent(const IHttpInvalidWare& ware)
 {
-//    m_responseContent.setContent(std::move(ware));
+    m_contents.push_back(new IInvalidReponseContent(ware));
 }
 
 std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
@@ -72,14 +133,14 @@ std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
 
     // data
     std::vector<asio::const_buffer> result;
-    m_store.emplace_back(generateFirstLine(impl));
+    m_store.emplace_back(detail::generateFirstLine(impl));
 
     IStringView content{};
     if(!m_contents.empty()){
         content = m_contents.back()->getContent();
     }
     if(content.size() != 0){
-        m_store.emplace_back(generateHeadersContent(impl, content.size()));
+        m_store.emplace_back(detail::generateHeadersContent(impl, content.size()));
     }
     m_store.emplace_back(NEW_LINE);
 
@@ -93,57 +154,5 @@ std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
     return result;
 }
 
-QByteArray IResponseRaw::generateFirstLine(IRequestImpl& impl)
-{
-    QByteArray firstLine;
-    firstLine.append(IHttpVersionUtil::toString(impl.m_reqRaw.m_httpVersion)).append(" ")
-            .append(IHttpStatusUtil::toString(impl.m_respRaw.m_status)).append(" ")
-            .append(IHttpStatusUtil::toStringDescription(impl.m_respRaw.m_status)).append(NEW_LINE);
-
-    return firstLine;
-}
-
-QByteArray IResponseRaw::generateHeadersContent(IRequestImpl& m_raw, int contentSize)
-{
-    if(contentSize != 0){
-        m_raw.m_headerJar.setResponseHeader(IHttpHeader::ContentLength, QString::number(contentSize));
-        if(!m_raw.m_headerJar.containResponseHeaderKey(IHttpHeader::ContentType)
-                && !m_raw.m_respRaw.m_mime.isEmpty()){
-            m_raw.m_headerJar.setResponseHeader(IHttpHeader::ContentType, m_raw.m_respRaw.m_mime);
-        }
-    }
-
-    QByteArray headersContent;
-    auto keys = m_raw.m_respRaw.m_headers.uniqueKeys();
-    for(const auto& key : keys){
-        auto values = m_raw.m_respRaw.m_headers.values(key);
-        headersContent.append(key).append(":").append(values.join(";")).append(NEW_LINE);
-    }
-
-    generateExternalHeadersContent(headersContent);
-    return headersContent;
-}
-
-void IResponseRaw::generateExternalHeadersContent(QByteArray &content)
-{
-    content.append("Server: IWebCore").append(NEW_LINE);
-
-    auto cookieContent = generateCookieHeaders();
-    if(!cookieContent.isEmpty()){
-        content.append(cookieContent).append(NEW_LINE);
-    }
-}
-
-QString IResponseRaw::generateCookieHeaders()
-{
-    QStringList contents;
-    for(const auto& cookie : m_cookies){
-        auto val = cookie.toHeaderString();
-        if(!val.isEmpty()){
-            contents.push_back(val);
-        }
-    }
-    return contents.join(NEW_LINE);
-}
 
 $PackageWebCoreEnd

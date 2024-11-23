@@ -40,7 +40,7 @@ bool IHttpControllerParameter::createArguments(const IMethodNode& methodNode, Pa
         params[i] = nullptr;
     }
 
-    params[0] = inst->createReturnParam(methodNode.returnNode.typeId);
+//    params[0] = inst->createReturnParam(methodNode.returnNode.typeId);
 
     bool ok;
 
@@ -59,7 +59,7 @@ bool IHttpControllerParameter::createArguments(const IMethodNode& methodNode, Pa
 void IHttpControllerParameter::destroyArguments(const IMethodNode& node, void **params)
 {
     auto inst = instance();
-    inst->destroyReturnParam(params[0], node.returnNode.typeId);
+//    inst->destroyReturnParam(params[0], node.returnNode.typeId);
 
     // TODO: 这个 create 能不能放置在 IArgumentNode 中实现？
     auto count = node.argumentNodes.size();
@@ -68,56 +68,56 @@ void IHttpControllerParameter::destroyArguments(const IMethodNode& node, void **
     }
 }
 
-void IHttpControllerParameter::resolveReturnValue(IResponse& response, const IMethodNode& functionNode, void* paramVal)
-{
-    ParamType params;
-    params[0] = paramVal;
+//void IHttpControllerParameter::resolveReturnValue(IResponse& response, const IMethodNode& functionNode, void* paramVal)
+//{
+//    ParamType params;
+//    params[0] = paramVal;
 
-    QMetaType::Type typeId = functionNode.returnNode.typeId;
-    QSharedPointer<IResponseWare> responseWare;
-    auto inst = instance();
-    switch (typeId) {
-    case QMetaType::Void:
-        inst->wrapVoidReturnInstance(response, functionNode, params);
-        return;
-    case QMetaType::QString:
-        responseWare = inst->createStringReturnInstance(params);
-        break;
-    case QMetaType::Int:
-        responseWare = QSharedPointer<IStatusResponse>::create(*static_cast<int*>(params[0]));;
-        break;
-    case QMetaType::QJsonArray:
-        responseWare = QSharedPointer<IJsonResponse>::create(*static_cast<QJsonArray*>(params[0]));
-        break;
-    case QMetaType::QJsonObject:
-        responseWare = QSharedPointer<IJsonResponse>::create(*static_cast<QJsonObject*>(params[0]));
-        break;
-    case QMetaType::QJsonValue:
-        responseWare = QSharedPointer<IJsonResponse>::create(*static_cast<QJsonObject*>(params[0]));
-        break;
-    case QMetaType::QByteArray:
-        responseWare = QSharedPointer<IByteArrayResponse>::create(*static_cast<QByteArray*>(params[0]));
-        break;
-    case QMetaType::QStringList:
-//        responseWare = QSharedPointer<IPlainTextResponse>::create(IConvertUtil::toString(*static_cast<QStringList*>(params[0])));
-        break;
-    default:
-        auto type = functionNode.returnNode.typeName;
-        if(type.startsWith("I") && type.endsWith("Response")){
-            response.setContent(static_cast<IResponseWare*>(params[0]));
-            return;
-        }else{
-            QString info = type + " not supported, please change the return type!";
-            qFatal(info.toUtf8());
-        }
-    }
-    response.setContent(responseWare.data());
-}
+//    QMetaType::Type typeId = functionNode.returnNode.typeId;
+//    QSharedPointer<IResponseWare> responseWare;
+//    auto inst = instance();
+//    switch (typeId) {
+//    case QMetaType::Void:
+//        inst->wrapVoidReturnInstance(response, functionNode, params);
+//        return;
+//    case QMetaType::QString:
+//        responseWare = inst->createStringReturnInstance(params);
+//        break;
+//    case QMetaType::Int:
+//        responseWare = QSharedPointer<IStatusResponse>::create(*static_cast<int*>(params[0]));;
+//        break;
+//    case QMetaType::QJsonArray:
+//        responseWare = QSharedPointer<IJsonResponse>::create(*static_cast<QJsonArray*>(params[0]));
+//        break;
+//    case QMetaType::QJsonObject:
+//        responseWare = QSharedPointer<IJsonResponse>::create(*static_cast<QJsonObject*>(params[0]));
+//        break;
+//    case QMetaType::QJsonValue:
+//        responseWare = QSharedPointer<IJsonResponse>::create(*static_cast<QJsonObject*>(params[0]));
+//        break;
+//    case QMetaType::QByteArray:
+//        responseWare = QSharedPointer<IByteArrayResponse>::create(*static_cast<QByteArray*>(params[0]));
+//        break;
+//    case QMetaType::QStringList:
+////        responseWare = QSharedPointer<IPlainTextResponse>::create(IConvertUtil::toString(*static_cast<QStringList*>(params[0])));
+//        break;
+//    default:
+//        auto type = functionNode.returnNode.typeName;
+//        if(type.startsWith("I") && type.endsWith("Response")){
+//            response.setContent(static_cast<IResponseWare*>(params[0]));
+//            return;
+//        }else{
+//            QString info = type + " not supported, please change the return type!";
+//            qFatal(info.toUtf8());
+//        }
+//    }
+//    response.setContent(responseWare.data());
+//}
 
-void *IHttpControllerParameter::createReturnParam(int paramTypeId)
-{
-    return QMetaType::create(paramTypeId);
-}
+//void *IHttpControllerParameter::createReturnParam(int paramTypeId)
+//{
+//    return QMetaType::create(paramTypeId);
+//}
 
 void *IHttpControllerParameter::createArgParam(const IArgumentType& node, IRequest &request, bool& ok)
 {
@@ -143,10 +143,10 @@ void *IHttpControllerParameter::createArgParam(const IArgumentType& node, IReque
     return nullptr;
 }
 
-void IHttpControllerParameter::destroyReturnParam(void *obj, int paramTypeId)
-{
-    QMetaType::destroy(paramTypeId, obj);
-}
+//void IHttpControllerParameter::destroyReturnParam(void *obj, int paramTypeId)
+//{
+//    QMetaType::destroy(paramTypeId, obj);
+//}
 
 void IHttpControllerParameter::destroyArgParam(const IArgumentType& node, void *obj)
 {

@@ -3,7 +3,7 @@
 
 $PackageWebCoreBegin
 
-IInvalidReponseContent::IInvalidReponseContent(IHttpInvalidWare &ware)
+IInvalidReponseContent::IInvalidReponseContent(const IHttpInvalidWare &ware)
     : m_ware(ware)
 {
 }

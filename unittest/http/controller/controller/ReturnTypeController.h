@@ -13,7 +13,7 @@ public:
 public:
     $GetMapping(qstring)
     QString qstring(){
-        return "hello world";
+        return "QString";
     }
 
     $GetMapping(stdString)

@@ -125,9 +125,13 @@ IResponse& IResponse::setContent(IResponseWare *response)
     if(response->status() != m_impl.m_respRaw.m_status){
         m_impl.m_respRaw.m_status = response->status();
     }
+
+    // TODO: 先不做, 这个还是有一点复杂， 因为可能涉及到多值的情况
     if(!response->headers().isEmpty()){
-        for(auto header : response->headers()){
-//            m_impl.m_respRaw.m_headers    // TODO: 先不做, 这个还是有一点复杂， 因为可能涉及到多值的情况
+        auto keys = response->headers().keys();
+        for(const auto& key : keys){
+            this->setHeader(key, response->headers().value(key));
+//            m_impl.m_respRaw.m_headers
         }
     }
     while(!response->m_raw->m_contents.empty()){
