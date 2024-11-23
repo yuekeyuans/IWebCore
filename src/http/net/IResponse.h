@@ -52,8 +52,8 @@ public:
     IResponse& setContent(IResponseWare&);
     IResponse& setContent(IResponseWare&&);
 
-    IResponse& setContent(IHttpInvalidWare);
-    void setInvalid(IHttpInvalidWare ware);
+    IResponse& setContent(const IHttpInvalidWare&);
+    void setInvalid(const IHttpInvalidWare& ware);
 
     IHttpVersion version() const;
     const QString& mime() const;

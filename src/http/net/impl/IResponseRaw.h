@@ -14,6 +14,7 @@ class IResponseWare;
 class IHttpInvalidWare;
 struct IResponseRaw : public IStringViewStash
 {
+    friend class IRequestImpl;
 public:
     IResponseRaw() = default;
     ~IResponseRaw();
@@ -39,13 +40,14 @@ public:
 
     void setContent(IStringView data);
 
+private:
     void setContent(IResponseWare&);
     void setContent(IResponseWare&&);
 
+public:
     void setContent(const QFileInfo& data);
-    void setContent(const IHttpInvalidWare& ware);
-
     void setContent(IResponseContentWare*);
+    void setContent(const IHttpInvalidWare& ware);
 
     std::vector<asio::const_buffer> getContent(IRequestImpl&);
 

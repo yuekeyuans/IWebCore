@@ -72,7 +72,7 @@ private:
     IStringView getBoundary(IStringView);
 
 public:
-    void setResponseWare(IResponseWare&& ware);
+    void setResponseWare(IResponseWare&& ware);     // used for filter data
     void setResponseWare(IResponseWare& ware);
 
 public:

@@ -75,7 +75,7 @@ void IReturnTypeDetail::createBeanFun()
     if(IBeanTypeManage::instance()->isBeanIdExist(typeId)){
         m_resolveFunction = [](IRequestImpl& impl, void* ptr){
             IJson json = static_cast<IBeanWare*>(ptr)->toJson();
-//            impl.setResponseWare(IJsonResponse(std::move(json)));
+            impl.setResponseWare(IJsonResponse(std::move(json)));
         };
     }
 }

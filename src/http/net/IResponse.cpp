@@ -134,26 +134,26 @@ IResponse &IResponse::setContent(const char *content)
 
 IResponse &IResponse::setContent(IResponseWare& ware)
 {
-    m_impl.m_respRaw.setContent(ware);
+    m_impl.setResponseWare(ware);
     return *this;
 }
 
 IResponse &IResponse::setContent(IResponseWare &&ware)
 {
-    m_impl.m_respRaw.setContent(std::move(ware));
+    m_impl.setResponseWare(std::move(ware));
     return *this;
 }
 
-IResponse &IResponse::setContent(IHttpInvalidWare unit)
+IResponse &IResponse::setContent(const IHttpInvalidWare& unit)
 {
-    m_impl.setInvalid(unit);
+    setInvalid(unit);
     return *this;
 }
 
-void IResponse::setInvalid(IHttpInvalidWare ware)
+void IResponse::setInvalid(const IHttpInvalidWare& ware)
 {
     m_impl.m_isValid = false;
-    setContent(ware);
+    m_impl.m_respRaw.setContent(ware);
 }
 
 IHttpVersion IResponse::version() const
