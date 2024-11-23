@@ -43,7 +43,6 @@ public:
     void setContent(IResponseWare&&);
 
     void setContent(const QFileInfo& data);
-
     void setContent(const IHttpInvalidWare& ware);
 
     void setContent(IResponseContentWare*);

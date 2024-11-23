@@ -28,10 +28,10 @@ public:
     explicit IRequest(ITcpConnection*);
     ~IRequest();
 
-    IRequest(const IRequest &) /*=delete*/;
-    IRequest &operator=(const IRequest &) /*=delete*/;
-    IRequest(IRequest&&) /*=delete*/;
-    IRequest& operator=(IRequest&&) /*=delete*/;
+    IRequest(const IRequest &);
+    IRequest &operator=(const IRequest &);
+    IRequest(IRequest&&);
+    IRequest& operator=(IRequest&&);
 
     IStringView operator[](IStringView header) const;
     IStringView operator[](const QString& header) const;
@@ -103,7 +103,7 @@ public:
 
 protected:
     virtual void resolve() final;
-    virtual std::vector<asio::const_buffer> getResult() final;
+    virtual std::vector<asio::const_buffer> getOutput() final;
 
 private:
     IRequestImpl* m_impl{nullptr};

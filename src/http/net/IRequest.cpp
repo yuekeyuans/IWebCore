@@ -343,9 +343,9 @@ void IRequest::resolve()
     m_impl->parseData();
 }
 
-std::vector<asio::const_buffer> IRequest::getResult()
+std::vector<asio::const_buffer> IRequest::getOutput()
 {
-    return m_impl->getResult();
+    return m_impl->m_respRaw.getContent(*(this->m_impl));
 }
 
 $PackageWebCoreEnd

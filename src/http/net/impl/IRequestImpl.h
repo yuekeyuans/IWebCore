@@ -14,6 +14,7 @@
 #include "http/net/IMultiPartJar.h"
 #include "http/net/ICookieJar.h"
 #include "http/net/ISessionJar.h"
+#include "http/response/content/IResponseContentWare.h"
 
 $PackageWebCoreBegin
 
@@ -46,7 +47,6 @@ public:
 
 public:
     void parseData();
-    std::vector<asio::const_buffer> getResult();
 
 private:
     void firstLineState(IStringView);
@@ -70,6 +70,10 @@ private:
 
 private:
     IStringView getBoundary(IStringView);
+
+public:
+    void setResponseWare(IResponseWare&& ware);
+    void setResponseWare(IResponseWare& ware);
 
 public:
     IRequest& m_request;

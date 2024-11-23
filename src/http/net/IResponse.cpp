@@ -152,6 +152,7 @@ IResponse &IResponse::setContent(IHttpInvalidWare unit)
 
 void IResponse::setInvalid(IHttpInvalidWare ware)
 {
+    m_impl.m_isValid = false;
     setContent(ware);
 }
 

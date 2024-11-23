@@ -9,12 +9,13 @@
 #include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/invalid/IHttpNotFoundInvalid.h"
 #include "http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.h"
+#include "http/mappings/IHttpAction.h"
 #include "http/net/IRequest.h"
 #include "http/net/IRequestManage.h"
 #include "http/net/impl/IRequestRaw.h"
 #include "http/net/impl/IResponseRaw.h"
 #include "http/net/ISessionJar.h"
-#include "http/mappings/IHttpAction.h"
+#include "http/response/IResponseWare.h"
 #include "http/session/ISessionManager.h"
 #include "http/server/ITcpConnection.h"
 #include <algorithm>
@@ -332,10 +333,10 @@ void IRequestImpl::parseData()
     }
 }
 
-std::vector<asio::const_buffer> IRequestImpl::getResult()
-{
-    return m_respRaw.getContent(*this);
-}
+//std::vector<asio::const_buffer> IRequestImpl::getResult()
+//{
+//    return m_respRaw.getContent(*this);
+//}
 
 void IRequestImpl::firstLineState(IStringView data)
 {
@@ -695,6 +696,22 @@ IStringView IRequestImpl::getBoundary(IStringView data)
         view = view.substr(1, view.length()-2);
     }
     return stash("--" + view.toQByteArray());
+}
+
+void IRequestImpl::setResponseWare(IResponseWare &&ware)
+{
+    if(!ware.m_raw->m_isValid){
+        m_isValid = false;
+    }
+    m_respRaw.setContent(std::move(ware));
+}
+
+void IRequestImpl::setResponseWare(IResponseWare &ware)
+{
+    if(!ware.m_raw->m_isValid){
+        m_isValid = false;
+    }
+    m_respRaw.setContent(ware);
 }
 
 //void IRequestImplHelper::checkDumplicatedParameters(const QList<QPair<QString, IRequestImpl::FunType>>& maps, const IRequestImpl* ptr, const QString& name)
