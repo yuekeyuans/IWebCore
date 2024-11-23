@@ -16,9 +16,10 @@ int IFileResponseContent::getSize()
     return QFileInfo(m_path).size();
 }
 
-const char *IFileResponseContent::getType()
+IStringView IFileResponseContent::getType()
 {
-    return "file";
+    static const std::string type = "IFileResponseContent";
+    return type;
 }
 
 IStringView IFileResponseContent::getContent()
@@ -31,9 +32,10 @@ IStringView IFileResponseContent::getContent()
     return m_content;
 }
 
-QString IFileResponseContent::getSuggestedMime()
+IStringView IFileResponseContent::getSuggestedMime()
 {
-    return IHttpMimeUtil::toString(IHttpMime::APPLICATION_OCTET_STREAM);
+    static const std::string mime = IHttpMimeUtil::toString(IHttpMime::APPLICATION_OCTET_STREAM).toStdString();
+    return mime;
 }
 
 $PackageWebCoreEnd

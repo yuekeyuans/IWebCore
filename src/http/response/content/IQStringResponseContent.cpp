@@ -20,9 +20,10 @@ int IQStringResponseContent::getSize()
     return m_rawData.length();
 }
 
-const char *IQStringResponseContent::getType()
+IStringView IQStringResponseContent::getType()
 {
-    return "QString";
+    static std::string type = "IQStringResponseContent";
+    return type;
 }
 
 IStringView IQStringResponseContent::getContent()
@@ -30,9 +31,10 @@ IStringView IQStringResponseContent::getContent()
     return IStringView(m_rawData.data(), m_rawData.length());
 }
 
-QString IQStringResponseContent::getSuggestedMime()
+IStringView IQStringResponseContent::getSuggestedMime()
 {
-    return IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
+    static std::string mime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8).toStdString();
+    return mime;
 }
 
 

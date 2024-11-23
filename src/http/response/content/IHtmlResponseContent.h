@@ -15,9 +15,9 @@ public:
 
 public:
     virtual int getSize() final;
-    virtual const char *getType() final;
+    virtual IStringView getType() final;
     virtual IStringView getContent() final;
-    virtual QString getSuggestedMime() final;
+    virtual IStringView getSuggestedMime() final;
 
 private:
     QByteArray m_content;

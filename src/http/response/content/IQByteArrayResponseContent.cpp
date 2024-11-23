@@ -18,9 +18,10 @@ int IQByteArrayResponseContent::getSize()
     return m_content.length();
 }
 
-const char *IQByteArrayResponseContent::getType()
+IStringView IQByteArrayResponseContent::getType()
 {
-    return "QByteArray";
+    static const std::string type =  "IQByteArrayResponseContent";
+    return type;
 }
 
 IStringView IQByteArrayResponseContent::getContent()
@@ -28,9 +29,10 @@ IStringView IQByteArrayResponseContent::getContent()
     return IStringView(m_content.data(), m_content.length());
 }
 
-QString IQByteArrayResponseContent::getSuggestedMime()
+IStringView IQByteArrayResponseContent::getSuggestedMime()
 {
-    return IHttpMimeUtil::toString(IHttpMime::APPLICATION_OCTET_STREAM);
+    static const std::string mime = IHttpMimeUtil::toString(IHttpMime::APPLICATION_OCTET_STREAM).toStdString();
+    return IStringView(mime);
 }
 
 $PackageWebCoreEnd

@@ -30,9 +30,10 @@ int IHtmlResponseContent::getSize()
     return m_content.length();
 }
 
-const char *IHtmlResponseContent::getType()
+IStringView IHtmlResponseContent::getType()
 {
-    return "IHtmlResponseContent";
+    static std::string type = "IHtmlResponseContent";
+    return IStringView(type);
 }
 
 IStringView IHtmlResponseContent::getContent()
@@ -40,9 +41,10 @@ IStringView IHtmlResponseContent::getContent()
     return IStringView(m_content);
 }
 
-QString IHtmlResponseContent::getSuggestedMime()
+IStringView IHtmlResponseContent::getSuggestedMime()
 {
-    return IHttpMimeUtil::toString(IHttpMime::TEXT_HTML_UTF8);
+    static auto mime = IHttpMimeUtil::toString(IHttpMime::TEXT_HTML_UTF8).toStdString();
+    return IStringView(mime);
 }
 
 $PackageWebCoreEnd

@@ -12,9 +12,9 @@ public:
 
 public:
     virtual int getSize() final;
-    virtual const char *getType() final;
+    virtual IStringView getType() final;
     virtual IStringView getContent() final;
-    virtual QString getSuggestedMime() final;
+    virtual IStringView getSuggestedMime() final;
 
 private:
     std::string m_content;

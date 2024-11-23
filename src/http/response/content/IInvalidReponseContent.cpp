@@ -13,9 +13,10 @@ int IInvalidReponseContent::getSize()
     return {};
 }
 
-const char *IInvalidReponseContent::getType()
+IStringView IInvalidReponseContent::getType()
 {
-    return "invalidware";
+    static const std::string type = "IInvalidReponseContent";
+    return type;
 }
 
 IStringView IInvalidReponseContent::getContent()
@@ -23,9 +24,10 @@ IStringView IInvalidReponseContent::getContent()
     return {};
 }
 
-QString IInvalidReponseContent::getSuggestedMime()
+IStringView IInvalidReponseContent::getSuggestedMime()
 {
-    return IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
+    static const std::string mime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8).toStdString();
+    return mime;
 }
 
 
