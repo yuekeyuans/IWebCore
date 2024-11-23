@@ -21,12 +21,14 @@ const char *IFileResponseContent::getType()
     return "file";
 }
 
-// TODO:
 IStringView IFileResponseContent::getContent()
 {
-//    bool ok;
-//    m_content = IFileUtil::readFileAsByteArray(m_path, &ok);
-    return {};
+    QFile file(m_path);
+    if(file.open(QFile::ReadOnly)){
+        m_content = file.readAll();
+        file.close();
+    }
+    return m_content;
 }
 
 QString IFileResponseContent::getSuggestedMime()
