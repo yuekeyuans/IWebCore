@@ -8,7 +8,6 @@
 
 $PackageWebCoreBegin
 
-
 void IHttpControllerAction::invoke(IRequest &request) const
 {
     auto params = createParams(request);
@@ -18,39 +17,12 @@ void IHttpControllerAction::invoke(IRequest &request) const
         enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params.data());
         if(request.isValid()){
             methodNode.returnNode.resolveValue(request.getImpl(), params[0]);
-//            IResponse response(request);
-//            IHttpControllerParameter::resolveReturnValue(response, methodNode, params[0]);
         }
     }
 
     destroyParams(params);
     request.doWrite();
 }
-
-//void IHttpControllerAction::invoke(IRequest &request) const
-//{
-//    IHttpControllerParameter::ParamType params;
-//    auto ok = IHttpControllerParameter::createArguments(methodNode, params, request);
-//    if(!ok){
-//        IHttpControllerParameter::destroyArguments(methodNode, params);
-//        return;
-//    }
-
-//    auto index = methodNode.metaMethod.methodIndex();
-//    auto enclosingObject = methodNode.metaMethod.enclosingMetaObject();
-//    enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params);
-//    if(!request.isValid()){
-//        return;
-//    }
-
-//    IResponse response(&request);
-//    IHttpControllerParameter::resolveReturnValue(response, methodNode, params);
-//    if(request.isValid()){
-//        IHttpControllerParameter::destroyArguments(methodNode, params);
-//    }
-
-//    request.doWrite();
-//}
 
 IHttpControllerAction::ParamType IHttpControllerAction::createParams(IRequest& request) const
 {

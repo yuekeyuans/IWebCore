@@ -22,7 +22,7 @@ private:
 
 public:
     IHttpMethod httpMethod;
-    void* parentNode{nullptr};
+    void* parentNode{};
 
     IHttpUrl route;
     IMethodNode methodNode;

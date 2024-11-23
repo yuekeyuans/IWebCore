@@ -4,6 +4,7 @@
 #include "bean/StudentBean.h"
 #include "http/response/IByteArrayResponse.h"
 #include "http/biscuits/IHttpHeader.h"
+#include "http/invalid/IHttpNotFoundInvalid.h"
 
 class ReturnTypeController : public IHttpControllerInterface<ReturnTypeController, true>
 {
@@ -49,6 +50,11 @@ public:
     $GetMapping(QStringofByteArraySuffix)
     QString QStringofByteArraySuffix(){
         return "$bytes:QStringofByteArraySuffix";
+    }
+
+    $GetMapping(testInvalid)
+    IByteArrayResponse testInvalid(){
+        return IHttpNotFoundInvalid("hello world");
     }
 };
 

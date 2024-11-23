@@ -6,11 +6,12 @@ $PackageWebCoreBegin
 IInvalidReponseContent::IInvalidReponseContent(const IHttpInvalidWare &ware)
     : m_ware(ware)
 {
+    m_data = ware.description.toUtf8();
 }
 
 int IInvalidReponseContent::getSize()
 {
-    return {};
+    return m_data.length();
 }
 
 IStringView IInvalidReponseContent::getType()
@@ -21,7 +22,7 @@ IStringView IInvalidReponseContent::getType()
 
 IStringView IInvalidReponseContent::getContent()
 {
-    return {};
+    return m_data;
 }
 
 IStringView IInvalidReponseContent::getSuggestedMime()

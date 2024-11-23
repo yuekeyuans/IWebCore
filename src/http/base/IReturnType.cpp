@@ -1,5 +1,4 @@
 ﻿#include "IReturnType.h"
-//#include "http/response/IInvalidResponse.h"
 #include "core/util/ISpawnUtil.h"
 #include "core/bean/IBeanTypeManage.h"
 #include "core/bean/IBeanWare.h"

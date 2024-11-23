@@ -18,6 +18,7 @@ public:
 
 private:
     IHttpInvalidWare m_ware;
+    QByteArray m_data;
 };
 
 $PackageWebCoreEnd

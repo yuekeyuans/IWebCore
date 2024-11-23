@@ -216,7 +216,6 @@ HEADERS += \
     $$PWD/http/response/IByteArrayResponse.h \
     $$PWD/http/response/IFileResponse.h \
     $$PWD/http/response/IHtmlResponse.h \
-    $$PWD/http/response/IInvalidResponse.h \
     $$PWD/http/response/IJsonResponse.h \
     $$PWD/http/response/IPlainTextResponse.h \
     $$PWD/http/response/IRedirectResponse.h \
@@ -394,7 +393,6 @@ SOURCES += \
     $$PWD/http/response/IByteArrayResponse.cpp \
     $$PWD/http/response/IFileResponse.cpp \
     $$PWD/http/response/IHtmlResponse.cpp \
-    $$PWD/http/response/IInvalidResponse.cpp \
     $$PWD/http/response/IJsonResponse.cpp \
     $$PWD/http/response/IPlainTextResponse.cpp \
     $$PWD/http/response/IRedirectResponse.cpp \

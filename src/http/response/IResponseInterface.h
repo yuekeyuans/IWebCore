@@ -8,6 +8,7 @@
 #include "http/response/IResponseManage.h"
 #include "http/response/IResponseWare.h"
 #include "http/core/unit/IRegisterResponseTypeUnit.h"
+#include "http/response/content/IInvalidReponseContent.h"
 #include "http/invalid/IHttpInvalidWare.h"
 
 $PackageWebCoreBegin
@@ -32,7 +33,6 @@ public:
     IResponseInterface(IResponseInterface &&);
     IResponseInterface(const IResponseInterface&);
 
-    IResponseInterface(IResponseWare*); // special // only for create
     IResponseInterface& operator=(const IResponseInterface&);
     IResponseInterface& operator=(IResponseInterface&&);
     virtual ~IResponseInterface() = default;
@@ -51,20 +51,11 @@ IResponseInterface<T, enabled>::IResponseInterface(IRedirectResponse &&response)
     std::swap(this->m_raw, response.m_raw);
 }
 
-//template<typename T, bool enabled>
-//IResponseInterface<T, enabled>::IResponseInterface(IInvalidRepsonse &&response)
-//{
-//    std::swap(this->m_raw, response.m_raw);
-//}
-
-#include "http/response/content/IInvalidReponseContent.h"
-#include "http/response/IInvalidResponse.h"
-
 template<typename T, bool enabled>
 IResponseInterface<T, enabled>::IResponseInterface(IHttpInvalidWare ware)
 {
-    IInvalidResponse resp(ware);
-    std::swap(this->m_raw, resp.m_raw);
+    this->m_raw->m_status = ware.status;
+    this->m_raw->setContent(ware);
 }
 
 template<typename T, bool enabled>
@@ -81,12 +72,6 @@ IResponseInterface<T, enabled>::IResponseInterface(const IResponseInterface &rhs
 template<typename T, bool enabled>
 IResponseInterface<T, enabled>::IResponseInterface(IResponseInterface &&rhs) : IResponseWare(std::forward<IResponseInterface>(rhs))
 {
-}
-
-template<typename T, bool enabled>
-IResponseInterface<T, enabled>::IResponseInterface(IResponseWare *ware)
-{
-    std::swap(this->m_raw, ware->m_raw);
 }
 
 template<typename T, bool enabled>
