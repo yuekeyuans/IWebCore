@@ -27,12 +27,11 @@ public:
     ~IResponse();
 
     IResponse(const IResponse&);
-    IResponse& operator=(const IResponse&);
     IResponse(IResponse &&);
+    IResponse& operator=(const IResponse&);
     IResponse &operator=(IResponse &&);
 
     IResponseHeader operator[](const QString& header) const;
-
     IResponse& setHeader(const QString &key, const QString &value);
     IResponse& setStatus(IHttpStatus statusCode);
     IResponse& setStatus(int statusCode);

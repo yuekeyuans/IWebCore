@@ -30,15 +30,15 @@ IResponse::IResponse(const IResponse &) : m_impl(*static_cast<IRequestImpl*>(nul
     IGlobalAbort::abortUnVisibleMethod();
 }
 
+IResponse::IResponse(IResponse &&) : m_impl(*static_cast<IRequestImpl*>(nullptr))
+{
+    IGlobalAbort::abortUnVisibleMethod();
+}
+
 IResponse &IResponse::operator=(const IResponse &)
 {
     IGlobalAbort::abortUnVisibleMethod();
     return *this;
-}
-
-IResponse::IResponse(IResponse &&) : m_impl(*static_cast<IRequestImpl*>(nullptr))
-{
-    IGlobalAbort::abortUnVisibleMethod();
 }
 
 IResponse &IResponse::operator=(IResponse &&)
