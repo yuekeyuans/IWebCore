@@ -137,7 +137,6 @@ void IReturnTypeDetail::createQStringFun()
                     return;
                 }
             }
-
             impl.setResponseWare(IPlainTextResponse(std::move(value)));
         };
     }

@@ -59,7 +59,6 @@ QString detail::getContentDispositionAttachment(const QString& filePath)
 // TODO: 这里的参数不太对，应该对应很多路径，但是这里只有一个
 bool detail::setFilePath(IResponseRaw* raw, const QString& path)
 {
-
 //    QString realPath = path;
 //    if(!path.startsWith(":/") && !QFileInfo(path).exists()){
 //        $QString prefix{"/http/fileService/path"};

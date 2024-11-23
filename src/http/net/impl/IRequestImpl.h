@@ -43,7 +43,7 @@ public:
 
 public:
     bool isValid() const;
-    void setInvalid(IHttpInvalidWare);
+    void setInvalid(const IHttpInvalidWare&);
 
 public:
     void parseData();

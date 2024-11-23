@@ -3,7 +3,6 @@
 #include "core/util/IHeaderUtil.h"
 #include "core/application/IAsioApplication.h"
 #include "core/util/IConstantUtil.h"
-#include "core/util/ICodecUtil.h"
 #include "core/config/IProfileImport.h"
 #include "http/IHttpManage.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
@@ -11,13 +10,11 @@
 #include "http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.h"
 #include "http/mappings/IHttpAction.h"
 #include "http/net/IRequest.h"
-#include "http/net/IRequestManage.h"
 #include "http/net/impl/IRequestRaw.h"
-#include "http/net/impl/IResponseRaw.h"
 #include "http/net/ISessionJar.h"
 #include "http/response/IResponseWare.h"
-#include "http/session/ISessionManager.h"
 #include "http/server/ITcpConnection.h"
+#include "http/session/ISessionManager.h"
 #include <algorithm>
 
 $PackageWebCoreBegin
@@ -57,7 +54,7 @@ bool IRequestImpl::isValid() const
     return m_isValid;
 }
 
-void IRequestImpl::setInvalid(IHttpInvalidWare ware)
+void IRequestImpl::setInvalid(const IHttpInvalidWare& ware)
 {
     m_isValid = false;
     m_respRaw.setContent(ware);
