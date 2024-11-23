@@ -17,16 +17,17 @@ public:
 
 public:
     IJsonResponse();
-//    IJsonResponse(const IJson&);  // TODO: 之后可以看一下这个是为什么,很奇怪
+    IJsonResponse(const IJson&);  // TODO: 之后可以看一下这个是为什么,很奇怪
+    IJsonResponse(const char*);
     IJsonResponse(std::string);
-//    IJsonResponse(const std::string&);
+    IJsonResponse(const std::string&);
     IJsonResponse(const QString&);
     IJsonResponse(const QJsonValue&);
     IJsonResponse(const QJsonArray&);
     IJsonResponse(const QJsonObject&);
 
 public:
-    virtual QString getPrefixMatcher() final;
+    virtual QString prefixMatcher() final;
 };
 
 IJsonResponse operator"" _json(const char* str, size_t size);

@@ -14,7 +14,7 @@ IHtmlResponse::IHtmlResponse(const QString &data)
     m_raw->setContent(data);
 }
 
-QString IHtmlResponse::getPrefixMatcher()
+QString IHtmlResponse::prefixMatcher()
 {
     return "$html:";
 }

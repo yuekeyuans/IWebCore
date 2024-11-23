@@ -9,6 +9,17 @@ IJsonResponse::IJsonResponse() : IResponseInterface()
     m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8); // this must be initialized, the only return type;
 }
 
+IJsonResponse::IJsonResponse(const IJson& json)
+{
+    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
+    m_raw->setContent(QString::fromStdString(json.dump()));
+}
+
+IJsonResponse::IJsonResponse(const char * value)
+    : IJsonResponse(QString(value))
+{
+}
+
 IJsonResponse::IJsonResponse(std::string value)
 {
     m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
@@ -47,7 +58,7 @@ IJsonResponse::IJsonResponse(const QJsonObject &object) : IResponseInterface()
     m_raw->setContent(QJsonDocument(object).toJson());
 }
 
-QString IJsonResponse::getPrefixMatcher()
+QString IJsonResponse::prefixMatcher()
 {
     return "$json:";
 }

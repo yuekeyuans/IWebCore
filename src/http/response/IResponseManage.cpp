@@ -15,9 +15,9 @@ void IResponseManage::registerResponseType(const QString& name, IResponseWare *r
     assert(!m_responses.contains(name));
     m_responses[name] = response;
 
-    if(!response->getPrefixMatcher().isEmpty()){
-        assert(!m_convertResponses.contains(response->getPrefixMatcher()));
-        m_convertResponses[response->getPrefixMatcher()] = response;
+    if(!response->prefixMatcher().isEmpty()){
+        assert(!m_convertResponses.contains(response->prefixMatcher()));
+        m_convertResponses[response->prefixMatcher()] = response;
     }
 }
 

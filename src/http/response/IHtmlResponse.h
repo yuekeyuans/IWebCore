@@ -17,7 +17,7 @@ public:
     IHtmlResponse(const QString& data);
 
 public:
-    virtual QString getPrefixMatcher() final;
+    virtual QString prefixMatcher() final;
 };
 
 IHtmlResponse operator"" _html(const char* str, size_t size);

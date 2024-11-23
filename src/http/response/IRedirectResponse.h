@@ -19,7 +19,7 @@ public:
     IRedirectResponse(IResponseWare *);
 
 public:
-    virtual QString getPrefixMatcher() final;
+    virtual QString prefixMatcher() final;
     void updateLocationPath();
 
 private:

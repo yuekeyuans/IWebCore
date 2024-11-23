@@ -35,7 +35,7 @@ void IFileResponse::enableContentDisposition()
 //                                     detail::getContentDispositionAttachment(m_raw->content.contentString));
 }
 
-QString IFileResponse::getPrefixMatcher()
+QString IFileResponse::prefixMatcher()
 {
     return "$file:";
 }

@@ -47,7 +47,7 @@ IStatusResponse::IStatusResponse(IHttpStatus status, const QString &errorMsg)
     }
 }
 
-QString IStatusResponse::getPrefixMatcher()
+QString IStatusResponse::prefixMatcher()
 {
     return "$status:";
 }

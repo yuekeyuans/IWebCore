@@ -26,7 +26,7 @@ IRedirectResponse::IRedirectResponse(IResponseWare *ware)
     updateLocationPath();
 }
 
-QString IRedirectResponse::getPrefixMatcher()
+QString IRedirectResponse::prefixMatcher()
 {
     return "$redirect:";
 }

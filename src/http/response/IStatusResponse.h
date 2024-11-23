@@ -21,7 +21,7 @@ public:
     IStatusResponse(IHttpStatus status, const QString& errorMsg="");
 
 public:
-    virtual QString getPrefixMatcher() final;
+    virtual QString prefixMatcher() final;
 };
 
 IStatusResponse operator"" _status(unsigned long long int);

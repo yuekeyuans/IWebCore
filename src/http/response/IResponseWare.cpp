@@ -89,15 +89,15 @@ void IResponseWare::addHeader(const QString &key, const QString &value)
     m_raw->m_headers.insertMulti(key, value);
 }
 
-QString IResponseWare::getPrefixMatcher()
+QString IResponseWare::prefixMatcher()
 {
     return {};
 }
 
-IResponseWare IResponseWare::create(const QString &)
+IResponseWare* IResponseWare::prefixCreate(const QString &)
 {
     IGlobalAbort::abortUnVisibleMethod();
-    return {};
+    return nullptr;
 }
 
 $PackageWebCoreEnd

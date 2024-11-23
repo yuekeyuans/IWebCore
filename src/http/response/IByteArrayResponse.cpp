@@ -7,9 +7,15 @@ IByteArrayResponse::IByteArrayResponse()
     m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
 }
 
-IByteArrayResponse::IByteArrayResponse(QString val)
-    : IByteArrayResponse(val.toUtf8())
+IByteArrayResponse::IByteArrayResponse(const char *data)
+    : IByteArrayResponse(QByteArray(data))
 {
+}
+
+IByteArrayResponse::IByteArrayResponse(QByteArray &&array)
+{
+    m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
+    m_raw->setContent(std::move(array));
 }
 
 IByteArrayResponse::IByteArrayResponse(const QByteArray &array)
@@ -18,13 +24,12 @@ IByteArrayResponse::IByteArrayResponse(const QByteArray &array)
     m_raw->setContent(array);
 }
 
-IByteArrayResponse::IByteArrayResponse(QByteArray &&array)
+IByteArrayResponse::IByteArrayResponse(const QString &data)
+    : IByteArrayResponse(data.toUtf8())
 {
-    m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
-    m_raw->setContent(std::forward<QByteArray>(array));
 }
 
-QString IByteArrayResponse::getPrefixMatcher()
+QString IByteArrayResponse::prefixMatcher()
 {
     return "$bytes:";
 }

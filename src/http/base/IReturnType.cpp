@@ -66,7 +66,7 @@ void IReturnTypeDetail::createResponseFun()
 {
     if(IResponseManage::instance()->containResponseType(typeName)){
         m_resolveFunction = [](IRequest&, IResponse& response, void* ptr){
-            response.setContent(static_cast<IResponseWare*>(ptr));
+            response.setContent(*static_cast<IResponseWare*>(ptr));
         };
     }
 }
@@ -76,7 +76,7 @@ void IReturnTypeDetail::createBeanFun()
     if(IBeanTypeManage::instance()->isBeanIdExist(typeId)){
         m_resolveFunction = [](IRequest&, IResponse&response, void* ptr){
             IJson json = static_cast<IBeanWare*>(ptr)->toJson();
-            response.setContent((IResponseWare&)IJsonResponse(json));
+            response.setContent(IJsonResponse(json));
         };
     }
 }
@@ -99,7 +99,7 @@ void IReturnTypeDetail::createStatusFun()
 {
     if(typeId == QMetaType::UnknownType && typeName == "IHttpStatus" || typeId == QMetaType::Int){
         m_resolveFunction = [](IRequest&, IResponse& response, void* ptr){
-            response.setContent((IResponseWare&)IStatusResponse(*static_cast<int*>(ptr))); // TODO: 查看转换问题
+            response.setContent(IStatusResponse(*static_cast<int*>(ptr))); // TODO: 查看转换问题
         };
     }
 }
@@ -112,10 +112,14 @@ void IReturnTypeDetail::createStdStringFun()
             if(value.startsWith("$")){
                 IResponseWare* ware = IResponseManage::instance()->convertMatch(value);
                 if(ware){
-                    response.setContent(ware->create(std::move(value)));
+                    auto content = ware->prefixCreate(std::move(value));
+                    response.setContent(*content);
+                    delete content;
+                    return;
                 }
             }
-            response.setContent((IResponseWare&)IPlainTextResponse(std::move(value)));
+
+            response.setContent(IPlainTextResponse(std::move(value)));
         };
     }
 }
@@ -128,24 +132,33 @@ void IReturnTypeDetail::createQStringFun()
             if(value.startsWith("$")){
                 IResponseWare* ware = IResponseManage::instance()->convertMatch(value);
                 if(ware){
-                    response.setContent(ware->create(std::move(value)));
+                    auto content = ware->prefixCreate(std::move(value));
+                    response.setContent(*content);
+                    delete content;
+                    return;
                 }
             }
-            response.setContent((IResponseWare)IPlainTextResponse(std::move(value)));
+
+            response.setContent(IPlainTextResponse(std::move(value)));
         };
     }
 }
 
 void IReturnTypeDetail::createQByteArrayFun()
 {
-
+    if(typeId == QMetaType::QByteArray){
+        m_resolveFunction = [](IRequest&, IResponse& response, void *ptr){
+            QByteArray& array = *static_cast<QByteArray*>(ptr);
+            response.setContent(IByteArrayResponse(std::move(array)));
+        };
+    }
 }
 
 void IReturnTypeDetail::createIJsonFun()
 {
     if(typeId == (QMetaType::Type)qMetaTypeId<IJson>()){
         m_resolveFunction = [](IRequest&, IResponse&response, void* ptr){
-            response.setContent((IResponseWare&)IJsonResponse((*static_cast<IJson*>(ptr)).dump()));
+            response.setContent(IJsonResponse(*static_cast<IJson*>(ptr)));
         };
     }
 }

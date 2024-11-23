@@ -14,12 +14,13 @@ public:
 
 public:
     IByteArrayResponse();
-    IByteArrayResponse(QString);
-    IByteArrayResponse(const QByteArray &array);  // TODO: 这个函数可能有些问题，不能够大规模使用
-    IByteArrayResponse(QByteArray &&array);
+    IByteArrayResponse(const char* data);
+    IByteArrayResponse(QByteArray &&data);
+    IByteArrayResponse(const QByteArray &data);
+    IByteArrayResponse(const QString& data);
 
 public:
-    virtual QString getPrefixMatcher() final;
+    virtual QString prefixMatcher() final;
 };
 
 IByteArrayResponse operator"" _bytes(const char* str, size_t size);

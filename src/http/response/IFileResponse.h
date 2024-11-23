@@ -5,6 +5,7 @@
 
 $PackageWebCoreBegin
 
+// TODO: 重构
 class IFileResponse : public IResponseInterface<IFileResponse>
 {
     $AsResponse(IFileResponse)
@@ -20,7 +21,7 @@ public:
     void enableContentDisposition();
 
 public:
-    virtual QString getPrefixMatcher() final;
+    virtual QString prefixMatcher() final;
 };
 
 IFileResponse operator"" _file(const char* str, size_t size);

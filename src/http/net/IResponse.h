@@ -39,12 +39,12 @@ public:
     IResponse& setMime(const QString mime);
     IResponse& addCookie(ICookiePart cookiePart);
 
-    IResponse& setContent(const QString& content);
-    IResponse& setContent(const QByteArray& content);
-    IResponse& setContent(QByteArray&& content);
-    IResponse& setContent(const char* content);
-    IResponse& setContent(IResponseWare *response);
-    IResponse& setContent(IResponseWare response);
+//    IResponse& setContent(const QString& content);
+//    IResponse& setContent(const QByteArray& content);
+//    IResponse& setContent(QByteArray&& content);
+//    IResponse& setContent(const char* content);
+    IResponse& setContent(IResponseWare& response);
+    IResponse& setContent(IResponseWare&& response);
     IResponse& setContent(IHttpInvalidWare unit);
 
     IHttpVersion version() const;

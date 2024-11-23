@@ -93,57 +93,56 @@ IResponse &IResponse::addCookie(ICookiePart cookiePart)
     return *this;
 }
 
-IResponse &IResponse::setContent(const QString &content)
-{
-    m_impl.m_respRaw.setContent(content);
-    return *this;
-}
+//IResponse &IResponse::setContent(const QString &content)
+//{
+//    m_impl.m_respRaw.setContent(content);
+//    return *this;
+//}
 
-IResponse &IResponse::setContent(const QByteArray &content)
-{
-    m_impl.m_respRaw.setContent(content);
-    return *this;
-}
+//IResponse &IResponse::setContent(const QByteArray &content)
+//{
+//    m_impl.m_respRaw.setContent(content);
+//    return *this;
+//}
 
-IResponse &IResponse::setContent(QByteArray &&content)
-{
-    m_impl.m_respRaw.setContent(std::forward<QByteArray&&>(content));
-    return *this;
-}
+//IResponse &IResponse::setContent(QByteArray &&content)
+//{
+//    m_impl.m_respRaw.setContent(std::forward<QByteArray&&>(content));
+//    return *this;
+//}
 
-IResponse &IResponse::setContent(const char *content)
-{
-    m_impl.m_respRaw.setContent(content);
-    return *this;
-}
+//IResponse &IResponse::setContent(const char *content)
+//{
+//    m_impl.m_respRaw.setContent(content);
+//    return *this;
+//}
 
-IResponse& IResponse::setContent(IResponseWare *response)
+IResponse &IResponse::setContent(IResponseWare& response)
 {
-    if(!response->mime().isEmpty()){
-        m_impl.m_respRaw.m_mime = response->mime();
+    if(!response.mime().isEmpty()){
+        m_impl.m_respRaw.m_mime = response.mime();
     }
-    if(response->status() != m_impl.m_respRaw.m_status){
-        m_impl.m_respRaw.m_status = response->status();
+    if(response.status() != m_impl.m_respRaw.m_status){
+        m_impl.m_respRaw.m_status = response.status();
     }
 
     // TODO: 先不做, 这个还是有一点复杂， 因为可能涉及到多值的情况
-    if(!response->headers().isEmpty()){
-        auto keys = response->headers().keys();
+    if(!response.headers().isEmpty()){
+        auto keys = response.headers().keys();
         for(const auto& key : keys){
-            this->setHeader(key, response->headers().value(key));
-//            m_impl.m_respRaw.m_headers
+            this->setHeader(key, response.headers().value(key));
         }
     }
-    while(!response->m_raw->m_contents.empty()){
-        m_impl.m_respRaw.m_contents.push_back(response->m_raw->m_contents.front());
-        response->m_raw->m_contents.pop_front();
+    while(!response.m_raw->m_contents.empty()){
+        m_impl.m_respRaw.m_contents.push_back(response.m_raw->m_contents.front());
+        response.m_raw->m_contents.pop_front();
     }
     return *this;
 }
 
-IResponse &IResponse::setContent(IResponseWare response)
+IResponse &IResponse::setContent(IResponseWare &&response)
 {
-    return setContent(&response);
+    return setContent(response);
 }
 
 IResponse &IResponse::setContent(IHttpInvalidWare unit)

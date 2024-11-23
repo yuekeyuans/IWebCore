@@ -23,7 +23,7 @@ public:
     IPlainTextResponse(const char* value);
 
 public:
-    virtual QString getPrefixMatcher() final;
+    virtual QString prefixMatcher() final;
 };
 
 IPlainTextResponse operator"" _text(const char* str, size_t size);
