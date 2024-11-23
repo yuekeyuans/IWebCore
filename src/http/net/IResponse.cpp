@@ -52,13 +52,8 @@ IResponseHeader IResponse::operator[](const QString &header) const
     return {m_impl.m_respRaw, header};
 }
 
-// TODO: warn
 IResponse &IResponse::setHeader(const QString &key, const QString &value)
 {
-    if(key.isEmpty() || value.isEmpty()){
-//        $Ast->warn("iresponse_setHeader_with_empty_value_or_key");
-    }
-
     m_impl.m_headerJar.setResponseHeader(key, value);
     return *this;
 }
@@ -93,50 +88,57 @@ IResponse &IResponse::addCookie(ICookiePart cookiePart)
     return *this;
 }
 
-//IResponse &IResponse::setContent(const QString &content)
-//{
-//    m_impl.m_respRaw.setContent(content);
-//    return *this;
-//}
-
-//IResponse &IResponse::setContent(const QByteArray &content)
-//{
-//    m_impl.m_respRaw.setContent(content);
-//    return *this;
-//}
-
-//IResponse &IResponse::setContent(QByteArray &&content)
-//{
-//    m_impl.m_respRaw.setContent(std::forward<QByteArray&&>(content));
-//    return *this;
-//}
-
-//IResponse &IResponse::setContent(const char *content)
-//{
-//    m_impl.m_respRaw.setContent(content);
-//    return *this;
-//}
-
-IResponse &IResponse::setContent(IResponseWare& response)
+IResponse &IResponse::setContent(std::string && value)
 {
-    if(!response.mime().isEmpty()){
-        m_impl.m_respRaw.m_mime = response.mime();
-    }
-    if(response.status() != m_impl.m_respRaw.m_status){
-        m_impl.m_respRaw.m_status = response.status();
-    }
+    m_impl.m_respRaw.setContent(std::move(value));
+    return *this;
+}
 
-    // TODO: 先不做, 这个还是有一点复杂， 因为可能涉及到多值的情况
-    if(!response.headers().isEmpty()){
-        auto keys = response.headers().keys();
-        for(const auto& key : keys){
-            this->setHeader(key, response.headers().value(key));
-        }
-    }
-    while(!response.m_raw->m_contents.empty()){
-        m_impl.m_respRaw.m_contents.push_back(response.m_raw->m_contents.front());
-        response.m_raw->m_contents.pop_front();
-    }
+IResponse &IResponse::setContent(const std::string &value)
+{
+    m_impl.m_respRaw.setContent(value);
+    return *this;
+}
+
+IResponse &IResponse::setContent(IStringView view)
+{
+    m_impl.m_respRaw.setContent(view);
+    return *this;
+}
+
+IResponse &IResponse::setContent(QString && value)
+{
+    m_impl.m_respRaw.setContent(std::move(value));
+    return *this;
+}
+
+IResponse &IResponse::setContent(const QString &content)
+{
+    m_impl.m_respRaw.setContent(content);
+    return *this;
+}
+
+IResponse &IResponse::setContent(const QByteArray &content)
+{
+    m_impl.m_respRaw.setContent(content);
+    return *this;
+}
+
+IResponse &IResponse::setContent(QByteArray &&content)
+{
+    m_impl.m_respRaw.setContent(std::move(content));
+    return *this;
+}
+
+IResponse &IResponse::setContent(const char *content)
+{
+    m_impl.m_respRaw.setContent(content);
+    return *this;
+}
+
+IResponse &IResponse::setContent(IResponseWare& ware)
+{
+    m_impl.m_respRaw.setContent(ware);
     return *this;
 }
 
@@ -147,8 +149,13 @@ IResponse &IResponse::setContent(IResponseWare &&response)
 
 IResponse &IResponse::setContent(IHttpInvalidWare unit)
 {
-    m_impl.m_request.setInvalid(unit);
+    m_impl.setInvalid(unit);
     return *this;
+}
+
+void IResponse::setInvalid(IHttpInvalidWare ware)
+{
+    setContent(ware);
 }
 
 IHttpVersion IResponse::version() const

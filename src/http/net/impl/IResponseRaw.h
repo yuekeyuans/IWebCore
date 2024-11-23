@@ -8,6 +8,7 @@
 
 $PackageWebCoreBegin
 
+class IResponseWare;
 class IRequestImpl;
 struct IResponseRaw
 {
@@ -16,6 +17,8 @@ public:
     ~IResponseRaw();
 
 public:
+    void setHeader(const QString& key, const QString& value);
+
     void setMime(IHttpMime m_mime);
     void setMime(const QString& m_mime);
 
@@ -28,6 +31,10 @@ public:
     void setContent(QByteArray&& data);
     void setContent(const QByteArray& data);
     void setContent(const char* data);
+
+    void setContent(IStringView data);
+
+    void setContent(IResponseWare&);
 
     void setContent(const QFileInfo& data);
 

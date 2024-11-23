@@ -3,16 +3,17 @@
 #include "http/biscuits/IHttpVersion.h"
 #include "Http/net/impl/IRequestImpl.h"
 
+#include "http/response/IResponseWare.h"
 #include "http/response/content/IQStringResponseContent.h"
 #include "http/response/content/IQByteArrayResponseContent.h"
 #include "http/response/content/IInvalidReponseContent.h"
 #include "http/response/content/IFileResponseContent.h"
 #include "http/response/content/IStdStringResponseContent.h"
+#include "http/response/content/IIStrinigViewResponseContent.h"
 
 $PackageWebCoreBegin
 
 inline static constexpr char NEW_LINE[] = "\r\n";
-
 
 namespace detail
 {
@@ -80,6 +81,11 @@ IResponseRaw::~IResponseRaw()
     }
 }
 
+void IResponseRaw::setHeader(const QString &key, const QString &value)
+{
+    m_headers.insert(std::move(key), std::move(value));
+}
+
 void IResponseRaw::setMime(IHttpMime mime)
 {
     this->m_mime = IHttpMimeUtil::toString(mime);
@@ -123,6 +129,33 @@ void IResponseRaw::setContent(const QByteArray &value)
 void IResponseRaw::setContent(const char *value)
 {
     m_contents.push_back(new IQByteArrayResponseContent(value));
+}
+
+void IResponseRaw::setContent(IStringView data)
+{
+    m_contents.push_back(new IIStrinigViewResponseContent(data));
+}
+
+void IResponseRaw::setContent(IResponseWare &response)
+{
+    if(!response.mime().isEmpty()){
+        m_mime = response.mime();
+    }
+    if(response.status() != m_status){
+        m_status = response.status();
+    }
+
+    // TODO: 先不做, 这个还是有一点复杂， 因为可能涉及到多值的情况
+    if(!response.headers().isEmpty()){
+        auto keys = response.headers().keys();
+        for(const auto& key : keys){
+            setHeader(key, response.headers().value(key));
+        }
+    }
+    while(!response.m_raw->m_contents.empty()){
+        m_contents.push_back(response.m_raw->m_contents.front());
+        response.m_raw->m_contents.pop_front();
+    }
 }
 
 void IResponseRaw::setContent(const QFileInfo &value)

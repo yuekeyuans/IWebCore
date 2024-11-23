@@ -136,6 +136,7 @@ HEADERS += \
     $$PWD/http/net/impl/IResponseRaw.h \
     $$PWD/http/response/content/IFileResponseContent.h \
     $$PWD/http/response/content/IHtmlResponseContent.h \
+    $$PWD/http/response/content/IIStrinigViewResponseContent.h \
     $$PWD/http/response/content/IInvalidReponseContent.h \
     $$PWD/http/response/content/IQByteArrayResponseContent.h \
     $$PWD/http/response/content/IQStringResponseContent.h \
@@ -321,6 +322,7 @@ SOURCES += \
     $$PWD/http/net/impl/IResponseRaw.cpp \
     $$PWD/http/response/content/IFileResponseContent.cpp \
     $$PWD/http/response/content/IHtmlResponseContent.cpp \
+    $$PWD/http/response/content/IIStrinigViewResponseContent.cpp \
     $$PWD/http/response/content/IInvalidReponseContent.cpp \
     $$PWD/http/response/content/IQByteArrayResponseContent.cpp \
     $$PWD/http/response/content/IQStringResponseContent.cpp \

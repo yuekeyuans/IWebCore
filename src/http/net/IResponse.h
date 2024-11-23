@@ -18,7 +18,6 @@ class IResponseWare;
 class IRequestImpl;
 class IRequestRaw;
 class ICookiePart;
-
 class IResponse : IRegisterMetaTypeUnit<IResponse>
 {
 public:
@@ -33,19 +32,32 @@ public:
 
     IResponseHeader operator[](const QString& header) const;
     IResponse& setHeader(const QString &key, const QString &value);
+
     IResponse& setStatus(IHttpStatus statusCode);
     IResponse& setStatus(int statusCode);
+
     IResponse& setMime(IHttpMime mime);
     IResponse& setMime(const QString mime);
+
     IResponse& addCookie(ICookiePart cookiePart);
 
-//    IResponse& setContent(const QString& content);
-//    IResponse& setContent(const QByteArray& content);
-//    IResponse& setContent(QByteArray&& content);
-//    IResponse& setContent(const char* content);
+    IResponse& setContent(std::string&&);
+    IResponse& setContent(const std::string&);
+
+    IResponse& setContent(IStringView);
+
+    IResponse& setContent(QString&&);
+    IResponse& setContent(const QString&);
+
+    IResponse& setContent(QByteArray&&);
+    IResponse& setContent(const QByteArray&);
+    IResponse& setContent(const char*);
+
     IResponse& setContent(IResponseWare& response);
     IResponse& setContent(IResponseWare&& response);
     IResponse& setContent(IHttpInvalidWare unit);
+
+    void setInvalid(IHttpInvalidWare ware);
 
     IHttpVersion version() const;
     const QString& mime() const;
