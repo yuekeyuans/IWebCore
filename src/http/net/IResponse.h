@@ -44,7 +44,7 @@ public:
     IResponse& setContent(QByteArray&& content);
     IResponse& setContent(const char* content);
     IResponse& setContent(IResponseWare *response);
-    IResponse& setContent(IResponseWare& response);
+    IResponse& setContent(IResponseWare response);
     IResponse& setContent(IHttpInvalidWare unit);
 
     IHttpVersion version() const;

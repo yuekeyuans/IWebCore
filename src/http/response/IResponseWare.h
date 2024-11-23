@@ -37,8 +37,10 @@ public:
 
     virtual QString getPrefixMatcher();
 
-    virtual QSharedPointer<IResponseWare> create(IResponseWare*) = 0;
-    virtual QSharedPointer<IResponseWare> create(QString) = 0;
+    virtual IResponseWare create(const QString&);
+
+//    virtual QSharedPointer<IResponseWare> create(IResponseWare*) = 0;
+//    virtual QSharedPointer<IResponseWare> create(QString) = 0;
 
 public:
     IResponseRaw* m_raw{nullptr};

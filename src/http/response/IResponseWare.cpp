@@ -1,6 +1,7 @@
 ﻿#include "IResponseWare.h"
 
 #include "core/util/IConstantUtil.h"
+#include "core/abort/IGlobalAbort.h"
 #include "http/net/impl/IResponseRaw.h"
 #include "http/response/IRedirectResponse.h"
 
@@ -90,6 +91,12 @@ void IResponseWare::addHeader(const QString &key, const QString &value)
 
 QString IResponseWare::getPrefixMatcher()
 {
+    return {};
+}
+
+IResponseWare IResponseWare::create(const QString &)
+{
+    IGlobalAbort::abortUnVisibleMethod();
     return {};
 }
 

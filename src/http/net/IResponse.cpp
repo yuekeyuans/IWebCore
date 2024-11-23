@@ -141,7 +141,7 @@ IResponse& IResponse::setContent(IResponseWare *response)
     return *this;
 }
 
-IResponse &IResponse::setContent(IResponseWare &response)
+IResponse &IResponse::setContent(IResponseWare response)
 {
     return setContent(&response);
 }

@@ -21,46 +21,68 @@ public:
     IReturnTypeDetail(QMetaType::Type type, const QString& name);
 
 private:
-    void chechMethodSupportedReturnType();
     void createResolveFuntion();
+
+private:
+    void createResponseFun();
+    void createBeanFun();
+    void createVoidFun();
+    void createStatusFun();
+    void createStdStringFun();
+    void createQStringFun();
+    void createQByteArrayFun();
+    void createIJsonFun();
 };
 
 IReturnTypeDetail::IReturnTypeDetail(QMetaType::Type type, const QString& name)
 {
     typeId = type;
     typeName = name;
-    chechMethodSupportedReturnType();
     createResolveFuntion();
-}
-
-void IReturnTypeDetail::chechMethodSupportedReturnType()
-{
-    auto val = false
-            || typeId == QMetaType::UnknownType && typeName == "IHttpStatus"
-            || typeId == QMetaType::Int
-            || typeId == QMetaType::Void
-            || typeId == QMetaType::QString
-            || typeId == (QMetaType::Type)qMetaTypeId<std::string>()
-            || typeId == QMetaType::QJsonArray
-            || typeId == QMetaType::QJsonObject
-            || typeId == QMetaType::QJsonValue
-            || typeId == (QMetaType::Type)qMetaTypeId<IJson>()
-            || IBeanTypeManage::instance()->isBeanIdExist(typeId)
-            || IResponseManage::instance()->containResponseType(typeName);
-
-    if(!val){
-        qFatal("error return type");
-    }
 }
 
 void IReturnTypeDetail::createResolveFuntion()
 {
-    if(typeId == QMetaType::UnknownType && typeName == "IHttpStatus" || typeId == QMetaType::Int){
-        m_resolveFunction = [](IRequest&, IResponse& response, void* ptr){
-            response.setContent((IResponseWare&)IStatusResponse(*static_cast<int*>(ptr))); // TODO: 查看转换问题
-        };
+    QVector<decltype(&IReturnTypeDetail::createResponseFun)> funs = {
+            &IReturnTypeDetail::createResponseFun,
+            &IReturnTypeDetail::createBeanFun,
+            &IReturnTypeDetail::createVoidFun,
+            &IReturnTypeDetail::createStatusFun,
+            &IReturnTypeDetail::createStdStringFun,
+            &IReturnTypeDetail::createQStringFun,
+            &IReturnTypeDetail::createQByteArrayFun,
+            &IReturnTypeDetail::createIJsonFun,
+    };
+    for(auto fun : funs){
+        std::bind(fun, this)();
     }
 
+    if(!m_resolveFunction){
+        qFatal("return type can not be resolved");
+    }
+}
+
+void IReturnTypeDetail::createResponseFun()
+{
+    if(IResponseManage::instance()->containResponseType(typeName)){
+        m_resolveFunction = [](IRequest&, IResponse& response, void* ptr){
+            response.setContent(static_cast<IResponseWare*>(ptr));
+        };
+    }
+}
+
+void IReturnTypeDetail::createBeanFun()
+{
+    if(IBeanTypeManage::instance()->isBeanIdExist(typeId)){
+        m_resolveFunction = [](IRequest&, IResponse&response, void* ptr){
+            IJson json = static_cast<IBeanWare*>(ptr)->toJson();
+            response.setContent((IResponseWare&)IJsonResponse(json));
+        };
+    }
+}
+
+void IReturnTypeDetail::createVoidFun()
+{
     if(typeId == QMetaType::Void){
         m_resolveFunction = [](IRequest&, IResponse&response, void*){
             if(response.mime() == IHttpMimeUtil::MIME_UNKNOWN_STRING){
@@ -71,55 +93,61 @@ void IReturnTypeDetail::createResolveFuntion()
             }
         };
     }
+}
 
-    if(typeId == QMetaType::QString){
-        m_resolveFunction = [](IRequest&, IResponse&response, void* ptr){
-            QString& value = *static_cast<QString*>(ptr);
-            if(value.startsWith("$")){
-                IResponseWare* ware = IResponseManage::instance()->convertMatch(value);
-                if(ware){
-                    // TODO: 这个更改掉
-//                    return response.setContent(ware->create(std::move(value)));
-                }
-            }
-            response.setContent((IResponseWare&)IPlainTextResponse(std::move(value)));
+void IReturnTypeDetail::createStatusFun()
+{
+    if(typeId == QMetaType::UnknownType && typeName == "IHttpStatus" || typeId == QMetaType::Int){
+        m_resolveFunction = [](IRequest&, IResponse& response, void* ptr){
+            response.setContent((IResponseWare&)IStatusResponse(*static_cast<int*>(ptr))); // TODO: 查看转换问题
         };
     }
+}
 
+void IReturnTypeDetail::createStdStringFun()
+{
     if(typeId == (QMetaType::Type)qMetaTypeId<std::string>()){
         m_resolveFunction = [](IRequest&, IResponse&response, void* ptr){
             QString value = QString::fromStdString(*static_cast<std::string*>(ptr));
             if(value.startsWith("$")){
                 IResponseWare* ware = IResponseManage::instance()->convertMatch(value);
                 if(ware){
-                    // TODO: 这个更改掉
-//                    return response.setContent(ware->create(std::move(value)));
+                    response.setContent(ware->create(std::move(value)));
                 }
             }
             response.setContent((IResponseWare&)IPlainTextResponse(std::move(value)));
         };
     }
+}
 
+void IReturnTypeDetail::createQStringFun()
+{
+    if(typeId == QMetaType::QString){
+        m_resolveFunction = [](IRequest&, IResponse&response, void* ptr){
+            QString& value = *static_cast<QString*>(ptr);
+            if(value.startsWith("$")){
+                IResponseWare* ware = IResponseManage::instance()->convertMatch(value);
+                if(ware){
+                    response.setContent(ware->create(std::move(value)));
+                }
+            }
+            response.setContent((IResponseWare)IPlainTextResponse(std::move(value)));
+        };
+    }
+}
+
+void IReturnTypeDetail::createQByteArrayFun()
+{
+
+}
+
+void IReturnTypeDetail::createIJsonFun()
+{
     if(typeId == (QMetaType::Type)qMetaTypeId<IJson>()){
         m_resolveFunction = [](IRequest&, IResponse&response, void* ptr){
             response.setContent((IResponseWare&)IJsonResponse((*static_cast<IJson*>(ptr)).dump()));
         };
     }
-
-    if(IBeanTypeManage::instance()->isBeanIdExist(typeId)){
-        m_resolveFunction = [](IRequest&, IResponse&response, void* ptr){
-            IJson json = static_cast<IBeanWare*>(ptr)->toJson();
-            response.setContent((IResponseWare&)IJsonResponse(json));
-        };
-    }
-
-}
-
-namespace detail
-{
-    void wrapVoidReturnInstance(IResponse &response);
-    QSharedPointer<IResponseWare> createQStringReturnInstance(void *ptr);   // TODO: 检查这个是否有性能浪费
-    QSharedPointer<IResponseWare> createStdStringReturnInstance(void*ptr);
 }
 
 void *IReturnType::create() const

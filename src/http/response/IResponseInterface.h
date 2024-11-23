@@ -32,9 +32,10 @@ public:
 
     virtual ~IResponseInterface() = default;
 
-public:
-    virtual QSharedPointer<IResponseWare> create(IResponseWare*) override;
-    virtual QSharedPointer<IResponseWare> create(QString val) final;
+//public:
+//    virtual QSharedPointer<IResponseWare> create(IResponseWare*) override;
+//    virtual QSharedPointer<IResponseWare> create(QString val) final;
+    virtual IResponseWare create(const QString &) final;
 };
 
 template<typename T, bool enabled>
@@ -92,16 +93,17 @@ IResponseInterface<T, enabled> &IResponseInterface<T, enabled>::operator=(IRespo
     return *this;
 }
 
-template<typename T, bool enabled>
-QSharedPointer<IResponseWare> IResponseInterface<T, enabled>::create(IResponseWare *ware)
-{
-    return QSharedPointer<T>::create(ware);
-}
+//template<typename T, bool enabled>
+//QSharedPointer<IResponseWare> IResponseInterface<T, enabled>::create(IResponseWare *ware)
+//{
+//    return QSharedPointer<T>::create(ware);
+//}
 
 template<typename T, bool enabled>
-QSharedPointer<IResponseWare> IResponseInterface<T, enabled>::create(QString val)
+IResponseWare IResponseInterface<T, enabled>::create(const QString& val)
 {
-    return QSharedPointer<T>::create(val.mid(getPrefixMatcher().length())); // TODO: 倒也不必每次调用， 这里之后静态初始化这个值。
+    return T(val.mid(getPrefixMatcher().length()));
+//    return QSharedPointer<T>::create(val.mid(getPrefixMatcher().length())); // TODO: 倒也不必每次调用， 这里之后静态初始化这个值。
 }
 
 $PackageWebCoreEnd
