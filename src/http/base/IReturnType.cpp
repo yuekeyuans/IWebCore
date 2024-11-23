@@ -1,4 +1,5 @@
 ﻿#include "IReturnType.h"
+//#include "http/response/IInvalidResponse.h"
 #include "core/util/ISpawnUtil.h"
 #include "core/bean/IBeanTypeManage.h"
 #include "core/bean/IBeanWare.h"
@@ -9,7 +10,6 @@
 #include "http/response/IFileResponse.h"
 #include "http/response/IResponseWare.h"
 #include "http/response/IPlainTextResponse.h"
-#include "http/response/IInvalidResponse.h"
 #include "http/response/IStatusResponse.h"
 #include "http/response/IRedirectResponse.h"
 #include "http/net/impl/IRequestImpl.h"
@@ -77,7 +77,7 @@ void IReturnTypeDetail::createBeanFun()
     if(IBeanTypeManage::instance()->isBeanIdExist(typeId)){
         m_resolveFunction = [](IRequestImpl& impl, void* ptr){
             IJson json = static_cast<IBeanWare*>(ptr)->toJson();
-            impl.m_respRaw.setContent(IJsonResponse(json));
+            impl.m_respRaw.setContent(IJsonResponse(std::move(json)));
         };
     }
 }

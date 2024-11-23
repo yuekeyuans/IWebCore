@@ -16,7 +16,6 @@ public:
 public:
     IRedirectResponse();
     IRedirectResponse(const QString &path);
-    IRedirectResponse(IResponseWare *);
 
 public:
     virtual QString prefixMatcher() final;

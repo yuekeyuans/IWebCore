@@ -4,12 +4,14 @@
 #include "Http/net/impl/IRequestImpl.h"
 
 #include "http/response/IResponseWare.h"
+#include "http/invalid/IHttpInvalidWare.h"
 #include "http/response/content/IQStringResponseContent.h"
 #include "http/response/content/IQByteArrayResponseContent.h"
 #include "http/response/content/IInvalidReponseContent.h"
 #include "http/response/content/IFileResponseContent.h"
 #include "http/response/content/IStdStringResponseContent.h"
 #include "http/response/content/IIStrinigViewResponseContent.h"
+#include "http/response/content/IIJsonResponseContent.h"
 
 $PackageWebCoreBegin
 
@@ -94,6 +96,16 @@ void IResponseRaw::setMime(IHttpMime mime)
 void IResponseRaw::setMime(const QString &mime)
 {
     this->m_mime = mime;
+}
+
+void IResponseRaw::setContent(IJson &&data)
+{
+    m_contents.push_back(new IIJsonResponseContent(std::move(data)));
+}
+
+void IResponseRaw::setContent(const IJson &data)
+{
+    m_contents.push_back(new IIJsonResponseContent(data));
 }
 
 void IResponseRaw::setContent(std::string &&data)

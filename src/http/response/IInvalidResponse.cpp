@@ -4,12 +4,6 @@
 
 $PackageWebCoreBegin
 
-IInvalidResponse::IInvalidResponse(const QString &value)
-{
-    Q_UNUSED(value)
-    IGlobalAbort::abortUnVisibleMethod();
-}
-
 IInvalidResponse::IInvalidResponse(IHttpInvalidWare ware)
 {
     m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);

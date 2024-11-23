@@ -6,12 +6,12 @@
 #include "http/biscuits/IHttpStatus.h"
 #include "http/net/ICookiePart.h"
 #include "http/response/content/IResponseContentWare.h"
-#include "http/invalid/IHttpInvalidWare.h"
 
 $PackageWebCoreBegin
 
-class IResponseWare;
 class IRequestImpl;
+class IResponseWare;
+class IHttpInvalidWare;
 struct IResponseRaw : public IStringViewStash
 {
 public:
@@ -23,6 +23,9 @@ public:
 
     void setMime(IHttpMime m_mime);
     void setMime(const QString& m_mime);
+
+    void setContent(IJson&& data);
+    void setContent(const IJson& data);
 
     void setContent(std::string&& data);
     void setContent(const std::string& data);
@@ -48,7 +51,7 @@ public:
     std::vector<asio::const_buffer> getContent(IRequestImpl&);
 
 public:
-    QString m_mime;         // 考虑换成 IStringView, 不过这个是之后的事情了
+    QString m_mime;                                 // TODO: 考虑换成 IStringView, 不过这个是之后的事情了
     IHttpStatus m_status {IHttpStatus::OK_200};
     QMultiHash<QString, QString> m_headers;
     std::list<ICookiePart> m_cookies;

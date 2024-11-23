@@ -16,23 +16,22 @@ protected:
     }
 };
 
-IStatusResponse::IStatusResponse(QString num)
+IStatusResponse::IStatusResponse(const QString& num)
 {
     m_raw->m_status = IHttpStatusUtil::toStatus(num);
-    if(m_raw->m_status == IHttpStatus::UNKNOWN){
-        IStatusResponseAbort::aborthttp_status_code_convert_failed($ISourceLocation);
-    }
+//    if(m_raw->m_status == IHttpStatus::UNKNOWN){
+//        IStatusResponseAbort::aborthttp_status_code_convert_failed($ISourceLocation);
+//    }
 }
 
+// skip check
 IStatusResponse::IStatusResponse(int code, const QString& errorMsg)
 {
+//    if(m_raw->m_status == IHttpStatus::UNKNOWN){
+//        IStatusResponseAbort::aborthttp_status_code_convert_failed($ISourceLocation);
+//    }
     m_raw->m_status = IHttpStatusUtil::toStatus(code);
-    if(m_raw->m_status == IHttpStatus::UNKNOWN){
-        IStatusResponseAbort::aborthttp_status_code_convert_failed($ISourceLocation);
-    }
-
     if(!errorMsg.isEmpty()){
-        m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
         m_raw->setContent(errorMsg);
     }
 }
@@ -40,9 +39,7 @@ IStatusResponse::IStatusResponse(int code, const QString& errorMsg)
 IStatusResponse::IStatusResponse(IHttpStatus status, const QString &errorMsg)
 {
     m_raw->m_status = status;
-
     if(!errorMsg.isEmpty()){
-        m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
         m_raw->setContent(errorMsg);
     }
 }

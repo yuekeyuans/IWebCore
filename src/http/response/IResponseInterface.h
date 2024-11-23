@@ -8,12 +8,12 @@
 #include "http/response/IResponseManage.h"
 #include "http/response/IResponseWare.h"
 #include "http/core/unit/IRegisterResponseTypeUnit.h"
+#include "http/invalid/IHttpInvalidWare.h"
 
 $PackageWebCoreBegin
 
 struct IResponseRaw;
 class IRedirectResponse;
-class IInvalidRepsonse;
 class IStatusResponse;
 
 template<typename T, bool enabled=true>
@@ -22,17 +22,21 @@ class IResponseInterface : public IResponseWare, IRegisterMetaTypeUnit<T, enable
 public:
     IResponseInterface();
     IResponseInterface(IRedirectResponse&& response);
-//    IResponseInterface(IInvalidRepsonse&& response);
+    IResponseInterface(const IRedirectResponse&){}
+
+    IResponseInterface(IHttpInvalidWare);
+
     IResponseInterface(IStatusResponse&& response);
-    IResponseInterface(const IResponseInterface&);
+    IResponseInterface(const IStatusResponse&){}
+
     IResponseInterface(IResponseInterface &&);
+    IResponseInterface(const IResponseInterface&);
+
     IResponseInterface(IResponseWare*); // special // only for create
     IResponseInterface& operator=(const IResponseInterface&);
     IResponseInterface& operator=(IResponseInterface&&);
     virtual ~IResponseInterface() = default;
 
-//public:
-//    virtual IResponseWare* prefixCreate(const QString &) final;
 };
 
 template<typename T, bool enabled>
@@ -53,11 +57,20 @@ IResponseInterface<T, enabled>::IResponseInterface(IRedirectResponse &&response)
 //    std::swap(this->m_raw, response.m_raw);
 //}
 
+#include "http/response/content/IInvalidReponseContent.h"
+#include "http/response/IInvalidResponse.h"
+
+template<typename T, bool enabled>
+IResponseInterface<T, enabled>::IResponseInterface(IHttpInvalidWare ware)
+{
+    IInvalidResponse resp(ware);
+    std::swap(this->m_raw, resp.m_raw);
+}
+
 template<typename T, bool enabled>
 IResponseInterface<T, enabled>::IResponseInterface(IStatusResponse &&response)
 {
     std::swap(this->m_raw, response.m_raw);
-    this->m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
 template<typename T, bool enabled>
@@ -86,14 +99,8 @@ IResponseInterface<T, enabled> &IResponseInterface<T, enabled>::operator=(const 
 template<typename T, bool enabled>
 IResponseInterface<T, enabled> &IResponseInterface<T, enabled>::operator=(IResponseInterface &&rhs)
 {
-    IResponseWare::operator =(std::forward<IResponseInterface>(rhs));
+    IResponseWare::operator =(std::move(rhs));
     return *this;
 }
-
-//template<typename T, bool enabled>
-//IResponseWare* IResponseInterface<T, enabled>::prefixCreate(const QString& val)
-//{
-//    return new T(val.mid(prefixMatcher().length()));
-//}
 
 $PackageWebCoreEnd

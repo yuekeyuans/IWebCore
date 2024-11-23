@@ -21,10 +21,6 @@ IResponse::IResponse(IRequest& request) : m_impl(request.getImpl())
 {
 }
 
-IResponse::~IResponse()
-{
-}
-
 IResponse::IResponse(const IResponse &) : m_impl(*static_cast<IRequestImpl*>(nullptr))
 {
     IGlobalAbort::abortUnVisibleMethod();
@@ -142,9 +138,10 @@ IResponse &IResponse::setContent(IResponseWare& ware)
     return *this;
 }
 
-IResponse &IResponse::setContent(IResponseWare &&response)
+IResponse &IResponse::setContent(IResponseWare &&ware)
 {
-    return setContent(response);
+    m_impl.m_respRaw.setContent(std::move(ware));
+    return *this;
 }
 
 IResponse &IResponse::setContent(IHttpInvalidWare unit)

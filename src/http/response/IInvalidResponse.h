@@ -3,6 +3,7 @@
 #include "IJson.h"
 #include "IResponseInterface.h"
 #include "IResponsePreProcessor.h"
+#include "http/invalid/IHttpInvalidWare.h"
 
 $PackageWebCoreBegin
 
@@ -15,7 +16,7 @@ public:
 
 public:
     IInvalidResponse() = default;
-    IInvalidResponse(const QString& value);
+    IInvalidResponse(const QString&){}
     IInvalidResponse(IHttpInvalidWare ware);
 };
 

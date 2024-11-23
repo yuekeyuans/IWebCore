@@ -16,7 +16,7 @@ public:
 
 public:
     IStatusResponse() = default;
-    IStatusResponse(QString);
+    IStatusResponse(const QString&);
     IStatusResponse(int code, const QString& errorMsg="");
     IStatusResponse(IHttpStatus status, const QString& errorMsg="");
 

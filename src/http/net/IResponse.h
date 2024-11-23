@@ -1,30 +1,26 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
-#include "core/util/IMetaUtil.h"
-#include "core/bean/IBeanPreProcessor.h"
 #include "core/unit/IRegisterMetaTypeUnit.h"
 #include "http/biscuits/IHttpStatus.h"
 #include "http/biscuits/IHttpVersion.h"
 #include "http/biscuits/IHttpMime.h"
 #include "http/invalid/IHttpInvalidWare.h"
 #include "http/net/impl/IResponseHeader.h"
-#include "http/response/IResponsePreProcessor.h"
 
 $PackageWebCoreBegin
 
 class IRequest;
 class IResponseWare;
 class IRequestImpl;
-class IRequestRaw;
 class ICookiePart;
 class IResponse : IRegisterMetaTypeUnit<IResponse>
 {
 public:
     IResponse();
-    explicit IResponse(IRequest& request);
-    ~IResponse();
+    ~IResponse() = default;
 
+    IResponse(IRequest& request);
     IResponse(const IResponse&);
     IResponse(IResponse &&);
     IResponse& operator=(const IResponse&);
@@ -53,10 +49,10 @@ public:
     IResponse& setContent(const QByteArray&);
     IResponse& setContent(const char*);
 
-    IResponse& setContent(IResponseWare& response);
-    IResponse& setContent(IResponseWare&& response);
-    IResponse& setContent(IHttpInvalidWare unit);
+    IResponse& setContent(IResponseWare&);
+    IResponse& setContent(IResponseWare&&);
 
+    IResponse& setContent(IHttpInvalidWare);
     void setInvalid(IHttpInvalidWare ware);
 
     IHttpVersion version() const;

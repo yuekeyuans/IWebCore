@@ -2,9 +2,7 @@
 
 #include "IResponseInterface.h"
 #include "IResponsePreProcessor.h"
-#include "IStatusResponse.h"
-#include "IInvalidResponse.h"
-#include "IRedirectResponse.h"
+//#include "IInvalidResponse.h"
 
 $PackageWebCoreBegin
 
@@ -17,14 +15,15 @@ public:
 
 public:
     IJsonResponse();
+    IJsonResponse(IJson&&);
     IJsonResponse(const IJson&);
     IJsonResponse(const char*);
     IJsonResponse(std::string&&);
     IJsonResponse(const std::string&);
     IJsonResponse(const QString&);
-    IJsonResponse(const QJsonValue&);
-    IJsonResponse(const QJsonArray&);
-    IJsonResponse(const QJsonObject&);
+//    IJsonResponse(const QJsonValue&);
+//    IJsonResponse(const QJsonArray&);
+//    IJsonResponse(const QJsonObject&);
 
 public:
     virtual QString prefixMatcher() final;
