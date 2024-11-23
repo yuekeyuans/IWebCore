@@ -12,7 +12,7 @@ IHttpBadRequestInvalid::IHttpBadRequestInvalid(const QString &description)
 {
 }
 
-void IHttpBadRequestInvalid::process(IRequest &request)
+void IHttpBadRequestInvalid::process(const IHttpInvalidWare&, IResponseRaw&)
 {
     qDebug() << "invoke here";
 }

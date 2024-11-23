@@ -21,28 +21,22 @@ template<typename T, bool enabled=true>
 class IResponseInterface : public IResponseWare, IRegisterMetaTypeUnit<T, enabled>, IRegisterResponseTypeUnit<T, enabled>
 {
 public:
-    IResponseInterface();
+    IResponseInterface() = default;
+    virtual ~IResponseInterface() = default;
+
     IResponseInterface(IRedirectResponse&& response);
     IResponseInterface(const IRedirectResponse&){}
 
-    IResponseInterface(IHttpInvalidWare);
+    IResponseInterface(const IHttpInvalidWare&);
 
     IResponseInterface(IStatusResponse&& response);
     IResponseInterface(const IStatusResponse&){}
 
     IResponseInterface(IResponseInterface &&);
     IResponseInterface(const IResponseInterface&);
-
     IResponseInterface& operator=(const IResponseInterface&);
     IResponseInterface& operator=(IResponseInterface&&);
-    virtual ~IResponseInterface() = default;
-
 };
-
-template<typename T, bool enabled>
-IResponseInterface<T, enabled>::IResponseInterface()
-{
-}
 
 template<typename T, bool enabled>
 IResponseInterface<T, enabled>::IResponseInterface(IRedirectResponse &&response)
@@ -52,7 +46,7 @@ IResponseInterface<T, enabled>::IResponseInterface(IRedirectResponse &&response)
 }
 
 template<typename T, bool enabled>
-IResponseInterface<T, enabled>::IResponseInterface(IHttpInvalidWare ware)
+IResponseInterface<T, enabled>::IResponseInterface(const IHttpInvalidWare& ware)
 {
     this->m_raw->m_status = ware.status;
     this->m_raw->setContent(ware);

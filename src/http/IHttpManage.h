@@ -26,7 +26,6 @@ public:
     IHttpInvalidHandlerWare* getInvalidHandler(const QString& name) const;
     void printMappingTrace();
 
-
     void registerPathValidator(const QString& name, const QString& regexp);
     void registerPathValidator(const QString& name, ValidatorFun fun);
 

@@ -51,6 +51,7 @@ public:
     std::vector<asio::const_buffer> getContent(IRequestImpl&);
 
 public:
+    bool m_isValid{true};                           // 标记valid状态，还是放上去了
     QString m_mime;                                 // TODO: 考虑换成 IStringView, 不过这个是之后的事情了
     IHttpStatus m_status {IHttpStatus::OK_200};
     QMultiHash<QString, QString> m_headers;

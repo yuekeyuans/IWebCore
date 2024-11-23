@@ -12,7 +12,7 @@ public:
     IHttpBadRequestInvalid(const QString& description);
 
 public:
-    virtual void process(IRequest&) final;
+    virtual void process(const IHttpInvalidWare&, IResponseRaw&) final;
 };
 
 $PackageWebCoreEnd

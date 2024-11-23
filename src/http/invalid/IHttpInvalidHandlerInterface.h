@@ -6,11 +6,12 @@
 
 $PackageWebCoreBegin
 
-class IRequest;
+struct IResponseRaw;
+class IHttpInvalidWare;
 class IHttpInvalidHandlerWare
 {
 public:
-    virtual void handle(IRequest&) const = 0;
+    virtual void handle(const IHttpInvalidWare&, IResponseRaw&) const{}
 };
 
 template<typename T, typename Invalid, bool enabled=true>

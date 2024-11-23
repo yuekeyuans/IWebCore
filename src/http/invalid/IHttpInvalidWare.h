@@ -4,7 +4,7 @@
 
 $PackageWebCoreBegin
 
-class IRequest;
+struct IResponseRaw;
 class IHttpInvalidWare
 {
 public:
@@ -12,12 +12,12 @@ public:
     virtual ~IHttpInvalidWare() = default;
 
 public:
-    virtual void process(IRequest&);
+    virtual void process(const IHttpInvalidWare&, IResponseRaw&);
 
 public:
     IHttpStatus status{IHttpStatus::UNKNOWN};
     QString description;
-    std::function<void(IRequest&)> m_function{nullptr};
+    std::function<void(const IHttpInvalidWare&, IResponseRaw&)> m_function{nullptr};
 };
 
 $PackageWebCoreEnd

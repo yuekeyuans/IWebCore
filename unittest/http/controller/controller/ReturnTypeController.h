@@ -4,7 +4,7 @@
 #include "bean/StudentBean.h"
 #include "http/response/IByteArrayResponse.h"
 #include "http/biscuits/IHttpHeader.h"
-#include "http/invalid/IHttpNotFoundInvalid.h"
+#include "http/invalid/IHttpBadRequestInvalid.h"
 
 class ReturnTypeController : public IHttpControllerInterface<ReturnTypeController, true>
 {
@@ -54,7 +54,7 @@ public:
 
     $GetMapping(testInvalid)
     IByteArrayResponse testInvalid(){
-        return IHttpNotFoundInvalid("hello world");
+        return IHttpBadRequestInvalid("hello world");
     }
 };
 

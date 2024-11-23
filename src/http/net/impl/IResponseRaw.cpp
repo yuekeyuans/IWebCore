@@ -182,6 +182,7 @@ void IResponseRaw::setContent(const QFileInfo &value)
 
 void IResponseRaw::setContent(const IHttpInvalidWare& ware)
 {
+    m_isValid = false;
     m_contents.push_back(new IInvalidReponseContent(ware));
 }
 

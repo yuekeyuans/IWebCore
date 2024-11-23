@@ -19,30 +19,28 @@ public:
     IHttpInvalidInterface(IHttpStatus code, const QString& description);
 };
 
-// TODO: 写的有点烦
 template<typename T, bool enabled>
 IHttpInvalidInterface<T, enabled>::IHttpInvalidInterface(IHttpStatus status)
     : IHttpInvalidWare(status, IMetaUtil::getBareTypeName<T>())
 {
-    static std::function<void(IRequest&)> s_funs {nullptr};
+    static std::function<void(const IHttpInvalidWare&, IResponseRaw&)> s_funs {nullptr};
     static std::once_flag flag;
     std::call_once(flag, [](){
         if constexpr(&T::process != &IHttpInvalidWare::process){
-            s_funs  = [](IRequest& request){
-                ISingletonUnitDetail::getInstance<T>()->T::process(request);
+            s_funs  = [](const IHttpInvalidWare& ware, IResponseRaw& respRaw){
+                ISingletonUnitDetail::getInstance<T>()->T::process(ware, respRaw);
             };
         }else{
             auto handler = IHttpManage::instance()->getInvalidHandler(T::CLASS_NAME);
             if(handler){
-                s_funs = [=](IRequest& request){
-                    handler->handle(request);
+                s_funs = [=](const IHttpInvalidWare& ware, IResponseRaw& respRaw){
+                    handler->handle(ware, respRaw);
                 };
             }
         }
     });
 
     m_function = s_funs;
-
 }
 
 template<typename T, bool enabled>
@@ -50,8 +48,8 @@ IHttpInvalidInterface<T, enabled>::IHttpInvalidInterface(IHttpStatus status, con
     : IHttpInvalidWare(status, description)
 {
     if constexpr(&T::process != &IHttpInvalidWare::process){
-        m_function  = [](IRequest& request){
-            ISingletonUnitDetail::getInstance<T>()->process(request);
+        m_function  = [](const IHttpInvalidWare& ware, IResponseRaw& respRaw){
+            ISingletonUnitDetail::getInstance<T>()->process(ware, respRaw);
         };
     }
 }

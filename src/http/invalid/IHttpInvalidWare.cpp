@@ -12,7 +12,7 @@ IHttpInvalidWare::IHttpInvalidWare(IHttpStatus code, const QString& description)
 {
 }
 
-void IHttpInvalidWare::process(IRequest&)
+void IHttpInvalidWare::process(const IHttpInvalidWare&, IResponseRaw&)
 {
     IGlobalAbort::abortUnReachableCode($ISourceLocation);
 }
