@@ -14,16 +14,27 @@ struct IResponseRaw
 public:
     IResponseRaw() = default;
     ~IResponseRaw();
+
+public:
     void setMime(IHttpMime m_mime);
     void setMime(const QString& m_mime);
 
-    void setContent(QString&& m_responseContent);
-    void setContent(const QString& m_responseContent);
-    void setContent(QByteArray&& m_responseContent);
-    void setContent(const QByteArray& m_responseContent);
-    void setContent(const char* m_responseContent);
-    void setContent(const QFileInfo& m_responseContent);
+    void setContent(std::string&& data);
+    void setContent(const std::string& data);
+
+    void setContent(QString&& data);
+    void setContent(const QString& data);
+
+    void setContent(QByteArray&& data);
+    void setContent(const QByteArray& data);
+    void setContent(const char* data);
+
+    void setContent(const QFileInfo& data);
+
     void setContent(const IHttpInvalidWare& ware);
+
+    void setContent(IResponseContentWare*);
+
     std::vector<asio::const_buffer> getContent(IRequestImpl&);
 
 public:

@@ -20,7 +20,7 @@ IJsonResponse::IJsonResponse(const char * value)
 {
 }
 
-IJsonResponse::IJsonResponse(std::string value)
+IJsonResponse::IJsonResponse(std::string&& value)
 {
     m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
     m_raw->setContent(QString::fromStdString(value));

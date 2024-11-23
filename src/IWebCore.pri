@@ -140,6 +140,7 @@ HEADERS += \
     $$PWD/http/response/content/IQByteArrayResponseContent.h \
     $$PWD/http/response/content/IQStringResponseContent.h \
     $$PWD/http/response/content/IResponseContentWare.h \
+    $$PWD/http/response/content/IStdStringResponseContent.h \
     $$PWD/http/server/IHttpConnection.h \
     $$PWD/http/server/IHttpRequestHandler.h \
     $$PWD/http/server/IHttpServer.h \
@@ -323,6 +324,7 @@ SOURCES += \
     $$PWD/http/response/content/IInvalidReponseContent.cpp \
     $$PWD/http/response/content/IQByteArrayResponseContent.cpp \
     $$PWD/http/response/content/IQStringResponseContent.cpp \
+    $$PWD/http/response/content/IStdStringResponseContent.cpp \
     $$PWD/http/server/IHttpConnection.cpp \
     $$PWD/http/server/IHttpRequestHandler.cpp \
     $$PWD/http/server/IHttpServer.cpp \

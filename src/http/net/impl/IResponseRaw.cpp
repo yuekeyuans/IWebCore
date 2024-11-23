@@ -7,6 +7,7 @@
 #include "http/response/content/IQByteArrayResponseContent.h"
 #include "http/response/content/IInvalidReponseContent.h"
 #include "http/response/content/IFileResponseContent.h"
+#include "http/response/content/IStdStringResponseContent.h"
 
 $PackageWebCoreBegin
 
@@ -89,6 +90,16 @@ void IResponseRaw::setMime(const QString &mime)
     this->m_mime = mime;
 }
 
+void IResponseRaw::setContent(std::string &&data)
+{
+    m_contents.push_back(new IStdStringResponseContent(std::move(data)));
+}
+
+void IResponseRaw::setContent(const std::string &data)
+{
+    m_contents.push_back(new IStdStringResponseContent(data));
+}
+
 void IResponseRaw::setContent(QString &&value)
 {
     m_contents.push_back(new IQStringResponseContent(std::move(value)));
@@ -122,6 +133,11 @@ void IResponseRaw::setContent(const QFileInfo &value)
 void IResponseRaw::setContent(const IHttpInvalidWare& ware)
 {
     m_contents.push_back(new IInvalidReponseContent(ware));
+}
+
+void IResponseRaw::setContent(IResponseContentWare *ware)
+{
+    m_contents.push_back(ware);
 }
 
 std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)

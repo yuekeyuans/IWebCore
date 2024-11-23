@@ -17,9 +17,9 @@ public:
 
 public:
     IJsonResponse();
-    IJsonResponse(const IJson&);  // TODO: 之后可以看一下这个是为什么,很奇怪
+    IJsonResponse(const IJson&);
     IJsonResponse(const char*);
-    IJsonResponse(std::string);
+    IJsonResponse(std::string&&);
     IJsonResponse(const std::string&);
     IJsonResponse(const QString&);
     IJsonResponse(const QJsonValue&);
