@@ -11,7 +11,6 @@ IStringView IStringViewStash::stash(const char *data)
 
 IStringView IStringViewStash::stash(const QByteArray &data)
 {
-    QMutexLocker locker(&m_mutex);
     m_stashed.emplace_back(data);
     return IStringView(m_stashed.back().data(), m_stashed.back().length());
 }

@@ -158,6 +158,11 @@ void IResponseRaw::setContent(IResponseWare &response)
     }
 }
 
+void IResponseRaw::setContent(IResponseWare && ware)
+{
+    setContent(ware);
+}
+
 void IResponseRaw::setContent(const QFileInfo &value)
 {
     m_contents.push_back(new IFileResponseContent(value.absoluteFilePath()));
@@ -175,29 +180,26 @@ void IResponseRaw::setContent(IResponseContentWare *ware)
 
 std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
 {
-    // prepare
+    std::vector<asio::const_buffer> result;
+
     if(!m_contents.empty() && m_mime.isEmpty()){
         m_mime = m_contents.back()->getSuggestedMime();
     }
 
-    // data
-    std::vector<asio::const_buffer> result;
-    m_store.emplace_back(detail::generateFirstLine(impl));
+    IStringView firstLine = stash(detail::generateFirstLine(impl));
+    result.push_back(firstLine.toAsioBuffer());
 
     IStringView content{};
     if(!m_contents.empty()){
         content = m_contents.back()->getContent();
     }
     if(content.size() != 0){
-        m_store.emplace_back(detail::generateHeadersContent(impl, content.size()));
+        result.push_back(stash(detail::generateHeadersContent(impl, content.size())).toAsioBuffer());
     }
-    m_store.emplace_back(NEW_LINE);
+    result.push_back(asio::const_buffer(NEW_LINE, 2));
 
-    for(const auto& val : m_store){
-        result.emplace_back(asio::buffer(val.data(), val.length()));
-    }
     if(!content.empty()  && impl.m_reqRaw.m_method != IHttpMethod::HEAD){
-        result.emplace_back(asio::buffer(content.data(), content.length()));
+        result.push_back(content.toAsioBuffer());
     }
 
     return result;

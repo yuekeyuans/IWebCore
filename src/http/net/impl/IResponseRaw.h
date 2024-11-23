@@ -1,4 +1,6 @@
 ﻿#pragma once
+
+#include "core/base/IStringViewStash.h"
 #include "core/util/IHeaderUtil.h"
 #include "http/biscuits/IHttpMime.h"
 #include "http/biscuits/IHttpStatus.h"
@@ -10,7 +12,7 @@ $PackageWebCoreBegin
 
 class IResponseWare;
 class IRequestImpl;
-struct IResponseRaw
+struct IResponseRaw : public IStringViewStash
 {
 public:
     IResponseRaw() = default;
@@ -35,6 +37,7 @@ public:
     void setContent(IStringView data);
 
     void setContent(IResponseWare&);
+    void setContent(IResponseWare&&);
 
     void setContent(const QFileInfo& data);
 
@@ -45,14 +48,11 @@ public:
     std::vector<asio::const_buffer> getContent(IRequestImpl&);
 
 public:
-    QString m_mime;
+    QString m_mime;         // 考虑换成 IStringView, 不过这个是之后的事情了
     IHttpStatus m_status {IHttpStatus::OK_200};
     QMultiHash<QString, QString> m_headers;
     std::list<ICookiePart> m_cookies;
     std::list<IResponseContentWare*> m_contents;
-
-private:
-    std::vector<QByteArray> m_store;    // TODO: 这里用 stash 代替
 };
 
 $PackageWebCoreEnd

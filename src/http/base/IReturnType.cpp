@@ -12,6 +12,7 @@
 #include "http/response/IInvalidResponse.h"
 #include "http/response/IStatusResponse.h"
 #include "http/response/IRedirectResponse.h"
+#include "http/net/impl/IRequestImpl.h"
 
 $PackageWebCoreBegin
 
@@ -65,8 +66,8 @@ void IReturnTypeDetail::createResolveFuntion()
 void IReturnTypeDetail::createResponseFun()
 {
     if(IResponseManage::instance()->containResponseType(typeName)){
-        m_resolveFunction = [](IRequest&, IResponse& response, void* ptr){
-            response.setContent(*static_cast<IResponseWare*>(ptr));
+        m_resolveFunction = [](IRequestImpl& impl, void* ptr){
+            impl.m_respRaw.setContent(*static_cast<IResponseWare*>(ptr));
         };
     }
 }
@@ -74,9 +75,9 @@ void IReturnTypeDetail::createResponseFun()
 void IReturnTypeDetail::createBeanFun()
 {
     if(IBeanTypeManage::instance()->isBeanIdExist(typeId)){
-        m_resolveFunction = [](IRequest&, IResponse&response, void* ptr){
+        m_resolveFunction = [](IRequestImpl& impl, void* ptr){
             IJson json = static_cast<IBeanWare*>(ptr)->toJson();
-            response.setContent(IJsonResponse(json));
+            impl.m_respRaw.setContent(IJsonResponse(json));
         };
     }
 }
@@ -84,12 +85,12 @@ void IReturnTypeDetail::createBeanFun()
 void IReturnTypeDetail::createVoidFun()
 {
     if(typeId == QMetaType::Void){
-        m_resolveFunction = [](IRequest&, IResponse&response, void*){
-            if(response.mime() == IHttpMimeUtil::MIME_UNKNOWN_STRING){
-                response.setMime(IHttpMime::TEXT_PLAIN_UTF8);
+        m_resolveFunction = [](IRequestImpl& impl, void*){
+            if(impl.m_respRaw.m_mime == IHttpMimeUtil::MIME_UNKNOWN_STRING){
+                impl.m_respRaw.setMime(IHttpMime::TEXT_PLAIN_UTF8);
             }
-            if(response.status() == IHttpStatus::UNKNOWN){
-                response.setStatus(IHttpStatus::OK_200);
+            if(impl.m_respRaw.m_status == IHttpStatus::UNKNOWN){
+                impl.m_respRaw.m_status = IHttpStatus::OK_200;
             }
         };
     }
@@ -98,8 +99,8 @@ void IReturnTypeDetail::createVoidFun()
 void IReturnTypeDetail::createStatusFun()
 {
     if(typeId == QMetaType::UnknownType && typeName == "IHttpStatus" || typeId == QMetaType::Int){
-        m_resolveFunction = [](IRequest&, IResponse& response, void* ptr){
-            response.setContent(IStatusResponse(*static_cast<int*>(ptr))); // TODO: 查看转换问题
+        m_resolveFunction = [](IRequestImpl& impl, void* ptr){
+            impl.m_respRaw.setContent(IStatusResponse(*static_cast<int*>(ptr))); // TODO: 查看转换问题
         };
     }
 }
@@ -107,19 +108,19 @@ void IReturnTypeDetail::createStatusFun()
 void IReturnTypeDetail::createStdStringFun()
 {
     if(typeId == (QMetaType::Type)qMetaTypeId<std::string>()){
-        m_resolveFunction = [](IRequest&, IResponse&response, void* ptr){
+        m_resolveFunction = [](IRequestImpl& impl, void* ptr){
             QString value = QString::fromStdString(*static_cast<std::string*>(ptr));
             if(value.startsWith("$")){
                 IResponseWare* ware = IResponseManage::instance()->convertMatch(value);
                 if(ware){
                     auto content = ware->prefixCreate(std::move(value));
-                    response.setContent(*content);
+                    impl.m_respRaw.setContent(*content);
                     delete content;
                     return;
                 }
             }
 
-            response.setContent(IPlainTextResponse(std::move(value)));
+            impl.m_respRaw.setContent(IPlainTextResponse(std::move(value)));
         };
     }
 }
@@ -127,19 +128,19 @@ void IReturnTypeDetail::createStdStringFun()
 void IReturnTypeDetail::createQStringFun()
 {
     if(typeId == QMetaType::QString){
-        m_resolveFunction = [](IRequest&, IResponse&response, void* ptr){
+        m_resolveFunction = [](IRequestImpl& impl, void* ptr){
             QString& value = *static_cast<QString*>(ptr);
             if(value.startsWith("$")){
                 IResponseWare* ware = IResponseManage::instance()->convertMatch(value);
                 if(ware){
                     auto content = ware->prefixCreate(std::move(value));
-                    response.setContent(*content);
+                    impl.m_respRaw.setContent(*content);
                     delete content;
                     return;
                 }
             }
 
-            response.setContent(IPlainTextResponse(std::move(value)));
+            impl.m_respRaw.setContent(IPlainTextResponse(std::move(value)));
         };
     }
 }
@@ -147,9 +148,9 @@ void IReturnTypeDetail::createQStringFun()
 void IReturnTypeDetail::createQByteArrayFun()
 {
     if(typeId == QMetaType::QByteArray){
-        m_resolveFunction = [](IRequest&, IResponse& response, void *ptr){
+        m_resolveFunction = [](IRequestImpl& impl, void *ptr){
             QByteArray& array = *static_cast<QByteArray*>(ptr);
-            response.setContent(IByteArrayResponse(std::move(array)));
+            impl.m_respRaw.setContent(IByteArrayResponse(std::move(array)));
         };
     }
 }
@@ -157,8 +158,8 @@ void IReturnTypeDetail::createQByteArrayFun()
 void IReturnTypeDetail::createIJsonFun()
 {
     if(typeId == (QMetaType::Type)qMetaTypeId<IJson>()){
-        m_resolveFunction = [](IRequest&, IResponse&response, void* ptr){
-            response.setContent(IJsonResponse(*static_cast<IJson*>(ptr)));
+        m_resolveFunction = [](IRequestImpl& impl, void* ptr){
+            impl.m_respRaw.setContent(IJsonResponse(*static_cast<IJson*>(ptr)));
         };
     }
 }
@@ -179,10 +180,9 @@ void IReturnType::destroy(void *ptr) const
     return QMetaType::destroy(typeId, ptr);
 }
 
-void IReturnType::resolveValue(IRequest &request, void *ptr) const
+void IReturnType::resolveValue(IRequestImpl& impl, void *ptr) const
 {
-    IResponse response(request);
-    m_resolveFunction(request, response, ptr);
+    m_resolveFunction(impl, ptr);
 }
 
 namespace ISpawnUtil

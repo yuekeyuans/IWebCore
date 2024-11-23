@@ -70,6 +70,11 @@ QByteArray IStringView::toQByteArray() const
     return QByteArray(data(), length());
 }
 
+asio::const_buffer IStringView::toAsioBuffer() const
+{
+    return asio::const_buffer(data(), length());
+}
+
 IStringView IStringView::substr(const size_type _Off, size_type _Count) const
 {
     return IStringView(std::string_view::substr(_Off, _Count));

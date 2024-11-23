@@ -7,6 +7,7 @@
 #include <QString>
 #include <QByteArray>
 #include <functional>
+#include "asio.hpp"
 
 $PackageWebCoreBegin
 
@@ -34,6 +35,8 @@ public:
 public:
     QString toQString() const;
     QByteArray toQByteArray() const;
+    asio::const_buffer toAsioBuffer() const;
+
     IStringView substr(const size_type _Off, size_type _Count=std::string::npos) const;
     IStringView trimmed();
     IStringViewList split(char) const;

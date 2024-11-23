@@ -11,9 +11,6 @@ IResponseWare::IResponseWare() : m_raw(new IResponseRaw())
 {
 }
 
-IResponseWare::IResponseWare(const IResponseWare &rhs) : m_raw(new IResponseRaw(*rhs.m_raw))
-{
-}
 
 IResponseWare::~IResponseWare()
 {
@@ -24,6 +21,10 @@ IResponseWare::~IResponseWare()
 IResponseWare::IResponseWare(IResponseWare && rhs)
 {
     std::swap(this->m_raw, rhs.m_raw);
+}
+
+IResponseWare::IResponseWare(const IResponseWare &rhs): m_raw(new IResponseRaw(*rhs.m_raw))
+{
 }
 
 IResponseWare &IResponseWare::operator =(const IResponseWare & rhs)

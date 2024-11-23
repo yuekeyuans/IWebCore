@@ -5,22 +5,20 @@
 
 $PackageWebCoreBegin
 
-class IRequest;
-class IResponse;
+class IRequestImpl;
 struct IReturnType
 {
 public:
-    IReturnType() = default;
     void* create() const;
     void destroy(void*ptr) const;
-    void resolveValue(IRequest& request, void* ptr) const;
+    void resolveValue(IRequestImpl&, void* ptr) const;
 
 public:
     QMetaType::Type typeId{QMetaType::UnknownType};
     QString typeName;
 
 protected:
-    std::function<void(IRequest&, IResponse&, void*)> m_resolveFunction;
+    std::function<void(IRequestImpl&, void*)> m_resolveFunction;
 };
 
 $PackageWebCoreEnd

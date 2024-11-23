@@ -76,7 +76,6 @@ public:
     IRequestRaw m_reqRaw{};
     IResponseRaw m_respRaw{};
     QMap<QString, QVariant> m_attribute;                // 用户或系统可以自己放置内容的地方。
-    // 是否考虑把 session 放置到 attribute 当中？
 
 public:
     bool m_isValid{true};

@@ -17,7 +17,6 @@ public:
     IStringView stash(const std::string& data);
 
 private:
-    QMutex m_mutex;
     std::list<QByteArray> m_stashed;
 };
 
