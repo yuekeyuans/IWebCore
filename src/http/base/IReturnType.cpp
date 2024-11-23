@@ -22,6 +22,7 @@ public:
 
 private:
     void chechMethodSupportedReturnType();
+    void createResolveFuntion();
 };
 
 IReturnTypeDetail::IReturnTypeDetail(QMetaType::Type type, const QString& name)
@@ -29,6 +30,7 @@ IReturnTypeDetail::IReturnTypeDetail(QMetaType::Type type, const QString& name)
     typeId = type;
     typeName = name;
     chechMethodSupportedReturnType();
+    createResolveFuntion();
 }
 
 void IReturnTypeDetail::chechMethodSupportedReturnType()
@@ -37,7 +39,8 @@ void IReturnTypeDetail::chechMethodSupportedReturnType()
             || typeId == QMetaType::UnknownType && typeName == "IHttpStatus"
             || typeId == QMetaType::Int
             || typeId == QMetaType::Void
-            || typeId == QMetaType::QString || typeId == (QMetaType::Type)qMetaTypeId<std::string>()
+            || typeId == QMetaType::QString
+            || typeId == (QMetaType::Type)qMetaTypeId<std::string>()
             || typeId == QMetaType::QJsonArray
             || typeId == QMetaType::QJsonObject
             || typeId == QMetaType::QJsonValue
@@ -50,9 +53,78 @@ void IReturnTypeDetail::chechMethodSupportedReturnType()
     }
 }
 
+void IReturnTypeDetail::createResolveFuntion()
+{
+    if(typeId == QMetaType::UnknownType && typeName == "IHttpStatus" || typeId == QMetaType::Int){
+        m_resolveFunction = [](IRequest&, IResponse& response, void* ptr){
+            response.setContent((IResponseWare&)IStatusResponse(*static_cast<int*>(ptr))); // TODO: 查看转换问题
+        };
+    }
+
+    if(typeId == QMetaType::Void){
+        m_resolveFunction = [](IRequest&, IResponse&response, void*){
+            if(response.mime() == IHttpMimeUtil::MIME_UNKNOWN_STRING){
+                response.setMime(IHttpMime::TEXT_PLAIN_UTF8);
+            }
+            if(response.status() == IHttpStatus::UNKNOWN){
+                response.setStatus(IHttpStatus::OK_200);
+            }
+        };
+    }
+
+    if(typeId == QMetaType::QString){
+        m_resolveFunction = [](IRequest&, IResponse&response, void* ptr){
+            QString& value = *static_cast<QString*>(ptr);
+            if(value.startsWith("$")){
+                IResponseWare* ware = IResponseManage::instance()->convertMatch(value);
+                if(ware){
+                    // TODO: 这个更改掉
+//                    return response.setContent(ware->create(std::move(value)));
+                }
+            }
+            response.setContent((IResponseWare&)IPlainTextResponse(std::move(value)));
+        };
+    }
+
+    if(typeId == (QMetaType::Type)qMetaTypeId<std::string>()){
+        m_resolveFunction = [](IRequest&, IResponse&response, void* ptr){
+            QString value = QString::fromStdString(*static_cast<std::string*>(ptr));
+            if(value.startsWith("$")){
+                IResponseWare* ware = IResponseManage::instance()->convertMatch(value);
+                if(ware){
+                    // TODO: 这个更改掉
+//                    return response.setContent(ware->create(std::move(value)));
+                }
+            }
+            response.setContent((IResponseWare&)IPlainTextResponse(std::move(value)));
+        };
+    }
+
+    if(typeId == (QMetaType::Type)qMetaTypeId<IJson>()){
+        m_resolveFunction = [](IRequest&, IResponse&response, void* ptr){
+            response.setContent((IResponseWare&)IJsonResponse((*static_cast<IJson*>(ptr)).dump()));
+        };
+    }
+
+    if(IBeanTypeManage::instance()->isBeanIdExist(typeId)){
+        m_resolveFunction = [](IRequest&, IResponse&response, void* ptr){
+            IJson json = static_cast<IBeanWare*>(ptr)->toJson();
+            response.setContent((IResponseWare&)IJsonResponse(json));
+        };
+    }
+
+}
+
+namespace detail
+{
+    void wrapVoidReturnInstance(IResponse &response);
+    QSharedPointer<IResponseWare> createQStringReturnInstance(void *ptr);   // TODO: 检查这个是否有性能浪费
+    QSharedPointer<IResponseWare> createStdStringReturnInstance(void*ptr);
+}
+
 void *IReturnType::create() const
 {
-    if(typeId == QMetaType::UnknownType){
+    if(typeId == QMetaType::UnknownType && typeName == "IHttpStatus"){
         return QMetaType::create(QMetaType::Int);
     }
     return QMetaType::create(typeId);
@@ -60,100 +132,16 @@ void *IReturnType::create() const
 
 void IReturnType::destroy(void *ptr) const
 {
-    if(typeId == QMetaType::UnknownType){
+    if(typeId == QMetaType::UnknownType && typeName == "IHttpStatus"){
         return QMetaType::destroy(QMetaType::Int, ptr);
     }
     return QMetaType::destroy(typeId, ptr);
 }
 
-void wrapVoidReturnInstance(IResponse &response)
-{
-    if(response.mime() == IHttpMimeUtil::MIME_UNKNOWN_STRING){
-        response.setMime(IHttpMime::TEXT_PLAIN_UTF8);
-    }
-    if(response.status() == IHttpStatus::UNKNOWN){
-        response.setStatus(IHttpStatus::OK_200);
-    }
-}
-
-// TODO: 检查这个是否有性能浪费
-QSharedPointer<IResponseWare> createQStringReturnInstance(void *ptr)
-{
-    QString value = *static_cast<QString*>(ptr);
-    if(value.startsWith("$")){
-        IResponseWare* response = IResponseManage::instance()->convertMatch(value);
-        if(response){
-            return response->create(std::move(value)); // TODO: 这里应该使用函数优化掉这个内容
-        }
-    }
-    return QSharedPointer<IPlainTextResponse>::create(std::move(value));
-}
-
-QSharedPointer<IResponseWare> createStdStringReturnInstance(void*ptr)
-{
-    QString value = QString::fromStdString(*static_cast<std::string*>(ptr));
-    if(value.startsWith("$")){
-        IResponseWare* response = IResponseManage::instance()->convertMatch(value);
-        if(response){
-            return response->create(std::move(value)); // TODO: 这里应该使用函数优化掉这个内容
-        }
-    }
-    return QSharedPointer<IPlainTextResponse>::create(std::move(value));
-}
-
 void IReturnType::resolveValue(IRequest &request, void *ptr) const
 {
     IResponse response(request);
-    if(IResponseManage::instance()->containResponseType(typeName)){
-        response.setContent(static_cast<IResponseWare*>(ptr));
-        return;
-    }
-
-    QSharedPointer<IResponseWare> responseWare{};
-    switch (typeId) {
-    case QMetaType::Void:
-        wrapVoidReturnInstance(response);
-        return;
-    case QMetaType::UnknownType:    // only IHttpStatus are unknown type.
-    case QMetaType::Int:
-        responseWare = QSharedPointer<IStatusResponse>::create(*static_cast<int*>(ptr));
-        break;
-    case QMetaType::QString:
-        responseWare = createQStringReturnInstance(ptr);
-        break;
-    case QMetaType::QJsonArray:
-        responseWare = QSharedPointer<IJsonResponse>::create(*static_cast<QJsonArray*>(ptr));
-        break;
-    case QMetaType::QJsonObject:
-        responseWare = QSharedPointer<IJsonResponse>::create(*static_cast<QJsonObject*>(ptr));
-        break;
-    case QMetaType::QJsonValue:
-        responseWare = QSharedPointer<IJsonResponse>::create(*static_cast<QJsonObject*>(ptr));
-        break;
-    case QMetaType::QByteArray:
-        responseWare = QSharedPointer<IByteArrayResponse>::create(*static_cast<QByteArray*>(ptr));
-        break;
-    }
-
-    if(!responseWare){
-        if(IBeanTypeManage::instance()->isBeanIdExist(typeId)){
-            IJson json = static_cast<IBeanWare*>(ptr)->toJson();
-            responseWare = QSharedPointer<IJsonResponse>::create(json.dump());
-        }
-        if(typeId == static_cast<QMetaType::Type>(qMetaTypeId<std::string>())){
-            responseWare = createStdStringReturnInstance(ptr);
-        }
-        if(typeId == static_cast<QMetaType::Type>(qMetaTypeId<IJson>())){
-            IJson json = *static_cast<IJson*>(ptr);
-            responseWare = QSharedPointer<IJsonResponse>::create(json.dump());
-        }
-    }
-
-    if(!responseWare){
-        qFatal("error");
-    }
-
-    response.setContent(responseWare.data());
+    m_resolveFunction(request, response, ptr);
 }
 
 namespace ISpawnUtil

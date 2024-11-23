@@ -15,7 +15,6 @@ public:
 
 public:
     IRedirectResponse();
-
     IRedirectResponse(const QString &path);
     IRedirectResponse(IResponseWare *);
 

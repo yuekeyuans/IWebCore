@@ -22,7 +22,7 @@ class IResponseInterface : public IResponseWare, IRegisterMetaTypeUnit<T, enable
 public:
     IResponseInterface();
     IResponseInterface(IRedirectResponse&& response);
-    IResponseInterface(IInvalidRepsonse&& response);
+//    IResponseInterface(IInvalidRepsonse&& response);
     IResponseInterface(IStatusResponse&& response);
     IResponseInterface(const IResponseInterface&);
     IResponseInterface(IResponseInterface &&);
@@ -49,11 +49,11 @@ IResponseInterface<T, enabled>::IResponseInterface(IRedirectResponse &&response)
     std::swap(this->m_raw, response.m_raw);
 }
 
-template<typename T, bool enabled>
-IResponseInterface<T, enabled>::IResponseInterface(IInvalidRepsonse &&response)
-{
-    std::swap(this->m_raw, response.m_raw);
-}
+//template<typename T, bool enabled>
+//IResponseInterface<T, enabled>::IResponseInterface(IInvalidRepsonse &&response)
+//{
+//    std::swap(this->m_raw, response.m_raw);
+//}
 
 template<typename T, bool enabled>
 IResponseInterface<T, enabled>::IResponseInterface(IStatusResponse &&response)

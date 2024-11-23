@@ -6,6 +6,7 @@
 $PackageWebCoreBegin
 
 class IRequest;
+class IResponse;
 struct IReturnType
 {
 public:
@@ -17,6 +18,9 @@ public:
 public:
     QMetaType::Type typeId{QMetaType::UnknownType};
     QString typeName;
+
+protected:
+    std::function<void(IRequest&, IResponse&, void*)> m_resolveFunction;
 };
 
 $PackageWebCoreEnd
