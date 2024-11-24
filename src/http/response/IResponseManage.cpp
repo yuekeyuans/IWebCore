@@ -5,23 +5,18 @@
 
 $PackageWebCoreBegin
 
-IResponseManage::~IResponseManage()
-{
-//    delete m_templateRenderer;
-}
-
-void IResponseManage::registerResponseType(const QString& name, IResponseWare *response)
+void IResponseManage::registerResponse(const QString& name, IResponseWare *response)
 {
     assert(!m_responses.contains(name));
     m_responses[name] = response;
 
     if(!response->prefixMatcher().isEmpty()){
-        assert(!m_convertResponses.contains(response->prefixMatcher()));
-        m_convertResponses[response->prefixMatcher()] = response;
+        assert(!m_convertableResponses.contains(response->prefixMatcher()));
+        m_convertableResponses[response->prefixMatcher()] = response;
     }
 }
 
-bool IResponseManage::containResponseType(const QString &name)
+bool IResponseManage::containResponse(const QString &name)
 {
     const auto& keys = m_responses.keys();
     for(const auto& key : keys){
@@ -32,26 +27,16 @@ bool IResponseManage::containResponseType(const QString &name)
     return false;
 }
 
-IResponseWare* IResponseManage::convertMatch(const QString &content)
+IResponseWare* IResponseManage::convertableMatch(const QString &content)
 {
-    static QStringList keys = m_convertResponses.keys();
+    static QStringList keys = m_convertableResponses.keys();
     for(const auto& key : keys){
         if(content.startsWith(key)){
-            return m_convertResponses[key];
+            return m_convertableResponses[key];
         }
     }
 
     return nullptr;
-}
-
-IResponseTemplateRenderer *IResponseManage::getTemplateRenderer()
-{
-    return m_templateRenderer;
-}
-
-void IResponseManage::setTemplateRenderer(IResponseTemplateRenderer *renderTemplate)
-{
-    m_templateRenderer = renderTemplate;
 }
 
 $PackageWebCoreEnd

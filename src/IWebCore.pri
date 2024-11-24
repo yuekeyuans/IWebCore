@@ -109,8 +109,7 @@ HEADERS += \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.h \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.h \
     $$PWD/http/core/defaultTask/IHttpUrlPathValidatorTask.h \
-#    $$PWD/http/core/test/IHttpTestTool.h \
-    $$PWD/http/core/unit/IRegisterResponseTypeUnit.h \
+    $$PWD/http/core/unit/IRegisterResponseUnit.h \
     $$PWD/http/invalid/IHttpBadRequestInvalid.h \
     $$PWD/http/invalid/IHttpInternalErrorInvalid.h \
     $$PWD/http/invalid/IHttpInvalidHandlerInterface.h \
@@ -199,7 +198,6 @@ HEADERS += \
     $$PWD/http/net/IResponse.h \
 #    $$PWD/http/net/impl/IRequestAssert.h \
     $$PWD/http/net/impl/IRequestImpl.h \
-#    $$PWD/http/base/IFunctionNode.h \
     $$PWD/http/base/IMethodNode.h \
     $$PWD/http/response/IByteArrayResponse.h \
     $$PWD/http/response/IFileResponse.h \
@@ -207,7 +205,6 @@ HEADERS += \
     $$PWD/http/response/IJsonResponse.h \
     $$PWD/http/response/IPlainTextResponse.h \
     $$PWD/http/response/IRedirectResponse.h \
-#    $$PWD/http/response/IRendererResponse.h \
     $$PWD/http/response/IResponseInterface.h \
     $$PWD/http/response/IResponseManage.h \
     $$PWD/http/response/IResponsePreProcessor.h \
@@ -292,7 +289,6 @@ SOURCES += \
     $$PWD/http/mappings/IHttpMappingWare.cpp \
     $$PWD/http/mappings/IHttpNotFoundAction.cpp \
     $$PWD/http/net/IRequestManage.cpp \
-    $$PWD/http/net/impl/IRequestRaw.cpp \
     $$PWD/http/net/impl/IResponseHeader.cpp \
     $$PWD/http/net/impl/IResponseRaw.cpp \
     $$PWD/http/response/content/IFileResponseContent.cpp \
@@ -350,9 +346,7 @@ SOURCES += \
     $$PWD/http/net/ISessionJar.cpp \
     $$PWD/http/net/IRequest.cpp \
     $$PWD/http/net/IResponse.cpp \
-#    $$PWD/http/net/impl/IRequestAssert.cpp \
     $$PWD/http/net/impl/IRequestImpl.cpp \
-#    $$PWD/http/base/IFunctionNode.cpp \
     $$PWD/http/base/IMethodNode.cpp \
     $$PWD/http/response/IByteArrayResponse.cpp \
     $$PWD/http/response/IFileResponse.cpp \
@@ -360,7 +354,6 @@ SOURCES += \
     $$PWD/http/response/IJsonResponse.cpp \
     $$PWD/http/response/IPlainTextResponse.cpp \
     $$PWD/http/response/IRedirectResponse.cpp \
-#    $$PWD/http/response/IRendererResponse.cpp \
     $$PWD/http/response/IResponseManage.cpp \
     $$PWD/http/response/IResponseTemplateRenderer.cpp \
     $$PWD/http/response/IResponseWare.cpp \

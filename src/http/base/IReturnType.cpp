@@ -63,7 +63,7 @@ void IReturnTypeDetail::createResolveFuntion()
 
 void IReturnTypeDetail::createResponseFun()
 {
-    if(IResponseManage::instance()->containResponseType(typeName)){
+    if(IResponseManage::instance()->containResponse(typeName)){
         m_resolveFunction = [](IRequestImpl& impl, void* ptr){
             impl.setResponseWare(*static_cast<IResponseWare*>(ptr));
         };
@@ -109,7 +109,7 @@ void IReturnTypeDetail::createStdStringFun()
         m_resolveFunction = [](IRequestImpl& impl, void* ptr){
             QString value = QString::fromStdString(*static_cast<std::string*>(ptr));
             if(value.startsWith("$")){
-                IResponseWare* ware = IResponseManage::instance()->convertMatch(value);
+                IResponseWare* ware = IResponseManage::instance()->convertableMatch(value);
                 if(ware){
                     auto content = ware->prefixCreate(std::move(value));
                     impl.setResponseWare(*content);
@@ -129,7 +129,7 @@ void IReturnTypeDetail::createQStringFun()
         m_resolveFunction = [](IRequestImpl& impl, void* ptr){
             QString& value = *static_cast<QString*>(ptr);
             if(value.startsWith("$")){
-                IResponseWare* ware = IResponseManage::instance()->convertMatch(value);
+                IResponseWare* ware = IResponseManage::instance()->convertableMatch(value);
                 if(ware){
                     auto content = ware->prefixCreate(std::move(value));
                     impl.setResponseWare(*content);

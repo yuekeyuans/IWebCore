@@ -11,21 +11,15 @@ class IResponseManage : public ISingletonUnit<IResponseManage>
 {
 public:
     IResponseManage() = default;
-    ~IResponseManage();
 
 public:
-    void registerResponseType(const QString& name, IResponseWare* response);
-    bool containResponseType(const QString& name);
-
-    IResponseWare* convertMatch(const QString&);
-
-    IResponseTemplateRenderer* getTemplateRenderer();
-    void setTemplateRenderer(IResponseTemplateRenderer*);
+    void registerResponse(const QString& name, IResponseWare* response);
+    bool containResponse(const QString& name);
+    IResponseWare* convertableMatch(const QString&);
 
 private:
     QMap<QString, IResponseWare*> m_responses;
-    QMap<QString, IResponseWare*> m_convertResponses;
-    IResponseTemplateRenderer* m_templateRenderer{};
+    QMap<QString, IResponseWare*> m_convertableResponses;
 };
 
 $PackageWebCoreEnd

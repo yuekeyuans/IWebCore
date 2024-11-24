@@ -7,7 +7,7 @@
 #include "http/biscuits/IHttpMime.h"
 #include "http/response/IResponseManage.h"
 #include "http/response/IResponseWare.h"
-#include "http/core/unit/IRegisterResponseTypeUnit.h"
+#include "http/core/unit/IRegisterResponseUnit.h"
 #include "http/response/content/IInvalidReponseContent.h"
 #include "http/invalid/IHttpInvalidWare.h"
 
@@ -18,7 +18,7 @@ class IRedirectResponse;
 class IStatusResponse;
 
 template<typename T, bool enabled=true>
-class IResponseInterface : public IResponseWare, IRegisterMetaTypeUnit<T, enabled>, IRegisterResponseTypeUnit<T, enabled>
+class IResponseInterface : public IResponseWare, IRegisterMetaTypeUnit<T, enabled>, IRegisterResponseUnit<T, enabled>
 {
 public:
     IResponseInterface() = default;
