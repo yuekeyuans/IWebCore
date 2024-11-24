@@ -5,6 +5,7 @@
 #include "http/response/IByteArrayResponse.h"
 #include "http/biscuits/IHttpHeader.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
+#include "http/response/IJsonResponse.h"
 
 class ReturnTypeController : public IHttpControllerInterface<ReturnTypeController, true>
 {
@@ -55,6 +56,19 @@ public:
     $GetMapping(testInvalid)
     IByteArrayResponse testInvalid(){
         return IHttpBadRequestInvalid("hello world");
+    }
+
+    $GetMapping(getBean)
+    StudentBean getBean(){
+        return {};
+    }
+
+    $GetMapping(getBeanList)
+    IJsonResponse getBeanList(){
+        return QList<StudentBean>{
+            StudentBean{},
+            StudentBean{}
+        };
     }
 };
 

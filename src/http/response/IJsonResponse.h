@@ -2,6 +2,7 @@
 
 #include "IResponseInterface.h"
 #include "IResponsePreProcessor.h"
+#include "core/util/IJsonUtil.h"
 
 $PackageWebCoreBegin
 
@@ -21,10 +22,20 @@ public:
     IJsonResponse(const std::string&);
     IJsonResponse(const QString&);
 
+    template<typename T>
+    IJsonResponse(T value);
+
 public:
     virtual QString prefixMatcher() final;
 };
 
 IJsonResponse operator"" _json(const char* str, size_t size);
+
+template<typename T>
+IJsonResponse::IJsonResponse(T value)
+{
+    m_raw->setContent(IJsonUtil::toJson(value));
+    m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
+}
 
 $PackageWebCoreEnd

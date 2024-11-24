@@ -7,7 +7,6 @@ $PackageWebCoreBegin
 IFileResponseContent::IFileResponseContent(const QString &path)
     : m_path(path)
 {
-    // NOTE:
     assert(QFileInfo(m_path).exists());
 }
 

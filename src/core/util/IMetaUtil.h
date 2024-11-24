@@ -77,12 +77,14 @@ QString IMetaUtil::getTypename(){
     }
 }
 
-
 template<typename T>
 QString IMetaUtil::getBareTypeName()
 {
     QString name = IMetaUtil::getTypename<T>();
-    return name.split(" ").last();
+    if(name.startsWith("class ")){
+        name = name.mid(6);
+    }
+    return name.replace("<class ", "<").replace(",class ", ", ");
 }
 
 $PackageWebCoreEnd

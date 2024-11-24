@@ -31,6 +31,7 @@ HEADERS += \
     $$PWD/core/util/IConvertUtil.h \
     $$PWD/core/util/IFileUtil.h \
     $$PWD/core/util/IHeaderUtil.h \
+    $$PWD/core/util/IJsonUtil.h \
     $$PWD/core/util/IMetaUtil.h \
     $$PWD/core/util/IPackageUtil.h \
     $$PWD/core/util/IPreProcessorUtil.h \
@@ -232,6 +233,7 @@ SOURCES += \
     $$PWD/core/util/IConvertUtil.cpp \
     $$PWD/core/util/IFileUtil.cpp \
     $$PWD/core/util/IHeaderUtil.cpp \
+    $$PWD/core/util/IJsonUtil.cpp \
     $$PWD/core/util/IMetaUtil.cpp \
     $$PWD/core/util/IPreProcessorUtil.cpp \
     $$PWD/core/util/ITicTacUtil.cpp \

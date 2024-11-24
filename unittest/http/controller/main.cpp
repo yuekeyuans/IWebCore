@@ -4,6 +4,9 @@
 #include "IHttpPythonTestAnnomacro.h"
 
 #include "http/response/IJsonResponse.h"
+#include "bean/StudentBean.h"
+
+#include "core/util/IJsonUtil.h"
 
 $EnableTaskOutput(true)
 $EnableHttpPythonTest(true)
