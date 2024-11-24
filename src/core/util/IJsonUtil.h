@@ -10,10 +10,13 @@ IJson toJson(bool);
 IJson toJson(std::string&&);
 IJson toJson(const std::string&);
 IJson toJson(const QString&);
-
 IJson toJson(IJson&&);
 IJson toJson(const IJson&);
 
+//IJson toJson(QVariant);
+//IJson toJson(QJsonObject);
+//IJson toJson(QJsonArray);
+//IJson toJson(QJsonValue);
 
 #define PP_NUMBER_LIKE_TOJSON(klass)     \
 inline IJson toJson(klass value) {       \
@@ -51,6 +54,7 @@ PP_ARRAY_LIKE_TOJSON(QList)
 PP_ARRAY_LIKE_TOJSON(QVector)
 #undef PP_ARRAY_LIKE_TOJSON
 
+
 template<typename T>
 std::enable_if_t< ITraitUtil::has_class_member_toJson_v<T>, IJson> toJson(T&& value)
 {
@@ -72,6 +76,8 @@ IJson toJson(const std::map<T, U>& map)
             result[it->first] = toJson(it->second);
         }else if constexpr (std::is_same_v<T, QString>){
             result[it->first.toStdString()] = toJson(it->second);
+        }else if constexpr(std::is_same_v<T, IStringView>){
+            result[std::string(it->first)] = toJson(it->second);
         }else{
             result[std::to_string(it->first)] = toJson(it->second);
         }
@@ -84,6 +90,7 @@ IJson toJson(const QMap<T, U>& map)
 {
     constexpr bool c_valid = std::is_same_v<T, std::string>
             || std::is_same_v<T, QString>
+            || std::is_same_v<T, IStringView>
             || std::is_floating_point_v<T>
             || std::is_arithmetic_v<T>;
     static_assert(c_valid, "std::map key only support number, QString, std::string");
@@ -94,6 +101,8 @@ IJson toJson(const QMap<T, U>& map)
             result[it.key()] = toJson(it.value());
         }else if constexpr (std::is_same_v<T, QString>){
             result[it.key().toStdString()] = toJson(it.value());
+        }else if constexpr (std::is_same_v<T, IStringView>){
+            result[std::string(it.key())] = toJson(it.value());
         }else{
             result[std::to_string(it.key())] = toJson(it.value());
         }

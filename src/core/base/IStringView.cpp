@@ -65,6 +65,11 @@ QString IStringView::toQString() const
     return QString::fromLocal8Bit(data(), length());
 }
 
+std::string IStringView::toStdString() const
+{
+    return std::string(*this);
+}
+
 QByteArray IStringView::toQByteArray() const
 {
     return QByteArray(data(), length());

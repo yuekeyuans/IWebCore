@@ -34,6 +34,7 @@ public:
 
 public:
     QString toQString() const;
+    std::string toStdString() const;
     QByteArray toQByteArray() const;
     asio::const_buffer toAsioBuffer() const;
 

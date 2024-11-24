@@ -55,7 +55,6 @@ def test_testInvalid():
     print(val.text)
     print(val.headers)
 
-
 def test_bean():
     val = requests.get(serverAddress + "/ReturnTypeController/getBean")
     assert val.status_code == 200
