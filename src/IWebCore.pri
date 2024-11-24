@@ -235,17 +235,10 @@ SOURCES += \
     $$PWD/core/util/IConvertUtil.cpp \
     $$PWD/core/util/IFileUtil.cpp \
     $$PWD/core/util/IHeaderUtil.cpp \
-#    $$PWD/core/util/IJsonUtil.cpp \
-#    $$PWD/core/util/IJsonUtil_tojson.cpp \
-#    $$PWD/core/util/IJsonUtil_tojson_impl.cpp \
     $$PWD/core/util/IMetaUtil.cpp \
     $$PWD/core/util/IPreProcessorUtil.cpp \
     $$PWD/core/util/ITicTacUtil.cpp \
     $$PWD/core/util/IToeUtil.cpp \
-#    $$PWD/core/util/IXmlUtil.cpp \
-#    $$PWD/core/assert/IAssertInfo.cpp \
-#    $$PWD/core/assert/IAssertInterface.cpp \
-#    $$PWD/core/assert/IGlobalAssert.cpp \
     $$PWD/core/bean/IBeanTypeManage.cpp \
     $$PWD/core/config/IConfigManageInterface.cpp \
     $$PWD/core/config/IProfileManage.cpp \
