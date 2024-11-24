@@ -103,7 +103,6 @@ HEADERS += \
     $$PWD/http/controller/detail/IHttpControllerBeanParameter.h \
     $$PWD/http/controller/detail/IHttpControllerParameter.h \
     $$PWD/http/controller/detail/IHttpControllerParameterTask.h \
-    $$PWD/http/controller/detail/IHttpCtlReturnTypeManage.h \
     $$PWD/http/controller/detail/IHttpUrl.h \
     $$PWD/http/controller/detail/IHttpUrlFragment.h \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.h \
@@ -279,7 +278,6 @@ SOURCES += \
     $$PWD/http/controller/detail/IHttpControllerBeanParameter.cpp \
     $$PWD/http/controller/detail/IHttpControllerParameter.cpp \
     $$PWD/http/controller/detail/IHttpControllerParameterTask.cpp \
-    $$PWD/http/controller/detail/IHttpCtlReturnTypeManage.cpp \
     $$PWD/http/controller/detail/IHttpUrl.cpp \
     $$PWD/http/controller/detail/IHttpUrlFragment.cpp \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.cpp \
