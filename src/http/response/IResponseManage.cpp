@@ -7,7 +7,7 @@ $PackageWebCoreBegin
 
 IResponseManage::~IResponseManage()
 {
-    delete m_templateRenderer;
+//    delete m_templateRenderer;
 }
 
 void IResponseManage::registerResponseType(const QString& name, IResponseWare *response)

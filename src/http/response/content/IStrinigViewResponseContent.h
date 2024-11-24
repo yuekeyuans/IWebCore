@@ -2,10 +2,10 @@
 
 #include "IResponseContentWare.h"
 
-class IIStrinigViewResponseContent : public IResponseContentWare
+class IStrinigViewResponseContent : public IResponseContentWare
 {
 public:
-    IIStrinigViewResponseContent(IStringView);
+    IStrinigViewResponseContent(IStringView);
 
 public:
     virtual int getSize() final;

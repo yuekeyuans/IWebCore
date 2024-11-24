@@ -124,27 +124,24 @@ HEADERS += \
     $$PWD/http/mappings/IHttpActionInterface.h \
     $$PWD/http/mappings/IHttpBadRequestAction.h \
     $$PWD/http/mappings/IHttpControllerMapping.h \
-#    $$PWD/http/mappings/IHttpFolderMapping.h \
     $$PWD/http/mappings/IHttpInternalErrorAction.h \
     $$PWD/http/mappings/IHttpMappingInterface.h \
     $$PWD/http/mappings/IHttpMappingWare.h \
     $$PWD/http/mappings/IHttpNotFoundAction.h \
-#    $$PWD/http/mappings/IHttpResourceMapping.h \
     $$PWD/http/net/IRequestManage.h \
     $$PWD/http/net/impl/IRequestRaw.h \
     $$PWD/http/net/impl/IResponseHeader.h \
     $$PWD/http/net/impl/IResponseRaw.h \
     $$PWD/http/response/content/IFileResponseContent.h \
     $$PWD/http/response/content/IHtmlResponseContent.h \
-    $$PWD/http/response/content/IIJsonResponseContent.h \
-    $$PWD/http/response/content/IIStrinigViewResponseContent.h \
     $$PWD/http/response/content/IInvalidReponseContent.h \
+    $$PWD/http/response/content/IJsonResponseContent.h \
     $$PWD/http/response/content/IQByteArrayResponseContent.h \
     $$PWD/http/response/content/IQStringResponseContent.h \
     $$PWD/http/response/content/IResponseContentWare.h \
     $$PWD/http/response/content/IStdStringResponseContent.h \
+    $$PWD/http/response/content/IStrinigViewResponseContent.h \
     $$PWD/http/server/IHttpConnection.h \
-    $$PWD/http/server/IHttpRequestHandler.h \
     $$PWD/http/server/IHttpServer.h \
     $$PWD/http/server/ITcpConnection.h \
     $$PWD/http/server/ITcpConnectionData.h \
@@ -153,10 +150,6 @@ HEADERS += \
     $$PWD/http/server/ITcpResolverManage.h \
     $$PWD/http/base/IHttpParameterRestrictInterface.h \
     $$PWD/http/base/IHttpParameterRestrictManage.h \
-    $$PWD/http/nody/INody.h \
-    $$PWD/http/nody/INodyManage.h \
-    $$PWD/http/nody/INodyParser.h \
-    $$PWD/http/nody/INodyRenderer.h \
     $$PWD/http/response/IStatusResponse.h \
     $$PWD/orm/IOrmAbort.h \
 #    $$PWD/orm/IOrmAssert.h \
@@ -196,10 +189,6 @@ HEADERS += \
     $$PWD/http/biscuits/IHttpStatus.h \
     $$PWD/http/biscuits/IHttpVersion.h \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.h \
-    $$PWD/http/core/defaultTask/INodyTemplateTask.h \
-#    $$PWD/http/core/test/IHttpTestInterface.h \
-#    $$PWD/http/core/test/IHttpTestManage.h \
-#    $$PWD/http/core/test/IHttpTestTask.h \
     $$PWD/http/net/ICookieJar.h \
     $$PWD/http/net/ICookiePart.h \
     $$PWD/http/net/IHeaderJar.h \
@@ -219,7 +208,7 @@ HEADERS += \
     $$PWD/http/response/IJsonResponse.h \
     $$PWD/http/response/IPlainTextResponse.h \
     $$PWD/http/response/IRedirectResponse.h \
-    $$PWD/http/response/IRendererResponse.h \
+#    $$PWD/http/response/IRendererResponse.h \
     $$PWD/http/response/IResponseInterface.h \
     $$PWD/http/response/IResponseManage.h \
     $$PWD/http/response/IResponsePreProcessor.h \
@@ -311,25 +300,22 @@ SOURCES += \
     $$PWD/http/mappings/IHttpActionInterface.cpp \
     $$PWD/http/mappings/IHttpBadRequestAction.cpp \
     $$PWD/http/mappings/IHttpControllerMapping.cpp \
-#    $$PWD/http/mappings/IHttpFolderMapping.cpp \
     $$PWD/http/mappings/IHttpInternalErrorAction.cpp \
     $$PWD/http/mappings/IHttpMappingWare.cpp \
     $$PWD/http/mappings/IHttpNotFoundAction.cpp \
-#    $$PWD/http/mappings/IHttpResourceMapping.cpp \
     $$PWD/http/net/IRequestManage.cpp \
     $$PWD/http/net/impl/IRequestRaw.cpp \
     $$PWD/http/net/impl/IResponseHeader.cpp \
     $$PWD/http/net/impl/IResponseRaw.cpp \
     $$PWD/http/response/content/IFileResponseContent.cpp \
     $$PWD/http/response/content/IHtmlResponseContent.cpp \
-    $$PWD/http/response/content/IIJsonResponseContent.cpp \
-    $$PWD/http/response/content/IIStrinigViewResponseContent.cpp \
     $$PWD/http/response/content/IInvalidReponseContent.cpp \
+    $$PWD/http/response/content/IJsonResponseContent.cpp \
     $$PWD/http/response/content/IQByteArrayResponseContent.cpp \
     $$PWD/http/response/content/IQStringResponseContent.cpp \
     $$PWD/http/response/content/IStdStringResponseContent.cpp \
+    $$PWD/http/response/content/IStrinigViewResponseContent.cpp \
     $$PWD/http/server/IHttpConnection.cpp \
-    $$PWD/http/server/IHttpRequestHandler.cpp \
     $$PWD/http/server/IHttpServer.cpp \
     $$PWD/http/server/ITcpConnection.cpp \
     $$PWD/http/server/ITcpConnectionData.cpp \
@@ -337,10 +323,6 @@ SOURCES += \
     $$PWD/http/server/ITcpResolverInterface.cpp \
     $$PWD/http/server/ITcpResolverManage.cpp \
     $$PWD/http/base/IHttpParameterRestrictManage.cpp \
-    $$PWD/http/nody/INody.cpp \
-    $$PWD/http/nody/INodyManage.cpp \
-    $$PWD/http/nody/INodyParser.cpp \
-    $$PWD/http/nody/INodyRenderer.cpp \
     $$PWD/http/response/IStatusResponse.cpp \
 #    $$PWD/orm/IOrmAssert.cpp \
     $$PWD/orm/IOrmManage.cpp \
@@ -371,12 +353,6 @@ SOURCES += \
     $$PWD/http/biscuits/IHttpMime.cpp \
     $$PWD/http/biscuits/IHttpStatus.cpp \
     $$PWD/http/biscuits/IHttpVersion.cpp \
-#    $$PWD/http/controller/IHttpFolderMapping.cpp \
-#    $$PWD/http/controller/IHttpResourceMapping.cpp \
-#    $$PWD/http/controller/detail/IControllerInterfaceHelper.cpp \
-    $$PWD/http/core/defaultTask/INodyTemplateTask.cpp \
-#    $$PWD/http/core/test/IHttpTestManage.cpp \
-#    $$PWD/http/core/test/IHttpTestTask.cpp \
     $$PWD/http/net/ICookieJar.cpp \
     $$PWD/http/net/ICookiePart.cpp \
     $$PWD/http/net/IHeaderJar.cpp \
@@ -396,7 +372,7 @@ SOURCES += \
     $$PWD/http/response/IJsonResponse.cpp \
     $$PWD/http/response/IPlainTextResponse.cpp \
     $$PWD/http/response/IRedirectResponse.cpp \
-    $$PWD/http/response/IRendererResponse.cpp \
+#    $$PWD/http/response/IRendererResponse.cpp \
     $$PWD/http/response/IResponseManage.cpp \
     $$PWD/http/response/IResponseTemplateRenderer.cpp \
     $$PWD/http/response/IResponseWare.cpp \

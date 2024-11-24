@@ -1,11 +1,11 @@
 ﻿#include "IJsonResponse.h"
 #include "IResponseManage.h"
 #include "http/net/impl/IResponseRaw.h"
-#include "http/response/content/IIJsonResponseContent.h"
+#include "http/response/content/IJsonResponseContent.h"
 
 $PackageWebCoreBegin
 
-IJsonResponse::IJsonResponse() : IResponseInterface()
+IJsonResponse::IJsonResponse()
 {
     m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8); // this must be initialized, the only return type;
 }
@@ -25,19 +25,19 @@ IJsonResponse::IJsonResponse(const IJson &json)
 IJsonResponse::IJsonResponse(const char * value)
 {
     m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    m_raw->setContent(new IIJsonResponseContent(std::string(value)));
+    m_raw->setContent(new IJsonResponseContent(std::string(value)));
 }
 
 IJsonResponse::IJsonResponse(std::string&& value)
 {
     m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    m_raw->setContent(new IIJsonResponseContent(std::move(value)));
+    m_raw->setContent(new IJsonResponseContent(std::move(value)));
 }
 
 IJsonResponse::IJsonResponse(const QString& value) : IResponseInterface()
 {
     m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    m_raw->setContent(new IIJsonResponseContent(value.toStdString()));
+    m_raw->setContent(new IJsonResponseContent(value.toStdString()));
 }
 
 QString IJsonResponse::prefixMatcher()

@@ -10,8 +10,8 @@
 #include "http/response/content/IInvalidReponseContent.h"
 #include "http/response/content/IFileResponseContent.h"
 #include "http/response/content/IStdStringResponseContent.h"
-#include "http/response/content/IIStrinigViewResponseContent.h"
-#include "http/response/content/IIJsonResponseContent.h"
+#include "http/response/content/IStrinigViewResponseContent.h"
+#include "http/response/content/IJsonResponseContent.h"
 
 $PackageWebCoreBegin
 
@@ -100,12 +100,12 @@ void IResponseRaw::setMime(const QString &mime)
 
 void IResponseRaw::setContent(IJson &&data)
 {
-    m_contents.push_back(new IIJsonResponseContent(std::move(data)));
+    m_contents.push_back(new IJsonResponseContent(std::move(data)));
 }
 
 void IResponseRaw::setContent(const IJson &data)
 {
-    m_contents.push_back(new IIJsonResponseContent(data));
+    m_contents.push_back(new IJsonResponseContent(data));
 }
 
 void IResponseRaw::setContent(std::string &&data)
@@ -145,7 +145,7 @@ void IResponseRaw::setContent(const char *value)
 
 void IResponseRaw::setContent(IStringView data)
 {
-    m_contents.push_back(new IIStrinigViewResponseContent(data));
+    m_contents.push_back(new IStrinigViewResponseContent(data));
 }
 
 void IResponseRaw::setContent(IResponseWare &response)

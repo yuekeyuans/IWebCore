@@ -11,7 +11,6 @@ IResponseWare::IResponseWare() : m_raw(new IResponseRaw())
 {
 }
 
-
 IResponseWare::~IResponseWare()
 {
     delete m_raw;

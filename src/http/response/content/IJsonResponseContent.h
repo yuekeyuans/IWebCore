@@ -4,14 +4,14 @@
 
 $PackageWebCoreBegin
 
-class IIJsonResponseContent : public IResponseContentWare
+class IJsonResponseContent : public IResponseContentWare
 {
 public:
-    IIJsonResponseContent(IJson&&);
-    IIJsonResponseContent(const IJson&);
+    IJsonResponseContent(IJson&&);
+    IJsonResponseContent(const IJson&);
 
-    IIJsonResponseContent(std::string&&);
-    IIJsonResponseContent(const std::string&);
+    IJsonResponseContent(std::string&&);
+    IJsonResponseContent(const std::string&);
 
 public:
     virtual int getSize() final;
