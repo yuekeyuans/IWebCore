@@ -66,8 +66,8 @@ public:
     $GetMapping(getBeanList)
     IJsonResponse getBeanList(){
         return QList<StudentBean>{
-            StudentBean{},
-            StudentBean{}
+            {},
+            {}
         };
     }
 };
