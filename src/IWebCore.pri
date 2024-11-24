@@ -263,9 +263,6 @@ SOURCES += \
     $$PWD/core/test/ITestTask.cpp \
     $$PWD/core/test/IUnitTestManage.cpp \
     $$PWD/core/test/IUnitTestTask.cpp \
-#    $$PWD/core/unit/IGadgetUnit.cpp \
-#    $$PWD/core/unit/IRegisterGadgetUnit.cpp \
-    $$PWD/core/unit/IRegisterMetaTypeUnit.cpp \
     $$PWD/core/unit/ISingletonUnit.cpp \
 #    $$PWD/http/IHttpAssert.cpp \
 #    $$PWD/core/util/detail/IConvertUtilBaseTypeDetail.cpp \
