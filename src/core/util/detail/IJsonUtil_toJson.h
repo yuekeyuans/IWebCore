@@ -6,38 +6,40 @@
 $PackageWebCoreBegin
 $IPackageBegin(IJsonUtil)
 
-inline IJson toJson(bool value){ return value;}
-inline IJson toJson(std::string&& value) {return std::move(value);}
-inline IJson toJson(const std::string& value) {return value;}
-inline IJson toJson(const QString& value) {return value.toStdString();}
-inline IJson toJson(IJson&& value) {return std::move(value);}
-inline IJson toJson(const IJson& value) {return value;}
-inline IJson toJson(const char* value) {return value;}
-
-//IJson toJson(QVariant);
-//IJson toJson(QJsonObject);
-//IJson toJson(QJsonArray);
-//IJson toJson(QJsonValue);
-
-#define PP_NUMBER_LIKE_TOJSON(klass)     \
+#define PP_DIRECT_RETURN_TOJSON(klass)     \
 inline IJson toJson(klass value) {       \
     return value;                        \
 }
-PP_NUMBER_LIKE_TOJSON(char)
-PP_NUMBER_LIKE_TOJSON(unsigned char)
-PP_NUMBER_LIKE_TOJSON(signed char)
-PP_NUMBER_LIKE_TOJSON(short)
-PP_NUMBER_LIKE_TOJSON(unsigned short)
-PP_NUMBER_LIKE_TOJSON(int)
-PP_NUMBER_LIKE_TOJSON(unsigned int)
-PP_NUMBER_LIKE_TOJSON(long)
-PP_NUMBER_LIKE_TOJSON(unsigned long)
-PP_NUMBER_LIKE_TOJSON(long long)
-PP_NUMBER_LIKE_TOJSON(unsigned long long)
-PP_NUMBER_LIKE_TOJSON(float)
-PP_NUMBER_LIKE_TOJSON(double)
-#undef PP_NUMBER_LIKE_TOJSON
+PP_DIRECT_RETURN_TOJSON(const char*)
+PP_DIRECT_RETURN_TOJSON(const IJson&)
+PP_DIRECT_RETURN_TOJSON(const std::string&)
+PP_DIRECT_RETURN_TOJSON(bool)
+PP_DIRECT_RETURN_TOJSON(char)
+PP_DIRECT_RETURN_TOJSON(unsigned char)
+PP_DIRECT_RETURN_TOJSON(signed char)
+PP_DIRECT_RETURN_TOJSON(short)
+PP_DIRECT_RETURN_TOJSON(unsigned short)
+PP_DIRECT_RETURN_TOJSON(int)
+PP_DIRECT_RETURN_TOJSON(unsigned int)
+PP_DIRECT_RETURN_TOJSON(long)
+PP_DIRECT_RETURN_TOJSON(unsigned long)
+PP_DIRECT_RETURN_TOJSON(long long)
+PP_DIRECT_RETURN_TOJSON(unsigned long long)
+PP_DIRECT_RETURN_TOJSON(float)
+PP_DIRECT_RETURN_TOJSON(double)
+#undef PP_DIRECT_RETURN_TOJSON
 
+inline IJson toJson(std::string&& value) {return std::move(value);}
+inline IJson toJson(const QString& value) {return value.toStdString();}
+inline IJson toJson(IJson&& value) {return std::move(value);}
+inline IJson toJson(const QStringList& value)
+{
+    IJson array = IJson::array();
+    for(const QString& val : value){
+        array.push_back(val.toStdString());
+    }
+    return array;
+}
 
 #define PP_ARRAY_LIKE_TOJSON(klass)               \
 template<typename T>                              \
