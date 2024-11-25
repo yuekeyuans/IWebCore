@@ -56,7 +56,7 @@ PP_ARRAY_LIKE_TOJSON(QVector)
 
 
 template<typename T>
-std::enable_if_t< ITraitUtil::has_class_member_toJson_v<T>, IJson> toJson(T&& value)
+std::enable_if_t<ITraitUtil::has_class_member_toJson_v<T>, IJson> toJson(const T& value)
 {
     return value.toJson();
 }

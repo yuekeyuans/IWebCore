@@ -2,6 +2,7 @@
 
 #include "core/util/IPreProcessorUtil.h"
 #include "core/util/ITraitUtil.h"
+#include "core/util/IJsonUtil.h"
 #include "core/bean/IBeanAbort.h"
 #include "core/bean/IBeanTypeManage.h"
 #include <typeinfo>
@@ -9,122 +10,6 @@
 $PackageWebCoreBegin
 
 namespace detail{
-
-template<typename T>
-IJson readJsonOfPlainType(T value)
-{
-    return value;
-}
-
-template<typename T>
-IJson readJsonOfQStringType(const T& value)
-{
-    return value.toStdString();
-}
-
-template<typename T>
-IJson readJsonOfQStringListType(const T& value)
-{
-    IJson array = IJson::array();
-    for(const QString& val : value){
-        array.push_back(val.toStdString());
-    }
-    return array;
-}
-
-template<typename T>
-IJson readJsonOfStdVectorType( const T& value )
-{
-    IJson array = IJson::array();
-    for(const auto& name : value){
-        array.push_back(toJson( name ));
-    }
-    return array;
-}
-
-template<typename T>
-IJson readJsonOfQVectorType( const T& value)
-{
-    IJson array = IJson::array();
-    for(const auto& val : value){
-        array.emplace_back(toJson(val));
-    }
-    return array;
-}
-
-template<typename T>
-IJson readJsonOfStdStringMapType(const T& value)
-{
-    IJson obj = IJson::object();
-    for (const auto& pair : value) {
-        obj[pair.first] = toJson(pair.second);
-    }
-    return obj;
-}
-
-template<typename T>
-IJson readJsonOfQStringMapType(const T& value)
-{
-    IJson obj = IJson::object();
-    for(const auto& it=value.cbegin(); it!=value.cend(); it++){
-        obj[it->key().toStdString()] = toJson(it->value());
-    }
-    return obj;
-}
-
-template<typename T>
-IJson readJsonOfBeanType( const T& value)
-{
-    return value.toJson();
-}
-
-template<typename T>
-IJson readJsonOfUserDefineType(const T& value)
-{
-    const auto& wares = IBeanTypeManage::instance()->getSerializeWares();
-    auto name = typeid(std::remove_cv_t<T>).name();
-    for(const auto& ware : wares){
-        if(ware->isMatch(name)){
-            return ware->serialize(&value);
-        }
-    }
-    jsonFieldAssertError<T>();
-    return nullptr;
-}
-
-template<typename T>
-void jsonFieldAssertError()
-{
-    IBeanAbort::abortInvalidFieldType(typeid(T).name());
-}
-
-template<typename T>
-IJson toJson(const T& value)
-{
-    if constexpr (std::is_arithmetic_v<T>){
-        return detail::readJsonOfPlainType( value );
-    } else if constexpr (std::is_same_v<std::string, T >){
-        return detail::readJsonOfPlainType( value );
-    }else if constexpr( std::is_same_v<IJson, T>){
-        return detail::readJsonOfPlainType(value);
-    } else if constexpr (std::is_same_v<QString, T >) {
-        return detail::readJsonOfQStringType< T >( value );
-    } else if constexpr (std::is_same_v<QStringList, T >){
-        return detail::readJsonOfQStringListType< T >( value );
-    } else if constexpr ( ITraitUtil::is_std_vector_v< T >){
-        return detail::readJsonOfStdVectorType< T >( value );
-    } else if constexpr (ITraitUtil::is_q_vector_v< T >){
-        return detail::readJsonOfQVectorType< T >( value );
-    } else if constexpr (ITraitUtil::is_std_string_map_v< T >) {
-        return detail::readJsonOfStdStringMapType< T > ( value );
-    } else if constexpr (ITraitUtil::is_q_string_map_v< T >){
-        return detail::readJsonOfQStringMapType< T >( value );
-    } else if constexpr (ITraitUtil::has_class_member_toJson_v< T >){
-        return detail::readJsonOfBeanType< T > ( value );
-    } else{
-        return detail::readJsonOfUserDefineType<T>(value);
-    }
-}
 
 template<typename T>
 bool writeJsonOfBoolType(T* ptr, const IJson& val)
@@ -278,19 +163,6 @@ bool writeJsonOfBeanType(T* ptr, const IJson& value)
 }
 
 template<typename T>
-bool writeJsonOfUserDefinedType(T* ptr, const IJson& json)
-{
-    const auto& wares = IBeanTypeManage::instance()->getSerializeWares();
-    const char* name = typeid(T).name();
-    for(const auto& ware : wares){
-        if(ware->isMatch(name)){
-            return ware->deserialize(static_cast<void*>(ptr), json);
-        }
-    }
-    return false;
-}
-
-template<typename T>
 bool fromJson(T* ptr, const IJson& json)
 {
     if constexpr (std::is_same_v<T, bool>){
@@ -315,8 +187,6 @@ bool fromJson(T* ptr, const IJson& json)
         return detail::writeJsonOfQStringMapType< T >( ptr, json );
     } else if constexpr (ITraitUtil::has_class_member_toJson_v< T >){
         return detail::writeJsonOfBeanType< T > ( ptr, json );
-    } else{
-        return detail::writeJsonOfUserDefinedType<T>(ptr, json);
     }
     return false;
 }
@@ -331,10 +201,10 @@ private:                                                                        
     Q_PROPERTY(type name MEMBER name WRITE $write_##name##_value)                                   \
     void $write_##name##_value(const type & value){this-> name = value; }                           \
     Q_INVOKABLE IJson $##name##_toJsonValue() const {                                               \
-        return detail::toJson< type > ( name );                                                     \
+        return IJsonUtil::toJson( name );                                                           \
     }                                                                                               \
     Q_INVOKABLE bool $##name##_fromJsonValue(const IJson& json) {                                   \
-        return detail::fromJson< type >(& name, json);                                                     \
+        return detail::fromJson< type >(& name, json);                                              \
     }                                                                                               \
 public:
 
