@@ -2,7 +2,6 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "core/task/unit/ITaskWareUnit.h"
-#include "core/test/IUnitTestCatagory.h"
 #include "core/task/default/IEndUpTaskCatagory.h"
 
 $PackageWebCoreBegin

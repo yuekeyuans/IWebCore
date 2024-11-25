@@ -5,7 +5,7 @@
 
 $PackageWebCoreBegin
 
-class IUnitTestManage : public ISingletonUnit<IUnitTestManage> //public ITestManageBaseInterface<IUnitTestManage>
+class IUnitTestManage : public ISingletonUnit<IUnitTestManage>
 {
 public:
     IUnitTestManage() = default;
