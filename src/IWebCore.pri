@@ -89,6 +89,7 @@ HEADERS += \
     $$PWD/core/unit/IRegisterMetaTypeUnit.h \
     $$PWD/core/unit/ISingletonUnit.h \
     $$PWD/core/unit/IStackObjectUnit.h \
+    $$PWD/core/util/detail/IJsonUtil_toJson.h \
     $$PWD/http/IHttpAnnomacro.h \
     $$PWD/http/IHttpManage.h \
     $$PWD/http/IHttpTaskCatagory.h \
@@ -233,7 +234,6 @@ SOURCES += \
     $$PWD/core/util/IConvertUtil.cpp \
     $$PWD/core/util/IFileUtil.cpp \
     $$PWD/core/util/IHeaderUtil.cpp \
-    $$PWD/core/util/IJsonUtil.cpp \
     $$PWD/core/util/IMetaUtil.cpp \
     $$PWD/core/util/IPreProcessorUtil.cpp \
     $$PWD/core/util/ITicTacUtil.cpp \
