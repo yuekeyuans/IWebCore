@@ -1,49 +1,9 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
-#include <type_traits>
 
 $PackageWebCoreBegin
-
-#define PP_CLASS_HAS_MEMBER(member)                                                                      \
-    template <typename T, typename = void>                                                               \
-    struct has_class_member_##member : std::false_type {};                                               \
-    template <typename T>                                                                                \
-    struct has_class_member_##member<T, std::void_t<decltype(&T::member)>> : std::true_type {};          \
-    template<typename T>                                                                                 \
-    inline constexpr bool has_class_member_##member##_v = has_class_member_##member <T>::value;
-
-namespace ITraitUtil
-{   
-    template <typename T, typename = void>
-    struct isGadget : std::false_type {};
-    template <typename T>
-    struct isGadget<T, std::void_t<decltype(T::staticMetaObject)>> : std::true_type {};
-    template<typename T>
-    constexpr bool is_gadget_v = isGadget<T>::value;
-
-    template<typename T, typename = void>
-    struct isBean
-    {
-        enum { value = false};
-    };
-
-    template<typename T>
-    struct isBean<T, std::void_t<typename T::QtGadgetHelper>>
-    {
-        enum {
-            value = std::is_class<T>::value == true
-                    && is_gadget_v<T>
-                    && (sizeof(&T::toJson) != 0)
-//                    && sizeof(&T::toVariantMap) != 0
-        };
-    };
-
-
-    // bean type
-    template<typename T>
-    inline constexpr bool isBeanType = isBean<T>::value;
-
+$IPackageBegin(ITraitUtil)
 
     // std::vector
     template<typename T>
@@ -81,7 +41,19 @@ namespace ITraitUtil
     inline constexpr bool is_q_string_map_v = is_q_string_map<T>::value;
 
     // has member json
-    PP_CLASS_HAS_MEMBER(toJson)
-}
 
+#define PP_CLASS_HAS_MEMBER(member)                                                                      \
+    template <typename T, typename = void>                                                               \
+    struct has_class_member_##member : std::false_type {};                                               \
+    template <typename T>                                                                                \
+    struct has_class_member_##member<T, std::void_t<decltype(&T::member)>> : std::true_type {};          \
+    template<typename T>                                                                                 \
+    inline constexpr bool has_class_member_##member##_v = has_class_member_##member <T>::value;
+
+    PP_CLASS_HAS_MEMBER(toJson)
+    PP_CLASS_HAS_MEMBER(fromJson)
+#undef PP_CLASS_HAS_MEMBER
+
+$IPackageEnd(ITraitUtil)
 $PackageWebCoreEnd
+

@@ -100,94 +100,70 @@ void IResponseRaw::setMime(const QString &mime)
 
 void IResponseRaw::setContent(IJson &&data)
 {
-    m_contents.push_back(new IJsonResponseContent(std::move(data)));
+    setContent(new IJsonResponseContent(std::move(data)));
 }
 
 void IResponseRaw::setContent(const IJson &data)
 {
-    m_contents.push_back(new IJsonResponseContent(data));
+    setContent(new IJsonResponseContent(data));
 }
 
 void IResponseRaw::setContent(std::string &&data)
 {
-    m_contents.push_back(new IStdStringResponseContent(std::move(data)));
+    setContent(new IStdStringResponseContent(std::move(data)));
 }
 
 void IResponseRaw::setContent(const std::string &data)
 {
-    m_contents.push_back(new IStdStringResponseContent(data));
+    setContent(new IStdStringResponseContent(data));
 }
 
 void IResponseRaw::setContent(QString &&value)
 {
-    m_contents.push_back(new IQStringResponseContent(std::move(value)));
+    setContent(new IQStringResponseContent(std::move(value)));
 }
 
 void IResponseRaw::setContent(const QString &value)
 {
-    m_contents.push_back(new IQStringResponseContent(value));
+    setContent(new IQStringResponseContent(value));
 }
 
 void IResponseRaw::setContent(QByteArray &&value)
 {
-    m_contents.push_back(new IQByteArrayResponseContent(std::move(value)));
+    setContent(new IQByteArrayResponseContent(std::move(value)));
 }
 
 void IResponseRaw::setContent(const QByteArray &value)
 {
-    m_contents.push_back(new IQByteArrayResponseContent(value));
+    setContent(new IQByteArrayResponseContent(value));
 }
 
 void IResponseRaw::setContent(const char *value)
 {
-    m_contents.push_back(new IQByteArrayResponseContent(value));
+    setContent(new IQByteArrayResponseContent(value));
 }
 
 void IResponseRaw::setContent(IStringView data)
 {
-    m_contents.push_back(new IStrinigViewResponseContent(data));
-}
-
-void IResponseRaw::setContent(IResponseWare &response)
-{
-    if(!response.mime().isEmpty()){
-        m_mime = response.mime();
-    }
-    if(response.status() != m_status){
-        m_status = response.status();
-    }
-
-    // TODO: 先不做, 这个还是有一点复杂， 因为可能涉及到多值的情况
-    if(!response.headers().isEmpty()){
-        auto keys = response.headers().keys();
-        for(const auto& key : keys){
-            setHeader(key, response.headers().value(key));
-        }
-    }
-    while(!response.m_raw->m_contents.empty()){
-        m_contents.push_back(response.m_raw->m_contents.front());
-        response.m_raw->m_contents.pop_front();
-    }
-}
-
-void IResponseRaw::setContent(IResponseWare && ware)
-{
-    setContent(ware);
+    setContent(new IStrinigViewResponseContent(data));
 }
 
 void IResponseRaw::setContent(const QFileInfo &value)
 {
-    m_contents.push_back(new IFileResponseContent(value.absoluteFilePath()));
+    setContent(new IFileResponseContent(value.absoluteFilePath()));
 }
 
 void IResponseRaw::setContent(const IHttpInvalidWare& ware)
 {
-    m_contents.push_back(new IInvalidReponseContent(ware));
+    setContent(new IInvalidReponseContent(ware));
 }
 
 void IResponseRaw::setContent(IResponseContentWare *ware)
 {
     m_contents.push_back(ware);
+    if(ware->m_excess){
+        setContent(ware->m_excess);
+    }
 }
 
 std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
@@ -217,5 +193,31 @@ std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
     return result;
 }
 
+void IResponseRaw::setResponseWare(IResponseWare && ware)
+{
+    setResponseWare(ware);
+}
+
+void IResponseRaw::setResponseWare(IResponseWare &response)
+{
+    if(!response.mime().isEmpty()){
+        m_mime = response.mime();
+    }
+    if(response.status() != m_status){
+        m_status = response.status();
+    }
+
+    // TODO: 先不做, 这个还是有一点复杂， 因为可能涉及到多值的情况
+    if(!response.headers().isEmpty()){
+        auto keys = response.headers().keys();
+        for(const auto& key : keys){
+            setHeader(key, response.headers().value(key));
+        }
+    }
+    while(!response.m_raw->m_contents.empty()){
+        setContent(response.m_raw->m_contents.front());
+        response.m_raw->m_contents.pop_front();
+    }
+}
 
 $PackageWebCoreEnd

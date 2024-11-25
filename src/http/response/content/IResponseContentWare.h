@@ -8,6 +8,7 @@ $PackageWebCoreBegin
 class IRequest;
 class IResponseContentWare
 {
+    friend class IResponseRaw;
 public:
     IResponseContentWare() = default;
     virtual ~IResponseContentWare() = default;

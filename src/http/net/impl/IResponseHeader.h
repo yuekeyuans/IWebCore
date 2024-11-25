@@ -4,7 +4,7 @@
 
 $PackageWebCoreBegin
 
-struct IResponseRaw;
+class IResponseRaw;
 class IResponseHeader
 {
 public:

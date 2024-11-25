@@ -700,7 +700,7 @@ void IRequestImpl::setResponseWare(IResponseWare &&ware)
     if(!ware.m_raw->m_isValid){
         m_isValid = false;
     }
-    m_respRaw.setContent(std::move(ware));
+    m_respRaw.setResponseWare(std::move(ware));
 }
 
 void IRequestImpl::setResponseWare(IResponseWare &ware)
@@ -708,7 +708,7 @@ void IRequestImpl::setResponseWare(IResponseWare &ware)
     if(!ware.m_raw->m_isValid){
         m_isValid = false;
     }
-    m_respRaw.setContent(ware);
+    m_respRaw.setResponseWare(ware);
 }
 
 //void IRequestImplHelper::checkDumplicatedParameters(const QList<QPair<QString, IRequestImpl::FunType>>& maps, const IRequestImpl* ptr, const QString& name)

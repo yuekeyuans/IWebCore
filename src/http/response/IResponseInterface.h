@@ -13,7 +13,7 @@
 
 $PackageWebCoreBegin
 
-struct IResponseRaw;
+class IResponseRaw;
 class IRedirectResponse;
 class IStatusResponse;
 

@@ -12,7 +12,7 @@ $PackageWebCoreBegin
 class IRequestImpl;
 class IResponseWare;
 class IHttpInvalidWare;
-struct IResponseRaw : public IStringViewStash
+class IResponseRaw : public IStringViewStash
 {
     friend class IRequestImpl;
 public:
@@ -40,15 +40,15 @@ public:
 
     void setContent(IStringView data);
 
+    void setContent(const QFileInfo& data);
+    void setContent(const IHttpInvalidWare& ware);
+    void setContent(IResponseContentWare*);
+
 private:
-    void setContent(IResponseWare&);
-    void setContent(IResponseWare&&);
+    void setResponseWare(IResponseWare&&);
+    void setResponseWare(IResponseWare&);
 
 public:
-    void setContent(const QFileInfo& data);
-    void setContent(IResponseContentWare*);
-    void setContent(const IHttpInvalidWare& ware);
-
     std::vector<asio::const_buffer> getContent(IRequestImpl&);
 
 public:

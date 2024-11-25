@@ -6,7 +6,7 @@
 
 $PackageWebCoreBegin
 
-struct IResponseRaw;
+class IResponseRaw;
 class IHttpInvalidWare;
 class IHttpInvalidHandlerWare
 {
