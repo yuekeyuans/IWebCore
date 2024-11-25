@@ -24,6 +24,7 @@ HEADERS += \
     $$PWD/core/bean/IBeanTraitInterface.h \
     $$PWD/core/task/default/IRegisterBaseTypeTask.h \
     $$PWD/core/test/ITestTaskInterface.h \
+    $$PWD/core/test/IUnitTestCatagory.h \
     $$PWD/core/trait/IExceptionTrait.h \
     $$PWD/core/unit/IClassNameUnit.h \
     $$PWD/core/unit/ITraceUnit.h \
@@ -78,10 +79,6 @@ HEADERS += \
     $$PWD/core/task/unit/ITaskCatagoryUnit.h \
     $$PWD/core/task/unit/ITaskInstantUnit.h \
     $$PWD/core/task/unit/ITaskWareUnit.h \
-    $$PWD/core/test/ITestBaseInterface.h \
-    $$PWD/core/test/ITestCatagory.h \
-    $$PWD/core/test/ITestManageBaseInterface.h \
-    $$PWD/core/test/ITestTaskBaseInterface.h \
     $$PWD/core/test/IUnitTestInterface.h \
     $$PWD/core/test/IUnitTestManage.h \
     $$PWD/core/test/IUnitTestTask.h \
@@ -254,7 +251,6 @@ SOURCES += \
     $$PWD/core/task/default/IBannerTask.cpp \
     $$PWD/core/task/ITaskManage.cpp \
     $$PWD/core/task/ITaskWare.cpp \
-    $$PWD/core/test/ITestTask.cpp \
     $$PWD/core/test/IUnitTestManage.cpp \
     $$PWD/core/test/IUnitTestTask.cpp \
     $$PWD/core/unit/ISingletonUnit.cpp \

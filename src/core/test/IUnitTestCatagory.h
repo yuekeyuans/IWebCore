@@ -5,7 +5,7 @@
 
 $PackageWebCoreBegin
 
-class ITestCatagory : public ITaskCatagoryInterface<ITestCatagory>
+class IUnitTestCatagory : public ITaskCatagoryInterface<IUnitTestCatagory>
 {
 public:
     virtual double $order() const final

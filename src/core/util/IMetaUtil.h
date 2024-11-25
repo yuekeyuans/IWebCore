@@ -70,11 +70,11 @@ int IMetaUtil::registerMetaType()
 
 template<typename T>
 QString IMetaUtil::getTypename(){
-    if constexpr (ITraitUtil::is_gadget_v<T>){
-        return getMetaClassName(T::staticMetaObject);
-    }else{
-        return IMetaUtilHelper::demangleName(typeid(T).name());
-    }
+//    if constexpr (ITraitUtil::is_gadget_v<T>){
+//        return getMetaClassName(T::staticMetaObject);
+//    }else{
+//    }
+    return IMetaUtilHelper::demangleName(typeid(T).name());
 }
 
 template<typename T>

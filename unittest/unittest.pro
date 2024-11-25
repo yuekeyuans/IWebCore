@@ -2,4 +2,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += \
 #    core \
-    http
+#    http
+    GlobalTest \

@@ -1,7 +1,5 @@
 ﻿#pragma once
 
-#pragma once
-
 #include "core/util/IHeaderUtil.h"
 #include "core/util/ITraitUtil.h"
 
@@ -14,6 +12,7 @@ inline IJson toJson(const std::string& value) {return value;}
 inline IJson toJson(const QString& value) {return value.toStdString();}
 inline IJson toJson(IJson&& value) {return std::move(value);}
 inline IJson toJson(const IJson& value) {return value;}
+inline IJson toJson(const char* value) {return value;}
 
 //IJson toJson(QVariant);
 //IJson toJson(QJsonObject);
