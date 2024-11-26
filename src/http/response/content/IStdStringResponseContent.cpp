@@ -18,9 +18,9 @@ const std::string& IStdStringResponseContent::getType()
     return CLASS_NAME;
 }
 
-const std::string& IStdStringResponseContent::getSuggestedMime()
+const std::string& IStdStringResponseContent::getSuggestedMime() const
 {
-    static const std::string mime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8).toStdString();
+    static const std::string mime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
     return mime;
 }
 

@@ -25,6 +25,7 @@ private:
 public:
     IStringData();
     ~IStringData();
+
     IStringData(const IStringData& other);
     IStringData(IStringData&& other) noexcept;
     IStringData& operator=(const IStringData& other);
@@ -37,6 +38,7 @@ public:
     IStringData(IStringView stringView);
 
 
+    IStringData& operator=(const QString&);
     IStringData& operator=(const QByteArray& byteArray);
     IStringData& operator=(QByteArray&& byteArray) noexcept;
     IStringData& operator=(const std::string& stdString);
@@ -45,6 +47,7 @@ public:
     IStringData& operator=(std::nullptr_t);
 
 public:
+    bool isEmpty() const;
     IStringView toStringView() const;
 
 private:

@@ -115,15 +115,15 @@ enum class IHttpMime{
 
 namespace IHttpMimeUtil
 {
-    inline static const QString MIME_UNKNOWN_STRING = "UNKNOWN";
+    inline static const std::string MIME_UNKNOWN_STRING = "UNKNOWN";
 
-    QString toString(IHttpMime);
+    std::string toString(IHttpMime);
     IHttpMime toMime(const QString &);
     IHttpMime toMime(IStringView);
 
-    QString getSuffixMime(const QString& suffix);
-    void registerSuffixMime(const QString& suffix, const QString& mime);
-    void registerSuffixMime(const QMap<QString, QString>& map);
+    std::string getSuffixMime(const QString& suffix);
+//    void registerSuffixMime(const QString& suffix, const std::string& mime);
+//    void registerSuffixMime(const QMap<QString, QString>& map);
 }
 
 $PackageWebCoreEnd

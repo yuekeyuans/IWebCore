@@ -56,7 +56,7 @@ public:
     void setInvalid(const IHttpInvalidWare& ware);
 
     IHttpVersion version() const;
-    const QString& mime() const;
+    const IStringData& mime() const;
     IHttpStatus status() const;
     const QMultiHash<QString, QString>& headers() const;
 

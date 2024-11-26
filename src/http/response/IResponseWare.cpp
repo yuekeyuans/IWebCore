@@ -44,7 +44,7 @@ IResponseHeader IResponseWare::operator[](const QString &header)
     return IResponseHeader(*m_raw, header);
 }
 
-const QString& IResponseWare::mime() const
+const IStringData& IResponseWare::mime() const
 {
     return m_raw->m_mime;
 }
@@ -82,6 +82,11 @@ QMultiHash<QString, QString> &IResponseWare::headers()
 void IResponseWare::setHeader(const QString &key, const QString &value)
 {
     m_raw->m_headers.insert(key, value);
+}
+
+void IResponseWare::setHeader(const QString &key, IStringData &&value)
+{
+    // TODO: 这个需要补充
 }
 
 void IResponseWare::addHeader(const QString &key, const QString &value)

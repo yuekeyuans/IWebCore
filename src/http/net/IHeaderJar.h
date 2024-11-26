@@ -32,10 +32,12 @@ public:
     QStringList responseHeaderKeys() const;
     bool containResponseHeaderKey(const QString& key) const;
 
+
     void addResponseHeader(QString key, QString value);
     void addResponseHeader(QString key, const QStringList& values);
     void setResponseHeader(QString key, QString value);
     void setResponseHeader(QString key, const QStringList& values);
+    void setResponseHeader(QString key, const IStringData&);
     void deleteReponseHeader(const QString& key);
 };
 

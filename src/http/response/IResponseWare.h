@@ -23,7 +23,7 @@ public:
     IResponseHeader operator[](const QString& header);
 
 public:
-    const QString& mime() const;
+    const IStringData& mime() const;
     void setMime(IHttpMime);
     void setMime(const QString& mime);
     
@@ -33,6 +33,7 @@ public:
     const QMultiHash<QString, QString>& headers() const;
     QMultiHash<QString, QString>& headers();
     void setHeader(const QString& key, const QString& value);
+    void setHeader(const QString& key, IStringData&& value);
     void addHeader(const QString& key, const QString& value);
 
     virtual QString prefixMatcher();

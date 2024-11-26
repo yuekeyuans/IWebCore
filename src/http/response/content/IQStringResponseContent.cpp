@@ -13,9 +13,9 @@ const std::string& IQStringResponseContent::getType()
     return CLASS_NAME;
 }
 
-const std::string& IQStringResponseContent::getSuggestedMime()
+const std::string& IQStringResponseContent::getSuggestedMime() const
 {
-    static std::string mime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8).toStdString();
+    static std::string mime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
     return mime;
 }
 

@@ -18,10 +18,10 @@ const std::string& IQByteArrayResponseContent::getType()
     return CLASS_NAME;
 }
 
-IStringView IQByteArrayResponseContent::getSuggestedMime()
+const std::string& IQByteArrayResponseContent::getSuggestedMime() const
 {
-    static const std::string mime = IHttpMimeUtil::toString(IHttpMime::APPLICATION_OCTET_STREAM).toStdString();
-    return IStringView(mime);
+    static const std::string mime = IHttpMimeUtil::toString(IHttpMime::APPLICATION_OCTET_STREAM);
+    return mime;
 }
 
 $PackageWebCoreEnd

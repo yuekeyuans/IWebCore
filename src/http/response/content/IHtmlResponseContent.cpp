@@ -38,10 +38,10 @@ const std::string &IHtmlResponseContent::getType()
     return CLASS_NAME;
 }
 
-IStringView IHtmlResponseContent::getSuggestedMime()
+const std::string& IHtmlResponseContent::getSuggestedMime() const
 {
-    static auto mime = IHttpMimeUtil::toString(IHttpMime::TEXT_HTML_UTF8).toStdString();
-    return IStringView(mime);
+    static auto mime = IHttpMimeUtil::toString(IHttpMime::TEXT_HTML_UTF8);
+    return mime;
 }
 
 $PackageWebCoreEnd

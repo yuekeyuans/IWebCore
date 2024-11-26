@@ -37,9 +37,9 @@ IStringView IFileResponseContent::getContent()
     return m_dataRaw.toStringView();
 }
 
-const std::string& IFileResponseContent::getSuggestedMime()
+const std::string& IFileResponseContent::getSuggestedMime() const
 {
-    static const std::string mime = IHttpMimeUtil::toString(IHttpMime::APPLICATION_OCTET_STREAM).toStdString();
+    static const std::string mime = IHttpMimeUtil::toString(IHttpMime::APPLICATION_OCTET_STREAM);
     return mime;
 }
 

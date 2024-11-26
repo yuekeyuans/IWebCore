@@ -107,6 +107,15 @@ void IHeaderJar::setResponseHeader(QString key, const QStringList &values)
     }
 }
 
+// TODO: 这里 HEADERS 重构时再做吧
+void IHeaderJar::setResponseHeader(QString key, const IStringData & value)
+{
+    deleteReponseHeader(key);
+//    for(const auto& value : values){
+//    m_impl.m_respRaw.m_headers.insert(key, value.toStringView().toStdString());
+//    }
+}
+
 void IHeaderJar::deleteReponseHeader(const QString &key)
 {
     auto& headers = m_impl.m_respRaw.m_headers;

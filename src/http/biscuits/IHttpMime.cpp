@@ -17,9 +17,8 @@ protected:
 };
 
 namespace{
-
-    const QStringList& getMimeStringList(){
-        static const QStringList mimes = {
+    const std::vector<std::string>& getMimeStringList(){
+        static const std::vector<std::string> mimes = {
             // TEXT  16
             "text/plain",                                               // TEXT_PLAIN
             "text/plain; charset=UTF-8",                                // TEXT_PLAIN_UTF8
@@ -128,7 +127,7 @@ namespace{
             "UNKNOWN"                                                   // UNKNOWN
         };
         return mimes;
-    };
+    }
 
     const QMap<QString, IHttpMime>& getSystemSuffixMimeMap(){
         static const QMap<QString, IHttpMime> suffixMimePair = {
@@ -231,10 +230,10 @@ namespace{
 
     static QStringList mimeSuffixes;
 
-    static QStringList mimeNames;
+    static std::vector<std::string> mimeNames;
 }
 
-QString IHttpMimeUtil::toString(IHttpMime mime)
+std::string IHttpMimeUtil::toString(IHttpMime mime)
 {
     if(mime == IHttpMime::UNKNOWN){
         return IHttpMimeUtil::MIME_UNKNOWN_STRING;
@@ -242,15 +241,19 @@ QString IHttpMimeUtil::toString(IHttpMime mime)
     return getMimeStringList()[static_cast<int>(mime)];
 }
 
+// TODO:
 IHttpMime IHttpMimeUtil::toMime(const QString &string)
 {
-    static int lastLength = getMimeStringList().length() -1;
-    auto type = string.split(";").first().toLower().trimmed();
-    auto index = getMimeStringList().indexOf(type);
-    if(index == -1 || index == lastLength){
-        return IHttpMime::UNKNOWN;
+    static int lastLength = getMimeStringList().size() -1;
+    std::string type = string.split(";").first().toLower().trimmed().toStdString();
+
+    const auto& mimes = getMimeStringList();
+    auto pos = std::find(mimes.begin(), mimes.end(), type);
+    if(pos != mimes.end()){
+        auto index = std::distance(mimes.begin(), pos);
+        return static_cast<IHttpMime>(index);
     }
-    return static_cast<IHttpMime>(index);
+    return IHttpMime::UNKNOWN;
 }
 
 IHttpMime IHttpMimeUtil::toMime(IStringView data)
@@ -258,7 +261,7 @@ IHttpMime IHttpMimeUtil::toMime(IStringView data)
     return toMime(data.toQString());
 }
 
-QString IHttpMimeUtil::getSuffixMime(const QString &suffix)
+std::string IHttpMimeUtil::getSuffixMime(const QString &suffix)
 {
     if(suffix.isEmpty()){
         return IHttpMimeUtil::MIME_UNKNOWN_STRING;
@@ -277,24 +280,24 @@ QString IHttpMimeUtil::getSuffixMime(const QString &suffix)
     return getMimeStringList()[int(IHttpMime::APPLICATION_OCTET_STREAM)];
 }
 
-void IHttpMimeUtil::registerSuffixMime(const QString &suffix, const QString &mime)
-{
-    if(getSystemSuffixMimeMap().keys().contains(suffix.toLower())){
-        IHttpMimeAbort::aborthttp_mime_already_exist(QString("suffix: ").append(suffix).append(" mime: ").append(mime), $ISourceLocation);
-    }
+//void IHttpMimeUtil::registerSuffixMime(const QString &suffix, const std::string &mime)
+//{
+//    if(getSystemSuffixMimeMap().keys().contains(suffix.toLower())){
+//        IHttpMimeAbort::aborthttp_mime_already_exist(QString("suffix: ").append(suffix).append(" mime: ").append(mime), $ISourceLocation);
+//    }
 
-    if(!mimeSuffixes.contains(suffix)){
-        mimeSuffixes.append(suffix);
-        mimeNames.append(mime);
-    }
-}
+//    if(!mimeSuffixes.contains(suffix)){
+//        mimeSuffixes.append(suffix);
+//        mimeNames.append(mime);
+//    }
+//}
 
-void IHttpMimeUtil::registerSuffixMime(const QMap<QString, QString> &map)
-{
-    auto keys = map.keys();
-    for(const auto& key : keys){
-        registerSuffixMime(key, map[key]);
-    }
-}
+//void IHttpMimeUtil::registerSuffixMime(const QMap<QString, QString> &map)
+//{
+//    auto keys = map.keys();
+//    for(const auto& key : keys){
+//        registerSuffixMime(key, map[key]);
+//    }
+//}
 
 $PackageWebCoreEnd
