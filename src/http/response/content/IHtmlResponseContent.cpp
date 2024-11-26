@@ -33,10 +33,9 @@ IHtmlResponseContent::IHtmlResponseContent(IStringView view)
 {
 }
 
-IStringView IHtmlResponseContent::getType()
+const std::string &IHtmlResponseContent::getType()
 {
-    static std::string type = "IHtmlResponseContent";
-    return IStringView(type);
+    return CLASS_NAME;
 }
 
 IStringView IHtmlResponseContent::getSuggestedMime()

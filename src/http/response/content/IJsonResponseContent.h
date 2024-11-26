@@ -1,10 +1,11 @@
 ﻿#pragma once
 
 #include "IResponseContentWare.h"
+#include "core/unit/IClassNameUnit.h"
 
 $PackageWebCoreBegin
 
-class IJsonResponseContent : public IResponseContentWare
+class IJsonResponseContent : public IResponseContentWare, private IClassNameUnit<IJsonResponseContent>
 {
 public:
     IJsonResponseContent(IJson&&);
@@ -14,8 +15,8 @@ public:
     IJsonResponseContent(const std::string&);
 
 public:
-    virtual IStringView getType() final;
-    virtual IStringView getSuggestedMime() final;
+    virtual const std::string& getType() final;
+    virtual const std::string& getSuggestedMime() const final;
 };
 
 $PackageWebCoreEnd

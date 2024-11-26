@@ -13,13 +13,12 @@ IStdStringResponseContent::IStdStringResponseContent(const std::string & value)
 {
 }
 
-IStringView IStdStringResponseContent::getType()
+const std::string& IStdStringResponseContent::getType()
 {
-    static const std::string type = "IStdStringResponseContent";
-    return type;
+    return CLASS_NAME;
 }
 
-IStringView IStdStringResponseContent::getSuggestedMime()
+const std::string& IStdStringResponseContent::getSuggestedMime()
 {
     static const std::string mime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8).toStdString();
     return mime;

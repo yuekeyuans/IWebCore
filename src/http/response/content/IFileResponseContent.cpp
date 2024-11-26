@@ -19,10 +19,9 @@ int IFileResponseContent::getSize()
     return QFileInfo(m_path).size();
 }
 
-IStringView IFileResponseContent::getType()
+const std::string &IFileResponseContent::getType()
 {
-    static const std::string type = "IFileResponseContent";
-    return type;
+    return CLASS_NAME;
 }
 
 IStringView IFileResponseContent::getContent()
@@ -38,7 +37,7 @@ IStringView IFileResponseContent::getContent()
     return m_dataRaw.toStringView();
 }
 
-IStringView IFileResponseContent::getSuggestedMime()
+const std::string& IFileResponseContent::getSuggestedMime()
 {
     static const std::string mime = IHttpMimeUtil::toString(IHttpMime::APPLICATION_OCTET_STREAM).toStdString();
     return mime;

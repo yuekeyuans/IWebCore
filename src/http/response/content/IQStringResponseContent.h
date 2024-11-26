@@ -1,17 +1,18 @@
 ﻿#pragma once
 
 #include "IResponseContentWare.h"
+#include "core/unit/IClassNameUnit.h"
 
 $PackageWebCoreBegin
 
-class IQStringResponseContent : public IResponseContentWare
+class IQStringResponseContent : public IResponseContentWare, private IClassNameUnit<IQStringResponseContent>
 {
 public:
     IQStringResponseContent(const QString&);
 
 public:
-    virtual IStringView getType() final;
-    virtual IStringView getSuggestedMime() final;
+    virtual const std::string& getType() final;
+    virtual const std::string& getSuggestedMime() const final;
 };
 
 $PackageWebCoreEnd

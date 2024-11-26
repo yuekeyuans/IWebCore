@@ -22,13 +22,12 @@ IJsonResponseContent::IJsonResponseContent(const std::string & data)
 {
 }
 
-IStringView IWebCore::IJsonResponseContent::getType()
+const std::string& IWebCore::IJsonResponseContent::getType()
 {
-    static const std::string type = "IIJsonResponseContent";
-    return type;
+    return CLASS_NAME;
 }
 
-IStringView IWebCore::IJsonResponseContent::getSuggestedMime()
+const std::string& IWebCore::IJsonResponseContent::getSuggestedMime()
 {
     static const std::string mime = IHttpMimeUtil::toString(IHttpMime::APPLICATION_JSON_UTF8).toStdString();
     return mime;

@@ -1,19 +1,22 @@
 ﻿#include "IStrinigViewResponseContent.h"
 #include "http/biscuits/IHttpMime.h"
 
+$PackageWebCoreBegin
+
 IStrinigViewResponseContent::IStrinigViewResponseContent(IStringView value)
     : IResponseContentWare(value)
 {
 }
 
-IStringView IStrinigViewResponseContent::getType()
+const std::string& IStrinigViewResponseContent::getType()
 {
-    static const std::string type = "IIStrinigViewResponseContent";
-    return type;
+    return CLASS_NAME;
 }
 
-IStringView IStrinigViewResponseContent::getSuggestedMime()
+const std::string& IStrinigViewResponseContent::getSuggestedMime()
 {
     static const std::string mime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8).toStdString();
     return mime;
 }
+
+$PackageWebCoreEnd

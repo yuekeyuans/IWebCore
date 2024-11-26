@@ -12,8 +12,8 @@ public:
     IQByteArrayResponseContent(const QByteArray&);
 
 public:
-    virtual IStringView getType() final;
-    virtual IStringView getSuggestedMime() final;
+    virtual const std::string& getType() final;
+    virtual const std::string& getSuggestedMime() const final;
 };
 
 $PackageWebCoreEnd

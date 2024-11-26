@@ -22,8 +22,8 @@ public:
 public:
     virtual int getSize();
     virtual IStringView getContent();
-    virtual IStringView getType() = 0;
-    virtual IStringView getSuggestedMime() = 0;
+    virtual const std::string& getType() = 0;
+    virtual const std::string& getSuggestedMime() const = 0;
 
 protected:
     IResponseContentWare* m_excess{};

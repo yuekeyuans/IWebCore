@@ -1,14 +1,18 @@
 ﻿#pragma once
 
 #include "IResponseContentWare.h"
+#include "core/unit/IClassNameUnit.h"
 
-class IStrinigViewResponseContent : public IResponseContentWare
+$PackageWebCoreBegin
+
+class IStrinigViewResponseContent : public IResponseContentWare, private IClassNameUnit<IStrinigViewResponseContent>
 {
 public:
     IStrinigViewResponseContent(IStringView);
 
 public:
-    virtual IStringView getType() final;
-    virtual IStringView getSuggestedMime() final;
+    virtual const std::string& getType() final;
+    virtual const std::string& getSuggestedMime() const final;
 };
 
+$PackageWebCoreEnd

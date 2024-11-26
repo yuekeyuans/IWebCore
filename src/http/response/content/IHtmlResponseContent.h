@@ -1,11 +1,11 @@
 ﻿#pragma once
 
 #include "IResponseContentWare.h"
+#include "core/unit/IClassNameUnit.h"
 
 $PackageWebCoreBegin
 
-// TODO: 之后考虑优化的事情
-class IHtmlResponseContent : public IResponseContentWare
+class IHtmlResponseContent : public IResponseContentWare, private IClassNameUnit<IHtmlResponseContent>
 {
 public:
     IHtmlResponseContent(QByteArray&&);
@@ -16,8 +16,8 @@ public:
     IHtmlResponseContent(IStringView);
 
 public:
-    virtual IStringView getType() final;
-    virtual IStringView getSuggestedMime() final;
+    virtual const std::string& getType() final;
+    virtual const std::string& getSuggestedMime() const final;
 };
 
 $PackageWebCoreEnd

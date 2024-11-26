@@ -8,13 +8,12 @@ IQStringResponseContent::IQStringResponseContent(const QString &val)
 {
 }
 
-IStringView IQStringResponseContent::getType()
+const std::string& IQStringResponseContent::getType()
 {
-    static std::string type = "IQStringResponseContent";
-    return type;
+    return CLASS_NAME;
 }
 
-IStringView IQStringResponseContent::getSuggestedMime()
+const std::string& IQStringResponseContent::getSuggestedMime()
 {
     static std::string mime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8).toStdString();
     return mime;

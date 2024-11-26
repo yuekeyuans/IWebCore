@@ -84,7 +84,7 @@ void IReturnTypeDetail::createVoidFun()
 {
     if(typeId == QMetaType::Void){
         m_resolveFunction = [](IRequestImpl& impl, void*){
-            if(impl.m_respRaw.m_mime == IHttpMimeUtil::MIME_UNKNOWN_STRING){
+            if(impl.m_respRaw.m_mime.toStringView() == IHttpMimeUtil::MIME_UNKNOWN_STRING){
                 impl.m_respRaw.setMime(IHttpMime::TEXT_PLAIN_UTF8);
             }
             if(impl.m_respRaw.m_status == IHttpStatus::UNKNOWN){
