@@ -4,29 +4,19 @@
 $PackageWebCoreBegin
 
 IStdStringResponseContent::IStdStringResponseContent(std::string &&value)
-    : m_content(std::move(value))
+    : IResponseContentWare(std::move(value))
 {
 }
 
 IStdStringResponseContent::IStdStringResponseContent(const std::string & value)
-    : m_content(value)
+    : IResponseContentWare(value)
 {
-}
-
-int IStdStringResponseContent::getSize()
-{
-    return m_content.length();
 }
 
 IStringView IStdStringResponseContent::getType()
 {
     static const std::string type = "IStdStringResponseContent";
     return type;
-}
-
-IStringView IStdStringResponseContent::getContent()
-{
-    return IStringView(m_content);
 }
 
 IStringView IStdStringResponseContent::getSuggestedMime()

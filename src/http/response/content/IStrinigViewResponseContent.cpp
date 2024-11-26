@@ -2,24 +2,14 @@
 #include "http/biscuits/IHttpMime.h"
 
 IStrinigViewResponseContent::IStrinigViewResponseContent(IStringView value)
-    : m_content(value)
+    : IResponseContentWare(value)
 {
-}
-
-int IStrinigViewResponseContent::getSize()
-{
-    return m_content.length();
 }
 
 IStringView IStrinigViewResponseContent::getType()
 {
     static const std::string type = "IIStrinigViewResponseContent";
     return type;
-}
-
-IStringView IStrinigViewResponseContent::getContent()
-{
-    return m_content;
 }
 
 IStringView IStrinigViewResponseContent::getSuggestedMime()

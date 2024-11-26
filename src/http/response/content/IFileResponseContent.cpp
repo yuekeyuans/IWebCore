@@ -27,12 +27,15 @@ IStringView IFileResponseContent::getType()
 
 IStringView IFileResponseContent::getContent()
 {
-    QFile file(m_path);
-    if(file.open(QFile::ReadOnly)){
-        m_content = file.readAll();
-        file.close();
+    if(m_dataRaw.toStringView().length() == 0){
+        QFile file(m_path);
+        if(file.open(QFile::ReadOnly)){
+            m_dataRaw = file.readAll();
+            file.close();
+        }
     }
-    return m_content;
+
+    return m_dataRaw.toStringView();
 }
 
 IStringView IFileResponseContent::getSuggestedMime()

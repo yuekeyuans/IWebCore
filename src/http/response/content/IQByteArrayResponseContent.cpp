@@ -4,29 +4,19 @@
 $PackageWebCoreBegin
 
 IQByteArrayResponseContent::IQByteArrayResponseContent(QByteArray && val)
-    : m_content(std::move(val))
+    : IResponseContentWare(std::move(val))
 {
 }
 
 IQByteArrayResponseContent::IQByteArrayResponseContent(const QByteArray & val)
-    : m_content(val)
+    : IResponseContentWare(val)
 {
-}
-
-int IQByteArrayResponseContent::getSize()
-{
-    return m_content.length();
 }
 
 IStringView IQByteArrayResponseContent::getType()
 {
     static const std::string type =  "IQByteArrayResponseContent";
     return type;
-}
-
-IStringView IQByteArrayResponseContent::getContent()
-{
-    return IStringView(m_content.data(), m_content.length());
 }
 
 IStringView IQByteArrayResponseContent::getSuggestedMime()

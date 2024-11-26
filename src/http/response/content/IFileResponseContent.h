@@ -17,7 +17,6 @@ public:
 
 private:
     QString m_path;
-    QByteArray m_content;
 };
 
 $PackageWebCoreEnd

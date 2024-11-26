@@ -3,32 +3,15 @@
 
 $PackageWebCoreBegin
 
-IQStringResponseContent::IQStringResponseContent(QString &&val)
-    : m_content(std::move(val))
-{
-    m_rawData = m_content.toUtf8();
-}
-
 IQStringResponseContent::IQStringResponseContent(const QString &val)
-    : m_content(val)
+    : IResponseContentWare(val.toStdString())
 {
-    m_rawData = m_content.toUtf8();
-}
-
-int IQStringResponseContent::getSize()
-{
-    return m_rawData.length();
 }
 
 IStringView IQStringResponseContent::getType()
 {
     static std::string type = "IQStringResponseContent";
     return type;
-}
-
-IStringView IQStringResponseContent::getContent()
-{
-    return IStringView(m_rawData.data(), m_rawData.length());
 }
 
 IStringView IQStringResponseContent::getSuggestedMime()

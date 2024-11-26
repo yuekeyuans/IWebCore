@@ -10,17 +10,14 @@ class IHtmlResponseContent : public IResponseContentWare
 public:
     IHtmlResponseContent(QByteArray&&);
     IHtmlResponseContent(const QByteArray&);
-    IHtmlResponseContent(const QString&);
+    IHtmlResponseContent(std::string&& value);
     IHtmlResponseContent(const std::string& value);
+    IHtmlResponseContent(const QString&);
+    IHtmlResponseContent(IStringView);
 
 public:
-    virtual int getSize() final;
     virtual IStringView getType() final;
-    virtual IStringView getContent() final;
     virtual IStringView getSuggestedMime() final;
-
-private:
-    QByteArray m_content;
 };
 
 $PackageWebCoreEnd

@@ -3,41 +3,29 @@
 
 
 IJsonResponseContent::IJsonResponseContent(IJson && data)
-    : m_content(std::move(data))
+    : IResponseContentWare(data.dump())
 {
-    m_data = m_content.dump();
 }
 
 IJsonResponseContent::IJsonResponseContent(const IJson &data)
-    : m_content(data)
+    : IResponseContentWare(data.dump())
 {
-    m_data = m_content.dump();
 }
 
 IJsonResponseContent::IJsonResponseContent(std::string && data)
-    : m_data(std::move(data))
+    : IResponseContentWare(std::move(data))
 {
 }
 
 IJsonResponseContent::IJsonResponseContent(const std::string & data)
-    : m_data(data)
+    : IResponseContentWare(data)
 {
-}
-
-int IWebCore::IJsonResponseContent::getSize()
-{
-    return m_data.length();
 }
 
 IStringView IWebCore::IJsonResponseContent::getType()
 {
     static const std::string type = "IIJsonResponseContent";
     return type;
-}
-
-IStringView IWebCore::IJsonResponseContent::getContent()
-{
-    return m_data;
 }
 
 IStringView IWebCore::IJsonResponseContent::getSuggestedMime()

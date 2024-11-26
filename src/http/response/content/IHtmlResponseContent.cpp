@@ -4,41 +4,39 @@
 $PackageWebCoreBegin
 
 IHtmlResponseContent::IHtmlResponseContent(QByteArray && value)
-    : m_content(std::move(value))
+    : IResponseContentWare(std::move(value))
 {
 }
 
 IHtmlResponseContent::IHtmlResponseContent(const QByteArray &value)
-    : m_content(value)
+    : IResponseContentWare(value)
 {
 }
 
-// TODO: 这个转换可以后延
-IHtmlResponseContent::IHtmlResponseContent(const QString &value)
-    : m_content(value.toUtf8())
+IHtmlResponseContent::IHtmlResponseContent(std::string &&value)
+    : IResponseContentWare(std::move(value))
 {
 }
 
-// TODO: optimise this mem copy
 IHtmlResponseContent::IHtmlResponseContent(const std::string &value)
-    : m_content(QByteArray::fromStdString(value))
+    : IResponseContentWare(value)
 {
 }
 
-int IHtmlResponseContent::getSize()
+IHtmlResponseContent::IHtmlResponseContent(const QString &value)
+    : IResponseContentWare(value.toStdString())
 {
-    return m_content.length();
+}
+
+IHtmlResponseContent::IHtmlResponseContent(IStringView view)
+    :IResponseContentWare(view)
+{
 }
 
 IStringView IHtmlResponseContent::getType()
 {
     static std::string type = "IHtmlResponseContent";
     return IStringView(type);
-}
-
-IStringView IHtmlResponseContent::getContent()
-{
-    return IStringView(m_content);
 }
 
 IStringView IHtmlResponseContent::getSuggestedMime()

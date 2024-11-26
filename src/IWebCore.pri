@@ -299,6 +299,7 @@ SOURCES += \
     $$PWD/http/response/content/IJsonResponseContent.cpp \
     $$PWD/http/response/content/IQByteArrayResponseContent.cpp \
     $$PWD/http/response/content/IQStringResponseContent.cpp \
+    $$PWD/http/response/content/IResponseContentWare.cpp \
     $$PWD/http/response/content/IStdStringResponseContent.cpp \
     $$PWD/http/response/content/IStrinigViewResponseContent.cpp \
     $$PWD/http/server/IHttpConnection.cpp \

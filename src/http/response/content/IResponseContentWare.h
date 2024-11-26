@@ -13,22 +13,23 @@ public:
     IResponseContentWare() = default;
     virtual ~IResponseContentWare();
 
+    IResponseContentWare(const QByteArray& byteArray);
+    IResponseContentWare(QByteArray&& byteArray) noexcept;
+    IResponseContentWare(const std::string& stdString);
+    IResponseContentWare(std::string&& stdString) noexcept;
+    IResponseContentWare(IStringView stringView);
+
 public:
-    virtual int getSize() = 0;
+    virtual int getSize();
+    virtual IStringView getContent();
     virtual IStringView getType() = 0;
-    virtual IStringView getContent() = 0;
     virtual IStringView getSuggestedMime() = 0;
 
 protected:
     IResponseContentWare* m_excess{};
-};
 
-inline IResponseContentWare::~IResponseContentWare()
-{
-    if(m_excess){
-        delete m_excess;
-        m_excess = nullptr;
-    }
-}
+public:
+    IStringData m_dataRaw;
+};
 
 $PackageWebCoreEnd
