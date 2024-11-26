@@ -43,8 +43,8 @@ void ITaskCatagory::execTaskNodes() const
 
 void ITaskCatagory::printTaskInfo() const
 {
-    static $ContextBool value{"/SYSTEM_ENABLE_TASK_OUTPUT", false};
-    if(!value.value()){
+    static $ContextBool value{"/task/taskOutputEnabled", false};
+    if(!*value){
         return;
     }
 

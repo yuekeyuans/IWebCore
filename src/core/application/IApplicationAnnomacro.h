@@ -2,8 +2,9 @@
 
 #include "core/config/IConfigPreProcessor.h"
 
-//#define $EnableBeanResolveStrictMode(boolValue) \
-//    PP_NORMAL_CONTEXT_CONFIG(EnableBeanResolveStrictMode, BEAN_RESOLVE_IS_STRICT_MODE, boolValue)
+#define $EnableUnitTest(boolValue)   \
+    PP_NORMAL_CONTEXT_CONFIG(IHttpUnitTest_EnabledUnitTest, /test/unittest/enabled, boolValue)
 
-//#define $EnableSqlInfoPrint(boolValue) \
-//    PP_NORMAL_CONTEXT_CONFIG(EnableSqlInfoPrint, ENABLE_SQL_PRINT_INFO, boolValue)
+
+#define $EnableTaskOutput(value)    \
+    PP_PRIVILIGE_CONTEXT_CONFIG(EnableTaskOutput_taskOut, /task/taskOutputEnabled, value)

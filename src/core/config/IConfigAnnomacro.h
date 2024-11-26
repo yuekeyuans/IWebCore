@@ -54,9 +54,6 @@
     $EnableTest(testKlass1, testKlass2, testKlass3, testKlass4, testKlass5, testKlass6, testKlass7, testKlass8) \
     $EnableTask(Test, testKlass9)
 
-#define $EnableTaskOutput(value)    \
-    PP_PRIVILIGE_CONTEXT_CONFIG(EnableTaskOutputSettingKlass, /SYSTEM_ENABLE_TASK_OUTPUT, value)
-
 #define $DisableTest_(N) $DisableTest_##N
 #define $DisableTest_EVAL(N) $DisableTest_(N)
 #define $DisableTest(...) PP_EXPAND( $DisableTest_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
