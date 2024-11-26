@@ -40,7 +40,7 @@ const std::string &IHtmlResponseContent::getType()
 
 const std::string& IHtmlResponseContent::getSuggestedMime() const
 {
-    static auto mime = IHttpMimeUtil::toString(IHttpMime::TEXT_HTML_UTF8);
+    static const std::string& mime = IHttpMimeUtil::toString(IHttpMime::TEXT_HTML_UTF8);
     return mime;
 }
 

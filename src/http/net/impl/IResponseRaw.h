@@ -23,7 +23,7 @@ public:
     void setHeader(const QString& key, const QString& value);
 
     void setMime(IHttpMime m_mime);
-    void setMime(const QString& m_mime);
+    void setMime(IStringData&&);
 
     void setContent(IJson&& data);
     void setContent(const IJson& data);

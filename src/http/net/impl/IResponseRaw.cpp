@@ -94,9 +94,9 @@ void IResponseRaw::setMime(IHttpMime mime)
     this->m_mime = IHttpMimeUtil::toString(mime);
 }
 
-void IResponseRaw::setMime(const QString &mime)
+void IResponseRaw::setMime(IStringData &&mime)
 {
-    this->m_mime = mime;
+    this->m_mime = std::move(mime);
 }
 
 void IResponseRaw::setContent(IJson &&data)

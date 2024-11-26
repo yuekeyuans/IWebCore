@@ -117,11 +117,11 @@ namespace IHttpMimeUtil
 {
     inline static const std::string MIME_UNKNOWN_STRING = "UNKNOWN";
 
-    std::string toString(IHttpMime);
+    const std::string& toString(IHttpMime);
     IHttpMime toMime(const QString &);
     IHttpMime toMime(IStringView);
 
-    std::string getSuffixMime(const QString& suffix);
+//    std::string getSuffixMime(const QString& suffix);
 //    void registerSuffixMime(const QString& suffix, const std::string& mime);
 //    void registerSuffixMime(const QMap<QString, QString>& map);
 }

@@ -25,16 +25,16 @@ public:
 public:
     const IStringData& mime() const;
     void setMime(IHttpMime);
-    void setMime(const QString& mime);
+    void setMime(IStringData&&);
     
     IHttpStatus status() const;
     void setStatus(IHttpStatus statusCode);
 
     const QMultiHash<QString, QString>& headers() const;
     QMultiHash<QString, QString>& headers();
-    void setHeader(const QString& key, const QString& value);
+//    void setHeader(const QString& key, const QString& value);
     void setHeader(const QString& key, IStringData&& value);
-    void addHeader(const QString& key, const QString& value);
+//    void addHeader(const QString& key, const QString& value);
 
     virtual QString prefixMatcher();
     virtual IResponseWare* prefixCreate(const QString&);

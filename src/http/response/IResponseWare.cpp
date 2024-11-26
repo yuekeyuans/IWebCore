@@ -54,9 +54,9 @@ void IResponseWare::setMime(IHttpMime mime)
     m_raw->setMime(mime);
 }
 
-void IResponseWare::setMime(const QString &mime)
+void IResponseWare::setMime(IStringData &&mime)
 {
-    m_raw->setMime(mime);
+    m_raw->setMime(std::move(mime));
 }
 
 IHttpStatus IResponseWare::status() const
@@ -79,20 +79,20 @@ QMultiHash<QString, QString> &IResponseWare::headers()
     return m_raw->m_headers;
 }
 
-void IResponseWare::setHeader(const QString &key, const QString &value)
-{
-    m_raw->m_headers.insert(key, value);
-}
+//void IResponseWare::setHeader(const QString &key, const QString &value)
+//{
+//    m_raw->m_headers.insert(key, value);
+//}
 
 void IResponseWare::setHeader(const QString &key, IStringData &&value)
 {
     // TODO: 这个需要补充
 }
 
-void IResponseWare::addHeader(const QString &key, const QString &value)
-{
-    m_raw->m_headers.insertMulti(key, value);
-}
+//void IResponseWare::addHeader(const QString &key, const QString &value)
+//{
+//    m_raw->m_headers.insertMulti(key, value);
+//}
 
 QString IResponseWare::prefixMatcher()
 {

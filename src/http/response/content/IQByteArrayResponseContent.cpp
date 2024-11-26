@@ -20,7 +20,7 @@ const std::string& IQByteArrayResponseContent::getType()
 
 const std::string& IQByteArrayResponseContent::getSuggestedMime() const
 {
-    static const std::string mime = IHttpMimeUtil::toString(IHttpMime::APPLICATION_OCTET_STREAM);
+    static const std::string& mime = IHttpMimeUtil::toString(IHttpMime::APPLICATION_OCTET_STREAM);
     return mime;
 }
 

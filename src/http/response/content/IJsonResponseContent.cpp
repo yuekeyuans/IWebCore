@@ -29,6 +29,6 @@ const std::string& IWebCore::IJsonResponseContent::getType()
 
 const std::string& IWebCore::IJsonResponseContent::getSuggestedMime() const
 {
-    static const std::string mime = IHttpMimeUtil::toString(IHttpMime::APPLICATION_JSON_UTF8);
+    static const std::string& mime = IHttpMimeUtil::toString(IHttpMime::APPLICATION_JSON_UTF8);
     return mime;
 }

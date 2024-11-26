@@ -15,7 +15,7 @@ const std::string& IStrinigViewResponseContent::getType()
 
 const std::string& IStrinigViewResponseContent::getSuggestedMime() const
 {
-    static const std::string mime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
+    static const std::string& mime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
     return mime;
 }
 
