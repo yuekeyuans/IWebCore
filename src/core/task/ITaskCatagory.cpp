@@ -17,8 +17,8 @@ const std::string& ITaskCatagory::$name() const
 // TODO: 检查一下
 bool ITaskCatagory::isCatagoryEnabled() const
 {
-    auto path = QString("/CATAGORY_ENABLE_STATE_").append(QString::fromStdString($name()));
-    $ContextBool value{path.toStdString(), $isCatagoryDefaultEnabled()};
+    auto path = std::string("/CATAGORY_ENABLE_STATE_") + $name();
+    $ContextBool value{path, $isCatagoryDefaultEnabled()};
     return *value;
 }
 

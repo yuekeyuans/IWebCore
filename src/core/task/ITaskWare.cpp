@@ -11,12 +11,8 @@ bool ITaskWare::$isTaskDefaultEnabled() const
 // TODO: 检查一下这个可起效了
 bool ITaskWare::isTaskEnabled() const
 {
-    auto path = QString("/TASK_ENABLE_STATE_")
-            .append(QString::fromStdString($catagory()))
-            .append("_")
-            .append(QString::fromStdString($name()));
-
-    $ContextBool value{path.toStdString(), this->$isTaskDefaultEnabled()};
+    auto path = std::string("/TASK_ENABLE_STATE_")+ $catagory() + "_" + $name();
+    $ContextBool value{path, this->$isTaskDefaultEnabled()};
     return *value;
 }
 

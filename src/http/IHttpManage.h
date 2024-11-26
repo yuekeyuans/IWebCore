@@ -35,7 +35,7 @@ public:
 private:
     bool m_isServerStarted{false};
     std::vector<IHttpMappingWare*> m_mappings;
-    std::map<std::string, IHttpInvalidHandlerWare*> m_invalidHandlers;
+    std::map<const std::string*, IHttpInvalidHandlerWare*> m_invalidHandlers;
 
     QMap<QString, QString> m_pathRegValidators;
     QMap<QString, ValidatorFun> m_pathFunValidators;
