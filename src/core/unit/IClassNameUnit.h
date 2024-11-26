@@ -7,10 +7,10 @@ $PackageWebCoreBegin
 template<typename T>
 struct IClassNameUnit
 {
-    static const QString CLASS_NAME;
+    static const std::string CLASS_NAME;
 };
 
 template<typename T>
-const QString IClassNameUnit<T>::CLASS_NAME = IMetaUtil::getBareTypeName<T>();
+const std::string IClassNameUnit<T>::CLASS_NAME = IMetaUtil::getBareTypeName<T>().toStdString();
 
 $PackageWebCoreEnd

@@ -7,7 +7,7 @@ $PackageWebCoreBegin
 struct IOrderUnit
 {
 public:
-    virtual QString $name() const = 0;
+    virtual std::string $name() const = 0;
     virtual double $order() const;
 };
 

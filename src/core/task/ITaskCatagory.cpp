@@ -9,14 +9,15 @@ bool ITaskCatagory::$isCatagoryDefaultEnabled() const
     return true;
 }
 
-QString ITaskCatagory::$name() const
+std::string ITaskCatagory::$name() const
 {
     return $catagory();
 }
 
+// TODO: 检查一下
 bool ITaskCatagory::isCatagoryEnabled() const
 {
-    auto path = QString("/CATAGORY_ENABLE_STATE_").append($name());
+    auto path = QString("/CATAGORY_ENABLE_STATE_").append(QString::fromStdString($name()));
     $ContextBool value{path.toStdString(), $isCatagoryDefaultEnabled()};
     return *value;
 }
@@ -48,12 +49,12 @@ void ITaskCatagory::printTaskInfo() const
         return;
     }
 
-    qDebug().noquote().nospace() << "[+] " << QString::number($order()).leftJustified(4, ' ') << $name();
+    qDebug().noquote().nospace() << "[+] " << QString::number($order()).leftJustified(4, ' ') << QString::fromStdString($name());
     for(const auto& node : m_taskWares){
         if(node->isTaskEnabled()){
             qDebug().noquote().nospace() << QStringLiteral("    [√] ")
                                << QString::number(node->$order()).leftJustified(4, ' ')
-                               << node->$name();
+                               << QString::fromStdString(node->$name());
         }
     }
     qDebug() << Qt::endl;

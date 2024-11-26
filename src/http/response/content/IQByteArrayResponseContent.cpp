@@ -15,8 +15,9 @@ IQByteArrayResponseContent::IQByteArrayResponseContent(const QByteArray & val)
 
 IStringView IQByteArrayResponseContent::getType()
 {
-    static const std::string type =  "IQByteArrayResponseContent";
-    return type;
+    return CLASS_NAME;
+//    static const std::string type =  "IQByteArrayResponseContent";
+//    return type;
 }
 
 IStringView IQByteArrayResponseContent::getSuggestedMime()

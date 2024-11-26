@@ -19,11 +19,11 @@ public:
     void setIsServerStarted(bool);
 
     void registMapping(IHttpMappingWare* ware);
-    void registInvalidHandler(const QString& name, IHttpInvalidHandlerWare*);
+    void registInvalidHandler(const std::string& name, IHttpInvalidHandlerWare*);
 
 public:
     IHttpAction* getAction(IRequest& request);
-    IHttpInvalidHandlerWare* getInvalidHandler(const QString& name) const;
+    IHttpInvalidHandlerWare* getInvalidHandler(const std::string& name) const;
     void printMappingTrace();
 
     void registerPathValidator(const QString& name, const QString& regexp);
@@ -35,7 +35,7 @@ public:
 private:
     bool m_isServerStarted{false};
     std::vector<IHttpMappingWare*> m_mappings;
-    std::map<QString, IHttpInvalidHandlerWare*> m_invalidHandlers;
+    std::map<std::string, IHttpInvalidHandlerWare*> m_invalidHandlers;
 
     QMap<QString, QString> m_pathRegValidators;
     QMap<QString, ValidatorFun> m_pathFunValidators;

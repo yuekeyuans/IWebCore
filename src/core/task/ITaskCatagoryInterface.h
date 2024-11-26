@@ -15,11 +15,11 @@ public:
     ITaskCatagoryInterface() = default;
 
 public:
-    virtual const QString& $catagory() const final;
+    virtual const std::string& $catagory() const final;
 };
 
 template<typename T, bool enabled>
-const QString& ITaskCatagoryInterface<T, enabled>::$catagory() const
+const std::string& ITaskCatagoryInterface<T, enabled>::$catagory() const
 {
     return T::CLASS_NAME;
 }

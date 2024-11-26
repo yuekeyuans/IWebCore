@@ -20,7 +20,7 @@ void IHttpControllerMapping::registerUrlActionNode(const IHttpControllerAction& 
 
 void IHttpControllerMapping::travelPrint() const
 {
-    qDebug().noquote() << CLASS_NAME << $order();
+    qDebug().noquote() << QString::fromStdString(CLASS_NAME) << $order();
     m_urlMapppings.travelPrint();
     qDebug() << endl;
 }

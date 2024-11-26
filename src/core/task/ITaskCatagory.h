@@ -16,11 +16,11 @@ public:
     virtual ~ITaskCatagory() = default;
 
 public:
-    virtual const QString& $catagory() const = 0;
+    virtual const std::string& $catagory() const = 0;
     virtual bool $isCatagoryDefaultEnabled() const;
 
 public:
-    virtual QString $name() const final;
+    virtual std::string $name() const final;
 
 private:
     bool isCatagoryEnabled() const;

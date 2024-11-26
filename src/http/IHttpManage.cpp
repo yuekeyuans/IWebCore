@@ -18,7 +18,7 @@ void IHttpManage::registMapping(IHttpMappingWare *ware)
     m_mappings.push_back(ware);
 }
 
-void IHttpManage::registInvalidHandler(const QString& name, IHttpInvalidHandlerWare * ware)
+void IHttpManage::registInvalidHandler(const std::string& name, IHttpInvalidHandlerWare * ware)
 {
     m_invalidHandlers[name] = ware;
 }
@@ -37,7 +37,7 @@ IHttpAction *IHttpManage::getAction(IRequest &request)
     return IHttpBadRequestAction::instance();
 }
 
-IHttpInvalidHandlerWare *IHttpManage::getInvalidHandler(const QString &name) const
+IHttpInvalidHandlerWare *IHttpManage::getInvalidHandler(const std::string &name) const
 {
     if(m_invalidHandlers.find(name) != m_invalidHandlers.end()){
         return m_invalidHandlers.at(name);

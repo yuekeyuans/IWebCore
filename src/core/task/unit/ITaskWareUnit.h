@@ -19,18 +19,18 @@ protected:
     virtual ~ITaskWareUnit() = default;
 
 protected:
-    virtual QString $name() const final;
-    virtual const QString& $catagory() const final;
+    virtual std::string $name() const final;
+    virtual const std::string& $catagory() const final;
 };
 
 template<typename T, typename Catagory, bool enabled>
-QString ITaskWareUnit<T, Catagory, enabled>::$name() const
+std::string ITaskWareUnit<T, Catagory, enabled>::$name() const
 {
     return ITaskWareUnit::CLASS_NAME;
 }
 
 template<typename T, typename Catagory, bool enabled>
-const QString& ITaskWareUnit<T, Catagory, enabled>::$catagory() const
+const std::string& ITaskWareUnit<T, Catagory, enabled>::$catagory() const
 {
     return Catagory::CLASS_NAME;
 }

@@ -14,9 +14,9 @@ public:
     virtual ~ITaskWare() = default;
 
 public:
-    virtual QString $name() const = 0;
+    virtual std::string $name() const = 0;
     virtual void $task() = 0;
-    virtual const QString& $catagory() const = 0;
+    virtual const std::string& $catagory() const = 0;
     virtual bool $isTaskDefaultEnabled() const;
 
 private:

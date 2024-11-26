@@ -63,7 +63,7 @@ void ITaskManage::checkCatagoryExceed()
 {
     for(const auto& cata : m_catagories){
         if(cata->$order() < 0 || cata->$order() > 100){
-            ITaskManageAbort::abortCatagoryRangeExceed(QString("Catagory: ").append(cata->$name()), $ISourceLocation);
+            ITaskManageAbort::abortCatagoryRangeExceed(QString("Catagory: ").append(QString::fromStdString(cata->$name())), $ISourceLocation);
         }
     }
 }
@@ -72,7 +72,7 @@ void ITaskManage::checkTaskExceed()
 {
     for(const auto& task : m_taskWares){
         if(task->$order() < 0 || task->$order() > 100){
-            ITaskManageAbort::abortTaskRangeExceed(QString("Task: ").append(task->$name()), $ISourceLocation);
+            ITaskManageAbort::abortTaskRangeExceed(QString("Task: ").append(QString::fromStdString(task->$name())), $ISourceLocation);
         }
     }
 }
@@ -98,7 +98,10 @@ void ITaskManage::mergetTasksToCatagores()
         }
 
         for(auto task: m_taskWares){
-            ITaskManageAbort::abortTaskWithErrorCatagory(QString("Task: ").append(task->$name()).append(" have wrong catagory that not exist: ").append(task->$catagory()), $ISourceLocation);
+            ITaskManageAbort::abortTaskWithErrorCatagory(QString("Task: ")
+                                                         .append(QString::fromStdString(task->$name()))
+                                                         .append(" have wrong catagory that not exist: ")
+                                                         .append(QString::fromStdString(task->$catagory())), $ISourceLocation);
         }
     }
 }
