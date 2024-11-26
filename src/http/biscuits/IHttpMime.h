@@ -121,6 +121,7 @@ namespace IHttpMimeUtil
     IHttpMime toMime(const QString &);
     IHttpMime toMime(IStringView);
 
+    // TODO:
 //    std::string getSuffixMime(const QString& suffix);
 //    void registerSuffixMime(const QString& suffix, const std::string& mime);
 //    void registerSuffixMime(const QMap<QString, QString>& map);

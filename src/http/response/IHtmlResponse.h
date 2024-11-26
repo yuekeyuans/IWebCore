@@ -15,7 +15,10 @@ public:
 public:
     IHtmlResponse();
     IHtmlResponse(const QString& data);
+    IHtmlResponse(std::string&&);
     IHtmlResponse(const std::string&);
+    IHtmlResponse(QByteArray&&);
+    IHtmlResponse(const QByteArray&);
 
 public:
     virtual std::string prefixMatcher() final;

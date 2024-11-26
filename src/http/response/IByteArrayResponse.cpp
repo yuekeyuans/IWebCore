@@ -25,14 +25,21 @@ IByteArrayResponse::IByteArrayResponse(const QByteArray &array)
 }
 
 IByteArrayResponse::IByteArrayResponse(const QString &data)
-    : IByteArrayResponse(data.toUtf8())
 {
+    m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
+    m_raw->setContent(data.toStdString());
 }
 
-// TODO: 简化
-IByteArrayResponse::IByteArrayResponse(const std::string & data)
-    : IByteArrayResponse(QString::fromStdString(data))
+IByteArrayResponse::IByteArrayResponse(std::string &&data)
 {
+    m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
+    m_raw->setContent(std::move(data));
+}
+
+IByteArrayResponse::IByteArrayResponse(const std::string & data)
+{
+    m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
+    m_raw->setContent(data);
 }
 
 std::string IByteArrayResponse::prefixMatcher()

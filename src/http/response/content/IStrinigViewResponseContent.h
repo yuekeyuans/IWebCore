@@ -5,6 +5,7 @@
 
 $PackageWebCoreBegin
 
+// TODO: 这个可以随着 IStringData 出现，删除掉了，这其中包括 ByteArray, std::string, IStringView, 甚至是 QString, 等各种类型。
 class IStrinigViewResponseContent : public IResponseContentWare, private IClassNameUnit<IStrinigViewResponseContent>
 {
 public:

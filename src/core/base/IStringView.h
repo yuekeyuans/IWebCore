@@ -2,11 +2,9 @@
 
 #include "core/util/IPackageUtil.h"
 #include "core/unit/IRegisterMetaTypeUnit.h"
-#include "core/unit/ISingletonUnit.h"
 #include <string_view>
 #include <QString>
 #include <QByteArray>
-#include <functional>
 #include "asio.hpp"
 
 $PackageWebCoreBegin

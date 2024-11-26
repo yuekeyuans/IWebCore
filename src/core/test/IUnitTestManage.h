@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
+#include <core/unit/ISingletonUnit.h>
 #include <QtTest>
 
 $PackageWebCoreBegin

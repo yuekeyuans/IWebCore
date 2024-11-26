@@ -14,7 +14,25 @@ IHtmlResponse::IHtmlResponse(const QString &data)
     m_raw->setContent(data);
 }
 
+IHtmlResponse::IHtmlResponse(std::string && data)
+{
+    m_raw->setMime(IHttpMime::TEXT_HTML_UTF8);
+    m_raw->setContent(std::move(data));
+}
+
 IHtmlResponse::IHtmlResponse(const std::string & data)
+{
+    m_raw->setMime(IHttpMime::TEXT_HTML_UTF8);
+    m_raw->setContent(data);
+}
+
+IHtmlResponse::IHtmlResponse(QByteArray &&data)
+{
+    m_raw->setMime(IHttpMime::TEXT_HTML_UTF8);
+    m_raw->setContent(std::move(data));
+}
+
+IHtmlResponse::IHtmlResponse(const QByteArray &data)
 {
     m_raw->setMime(IHttpMime::TEXT_HTML_UTF8);
     m_raw->setContent(data);

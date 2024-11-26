@@ -18,6 +18,7 @@ public:
     IByteArrayResponse(QByteArray &&data);
     IByteArrayResponse(const QByteArray &data);
     IByteArrayResponse(const QString& data);
+    IByteArrayResponse(std::string&&);
     IByteArrayResponse(const std::string&);
 
 public:

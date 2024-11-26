@@ -100,9 +100,6 @@ private:
     int m_contentLength{};
     IStringView m_multipartBoundary;
     IStringView m_multipartBoundaryEnd;
-
-private:
-    std::list<QByteArray> m_stash;
 };
 
 $PackageWebCoreEnd
