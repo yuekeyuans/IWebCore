@@ -16,11 +16,9 @@ public:
     virtual ~ITaskCatagory() = default;
 
 public:
+    virtual const std::string& $name() const final;
     virtual const std::string& $catagory() const = 0;
     virtual bool $isCatagoryDefaultEnabled() const;
-
-public:
-    virtual std::string $name() const final;
 
 private:
     bool isCatagoryEnabled() const;

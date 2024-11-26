@@ -9,7 +9,7 @@ bool ITaskCatagory::$isCatagoryDefaultEnabled() const
     return true;
 }
 
-std::string ITaskCatagory::$name() const
+const std::string& ITaskCatagory::$name() const
 {
     return $catagory();
 }
