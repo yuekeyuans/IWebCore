@@ -31,12 +31,13 @@ public:
     IStringData& operator=(const IStringData& other);
     IStringData& operator=(IStringData&& other) noexcept;
 
+    IStringData(const QByteArray*);
     IStringData(const QByteArray& byteArray);
     IStringData(QByteArray&& byteArray) noexcept;
+    IStringData(const std::string*);
     IStringData(const std::string& stdString);
     IStringData(std::string&& stdString) noexcept;
     IStringData(IStringView stringView);
-
 
     IStringData& operator=(const QString&);
     IStringData& operator=(const QByteArray& byteArray);

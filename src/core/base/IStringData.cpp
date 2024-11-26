@@ -34,6 +34,11 @@ IStringData& IStringData::operator=(IStringData&& other) noexcept
     return *this;
 }
 
+IStringData::IStringData(const QByteArray * data) : m_type(Type::IStringView)
+{
+    new (&m_iStringView) IStringView(data->data(), data->length());
+}
+
 IStringData::IStringData(const QByteArray& byteArray) : m_type(Type::QByteArray)
 {
     new (&m_qByteArray) QByteArray(byteArray);
@@ -42,6 +47,11 @@ IStringData::IStringData(const QByteArray& byteArray) : m_type(Type::QByteArray)
 IStringData::IStringData(QByteArray&& byteArray) noexcept : m_type(Type::QByteArray)
 {
     new (&m_qByteArray) QByteArray(std::move(byteArray));
+}
+
+IStringData::IStringData(const std::string * stdStringPtr) : m_type(Type::IStringView)
+{
+    new (&m_iStringView) IStringView(stdStringPtr->data(), stdStringPtr->length());
 }
 
 IStringData::IStringData(const std::string& stdString) : m_type(Type::StdString)
