@@ -11,7 +11,7 @@ class IResponseContentWare
     friend class IResponseRaw;
 public:
     IResponseContentWare() = default;
-    virtual ~IResponseContentWare() = default;
+    virtual ~IResponseContentWare();
 
 public:
     virtual int getSize() = 0;
@@ -22,5 +22,13 @@ public:
 protected:
     IResponseContentWare* m_excess{};
 };
+
+inline IResponseContentWare::~IResponseContentWare()
+{
+    if(m_excess){
+        delete m_excess;
+        m_excess = nullptr;
+    }
+}
 
 $PackageWebCoreEnd

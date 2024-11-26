@@ -695,6 +695,7 @@ IStringView IRequestImpl::getBoundary(IStringView data)
     return stash("--" + view.toQByteArray());
 }
 
+// TODO: 还是需要检查一下对象的 is_valid
 void IRequestImpl::setResponseWare(IResponseWare &&ware)
 {
     if(!ware.m_raw->m_isValid){

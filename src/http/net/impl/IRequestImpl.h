@@ -76,13 +76,13 @@ public:
     void setResponseWare(IResponseWare& ware);
 
 public:
+    bool m_isValid{true};
     IRequest& m_request;
+
+public:
     IRequestRaw m_reqRaw{};
     IResponseRaw m_respRaw{};
     QMap<QString, QVariant> m_attribute;                // 用户或系统可以自己放置内容的地方。
-
-public:
-    bool m_isValid{true};
 
 public:
     IHeaderJar m_headerJar;

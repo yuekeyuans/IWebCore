@@ -16,7 +16,7 @@ public:
     virtual IStringView getContent() final;
     virtual IStringView getSuggestedMime() final;
 
-private:
+public:
     IHttpInvalidWare m_ware;
     QByteArray m_data;
 };

@@ -1,13 +1,17 @@
 ﻿#include "IFileResponseContent.h"
 #include "http/biscuits/IHttpMime.h"
 #include "core/util/IFileUtil.h"
+#include "http/invalid/IHttpNotFoundInvalid.h"
+#include "http/response/content/IInvalidReponseContent.h"
 
 $PackageWebCoreBegin
 
 IFileResponseContent::IFileResponseContent(const QString &path)
     : m_path(path)
 {
-    assert(QFileInfo(m_path).exists());
+    if(!QFileInfo(m_path).exists()){
+        m_excess = new IInvalidReponseContent(IHttpNotFoundInvalid("file not found"));
+    }
 }
 
 int IFileResponseContent::getSize()

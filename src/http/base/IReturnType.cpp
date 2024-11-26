@@ -98,7 +98,7 @@ void IReturnTypeDetail::createStatusFun()
 {
     if(typeId == QMetaType::UnknownType && typeName == "IHttpStatus" || typeId == QMetaType::Int){
         m_resolveFunction = [](IRequestImpl& impl, void* ptr){
-            impl.setResponseWare(IStatusResponse(*static_cast<int*>(ptr))); // TODO: 查看转换问题
+            impl.setResponseWare(IStatusResponse(*static_cast<int*>(ptr)));
         };
     }
 }

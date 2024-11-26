@@ -12,6 +12,7 @@
 #include "http/response/content/IStdStringResponseContent.h"
 #include "http/response/content/IStrinigViewResponseContent.h"
 #include "http/response/content/IJsonResponseContent.h"
+#include "http/response/content/IInvalidReponseContent.h"
 
 $PackageWebCoreBegin
 
@@ -161,8 +162,18 @@ void IResponseRaw::setContent(const IHttpInvalidWare& ware)
 void IResponseRaw::setContent(IResponseContentWare *ware)
 {
     m_contents.push_back(ware);
+    auto invalidWare = dynamic_cast<IInvalidReponseContent*>(ware);
+    if(invalidWare){
+        this->m_isValid = false;
+        this->m_status = invalidWare->m_ware.status;
+        this->m_mime = invalidWare->getSuggestedMime(); // TODO: 感觉这里不对
+    }
+
+
     if(ware->m_excess){
-        setContent(ware->m_excess);
+        ware = ware->m_excess;
+        ware->m_excess = nullptr;
+        setContent(ware);
     }
 }
 
