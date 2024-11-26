@@ -1,5 +1,6 @@
 ﻿#include "IReturnType.h"
 #include "core/util/ISpawnUtil.h"
+#include "core/util/IStringUtil.h"
 #include "core/bean/IBeanTypeManage.h"
 #include "core/bean/IBeanWare.h"
 #include "http/net/IRequest.h"
@@ -18,7 +19,7 @@ $PackageWebCoreBegin
 class IReturnTypeDetail : public IReturnType
 {
 public:
-    IReturnTypeDetail(QMetaType::Type type, const QString& name);
+    IReturnTypeDetail(QMetaType::Type type, const std::string& name);
 
 private:
     void createResolveFuntion();
@@ -34,7 +35,7 @@ private:
     void createIJsonFun();
 };
 
-IReturnTypeDetail::IReturnTypeDetail(QMetaType::Type type, const QString& name)
+IReturnTypeDetail::IReturnTypeDetail(QMetaType::Type type, const std::string& name)
 {
     typeId = type;
     typeName = name;
@@ -107,11 +108,11 @@ void IReturnTypeDetail::createStdStringFun()
 {
     if(typeId == (QMetaType::Type)qMetaTypeId<std::string>()){
         m_resolveFunction = [](IRequestImpl& impl, void* ptr){
-            QString value = QString::fromStdString(*static_cast<std::string*>(ptr));
-            if(value.startsWith("$")){
+            const std::string& value = *static_cast<std::string*>(ptr);
+            if(IStringUtil::startsWith(value, "$")){
                 IResponseWare* ware = IResponseManage::instance()->convertableMatch(value);
                 if(ware){
-                    auto content = ware->prefixCreate(std::move(value));
+                    auto content = ware->prefixCreate(value);
                     impl.setResponseWare(*content);
                     delete content;
                     return;
@@ -127,11 +128,11 @@ void IReturnTypeDetail::createQStringFun()
 {
     if(typeId == QMetaType::QString){
         m_resolveFunction = [](IRequestImpl& impl, void* ptr){
-            QString& value = *static_cast<QString*>(ptr);
-            if(value.startsWith("$")){
+            std::string value = static_cast<QString*>(ptr)->toStdString();
+            if(IStringUtil::startsWith(value, "$")){
                 IResponseWare* ware = IResponseManage::instance()->convertableMatch(value);
                 if(ware){
-                    auto content = ware->prefixCreate(std::move(value));
+                    auto content = ware->prefixCreate(value);
                     impl.setResponseWare(*content);
                     delete content;
                     return;

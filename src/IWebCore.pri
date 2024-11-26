@@ -38,6 +38,7 @@ HEADERS += \
     $$PWD/core/util/IPackageUtil.h \
     $$PWD/core/util/IPreProcessorUtil.h \
     $$PWD/core/util/ISpawnUtil.h \
+    $$PWD/core/util/IStringUtil.h \
     $$PWD/core/util/ITicTacUtil.h \
     $$PWD/core/util/IToeUtil.h \
     $$PWD/core/util/ITraitUtil.h \
@@ -236,6 +237,7 @@ SOURCES += \
     $$PWD/core/util/IHeaderUtil.cpp \
     $$PWD/core/util/IMetaUtil.cpp \
     $$PWD/core/util/IPreProcessorUtil.cpp \
+    $$PWD/core/util/IStringUtil.cpp \
     $$PWD/core/util/ITicTacUtil.cpp \
     $$PWD/core/util/IToeUtil.cpp \
     $$PWD/core/bean/IBeanTypeManage.cpp \

@@ -32,7 +32,7 @@ IPlainTextResponse::IPlainTextResponse(QString &&value)
     m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
-QString IPlainTextResponse::prefixMatcher()
+std::string IPlainTextResponse::prefixMatcher()
 {
     return "$text:";
 }

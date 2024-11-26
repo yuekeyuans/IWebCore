@@ -23,7 +23,7 @@ public:
     IPlainTextResponse(const char* value);
 
 public:
-    virtual QString prefixMatcher() final;
+    virtual std::string prefixMatcher() final;
 };
 
 IPlainTextResponse operator"" _text(const char* str, size_t size);

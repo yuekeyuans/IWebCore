@@ -15,7 +15,12 @@ IRedirectResponse::IRedirectResponse(const QString &path)
     updateLocationPath();
 }
 
-QString IRedirectResponse::prefixMatcher()
+IRedirectResponse::IRedirectResponse(const std::string &path)
+    : IRedirectResponse(QString::fromStdString(path))
+{
+}
+
+std::string IRedirectResponse::prefixMatcher()
 {
     return "$redirect:";
 }

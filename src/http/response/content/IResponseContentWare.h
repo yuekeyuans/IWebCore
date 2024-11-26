@@ -18,6 +18,8 @@ public:
     IResponseContentWare(const std::string& stdString);
     IResponseContentWare(std::string&& stdString) noexcept;
     IResponseContentWare(IStringView stringView);
+    IResponseContentWare(IStringData&&);
+    IResponseContentWare(const IStringData&);
 
 public:
     virtual int getSize();

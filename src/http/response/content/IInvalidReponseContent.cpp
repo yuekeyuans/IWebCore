@@ -4,7 +4,7 @@
 $PackageWebCoreBegin
 
 IInvalidReponseContent::IInvalidReponseContent(const IHttpInvalidWare &ware)
-    : m_ware(ware) , IResponseContentWare(ware.description.toUtf8())
+    : m_ware(ware) , IResponseContentWare(ware.description)
 {
 }
 

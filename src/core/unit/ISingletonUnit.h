@@ -41,7 +41,7 @@ ISingletonUnit<T>::ISingletonUnit()
 {
     static std::atomic_bool flag{false};
     if(flag){
-        ISingletonUnitDetail::abortError("class name:" + IMetaUtil::getTypename<T>());
+        ISingletonUnitDetail::abortError("class name:" + QString::fromStdString(IMetaUtil::getTypename<T>()));
     }
     flag = true;
 }

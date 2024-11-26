@@ -18,9 +18,10 @@ public:
     IByteArrayResponse(QByteArray &&data);
     IByteArrayResponse(const QByteArray &data);
     IByteArrayResponse(const QString& data);
+    IByteArrayResponse(const std::string&);
 
 public:
-    virtual QString prefixMatcher() final;
+    virtual std::string prefixMatcher() final;
 };
 
 IByteArrayResponse operator"" _bytes(const char* str, size_t size);

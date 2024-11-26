@@ -21,9 +21,6 @@ namespace IMetaUtil
     QMetaProperty getMetaPropertyByName(const QMetaObject& meta, QString name);
     QMetaProperty getMetaPropertyByName(const std::vector<QMetaProperty>& props, QString name);
 
-//    QStringList getIgnoredFields(const QMetaObject& meta);
-//    QVector<int> getIgnoredFieldIndexes(const QMetaObject& meta);
-
     QVector<QMetaMethod> getMetaMethods(const QMetaObject& meta);
 
     bool writeProperty(const QMetaProperty& prop, void* handler,  const QVariant& value);
@@ -33,25 +30,22 @@ namespace IMetaUtil
     int registerMetaType();
 
     template<typename T>
-    QString getTypename();
+    const std::string& getTypename();
 
     template<typename T>
-    QString getBareTypeName();
+    const std::string& getBareTypeName();
 }
 
-class IMetaUtilHelper
+namespace detail
 {
-    template<typename T>
-    friend QString IMetaUtil::getTypename<T>();
-private:
-    static QString demangleName(const char*);
-};
+    QString demangleName(const char*);
+}
 
 template<typename T>
 int IMetaUtil::registerMetaType()
 {
     QStringList names;
-    QString name = getTypename<T>();
+    QString name = QString::fromStdString(getTypename<T>());
     if(name.contains(" ")){
         name = name.split(" ").last();
     }
@@ -69,22 +63,20 @@ int IMetaUtil::registerMetaType()
 }
 
 template<typename T>
-QString IMetaUtil::getTypename(){
-//    if constexpr (ITraitUtil::is_gadget_v<T>){
-//        return getMetaClassName(T::staticMetaObject);
-//    }else{
-//    }
-    return IMetaUtilHelper::demangleName(typeid(T).name());
+const std::string& IMetaUtil::getTypename(){
+    static std::string typeName = detail::demangleName(typeid(T).name()).toStdString();
+    return typeName;
 }
 
 template<typename T>
-QString IMetaUtil::getBareTypeName()
+const std::string& IMetaUtil::getBareTypeName()
 {
-    QString name = IMetaUtil::getTypename<T>();
+    QString name = detail::demangleName(typeid(T).name());
     if(name.startsWith("class ")){
         name = name.mid(6);
     }
-    return name.replace("<class ", "<").replace(",class ", ", ");
+    static std::string typeName = name.replace("<class ", "<").replace(",class ", ", ").toStdString();
+    return typeName;
 }
 
 $PackageWebCoreEnd

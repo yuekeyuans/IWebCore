@@ -26,7 +26,7 @@ public:
     IJsonResponse(T value);
 
 public:
-    virtual QString prefixMatcher() final;
+    virtual std::string prefixMatcher() final;
 };
 
 IJsonResponse operator"" _json(const char* str, size_t size);

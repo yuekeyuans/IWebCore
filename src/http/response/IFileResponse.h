@@ -16,12 +16,13 @@ public:
 public:
     IFileResponse();
     IFileResponse(const QString& data);
+    IFileResponse(const std::string& data);
 
 public:
     void enableContentDisposition();
 
 public:
-    virtual QString prefixMatcher() final;
+    virtual std::string prefixMatcher() final;
 };
 
 IFileResponse operator"" _file(const char* str, size_t size);

@@ -2,6 +2,7 @@
 #pragma once
 
 #include "core/util/IPreProcessorUtil.h"
+#include "core/util/IStringUtil.h"
 
 #define $AsResponse(klassName)  \
 public: \
@@ -10,9 +11,9 @@ public: \
     klassName& operator=(klassName &rhs){ IResponseInterface::operator =(rhs);   return *this; }   \
     klassName& operator=(klassName &&rhs){  IResponseInterface::operator =(std::move(rhs));  return *this; }  \
 private:    \
-    virtual IResponseWare* klassName ::prefixCreate(const QString &data) final {   \
+    virtual IResponseWare* klassName ::prefixCreate(const std::string &data) final {   \
         if constexpr (& klassName :: prefixMatcher != &IResponseWare::prefixMatcher){   \
-            return new klassName(data.mid(prefixMatcher().length()));   \
+            return new klassName(IStringUtil::mid(data, prefixMatcher().length()));   \
         }   \
         return nullptr; \
     }

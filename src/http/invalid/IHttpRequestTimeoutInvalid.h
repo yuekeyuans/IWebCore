@@ -9,7 +9,7 @@ class IHttpRequestTimeoutInvalid : public IHttpInvalidInterface<IHttpRequestTime
 {
 public:
     IHttpRequestTimeoutInvalid();
-    IHttpRequestTimeoutInvalid(const QString& description);
+    IHttpRequestTimeoutInvalid(const std::string& description);
 };
 
 $PackageWebCoreEnd

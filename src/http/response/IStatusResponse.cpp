@@ -21,7 +21,12 @@ IStatusResponse::IStatusResponse(const QString& num)
     m_raw->m_status = IHttpStatusUtil::toStatus(num);
 //    if(m_raw->m_status == IHttpStatus::UNKNOWN){
 //        IStatusResponseAbort::aborthttp_status_code_convert_failed($ISourceLocation);
-//    }
+    //    }
+}
+
+IStatusResponse::IStatusResponse(const std::string & data)
+    : IStatusResponse(QString::fromStdString(data))
+{
 }
 
 // skip check
@@ -44,7 +49,7 @@ IStatusResponse::IStatusResponse(IHttpStatus status, const QString &errorMsg)
     }
 }
 
-QString IStatusResponse::prefixMatcher()
+std::string IStatusResponse::prefixMatcher()
 {
     return "$status:";
 }

@@ -8,7 +8,7 @@ $PackageWebCoreBegin
 class IHttpRequestHeaderFieldTooLargeInvalid : public IHttpInvalidInterface<IHttpRequestHeaderFieldTooLargeInvalid>
 {
 public:
-    IHttpRequestHeaderFieldTooLargeInvalid(const QString& description = "Request Header Field Too Large");
+    IHttpRequestHeaderFieldTooLargeInvalid(const std::string& description = "Request Header Field Too Large");
 };
 
 $PackageWebCoreEnd

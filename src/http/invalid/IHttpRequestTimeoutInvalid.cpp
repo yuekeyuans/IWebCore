@@ -7,7 +7,7 @@ IHttpRequestTimeoutInvalid::IHttpRequestTimeoutInvalid()
 {
 }
 
-IHttpRequestTimeoutInvalid::IHttpRequestTimeoutInvalid(const QString &description)
+IHttpRequestTimeoutInvalid::IHttpRequestTimeoutInvalid(const std::string &description)
     : IHttpInvalidInterface(IHttpStatus::REQUEST_TIMEOUT_408, description)
 {
 }

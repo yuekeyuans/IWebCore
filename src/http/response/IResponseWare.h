@@ -36,8 +36,8 @@ public:
     void setHeader(const QString& key, IStringData&& value);
 //    void addHeader(const QString& key, const QString& value);
 
-    virtual QString prefixMatcher();
-    virtual IResponseWare* prefixCreate(const QString&);
+    virtual std::string prefixMatcher();
+    virtual IResponseWare* prefixCreate(const std::string&);
 
 public:
     IResponseRaw* m_raw{nullptr};

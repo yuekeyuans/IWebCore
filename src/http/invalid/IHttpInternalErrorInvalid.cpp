@@ -7,7 +7,7 @@ IHttpInternalErrorInvalid::IHttpInternalErrorInvalid()
 {
 }
 
-IHttpInternalErrorInvalid::IHttpInternalErrorInvalid(const QString &description)
+IHttpInternalErrorInvalid::IHttpInternalErrorInvalid(const std::string &description)
     : IHttpInvalidInterface(IHttpStatus::INTERNAL_SERVER_ERROR_500, description)
 {
 }

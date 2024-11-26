@@ -13,13 +13,13 @@ public:
     IResponseManage() = default;
 
 public:
-    void registerResponse(const QString& name, IResponseWare* response);
-    bool containResponse(const QString& name);
-    IResponseWare* convertableMatch(const QString&);
+    void registerResponse(const std::string& name, IResponseWare* response);
+    bool containResponse(const std::string& name);
+    IResponseWare* convertableMatch(const std::string&);
 
 private:
-    QMap<QString, IResponseWare*> m_responses;
-    QMap<QString, IResponseWare*> m_convertableResponses;
+    QMap<std::string, IResponseWare*> m_responses;
+    QMap<std::string, IResponseWare*> m_convertableResponses;
 };
 
 $PackageWebCoreEnd

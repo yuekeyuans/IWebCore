@@ -70,7 +70,7 @@ void IMethodNodeDetail::createSignature()
         args.append(node.typeName + " " + node.name);
     }
 
-    signature.append(returnNode.typeName).append(' ')
+    signature.append(QString::fromStdString(returnNode.typeName)).append(' ')
             .append(className).append("::").append(metaMethod.name()).append("(")
             .append(args.join(", ")).append(")");
 }

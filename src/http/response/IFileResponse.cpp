@@ -28,6 +28,11 @@ IFileResponse::IFileResponse(const QString &data)
     }
 }
 
+IFileResponse::IFileResponse(const std::string &data)
+    : IFileResponse(QString::fromStdString(data))
+{
+}
+
 // TODO: fix here
 void IFileResponse::enableContentDisposition()
 {
@@ -35,7 +40,7 @@ void IFileResponse::enableContentDisposition()
 //                                     detail::getContentDispositionAttachment(m_raw->content.contentString));
 }
 
-QString IFileResponse::prefixMatcher()
+std::string IFileResponse::prefixMatcher()
 {
     return "$file:";
 }

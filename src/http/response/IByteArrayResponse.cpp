@@ -29,7 +29,13 @@ IByteArrayResponse::IByteArrayResponse(const QString &data)
 {
 }
 
-QString IByteArrayResponse::prefixMatcher()
+// TODO: 简化
+IByteArrayResponse::IByteArrayResponse(const std::string & data)
+    : IByteArrayResponse(QString::fromStdString(data))
+{
+}
+
+std::string IByteArrayResponse::prefixMatcher()
 {
     return "$bytes:";
 }

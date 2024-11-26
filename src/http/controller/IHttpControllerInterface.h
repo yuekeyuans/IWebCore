@@ -15,12 +15,13 @@ public:
     virtual void $task() final;
 };
 
-$PackageDetailBegin
+namespace detail{
+
 void registerController(void* handler,
                         const QString& className,
                         const QMap<QString, QString>& classMap,
                         const QVector<QMetaMethod>& methods);
-$PackageDetailEnd
+}
 
 template<typename T, bool enabled>
 void IHttpControllerInterface<T, enabled>::$task()

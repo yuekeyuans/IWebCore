@@ -16,13 +16,14 @@ public:
 public:
     IRedirectResponse();
     IRedirectResponse(const QString &path);
+    IRedirectResponse(const std::string& path);
 
 public:
-    virtual QString prefixMatcher() final;
+    virtual std::string prefixMatcher() final;
     void updateLocationPath();
 
 private:
-    QString redirectPath;
+    QString redirectPath;   // TODO: 这个值改变一下
 };
 
 IRedirectResponse operator"" _redirect(const char* str, size_t size);

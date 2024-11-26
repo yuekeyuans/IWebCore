@@ -9,7 +9,7 @@ class IHttpInternalErrorInvalid : public IHttpInvalidInterface<IHttpInternalErro
 {
 public:
     IHttpInternalErrorInvalid();
-    IHttpInternalErrorInvalid(const QString& description);
+    IHttpInternalErrorInvalid(const std::string& description);
 };
 
 $PackageWebCoreEnd

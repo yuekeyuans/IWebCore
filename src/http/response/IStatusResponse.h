@@ -17,11 +17,12 @@ public:
 public:
     IStatusResponse() = default;
     IStatusResponse(const QString&);
+    IStatusResponse(const std::string&);
     IStatusResponse(int code, const QString& errorMsg="");
     IStatusResponse(IHttpStatus status, const QString& errorMsg="");
 
 public:
-    virtual QString prefixMatcher() final;
+    virtual std::string prefixMatcher() final;
 };
 
 IStatusResponse operator"" _status(unsigned long long int);

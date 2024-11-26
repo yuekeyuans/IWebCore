@@ -7,7 +7,7 @@ IHttpNotFoundInvalid::IHttpNotFoundInvalid()
 {
 }
 
-IHttpNotFoundInvalid::IHttpNotFoundInvalid(const QString& description)
+IHttpNotFoundInvalid::IHttpNotFoundInvalid(const std::string& description)
     : IHttpInvalidInterface(IHttpStatus::NOT_FOUND_404, description)
 {
 }

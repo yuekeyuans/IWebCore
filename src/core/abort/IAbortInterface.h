@@ -70,7 +70,7 @@ void IAbortInterface<T>::abort(int code, const char* data, const QString& descri
 template<typename T>
 QString IAbortInterface<T>::abortClass()
 {
-    return IMetaUtil::getTypename<T>();
+    return QString::fromStdString(IMetaUtil::getTypename<T>()); // TODO: fix latter
 }
 
 template<typename T>
@@ -80,7 +80,7 @@ void IAbortInterface<T>::checkAbortInfoLength()
     std::call_once(flag, [](){
         if((int)T::EndTag != T::instance()->abortDescription().size()){
             QString info = "Abort tag count and abort description count mismatch, please add abort description. Abort at ";
-            info.append(IMetaUtil::getTypename<T>());
+            info.append(QString::fromStdString(IMetaUtil::getTypename<T>()));
             qFatal(info.toUtf8());
         }
     });

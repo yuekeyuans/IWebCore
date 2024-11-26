@@ -15,7 +15,7 @@ public:
 
 public:
     QMetaType::Type typeId{QMetaType::UnknownType};
-    QString typeName;
+    std::string typeName;
 
 protected:
     std::function<void(IRequestImpl&, void*)> m_resolveFunction;

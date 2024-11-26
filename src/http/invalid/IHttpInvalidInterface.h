@@ -16,7 +16,7 @@ class IHttpInvalidInterface : public IHttpInvalidWare, public IClassNameUnit<T>
 {
 public:
     IHttpInvalidInterface(IHttpStatus code);
-    IHttpInvalidInterface(IHttpStatus code, const QString& description);
+    IHttpInvalidInterface(IHttpStatus code, const std::string& description);
 };
 
 template<typename T, bool enabled>
@@ -44,7 +44,7 @@ IHttpInvalidInterface<T, enabled>::IHttpInvalidInterface(IHttpStatus status)
 }
 
 template<typename T, bool enabled>
-IHttpInvalidInterface<T, enabled>::IHttpInvalidInterface(IHttpStatus status, const QString& description)
+IHttpInvalidInterface<T, enabled>::IHttpInvalidInterface(IHttpStatus status, const std::string& description)
     : IHttpInvalidWare(status, description)
 {
     if constexpr(&T::process != &IHttpInvalidWare::process){

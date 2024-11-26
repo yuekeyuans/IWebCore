@@ -11,6 +11,6 @@ struct IClassNameUnit
 };
 
 template<typename T>
-const std::string IClassNameUnit<T>::CLASS_NAME = IMetaUtil::getBareTypeName<T>().toStdString();
+const std::string IClassNameUnit<T>::CLASS_NAME = IMetaUtil::getBareTypeName<T>();
 
 $PackageWebCoreEnd

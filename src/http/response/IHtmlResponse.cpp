@@ -14,7 +14,13 @@ IHtmlResponse::IHtmlResponse(const QString &data)
     m_raw->setContent(data);
 }
 
-QString IHtmlResponse::prefixMatcher()
+IHtmlResponse::IHtmlResponse(const std::string & data)
+{
+    m_raw->setMime(IHttpMime::TEXT_HTML_UTF8);
+    m_raw->setContent(data);
+}
+
+std::string IHtmlResponse::prefixMatcher()
 {
     return "$html:";
 }
@@ -22,7 +28,7 @@ QString IHtmlResponse::prefixMatcher()
 IHtmlResponse operator"" _html(const char* str, size_t size)
 {
     Q_UNUSED(size)
-    return IHtmlResponse(str);
+    return IHtmlResponse(std::string(str, size));
 }
 
 $PackageWebCoreEnd

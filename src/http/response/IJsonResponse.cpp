@@ -40,7 +40,7 @@ IJsonResponse::IJsonResponse(const QString& value) : IResponseInterface()
     m_raw->setContent(new IJsonResponseContent(value.toStdString()));
 }
 
-QString IJsonResponse::prefixMatcher()
+std::string IJsonResponse::prefixMatcher()
 {
     return "$json:";
 }

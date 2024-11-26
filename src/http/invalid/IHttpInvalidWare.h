@@ -8,7 +8,7 @@ class IResponseRaw;
 class IHttpInvalidWare
 {
 public:
-    IHttpInvalidWare(IHttpStatus, const QString& description);
+    IHttpInvalidWare(IHttpStatus, const std::string& description);
     virtual ~IHttpInvalidWare() = default;
 
 public:
@@ -16,7 +16,7 @@ public:
 
 public:
     IHttpStatus status{IHttpStatus::UNKNOWN};
-    QString description;
+    IStringData description;
     std::function<void(const IHttpInvalidWare&, IResponseRaw&)> m_function{nullptr};
 };
 

@@ -35,6 +35,16 @@ IResponseContentWare::IResponseContentWare(IStringView stringView)
 {
 }
 
+IResponseContentWare::IResponseContentWare(IStringData && data)
+    : m_dataRaw(std::move(data))
+{
+}
+
+IResponseContentWare::IResponseContentWare(const IStringData & data)
+    : m_dataRaw(data)
+{
+}
+
 int IResponseContentWare::getSize()
 {
     return m_dataRaw.toStringView().length();

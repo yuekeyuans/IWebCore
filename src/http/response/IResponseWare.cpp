@@ -94,12 +94,12 @@ void IResponseWare::setHeader(const QString &key, IStringData &&value)
 //    m_raw->m_headers.insertMulti(key, value);
 //}
 
-QString IResponseWare::prefixMatcher()
+std::string IResponseWare::prefixMatcher()
 {
     return {};
 }
 
-IResponseWare* IResponseWare::prefixCreate(const QString &)
+IResponseWare* IResponseWare::prefixCreate(const std::string &)
 {
     IGlobalAbort::abortUnVisibleMethod();
     return nullptr;

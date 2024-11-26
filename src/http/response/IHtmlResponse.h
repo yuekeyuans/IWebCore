@@ -15,9 +15,10 @@ public:
 public:
     IHtmlResponse();
     IHtmlResponse(const QString& data);
+    IHtmlResponse(const std::string&);
 
 public:
-    virtual QString prefixMatcher() final;
+    virtual std::string prefixMatcher() final;
 };
 
 IHtmlResponse operator"" _html(const char* str, size_t size);

@@ -10,7 +10,8 @@ class IHttpNotFoundInvalid : public IHttpInvalidInterface<IHttpNotFoundInvalid>
 {
 public:
     IHttpNotFoundInvalid();
-    IHttpNotFoundInvalid(const QString& description);
+    IHttpNotFoundInvalid(const std::string& description);
+    // TODO: 这个可以直接使用 IStringData, 这样更好！！！
 };
 
 $PackageWebCoreEnd

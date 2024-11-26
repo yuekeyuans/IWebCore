@@ -7,7 +7,7 @@ IHttpBadRequestInvalid::IHttpBadRequestInvalid()
 {
 }
 
-IHttpBadRequestInvalid::IHttpBadRequestInvalid(const QString &description)
+IHttpBadRequestInvalid::IHttpBadRequestInvalid(const std::string &description)
     : IHttpInvalidInterface(IHttpStatus::BAD_REQUEST_400, description)
 {
 }

@@ -3,7 +3,6 @@
 
 $PackageWebCoreBegin
 
-
 void ISingletonUnitDetail::abortError(QString content)
 {
     IGlobalAbort::abortSingletonInstanceCreateError(content);
