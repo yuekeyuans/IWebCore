@@ -1,6 +1,7 @@
 ﻿#pragma once
 
-#include "core/util/IHeaderUtil.h"
+#include "core/util/IPackageUtil.h"
+#include "core/base/IStringView.h"
 
 $PackageWebCoreBegin
 

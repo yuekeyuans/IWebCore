@@ -2,57 +2,39 @@
 
 $PackageWebCoreBegin
 
-IStringViewStash IGlobalStringViewStash::m_stash;
-
 IStringView IStringViewStash::stash(const char *data)
 {
     return stash(QByteArray(data));
 }
 
+IStringView IStringViewStash::stash(QByteArray &&data)
+{
+    m_stashed.emplace_back(std::move(data));
+    return m_stashed.back().toStringView();
+}
+
 IStringView IStringViewStash::stash(const QByteArray &data)
 {
     m_stashed.emplace_back(data);
-    return IStringView(m_stashed.back().data(), m_stashed.back().length());
+    return m_stashed.back().toStringView();
 }
 
 IStringView IStringViewStash::stash(const QString &data)
 {
-    return stash(data.toUtf8());
+    m_stashed.emplace_back(data.toUtf8());
+    return m_stashed.back().toStringView();
+}
+
+IStringView IStringViewStash::stash(std::string &&data)
+{
+    m_stashed.emplace_back(std::move(data));
+    return m_stashed.back().toStringView();
 }
 
 IStringView IStringViewStash::stash(const std::string &data)
 {
-    return stash(QString::fromStdString(data));
-}
-
-IGlobalStringViewStash::IGlobalStringViewStash(const char *data)
-{
-    m_view = m_stash.stash(data);
-}
-
-IGlobalStringViewStash::IGlobalStringViewStash(const QByteArray &data)
-{
-    m_view = m_stash.stash(data);
-}
-
-IGlobalStringViewStash::IGlobalStringViewStash(const QString &data)
-{
-    m_view = m_stash.stash(data);
-}
-
-IGlobalStringViewStash::IGlobalStringViewStash(const std::string &data)
-{
-    m_view = m_stash.stash(data);
-}
-
-IGlobalStringViewStash::operator IStringView() const
-{
-    return m_view;
-}
-
-IStringView IGlobalStringViewStash::view() const
-{
-    return m_view;
+    m_stashed.emplace_back(std::move(data));
+    return m_stashed.back().toStringView();
 }
 
 $PackageWebCoreEnd

@@ -20,5 +20,4 @@ IStringView IQStringResponseContent::getSuggestedMime()
     return mime;
 }
 
-
 $PackageWebCoreEnd

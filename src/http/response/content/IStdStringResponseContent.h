@@ -13,9 +13,6 @@ public:
 public:
     virtual IStringView getType() final;
     virtual IStringView getSuggestedMime() final;
-
-private:
-    std::string m_content;
 };
 
 $PackageWebCoreEnd

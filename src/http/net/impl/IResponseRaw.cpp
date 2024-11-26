@@ -169,7 +169,6 @@ void IResponseRaw::setContent(IResponseContentWare *ware)
         this->m_mime = invalidWare->getSuggestedMime(); // TODO: 感觉这里不对
     }
 
-
     if(ware->m_excess){
         ware = ware->m_excess;
         ware->m_excess = nullptr;
