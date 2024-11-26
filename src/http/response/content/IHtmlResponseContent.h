@@ -16,7 +16,7 @@ public:
     IHtmlResponseContent(IStringView);
 
 public:
-    virtual const std::string& getType() final;
+    virtual const std::string& getType() const final;
     virtual const std::string& getSuggestedMime() const final;
 };
 

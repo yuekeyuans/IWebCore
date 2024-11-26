@@ -13,7 +13,7 @@ IStdStringResponseContent::IStdStringResponseContent(const std::string & value)
 {
 }
 
-const std::string& IStdStringResponseContent::getType()
+const std::string& IStdStringResponseContent::getType() const
 {
     return CLASS_NAME;
 }

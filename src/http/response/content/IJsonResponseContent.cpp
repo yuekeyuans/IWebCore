@@ -22,7 +22,7 @@ IJsonResponseContent::IJsonResponseContent(const std::string & data)
 {
 }
 
-const std::string& IWebCore::IJsonResponseContent::getType()
+const std::string& IWebCore::IJsonResponseContent::getType() const
 {
     return CLASS_NAME;
 }

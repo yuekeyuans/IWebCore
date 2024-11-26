@@ -13,7 +13,7 @@ IQByteArrayResponseContent::IQByteArrayResponseContent(const QByteArray & val)
 {
 }
 
-const std::string& IQByteArrayResponseContent::getType()
+const std::string& IQByteArrayResponseContent::getType() const
 {
     return CLASS_NAME;
 }

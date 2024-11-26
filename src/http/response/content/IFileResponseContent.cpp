@@ -19,7 +19,7 @@ int IFileResponseContent::getSize()
     return QFileInfo(m_path).size();
 }
 
-const std::string &IFileResponseContent::getType()
+const std::string &IFileResponseContent::getType() const
 {
     return CLASS_NAME;
 }

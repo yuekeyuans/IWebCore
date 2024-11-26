@@ -8,7 +8,7 @@ IQStringResponseContent::IQStringResponseContent(const QString &val)
 {
 }
 
-const std::string& IQStringResponseContent::getType()
+const std::string& IQStringResponseContent::getType() const
 {
     return CLASS_NAME;
 }

@@ -12,7 +12,7 @@ public:
     IInvalidReponseContent(const IHttpInvalidWare& ware);
 
 public:
-    virtual const std::string& getType() final;
+    virtual const std::string& getType() const final;
     virtual const std::string& getSuggestedMime() const final;
 
 public:

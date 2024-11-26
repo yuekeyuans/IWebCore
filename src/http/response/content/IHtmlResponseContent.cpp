@@ -33,7 +33,7 @@ IHtmlResponseContent::IHtmlResponseContent(IStringView view)
 {
 }
 
-const std::string &IHtmlResponseContent::getType()
+const std::string &IHtmlResponseContent::getType() const
 {
     return CLASS_NAME;
 }

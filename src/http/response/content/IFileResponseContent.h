@@ -12,7 +12,7 @@ public:
 
 public:
     virtual int getSize() final;
-    virtual const std::string& getType() final;
+    virtual const std::string& getType() const final;
     virtual IStringView getContent() final;
     virtual const std::string& getSuggestedMime() const final;
 

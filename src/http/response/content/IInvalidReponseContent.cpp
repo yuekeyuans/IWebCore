@@ -8,7 +8,7 @@ IInvalidReponseContent::IInvalidReponseContent(const IHttpInvalidWare &ware)
 {
 }
 
-const std::string& IInvalidReponseContent::getType()
+const std::string& IInvalidReponseContent::getType() const
 {
     return CLASS_NAME;
 }

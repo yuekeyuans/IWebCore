@@ -8,7 +8,7 @@ IStrinigViewResponseContent::IStrinigViewResponseContent(IStringView value)
 {
 }
 
-const std::string& IStrinigViewResponseContent::getType()
+const std::string& IStrinigViewResponseContent::getType() const
 {
     return CLASS_NAME;
 }
