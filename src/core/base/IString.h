@@ -1,0 +1,60 @@
+﻿#pragma once
+
+#include "core/util/IPackageUtil.h"
+#include "core/base/IStringView.h"
+
+$PackageWebCoreBegin
+
+struct IString {
+private:
+    enum class Type {
+        Invalid = 0,
+        QByteArray,
+        StdString,
+        IStringView
+    };
+
+    union {
+        QByteArray m_qByteArray;
+        std::string m_stdString;
+        IStringView m_iStringView;
+    };
+
+    Type m_type{Type::Invalid};
+
+public:
+    IString();
+    ~IString();
+
+    IString(const IString& other);
+    IString(IString&& other) noexcept;
+    IString& operator=(const IString& other);
+    IString& operator=(IString&& other) noexcept;
+
+    IString(const QByteArray*);
+    IString(const QByteArray& byteArray);
+    IString(QByteArray&& byteArray) noexcept;
+    IString(const std::string*);
+    IString(const std::string& stdString);
+    IString(std::string&& stdString) noexcept;
+    IString(IStringView stringView);
+
+    IString& operator=(const QString&);
+    IString& operator=(const QByteArray& byteArray);
+    IString& operator=(QByteArray&& byteArray) noexcept;
+    IString& operator=(const std::string& stdString);
+    IString& operator=(std::string&& stdString) noexcept;
+    IString& operator=(IStringView stringView);
+    IString& operator=(std::nullptr_t);
+
+public:
+    bool isEmpty() const;
+    IStringView toStringView() const;
+
+private:
+    void clear();
+    void copyFrom(const IString& other);
+    void moveFrom(IString&& other) noexcept;
+};
+
+$PackageWebCoreEnd

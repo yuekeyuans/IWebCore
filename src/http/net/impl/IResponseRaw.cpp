@@ -94,7 +94,7 @@ void IResponseRaw::setMime(IHttpMime mime)
     this->m_mime = IHttpMimeUtil::toString(mime);
 }
 
-void IResponseRaw::setMime(IStringData &&mime)
+void IResponseRaw::setMime(IString &&mime)
 {
     this->m_mime = std::move(mime);
 }

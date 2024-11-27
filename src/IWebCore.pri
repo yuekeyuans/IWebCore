@@ -18,7 +18,7 @@ HEADERS += \
     $$PWD/core/application/IAsioApplication.h \
     $$PWD/core/application/IAsioManage.h \
     $$PWD/core/application/IQtApplication.h \
-    $$PWD/core/base/IStringData.h \
+    $$PWD/core/base/IString.h \
     $$PWD/core/base/IStringViewStash.h \
     $$PWD/core/bean/IBeanAbort.h \
     $$PWD/core/bean/IBeanTraitInterface.h \
@@ -228,7 +228,7 @@ SOURCES += \
     $$PWD/core/application/IAsioApplication.cpp \
     $$PWD/core/application/IAsioManage.cpp \
     $$PWD/core/application/IQtApplication.cpp \
-    $$PWD/core/base/IStringData.cpp \
+    $$PWD/core/base/IString.cpp \
     $$PWD/core/base/IStringViewStash.cpp \
     $$PWD/core/task/default/IRegisterBaseTypeTask.cpp \
     $$PWD/core/util/ICodecUtil.cpp \

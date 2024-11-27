@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
-#include "core/base/IStringData.h"
+#include "core/base/IString.h"
 
 $PackageWebCoreBegin
 
@@ -18,8 +18,8 @@ public:
     IResponseContentWare(const std::string& stdString);
     IResponseContentWare(std::string&& stdString) noexcept;
     IResponseContentWare(IStringView stringView);
-    IResponseContentWare(IStringData&&);
-    IResponseContentWare(const IStringData&);
+    IResponseContentWare(IString&&);
+    IResponseContentWare(const IString&);
 
 public:
     virtual int getSize();
@@ -31,7 +31,7 @@ protected:
     IResponseContentWare* m_excess{};
 
 public:
-    IStringData m_dataRaw;
+    IString m_dataRaw;
 };
 
 $PackageWebCoreEnd

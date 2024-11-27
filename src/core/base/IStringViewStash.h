@@ -2,7 +2,7 @@
 
 #include "core/util/IPackageUtil.h"
 #include "core/base/IStringView.h"
-#include "core/base/IStringData.h"
+#include "core/base/IString.h"
 
 $PackageWebCoreBegin
 
@@ -20,7 +20,7 @@ public:
     IStringView stash(const std::string& data);
 
 private:
-    std::list<IStringData> m_stashed;
+    std::list<IString> m_stashed;
 };
 
 $PackageWebCoreEnd

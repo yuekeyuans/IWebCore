@@ -161,7 +161,7 @@ IHttpVersion IResponse::version() const
     return m_impl.m_reqRaw.m_httpVersion;
 }
 
-const IStringData& IResponse::mime() const
+const IString& IResponse::mime() const
 {
     return m_impl.m_respRaw.m_mime;
 }

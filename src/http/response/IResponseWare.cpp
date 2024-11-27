@@ -44,7 +44,7 @@ IResponseHeader IResponseWare::operator[](const QString &header)
     return IResponseHeader(*m_raw, header);
 }
 
-const IStringData& IResponseWare::mime() const
+const IString& IResponseWare::mime() const
 {
     return m_raw->m_mime;
 }
@@ -54,7 +54,7 @@ void IResponseWare::setMime(IHttpMime mime)
     m_raw->setMime(mime);
 }
 
-void IResponseWare::setMime(IStringData &&mime)
+void IResponseWare::setMime(IString &&mime)
 {
     m_raw->setMime(std::move(mime));
 }
@@ -84,7 +84,7 @@ QMultiHash<QString, QString> &IResponseWare::headers()
 //    m_raw->m_headers.insert(key, value);
 //}
 
-void IResponseWare::setHeader(const QString &key, IStringData &&value)
+void IResponseWare::setHeader(const QString &key, IString &&value)
 {
     // TODO: 这个需要补充
 }

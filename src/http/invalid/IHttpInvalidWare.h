@@ -16,7 +16,7 @@ public:
 
 public:
     IHttpStatus status{IHttpStatus::UNKNOWN};
-    IStringData description;
+    IString description;
     std::function<void(const IHttpInvalidWare&, IResponseRaw&)> m_function{nullptr};
 };
 

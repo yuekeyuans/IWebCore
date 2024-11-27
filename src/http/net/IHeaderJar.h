@@ -37,7 +37,7 @@ public:
     void addResponseHeader(QString key, const QStringList& values);
     void setResponseHeader(QString key, QString value);
     void setResponseHeader(QString key, const QStringList& values);
-    void setResponseHeader(QString key, const IStringData&);
+    void setResponseHeader(QString key, const IString&);
     void deleteReponseHeader(const QString& key);
 };
 

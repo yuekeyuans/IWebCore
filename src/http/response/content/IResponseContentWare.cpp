@@ -35,12 +35,12 @@ IResponseContentWare::IResponseContentWare(IStringView stringView)
 {
 }
 
-IResponseContentWare::IResponseContentWare(IStringData && data)
+IResponseContentWare::IResponseContentWare(IString && data)
     : m_dataRaw(std::move(data))
 {
 }
 
-IResponseContentWare::IResponseContentWare(const IStringData & data)
+IResponseContentWare::IResponseContentWare(const IString & data)
     : m_dataRaw(data)
 {
 }

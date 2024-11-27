@@ -108,7 +108,7 @@ void IHeaderJar::setResponseHeader(QString key, const QStringList &values)
 }
 
 // TODO: 这里 HEADERS 重构时再做吧
-void IHeaderJar::setResponseHeader(QString key, const IStringData & value)
+void IHeaderJar::setResponseHeader(QString key, const IString & value)
 {
     deleteReponseHeader(key);
 //    for(const auto& value : values){

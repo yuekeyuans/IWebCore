@@ -23,9 +23,9 @@ public:
     IResponseHeader operator[](const QString& header);
 
 public:
-    const IStringData& mime() const;
+    const IString& mime() const;
     void setMime(IHttpMime);
-    void setMime(IStringData&&);
+    void setMime(IString&&);
     
     IHttpStatus status() const;
     void setStatus(IHttpStatus statusCode);
@@ -33,7 +33,7 @@ public:
     const QMultiHash<QString, QString>& headers() const;
     QMultiHash<QString, QString>& headers();
 //    void setHeader(const QString& key, const QString& value);
-    void setHeader(const QString& key, IStringData&& value);
+    void setHeader(const QString& key, IString&& value);
 //    void addHeader(const QString& key, const QString& value);
 
     virtual std::string prefixMatcher();

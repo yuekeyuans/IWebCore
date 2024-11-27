@@ -23,7 +23,7 @@ public:
     void setHeader(const QString& key, const QString& value);
 
     void setMime(IHttpMime m_mime);
-    void setMime(IStringData&&);
+    void setMime(IString&&);
 
     void setContent(IJson&& data);
     void setContent(const IJson& data);
@@ -53,7 +53,7 @@ public:
 
 public:
     bool m_isValid{true};
-    IStringData m_mime;
+    IString m_mime;
     IHttpStatus m_status {IHttpStatus::OK_200};
     QMultiHash<QString, QString> m_headers;
     std::list<ICookiePart> m_cookies;
