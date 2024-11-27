@@ -56,11 +56,11 @@ void generateExternalHeadersContent(IResponseRaw& raw, QByteArray &content)
 QByteArray generateHeadersContent(IRequestImpl& m_raw, int contentSize)
 {
     if(contentSize != 0){
-        m_raw.m_headerJar.setResponseHeader(IHttpHeader::ContentLength, QString::number(contentSize));
-        if(!m_raw.m_headerJar.containResponseHeaderKey(IHttpHeader::ContentType)
-                && !m_raw.m_respRaw.m_mime.isEmpty()){
-            m_raw.m_headerJar.setResponseHeader(IHttpHeader::ContentType, m_raw.m_respRaw.m_mime);
-        }
+//        m_raw.m_headerJar.setResponseHeader(IHttpHeader::ContentLength, QString::number(contentSize));
+//        if(!m_raw.m_headerJar.containResponseHeaderKey(IHttpHeader::ContentType)
+//                && !m_raw.m_respRaw.m_mime.isEmpty()){
+//            m_raw.m_headerJar.setResponseHeader(IHttpHeader::ContentType, m_raw.m_respRaw.m_mime);
+//        }
     }
 
     QByteArray headersContent;

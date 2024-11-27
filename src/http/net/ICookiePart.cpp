@@ -93,10 +93,11 @@ ICookiePart &ICookiePart::setSameSite(ICookiePart::SameSiteType sameSite)
     return *this;
 }
 
+// TODO:
 QString ICookiePart::toHeaderString() const
 {
     QString header;
-    header.append(IHttpHeader::SetCookie).append(": ")
+    header.append(IHttpHeader::SetCookie.toQString()).append(": ")
         .append(key);
     if(!value.isEmpty()){
         header.append('=').append(value);

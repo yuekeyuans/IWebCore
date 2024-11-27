@@ -12,7 +12,6 @@ $PackageWebCoreBegin
 class IStringViewList;
 class IStringView : public std::string_view, private IRegisterMetaTypeUnit<IStringView>
 {
-    using std::string_view::basic_string_view;
 public:
     IStringView() = default;
     IStringView(const std::string& data);

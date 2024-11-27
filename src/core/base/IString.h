@@ -46,6 +46,8 @@ public:
     IString& operator=(std::string&& stdString) noexcept;
     IString& operator=(IStringView stringView);
     IString& operator=(std::nullptr_t);
+    bool operator ==(const IString&) const;
+    bool operator <(const IString&) const;
 
 public:
     bool isEmpty() const;
@@ -58,3 +60,12 @@ private:
 };
 
 $PackageWebCoreEnd
+
+namespace std {
+    template <>
+    struct hash<IString> {
+        std::size_t operator()(const IString& key) const noexcept {
+            return std::hash<std::string_view>()(key.toStringView());
+        }
+    };
+}

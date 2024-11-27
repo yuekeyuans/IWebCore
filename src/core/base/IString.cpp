@@ -118,6 +118,23 @@ IString& IString::operator=(std::nullptr_t) {
     return *this;
 }
 
+// TODO: 这些是都要优化的,但是可以等一等.
+bool IString::operator ==(const IString &that) const
+{
+    if(this == &that){
+        return true;
+    }
+    return this->toStringView() == that.toStringView();
+}
+
+bool IString::operator <(const IString &that) const
+{
+    if(this == &that){
+        return false;
+    }
+    return this->toStringView() < that.toStringView();
+}
+
 bool IString::isEmpty() const
 {
     switch (m_type) {

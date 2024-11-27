@@ -264,6 +264,7 @@ SOURCES += \
     $$PWD/http/base/IMetaType.cpp \
     $$PWD/http/base/IMethodParameterManage.cpp \
     $$PWD/http/base/IReturnType.cpp \
+    $$PWD/http/biscuits/IHttpHeader.cpp \
     $$PWD/http/controller/IHttpControllerAction.cpp \
     $$PWD/http/controller/IHttpControllerInterface.cpp \
     $$PWD/http/controller/IHttpControllerNode.cpp \
