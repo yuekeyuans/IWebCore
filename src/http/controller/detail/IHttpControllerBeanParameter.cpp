@@ -125,17 +125,18 @@ void *IHttpControllerBeanParameter::assambleBeanWareWithUrl(IBeanWare *bean, IRe
 
 void *IHttpControllerBeanParameter::assambleBeanWareWithHeaders(IBeanWare *bean, IRequest &request)
 {
-    const auto& parameters = request.headers();
+//    const auto& parameters = request.headers();
 
-    if(checkKeyInListPair(parameters, bean, request)){
-        bool convertOk;
-//        auto map = resolveBeanFieldAsMap(parameters, bean, request, convertOk);
-//        if(convertOk){
-//            bean->load(map);
-//        }
-        // TODO: 注释掉
-    }
-    return bean;
+//    if(checkKeyInListPair(parameters, bean, request)){
+//        bool convertOk;
+////        auto map = resolveBeanFieldAsMap(parameters, bean, request, convertOk);
+////        if(convertOk){
+////            bean->load(map);
+////        }
+//        // TODO: 注释掉
+//    }
+//    return bean;
+    return {};
 }
 
 

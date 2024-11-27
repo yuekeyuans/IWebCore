@@ -7,8 +7,8 @@
 #include "core/util/IJsonUtil.h"
 
 $EnableTaskOutput(true)
-$EnableUnitTest(false)
-$EnableHttpPythonTest(false)
+$EnableUnitTest(true)
+$EnableHttpPythonTest(true)
 int main(int argc, char *argv[])
 {
     IApplication app(argc, argv);

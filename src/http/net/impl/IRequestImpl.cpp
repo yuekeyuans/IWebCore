@@ -41,12 +41,12 @@ IJson IRequestImpl::requestJson() const
 
 int IRequestImpl::contentLength() const
 {
-    return m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentLength).toQString().toInt();
+    return m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentLength).toStringView().toQString().toInt();
 }
 
 IStringView IRequestImpl::contentType() const
 {
-    return m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentType);
+    return m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentType).toStringView();
 }
 
 bool IRequestImpl::isValid() const
@@ -501,14 +501,15 @@ void IRequestImpl::parseHeader(IStringView line)
 
     auto key = line.substr(0, index).trimmed();
     auto value = line.substr(index+1).trimmed();
-    m_reqRaw.m_requestHeaders.insertMulti(key, value);
+    m_reqRaw.m_requestHeaders.insert(key, value);
 }
 
+// TODO: 处理一下这个乱糟糟的类型
 void IRequestImpl::resolveHeaders()
 {
-    if(m_reqRaw.m_requestHeaders.contains(IHttpHeader::ContentLength)){
+    if(m_reqRaw.m_requestHeaders.hasKey(IHttpHeader::ContentLength)){
         bool ok;
-        m_contentLength = m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentLength).toQString().toUInt(&ok);
+        m_contentLength = m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentLength).toStringView().toQString().toUInt(&ok);
         if(!ok){
             return setInvalid(IHttpBadRequestInvalid("ContentLength error"));
         }
@@ -519,10 +520,10 @@ void IRequestImpl::resolveHeaders()
     }
 
     auto contentType = m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentType);
-    if(!contentType.empty()){
-        m_reqRaw.m_requestMime = IHttpMimeUtil::toMime(contentType);
+    if(!contentType.isEmpty()){
+        m_reqRaw.m_requestMime = IHttpMimeUtil::toMime(contentType.toStringView().toQString());
         if(m_reqRaw.m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
-            m_multipartBoundary = getBoundary(contentType);
+            m_multipartBoundary = getBoundary(contentType.toStringView());
             if(m_multipartBoundary.empty()){
                 setInvalid(IHttpBadRequestInvalid("multipart request has no boundary"));
                 return;
@@ -539,11 +540,11 @@ void IRequestImpl::resolveCookieHeaders()
 {
     auto cookies = m_reqRaw.m_requestHeaders.values(IHttpHeader::Cookie);
     for(const auto& cookie : cookies){
-        auto args = cookie.split('=');
+        auto args = cookie.toStringView().toQString().split('=');
         if(args.length() == 1){
-            m_reqRaw.m_requestCookieParameters.insertMulti(args.first(), args.first());
+            m_reqRaw.m_requestCookieParameters.insertMulti(stash(args.first()), stash(args.first()));
         }else{
-            m_reqRaw.m_requestCookieParameters.insertMulti(args.first(), args.last());
+            m_reqRaw.m_requestCookieParameters.insertMulti(stash(args.first()), stash(args.last()));
         }
     }
 }

@@ -33,8 +33,8 @@ public:
     IRequest(IRequest&&);
     IRequest& operator=(IRequest&&);
 
-    IStringView operator[](IStringView header) const;
-    IStringView operator[](const QString& header) const;
+//    IStringView operator[](IStringView header) const;
+//    IStringView operator[](const QString& header) const;
 
     ICookieJar& cookieJar() const;
     ISessionJar* sessionJar() const;
@@ -52,8 +52,8 @@ public:
     IStringView bodyContentType() const;
     IStringView bodyContent() const;
 
-    QMultiHash<IStringView, IStringView>& headers();
-    const QMultiHash<IStringView, IStringView>& headers() const;
+//    QMultiHash<IStringView, IStringView>& headers();
+//    const QMultiHash<IStringView, IStringView>& headers() const;
     const QMap<IStringView, IStringView>& urlParameters() const;
     const QMap<IStringView, IStringView>& paramParameters() const;
     const QMap<IStringView, IStringView>& bodyFormParameters() const;

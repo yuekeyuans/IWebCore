@@ -54,16 +54,16 @@ IRequest &IRequest::operator=(IRequest &&)
     return *this;
 }
 
-IStringView IRequest::operator[](IStringView header) const
-{
-    return m_impl->m_headerJar.getRequestHeaderValue(header);
-}
+//IStringView IRequest::operator[](IStringView header) const
+//{
+//    return m_impl->m_headerJar.getRequestHeaderValue(header);
+//}
 
-IStringView IRequest::operator[](const QString &header) const
-{
-    auto temp = header.toUtf8();
-    return operator [](IStringView(temp));
-}
+//IStringView IRequest::operator[](const QString &header) const
+//{
+//    auto temp = header.toUtf8();
+//    return operator [](IStringView(temp));
+//}
 
 //IResponse *IRequest::response() const
 //{
@@ -130,15 +130,15 @@ IStringView IRequest::bodyContent() const
     return m_impl->m_reqRaw.m_requestBody;
 }
 
-QMultiHash<IStringView, IStringView> &IRequest::headers()
-{
-    return m_impl->m_reqRaw.m_requestHeaders;
-}
+//QMultiHash<IStringView, IStringView> &IRequest::headers()
+//{
+//    return m_impl->m_reqRaw.m_requestHeaders;
+//}
 
-const QMultiHash<IStringView, IStringView> &IRequest::headers() const
-{
-    return m_impl->m_reqRaw.m_requestHeaders;
-}
+//const QMultiHash<IStringView, IStringView> &IRequest::headers() const
+//{
+//    return m_impl->m_reqRaw.m_requestHeaders;
+//}
 
 const QMap<IStringView, IStringView> &IRequest::urlParameters() const
 {

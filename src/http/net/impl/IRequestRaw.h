@@ -24,7 +24,8 @@ public:
     IHttpMime m_requestMime {IHttpMime::UNKNOWN};
     IStringView m_requestBody;
 
-    QMultiHash<IStringView, IStringView> m_requestHeaders;
+    IHttpHeader m_requestHeaders;
+//    QMultiHash<IStringView, IStringView> m_requestHeaders;
     QMap<IStringView, IStringView> m_requestUrlParameters;
     QMap<IStringView, IStringView> m_requestPathParameters;     // 特指 url 参数后面的内容
     QMap<IStringView, IStringView> m_requestBodyParameters;  // 特指 url encoded

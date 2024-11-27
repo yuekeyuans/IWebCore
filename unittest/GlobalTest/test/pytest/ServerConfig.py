@@ -1,3 +1,3 @@
-port="8564"
+port="8550"
 ip="127.0.0.1"
-serverAddress="http://127.0.0.1:8564"
+serverAddress="http://127.0.0.1:8550"

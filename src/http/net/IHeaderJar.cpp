@@ -11,24 +11,24 @@ IHeaderJar::IHeaderJar() : IJarUnit()
     IGlobalAbort::abortUnVisibleMethod();
 }
 
-const QMultiHash<IStringView, IStringView>& IHeaderJar::requestHeaders() const
-{
-    return m_impl.m_reqRaw.m_requestHeaders;
-}
+//const QMultiHash<IStringView, IStringView>& IHeaderJar::requestHeaders() const
+//{
+//    return m_impl.m_reqRaw.m_requestHeaders;
+//}
 
-QMultiHash<IStringView, IStringView> &IHeaderJar::requestHeaders()
-{
-    return m_impl.m_reqRaw.m_requestHeaders;
-}
+//QMultiHash<IStringView, IStringView> &IHeaderJar::requestHeaders()
+//{
+//    return m_impl.m_reqRaw.m_requestHeaders;
+//}
 
-IStringViewList IHeaderJar::requestHeaderKeys() const
+std::vector<IString> IHeaderJar::requestHeaderKeys() const
 {
     return m_impl.m_reqRaw.m_requestHeaders.keys();
 }
 
 bool IHeaderJar::containRequestHeaderKey(IStringView key) const
 {
-    return m_impl.m_reqRaw.m_requestHeaders.contains(key);
+    return m_impl.m_reqRaw.m_requestHeaders.hasKey(key);
 }
 
 bool IHeaderJar::containRequestHeaderKey(const QString &key) const
@@ -37,23 +37,23 @@ bool IHeaderJar::containRequestHeaderKey(const QString &key) const
     return containRequestHeaderKey(IStringView(temp));
 }
 
-IStringView IHeaderJar::getRequestHeaderValue(IStringView view) const
+IString IHeaderJar::getRequestHeaderValue(IStringView view) const
 {
     return m_impl.m_reqRaw.m_requestHeaders.value(view);
 }
 
-IStringView IHeaderJar::getRequestHeaderValue(const QString &key) const
+IString IHeaderJar::getRequestHeaderValue(const QString &key) const
 {
     auto temp = key.toUtf8();
     return getRequestHeaderValue(IStringView(temp));
 }
 
-IStringViewList IHeaderJar::getRequestHeaderValues(IStringView key) const
+const std::vector<IString>& IHeaderJar::getRequestHeaderValues(IStringView key) const
 {
     return m_impl.m_reqRaw.m_requestHeaders.values(key);
 }
 
-IStringViewList IHeaderJar::getRequestHeaderValues(const QString &key) const
+const std::vector<IString>& IHeaderJar::getRequestHeaderValues(const QString &key) const
 {
     auto temp = key.toUtf8();
     return getRequestHeaderValues(IStringView(temp));
