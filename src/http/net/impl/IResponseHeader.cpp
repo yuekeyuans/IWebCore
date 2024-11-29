@@ -3,33 +3,33 @@
 
 $PackageWebCoreBegin
 
-IResponseHeader::IResponseHeader(IResponseRaw& raw, const QString &key)
+IResponseHeader::IResponseHeader(IResponseRaw& raw, const IString &key)
     : m_raw(raw), m_key(key)
 {
 }
 
-IResponseHeader::operator QString() noexcept
+IResponseHeader::operator const IString&() noexcept
 {
     return value();
 }
 
-const IResponseHeader& IResponseHeader::operator=(const QString &value)
+const IResponseHeader& IResponseHeader::operator=(const IString &value)
 {
     m_raw.m_headers.replace(m_key, value);
     return *this;
 }
 
-QString IResponseHeader::key()
+const IString& IResponseHeader::key()
 {
     return m_key;
 }
 
-QString IResponseHeader::value()
+const IString& IResponseHeader::value()
 {
     return m_raw.m_headers.value(m_key);
 }
 
-QStringList IResponseHeader::values()
+const std::vector<IString> & IResponseHeader::values()
 {
     return m_raw.m_headers.values(m_key);
 }

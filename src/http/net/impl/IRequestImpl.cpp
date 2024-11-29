@@ -511,7 +511,7 @@ void IRequestImpl::parseHeader(IStringView line)
 // TODO: 处理一下这个乱糟糟的类型
 void IRequestImpl::resolveHeaders()
 {
-    if(m_reqRaw.m_requestHeaders.hasKey(IHttpHeader::ContentLength)){
+    if(m_reqRaw.m_requestHeaders.contain(IHttpHeader::ContentLength)){
         bool ok;
         m_contentLength = m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentLength).m_stringView.toQString().toUInt(&ok);
         if(!ok){

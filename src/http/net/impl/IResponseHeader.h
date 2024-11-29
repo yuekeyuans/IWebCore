@@ -8,18 +8,18 @@ class IResponseRaw;
 class IResponseHeader
 {
 public:
-    IResponseHeader(IResponseRaw& raw, const QString& key);
+    IResponseHeader(IResponseRaw& raw, const IString& key);
 
 public:
-    operator QString() noexcept;
-    const IResponseHeader& operator=(const QString& value);
-    QString key();
-    QString value();
-    QStringList values();
+    operator const IString&() noexcept;
+    const IResponseHeader& operator=(const IString& value);
+    const IString& key();
+    const IString& value();
+    const std::vector<IString> & values();
 
 private:
     IResponseRaw& m_raw;
-    const QString m_key;
+    const IString& m_key;
 };
 
 $PackageWebCoreEnd

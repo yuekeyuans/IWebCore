@@ -53,6 +53,7 @@ void generateExternalHeadersContent(IResponseRaw& raw, QByteArray &content)
     }
 }
 
+// TODO: 这里之后补充
 QByteArray generateHeadersContent(IRequestImpl& m_raw, int contentSize)
 {
     if(contentSize != 0){
@@ -63,15 +64,17 @@ QByteArray generateHeadersContent(IRequestImpl& m_raw, int contentSize)
 //        }
     }
 
-    QByteArray headersContent;
-    auto keys = m_raw.m_respRaw.m_headers.uniqueKeys();
-    for(const auto& key : keys){
-        auto values = m_raw.m_respRaw.m_headers.values(key);
-        headersContent.append(key).append(":").append(values.join(";")).append(NEW_LINE);
-    }
+//    QByteArray headersContent;
+//    auto keys = m_raw.m_respRaw.m_headers.uniqueKeys();
+//    for(const auto& key : keys){
+//        auto values = m_raw.m_respRaw.m_headers.values(key);
+//        headersContent.append(key).append(":").append(values.join(";")).append(NEW_LINE);
+//    }
 
-    detail::generateExternalHeadersContent(m_raw.m_respRaw, headersContent);
-    return headersContent;
+//    detail::generateExternalHeadersContent(m_raw.m_respRaw, headersContent);
+//    return headersContent;
+
+    return {};
 }
 
 }
@@ -84,7 +87,7 @@ IResponseRaw::~IResponseRaw()
     }
 }
 
-void IResponseRaw::setHeader(const QString &key, const QString &value)
+void IResponseRaw::setHeader(IString key, IString value)
 {
     m_headers.insert(std::move(key), std::move(value));
 }

@@ -43,7 +43,7 @@ void IRedirectResponse::updateLocationPath()
 //                    .append(ICodecUtil::urlEncode(attributes[key]));
 //        }
 //    }
-    m_raw->m_headers.insert("Location", path);
+    m_raw->m_headers.insert("Location", path.toUtf8());
 }
 
 IRedirectResponse operator"" _redirect(const char* str, size_t size)

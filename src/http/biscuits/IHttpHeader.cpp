@@ -21,7 +21,7 @@ void IHttpHeader::remove(IString key, IString value)
     }
 }
 
-void IHttpHeader::clear(IString key)
+void IHttpHeader::clear(const IString& key)
 {
     m_header.erase(key);
 }
@@ -52,9 +52,14 @@ const IString &IHttpHeader::value(const IString &key) const
     return vals.front();
 }
 
-bool IHttpHeader::hasKey(const IString &key) const
+bool IHttpHeader::contain(const IString &key) const
 {
     return m_header.find(key) != m_header.end();
+}
+
+bool IHttpHeader::isEmpty() const
+{
+    return m_header.empty();
 }
 
 $PackageWebCoreEnd

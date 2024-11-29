@@ -39,7 +39,7 @@ IResponseWare &IResponseWare::operator = (IResponseWare && rhs)
     return *this;
 }
 
-IResponseHeader IResponseWare::operator[](const QString &header)
+IResponseHeader IResponseWare::operator[](const IString &header)
 {
     return IResponseHeader(*m_raw, header);
 }
@@ -69,12 +69,12 @@ void IResponseWare::setStatus(IHttpStatus statusCode)
     m_raw->m_status = statusCode;
 }
 
-const QMultiHash<QString, QString>& IResponseWare::headers() const
+const IHttpHeader& IResponseWare::headers() const
 {
     return m_raw->m_headers;
 }
 
-QMultiHash<QString, QString> &IResponseWare::headers()
+IHttpHeader &IResponseWare::headers()
 {
     return m_raw->m_headers;
 }

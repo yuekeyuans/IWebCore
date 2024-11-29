@@ -4,6 +4,7 @@
 #include "core/util/IMetaUtil.h"
 #include "core/unit/IRegisterMetaTypeUnit.h"
 #include "http/net/IJarUnit.h"
+#include "http/biscuits/IHttpHeader.h"
 
 $PackageWebCoreBegin
 
@@ -18,27 +19,27 @@ public:
 //    QMultiHash<IStringView, IStringView>& requestHeaders();
 
     std::vector<IString> requestHeaderKeys() const;
-    bool containRequestHeaderKey(IStringView key) const;
-    bool containRequestHeaderKey(const QString& key) const;
+    bool containRequestHeaderKey(const IString& key) const;
+//    bool containRequestHeaderKey(const QString& key) const;
 
-    IString getRequestHeaderValue(IStringView key) const;
-    IString getRequestHeaderValue(const QString& key) const;
-    const std::vector<IString>& getRequestHeaderValues(IStringView key) const;
-    const std::vector<IString>& getRequestHeaderValues(const QString& key) const;
+    IString getRequestHeaderValue(const IString& key) const;
+//    IString getRequestHeaderValue(const QString& key) const;
+    const std::vector<IString>& getRequestHeaderValues(const IString& key) const;
+//    const std::vector<IString>& getRequestHeaderValues(const QString& key) const;
 
-    const QMultiHash<QString, QString>& responseHeaders() const;
-    QMultiHash<QString, QString>& responseHeaders();
+//    IHttpHeader& responseHeaders();
+    IHttpHeader& responseHeaders();
 
-    QStringList responseHeaderKeys() const;
-    bool containResponseHeaderKey(const QString& key) const;
+    std::vector<IString> responseHeaderKeys() const;
+    bool containResponseHeaderKey(const IString& key) const;
 
 
-    void addResponseHeader(QString key, QString value);
-    void addResponseHeader(QString key, const QStringList& values);
-    void setResponseHeader(QString key, QString value);
-    void setResponseHeader(QString key, const QStringList& values);
-    void setResponseHeader(QString key, const IString&);
-    void deleteReponseHeader(const QString& key);
+    void addResponseHeader(IString key, IString value);
+    void addResponseHeader(IString key, const QStringList& values);
+    void setResponseHeader(IString key, IString value);
+    void setResponseHeader(IString key, const QStringList& values);
+//    void setResponseHeader(IString key, const IString&);
+    void deleteReponseHeader(const IString& key);
 };
 
 $PackageWebCoreEnd

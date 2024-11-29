@@ -43,14 +43,14 @@ IResponse &IResponse::operator=(IResponse &&)
     return *this;
 }
 
-IResponseHeader IResponse::operator[](const QString &header) const
+IResponseHeader IResponse::operator[](const IString &header) const
 {
     return {m_impl.m_respRaw, header};
 }
 
-IResponse &IResponse::setHeader(const QString &key, const QString &value)
+IResponse &IResponse::setHeader(IString key, IString value)
 {
-    m_impl.m_headerJar.setResponseHeader(key, value);
+    m_impl.m_headerJar.setResponseHeader(std::move(key), value);
     return *this;
 }
 
@@ -171,7 +171,7 @@ IHttpStatus IResponse::status() const
     return m_impl.m_respRaw.m_status;
 }
 
-const QMultiHash<QString, QString>& IResponse::headers() const
+const IHttpHeader& IResponse::headers() const
 {
     return m_impl.m_respRaw.m_headers;
 }

@@ -4,6 +4,7 @@
 #include "core/util/IHeaderUtil.h"
 #include "http/biscuits/IHttpMime.h"
 #include "http/biscuits/IHttpStatus.h"
+#include "http/biscuits/IHttpHeader.h"
 #include "http/net/ICookiePart.h"
 #include "http/response/content/IResponseContentWare.h"
 
@@ -20,7 +21,7 @@ public:
     ~IResponseRaw();
 
 public:
-    void setHeader(const QString& key, const QString& value);
+    void setHeader(IString key, IString value);
 
     void setMime(IHttpMime m_mime);
     void setMime(IString&&);
@@ -55,7 +56,8 @@ public:
     bool m_isValid{true};
     IString m_mime;
     IHttpStatus m_status {IHttpStatus::OK_200};
-    QMultiHash<QString, QString> m_headers;
+    IHttpHeader m_headers;
+//    QMultiHash<QString, QString> m_headers;
     std::list<ICookiePart> m_cookies;
     std::list<IResponseContentWare*> m_contents;
 };

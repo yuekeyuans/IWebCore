@@ -20,7 +20,7 @@ public:
     IResponseWare(const IResponseWare &);
     IResponseWare& operator =(const IResponseWare&);
     IResponseWare& operator =(IResponseWare&&);
-    IResponseHeader operator[](const QString& header);
+    IResponseHeader operator[](const IString& header);
 
 public:
     const IString& mime() const;
@@ -30,8 +30,8 @@ public:
     IHttpStatus status() const;
     void setStatus(IHttpStatus statusCode);
 
-    const QMultiHash<QString, QString>& headers() const;
-    QMultiHash<QString, QString>& headers();
+    const IHttpHeader& headers() const;
+    IHttpHeader& headers();
 //    void setHeader(const QString& key, const QString& value);
     void setHeader(const QString& key, IString&& value);
 //    void addHeader(const QString& key, const QString& value);

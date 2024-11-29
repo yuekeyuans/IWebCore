@@ -5,6 +5,7 @@
 #include "http/biscuits/IHttpStatus.h"
 #include "http/biscuits/IHttpVersion.h"
 #include "http/biscuits/IHttpMime.h"
+#include "http/biscuits/IHttpHeader.h"
 #include "http/invalid/IHttpInvalidWare.h"
 #include "http/net/impl/IResponseHeader.h"
 
@@ -26,8 +27,8 @@ public:
     IResponse& operator=(const IResponse&);
     IResponse &operator=(IResponse &&);
 
-    IResponseHeader operator[](const QString& header) const;
-    IResponse& setHeader(const QString &key, const QString &value);
+    IResponseHeader operator[](const IString& header) const;
+    IResponse& setHeader(IString key, IString value);
 
     IResponse& setStatus(IHttpStatus statusCode);
     IResponse& setStatus(int statusCode);
@@ -58,7 +59,7 @@ public:
     IHttpVersion version() const;
     const IString& mime() const;
     IHttpStatus status() const;
-    const QMultiHash<QString, QString>& headers() const;
+    const IHttpHeader& headers() const;
 
     const QMap<QString, QVariant>& attributes() const;
     bool hasAttribute(const QString& name) const;

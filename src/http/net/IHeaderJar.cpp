@@ -26,107 +26,98 @@ std::vector<IString> IHeaderJar::requestHeaderKeys() const
     return m_impl.m_reqRaw.m_requestHeaders.keys();
 }
 
-bool IHeaderJar::containRequestHeaderKey(IStringView key) const
+bool IHeaderJar::containRequestHeaderKey(const IString& key) const
 {
-    return m_impl.m_reqRaw.m_requestHeaders.hasKey(key);
+    return m_impl.m_reqRaw.m_requestHeaders.contain(key);
 }
 
-bool IHeaderJar::containRequestHeaderKey(const QString &key) const
-{
-    auto temp = key.toUtf8();
-    return containRequestHeaderKey(IStringView(temp));
-}
+//bool IHeaderJar::containRequestHeaderKey(const QString &key) const
+//{
+//    auto temp = key.toUtf8();
+//    return containRequestHeaderKey(IStringView(temp));
+//}
 
-IString IHeaderJar::getRequestHeaderValue(IStringView view) const
+IString IHeaderJar::getRequestHeaderValue(const IString& view) const
 {
     return m_impl.m_reqRaw.m_requestHeaders.value(view);
 }
 
-IString IHeaderJar::getRequestHeaderValue(const QString &key) const
-{
-    auto temp = key.toUtf8();
-    return getRequestHeaderValue(IStringView(temp));
-}
+//IString IHeaderJar::getRequestHeaderValue(const QString &key) const
+//{
+//    auto temp = key.toUtf8();
+//    return getRequestHeaderValue(IStringView(temp));
+//}
 
-const std::vector<IString>& IHeaderJar::getRequestHeaderValues(IStringView key) const
+const std::vector<IString>& IHeaderJar::getRequestHeaderValues(const IString& key) const
 {
     return m_impl.m_reqRaw.m_requestHeaders.values(key);
 }
 
-const std::vector<IString>& IHeaderJar::getRequestHeaderValues(const QString &key) const
-{
-    auto temp = key.toUtf8();
-    return getRequestHeaderValues(IStringView(temp));
-}
+//const std::vector<IString>& IHeaderJar::getRequestHeaderValues(const QString &key) const
+//{
+//    auto temp = key.toUtf8();
+//    return getRequestHeaderValues(IStringView(temp));
+//}
 
-const QMultiHash<QString, QString> &IHeaderJar::responseHeaders() const
+//const IHttpHeader &IHeaderJar::responseHeaders()
+//{
+//    return m_impl.m_respRaw.m_headers;
+//}
+
+IHttpHeader &IHeaderJar::responseHeaders()
 {
     return m_impl.m_respRaw.m_headers;
 }
 
-QMultiHash<QString, QString> &IHeaderJar::responseHeaders()
-{
-    return m_impl.m_respRaw.m_headers;
-}
-
-QStringList IHeaderJar::responseHeaderKeys() const
+std::vector<IString> IHeaderJar::responseHeaderKeys() const
 {
     return m_impl.m_respRaw.m_headers.keys();
 }
 
-bool IHeaderJar::containResponseHeaderKey(const QString &key) const
+bool IHeaderJar::containResponseHeaderKey(const IString &key) const
 {
-    auto range = m_impl.m_respRaw.m_headers.equal_range(key);
-    return range.first != range.second;
+    return m_impl.m_respRaw.m_headers.contain(key);
 }
 
 // NOTE: 注意这两者之间的差别， setReponseHeader是，如果有这个值，就替换， addResponseHeader 表示不管怎样，直接添加。
-void IHeaderJar::addResponseHeader(QString key, QString value)
+void IHeaderJar::addResponseHeader(IString key, IString value)
 {
-    m_impl.m_respRaw.m_headers.insertMulti(std::move(key), std::move(value));
+    m_impl.m_respRaw.m_headers.insert(std::move(key), std::move(value));
 }
 
-void IHeaderJar::addResponseHeader(QString key, const QStringList &values)
+void IHeaderJar::addResponseHeader(IString key, const QStringList &values)
 {
     for(const auto& value : values){
-        m_impl.m_respRaw.m_headers.insertMulti(std::move(key), value);
+        m_impl.m_respRaw.m_headers.insert(key, value.toStdString());
     }
 }
 
-void IHeaderJar::setResponseHeader(QString key, QString value)
+void IHeaderJar::setResponseHeader(IString key, IString value)
 {
     deleteReponseHeader(key);
     m_impl.m_respRaw.m_headers.insert(std::move(key), std::move(value));
 }
 
-void IHeaderJar::setResponseHeader(QString key, const QStringList &values)
+void IHeaderJar::setResponseHeader(IString key, const QStringList &values)
 {
     deleteReponseHeader(key);
     for(const auto& value : values){
-        m_impl.m_respRaw.m_headers.insert(key, value);
+        m_impl.m_respRaw.m_headers.insert(key, value.toStdString());
     }
 }
 
 // TODO: 这里 HEADERS 重构时再做吧
-void IHeaderJar::setResponseHeader(QString key, const IString & value)
-{
-    deleteReponseHeader(key);
-//    for(const auto& value : values){
-//    m_impl.m_respRaw.m_headers.insert(key, value.toStringView().toStdString());
-//    }
-}
+//void IHeaderJar::setResponseHeader(IString key, const IString & value)
+//{
+//    deleteReponseHeader(key);
+////    for(const auto& value : values){
+////    m_impl.m_respRaw.m_headers.insert(key, value.toStringView().toStdString());
+////    }
+//}
 
-void IHeaderJar::deleteReponseHeader(const QString &key)
+void IHeaderJar::deleteReponseHeader(const IString &key)
 {
-    auto& headers = m_impl.m_respRaw.m_headers;
-    auto i = headers.find(key);
-    while (i != headers.end() && i.key() == key) {
-        if (i.value() == 0) {
-            i = headers.erase(i);
-        } else {
-            ++i;
-        }
-    }
+    m_impl.m_respRaw.m_headers.clear(key);
 }
 
 $PackageWebCoreEnd

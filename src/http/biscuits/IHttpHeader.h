@@ -10,11 +10,12 @@ public:
     void insert(IString key, IString value);
     void replace(IString key, IString value);
     void remove(IString key, IString value);
-    void clear(IString key);
+    void clear(const IString& key);
     std::vector<IString> keys() const;
     const std::vector<IString>& values(const IString& key) const;
     const IString& value(const IString& key) const;
-    bool hasKey(const IString& key) const ;
+    bool contain(const IString& key) const ;
+    bool isEmpty() const;
 
 public:
     inline static const IString Location = "Location";  // i hope this could be constexpr
