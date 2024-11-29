@@ -8,19 +8,10 @@ $PackageWebCoreBegin
 struct IString {
 private:
     enum class Type {
-        Invalid = 0,
+        IStringView, // default, and empty
         QByteArray,
         StdString,
-        IStringView
     };
-
-    union {
-        QByteArray m_qByteArray;
-        std::string m_stdString;
-        IStringView m_iStringView;
-    };
-
-    Type m_type{Type::Invalid};
 
 public:
     IString();
@@ -50,13 +41,28 @@ public:
     bool operator <(const IString&) const;
 
 public:
+    bool isSolid() const;
     bool isEmpty() const;
-    IStringView toStringView() const;
+    void solidify();
+    operator bool() const;
+    operator IStringView() const;
 
 private:
     void clear();
     void copyFrom(const IString& other);
     void moveFrom(IString&& other) noexcept;
+
+
+private:
+    union {
+        QByteArray m_qByteArray;
+        std::string m_stdString;
+    };
+
+    Type m_type{Type::IStringView};
+
+public:
+    IStringView m_stringView{};
 };
 
 $PackageWebCoreEnd
@@ -65,7 +71,7 @@ namespace std {
     template <>
     struct hash<IString> {
         std::size_t operator()(const IString& key) const noexcept {
-            return std::hash<std::string_view>()(key.toStringView());
+            return std::hash<std::string_view>()(key);
         }
     };
 }

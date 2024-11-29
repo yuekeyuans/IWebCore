@@ -12,7 +12,7 @@ class ITcpResolverInterface
 protected:
 
 public:
-    ITcpResolverInterface(ITcpConnection* connection);
+   ITcpResolverInterface(ITcpConnection& connection);
    virtual ~ITcpResolverInterface() = default;
 
 public:
@@ -20,7 +20,7 @@ public:
     virtual std::vector<asio::const_buffer> getOutput() = 0;
 
 public:
-    ITcpConnection* m_connection{};
+    ITcpConnection& m_connection;
 };
 
 $PackageWebCoreEnd

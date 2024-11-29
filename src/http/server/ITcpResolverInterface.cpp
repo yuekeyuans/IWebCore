@@ -2,7 +2,7 @@
 
 $PackageWebCoreBegin
 
-ITcpResolverInterface::ITcpResolverInterface(IWebCore::ITcpConnection * connection)
+ITcpResolverInterface::ITcpResolverInterface(ITcpConnection&  connection)
     : m_connection(connection)
 {
 }

@@ -1,28 +1,22 @@
 ﻿#include "IRequest.h"
 
 #include "core/abort/IGlobalAbort.h"
-#include "core/util/IConvertUtil.h"
-#include "core/util/IConstantUtil.h"
-//#include "core/util/IXmlUtil.h"
-//#include "core/util/IToeUtil.h"
-#include "http/biscuits/IHttpHeader.h"
-#include "http/invalid/IHttpRequestTimeoutInvalid.h"
 #include "http/mappings/IHttpAction.h"
 #include "http/net/impl/IRequestImpl.h"
-#include "http/net/impl/IRequestRaw.h"
 #include "http/net/ICookieJar.h"
 #include "http/net/ISessionJar.h"
 #include "http/net/IHeaderJar.h"
-#include "http/server/IHttpConnection.h"
+#include "http/server/ITcpConnection.h"
 
 $PackageWebCoreBegin
 
-IRequest::IRequest() : ITcpResolverInterface(nullptr)
+IRequest::IRequest() : ITcpResolverInterface(*static_cast<ITcpConnection*>(nullptr))
 {
     IGlobalAbort::abortUnVisibleMethod($ISourceLocation);
 }
 
-IRequest::IRequest(ITcpConnection *connection) : ITcpResolverInterface(connection)
+IRequest::IRequest(ITcpConnection& connection)
+    : ITcpResolverInterface(connection)
 {
     m_impl = new IRequestImpl(*this);
 }
@@ -32,7 +26,8 @@ IRequest::~IRequest()
     delete m_impl;
 }
 
-IRequest::IRequest(const IRequest &) : ITcpResolverInterface(nullptr)
+IRequest::IRequest(const IRequest &)
+    : ITcpResolverInterface(*static_cast<ITcpConnection*>(nullptr))
 {
     IGlobalAbort::abortUnVisibleMethod("IRequest can not be copied", $ISourceLocation);
 }
@@ -43,7 +38,8 @@ IRequest &IRequest::operator=(const IRequest &)
     return *this;
 }
 
-IRequest::IRequest(IRequest &&) : ITcpResolverInterface(nullptr)
+IRequest::IRequest(IRequest &&)
+    : ITcpResolverInterface(*static_cast<ITcpConnection*>(nullptr))
 {
     IGlobalAbort::abortUnVisibleMethod("IRequest can not be moved", $ISourceLocation);
 }
@@ -120,12 +116,12 @@ int IRequest::bodyContentLength() const
     return m_impl->contentLength();
 }
 
-IStringView IRequest::bodyContentType() const
+const IString& IRequest::bodyContentType() const
 {
     return m_impl->contentType();
 }
 
-IStringView IRequest::bodyContent() const
+const IString& IRequest::bodyContent() const
 {
     return m_impl->m_reqRaw.m_requestBody;
 }
@@ -335,7 +331,7 @@ void IRequest::doAction(IHttpAction *action)
 void IRequest::doWrite()
 {
     // TODO: 这里也需要异步处理
-    m_connection->doWrite();
+    m_connection.doWrite();
 }
 
 void IRequest::resolve()

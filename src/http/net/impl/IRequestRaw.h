@@ -22,7 +22,7 @@ public:
     IHttpVersion m_httpVersion {IHttpVersion::UNKNOWN};
     IHttpMethod m_method {IHttpMethod::UNKNOWN};
     IHttpMime m_requestMime {IHttpMime::UNKNOWN};
-    IStringView m_requestBody;
+    IString m_requestBody;
 
     IHttpHeader m_requestHeaders;
 //    QMultiHash<IStringView, IStringView> m_requestHeaders;

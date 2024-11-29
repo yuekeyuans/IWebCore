@@ -3,7 +3,7 @@
 
 $PackageWebCoreBegin
 
-ITcpResolverInterface *ITcpResolverManage::createResolver(ITcpConnection *connection)
+ITcpResolverInterface *ITcpResolverManage::createResolver(ITcpConnection& connection)
 {
     return new IRequest(connection);
 }

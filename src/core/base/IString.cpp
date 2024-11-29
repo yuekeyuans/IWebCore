@@ -2,16 +2,23 @@
 
 $PackageWebCoreBegin
 
-IString::IString() : m_type(Type::Invalid) {}
+IString::IString() : m_type(Type::IStringView) {}
 
-IString::~IString() { clear(); }
+IString::~IString()
+{
+    if(m_type == Type::QByteArray){
+        m_qByteArray.~QByteArray();
+    }else if(m_type == Type::StdString){
+        m_stdString.~basic_string();
+    }
+}
 
-IString::IString(const IString& other) : m_type(Type::Invalid)
+IString::IString(const IString& other)
 {
     copyFrom(other);
 }
 
-IString::IString(IString&& other) noexcept : m_type(Type::Invalid)
+IString::IString(IString&& other) noexcept
 {
     moveFrom(std::move(other));
 }
@@ -34,39 +41,46 @@ IString& IString::operator=(IString&& other) noexcept
     return *this;
 }
 
-IString::IString(const QByteArray * data) : m_type(Type::IStringView)
+// this just create view, no QByteArray
+IString::IString(const QByteArray * data)
+    : m_type(Type::IStringView), m_stringView(*data)
 {
-    new (&m_iStringView) IStringView(data->data(), data->length());
 }
 
-IString::IString(const QByteArray& byteArray) : m_type(Type::QByteArray)
+IString::IString(const QByteArray& byteArray)
+    : m_type(Type::QByteArray)
 {
     new (&m_qByteArray) QByteArray(byteArray);
+    m_stringView = IStringView(m_qByteArray);
 }
 
+// this can be optimised
 IString::IString(QByteArray&& byteArray) noexcept : m_type(Type::QByteArray)
 {
     new (&m_qByteArray) QByteArray(std::move(byteArray));
+    m_stringView = IStringView(m_qByteArray);
 }
 
-IString::IString(const std::string * stdStringPtr) : m_type(Type::IStringView)
+IString::IString(const std::string * stdStringPtr)
+    : m_type(Type::IStringView), m_stringView(*stdStringPtr)
 {
-    new (&m_iStringView) IStringView(stdStringPtr->data(), stdStringPtr->length());
 }
 
 IString::IString(const std::string& stdString) : m_type(Type::StdString)
 {
     new (&m_stdString) std::string(stdString);
+    m_stringView = IStringView(m_stdString);
 }
 
 IString::IString(std::string&& stdString) noexcept : m_type(Type::StdString)
 {
     new (&m_stdString) std::string(std::move(stdString));
+    m_stringView = IStringView(m_stdString);
 }
 
-IString::IString(IStringView stringView) : m_type(Type::IStringView)
+IString::IString(IStringView stringView)
+    : m_type(Type::IStringView), m_stringView(stringView)
 {
-    new (&m_iStringView) IStringView(stringView);
 }
 
 IString &IString::operator=(const QString & qstring)
@@ -74,6 +88,7 @@ IString &IString::operator=(const QString & qstring)
     clear();
     m_type = Type::QByteArray;
     new (&m_qByteArray) QByteArray(qstring.toUtf8());
+    m_stringView = IStringView(m_qByteArray);
     return *this;
 }
 
@@ -81,6 +96,7 @@ IString& IString::operator=(const QByteArray& byteArray) {
     clear();
     m_type = Type::QByteArray;
     new (&m_qByteArray) QByteArray(byteArray);
+    m_stringView = IStringView(m_qByteArray);
     return *this;
 }
 
@@ -88,6 +104,7 @@ IString& IString::operator=(QByteArray&& byteArray) noexcept {
     clear();
     m_type = Type::QByteArray;
     new (&m_qByteArray) QByteArray(std::move(byteArray));
+    m_stringView = IStringView(m_qByteArray);
     return *this;
 }
 
@@ -95,6 +112,7 @@ IString& IString::operator=(const std::string& stdString) {
     clear();
     m_type = Type::StdString;
     new (&m_stdString) std::string(stdString);
+    m_stringView = IStringView(m_stdString);
     return *this;
 }
 
@@ -102,19 +120,21 @@ IString& IString::operator=(std::string&& stdString) noexcept {
     clear();
     m_type = Type::StdString;
     new (&m_stdString) std::string(std::move(stdString));
+    m_stringView = IStringView(m_stdString);
     return *this;
 }
 
 IString& IString::operator=(IStringView stringView) {
     clear();
     m_type = Type::IStringView;
-    new (&m_iStringView) IStringView(stringView);
+    m_stringView = stringView;
     return *this;
 }
 
 IString& IString::operator=(std::nullptr_t) {
     clear();
-    m_type = Type::Invalid;
+    m_type = Type::IStringView;
+    m_stringView = {};
     return *this;
 }
 
@@ -124,7 +144,7 @@ bool IString::operator ==(const IString &that) const
     if(this == &that){
         return true;
     }
-    return this->toStringView() == that.toStringView();
+    return this->m_stringView == that.m_stringView;
 }
 
 bool IString::operator <(const IString &that) const
@@ -132,34 +152,41 @@ bool IString::operator <(const IString &that) const
     if(this == &that){
         return false;
     }
-    return this->toStringView() < that.toStringView();
+    return this->m_stringView < that.m_stringView;
+}
+
+bool IString::isSolid() const
+{
+    return m_type != Type::IStringView;
 }
 
 bool IString::isEmpty() const
 {
-    switch (m_type) {
-    case Type::QByteArray:
-        return m_qByteArray.isEmpty();
-    case Type::StdString:
-        return m_stdString.empty();
-    case Type::IStringView:
-        return m_iStringView.empty();
-    default:
-        return true;
-    }
+    return m_stringView.empty();
 }
 
-IStringView IString::toStringView() const {
-    switch (m_type) {
-        case Type::QByteArray:
-            return IStringView(m_qByteArray.constData(), m_qByteArray.size());
-        case Type::StdString:
-            return IStringView(m_stdString.data(), m_stdString.size());
-        case Type::IStringView:
-            return m_iStringView;
-        default:
-            return {};
+void IString::solidify()
+{
+    if(isEmpty()){
+        return;
     }
+    if(m_type != Type::IStringView){
+        return;
+    }
+
+    m_type = Type::StdString;
+    new (&m_stdString) std::string(m_stringView.toStdString());
+    m_stringView = IStringView(m_stdString);
+}
+
+IString::operator IStringView() const
+{
+    return m_stringView;
+}
+
+IString::operator bool() const
+{
+    return m_stringView.empty();
 }
 
 void IString::clear() {
@@ -170,13 +197,7 @@ void IString::clear() {
         case Type::StdString:
             m_stdString.~basic_string();
             break;
-        case Type::IStringView:
-            m_iStringView.~IStringView();
-            break;
-        default:
-            break;
     }
-    m_type = Type::Invalid;
 }
 
 void IString::copyFrom(const IString& other) {
@@ -184,14 +205,14 @@ void IString::copyFrom(const IString& other) {
     switch (other.m_type) {
         case Type::QByteArray:
             new (&m_qByteArray) QByteArray(other.m_qByteArray);
+            m_stringView = IStringView(m_qByteArray);
             break;
         case Type::StdString:
             new (&m_stdString) std::string(other.m_stdString);
+            m_stringView = IStringView(m_stdString);
             break;
         case Type::IStringView:
-            new (&m_iStringView) IStringView(other.m_iStringView);
-            break;
-        default:
+            m_stringView = other.m_stringView;
             break;
     }
 }
@@ -201,17 +222,19 @@ void IString::moveFrom(IString&& other) noexcept {
     switch (other.m_type) {
         case Type::QByteArray:
             new (&m_qByteArray) QByteArray(std::move(other.m_qByteArray));
+            m_stringView = IStringView(m_qByteArray);
             break;
         case Type::StdString:
             new (&m_stdString) std::string(std::move(other.m_stdString));
+            m_stringView = IStringView(m_stdString);
             break;
         case Type::IStringView:
-            new (&m_iStringView) IStringView(other.m_iStringView);
+            m_stringView = other.m_stringView;
             break;
         default:
             break;
     }
-    other.m_type = Type::Invalid;
+    other.m_type = Type::IStringView;
 }
 
 $PackageWebCoreEnd

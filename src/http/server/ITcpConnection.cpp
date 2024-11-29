@@ -86,7 +86,7 @@ void ITcpConnection::doReuse()
 void ITcpConnection::resolveData()
 {
     if(!m_resolver){
-        m_resolver = ITcpResolverManage::instance()->createResolver(this);
+        m_resolver = ITcpResolverManage::instance()->createResolver(*this);
     }
 
     if(m_resolver){

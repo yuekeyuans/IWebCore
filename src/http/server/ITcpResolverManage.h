@@ -14,7 +14,7 @@ public:
     ITcpResolverManage() = default;
 
 public:
-    ITcpResolverInterface* createResolver(ITcpConnection* connection);
+    ITcpResolverInterface* createResolver(ITcpConnection& connection);
 };
 
 $PackageWebCoreEnd

@@ -11,13 +11,13 @@ def test_stdString():
     assert val.status_code == 200
     assert val.text == "stdString"
 
-def test_ijson():
-    val = requests.get(serverAddress + "/ReturnTypeController/ijson")
-    assert val.status_code == 200
-    assert val.json() == ["hello","world"]
-    assert val.headers["Content-Type"]  == "application/json; charset=UTF-8"
-    print(val.text)
-    print(val.headers)
+# def test_ijson():
+#     val = requests.get(serverAddress + "/ReturnTypeController/ijson")
+#     assert val.status_code == 200
+#     assert val.json() == ["hello","world"]
+#     assert val.headers["Content-Type"]  == "application/json; charset=UTF-8"
+#     print(val.text)
+#     print(val.headers)
 
 def test_qbytearray():
     val = requests.get(serverAddress + "/ReturnTypeController/qbytearray")

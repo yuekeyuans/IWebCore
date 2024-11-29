@@ -21,7 +21,7 @@ $PackageWebCoreBegin
 
 IRequestImpl::IRequestImpl(IRequest& self)
     : m_request(self),
-      m_connection(self.m_connection), m_data(self.m_connection->m_data),
+      m_connection(self.m_connection), m_data(self.m_connection.m_data),
       m_headerJar{*this}, m_cookieJar{*this}, m_multiPartJar{*this}
 {
     if(ISessionManager::instance()->getSessionWare() != nullptr){
@@ -41,12 +41,12 @@ IJson IRequestImpl::requestJson() const
 
 int IRequestImpl::contentLength() const
 {
-    return m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentLength).toStringView().toQString().toInt();
+    return m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentLength).m_stringView.toQString().toInt();
 }
 
-IStringView IRequestImpl::contentType() const
+const IString& IRequestImpl::contentType() const
 {
-    return m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentType).toStringView();
+    return m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentType);
 }
 
 bool IRequestImpl::isValid() const
@@ -302,13 +302,13 @@ void IRequestImpl::parseData()
         switch (m_readState) {
         case State::FirstLineState:
             if(!m_data.getLine(line)){
-                return m_connection->doRead();
+                return m_connection.doRead();
             }
             firstLineState(IStringView(m_data.m_data + line[0], line[1]));
             break;
         case State::HeaderState:
             if(!m_data.getLine(line)){
-                return m_connection->doRead();
+                return m_connection.doRead();
             }
             headerState(IStringView(m_data.m_data + line[0], line[1]));
             break;
@@ -375,13 +375,13 @@ bool IRequestImpl::headerGapState()
             if(readLength == m_contentLength){
                 return true;        // 表示可以直接解析
             }
-            m_connection->doRead(); // 继续读取
+            m_connection.doRead(); // 继续读取
         }else{
             m_bodyInData = false;   // 表示数据存放在 buffer 中
             auto data = asio::buffer_cast<char*>(m_data.m_buffer.prepare(m_contentLength));
             memcpy(data, m_data.m_data + m_data.m_parsedSize, readLength); // 拷贝数据
             m_data.m_buffer.commit(readLength);
-            m_connection->doReadStreamBy(m_contentLength-readLength);
+            m_connection.doReadStreamBy(m_contentLength-readLength);
         }
     }else if(!m_multipartBoundary.empty()){
         IStringView view(m_data.m_data + m_data.m_parsedSize, readLength);
@@ -392,9 +392,9 @@ bool IRequestImpl::headerGapState()
         m_bodyInData = false;
         auto data = asio::buffer_cast<char*>(m_data.m_buffer.prepare(readLength * 2));
         memcpy(data, m_data.m_data + m_data.m_parsedSize, readLength); // 拷贝数据
-        m_connection->doReadStreamBy(m_contentLength-readLength);
+        m_connection.doReadStreamBy(m_contentLength-readLength);
         m_data.m_buffer.commit(readLength);
-        m_connection->doReadStreamUntil(m_multipartBoundaryEnd);
+        m_connection.doReadStreamUntil(m_multipartBoundaryEnd);
     }
     return false;
 }
@@ -509,7 +509,7 @@ void IRequestImpl::resolveHeaders()
 {
     if(m_reqRaw.m_requestHeaders.hasKey(IHttpHeader::ContentLength)){
         bool ok;
-        m_contentLength = m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentLength).toStringView().toQString().toUInt(&ok);
+        m_contentLength = m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentLength).m_stringView.toQString().toUInt(&ok);
         if(!ok){
             return setInvalid(IHttpBadRequestInvalid("ContentLength error"));
         }
@@ -521,9 +521,9 @@ void IRequestImpl::resolveHeaders()
 
     auto contentType = m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentType);
     if(!contentType.isEmpty()){
-        m_reqRaw.m_requestMime = IHttpMimeUtil::toMime(contentType.toStringView().toQString());
+        m_reqRaw.m_requestMime = IHttpMimeUtil::toMime(contentType);
         if(m_reqRaw.m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
-            m_multipartBoundary = getBoundary(contentType.toStringView());
+            m_multipartBoundary = getBoundary(contentType);
             if(m_multipartBoundary.empty()){
                 setInvalid(IHttpBadRequestInvalid("multipart request has no boundary"));
                 return;
@@ -540,7 +540,7 @@ void IRequestImpl::resolveCookieHeaders()
 {
     auto cookies = m_reqRaw.m_requestHeaders.values(IHttpHeader::Cookie);
     for(const auto& cookie : cookies){
-        auto args = cookie.toStringView().toQString().split('=');
+        auto args = cookie.m_stringView.toQString().split('=');
         if(args.length() == 1){
             m_reqRaw.m_requestCookieParameters.insertMulti(stash(args.first()), stash(args.first()));
         }else{
@@ -613,7 +613,7 @@ void IRequestImpl::resolveMultipartContent()
     }else{
         m_reqRaw.m_requestBody = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), m_data.m_buffer.size());
     }
-    if(!m_reqRaw.m_requestBody.endWith(m_multipartBoundaryEnd)){
+    if(!m_reqRaw.m_requestBody.m_stringView.endWith(m_multipartBoundaryEnd)){
         setInvalid(IHttpBadRequestInvalid("multipart data do not have end tag"));
     }
 }

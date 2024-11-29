@@ -25,7 +25,7 @@ class IRequest : IRegisterMetaTypeUnit<IRequest>, public ITcpResolverInterface, 
     friend class IResponse;
 public:
     IRequest();
-    explicit IRequest(ITcpConnection*);
+    explicit IRequest(ITcpConnection&);
     ~IRequest();
 
     IRequest(const IRequest &);
@@ -49,8 +49,8 @@ public:
     IHttpMethod method() const;
 
     int bodyContentLength() const;
-    IStringView bodyContentType() const;
-    IStringView bodyContent() const;
+    const IString& bodyContentType() const;
+    const IString& bodyContent() const;
 
 //    QMultiHash<IStringView, IStringView>& headers();
 //    const QMultiHash<IStringView, IStringView>& headers() const;

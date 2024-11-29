@@ -39,7 +39,7 @@ public:
 
     IJson requestJson() const;
     int contentLength() const;
-    IStringView contentType() const;
+    const IString& contentType() const;
 
 public:
     bool isValid() const;
@@ -91,7 +91,7 @@ public:
     ISessionJar* m_sessionJar{nullptr};
 
 public:
-    ITcpConnection* m_connection{};
+    ITcpConnection& m_connection;
     ITcpConnectionData& m_data;
 
 private:

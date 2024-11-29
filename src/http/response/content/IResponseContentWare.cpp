@@ -47,12 +47,12 @@ IResponseContentWare::IResponseContentWare(const IString & data)
 
 int IResponseContentWare::getSize()
 {
-    return m_dataRaw.toStringView().length();
+    return m_dataRaw.m_stringView.length();
 }
 
 IStringView IResponseContentWare::getContent()
 {
-    return m_dataRaw.toStringView();
+    return m_dataRaw.m_stringView;
 }
 
 $PackageWebCoreEnd

@@ -26,7 +26,7 @@ const std::string &IFileResponseContent::getType() const
 
 IStringView IFileResponseContent::getContent()
 {
-    if(m_dataRaw.toStringView().length() == 0){
+    if(m_dataRaw.m_stringView.length() == 0){
         QFile file(m_path);
         if(file.open(QFile::ReadOnly)){
             m_dataRaw = file.readAll();
@@ -34,7 +34,7 @@ IStringView IFileResponseContent::getContent()
         }
     }
 
-    return m_dataRaw.toStringView();
+    return m_dataRaw.m_stringView;
 }
 
 const std::string& IFileResponseContent::getSuggestedMime() const
