@@ -43,9 +43,9 @@ public:
 
     IRequestImpl& getImpl() const;
 
+    const IString& url() const;
     IHttpVersion version() const;
     IHttpMime mime() const;
-    IStringView url() const;
     IHttpMethod method() const;
 
     int bodyContentLength() const;

@@ -17,16 +17,16 @@ public:
     bool hasKey(const IString& key) const ;
 
 public:
-    inline static const IStringView Location = "Location";  // i hope this could be constexpr
-    inline static const IStringView ContentLength = "Content-Length";
-    inline static const IStringView ContentType = "Content-Type";
-    inline static const IStringView ContentDisposition = "Content-Disposition";
-    inline static const IStringView ContentTransferEncoding = "Content-Transfer-Encoding";
-    inline static const IStringView Cookie = "Cookie";
-    inline static const IStringView SetCookie = "Set-Cookie";
+    inline static const IString Location = "Location";  // i hope this could be constexpr
+    inline static const IString ContentLength = "Content-Length";
+    inline static const IString ContentType = "Content-Type";
+    inline static const IString ContentDisposition = "Content-Disposition";
+    inline static const IString ContentTransferEncoding = "Content-Transfer-Encoding";
+    inline static const IString Cookie = "Cookie";
+    inline static const IString SetCookie = "Set-Cookie";
 
 private:
-    inline static const IStringView Empty {};
+    inline static const IString Empty {};
     inline static const std::vector<IString> EmptyVector {};
 
 private:

@@ -9,55 +9,40 @@ namespace ICookiePartHelper
     QString sameSiteTypeToString(ICookiePart::SameSiteType type);
 }
 
-ICookiePart::ICookiePart(IStringView key, IStringView value)
-    : ICookiePart(key.toQString(), value.toQString())
+ICookiePart::ICookiePart(IString key_, IString value_)
+    : key(std::move(key_)), value(std::move(value_))
 {
 }
 
-ICookiePart::ICookiePart(QString key, QString value)
-    : key(std::move(key)), value(std::move(value))
-{
-}
-
-ICookiePart::ICookiePart(QString key, QString value, int maxAge, bool secure, bool httpOnly)
+ICookiePart::ICookiePart(IString key, IString value, int maxAge, bool secure, bool httpOnly)
     : key(std::move(key)), value(std::move(value)), maxAge(maxAge), secure(secure), httpOnly(httpOnly)
 {
 }
 
-ICookiePart::ICookiePart(QString key, QString value, QDateTime expires, bool secure, bool httpOnly)
+ICookiePart::ICookiePart(IString key, IString value, QDateTime expires, bool secure, bool httpOnly)
     : key(std::move(key)), value(std::move(value)), expires(std::move(expires)), secure(secure), httpOnly(httpOnly)
 {
 }
 
-ICookiePart::ICookiePart(IStringView key, IStringView value, int maxAge, bool secure, bool httpOnly)
-    : ICookiePart(key.toQString(), value.toQString(), maxAge, secure, httpOnly)
-{
-}
-
-ICookiePart::ICookiePart(IStringView key, IStringView value, QDateTime expires, bool secure, bool httpOnly)
-    : ICookiePart(key.toQString(), value.toQString(), std::move(expires), secure, httpOnly)
-{
-}
-
-ICookiePart &ICookiePart::setKey(QString key)
+ICookiePart &ICookiePart::setKey(IString key)
 {
     this->key = std::move(key);
     return *this;
 }
 
-ICookiePart &ICookiePart::setValue(QString value)
+ICookiePart &ICookiePart::setValue(IString value)
 {
     this->value = std::move(value);
     return *this;
 }
 
-ICookiePart &ICookiePart::setDomain(QString domain)
+ICookiePart &ICookiePart::setDomain(IString domain)
 {
     this->domain = std::move(domain);
     return *this;
 }
 
-ICookiePart &ICookiePart::setPath(QString path)
+ICookiePart &ICookiePart::setPath(IString path)
 {
     this->path = std::move(path);
     return *this;
@@ -93,22 +78,22 @@ ICookiePart &ICookiePart::setSameSite(ICookiePart::SameSiteType sameSite)
     return *this;
 }
 
-// TODO:
+// TODO: 这个优化一下，之后
 QString ICookiePart::toHeaderString() const
 {
     QString header;
-    header.append(IHttpHeader::SetCookie.toQString()).append(": ")
-        .append(key);
+    header.append(IHttpHeader::SetCookie.m_stringView.toQString()).append(": ")
+        .append(key.m_stringView.toQString());
     if(!value.isEmpty()){
-        header.append('=').append(value);
+        header.append('=').append(value.m_stringView.toQString());
     }
 
     if(!domain.isEmpty()){
-        header.append("; Domain=").append(domain);
+        header.append("; Domain=").append(domain.m_stringView.toQString());
     }
 
     if(!path.isEmpty()){
-        header.append("; Path=").append(path);
+        header.append("; Path=").append(path.m_stringView.toQString());
     }
 
     if(maxAge != INT_MIN){               // see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#browser_compatibility

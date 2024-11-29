@@ -11,27 +11,37 @@ ICookieJar::ICookieJar() : IJarUnit()
     IGlobalAbort::abortUnVisibleMethod();
 }
 
-const QMultiHash<IStringView, IStringView> &ICookieJar::requestCookies() const
+const QMultiHash<IString, IString> &ICookieJar::requestCookies() const
 {
     return m_impl.m_reqRaw.m_requestCookieParameters;
 }
 
-ICookiePart ICookieJar::getRequestCookie(IStringView key) const
+ICookiePart ICookieJar::getRequestCookie(IString key) const
 {
     auto value = m_impl.m_reqRaw.m_requestCookieParameters.value(key);
-    if(value.empty()){
+    if(value.isEmpty()){
         return {};
     }
     return {key, value};
 }
 
-ICookiePart ICookieJar::getRequestCookie(const QString &key) const
-{
-    auto temp = key.toUtf8();
-    return getRequestCookie(IStringView(temp));
-}
+//ICookiePart ICookieJar::getRequestCookie(const QString &key) const
+//{
+//    auto temp = key.toUtf8();
+//    return getRequestCookie(IStringView(temp));
+//}
 
-QList<ICookiePart> ICookieJar::getRequestCookies(IStringView key) const
+//QList<ICookiePart> ICookieJar::getRequestCookies(const IString& key) const
+//{
+//    QList<ICookiePart> cookies;
+//    auto values = m_impl.m_reqRaw.m_requestCookieParameters.values(key);
+//    for(auto value : values){
+//        cookies.append({key, value});
+//    }
+//    return cookies;
+//}
+
+QList<ICookiePart> ICookieJar::getRequestCookies(const IString &key) const
 {
     QList<ICookiePart> cookies;
     auto values = m_impl.m_reqRaw.m_requestCookieParameters.values(key);
@@ -41,29 +51,23 @@ QList<ICookiePart> ICookieJar::getRequestCookies(IStringView key) const
     return cookies;
 }
 
-QList<ICookiePart> ICookieJar::getRequestCookies(const QString &key) const
-{
-    auto temp = key.toUtf8();
-    return getRequestCookies(IStringView(temp));
-}
-
-IStringViewList ICookieJar::requestCookieKeys() const
+QList<IString> ICookieJar::requestCookieKeys() const
 {
     return m_impl.m_reqRaw.m_requestCookieParameters.keys();
 }
 
-bool ICookieJar::containRequestCookieKey(IStringView key) const
+bool ICookieJar::containRequestCookieKey(const IString& key) const
 {
     return m_impl.m_reqRaw.m_requestCookieParameters.contains(key);
 }
 
-bool ICookieJar::containRequestCookieKey(const QString &key) const
-{
-    auto temp = key.toUtf8();
-    return containRequestCookieKey(IStringView(temp));
-}
+//bool ICookieJar::containRequestCookieKey(const  &key) const
+//{
+//    auto temp = key.toUtf8();
+//    return containRequestCookieKey(IStringView(temp));
+//}
 
-void ICookieJar::deleteRequestCookies(IStringView key)
+void ICookieJar::deleteRequestCookies(const IString& key)
 {
     auto values = m_impl.m_reqRaw.m_requestCookieParameters.values(key);
     for(auto value : values){
@@ -72,11 +76,11 @@ void ICookieJar::deleteRequestCookies(IStringView key)
     }
 }
 
-void ICookieJar::deleteRequestCookies(const QString &key)
-{
-    auto temp = key.toUtf8();
-    return deleteRequestCookies(IStringView(temp));
-}
+//void ICookieJar::deleteRequestCookies(const QString &key)
+//{
+//    auto temp = key.toUtf8();
+//    return deleteRequestCookies(IStringView(temp));
+//}
 
 std::list<ICookiePart> &ICookieJar::responseCookies()
 {
@@ -88,7 +92,7 @@ const std::list<ICookiePart> &ICookieJar::responseCookies() const
     return m_impl.m_respRaw.m_cookies;
 }
 
-ICookiePart ICookieJar::getResponseCookie(const QString &key) const
+ICookiePart ICookieJar::getResponseCookie(const IString &key) const
 {
     const auto& cookies = m_impl.m_respRaw.m_cookies;
     for(auto it=cookies.cbegin(); it!=cookies.cend(); it++){
@@ -99,17 +103,17 @@ ICookiePart ICookieJar::getResponseCookie(const QString &key) const
     return {};
 }
 
-QStringList ICookieJar::responseCookieKeys() const
+QList<IString> ICookieJar::responseCookieKeys() const
 {
     const auto& cookies = m_impl.m_respRaw.m_cookies;
-    QStringList keys;
+    QList<IString> keys;
     for(const auto& part : cookies){
         keys.append(part.key);
     }
     return keys;
 }
 
-bool ICookieJar::containResponseCookieKey(const QString &key) const
+bool ICookieJar::containResponseCookieKey(const IString &key) const
 {
     const auto& cookies = m_impl.m_respRaw.m_cookies;
     for(const auto& part : cookies){
@@ -120,7 +124,7 @@ bool ICookieJar::containResponseCookieKey(const QString &key) const
     return false;
 }
 
-void ICookieJar::deleteResponseCookie(const QString &key)
+void ICookieJar::deleteResponseCookie(const IString &key)
 {
     auto& cookies = m_impl.m_respRaw.m_cookies;
     for(auto it=cookies.begin(); it!= cookies.end();){
@@ -137,17 +141,17 @@ void ICookieJar::addResponseCookie(ICookiePart cookiePart)
     m_impl.m_respRaw.m_cookies.push_back(std::move(cookiePart));
 }
 
-void ICookieJar::addResponseCookie(QString key, QString value)
+void ICookieJar::addResponseCookie(IString key, IString value)
 {
     m_impl.m_respRaw.m_cookies.push_back({std::move(key), std::move(value)});
 }
 
-void ICookieJar::addResponseCookie(QString key, QString value, int maxAge, bool secure, bool httpOnly)
+void ICookieJar::addResponseCookie(IString key, IString value, int maxAge, bool secure, bool httpOnly)
 {
     m_impl.m_respRaw.m_cookies.push_back(ICookiePart{std::move(key), std::move(value), maxAge, secure, httpOnly});
 }
 
-void ICookieJar::addResponseCookie(QString key, QString value, QDateTime expires, bool secure, bool httpOnly)
+void ICookieJar::addResponseCookie(IString key, IString value, QDateTime expires, bool secure, bool httpOnly)
 {
     m_impl.m_respRaw.m_cookies.push_back(ICookiePart{std::move(key), std::move(value), std::move(expires), secure, httpOnly});
 }

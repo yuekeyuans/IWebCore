@@ -91,6 +91,11 @@ IRequestImpl& IRequest::getImpl() const
     return *m_impl;
 }
 
+const IString &IRequest::url() const
+{
+    return m_impl->m_reqRaw.m_url;
+}
+
 IHttpVersion IRequest::version() const
 {
     return m_impl->m_reqRaw.m_httpVersion;
@@ -99,11 +104,6 @@ IHttpVersion IRequest::version() const
 IHttpMime IRequest::mime() const
 {
     return m_impl->m_reqRaw.m_requestMime;
-}
-
-IStringView IRequest::url() const
-{
-    return m_impl->m_reqRaw.m_url;
 }
 
 IHttpMethod IRequest::method() const

@@ -44,7 +44,7 @@ public:
     $GetMapping(iByteArarryResponse2)
     IByteArrayResponse iByteArarryResponse2(){
         IByteArrayResponse response2("iByteArarryResponse2");
-        response2.setHeader(IHttpHeader::ContentType.toQString(), IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8));
+        response2.setHeader(IHttpHeader::ContentType.m_stringView.toQString(), IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8));
         return response2;
     }
 

@@ -22,6 +22,7 @@ public:
     IString& operator=(const IString& other);
     IString& operator=(IString&& other) noexcept;
 
+    IString(const char*);
     IString(const QByteArray*);
     IString(const QByteArray& byteArray);
     IString(QByteArray&& byteArray) noexcept;
@@ -71,7 +72,7 @@ namespace std {
     template <>
     struct hash<IString> {
         std::size_t operator()(const IString& key) const noexcept {
-            return std::hash<std::string_view>()(key);
+            return std::hash<std::string_view>()(key.m_stringView);
         }
     };
 }

@@ -41,7 +41,11 @@ IJson IRequestImpl::requestJson() const
 
 int IRequestImpl::contentLength() const
 {
-    return m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentLength).m_stringView.toQString().toInt();
+    const auto& val = m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentLength);
+    if(!val){
+        return val.m_stringView.toQString().toInt();
+    }
+    return 0;
 }
 
 const IString& IRequestImpl::contentType() const
@@ -476,7 +480,7 @@ void IRequestImpl::resolveFirstLine()
     auto index = m_reqRaw.m_rawUrl.find_first_of('?');
     if(index == std::string_view::npos){
         m_reqRaw.m_rawPath = m_reqRaw.m_rawUrl;
-        m_reqRaw.m_url = stash(QByteArray::fromPercentEncoding(QByteArray(m_reqRaw.m_rawUrl.data(), m_reqRaw.m_rawUrl.length())));
+        m_reqRaw.m_url = QByteArray::fromPercentEncoding(QByteArray(m_reqRaw.m_rawUrl.data(), m_reqRaw.m_rawUrl.length()));
         return;
     }
 

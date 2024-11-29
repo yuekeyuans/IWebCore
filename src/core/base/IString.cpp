@@ -41,6 +41,13 @@ IString& IString::operator=(IString&& other) noexcept
     return *this;
 }
 
+IString::IString(const char * data)
+    : m_type(Type::StdString)
+{
+    new (&m_stdString) std::string(data);
+    m_stringView = IStringView(m_stdString);
+}
+
 // this just create view, no QByteArray
 IString::IString(const QByteArray * data)
     : m_type(Type::IStringView), m_stringView(*data)
