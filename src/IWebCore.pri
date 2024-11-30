@@ -94,9 +94,9 @@ HEADERS += \
     $$PWD/http/IHttpManage.h \
     $$PWD/http/IHttpTaskCatagory.h \
     $$PWD/http/base/IArgumentType.h \
-    $$PWD/http/base/IMetaType.h \
     $$PWD/http/base/IMethodParameterManage.h \
     $$PWD/http/base/IReturnType.h \
+    $$PWD/http/biscuits/IHttpAttribute.h \
     $$PWD/http/controller/IHttpControllerAbort.h \
     $$PWD/http/controller/IHttpControllerAction.h \
     $$PWD/http/controller/IHttpControllerInterface.h \
@@ -136,11 +136,12 @@ HEADERS += \
     $$PWD/http/response/content/IHtmlResponseContent.h \
     $$PWD/http/response/content/IInvalidReponseContent.h \
     $$PWD/http/response/content/IJsonResponseContent.h \
-    $$PWD/http/response/content/IQByteArrayResponseContent.h \
-    $$PWD/http/response/content/IQStringResponseContent.h \
+#    $$PWD/http/response/content/IQByteArrayResponseContent.h \
+#    $$PWD/http/response/content/IQStringResponseContent.h \
     $$PWD/http/response/content/IResponseContentWare.h \
-    $$PWD/http/response/content/IStdStringResponseContent.h \
-    $$PWD/http/response/content/IStrinigViewResponseContent.h \
+#    $$PWD/http/response/content/IStdStringResponseContent.h \
+    $$PWD/http/response/content/IStringResponseContent.h \
+#    $$PWD/http/response/content/IStrinigViewResponseContent.h \
     $$PWD/http/server/IHttpConnection.h \
     $$PWD/http/server/IHttpServer.h \
     $$PWD/http/server/ITcpConnection.h \
@@ -261,9 +262,9 @@ SOURCES += \
     $$PWD/core/util/detail/IJsonUtil_fromJson.cpp \
     $$PWD/http/IHttpManage.cpp \
     $$PWD/http/base/IArgumentType.cpp \
-    $$PWD/http/base/IMetaType.cpp \
     $$PWD/http/base/IMethodParameterManage.cpp \
     $$PWD/http/base/IReturnType.cpp \
+    $$PWD/http/biscuits/IHttpAttribute.cpp \
     $$PWD/http/biscuits/IHttpHeader.cpp \
     $$PWD/http/controller/IHttpControllerAction.cpp \
     $$PWD/http/controller/IHttpControllerInterface.cpp \
@@ -300,11 +301,12 @@ SOURCES += \
     $$PWD/http/response/content/IHtmlResponseContent.cpp \
     $$PWD/http/response/content/IInvalidReponseContent.cpp \
     $$PWD/http/response/content/IJsonResponseContent.cpp \
-    $$PWD/http/response/content/IQByteArrayResponseContent.cpp \
-    $$PWD/http/response/content/IQStringResponseContent.cpp \
+#    $$PWD/http/response/content/IQByteArrayResponseContent.cpp \
+#    $$PWD/http/response/content/IQStringResponseContent.cpp \
     $$PWD/http/response/content/IResponseContentWare.cpp \
-    $$PWD/http/response/content/IStdStringResponseContent.cpp \
-    $$PWD/http/response/content/IStrinigViewResponseContent.cpp \
+#    $$PWD/http/response/content/IStdStringResponseContent.cpp \
+    $$PWD/http/response/content/IStringResponseContent.cpp \
+#    $$PWD/http/response/content/IStrinigViewResponseContent.cpp \
     $$PWD/http/server/IHttpConnection.cpp \
     $$PWD/http/server/IHttpServer.cpp \
     $$PWD/http/server/ITcpConnection.cpp \

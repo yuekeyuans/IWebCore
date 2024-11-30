@@ -87,12 +87,6 @@ public:
     IResult<QByteArray> getSessionParameter(const QString& name) const;
 */
 
-    const QMap<QString, QVariant>& attributes() const;
-    bool hasAttribute(const QString& name) const;
-    void setAttribute(const QString& name, const QVariant& value);
-    QVariant getAttribute(const QString& name, bool& ok) const;
-    IResult<QVariant> getAttribute(const QString &name) const;
-
     bool isValid() const;
     void setInvalidIf(bool condition, IHttpInvalidWare) const;
     void setInvalid(IHttpInvalidWare) const;

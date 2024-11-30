@@ -48,11 +48,14 @@ public:
     operator bool() const;
     operator IStringView() const;
 
+public:
+    IStringViewList split(char) const;
+    IStringViewList split(const IString&) const;
+
 private:
     void clear();
     void copyFrom(const IString& other);
     void moveFrom(IString&& other) noexcept;
-
 
 private:
     union {
@@ -65,6 +68,15 @@ private:
 public:
     IStringView m_stringView{};
 };
+
+// TODO: 之后详细定义
+using IStringList = QList<IString>;
+
+//class IStringList : public QList<IString>
+//{
+//public:
+//    using QList::QList;
+//};
 
 $PackageWebCoreEnd
 

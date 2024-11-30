@@ -17,8 +17,8 @@ protected:
 };
 
 namespace detail{
-    const std::vector<std::string>& getMimeStringList(){
-        static const std::vector<std::string> mimes = {
+    const IStringList & getMimeStringList(){
+        static const IStringList mimes = {
             // TEXT  16
             "text/plain",                                               // TEXT_PLAIN
             "text/plain; charset=UTF-8",                                // TEXT_PLAIN_UTF8
@@ -129,8 +129,8 @@ namespace detail{
         return mimes;
     }
 
-    const QMap<QString, IHttpMime>& getSystemSuffixMimeMap(){
-        static const QMap<QString, IHttpMime> suffixMimePair = {
+    const QMap<IString, IHttpMime>& getSystemSuffixMimeMap(){
+        static const QMap<IString, IHttpMime> suffixMimePair = {
             // TEXT
             {"txt", IHttpMime::TEXT_PLAIN_UTF8},
 
@@ -226,38 +226,39 @@ namespace detail{
             {"pdf", IHttpMime::APPLICATION_PDF}
         };
         return suffixMimePair;
-    };
+    }
 
     static QStringList mimeSuffixes;
-
     static std::vector<std::string> mimeNames;
 }
 
-const std::string& IHttpMimeUtil::toString(IHttpMime mime)
+const IString& IHttpMimeUtil::toString(IHttpMime mime)
 {
-    if(mime == IHttpMime::UNKNOWN){
+    static const auto& mimes = detail::getMimeStringList();
+    int mimeValue = static_cast<int>(mime);
+    if(mimeValue < 0 || mimeValue >mimes.length()-1){
         return IHttpMimeUtil::MIME_UNKNOWN_STRING;
     }
-    return detail::getMimeStringList()[static_cast<int>(mime)];
+
+    return mimes[static_cast<int>(mime)];
 }
 
-// TODO:
 IHttpMime IHttpMimeUtil::toMime(const QString &string)
 {
-    const auto& mimes = detail::getMimeStringList();
-    std::string type = string.split(";").first().toLower().trimmed().toStdString();
-
-    auto pos = std::find(mimes.begin(), mimes.end(), type);
-    if(pos != mimes.end()){
-        auto index = std::distance(mimes.begin(), pos);
-        return static_cast<IHttpMime>(index);
-    }
-    return IHttpMime::UNKNOWN;
+    return toMime(IString(string.toUtf8()));
 }
 
-IHttpMime IHttpMimeUtil::toMime(IStringView data)
+IHttpMime IHttpMimeUtil::toMime(const IString& data)
 {
-    return toMime(data.toQString());
+    static const auto& mimes = detail::getMimeStringList();
+    static IString splitter = ";";
+    IString type = data.split(splitter).first();
+
+    auto index = mimes.indexOf(type);
+    if(index < 0 || index == mimes.length()-1){
+        return  IHttpMime(index);
+    }
+    return IHttpMime::UNKNOWN;
 }
 
 //std::string IHttpMimeUtil::getSuffixMime(const QString &suffix)

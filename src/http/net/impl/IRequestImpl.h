@@ -7,6 +7,7 @@
 #include "http/biscuits/IHttpMime.h"
 #include "http/biscuits/IHttpStatus.h"
 #include "http/biscuits/IHttpMethod.h"
+#include "http/biscuits/IHttpAttribute.h"
 #include "http/net/impl/IResponseRaw.h"
 #include "http/net/impl/IRequestRaw.h"
 #include "http/net/IMultiPart.h"
@@ -82,13 +83,13 @@ public:
 public:
     IRequestRaw m_reqRaw{};
     IResponseRaw m_respRaw{};
-    QMap<QString, QVariant> m_attribute;                // 用户或系统可以自己放置内容的地方。
 
 public:
     IHeaderJar m_headerJar;
     ICookieJar m_cookieJar;                                       // TODO: 这两个是否需要指针?
     IMultiPartJar m_multiPartJar;
     ISessionJar* m_sessionJar{nullptr};
+    IHttpAttribute m_attribute;
 
 public:
     ITcpConnection& m_connection;

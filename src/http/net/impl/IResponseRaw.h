@@ -29,17 +29,8 @@ public:
     void setContent(IJson&& data);
     void setContent(const IJson& data);
 
-    void setContent(std::string&& data);
-    void setContent(const std::string& data);
-
-    void setContent(QString&& data);
-    void setContent(const QString& data);
-
-    void setContent(QByteArray&& data);
-    void setContent(const QByteArray& data);
-    void setContent(const char* data);
-
-    void setContent(IStringView data);
+    void setContent(IString&&);
+    void setContent(const IString&);
 
     void setContent(const QFileInfo& data);
     void setContent(const IHttpInvalidWare& ware);
@@ -57,7 +48,6 @@ public:
     IString m_mime;
     IHttpStatus m_status {IHttpStatus::OK_200};
     IHttpHeader m_headers;
-//    QMultiHash<QString, QString> m_headers;
     std::list<ICookiePart> m_cookies;
     std::list<IResponseContentWare*> m_contents;
 };

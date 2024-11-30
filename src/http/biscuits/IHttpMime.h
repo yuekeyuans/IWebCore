@@ -115,11 +115,11 @@ enum class IHttpMime{
 
 namespace IHttpMimeUtil
 {
-    inline static const std::string MIME_UNKNOWN_STRING = "UNKNOWN";
+    inline static const IString MIME_UNKNOWN_STRING = "UNKNOWN";
 
-    const std::string& toString(IHttpMime);
+    const IString& toString(IHttpMime);
     IHttpMime toMime(const QString &);
-    IHttpMime toMime(IStringView);
+    IHttpMime toMime(const IString&);
 
     // TODO:
 //    std::string getSuffixMime(const QString& suffix);

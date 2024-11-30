@@ -14,10 +14,9 @@ enum class IHttpVersion
 };
 
 namespace IHttpVersionUtil {
-    QString toString(IHttpVersion version);
+    const IString& toString(IHttpVersion version);
     IHttpVersion toVersion(const QString& version);
-    IHttpVersion toVersion(std::string_view version);
-    const QStringList& getVersionStrings();
+    IHttpVersion toVersion(const IString& version);
 }
 
 $PackageWebCoreEnd

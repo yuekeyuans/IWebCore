@@ -32,9 +32,9 @@ public:
 
     const IHttpHeader& headers() const;
     IHttpHeader& headers();
-//    void setHeader(const QString& key, const QString& value);
-    void setHeader(const QString& key, IString&& value);
-//    void addHeader(const QString& key, const QString& value);
+    // TODO: 这个可以扩展一下，
+    void setHeader(IString key, IString value);
+    void addHeader(IString key, IString value);
 
     virtual std::string prefixMatcher();
     virtual IResponseWare* prefixCreate(const std::string&);

@@ -270,40 +270,40 @@ IResult<QByteArray> IRequest::getSessionParameter(const QString &name) const
 }
 */
 
-const QMap<QString, QVariant> &IRequest::attributes() const
-{
-    return m_impl->m_attribute;
-}
+//const QMap<QString, QVariant> &IRequest::attributes() const
+//{
+//    return m_impl->m_attribute;
+//}
 
-bool IRequest::hasAttribute(const QString &name) const
-{
-    return m_impl->m_attribute.contains(name);
-}
+//bool IRequest::hasAttribute(const QString &name) const
+//{
+//    return m_impl->m_attribute.contains(name);
+//}
 
-void IRequest::setAttribute(const QString &name, const QVariant &value)
-{
-    m_impl->m_attribute[name] = value;
-}
+//void IRequest::setAttribute(const QString &name, const QVariant &value)
+//{
+//    m_impl->m_attribute[name] = value;
+//}
 
-QVariant IRequest::getAttribute(const QString &name, bool& ok) const
-{
-    if(m_impl->m_attribute.contains(name)){
-        ok = true;
-        return m_impl->m_attribute[name];
-    }
-    ok = false;
-    return {};
-}
+//QVariant IRequest::getAttribute(const QString &name, bool& ok) const
+//{
+//    if(m_impl->m_attribute.contains(name)){
+//        ok = true;
+//        return m_impl->m_attribute[name];
+//    }
+//    ok = false;
+//    return {};
+//}
 
-IResult<QVariant> IRequest::getAttribute(const QString &name) const
-{
-    bool ok;
-    auto value = getAttribute(name, ok);
-    if(ok){
-        return value;
-    }
-    return std::nullopt;
-}
+//IResult<QVariant> IRequest::getAttribute(const QString &name) const
+//{
+//    bool ok;
+//    auto value = getAttribute(name, ok);
+//    if(ok){
+//        return value;
+//    }
+//    return std::nullopt;
+//}
 
 bool IRequest::isValid() const
 {

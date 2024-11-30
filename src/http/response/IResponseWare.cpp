@@ -79,20 +79,15 @@ IHttpHeader &IResponseWare::headers()
     return m_raw->m_headers;
 }
 
-//void IResponseWare::setHeader(const QString &key, const QString &value)
-//{
-//    m_raw->m_headers.insert(key, value);
-//}
-
-void IResponseWare::setHeader(const QString &key, IString &&value)
+void IResponseWare::setHeader(IString key, IString value)
 {
-    // TODO: 这个需要补充
+    m_raw->m_headers.replace(std::move(key), std::move(value));
 }
 
-//void IResponseWare::addHeader(const QString &key, const QString &value)
-//{
-//    m_raw->m_headers.insertMulti(key, value);
-//}
+void IResponseWare::addHeader(IString key, IString value)
+{
+    m_raw->m_headers.insert(std::move(key), std::move(value));
+}
 
 std::string IResponseWare::prefixMatcher()
 {

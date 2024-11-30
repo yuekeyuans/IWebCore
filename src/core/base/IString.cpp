@@ -186,6 +186,16 @@ void IString::solidify()
     m_stringView = IStringView(m_stdString);
 }
 
+IStringViewList IString::split(char delimiter) const
+{
+    return m_stringView.split(delimiter);
+}
+
+IStringViewList IString::split(const IString &data) const
+{
+    return m_stringView.split(data.m_stringView);
+}
+
 IString::operator IStringView() const
 {
     return m_stringView;

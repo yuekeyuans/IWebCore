@@ -5,14 +5,10 @@
 
 #include "http/response/IResponseWare.h"
 #include "http/invalid/IHttpInvalidWare.h"
-#include "http/response/content/IQStringResponseContent.h"
-#include "http/response/content/IQByteArrayResponseContent.h"
 #include "http/response/content/IInvalidReponseContent.h"
 #include "http/response/content/IFileResponseContent.h"
-#include "http/response/content/IStdStringResponseContent.h"
-#include "http/response/content/IStrinigViewResponseContent.h"
 #include "http/response/content/IJsonResponseContent.h"
-#include "http/response/content/IInvalidReponseContent.h"
+#include "http/response/content/IStringResponseContent.h"
 
 $PackageWebCoreBegin
 
@@ -25,7 +21,7 @@ QByteArray generateFirstLine(IRequestImpl& impl)
 {
     QByteArray firstLine;
     firstLine.append(IHttpVersionUtil::toString(impl.m_reqRaw.m_httpVersion)).append(" ")
-            .append(IHttpStatusUtil::toString(impl.m_respRaw.m_status)).append(" ")
+            .append(IHttpStatusUtil::toStringNumber(impl.m_respRaw.m_status)).append(" ")
             .append(IHttpStatusUtil::toStringDescription(impl.m_respRaw.m_status)).append(NEW_LINE);
 
     return firstLine;
@@ -112,44 +108,14 @@ void IResponseRaw::setContent(const IJson &data)
     setContent(new IJsonResponseContent(data));
 }
 
-void IResponseRaw::setContent(std::string &&data)
+void IResponseRaw::setContent(IString &&value)
 {
-    setContent(new IStdStringResponseContent(std::move(data)));
+    setContent(new IStringResponseContent(std::move(value)));
 }
 
-void IResponseRaw::setContent(const std::string &data)
+void IResponseRaw::setContent(const IString &value)
 {
-    setContent(new IStdStringResponseContent(data));
-}
-
-void IResponseRaw::setContent(QString &&value)
-{
-    setContent(new IQStringResponseContent(std::move(value)));
-}
-
-void IResponseRaw::setContent(const QString &value)
-{
-    setContent(new IQStringResponseContent(value));
-}
-
-void IResponseRaw::setContent(QByteArray &&value)
-{
-    setContent(new IQByteArrayResponseContent(std::move(value)));
-}
-
-void IResponseRaw::setContent(const QByteArray &value)
-{
-    setContent(new IQByteArrayResponseContent(value));
-}
-
-void IResponseRaw::setContent(const char *value)
-{
-    setContent(new IQByteArrayResponseContent(value));
-}
-
-void IResponseRaw::setContent(IStringView data)
-{
-    setContent(new IStrinigViewResponseContent(data));
+    setContent(new IStringResponseContent(value));
 }
 
 void IResponseRaw::setContent(const QFileInfo &value)

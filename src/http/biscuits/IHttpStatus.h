@@ -83,12 +83,8 @@ enum class IHttpStatus : int
 };
 
 namespace IHttpStatusUtil {
-    QString toString(const IHttpStatus);
-    QString toStringDescription(IHttpStatus);
-    QString getDescription(IHttpStatus);
-    IHttpStatus toStatus(int);
-    IHttpStatus toStatus(const QString&);
-    const QMap<int, QString> &getStatusDescription();
+    IString toStringNumber(IHttpStatus);
+    const IString& toStringDescription(IHttpStatus);
 }
 
 $PackageWebCoreEnd

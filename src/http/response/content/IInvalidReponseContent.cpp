@@ -15,7 +15,7 @@ const std::string& IInvalidReponseContent::getType() const
 
 const std::string& IInvalidReponseContent::getSuggestedMime() const
 {
-    static const std::string& mime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8);
+    static const std::string& mime = IHttpMimeUtil::toString(IHttpMime::TEXT_PLAIN_UTF8).m_stringView.toStdString();
     return mime;
 }
 

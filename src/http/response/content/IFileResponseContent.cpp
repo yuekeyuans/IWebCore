@@ -39,7 +39,7 @@ IStringView IFileResponseContent::getContent()
 
 const std::string& IFileResponseContent::getSuggestedMime() const
 {
-    static const std::string& mime = IHttpMimeUtil::toString(IHttpMime::APPLICATION_OCTET_STREAM);
+    static const std::string& mime = IHttpMimeUtil::toString(IHttpMime::APPLICATION_OCTET_STREAM).m_stringView.toStdString();
     return mime;
 }
 

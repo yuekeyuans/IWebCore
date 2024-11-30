@@ -22,7 +22,7 @@ IPlainTextResponse::IPlainTextResponse(const std::string &value)
 
 IPlainTextResponse::IPlainTextResponse(const char *value)
 {
-    m_raw->setContent(value);
+    m_raw->setContent(IString(value));
     m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 

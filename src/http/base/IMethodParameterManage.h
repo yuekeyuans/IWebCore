@@ -2,7 +2,6 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "core/unit/ISingletonUnit.h"
-#include "http/base/IMetaType.h"
 
 $PackageWebCoreBegin
 

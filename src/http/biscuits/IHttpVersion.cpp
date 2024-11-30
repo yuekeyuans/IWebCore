@@ -2,37 +2,42 @@
 
 $PackageWebCoreBegin
 
-QString IHttpVersionUtil::toString(IHttpVersion version)
+namespace detail
 {
-    const auto& versions = getVersionStrings();
+    const IStringList& getVersionStrings()
+    {
+        static const IStringList m_versionStrings = {
+            "HTTP/1.0",
+            "HTTP/1.1",
+            "HTTP/2.0",
+            "UNKNOWN"
+        };
+        return m_versionStrings;
+    }
+}
+
+const IString& IHttpVersionUtil::toString(IHttpVersion version)
+{
+    static const auto& versions = detail::getVersionStrings();
+    if(static_cast<int>(version) < 0 || static_cast<int>(version) >3){
+        return versions.last();
+    }
     return versions[static_cast<int>(version)];
 }
 
 IHttpVersion IHttpVersionUtil::toVersion(const QString& version)
 {
-    const auto& versions = getVersionStrings();
-    if(versions.contains(version)){
-        return IHttpVersion(versions.indexOf(version.toUpper()));
+    return toVersion((IString(version.toUtf8())));
+}
+
+IHttpVersion IHttpVersionUtil::toVersion(const IString& version)
+{
+    static const auto& versions = detail::getVersionStrings();
+    auto index = versions.indexOf(version);
+    if(index < 0){
+        return IHttpVersion::UNKNOWN;
     }
-    return IHttpVersion::UNKNOWN;
+    return IHttpVersion(index);
 }
-
-IHttpVersion IHttpVersionUtil::toVersion(std::string_view version)
-{
-    return toVersion(QString::fromLocal8Bit(version.data(), version.length()));
-}
-
-const QStringList &IHttpVersionUtil::getVersionStrings()
-{
-    static QStringList m_versionStrings = {
-        "HTTP/1.0",
-        "HTTP/1.1",
-        "HTTP/2.0",
-        "UNKNOWN"
-    };
-
-    return m_versionStrings;
-}
-
 
 $PackageWebCoreEnd

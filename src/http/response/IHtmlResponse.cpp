@@ -17,25 +17,25 @@ IHtmlResponse::IHtmlResponse(const QString &data)
 IHtmlResponse::IHtmlResponse(std::string && data)
 {
     m_raw->setMime(IHttpMime::TEXT_HTML_UTF8);
-    m_raw->setContent(std::move(data));
+    m_raw->setContent(IString(std::move(data)));
 }
 
 IHtmlResponse::IHtmlResponse(const std::string & data)
 {
     m_raw->setMime(IHttpMime::TEXT_HTML_UTF8);
-    m_raw->setContent(data);
+    m_raw->setContent(IString(data));
 }
 
 IHtmlResponse::IHtmlResponse(QByteArray &&data)
 {
     m_raw->setMime(IHttpMime::TEXT_HTML_UTF8);
-    m_raw->setContent(std::move(data));
+    m_raw->setContent(IString(std::move(data)));
 }
 
 IHtmlResponse::IHtmlResponse(const QByteArray &data)
 {
     m_raw->setMime(IHttpMime::TEXT_HTML_UTF8);
-    m_raw->setContent(data);
+    m_raw->setContent(IString(data));
 }
 
 std::string IHtmlResponse::prefixMatcher()

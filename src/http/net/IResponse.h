@@ -34,21 +34,25 @@ public:
     IResponse& setStatus(int statusCode);
 
     IResponse& setMime(IHttpMime mime);
-    IResponse& setMime(const QString mime);
+    IResponse& setMime(IString mime);
 
     IResponse& addCookie(ICookiePart cookiePart);
 
-    IResponse& setContent(std::string&&);
-    IResponse& setContent(const std::string&);
+    IResponse& setContent(IString&&);
+    IResponse& setContent(const IString&);
 
-    IResponse& setContent(IStringView);
+    // TODO: 这个之后可以再加回来
+//    IResponse& setContent(std::string&&);
+//    IResponse& setContent(const std::string&);
 
-    IResponse& setContent(QString&&);
-    IResponse& setContent(const QString&);
+//    IResponse& setContent(IStringView);
 
-    IResponse& setContent(QByteArray&&);
-    IResponse& setContent(const QByteArray&);
-    IResponse& setContent(const char*);
+//    IResponse& setContent(QString&&);
+//    IResponse& setContent(const QString&);
+
+//    IResponse& setContent(QByteArray&&);
+//    IResponse& setContent(const QByteArray&);
+//    IResponse& setContent(const char*);
 
     IResponse& setContent(IResponseWare&);
     IResponse& setContent(IResponseWare&&);
@@ -60,11 +64,6 @@ public:
     const IString& mime() const;
     IHttpStatus status() const;
     const IHttpHeader& headers() const;
-
-    const QMap<QString, QVariant>& attributes() const;
-    bool hasAttribute(const QString& name) const;
-    void setAttribute(const QString& name, const QVariant& value);
-    QVariant getAttribute(const QString& name, const QVariant& defaultValue = {}) const;
 
 private:
     IRequestImpl& m_impl;

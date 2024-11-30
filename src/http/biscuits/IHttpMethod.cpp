@@ -2,7 +2,7 @@
 
 $PackageWebCoreBegin
 
-QString IHttpMethodUtil::toString(IHttpMethod method)
+const IString& IHttpMethodUtil::toString(IHttpMethod method)
 {
     if(method >= IHttpMethod::UNKNOWN){
         method = IHttpMethod::UNKNOWN;
@@ -12,24 +12,26 @@ QString IHttpMethodUtil::toString(IHttpMethod method)
 
 IHttpMethod IHttpMethodUtil::toMethod(const QString &name)
 {
-    auto index = methodNames().indexOf(name.toUpper());
-    if(index == -1){
-        return IHttpMethod::UNKNOWN;
+    return toMethod(IStringView(name.toUtf8()));
+}
+
+// TODO: 这里必须大写
+IHttpMethod IHttpMethodUtil::toMethod(const IString& name)
+{
+    auto index = methodNames().indexOf(name);
+    if(index >=0){
+        return IHttpMethod(index);
     }
-    return static_cast<IHttpMethod>(index);
+    return IHttpMethod::UNKNOWN;
 }
 
-IHttpMethod IHttpMethodUtil::toMethod(std::string_view name)
+const IStringList &IHttpMethodUtil::methodNames()
 {
-    return toMethod(QString::fromLocal8Bit(name.data(), name.length()));
-}
-
-const QStringList &IHttpMethodUtil::methodNames()
-{
-    static const QStringList m_methodNames = {"GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS", "UNKNOWN"};
+    static const IStringList m_methodNames = {
+        "GET", "POST", "PUT", "DELETE",
+        "PATCH", "HEAD", "OPTIONS", "UNKNOWN"
+    };
     return m_methodNames;
 }
-
-
 
 $PackageWebCoreEnd

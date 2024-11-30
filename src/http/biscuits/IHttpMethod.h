@@ -16,10 +16,10 @@ enum class IHttpMethod {
 };
 
 namespace IHttpMethodUtil{
-    QString toString(IHttpMethod);
+    const IString& toString(IHttpMethod);
     IHttpMethod toMethod(const QString&);
-    IHttpMethod toMethod(std::string_view);
-    const QStringList& methodNames();
+    IHttpMethod toMethod(const IString&);
+    const IStringList & methodNames();
 }
 
 $PackageWebCoreEnd

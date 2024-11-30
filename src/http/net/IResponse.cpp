@@ -62,7 +62,7 @@ IResponse &IResponse::setStatus(IHttpStatus statusCode)
 
 IResponse &IResponse::setStatus(int statusCode)
 {
-    m_impl.m_respRaw.m_status = IHttpStatusUtil::toStatus(statusCode);
+    m_impl.m_respRaw.m_status = IHttpStatus(statusCode);
     return *this;
 }
 
@@ -72,7 +72,7 @@ IResponse &IResponse::setMime(IHttpMime mime)
     return *this;
 }
 
-IResponse &IResponse::setMime(const QString mime)
+IResponse &IResponse::setMime(IString mime)
 {
     m_impl.m_respRaw.m_mime = mime;
     return *this;
@@ -84,51 +84,15 @@ IResponse &IResponse::addCookie(ICookiePart cookiePart)
     return *this;
 }
 
-IResponse &IResponse::setContent(std::string && value)
+IResponse &IResponse::setContent(IString && value)
 {
     m_impl.m_respRaw.setContent(std::move(value));
     return *this;
 }
 
-IResponse &IResponse::setContent(const std::string &value)
+IResponse &IResponse::setContent(const IString & value)
 {
     m_impl.m_respRaw.setContent(value);
-    return *this;
-}
-
-IResponse &IResponse::setContent(IStringView view)
-{
-    m_impl.m_respRaw.setContent(view);
-    return *this;
-}
-
-IResponse &IResponse::setContent(QString && value)
-{
-    m_impl.m_respRaw.setContent(std::move(value));
-    return *this;
-}
-
-IResponse &IResponse::setContent(const QString &content)
-{
-    m_impl.m_respRaw.setContent(content);
-    return *this;
-}
-
-IResponse &IResponse::setContent(const QByteArray &content)
-{
-    m_impl.m_respRaw.setContent(content);
-    return *this;
-}
-
-IResponse &IResponse::setContent(QByteArray &&content)
-{
-    m_impl.m_respRaw.setContent(std::move(content));
-    return *this;
-}
-
-IResponse &IResponse::setContent(const char *content)
-{
-    m_impl.m_respRaw.setContent(content);
     return *this;
 }
 
@@ -174,29 +138,6 @@ IHttpStatus IResponse::status() const
 const IHttpHeader& IResponse::headers() const
 {
     return m_impl.m_respRaw.m_headers;
-}
-
-const QMap<QString, QVariant> &IResponse::attributes() const
-{
-    return m_impl.m_attribute;
-}
-
-bool IResponse::hasAttribute(const QString &name) const
-{
-    return m_impl.m_attribute.contains(name);
-}
-
-void IResponse::setAttribute(const QString &name, const QVariant &value)
-{
-    m_impl.m_attribute[name] = value;
-}
-
-QVariant IResponse::getAttribute(const QString &name, const QVariant &defaultValue) const
-{
-    if(m_impl.m_attribute.contains(name)){
-        return m_impl.m_attribute[name];
-    }
-    return defaultValue;
 }
 
 $PackageWebCoreEnd

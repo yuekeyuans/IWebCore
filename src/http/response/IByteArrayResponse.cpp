@@ -15,31 +15,31 @@ IByteArrayResponse::IByteArrayResponse(const char *data)
 IByteArrayResponse::IByteArrayResponse(QByteArray &&array)
 {
     m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
-    m_raw->setContent(std::move(array));
+    m_raw->setContent(IString(std::move(array)));
 }
 
 IByteArrayResponse::IByteArrayResponse(const QByteArray &array)
 {
     m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
-    m_raw->setContent(array);
+    m_raw->setContent(IString(array));
 }
 
 IByteArrayResponse::IByteArrayResponse(const QString &data)
 {
     m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
-    m_raw->setContent(data.toStdString());
+    m_raw->setContent(IString(data.toUtf8()));
 }
 
 IByteArrayResponse::IByteArrayResponse(std::string &&data)
 {
     m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
-    m_raw->setContent(std::move(data));
+    m_raw->setContent(IString(std::move(data)));
 }
 
 IByteArrayResponse::IByteArrayResponse(const std::string & data)
 {
     m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
-    m_raw->setContent(data);
+    m_raw->setContent(IString(data));
 }
 
 std::string IByteArrayResponse::prefixMatcher()
