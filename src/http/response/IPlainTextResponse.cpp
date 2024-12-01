@@ -10,13 +10,13 @@ IPlainTextResponse::IPlainTextResponse()
 
 IPlainTextResponse::IPlainTextResponse(const QString &value)
 {
-    m_raw->setContent(value);
+    m_raw->setContent(IString(value.toUtf8()));
     m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
 IPlainTextResponse::IPlainTextResponse(const std::string &value)
 {
-    m_raw->setContent(QString::fromStdString(value));
+    m_raw->setContent(IString(value));
     m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
@@ -28,7 +28,7 @@ IPlainTextResponse::IPlainTextResponse(const char *value)
 
 IPlainTextResponse::IPlainTextResponse(QString &&value)
 {
-    m_raw->setContent(value);
+    m_raw->setContent(IString(value.toUtf8()));
     m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 

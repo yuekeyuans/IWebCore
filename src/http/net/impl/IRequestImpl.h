@@ -62,7 +62,6 @@ private:
     void parseHeader(IStringView);
     void resolveHeaders();      // 解析接收到的头
     void resolveCookieHeaders();
-    void resolvePathProcessor();
     void resolveBodyContent();
     void resolveMultipartContent();
     void parseUrlEncodedData(IStringView data, bool isBody);

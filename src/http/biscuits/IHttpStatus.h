@@ -83,7 +83,7 @@ enum class IHttpStatus : int
 };
 
 namespace IHttpStatusUtil {
-    IString toStringNumber(IHttpStatus);
+    const IString& toStringNumber(IHttpStatus);
     const IString& toStringDescription(IHttpStatus);
 }
 

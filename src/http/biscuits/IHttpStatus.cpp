@@ -85,8 +85,20 @@ namespace detail
         };
         return descriptionTable;
     }
-}
 
+    const std::vector<IString>& getStatusNumber()
+    {
+        static std::vector<IString> statusNumber;
+        static std::once_flag flag;
+        std::call_once(flag, [](){
+            for(int i=100; i<600; i++){
+                statusNumber.push_back(IString(std::to_string(i)));
+            }
+        });
+
+        return statusNumber;
+    }
+}
 
 const IString& IHttpStatusUtil::toStringDescription(IHttpStatus statusCode)
 {
@@ -97,9 +109,10 @@ const IString& IHttpStatusUtil::toStringDescription(IHttpStatus statusCode)
     return map.find(static_cast<int>(IHttpStatus::UNKNOWN)).value();
 }
 
-IString IHttpStatusUtil::toStringNumber(IHttpStatus status)
+const IString& IHttpStatusUtil::toStringNumber(IHttpStatus status)
 {
-    return std::to_string(static_cast<int>(status));
+    static const auto& numbers = detail::getStatusNumber();
+    return numbers[static_cast<int>(status)-100];
 }
 
 $PackageWebCoreEnd

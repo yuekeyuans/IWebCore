@@ -12,19 +12,25 @@
 
 $PackageWebCoreBegin
 
-inline static constexpr char NEW_LINE[] = "\r\n";
+static constexpr char NEW_LINE[] = "\r\n";
+static const IString NewLine = "\r\n";
+static const IString SPACE = " ";
+static const IString COMMA = ": ";
 
 namespace detail
 {
 
-QByteArray generateFirstLine(IRequestImpl& impl)
+std::vector<IStringView> generateFirstLine(IRequestImpl& impl)
 {
-    QByteArray firstLine;
-    firstLine.append(IHttpVersionUtil::toString(impl.m_reqRaw.m_httpVersion)).append(" ")
-            .append(IHttpStatusUtil::toStringNumber(impl.m_respRaw.m_status)).append(" ")
-            .append(IHttpStatusUtil::toStringDescription(impl.m_respRaw.m_status)).append(NEW_LINE);
+    std::vector<IStringView> ret;
+    ret.push_back(IHttpVersionUtil::toString(impl.m_reqRaw.m_httpVersion).m_stringView);
+    ret.push_back(SPACE.m_stringView);
+    ret.push_back(IHttpStatusUtil::toStringNumber(impl.m_respRaw.m_status).m_stringView);
+    ret.push_back(SPACE.m_stringView);
+    ret.push_back(IHttpStatusUtil::toStringDescription(impl.m_respRaw.m_status).m_stringView);
+    ret.push_back(NewLine);
 
-    return firstLine;
+    return ret;
 }
 
 QString generateCookieHeaders(IResponseRaw& raw)
@@ -41,36 +47,41 @@ QString generateCookieHeaders(IResponseRaw& raw)
 
 void generateExternalHeadersContent(IResponseRaw& raw, QByteArray &content)
 {
-    content.append("Server: IWebCore").append(NEW_LINE);
+//    content.append("Server: IWebCore").append(NEW_LINE);
 
-    auto cookieContent = generateCookieHeaders(raw);
-    if(!cookieContent.isEmpty()){
-        content.append(cookieContent).append(NEW_LINE);
-    }
+//    auto cookieContent = generateCookieHeaders(raw);
+//    if(!cookieContent.isEmpty()){
+//        content.append(cookieContent).append(NEW_LINE);
+//    }
 }
 
-// TODO: 这里之后补充
-QByteArray generateHeadersContent(IRequestImpl& m_raw, int contentSize)
+std::vector<IStringView> generateHeadersContent(IRequestImpl& m_raw, int contentSize)
 {
+    auto& headers = m_raw.m_respRaw.m_headers;
     if(contentSize != 0){
-//        m_raw.m_headerJar.setResponseHeader(IHttpHeader::ContentLength, QString::number(contentSize));
-//        if(!m_raw.m_headerJar.containResponseHeaderKey(IHttpHeader::ContentType)
-//                && !m_raw.m_respRaw.m_mime.isEmpty()){
-//            m_raw.m_headerJar.setResponseHeader(IHttpHeader::ContentType, m_raw.m_respRaw.m_mime);
-//        }
+        headers.insert(IHttpHeader::ContentLength, IString(std::to_string(contentSize)));
+        if(headers.contain(IHttpHeader::ContentType)
+                && !m_raw.m_respRaw.m_mime.isEmpty()){
+            headers.insert(IHttpHeader::ContentDisposition, m_raw.m_respRaw.m_mime);
+        }
     }
 
-//    QByteArray headersContent;
-//    auto keys = m_raw.m_respRaw.m_headers.uniqueKeys();
-//    for(const auto& key : keys){
-//        auto values = m_raw.m_respRaw.m_headers.values(key);
-//        headersContent.append(key).append(":").append(values.join(";")).append(NEW_LINE);
-//    }
+    std::vector<IStringView> ret;
+    std::unordered_map<IString, std::vector<IString>>& headerMap = headers.m_header;
+    for(const auto& pair : headerMap){
+        ret.push_back(pair.first.m_stringView);
+        ret.push_back(COMMA.m_stringView);
+        for(const auto& val : pair.second){
+            ret.push_back(val.m_stringView);
+        }
+        ret.push_back(NewLine.m_stringView);
+    }
+
+    return ret;
 
 //    detail::generateExternalHeadersContent(m_raw.m_respRaw, headersContent);
 //    return headersContent;
-
-    return {};
+//    return {};
 }
 
 }
@@ -134,11 +145,12 @@ void IResponseRaw::setContent(IResponseContentWare *ware)
     auto invalidWare = dynamic_cast<IInvalidReponseContent*>(ware);
     if(invalidWare){
         this->m_isValid = false;
-        this->m_status = invalidWare->m_ware.status;
-        this->m_mime = invalidWare->getSuggestedMime(); // TODO: 感觉这里不对
+        // TODO:
+//        this->m_status = invalidWare->m_ware.status;
+//        this->m_mime = invalidWare->getSuggestedMime(); // TODO: 感觉这里不对
     }
 
-    if(ware->m_excess){
+    if(ware->m_excess != nullptr){
         ware = ware->m_excess;
         ware->m_excess = nullptr;
         setContent(ware);
@@ -148,22 +160,26 @@ void IResponseRaw::setContent(IResponseContentWare *ware)
 std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
 {
     std::vector<asio::const_buffer> result;
-
     if(!m_contents.empty() && m_mime.isEmpty()){
         m_mime = m_contents.back()->getSuggestedMime();
     }
 
-    IStringView firstLine = stash(detail::generateFirstLine(impl));
-    result.push_back(firstLine.toAsioBuffer());
+    // first line
+    auto firstLine = detail::generateFirstLine(impl);
+    for(auto view : firstLine){
+        result.push_back(view.toAsioBuffer());
+    }
 
     IStringView content{};
     if(!m_contents.empty()){
         content = m_contents.back()->getContent();
     }
-    if(content.size() != 0){
-        result.push_back(stash(detail::generateHeadersContent(impl, content.size())).toAsioBuffer());
+
+    auto headers = detail::generateHeadersContent(impl, content.size());
+    for(auto view : headers){
+        result.push_back(view.toAsioBuffer());
     }
-    result.push_back(asio::const_buffer(NEW_LINE, 2));
+    result.push_back(NewLine.m_stringView.toAsioBuffer());
 
     if(!content.empty()  && impl.m_reqRaw.m_method != IHttpMethod::HEAD){
         result.push_back(content.toAsioBuffer());

@@ -1,4 +1,5 @@
 ﻿#include "ITcpConnection.h"
+#include "core/util/IStringUtil.h"
 #include "http/server/ITcpResolverManage.h"
 #include "http/server/ITcpResolverInterface.h"
 #include "http/server/ITcpConnectionManage.h"
@@ -57,6 +58,10 @@ void ITcpConnection::doReadStreamUntil(IStringView data)
 void ITcpConnection::doWrite()
 {
     auto result = m_resolver->getOutput();
+    for(const auto& data : result){
+        IStringUtil::print(data);
+    }
+
     asio::async_write(m_socket, result, [=](std::error_code err, int){
         if(!m_closeConnection && !err){
             return doReuse();

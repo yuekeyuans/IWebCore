@@ -4,7 +4,7 @@ $PackageWebCoreBegin
 
 void IHttpHeader::insert(IString key, IString value)
 {
-    m_header[key].push_back(value);
+    m_header[std::move(key)].push_back(std::move(value));
 }
 
 void IHttpHeader::replace(IString key, IString value)

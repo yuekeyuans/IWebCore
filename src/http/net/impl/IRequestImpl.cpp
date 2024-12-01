@@ -348,8 +348,6 @@ void IRequestImpl::firstLineState(IStringView data)
     }
 
     resolveFirstLine();
-    resolvePathProcessor();
-
     m_readState = State::HeaderState;
 }
 
@@ -554,8 +552,8 @@ void IRequestImpl::resolveCookieHeaders()
 }
 
 // TODO:
-void IRequestImpl::resolvePathProcessor()
-{
+//void IRequestImpl::resolvePathProcessor()
+//{
 //    if(m_raw->m_method == IHttpMethod::OPTIONS){
 //        m_raw->m_processer.type = IRequestRaw::ProcessUnit::Type::Option;
 //        return;
@@ -592,7 +590,7 @@ void IRequestImpl::resolvePathProcessor()
 
 //    QString info = m_request->url().toQString() + " " + IHttpMethodUtil::toString(m_request->method()) + " has no function to handle";
 //    m_request->setInvalid(IHttpNotFoundInvalid(std::move(info)));
-}
+//}
 
 void IRequestImpl::resolveBodyContent()
 {

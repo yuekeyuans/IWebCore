@@ -6,6 +6,7 @@ $PackageWebCoreBegin
 
 struct IHttpHeader
 {
+    friend class IResponseRaw;
 public:
     void insert(IString key, IString value);
     void replace(IString key, IString value);
@@ -30,7 +31,7 @@ private:
     inline static const IString Empty {};
     inline static const std::vector<IString> EmptyVector {};
 
-private:
+public:     // TODO:
     std::unordered_map<IString, std::vector<IString>> m_header;
 };
 
