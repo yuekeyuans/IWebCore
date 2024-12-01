@@ -16,6 +16,7 @@ static constexpr char NEW_LINE[] = "\r\n";
 static const IString NewLine = "\r\n";
 static const IString SPACE = " ";
 static const IString COMMA = ": ";
+static const IString ServerHeader = "Server: IWebCore\r\n";
 
 namespace detail
 {
@@ -33,26 +34,17 @@ std::vector<IStringView> generateFirstLine(IRequestImpl& impl)
     return ret;
 }
 
-QString generateCookieHeaders(IResponseRaw& raw)
+std::vector<IStringView> generateCookieHeaders(IRequestImpl& impl)
 {
-    QStringList contents;
-    for(const auto& cookie : raw.m_cookies){
-        auto val = cookie.toHeaderString();
-        if(!val.isEmpty()){
-            contents.push_back(val);
+    std::vector<IStringView> ret;
+    for(const auto& cookie : impl.m_respRaw.m_cookies){
+        auto vals = cookie.toHeaderString();
+        for(auto val : vals){
+            ret.push_back(val);
         }
     }
-    return contents.join(NEW_LINE);
-}
 
-void generateExternalHeadersContent(IResponseRaw& raw, QByteArray &content)
-{
-//    content.append("Server: IWebCore").append(NEW_LINE);
-
-//    auto cookieContent = generateCookieHeaders(raw);
-//    if(!cookieContent.isEmpty()){
-//        content.append(cookieContent).append(NEW_LINE);
-//    }
+    return ret;
 }
 
 std::vector<IStringView> generateHeadersContent(IRequestImpl& m_raw, int contentSize)
@@ -67,6 +59,8 @@ std::vector<IStringView> generateHeadersContent(IRequestImpl& m_raw, int content
     }
 
     std::vector<IStringView> ret;
+    ret.push_back(ServerHeader.m_stringView);
+
     std::unordered_map<IString, std::vector<IString>>& headerMap = headers.m_header;
     for(const auto& pair : headerMap){
         ret.push_back(pair.first.m_stringView);
@@ -77,11 +71,9 @@ std::vector<IStringView> generateHeadersContent(IRequestImpl& m_raw, int content
         ret.push_back(NewLine.m_stringView);
     }
 
-    return ret;
 
-//    detail::generateExternalHeadersContent(m_raw.m_respRaw, headersContent);
-//    return headersContent;
-//    return {};
+
+    return ret;
 }
 
 }
@@ -157,6 +149,7 @@ void IResponseRaw::setContent(IResponseContentWare *ware)
     }
 }
 
+// TODO: 这个很不高效
 std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
 {
     std::vector<asio::const_buffer> result;
@@ -175,11 +168,18 @@ std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
         content = m_contents.back()->getContent();
     }
 
+    // headers
     auto headers = detail::generateHeadersContent(impl, content.size());
     for(auto view : headers){
         result.push_back(view.toAsioBuffer());
     }
     result.push_back(NewLine.m_stringView.toAsioBuffer());
+
+    // cookies
+    auto cookies = detail::generateCookieHeaders(impl);
+    for(auto view : cookies){
+        result.push_back(view.toAsioBuffer());
+    }
 
     if(!content.empty()  && impl.m_reqRaw.m_method != IHttpMethod::HEAD){
         result.push_back(content.toAsioBuffer());

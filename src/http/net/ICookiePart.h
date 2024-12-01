@@ -34,7 +34,7 @@ public:
     ICookiePart& setHttpOnly(bool httpOnly);
     ICookiePart& setSameSite(SameSiteType sameSite);
 
-    QString toHeaderString() const;
+    std::vector<IStringView> toHeaderString() const;
 
     bool isValid();
 
@@ -50,6 +50,10 @@ public:
     bool secure {false};
     bool httpOnly {false};
     SameSiteType sameSite{Lax};
+
+private:
+    mutable std::string m_maxAgeString; // TODO: 这个不是最优解
+    mutable std::string m_expiresString;
 };
 
 template<typename T>

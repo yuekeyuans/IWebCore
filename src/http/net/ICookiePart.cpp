@@ -1,12 +1,13 @@
 ﻿#include "ICookiePart.h"
 #include "core/util/IConvertUtil.h"
+#include "core/util/IConstantUtil.h"
 #include "http/biscuits/IHttpHeader.h"
 
 $PackageWebCoreBegin
 
-namespace ICookiePartHelper
+namespace detail
 {
-    QString sameSiteTypeToString(ICookiePart::SameSiteType type);
+    const IString& sameSiteTypeToString(ICookiePart::SameSiteType type);
 }
 
 ICookiePart::ICookiePart(IString key_, IString value_)
@@ -78,42 +79,55 @@ ICookiePart &ICookiePart::setSameSite(ICookiePart::SameSiteType sameSite)
     return *this;
 }
 
-// TODO: 这个优化一下，之后
-QString ICookiePart::toHeaderString() const
+std::vector<IStringView> ICookiePart::toHeaderString() const
 {
-    QString header;
-    header.append(IHttpHeader::SetCookie.m_stringView.toQString()).append(": ")
-        .append(key.m_stringView.toQString());
+    static const IString DomainIString = "; Domain=";
+    static const IString PathIString = "; Path=";
+    static const IString MaxAgeIString = "; Max-Age=";
+    static const IString ExpiresIString = "; Expires=";
+    static const IString SameSiteIString = "; SameSite=";
+    static const IString SecureIString = "; Secure";
+    static const IString HttpOnlyIString = "; HttpOnly";
+
+    std::vector<IStringView> ret;
+    ret.push_back(IHttpHeader::SetCookie.m_stringView);
+    ret.push_back(IConstantUtil::Comma.m_stringView);
+    ret.push_back(key.m_stringView);
+
     if(!value.isEmpty()){
-        header.append('=').append(value.m_stringView.toQString());
+        ret.push_back(IConstantUtil::Equal.m_stringView);
+        ret.push_back(value.m_stringView);
     }
-
     if(!domain.isEmpty()){
-        header.append("; Domain=").append(domain.m_stringView.toQString());
+        ret.push_back(DomainIString.m_stringView);
+        ret.push_back(domain.m_stringView);
     }
-
     if(!path.isEmpty()){
-        header.append("; Path=").append(path.m_stringView.toQString());
+        ret.push_back(PathIString.m_stringView);
+        ret.push_back(path.m_stringView);
     }
-
     if(maxAge != INT_MIN){               // see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#browser_compatibility
-        header.append("; Max-Age=").append(QString::number(maxAge));
+        m_maxAgeString = std::to_string(maxAge);
+        ret.push_back(MaxAgeIString.m_stringView);
+        ret.push_back(IString(&m_maxAgeString).m_stringView);
     }
     if(expires.isValid()){
-        header.append("; Expires=").append(IConvertUtil::toUtcString(expires));
+        m_expiresString = IConvertUtil::toUtcString(expires).toStdString();
+        ret.push_back(ExpiresIString.m_stringView);
+        ret.push_back(IString(&m_expiresString).m_stringView);
     }
-
     if(sameSite != Lax){
-        header.append("; SameSite=").append(ICookiePartHelper::sameSiteTypeToString(sameSite));
+        ret.push_back(SameSiteIString.m_stringView);
+        ret.push_back(detail::sameSiteTypeToString(sameSite).m_stringView);
     }
     if(secure){
-        header.append("; Secure");
+        ret.push_back(SecureIString.m_stringView);
     }
     if(httpOnly){
-        header.append("; HttpOnly");
+        ret.push_back(HttpOnlyIString.m_stringView);
     }
 
-    return header;
+    return ret;
 }
 
 bool ICookiePart::isValid()
@@ -127,9 +141,9 @@ bool ICookiePart::isValid()
     return true;
 }
 
-QString ICookiePartHelper::sameSiteTypeToString(ICookiePart::SameSiteType type)
+const IString& detail::sameSiteTypeToString(ICookiePart::SameSiteType type)
 {
-    static const QStringList strings {
+    static const std::vector<IString> strings {
         "Lax",
         "None",
         "Strict"

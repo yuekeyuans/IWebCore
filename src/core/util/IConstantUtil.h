@@ -13,6 +13,11 @@ namespace IConstantUtil
     inline static constexpr bool DebugMode = false;
     inline static constexpr bool ReleaseMode = true;
 #endif
+
+    inline static const IString Comma = ": ";
+    inline static const IString NewLine = "\r\n";
+    inline static const IString Equal = "=";
+
 }
 
 $PackageWebCoreEnd
