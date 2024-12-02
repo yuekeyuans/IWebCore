@@ -11,7 +11,7 @@ IHtmlResponse::IHtmlResponse() : IResponseInterface()
 IHtmlResponse::IHtmlResponse(const QString &data)
 {
     m_raw->setMime(IHttpMime::TEXT_HTML_UTF8);
-    m_raw->setContent(data);
+    m_raw->setContent(IString(data.toUtf8()));
 }
 
 IHtmlResponse::IHtmlResponse(std::string && data)
@@ -45,7 +45,6 @@ std::string IHtmlResponse::prefixMatcher()
 
 IHtmlResponse operator"" _html(const char* str, size_t size)
 {
-    Q_UNUSED(size)
     return IHtmlResponse(std::string(str, size));
 }
 

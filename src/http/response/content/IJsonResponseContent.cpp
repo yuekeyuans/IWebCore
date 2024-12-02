@@ -21,14 +21,3 @@ IJsonResponseContent::IJsonResponseContent(const std::string & data)
     : IResponseContentWare(data)
 {
 }
-
-const std::string& IWebCore::IJsonResponseContent::getType() const
-{
-    return CLASS_NAME;
-}
-
-const std::string& IWebCore::IJsonResponseContent::getSuggestedMime() const
-{
-    static const std::string& mime = IHttpMimeUtil::toString(IHttpMime::APPLICATION_JSON_UTF8).m_stringView.toStdString();
-    return mime;
-}

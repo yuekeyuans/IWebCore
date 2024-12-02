@@ -5,7 +5,7 @@
 
 $PackageWebCoreBegin
 
-class IHtmlResponseContent : public IResponseContentWare, private IClassNameUnit<IHtmlResponseContent>
+class IHtmlResponseContent : public IResponseContentWare
 {
 public:
     IHtmlResponseContent(QByteArray&&);
@@ -14,10 +14,6 @@ public:
     IHtmlResponseContent(const std::string& value);
     IHtmlResponseContent(const QString&);
     IHtmlResponseContent(IStringView);
-
-public:
-    virtual const std::string& getType() const final;
-    virtual const std::string& getSuggestedMime() const final;
 };
 
 $PackageWebCoreEnd

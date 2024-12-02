@@ -33,15 +33,4 @@ IHtmlResponseContent::IHtmlResponseContent(IStringView view)
 {
 }
 
-const std::string &IHtmlResponseContent::getType() const
-{
-    return CLASS_NAME;
-}
-
-const std::string& IHtmlResponseContent::getSuggestedMime() const
-{
-    static const std::string& mime = IHttpMimeUtil::toString(IHttpMime::TEXT_HTML_UTF8).m_stringView.toStdString();
-    return mime;
-}
-
 $PackageWebCoreEnd

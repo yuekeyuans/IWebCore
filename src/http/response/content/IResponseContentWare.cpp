@@ -4,10 +4,6 @@ $PackageWebCoreBegin
 
 IResponseContentWare::~IResponseContentWare()
 {
-    if(m_excess){
-        delete m_excess;
-        m_excess = nullptr;
-    }
 }
 
 IResponseContentWare::IResponseContentWare(const QByteArray &byteArray)
@@ -43,11 +39,6 @@ IResponseContentWare::IResponseContentWare(IString && data)
 IResponseContentWare::IResponseContentWare(const IString & data)
     : m_dataRaw(data)
 {
-}
-
-int IResponseContentWare::getSize()
-{
-    return m_dataRaw.m_stringView.length();
 }
 
 IStringView IResponseContentWare::getContent()

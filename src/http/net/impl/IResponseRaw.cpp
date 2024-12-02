@@ -96,11 +96,6 @@ void IResponseRaw::setMime(IHttpMime mime)
     this->m_mime = IHttpMimeUtil::toString(mime);
 }
 
-//void IResponseRaw::setMime(IString &&mime)
-//{
-//    this->m_mime = std::move(mime);
-//}
-
 void IResponseRaw::setContent(IJson &&data)
 {
     setContent(new IJsonResponseContent(std::move(data)));
@@ -119,6 +114,11 @@ void IResponseRaw::setContent(IString &&value)
 void IResponseRaw::setContent(const IString &value)
 {
     setContent(new IStringResponseContent(value));
+}
+
+void IResponseRaw::setContent(const QString & value)
+{
+    setContent(new IStringResponseContent(value.toUtf8()));
 }
 
 void IResponseRaw::setContent(const QFileInfo &value)
@@ -141,21 +141,15 @@ void IResponseRaw::setContent(IResponseContentWare *ware)
 //        this->m_status = invalidWare->m_ware.status;
 //        this->m_mime = invalidWare->getSuggestedMime(); // TODO: 感觉这里不对
     }
-
-    if(ware->m_excess != nullptr){
-        ware = ware->m_excess;
-        ware->m_excess = nullptr;
-        setContent(ware);
-    }
 }
 
 // TODO: 这个很不高效
 std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
 {
     std::vector<asio::const_buffer> result;
-    if(!m_contents.empty() && m_mime.isEmpty()){
-        m_mime = m_contents.back()->getSuggestedMime();
-    }
+//    if(!m_contents.empty() && m_mime.isEmpty()){
+//        m_mime = m_contents.back()->getSuggestedMime();
+//    }
 
     // first line
     auto firstLine = detail::generateFirstLine(impl);

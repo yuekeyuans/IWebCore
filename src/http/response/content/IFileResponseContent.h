@@ -5,16 +5,13 @@
 
 $PackageWebCoreBegin
 
-class IFileResponseContent : public IResponseContentWare, private IClassNameUnit<IFileResponseContent>
+class IFileResponseContent : public IResponseContentWare
 {
 public:
     IFileResponseContent(const QString& path);
 
 public:
-    virtual int getSize() final;
-    virtual const std::string& getType() const final;
     virtual IStringView getContent() final;
-    virtual const std::string& getSuggestedMime() const final;
 
 private:
     QString m_path;
