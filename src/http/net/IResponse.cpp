@@ -9,6 +9,7 @@
 #include "http/net/impl/IRequestRaw.h"
 #include "http/net/IHeaderJar.h"
 #include "http/response/IResponseWare.h"
+#include "http/response/content/IStringResponseContent.h"
 
 $PackageWebCoreBegin
 
@@ -86,13 +87,15 @@ IResponse &IResponse::addCookie(ICookiePart cookiePart)
 
 IResponse &IResponse::setContent(IString && value)
 {
-    m_impl.m_respRaw.setContent(std::move(value));
+    m_impl.m_respRaw.setMime(IHttpMime::TEXT_PLAIN_UTF8);
+    m_impl.m_respRaw.setContent(new IStringResponseContent(std::move(value)));
     return *this;
 }
 
 IResponse &IResponse::setContent(const IString & value)
 {
-    m_impl.m_respRaw.setContent(value);
+    m_impl.m_respRaw.setMime(IHttpMime::TEXT_PLAIN_UTF8);
+    m_impl.m_respRaw.setContent(new IStringResponseContent(value));
     return *this;
 }
 

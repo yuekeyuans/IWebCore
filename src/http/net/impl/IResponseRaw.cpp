@@ -7,7 +7,7 @@
 #include "http/invalid/IHttpInvalidWare.h"
 #include "http/response/content/IInvalidReponseContent.h"
 #include "http/response/content/IFileResponseContent.h"
-#include "http/response/content/IJsonResponseContent.h"
+//#include "http/response/content/IJsonResponseContent.h"
 #include "http/response/content/IStringResponseContent.h"
 
 $PackageWebCoreBegin
@@ -96,30 +96,30 @@ void IResponseRaw::setMime(IHttpMime mime)
     this->m_mime = IHttpMimeUtil::toString(mime);
 }
 
-void IResponseRaw::setContent(IJson &&data)
-{
-    setContent(new IJsonResponseContent(std::move(data)));
-}
+//void IResponseRaw::setContent(IJson &&data)
+//{
+//    setContent(new IStringResponseContent(data.dump()));
+//}
 
-void IResponseRaw::setContent(const IJson &data)
-{
-    setContent(new IJsonResponseContent(data));
-}
+//void IResponseRaw::setContent(const IJson &data)
+//{
+//    setContent(new IStringResponseContent(data.dump()));
+//}
 
-void IResponseRaw::setContent(IString &&value)
-{
-    setContent(new IStringResponseContent(std::move(value)));
-}
+//void IResponseRaw::setContent(IString &&value)
+//{
+//    setContent(new IStringResponseContent(std::move(value)));
+//}
 
-void IResponseRaw::setContent(const IString &value)
-{
-    setContent(new IStringResponseContent(value));
-}
+//void IResponseRaw::setContent(const IString &value)
+//{
+//    setContent(new IStringResponseContent(value));
+//}
 
-void IResponseRaw::setContent(const QString & value)
-{
-    setContent(new IStringResponseContent(value.toUtf8()));
-}
+//void IResponseRaw::setContent(const QString & value)
+//{
+//    setContent(new IStringResponseContent(value.toUtf8()));
+//}
 
 void IResponseRaw::setContent(const QFileInfo &value)
 {

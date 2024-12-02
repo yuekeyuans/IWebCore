@@ -3,6 +3,7 @@
 #include "IResponseInterface.h"
 #include "IResponsePreProcessor.h"
 #include "core/util/IJsonUtil.h"
+#include "http/response/content/IStringResponseContent.h"
 
 $PackageWebCoreBegin
 
@@ -34,8 +35,8 @@ IJsonResponse operator"" _json(const char* str, size_t size);
 template<typename T>
 IJsonResponse::IJsonResponse(T value)
 {
-    m_raw->setContent(IJsonUtil::toJson(value));
     m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
+    m_raw->setContent(new IStringResponseContent(IJsonUtil::toJson(value).dump()));
 }
 
 $PackageWebCoreEnd
