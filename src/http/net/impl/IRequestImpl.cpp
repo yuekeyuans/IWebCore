@@ -20,8 +20,7 @@
 $PackageWebCoreBegin
 
 IRequestImpl::IRequestImpl(IRequest& self)
-    : m_request(self),
-      m_connection(self.m_connection), m_data(self.m_connection.m_data),
+    : m_request(self), m_connection(self.m_connection), m_data(self.m_connection.m_data),
       m_headerJar{*this}, m_cookieJar{*this}, m_multiPartJar{*this}
 {
     if(ISessionManager::instance()->getSessionWare() != nullptr){
@@ -34,24 +33,19 @@ IRequestImpl::~IRequestImpl()
     delete m_sessionJar;
 }
 
-IJson IRequestImpl::requestJson() const
-{
-    return m_reqRaw.m_requestJson;
-}
+//int IRequestImpl::contentLength() const
+//{
+//    const auto& val = m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentLength);
+//    if(!val){
+//        return val.m_stringView.toQString().toInt();
+//    }
+//    return 0;
+//}
 
-int IRequestImpl::contentLength() const
-{
-    const auto& val = m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentLength);
-    if(!val){
-        return val.m_stringView.toQString().toInt();
-    }
-    return 0;
-}
-
-const IString& IRequestImpl::contentType() const
-{
-    return m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentType);
-}
+//const IString& IRequestImpl::contentType() const
+//{
+//    return m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentType);
+//}
 
 bool IRequestImpl::isValid() const
 {

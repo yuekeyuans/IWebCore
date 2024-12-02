@@ -172,18 +172,15 @@ bool IString::isEmpty() const
     return m_stringView.empty();
 }
 
-void IString::solidify()
+IString& IString::solidify()
 {
-    if(isEmpty()){
-        return;
-    }
-    if(m_type != Type::IStringView){
-        return;
+    if(m_type == Type::IStringView && !m_stringView.empty()){
+        m_type = Type::StdString;
+        new (&m_stdString) std::string(m_stringView.toStdString());
+        m_stringView = IStringView(m_stdString);
     }
 
-    m_type = Type::StdString;
-    new (&m_stdString) std::string(m_stringView.toStdString());
-    m_stringView = IStringView(m_stdString);
+    return *this;
 }
 
 IStringViewList IString::split(char delimiter) const

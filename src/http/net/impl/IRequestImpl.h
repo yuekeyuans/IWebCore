@@ -38,9 +38,8 @@ public:
     IRequestImpl(IRequest& self);
     ~IRequestImpl();
 
-    IJson requestJson() const;
-    int contentLength() const;
-    const IString& contentType() const;
+//    int contentLength() const;
+//    const IString& contentType() const;
 
 public:
     bool isValid() const;

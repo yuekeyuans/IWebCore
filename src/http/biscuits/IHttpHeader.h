@@ -10,9 +10,9 @@ struct IHttpHeader
 public:
     void insert(IString key, IString value);
     void replace(IString key, IString value);
-    void remove(IString key, IString value);
+    void remove(const IString& key, const IString& value);
     void clear(const IString& key);
-    std::vector<IString> keys() const;
+    std::vector<IStringView> keys() const;
     const std::vector<IString>& values(const IString& key) const;
     const IString& value(const IString& key) const;
     bool contain(const IString& key) const ;
@@ -27,11 +27,7 @@ public:
     inline static const IString Cookie = "Cookie";
     inline static const IString SetCookie = "Set-Cookie";
 
-private:
-    inline static const IString Empty {};
-    inline static const std::vector<IString> EmptyVector {};
-
-public:     // TODO:
+public:
     std::unordered_map<IString, std::vector<IString>> m_header;
 };
 

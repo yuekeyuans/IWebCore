@@ -15,22 +15,15 @@ public:
 
 public:
     IHeaderJar();
-//    const QMultiHash<IStringView, IStringView>& requestHeaders() const;
-//    QMultiHash<IStringView, IStringView>& requestHeaders();
-
-    std::vector<IString> requestHeaderKeys() const;
+    std::vector<IStringView> requestHeaderKeys() const;
     bool containRequestHeaderKey(const IString& key) const;
-//    bool containRequestHeaderKey(const QString& key) const;
 
     IString getRequestHeaderValue(const IString& key) const;
-//    IString getRequestHeaderValue(const QString& key) const;
     const std::vector<IString>& getRequestHeaderValues(const IString& key) const;
-//    const std::vector<IString>& getRequestHeaderValues(const QString& key) const;
 
-//    IHttpHeader& responseHeaders();
     IHttpHeader& responseHeaders();
 
-    std::vector<IString> responseHeaderKeys() const;
+    std::vector<IStringView> responseHeaderKeys() const;
     bool containResponseHeaderKey(const IString& key) const;
 
 

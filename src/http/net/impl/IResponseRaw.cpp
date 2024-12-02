@@ -88,7 +88,7 @@ IResponseRaw::~IResponseRaw()
 
 void IResponseRaw::setHeader(IString key, IString value)
 {
-    m_headers.insert(std::move(key), std::move(value));
+    m_headers.insert(std::move(key.solidify()), std::move(value.solidify()));
 }
 
 void IResponseRaw::setMime(IHttpMime mime)

@@ -11,17 +11,7 @@ IHeaderJar::IHeaderJar() : IJarUnit()
     IGlobalAbort::abortUnVisibleMethod();
 }
 
-//const QMultiHash<IStringView, IStringView>& IHeaderJar::requestHeaders() const
-//{
-//    return m_impl.m_reqRaw.m_requestHeaders;
-//}
-
-//QMultiHash<IStringView, IStringView> &IHeaderJar::requestHeaders()
-//{
-//    return m_impl.m_reqRaw.m_requestHeaders;
-//}
-
-std::vector<IString> IHeaderJar::requestHeaderKeys() const
+std::vector<IStringView> IHeaderJar::requestHeaderKeys() const
 {
     return m_impl.m_reqRaw.m_requestHeaders.keys();
 }
@@ -31,45 +21,22 @@ bool IHeaderJar::containRequestHeaderKey(const IString& key) const
     return m_impl.m_reqRaw.m_requestHeaders.contain(key);
 }
 
-//bool IHeaderJar::containRequestHeaderKey(const QString &key) const
-//{
-//    auto temp = key.toUtf8();
-//    return containRequestHeaderKey(IStringView(temp));
-//}
-
 IString IHeaderJar::getRequestHeaderValue(const IString& view) const
 {
     return m_impl.m_reqRaw.m_requestHeaders.value(view);
 }
-
-//IString IHeaderJar::getRequestHeaderValue(const QString &key) const
-//{
-//    auto temp = key.toUtf8();
-//    return getRequestHeaderValue(IStringView(temp));
-//}
 
 const std::vector<IString>& IHeaderJar::getRequestHeaderValues(const IString& key) const
 {
     return m_impl.m_reqRaw.m_requestHeaders.values(key);
 }
 
-//const std::vector<IString>& IHeaderJar::getRequestHeaderValues(const QString &key) const
-//{
-//    auto temp = key.toUtf8();
-//    return getRequestHeaderValues(IStringView(temp));
-//}
-
-//const IHttpHeader &IHeaderJar::responseHeaders()
-//{
-//    return m_impl.m_respRaw.m_headers;
-//}
-
 IHttpHeader &IHeaderJar::responseHeaders()
 {
     return m_impl.m_respRaw.m_headers;
 }
 
-std::vector<IString> IHeaderJar::responseHeaderKeys() const
+std::vector<IStringView> IHeaderJar::responseHeaderKeys() const
 {
     return m_impl.m_respRaw.m_headers.keys();
 }

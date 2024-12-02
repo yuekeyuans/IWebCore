@@ -44,7 +44,7 @@ public:
 public:
     bool isSolid() const;
     bool isEmpty() const;
-    void solidify();
+    IString& solidify();
     operator bool() const;
     operator IStringView() const;
 
