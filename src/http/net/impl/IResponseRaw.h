@@ -24,7 +24,7 @@ public:
     void setHeader(IString key, IString value);
 
     void setMime(IHttpMime m_mime);
-    void setMime(IString&&);
+//    void setMime(IString&&);
 
     void setContent(IJson&& data);
     void setContent(const IJson& data);

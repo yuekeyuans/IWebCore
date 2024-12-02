@@ -326,11 +326,11 @@ void IRequest::setInvalid(IHttpInvalidWare ware) const
     m_impl->setInvalid(ware);
 }
 
-void IRequest::doAction(IHttpAction *action)
-{
-    // TODO: 这里 action 有可能需要被释放，这里需要异步，不能在一个函数里面释放当前的对象
-    action->invoke(*this);
-}
+//void IRequest::doAction(IHttpAction *action)
+//{
+//    // TODO: 这里 action 有可能需要被释放，这里需要异步，不能在一个函数里面释放当前的对象
+//    action->invoke(*this);
+//}
 
 void IRequest::doWrite()
 {

@@ -54,11 +54,6 @@ void IResponseWare::setMime(IHttpMime mime)
     m_raw->setMime(mime);
 }
 
-void IResponseWare::setMime(IString &&mime)
-{
-    m_raw->setMime(std::move(mime));
-}
-
 IHttpStatus IResponseWare::status() const
 {
     return m_raw->m_status;

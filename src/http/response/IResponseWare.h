@@ -25,7 +25,6 @@ public:
 public:
     const IString& mime() const;
     void setMime(IHttpMime);
-    void setMime(IString&&);
     
     IHttpStatus status() const;
     void setStatus(IHttpStatus statusCode);

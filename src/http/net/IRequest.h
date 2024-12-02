@@ -40,7 +40,6 @@ public:
     ISessionJar* sessionJar() const;
     IHeaderJar& headerJar() const;
     IMultiPartJar& multiPartJar() const;
-
     IRequestImpl& getImpl() const;
 
     const IString& url() const;
@@ -52,8 +51,6 @@ public:
     const IString& bodyContentType() const;
     const IString& bodyContent() const;
 
-//    QMultiHash<IStringView, IStringView>& headers();
-//    const QMultiHash<IStringView, IStringView>& headers() const;
     const QMap<IStringView, IStringView>& urlParameters() const;
     const QMap<IStringView, IStringView>& paramParameters() const;
     const QMap<IStringView, IStringView>& bodyFormParameters() const;
@@ -87,12 +84,13 @@ public:
     IResult<QByteArray> getSessionParameter(const QString& name) const;
 */
 
+public:
     bool isValid() const;
     void setInvalidIf(bool condition, IHttpInvalidWare) const;
     void setInvalid(IHttpInvalidWare) const;
 
 public:
-    void doAction(IHttpAction* action);
+//    void doAction(IHttpAction* action);
     void doWrite();
 
 protected:
