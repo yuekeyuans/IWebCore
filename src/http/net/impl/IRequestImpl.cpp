@@ -33,31 +33,6 @@ IRequestImpl::~IRequestImpl()
     delete m_sessionJar;
 }
 
-//int IRequestImpl::contentLength() const
-//{
-//    const auto& val = m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentLength);
-//    if(!val){
-//        return val.m_stringView.toQString().toInt();
-//    }
-//    return 0;
-//}
-
-//const IString& IRequestImpl::contentType() const
-//{
-//    return m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentType);
-//}
-
-bool IRequestImpl::isValid() const
-{
-    return m_isValid;
-}
-
-void IRequestImpl::setInvalid(const IHttpInvalidWare& ware)
-{
-    m_isValid = false;
-    m_respRaw.setContent(ware);
-}
-
 /*
 QByteArray IRequestImpl::getParameter(const QString &name, bool& ok) const
 {
@@ -328,16 +303,11 @@ void IRequestImpl::parseData()
     }
 }
 
-//std::vector<asio::const_buffer> IRequestImpl::getResult()
-//{
-//    return m_respRaw.getContent(*this);
-//}
-
 void IRequestImpl::firstLineState(IStringView data)
 {
     m_data.m_parsedSize += data.length();
     parseFirstLine(data.substr(0, data.length()-2));
-    if(!isValid()){
+    if(!m_isValid){
         return;
     }
 
@@ -403,7 +373,7 @@ void IRequestImpl::bodyState()
         resolveMultipartContent();
     }
 
-    if(isValid()){
+    if(m_isValid){
         switch (m_reqRaw.m_requestMime) {
         case IHttpMime::MULTIPART_FORM_DATA:
             parseMultiPartData(m_reqRaw.m_requestBody);
@@ -675,7 +645,7 @@ void IRequestImpl::parseMultiPartData(IStringView data)
 
 IStringView IRequestImpl::getBoundary(IStringView data)
 {
-    static std::string prefix = "boundary=";
+    static const std::string prefix = "boundary=";
     auto index = data.find(prefix);
     if(index == std::string::npos){
         return {};
@@ -690,6 +660,12 @@ IStringView IRequestImpl::getBoundary(IStringView data)
         view = view.substr(1, view.length()-2);
     }
     return stash("--" + view.toQByteArray());
+}
+
+void IRequestImpl::setInvalid(const IHttpInvalidWare& ware)
+{
+    m_isValid = false;
+    m_respRaw.setContent(ware);
 }
 
 // TODO: 还是需要检查一下对象的 is_valid

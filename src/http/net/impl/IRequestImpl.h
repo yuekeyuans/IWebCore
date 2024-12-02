@@ -23,9 +23,9 @@ class IResponse;
 class IRequest;
 class ITcpConnection;
 struct ITcpConnectionData;
-
 class IRequestImpl : public IStringViewStash
 {
+    friend class IRequest;
 public:
     enum State{
         FirstLineState, HeaderState, HeaderGapState, BodyState, EndState,
@@ -38,17 +38,9 @@ public:
     IRequestImpl(IRequest& self);
     ~IRequestImpl();
 
-//    int contentLength() const;
-//    const IString& contentType() const;
-
-public:
-    bool isValid() const;
-    void setInvalid(const IHttpInvalidWare&);
-
-public:
-    void parseData();
 
 private:
+    void parseData();
     void firstLineState(IStringView);
     void headerState(IStringView);
     bool headerGapState();
@@ -71,6 +63,7 @@ private:
     IStringView getBoundary(IStringView);
 
 public:
+    void setInvalid(const IHttpInvalidWare&);
     void setResponseWare(IResponseWare&& ware);     // used for filter data
     void setResponseWare(IResponseWare& ware);
 

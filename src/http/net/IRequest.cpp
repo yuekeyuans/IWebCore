@@ -311,19 +311,19 @@ IResult<QByteArray> IRequest::getSessionParameter(const QString &name) const
 
 bool IRequest::isValid() const
 {
-    return m_impl->isValid();
+    return m_impl->m_isValid;
 }
 
 void IRequest::setInvalidIf(bool condition, IHttpInvalidWare ware) const
 {
     if(condition){
-        m_impl->setInvalid(ware);
+        setInvalid(ware);
     }
 }
 
 void IRequest::setInvalid(IHttpInvalidWare ware) const
 {
-    return m_impl->setInvalid(ware);
+    m_impl->setInvalid(ware);
 }
 
 void IRequest::doAction(IHttpAction *action)
