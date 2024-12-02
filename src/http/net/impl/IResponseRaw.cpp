@@ -1,4 +1,5 @@
 ﻿#include "IResponseRaw.h"
+#include "core/util/IConstantUtil.h"
 #include "http/biscuits/IHttpHeader.h"
 #include "http/biscuits/IHttpVersion.h"
 #include "Http/net/impl/IRequestImpl.h"
@@ -7,15 +8,10 @@
 #include "http/invalid/IHttpInvalidWare.h"
 #include "http/response/content/IInvalidReponseContent.h"
 #include "http/response/content/IFileResponseContent.h"
-//#include "http/response/content/IJsonResponseContent.h"
 #include "http/response/content/IStringResponseContent.h"
 
 $PackageWebCoreBegin
 
-static constexpr char NEW_LINE[] = "\r\n";
-static const IString NewLine = "\r\n";
-static const IString SPACE = " ";
-static const IString COMMA = ": ";
 static const IString ServerHeader = "Server: IWebCore\r\n";
 
 namespace detail
@@ -25,11 +21,11 @@ std::vector<IStringView> generateFirstLine(IRequestImpl& impl)
 {
     std::vector<IStringView> ret;
     ret.push_back(IHttpVersionUtil::toString(impl.m_reqRaw.m_httpVersion).m_stringView);
-    ret.push_back(SPACE.m_stringView);
+    ret.push_back(IConstantUtil::Space.m_stringView);
     ret.push_back(IHttpStatusUtil::toStringNumber(impl.m_respRaw.m_status).m_stringView);
-    ret.push_back(SPACE.m_stringView);
+    ret.push_back(IConstantUtil::Space.m_stringView);
     ret.push_back(IHttpStatusUtil::toStringDescription(impl.m_respRaw.m_status).m_stringView);
-    ret.push_back(NewLine);
+    ret.push_back(IConstantUtil::NewLine);
 
     return ret;
 }
@@ -63,11 +59,11 @@ std::vector<IStringView> generateHeadersContent(IRequestImpl& m_raw, int content
     std::unordered_map<IString, std::vector<IString>>& headerMap = headers.m_header;
     for(const auto& pair : headerMap){
         ret.push_back(pair.first.m_stringView);
-        ret.push_back(COMMA.m_stringView);
+        ret.push_back(IConstantUtil::Comma.m_stringView);
         for(const auto& val : pair.second){
             ret.push_back(val.m_stringView);
         }
-        ret.push_back(NewLine.m_stringView);
+        ret.push_back(IConstantUtil::NewLine.m_stringView);
     }
 
 
@@ -110,13 +106,9 @@ void IResponseRaw::setContent(IResponseContentWare *ware)
     }
 }
 
-// TODO: 这个很不高效
 std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
 {
     std::vector<asio::const_buffer> result;
-//    if(!m_contents.empty() && m_mime.isEmpty()){
-//        m_mime = m_contents.back()->getSuggestedMime();
-//    }
 
     // first line
     auto firstLine = detail::generateFirstLine(impl);
@@ -134,7 +126,7 @@ std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
     for(auto view : headers){
         result.push_back(view.toAsioBuffer());
     }
-    result.push_back(NewLine.m_stringView.toAsioBuffer());
+    result.push_back(IConstantUtil::NewLine.m_stringView.toAsioBuffer());
 
     // cookies
     auto cookies = detail::generateCookieHeaders(impl);

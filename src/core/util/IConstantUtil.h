@@ -18,7 +18,9 @@ namespace IConstantUtil
     inline static const IString NewLine = "\r\n";
     inline static const IString Equal = "=";
     inline static const IString Empty {};
+    inline static const IString Space = " ";
     inline static const std::vector<IString> EmptyVector {};
+
 }
 
 $PackageWebCoreEnd
