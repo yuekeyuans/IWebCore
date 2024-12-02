@@ -22,18 +22,8 @@ public:
 
 public:
     void setHeader(IString key, IString value);
-
     void setMime(IHttpMime m_mime);
 
-//    void setContent(IJson&& data);
-//    void setContent(const IJson& data);
-
-//    void setContent(IString&&);
-//    void setContent(const IString&);
-
-//    void setContent(const QString&);
-
-    void setContent(const QFileInfo& data);
     void setContent(const IHttpInvalidWare& ware);
     void setContent(IResponseContentWare*);
 

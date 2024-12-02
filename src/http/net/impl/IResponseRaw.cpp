@@ -52,9 +52,8 @@ std::vector<IStringView> generateHeadersContent(IRequestImpl& m_raw, int content
     auto& headers = m_raw.m_respRaw.m_headers;
     if(contentSize != 0){
         headers.insert(IHttpHeader::ContentLength, IString(std::to_string(contentSize)));
-        if(headers.contain(IHttpHeader::ContentType)
-                && !m_raw.m_respRaw.m_mime.isEmpty()){
-            headers.insert(IHttpHeader::ContentDisposition, m_raw.m_respRaw.m_mime);
+        if(!headers.contain(IHttpHeader::ContentType) && !m_raw.m_respRaw.m_mime.isEmpty()){
+            headers.insert(IHttpHeader::ContentType, m_raw.m_respRaw.m_mime);
         }
     }
 
@@ -96,36 +95,6 @@ void IResponseRaw::setMime(IHttpMime mime)
     this->m_mime = IHttpMimeUtil::toString(mime);
 }
 
-//void IResponseRaw::setContent(IJson &&data)
-//{
-//    setContent(new IStringResponseContent(data.dump()));
-//}
-
-//void IResponseRaw::setContent(const IJson &data)
-//{
-//    setContent(new IStringResponseContent(data.dump()));
-//}
-
-//void IResponseRaw::setContent(IString &&value)
-//{
-//    setContent(new IStringResponseContent(std::move(value)));
-//}
-
-//void IResponseRaw::setContent(const IString &value)
-//{
-//    setContent(new IStringResponseContent(value));
-//}
-
-//void IResponseRaw::setContent(const QString & value)
-//{
-//    setContent(new IStringResponseContent(value.toUtf8()));
-//}
-
-void IResponseRaw::setContent(const QFileInfo &value)
-{
-    setContent(new IFileResponseContent(value.absoluteFilePath()));
-}
-
 void IResponseRaw::setContent(const IHttpInvalidWare& ware)
 {
     setContent(new IInvalidReponseContent(ware));
@@ -134,12 +103,10 @@ void IResponseRaw::setContent(const IHttpInvalidWare& ware)
 void IResponseRaw::setContent(IResponseContentWare *ware)
 {
     m_contents.push_back(ware);
+
     auto invalidWare = dynamic_cast<IInvalidReponseContent*>(ware);
     if(invalidWare){
         this->m_isValid = false;
-        // TODO:
-//        this->m_status = invalidWare->m_ware.status;
-//        this->m_mime = invalidWare->getSuggestedMime(); // TODO: 感觉这里不对
     }
 }
 

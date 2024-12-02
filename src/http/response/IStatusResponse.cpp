@@ -1,5 +1,6 @@
 ﻿#include "IStatusResponse.h"
 #include "core/abort/IAbortInterface.h"
+#include "http/response/content/IStringResponseContent.h"
 
 $PackageWebCoreBegin
 
@@ -37,7 +38,8 @@ IStatusResponse::IStatusResponse(int code, const QString& errorMsg)
 //    }
     m_raw->m_status = IHttpStatus(code);
     if(!errorMsg.isEmpty()){
-        m_raw->setContent(errorMsg);
+        m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
+        m_raw->setContent(new IStringResponseContent(errorMsg.toUtf8()));
     }
 }
 
@@ -45,7 +47,8 @@ IStatusResponse::IStatusResponse(IHttpStatus status, const QString &errorMsg)
 {
     m_raw->m_status = status;
     if(!errorMsg.isEmpty()){
-        m_raw->setContent(errorMsg);
+        m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
+        m_raw->setContent(new IStringResponseContent(errorMsg.toUtf8()));
     }
 }
 
