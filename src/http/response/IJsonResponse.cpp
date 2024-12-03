@@ -12,31 +12,31 @@ IJsonResponse::IJsonResponse()
 IJsonResponse::IJsonResponse(IJson && json)
 {
     m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    m_raw->setContent(new IStringResponseContent(json.dump()));
+    m_raw->setContent(new IResponseContent(json.dump()));
 }
 
 IJsonResponse::IJsonResponse(const IJson &json)
 {
     m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    m_raw->setContent(new IStringResponseContent(json.dump()));
+    m_raw->setContent(new IResponseContent(json.dump()));
 }
 
 IJsonResponse::IJsonResponse(const char * value)
 {
     m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    m_raw->setContent(new IStringResponseContent(std::string(value)));
+    m_raw->setContent(new IResponseContent(std::string(value)));
 }
 
 IJsonResponse::IJsonResponse(std::string&& value)
 {
     m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    m_raw->setContent(new IStringResponseContent(std::move(value)));
+    m_raw->setContent(new IResponseContent(std::move(value)));
 }
 
 IJsonResponse::IJsonResponse(const QString& value) : IResponseInterface()
 {
     m_raw->setMime(IHttpMime::APPLICATION_JSON_UTF8);
-    m_raw->setContent(new IStringResponseContent(value.toStdString()));
+    m_raw->setContent(new IResponseContent(value.toStdString()));
 }
 
 std::string IJsonResponse::prefixMatcher()

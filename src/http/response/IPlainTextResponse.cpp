@@ -1,6 +1,6 @@
 ﻿#include "IPlainTextResponse.h"
 #include "http/net/impl/IResponseRaw.h"
-#include "http/response/content/IStringResponseContent.h"
+#include "http/response/content/IResponseContent.h"
 
 $PackageWebCoreBegin
 
@@ -11,25 +11,25 @@ IPlainTextResponse::IPlainTextResponse()
 
 IPlainTextResponse::IPlainTextResponse(const QString &value)
 {
-    m_raw->setContent(new IStringResponseContent(value.toUtf8()));
+    m_raw->setContent(new IResponseContent(value.toUtf8()));
     m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
 IPlainTextResponse::IPlainTextResponse(const std::string &value)
 {
-    m_raw->setContent(new IStringResponseContent(value));
+    m_raw->setContent(new IResponseContent(value));
     m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
 IPlainTextResponse::IPlainTextResponse(const char *value)
 {
-    m_raw->setContent(new IStringResponseContent(value));
+    m_raw->setContent(new IResponseContent(value));
     m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 
 IPlainTextResponse::IPlainTextResponse(QString &&value)
 {
-    m_raw->setContent(new IStringResponseContent(value.toUtf8()));
+    m_raw->setContent(new IResponseContent(value.toUtf8()));
     m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
 }
 

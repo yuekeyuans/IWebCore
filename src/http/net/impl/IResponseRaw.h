@@ -6,7 +6,7 @@
 #include "http/biscuits/IHttpStatus.h"
 #include "http/biscuits/IHttpHeader.h"
 #include "http/net/ICookiePart.h"
-#include "http/response/content/IResponseContentWare.h"
+#include "http/response/content/IResponseContent.h"
 
 $PackageWebCoreBegin
 
@@ -25,7 +25,7 @@ public:
     void setMime(IHttpMime m_mime);
 
     void setContent(const IHttpInvalidWare& ware);
-    void setContent(IResponseContentWare*);
+    void setContent(IResponseContent*);
 
 private:
     void setResponseWare(IResponseWare&&);
@@ -40,7 +40,7 @@ public:
     IHttpStatus m_status {IHttpStatus::OK_200};
     IHttpHeader m_headers;
     std::list<ICookiePart> m_cookies;
-    std::list<IResponseContentWare*> m_contents;
+    std::list<IResponseContent*> m_contents;
 };
 
 $PackageWebCoreEnd

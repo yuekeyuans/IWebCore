@@ -1,5 +1,5 @@
 ﻿#include "IByteArrayResponse.h"
-#include "http/response/content/IStringResponseContent.h"
+#include "http/response/content/IResponseContent.h"
 
 $PackageWebCoreBegin
 
@@ -16,31 +16,31 @@ IByteArrayResponse::IByteArrayResponse(const char *data)
 IByteArrayResponse::IByteArrayResponse(QByteArray &&array)
 {
     m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
-    m_raw->setContent(new IStringResponseContent(std::move(array)));
+    m_raw->setContent(new IResponseContent(std::move(array)));
 }
 
 IByteArrayResponse::IByteArrayResponse(const QByteArray &array)
 {
     m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
-    m_raw->setContent(new IStringResponseContent(array));
+    m_raw->setContent(new IResponseContent(array));
 }
 
 IByteArrayResponse::IByteArrayResponse(const QString &data)
 {
     m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
-    m_raw->setContent(new IStringResponseContent(data.toUtf8()));
+    m_raw->setContent(new IResponseContent(data.toUtf8()));
 }
 
 IByteArrayResponse::IByteArrayResponse(std::string &&data)
 {
     m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
-    m_raw->setContent(new IStringResponseContent(std::move(data)));
+    m_raw->setContent(new IResponseContent(std::move(data)));
 }
 
 IByteArrayResponse::IByteArrayResponse(const std::string & data)
 {
     m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
-    m_raw->setContent(new IStringResponseContent(data));
+    m_raw->setContent(new IResponseContent(data));
 }
 
 std::string IByteArrayResponse::prefixMatcher()

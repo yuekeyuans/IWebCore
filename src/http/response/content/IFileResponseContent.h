@@ -1,11 +1,11 @@
 ﻿#pragma once
 
-#include "IResponseContentWare.h"
+#include "IResponseContent.h"
 #include "core/unit/IClassNameUnit.h"
 
 $PackageWebCoreBegin
 
-class IFileResponseContent : public IResponseContentWare
+class IFileResponseContent : public IResponseContent
 {
 public:
     IFileResponseContent(const QString& path);

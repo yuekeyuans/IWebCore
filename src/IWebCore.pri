@@ -138,9 +138,9 @@ HEADERS += \
 #    $$PWD/http/response/content/IJsonResponseContent.h \
 #    $$PWD/http/response/content/IQByteArrayResponseContent.h \
 #    $$PWD/http/response/content/IQStringResponseContent.h \
-    $$PWD/http/response/content/IResponseContentWare.h \
 #    $$PWD/http/response/content/IStdStringResponseContent.h \
-    $$PWD/http/response/content/IStringResponseContent.h \
+    $$PWD/http/response/content/IResponseContent.h \
+#    $$PWD/http/response/content/IStringResponseContent.h \
 #    $$PWD/http/response/content/IStrinigViewResponseContent.h \
     $$PWD/http/server/IHttpConnection.h \
     $$PWD/http/server/IHttpServer.h \
@@ -303,9 +303,9 @@ SOURCES += \
 #    $$PWD/http/response/content/IJsonResponseContent.cpp \
 #    $$PWD/http/response/content/IQByteArrayResponseContent.cpp \
 #    $$PWD/http/response/content/IQStringResponseContent.cpp \
-    $$PWD/http/response/content/IResponseContentWare.cpp \
 #    $$PWD/http/response/content/IStdStringResponseContent.cpp \
-    $$PWD/http/response/content/IStringResponseContent.cpp \
+    $$PWD/http/response/content/IResponseContent.cpp \
+#    $$PWD/http/response/content/IStringResponseContent.cpp \
 #    $$PWD/http/response/content/IStrinigViewResponseContent.cpp \
     $$PWD/http/server/IHttpConnection.cpp \
     $$PWD/http/server/IHttpServer.cpp \

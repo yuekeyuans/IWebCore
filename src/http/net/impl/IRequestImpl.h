@@ -15,7 +15,7 @@
 #include "http/net/IMultiPartJar.h"
 #include "http/net/ICookieJar.h"
 #include "http/net/ISessionJar.h"
-#include "http/response/content/IResponseContentWare.h"
+#include "http/response/content/IResponseContent.h"
 
 $PackageWebCoreBegin
 

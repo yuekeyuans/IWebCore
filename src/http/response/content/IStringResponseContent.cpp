@@ -4,12 +4,12 @@
 $PackageWebCoreBegin
 
 IStringResponseContent::IStringResponseContent(IString && value)
-    : IResponseContentWare(std::move(value))
+    : IResponseContent(std::move(value))
 {
 }
 
 IStringResponseContent::IStringResponseContent(const IString & value)
-    : IResponseContentWare(value)
+    : IResponseContent(value)
 {
 }
 

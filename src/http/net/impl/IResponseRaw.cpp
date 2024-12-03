@@ -8,7 +8,6 @@
 #include "http/invalid/IHttpInvalidWare.h"
 #include "http/response/content/IInvalidReponseContent.h"
 #include "http/response/content/IFileResponseContent.h"
-#include "http/response/content/IStringResponseContent.h"
 
 $PackageWebCoreBegin
 
@@ -96,7 +95,7 @@ void IResponseRaw::setContent(const IHttpInvalidWare& ware)
     setContent(new IInvalidReponseContent(ware));
 }
 
-void IResponseRaw::setContent(IResponseContentWare *ware)
+void IResponseRaw::setContent(IResponseContent *ware)
 {
     m_contents.push_back(ware);
 

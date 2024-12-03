@@ -1,10 +1,10 @@
 ﻿#pragma once
 
-#include "IResponseContentWare.h"
+#include "IResponseContent.h"
 
 $PackageWebCoreBegin
 
-class IStringResponseContent : public IResponseContentWare
+class IStringResponseContent : public IResponseContent
 {
 public:
     IStringResponseContent(IString&&);
