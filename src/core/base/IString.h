@@ -22,15 +22,22 @@ public:
     IString& operator=(const IString& other);
     IString& operator=(IString&& other) noexcept;
 
-    IString(const char*);
+    IString(const IString*);
+    IString(const std::string*);
     IString(const QByteArray*);
+
+    IString(const char*);
     IString(const QByteArray& byteArray);
     IString(QByteArray&& byteArray) noexcept;
-    IString(const std::string*);
     IString(const std::string& stdString);
     IString(std::string&& stdString) noexcept;
     IString(IStringView stringView);
 
+    IString& operator=(const IString*);
+    IString& operator=(const QByteArray*);
+    IString& operator=(const std::string*);
+
+    IString& operator=(const char*);
     IString& operator=(const QString&);
     IString& operator=(const QByteArray& byteArray);
     IString& operator=(QByteArray&& byteArray) noexcept;

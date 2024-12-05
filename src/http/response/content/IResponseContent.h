@@ -16,7 +16,7 @@ public:
     IResponseContent(const IString&);
 
 public:
-    IString m_dataRaw{};
+    IString m_content{};
     std::function<void(IResponseRaw&)> m_function{nullptr};
 };
 

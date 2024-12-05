@@ -41,11 +41,9 @@ IString& IString::operator=(IString&& other) noexcept
     return *this;
 }
 
-IString::IString(const char * data)
-    : m_type(Type::StdString)
+IString::IString(const IString * istring)
+    : m_type(Type::IStringView), m_stringView(istring->m_stringView)
 {
-    new (&m_stdString) std::string(data);
-    m_stringView = IStringView(m_stdString);
 }
 
 // this just create view, no QByteArray
@@ -53,6 +51,19 @@ IString::IString(const QByteArray * data)
     : m_type(Type::IStringView), m_stringView(*data)
 {
 }
+
+IString::IString(const std::string * stdStringPtr)
+    : m_type(Type::IStringView), m_stringView(*stdStringPtr)
+{
+}
+
+IString::IString(const char * data)
+    : m_type(Type::StdString)
+{
+    new (&m_stdString) std::string(data);
+    m_stringView = IStringView(m_stdString);
+}
+
 
 IString::IString(const QByteArray& byteArray)
     : m_type(Type::QByteArray)
@@ -66,11 +77,6 @@ IString::IString(QByteArray&& byteArray) noexcept : m_type(Type::QByteArray)
 {
     new (&m_qByteArray) QByteArray(std::move(byteArray));
     m_stringView = IStringView(m_qByteArray);
-}
-
-IString::IString(const std::string * stdStringPtr)
-    : m_type(Type::IStringView), m_stringView(*stdStringPtr)
-{
 }
 
 IString::IString(const std::string& stdString) : m_type(Type::StdString)
@@ -88,6 +94,39 @@ IString::IString(std::string&& stdString) noexcept : m_type(Type::StdString)
 IString::IString(IStringView stringView)
     : m_type(Type::IStringView), m_stringView(stringView)
 {
+}
+
+IString &IString::operator=(const IString * value)
+{
+    clear();
+    m_type = Type::IStringView;
+    m_stringView = IStringView(*value);
+    return *this;
+}
+
+IString &IString::operator=(const QByteArray *value)
+{
+    clear();
+    m_type = Type::IStringView;
+    m_stringView = IStringView(*value);
+    return *this;
+}
+
+IString &IString::operator=(const std::string *value)
+{
+    clear();
+    m_type = Type::IStringView;
+    m_stringView = IStringView(*value);
+    return *this;
+}
+
+IString &IString::operator=(const char *value)
+{
+    clear();
+    m_type = Type::QByteArray;
+    new(&m_qByteArray) QByteArray(value);
+    m_stringView = IStringView(m_qByteArray);
+    return *this;
 }
 
 IString &IString::operator=(const QString & qstring)

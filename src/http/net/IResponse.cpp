@@ -74,7 +74,7 @@ IResponse &IResponse::setMime(IHttpMime mime)
 
 IResponse &IResponse::setMime(IString mime)
 {
-    m_impl.m_respRaw.m_mime = mime;
+    m_impl.m_respRaw.m_mime = std::move(mime);
     return *this;
 }
 

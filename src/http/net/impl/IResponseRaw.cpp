@@ -87,11 +87,12 @@ void IResponseRaw::setHeader(IString key, IString value)
 
 void IResponseRaw::setMime(IHttpMime mime)
 {
-    this->m_mime = IHttpMimeUtil::toString(mime);
+    this->m_mime = &(IHttpMimeUtil::toString(mime));
 }
 
 void IResponseRaw::setContent(const IHttpInvalidWare& ware)
 {
+    m_status = ware.status;
     setContent(new IInvalidReponseContent(ware));
 }
 
@@ -122,7 +123,7 @@ std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
 
     IStringView content{};
     if(!m_contents.empty()){
-        content = m_contents.back()->m_dataRaw.m_stringView;
+        content = m_contents.back()->m_content.m_stringView;
     }
 
     // headers
