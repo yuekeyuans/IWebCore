@@ -665,6 +665,7 @@ IStringView IRequestImpl::getBoundary(IStringView data)
 void IRequestImpl::setInvalid(const IHttpInvalidWare& ware)
 {
     m_isValid = false;
+    m_respRaw.setMime(IHttpMime::TEXT_PLAIN_UTF8);
     m_respRaw.setContent(ware);
 }
 
