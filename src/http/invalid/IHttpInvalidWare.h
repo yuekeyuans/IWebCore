@@ -7,6 +7,7 @@ $PackageWebCoreBegin
 class IResponseRaw;
 class IHttpInvalidWare
 {
+    friend class IInvalidReponseContent;
 public:
     IHttpInvalidWare(IHttpStatus, const std::string& description);
     virtual ~IHttpInvalidWare() = default;
@@ -17,6 +18,8 @@ public:
 public:
     IHttpStatus status{IHttpStatus::UNKNOWN};
     IString description;
+
+protected:
     std::function<void(const IHttpInvalidWare&, IResponseRaw&)> m_function{nullptr};
 };
 

@@ -5,7 +5,6 @@
 
 $PackageWebCoreBegin
 
-// TODO: 重构
 class IFileResponse : public IResponseInterface<IFileResponse>
 {
     $AsResponse(IFileResponse)
@@ -15,8 +14,9 @@ public:
 
 public:
     IFileResponse();
-    IFileResponse(const QString& data);
-    IFileResponse(const std::string& data);
+    IFileResponse(const QString& path);
+    IFileResponse(IString&& path);
+    IFileResponse(const IString& path);
 
 public:
     void enableContentDisposition();

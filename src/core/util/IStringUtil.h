@@ -26,14 +26,14 @@ namespace IStringUtil
         return str.substr(start, length);  // 获取从 start 开始的 length 长度的子字符串
     }
 
-    inline std::string left(const std::string& str, int length = -1) {
+    inline std::string left(const std::string& str, std::size_t length = -1) {
         if (length == -1 || length >= str.size()) {
             return str;  // 如果 length 是 -1 或者大于等于字符串长度，返回整个字符串
         }
         return str.substr(0, length);  // 获取从开头开始的 length 长度的子字符串
     }
 
-    inline std::string right(const std::string& str, int length = -1) {
+    inline std::string right(const std::string& str, std::size_t length = -1) {
         if (length == -1 || length >= str.size()) {
             return str;  // 如果 length 是 -1 或者大于等于字符串长度，返回整个字符串
         }

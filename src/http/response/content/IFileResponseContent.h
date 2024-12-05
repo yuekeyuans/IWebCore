@@ -8,13 +8,8 @@ $PackageWebCoreBegin
 class IFileResponseContent : public IResponseContent
 {
 public:
-    IFileResponseContent(const QString& path);
-
-public:
-    virtual IStringView getContent() final;
-
-private:
-    QString m_path;
+    IFileResponseContent(IString&&);
+    IFileResponseContent(const IString&);
 };
 
 $PackageWebCoreEnd

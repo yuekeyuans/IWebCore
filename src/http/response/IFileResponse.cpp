@@ -4,33 +4,34 @@
 #include "core/util/IFileUtil.h"
 #include "core/config/IProfileImport.h"
 #include "http/biscuits/IHttpMime.h"
-#include "http/invalid/IHttpNotFoundInvalid.h"
+#include "http/response/content/IFileResponseContent.h"
 
 $PackageWebCoreBegin
-
-namespace detail
-{
-    static QString getContentDispositionAttachment(const QString& filePath);
-    static bool setFilePath(IResponseRaw* raw, const QString& path);
-    static void checkAndUpdateContentDisposition(IResponseRaw* raw);
-}
 
 IFileResponse::IFileResponse()
 {
 }
 
 IFileResponse::IFileResponse(const QString &data)
+    : IFileResponse(IString(data.toUtf8()))
 {
-    if(detail::setFilePath(m_raw, data)){
-        detail::checkAndUpdateContentDisposition(m_raw);
-    }else{
-        m_raw->setContent(IHttpNotFoundInvalid("file not found"));
-    }
+//    if(detail::setFilePath(m_raw, data)){
+//        detail::checkAndUpdateContentDisposition(m_raw);
+//    }else{
+//        m_raw->setContent(IHttpNotFoundInvalid("file not found"));
+    //    }
 }
 
-IFileResponse::IFileResponse(const std::string &data)
-    : IFileResponse(QString::fromStdString(data))
+IFileResponse::IFileResponse(IString &&path)
 {
+    m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
+    m_raw->setContent(new IFileResponseContent(std::move(path)));
+}
+
+IFileResponse::IFileResponse(const IString &path)
+{
+    m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
+    m_raw->setContent(new IFileResponseContent(path));
 }
 
 // TODO: fix here
@@ -54,44 +55,44 @@ IFileResponse operator"" _file(const char* str, size_t size)
     return response;
 }
 
-QString detail::getContentDispositionAttachment(const QString& filePath)
-{
-    auto fileName  = QFileInfo(filePath).fileName();
-    return QString("attachment;filename=").append(ICodecUtil::urlEncode(fileName));
-}
+//QString detail::getContentDispositionAttachment(const QString& filePath)
+//{
+//    auto fileName  = QFileInfo(filePath).fileName();
+//    return QString("attachment;filename=").append(ICodecUtil::urlEncode(fileName));
+//}
 
 // TODO: fixme
 // TODO: 这里的参数不太对，应该对应很多路径，但是这里只有一个
-bool detail::setFilePath(IResponseRaw* raw, const QString& path)
-{
-//    QString realPath = path;
-//    if(!path.startsWith(":/") && !QFileInfo(path).exists()){
-//        $QString prefix{"/http/fileService/path"};
-//        realPath.prepend(*prefix);
+//bool detail::setFilePath(IResponseRaw* raw, const QString& path)
+//{
+////    QString realPath = path;
+////    if(!path.startsWith(":/") && !QFileInfo(path).exists()){
+////        $QString prefix{"/http/fileService/path"};
+////        realPath.prepend(*prefix);
 
-//    }
+////    }
 
-//    if(QFile(realPath).exists()){
-//        auto suffix = IFileUtil::getFileSuffix(realPath);
-//        raw->setMime(IHttpMimeUtil::getSuffixMime(suffix));
-//        raw->setFileContent(realPath);
-//        return true;
-//    }
-    return false;
-}
+////    if(QFile(realPath).exists()){
+////        auto suffix = IFileUtil::getFileSuffix(realPath);
+////        raw->setMime(IHttpMimeUtil::getSuffixMime(suffix));
+////        raw->setFileContent(realPath);
+////        return true;
+////    }
+//    return false;
+//}
 
-void detail::checkAndUpdateContentDisposition(IResponseRaw* raw)
-{
-//    static $Bool enabled {"/http/fileService/contentDisposition/enabled"};
-//    static $QStringList suffixes{"/http/fileService/contentDisposition/suffixes"};
-//    if(*enabled
-//            && raw->content.type == IResponseContent::Type::File
-//            && !raw->content.contentString.isEmpty()
-//            && suffixes.value().contains(IFileUtil::getFileSuffix(raw->content.contentString)))
-//    {
-//        raw->headers.insert("Content-Disposition",
-//                                       detail::getContentDispositionAttachment(raw->content.contentString));
-//    }
-}
+//void detail::checkAndUpdateContentDisposition(IResponseRaw* raw)
+//{
+////    static $Bool enabled {"/http/fileService/contentDisposition/enabled"};
+////    static $QStringList suffixes{"/http/fileService/contentDisposition/suffixes"};
+////    if(*enabled
+////            && raw->content.type == IResponseContent::Type::File
+////            && !raw->content.contentString.isEmpty()
+////            && suffixes.value().contains(IFileUtil::getFileSuffix(raw->content.contentString)))
+////    {
+////        raw->headers.insert("Content-Disposition",
+////                                       detail::getContentDispositionAttachment(raw->content.contentString));
+////    }
+//}
 
 $PackageWebCoreEnd

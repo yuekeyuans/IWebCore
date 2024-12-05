@@ -6,22 +6,20 @@
 
 $PackageWebCoreBegin
 
-IFileResponseContent::IFileResponseContent(const QString &path)
-    : m_path(path)
+IFileResponseContent::IFileResponseContent(IString && value)
+    : IResponseContent(std::move(value))
 {
+    m_function = [](IResponseRaw&){
+        qFatal("here should be function to resolve file");
+    };
 }
 
-IStringView IFileResponseContent::getContent()
+IFileResponseContent::IFileResponseContent(const IString & value)
+    : IResponseContent(value)
 {
-    if(m_dataRaw.m_stringView.length() == 0){
-        QFile file(m_path);
-        if(file.open(QFile::ReadOnly)){
-            m_dataRaw = file.readAll();
-            file.close();
-        }
-    }
-
-    return m_dataRaw.m_stringView;
+    m_function = [](IResponseRaw&){
+        qFatal("here should be function to resolve file, see IFileResponse");
+    };
 }
 
 $PackageWebCoreEnd
