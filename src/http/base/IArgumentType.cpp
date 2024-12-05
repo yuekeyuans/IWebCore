@@ -281,6 +281,7 @@ void *IArgumentType::create(IRequest &) const
 
 void IArgumentType::destory(void *ptr) const
 {
+    Q_UNUSED(ptr)
     // do nothing here
 }
 

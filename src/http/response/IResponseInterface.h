@@ -59,12 +59,14 @@ IResponseInterface<T, enabled>::IResponseInterface(IStatusResponse &&response)
 }
 
 template<typename T, bool enabled>
-IResponseInterface<T, enabled>::IResponseInterface(const IResponseInterface &rhs) : IResponseWare(rhs)
+IResponseInterface<T, enabled>::IResponseInterface(const IResponseInterface &rhs)
+    : IResponseWare(rhs)
 {
 }
 
 template<typename T, bool enabled>
-IResponseInterface<T, enabled>::IResponseInterface(IResponseInterface &&rhs) : IResponseWare(std::forward<IResponseInterface>(rhs))
+IResponseInterface<T, enabled>::IResponseInterface(IResponseInterface &&rhs)
+    : IResponseWare(std::forward<IResponseInterface>(rhs))
 {
 }
 
