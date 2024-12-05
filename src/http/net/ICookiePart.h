@@ -45,7 +45,7 @@ public:
     IString path;
 
     QDateTime expires {};
-    int maxAge {INT_MIN};
+    int maxAge {std::numeric_limits<int>::min()};
 
     bool secure {false};
     bool httpOnly {false};

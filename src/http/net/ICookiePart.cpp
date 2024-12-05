@@ -90,14 +90,16 @@ std::vector<IStringView> ICookiePart::toHeaderString() const
     static const IString HttpOnlyIString = "; HttpOnly";
 
     std::vector<IStringView> ret;
+    if(key.isEmpty() || value.isEmpty()){
+        return ret;
+    }
+
     ret.push_back(IHttpHeader::SetCookie.m_stringView);
     ret.push_back(IConstantUtil::Comma.m_stringView);
     ret.push_back(key.m_stringView);
+    ret.push_back(IConstantUtil::Equal.m_stringView);
+    ret.push_back(value.m_stringView);
 
-    if(!value.isEmpty()){
-        ret.push_back(IConstantUtil::Equal.m_stringView);
-        ret.push_back(value.m_stringView);
-    }
     if(!domain.isEmpty()){
         ret.push_back(DomainIString.m_stringView);
         ret.push_back(domain.m_stringView);
@@ -106,7 +108,7 @@ std::vector<IStringView> ICookiePart::toHeaderString() const
         ret.push_back(PathIString.m_stringView);
         ret.push_back(path.m_stringView);
     }
-    if(maxAge != INT_MIN){               // see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#browser_compatibility
+    if(maxAge != std::numeric_limits<int>::min()){               // see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#browser_compatibility
         m_maxAgeString = std::to_string(maxAge);
         ret.push_back(MaxAgeIString.m_stringView);
         ret.push_back(IString(&m_maxAgeString).m_stringView);

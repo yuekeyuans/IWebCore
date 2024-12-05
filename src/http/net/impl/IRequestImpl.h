@@ -64,8 +64,7 @@ private:
 
 public:
     void setInvalid(const IHttpInvalidWare&);
-    void setResponseWare(IResponseWare&& ware);     // used for filter data
-    void setResponseWare(IResponseWare& ware);
+    void setResponseWare(const IResponseWare& ware);
 
 public:
     bool m_isValid{true};

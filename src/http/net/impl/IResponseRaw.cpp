@@ -146,12 +146,7 @@ std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
     return result;
 }
 
-void IResponseRaw::setResponseWare(IResponseWare && ware)
-{
-    setResponseWare(ware);
-}
-
-void IResponseRaw::setResponseWare(IResponseWare &response)
+void IResponseRaw::setResponseWare(const IResponseWare &response)
 {
     if(!response.mime().isEmpty()){
         m_mime = response.mime();
@@ -167,6 +162,8 @@ void IResponseRaw::setResponseWare(IResponseWare &response)
             setHeader(key, response.headers().value(key));
         }
     }
+
+    // NOTE: this break the const constrait, but its safe
     while(!response.m_raw->m_contents.empty()){
         setContent(response.m_raw->m_contents.front());
         response.m_raw->m_contents.pop_front();

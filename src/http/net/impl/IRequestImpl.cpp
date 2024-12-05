@@ -670,15 +670,7 @@ void IRequestImpl::setInvalid(const IHttpInvalidWare& ware)
 }
 
 // TODO: 还是需要检查一下对象的 is_valid
-void IRequestImpl::setResponseWare(IResponseWare &&ware)
-{
-    if(!ware.m_raw->m_isValid){
-        m_isValid = false;
-    }
-    m_respRaw.setResponseWare(std::move(ware));
-}
-
-void IRequestImpl::setResponseWare(IResponseWare &ware)
+void IRequestImpl::setResponseWare(const IResponseWare &ware)
 {
     if(!ware.m_raw->m_isValid){
         m_isValid = false;

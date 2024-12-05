@@ -28,8 +28,7 @@ public:
     void setContent(IResponseContent*);
 
 private:
-    void setResponseWare(IResponseWare&&);
-    void setResponseWare(IResponseWare&);
+    void setResponseWare(const IResponseWare&);
 
 public:
     std::vector<asio::const_buffer> getContent(IRequestImpl&);

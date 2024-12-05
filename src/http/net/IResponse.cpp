@@ -98,15 +98,9 @@ IResponse &IResponse::setContent(const IString & value)
     return *this;
 }
 
-IResponse &IResponse::setContent(IResponseWare& ware)
+IResponse &IResponse::setContent(const IResponseWare& ware)
 {
     m_impl.setResponseWare(ware);
-    return *this;
-}
-
-IResponse &IResponse::setContent(IResponseWare &&ware)
-{
-    m_impl.setResponseWare(std::move(ware));
     return *this;
 }
 
