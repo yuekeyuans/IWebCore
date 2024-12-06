@@ -6,6 +6,8 @@ def test_QString():
     print(val.status_code)
     print(val.text)
     print(val.headers)
+    print(val.elapsed.total_seconds())
+    print(val.elapsed.microseconds)
     assert val.status_code == 200
     assert val.text == "QString"
 

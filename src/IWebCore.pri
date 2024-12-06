@@ -257,6 +257,7 @@ SOURCES += \
     $$PWD/http/base/IArgumentType.cpp \
     $$PWD/http/base/IMethodParameterManage.cpp \
     $$PWD/http/base/IReturnType.cpp \
+    $$PWD/http/base/IReturnTypeDetail.cpp \
     $$PWD/http/biscuits/IHttpAttribute.cpp \
     $$PWD/http/biscuits/IHttpHeader.cpp \
     $$PWD/http/controller/IHttpControllerAction.cpp \
