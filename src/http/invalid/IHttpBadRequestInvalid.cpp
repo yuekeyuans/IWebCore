@@ -12,9 +12,4 @@ IHttpBadRequestInvalid::IHttpBadRequestInvalid(const std::string &description)
 {
 }
 
-void IHttpBadRequestInvalid::process(const IHttpInvalidWare&, IResponseRaw&)
-{
-    qDebug() << "invoke here";
-}
-
 $PackageWebCoreEnd

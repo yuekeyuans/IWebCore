@@ -1,4 +1,5 @@
 ﻿#include "IInvalidReponseContent.h"
+#include "core/util/IConstantUtil.h"
 #include "http/biscuits/IHttpMime.h"
 #include "http/net/impl/IResponseRaw.h"
 
@@ -7,6 +8,8 @@ $PackageWebCoreBegin
 IInvalidReponseContent::IInvalidReponseContent(const IHttpInvalidWare &ware)
     :IResponseContent(ware.description)
 {
+    setAttribute(&IConstantUtil::Type, &IInvalidReponseContent::Type);
+
     if(ware.m_function){
         m_function = [=](IResponseRaw& raw){
             ware.m_function(ware, raw);

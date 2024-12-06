@@ -109,7 +109,7 @@ void IResponseRaw::setContent(IResponseContent *ware)
 std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
 {
     // 这一步是做特殊的处理，将数据封装起来。
-    if(!m_contents.empty() && m_contents.back()->m_function){
+    while(!m_contents.empty() && m_contents.back()->m_function){
         m_contents.back()->m_function(*this);
     }
 

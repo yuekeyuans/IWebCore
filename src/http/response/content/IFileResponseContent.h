@@ -10,6 +10,9 @@ class IFileResponseContent : public IResponseContent
 public:
     IFileResponseContent(IString&&);
     IFileResponseContent(const IString&);
+
+public:
+    inline static const IString Type = "File";
 };
 
 $PackageWebCoreEnd

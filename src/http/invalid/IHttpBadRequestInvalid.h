@@ -10,9 +10,6 @@ class IHttpBadRequestInvalid : public IHttpInvalidInterface<IHttpBadRequestInval
 public:
     IHttpBadRequestInvalid();
     IHttpBadRequestInvalid(const std::string& description);
-
-public:
-    virtual void process(const IHttpInvalidWare&, IResponseRaw&) final;
 };
 
 $PackageWebCoreEnd

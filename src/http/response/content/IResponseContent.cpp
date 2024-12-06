@@ -16,4 +16,12 @@ IResponseContent::IResponseContent(const IString & data)
 {
 }
 
+void IResponseContent::setAttribute(IString key, IString value)
+{
+    if(!m_attribute){
+        m_attribute = new QMap<IString, IString>;
+    }
+    (*m_attribute)[key] = std::move(value);
+}
+
 $PackageWebCoreEnd

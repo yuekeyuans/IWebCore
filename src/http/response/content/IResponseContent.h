@@ -16,8 +16,12 @@ public:
     IResponseContent(const IString&);
 
 public:
+    void setAttribute(IString, IString);
+
+public:
     IString m_content{};
     std::function<void(IResponseRaw&)> m_function{nullptr};
+    QMap<IString, IString>* m_attribute{nullptr};
 };
 
 $PackageWebCoreEnd
