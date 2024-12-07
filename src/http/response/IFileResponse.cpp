@@ -15,30 +15,26 @@ IFileResponse::IFileResponse()
 IFileResponse::IFileResponse(const QString &data)
     : IFileResponse(IString(data.toUtf8()))
 {
-//    if(detail::setFilePath(m_raw, data)){
-//        detail::checkAndUpdateContentDisposition(m_raw);
-//    }else{
-//        m_raw->setContent(IHttpNotFoundInvalid("file not found"));
-    //    }
 }
 
 IFileResponse::IFileResponse(IString &&path)
 {
+    m_fileRepsonse = new IFileResponseContent(std::move(path));
+    m_raw->setContent(m_fileRepsonse);
     m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
-    m_raw->setContent(new IFileResponseContent(std::move(path)));
 }
 
 IFileResponse::IFileResponse(const IString &path)
 {
+    m_fileRepsonse = new IFileResponseContent(path);
+    m_raw->setContent(m_fileRepsonse);
     m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
-    m_raw->setContent(new IFileResponseContent(path));
+
 }
 
-// TODO: fix here
 void IFileResponse::enableContentDisposition()
 {
-//    m_raw->headers.insert("Content-Disposition",
-//                                     detail::getContentDispositionAttachment(m_raw->content.contentString));
+    m_fileRepsonse->setAttribute(IFileResponseContent::ContentDispoistion, IConstantUtil::True);
 }
 
 std::string IFileResponse::prefixMatcher()

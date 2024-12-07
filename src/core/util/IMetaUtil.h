@@ -34,10 +34,7 @@ namespace IMetaUtil
 
     template<typename T>
     const std::string& getBareTypeName();
-}
 
-namespace detail
-{
     QString demangleName(const char*);
 }
 
@@ -64,14 +61,14 @@ int IMetaUtil::registerMetaType()
 
 template<typename T>
 const std::string& IMetaUtil::getTypename(){
-    static std::string typeName = detail::demangleName(typeid(T).name()).toStdString();
+    static std::string typeName = demangleName(typeid(T).name()).toStdString();
     return typeName;
 }
 
 template<typename T>
 const std::string& IMetaUtil::getBareTypeName()
 {
-    QString name = detail::demangleName(typeid(T).name());
+    QString name = demangleName(typeid(T).name());
     if(name.startsWith("class ")){
         name = name.mid(6);
     }

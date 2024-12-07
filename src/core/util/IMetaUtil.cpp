@@ -151,7 +151,7 @@ QVariant IMetaUtil::readProperty(const QMetaProperty &prop, const void *handler)
     #pragma comment ( lib,"DbgHelp.lib" )
 #endif
 
-QString detail::demangleName(const char *name)
+QString IMetaUtil::demangleName(const char *name)
 {
 #ifdef __GNUC__
     int status;

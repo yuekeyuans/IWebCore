@@ -5,6 +5,7 @@
 
 $PackageWebCoreBegin
 
+class IFileResponseContent;
 class IFileResponse : public IResponseInterface<IFileResponse>
 {
     $AsResponse(IFileResponse)
@@ -23,6 +24,9 @@ public:
 
 public:
     virtual std::string prefixMatcher() final;
+
+private:
+    IFileResponseContent* m_fileRepsonse{};
 };
 
 IFileResponse operator"" _file(const char* str, size_t size);

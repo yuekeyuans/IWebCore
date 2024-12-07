@@ -3,6 +3,7 @@
 #include <IHttp/IHttpControllerInterface>
 #include "bean/StudentBean.h"
 #include "http/response/IByteArrayResponse.h"
+#include "http/response/IFileResponse.h"
 #include "http/biscuits/IHttpHeader.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/response/IJsonResponse.h"
@@ -69,6 +70,11 @@ public:
             {},
             {}
         };
+    }
+
+    $GetMapping(fileResponse)
+    IFileResponse fileResponse(){
+        return "D:/elevoc_dnn_kernel.log";
     }
 };
 

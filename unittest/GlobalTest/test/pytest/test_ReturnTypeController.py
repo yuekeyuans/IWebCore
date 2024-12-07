@@ -8,7 +8,7 @@ def test_QString():
     print(val.headers)
     print(val.elapsed.total_seconds())
     print(val.elapsed.microseconds)
-    assert val.status_code == 200
+    assert val.status_code == 200 
     assert val.text == "QString"
 
 def test_stdString():
@@ -16,13 +16,13 @@ def test_stdString():
     assert val.status_code == 200
     assert val.text == "stdString"
 
-# def test_ijson():
-#     val = requests.get(serverAddress + "/ReturnTypeController/ijson")
-#     assert val.status_code == 200
-#     assert val.json() == ["hello","world"]
-#     assert val.headers["Content-Type"]  == "application/json; charset=UTF-8"
-#     print(val.text)
-#     print(val.headers)
+def test_ijson():
+    val = requests.get(serverAddress + "/ReturnTypeController/ijson")
+    assert val.status_code == 200
+    assert val.json() == ["hello","world"]
+    assert val.headers["Content-Type"]  == "application/json; charset=UTF-8"
+    print(val.text)
+    print(val.headers)
 
 def test_qbytearray():
     val = requests.get(serverAddress + "/ReturnTypeController/qbytearray")
@@ -75,3 +75,10 @@ def test_getBeanList():
     # assert val.headers["Content-Type"]  == "application/json; charset=UTF-8"
     print(val.text)
     print(val.headers)
+
+
+def test_fileResponse():
+    val = requests.get(serverAddress + "/ReturnTypeController/fileResponse")
+    print(val.text)
+    print(val.headers)
+    print(val.status_code)

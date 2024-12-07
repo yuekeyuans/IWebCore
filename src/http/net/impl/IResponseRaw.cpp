@@ -15,7 +15,6 @@ static const IString ServerHeader = "Server: IWebCore\r\n";
 
 namespace detail
 {
-
 std::vector<IStringView> generateFirstLine(IRequestImpl& impl)
 {
     std::vector<IStringView> ret;
@@ -110,7 +109,7 @@ std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
 {
     // 这一步是做特殊的处理，将数据封装起来。
     while(!m_contents.empty() && m_contents.back()->m_function){
-        m_contents.back()->m_function(*this);
+        m_contents.back()->m_function(*(m_contents.back()), *this);
     }
 
     std::vector<asio::const_buffer> result;

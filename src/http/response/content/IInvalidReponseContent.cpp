@@ -11,7 +11,7 @@ IInvalidReponseContent::IInvalidReponseContent(const IHttpInvalidWare &ware)
     setAttribute(&IConstantUtil::Type, &IInvalidReponseContent::Type);
 
     if(ware.m_function){
-        m_function = [=](IResponseRaw& raw){
+        m_function = [=](const IResponseContent&, IResponseRaw& raw){
             ware.m_function(ware, raw);
         };
     }

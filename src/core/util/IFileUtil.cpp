@@ -1,4 +1,5 @@
 ﻿#include "IFileUtil.h"
+#include "IToeUtil.h"
 
 $PackageWebCoreBegin
 
@@ -14,7 +15,7 @@ bool IFileUtil::isFileExist(const QString &path)
 
 QString IFileUtil::readFileAsString(const QString &path, bool& ok)
 {
-    return readFileAsByteArray(path, ok);
+    return readFileAsByteArray(path, &ok);
 }
 
 IResult<QString> IFileUtil::readFileAsString(const QString &path)
@@ -27,33 +28,20 @@ IResult<QString> IFileUtil::readFileAsString(const QString &path)
     return std::nullopt;
 }
 
-QByteArray IFileUtil::readFileAsByteArray(const QString &path, bool& ok)
+QByteArray IFileUtil::readFileAsByteArray(const QString &path, bool* ok)
 {
     QFile file(path);
-    if(!file.exists()){
-        ok = false;
-        return {QByteArray{}, ok};
+    if(!file.exists() || !file.open(QFile::ReadOnly)){
+        IToeUtil::setOk(ok, false);
+        return {};
     }
 
-    if(file.open(QFile::ReadOnly)){
-        auto content = file.readAll();
-        file.close();
-        ok = true;
-        return content;
-    }
-    ok = false;
-    return {};
+    QByteArray content = file.readAll();
+    file.close();
+    IToeUtil::setOk(ok, true);
+    return content;
 }
 
-IResult<QByteArray> IFileUtil::readFileAsByteArray(const QString &path)
-{
-    bool ok;
-    auto value = readFileAsByteArray(path, ok);
-    if(ok){
-        return value;
-    }
-    return std::nullopt;
-}
 
 QString IFileUtil::getFileSuffix(const QString &path)
 {
