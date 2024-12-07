@@ -46,7 +46,7 @@ IResponseInterface<T, enabled>::IResponseInterface(IRedirectResponse &&response)
 
 template<typename T, bool enabled>
 IResponseInterface<T, enabled>::IResponseInterface(const IHttpInvalidWare& ware)
-{
+{ 
     this->m_raw->m_status = ware.status;
     this->m_raw->setContent(ware);
 }

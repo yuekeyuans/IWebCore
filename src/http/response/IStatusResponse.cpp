@@ -20,9 +20,6 @@ protected:
 IStatusResponse::IStatusResponse(const QString& num)
 {
     m_raw->m_status = IHttpStatus(num.toInt());
-//    if(m_raw->m_status == IHttpStatus::UNKNOWN){
-//        IStatusResponseAbort::aborthttp_status_code_convert_failed($ISourceLocation);
-    //    }
 }
 
 IStatusResponse::IStatusResponse(const std::string & data)
@@ -30,12 +27,8 @@ IStatusResponse::IStatusResponse(const std::string & data)
 {
 }
 
-// skip check
 IStatusResponse::IStatusResponse(int code, const QString& errorMsg)
 {
-//    if(m_raw->m_status == IHttpStatus::UNKNOWN){
-//        IStatusResponseAbort::aborthttp_status_code_convert_failed($ISourceLocation);
-//    }
     m_raw->m_status = IHttpStatus(code);
     if(!errorMsg.isEmpty()){
         m_raw->setMime(IHttpMime::TEXT_PLAIN_UTF8);
