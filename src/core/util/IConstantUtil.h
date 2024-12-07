@@ -19,8 +19,12 @@ namespace IConstantUtil
     inline static const IString Equal = "=";
     inline static const IString Empty {};
     inline static const IString Space = " ";
+
     inline static const IString Type = "Type";
     inline static const IString Name = "Name";
+    inline static const IString True = "True";
+    inline static const IString False = "False";
+
     inline static const std::vector<IString> EmptyVector {};
 
 

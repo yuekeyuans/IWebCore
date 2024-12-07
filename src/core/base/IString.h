@@ -79,12 +79,6 @@ public:
 // TODO: 之后详细定义
 using IStringList = QList<IString>;
 
-//class IStringList : public QList<IString>
-//{
-//public:
-//    using QList::QList;
-//};
-
 $PackageWebCoreEnd
 
 namespace std {
