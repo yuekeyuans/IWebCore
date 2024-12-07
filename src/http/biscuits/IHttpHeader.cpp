@@ -10,8 +10,8 @@ void IHttpHeader::insert(IString key, IString value)
 
 void IHttpHeader::replace(IString key, IString value)
 {
-    m_header[key] = {};
-    insert(std::move(key), std::move(value));
+    m_header.erase(key);
+    m_header[std::move(key)].push_back(std::move(value));
 }
 
 void IHttpHeader::remove(const IString& key, const IString& value)

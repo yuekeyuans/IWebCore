@@ -41,16 +41,7 @@ void IRedirectResponse::updateLocationPath()
     }
     // 防止 非 acsii 字符，比如说汉字      //TODO: 这里是个啥， 需要看一下
     auto path = ICodecUtil::pathEncode(redirectPath);
-//    if(!attributes.isEmpty()){
-//        path.append('?');
-//        auto keys = attributes.keys();
-//        for(auto key : keys){
-//            path.append(ICodecUtil::urlEncode(key))
-//                    .append('=')
-//                    .append(ICodecUtil::urlEncode(attributes[key]));
-//        }
-//    }
-    m_raw->m_headers.insert("Location", path.toUtf8());
+    m_raw->m_headers.replace(IHttpHeader::Location, path.toUtf8());
 }
 
 IRedirectResponse operator"" _redirect(const char* str, size_t size)

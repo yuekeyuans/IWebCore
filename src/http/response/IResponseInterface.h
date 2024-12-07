@@ -41,7 +41,6 @@ public:
 template<typename T, bool enabled>
 IResponseInterface<T, enabled>::IResponseInterface(IRedirectResponse &&response)
 {
-    response.updateLocationPath();
     std::swap(this->m_raw, response.m_raw);
 }
 
