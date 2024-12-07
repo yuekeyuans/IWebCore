@@ -12,6 +12,11 @@ IFileResponse::IFileResponse()
 {
 }
 
+IFileResponse::IFileResponse(const char *data)
+    : IFileResponse(IString(data))
+{
+}
+
 IFileResponse::IFileResponse(const QString &data)
     : IFileResponse(IString(data.toUtf8()))
 {

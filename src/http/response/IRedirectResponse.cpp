@@ -8,6 +8,13 @@ IRedirectResponse::IRedirectResponse()
     m_raw->m_status = IHttpStatus::FOUND_302;
 }
 
+IRedirectResponse::IRedirectResponse(const char *data)
+{
+    m_raw->m_status = IHttpStatus::FOUND_302;
+    this->redirectPath = data;
+    updateLocationPath();
+}
+
 IRedirectResponse::IRedirectResponse(const QString &path)
 {
     m_raw->m_status = IHttpStatus::FOUND_302;

@@ -15,6 +15,7 @@ public:
 
 public:
     IFileResponse();
+    IFileResponse(const char* data);
     IFileResponse(const QString& path);
     IFileResponse(IString&& path);
     IFileResponse(const IString& path);

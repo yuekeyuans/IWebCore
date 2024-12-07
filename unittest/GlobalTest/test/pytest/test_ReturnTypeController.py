@@ -82,3 +82,9 @@ def test_fileResponse():
     print(val.text)
     print(val.headers)
     print(val.status_code)
+
+def test_redirectResponse():
+    val = requests.get(serverAddress + "/ReturnTypeController/redirectResponse", allow_redirects=False)
+    print(val.text)
+    print(val.headers)
+    print(val.status_code)

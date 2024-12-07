@@ -4,6 +4,7 @@
 #include "bean/StudentBean.h"
 #include "http/response/IByteArrayResponse.h"
 #include "http/response/IFileResponse.h"
+#include "http/response/IRedirectResponse.h"
 #include "http/biscuits/IHttpHeader.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/response/IJsonResponse.h"
@@ -75,6 +76,11 @@ public:
     $GetMapping(fileResponse)
     IFileResponse fileResponse(){
         return "D:/elevoc_dnn_kernel.txt";
+    }
+
+    $GetMapping(redirectResponse)
+    IFileResponse redirectResponse(){
+        return IRedirectResponse("https://www.baidu.com");
     }
 };
 

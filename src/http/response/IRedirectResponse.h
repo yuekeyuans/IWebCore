@@ -15,6 +15,7 @@ public:
 
 public:
     IRedirectResponse();
+    IRedirectResponse(const char* data);
     IRedirectResponse(const QString &path);
     IRedirectResponse(const std::string& path);
 
