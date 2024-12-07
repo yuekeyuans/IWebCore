@@ -121,10 +121,8 @@ namespace IHttpMimeUtil
     IHttpMime toMime(const QString &);
     IHttpMime toMime(const IString&);
 
-    // TODO:
-//    std::string getSuffixMime(const QString& suffix);
-//    void registerSuffixMime(const QString& suffix, const std::string& mime);
-//    void registerSuffixMime(const QMap<QString, QString>& map);
+    const IString& getSuffixMime(const IString& suffix);
+    void registerSuffixMime(IString suffix, IString mime);
 }
 
 $PackageWebCoreEnd

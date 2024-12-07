@@ -46,6 +46,7 @@ public:
     IString& operator=(IStringView stringView);
     IString& operator=(std::nullptr_t);
     bool operator ==(const IString&) const;
+    bool operator !=(const IString&) const;
     bool operator <(const IString&) const;
 
 public:

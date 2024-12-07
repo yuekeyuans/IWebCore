@@ -32,22 +32,33 @@ IStringView::IStringView(const IStringView& view)
 {
 }
 
-IWebCore::IStringView::operator QByteArray()
+IWebCore::IStringView::operator QByteArray() const
 {
     return toQByteArray();
 }
 
-bool IStringView::operator ==(IStringView data)
+bool IStringView::operator ==(const IStringView& data) const
 {
-    return std::string_view(*this) == std::string_view(data);
+    if(this->length() != data.length()){
+        return false;
+    }
+    if(this->length() == 0 || this->data() == data.data()){    // empty equals empty
+        return true;
+    }
+    return memcmp(this->data(), data.data(), this->length() * sizeof(IStringView::value_type));
 }
 
-bool IStringView::operator ==(const char * data)
+bool IStringView::operator !=(const IStringView &data) const
+{
+    return !this->operator ==(data);
+}
+
+bool IStringView::operator ==(const char * data) const
 {
     return operator ==(IStringView(data));
 }
 
-bool IStringView::operator <(IStringView data)
+bool IStringView::operator <(IStringView data) const
 {
     return std::string_view(*this) < std::string_view(data);
 }

@@ -190,7 +190,12 @@ bool IString::operator ==(const IString &that) const
     if(this == &that){
         return true;
     }
-    return this->m_stringView == that.m_stringView;
+    return this->m_stringView.operator ==(that.m_stringView);
+}
+
+bool IString::operator !=(const IString & value) const
+{
+    return ! this->operator ==(value);
 }
 
 bool IString::operator <(const IString &that) const

@@ -21,10 +21,11 @@ public:
     IStringView(const char* data, std::size_t length);
     IStringView(const IStringView& data);
 
-    operator QByteArray();
-    bool operator ==(const char*);
-    bool operator ==(IStringView);
-    bool operator <(IStringView);
+    operator QByteArray() const;
+    bool operator ==(const char*) const;
+    bool operator ==(const IStringView&) const;
+    bool operator !=(const IStringView&) const;
+    bool operator <(IStringView) const;
 
 public:
     static uint qHash(const IWebCore::IStringView *obj, uint seed = 0);

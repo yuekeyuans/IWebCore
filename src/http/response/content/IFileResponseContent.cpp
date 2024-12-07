@@ -13,6 +13,7 @@ namespace detail
 {
     static void fileResponseProcessor(const IResponseContent& content, IResponseRaw& raw);
     static IString createDispoisition(const IString&);
+    static const IString& findMime(const IString&);
 }
 
 IFileResponseContent::IFileResponseContent(IString && value)
@@ -39,10 +40,20 @@ void detail::fileResponseProcessor(const IResponseContent &content, IResponseRaw
 
     auto data = IFileUtil::readFileAsByteArray(info.absoluteFilePath());
     raw.setContent(new IResponseContent(std::move(data)));
-    if(content.m_attribute){
-        if(content.m_attribute->contains(IFileResponseContent::ContentDispoistion)
-                && content.m_attribute->operator [](IFileResponseContent::ContentDispoistion) == IConstantUtil::True){
-            raw.m_headers.replace(IHttpHeader::ContentDisposition, detail::createDispoisition(content.m_content));
+    if(true && content.m_attribute
+            && content.m_attribute->contains(IFileResponseContent::ContentDispoistion)
+            && content.m_attribute->operator [](IFileResponseContent::ContentDispoistion) == IConstantUtil::True)
+    {
+        raw.m_headers.replace(IHttpHeader::ContentDisposition, detail::createDispoisition(content.m_content));
+    }
+
+    if(false || !content.m_attribute
+             || !content.m_attribute->contains(IFileResponseContent::ContentTypeEnabled)
+             || content.m_attribute->operator [](IFileResponseContent::ContentTypeEnabled) != IConstantUtil::False)
+    {
+        const IString& mime = detail::findMime(content.m_content);
+        if(mime != IHttpMimeUtil::MIME_UNKNOWN_STRING){
+            raw.m_headers.replace(IHttpHeader::ContentType, mime);
         }
     }
 }
@@ -52,6 +63,12 @@ IString detail::createDispoisition(const IString & data)
     auto path =data.m_stringView.toQString();
     auto fileName  = QFileInfo(path).fileName();
     return (QString("attachment;filename=").append(ICodecUtil::urlEncode(fileName))).toUtf8();
+}
+
+static const IString& detail::findMime(const IString& data)
+{
+    auto suffix = QFileInfo(data.m_stringView.toQString()).suffix();
+    return IHttpMimeUtil::getSuffixMime(IString(suffix.toUtf8()));
 }
 
 $PackageWebCoreEnd

@@ -228,8 +228,7 @@ namespace detail{
         return suffixMimePair;
     }
 
-    static QStringList mimeSuffixes;
-    static std::vector<std::string> mimeNames;
+    static std::map<IString, IString> m_userDefinedSuffixes;
 }
 
 const IString& IHttpMimeUtil::toString(IHttpMime mime)
@@ -261,43 +260,30 @@ IHttpMime IHttpMimeUtil::toMime(const IString& data)
     return IHttpMime::UNKNOWN;
 }
 
-//std::string IHttpMimeUtil::getSuffixMime(const QString &suffix)
-//{
-//    if(suffix.isEmpty()){
-//        return IHttpMimeUtil::MIME_UNKNOWN_STRING;
-//    }
+// TODO: 这里没有做大小写匹配, 目的是为了性能，之后可以考虑做一下。
+const IString& IHttpMimeUtil::getSuffixMime(const IString &suffix)
+{
+    if(suffix.isEmpty()){
+        return IHttpMimeUtil::MIME_UNKNOWN_STRING;
+    }
 
-//    static QStringList keys = detail::getSystemSuffixMimeMap().keys();
-//    if(keys.contains(suffix.toLower())){
-//        return IHttpMimeUtil::toString(detail::getSystemSuffixMimeMap()[suffix.toLower()]);
-//    }
+    static const IStringList keys = detail::getSystemSuffixMimeMap().keys();
+    if(keys.contains(suffix)){
+        return IHttpMimeUtil::toString(detail::getSystemSuffixMimeMap()[suffix]);
+    }
 
-//    auto index = mimeSuffixes.indexOf(suffix);
-//    if(index >= 0){
-//        return mimeNames[index];
-//    }
+    if(detail::m_userDefinedSuffixes.find(suffix) != detail::m_userDefinedSuffixes.end()){
+        return detail::m_userDefinedSuffixes[suffix];
+    }
 
-//    return getMimeStringList()[int(IHttpMime::APPLICATION_OCTET_STREAM)];
-//}
+    return IHttpMimeUtil::MIME_UNKNOWN_STRING;
+}
 
-//void IHttpMimeUtil::registerSuffixMime(const QString &suffix, const std::string &mime)
-//{
-//    if(getSystemSuffixMimeMap().keys().contains(suffix.toLower())){
-//        IHttpMimeAbort::aborthttp_mime_already_exist(QString("suffix: ").append(suffix).append(" mime: ").append(mime), $ISourceLocation);
-//    }
-
-//    if(!mimeSuffixes.contains(suffix)){
-//        mimeSuffixes.append(suffix);
-//        mimeNames.append(mime);
-//    }
-//}
-
-//void IHttpMimeUtil::registerSuffixMime(const QMap<QString, QString> &map)
-//{
-//    auto keys = map.keys();
-//    for(const auto& key : keys){
-//        registerSuffixMime(key, map[key]);
-//    }
-//}
+void IHttpMimeUtil::registerSuffixMime(IString suffix, IString mime)
+{
+    suffix.solidify();
+    mime.solidify();
+    detail::m_userDefinedSuffixes[std::move(suffix)] = std::move(mime);
+}
 
 $PackageWebCoreEnd

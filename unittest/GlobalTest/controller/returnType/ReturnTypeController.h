@@ -74,7 +74,7 @@ public:
 
     $GetMapping(fileResponse)
     IFileResponse fileResponse(){
-        return "D:/elevoc_dnn_kernel.log";
+        return "D:/elevoc_dnn_kernel.txt";
     }
 };
 
