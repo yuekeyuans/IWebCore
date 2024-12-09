@@ -76,7 +76,7 @@ public:
 
     $GetMapping(fileResponse)
     IFileResponse fileResponse(){
-        return "D:/elevoc_dnn_kernel.txt";
+        return ":/resource/defaultWebConfig.json";
     }
 
     $GetMapping(redirectResponse)

@@ -79,18 +79,26 @@ def test_getBeanList():
 
 def test_fileResponse():
     val = requests.get(serverAddress + "/ReturnTypeController/fileResponse")
+    assert val.text.__contains__("http")
     print(val.text)
     print(val.headers)
     print(val.status_code)
 
 def test_redirectResponse():
     val = requests.get(serverAddress + "/ReturnTypeController/redirectResponse", allow_redirects=False)
+    assert val.status_code == 302
+    assert val.headers["Location"] == "https://www.baidu.com"
     print(val.text)
     print(val.headers)
     print(val.status_code)
 
 def test_cookieTest():
     val = requests.get(serverAddress + "/ReturnTypeController/cookieTest")
+    assert val.status_code == 200
+    assert val.text == "hello world"
+    assert val.headers["Content-Type"]  == "text/plain; charset=UTF-8"
+    assert val.cookies["name"] == "yuekeyuan"
+    assert val.headers["hello"] == "world"
     print(val.text)
     print(val.headers)
     print(val.cookies)

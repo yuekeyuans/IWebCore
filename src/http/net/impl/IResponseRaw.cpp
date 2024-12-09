@@ -64,14 +64,6 @@ std::vector<IStringView> generateHeadersContent(IRequestImpl& m_raw, int content
         ret.push_back(IConstantUtil::NewLine.m_stringView);
     }
 
-    for(const auto& cookie : m_raw.m_respRaw.m_cookies){
-        auto vals = cookie.toHeaderString();
-        for(auto val : vals){
-            ret.push_back(val);
-        }
-        ret.push_back(IConstantUtil::NewLine.m_stringView);
-    }
-
     return ret;
 }
 
@@ -157,7 +149,6 @@ std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
     for(auto view : headers){
         result.push_back(view.toAsioBuffer());
     }
-    result.push_back(IConstantUtil::NewLine.m_stringView.toAsioBuffer());
 
     // cookies
     auto cookies = detail::generateCookieHeaders(impl);
@@ -165,6 +156,7 @@ std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
         result.push_back(view.toAsioBuffer());
     }
 
+    result.push_back(IConstantUtil::NewLine.m_stringView.toAsioBuffer());
     if(!content.empty()  && impl.m_reqRaw.m_method != IHttpMethod::HEAD){
         result.push_back(content.toAsioBuffer());
     }

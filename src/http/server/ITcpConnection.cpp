@@ -58,9 +58,9 @@ void ITcpConnection::doReadStreamUntil(IStringView data)
 void ITcpConnection::doWrite()
 {
     auto result = m_resolver->getOutput();
-//    for(const auto& data : result){
-//        IStringUtil::print(data);
-//    }
+    for(const auto& data : result){
+        IStringUtil::print(data);
+    }
 
     asio::async_write(m_socket, result, [=](std::error_code err, int){
         if(!m_closeConnection && !err){

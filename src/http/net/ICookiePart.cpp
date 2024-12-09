@@ -129,6 +129,7 @@ std::vector<IStringView> ICookiePart::toHeaderString() const
         ret.push_back(HttpOnlyIString.m_stringView);
     }
 
+    ret.push_back(IConstantUtil::NewLine.m_stringView);
     return ret;
 }
 
