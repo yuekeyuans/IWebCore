@@ -40,7 +40,7 @@ public:
 
     IResponse& setContent(IString&&);
     IResponse& setContent(const IString&);
-    IResponse& setContent(const IResponseWare&);
+    IResponse& setContent(const IResponseWare&);    // 对于这个，可以多思考一下，使用引用怎么样
     IResponse& setContent(const IHttpInvalidWare&);
 
     void setInvalid(const IHttpInvalidWare& ware);

@@ -8,6 +8,11 @@ void IHttpHeader::insert(IString key, IString value)
     m_header[std::move(key)].push_back(std::move(value));
 }
 
+void IHttpHeader::insert(IString key, const std::vector<IString> &value)
+{
+    m_header.emplace(std::move(key), value);
+}
+
 void IHttpHeader::replace(IString key, IString value)
 {
     m_header.erase(key);

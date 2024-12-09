@@ -64,8 +64,6 @@ std::vector<IStringView> generateHeadersContent(IRequestImpl& m_raw, int content
         ret.push_back(IConstantUtil::NewLine.m_stringView);
     }
 
-
-
     return ret;
 }
 
@@ -82,6 +80,12 @@ IResponseRaw::~IResponseRaw()
 void IResponseRaw::setHeader(IString key, IString value)
 {
     m_headers.insert(std::move(key.solidify()), std::move(value.solidify()));
+}
+
+void IResponseRaw::setHeader(IString key, const std::vector<IString> &values)
+{
+    m_headers.m_header.erase(key);
+    m_headers.insert(std::move(key.solidify()),  values);
 }
 
 void IResponseRaw::setMime(IHttpMime mime)
@@ -158,7 +162,7 @@ void IResponseRaw::setResponseWare(const IResponseWare &response)
     if(!response.headers().isEmpty()){
         auto keys = response.headers().keys();
         for(const auto& key : keys){
-            setHeader(key, response.headers().value(key));
+            setHeader(key, response.headers().values(key));
         }
     }
 

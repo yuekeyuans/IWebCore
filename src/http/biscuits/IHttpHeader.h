@@ -9,6 +9,7 @@ struct IHttpHeader
     friend class IResponseRaw;
 public:
     void insert(IString key, IString value);
+    void insert(IString key, const std::vector<IString>& value);
     void replace(IString key, IString value);
     void remove(const IString& key, const IString& value);
     void clear(const IString& key);
