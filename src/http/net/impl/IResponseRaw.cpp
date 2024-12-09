@@ -64,6 +64,14 @@ std::vector<IStringView> generateHeadersContent(IRequestImpl& m_raw, int content
         ret.push_back(IConstantUtil::NewLine.m_stringView);
     }
 
+    for(const auto& cookie : m_raw.m_respRaw.m_cookies){
+        auto vals = cookie.toHeaderString();
+        for(auto val : vals){
+            ret.push_back(val);
+        }
+        ret.push_back(IConstantUtil::NewLine.m_stringView);
+    }
+
     return ret;
 }
 
@@ -107,6 +115,21 @@ void IResponseRaw::setContent(IResponseContent *ware)
     if(invalidWare){
         this->m_isValid = false;
     }
+}
+
+void IResponseRaw::setCookie(ICookiePart &&cookie)
+{
+    m_cookies.emplace_back(std::move(cookie));
+}
+
+void IResponseRaw::setCookie(const ICookiePart &cookie)
+{
+    m_cookies.push_back(cookie);
+}
+
+void IResponseRaw::setCookie(const IString &key, const IString &value)
+{
+    m_cookies.emplace_back(key, value);
 }
 
 std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
@@ -164,6 +187,13 @@ void IResponseRaw::setResponseWare(const IResponseWare &response)
         for(const auto& key : keys){
             setHeader(key, response.headers().values(key));
         }
+    }
+
+    if(!response.m_raw->m_cookies.empty()){
+        for(auto cookie : response.m_raw->m_cookies){
+            this->m_cookies.push_back(cookie);
+        }
+        response.m_raw->m_cookies.clear();
     }
 
     // NOTE: this break the const constrait, but its safe

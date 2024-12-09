@@ -35,6 +35,10 @@ public:
     void setHeader(IString key, IString value);
     void addHeader(IString key, IString value);
 
+    void setCookie(ICookiePart&&);
+    void setCookie(const ICookiePart&);
+    void setCookie(const IString& key, const IString& value);
+
     virtual std::string prefixMatcher();
     virtual IResponseWare* prefixCreate(const std::string&);
 

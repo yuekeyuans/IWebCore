@@ -28,6 +28,10 @@ public:
     void setContent(const IHttpInvalidWare& ware);
     void setContent(IResponseContent*);
 
+    void setCookie(ICookiePart&&);
+    void setCookie(const ICookiePart&);
+    void setCookie(const IString& key, const IString& value);
+
 private:
     void setResponseWare(const IResponseWare&);
 

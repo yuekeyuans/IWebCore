@@ -84,6 +84,21 @@ void IResponseWare::addHeader(IString key, IString value)
     m_raw->m_headers.insert(std::move(key), std::move(value));
 }
 
+void IResponseWare::setCookie(ICookiePart && cookie)
+{
+    m_raw->setCookie(std::move(cookie));
+}
+
+void IResponseWare::setCookie(const ICookiePart & cookie)
+{
+    m_raw->setCookie(cookie);
+}
+
+void IResponseWare::setCookie(const IString &key, const IString &value)
+{
+    m_raw->setCookie(key, value);
+}
+
 std::string IResponseWare::prefixMatcher()
 {
     return {};

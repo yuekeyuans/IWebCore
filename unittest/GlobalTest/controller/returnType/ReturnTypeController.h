@@ -4,6 +4,7 @@
 #include "bean/StudentBean.h"
 #include "http/response/IByteArrayResponse.h"
 #include "http/response/IFileResponse.h"
+#include "http/response/IPlainTextResponse.h"
 #include "http/response/IRedirectResponse.h"
 #include "http/biscuits/IHttpHeader.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
@@ -81,6 +82,14 @@ public:
     $GetMapping(redirectResponse)
     IFileResponse redirectResponse(){
         return IRedirectResponse("https://www.baidu.com");
+    }
+
+    $GetMapping(cookieTest)
+    IPlainTextResponse cookieTest(){
+        IPlainTextResponse resp("hello world");
+        resp.setHeader("hello", "world");
+        resp.setCookie("name", "yuekeyuan");
+        return resp;
     }
 };
 

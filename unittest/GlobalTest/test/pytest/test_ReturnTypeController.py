@@ -88,3 +88,9 @@ def test_redirectResponse():
     print(val.text)
     print(val.headers)
     print(val.status_code)
+
+def test_cookieTest():
+    val = requests.get(serverAddress + "/ReturnTypeController/cookieTest")
+    print(val.text)
+    print(val.headers)
+    print(val.cookies)
