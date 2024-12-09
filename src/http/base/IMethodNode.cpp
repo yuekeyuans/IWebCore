@@ -67,7 +67,7 @@ void IMethodNodeDetail::createSignature()
 {
     QStringList args;
     for(const IArgumentType& node : argumentNodes){
-        args.append(node.typeName + " " + node.name);
+        args.append(QString::fromStdString(node.typeName) + " " + QString::fromStdString(node.name));
     }
 
     signature.append(QString::fromStdString(returnNode.typeName)).append(' ')
@@ -77,21 +77,21 @@ void IMethodNodeDetail::createSignature()
 
 void IMethodNodeDetail::checkMethodOfReturnVoid()
 {
-    if(returnNode.typeId != QMetaType::Void){
-        return;
-    }
-    static const QStringList s_nodeNames ={
-        "IResponse", "IResponse&", "IRequest", "IRequest&"
-    };
-    for(const IArgumentType& info : argumentNodes){
-        if(s_nodeNames.contains(info.typeName)){
-            return;
-        }
-    }
+//    if(returnNode.typeId != QMetaType::Void){
+//        return;
+//    }
+//    static const QStringList s_nodeNames ={
+//        "IResponse", "IResponse&", "IRequest", "IRequest&"
+//    };
+//    for(const IArgumentType& info : argumentNodes){
+//        if(s_nodeNames.contains(info.typeName)){
+//            return;
+//        }
+//    }
 
-    QString info = "mapping function that return void should include IResponse in side function parameters\n"
-                   "at Function : " + signature;
-    qFatal(info.toUtf8());
+//    QString info = "mapping function that return void should include IResponse in side function parameters\n"
+//                   "at Function : " + signature;
+//    qFatal(info.toUtf8());
 }
 
 namespace ISpawnUtil

@@ -16,26 +16,27 @@ $PackageWebCoreBegin
 
 void* IHttpControllerBeanParameter::getParamOfBean(const IArgumentType &node, IRequest &request)
 {
-    auto ptr = QMetaType::create(node.typeId);
-    auto beanWare = static_cast<IBeanWare*>(ptr);
-    const auto& paramName = node.name;
+//    auto ptr = QMetaType::create(node.typeId);
+//    auto beanWare = static_cast<IBeanWare*>(ptr);
+//    const auto& paramName = node.name;
 
-    // TODO: 这里没有区分 content 和 body 的区别。
-//    if((request.method() != IHttpMethod::GET)
-//        &&( paramName.endsWith("_content") || paramName.endsWith("_body"))){
-//        return assambleBeanWareWithBody(beanWare, request);
+//    // TODO: 这里没有区分 content 和 body 的区别。
+////    if((request.method() != IHttpMethod::GET)
+////        &&( paramName.endsWith("_content") || paramName.endsWith("_body"))){
+////        return assambleBeanWareWithBody(beanWare, request);
+////    }
+
+//    const auto& suffixes = getParameterSuffix();
+//    const auto& funs = getParameterFun();
+//    int len = suffixes.length();
+//    for(int i=0; i<len; i++){
+//        if(paramName.endsWith(suffixes[i])){
+//            return funs[i](beanWare, request);
+//        }
 //    }
 
-    const auto& suffixes = getParameterSuffix();
-    const auto& funs = getParameterFun();
-    int len = suffixes.length();
-    for(int i=0; i<len; i++){
-        if(paramName.endsWith(suffixes[i])){
-            return funs[i](beanWare, request);
-        }
-    }
-
-    return assambleBeanWareWithMixed(beanWare, request);
+//    return assambleBeanWareWithMixed(beanWare, request);
+    return nullptr;
 }
 
 void *IHttpControllerBeanParameter::assamleBeanWareWithContent(IBeanWare *bean, IRequest &request)

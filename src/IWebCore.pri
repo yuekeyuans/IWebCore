@@ -94,6 +94,7 @@ HEADERS += \
     $$PWD/http/IHttpManage.h \
     $$PWD/http/IHttpTaskCatagory.h \
     $$PWD/http/base/IArgumentType.h \
+    $$PWD/http/base/IArgumentTypeDetail.h \
     $$PWD/http/base/IMethodParameterManage.h \
     $$PWD/http/base/IReturnType.h \
     $$PWD/http/biscuits/IHttpAttribute.h \
@@ -102,7 +103,7 @@ HEADERS += \
     $$PWD/http/controller/IHttpControllerInterface.h \
     $$PWD/http/controller/IHttpControllerNode.h \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.h \
-    $$PWD/http/controller/detail/IHttpControllerBeanParameter.h \
+#    $$PWD/http/controller/detail/IHttpControllerBeanParameter.h \
     $$PWD/http/controller/detail/IHttpControllerParameter.h \
     $$PWD/http/controller/detail/IHttpControllerParameterTask.h \
     $$PWD/http/controller/detail/IHttpUrl.h \
@@ -142,8 +143,6 @@ HEADERS += \
     $$PWD/http/server/ITcpConnectionManage.h \
     $$PWD/http/server/ITcpResolverInterface.h \
     $$PWD/http/server/ITcpResolverManage.h \
-    $$PWD/http/base/IHttpParameterRestrictInterface.h \
-    $$PWD/http/base/IHttpParameterRestrictManage.h \
     $$PWD/http/response/IStatusResponse.h \
     $$PWD/orm/IOrmAbort.h \
 #    $$PWD/orm/IOrmAssert.h \
@@ -255,6 +254,7 @@ SOURCES += \
     $$PWD/core/util/detail/IJsonUtil_fromJson.cpp \
     $$PWD/http/IHttpManage.cpp \
     $$PWD/http/base/IArgumentType.cpp \
+    $$PWD/http/base/IArgumentTypeDetail.cpp \
     $$PWD/http/base/IMethodParameterManage.cpp \
     $$PWD/http/base/IReturnType.cpp \
     $$PWD/http/base/IReturnTypeDetail.cpp \
@@ -265,7 +265,7 @@ SOURCES += \
     $$PWD/http/controller/IHttpControllerNode.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.cpp \
-    $$PWD/http/controller/detail/IHttpControllerBeanParameter.cpp \
+#    $$PWD/http/controller/detail/IHttpControllerBeanParameter.cpp \
     $$PWD/http/controller/detail/IHttpControllerParameter.cpp \
     $$PWD/http/controller/detail/IHttpControllerParameterTask.cpp \
     $$PWD/http/controller/detail/IHttpUrl.cpp \
@@ -301,7 +301,7 @@ SOURCES += \
     $$PWD/http/server/ITcpConnectionManage.cpp \
     $$PWD/http/server/ITcpResolverInterface.cpp \
     $$PWD/http/server/ITcpResolverManage.cpp \
-    $$PWD/http/base/IHttpParameterRestrictManage.cpp \
+#    $$PWD/http/base/IHttpParameterRestrictManage.cpp \
     $$PWD/http/response/IStatusResponse.cpp \
 #    $$PWD/orm/IOrmAssert.cpp \
     $$PWD/orm/IOrmManage.cpp \
