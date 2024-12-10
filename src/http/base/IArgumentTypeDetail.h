@@ -21,7 +21,8 @@ private:
     void createHeaderJarType();
 
 private:
-    // others
+
+
 private:
     QVector<std::string> makeTypes(const std::string&);
 
