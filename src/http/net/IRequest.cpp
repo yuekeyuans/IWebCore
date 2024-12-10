@@ -21,25 +21,27 @@ IRequest::~IRequest()
     delete m_impl;
 }
 
-//IStringView IRequest::operator[](const QString &header) const
-//{
-//    auto temp = header.toUtf8();
-//    return operator [](IStringView(temp));
-//}
+const IString& IRequest::operator[](const IString &header) const
+{
+    return m_impl->m_reqRaw.m_requestHeaders.value(header);
+}
 
-//IResponse *IRequest::response() const
-//{
-//    return impl->m_raw->m_response;
-//}
+const IString& IRequest::operator[](const QString &header) const
+{
+    return m_impl->m_reqRaw.m_requestHeaders.value(header.toUtf8());
+}
 
 ICookieJar& IRequest::cookieJar() const
 {
     return m_impl->m_cookieJar;
 }
 
-ISessionJar *IRequest::sessionJar() const
+ISessionJar& IRequest::sessionJar() const
 {
-    return m_impl->m_sessionJar;
+    if(!m_impl->m_sessionJar){
+        qFatal("error, session not configured");
+    }
+    return *m_impl->m_sessionJar;
 }
 
 IHeaderJar& IRequest::headerJar() const

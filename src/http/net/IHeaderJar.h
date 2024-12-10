@@ -25,7 +25,6 @@ public:
     std::vector<IStringView> responseHeaderKeys() const;
     bool containResponseHeaderKey(const IString& key) const;
 
-
     void addResponseHeader(IString key, IString value);
     void addResponseHeader(IString key, const QStringList& values);
     void setResponseHeader(IString key, IString value);

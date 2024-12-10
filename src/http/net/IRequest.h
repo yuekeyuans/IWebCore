@@ -34,11 +34,12 @@ public:
     ~IRequest();
 
 public:
-//    IStringView operator[](IStringView header) const;
-//    IStringView operator[](const QString& header) const;
+    const IString& operator[](const IString& header) const;
+    const IString& operator[](const QString& header) const;
 
+public:
     ICookieJar& cookieJar() const;
-    ISessionJar* sessionJar() const;
+    ISessionJar& sessionJar() const;
     IHeaderJar& headerJar() const;
     IMultiPartJar& multiPartJar() const;
     IRequestImpl& getImpl() const;
