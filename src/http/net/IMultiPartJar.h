@@ -9,13 +9,12 @@
 
 $PackageWebCoreBegin
 
-class IMultiPartJar : public IJarUnit, IRegisterMetaTypeUnit<IMultiPartJar>
+class IMultiPartJar : public IJarUnit
 {
 public:
     using IJarUnit::IJarUnit;
 
 public:
-    IMultiPartJar();
     IMultiPart operator[](IStringView name) const;
     IMultiPart operator[](const QString& name) const;
 

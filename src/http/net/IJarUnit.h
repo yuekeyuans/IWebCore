@@ -4,14 +4,18 @@
 
 $PackageWebCoreBegin
 
-class IRequest;
 class IRequestImpl;
 class IJarUnit
 {
 public:
-    IJarUnit();
-    IJarUnit(IRequestImpl& impl);
-    IJarUnit(IRequest& request);
+    IJarUnit() = delete;
+    ~IJarUnit() = default;
+    IJarUnit(const IJarUnit&) = delete;
+    IJarUnit(IJarUnit&&) = delete;
+    IJarUnit& operator =(const IJarUnit&) = delete;
+    IJarUnit& operator =(IJarUnit&&) = delete;
+
+    IJarUnit(IRequestImpl& impl) : m_impl(impl){}
 
 protected:
     IRequestImpl& m_impl;

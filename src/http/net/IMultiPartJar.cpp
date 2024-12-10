@@ -6,11 +6,6 @@
 
 $PackageWebCoreBegin
 
-IMultiPartJar::IMultiPartJar() : IJarUnit()
-{
-    IGlobalAbort::abortUnVisibleMethod();
-}
-
 IMultiPart IMultiPartJar::operator[](const QString &name) const
 {
     auto temp = name.toUtf8();

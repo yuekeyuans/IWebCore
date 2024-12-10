@@ -6,11 +6,6 @@
 
 $PackageWebCoreBegin
 
-IHeaderJar::IHeaderJar() : IJarUnit()
-{
-    IGlobalAbort::abortUnVisibleMethod();
-}
-
 std::vector<IStringView> IHeaderJar::requestHeaderKeys() const
 {
     return m_impl.m_reqRaw.m_requestHeaders.keys();

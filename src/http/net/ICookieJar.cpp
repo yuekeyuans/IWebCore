@@ -6,11 +6,6 @@
 
 $PackageWebCoreBegin
 
-ICookieJar::ICookieJar() : IJarUnit()
-{
-    IGlobalAbort::abortUnVisibleMethod();
-}
-
 const QMultiHash<IString, IString> &ICookieJar::requestCookies() const
 {
     return m_impl.m_reqRaw.m_requestCookieParameters;

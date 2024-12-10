@@ -8,11 +8,10 @@
 $PackageWebCoreBegin
 
 class ISessionWare;
-class ISessionJar : public IJarUnit, IRegisterMetaTypeUnit<ISessionJar>
+class ISessionJar : public IJarUnit
 {
 public:
-    ISessionJar();
-    ISessionJar(IRequest& m_impl);
+    ISessionJar(IRequestImpl& m_impl);
 
 public:
     bool isValid() const;

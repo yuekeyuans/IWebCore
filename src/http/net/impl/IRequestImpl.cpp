@@ -24,7 +24,7 @@ IRequestImpl::IRequestImpl(IRequest& self)
       m_headerJar{*this}, m_cookieJar{*this}, m_multiPartJar{*this}
 {
     if(ISessionManager::instance()->getSessionWare() != nullptr){
-        m_sessionJar = new ISessionJar(m_request);
+        m_sessionJar = new ISessionJar(m_request.getImpl());
     }
 }
 

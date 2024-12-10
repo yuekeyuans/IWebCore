@@ -8,13 +8,12 @@
 
 $PackageWebCoreBegin
 
-class IHeaderJar : public IJarUnit, IRegisterMetaTypeUnit<IHeaderJar>
+class IHeaderJar : public IJarUnit
 {
 public:
     using IJarUnit::IJarUnit;
 
 public:
-    IHeaderJar();
     std::vector<IStringView> requestHeaderKeys() const;
     bool containRequestHeaderKey(const IString& key) const;
 
@@ -31,7 +30,6 @@ public:
     void addResponseHeader(IString key, const QStringList& values);
     void setResponseHeader(IString key, IString value);
     void setResponseHeader(IString key, const QStringList& values);
-//    void setResponseHeader(IString key, const IString&);
     void deleteReponseHeader(const IString& key);
 };
 

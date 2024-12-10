@@ -7,12 +7,7 @@
 
 $PackageWebCoreBegin
 
-ISessionJar::ISessionJar() : IJarUnit()
-{
-    IGlobalAbort::abortUnVisibleMethod();
-}
-
-ISessionJar::ISessionJar(IRequest& request) : IJarUnit(request)
+ISessionJar::ISessionJar(IRequestImpl& request) : IJarUnit(request)
 {
     m_sessionWare = ISessionManager::instance()->getSessionWare();
     m_sessionId = m_sessionWare->getSessionId(&m_impl.m_reqRaw);

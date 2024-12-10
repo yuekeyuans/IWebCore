@@ -335,7 +335,6 @@ SOURCES += \
     $$PWD/http/net/ICookieJar.cpp \
     $$PWD/http/net/ICookiePart.cpp \
     $$PWD/http/net/IHeaderJar.cpp \
-    $$PWD/http/net/IJarUnit.cpp \
     $$PWD/http/net/IMultiPart.cpp \
     $$PWD/http/net/IMultiPartJar.cpp \
     $$PWD/http/net/ISessionJar.cpp \

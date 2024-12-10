@@ -9,15 +9,12 @@
 
 $PackageWebCoreBegin
 
-class ICookieJar : public IJarUnit, IRegisterMetaTypeUnit<ICookieJar>
+class ICookieJar : public IJarUnit
 {
 public:
     using IJarUnit::IJarUnit;
 
 public:
-    ICookieJar();
-
-    // request
     const QMultiHash<IString, IString>& requestCookies() const;
     ICookiePart getRequestCookie(IString key) const;
     QList<ICookiePart> getRequestCookies(const IString& key) const;
