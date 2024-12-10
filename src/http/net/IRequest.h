@@ -20,19 +20,20 @@ class ISessionJar;
 class IRequestImpl;
 class IRequestRaw;
 class IHttpAction;
-class IRequest : IRegisterMetaTypeUnit<IRequest>, public ITcpResolverInterface, public IStringViewStash
+class IRequest :public ITcpResolverInterface
 {
     friend class IResponse;
 public:
-    IRequest();
+    IRequest() = delete;
+    IRequest(const IRequest &) = delete;
+    IRequest &operator=(const IRequest &) = delete;
+    IRequest(IRequest&&) = delete;
+    IRequest& operator=(IRequest&&) = delete;
+
     explicit IRequest(ITcpConnection&);
     ~IRequest();
 
-    IRequest(const IRequest &);
-    IRequest &operator=(const IRequest &);
-    IRequest(IRequest&&);
-    IRequest& operator=(IRequest&&);
-
+public:
 //    IStringView operator[](IStringView header) const;
 //    IStringView operator[](const QString& header) const;
 
@@ -42,6 +43,7 @@ public:
     IMultiPartJar& multiPartJar() const;
     IRequestImpl& getImpl() const;
 
+public:
     const IString& url() const;
     IHttpVersion version() const;
     IHttpMime mime() const;
@@ -83,6 +85,14 @@ public:
     QByteArray getSessionParameter(const QString& name, bool& ok) const;
     IResult<QByteArray> getSessionParameter(const QString& name) const;
 */
+
+public:
+    IStringView stash(const char* data);
+    IStringView stash(QByteArray&& data);
+    IStringView stash(const QByteArray& data);
+    IStringView stash(const QString& data);
+    IStringView stash(std::string&& data);
+    IStringView stash(const std::string& data);
 
 public:
     bool isValid() const;

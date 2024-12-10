@@ -10,11 +10,6 @@
 
 $PackageWebCoreBegin
 
-IRequest::IRequest() : ITcpResolverInterface(*static_cast<ITcpConnection*>(nullptr))
-{
-    IGlobalAbort::abortUnVisibleMethod($ISourceLocation);
-}
-
 IRequest::IRequest(ITcpConnection& connection)
     : ITcpResolverInterface(connection)
 {
@@ -25,35 +20,6 @@ IRequest::~IRequest()
 {
     delete m_impl;
 }
-
-IRequest::IRequest(const IRequest &)
-    : ITcpResolverInterface(*static_cast<ITcpConnection*>(nullptr))
-{
-    IGlobalAbort::abortUnVisibleMethod("IRequest can not be copied", $ISourceLocation);
-}
-
-IRequest &IRequest::operator=(const IRequest &)
-{
-    IGlobalAbort::abortUnVisibleMethod("IRequest can not be copied", $ISourceLocation);
-    return *this;
-}
-
-IRequest::IRequest(IRequest &&)
-    : ITcpResolverInterface(*static_cast<ITcpConnection*>(nullptr))
-{
-    IGlobalAbort::abortUnVisibleMethod("IRequest can not be moved", $ISourceLocation);
-}
-
-IRequest &IRequest::operator=(IRequest &&)
-{
-    IGlobalAbort::abortUnVisibleMethod("IRequest can not be moved", $ISourceLocation);
-    return *this;
-}
-
-//IStringView IRequest::operator[](IStringView header) const
-//{
-//    return m_impl->m_headerJar.getRequestHeaderValue(header);
-//}
 
 //IStringView IRequest::operator[](const QString &header) const
 //{
@@ -130,16 +96,6 @@ const IString& IRequest::bodyContent() const
     return m_impl->m_reqRaw.m_requestBody;
 }
 
-//QMultiHash<IStringView, IStringView> &IRequest::headers()
-//{
-//    return m_impl->m_reqRaw.m_requestHeaders;
-//}
-
-//const QMultiHash<IStringView, IStringView> &IRequest::headers() const
-//{
-//    return m_impl->m_reqRaw.m_requestHeaders;
-//}
-
 const QMap<IStringView, IStringView> &IRequest::urlParameters() const
 {
     return m_impl->m_reqRaw.m_requestUrlParameters;
@@ -164,6 +120,36 @@ const QVector<IMultiPart> &IRequest::bodyMultiParts() const
 IJson IRequest::bodyJson() const
 {
     return m_impl->m_reqRaw.m_requestJson;
+}
+
+IStringView IRequest::stash(const char *data)
+{
+    return m_impl->stash(data);
+}
+
+IStringView IRequest::stash(QByteArray &&data)
+{
+    return m_impl->stash(std::move(data));
+}
+
+IStringView IRequest::stash(const QByteArray &data)
+{
+    return m_impl->stash(data);
+}
+
+IStringView IRequest::stash(const QString &data)
+{
+    return m_impl->stash(data);
+}
+
+IStringView IRequest::stash(std::string &&data)
+{
+    return m_impl->stash(std::move(data));
+}
+
+IStringView IRequest::stash(const std::string &data)
+{
+    return m_impl->stash(data);
 }
 
 /*

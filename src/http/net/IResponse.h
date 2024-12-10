@@ -15,18 +15,18 @@ class IRequest;
 class IResponseWare;
 class IRequestImpl;
 class ICookiePart;
-class IResponse : IRegisterMetaTypeUnit<IResponse>
+class IResponse
 {
 public:
-    IResponse();
+    IResponse() = delete;
+    IResponse(const IResponse&) = delete;
+    IResponse(IResponse &&) = delete;
+    IResponse& operator=(const IResponse&) = delete;
+    IResponse &operator=(IResponse &&) = delete;
+    IResponse(IRequest& request);
     ~IResponse() = default;
 
-    IResponse(IRequest& request);
-    IResponse(const IResponse&);
-    IResponse(IResponse &&);
-    IResponse& operator=(const IResponse&);
-    IResponse &operator=(IResponse &&);
-
+public:
     IResponseHeader operator[](const IString& header) const;
     IResponse& setHeader(IString key, IString value);
 
