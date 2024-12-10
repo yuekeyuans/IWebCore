@@ -53,12 +53,6 @@ void IMethodNodeDetail::createArgumentNodes()
 
     for(int i=0;i<metaMethod.parameterCount(); i++){
         auto id = metaMethod.parameterType(i);
-        if(id == QMetaType::UnknownType){
-            auto reason = QString("unknown registered type: ").append(types[i])
-                              .append(", Function: ").append(className).append("::").append(metaMethod.name());
-            IMethodNodeAbort::abortcontroller_invalid_parameter_type(reason, $ISourceLocation);
-        }
-
         argumentNodes.append(ISpawnUtil::construct<IArgumentType>(id, types[i], names[i], metaMethod.methodSignature()));
     }
 }

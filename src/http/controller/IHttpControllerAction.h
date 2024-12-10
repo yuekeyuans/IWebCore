@@ -18,7 +18,7 @@ public:
 
 private:
     ParamType createParams(IRequest&) const;
-    void destroyParams(ParamType) const;
+    void destroyParams(const ParamType&) const;
 
 public:
     IHttpMethod httpMethod;

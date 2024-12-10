@@ -31,12 +31,12 @@ const IString& IRequest::operator[](const QString &header) const
     return m_impl->m_reqRaw.m_requestHeaders.value(header.toUtf8());
 }
 
-ICookieJar& IRequest::cookieJar() const
+const ICookieJar& IRequest::cookieJar() const
 {
     return m_impl->m_cookieJar;
 }
 
-ISessionJar& IRequest::sessionJar() const
+const ISessionJar& IRequest::sessionJar() const
 {
     if(!m_impl->m_sessionJar){
         qFatal("error, session not configured");
@@ -44,17 +44,17 @@ ISessionJar& IRequest::sessionJar() const
     return *m_impl->m_sessionJar;
 }
 
-IHeaderJar& IRequest::headerJar() const
+const IHeaderJar& IRequest::headerJar() const
 {
     return m_impl->m_headerJar;
 }
 
-IMultiPartJar& IRequest::multiPartJar() const
+const IMultiPartJar& IRequest::multiPartJar() const
 {
     return m_impl->m_multiPartJar;
 }
 
-IRequestImpl& IRequest::getImpl() const
+IRequestImpl& IRequest::impl() const
 {
     return *m_impl;
 }

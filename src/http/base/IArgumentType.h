@@ -11,10 +11,6 @@ struct IArgumentType
         Auto, Param, Url, Header, Body, Content, Cookie, Session,
     };
 public:
-    void* create(IRequest&) const;
-    void destory(void*) const;
-
-public:
     bool optional{false};
     Position position{Auto};
     QMetaType::Type typeId{QMetaType::UnknownType};
@@ -24,7 +20,7 @@ public:
     std::string name;
 
     std::vector<std::string> m_arguments;   // 用于初始化的 arguements
-protected:
+public:
     std::function<void*(IRequest&)> m_createFun{};
     std::function<void(void*)> m_destroyFun{};
 };

@@ -9,6 +9,7 @@ DEFINES += QMAKE_PROJECT_DIR=\\\"$$PWD\\\"
 SOURCES += \
         TempUnitTest.cpp \
         bean/StudentBean.cpp \
+        controller/Argument/BasicArgument.cpp \
         controller/returnType/ReturnTypeController.cpp \
         main.cpp
 
@@ -20,4 +21,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     TempUnitTest.h \
     bean/StudentBean.h \
+    controller/Argument/BasicArgument.h \
     controller/returnType/ReturnTypeController.h

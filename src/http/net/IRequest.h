@@ -38,11 +38,11 @@ public:
     const IString& operator[](const QString& header) const;
 
 public:
-    ICookieJar& cookieJar() const;
-    ISessionJar& sessionJar() const;
-    IHeaderJar& headerJar() const;
-    IMultiPartJar& multiPartJar() const;
-    IRequestImpl& getImpl() const;
+    const ICookieJar& cookieJar() const;
+    const ISessionJar& sessionJar() const;
+    const IHeaderJar& headerJar() const;
+    const IMultiPartJar& multiPartJar() const;
+    IRequestImpl& impl() const;
 
 public:
     const IString& url() const;

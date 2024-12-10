@@ -3,10 +3,15 @@
 #include "core/bean/IBeanTypeManage.h"
 #include "http/controller/IHttpControllerAbort.h"
 #include "http/IHttpManage.h"
+#include "http/net/IRequest.h"
+#include "http/net/IResponse.h"
+#include "http/net/ICookieJar.h"
+#include "http/net/ISessionJar.h"
+#include "http/net/IMultiPartJar.h"
+#include "http/net/IHeaderJar.h"
+#include "http/net/impl/IRequestImpl.h"
 
 $PackageWebCoreBegin
-
-// TODO: 这里 Nullable/NotNull 替换为Optional, 具体的参数见文档
 
 IArgumentTypeDetail::IArgumentTypeDetail(int paramTypeId_, QString paramTypeName_, QString name_, QString methodSignature_)
 {
@@ -18,8 +23,107 @@ IArgumentTypeDetail::IArgumentTypeDetail(int paramTypeId_, QString paramTypeName
     auto args = name_.split("_$");
     name = args.first().toStdString();
     args.pop_front();
-    m_paramQualifiers = args;
 
+    createBasicType();
+}
+
+bool IArgumentTypeDetail::createBasicType()
+{
+    static QList<decltype(&IArgumentTypeDetail::createRequestType)> funs = {
+        &IArgumentTypeDetail::createRequestType,
+        &IArgumentTypeDetail::createResponseType,
+        &IArgumentTypeDetail::createMultiPartJarType,
+        &IArgumentTypeDetail::createCookieJarType,
+        &IArgumentTypeDetail::createSessionJarType,
+        &IArgumentTypeDetail::createHeaderJarType,
+    };
+
+    if(this->typeId != QMetaType::UnknownType){
+        return false;
+    }
+
+    for(auto fun : funs){
+        std::mem_fn(fun)(this);
+        if(this->m_createFun){
+            return true;
+        }
+    }
+    qFatal("not supported type");
+    return false;
+}
+
+void IArgumentTypeDetail::createRequestType()
+{
+    static const auto types = makeTypes("IRequest");
+    if(types.contains(this->typeName)){
+        this->m_createFun = [](IRequest& request)->void*{
+            return &request;
+        };
+    }
+}
+
+void IArgumentTypeDetail::createResponseType()
+{
+    static const auto types = makeTypes("IResponse");
+    if(types.contains(this->typeName)){
+        this->m_createFun = [](IRequest& request)->void*{
+            return new IResponse(request);
+        };
+        this->m_destroyFun = [](void* ptr){
+            delete static_cast<IResponse*>(ptr);
+        };
+    }
+}
+
+void IArgumentTypeDetail::createMultiPartJarType()
+{
+    static const auto types = makeTypes("IMultiPartJar");
+    if(types.contains(this->typeName)){
+        this->m_createFun = [](IRequest& request)->void*{
+            return &(request.impl().m_multiPartJar);
+        };
+    }
+}
+
+void IArgumentTypeDetail::createSessionJarType()
+{
+    static const auto types = makeTypes("ISessionJar");
+    if(types.contains(this->typeName)){
+        this->m_createFun = [](IRequest& request)->void*{
+            return &(request.impl().m_sessionJar);
+        };
+    }
+}
+
+void IArgumentTypeDetail::createCookieJarType()
+{
+    static const auto types = makeTypes("ICookieJar");
+    if(types.contains(this->typeName)){
+        this->m_createFun = [](IRequest& request)->void*{
+            return &(request.impl().m_cookieJar);
+        };
+    }
+}
+
+void IArgumentTypeDetail::createHeaderJarType()
+{
+    static const auto types = makeTypes("IHeaderJar");
+    if(types.contains(this->typeName)){
+        this->m_createFun = [](IRequest& request)->void*{
+            return &(request.impl().m_headerJar);
+        };
+    }
+}
+
+QVector<std::string> IArgumentTypeDetail::makeTypes(const std::string &name)
+{
+    QVector<std::string> names;
+    names.append(name);
+    names.append((name + "&"));
+    names.append((std::string($PackageWebCoreName) + "::" + name));
+    names.append((std::string($PackageWebCoreName) + "::" + name + "&"));
+
+    return names;
 }
 
 

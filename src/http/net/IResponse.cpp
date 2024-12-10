@@ -12,7 +12,7 @@
 
 $PackageWebCoreBegin
 
-IResponse::IResponse(IRequest& request) : m_impl(request.getImpl())
+IResponse::IResponse(IRequest& request) : m_impl(request.impl())
 {
 }
 

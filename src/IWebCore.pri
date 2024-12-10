@@ -253,7 +253,6 @@ SOURCES += \
 #    $$PWD/core/util/detail/IConvertUtilBaseTypeDetail.cpp \
     $$PWD/core/util/detail/IJsonUtil_fromJson.cpp \
     $$PWD/http/IHttpManage.cpp \
-    $$PWD/http/base/IArgumentType.cpp \
     $$PWD/http/base/IArgumentTypeDetail.cpp \
     $$PWD/http/base/IMethodParameterManage.cpp \
     $$PWD/http/base/IReturnType.cpp \

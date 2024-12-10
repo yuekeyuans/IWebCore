@@ -16,7 +16,7 @@ void IHttpControllerAction::invoke(IRequest &request) const
         auto enclosingObject = methodNode.metaMethod.enclosingMetaObject();
         enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params.data());
         if(request.isValid()){
-            methodNode.returnNode.resolveValue(request.getImpl(), params[0]);
+            methodNode.returnNode.resolveValue(request.impl(), params[0]);
         }
     }
 
@@ -30,7 +30,7 @@ IHttpControllerAction::ParamType IHttpControllerAction::createParams(IRequest& r
     params[0] = methodNode.returnNode.create();
     int len = methodNode.argumentNodes.length();
     for(int i=0; i<len; i++){
-        params[i+1] = methodNode.argumentNodes[i].create(request);
+        params[i+1] = methodNode.argumentNodes[i].m_createFun(request);
         if(!request.isValid()){
             break;
         }
@@ -38,13 +38,13 @@ IHttpControllerAction::ParamType IHttpControllerAction::createParams(IRequest& r
     return params;
 }
 
-void IHttpControllerAction::destroyParams(IHttpControllerAction::ParamType params) const
+void IHttpControllerAction::destroyParams(const IHttpControllerAction::ParamType& params) const
 {
     methodNode.returnNode.destroy(params[0]);
     int len = methodNode.argumentNodes.length();
     for(int i=0; i<len; i++){
-        if(params[i]){
-            methodNode.argumentNodes[i].destory(params[i+1]);
+        if(params[i+1] && methodNode.argumentNodes[i].m_destroyFun){
+            methodNode.argumentNodes[i].m_destroyFun(params[i+1]);
         }
     }
 }
