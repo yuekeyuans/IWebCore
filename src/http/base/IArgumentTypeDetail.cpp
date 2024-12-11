@@ -15,12 +15,12 @@ $PackageWebCoreBegin
 
 IArgumentTypeDetail::IArgumentTypeDetail(int paramTypeId_, QByteArray&& paramTypeName_, QByteArray&& name_)
 {
-    typeId = (QMetaType::Type)paramTypeId_;
-    typeName = paramTypeName_.toStdString();
-    nameRaw = name_.toStdString();
+    m_typeId = (QMetaType::Type)paramTypeId_;
+    m_typeName = paramTypeName_.toStdString();
+    m_nameRaw = name_.toStdString();
 
     auto args = QString(name_).split("_$");
-    name = args.first().toStdString();
+    m_name = args.first().toStdString();
     args.pop_front();
 
     createBasicType();
@@ -37,7 +37,7 @@ bool IArgumentTypeDetail::createBasicType()
         &IArgumentTypeDetail::createHeaderJarType,
     };
 
-    if(this->typeId != QMetaType::UnknownType){
+    if(this->m_typeId != QMetaType::UnknownType){
         return false;
     }
 
@@ -54,7 +54,7 @@ bool IArgumentTypeDetail::createBasicType()
 void IArgumentTypeDetail::createRequestType()
 {
     static const auto types = makeTypes("IRequest");
-    if(types.contains(this->typeName)){
+    if(types.contains(this->m_typeName)){
         this->m_createFun = [](IRequest& request)->void*{
             return &request;
         };
@@ -64,7 +64,7 @@ void IArgumentTypeDetail::createRequestType()
 void IArgumentTypeDetail::createResponseType()
 {
     static const auto types = makeTypes("IResponse");
-    if(types.contains(this->typeName)){
+    if(types.contains(this->m_typeName)){
         this->m_createFun = [](IRequest& request)->void*{
             return new IResponse(request);
         };
@@ -77,7 +77,7 @@ void IArgumentTypeDetail::createResponseType()
 void IArgumentTypeDetail::createMultiPartJarType()
 {
     static const auto types = makeTypes("IMultiPartJar");
-    if(types.contains(this->typeName)){
+    if(types.contains(this->m_typeName)){
         this->m_createFun = [](IRequest& request)->void*{
             return &(request.impl().m_multiPartJar);
         };
@@ -87,7 +87,7 @@ void IArgumentTypeDetail::createMultiPartJarType()
 void IArgumentTypeDetail::createSessionJarType()
 {
     static const auto types = makeTypes("ISessionJar");
-    if(types.contains(this->typeName)){
+    if(types.contains(this->m_typeName)){
         this->m_createFun = [](IRequest& request)->void*{
             return &(request.impl().m_sessionJar);
         };
@@ -97,7 +97,7 @@ void IArgumentTypeDetail::createSessionJarType()
 void IArgumentTypeDetail::createCookieJarType()
 {
     static const auto types = makeTypes("ICookieJar");
-    if(types.contains(this->typeName)){
+    if(types.contains(this->m_typeName)){
         this->m_createFun = [](IRequest& request)->void*{
             return &(request.impl().m_cookieJar);
         };
@@ -107,7 +107,7 @@ void IArgumentTypeDetail::createCookieJarType()
 void IArgumentTypeDetail::createHeaderJarType()
 {
     static const auto types = makeTypes("IHeaderJar");
-    if(types.contains(this->typeName)){
+    if(types.contains(this->m_typeName)){
         this->m_createFun = [](IRequest& request)->void*{
             return &(request.impl().m_headerJar);
         };

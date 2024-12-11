@@ -8,18 +8,17 @@ class IRequest;
 struct IArgumentType
 {
     enum Position{
-        Auto, Param, Url, Header, Body, Content, Cookie, Session,
+        Auto, Path, Query, Header, Cookie, Session, Form, Json,
     };
 public:
-    bool optional{false};
-    Position position{Auto};
-    QMetaType::Type typeId{QMetaType::UnknownType};
-    std::string typeName;
+    bool m_optional{false};
+    Position m_position{Auto};
+    QMetaType::Type m_typeId{QMetaType::UnknownType};
+    std::string m_typeName;
 
-    std::string nameRaw;
-    std::string name;
+    std::string m_nameRaw;
+    std::string m_name;
 
-    std::vector<std::string> m_arguments;   // 用于初始化的 arguements
 public:
     std::function<void*(IRequest&)> m_createFun{};
     std::function<void(void*)> m_destroyFun{};

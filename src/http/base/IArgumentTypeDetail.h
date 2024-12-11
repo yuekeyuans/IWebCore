@@ -9,7 +9,7 @@ struct IArgumentTypeDetail : public IArgumentType
 {
 public:
     // TODO: better to add signature,but skip here.
-    IArgumentTypeDetail(int typeId, QByteArray&& typeName, QByteArray&& name);
+    IArgumentTypeDetail(int m_typeId, QByteArray&& m_typeName, QByteArray&& m_name);
 
 private:
     bool createBasicType();
