@@ -14,8 +14,8 @@ public:
     void resolveValue(IRequestImpl&, void* ptr) const;
 
 public:
-    QMetaType::Type typeId{QMetaType::UnknownType};
-    std::string typeName;
+    QMetaType::Type m_typeId{QMetaType::UnknownType};
+    std::string m_typeName;
 
 protected:
     std::function<void(IRequestImpl&, void*)> m_resolveFunction;

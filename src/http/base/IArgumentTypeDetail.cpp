@@ -13,14 +13,13 @@
 
 $PackageWebCoreBegin
 
-IArgumentTypeDetail::IArgumentTypeDetail(int paramTypeId_, QString paramTypeName_, QString name_, QString methodSignature_)
+IArgumentTypeDetail::IArgumentTypeDetail(int paramTypeId_, QByteArray&& paramTypeName_, QByteArray&& name_)
 {
     typeId = (QMetaType::Type)paramTypeId_;
     typeName = paramTypeName_.toStdString();
     nameRaw = name_.toStdString();
-    m_methodSignature = methodSignature_.toStdString();
 
-    auto args = name_.split("_$");
+    auto args = QString(name_).split("_$");
     name = args.first().toStdString();
     args.pop_front();
 
@@ -310,24 +309,11 @@ QVector<std::string> IArgumentTypeDetail::makeTypes(const std::string &name)
 //}
 
 namespace ISpawnUtil {
-
-template<>
-IArgumentType construct(int paramTypeId, const char* paramTypeName, const char* paramName, QByteArray signature)
-{
-    return IArgumentTypeDetail(paramTypeId, paramTypeName, paramName, signature);
-}
-
-template<>
-IArgumentType construct(int paramTypeId, QByteArray paramTypeName, QByteArray paramName, QByteArray signature)
-{
-    return IArgumentTypeDetail(paramTypeId, paramTypeName, paramName, signature);
-}
-
-template<>
-IArgumentType construct(int paramTypeId, QString paramTypeName, QString paramName, QByteArray signature)
-{
-    return IArgumentTypeDetail(paramTypeId, paramTypeName, paramName, signature);
-}
+    template<>
+    IArgumentType construct(int paramTypeId, QByteArray paramTypeName, QByteArray paramName)
+    {
+        return IArgumentTypeDetail(paramTypeId, std::move(paramTypeName), std::move(paramName));
+    }
 }
 
 $PackageWebCoreEnd

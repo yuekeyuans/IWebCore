@@ -37,8 +37,8 @@ private:
 
 IReturnTypeDetail::IReturnTypeDetail(QMetaType::Type type, const std::string& name)
 {
-    typeId = type;
-    typeName = name;
+    m_typeId = type;
+    m_typeName = name;
     createResolveFuntion();
 }
 
@@ -64,7 +64,7 @@ void IReturnTypeDetail::createResolveFuntion()
 
 void IReturnTypeDetail::createResponseFun()
 {
-    if(IResponseManage::instance()->containResponse(typeName)){
+    if(IResponseManage::instance()->containResponse(m_typeName)){
         m_resolveFunction = [](IRequestImpl& impl, void* ptr){
             impl.setResponseWare(*static_cast<IResponseWare*>(ptr));
         };
@@ -73,7 +73,7 @@ void IReturnTypeDetail::createResponseFun()
 
 void IReturnTypeDetail::createBeanFun()
 {
-    if(IBeanTypeManage::instance()->isBeanIdExist(typeId)){
+    if(IBeanTypeManage::instance()->isBeanIdExist(m_typeId)){
         m_resolveFunction = [](IRequestImpl& impl, void* ptr){
             IJson json = static_cast<IBeanWare*>(ptr)->toJson();
             impl.setResponseWare(IJsonResponse(std::move(json)));
@@ -83,7 +83,7 @@ void IReturnTypeDetail::createBeanFun()
 
 void IReturnTypeDetail::createVoidFun()
 {
-    if(typeId == QMetaType::Void){
+    if(m_typeId == QMetaType::Void){
         m_resolveFunction = [](IRequestImpl& impl, void*){
             if(impl.m_respRaw.m_mime == IHttpMimeUtil::MIME_UNKNOWN_STRING){
                 impl.m_respRaw.setMime(IHttpMime::TEXT_PLAIN_UTF8);
@@ -97,7 +97,7 @@ void IReturnTypeDetail::createVoidFun()
 
 void IReturnTypeDetail::createStatusFun()
 {
-    if(typeId == QMetaType::UnknownType && typeName == "IHttpStatus" || typeId == QMetaType::Int){
+    if(m_typeId == QMetaType::UnknownType && m_typeName == "IHttpStatus" || m_typeId == QMetaType::Int){
         m_resolveFunction = [](IRequestImpl& impl, void* ptr){
             impl.setResponseWare(IStatusResponse(*static_cast<int*>(ptr)));
         };
@@ -106,7 +106,7 @@ void IReturnTypeDetail::createStatusFun()
 
 void IReturnTypeDetail::createStdStringFun()
 {
-    if(typeId == (QMetaType::Type)qMetaTypeId<std::string>()){
+    if(m_typeId == (QMetaType::Type)qMetaTypeId<std::string>()){
         m_resolveFunction = [](IRequestImpl& impl, void* ptr){
             const std::string& value = *static_cast<std::string*>(ptr);
             if(IStringUtil::startsWith(value, "$")){
@@ -126,7 +126,7 @@ void IReturnTypeDetail::createStdStringFun()
 
 void IReturnTypeDetail::createQStringFun()
 {
-    if(typeId == QMetaType::QString){
+    if(m_typeId == QMetaType::QString){
         m_resolveFunction = [](IRequestImpl& impl, void* ptr){
             std::string value = static_cast<QString*>(ptr)->toStdString();
             if(IStringUtil::startsWith(value, "$")){
@@ -145,7 +145,7 @@ void IReturnTypeDetail::createQStringFun()
 
 void IReturnTypeDetail::createQByteArrayFun()
 {
-    if(typeId == QMetaType::QByteArray){
+    if(m_typeId == QMetaType::QByteArray){
         m_resolveFunction = [](IRequestImpl& impl, void *ptr){
             QByteArray& array = *static_cast<QByteArray*>(ptr);
             impl.setResponseWare(IByteArrayResponse(std::move(array)));
@@ -155,7 +155,7 @@ void IReturnTypeDetail::createQByteArrayFun()
 
 void IReturnTypeDetail::createIJsonFun()
 {
-    if(typeId == (QMetaType::Type)qMetaTypeId<IJson>()){
+    if(m_typeId == (QMetaType::Type)qMetaTypeId<IJson>()){
         m_resolveFunction = [](IRequestImpl& impl, void* ptr){
             impl.setResponseWare(IJsonResponse(*static_cast<IJson*>(ptr)));
         };

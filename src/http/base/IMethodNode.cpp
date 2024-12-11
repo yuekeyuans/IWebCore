@@ -53,7 +53,7 @@ void IMethodNodeDetail::createArgumentNodes()
 
     for(int i=0;i<metaMethod.parameterCount(); i++){
         auto id = metaMethod.parameterType(i);
-        argumentNodes.append(ISpawnUtil::construct<IArgumentType>(id, types[i], names[i], metaMethod.methodSignature()));
+        argumentNodes.append(ISpawnUtil::construct<IArgumentType>(id, types[i], names[i]));
     }
 }
 
@@ -64,7 +64,7 @@ void IMethodNodeDetail::createSignature()
         args.append(QString::fromStdString(node.typeName) + " " + QString::fromStdString(node.name));
     }
 
-    signature.append(QString::fromStdString(returnNode.typeName)).append(' ')
+    signature.append(QString::fromStdString(returnNode.m_typeName)).append(' ')
             .append(className).append("::").append(metaMethod.name()).append("(")
             .append(args.join(", ")).append(")");
 }

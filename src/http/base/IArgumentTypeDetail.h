@@ -8,8 +8,8 @@ $PackageWebCoreBegin
 struct IArgumentTypeDetail : public IArgumentType
 {
 public:
-    IArgumentTypeDetail(int typeId, QString typeName, QString name, QString m_methodSignature);
-
+    // TODO: better to add signature,but skip here.
+    IArgumentTypeDetail(int typeId, QByteArray&& typeName, QByteArray&& name);
 
 private:
     bool createBasicType();
@@ -26,8 +26,8 @@ private:
 private:
     QVector<std::string> makeTypes(const std::string&);
 
-private:
-    std::string m_methodSignature;
+//private:
+//    std::string m_methodSignature;
 };
 
 $PackageWebCoreEnd
