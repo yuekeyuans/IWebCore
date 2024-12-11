@@ -61,7 +61,7 @@ void IMethodNodeDetail::createSignature()
 {
     QStringList args;
     for(const IArgumentType& node : argumentNodes){
-        args.append(QString::fromStdString(node.m_typeName) + " " + QString::fromStdString(node.m_name));
+        args.append(node.m_typeName.m_stringView.toQString() + " " + QString::fromStdString(node.m_name));
     }
 
     signature.append(QString::fromStdString(returnNode.m_typeName)).append(' ')

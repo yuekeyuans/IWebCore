@@ -14,7 +14,7 @@ public:
     bool m_optional{false};
     Position m_position{Auto};
     QMetaType::Type m_typeId{QMetaType::UnknownType};
-    std::string m_typeName;
+    IString m_typeName;
 
     std::string m_nameRaw;
     std::string m_name;

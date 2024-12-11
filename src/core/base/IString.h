@@ -60,6 +60,11 @@ public:
     IStringViewList split(char) const;
     IStringViewList split(const IString&) const;
 
+public:
+    QString toQString() const;
+    std::string toStdString() const;
+    QByteArray toQByteArray() const;
+
 private:
     void clear();
     void copyFrom(const IString& other);

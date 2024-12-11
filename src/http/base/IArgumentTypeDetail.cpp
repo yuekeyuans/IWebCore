@@ -114,9 +114,9 @@ void IArgumentTypeDetail::createHeaderJarType()
     }
 }
 
-QVector<std::string> IArgumentTypeDetail::makeTypes(const std::string &name)
+QVector<IString> IArgumentTypeDetail::makeTypes(const std::string &name)
 {
-    QVector<std::string> names;
+    QVector<IString> names;
     names.append(name);
     names.append((name + "&"));
     names.append((std::string($PackageWebCoreName) + "::" + name));

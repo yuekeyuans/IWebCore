@@ -24,7 +24,7 @@ private:
 
 
 private:
-    QVector<std::string> makeTypes(const std::string&);
+    QVector<IString> makeTypes(const std::string&);
 
 //private:
 //    std::string m_methodSignature;

@@ -237,6 +237,21 @@ IStringViewList IString::split(const IString &data) const
     return m_stringView.split(data.m_stringView);
 }
 
+QString IString::toQString() const
+{
+    return m_stringView.toQString();
+}
+
+std::string IString::toStdString() const
+{
+    return m_stringView.toStdString();
+}
+
+QByteArray IString::toQByteArray() const
+{
+    return m_stringView.toQByteArray();
+}
+
 IString::operator IStringView() const
 {
     return m_stringView;
