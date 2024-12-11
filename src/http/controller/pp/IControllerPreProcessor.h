@@ -10,8 +10,8 @@ private:
     PP_STRING(IHttpControllerFunMapping$$$ ## funName ## $$$ ## type ## $$$ ## index)
 
 #ifdef Q_MOC_RUN
+    #define $Path(name)       name##_$path
     #define $Query(name)      name##_$query
-    #define $Path(name)        name##_$path
     #define $Body(name)       name##_$body
     #define $Content(name)    name##_$content
     #define $Header(name)     name##_$header
