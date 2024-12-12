@@ -28,9 +28,6 @@ private:
     void createCookiePartType();
 
 private:
-
-
-private:
     QVector<IString> makeTypes(const std::string&);
 };
 

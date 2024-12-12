@@ -15,6 +15,7 @@
 $PackageWebCoreBegin
 
 IArgumentTypeDetail::IArgumentTypeDetail(int typeId, QByteArray paramTypeName, QByteArray nameRaw)
+    : IArgumentType()
 {
     m_typeId = QMetaType::Type(typeId);
     m_typeName = std::move(paramTypeName);
@@ -163,6 +164,7 @@ bool IArgumentTypeDetail::createPartType()
             return true;
         }
     }
+    return false;
 }
 
 void IArgumentTypeDetail::createMultiPartType()
@@ -173,14 +175,16 @@ void IArgumentTypeDetail::createMultiPartType()
             qFatal("position should be empty");
         }
 
-        this->m_createFun = [=](IRequest& request) -> void*{
+        bool m_optional = this->m_optional;         // weired!!!
+        IString m_name = this->m_name;
+        this->m_createFun = [m_optional, m_name](IRequest& request) -> void*{
             if(!request.bodyContentType().startWith(IHttpMimeUtil::toString(IHttpMime::MULTIPART_FORM_DATA))){ // TODO: force little case
-                request.setInvalid(IHttpInternalErrorInvalid("not multitype type"));\
+                request.setInvalid(IHttpInternalErrorInvalid("not multitype type"));
                 return nullptr;
             }else{
                 const auto& value = request.multiPartJar().getMultiPart(m_name);
                 if(!m_optional && (&value == &IMultiPart::Empty)){
-                    request.setInvalid(IHttpInternalErrorInvalid("not selected multitypes"));
+                    request.setInvalid(IHttpInternalErrorInvalid("multitype not optional"));
                     return nullptr;
                 }
                 return static_cast<void*>(const_cast<IMultiPart*>(&value));
