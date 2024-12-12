@@ -12,7 +12,7 @@ public:
 public:
     $GetMapping(irequest)
     QString irequest(IRequest& req){
-        return req.url().m_stringView.toQString();
+        return req.url().toQString();
     }
 };
 

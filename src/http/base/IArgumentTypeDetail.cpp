@@ -13,17 +13,46 @@
 
 $PackageWebCoreBegin
 
-IArgumentTypeDetail::IArgumentTypeDetail(int paramTypeId_, QByteArray&& paramTypeName_, QByteArray&& name_)
+IArgumentTypeDetail::IArgumentTypeDetail(int typeId, QByteArray paramTypeName, QByteArray nameRaw)
 {
-    m_typeId = (QMetaType::Type)paramTypeId_;
-    m_typeName = paramTypeName_.toStdString();
-    m_nameRaw = name_.toStdString();
+    m_typeId = QMetaType::Type(typeId);
+    m_typeName = std::move(paramTypeName);
+    m_nameRaw = std::move(nameRaw);
 
-    auto args = QString(name_).split("_$");
-    m_name = args.first().toStdString();
+    if(m_nameRaw.isEmpty()){
+        qFatal("Name should not be empty");
+    }
+
+    resolveName();
+    createBasicType();
+}
+
+void IArgumentTypeDetail::resolveName()
+{
+    static const QVector<IString> PREFIXES = {
+        "Auto", "Path", "Query", "Header", "Cookie", "Session", "Form", "Json"
+    };
+    IStringViewList args = m_nameRaw.split("_$");
+    m_name = args.first();
     args.pop_front();
 
-    createBasicType();
+    for(IStringView arg : args){
+        if(arg.startWith("Optional")){
+            if(m_optional == true){
+                qFatal("two more optional");
+            }
+            m_optional = true;
+            continue;
+        }
+
+        auto index = PREFIXES.indexOf(arg);
+        if(index > 0){
+            if(m_position > 0){
+                qFatal("two more restrict");
+            }
+            m_position = Position(index);
+        }
+    }
 }
 
 bool IArgumentTypeDetail::createBasicType()

@@ -45,7 +45,7 @@ bool IStringView::operator ==(const IStringView& data) const
     if(this->length() == 0 || this->data() == data.data()){    // empty equals empty
         return true;
     }
-    return memcmp(this->data(), data.data(), this->length() * sizeof(IStringView::value_type));
+    return memcmp(this->data(), data.data(), this->length() * sizeof(IStringView::value_type)) == 0;
 }
 
 bool IStringView::operator !=(const IStringView &data) const

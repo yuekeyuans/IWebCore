@@ -15,9 +15,10 @@ public:
     Position m_position{Auto};
     QMetaType::Type m_typeId{QMetaType::UnknownType};
     IString m_typeName;
+    IString m_name;
 
-    std::string m_nameRaw;
-    std::string m_name;
+protected:
+    IString m_nameRaw;
 
 public:
     std::function<void*(IRequest&)> m_createFun{};
