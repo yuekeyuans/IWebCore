@@ -6,13 +6,13 @@
 
 $PackageWebCoreBegin
 
-IMultiPart IMultiPartJar::operator[](const QString &name) const
+const IMultiPart& IMultiPartJar::operator[](const QString &name) const
 {
     auto temp = name.toUtf8();
     return this->operator [](IStringView(temp));
 }
 
-IMultiPart IMultiPartJar::operator[](IStringView name) const
+const IMultiPart& IMultiPartJar::operator[](const IString& name) const
 {
     const auto& jar = m_impl.m_reqRaw.m_requestMultiParts;
     for(const auto& part : jar){
@@ -20,10 +20,10 @@ IMultiPart IMultiPartJar::operator[](IStringView name) const
             return part;
         }
     }
-    return {};
+    return IMultiPart::Empty;
 }
 
-bool IMultiPartJar::containRequestMulitPartName(IStringView name) const
+bool IMultiPartJar::contain(const IString& name) const
 {
     const auto& jar = m_impl.m_reqRaw.m_requestMultiParts;
     for(const auto& part : jar){
@@ -34,13 +34,12 @@ bool IMultiPartJar::containRequestMulitPartName(IStringView name) const
     return false;
 }
 
-bool IMultiPartJar::containRequestMulitPartName(const QString &name) const
+bool IMultiPartJar::contain(const QString &name) const
 {
-    auto temp = name.toUtf8();
-    return containRequestMulitPartName(IStringView(temp));
+    return contain(IString(name.toUtf8()));
 }
 
-IStringViewList IMultiPartJar::getRequestMultiPartNames() const
+IStringViewList IMultiPartJar::getKeys() const
 {
     IStringViewList ret;
     const auto& jar = m_impl.m_reqRaw.m_requestMultiParts;
@@ -50,7 +49,7 @@ IStringViewList IMultiPartJar::getRequestMultiPartNames() const
     return ret;
 }
 
-IMultiPart IMultiPartJar::getRequestMultiPart(IStringView name) const
+const IMultiPart& IMultiPartJar::getMultiPart(const IString& name) const
 {
     const auto& jar = m_impl.m_reqRaw.m_requestMultiParts;
     for(const auto& part : jar){
@@ -58,13 +57,12 @@ IMultiPart IMultiPartJar::getRequestMultiPart(IStringView name) const
             return part;
         }
     }
-    return {};
+    return IMultiPart::Empty;
 }
 
-IMultiPart IMultiPartJar::getRequestMultiPart(const QString &name) const
+const IMultiPart& IMultiPartJar::getMultiPart(const QString &name) const
 {
-    auto temp = name.toUtf8();
-    return getRequestMultiPart(IStringView(temp));
+    return getMultiPart(IString(name.toUtf8()));
 }
 
 const QVector<IMultiPart> &IMultiPartJar::getRequestMultiParts() const

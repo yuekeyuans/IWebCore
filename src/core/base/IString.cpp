@@ -237,6 +237,11 @@ IStringViewList IString::split(const IString &data) const
     return m_stringView.split(data.m_stringView);
 }
 
+bool IString::startWith(const IString & data) const
+{
+    return m_stringView.startWith(data.m_stringView);
+}
+
 QString IString::toQString() const
 {
     return m_stringView.toQString();

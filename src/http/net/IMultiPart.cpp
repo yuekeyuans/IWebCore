@@ -5,6 +5,8 @@
 
 $PackageWebCoreBegin
 
+const IMultiPart IMultiPart::Empty;
+
 namespace detail
 {
     IStringViewList concatenateHeaders(const IStringViewList& list, IRequest* request);

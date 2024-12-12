@@ -5,7 +5,7 @@
 
 $PackageWebCoreBegin
 
-class ICookiePart : IRegisterMetaTypeUnit<ICookiePart>
+class ICookiePart
 {
 public:
     enum SameSiteType{

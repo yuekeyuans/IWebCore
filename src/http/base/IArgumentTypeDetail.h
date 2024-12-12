@@ -14,13 +14,18 @@ private:
     void resolveName();
 
 private:
-    bool createBasicType();
+    bool createBasicType();         // IRequest, IResponse, Jar
     void createRequestType();
     void createResponseType();
     void createMultiPartJarType();
     void createSessionJarType();
     void createCookieJarType();
     void createHeaderJarType();
+
+private:
+    bool createPartType();
+    void createMultiPartType();
+    void createCookiePartType();
 
 private:
 

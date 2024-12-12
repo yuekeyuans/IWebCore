@@ -3,6 +3,7 @@
 #include "core/bean/IBeanTypeManage.h"
 #include "http/controller/IHttpControllerAbort.h"
 #include "http/IHttpManage.h"
+#include "http/invalid/IHttpInternalErrorInvalid.h"
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
 #include "http/net/ICookieJar.h"
@@ -25,6 +26,7 @@ IArgumentTypeDetail::IArgumentTypeDetail(int typeId, QByteArray paramTypeName, Q
 
     resolveName();
     createBasicType();
+    createPartType();
 }
 
 void IArgumentTypeDetail::resolveName()
@@ -69,15 +71,18 @@ bool IArgumentTypeDetail::createBasicType()
     if(this->m_typeId != QMetaType::UnknownType){
         return false;
     }
-
+    if(m_optional){
+        qFatal("optional can not be exist here");
+    }
+    if(m_position != Position::Auto){
+        qFatal("position should be empty");
+    }
     for(auto fun : funs){
         std::mem_fn(fun)(this);
         if(this->m_createFun){
             return true;
         }
     }
-    qFatal("not supported type");
-    return false;
 }
 
 void IArgumentTypeDetail::createRequestType()
@@ -141,6 +146,52 @@ void IArgumentTypeDetail::createHeaderJarType()
             return &(request.impl().m_headerJar);
         };
     }
+}
+
+bool IArgumentTypeDetail::createPartType()
+{
+    if(this->m_typeId != QMetaType::UnknownType){
+        return false;
+    }
+    static QList<decltype(&IArgumentTypeDetail::createRequestType)> funs = {
+        &IArgumentTypeDetail::createMultiPartType,
+        &IArgumentTypeDetail::createCookiePartType,
+    };
+    for(auto fun : funs){
+        std::mem_fn(fun)(this);
+        if(this->m_createFun){
+            return true;
+        }
+    }
+}
+
+void IArgumentTypeDetail::createMultiPartType()
+{
+    static const auto types = makeTypes("IMultiPart");
+    if(types.contains(this->m_typeName)){
+        if(m_position != Position::Auto){
+            qFatal("position should be empty");
+        }
+
+        this->m_createFun = [=](IRequest& request) -> void*{
+            if(!request.bodyContentType().startWith(IHttpMimeUtil::toString(IHttpMime::MULTIPART_FORM_DATA))){ // TODO: force little case
+                request.setInvalid(IHttpInternalErrorInvalid("not multitype type"));\
+                return nullptr;
+            }else{
+                const auto& value = request.multiPartJar().getMultiPart(m_name);
+                if(!m_optional && (&value == &IMultiPart::Empty)){
+                    request.setInvalid(IHttpInternalErrorInvalid("not selected multitypes"));
+                    return nullptr;
+                }
+                return static_cast<void*>(const_cast<IMultiPart*>(&value));
+            }
+        };
+    }
+}
+
+void IArgumentTypeDetail::createCookiePartType()
+{
+
 }
 
 QVector<IString> IArgumentTypeDetail::makeTypes(const std::string &name)

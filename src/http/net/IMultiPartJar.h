@@ -15,15 +15,15 @@ public:
     using IJarUnit::IJarUnit;
 
 public:
-    IMultiPart operator[](IStringView name) const;
-    IMultiPart operator[](const QString& name) const;
+    const IMultiPart& operator[](const IString& name) const;
+    const IMultiPart& operator[](const QString& name) const;
 
-    bool containRequestMulitPartName(IStringView name) const;
-    bool containRequestMulitPartName(const QString& name) const;
-    IStringViewList getRequestMultiPartNames() const;
+    bool contain(const IString& name) const;
+    bool contain(const QString& name) const;
+    IStringViewList getKeys() const;
 
-    IMultiPart getRequestMultiPart(IStringView name) const;
-    IMultiPart getRequestMultiPart(const QString& name) const;
+    const IMultiPart& getMultiPart(const IString& name) const;
+    const IMultiPart& getMultiPart(const QString& name) const;
 
     const QVector<IMultiPart>& getRequestMultiParts() const;
     QVector<IMultiPart> getRequestFileMultiParts() const;
