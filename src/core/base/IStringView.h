@@ -51,7 +51,6 @@ public:
     IStringViewList(QList<IStringView> data);
 };
 
-
 Q_DECLARE_METATYPE(IStringView)
 Q_DECLARE_METATYPE(IStringViewList)
 

@@ -20,7 +20,7 @@ public:
 
     bool contain(const IString& name) const;
     bool contain(const QString& name) const;
-    IStringViewList getKeys() const;
+    IStringViewList getNames() const;
 
     const IMultiPart& getMultiPart(const IString& name) const;
     const IMultiPart& getMultiPart(const QString& name) const;

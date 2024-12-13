@@ -20,22 +20,6 @@ ICookiePart ICookieJar::getRequestCookie(IString key) const
     return {key, value};
 }
 
-//ICookiePart ICookieJar::getRequestCookie(const QString &key) const
-//{
-//    auto temp = key.toUtf8();
-//    return getRequestCookie(IStringView(temp));
-//}
-
-//QList<ICookiePart> ICookieJar::getRequestCookies(const IString& key) const
-//{
-//    QList<ICookiePart> cookies;
-//    auto values = m_impl.m_reqRaw.m_requestCookieParameters.values(key);
-//    for(auto value : values){
-//        cookies.append({key, value});
-//    }
-//    return cookies;
-//}
-
 QList<ICookiePart> ICookieJar::getRequestCookies(const IString &key) const
 {
     QList<ICookiePart> cookies;

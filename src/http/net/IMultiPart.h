@@ -12,7 +12,6 @@ class IMultiPartJar;
 class IRequest;
 class IMultiPart
 {
-    friend class IMultiPartJar;
 public:
     enum TransferEncoding{      // rfc2046
         BIT_7,
@@ -28,18 +27,17 @@ public:
     IMultiPart(IMultiPart&&);
     IMultiPart& operator = (IMultiPart&&);
 
-
 public:
     bool isValid() const;
 
 public:
-    IStringView name;
-    IStringView fileName;
-    IStringView charset;
-    IStringView content;
-    IHttpMime mime {IHttpMime::UNKNOWN};
-    TransferEncoding encoding{BIT_7};
-    IStringViewList headers; // TODO: 这个能不能变成可拷贝的一个内容？
+    IStringView m_name;
+    IStringView m_fileName;
+    IStringView m_charset;
+    IStringView m_content;
+    IHttpMime m_mime {IHttpMime::UNKNOWN};
+    TransferEncoding m_encoding{BIT_7};
+    IStringViewList m_headers;
 
 public:
     static const IMultiPart Empty;
