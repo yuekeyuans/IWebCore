@@ -10,72 +10,72 @@ namespace detail
     const IString& sameSiteTypeToString(ICookiePart::SameSiteType type);
 }
 
-ICookiePart::ICookiePart(IString key_, IString value_)
-    : key(std::move(key_)), value(std::move(value_))
+ICookiePart::ICookiePart(IString key, IString value)
+    : m_key(std::move(key)), m_value(std::move(value))
 {
 }
 
 ICookiePart::ICookiePart(IString key, IString value, int maxAge, bool secure, bool httpOnly)
-    : key(std::move(key)), value(std::move(value)), maxAge(maxAge), secure(secure), httpOnly(httpOnly)
+    : m_key(std::move(key)), m_value(std::move(value)), m_maxAge(maxAge), m_secure(secure), m_httpOnly(httpOnly)
 {
 }
 
 ICookiePart::ICookiePart(IString key, IString value, QDateTime expires, bool secure, bool httpOnly)
-    : key(std::move(key)), value(std::move(value)), expires(std::move(expires)), secure(secure), httpOnly(httpOnly)
+    : m_key(std::move(key)), m_value(std::move(value)), m_expires(std::move(expires)), m_secure(secure), m_httpOnly(httpOnly)
 {
 }
 
 ICookiePart &ICookiePart::setKey(IString key)
 {
-    this->key = std::move(key);
+    this->m_key = std::move(key);
     return *this;
 }
 
 ICookiePart &ICookiePart::setValue(IString value)
 {
-    this->value = std::move(value);
+    this->m_value = std::move(value);
     return *this;
 }
 
 ICookiePart &ICookiePart::setDomain(IString domain)
 {
-    this->domain = std::move(domain);
+    this->m_domain = std::move(domain);
     return *this;
 }
 
 ICookiePart &ICookiePart::setPath(IString path)
 {
-    this->path = std::move(path);
+    this->m_path = std::move(path);
     return *this;
 }
 
 ICookiePart &ICookiePart::setExpires(QDateTime dateTime)
 {
-    this->expires = std::move(dateTime);
+    this->m_expires = std::move(dateTime);
     return *this;
 }
 
 ICookiePart &ICookiePart::setMaxAge(int maxAge)
 {
-    this->maxAge = maxAge;
+    this->m_maxAge = maxAge;
     return *this;
 }
 
 ICookiePart &ICookiePart::setSecure(bool secure)
 {
-    this->secure = secure;
+    this->m_secure = secure;
     return *this;
 }
 
 ICookiePart &ICookiePart::setHttpOnly(bool httpOnly)
 {
-    this->httpOnly = httpOnly;
+    this->m_httpOnly = httpOnly;
     return *this;
 }
 
 ICookiePart &ICookiePart::setSameSite(ICookiePart::SameSiteType sameSite)
 {
-    this->sameSite = sameSite;
+    this->m_sameSite = sameSite;
     return *this;
 }
 
@@ -90,42 +90,42 @@ std::vector<IStringView> ICookiePart::toHeaderString() const
     static const IString HttpOnlyIString = "; HttpOnly";
 
     std::vector<IStringView> ret;
-    if(key.isEmpty() || value.isEmpty()){
+    if(m_key.isEmpty() || m_value.isEmpty()){
         return ret;
     }
 
     ret.push_back(IHttpHeader::SetCookie.m_stringView);
     ret.push_back(IConstantUtil::Comma.m_stringView);
-    ret.push_back(key.m_stringView);
+    ret.push_back(m_key.m_stringView);
     ret.push_back(IConstantUtil::Equal.m_stringView);
-    ret.push_back(value.m_stringView);
+    ret.push_back(m_value.m_stringView);
 
-    if(!domain.isEmpty()){
+    if(!m_domain.isEmpty()){
         ret.push_back(DomainIString.m_stringView);
-        ret.push_back(domain.m_stringView);
+        ret.push_back(m_domain.m_stringView);
     }
-    if(!path.isEmpty()){
+    if(!m_path.isEmpty()){
         ret.push_back(PathIString.m_stringView);
-        ret.push_back(path.m_stringView);
+        ret.push_back(m_path.m_stringView);
     }
-    if(maxAge != std::numeric_limits<int>::min()){               // see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#browser_compatibility
-        m_maxAgeString = std::to_string(maxAge);
+    if(m_maxAge != std::numeric_limits<int>::min()){               // see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#browser_compatibility
+        m_maxAgeString = std::to_string(m_maxAge);
         ret.push_back(MaxAgeIString.m_stringView);
         ret.push_back(IString(&m_maxAgeString).m_stringView);
     }
-    if(expires.isValid()){
-        m_expiresString = IConvertUtil::toUtcString(expires).toStdString();
+    if(m_expires.isValid()){
+        m_expiresString = IConvertUtil::toUtcString(m_expires).toStdString();
         ret.push_back(ExpiresIString.m_stringView);
         ret.push_back(IString(&m_expiresString).m_stringView);
     }
-    if(sameSite != Lax){
+    if(m_sameSite != Lax){
         ret.push_back(SameSiteIString.m_stringView);
-        ret.push_back(detail::sameSiteTypeToString(sameSite).m_stringView);
+        ret.push_back(detail::sameSiteTypeToString(m_sameSite).m_stringView);
     }
-    if(secure){
+    if(m_secure){
         ret.push_back(SecureIString.m_stringView);
     }
-    if(httpOnly){
+    if(m_httpOnly){
         ret.push_back(HttpOnlyIString.m_stringView);
     }
 
@@ -135,10 +135,10 @@ std::vector<IStringView> ICookiePart::toHeaderString() const
 
 bool ICookiePart::isValid()
 {
-    if(key.isEmpty()){
+    if(m_key.isEmpty()){
         return false;
     }
-    if(maxAge != -1 && expires.isValid()){
+    if(m_maxAge != -1 && m_expires.isValid()){
         return false;
     }
     return true;

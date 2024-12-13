@@ -16,7 +16,7 @@ public:
 
 public:
     ICookiePart() = default;
-    ICookiePart(IString key, IString value);
+    ICookiePart(IString m_key, IString m_value);
 
     template<typename T>
     explicit ICookiePart(IString key, IString value, std::chrono::duration<T> duration, bool secure=false, bool httpOnly=false);
@@ -24,32 +24,32 @@ public:
     explicit ICookiePart(IString key, IString value, QDateTime expires, bool secure=false, bool httpOnly=false);
 
 public:
-    ICookiePart& setKey(IString key);
-    ICookiePart& setValue(IString value);
-    ICookiePart& setDomain(IString domain);
-    ICookiePart& setPath(IString path);
+    ICookiePart& setKey(IString m_key);
+    ICookiePart& setValue(IString m_value);
+    ICookiePart& setDomain(IString m_domain);
+    ICookiePart& setPath(IString m_path);
     ICookiePart& setExpires(QDateTime dateTime);
-    ICookiePart& setMaxAge(int maxAge);
-    ICookiePart& setSecure(bool secure);
-    ICookiePart& setHttpOnly(bool httpOnly);
-    ICookiePart& setSameSite(SameSiteType sameSite);
+    ICookiePart& setMaxAge(int m_maxAge);
+    ICookiePart& setSecure(bool m_secure);
+    ICookiePart& setHttpOnly(bool m_httpOnly);
+    ICookiePart& setSameSite(SameSiteType m_sameSite);
 
     std::vector<IStringView> toHeaderString() const;
 
     bool isValid();
 
 public:
-    IString key;
-    IString value;
-    IString domain;
-    IString path;
+    IString m_key;
+    IString m_value;
+    IString m_domain;
+    IString m_path;
 
-    QDateTime expires {};
-    int maxAge {std::numeric_limits<int>::min()};
+    QDateTime m_expires {};
+    int m_maxAge {std::numeric_limits<int>::min()};
 
-    bool secure {false};
-    bool httpOnly {false};
-    SameSiteType sameSite{Lax};
+    bool m_secure {false};
+    bool m_httpOnly {false};
+    SameSiteType m_sameSite{Lax};
 
 private:
     mutable std::string m_maxAgeString; // TODO: 这个不是最优解

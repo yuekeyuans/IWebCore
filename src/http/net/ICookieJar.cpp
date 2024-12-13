@@ -75,7 +75,7 @@ ICookiePart ICookieJar::getResponseCookie(const IString &key) const
 {
     const auto& cookies = m_impl.m_respRaw.m_cookies;
     for(auto it=cookies.cbegin(); it!=cookies.cend(); it++){
-        if(it->key == key){
+        if(it->m_key == key){
             return *it;
         }
     }
@@ -87,7 +87,7 @@ QList<IString> ICookieJar::responseCookieKeys() const
     const auto& cookies = m_impl.m_respRaw.m_cookies;
     QList<IString> keys;
     for(const auto& part : cookies){
-        keys.append(part.key);
+        keys.append(part.m_key);
     }
     return keys;
 }
@@ -96,7 +96,7 @@ bool ICookieJar::containResponseCookieKey(const IString &key) const
 {
     const auto& cookies = m_impl.m_respRaw.m_cookies;
     for(const auto& part : cookies){
-        if(part.key == key){
+        if(part.m_key == key){
             return true;
         }
     }
@@ -107,7 +107,7 @@ void ICookieJar::deleteResponseCookie(const IString &key)
 {
     auto& cookies = m_impl.m_respRaw.m_cookies;
     for(auto it=cookies.begin(); it!= cookies.end();){
-        if(it->key == key){
+        if(it->m_key == key){
             it = cookies.erase(it);
         }else{
             it++;
