@@ -254,7 +254,7 @@ IHttpMime IHttpMimeUtil::toMime(const IString& data)
     IString type = data.split(splitter).first();
 
     auto index = mimes.indexOf(type);
-    if(index < 0 || index == mimes.length()-1){
+    if(index < 0 || index < mimes.length()-1){
         return  IHttpMime(index);
     }
     return IHttpMime::UNKNOWN;

@@ -16,8 +16,8 @@ public:
     }
 
     $PostMapping(multipart)
-    QString multipart(const IMultiPart& name){
-        return name.name.toQString() + name.content.toQString();
+    QString multipart(const IMultiPart& name, const IMultiPart& file){
+        return name.name.toQString() + ": " + name.content.toQString() + ": " + file.fileName.toQString();
     }
 };
 

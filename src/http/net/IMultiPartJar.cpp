@@ -52,7 +52,8 @@ IStringViewList IMultiPartJar::getKeys() const
 const IMultiPart& IMultiPartJar::getMultiPart(const IString& name) const
 {
     const auto& jar = m_impl.m_reqRaw.m_requestMultiParts;
-    for(const auto& part : jar){
+    for(const IMultiPart& part : jar){
+        qDebug().noquote() << "ddddd" << part.name.toQString() << name.toQString();
         if(part.name == name){
             return part;
         }

@@ -15,6 +15,7 @@ namespace IConstantUtil
 #endif
 
     inline static const IString Comma = ": ";
+    inline static const IString Semicolon = ";";
     inline static const IString NewLine = "\r\n";
     inline static const IString Equal = "=";
     inline static const IString Empty {};

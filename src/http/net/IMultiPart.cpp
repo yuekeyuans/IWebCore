@@ -1,4 +1,5 @@
 ﻿#include "IMultiPart.h"
+#include "core/util/IConstantUtil.h"
 #include "http/biscuits/IHttpHeader.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/net/IRequest.h"
@@ -52,8 +53,8 @@ IStringViewList detail::concatenateHeaders(const IStringViewList& list, IRequest
     return ret;
 }
 
-static IStringView FORMDATE_NAME("name=\"");
-static IStringView FORMDATA_FILE_NAME("filename=\"");
+static IStringView FORMDATE_NAME("name=");
+static IStringView FORMDATA_FILE_NAME("filename=");
 static IStringView FORMDATA_CHARSET("charset=");
 void detail::resolveHeaders(IMultiPart* self, IStringView data, IRequest* request)
 {
@@ -72,7 +73,9 @@ void detail::resolveHeaders(IMultiPart* self, IStringView data, IRequest* reques
             if(index != std::string_view::npos){
                 self->name = value.substr(index+FORMDATE_NAME.length());
                 if(!self->name.empty() && self->name.startWith("\"")){
-                    self->name = self->name.substr(1, self->name.length()-2);
+                    self->name = self->name.substr(1);
+                    index = self->name.find("\"");
+                    self->name = self->name.substr(0, index);
                 }
             }
             index = value.find(FORMDATA_FILE_NAME);
