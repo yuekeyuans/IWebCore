@@ -23,6 +23,11 @@ public:
 public:
     IMultiPart() = default;
     IMultiPart(IStringView data, IRequest* request);
+    IMultiPart(const IMultiPart&) = delete;
+    IMultiPart& operator = (const IMultiPart&) = delete;
+    IMultiPart(IMultiPart&&);
+    IMultiPart& operator = (IMultiPart&&);
+
 
 public:
     bool isValid() const;

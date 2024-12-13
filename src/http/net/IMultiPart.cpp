@@ -26,6 +26,23 @@ IMultiPart::IMultiPart(IStringView view, IRequest* request)
     detail::resolveHeaders(this, view.substr(0, index), request);
 }
 
+IMultiPart::IMultiPart(IMultiPart &&value)
+{
+    this->operator =(std::move(value));
+}
+
+IMultiPart& IMultiPart::operator =(IMultiPart&& value)
+{
+    this->name = value.name;
+    this->charset = value.charset;
+    this->content = value.content;
+    this->encoding = value.encoding;
+    this->fileName = value.fileName;
+    this->headers = value.headers;
+    this->mime = value.mime;
+    return *this;
+}
+
 bool IMultiPart::isValid() const
 {
     return !content.empty() && !name.empty();

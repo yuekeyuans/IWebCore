@@ -634,11 +634,13 @@ void IRequestImpl::parseMultiPartData(IStringView data)
         }
 
         auto content=data.substr(indexFirst + m_multipartBoundary.length(), indexSecond - m_multipartBoundary.length()).trimmed();
+
+        qDebug() << "DDDDDDDD" << content.toQString();
         IMultiPart part(content, &m_request);
         if(!part.isValid()){
             return;
         }
-        m_reqRaw.m_requestMultiParts.append(part);
+        m_reqRaw.m_requestMultiParts.emplace_back(std::move(part));
         indexFirst = indexSecond;
     }
 }

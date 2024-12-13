@@ -66,21 +66,9 @@ const IMultiPart& IMultiPartJar::getMultiPart(const QString &name) const
     return getMultiPart(IString(name.toUtf8()));
 }
 
-const QVector<IMultiPart> &IMultiPartJar::getRequestMultiParts() const
+const std::vector<IMultiPart> &IMultiPartJar::getRequestMultiParts() const
 {
     return m_impl.m_reqRaw.m_requestMultiParts;
-}
-
-QVector<IMultiPart> IMultiPartJar::getRequestFileMultiParts() const
-{
-    QVector<IMultiPart> ret;
-    const auto& jar = m_impl.m_reqRaw.m_requestMultiParts;
-    for(const auto& part : jar){
-        if(!part.fileName.empty ()){
-            ret.append (part);
-        }
-    }
-    return ret;
 }
 
 $PackageWebCoreEnd

@@ -113,7 +113,7 @@ const QMap<IStringView, IStringView> &IRequest::bodyFormParameters() const
     return m_impl->m_reqRaw.m_requestBodyParameters;
 }
 
-const QVector<IMultiPart> &IRequest::bodyMultiParts() const
+const std::vector<IMultiPart> &IRequest::bodyMultiParts() const
 {
     return m_impl->m_reqRaw.m_requestMultiParts;
 }

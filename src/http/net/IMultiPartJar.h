@@ -24,9 +24,7 @@ public:
 
     const IMultiPart& getMultiPart(const IString& name) const;
     const IMultiPart& getMultiPart(const QString& name) const;
-
-    const QVector<IMultiPart>& getRequestMultiParts() const;
-    QVector<IMultiPart> getRequestFileMultiParts() const;
+    const std::vector<IMultiPart>& getRequestMultiParts() const;
 };
 
 $PackageWebCoreEnd
