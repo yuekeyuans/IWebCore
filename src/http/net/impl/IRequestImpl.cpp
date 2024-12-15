@@ -432,8 +432,7 @@ void IRequestImpl::parseMultiPartData(IStringView data)
 
     auto values = data.split(m_multipartBoundary);
     for(IStringView value : values){
-        value = value.trimmed();
-        if(!value.empty()){
+        if(!value.trimmed().empty()){
             IMultiPart part(value, &m_request);
             if(!part.isValid()){
                 return;

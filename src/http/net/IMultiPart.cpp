@@ -19,6 +19,11 @@ namespace detail
 
 IMultiPart::IMultiPart(IStringView view, IRequest* request)
 {
+    if(view.startWith("\r\n")){
+        view = view.substr(2);
+    }
+    view = view.substr(0, view.length()-2); //remove last \r\n
+
     auto index = view.find("\r\n\r\n");
     if(index == std::string_view::npos){
         request->setInvalid(IHttpBadRequestInvalid("multipart has no headers"));
