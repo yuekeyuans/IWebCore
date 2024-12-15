@@ -54,6 +54,9 @@ public:
 private:
     mutable std::string m_maxAgeString; // TODO: 这个不是最优解
     mutable std::string m_expiresString;
+
+public:
+    static const ICookiePart Empty;
 };
 
 template<typename T>

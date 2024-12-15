@@ -16,8 +16,24 @@ def test_QString():
     assert val.status_code == 200 
     assert val.text == "/BasicArgument/irequest"
 
-
 def test_mulitpart():
     val = requests.post(serverAddress + "/BasicArgument/multipart", data={"name": "test"}, files={"file": open("ServerConfig.py", "rb")})
+    assert val.status_code == 200
+    assert val.text == open("ServerConfig.py").read()
     print(val.text)
     print(val.status_code)
+
+def test_cookiePart():
+    val = requests.get(serverAddress + "/BasicArgument/cookiePart", cookies={"name": "cookie"})
+    assert val.status_code == 200
+    assert val.text == "cookie"
+    print(val.text)
+    print(val.status_code)  
+
+def test_cookiePartEmpty():
+    val = requests.get(serverAddress + "/BasicArgument/cookiePart", cookies={"name1": "cookie"})
+    assert val.status_code == 500
+    # assert val.text != "cookie"
+    print(val.text)
+    print(val.status_code)  
+

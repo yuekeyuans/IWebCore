@@ -22,10 +22,19 @@ private:
     void createCookieJarType();
     void createHeaderJarType();
 
-private:
+private: // cookiepart, multipart
     bool createPartType();
     void createMultiPartType();
     void createCookiePartType();
+
+private: // 和 header 相关
+    bool createHeaderType();
+
+private: // body, query, json 相关，
+    bool createDataType();
+
+private: // bean 相关
+
 
 private:
     QVector<IString> makeTypes(const std::string&);

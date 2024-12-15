@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <IHttp/IHttpControllerInterface>
+#include "http/net/ICookiePart.h"
 
 class BasicArgument : public IHttpControllerInterface<BasicArgument>
 {
@@ -17,8 +18,12 @@ public:
 
     $PostMapping(multipart)
     QString multipart(const IMultiPart& name, const IMultiPart& file){
-        qDebug() << file.m_content.toQString();
-        return name.m_name.toQString() + ": " + name.m_content.toQString() + ": " + file.m_fileName.toQString();
+        return file.m_content.toQString();
+    }
+
+    $GetMapping(cookiePart)
+    QString cookiePart(ICookiePart name){
+        return name.m_value.toQString();
     }
 };
 

@@ -171,32 +171,77 @@ bool IArgumentTypeDetail::createPartType()
 void IArgumentTypeDetail::createMultiPartType()
 {
     static const auto types = makeTypes("IMultiPart");
-    if(types.contains(this->m_typeName)){
-        if(m_position != Position::Auto){
-            qFatal("position should be empty");
-        }
-
-        bool m_optional = this->m_optional;         // weired!!!
-        IString m_name = this->m_name;
-        this->m_createFun = [m_optional, m_name](IRequest& request) -> void*{
-            if(!request.bodyContentType().startWith(IHttpMimeUtil::toString(IHttpMime::MULTIPART_FORM_DATA))){ // TODO: force little case
-                request.setInvalid(IHttpInternalErrorInvalid("not multitype type"));
-                return nullptr;
-            }else{
-                const auto& value = request.multiPartJar().getMultiPart(m_name);
-                if(!m_optional && (&value == &IMultiPart::Empty)){
-                    request.setInvalid(IHttpInternalErrorInvalid("multitype not optional"));
-                    return nullptr;
-                }
-                return static_cast<void*>(const_cast<IMultiPart*>(&value));
-            }
-        };
+    if(!types.contains(this->m_typeName)){
+        return;
     }
+    if(m_position != Position::Auto){
+        qFatal("position should be empty");
+    }
+
+    bool m_optional = this->m_optional;         // weired!!!
+    IString m_name = this->m_name;
+    this->m_createFun = [m_optional, m_name](IRequest& request) -> void*{
+        if(!request.bodyContentType().startWith(IHttpMimeUtil::toString(IHttpMime::MULTIPART_FORM_DATA))){ // TODO: force little case
+            request.setInvalid(IHttpInternalErrorInvalid("not multitype type"));
+            return nullptr;
+        }else{
+            const auto& value = request.multiPartJar().getMultiPart(m_name);
+            if(!m_optional && (&value == &IMultiPart::Empty)){
+                request.setInvalid(IHttpInternalErrorInvalid("multitype not optional"));
+                return nullptr;
+            }
+            return static_cast<void*>(const_cast<IMultiPart*>(&value));
+        }
+    };
 }
 
 void IArgumentTypeDetail::createCookiePartType()
 {
+    static const auto& types = makeTypes("ICookiePart");
+    if(!types.contains(this->m_typeName)){
+        return;
+    }
+    if(m_position != Position::Auto){
+        qFatal("position should be empty");
+    }
 
+    bool m_optional = this->m_optional;         // weired!!!
+    IString m_name = this->m_name;
+    this->m_createFun = [m_optional, m_name](IRequest& request) -> void*{
+        if(request.impl().m_reqRaw.m_requestCookieParameters.contains(m_name)){
+            auto value = request.impl().m_reqRaw.m_requestCookieParameters.value(m_name);
+            return new ICookiePart(m_name, value);
+        }
+        if(m_optional){
+            return static_cast<void*>(const_cast<ICookiePart*>(&ICookiePart::Empty));
+        }
+        request.setInvalid(IHttpInternalErrorInvalid("cookie not optional"));
+        return nullptr;
+    };
+    this->m_destroyFun = [](void* ptr){
+        if(ptr  && (ptr != &ICookiePart::Empty)){
+            delete static_cast<ICookiePart*>(ptr);
+        }
+    };
+}
+
+bool IArgumentTypeDetail::createHeaderType()
+{
+    if(this->m_position != Position::Header){
+        return false;
+    }
+
+    bool m_optional = this->m_optional;         // weired!!!
+    IString m_name = this->m_name;
+    this->m_createFun = [m_optional, m_name](IRequest&)->void*{
+        return nullptr;
+    };
+
+    this->m_destroyFun = [m_name](void* ptr){
+
+    };
+
+    return true;
 }
 
 QVector<IString> IArgumentTypeDetail::makeTypes(const std::string &name)

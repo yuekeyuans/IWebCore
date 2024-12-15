@@ -5,6 +5,8 @@
 
 $PackageWebCoreBegin
 
+const ICookiePart ICookiePart::Empty;
+
 namespace detail
 {
     const IString& sameSiteTypeToString(ICookiePart::SameSiteType type);
