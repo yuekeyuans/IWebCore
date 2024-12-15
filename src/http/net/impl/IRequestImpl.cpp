@@ -418,30 +418,28 @@ void IRequestImpl::parseJsonData(IStringView data)
 
 void IRequestImpl::parseMultiPartData(IStringView data)
 {
+    data = data.trimmed();
+    if(!data.startWith(m_multipartBoundary)){
+        return setInvalid(IHttpBadRequestInvalid("multipart start error"));
+    }
+    data = data.substr(m_multipartBoundary.length()).trimmed();
+
     auto endPos = data.find(m_multipartBoundaryEnd);
     if(endPos == IStringView::npos){
-        setInvalid(IHttpBadRequestInvalid("multipart end error"));
-        return;
+        return setInvalid(IHttpBadRequestInvalid("multipart end error"));
     }
-
     data = data.substr(0, endPos);
-    qDebug() << data.toQString();
 
-    auto indexFirst = data.find(m_multipartBoundary, 0);
-    for(;;){
-        auto indexSecond = data.find(m_multipartBoundary, indexFirst+ m_multipartBoundary.length());
-        if(indexSecond == IStringView::npos){
-            break;
+    auto values = data.split(m_multipartBoundary);
+    for(IStringView value : values){
+        value = value.trimmed();
+        if(!value.empty()){
+            IMultiPart part(value, &m_request);
+            if(!part.isValid()){
+                return;
+            }
+            m_reqRaw.m_requestMultiParts.emplace_back(std::move(part));
         }
-
-        auto content=data.substr(indexFirst + m_multipartBoundary.length(), indexSecond - m_multipartBoundary.length()).trimmed();
-
-        IMultiPart part(content, &m_request);
-        if(!part.isValid()){
-            return;
-        }
-        m_reqRaw.m_requestMultiParts.emplace_back(std::move(part));
-        indexFirst = indexSecond;
     }
 }
 
