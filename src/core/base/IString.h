@@ -59,6 +59,13 @@ public:
     operator IStringView() const;
 
 public:
+    template<typename T>
+    T value(bool& ok) const;
+
+    template<typename T>
+    T* valuePtr(bool& ok) const;
+
+public:
     IStringViewList split(char) const;
     IStringViewList split(const IString&) const;
     bool startWith(const IString&) const;
