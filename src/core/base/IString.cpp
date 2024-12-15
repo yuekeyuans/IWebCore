@@ -206,6 +206,16 @@ bool IString::operator <(const IString &that) const
     return this->m_stringView < that.m_stringView;
 }
 
+std::size_t IString::length() const
+{
+    return m_stringView.length();
+}
+
+std::size_t IString::size() const
+{
+    return m_stringView.size();
+}
+
 bool IString::isSolid() const
 {
     return m_type != Type::IStringView;

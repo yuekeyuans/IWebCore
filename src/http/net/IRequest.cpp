@@ -154,6 +154,21 @@ IStringView IRequest::stash(const std::string &data)
     return m_impl->stash(data);
 }
 
+IStringView IRequest::stash(IString &&data)
+{
+    return m_impl->stash(std::move(data));
+}
+
+IStringView IRequest::stash(const IString &data)
+{
+    return m_impl->stash(data);
+}
+
+IStringView IRequest::stash(IStringView data)
+{
+    return m_impl->stash(data);
+}
+
 /*
 QJsonValue IRequest::bodyJson(bool &ok) const
 {

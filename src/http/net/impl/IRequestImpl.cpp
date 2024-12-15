@@ -7,6 +7,7 @@
 #include "http/IHttpManage.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/invalid/IHttpNotFoundInvalid.h"
+#include "http/invalid/IHttpInternalErrorInvalid.h"
 #include "http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.h"
 #include "http/mappings/IHttpAction.h"
 #include "http/net/IRequest.h"
@@ -33,241 +34,6 @@ IRequestImpl::~IRequestImpl()
     delete m_sessionJar;
 }
 
-/*
-QByteArray IRequestImpl::getParameter(const QString &name, bool& ok) const
-{
-    // 这里独自处理
-    if(name.endsWith("_content")){
-        IRequestImpl::getContentParameter(name, ok);
-    }
-
-    const auto& map = parameterResolverMap();
-    for(auto pair : map){
-        if(name.endsWith(pair.first)){
-            return std::mem_fn(pair.second)(this, name, ok);
-        }
-    }
-
-    return getMixedParameter(name, ok);
-}
-
-QByteArray IRequestImpl::getMixedParameter(const QString &name, bool& ok) const
-{
-    static const QString mixedSuffix = "_mixed";
-    const auto& map = parameterResolverMap();
-    IRequestImplHelper::checkDumplicatedParameters(map, this, name);        //check
-    const QString& originName = IRequestImplHelper::getOriginName(name, mixedSuffix);
-    for(auto& pair : map){
-        auto result = std::mem_fn(pair.second)(this, originName, ok);
-        if(ok){
-            return result;
-        }
-    }
-
-    // 这里单独处理 content TODO: 这里可能会出现bug.
-    auto result = IRequestImpl::getContentParameter(name, ok);
-    if(ok){
-        return result;
-    }
-
-    ok = false;
-    return {};
-}
-
-// TODO: 这个感觉不对，看一下
-QByteArray IRequestImpl::getContentParameter(const QString &name, bool& ok) const
-{
-    // FIXME:
-    return {};
-
-    //    Q_UNUSED(name);
-//    if(m_raw->m_method != IHttpMethod::GET){
-//        IToeUtil::setOk(ok, false);
-//    }
-//    IToeUtil::setOk(ok, true);
-//    return m_raw->m_requestBody;
-}`
-
-QByteArray IRequestImpl::getUrlParameter(const QString &name, bool& ok) const
-{
-    // FIXME:
-    return {};
-    //    static const QString suffix = "_url";
-
-//    const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
-//    if(m_raw->m_requestUrlParameters.contains(originName)){
-//        ok = true;
-//        return m_raw->m_requestUrlParameters[originName].toUtf8();
-//    }
-
-//    ok = false;
-//    return {};
-}
-
-// TODO: 这里有一个 fatal, 需要处理掉
-// TODO: 数据处理不完全
-QByteArray IRequestImpl::getBodyParameter(const QString &name, bool& ok) const
-{
-    static const QString suffix = "_body";
-
-    ok = true;
-    const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
-    switch (m_raw->m_requestMime) {
-    case IHttpMime::MULTIPART_FORM_DATA:
-        return getMultiPartFormData(originName, ok);
-    case IHttpMime::APPLICATION_WWW_FORM_URLENCODED:
-        return getFormUrlValue(originName, ok).toUtf8();
-    case IHttpMime::APPLICATION_JSON:
-    case IHttpMime::APPLICATION_JSON_UTF8:
-        return getJsonData(originName, ok);
-    case IHttpMime::TEXT_XML:
-        ok = false;
-        $Ast->fatal("irequest_xml_currently_not_supported");
-        break;
-    case IHttpMime::TEXT_PLAIN:
-    case IHttpMime::TEXT_PLAIN_UTF8:
-        ok = false;
-        return {};
-    default:
-        ok = false;
-        return {};
-    }
-
-    ok = false;
-    return {};
-}
-
-QByteArray IRequestImpl::getHeaderParameter(const QString &name, bool& ok) const
-{
-    static const QString suffix = "_header";
-    const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
-
-    return m_raw->m_headerJar->getRequestHeaderValue(originName, ok).toUtf8();
-}
-
-QByteArray IRequestImpl::getParamParameter(const QString &name, bool& ok) const
-{
-    // FIXME:
-    return {};
-//    static QString suffix = "_param";
-
-//    const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
-//    if(m_raw->m_requestPathParameters.contains(originName)){
-//        ok = true;
-//        return m_raw->m_requestPathParameters[originName].toUtf8();
-//    }
-
-//    ok = false;
-//    return {};
-}
-
-// TODO: 这个地方的 cookie 需要查看原文档
-QByteArray IRequestImpl::getCookieParameter(const QString &name, bool& ok) const
-{
-    // FIXME:
-    return {};
-
-//    static const QString suffix = "_cookie";
-//    const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
-
-//    auto values = m_raw->m_requestCookieParameters.values(originName);
-//    ok = values.length() == 1;
-//    return values.length() > 0 ? values.first().toUtf8() : QByteArray();
-}
-
-// TODO: session not setted!!
-QByteArray IRequestImpl::getSessionParameter(const QString &name, bool& ok) const
-{
-    static const QString suffix = "_session";
-
-    IToeUtil::setOk(ok, true);
-    const QString& originName = IRequestImplHelper::getOriginName(name, suffix);
-
-    Q_UNUSED(originName)
-
-    qFatal("session current not supported");
-    IToeUtil::setOk(ok, false);
-    return {};
-}
-
-
-QString IRequestImpl::getFormUrlValue(const QString &name, bool& ok) const
-{
-    // FIXME:
-    return {};
-//    if(m_raw->m_requestBodyParameters.contains(name)){
-//        ok = true;
-//        return m_raw->m_requestBodyParameters[name];
-//    }
-
-//    ok = false;
-//    return {};
-}
-
-QByteArray IRequestImpl::getMultiPartFormData(const QString &name, bool& ok) const
-{
-    // FIXME:
-//    for(auto& part : m_raw->m_requestMultiParts){
-//        if(part.name == name){
-//            ok = true;
-//            return part.content;
-//        }
-//    }
-
-//    ok = false;
-    return {};
-}
-
-QByteArray IRequestImpl::getJsonData(const QString &name, bool& ok) const
-{
-    auto json = requestJson(ok);
-    if(!ok){
-        return {};
-    }
-
-    auto value = IJsonUtil::getJsonValue(json, name, ok);
-    if(!ok){
-        return {};
-    }
-
-    switch (value.type()) {
-    case QJsonValue::Type::Bool:
-        return IConvertUtil::toByteArray(IConvertUtil::toString(value.toBool()));
-    case QJsonValue::Type::Double:
-        return IConvertUtil::toByteArray(IConvertUtil::toString(value.toDouble()));
-    case QJsonValue::Type::Array:
-    case QJsonValue::Type::Object:
-        return IJsonUtil::toByteArray(value, ok);
-    case QJsonValue::Type::String:
-        return value.toString().toUtf8();
-    case QJsonValue::Type::Null:
-        ok = false;      // TODO: json 的null 值问题 json 有 null 值, 这个可能有转换方面的bug.
-        return {};
-    case QJsonValue::Type::Undefined:
-        ok = false;
-        return {};
-    }
-    ok = false;
-    return {};
-}
-
-//QList<QPair<QString, IRequestImpl::FunType>> IRequestImpl::parameterResolverMap() const
-//{
-//    static const QList<QPair<QString, IRequestImpl::FunType>> map = {
-//        {"_param",      &IRequestImpl::getParamParameter},
-//        {"_body",       &IRequestImpl::getBodyParameter},
-//        {"_url",        &IRequestImpl::getUrlParameter},
-//        {"_header",     &IRequestImpl::getHeaderParameter},
-////        {"_content",    &IRequestImpl::getContentParameter },     // 这里并不包含 _content, 因为解析时 _content 的解析和其他的解析冲突
-//        {"_cookie",     &IRequestImpl::getCookieParameter},
-//        //        {"_session",    &IRequestImpl::getSessionParameter},
-//    };
-//    return map;
-//}
-
-*/
-
-// TODO: 这个解析 FirstLine 没有考虑到 header 换行的情况
 void IRequestImpl::parseData()
 {
     int line[2];
@@ -280,10 +46,10 @@ void IRequestImpl::parseData()
             firstLineState(IStringView(m_data.m_data + line[0], line[1]));
             break;
         case State::HeaderState:
-            if(!m_data.getLine(line)){
+            if(!m_data.getBreakSegment(line)){
                 return m_connection.doRead();
             }
-            headerState(IStringView(m_data.m_data + line[0], line[1]));
+            headersState(IStringView(m_data.m_data + line[0], line[1]));
             break;
         case State::HeaderGapState:
             if(!headerGapState()){
@@ -315,15 +81,19 @@ void IRequestImpl::firstLineState(IStringView data)
     m_readState = State::HeaderState;
 }
 
-void IRequestImpl::headerState(IStringView data)
+void IRequestImpl::headersState(IStringView data)
 {
     m_data.m_parsedSize += data.length();
-    if(data.length() != 2){
-        parseHeader(data.substr(0, data.length()-2));
+
+    parseHeaders(data);
+    if(!m_isValid){
         return;
     }
 
     resolveHeaders();
+    if(!m_isValid){
+        return;
+    }
 
     if(m_contentLength || !m_multipartBoundary.empty()){
         m_readState = State::HeaderGapState;
@@ -332,6 +102,7 @@ void IRequestImpl::headerState(IStringView data)
     }
 }
 
+// TODO: 这个感觉不太对， 之后再看，现在先不看这个了。
 bool IRequestImpl::headerGapState()
 {
     m_readState = BodyState;
@@ -453,16 +224,35 @@ void IRequestImpl::resolveFirstLine()
     parseUrlEncodedData(m_reqRaw.m_rawPathArgs, false);
 }
 
+void IRequestImpl::parseHeaders(IStringView data)
+{
+    auto lines = data.split("\r\n");
+    while(!lines.empty()){
+        auto line = lines.takeLast();
+        if(!line.empty()){
+            if(line.startWith("\t") || line.startWith("  ")){
+                if(lines.empty()){
+                    return setInvalid(IHttpBadRequestInvalid("header invalid"));
+                }
+                auto newLine = stash(lines.takeLast().toStdString() + line.trimmed().toStdString());
+                lines.push_back(newLine);
+            }else{
+                parseHeader(line);
+            }
+        }
+    }
+}
+
 void IRequestImpl::parseHeader(IStringView line)
 {
-    static $UInt headerMaxLength("http.headerMaxLength");
-    auto index = line.find_first_of(':');
-    if(index == std::string_view::npos){
-        return setInvalid(IHttpBadRequestInvalid("server do not support headers item multiline, or without key/value pair"));  // SEE: 默认不支持 headers 换行书写
+    static $UInt headerMaxLength("/http/headerMaxLength", 8192);
+    if(line.length() > *headerMaxLength){
+        return setInvalid(IHttpRequestHeaderFieldTooLargeInvalid());
     }
 
-    if(line.length() > *headerMaxLength){
-        setInvalid(IHttpRequestHeaderFieldTooLargeInvalid());
+    auto index = line.find(':');
+    if(index == std::string_view::npos){
+        return setInvalid(IHttpBadRequestInvalid("server do not support headers item multiline, or without key/value pair"));  // SEE: 默认不支持 headers 换行书写
     }
 
     auto key = line.substr(0, index).trimmed();
@@ -470,32 +260,34 @@ void IRequestImpl::parseHeader(IStringView line)
     m_reqRaw.m_requestHeaders.insert(key, value);
 }
 
-// TODO: 处理一下这个乱糟糟的类型
 void IRequestImpl::resolveHeaders()
 {
-    if(m_reqRaw.m_requestHeaders.contain(IHttpHeader::ContentLength)){
+    const auto& headers = m_reqRaw.m_requestHeaders;
+    if(headers.contain(IHttpHeader::TransferEncoding) && headers.value(IHttpHeader::TransferEncoding) == "chunked"){
+        return setInvalid(IHttpInternalErrorInvalid("transferEncond:chunked not supported now"));
+    }
+
+    if(headers.contain(IHttpHeader::ContentLength)){
         bool ok;
-        m_contentLength = m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentLength).m_stringView.toQString().toUInt(&ok);
+        m_contentLength = headers.value(IHttpHeader::ContentLength).toQString().toUInt(&ok);
         if(!ok){
             return setInvalid(IHttpBadRequestInvalid("ContentLength error"));
         }
-        static $Int bodyMaxLength("http.bodyMaxLength");
+        static $Int bodyMaxLength("/http/bodyMaxLength", 4194304);
         if(m_contentLength > *bodyMaxLength){
             return setInvalid(IHttpBadRequestInvalid("Content Length too large to accept"));
         }
     }
 
-    auto contentType = m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentType);
+    auto contentType = headers.value(IHttpHeader::ContentType);
     if(!contentType.isEmpty()){
         m_reqRaw.m_requestMime = IHttpMimeUtil::toMime(contentType);
         if(m_reqRaw.m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
             m_multipartBoundary = getBoundary(contentType);
             if(m_multipartBoundary.empty()){
-                setInvalid(IHttpBadRequestInvalid("multipart request has no boundary"));
-                return;
-            }else{
-                m_multipartBoundaryEnd = stash(m_multipartBoundary.toQByteArray() + "--");
+                return setInvalid(IHttpBadRequestInvalid("multipart request has no boundary"));
             }
+            m_multipartBoundaryEnd = stash(m_multipartBoundary.toQByteArray() + "--");
         }
     }
 
@@ -506,11 +298,17 @@ void IRequestImpl::resolveCookieHeaders()
 {
     auto cookies = m_reqRaw.m_requestHeaders.values(IHttpHeader::Cookie);
     for(const auto& cookie : cookies){
-        auto args = cookie.m_stringView.toQString().split('=');
-        if(args.length() == 1){
-            m_reqRaw.m_requestCookieParameters.insertMulti(stash(args.first()), stash(args.first()));
-        }else{
-            m_reqRaw.m_requestCookieParameters.insertMulti(stash(args.first()), stash(args.last()));
+        auto pairs = cookie.split(IConstantUtil::Semicolon);
+        for(auto pair : pairs){
+            auto val = pair.trimmed();
+            if(!val.empty()){
+                auto args = val.split(IConstantUtil::Equal);
+                if(args.length() == 1){
+                    m_reqRaw.m_requestCookieParameters.insertMulti(stash(args.first()), stash(args.first()));
+                }else{
+                    m_reqRaw.m_requestCookieParameters.insertMulti(stash(args.first()), stash(args.last()));
+                }
+            }
         }
     }
 }
@@ -626,6 +424,9 @@ void IRequestImpl::parseMultiPartData(IStringView data)
         return;
     }
 
+    data = data.substr(0, endPos);
+    qDebug() << data.toQString();
+
     auto indexFirst = data.find(m_multipartBoundary, 0);
     for(;;){
         auto indexSecond = data.find(m_multipartBoundary, indexFirst+ m_multipartBoundary.length());
@@ -648,7 +449,7 @@ IStringView IRequestImpl::getBoundary(IStringView data)
 {
     static const std::string prefix = "boundary=";
     auto index = data.find(prefix);
-    if(index == std::string::npos){
+    if(index == std::string_view::npos){
         return {};
     }
 
@@ -660,7 +461,7 @@ IStringView IRequestImpl::getBoundary(IStringView data)
     if(view.startWith("\"") && view.endWith("\"")){
         view = view.substr(1, view.length()-2);
     }
-    return stash("--" + view.toQByteArray());
+    return stash("--" + view.toStdString());
 }
 
 void IRequestImpl::setInvalid(const IHttpInvalidWare& ware)

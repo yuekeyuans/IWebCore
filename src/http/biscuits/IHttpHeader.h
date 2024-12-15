@@ -23,8 +23,10 @@ public:
     inline static const IString Location = "Location";  // i hope this could be constexpr
     inline static const IString ContentLength = "Content-Length";
     inline static const IString ContentType = "Content-Type";
+    inline static const IString TransferEncoding = "Transfer-Encoding";
     inline static const IString ContentDisposition = "Content-Disposition";
     inline static const IString ContentTransferEncoding = "Content-Transfer-Encoding";
+
     inline static const IString Cookie = "Cookie";
     inline static const IString SetCookie = "Set-Cookie";
 

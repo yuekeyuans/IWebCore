@@ -84,6 +84,7 @@ bool IArgumentTypeDetail::createBasicType()
             return true;
         }
     }
+    return false;
 }
 
 void IArgumentTypeDetail::createRequestType()

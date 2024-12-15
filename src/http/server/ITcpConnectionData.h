@@ -15,6 +15,7 @@ public:
     }
 
     bool getLine(int*) const;
+    bool getBreakSegment(int*) const;
     void resetForReuse();
 
 public:

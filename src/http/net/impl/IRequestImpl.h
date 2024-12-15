@@ -42,7 +42,7 @@ public:
 private:
     void parseData();
     void firstLineState(IStringView);
-    void headerState(IStringView);
+    void headersState(IStringView);
     bool headerGapState();
     void bodyState();
     void endState();
@@ -50,6 +50,7 @@ private:
 private:
     void parseFirstLine(IStringView);
     void resolveFirstLine();
+    void parseHeaders(IStringView);
     void parseHeader(IStringView);
     void resolveHeaders();      // 解析接收到的头
     void resolveCookieHeaders();

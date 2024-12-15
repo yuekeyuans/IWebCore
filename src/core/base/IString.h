@@ -50,6 +50,8 @@ public:
     bool operator <(const IString&) const;
 
 public:
+    std::size_t length() const;
+    std::size_t size() const;
     bool isSolid() const;
     bool isEmpty() const;
     IString& solidify();

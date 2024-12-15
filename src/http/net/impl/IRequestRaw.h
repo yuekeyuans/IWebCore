@@ -31,7 +31,7 @@ public:
     QMap<IStringView, IStringView> m_requestPathParameters;     // 特指 url 参数后面的内容
     QMap<IStringView, IStringView> m_requestBodyParameters;  // 特指 url encoded
     std::vector<IMultiPart> m_requestMultiParts;
-    QMultiHash<IString, IString> m_requestCookieParameters;
+    QMultiHash<IString, IString> m_requestCookieParameters;     // 这个可以再封装一下
 
     IJson m_requestJson;
 };

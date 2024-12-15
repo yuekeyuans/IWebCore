@@ -94,6 +94,10 @@ public:
     IStringView stash(const QString& data);
     IStringView stash(std::string&& data);
     IStringView stash(const std::string& data);
+    IStringView stash(IString&& data);
+    IStringView stash(const IString& data);
+    IStringView stash(IStringView data);
+
 
 public:
     bool isValid() const;

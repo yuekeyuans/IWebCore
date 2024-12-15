@@ -5,7 +5,7 @@ $PackageWebCoreBegin
 
 ITcpConnectionData::ITcpConnectionData()
 {
-    static const $Int MAX_SIZE{"http.urlHeaderMaxLength", 1024*10};
+    static const $Int MAX_SIZE{"/http/urlHeaderMaxLength", 1024*10};
 
     // TODO: retrive from cache.
     if(!m_data){
@@ -21,15 +21,28 @@ ITcpConnectionData::~ITcpConnectionData()
 
 bool ITcpConnectionData::getLine(int *value) const
 {
-    value[0] = m_parsedSize;
-    for(int i=m_parsedSize; i<m_readSize-1; i++){
-        if(m_data[i] == '\r' && m_data[i + 1] == '\n'){     // 这个可以通过 转换类型并 异或 完成数据的判断，更简单一点
-            value[1] = i + 2 - m_parsedSize;
-            return true;
-        }
+    auto data = std::string_view(m_data + m_parsedSize, m_readSize-m_parsedSize);
+    std::size_t pos = data.find("\r\n");
+    if(pos == std::string_view::npos){
+        return false;
     }
-    value[1] = m_parsedSize;
-    return false;
+
+    value[0] = m_parsedSize;
+    value[1] = pos + 2;
+    return true;
+}
+
+bool ITcpConnectionData::getBreakSegment(int *value) const
+{
+    auto data = std::string_view(m_data + m_parsedSize, m_readSize-m_parsedSize);
+    std::size_t pos = data.find("\r\n\r\n");
+    if(pos == std::string_view::npos){
+        return false;
+    }
+
+    value[0] = m_parsedSize;
+    value[1] = pos + 4;
+    return true;
 }
 
 void ITcpConnectionData::resetForReuse()
