@@ -4,6 +4,7 @@
 #include "http/controller/IHttpControllerAbort.h"
 #include "http/IHttpManage.h"
 #include "http/invalid/IHttpInternalErrorInvalid.h"
+#include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
 #include "http/net/ICookieJar.h"
@@ -225,6 +226,16 @@ void IArgumentTypeDetail::createCookiePartType()
     };
 }
 
+static void* convertPtr(const IString& data, QMetaType::Type typeId, const IString& typeName, bool& ok)
+{
+    // TODO: data
+}
+
+static void deletePtr(void* ptr, QMetaType::Type typeId, const IString& typeName)
+{
+    // TODO: data
+}
+
 bool IArgumentTypeDetail::createHeaderType()
 {
     if(this->m_position != Position::Header){
@@ -233,14 +244,28 @@ bool IArgumentTypeDetail::createHeaderType()
 
     bool m_optional = this->m_optional;         // weired!!!
     IString m_name = this->m_name;
-    this->m_createFun = [m_optional, m_name](IRequest&)->void*{
+    QMetaType::Type m_typeId = this->m_typeId;
+    IString m_typeName = this->m_typeName;
+    this->m_createFun = [m_optional, m_name, m_typeId, m_typeName](IRequest& request)->void*{
+        if(request.impl().m_reqRaw.m_requestHeaders.contain(m_name)){
+            bool ok;
+            auto value = request.impl().m_reqRaw.m_requestHeaders.value(m_name);
+            auto ptr = convertPtr(value, m_typeId, m_typeName, ok);
+            if(!ok){
+                request.setInvalid(IHttpBadRequestInvalid("value not proper"));
+            }
+            return ptr;
+        }
+        if(m_optional){
+            // TODO: 这里需要重新设计，关于 optional 应该返回什么东西。
+        }
+        request.setInvalid(IHttpInternalErrorInvalid("header not resolved"));
         return nullptr;
     };
 
-    this->m_destroyFun = [m_name](void* ptr){
-
+    this->m_destroyFun = [m_typeId, m_typeName](void* ptr){
+        deletePtr(ptr, m_typeId, m_typeName);
     };
-
     return true;
 }
 
