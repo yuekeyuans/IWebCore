@@ -24,21 +24,6 @@ namespace detail
     }
 }
 
-template<>
-bool IString::value<bool>(bool& ok) const
-{
-    if(m_stringView == "true"){
-        ok = true;
-        return true;
-    }
-    if(m_stringView == "false"){
-        ok = true;
-        return false;
-    }
-    ok = false;
-    return !m_stringView.empty();
-}
-
 #define STRING_VIEW_CREATE(Class)                                   \
 template<>                                                          \
 Class IString::value< Class >(bool& ok)   const {                   \
@@ -55,6 +40,21 @@ STRING_VIEW_CREATE(long long)
 STRING_VIEW_CREATE(float)
 STRING_VIEW_CREATE(double)
 #undef STRING_VIEW_CREATE
+
+template<>
+bool IString::value<bool>(bool& ok) const
+{
+    if(m_stringView == "true"){
+        ok = true;
+        return true;
+    }
+    if(m_stringView == "false"){
+        ok = true;
+        return false;
+    }
+    ok = false;
+    return !m_stringView.empty();
+}
 
 template<>
 unsigned char IString::value<unsigned char>(bool& ok) const
@@ -103,6 +103,7 @@ IString IString::value<IString>(bool& ok) const
     ok = true;
     return *this;
 }
+
 
 #define VIEW_PTR_CREATE(Class)                                       \
 template<>                                                           \

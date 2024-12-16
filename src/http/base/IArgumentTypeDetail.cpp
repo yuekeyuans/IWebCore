@@ -19,19 +19,91 @@ namespace detail
 {
     static void* convertPtr(const IString& data, QMetaType::Type typeId, const IString& typeName, bool& ok)
     {
-        return nullptr;
         switch (typeId) {
         case QMetaType::Bool:
             return data.valuePtr<bool>(ok);
+        case QMetaType::SChar:
+            return data.valuePtr<signed char>(ok);
+        case QMetaType::UChar:
+            return data.valuePtr<unsigned char>(ok);
+        case QMetaType::Short:
+            return data.valuePtr<signed short>(ok);
+        case QMetaType::UShort:
+            return data.valuePtr<unsigned short>(ok);
+        case QMetaType::Int:
+            return data.valuePtr<signed int>(ok);
+        case QMetaType::UInt:
+            return data.valuePtr<unsigned int>(ok);
+        case QMetaType::Long:
+            return data.valuePtr<signed long>(ok);
+        case QMetaType::ULong:
+            return data.valuePtr<unsigned long>(ok);
+        case QMetaType::LongLong:
+            return data.valuePtr<signed long long>(ok);
+        case QMetaType::ULongLong:
+            return data.valuePtr<unsigned long long>(ok);
+        case QMetaType::Float:
+            return data.valuePtr<float>(ok);
+        case QMetaType::Double:
+            return data.valuePtr<double>(ok);
+        case QMetaType::QString:
+            return data.valuePtr<QString>(ok);
+        case QMetaType::QByteArray:
+            return data.valuePtr<QByteArray>(ok);
         default:
             break;
         }
-        // TODO: data
+        if(typeName == "IString"){
+            return data.valuePtr<IString>(ok);
+        }else if(typeName == "std::string"){
+            return data.valuePtr<std::string>(ok);
+        }
+        qFatal("not supported type");
+        return nullptr;
     }
 
     static void deletePtr(void* ptr, QMetaType::Type typeId, const IString& typeName)
     {
-        // TODO: data
+        switch (typeId) {
+        case QMetaType::Bool:
+            delete static_cast<bool*>(ptr);
+        case QMetaType::SChar:
+            delete static_cast<signed char*>(ptr);
+        case QMetaType::UChar:
+            delete static_cast<unsigned char*>(ptr);
+        case QMetaType::Short:
+            delete static_cast<short*>(ptr);
+        case QMetaType::UShort:
+            delete static_cast<unsigned short*>(ptr);
+        case QMetaType::Int:
+            delete static_cast<int*>(ptr);
+        case QMetaType::UInt:
+            delete static_cast<unsigned int*>(ptr);
+        case QMetaType::Long:
+            delete static_cast<long*>(ptr);
+        case QMetaType::ULong:
+            delete static_cast<unsigned long*>(ptr);
+        case QMetaType::LongLong:
+            delete static_cast<long long*>(ptr);
+        case QMetaType::ULongLong:
+            delete static_cast<unsigned long long*>(ptr);
+        case QMetaType::Float:
+            delete static_cast<float*>(ptr);
+        case QMetaType::Double:
+            delete static_cast<double*>(ptr);
+        case QMetaType::QString:
+            delete static_cast<QString*>(ptr);
+        case QMetaType::QByteArray:
+            delete static_cast<QByteArray*>(ptr);
+        default:
+            break;
+        }
+        if(typeName == "IString"){
+            delete static_cast<IString*>(ptr);
+        }else if(typeName == "std::string"){
+            delete static_cast<std::string*>(ptr);
+        }
+        qFatal("not supported type");
     }
 }
 
