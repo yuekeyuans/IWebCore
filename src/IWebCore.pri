@@ -223,6 +223,7 @@ SOURCES += \
     $$PWD/core/application/IQtApplication.cpp \
     $$PWD/core/base/IString.cpp \
     $$PWD/core/base/IStringViewStash.cpp \
+    $$PWD/core/base/IString_value.cpp \
     $$PWD/core/task/default/IRegisterBaseTypeTask.cpp \
     $$PWD/core/util/ICodecUtil.cpp \
     $$PWD/core/util/IConvertUtil.cpp \

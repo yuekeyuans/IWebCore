@@ -15,6 +15,26 @@
 
 $PackageWebCoreBegin
 
+namespace detail
+{
+    static void* convertPtr(const IString& data, QMetaType::Type typeId, const IString& typeName, bool& ok)
+    {
+        return nullptr;
+        switch (typeId) {
+        case QMetaType::Bool:
+            return data.valuePtr<bool>(ok);
+        default:
+            break;
+        }
+        // TODO: data
+    }
+
+    static void deletePtr(void* ptr, QMetaType::Type typeId, const IString& typeName)
+    {
+        // TODO: data
+    }
+}
+
 IArgumentTypeDetail::IArgumentTypeDetail(int typeId, QByteArray paramTypeName, QByteArray nameRaw)
     : IArgumentType()
 {
@@ -226,17 +246,6 @@ void IArgumentTypeDetail::createCookiePartType()
     };
 }
 
-static void* convertPtr(const IString& data, QMetaType::Type typeId, const IString& typeName, bool& ok)
-{
-    return nullptr;
-    // TODO: data
-}
-
-static void deletePtr(void* ptr, QMetaType::Type typeId, const IString& typeName)
-{
-    // TODO: data
-}
-
 bool IArgumentTypeDetail::createHeaderType()
 {
     if(this->m_position != Position::Header){
@@ -251,7 +260,7 @@ bool IArgumentTypeDetail::createHeaderType()
         if(request.impl().m_reqRaw.m_requestHeaders.contain(m_name)){
             bool ok;
             auto value = request.impl().m_reqRaw.m_requestHeaders.value(m_name);
-            auto ptr = convertPtr(value, m_typeId, m_typeName, ok);
+            auto ptr = detail::convertPtr(value, m_typeId, m_typeName, ok);
             if(!ok){
                 request.setInvalid(IHttpBadRequestInvalid("value not proper"));
             }
@@ -265,7 +274,7 @@ bool IArgumentTypeDetail::createHeaderType()
     };
 
     this->m_destroyFun = [m_typeId, m_typeName](void* ptr){
-        deletePtr(ptr, m_typeId, m_typeName);
+        detail::deletePtr(ptr, m_typeId, m_typeName);
     };
     return true;
 }
