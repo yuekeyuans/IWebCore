@@ -80,42 +80,42 @@ namespace detail
     {
         switch (typeId) {
         case QMetaType::Bool:
-            delete static_cast<bool*>(ptr);
+            return delete static_cast<bool*>(ptr);
         case QMetaType::SChar:
-            delete static_cast<signed char*>(ptr);
+            return delete static_cast<signed char*>(ptr);
         case QMetaType::UChar:
-            delete static_cast<unsigned char*>(ptr);
+            return delete static_cast<unsigned char*>(ptr);
         case QMetaType::Short:
-            delete static_cast<short*>(ptr);
+            return delete static_cast<short*>(ptr);
         case QMetaType::UShort:
-            delete static_cast<unsigned short*>(ptr);
+            return delete static_cast<unsigned short*>(ptr);
         case QMetaType::Int:
-            delete static_cast<int*>(ptr);
+            return delete static_cast<int*>(ptr);
         case QMetaType::UInt:
-            delete static_cast<unsigned int*>(ptr);
+            return delete static_cast<unsigned int*>(ptr);
         case QMetaType::Long:
-            delete static_cast<long*>(ptr);
+            return delete static_cast<long*>(ptr);
         case QMetaType::ULong:
-            delete static_cast<unsigned long*>(ptr);
+            return delete static_cast<unsigned long*>(ptr);
         case QMetaType::LongLong:
-            delete static_cast<long long*>(ptr);
+            return delete static_cast<long long*>(ptr);
         case QMetaType::ULongLong:
-            delete static_cast<unsigned long long*>(ptr);
+            return delete static_cast<unsigned long long*>(ptr);
         case QMetaType::Float:
-            delete static_cast<float*>(ptr);
+            return delete static_cast<float*>(ptr);
         case QMetaType::Double:
-            delete static_cast<double*>(ptr);
+            return delete static_cast<double*>(ptr);
         case QMetaType::QString:
-            delete static_cast<QString*>(ptr);
+            return delete static_cast<QString*>(ptr);
         case QMetaType::QByteArray:
-            delete static_cast<QByteArray*>(ptr);
+            return delete static_cast<QByteArray*>(ptr);
         default:
             break;
         }
         if(typeName == "IString"){
-            delete static_cast<IString*>(ptr);
+            return delete static_cast<IString*>(ptr);
         }else if(typeName == "std::string"){
-            delete static_cast<std::string*>(ptr);
+            return delete static_cast<std::string*>(ptr);
         }else{
             qFatal("error"); // TODO:
         }
@@ -135,9 +135,17 @@ IArgumentTypeDetail::IArgumentTypeDetail(int typeId, QByteArray paramTypeName, Q
     }
 
     resolveName();
-    createBasicType();
-    createPartTypes();
-    createDecorateTypes();
+
+    static QList<decltype(&IArgumentTypeDetail::createBasicType)> funs = {
+        &IArgumentTypeDetail::createBasicType,
+        &IArgumentTypeDetail::createPartTypes,
+        &IArgumentTypeDetail::createDecorateTypes
+    };
+    for(auto fun : funs){
+        if(std::mem_fn(fun)(this)){
+            return;
+        }
+    }
 }
 
 void IArgumentTypeDetail::resolveName()
@@ -216,7 +224,7 @@ void IArgumentTypeDetail::createResponseType()
             return new IResponse(request);
         };
         this->m_destroyFun = [](void* ptr){
-            delete static_cast<IResponse*>(ptr);
+            return delete static_cast<IResponse*>(ptr);
         };
     }
 }

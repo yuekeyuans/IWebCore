@@ -14,7 +14,7 @@ namespace detail
             return result;
         }
 
-        auto val = std::from_chars(&*str.begin(), &*str.end(), result);
+        auto val = std::from_chars(str.data(), str.data()+str.length(), result);
         if (val.ec != std::errc()) {
             ok = false;
             return result;

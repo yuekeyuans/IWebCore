@@ -28,5 +28,8 @@ public:
 
     $GetMapping(headerType)
     QString headerType(IString $Header(MyHeader));
+
+    $GetMapping(headerTypeInt)
+    QString headerTypeInt(int $Header(MyInt));
 };
 

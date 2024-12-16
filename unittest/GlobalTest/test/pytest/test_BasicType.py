@@ -43,3 +43,10 @@ def test_headerType():
     assert val.text == "Yuekeyuan"
     print(val.text)
     print(val.status_code)  
+
+def test_headerTypeInt():
+    val = requests.get(serverAddress + "/BasicArgument/headerTypeInt", headers={"MyInt": "123"})
+    assert val.status_code == 200
+    assert val.text == "123"
+    print(val.text)
+    print(val.status_code)  
