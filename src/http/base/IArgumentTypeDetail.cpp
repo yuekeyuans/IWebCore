@@ -136,8 +136,8 @@ IArgumentTypeDetail::IArgumentTypeDetail(int typeId, QByteArray paramTypeName, Q
 
     resolveName();
     createBasicType();
-    createPartType();
-    createHeaderType();
+    createPartTypes();
+    createDecorateTypes();
 }
 
 void IArgumentTypeDetail::resolveName()
@@ -261,7 +261,7 @@ void IArgumentTypeDetail::createHeaderJarType()
     }
 }
 
-bool IArgumentTypeDetail::createPartType()
+bool IArgumentTypeDetail::createPartTypes()
 {
     if(this->m_typeId != QMetaType::UnknownType){
         return false;
@@ -336,28 +336,58 @@ void IArgumentTypeDetail::createCookiePartType()
     };
 }
 
-bool IArgumentTypeDetail::createHeaderType()
+bool IArgumentTypeDetail::createDecorateTypes()
+{
+    QList<decltype(&IArgumentTypeDetail::createQueryType)> funs = {
+        &IArgumentTypeDetail::createQueryType,
+        &IArgumentTypeDetail::createHeaderType,
+        &IArgumentTypeDetail::createCookieType,
+        &IArgumentTypeDetail::createSessionType,
+        &IArgumentTypeDetail::createPathType,
+        &IArgumentTypeDetail::createBodyType,
+    };
+
+    for(auto fun : funs){
+        std::mem_fn(fun)(this);
+        if(this->m_createFun){
+            auto typeId = m_typeId;
+            auto typeName = m_typeName;
+            this->m_destroyFun = [=](void* ptr){
+                detail::deletePtr(ptr, typeId, typeName);
+            };
+            return true;
+        }
+    }
+    return false;
+}
+
+void IArgumentTypeDetail::createQueryType()
+{
+
+}
+
+void IArgumentTypeDetail::createHeaderType()
 {
     if(this->m_position != Position::Header){
-        return false;
+        return;
     }
     if(!detail::isTypeConvertable(m_typeId, m_typeName)){
         qFatal("error");
     }
 
-    bool m_optional = this->m_optional;         // weired!!!
-    IString m_name = this->m_name;
+    bool m_optional = this->m_optional;
+    IString name = this->m_name;
     QMetaType::Type m_typeId = this->m_typeId;
     IString m_typeName = this->m_typeName;
-    this->m_createFun = [m_optional, m_name, m_typeId, m_typeName](IRequest& request)->void*{
-        if(request.impl().m_reqRaw.m_requestHeaders.contain(m_name)){
+    this->m_createFun = [=](IRequest& request)->void*{
+        if(request.impl().m_reqRaw.m_requestHeaders.contain(name)){
             bool ok;
-            auto value = request.impl().m_reqRaw.m_requestHeaders.value(m_name);
+            auto value = request.impl().m_reqRaw.m_requestHeaders.value(name);
             auto ptr = detail::convertPtr(value, m_typeId, m_typeName, ok);
-            if(!ok){
-                request.setInvalid(IHttpBadRequestInvalid("value not proper"));
+            if(ok){
+                return ptr;
             }
-            return ptr;
+            request.setInvalid(IHttpBadRequestInvalid("value not proper"));
         }
         if(m_optional){
             // TODO: 这里需要重新设计，关于 optional 应该返回什么东西。
@@ -365,11 +395,26 @@ bool IArgumentTypeDetail::createHeaderType()
         request.setInvalid(IHttpInternalErrorInvalid("header not resolved"));
         return nullptr;
     };
+}
 
-    this->m_destroyFun = [m_typeId, m_typeName](void* ptr){
-        detail::deletePtr(ptr, m_typeId, m_typeName);
-    };
-    return true;
+void IArgumentTypeDetail::createCookieType()
+{
+
+}
+
+void IArgumentTypeDetail::createSessionType()
+{
+
+}
+
+void IArgumentTypeDetail::createPathType()
+{
+
+}
+
+void IArgumentTypeDetail::createBodyType()
+{
+
 }
 
 QVector<IString> IArgumentTypeDetail::makeTypes(const std::string &name)
@@ -382,189 +427,6 @@ QVector<IString> IArgumentTypeDetail::makeTypes(const std::string &name)
 
     return names;
 }
-
-
-//void IArgumentTypeDetail::checkParamType()
-//{
-//    if(typeId == QMetaType::UnknownType){
-//        IHttpControllerAbort::abortParamErrorOfUnknowType();
-//    }
-//}
-
-//void IArgumentTypeDetail::checkParamNameEmpty()
-//{
-//    if(!isEmbendedType() && name.trimmed().isEmpty()){
-//        IHttpControllerAbort::abortParamNameEmpty();
-//    }
-//}
-
-//void IArgumentTypeDetail::checkParamDuplicated()
-//{
-//    if(m_paramQualifiers.length() != m_paramQualifiers.toSet().size()){
-//        IHttpControllerAbort::abortParamQualifersDuplicated();
-//    }
-//}
-
-//void IArgumentTypeDetail::checkAndSetParamPosition()
-//{
-//    bool exist{false};
-//    for(auto name : QualifierNames){
-//        if(m_paramQualifiers.contains(name)){
-//            if(exist){
-//                IHttpControllerAbort::abortParamPositionDuplicated();
-//            }
-//            position = Position(QualifierNames.indexOf(name));
-//            m_paramQualifiers.removeOne(name);
-//            exist = true;
-//        }
-//    }
-//}
-
-//void IArgumentTypeDetail::checkAndSetParamOptional()
-//{
-//    bool exist{false};
-//    if(m_paramQualifiers.contains(NullableName)){
-//        optional = true;
-//        m_paramQualifiers.removeAll(NullableName);
-//        exist = true;
-//    }
-//    if(m_paramQualifiers.contains(NotnullName)){
-//        if(exist){
-//            IHttpControllerAbort::abortParamNullableConflict();
-//        }
-//        optional = false;
-//        m_paramQualifiers.removeAll(NotnullName);
-//    }
-//}
-
-////void IArgumentTypeNodeDetail::checkAndSetParamRestrictions()
-////{
-////    for(auto name : m_paramQualifiers){
-////        auto condition = IHttpParameterRestrictManage::instance()->getRestrict(name);
-////        if(condition == nullptr){
-////            IHttpControllerAbort::abortParamRestrictNotExist();
-////        }
-////        restricts.append(condition);
-////    }
-////}
-
-//void IArgumentTypeDetail::checkContentPositionMustBeIStringView()
-//{
-//    if(position == Position::Content && typeName != "IStringView"){
-//        IHttpControllerAbort::abortParamPositionContentMustBeIStringViewType();
-//    }
-//}
-
-//void IArgumentTypeDetail::checkBareResponseOrConstResponseRef()
-//{
-//    if(typeName == "IResponse"){
-//        QString tip = "function at: " + m_methodSignature;
-//        IHttpControllerAbort::abortParamBareResponseOrConstResponseRef(tip, $ISourceLocation);
-//    }
-//}
-
-//void IArgumentTypeDetail::checkResponseAndRequestWithoutDecorators()
-//{
-////    if(typeName.startsWith("IRequest") || typeName.startsWith("IResponse")){
-////        if(position != Position::Auto || !restricts.isEmpty()){
-////            QString tip = "function at: " + m_methodSignature;
-////            IHttpControllerAbort::abortParamBuiltInTypeCanNotBeDecorated(tip, $ISourceLocation);
-////        }
-////    }
-//}
-
-//void IArgumentTypeDetail::checkMethodSupportedParamArgType()
-//{
-//    static const QVector<QMetaType::Type> allowType = {
-//        QMetaType::Bool,
-//        QMetaType::Short,
-//        QMetaType::UShort,
-//        QMetaType::Int,
-//        QMetaType::UInt,
-//        QMetaType::Long,
-//        QMetaType::ULong,
-//        QMetaType::LongLong,
-//        QMetaType::ULongLong,
-//        QMetaType::Float,
-//        QMetaType::Double,
-
-//        QMetaType::QString,
-//        QMetaType::QByteArray,
-
-//        QMetaType::QJsonArray,
-//        QMetaType::QJsonObject,
-//        QMetaType::QJsonValue,
-//    };
-
-//    if(typeId >= QMetaType::User){
-//        if(isEmbendedType()
-//            || isDefinedType()
-//            || IBeanTypeManage::instance()->isBeanIdExist(typeId)){
-//            qFatal("error exist");
-////                IHttpControllerAbort::abortcontroller_check_param_Type_has_unsupported_user_defined_type( QString("At Function: ").append(node.methodNode.signature)
-////                                                                                                          .append(" At Param: ").append(typeName), $ISourceLocation);
-//        }
-//    } else{
-//        if(!allowType.contains((QMetaType::Type)typeId)){
-//            qFatal("error exist");
-////                IHttpControllerAbort::abortcontroller_check_param_Type_has_unsupported_inner_type(QString("At Function: ").append(node.methodNode.signature)
-////                                                                                                  .append(" At Param: ").append(typeName), $ISourceLocation);
-//        }
-//    }
-//}
-
-//void IArgumentTypeDetail::checkMethodBodyContentArgs()
-//{
-////        const auto& typeNames = node.methodNode.parameterTypeNames;
-////        auto index = typeNames.indexOf("QJsonValue&");
-////        if(index != -1){
-////            const auto& paramNames = node.methodNode.parameterNames;
-////            auto name = paramNames[index];
-////            if(!name.endsWith("_content")){
-////                QString info = "QJsonValue& can`t be used except in $Body expression\n"
-////                               "at Function : " + node.methodNode.functionName;
-////                qFatal(info.toUtf8());
-////            }
-////        }
-//}
-
-//void IArgumentTypeDetail::checkMethodParamterWithSuffixProper()
-//{
-////    const auto& argNodes = node.methodNode.argumentNodes;
-
-////    // get 中不能调用 body 的参数。
-////    if(node.httpMethod == IHttpMethod::GET){
-////        for(const IArgumentTypeNode& param : argNodes){
-////            if(param.name.endsWith("_body") || param.name.endsWith("_content")){
-////                IHttpControllerAbort::abortcontroller_method_get_but_want_body_content(QString("At Function: ").append(node.methodNode.signature).append(" Parameter: ").append(param.name), $ISourceLocation);
-////            }
-////        }
-////    }
-//}
-
-//// TODO: 这两个类型没有校验
-//bool IArgumentTypeDetail::isDefinedType()
-//{
-//    static const QStringList specialExternalTypes = {
-//        "IStringView",  "IJson"
-//    };
-
-//    return specialExternalTypes.contains(typeName);
-//}
-
-//bool IArgumentTypeDetail::isEmbendedType()
-//{
-//    static const QStringList s_embendedType = {
-//        "IRequest",     "IRequest&",
-//        "IResponse",    "IResponse&",
-//        "IMultiPart",   "IMultiPart&",
-//        "ICookieJar",   "ICookieJar&",
-//        "ICookiePart",  "ICookiePart&"
-//        "ISessionJar",  "ISessionJar&",
-//        "IHeaderJar",   "IHeaderJar&",
-//    };
-//    return s_embendedType.contains(typeName);
-//}
 
 namespace ISpawnUtil {
     template<>
