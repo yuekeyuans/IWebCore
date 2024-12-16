@@ -228,6 +228,7 @@ void IArgumentTypeDetail::createCookiePartType()
 
 static void* convertPtr(const IString& data, QMetaType::Type typeId, const IString& typeName, bool& ok)
 {
+    return nullptr;
     // TODO: data
 }
 
