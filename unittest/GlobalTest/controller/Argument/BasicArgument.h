@@ -25,5 +25,8 @@ public:
     QString cookiePart(ICookiePart name){
         return name.m_value.toQString();
     }
+
+    $GetMapping(headerType)
+    QString headerType(IString $Header(MyHeader));
 };
 

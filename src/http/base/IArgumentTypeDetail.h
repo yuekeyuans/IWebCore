@@ -29,6 +29,7 @@ private: // cookiepart, multipart
 
 private: // 和 header 相关
     bool createHeaderType();
+    
 
 private: // body, query, json 相关，
     bool createDataType();

@@ -37,3 +37,9 @@ def test_cookiePartEmpty():
     print(val.text)
     print(val.status_code)  
 
+def test_headerType():
+    val = requests.get(serverAddress + "/BasicArgument/headerType", headers={"MyHeader": "Yuekeyuan"})
+    assert val.status_code == 200
+    assert val.text == "Yuekeyuan"
+    print(val.text)
+    print(val.status_code)  

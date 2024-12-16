@@ -17,6 +17,20 @@ $PackageWebCoreBegin
 
 namespace detail
 {
+    static bool isTypeConvertable(QMetaType::Type typeId, const IString& typeName)
+    {
+        static QList<QMetaType::Type> types = {
+            QMetaType::Bool, QMetaType::SChar, QMetaType::UChar,
+            QMetaType::UShort, QMetaType::Short, QMetaType::Int, QMetaType::UInt,
+            QMetaType::ULong, QMetaType::Long, QMetaType::ULongLong, QMetaType::LongLong,
+            QMetaType::Float, QMetaType::Double, QMetaType::QString, QMetaType::QByteArray,
+        };
+        static QList<IString> typeNames = {
+            "IString", "std::string"
+        };
+        return types.contains(typeId) || typeNames.contains(typeName);
+    }
+
     static void* convertPtr(const IString& data, QMetaType::Type typeId, const IString& typeName, bool& ok)
     {
         switch (typeId) {
@@ -102,8 +116,10 @@ namespace detail
             delete static_cast<IString*>(ptr);
         }else if(typeName == "std::string"){
             delete static_cast<std::string*>(ptr);
+        }else{
+            qFatal("error"); // TODO:
         }
-        qFatal("not supported type");
+
     }
 }
 
@@ -121,12 +137,13 @@ IArgumentTypeDetail::IArgumentTypeDetail(int typeId, QByteArray paramTypeName, Q
     resolveName();
     createBasicType();
     createPartType();
+    createHeaderType();
 }
 
 void IArgumentTypeDetail::resolveName()
 {
     static const QVector<IString> PREFIXES = {
-        "Auto", "Path", "Query", "Header", "Cookie", "Session", "Form", "Json"
+        "auto", "path", "query", "header", "cookie", "session", "form", "json"
     };
     IStringViewList args = m_nameRaw.split("_$");
     m_name = args.first();
@@ -165,15 +182,16 @@ bool IArgumentTypeDetail::createBasicType()
     if(this->m_typeId != QMetaType::UnknownType){
         return false;
     }
-    if(m_optional){
-        qFatal("optional can not be exist here");
-    }
-    if(m_position != Position::Auto){
-        qFatal("position should be empty");
-    }
+
     for(auto fun : funs){
         std::mem_fn(fun)(this);
         if(this->m_createFun){
+            if(m_optional){
+                qFatal("optional can not be exist here");
+            }
+            if(m_position != Position::Auto){
+                qFatal("position should be empty");
+            }
             return true;
         }
     }
@@ -322,6 +340,9 @@ bool IArgumentTypeDetail::createHeaderType()
 {
     if(this->m_position != Position::Header){
         return false;
+    }
+    if(!detail::isTypeConvertable(m_typeId, m_typeName)){
+        qFatal("error");
     }
 
     bool m_optional = this->m_optional;         // weired!!!
