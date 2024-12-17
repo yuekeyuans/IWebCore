@@ -92,8 +92,13 @@ public:
     IStringView m_stringView{};
 };
 
-// TODO: 之后详细定义
 using IStringList = QList<IString>;
+
+template<typename T>
+T* IString::valuePtr(bool& ok) const
+{
+    return new T(value<T>(ok));
+}
 
 $PackageWebCoreEnd
 

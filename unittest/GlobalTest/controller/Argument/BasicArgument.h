@@ -18,6 +18,7 @@ public:
 
     $PostMapping(multipart)
     QString multipart(const IMultiPart& name, const IMultiPart& file){
+        Q_UNUSED(name)
         return file.m_content.toQString();
     }
 
