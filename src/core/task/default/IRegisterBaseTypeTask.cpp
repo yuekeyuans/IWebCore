@@ -12,20 +12,13 @@ void registerBaseType(const QString &name)
 
 void IRegisterBaseTypeTask::$task()
 {
-//    registerBaseType<bool>("bool");
-//    registerBaseType<char>("char");
-//    registerBaseType<uchar>("uchar");
+    registerBaseType<uchar>("uchar");
 
-//    registerBaseType<short>("short");
-//    registerBaseType<ushort>("ushort");
-//    registerBaseType<int>("int");
-//    registerBaseType<uint>("unit");
-//    registerBaseType<long>("long");
-//    registerBaseType<ulong>("ulong");
-//    registerBaseType<qlonglong>("qlonglong");
-//    registerBaseType<qulonglong>("qulonglong");
-//    registerBaseType<float>("float");
-//    registerBaseType<double>("double");
+    registerBaseType<ushort>("ushort");
+    registerBaseType<uint>("unit");
+    registerBaseType<ulong>("ulong");
+    registerBaseType<qlonglong>("qlonglong");
+    registerBaseType<qulonglong>("qulonglong");
 
     registerBaseType<uint8_t>("uint8_t");
     registerBaseType<int8_t>("int8_t");
