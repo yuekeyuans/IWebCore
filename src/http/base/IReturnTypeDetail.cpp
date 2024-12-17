@@ -106,7 +106,7 @@ void IReturnTypeDetail::createStatusFun()
 
 void IReturnTypeDetail::createStdStringFun()
 {
-    if(m_typeId == (QMetaType::Type)qMetaTypeId<std::string>()){
+    if(m_typeId == QMetaType::UnknownType && m_typeName == "std::string"){
         m_resolveFunction = [](IRequestImpl& impl, void* ptr){
             const std::string& value = *static_cast<std::string*>(ptr);
             if(IStringUtil::startsWith(value, "$")){
@@ -155,7 +155,7 @@ void IReturnTypeDetail::createQByteArrayFun()
 
 void IReturnTypeDetail::createIJsonFun()
 {
-    if(m_typeId == (QMetaType::Type)qMetaTypeId<IJson>()){
+    if(m_typeId == QMetaType::UnknownType && m_typeName == "IJson"){
         m_resolveFunction = [](IRequestImpl& impl, void* ptr){
             impl.setResponseWare(IJsonResponse(*static_cast<IJson*>(ptr)));
         };

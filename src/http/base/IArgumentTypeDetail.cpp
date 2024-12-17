@@ -392,10 +392,10 @@ void IArgumentTypeDetail::createHeaderType()
             bool ok;
             auto value = request.impl().m_reqRaw.m_requestHeaders.value(name);
             auto ptr = detail::convertPtr(value, m_typeId, m_typeName, ok);
-            if(ok){
-                return ptr;
+            if(!ok){
+                request.setInvalid(IHttpBadRequestInvalid("value not proper"));
             }
-            request.setInvalid(IHttpBadRequestInvalid("value not proper"));
+            return ptr;
         }
         if(m_optional){
             // TODO: 这里需要重新设计，关于 optional 应该返回什么东西。
@@ -423,6 +423,16 @@ void IArgumentTypeDetail::createPathType()
 void IArgumentTypeDetail::createBodyType()
 {
 
+}
+
+bool IArgumentTypeDetail::createBeanTypes()
+{
+    return false;
+}
+
+bool IArgumentTypeDetail::createDataTypes()
+{
+    return false;
 }
 
 QVector<IString> IArgumentTypeDetail::makeTypes(const std::string &name)

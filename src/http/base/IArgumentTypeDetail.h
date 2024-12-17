@@ -36,8 +36,11 @@ private: // $Header, $Cookie, $Path, $Query, $Body, $Session
     void createPathType();
     void createBodyType();
 
+private:    // bean, List<Bean>, Vector<Bean> ， Map<Bean>
+    bool createBeanTypes();
+
 private: // body, query, json 相关，
-    bool createDataType();
+    bool createDataTypes();
 
 private: // bean 相关
 
