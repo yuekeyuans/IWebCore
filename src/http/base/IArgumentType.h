@@ -12,6 +12,8 @@ struct IArgumentType
     };
 public:
     bool m_optional{false};
+    IString m_optionalString;
+
     Position m_position{Auto};
     QMetaType::Type m_typeId{QMetaType::UnknownType};
     IString m_typeName;

@@ -15,6 +15,7 @@ private:
     #define $Header(name)     name##_$header
     #define $Cookie(name)     name##_$cookie
     #define $Session(name)    name##_$session
+    #define $Body(name)       name##_$body
     #define $Form(name)       name##_$body
     #define $Json(name)       name##_$json
     #define $Optional(name)   name##_$optional
@@ -25,6 +26,7 @@ private:
     #define $Header(name)     name
     #define $Cookie(name)     name
     #define $Session(name)    name
+    #define $Body(name)       name
     #define $Form(name)       name
     #define $Json(name)       name
     #define $Optional(name)   name

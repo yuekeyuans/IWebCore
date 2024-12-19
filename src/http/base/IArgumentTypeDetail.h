@@ -27,7 +27,7 @@ private: // cookiepart, multipart
     void createMultiPartType();
     void createCookiePartType();
 
-private: // $Header, $Cookie, $Path, $Query, $Body, $Session
+private: // $Header, $Cookie, $Path, $Query, $Body, $Form, $Session,
     bool createDecorateTypes();
     void createQueryType();
     void createHeaderType();
@@ -35,6 +35,8 @@ private: // $Header, $Cookie, $Path, $Query, $Body, $Session
     void createSessionType();
     void createPathType();
     void createBodyType();
+    void createFormType();
+    void createJsonType();
 
 private:    // bean, List<Bean>, Vector<Bean> ， Map<Bean>
     bool createBeanTypes();

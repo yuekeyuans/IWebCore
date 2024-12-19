@@ -63,7 +63,7 @@ public:
     T value(bool& ok) const;
 
     template<typename T>
-    T* valuePtr(bool& ok) const;
+    T* valuePtr() const;
 
 public:
     IStringViewList split(char) const;
@@ -96,9 +96,14 @@ public:
 using IStringList = QList<IString>;
 
 template<typename T>
-T* IString::valuePtr(bool& ok) const
+T* IString::valuePtr() const
 {
-    return new T(value<T>(ok));
+    bool ok;
+    auto val = value<T>(ok);
+    if(ok){
+        return new T(val);
+    }
+    return nullptr;
 }
 
 $PackageWebCoreEnd

@@ -107,4 +107,11 @@ IString IString::value<IString>(bool& ok) const
     return *this;
 }
 
+template<>
+IStringView IString::value<IStringView>(bool& ok) const
+{
+    ok = true;
+    return this->m_stringView;
+}
+
 $PackageWebCoreEnd

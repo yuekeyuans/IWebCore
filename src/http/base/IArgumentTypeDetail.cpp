@@ -26,51 +26,53 @@ namespace detail
             QMetaType::Float, QMetaType::Double, QMetaType::QString, QMetaType::QByteArray,
         };
         static QList<IString> typeNames = {
-            "IString", "std::string"
+            "IString", "std::string", "IStringView"
         };
         return types.contains(typeId) || typeNames.contains(typeName);
     }
 
-    static void* convertPtr(const IString& data, QMetaType::Type typeId, const IString& typeName, bool& ok)
+    static void* convertPtr(const IString& data, QMetaType::Type typeId, const IString& typeName)
     {
         switch (typeId) {
         case QMetaType::Bool:
-            return data.valuePtr<bool>(ok);
+            return data.valuePtr<bool>();
         case QMetaType::SChar:
-            return data.valuePtr<signed char>(ok);
+            return data.valuePtr<signed char>();
         case QMetaType::UChar:
-            return data.valuePtr<unsigned char>(ok);
+            return data.valuePtr<unsigned char>();
         case QMetaType::Short:
-            return data.valuePtr<signed short>(ok);
+            return data.valuePtr<signed short>();
         case QMetaType::UShort:
-            return data.valuePtr<unsigned short>(ok);
+            return data.valuePtr<unsigned short>();
         case QMetaType::Int:
-            return data.valuePtr<signed int>(ok);
+            return data.valuePtr<signed int>();
         case QMetaType::UInt:
-            return data.valuePtr<unsigned int>(ok);
+            return data.valuePtr<unsigned int>();
         case QMetaType::Long:
-            return data.valuePtr<signed long>(ok);
+            return data.valuePtr<signed long>();
         case QMetaType::ULong:
-            return data.valuePtr<unsigned long>(ok);
+            return data.valuePtr<unsigned long>();
         case QMetaType::LongLong:
-            return data.valuePtr<signed long long>(ok);
+            return data.valuePtr<signed long long>();
         case QMetaType::ULongLong:
-            return data.valuePtr<unsigned long long>(ok);
+            return data.valuePtr<unsigned long long>();
         case QMetaType::Float:
-            return data.valuePtr<float>(ok);
+            return data.valuePtr<float>();
         case QMetaType::Double:
-            return data.valuePtr<double>(ok);
+            return data.valuePtr<double>();
         case QMetaType::QString:
-            return data.valuePtr<QString>(ok);
+            return data.valuePtr<QString>();
         case QMetaType::QByteArray:
-            return data.valuePtr<QByteArray>(ok);
+            return data.valuePtr<QByteArray>();
         default:
             break;
         }
         if(typeName == "IString"){
-            return data.valuePtr<IString>(ok);
+            return data.valuePtr<IString>();
         }else if(typeName == "std::string"){
-            return data.valuePtr<std::string>(ok);
+            return data.valuePtr<std::string>();
+        }else if(typeName == "IStringView"){
+            return data.valuePtr<IStringView>();
         }
         qFatal("not supported type");
         return nullptr;
@@ -78,6 +80,9 @@ namespace detail
 
     static void deletePtr(void* ptr, QMetaType::Type typeId, const IString& typeName)
     {
+        if(!ptr){
+            return;
+        }
         switch (typeId) {
         case QMetaType::Bool:
             return delete static_cast<bool*>(ptr);
@@ -116,10 +121,11 @@ namespace detail
             return delete static_cast<IString*>(ptr);
         }else if(typeName == "std::string"){
             return delete static_cast<std::string*>(ptr);
-        }else{
-            qFatal("error"); // TODO:
+        }else if(typeName == "IStringView"){
+            return delete static_cast<IStringView*>(ptr);
         }
 
+        qFatal("error");
     }
 }
 
@@ -129,11 +135,6 @@ IArgumentTypeDetail::IArgumentTypeDetail(int typeId, QByteArray paramTypeName, Q
     m_typeId = QMetaType::Type(typeId);
     m_typeName = std::move(paramTypeName);
     m_nameRaw = std::move(nameRaw);
-
-    if(m_nameRaw.isEmpty()){
-        qFatal("Name should not be empty");
-    }
-
     resolveName();
 
     static QList<decltype(&IArgumentTypeDetail::createBasicType)> funs = {
@@ -150,8 +151,12 @@ IArgumentTypeDetail::IArgumentTypeDetail(int typeId, QByteArray paramTypeName, Q
 
 void IArgumentTypeDetail::resolveName()
 {
+    if(m_nameRaw.isEmpty()){
+        qFatal("Name should not be empty");
+    }
+
     static const QVector<IString> PREFIXES = {
-        "auto", "path", "query", "header", "cookie", "session", "form", "json"
+        "auto", "path", "query", "header", "cookie", "session", "body", "form", "json"
     };
     IStringViewList args = m_nameRaw.split("_$");
     m_name = args.first();
@@ -353,6 +358,8 @@ bool IArgumentTypeDetail::createDecorateTypes()
         &IArgumentTypeDetail::createSessionType,
         &IArgumentTypeDetail::createPathType,
         &IArgumentTypeDetail::createBodyType,
+        &IArgumentTypeDetail::createFormType,
+        &IArgumentTypeDetail::createJsonType
     };
 
     for(auto fun : funs){
@@ -382,25 +389,26 @@ void IArgumentTypeDetail::createHeaderType()
     if(!detail::isTypeConvertable(m_typeId, m_typeName)){
         qFatal("error");
     }
-
     bool m_optional = this->m_optional;
     IString name = this->m_name;
     QMetaType::Type m_typeId = this->m_typeId;
     IString m_typeName = this->m_typeName;
     this->m_createFun = [=](IRequest& request)->void*{
         if(request.impl().m_reqRaw.m_requestHeaders.contain(name)){
-            bool ok;
-            auto value = request.impl().m_reqRaw.m_requestHeaders.value(name);
-            auto ptr = detail::convertPtr(value, m_typeId, m_typeName, ok);
-            if(!ok){
-                request.setInvalid(IHttpBadRequestInvalid("value not proper"));
+            auto ptr = detail::convertPtr(request.impl().m_reqRaw.m_requestHeaders.value(name), m_typeId, m_typeName);
+            if(!ptr){
+                request.setInvalid(IHttpBadRequestInvalid("header field value not proper"));
             }
             return ptr;
         }
         if(m_optional){
-            // TODO: 这里需要重新设计，关于 optional 应该返回什么东西。
+            auto ptr = detail::convertPtr(m_optionalString, m_typeId, m_typeName);
+            if(!ptr){
+                request.setInvalid(IHttpBadRequestInvalid("header field default value not proper"));
+            }
+            return ptr;
         }
-        request.setInvalid(IHttpInternalErrorInvalid("header not resolved"));
+        request.setInvalid(IHttpInternalErrorInvalid("header field not resolved"));
         return nullptr;
     };
 }
@@ -421,6 +429,16 @@ void IArgumentTypeDetail::createPathType()
 }
 
 void IArgumentTypeDetail::createBodyType()
+{
+
+}
+
+void IArgumentTypeDetail::createFormType()
+{
+
+}
+
+void IArgumentTypeDetail::createJsonType()
 {
 
 }
