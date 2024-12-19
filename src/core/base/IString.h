@@ -69,6 +69,7 @@ public:
     IStringViewList split(char) const;
     IStringViewList split(const IString&) const;
     bool startWith(const IString&) const;
+    bool equalIgnoreCase(const IString&) const;
 
 public:
     QString toQString() const;

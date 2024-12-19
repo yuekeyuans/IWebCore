@@ -147,6 +147,23 @@ bool IStringView::endWith(IStringView suffix) const
     return this->substr(this->size() - suffix.size()) == suffix;
 }
 
+bool IStringView::equalIgnoreCase(const std::string_view &data) const
+{
+    if (this->length() != data.length()) {
+        return false;
+    }
+
+    const char* ptr1 = this->data();
+    const char* ptr2 = data.data();
+    for (size_t i = 0; i < length(); ++i) {
+        if (std::tolower(ptr1[i]) != std::tolower(ptr2[i])) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
 IStringViewList::IStringViewList(QList<IStringView> data)
     : QList<IStringView>(std::move(data))
 {

@@ -252,6 +252,11 @@ bool IString::startWith(const IString & data) const
     return m_stringView.startWith(data.m_stringView);
 }
 
+bool IString::equalIgnoreCase(const IString & data) const
+{
+    return m_stringView.equalIgnoreCase(data.m_stringView);
+}
+
 QString IString::toQString() const
 {
     return m_stringView.toQString();

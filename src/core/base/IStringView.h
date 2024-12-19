@@ -42,6 +42,7 @@ public:
     IStringViewList split(IStringView) const;
     bool startWith(IStringView prefix) const;
     bool endWith(IStringView suffix) const;
+    bool equalIgnoreCase(const std::string_view&) const;
 };
 
 class IStringViewList : public QList<IStringView>, public IRegisterMetaTypeUnit<IStringViewList>
