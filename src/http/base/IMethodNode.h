@@ -12,7 +12,7 @@ public:
     QString className;
     QMetaMethod metaMethod;
 
-    QString signature;  // TODO: std::string
+    QString signature;
     IReturnType returnNode;
     QVector<IArgumentType> argumentNodes;
 };

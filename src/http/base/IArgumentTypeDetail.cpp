@@ -306,20 +306,17 @@ void IArgumentTypeDetail::createMultiPartType()
         qFatal("position should be empty");
     }
 
-    bool m_optional = this->m_optional;         // weired!!!
-    IString m_name = this->m_name;
-    this->m_createFun = [m_optional, m_name](IRequest& request) -> void*{
-        if(!request.bodyContentType().startWith(IHttpMimeUtil::toString(IHttpMime::MULTIPART_FORM_DATA))){ // TODO: force little case
-            request.setInvalid(IHttpInternalErrorInvalid("not multitype type"));
-            return nullptr;
-        }else{
-            const auto& value = request.multiPartJar().getMultiPart(m_name);
-            if(!m_optional && (&value == &IMultiPart::Empty)){
+    this->m_createFun = [optionalField = m_optional, name = m_name](IRequest& request) -> void*{
+        if(request.bodyContentType().startWith(IHttpMimeUtil::toString(IHttpMime::MULTIPART_FORM_DATA))){ // TODO: force little case
+            const auto& value = request.multiPartJar().getMultiPart(name);
+            if(!optionalField && (&value == &IMultiPart::Empty)){
                 request.setInvalid(IHttpInternalErrorInvalid("multitype not optional"));
                 return nullptr;
             }
             return static_cast<void*>(const_cast<IMultiPart*>(&value));
         }
+        request.setInvalid(IHttpInternalErrorInvalid("not multitype type"));
+        return nullptr;
     };
 }
 
@@ -332,15 +329,16 @@ void IArgumentTypeDetail::createCookiePartType()
     if(m_position != Position::Auto){
         qFatal("position should be empty");
     }
+    if(m_optional && !m_optionalString.isEmpty()){
+        qFatal("in cookiepart, no optional variable needed"); // optional 不需要给定参数值,默认是 Empty
+    }
 
-    bool m_optional = this->m_optional;         // weired!!!
-    IString m_name = this->m_name;
-    this->m_createFun = [m_optional, m_name](IRequest& request) -> void*{
-        if(request.impl().m_reqRaw.m_requestCookieParameters.contains(m_name)){
-            auto value = request.impl().m_reqRaw.m_requestCookieParameters.value(m_name);
-            return new ICookiePart(m_name, value);
+    this->m_createFun = [optionalField = m_optional, name = m_name](IRequest& request) -> void*{
+        if(request.impl().m_reqRaw.m_requestCookieParameters.contains(name)){
+            const auto& value = request.impl().m_reqRaw.m_requestCookieParameters.value(name);
+            return new ICookiePart(name, value.m_stringView);
         }
-        if(m_optional){
+        if(optionalField){
             return static_cast<void*>(const_cast<ICookiePart*>(&ICookiePart::Empty));
         }
         request.setInvalid(IHttpInternalErrorInvalid("cookie not optional"));
