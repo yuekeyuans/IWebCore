@@ -8,6 +8,11 @@ $PackageWebCoreBegin
 struct IArgumentTypeDetail : public IArgumentType
 {
 public:
+    enum Position{
+        Auto, Path, Query, Header, Cookie, Session, Form, Json,
+    };
+
+public:
     IArgumentTypeDetail(int typeId, QByteArray typeName, QByteArray nameRaw);   // TODO: better to add signature,but skip here.
 
 private:
@@ -44,8 +49,11 @@ private:    // bean, List<Bean>, Vector<Bean> ， Map<Bean>
 private: // body, query, json 相关，
     bool createDataTypes();
 
-private: // bean 相关
-
+private:
+    bool m_optional{false};
+    IString m_optionalString;
+    Position m_position{Auto};
+    IString m_nameRaw;
 
 private:
     QVector<IString> makeTypes(const std::string&);

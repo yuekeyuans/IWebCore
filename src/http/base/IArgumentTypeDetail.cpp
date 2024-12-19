@@ -151,32 +151,36 @@ IArgumentTypeDetail::IArgumentTypeDetail(int typeId, QByteArray paramTypeName, Q
 
 void IArgumentTypeDetail::resolveName()
 {
+    static const QVector<IString> PREFIXES = {
+        "auto", "path", "query", "header", "cookie", "session", "body", "form", "json"
+    };
     if(m_nameRaw.isEmpty()){
         qFatal("Name should not be empty");
     }
 
-    static const QVector<IString> PREFIXES = {
-        "auto", "path", "query", "header", "cookie", "session", "body", "form", "json"
-    };
     IStringViewList args = m_nameRaw.split("_$");
     m_name = args.first();
     args.pop_front();
 
     for(IStringView arg : args){
-        if(arg.startWith("Optional")){
-            if(m_optional == true){
-                qFatal("two more optional");
-            }
-            m_optional = true;
-            continue;
-        }
-
         auto index = PREFIXES.indexOf(arg);
         if(index > 0){
             if(m_position > 0){
                 qFatal("two more restrict");
             }
             m_position = Position(index);
+        }
+
+        // optional
+        if(arg.startWith("optional")){
+            if(m_optional == true){
+                qFatal("two more optional");
+            }
+            m_optional = true;
+            auto spliter = arg.find("$$");
+            if(spliter != std::string_view::npos){
+                m_optionalString = arg.substr(spliter+2);
+            }
         }
     }
 }
@@ -389,24 +393,19 @@ void IArgumentTypeDetail::createHeaderType()
     if(!detail::isTypeConvertable(m_typeId, m_typeName)){
         qFatal("error");
     }
-    bool m_optional = this->m_optional;
-    IString name = this->m_name;
-    QMetaType::Type m_typeId = this->m_typeId;
-    IString m_typeName = this->m_typeName;
-    this->m_createFun = [=](IRequest& request)->void*{
+    this->m_createFun = [
+            name = m_name,typeName = m_typeName, typeId=m_typeId,
+            optionalArgument = m_optional, optionalString =m_optionalString
+    ](IRequest& request) ->void*{
         if(request.impl().m_reqRaw.m_requestHeaders.contain(name)){
-            auto ptr = detail::convertPtr(request.impl().m_reqRaw.m_requestHeaders.value(name), m_typeId, m_typeName);
+            auto ptr = detail::convertPtr(request.impl().m_reqRaw.m_requestHeaders.value(name), typeId, typeName);
             if(!ptr){
                 request.setInvalid(IHttpBadRequestInvalid("header field value not proper"));
             }
             return ptr;
         }
-        if(m_optional){
-            auto ptr = detail::convertPtr(m_optionalString, m_typeId, m_typeName);
-            if(!ptr){
-                request.setInvalid(IHttpBadRequestInvalid("header field default value not proper"));
-            }
-            return ptr;
+        if(optionalArgument){
+            return detail::convertPtr(optionalString, typeId, typeName);
         }
         request.setInvalid(IHttpInternalErrorInvalid("header field not resolved"));
         return nullptr;
