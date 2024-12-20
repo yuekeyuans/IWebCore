@@ -8,12 +8,12 @@ $PackageWebCoreBegin
 
 const QMultiHash<IString, IString> &ICookieJar::requestCookies() const
 {
-    return m_impl.m_reqRaw.m_requestCookieParameters;
+    return m_impl.m_reqRaw.m_cookies;
 }
 
 ICookiePart ICookieJar::getRequestCookie(IString key) const
 {
-    auto value = m_impl.m_reqRaw.m_requestCookieParameters.value(key);
+    auto value = m_impl.m_reqRaw.m_cookies.value(key);
     if(value.isEmpty()){
         return {};
     }
@@ -23,7 +23,7 @@ ICookiePart ICookieJar::getRequestCookie(IString key) const
 QList<ICookiePart> ICookieJar::getRequestCookies(const IString &key) const
 {
     QList<ICookiePart> cookies;
-    auto values = m_impl.m_reqRaw.m_requestCookieParameters.values(key);
+    auto values = m_impl.m_reqRaw.m_cookies.values(key);
     for(auto value : values){
         cookies.append({key, value});
     }
@@ -32,12 +32,12 @@ QList<ICookiePart> ICookieJar::getRequestCookies(const IString &key) const
 
 QList<IString> ICookieJar::requestCookieKeys() const
 {
-    return m_impl.m_reqRaw.m_requestCookieParameters.keys();
+    return m_impl.m_reqRaw.m_cookies.keys();
 }
 
 bool ICookieJar::containRequestCookieKey(const IString& key) const
 {
-    return m_impl.m_reqRaw.m_requestCookieParameters.contains(key);
+    return m_impl.m_reqRaw.m_cookies.contains(key);
 }
 
 //bool ICookieJar::containRequestCookieKey(const  &key) const
@@ -48,7 +48,7 @@ bool ICookieJar::containRequestCookieKey(const IString& key) const
 
 void ICookieJar::deleteRequestCookies(const IString& key)
 {
-    auto values = m_impl.m_reqRaw.m_requestCookieParameters.values(key);
+    auto values = m_impl.m_reqRaw.m_cookies.values(key);
     for(auto value : values){
         ICookiePart part(key, value, 0);
         addResponseCookie(part);

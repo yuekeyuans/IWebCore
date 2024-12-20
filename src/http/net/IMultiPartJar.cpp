@@ -14,7 +14,7 @@ const IMultiPart& IMultiPartJar::operator[](const QString &name) const
 
 const IMultiPart& IMultiPartJar::operator[](const IString& name) const
 {
-    const auto& jar = m_impl.m_reqRaw.m_requestMultiParts;
+    const auto& jar = m_impl.m_reqRaw.m_multiParts;
     for(const auto& part : jar){
         if(part.m_name == name){
             return part;
@@ -25,7 +25,7 @@ const IMultiPart& IMultiPartJar::operator[](const IString& name) const
 
 bool IMultiPartJar::contain(const IString& name) const
 {
-    const auto& jar = m_impl.m_reqRaw.m_requestMultiParts;
+    const auto& jar = m_impl.m_reqRaw.m_multiParts;
     for(const auto& part : jar){
         if(part.m_name == name){
             return true;
@@ -42,7 +42,7 @@ bool IMultiPartJar::contain(const QString &name) const
 IStringViewList IMultiPartJar::getNames() const
 {
     IStringViewList ret;
-    const auto& jar = m_impl.m_reqRaw.m_requestMultiParts;
+    const auto& jar = m_impl.m_reqRaw.m_multiParts;
     for(const auto& part : jar){
         ret.append (part.m_name);
     }
@@ -51,7 +51,7 @@ IStringViewList IMultiPartJar::getNames() const
 
 const IMultiPart& IMultiPartJar::getMultiPart(const IString& name) const
 {
-    const auto& jar = m_impl.m_reqRaw.m_requestMultiParts;
+    const auto& jar = m_impl.m_reqRaw.m_multiParts;
     for(const IMultiPart& part : jar){
         if(part.m_name == name){
             return part;
@@ -67,7 +67,7 @@ const IMultiPart& IMultiPartJar::getMultiPart(const QString &name) const
 
 const std::vector<IMultiPart> &IMultiPartJar::getRequestMultiParts() const
 {
-    return m_impl.m_reqRaw.m_requestMultiParts;
+    return m_impl.m_reqRaw.m_multiParts;
 }
 
 $PackageWebCoreEnd

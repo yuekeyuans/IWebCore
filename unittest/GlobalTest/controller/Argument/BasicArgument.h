@@ -32,5 +32,10 @@ public:
 
     $GetMapping(headerTypeInt)
     QString headerTypeInt(int $Header(MyInt));
+
+    $PostMapping(bodyType)
+    QString bodyType(QString $Body(body)){
+        return body;
+    }
 };
 

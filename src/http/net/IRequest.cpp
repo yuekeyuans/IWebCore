@@ -23,12 +23,12 @@ IRequest::~IRequest()
 
 const IString& IRequest::operator[](const IString &header) const
 {
-    return m_impl->m_reqRaw.m_requestHeaders.value(header);
+    return m_impl->m_reqRaw.m_headers.value(header);
 }
 
 const IString& IRequest::operator[](const QString &header) const
 {
-    return m_impl->m_reqRaw.m_requestHeaders.value(header.toUtf8());
+    return m_impl->m_reqRaw.m_headers.value(header.toUtf8());
 }
 
 const ICookieJar& IRequest::cookieJar() const
@@ -71,7 +71,7 @@ IHttpVersion IRequest::version() const
 
 IHttpMime IRequest::mime() const
 {
-    return m_impl->m_reqRaw.m_requestMime;
+    return m_impl->m_reqRaw.m_mime;
 }
 
 IHttpMethod IRequest::method() const
@@ -81,7 +81,7 @@ IHttpMethod IRequest::method() const
 
 int IRequest::bodyContentLength() const
 {
-    const auto& val = m_impl->m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentLength);
+    const auto& val = m_impl->m_reqRaw.m_headers.value(IHttpHeader::ContentLength);
     if(!val){
         return val.m_stringView.toQString().toInt();
     }
@@ -90,38 +90,38 @@ int IRequest::bodyContentLength() const
 
 const IString& IRequest::bodyContentType() const
 {
-    return m_impl->m_reqRaw.m_requestHeaders.value(IHttpHeader::ContentType);
+    return m_impl->m_reqRaw.m_headers.value(IHttpHeader::ContentType);
 }
 
 const IString& IRequest::bodyContent() const
 {
-    return m_impl->m_reqRaw.m_requestBody;
+    return m_impl->m_reqRaw.m_body;
 }
 
 const QMap<IStringView, IStringView> &IRequest::urlParameters() const
 {
-    return m_impl->m_reqRaw.m_requestUrlParameters;
+    return m_impl->m_reqRaw.m_queries;
 }
 
 const QMap<IStringView, IStringView> &IRequest::paramParameters() const
 {
-    return m_impl->m_reqRaw.m_requestPathParameters;
+    return m_impl->m_reqRaw.m_paths;
 }
 
 const QMap<IStringView, IStringView> &IRequest::bodyFormParameters() const
 {
-    return m_impl->m_reqRaw.m_requestBodyParameters;
+    return m_impl->m_reqRaw.m_forms;
 }
 
 const std::vector<IMultiPart> &IRequest::bodyMultiParts() const
 {
-    return m_impl->m_reqRaw.m_requestMultiParts;
+    return m_impl->m_reqRaw.m_multiParts;
 }
 
 // TODO: check it
 IJson IRequest::bodyJson() const
 {
-    return m_impl->m_reqRaw.m_requestJson;
+    return m_impl->m_reqRaw.m_json;
 }
 
 IStringView IRequest::stash(const char *data)

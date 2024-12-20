@@ -337,8 +337,8 @@ void IArgumentTypeDetail::createCookiePartType()
     }
 
     this->m_createFun = [optionalField = m_optional, name = m_name](IRequest& request) -> void*{
-        if(request.impl().m_reqRaw.m_requestCookieParameters.contains(name)){
-            const auto& value = request.impl().m_reqRaw.m_requestCookieParameters.value(name);
+        if(request.impl().m_reqRaw.m_cookies.contains(name)){
+            const auto& value = request.impl().m_reqRaw.m_cookies.value(name);
             return new ICookiePart(name, value.m_stringView);
         }
         if(optionalField){
@@ -398,8 +398,8 @@ void IArgumentTypeDetail::createHeaderType()
             name = m_name,typeName = m_typeName, typeId=m_typeId,
             optionalField = m_optional, optionalString =m_optionalString
     ](IRequest& request) ->void*{
-        if(request.impl().m_reqRaw.m_requestHeaders.contain(name)){
-            auto ptr = detail::convertPtr(request.impl().m_reqRaw.m_requestHeaders.value(name), typeId, typeName);
+        if(request.impl().m_reqRaw.m_headers.contain(name)){
+            auto ptr = detail::convertPtr(request.impl().m_reqRaw.m_headers.value(name), typeId, typeName);
             if(!ptr){
                 request.setInvalid(IHttpBadRequestInvalid("header field value not proper"));
             }
@@ -415,6 +415,29 @@ void IArgumentTypeDetail::createHeaderType()
 
 void IArgumentTypeDetail::createCookieType()
 {
+    if(this->m_position != Position::Cookie){
+        return;
+    }
+    if(!detail::isTypeConvertable(m_typeId, m_typeName)){
+        qFatal("not convertable");
+    }
+    this->m_createFun = [
+            name = m_name,typeName = m_typeName, typeId=m_typeId,
+            optionalField = m_optional, optionalString =m_optionalString
+    ](IRequest& request) ->void*{
+//        if(request.impl().m_reqRaw.m_cookies.contain(name)){
+//            auto ptr = detail::convertPtr(request.impl().m_reqRaw.m_cookies.value(name), typeId, typeName);
+//            if(!ptr){
+//                request.setInvalid(IHttpBadRequestInvalid("header field value not proper"));
+//            }
+//            return ptr;
+//        }
+//        if(optionalField){
+//            return detail::convertPtr(optionalString, typeId, typeName);
+//        }
+        return nullptr;
+    };
+
 
 }
 
@@ -437,16 +460,16 @@ void IArgumentTypeDetail::createBodyType()
         qFatal("not convertable");
     }
     static const auto& types = IConstantUtil::StringTypes;
-    if(std::find(types.begin(), types.end(), m_name) == types.end()){
-        qFatal("type must be string type, check it");
+    if(std::find(types.begin(), types.end(), m_typeName) == types.end()){
+        qFatal("type must be string type, check it");       // TODO: 这个限制之后可以考虑放开。
     }
     this->m_createFun = [
             name=m_name, optionalField=m_optional,
             optionalString=m_optionalString,
             typeId=m_typeId, typeName=m_typeName
     ](IRequest& req)->void*{
-        if(!req.impl().m_reqRaw.m_requestBody.isEmpty()){
-            return detail::convertPtr(req.impl().m_reqRaw.m_requestBody, typeId, typeName);
+        if(!req.impl().m_reqRaw.m_body.isEmpty()){
+            return detail::convertPtr(req.impl().m_reqRaw.m_body, typeId, typeName);
         }
         if(optionalField){
             return detail::convertPtr(optionalString, typeId, typeName);

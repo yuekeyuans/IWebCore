@@ -8,22 +8,22 @@ $PackageWebCoreBegin
 
 std::vector<IStringView> IHeaderJar::requestHeaderKeys() const
 {
-    return m_impl.m_reqRaw.m_requestHeaders.keys();
+    return m_impl.m_reqRaw.m_headers.keys();
 }
 
 bool IHeaderJar::containRequestHeaderKey(const IString& key) const
 {
-    return m_impl.m_reqRaw.m_requestHeaders.contain(key);
+    return m_impl.m_reqRaw.m_headers.contain(key);
 }
 
 IString IHeaderJar::getRequestHeaderValue(const IString& view) const
 {
-    return m_impl.m_reqRaw.m_requestHeaders.value(view);
+    return m_impl.m_reqRaw.m_headers.value(view);
 }
 
 const std::vector<IString>& IHeaderJar::getRequestHeaderValues(const IString& key) const
 {
-    return m_impl.m_reqRaw.m_requestHeaders.values(key);
+    return m_impl.m_reqRaw.m_headers.values(key);
 }
 
 IHttpHeader &IHeaderJar::responseHeaders()

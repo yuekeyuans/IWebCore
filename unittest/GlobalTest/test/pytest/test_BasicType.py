@@ -51,3 +51,10 @@ def test_headerTypeInt():
     print(val.status_code)  
     assert val.status_code == 200
     assert val.text == "123"
+
+def test_BodyType():
+    val = requests.post(serverAddress + "/BasicArgument/bodyType", data={"name": "test"})
+    print(val.text)
+    print(val.status_code)  
+    assert val.status_code == 200
+    assert val.text == "name=test"

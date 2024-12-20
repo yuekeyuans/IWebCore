@@ -145,16 +145,16 @@ void IRequestImpl::bodyState()
     }
 
     if(m_isValid){
-        switch (m_reqRaw.m_requestMime) {
+        switch (m_reqRaw.m_mime) {
         case IHttpMime::MULTIPART_FORM_DATA:
-            parseMultiPartData(m_reqRaw.m_requestBody);
+            parseMultiPartData(m_reqRaw.m_body);
             break;
         case IHttpMime::APPLICATION_WWW_FORM_URLENCODED:
-            parseUrlEncodedData(m_reqRaw.m_requestBody, true);
+            parseUrlEncodedData(m_reqRaw.m_body, true);
             break;
         case IHttpMime::APPLICATION_JSON:
         case IHttpMime::APPLICATION_JSON_UTF8:
-            parseJsonData(m_reqRaw.m_requestBody);
+            parseJsonData(m_reqRaw.m_body);
             break;
         default:
             break;
@@ -257,12 +257,12 @@ void IRequestImpl::parseHeader(IStringView line)
 
     auto key = line.substr(0, index).trimmed();
     auto value = line.substr(index+1).trimmed();
-    m_reqRaw.m_requestHeaders.insert(key, value);
+    m_reqRaw.m_headers.insert(key, value);
 }
 
 void IRequestImpl::resolveHeaders()
 {
-    const auto& headers = m_reqRaw.m_requestHeaders;
+    const auto& headers = m_reqRaw.m_headers;
     if(headers.contain(IHttpHeader::TransferEncoding) && headers.value(IHttpHeader::TransferEncoding) == "chunked"){
         return setInvalid(IHttpInternalErrorInvalid("transferEncond:chunked not supported now"));
     }
@@ -281,8 +281,8 @@ void IRequestImpl::resolveHeaders()
 
     auto contentType = headers.value(IHttpHeader::ContentType);
     if(!contentType.isEmpty()){
-        m_reqRaw.m_requestMime = IHttpMimeUtil::toMime(contentType);
-        if(m_reqRaw.m_requestMime == IHttpMime::MULTIPART_FORM_DATA){
+        m_reqRaw.m_mime = IHttpMimeUtil::toMime(contentType);
+        if(m_reqRaw.m_mime == IHttpMime::MULTIPART_FORM_DATA){
             m_multipartBoundary = getBoundary(contentType);
             if(m_multipartBoundary.empty()){
                 return setInvalid(IHttpBadRequestInvalid("multipart request has no boundary"));
@@ -296,7 +296,7 @@ void IRequestImpl::resolveHeaders()
 
 void IRequestImpl::resolveCookieHeaders()
 {
-    auto cookies = m_reqRaw.m_requestHeaders.values(IHttpHeader::Cookie);
+    auto cookies = m_reqRaw.m_headers.values(IHttpHeader::Cookie);
     for(const auto& cookie : cookies){
         auto pairs = cookie.split(IConstantUtil::Semicolon);
         for(auto pair : pairs){
@@ -304,9 +304,9 @@ void IRequestImpl::resolveCookieHeaders()
             if(!val.empty()){
                 auto args = val.split(IConstantUtil::Equal);
                 if(args.length() == 1){
-                    m_reqRaw.m_requestCookieParameters.insertMulti(stash(args.first()), stash(args.first()));
+                    m_reqRaw.m_cookies.insertMulti(stash(args.first()), stash(args.first()));
                 }else{
-                    m_reqRaw.m_requestCookieParameters.insertMulti(stash(args.first()), stash(args.last()));
+                    m_reqRaw.m_cookies.insertMulti(stash(args.first()), stash(args.last()));
                 }
             }
         }
@@ -361,23 +361,23 @@ void IRequestImpl::resolveBodyContent()
         if(m_contentLength != readSize){
             return setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
         }
-        m_reqRaw.m_requestBody = IStringView(m_data.m_data + m_data.m_parsedSize, readSize);
+        m_reqRaw.m_body = IStringView(m_data.m_data + m_data.m_parsedSize, readSize);
     }else{
         if(m_contentLength != m_data.m_buffer.size()){
             return setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
         }
-        m_reqRaw.m_requestBody = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), m_data.m_buffer.size());
+        m_reqRaw.m_body = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), m_data.m_buffer.size());
     }
 }
 
 void IRequestImpl::resolveMultipartContent()
 {
     if(m_bodyInData){
-        m_reqRaw.m_requestBody = IStringView(m_data.m_data + m_data.m_parsedSize, m_data.m_readSize - m_data.m_parsedSize);
+        m_reqRaw.m_body = IStringView(m_data.m_data + m_data.m_parsedSize, m_data.m_readSize - m_data.m_parsedSize);
     }else{
-        m_reqRaw.m_requestBody = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), m_data.m_buffer.size());
+        m_reqRaw.m_body = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), m_data.m_buffer.size());
     }
-    if(!m_reqRaw.m_requestBody.m_stringView.endWith(m_multipartBoundaryEnd)){
+    if(!m_reqRaw.m_body.m_stringView.endWith(m_multipartBoundaryEnd)){
         setInvalid(IHttpBadRequestInvalid("multipart data do not have end tag"));
     }
 }
@@ -397,9 +397,9 @@ void IRequestImpl::parseUrlEncodedData(IStringView view, bool isBody)
             setInvalid(IHttpBadRequestInvalid("the parameters in body should be pair"));
         }
         if(isBody){
-            m_reqRaw.m_requestBodyParameters[value.substr(0, partIndex).trimmed()] = value.substr(partIndex + 1).trimmed();
+            m_reqRaw.m_forms[value.substr(0, partIndex).trimmed()] = value.substr(partIndex + 1).trimmed();
         }else{
-            m_reqRaw.m_requestPathParameters[value.substr(0, partIndex).trimmed()] = value.substr(partIndex + 1).trimmed();
+            m_reqRaw.m_paths[value.substr(0, partIndex).trimmed()] = value.substr(partIndex + 1).trimmed();
         }
         pos = index+1;
     }
@@ -437,7 +437,7 @@ void IRequestImpl::parseMultiPartData(IStringView data)
             if(!part.isValid()){
                 return;
             }
-            m_reqRaw.m_requestMultiParts.emplace_back(std::move(part));
+            m_reqRaw.m_multiParts.emplace_back(std::move(part));
         }
     }
 }
