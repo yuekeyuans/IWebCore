@@ -394,7 +394,7 @@ void IArgumentTypeDetail::createHeaderType()
     }
     auto self = *this;
     this->m_createFun = [=](IRequest& request) ->void*{
-        if(request.impl().m_reqRaw.m_headers.contain(self.m_name)){
+        if(request.impl().m_reqRaw.m_headers.contains(self.m_name)){
             auto ptr = detail::convertPtr(request.impl().m_reqRaw.m_headers.value(self.m_name), self.m_typeId, self.m_typeName);
             if(!ptr){
                 request.setInvalid(IHttpBadRequestInvalid("header field value not proper"));

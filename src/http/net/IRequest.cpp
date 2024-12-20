@@ -23,12 +23,12 @@ IRequest::~IRequest()
 
 const IString& IRequest::operator[](const IString &header) const
 {
-    return m_impl->m_reqRaw.m_headers.value(header);
+    return m_impl->m_headerJar.getRequestHeaderValue(header);
 }
 
 const IString& IRequest::operator[](const QString &header) const
 {
-    return m_impl->m_reqRaw.m_headers.value(header.toUtf8());
+    return m_impl->m_headerJar.getRequestHeaderValue(header.toUtf8());
 }
 
 const ICookieJar& IRequest::cookieJar() const
@@ -90,7 +90,7 @@ int IRequest::contentLength() const
 
 const IString& IRequest::contentType() const
 {
-    return m_impl->m_reqRaw.m_headers.value(IHttpHeader::ContentType);
+    return m_impl->m_headerJar.getRequestHeaderValue(IHttpHeader::ContentType);
 }
 
 const IString& IRequest::content() const

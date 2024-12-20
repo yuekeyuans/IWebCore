@@ -144,6 +144,9 @@ bool IStringView::startWith(IStringView prefix) const
 
 bool IStringView::endWith(IStringView suffix) const
 {
+//    if(this->size() < suffix.size()){
+//        return false;
+//    }
     return this->substr(this->size() - suffix.size()) == suffix;
 }
 
@@ -152,10 +155,16 @@ bool IStringView::equalIgnoreCase(const std::string_view &data) const
     if (this->length() != data.length()) {
         return false;
     }
+    if(this->operator ==(data)){
+        return true;
+    }
 
     const char* ptr1 = this->data();
     const char* ptr2 = data.data();
     for (size_t i = 0; i < length(); ++i) {
+        if(ptr1[i] == ptr2[i]){
+            continue;
+        }
         if (std::tolower(ptr1[i]) != std::tolower(ptr2[i])) {
             return false;
         }

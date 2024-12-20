@@ -5,8 +5,8 @@ import http.client as httplib
 import pytest
 from requests.exceptions import RequestException
 
-# logging.basicConfig(level=logging.DEBUG)
-# httplib.HTTPConnection.debuglevel = 1
+logging.basicConfig(level=logging.DEBUG)
+httplib.HTTPConnection.debuglevel = 1
 
 def test_QString():
     val = requests.get(serverAddress + "/BasicArgument/irequest")

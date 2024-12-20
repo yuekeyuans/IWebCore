@@ -262,14 +262,15 @@ void IRequestImpl::parseHeader(IStringView line)
 
 void IRequestImpl::resolveHeaders()
 {
-    const auto& headers = m_reqRaw.m_headers;
-    if(headers.contain(IHttpHeader::TransferEncoding) && headers.value(IHttpHeader::TransferEncoding) == "chunked"){
+    const auto& encoding = m_headerJar.getRequestHeaderValue(IHttpHeader::TransferEncoding);
+    if(encoding == "chunked"){
         return setInvalid(IHttpInternalErrorInvalid("transferEncond:chunked not supported now"));
     }
 
-    if(headers.contain(IHttpHeader::ContentLength)){
+    const auto& contentLength = m_headerJar.getRequestHeaderValue(IHttpHeader::ContentLength);
+    if(!contentLength.isEmpty()){
         bool ok;
-        m_contentLength = headers.value(IHttpHeader::ContentLength).toQString().toUInt(&ok);
+        m_contentLength = contentLength.value<int>(ok);
         if(!ok){
             return setInvalid(IHttpBadRequestInvalid("ContentLength error"));
         }
@@ -279,7 +280,7 @@ void IRequestImpl::resolveHeaders()
         }
     }
 
-    auto contentType = headers.value(IHttpHeader::ContentType);
+    const auto& contentType = m_headerJar.getRequestHeaderValue(IHttpHeader::ContentType);
     if(!contentType.isEmpty()){
         m_reqRaw.m_mime = IHttpMimeUtil::toMime(contentType);
         if(m_reqRaw.m_mime == IHttpMime::MULTIPART_FORM_DATA){
@@ -375,6 +376,7 @@ void IRequestImpl::resolveMultipartContent()
     if(m_bodyInData){
         m_reqRaw.m_body = IStringView(m_data.m_data + m_data.m_parsedSize, m_data.m_readSize - m_data.m_parsedSize);
     }else{
+        qDebug() << m_data.m_buffer.size() << "size";
         m_reqRaw.m_body = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), m_data.m_buffer.size());
     }
     if(!m_reqRaw.m_body.m_stringView.endWith(m_multipartBoundaryEnd)){

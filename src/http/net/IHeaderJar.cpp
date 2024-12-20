@@ -1,5 +1,6 @@
 ﻿#include "IHeaderJar.h"
 #include "core/abort/IGlobalAbort.h"
+#include "core/util/IConstantUtil.h"
 #include "http/net/impl/IRequestRaw.h"
 #include "http/net/impl/IResponseRaw.h"
 #include "http/net/impl/IRequestImpl.h"
@@ -8,22 +9,31 @@ $PackageWebCoreBegin
 
 std::vector<IStringView> IHeaderJar::requestHeaderKeys() const
 {
-    return m_impl.m_reqRaw.m_headers.keys();
+    std::vector<IStringView> ret;
+    const auto& headers = m_impl.m_reqRaw.m_headers;
+    for(auto it=headers.begin(); it!= headers.end(); it++){
+        ret.push_back(it.key().m_stringView);
+    }
+    return ret;
 }
 
 bool IHeaderJar::containRequestHeaderKey(const IString& key) const
 {
-    return m_impl.m_reqRaw.m_headers.contain(key);
+    const auto& keys = requestHeaderKeys();
+    return std::find_if(keys.begin(), keys.end(), [&](IStringView data){
+        return data.equalIgnoreCase(key.m_stringView);
+    }) != keys.end();
 }
 
-IString IHeaderJar::getRequestHeaderValue(const IString& view) const
+const IString& IHeaderJar::getRequestHeaderValue(const IString& view) const
 {
-    return m_impl.m_reqRaw.m_headers.value(view);
-}
-
-const std::vector<IString>& IHeaderJar::getRequestHeaderValues(const IString& key) const
-{
-    return m_impl.m_reqRaw.m_headers.values(key);
+    const auto& headers = m_impl.m_reqRaw.m_headers;
+    for(auto it=headers.begin(); it!= headers.end(); it++){
+        if(it.key().equalIgnoreCase(view)){
+            return it.value();
+        }
+    }
+    return IConstantUtil::Empty;
 }
 
 IHttpHeader &IHeaderJar::responseHeaders()

@@ -22,13 +22,13 @@ private:
 public:
     IString m_url;
     IString m_body;
-    IHttpHeader m_headers;
     IHttpVersion m_httpVersion {IHttpVersion::UNKNOWN};
     IHttpMethod m_method {IHttpMethod::UNKNOWN};
     IHttpMime m_mime {IHttpMime::UNKNOWN};
 
-    QMap<IStringView, IStringView> m_queries;
     QMap<IStringView, IStringView> m_paths;     // 特指 url 参数后面的内容
+    QMap<IString, IString> m_headers;
+    QMap<IStringView, IStringView> m_queries;
     QMap<IStringView, IStringView> m_forms;  // 特指 url encoded
     std::vector<IMultiPart> m_multiParts;
     QMultiHash<IString, IString> m_cookies;     // 这个可以再封装一下

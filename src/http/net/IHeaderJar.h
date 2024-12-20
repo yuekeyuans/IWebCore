@@ -17,8 +17,7 @@ public:
     std::vector<IStringView> requestHeaderKeys() const;
     bool containRequestHeaderKey(const IString& key) const;
 
-    IString getRequestHeaderValue(const IString& key) const;
-    const std::vector<IString>& getRequestHeaderValues(const IString& key) const;
+    const IString& getRequestHeaderValue(const IString& key) const;
 
     IHttpHeader& responseHeaders();
 
