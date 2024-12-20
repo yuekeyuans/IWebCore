@@ -306,13 +306,11 @@ void IArgumentTypeDetail::createMultiPartType()
     if(m_position != Position::Auto){
         qFatal("position should be empty");
     }
-
-    this->m_createFun = [
-            optionalField = m_optional, name = m_name
-    ](IRequest& request) -> void*{
+    auto self = *this;
+    this->m_createFun = [=](IRequest& request) -> void*{
         if(request.contentType().startWith(IHttpMimeUtil::toString(IHttpMime::MULTIPART_FORM_DATA))){ // TODO: force little case
-            const auto& value = request.multiPartJar().getMultiPart(name);
-            if(!optionalField && (&value == &IMultiPart::Empty)){
+            const auto& value = request.multiPartJar().getMultiPart(self.m_name);
+            if(!self.m_optional && (&value == &IMultiPart::Empty)){
                 request.setInvalid(IHttpInternalErrorInvalid("multitype not optional"));
                 return nullptr;
             }
@@ -394,19 +392,17 @@ void IArgumentTypeDetail::createHeaderType()
     if(!detail::isTypeConvertable(m_typeId, m_typeName)){
         qFatal("error");
     }
-    this->m_createFun = [
-            name = m_name,typeName = m_typeName, typeId=m_typeId,
-            optionalField = m_optional, optionalString =m_optionalString
-    ](IRequest& request) ->void*{
-        if(request.impl().m_reqRaw.m_headers.contain(name)){
-            auto ptr = detail::convertPtr(request.impl().m_reqRaw.m_headers.value(name), typeId, typeName);
+    auto self = *this;
+    this->m_createFun = [=](IRequest& request) ->void*{
+        if(request.impl().m_reqRaw.m_headers.contain(self.m_name)){
+            auto ptr = detail::convertPtr(request.impl().m_reqRaw.m_headers.value(self.m_name), self.m_typeId, self.m_typeName);
             if(!ptr){
                 request.setInvalid(IHttpBadRequestInvalid("header field value not proper"));
             }
             return ptr;
         }
-        if(optionalField){
-            return detail::convertPtr(optionalString, typeId, typeName);
+        if(self.m_optional){
+            return detail::convertPtr(self.m_optionalString, self.m_typeId, self.m_typeName);
         }
         request.setInvalid(IHttpInternalErrorInvalid("header field not resolved"));
         return nullptr;
@@ -421,10 +417,8 @@ void IArgumentTypeDetail::createCookieType()
     if(!detail::isTypeConvertable(m_typeId, m_typeName)){
         qFatal("not convertable");
     }
-    this->m_createFun = [
-            name = m_name,typeName = m_typeName, typeId=m_typeId,
-            optionalField = m_optional, optionalString =m_optionalString
-    ](IRequest& request) ->void*{
+    auto self = *this;
+    this->m_createFun = [=](IRequest& request) ->void*{
 //        if(request.impl().m_reqRaw.m_cookies.contain(name)){
 //            auto ptr = detail::convertPtr(request.impl().m_reqRaw.m_cookies.value(name), typeId, typeName);
 //            if(!ptr){
@@ -437,8 +431,6 @@ void IArgumentTypeDetail::createCookieType()
 //        }
         return nullptr;
     };
-
-
 }
 
 void IArgumentTypeDetail::createSessionType()
@@ -463,18 +455,12 @@ void IArgumentTypeDetail::createBodyType()
     if(std::find(types.begin(), types.end(), m_typeName) == types.end()){
         qFatal("type must be string type, check it");       // TODO: 这个限制之后可以考虑放开。
     }
-    this->m_createFun = [
-            name=m_name, optionalField=m_optional,
-            optionalString=m_optionalString,
-            typeId=m_typeId, typeName=m_typeName
-    ](IRequest& req)->void*{
+    auto self = *this;
+    this->m_createFun = [=](IRequest& req)->void*{
         if(!req.impl().m_reqRaw.m_body.isEmpty()){
-            return detail::convertPtr(req.impl().m_reqRaw.m_body, typeId, typeName);
+            return detail::convertPtr(req.impl().m_reqRaw.m_body, self.m_typeId, self.m_typeName);
         }
-        if(optionalField){
-            return detail::convertPtr(optionalString, typeId, typeName);
-        }
-        return nullptr;
+        return detail::convertPtr(self.m_optionalString, self.m_typeId, self.m_typeName);
     };
 }
 
@@ -500,13 +486,11 @@ bool IArgumentTypeDetail::createDataTypes()
 
 QVector<IString> IArgumentTypeDetail::makeTypes(const std::string &name)
 {
-    QVector<IString> names;
-    names.append(name);
-    names.append((name + "&"));
-    names.append((std::string($PackageWebCoreName) + "::" + name));
-    names.append((std::string($PackageWebCoreName) + "::" + name + "&"));
-
-    return names;
+    return QVector<IString> {
+        name, name + "&",
+        std::string($PackageWebCoreName) + "::" + name,
+        std::string($PackageWebCoreName) + "::" + name + "&"
+    };
 }
 
 namespace ISpawnUtil {
