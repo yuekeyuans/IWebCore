@@ -1,5 +1,6 @@
 ﻿#include "IArgumentTypeDetail.h"
 #include "core/util/ISpawnUtil.h"
+#include "core/util/IConstantUtil.h"
 #include "core/bean/IBeanTypeManage.h"
 #include "http/controller/IHttpControllerAbort.h"
 #include "http/IHttpManage.h"
@@ -388,7 +389,6 @@ void IArgumentTypeDetail::createHeaderType()
     if(this->m_position != Position::Header){
         return;
     }
-
     if(!detail::isTypeConvertable(m_typeId, m_typeName)){
         qFatal("error");
     }
@@ -431,9 +431,20 @@ void IArgumentTypeDetail::createBodyType()
         return;
     }
     if(!detail::isTypeConvertable(m_typeId, m_typeName)){
-        qFatal("error");
+        qFatal("not convertable");
     }
-    this->m_createFun = [](IRequest& req)->void*{
+    if(std::find(IConstantUtil::StringTypes.begin(), IConstantUtil::StringTypes.end(), m_name) == IConstantUtil::StringTypes.end()){
+        qFatal("type must be string type, check it");
+    }
+    this->m_createFun = [
+            name=m_name, optionalField=m_optional, optionalString=m_optionalString, typeId=m_typeId, typeName=m_typeName
+    ](IRequest& req)->void*{
+        if(!req.impl().m_reqRaw.m_requestBody.isEmpty()){
+            return detail::convertPtr(req.impl().m_reqRaw.m_requestBody, typeId, typeName);
+        }
+        if(optionalField){
+            return detail::convertPtr(optionalString, typeId, typeName);
+        }
         return nullptr;
     };
 }

@@ -27,6 +27,7 @@ namespace IConstantUtil
     inline static const IString False = "False";
 
     inline static const std::vector<IString> EmptyVector {};
+    inline static const std::vector<IString> StringTypes = {"IString", "IStringView", "std::string", "QString", "QByteArray"};
 
 
 }
