@@ -50,9 +50,9 @@ public:
     IHttpMime mime() const;
     IHttpMethod method() const;
 
-    int bodyContentLength() const;
-    const IString& bodyContentType() const;
-    const IString& bodyContent() const;
+    int contentLength() const;
+    const IString& contentType() const;
+    const IString& content() const;
 
     const QMap<IStringView, IStringView>& urlParameters() const;
     const QMap<IStringView, IStringView>& paramParameters() const;

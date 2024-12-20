@@ -79,7 +79,7 @@ IHttpMethod IRequest::method() const
     return m_impl->m_reqRaw.m_method;
 }
 
-int IRequest::bodyContentLength() const
+int IRequest::contentLength() const
 {
     const auto& val = m_impl->m_reqRaw.m_headers.value(IHttpHeader::ContentLength);
     if(!val){
@@ -88,12 +88,12 @@ int IRequest::bodyContentLength() const
     return 0;
 }
 
-const IString& IRequest::bodyContentType() const
+const IString& IRequest::contentType() const
 {
     return m_impl->m_reqRaw.m_headers.value(IHttpHeader::ContentType);
 }
 
-const IString& IRequest::bodyContent() const
+const IString& IRequest::content() const
 {
     return m_impl->m_reqRaw.m_body;
 }

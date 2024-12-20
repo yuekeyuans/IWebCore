@@ -310,7 +310,7 @@ void IArgumentTypeDetail::createMultiPartType()
     this->m_createFun = [
             optionalField = m_optional, name = m_name
     ](IRequest& request) -> void*{
-        if(request.bodyContentType().startWith(IHttpMimeUtil::toString(IHttpMime::MULTIPART_FORM_DATA))){ // TODO: force little case
+        if(request.contentType().startWith(IHttpMimeUtil::toString(IHttpMime::MULTIPART_FORM_DATA))){ // TODO: force little case
             const auto& value = request.multiPartJar().getMultiPart(name);
             if(!optionalField && (&value == &IMultiPart::Empty)){
                 request.setInvalid(IHttpInternalErrorInvalid("multitype not optional"));
