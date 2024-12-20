@@ -268,7 +268,7 @@ void IRequestImpl::resolveHeaders()
     }
 
     const auto& contentLength = m_headerJar.getRequestHeaderValue(IHttpHeader::ContentLength);
-    if(&contentLength == &IConstantUtil::Empty){
+    if(&contentLength != &IConstantUtil::Empty){
         bool ok;
         m_contentLength = contentLength.value<int>(ok);
         if(!ok){
@@ -376,7 +376,6 @@ void IRequestImpl::resolveMultipartContent()
     if(m_bodyInData){
         m_reqRaw.m_body = IStringView(m_data.m_data + m_data.m_parsedSize, m_data.m_readSize - m_data.m_parsedSize);
     }else{
-        qDebug() << m_data.m_buffer.size() << "size";
         m_reqRaw.m_body = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), m_data.m_buffer.size());
     }
     if(!m_reqRaw.m_body.m_stringView.endWith(m_multipartBoundaryEnd)){
