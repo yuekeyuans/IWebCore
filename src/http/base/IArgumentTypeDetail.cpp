@@ -307,7 +307,9 @@ void IArgumentTypeDetail::createMultiPartType()
         qFatal("position should be empty");
     }
 
-    this->m_createFun = [optionalField = m_optional, name = m_name](IRequest& request) -> void*{
+    this->m_createFun = [
+            optionalField = m_optional, name = m_name
+    ](IRequest& request) -> void*{
         if(request.bodyContentType().startWith(IHttpMimeUtil::toString(IHttpMime::MULTIPART_FORM_DATA))){ // TODO: force little case
             const auto& value = request.multiPartJar().getMultiPart(name);
             if(!optionalField && (&value == &IMultiPart::Empty)){
@@ -393,7 +395,8 @@ void IArgumentTypeDetail::createHeaderType()
         qFatal("error");
     }
     this->m_createFun = [
-            name = m_name,typeName = m_typeName, typeId=m_typeId, optionalField = m_optional, optionalString =m_optionalString
+            name = m_name,typeName = m_typeName, typeId=m_typeId,
+            optionalField = m_optional, optionalString =m_optionalString
     ](IRequest& request) ->void*{
         if(request.impl().m_reqRaw.m_requestHeaders.contain(name)){
             auto ptr = detail::convertPtr(request.impl().m_reqRaw.m_requestHeaders.value(name), typeId, typeName);
@@ -433,11 +436,14 @@ void IArgumentTypeDetail::createBodyType()
     if(!detail::isTypeConvertable(m_typeId, m_typeName)){
         qFatal("not convertable");
     }
-    if(std::find(IConstantUtil::StringTypes.begin(), IConstantUtil::StringTypes.end(), m_name) == IConstantUtil::StringTypes.end()){
+    static const auto& types = IConstantUtil::StringTypes;
+    if(std::find(types.begin(), types.end(), m_name) == types.end()){
         qFatal("type must be string type, check it");
     }
     this->m_createFun = [
-            name=m_name, optionalField=m_optional, optionalString=m_optionalString, typeId=m_typeId, typeName=m_typeName
+            name=m_name, optionalField=m_optional,
+            optionalString=m_optionalString,
+            typeId=m_typeId, typeName=m_typeName
     ](IRequest& req)->void*{
         if(!req.impl().m_reqRaw.m_requestBody.isEmpty()){
             return detail::convertPtr(req.impl().m_reqRaw.m_requestBody, typeId, typeName);
