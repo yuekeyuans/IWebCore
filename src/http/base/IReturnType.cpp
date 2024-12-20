@@ -20,6 +20,7 @@ void *IReturnType::create() const
         return new IJson;
     }
     qFatal(m_typeName.c_str());
+    return nullptr;
 }
 
 void IReturnType::destroy(void *ptr) const
@@ -40,11 +41,6 @@ void IReturnType::destroy(void *ptr) const
         return delete static_cast<IJson*>(ptr);
     }
     qFatal("not supported type");
-}
-
-void IReturnType::resolveValue(IRequestImpl& impl, void *ptr) const
-{
-    m_resolveFunction(impl, ptr);
 }
 
 $PackageWebCoreEnd

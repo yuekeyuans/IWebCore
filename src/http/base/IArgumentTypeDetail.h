@@ -9,7 +9,7 @@ struct IArgumentTypeDetail : public IArgumentType
 {
 public:
     enum Position{
-        Auto, Path, Query, Header, Cookie, Session, Form, Json,
+        Auto, Path, Query, Header, Cookie, Session, Body, Form, Json,
     };
 
 public:

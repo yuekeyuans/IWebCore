@@ -29,16 +29,16 @@ STRING_VIEW_CREATE(double)
 
 template <typename T>
 T detail::string_view_to(const IStringView& str, bool& ok) {
-    T result{};
     if (str.empty()) {
         ok = false;
-        return result;
+        return {};
     }
 
+    T result{};
     auto val = std::from_chars(str.data(), str.data()+str.length(), result);
     if (val.ec != std::errc()) {
         ok = false;
-        return result;
+        return {};
     }
     ok = true;
     return result;
@@ -56,7 +56,7 @@ bool IString::value<bool>(bool& ok) const
         return false;
     }
     ok = false;
-    return !m_stringView.empty();
+    return {};
 }
 
 template<>
@@ -65,6 +65,7 @@ unsigned char IString::value<unsigned char>(bool& ok) const
     auto value = detail::string_view_to<unsigned short>(m_stringView, ok);
     if(ok && value > std::numeric_limits<unsigned char>::max()){
         ok = false;
+        return {};
     }
     return static_cast<unsigned char>(value);
 }
@@ -75,6 +76,7 @@ signed char IString::value<signed char>(bool& ok) const
     auto value = detail::string_view_to<short>(m_stringView, ok);
     if(ok && (value > std::numeric_limits<signed char>::max() || value < std::numeric_limits<signed char>::min())){
         ok = false;
+        return {};
     }
     return static_cast<signed char>(value);
 }

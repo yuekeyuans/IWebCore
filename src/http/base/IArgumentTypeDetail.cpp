@@ -388,12 +388,12 @@ void IArgumentTypeDetail::createHeaderType()
     if(this->m_position != Position::Header){
         return;
     }
+
     if(!detail::isTypeConvertable(m_typeId, m_typeName)){
         qFatal("error");
     }
     this->m_createFun = [
-            name = m_name,typeName = m_typeName, typeId=m_typeId,
-            optionalArgument = m_optional, optionalString =m_optionalString
+            name = m_name,typeName = m_typeName, typeId=m_typeId, optionalField = m_optional, optionalString =m_optionalString
     ](IRequest& request) ->void*{
         if(request.impl().m_reqRaw.m_requestHeaders.contain(name)){
             auto ptr = detail::convertPtr(request.impl().m_reqRaw.m_requestHeaders.value(name), typeId, typeName);
@@ -402,7 +402,7 @@ void IArgumentTypeDetail::createHeaderType()
             }
             return ptr;
         }
-        if(optionalArgument){
+        if(optionalField){
             return detail::convertPtr(optionalString, typeId, typeName);
         }
         request.setInvalid(IHttpInternalErrorInvalid("header field not resolved"));
@@ -427,7 +427,15 @@ void IArgumentTypeDetail::createPathType()
 
 void IArgumentTypeDetail::createBodyType()
 {
-
+    if(this->m_position != Position::Body){
+        return;
+    }
+    if(!detail::isTypeConvertable(m_typeId, m_typeName)){
+        qFatal("error");
+    }
+    this->m_createFun = [](IRequest& req)->void*{
+        return nullptr;
+    };
 }
 
 void IArgumentTypeDetail::createFormType()
