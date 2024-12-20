@@ -7,6 +7,11 @@
 
 $PackageWebCoreBegin
 
+IHttpInvalidWare::IHttpInvalidWare(IHttpStatus code)
+    : status(code), description(IHttpStatusUtil::toStringDescription(code).toStdString())
+{
+}
+
 IHttpInvalidWare::IHttpInvalidWare(IHttpStatus code, const std::string& description)
     : status(code), description(description)
 {

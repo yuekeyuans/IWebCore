@@ -121,6 +121,7 @@ HEADERS += \
     $$PWD/http/invalid/IHttpNotFoundInvalid.h \
     $$PWD/http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.h \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.h \
+    $$PWD/http/invalid/IHttpUriTooLongInvalid.h \
     $$PWD/http/mappings/IHttpAction.h \
     $$PWD/http/mappings/IHttpActionInterface.h \
     $$PWD/http/mappings/IHttpBadRequestAction.h \
@@ -282,6 +283,7 @@ SOURCES += \
     $$PWD/http/invalid/IHttpNotFoundInvalid.cpp \
     $$PWD/http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.cpp \
     $$PWD/http/invalid/IHttpRequestTimeoutInvalid.cpp \
+    $$PWD/http/invalid/IHttpUriTooLongInvalid.cpp \
     $$PWD/http/mappings/IHttpAction.cpp \
     $$PWD/http/mappings/IHttpActionInterface.cpp \
     $$PWD/http/mappings/IHttpBadRequestAction.cpp \

@@ -9,6 +9,7 @@
 #include "http/invalid/IHttpNotFoundInvalid.h"
 #include "http/invalid/IHttpInternalErrorInvalid.h"
 #include "http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.h"
+#include "http/invalid/IHttpUriTooLongInvalid.h"
 #include "http/mappings/IHttpAction.h"
 #include "http/net/IRequest.h"
 #include "http/net/impl/IRequestRaw.h"
@@ -175,9 +176,9 @@ void IRequestImpl::endState()
 
 void IRequestImpl::parseFirstLine(IStringView line)
 {
-    static $UInt urlMaxLength("http.urlMaxLength");
+    static $UInt urlMaxLength{"/http/urlMaxLength", 1024*8};
     if(line.length() >= *urlMaxLength){
-         return setInvalid(IHttpBadRequestInvalid("request url is too long"));
+        return setInvalid(IHttpInvalidWare(IHttpStatus::URI_TOO_LONG_414));
     }
 
     int pos = 0;
@@ -189,7 +190,7 @@ void IRequestImpl::parseFirstLine(IStringView line)
     auto method = line.substr(pos, index);
     m_reqRaw.m_method = IHttpMethodUtil::toMethod(method);
     if(m_reqRaw.m_method == IHttpMethod::UNKNOWN){
-        return setInvalid(IHttpBadRequestInvalid("can not resolve current method type"));
+        return setInvalid(IHttpInvalidWare(IHttpStatus::METHOD_NOT_ALLOWED_405));
     }
     pos = index + 1;
 
@@ -204,7 +205,7 @@ void IRequestImpl::parseFirstLine(IStringView line)
     // version
     m_reqRaw.m_httpVersion = IHttpVersionUtil::toVersion(line.substr(pos));
     if(m_reqRaw.m_httpVersion == IHttpVersion::UNKNOWN){
-        return setInvalid(IHttpBadRequestInvalid("current version is not supported"));
+        return setInvalid(IHttpInvalidWare(IHttpStatus::HTTP_VERSION_NOT_SUPPORTED));
     }
 }
 

@@ -9,6 +9,7 @@ class IHttpInvalidWare
 {
     friend class IInvalidReponseContent;
 public:
+    IHttpInvalidWare(IHttpStatus);
     IHttpInvalidWare(IHttpStatus, const std::string& description);
     virtual ~IHttpInvalidWare() = default;
 
