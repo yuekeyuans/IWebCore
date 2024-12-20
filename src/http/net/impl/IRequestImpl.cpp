@@ -268,8 +268,7 @@ void IRequestImpl::resolveHeaders()
     }
 
     const auto& contentLength = m_headerJar.getRequestHeaderValue(IHttpHeader::ContentLength);
-
-    if(!contentLength.isEmpty()){
+    if(&contentLength == &IConstantUtil::Empty){
         bool ok;
         m_contentLength = contentLength.value<int>(ok);
         if(!ok){
@@ -282,7 +281,7 @@ void IRequestImpl::resolveHeaders()
     }
 
     const auto& contentType = m_headerJar.getRequestHeaderValue(IHttpHeader::ContentType);
-    if(!contentType.isEmpty()){
+    if(&contentType != &IConstantUtil::Empty){
         m_reqRaw.m_mime = IHttpMimeUtil::toMime(contentType);
         if(m_reqRaw.m_mime == IHttpMime::MULTIPART_FORM_DATA){
             m_multipartBoundary = getBoundary(contentType);

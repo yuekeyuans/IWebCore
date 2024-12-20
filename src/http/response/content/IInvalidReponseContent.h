@@ -10,7 +10,6 @@ class IInvalidReponseContent : public IResponseContent
 public:
     IInvalidReponseContent(const IHttpInvalidWare& ware);
 
-
 public:
     inline static const IString Type = "Invalid";
 };
