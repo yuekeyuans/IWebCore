@@ -14,22 +14,20 @@ namespace IConstantUtil
     inline static constexpr bool ReleaseMode = true;
 #endif
 
-    inline static const IString Comma = ": ";
-    inline static const IString Semicolon = ";";
-    inline static const IString NewLine = "\r\n";
-    inline static const IString Equal = "=";
-    inline static const IString Empty {};
-    inline static const IString Space = " ";
+    extern const IString CommaSpace;
+    extern const IString Semicolon;
+    extern const IString NewLine;
+    extern const IString Equal;
+    extern const IString Empty;
+    extern const IString Space;
 
-    inline static const IString Type = "Type";
-    inline static const IString Name = "Name";
-    inline static const IString True = "True";
-    inline static const IString False = "False";
+    extern const IString Type;
+    extern const IString Name;
+    extern const IString True;
+    extern const IString False;
 
-    inline static const std::vector<IString> EmptyVector {};
-    inline static const std::vector<IString> StringTypes = {"IString", "IStringView", "std::string", "QString", "QByteArray"};
-
-
+    extern const std::vector<IString> EmptyVector;
+    extern const std::vector<IString> StringTypes;
 }
 
 $PackageWebCoreEnd

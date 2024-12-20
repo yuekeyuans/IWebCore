@@ -97,7 +97,7 @@ std::vector<IStringView> ICookiePart::toHeaderString() const
     }
 
     ret.push_back(IHttpHeader::SetCookie.m_stringView);
-    ret.push_back(IConstantUtil::Comma.m_stringView);
+    ret.push_back(IConstantUtil::CommaSpace.m_stringView);
     ret.push_back(m_key.m_stringView);
     ret.push_back(IConstantUtil::Equal.m_stringView);
     ret.push_back(m_value.m_stringView);

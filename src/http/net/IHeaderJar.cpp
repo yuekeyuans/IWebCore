@@ -33,6 +33,7 @@ const IString& IHeaderJar::getRequestHeaderValue(const IString& view) const
             return it.value();
         }
     }
+
     return IConstantUtil::Empty;
 }
 

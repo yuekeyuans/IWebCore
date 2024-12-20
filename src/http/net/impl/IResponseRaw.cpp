@@ -57,7 +57,7 @@ std::vector<IStringView> generateHeadersContent(IRequestImpl& m_raw, int content
     std::unordered_map<IString, std::vector<IString>>& headerMap = headers.m_header;
     for(const auto& pair : headerMap){
         ret.push_back(pair.first.m_stringView);
-        ret.push_back(IConstantUtil::Comma.m_stringView);
+        ret.push_back(IConstantUtil::CommaSpace.m_stringView);
         for(const auto& val : pair.second){
             ret.push_back(val.m_stringView);
         }

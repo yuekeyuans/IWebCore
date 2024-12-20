@@ -226,6 +226,7 @@ SOURCES += \
     $$PWD/core/base/IString_value.cpp \
     $$PWD/core/task/default/IRegisterBaseTypeTask.cpp \
     $$PWD/core/util/ICodecUtil.cpp \
+    $$PWD/core/util/IConstantUtil.cpp \
     $$PWD/core/util/IConvertUtil.cpp \
     $$PWD/core/util/IFileUtil.cpp \
     $$PWD/core/util/IHeaderUtil.cpp \

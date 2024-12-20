@@ -268,6 +268,7 @@ void IRequestImpl::resolveHeaders()
     }
 
     const auto& contentLength = m_headerJar.getRequestHeaderValue(IHttpHeader::ContentLength);
+
     if(!contentLength.isEmpty()){
         bool ok;
         m_contentLength = contentLength.value<int>(ok);

@@ -1,7 +1,7 @@
 ﻿{
     "http": {
         "ip": "127.0.0.1",
-        "port": 8565,
+        "port": 8568,
         "printTrace": true,
         "urlMaxLength" : 2083,
         "headerMaxLength":8192,
