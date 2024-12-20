@@ -8,8 +8,6 @@
 #include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/invalid/IHttpNotFoundInvalid.h"
 #include "http/invalid/IHttpInternalErrorInvalid.h"
-#include "http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.h"
-#include "http/invalid/IHttpUriTooLongInvalid.h"
 #include "http/mappings/IHttpAction.h"
 #include "http/net/IRequest.h"
 #include "http/net/impl/IRequestRaw.h"
@@ -248,7 +246,7 @@ void IRequestImpl::parseHeader(IStringView line)
 {
     static $UInt headerMaxLength("/http/headerMaxLength", 8192);
     if(line.length() > *headerMaxLength){
-        return setInvalid(IHttpRequestHeaderFieldTooLargeInvalid());
+        return setInvalid(IHttpInvalidWare(IHttpStatus::REQUEST_HEADER_FIELDS_TOO_LARGE_431));
     }
 
     auto index = line.find(':');
