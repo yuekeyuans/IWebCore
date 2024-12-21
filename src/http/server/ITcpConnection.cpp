@@ -35,22 +35,22 @@ void ITcpConnection::doRead()
 void ITcpConnection::doReadStreamBy(int length)
 {
     // TODO: check whether length are not equal
-    asio::async_read(m_socket, m_data.m_buffer, asio::transfer_exactly(length), [=](std::error_code error, std::size_t length){
-        Q_UNUSED(length)
+    asio::async_read(m_socket, m_data.m_buffer, asio::transfer_exactly(length), [&](std::error_code error, std::size_t length){
         if(error){
             return doDestroy();
         }
+        m_data.m_readSize += length;
         resolveData();
     });
 }
 
 void ITcpConnection::doReadStreamUntil(IStringView data)
 {
-    asio::async_read_until(m_socket, m_data.m_buffer, std::string(data), [=](std::error_code error, std::size_t length){
-        Q_UNUSED(length)
+    asio::async_read_until(m_socket, m_data.m_buffer, std::string(data), [&](std::error_code error, std::size_t length){
         if(error){
             return doDestroy();
         }
+        m_data.m_readSize += length;
         resolveData();
     });
 }

@@ -257,6 +257,11 @@ bool IString::equalIgnoreCase(const IString & data) const
     return m_stringView.equalIgnoreCase(data.m_stringView);
 }
 
+bool IString::containIgnoreCase(const IString &data) const
+{
+    return m_stringView.containIgnoreCase(data.m_stringView);
+}
+
 QString IString::toQString() const
 {
     return m_stringView.toQString();

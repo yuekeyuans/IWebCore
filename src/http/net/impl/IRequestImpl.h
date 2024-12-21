@@ -28,7 +28,7 @@ class IRequestImpl : public IStringViewStash
     friend class IRequest;
 public:
     enum State{
-        FirstLineState, HeaderState, HeaderGapState, BodyState, EndState,
+        FirstLineState, HeaderState, ChunckState, BodyState, EndState,
     };
 
 public:
@@ -41,11 +41,16 @@ public:
 
 private:
     void parseData();
-    void firstLineState(IStringView);
-    void headersState(IStringView);
+    void firstLineState(std::size_t);
+    bool headersState(std::size_t);
+    void chunkedState();
     bool headerGapState();
-    void bodyState();
+    void bodyState(std::size_t);
     void endState();
+
+private:
+    bool prepareToReadContentLengthData();
+    bool prepareToReadChunkedData();
 
 private:
     void parseFirstLine(IStringView);
@@ -54,8 +59,9 @@ private:
     void parseHeader(IStringView);
     void resolveHeaders();      // 解析接收到的头
     void resolveCookieHeaders();
-    void resolveBodyContent();
-    void resolveMultipartContent();
+//    void resolveBodyContent();
+//    void resolveMultipartContent();
+    void resolvePayload();
     void parseUrlEncodedData(IStringView data, bool isBody);
     void parseJsonData(IStringView data);
     void parseMultiPartData(IStringView data);
@@ -89,7 +95,6 @@ public:
 private:
     State m_readState{FirstLineState};
     bool m_bodyInData{true};    // 表示数据存放在 data 上面
-//    int m_contentLength{};
     IStringView m_multipartBoundary;
     IStringView m_multipartBoundaryEnd;
 };

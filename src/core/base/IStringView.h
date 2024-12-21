@@ -10,7 +10,7 @@
 $PackageWebCoreBegin
 
 class IStringViewList;
-class IStringView : public std::string_view, private IRegisterMetaTypeUnit<IStringView>
+class IStringView : public std::string_view
 {
 public:
     IStringView() = default;
@@ -42,18 +42,16 @@ public:
     IStringViewList split(IStringView) const;
     bool startWith(IStringView prefix) const;
     bool endWith(IStringView suffix) const;
-    bool equalIgnoreCase(const std::string_view&) const;
+    bool equalIgnoreCase(IStringView) const;
+    bool containIgnoreCase(IStringView) const;
 };
 
-class IStringViewList : public QList<IStringView>, public IRegisterMetaTypeUnit<IStringViewList>
+class IStringViewList : public QList<IStringView>
 {
 public:
     IStringViewList() = default;
     IStringViewList(QList<IStringView> data);
 };
-
-Q_DECLARE_METATYPE(IStringView)
-Q_DECLARE_METATYPE(IStringViewList)
 
 $PackageWebCoreEnd
 

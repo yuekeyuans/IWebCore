@@ -144,13 +144,13 @@ bool IStringView::startWith(IStringView prefix) const
 
 bool IStringView::endWith(IStringView suffix) const
 {
-//    if(this->size() < suffix.size()){
-//        return false;
-//    }
+    if(this->size() < suffix.size()){
+        return false;
+    }
     return this->substr(this->size() - suffix.size()) == suffix;
 }
 
-bool IStringView::equalIgnoreCase(const std::string_view &data) const
+bool IStringView::equalIgnoreCase(IStringView data) const
 {
     if (this->length() != data.length()) {
         return false;
@@ -171,6 +171,19 @@ bool IStringView::equalIgnoreCase(const std::string_view &data) const
     }
 
     return true;
+}
+
+bool IStringView::containIgnoreCase(IStringView piece) const
+{
+    if (piece.length() > length()) {
+        return false;
+    }
+    if(std::search(this->begin(), this->end(), piece.begin(), piece.end()) != this->end()){
+        return true;
+    }
+    return std::search(this->begin(), this->end(), piece.begin(), piece.end(), [](char a, char b) {
+        return std::tolower(a) == std::tolower(b);
+    }) != this->end();
 }
 
 IStringViewList::IStringViewList(QList<IStringView> data)

@@ -5,7 +5,7 @@ $PackageWebCoreBegin
 
 ITcpConnectionData::ITcpConnectionData()
 {
-    static const $Int MAX_SIZE{"/http/urlHeaderMaxLength", 1024*10};
+    static const $ULong MAX_SIZE{"/http/urlHeaderMaxLength", 1024*10};
 
     // TODO: retrive from cache.
     if(!m_data){
@@ -19,30 +19,23 @@ ITcpConnectionData::~ITcpConnectionData()
     delete []m_data;
 }
 
-bool ITcpConnectionData::getLine(int *value) const
+std::size_t ITcpConnectionData::getLine() const
 {
     auto data = std::string_view(m_data + m_parsedSize, m_readSize-m_parsedSize);
     std::size_t pos = data.find("\r\n");
-    if(pos == std::string_view::npos){
-        return false;
-    }
-
-    value[0] = m_parsedSize;
-    value[1] = pos + 2;
-    return true;
+    return (pos == std::string_view::npos) ? 0 : pos+2;
 }
 
-bool ITcpConnectionData::getBreakSegment(int *value) const
+std::size_t ITcpConnectionData::getBreakSegment() const
 {
     auto data = std::string_view(m_data + m_parsedSize, m_readSize-m_parsedSize);
     std::size_t pos = data.find("\r\n\r\n");
-    if(pos == std::string_view::npos){
-        return false;
-    }
+    return (pos == std::string_view::npos) ? 0 : pos+4;
+}
 
-    value[0] = m_parsedSize;
-    value[1] = pos + 4;
-    return true;
+std::size_t ITcpConnectionData::getUnparsedLength() const
+{
+    return m_readSize-m_parsedSize;
 }
 
 void ITcpConnectionData::resetForReuse()

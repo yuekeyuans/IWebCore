@@ -21,6 +21,7 @@ private:
 
 public:
     std::size_t m_contentLength{};
+    bool m_isChunked{false};
 
 public:
     IString m_url;
