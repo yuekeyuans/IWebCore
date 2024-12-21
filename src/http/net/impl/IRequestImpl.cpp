@@ -94,7 +94,7 @@ void IRequestImpl::headersState(IStringView data)
         return;
     }
 
-    if(m_contentLength || !m_multipartBoundary.empty()){
+    if(m_reqRaw.m_contentLength || !m_multipartBoundary.empty()){
         m_readState = State::HeaderGapState;
     }else{
         m_readState = State::EndState;
@@ -106,18 +106,18 @@ bool IRequestImpl::headerGapState()
 {
     m_readState = BodyState;
     int readLength = m_data.m_readSize - m_data.m_parsedSize;
-    if(m_contentLength){
-        if(m_data.m_parsedSize + m_contentLength < m_data.m_maxSize){   // 表示可以使用 data 空间
-            if(readLength == m_contentLength){
+    if(m_reqRaw.m_contentLength){
+        if(m_data.m_parsedSize + m_reqRaw.m_contentLength < m_data.m_maxSize){   // 表示可以使用 data 空间
+            if(readLength == m_reqRaw.m_contentLength){
                 return true;        // 表示可以直接解析
             }
             m_connection.doRead(); // 继续读取
         }else{
             m_bodyInData = false;   // 表示数据存放在 buffer 中
-            auto data = asio::buffer_cast<char*>(m_data.m_buffer.prepare(m_contentLength));
+            auto data = asio::buffer_cast<char*>(m_data.m_buffer.prepare(m_reqRaw.m_contentLength));
             memcpy(data, m_data.m_data + m_data.m_parsedSize, readLength); // 拷贝数据
             m_data.m_buffer.commit(readLength);
-            m_connection.doReadStreamBy(m_contentLength-readLength);
+            m_connection.doReadStreamBy(m_reqRaw.m_contentLength-readLength);
         }
     }else if(!m_multipartBoundary.empty()){
         IStringView view(m_data.m_data + m_data.m_parsedSize, readLength);
@@ -128,7 +128,7 @@ bool IRequestImpl::headerGapState()
         m_bodyInData = false;
         auto data = asio::buffer_cast<char*>(m_data.m_buffer.prepare(readLength * 2));
         memcpy(data, m_data.m_data + m_data.m_parsedSize, readLength); // 拷贝数据
-        m_connection.doReadStreamBy(m_contentLength-readLength);
+        m_connection.doReadStreamBy(m_reqRaw.m_contentLength-readLength);
         m_data.m_buffer.commit(readLength);
         m_connection.doReadStreamUntil(m_multipartBoundaryEnd);
     }
@@ -137,7 +137,7 @@ bool IRequestImpl::headerGapState()
 
 void IRequestImpl::bodyState()
 {
-    if(m_contentLength){
+    if(m_reqRaw.m_contentLength){
         resolveBodyContent();
     }else if(!m_multipartBoundary.empty()){
         resolveMultipartContent();
@@ -203,7 +203,7 @@ void IRequestImpl::parseFirstLine(IStringView line)
     // version
     m_reqRaw.m_httpVersion = IHttpVersionUtil::toVersion(line.substr(pos));
     if(m_reqRaw.m_httpVersion == IHttpVersion::UNKNOWN){
-        return setInvalid(IHttpInvalidWare(IHttpStatus::HTTP_VERSION_NOT_SUPPORTED));
+        return setInvalid(IHttpInvalidWare(IHttpStatus::HTTP_VERSION_NOT_SUPPORTED_505));
     }
 }
 
@@ -244,7 +244,7 @@ void IRequestImpl::parseHeaders(IStringView data)
 
 void IRequestImpl::parseHeader(IStringView line)
 {
-    static $UInt headerMaxLength("/http/headerMaxLength", 8192);
+    static $UInt headerMaxLength("/http/headerMaxLength", 1024*8);
     if(line.length() > *headerMaxLength){
         return setInvalid(IHttpInvalidWare(IHttpStatus::REQUEST_HEADER_FIELDS_TOO_LARGE_431));
     }
@@ -269,12 +269,12 @@ void IRequestImpl::resolveHeaders()
     const auto& contentLength = m_headerJar.getRequestHeaderValue(IHttpHeader::ContentLength);
     if(&contentLength != &IConstantUtil::Empty){
         bool ok;
-        m_contentLength = contentLength.value<int>(ok);
+        m_reqRaw.m_contentLength = contentLength.value<int>(ok);
         if(!ok){
             return setInvalid(IHttpBadRequestInvalid("ContentLength error"));
         }
-        static $Int bodyMaxLength("/http/bodyMaxLength", 4194304);
-        if(m_contentLength > *bodyMaxLength){
+        static $UInt bodyMaxLength("/http/bodyMaxLength", 4194304);
+        if(m_reqRaw.m_contentLength > *bodyMaxLength){
             return setInvalid(IHttpBadRequestInvalid("Content Length too large to accept"));
         }
     }
@@ -358,12 +358,12 @@ void IRequestImpl::resolveBodyContent()
 {
     if(m_bodyInData){
         auto readSize = m_data.m_readSize - m_data.m_parsedSize;
-        if(m_contentLength != readSize){
+        if(m_reqRaw.m_contentLength != readSize){
             return setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
         }
         m_reqRaw.m_body = IStringView(m_data.m_data + m_data.m_parsedSize, readSize);
     }else{
-        if(m_contentLength != m_data.m_buffer.size()){
+        if(m_reqRaw.m_contentLength != m_data.m_buffer.size()){
             return setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
         }
         m_reqRaw.m_body = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), m_data.m_buffer.size());

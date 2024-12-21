@@ -89,7 +89,7 @@ public:
 private:
     State m_readState{FirstLineState};
     bool m_bodyInData{true};    // 表示数据存放在 data 上面
-    int m_contentLength{};
+//    int m_contentLength{};
     IStringView m_multipartBoundary;
     IStringView m_multipartBoundaryEnd;
 };

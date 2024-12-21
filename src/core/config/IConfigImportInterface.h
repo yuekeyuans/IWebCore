@@ -53,7 +53,6 @@ protected:
     std::string m_path;
     mutable T m_data {};
     mutable ValueMark m_valueMark{};
-
 };
 
 template<typename T>
@@ -125,14 +124,12 @@ const T& IConfigImportInterface<T>::operator *() const
 template<typename T>
 bool IConfigImportInterface<T>::isInitializedValue() const
 {
-//    get();
     return !isLoadedValue() && (m_valueMark.valueType == ValueType::InitializedValue);
 }
 
 template<typename T>
 bool IConfigImportInterface<T>::isDefaultedValue() const
 {
-//    get();
     return !isLoadedValue() && (m_valueMark.valueType == ValueType::DefaultValue);
 }
 

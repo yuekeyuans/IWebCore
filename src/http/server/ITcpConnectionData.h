@@ -20,9 +20,9 @@ public:
 
 public:
     char* m_data{};
-    int m_maxSize{1024*10};
-    int m_readSize{};
-    int m_parsedSize{};
+    uint m_maxSize{1024*10};
+    uint m_readSize{};
+    uint m_parsedSize{};
 
 public:
     asio::streambuf m_buffer; // 存储超过请求的内容，这个表示额外的内容

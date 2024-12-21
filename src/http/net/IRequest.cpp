@@ -81,11 +81,7 @@ IHttpMethod IRequest::method() const
 
 int IRequest::contentLength() const
 {
-    const auto& val = m_impl->m_reqRaw.m_headers.value(IHttpHeader::ContentLength);
-    if(!val){
-        return val.m_stringView.toQString().toInt();
-    }
-    return 0;
+    return m_impl->m_reqRaw.m_contentLength;
 }
 
 const IString& IRequest::contentType() const

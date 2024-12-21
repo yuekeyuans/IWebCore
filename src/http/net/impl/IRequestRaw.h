@@ -20,6 +20,9 @@ private:
     IStringView m_rawPathArgs;
 
 public:
+    std::size_t m_contentLength{};
+
+public:
     IString m_url;
     IString m_body;
     IHttpVersion m_httpVersion {IHttpVersion::UNKNOWN};
