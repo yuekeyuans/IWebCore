@@ -16,8 +16,8 @@ public:
 
 public:
     void doRead();
-    void doReadStreamBy(int length);
-    void doReadStreamUntil(IStringView);
+    void doReadStreamBy(int length, bool isData = true);
+    void doReadStreamUntil(IStringView, bool isData = true);
     void doWrite();
     void doDestroy();
     void doReuse();

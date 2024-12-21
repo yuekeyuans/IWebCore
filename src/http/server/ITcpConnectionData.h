@@ -10,7 +10,7 @@ public:
     ITcpConnectionData();
     ~ITcpConnectionData();
 public:
-    auto getMutableBuffer(){
+    auto getDataBuffer(){
         return asio::buffer(m_data + m_readSize, m_maxSize - m_readSize);
     }
 
@@ -21,6 +21,7 @@ public:
 
 public:
     char* m_data{};
+    bool m_bodyInData{true};    // 表示数据存放在 data 上面
     std::size_t m_maxSize{1024*10};
     std::size_t m_readSize{};
     std::size_t m_parsedSize{};

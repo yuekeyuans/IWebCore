@@ -22,37 +22,57 @@ ITcpConnection::~ITcpConnection()
 
 void ITcpConnection::doRead()
 {
-    m_socket.async_read_some(m_data.getMutableBuffer(), [&](std::error_code error, std::size_t length){
-        if(error){
-            return doDestroy();
-        }
+        m_socket.async_read_some(m_data.getDataBuffer(), [&](std::error_code error, std::size_t length){
+            if(error) {
+                return doDestroy();
+            }
+            m_data.m_readSize += length;
+            resolveData();
+        });
 
-        m_data.m_readSize += length;
-        resolveData();
-    });
 }
 
-void ITcpConnection::doReadStreamBy(int length)
+void ITcpConnection::doReadStreamBy(int length, bool isData)
 {
-    // TODO: check whether length are not equal
-    asio::async_read(m_socket, m_data.m_buffer, asio::transfer_exactly(length), [&](std::error_code error, std::size_t length){
-        if(error){
-            return doDestroy();
-        }
-        m_data.m_readSize += length;
-        resolveData();
-    });
+    if(isData){
+        asio::async_read(m_socket, m_data.getDataBuffer(), asio::transfer_exactly(length), [&](std::error_code error, std::size_t length){
+            if(error){
+                return doDestroy();
+            }
+            m_data.m_readSize += length;
+            resolveData();
+        });
+    }else{
+        asio::async_read(m_socket, m_data.m_buffer, asio::transfer_exactly(length), [&](std::error_code error, std::size_t){
+            if(error){
+                return doDestroy();
+            }
+        });
+    }
 }
 
-void ITcpConnection::doReadStreamUntil(IStringView data)
+void ITcpConnection::doReadStreamUntil(IStringView data, bool isData)
 {
-    asio::async_read_until(m_socket, m_data.m_buffer, std::string(data), [&](std::error_code error, std::size_t length){
-        if(error){
-            return doDestroy();
-        }
-        m_data.m_readSize += length;
-        resolveData();
-    });
+    if(isData){
+        asio::async_read_until(m_socket, m_data.m_buffer, std::string(data), [&](std::error_code error, std::size_t length){
+            if(error){
+                return doDestroy();
+            }
+
+            if(length > m_data.m_maxSize - m_data.m_readSize){
+                return doDestroy();
+            }
+            memcpy(m_data.m_data, m_data.m_buffer.data().data(), length);
+            m_data.m_readSize += length;
+            m_data.m_buffer.consume(m_data.m_buffer.size());
+        });
+    }else{
+        asio::async_read_until(m_socket, m_data.m_buffer, std::string(data), [&](std::error_code error, std::size_t){
+            if(error){
+                return doDestroy();
+            }
+        });
+    }
 }
 
 void ITcpConnection::doWrite()

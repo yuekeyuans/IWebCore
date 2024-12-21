@@ -54,9 +54,9 @@ void IRequestImpl::parseData()
         case State::ChunckState:
             chunkedState();
             break;
-        case BodyState:
+        case ContentState:
             if((length = m_data.getUnparsedLength()) >= m_reqRaw.m_contentLength){
-                bodyState(m_reqRaw.m_contentLength);
+                contentState(m_reqRaw.m_contentLength);
                 break;
             }
         case State::EndState:
@@ -98,7 +98,7 @@ bool IRequestImpl::headersState(uint length)
     }
 
     if(m_reqRaw.m_contentLength){
-        m_readState = State::BodyState;
+        m_readState = State::ContentState;
         if(prepareToReadContentLengthData()){
             return true;
         }
@@ -116,13 +116,13 @@ void IRequestImpl::chunkedState()
     // TODO: 这个先不解析
 }
 
-void IRequestImpl::bodyState(std::size_t length)
+void IRequestImpl::contentState(std::size_t length)
 {
-    if(m_bodyInData){
-        m_reqRaw.m_body = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), length);
-    }else{
+    if(m_data.m_bodyInData){
         m_reqRaw.m_body = IStringView(m_data.m_data+m_data.m_parsedSize, length);
         m_data.m_parsedSize += length;
+    }else{
+        m_reqRaw.m_body = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), length);
     }
 
     resolvePayload();
@@ -140,22 +140,22 @@ void IRequestImpl::endState()
 
 bool IRequestImpl::prepareToReadContentLengthData()
 {
-    int unparsedLength = m_data.getUnparsedLength();
+    auto unparsedLength = m_data.getUnparsedLength();
     if(unparsedLength >= m_reqRaw.m_contentLength){
         return false;
     }
 
     if(m_data.m_parsedSize + m_reqRaw.m_contentLength < m_data.m_maxSize){
         if(unparsedLength < m_reqRaw.m_contentLength){
-            m_connection.doReadStreamBy(m_reqRaw.m_contentLength-unparsedLength);
+            m_connection.doReadStreamBy(m_reqRaw.m_contentLength-unparsedLength, true);
             return true;
         }
     }else{
-        m_bodyInData = false;   // 表示数据存放在 buffer 中
+        m_data.m_bodyInData = false;   // 表示数据存放在 buffer 中
         auto data = asio::buffer_cast<char*>(m_data.m_buffer.prepare(m_reqRaw.m_contentLength));
         memcpy(data, m_data.m_data + m_data.m_parsedSize, unparsedLength); // 拷贝数据
         m_data.m_buffer.commit(unparsedLength);
-        m_connection.doReadStreamBy(m_reqRaw.m_contentLength-unparsedLength);
+        m_connection.doReadStreamBy(m_reqRaw.m_contentLength-unparsedLength, false);
         return true;
     }
     return false;
@@ -256,15 +256,36 @@ void IRequestImpl::parseHeader(IStringView line)
     if(line.length() > *headerMaxLength){
         return setInvalid(IHttpInvalidWare(IHttpStatus::REQUEST_HEADER_FIELDS_TOO_LARGE_431));
     }
-
     auto index = line.find(':');
     if(index == std::string_view::npos){
         return setInvalid(IHttpBadRequestInvalid("server do not support headers item multiline, or without key/value pair"));  // SEE: 默认不支持 headers 换行书写
     }
-
     auto key = line.substr(0, index).trimmed();
     auto value = line.substr(index+1).trimmed();
-    m_reqRaw.m_headers.insert(key, value);
+
+    if(key.equalIgnoreCase(IHttpHeader::Cookie)){
+        return parseCookie(value);
+    }
+    if(m_headerJar.containRequestHeaderKey(key)){
+        return m_request.setInvalid(IHttpBadRequestInvalid("header duplicated"));
+    }
+    m_reqRaw.m_headers[std::move(key)] = std::move(value);
+}
+
+void IRequestImpl::parseCookie(IStringView cookie)
+{
+    auto pairs = cookie.split(IConstantUtil::Semicolon);
+    for(auto pair : pairs){
+        auto val = pair.trimmed();
+        if(!val.empty()){
+            auto args = val.split(IConstantUtil::Equal);
+            if(args.length() == 1){
+                m_reqRaw.m_cookies.insertMulti(stash(args.first()), stash(args.first()));
+            }else{
+                m_reqRaw.m_cookies.insertMulti(stash(args.first()), stash(args.last()));
+            }
+        }
+    }
 }
 
 void IRequestImpl::resolveHeaders()
@@ -300,27 +321,6 @@ void IRequestImpl::resolveHeaders()
                 return setInvalid(IHttpBadRequestInvalid("multipart request has no boundary"));
             }
             m_multipartBoundaryEnd = stash(m_multipartBoundary.toQByteArray() + "--");
-        }
-    }
-
-    resolveCookieHeaders();
-}
-
-void IRequestImpl::resolveCookieHeaders()
-{
-    auto cookies = m_reqRaw.m_headers.values(IHttpHeader::Cookie);
-    for(const auto& cookie : cookies){
-        auto pairs = cookie.split(IConstantUtil::Semicolon);
-        for(auto pair : pairs){
-            auto val = pair.trimmed();
-            if(!val.empty()){
-                auto args = val.split(IConstantUtil::Equal);
-                if(args.length() == 1){
-                    m_reqRaw.m_cookies.insertMulti(stash(args.first()), stash(args.first()));
-                }else{
-                    m_reqRaw.m_cookies.insertMulti(stash(args.first()), stash(args.last()));
-                }
-            }
         }
     }
 }
