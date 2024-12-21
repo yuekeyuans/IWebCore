@@ -41,6 +41,7 @@ public:
 
 private:
     void parseData();
+    bool doFirstLineState();
     void firstLineState(std::size_t);
     bool headersState(std::size_t);
     void chunkedState();

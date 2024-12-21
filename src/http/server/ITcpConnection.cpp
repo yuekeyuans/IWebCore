@@ -22,14 +22,13 @@ ITcpConnection::~ITcpConnection()
 
 void ITcpConnection::doRead()
 {
-        m_socket.async_read_some(m_data.getDataBuffer(), [&](std::error_code error, std::size_t length){
-            if(error) {
-                return doDestroy();
-            }
-            m_data.m_readSize += length;
-            resolveData();
-        });
-
+    m_socket.async_read_some(m_data.getDataBuffer(), [&](std::error_code error, std::size_t length){
+        if(error) {
+            return doDestroy();
+        }
+        m_data.m_readSize += length;
+        resolveData();
+    });
 }
 
 void ITcpConnection::doReadStreamBy(int length, bool isData)
@@ -47,6 +46,7 @@ void ITcpConnection::doReadStreamBy(int length, bool isData)
             if(error){
                 return doDestroy();
             }
+            resolveData();
         });
     }
 }
@@ -62,15 +62,17 @@ void ITcpConnection::doReadStreamUntil(IStringView data, bool isData)
             if(length > m_data.m_maxSize - m_data.m_readSize){
                 return doDestroy();
             }
+            m_data.m_buffer.consume(m_data.m_buffer.size());
             memcpy(m_data.m_data, m_data.m_buffer.data().data(), length);
             m_data.m_readSize += length;
-            m_data.m_buffer.consume(m_data.m_buffer.size());
+            resolveData();
         });
     }else{
         asio::async_read_until(m_socket, m_data.m_buffer, std::string(data), [&](std::error_code error, std::size_t){
             if(error){
                 return doDestroy();
             }
+            resolveData();
         });
     }
 }
@@ -78,10 +80,6 @@ void ITcpConnection::doReadStreamUntil(IStringView data, bool isData)
 void ITcpConnection::doWrite()
 {
     auto result = m_resolver->getOutput();
-//    for(const auto& data : result){
-//        IStringUtil::print(data);
-//    }
-
     asio::async_write(m_socket, result, [=](std::error_code err, int){
         if(!m_closeConnection && !err){
             return doReuse();
@@ -113,16 +111,7 @@ void ITcpConnection::resolveData()
     if(!m_resolver){
         m_resolver = ITcpResolverManage::instance()->createResolver(*this);
     }
-
-    if(m_resolver){
-        m_resolver->resolve();
-    }else{
-        if(m_data.m_readSize > 4){
-            doDestroy();
-        }else{
-            doRead();
-        }
-    }
+    m_resolver->resolve();
 }
 
 $PackageWebCoreEnd

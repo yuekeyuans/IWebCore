@@ -435,15 +435,12 @@ void IRequestImpl::parseUrlEncodedData(IStringView view, bool isBody)
     }
 }
 
-// TODO: check it;
 void IRequestImpl::parseJsonData(IStringView data)
 {
-//    auto val = IJsonUtil::toJsonValue(data);
-//    if(!val){
-//        m_request->setInvalid(IHttpBadRequestInvalid("parse json failed"));
-//    }else{
-//        m_raw->m_requestJson = *std::move(val);
-//    }
+    m_reqRaw.m_json = IJson::parse(data.begin(), data.end(), nullptr, true);
+    if(m_reqRaw.m_json.is_discarded()){
+        setInvalid(IHttpBadRequestInvalid("json error"));
+    }
 }
 
 void IRequestImpl::parseMultiPartData(IStringView data)

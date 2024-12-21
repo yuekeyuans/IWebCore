@@ -58,3 +58,10 @@ def test_BodyType():
     print(val.status_code)  
     assert val.status_code == 200
     assert val.text == "name=test"
+
+
+def test_bodyJson():
+    val = requests.post(serverAddress + "/BasicArgument/bodyJson", json={"name": "test"})
+    print(val.text)
+    print(val.status_code)  
+    assert val.status_code == 200

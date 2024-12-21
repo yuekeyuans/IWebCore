@@ -37,5 +37,10 @@ public:
     QString bodyType(QString $Body(body)){
         return body;
     }
+
+    $PostMapping(bodyJson)
+    std::string bodyJson(IRequest& req){
+        return req.bodyJson().dump(4);
+    }
 };
 
