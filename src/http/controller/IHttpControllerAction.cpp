@@ -24,7 +24,6 @@ void IHttpControllerAction::invoke(IRequest &request) const
     request.doWrite();
 }
 
-
 IHttpControllerAction::ParamType IHttpControllerAction::createParams(IRequest& request) const
 {
     ParamType params;

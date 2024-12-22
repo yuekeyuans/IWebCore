@@ -415,7 +415,24 @@ bool IArgumentTypeDetail::createDecorateTypes()
 
 void IArgumentTypeDetail::createQueryType()
 {
-
+    if(this->m_position != Position::Query){
+        return;
+    }
+    if(!detail::isTypeConvertable(m_typeId, m_typeName)){
+        qFatal("not convertable");
+    }
+    auto self = *this;
+    this->m_createFun = [=](IRequest& req)->void*{
+        if(req.impl().m_reqRaw.m_queries.contains(self.m_name.m_stringView)){
+            auto data = req.impl().m_reqRaw.m_queries[self.m_name];
+            return detail::convertPtr(data, self.m_typeId, self.m_typeName);
+        }
+        if(self.m_optional){
+            return detail::convertPtr(self.m_optionalString, self.m_typeId, self.m_typeName);
+        }
+        req.setInvalid(IHttpInternalErrorInvalid("not found arg"));
+        return nullptr;
+    };
 }
 
 void IArgumentTypeDetail::createHeaderType()
@@ -532,7 +549,7 @@ void IArgumentTypeDetail::createFormType()
         }
         req.setInvalid(IHttpInternalErrorInvalid("not found arg"));
         return nullptr;
-    };\
+    };
 }
 
 void IArgumentTypeDetail::createJsonType()
