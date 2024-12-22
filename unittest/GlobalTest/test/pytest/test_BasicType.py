@@ -107,3 +107,10 @@ def test_formData():
     print(val.status_code)  
     assert val.status_code == 200
     assert val.text == "test"
+
+def test_formData2():
+    val = requests.post(serverAddress + "/BasicArgument/formData", data={"name": "中文", "data": "inner"})
+    print(val.text)
+    print(val.status_code)  
+    assert val.status_code == 200
+    assert val.text == "中文"

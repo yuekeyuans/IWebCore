@@ -67,7 +67,7 @@ public:
     $PostMapping(formData)
     std::string formData(std::string $Form(name))
     {
-        qDebug() << "name" << name;
+        qDebug() << "name" << QString::fromStdString(name);
         return name;
     }
 };
