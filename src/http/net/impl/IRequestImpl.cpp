@@ -43,9 +43,13 @@ void IRequestImpl::parseData()
                 firstLineState(length);
                 break;
             }
+            if(m_data.isDataFull()){
+                setInvalid(IHttpBadRequestInvalid("first line error"));
+                break;
+            }
             return m_connection.doRead();
         case State::HeaderState:
-            if((length = m_data.getBreakSegment())){
+            if((length = m_data.getBreakSegment())){    // TODO: 明天改这个
                 if(headersState(length)){
                     return;
                 }
@@ -151,7 +155,7 @@ bool IRequestImpl::prepareToReadContentLengthData()
             return true;
         }
     }else{
-        m_data.m_bodyInData = false;   // 表示数据存放在 buffer 中
+        m_data.m_bodyInData = false;
         auto data = asio::buffer_cast<char*>(m_data.m_buffer.prepare(m_reqRaw.m_contentLength));
         memcpy(data, m_data.m_data + m_data.m_parsedSize, unparsedLength); // 拷贝数据
         m_data.m_buffer.commit(unparsedLength);

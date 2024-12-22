@@ -30,6 +30,25 @@ def test_cookiePart():
     print(val.text)
     print(val.status_code)  
 
+def test_cookieString():
+    val = requests.get(serverAddress + "/BasicArgument/cookieString", cookies={"name": "cookie"})
+    assert val.status_code == 200
+    assert val.text == "cookie"
+    print(val.text)
+    print(val.status_code)
+
+def test_cookiesStrings():
+    session = requests.Session()
+
+    # Set cookies in the session
+    session.cookies.set('names', 'cookie_value1')
+    session.cookies.set('names', 'cookie_value2')
+    val = session.get(serverAddress + "/BasicArgument/cookiesString")
+    assert val.status_code == 200
+    # assert val.text == "cookie; name1=cookie1"
+    print(val.text)
+    print(val.status_code)
+
 def test_cookiePartEmpty():
     val = requests.get(serverAddress + "/BasicArgument/cookiePart", cookies={"name1": "cookie"})
     assert val.status_code == 500

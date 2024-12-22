@@ -38,6 +38,11 @@ std::size_t ITcpConnectionData::getUnparsedLength() const
     return m_readSize-m_parsedSize;
 }
 
+bool ITcpConnectionData::isDataFull()
+{
+    return m_readSize == m_maxSize;
+}
+
 void ITcpConnectionData::resetForReuse()
 {
     // TODO: do nothing, but clear now;

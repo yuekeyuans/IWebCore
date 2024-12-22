@@ -17,6 +17,7 @@ public:
     std::size_t getLine() const;
     std::size_t getBreakSegment() const;
     std::size_t getUnparsedLength() const;
+    bool isDataFull();
     void resetForReuse();
 
 public:

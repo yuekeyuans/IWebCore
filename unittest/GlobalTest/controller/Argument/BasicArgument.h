@@ -27,6 +27,16 @@ public:
         return name.m_value.toQString();
     }
 
+    $GetMapping(cookieString)
+    QString cookieString(QString $Cookie(name)){
+        return name;
+    }
+
+    $GetMapping(cookiesString)
+    QString cookiesString(QStringList $Cookie(names)){
+        return names.join(",");
+    }
+
     $GetMapping(headerType)
     QString headerType(IString $Header(MyHeader));
 

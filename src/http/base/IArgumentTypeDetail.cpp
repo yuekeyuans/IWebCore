@@ -18,6 +18,17 @@ $PackageWebCoreBegin
 
 namespace detail
 {
+    static bool isMultipleType(QMetaType::Type typeId, const IString& typeName)
+    {
+        if(typeId == QMetaType::QStringList){
+            return true;
+        }
+        if(typeName == "QList<IString>"){
+            return true;
+        }
+        return false;
+    }
+
     static bool isTypeConvertable(QMetaType::Type typeId, const IString& typeName)
     {
         static QList<QMetaType::Type> types = {
@@ -27,11 +38,27 @@ namespace detail
             QMetaType::Float, QMetaType::Double, QMetaType::QString, QMetaType::QByteArray,
         };
         static QList<IString> typeNames = {
-            "IString", "std::string", "IStringView"
+            "IString", "std::string", "IStringView", "QList<IString>", "QStringList"
         };
         return types.contains(typeId) || typeNames.contains(typeName);
     }
 
+    static void* convertPtr(const QList<IString>& data, QMetaType::Type typeId, const IString& typeName)
+    {
+        if(typeId == QMetaType::QStringList){
+            auto ret = new QStringList;
+            for(const auto& val : data){
+                ret->append(val.toQString());
+            }
+            return ret;
+        }
+        if(typeName == "QList<IString>") {
+            return new QList<IString>(data);
+        }
+        qFatal("not supported");
+    }
+
+    // TODO: 这里考虑一下支持转换到 QStringList 之类的内容
     static void* convertPtr(const IString& data, QMetaType::Type typeId, const IString& typeName)
     {
         switch (typeId) {
@@ -115,6 +142,8 @@ namespace detail
             return delete static_cast<QString*>(ptr);
         case QMetaType::QByteArray:
             return delete static_cast<QByteArray*>(ptr);
+        case QMetaType::QStringList:
+            return delete static_cast<QStringList*>(ptr);
         default:
             break;
         }
@@ -124,6 +153,8 @@ namespace detail
             return delete static_cast<std::string*>(ptr);
         }else if(typeName == "IStringView"){
             return delete static_cast<IStringView*>(ptr);
+        }else if(typeName == "QList<IString>"){
+            return delete static_cast<QList<IString>*>(ptr);
         }
 
         qFatal("error");
@@ -334,12 +365,13 @@ void IArgumentTypeDetail::createCookiePartType()
         qFatal("in cookiepart, no optional variable needed"); // optional 不需要给定参数值,默认是 Empty
     }
 
-    this->m_createFun = [optionalField = m_optional, name = m_name](IRequest& request) -> void*{
-        if(request.impl().m_reqRaw.m_cookies.contains(name)){
-            const auto& value = request.impl().m_reqRaw.m_cookies.value(name);
-            return new ICookiePart(name, value.m_stringView);
+    auto self = *this;
+    this->m_createFun = [=](IRequest& request) -> void*{
+        if(request.impl().m_reqRaw.m_cookies.contains(self.m_name)){
+            const auto& value = request.impl().m_reqRaw.m_cookies.value(self.m_name);
+            return new ICookiePart(self.m_name, value.m_stringView);
         }
-        if(optionalField){
+        if(self.m_optional){
             return static_cast<void*>(const_cast<ICookiePart*>(&ICookiePart::Empty));
         }
         request.setInvalid(IHttpInternalErrorInvalid("cookie not optional"));
@@ -419,16 +451,27 @@ void IArgumentTypeDetail::createCookieType()
     }
     auto self = *this;
     this->m_createFun = [=](IRequest& request) ->void*{
-//        if(request.impl().m_reqRaw.m_cookies.contain(name)){
-//            auto ptr = detail::convertPtr(request.impl().m_reqRaw.m_cookies.value(name), typeId, typeName);
-//            if(!ptr){
-//                request.setInvalid(IHttpBadRequestInvalid("header field value not proper"));
-//            }
-//            return ptr;
-//        }
-//        if(optionalField){
-//            return detail::convertPtr(optionalString, typeId, typeName);
-//        }
+        if(detail::isMultipleType(self.m_typeId, self.m_typeName)){
+            auto values = request.impl().m_reqRaw.m_cookies.values(self.m_name);
+            if(!values.isEmpty()){
+                return detail::convertPtr(values, self.m_typeId, self.m_typeName);
+            }
+            if(self.m_optional){
+                return detail::convertPtr(QList<IString>{}, self.m_typeId, self.m_typeName);
+            }
+            request.setInvalid(IHttpInternalErrorInvalid("cookie missed"));
+            return nullptr;
+        }else{
+            if(request.impl().m_reqRaw.m_cookies.contains(self.m_name)){
+                auto value = request.impl().m_reqRaw.m_cookies.value(self.m_name);
+                return detail::convertPtr(value, self.m_typeId, self.m_typeName);
+            }
+            if(self.m_optional){
+                return detail::convertPtr(self.m_optionalString, self.m_typeId, self.m_typeName);
+            }
+            request.setInvalid(IHttpInternalErrorInvalid("cookie not found"));
+            return nullptr;
+        }
         return nullptr;
     };
 }
