@@ -84,3 +84,26 @@ def test_bodyJson():
     print(val.text)
     print(val.status_code)  
     assert val.status_code == 200
+    assert val.json()["name"] == "test"
+
+
+def test_payloadJson():
+    val = requests.post(serverAddress + "/BasicArgument/payloadJson", json={"name": "test"})
+    print(val.text)
+    print(val.status_code)  
+    assert val.status_code == 200
+    assert val.json()["name"] == "test"
+
+def test_innerJson():
+    val = requests.post(serverAddress + "/BasicArgument/innerJson", json={"name": "test", "data": {"name": "inner"}})
+    print(val.text)
+    print(val.status_code)  
+    assert val.status_code == 200
+    assert val.text == '{"name":"inner"}'
+    
+def test_formData():
+    val = requests.post(serverAddress + "/BasicArgument/formData", data={"name": "test", "data": "inner"})
+    print(val.text)
+    print(val.status_code)  
+    assert val.status_code == 200
+    assert val.text == "test"

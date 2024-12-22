@@ -388,55 +388,48 @@ void IRequestImpl::resolvePayload()
 //    m_request->setInvalid(IHttpNotFoundInvalid(std::move(info)));
 //}
 
-//void IRequestImpl::resolveBodyContent()
-//{
-//    if(m_bodyInData){
-//        auto readSize = m_data.m_readSize - m_data.m_parsedSize;
-//        if(m_reqRaw.m_contentLength != readSize){
-//            return setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
-//        }
-//        m_reqRaw.m_body = IStringView(m_data.m_data + m_data.m_parsedSize, readSize);
-//    }else{
-//        if(m_reqRaw.m_contentLength != m_data.m_buffer.size()){
-//            return setInvalid(IHttpBadRequestInvalid("content-length mismatch"));
-//        }
-//        m_reqRaw.m_body = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), m_data.m_buffer.size());
-//    }
-//}
-
-//void IRequestImpl::resolveMultipartContent()
-//{
-//    if(m_bodyInData){
-//        m_reqRaw.m_body = IStringView(m_data.m_data + m_data.m_parsedSize, m_data.m_readSize - m_data.m_parsedSize);
-//    }else{
-//        m_reqRaw.m_body = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), m_data.m_buffer.size());
-//    }
-//    if(!m_reqRaw.m_body.m_stringView.endWith(m_multipartBoundaryEnd)){
-//        setInvalid(IHttpBadRequestInvalid("multipart data do not have end tag"));
-//    }
-//}
-
 void IRequestImpl::parseUrlEncodedData(IStringView view, bool isBody)
 {
-    IStringView data = stash(QByteArray::fromPercentEncoding(QByteArray(view.data(), view.length())));
-    int pos{};
-    for(;;){
-        auto index = data.find_first_of("&", pos);
-        if(index == IStringView::npos){
-            break;
+    auto parts = view.split("&");
+    for(auto part : parts){
+        if(part.empty()){
+            continue;
         }
-        auto value = data.substr(pos, index).trimmed();
-        auto partIndex = value.find_first_of('=');
-        if(partIndex == IStringView::npos){
-            setInvalid(IHttpBadRequestInvalid("the parameters in body should be pair"));
+        IStringViewList pair = part.split("=");
+        if(pair.length() != 2){
+            setInvalid(IHttpBadRequestInvalid("form data error"));
+            return;
         }
+        pair.first().trimmed();
+        pair.last().trimmed();
+        auto key = stash(QByteArray::fromPercentEncoding(QByteArray(pair.first().data(), pair.first().length())));
+        auto value = stash(QByteArray::fromPercentEncoding(QByteArray(pair.last().data(), pair.last().length())));
         if(isBody){
-            m_reqRaw.m_forms[value.substr(0, partIndex).trimmed()] = value.substr(partIndex + 1).trimmed();
+            m_reqRaw.m_forms[key] = value;
         }else{
-            m_reqRaw.m_paths[value.substr(0, partIndex).trimmed()] = value.substr(partIndex + 1).trimmed();
+            m_reqRaw.m_paths[key] = value;
         }
-        pos = index+1;
     }
+
+//    IStringView data = stash(QByteArray::fromPercentEncoding(QByteArray(view.data(), view.length())));
+//    int pos{};
+//    for(;;){
+//        auto index = data.find_first_of("&", pos);
+//        if(index == IStringView::npos){
+//            break;
+//        }
+//        auto value = data.substr(pos, index).trimmed();
+//        auto partIndex = value.find_first_of('=');
+//        if(partIndex == IStringView::npos){
+//            setInvalid(IHttpBadRequestInvalid("the parameters in body should be pair"));
+//        }
+//        if(isBody){
+//            m_reqRaw.m_forms[value.substr(0, partIndex).trimmed()] = value.substr(partIndex + 1).trimmed();
+//        }else{
+//            m_reqRaw.m_paths[value.substr(0, partIndex).trimmed()] = value.substr(partIndex + 1).trimmed();
+//        }
+//        pos = index+1;
+//    }
 }
 
 void IRequestImpl::parseJsonData(IStringView data)

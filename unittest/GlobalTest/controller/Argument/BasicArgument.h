@@ -50,7 +50,25 @@ public:
 
     $PostMapping(bodyJson)
     std::string bodyJson(IRequest& req){
-        return req.bodyJson().dump(4);
+        return req.bodyJson().dump();
+    }
+
+    $PostMapping(payloadJson)
+    std::string payloadJson(IJson value){
+        return value.dump();
+    }
+
+    $PostMapping(innerJson)
+    std::string innerJson(IJson $Json(data))
+    {
+        return data.dump();
+    }
+
+    $PostMapping(formData)
+    std::string formData(std::string $Form(name))
+    {
+        qDebug() << "name" << name;
+        return name;
     }
 };
 

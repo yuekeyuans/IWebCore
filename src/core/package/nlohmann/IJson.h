@@ -6,8 +6,5 @@
 $PackageWebCoreBegin
 
 using IJson = nlohmann::json;
-Q_DECLARE_METATYPE(IJson)
-
-Q_DECLARE_METATYPE(std::string)
 
 $PackageWebCoreEnd

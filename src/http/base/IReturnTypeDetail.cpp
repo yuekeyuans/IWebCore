@@ -104,8 +104,6 @@ void IReturnTypeDetail::createStatusFun()
     }
 }
 
-//#include <iostream>
-
 void IReturnTypeDetail::createStdStringFun()
 {
     if(m_typeId == QMetaType::UnknownType && m_typeName == "std::string"){

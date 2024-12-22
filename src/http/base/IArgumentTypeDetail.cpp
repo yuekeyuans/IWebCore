@@ -402,9 +402,11 @@ bool IArgumentTypeDetail::createDecorateTypes()
         if(this->m_createFun){
             auto typeId = m_typeId;
             auto typeName = m_typeName;
-            this->m_destroyFun = [=](void* ptr){
-                detail::deletePtr(ptr, typeId, typeName);
-            };
+            if(!this->m_destroyFun){
+                this->m_destroyFun = [=](void* ptr){
+                    detail::deletePtr(ptr, typeId, typeName);
+                };
+            }
             return true;
         }
     }
@@ -509,12 +511,65 @@ void IArgumentTypeDetail::createBodyType()
 
 void IArgumentTypeDetail::createFormType()
 {
-
+    if(this->m_position != Position::Form){
+        return;
+    }
+    if(!detail::isTypeConvertable(m_typeId, m_typeName)){
+        qFatal("not convertable");
+    }
+    auto self = *this;
+    this->m_createFun = [=](IRequest& req)->void*{
+        if(req.mime() != IHttpMime::APPLICATION_WWW_FORM_URLENCODED){
+            req.setInvalid(IHttpInternalErrorInvalid("request should be form data"));
+            return nullptr;
+        }
+        if(req.impl().m_reqRaw.m_forms.contains(self.m_name.m_stringView)){
+            auto data = req.impl().m_reqRaw.m_forms[self.m_name];
+            return detail::convertPtr(data, self.m_typeId, self.m_typeName);
+        }
+        if(self.m_optional){
+            return detail::convertPtr(self.m_optionalString, self.m_typeId, self.m_typeName);
+        }
+        req.setInvalid(IHttpInternalErrorInvalid("not found arg"));
+        return nullptr;
+    };\
 }
 
 void IArgumentTypeDetail::createJsonType()
 {
+    if(m_typeName != "IJson"){
+        return;
+    }
+    if(m_position != Position::Auto && m_position != Position::Json){
+        qFatal("IJson type postion must not exist or be $Json");
+    }
+    if(m_optional){
+        qFatal("IJson can not be optional currently");
+    }
 
+    auto self = *this;
+    auto pointer = createJsonPointer(m_name);
+    this->m_createFun = [=](IRequest& request)->void*{
+        if(request.mime() != IHttpMime::APPLICATION_JSON
+                && request.mime() != IHttpMime::APPLICATION_JSON_UTF8){
+            request.setInvalid(IHttpInternalErrorInvalid("request do not contain json payload"));
+            return nullptr;
+        }
+        const auto& json = request.impl().m_reqRaw.m_json;
+        if(self.m_position == Position::Auto){
+            return const_cast<IJson*>(&json);
+        }
+        if(json.contains(pointer)){
+            return new IJson(json[pointer]);
+        }
+        request.setInvalid(IHttpInternalErrorInvalid("not found json"));
+        return nullptr;
+    };
+    this->m_destroyFun = [=](void* ptr){
+        if(self.m_position == Position::Json){
+            delete static_cast<IJson*>(ptr);
+        }
+    };
 }
 
 bool IArgumentTypeDetail::createBeanTypes()
@@ -534,6 +589,16 @@ QVector<IString> IArgumentTypeDetail::makeTypes(const std::string &name)
         std::string($PackageWebCoreName) + "::" + name,
         std::string($PackageWebCoreName) + "::" + name + "&"
     };
+}
+
+IJson::json_pointer IArgumentTypeDetail::createJsonPointer(const IString & data)
+{
+    QString path = data.toQString().replace("$", "/");
+    if(!path.startsWith("/")){
+        path = "/"+path;
+    }
+    IJson::json_pointer pointer(path.toStdString());
+    return pointer;
 }
 
 namespace ISpawnUtil {

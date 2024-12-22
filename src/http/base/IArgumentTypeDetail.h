@@ -57,6 +57,7 @@ private:
 
 private:
     QVector<IString> makeTypes(const std::string&);
+    IJson::json_pointer createJsonPointer(const IString&);
 };
 
 $PackageWebCoreEnd
