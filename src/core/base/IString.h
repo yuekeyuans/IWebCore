@@ -83,11 +83,7 @@ private:
     void moveFrom(IString&& other) noexcept;
 
 private:
-    union {
-        QByteArray m_qByteArray;
-        std::string m_stdString;
-    };
-
+    void* m_data{};
     Type m_type{Type::IStringView};
 
 public:

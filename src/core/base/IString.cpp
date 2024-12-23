@@ -7,10 +7,11 @@ IString::IString() : m_type(Type::IStringView) {}
 IString::~IString()
 {
     if(m_type == Type::QByteArray){
-        m_qByteArray.~QByteArray();
+        delete static_cast<QByteArray*>(m_data);
     }else if(m_type == Type::StdString){
-        m_stdString.~basic_string();
+        delete static_cast<std::string*>(m_data);
     }
+    m_data = nullptr;
 }
 
 IString::IString(const IString& other)
@@ -60,35 +61,33 @@ IString::IString(const std::string * stdStringPtr)
 IString::IString(const char * data)
     : m_type(Type::StdString)
 {
-    new (&m_stdString) std::string(data);
-    m_stringView = IStringView(m_stdString);
+    m_data = new std::string(data);
+    m_stringView = IStringView(*static_cast<std::string*>(m_data));
 }
-
 
 IString::IString(const QByteArray& byteArray)
     : m_type(Type::QByteArray)
 {
-    new (&m_qByteArray) QByteArray(byteArray);
-    m_stringView = IStringView(m_qByteArray);
+    m_data = new QByteArray(byteArray);
+    m_stringView = IStringView(*static_cast<QByteArray*>(m_data));
 }
 
-// this can be optimised
 IString::IString(QByteArray&& byteArray) noexcept : m_type(Type::QByteArray)
 {
-    new (&m_qByteArray) QByteArray(std::move(byteArray));
-    m_stringView = IStringView(m_qByteArray);
+    m_data = new QByteArray(std::move(byteArray));
+    m_stringView = IStringView(*static_cast<QByteArray*>(m_data));
 }
 
 IString::IString(const std::string& stdString) : m_type(Type::StdString)
 {
-    new (&m_stdString) std::string(stdString);
-    m_stringView = IStringView(m_stdString);
+    m_data = new std::string(stdString);
+    m_stringView = IStringView(*static_cast<std::string*>(m_data));
 }
 
 IString::IString(std::string&& stdString) noexcept : m_type(Type::StdString)
 {
-    new (&m_stdString) std::string(std::move(stdString));
-    m_stringView = IStringView(m_stdString);
+    m_data = new std::string(std::move(stdString));
+    m_stringView = IStringView(*static_cast<std::string*>(m_data));
 }
 
 IString::IString(IStringView stringView)
@@ -124,49 +123,49 @@ IString &IString::operator=(const char *value)
 {
     clear();
     m_type = Type::QByteArray;
-    new(&m_qByteArray) QByteArray(value);
-    m_stringView = IStringView(m_qByteArray);
+    m_data = new std::string(value);
+    m_stringView = IStringView(*static_cast<std::string*>(m_data));
     return *this;
 }
 
 IString &IString::operator=(const QString & qstring)
 {
     clear();
-    m_type = Type::QByteArray;
-    new (&m_qByteArray) QByteArray(qstring.toUtf8());
-    m_stringView = IStringView(m_qByteArray);
+    m_type = Type::StdString;
+    m_data = new std::string(qstring.toStdString());
+    m_stringView = IStringView(*static_cast<std::string*>(m_data));
     return *this;
 }
 
 IString& IString::operator=(const QByteArray& byteArray) {
     clear();
     m_type = Type::QByteArray;
-    new (&m_qByteArray) QByteArray(byteArray);
-    m_stringView = IStringView(m_qByteArray);
+    m_data = new QByteArray(byteArray);
+    m_stringView = IStringView(*static_cast<QByteArray*>(m_data));
     return *this;
 }
 
 IString& IString::operator=(QByteArray&& byteArray) noexcept {
     clear();
     m_type = Type::QByteArray;
-    new (&m_qByteArray) QByteArray(std::move(byteArray));
-    m_stringView = IStringView(m_qByteArray);
+    m_data = new QByteArray(std::move(byteArray));
+    m_stringView = IStringView(*static_cast<QByteArray*>(m_data));
     return *this;
 }
 
 IString& IString::operator=(const std::string& stdString) {
     clear();
     m_type = Type::StdString;
-    new (&m_stdString) std::string(stdString);
-    m_stringView = IStringView(m_stdString);
+    m_data = new std::string(stdString);
+    m_stringView = IStringView(*static_cast<std::string*>(m_data));
     return *this;
 }
 
 IString& IString::operator=(std::string&& stdString) noexcept {
     clear();
     m_type = Type::StdString;
-    new (&m_stdString) std::string(std::move(stdString));
-    m_stringView = IStringView(m_stdString);
+    m_data = new std::string(std::move(stdString));
+    m_stringView = IStringView(*static_cast<std::string*>(m_data));
     return *this;
 }
 
@@ -184,7 +183,6 @@ IString& IString::operator=(std::nullptr_t) {
     return *this;
 }
 
-// TODO: 这些是都要优化的,但是可以等一等.
 bool IString::operator ==(const IString &that) const
 {
     if(this == &that){
@@ -230,8 +228,8 @@ IString& IString::solidify()
 {
     if(m_type == Type::IStringView && !m_stringView.empty()){
         m_type = Type::StdString;
-        new (&m_stdString) std::string(m_stringView.toStdString());
-        m_stringView = IStringView(m_stdString);
+        m_data = new std::string(m_stringView.toStdString());
+        m_stringView = IStringView(*static_cast<std::string*>(m_data));
     }
 
     return *this;
@@ -288,26 +286,25 @@ IString::operator bool() const
 }
 
 void IString::clear() {
-    switch (m_type) {
-        case Type::QByteArray:
-            m_qByteArray.~QByteArray();
-            break;
-        case Type::StdString:
-            m_stdString.~basic_string();
-            break;
+    if(m_type == Type::QByteArray){
+        delete static_cast<QByteArray*>(m_data);
+    }else if(m_type == Type::StdString){
+        delete static_cast<std::string*>(m_data);
     }
+    m_data = nullptr;
+    m_type = Type::IStringView;
 }
 
 void IString::copyFrom(const IString& other) {
     m_type = other.m_type;
     switch (other.m_type) {
         case Type::QByteArray:
-            new (&m_qByteArray) QByteArray(other.m_qByteArray);
-            m_stringView = IStringView(m_qByteArray);
+            m_data = new QByteArray(*static_cast<QByteArray*>(other.m_data));
+            m_stringView = IStringView(*static_cast<QByteArray*>(m_data));
             break;
         case Type::StdString:
-            new (&m_stdString) std::string(other.m_stdString);
-            m_stringView = IStringView(m_stdString);
+            m_data = new std::string(*static_cast<std::string*>(other.m_data));
+            m_stringView = IStringView(*static_cast<std::string*>(m_data));
             break;
         case Type::IStringView:
             m_stringView = other.m_stringView;
@@ -319,12 +316,12 @@ void IString::moveFrom(IString&& other) noexcept {
     m_type = other.m_type;
     switch (other.m_type) {
         case Type::QByteArray:
-            new (&m_qByteArray) QByteArray(std::move(other.m_qByteArray));
-            m_stringView = IStringView(m_qByteArray);
+            std::swap(this->m_data, other.m_data);
+            m_stringView = IStringView(*static_cast<QByteArray*>(m_data));
             break;
         case Type::StdString:
-            new (&m_stdString) std::string(std::move(other.m_stdString));
-            m_stringView = IStringView(m_stdString);
+            std::swap(this->m_data, other.m_data);
+            m_stringView = IStringView(*static_cast<std::string*>(m_data));
             break;
         case Type::IStringView:
             m_stringView = other.m_stringView;

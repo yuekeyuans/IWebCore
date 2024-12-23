@@ -2,7 +2,6 @@
 
 BasicArgument::BasicArgument()
 {
-
 }
 
 QString BasicArgument::headerTypeInt(int $Header(MyInt))

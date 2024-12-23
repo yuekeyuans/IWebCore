@@ -247,7 +247,6 @@ SOURCES += \
     $$PWD/core/test/IUnitTestTask.cpp \
     $$PWD/core/unit/ISingletonUnit.cpp \
 #    $$PWD/http/IHttpAssert.cpp \
-#    $$PWD/core/util/detail/IConvertUtilBaseTypeDetail.cpp \
     $$PWD/core/util/detail/IJsonUtil_fromJson.cpp \
     $$PWD/http/IHttpManage.cpp \
     $$PWD/http/base/IArgumentTypeDetail.cpp \
@@ -350,15 +349,8 @@ HEADERS += \
     $$PWD/ICore/IContext \
     $$PWD/ICore/IProfile \
     $$PWD/ICore/IUnitTestInterface \
-#    $$PWD/IWeb/IHttpTestInterface   \
     $$PWD/IWeb/IHttpInvalidInterface \
     $$PWD/IWeb/HttpRequest
 
-DISTFILES +=
-
 RESOURCES += \
     $$PWD/http/webresource.qrc
-
-
-
-
