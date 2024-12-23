@@ -46,7 +46,7 @@ private: // $Header, $Cookie, $Path, $Query, $Body, $Form, $Session,
 private:    // bean, List<Bean>, Vector<Bean> ， Map<Bean>
     bool createBeanTypes();
 
-private: // body, query, json 相关，
+//private: // body, query, json 相关，
     bool createDataTypes();
 
 private:
@@ -54,6 +54,7 @@ private:
     IString m_optionalString;
     Position m_position{Auto};
     IString m_nameRaw;
+    void* m_optionalPtr{}; // NOTE: this wont be release till program exits
 
 private:
     QVector<IString> makeTypes(const std::string&);

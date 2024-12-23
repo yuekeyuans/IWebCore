@@ -10,15 +10,15 @@ private:
     PP_STRING(IHttpControllerFunMapping$$$ ## funName ## $$$ ## type ## $$$ ## index)
 
 #ifdef Q_MOC_RUN
-    #define $Path(name)       name##_$path
-    #define $Query(name)      name##_$query
-    #define $Header(name)     name##_$header
-    #define $Cookie(name)     name##_$cookie
-    #define $Session(name)    name##_$session
-    #define $Body(name)       name##_$body
-    #define $Form(name)       name##_$form
-    #define $Json(name)       name##_$json
-    #define $Optional(name)   name##_$optional
+    #define $Path(name)       name##_$PATH
+    #define $Query(name)      name##_$QUERY
+    #define $Header(name)     name##_$HEADER
+    #define $Cookie(name)     name##_$COOKIE
+    #define $Session(name)    name##_$SESSION
+    #define $Body(name)       name##_$BODY
+    #define $Form(name)       name##_$FORM
+    #define $Json(name)       name##_$JSON
+    #define $Optional(name)   name##_$OPTIONAL
 
 #else
     #define $Query(name)      name

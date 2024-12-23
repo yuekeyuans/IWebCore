@@ -38,7 +38,8 @@ namespace detail
             QMetaType::Float, QMetaType::Double, QMetaType::QString, QMetaType::QByteArray,
         };
         static QList<IString> typeNames = {
-            "IString", "std::string", "IStringView", "QList<IString>", "QStringList"
+            "IString", "std::string", "IStringView", "QList<IString>", "QStringList",
+            "IMultiPart", "ICookiePart"
         };
         return types.contains(typeId) || typeNames.contains(typeName);
     }
@@ -56,9 +57,9 @@ namespace detail
             return new QList<IString>(data);
         }
         qFatal("not supported");
+        return nullptr;
     }
 
-    // TODO: 这里考虑一下支持转换到 QStringList 之类的内容
     static void* convertPtr(const IString& data, QMetaType::Type typeId, const IString& typeName)
     {
         switch (typeId) {
@@ -101,6 +102,16 @@ namespace detail
             return data.valuePtr<std::string>();
         }else if(typeName == "IStringView"){
             return data.valuePtr<IStringView>();
+        }else if(typeName == "IMultiPart"){
+            if(!data.isEmpty()){
+                qFatal("in multiPart, no optional variable needed");
+            }
+            return const_cast<IMultiPart*>(&IMultiPart::Empty);
+        }else if(typeName == "ICookiePart"){
+            if(!data.isEmpty()){
+                qFatal("in cookiepart, no optional variable needed");
+            }
+            return const_cast<ICookiePart*>(&ICookiePart::Empty);
         }
         qFatal("not supported type");
         return nullptr;
@@ -156,9 +167,9 @@ namespace detail
         }else if(typeName == "QList<IString>"){
             return delete static_cast<QList<IString>*>(ptr);
         }
-
         qFatal("error");
     }
+
 }
 
 IArgumentTypeDetail::IArgumentTypeDetail(int typeId, QByteArray paramTypeName, QByteArray nameRaw)
@@ -184,7 +195,7 @@ IArgumentTypeDetail::IArgumentTypeDetail(int typeId, QByteArray paramTypeName, Q
 void IArgumentTypeDetail::resolveName()
 {
     static const QVector<IString> PREFIXES = {
-        "auto", "path", "query", "header", "cookie", "session", "body", "form", "json"
+        "auto", "PATH", "QUERY", "HEADER", "COOKIE", "SESSION", "BODY", "FORM", "JSON"
     };
     if(m_nameRaw.isEmpty()){
         qFatal("Name should not be empty");
@@ -204,7 +215,7 @@ void IArgumentTypeDetail::resolveName()
         }
 
         // optional
-        if(arg.startWith("optional")){
+        if(arg.startWith("OPTIONAL")){
             if(m_optional == true){
                 qFatal("two more optional");
             }
@@ -212,6 +223,11 @@ void IArgumentTypeDetail::resolveName()
             auto spliter = arg.find("$$");
             if(spliter != std::string_view::npos){
                 m_optionalString = arg.substr(spliter+2);
+            }
+            if(detail::isTypeConvertable(m_typeId, m_typeName)){
+                m_optionalPtr = detail::convertPtr(m_optionalString, m_typeId, m_typeName);
+            }else{
+                qFatal("optional not convertable");
             }
         }
     }
@@ -339,9 +355,12 @@ void IArgumentTypeDetail::createMultiPartType()
     }
     auto self = *this;
     this->m_createFun = [=](IRequest& request) -> void*{
-        if(request.contentType().startWith(IHttpMimeUtil::toString(IHttpMime::MULTIPART_FORM_DATA))){ // TODO: force little case
+        if(request.mime() == IHttpMime::MULTIPART_FORM_DATA){
             const auto& value = request.multiPartJar().getMultiPart(self.m_name);
-            if(!self.m_optional && (&value == &IMultiPart::Empty)){
+            if(&value == &IMultiPart::Empty){
+                if(self.m_optional){
+                    return self.m_optionalPtr;
+                }
                 request.setInvalid(IHttpInternalErrorInvalid("multitype not optional"));
                 return nullptr;
             }
@@ -361,10 +380,6 @@ void IArgumentTypeDetail::createCookiePartType()
     if(m_position != Position::Auto){
         qFatal("position should be empty");
     }
-    if(m_optional && !m_optionalString.isEmpty()){
-        qFatal("in cookiepart, no optional variable needed"); // optional 不需要给定参数值,默认是 Empty
-    }
-
     auto self = *this;
     this->m_createFun = [=](IRequest& request) -> void*{
         if(request.impl().m_reqRaw.m_cookies.contains(self.m_name)){
@@ -372,7 +387,7 @@ void IArgumentTypeDetail::createCookiePartType()
             return new ICookiePart(self.m_name, value.m_stringView);
         }
         if(self.m_optional){
-            return static_cast<void*>(const_cast<ICookiePart*>(&ICookiePart::Empty));
+            return m_optionalPtr;
         }
         request.setInvalid(IHttpInternalErrorInvalid("cookie not optional"));
         return nullptr;
@@ -428,7 +443,7 @@ void IArgumentTypeDetail::createQueryType()
             return detail::convertPtr(data, self.m_typeId, self.m_typeName);
         }
         if(self.m_optional){
-            return detail::convertPtr(self.m_optionalString, self.m_typeId, self.m_typeName);
+            return self.m_optionalPtr;
         }
         req.setInvalid(IHttpInternalErrorInvalid("not found arg"));
         return nullptr;
@@ -453,7 +468,7 @@ void IArgumentTypeDetail::createHeaderType()
             return ptr;
         }
         if(self.m_optional){
-            return detail::convertPtr(self.m_optionalString, self.m_typeId, self.m_typeName);
+            return self.m_optionalPtr;
         }
         request.setInvalid(IHttpInternalErrorInvalid("header field not resolved"));
         return nullptr;
@@ -476,7 +491,7 @@ void IArgumentTypeDetail::createCookieType()
                 return detail::convertPtr(values, self.m_typeId, self.m_typeName);
             }
             if(self.m_optional){
-                return detail::convertPtr(QList<IString>{}, self.m_typeId, self.m_typeName);
+                return self.m_optionalPtr;
             }
             request.setInvalid(IHttpInternalErrorInvalid("cookie missed"));
             return nullptr;
@@ -486,7 +501,7 @@ void IArgumentTypeDetail::createCookieType()
                 return detail::convertPtr(value, self.m_typeId, self.m_typeName);
             }
             if(self.m_optional){
-                return detail::convertPtr(self.m_optionalString, self.m_typeId, self.m_typeName);
+                return self.m_optionalPtr;
             }
             request.setInvalid(IHttpInternalErrorInvalid("cookie not found"));
             return nullptr;
@@ -519,10 +534,14 @@ void IArgumentTypeDetail::createBodyType()
     }
     auto self = *this;
     this->m_createFun = [=](IRequest& req)->void*{
-        if(!req.impl().m_reqRaw.m_body.isEmpty()){
-            return detail::convertPtr(req.impl().m_reqRaw.m_body, self.m_typeId, self.m_typeName);
+        if(req.impl().m_reqRaw.m_contentLength == 0 && req.impl().m_reqRaw.m_isChunked==false){
+            if(m_optional){
+                return m_optionalPtr;
+            }
+            req.setInvalid(IHttpInternalErrorInvalid("request do not contain body"));
+            return nullptr;
         }
-        return detail::convertPtr(self.m_optionalString, self.m_typeId, self.m_typeName);
+        return detail::convertPtr(req.impl().m_reqRaw.m_body, self.m_typeId, self.m_typeName);
     };
 }
 
@@ -545,9 +564,9 @@ void IArgumentTypeDetail::createFormType()
             return detail::convertPtr(data, self.m_typeId, self.m_typeName);
         }
         if(self.m_optional){
-            return detail::convertPtr(self.m_optionalString, self.m_typeId, self.m_typeName);
+            return m_optionalPtr;
         }
-        req.setInvalid(IHttpInternalErrorInvalid("not found arg"));
+        req.setInvalid(IHttpInternalErrorInvalid("not found form value"));
         return nullptr;
     };
 }
@@ -579,7 +598,7 @@ void IArgumentTypeDetail::createJsonType()
         if(json.contains(pointer)){
             return new IJson(json[pointer]);
         }
-        request.setInvalid(IHttpInternalErrorInvalid("not found json"));
+        request.setInvalid(IHttpInternalErrorInvalid("not found json body"));
         return nullptr;
     };
     this->m_destroyFun = [=](void* ptr){
