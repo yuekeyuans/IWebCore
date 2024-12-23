@@ -183,7 +183,8 @@ IArgumentTypeDetail::IArgumentTypeDetail(int typeId, QByteArray paramTypeName, Q
     static QList<decltype(&IArgumentTypeDetail::createBasicType)> funs = {
         &IArgumentTypeDetail::createBasicType,
         &IArgumentTypeDetail::createPartTypes,
-        &IArgumentTypeDetail::createDecorateTypes
+        &IArgumentTypeDetail::createDecorateTypes,
+        &IArgumentTypeDetail::createBeanTypes,
     };
     for(auto fun : funs){
         if(std::mem_fn(fun)(this)){
@@ -573,7 +574,8 @@ void IArgumentTypeDetail::createFormType()
 
 void IArgumentTypeDetail::createJsonType()
 {
-    if(m_typeName != "IJson"){
+    static const auto types = makeTypes("IJson");
+    if(!types.contains(m_typeName)){
         return;
     }
     if(m_position != Position::Auto && m_position != Position::Json){
@@ -610,12 +612,24 @@ void IArgumentTypeDetail::createJsonType()
 
 bool IArgumentTypeDetail::createBeanTypes()
 {
-    return false;
-}
-
-bool IArgumentTypeDetail::createDataTypes()
-{
-    return false;
+    if(!IBeanTypeManage::instance()->isBeanIdExist(m_typeId)){
+        return false;
+    }
+    auto self = *this;
+    this->m_createFun = [=](IRequest& req)->void*{
+        if(req.mime() != IHttpMime::APPLICATION_JSON || req.mime() != IHttpMime::APPLICATION_JSON_UTF8){
+            req.setInvalid(IHttpBadRequestInvalid("bean only for json payload currently"));
+            return nullptr;
+        }
+        auto ptr = QMetaType::create(self.m_typeId);
+        // assigned data to ptr;
+        return ptr;
+    };
+    this->m_destroyFun = [=](void* ptr){
+        if(ptr){
+            QMetaType::destroy(self.m_typeId, ptr);
+        }
+    };
 }
 
 QVector<IString> IArgumentTypeDetail::makeTypes(const std::string &name)

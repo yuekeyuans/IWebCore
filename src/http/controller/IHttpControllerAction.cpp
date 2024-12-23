@@ -26,7 +26,7 @@ void IHttpControllerAction::invoke(IRequest &request) const
 
 IHttpControllerAction::ParamType IHttpControllerAction::createParams(IRequest& request) const
 {
-    ParamType params;
+    ParamType params{0};
     params[0] = methodNode.returnNode.create();
     int len = methodNode.argumentNodes.length();
     for(int i=0; i<len; i++){

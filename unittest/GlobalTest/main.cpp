@@ -3,9 +3,6 @@
 #include <IWeb/IHttpServer>
 #include "IHttpPythonTestAnnomacro.h"
 
-#include "http/response/IJsonResponse.h"
-#include "core/util/IJsonUtil.h"
-
 $EnableTaskOutput(true)
 $EnableUnitTest(false)
 $EnableHttpPythonTest(true)
