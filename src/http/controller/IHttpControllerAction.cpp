@@ -1,5 +1,4 @@
 ﻿#include "IHttpControllerAction.h"
-#include "http/controller/detail/IHttpControllerParameter.h"
 #include "http/server/ITcpConnection.h"
 #include "http/net/IRequest.h"
 #include "http/net/IResponse.h"
