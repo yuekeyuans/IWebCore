@@ -116,9 +116,6 @@ HEADERS += \
     $$PWD/http/invalid/IHttpInvalidInterface.h \
     $$PWD/http/invalid/IHttpInvalidWare.h \
     $$PWD/http/invalid/IHttpNotFoundInvalid.h \
-#    $$PWD/http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.h \
-    $$PWD/http/invalid/IHttpRequestTimeoutInvalid.h \
-#    $$PWD/http/invalid/IHttpUriTooLongInvalid.h \
     $$PWD/http/mappings/IHttpAction.h \
     $$PWD/http/mappings/IHttpActionInterface.h \
     $$PWD/http/mappings/IHttpBadRequestAction.h \
@@ -270,14 +267,10 @@ SOURCES += \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.cpp \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.cpp \
     $$PWD/http/core/defaultTask/IHttpUrlPathValidatorTask.cpp \
-#    $$PWD/http/core/test/IHttpTestTool.cpp \
     $$PWD/http/invalid/IHttpBadRequestInvalid.cpp \
     $$PWD/http/invalid/IHttpInternalErrorInvalid.cpp \
     $$PWD/http/invalid/IHttpInvalidWare.cpp \
     $$PWD/http/invalid/IHttpNotFoundInvalid.cpp \
-#    $$PWD/http/invalid/IHttpRequestHeaderFieldTooLargeInvalid.cpp \
-    $$PWD/http/invalid/IHttpRequestTimeoutInvalid.cpp \
-#    $$PWD/http/invalid/IHttpUriTooLongInvalid.cpp \
     $$PWD/http/mappings/IHttpAction.cpp \
     $$PWD/http/mappings/IHttpActionInterface.cpp \
     $$PWD/http/mappings/IHttpBadRequestAction.cpp \
@@ -291,6 +284,7 @@ SOURCES += \
     $$PWD/http/response/content/IFileResponseContent.cpp \
     $$PWD/http/response/content/IInvalidReponseContent.cpp \
     $$PWD/http/response/content/IResponseContent.cpp \
+    $$PWD/http/response/IStatusResponse.cpp \
     $$PWD/http/server/IHttpConnection.cpp \
     $$PWD/http/server/IHttpServer.cpp \
     $$PWD/http/server/ITcpConnection.cpp \
@@ -298,8 +292,6 @@ SOURCES += \
     $$PWD/http/server/ITcpConnectionManage.cpp \
     $$PWD/http/server/ITcpResolverInterface.cpp \
     $$PWD/http/server/ITcpResolverManage.cpp \
-#    $$PWD/http/base/IHttpParameterRestrictManage.cpp \
-    $$PWD/http/response/IStatusResponse.cpp \
 #    $$PWD/orm/IOrmAssert.cpp \
     $$PWD/orm/IOrmManage.cpp \
     $$PWD/orm/IOrmUtil.cpp \
