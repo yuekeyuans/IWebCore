@@ -82,12 +82,12 @@ private:
     void copyFrom(const IString& other);
     void moveFrom(IString&& other) noexcept;
 
+public:
+    IStringView m_view{};
+
 private:
     void* m_data{};
     Type m_type{Type::IStringView};
-
-public:
-    IStringView m_stringView{};
 };
 
 using IStringList = QList<IString>;
@@ -109,7 +109,7 @@ namespace std {
     template <>
     struct hash<IString> {
         std::size_t operator()(const IString& key) const noexcept {
-            return std::hash<std::string_view>()(key.m_stringView);
+            return std::hash<std::string_view>()(key.m_view);
         }
     };
 }

@@ -15,7 +15,7 @@ IHttpNotFoundInvalid::IHttpNotFoundInvalid(const std::string& description)
 
 void IHttpNotFoundInvalid::process(const IHttpInvalidWare &ware, IResponseRaw & raw)
 {
-    raw.setContent(new IResponseContent(ware.description.m_stringView.toStdString() + " hahahahah"));
+    raw.setContent(new IResponseContent(ware.description.m_view.toStdString() + " hahahahah"));
 }
 
 $PackageWebCoreEnd

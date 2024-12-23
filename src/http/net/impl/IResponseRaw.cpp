@@ -18,11 +18,11 @@ namespace detail
 std::vector<IStringView> generateFirstLine(IRequestImpl& impl)
 {
     std::vector<IStringView> ret;
-    ret.push_back(IHttpVersionUtil::toString(impl.m_reqRaw.m_httpVersion).m_stringView);
-    ret.push_back(IConstantUtil::Space.m_stringView);
-    ret.push_back(IHttpStatusUtil::toStringNumber(impl.m_respRaw.m_status).m_stringView);
-    ret.push_back(IConstantUtil::Space.m_stringView);
-    ret.push_back(IHttpStatusUtil::toStringDescription(impl.m_respRaw.m_status).m_stringView);
+    ret.push_back(IHttpVersionUtil::toString(impl.m_reqRaw.m_httpVersion).m_view);
+    ret.push_back(IConstantUtil::Space.m_view);
+    ret.push_back(IHttpStatusUtil::toStringNumber(impl.m_respRaw.m_status).m_view);
+    ret.push_back(IConstantUtil::Space.m_view);
+    ret.push_back(IHttpStatusUtil::toStringDescription(impl.m_respRaw.m_status).m_view);
     ret.push_back(IConstantUtil::NewLine);
 
     return ret;
@@ -52,16 +52,16 @@ std::vector<IStringView> generateHeadersContent(IRequestImpl& m_raw, int content
     }
 
     std::vector<IStringView> ret;
-    ret.push_back(ServerHeader.m_stringView);
+    ret.push_back(ServerHeader.m_view);
 
     std::unordered_map<IString, std::vector<IString>>& headerMap = headers.m_header;
     for(const auto& pair : headerMap){
-        ret.push_back(pair.first.m_stringView);
-        ret.push_back(IConstantUtil::CommaSpace.m_stringView);
+        ret.push_back(pair.first.m_view);
+        ret.push_back(IConstantUtil::CommaSpace.m_view);
         for(const auto& val : pair.second){
-            ret.push_back(val.m_stringView);
+            ret.push_back(val.m_view);
         }
-        ret.push_back(IConstantUtil::NewLine.m_stringView);
+        ret.push_back(IConstantUtil::NewLine.m_view);
     }
 
     return ret;
@@ -141,7 +141,7 @@ std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
 
     IStringView content{};
     if(!m_contents.empty()){
-        content = m_contents.back()->m_content.m_stringView;
+        content = m_contents.back()->m_content.m_view;
     }
 
     // headers
@@ -156,7 +156,7 @@ std::vector<asio::const_buffer> IResponseRaw::getContent(IRequestImpl& impl)
         result.push_back(view.toAsioBuffer());
     }
 
-    result.push_back(IConstantUtil::NewLine.m_stringView.toAsioBuffer());
+    result.push_back(IConstantUtil::NewLine.m_view.toAsioBuffer());
     if(!content.empty()  && impl.m_reqRaw.m_method != IHttpMethod::HEAD){
         result.push_back(content.toAsioBuffer());
     }

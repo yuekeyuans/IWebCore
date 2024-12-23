@@ -12,7 +12,7 @@ std::vector<IStringView> IHeaderJar::requestHeaderKeys() const
     std::vector<IStringView> ret;
     const auto& headers = m_impl.m_reqRaw.m_headers;
     for(auto it=headers.begin(); it!= headers.end(); it++){
-        ret.push_back(it.key().m_stringView);
+        ret.push_back(it.key().m_view);
     }
     return ret;
 }
@@ -21,7 +21,7 @@ bool IHeaderJar::containRequestHeaderKey(const IString& key) const
 {
     const auto& keys = requestHeaderKeys();
     return std::find_if(keys.begin(), keys.end(), [&](IStringView data){
-        return data.equalIgnoreCase(key.m_stringView);
+        return data.equalIgnoreCase(key.m_view);
     }) != keys.end();
 }
 

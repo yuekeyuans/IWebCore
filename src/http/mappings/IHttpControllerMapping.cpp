@@ -35,7 +35,7 @@ IHttpAction * IHttpControllerMapping::getAction(IRequest &request) const
         return {nodePtr->getAction(method)};
     }
 
-    IStringViewList fragments = url.m_stringView.split('/');
+    IStringViewList fragments = url.m_view.split('/');
     if(fragments.first().empty()){
         fragments.pop_front();
     }

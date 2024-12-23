@@ -13,7 +13,7 @@ namespace detail
 #define STRING_VIEW_CREATE(Class)                                   \
 template<>                                                          \
 Class IString::value< Class >(bool& ok)   const {                   \
-    return detail::string_view_to< Class >(m_stringView, ok);       \
+    return detail::string_view_to< Class >(m_view, ok);       \
 }
 STRING_VIEW_CREATE(ushort)
 STRING_VIEW_CREATE(short)
@@ -47,11 +47,11 @@ T detail::string_view_to(const IStringView& str, bool& ok) {
 template<>
 bool IString::value<bool>(bool& ok) const
 {
-    if(m_stringView == "true"){
+    if(m_view == "true"){
         ok = true;
         return true;
     }
-    if(m_stringView == "false"){
+    if(m_view == "false"){
         ok = true;
         return false;
     }
@@ -62,7 +62,7 @@ bool IString::value<bool>(bool& ok) const
 template<>
 unsigned char IString::value<unsigned char>(bool& ok) const
 {
-    auto value = detail::string_view_to<unsigned short>(m_stringView, ok);
+    auto value = detail::string_view_to<unsigned short>(m_view, ok);
     if(ok && value > std::numeric_limits<unsigned char>::max()){
         ok = false;
         return {};
@@ -73,7 +73,7 @@ unsigned char IString::value<unsigned char>(bool& ok) const
 template<>
 signed char IString::value<signed char>(bool& ok) const
 {
-    auto value = detail::string_view_to<short>(m_stringView, ok);
+    auto value = detail::string_view_to<short>(m_view, ok);
     if(ok && (value > std::numeric_limits<signed char>::max() || value < std::numeric_limits<signed char>::min())){
         ok = false;
         return {};
@@ -113,7 +113,7 @@ template<>
 IStringView IString::value<IStringView>(bool& ok) const
 {
     ok = true;
-    return this->m_stringView;
+    return this->m_view;
 }
 
 $PackageWebCoreEnd

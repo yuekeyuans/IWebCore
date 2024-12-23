@@ -32,7 +32,7 @@ IFileResponseContent::IFileResponseContent(const IString & value)
 
 void detail::fileResponseProcessor(const IResponseContent &content, IResponseRaw &raw)
 {
-    QFileInfo info(content.m_content.m_stringView.toQString());
+    QFileInfo info(content.m_content.m_view.toQString());
     if(!info.exists()){
         raw.setContent(IHttpNotFoundInvalid());
         return;
@@ -60,14 +60,14 @@ void detail::fileResponseProcessor(const IResponseContent &content, IResponseRaw
 
 IString detail::createDispoisition(const IString & data)
 {
-    auto path =data.m_stringView.toQString();
+    auto path =data.m_view.toQString();
     auto fileName  = QFileInfo(path).fileName();
     return (QString("attachment;filename=").append(ICodecUtil::urlEncode(fileName))).toUtf8();
 }
 
 static const IString& detail::findMime(const IString& data)
 {
-    auto suffix = QFileInfo(data.m_stringView.toQString()).suffix();
+    auto suffix = QFileInfo(data.m_view.toQString()).suffix();
     return IHttpMimeUtil::getSuffixMime(IString(suffix.toUtf8()));
 }
 

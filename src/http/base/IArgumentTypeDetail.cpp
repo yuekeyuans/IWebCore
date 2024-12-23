@@ -385,7 +385,7 @@ void IArgumentTypeDetail::createCookiePartType()
     this->m_createFun = [=](IRequest& request) -> void*{
         if(request.impl().m_reqRaw.m_cookies.contains(self.m_name)){
             const auto& value = request.impl().m_reqRaw.m_cookies.value(self.m_name);
-            return new ICookiePart(self.m_name, value.m_stringView);
+            return new ICookiePart(self.m_name, value.m_view);
         }
         if(self.m_optional){
             return m_optionalPtr;
@@ -439,7 +439,7 @@ void IArgumentTypeDetail::createQueryType()
     }
     auto self = *this;
     this->m_createFun = [=](IRequest& req)->void*{
-        if(req.impl().m_reqRaw.m_queries.contains(self.m_name.m_stringView)){
+        if(req.impl().m_reqRaw.m_queries.contains(self.m_name.m_view)){
             auto data = req.impl().m_reqRaw.m_queries[self.m_name];
             return detail::convertPtr(data, self.m_typeId, self.m_typeName);
         }
@@ -560,7 +560,7 @@ void IArgumentTypeDetail::createFormType()
             req.setInvalid(IHttpInternalErrorInvalid("request should be form data"));
             return nullptr;
         }
-        if(req.impl().m_reqRaw.m_forms.contains(self.m_name.m_stringView)){
+        if(req.impl().m_reqRaw.m_forms.contains(self.m_name.m_view)){
             auto data = req.impl().m_reqRaw.m_forms[self.m_name];
             return detail::convertPtr(data, self.m_typeId, self.m_typeName);
         }

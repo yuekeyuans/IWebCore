@@ -96,42 +96,42 @@ std::vector<IStringView> ICookiePart::toHeaderString() const
         return ret;
     }
 
-    ret.push_back(IHttpHeader::SetCookie.m_stringView);
-    ret.push_back(IConstantUtil::CommaSpace.m_stringView);
-    ret.push_back(m_key.m_stringView);
-    ret.push_back(IConstantUtil::Equal.m_stringView);
-    ret.push_back(m_value.m_stringView);
+    ret.push_back(IHttpHeader::SetCookie.m_view);
+    ret.push_back(IConstantUtil::CommaSpace.m_view);
+    ret.push_back(m_key.m_view);
+    ret.push_back(IConstantUtil::Equal.m_view);
+    ret.push_back(m_value.m_view);
 
     if(!m_domain.isEmpty()){
-        ret.push_back(DomainIString.m_stringView);
-        ret.push_back(m_domain.m_stringView);
+        ret.push_back(DomainIString.m_view);
+        ret.push_back(m_domain.m_view);
     }
     if(!m_path.isEmpty()){
-        ret.push_back(PathIString.m_stringView);
-        ret.push_back(m_path.m_stringView);
+        ret.push_back(PathIString.m_view);
+        ret.push_back(m_path.m_view);
     }
     if(m_maxAge != std::numeric_limits<int>::min()){               // see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie#browser_compatibility
         m_maxAgeString = std::to_string(m_maxAge);
-        ret.push_back(MaxAgeIString.m_stringView);
-        ret.push_back(IString(&m_maxAgeString).m_stringView);
+        ret.push_back(MaxAgeIString.m_view);
+        ret.push_back(IString(&m_maxAgeString).m_view);
     }
     if(m_expires.isValid()){
         m_expiresString = IConvertUtil::toUtcString(m_expires).toStdString();
-        ret.push_back(ExpiresIString.m_stringView);
-        ret.push_back(IString(&m_expiresString).m_stringView);
+        ret.push_back(ExpiresIString.m_view);
+        ret.push_back(IString(&m_expiresString).m_view);
     }
     if(m_sameSite != Lax){
-        ret.push_back(SameSiteIString.m_stringView);
-        ret.push_back(detail::sameSiteTypeToString(m_sameSite).m_stringView);
+        ret.push_back(SameSiteIString.m_view);
+        ret.push_back(detail::sameSiteTypeToString(m_sameSite).m_view);
     }
     if(m_secure){
-        ret.push_back(SecureIString.m_stringView);
+        ret.push_back(SecureIString.m_view);
     }
     if(m_httpOnly){
-        ret.push_back(HttpOnlyIString.m_stringView);
+        ret.push_back(HttpOnlyIString.m_view);
     }
 
-    ret.push_back(IConstantUtil::NewLine.m_stringView);
+    ret.push_back(IConstantUtil::NewLine.m_view);
     return ret;
 }
 

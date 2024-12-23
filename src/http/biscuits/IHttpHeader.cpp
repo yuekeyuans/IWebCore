@@ -36,7 +36,7 @@ std::vector<IStringView> IHttpHeader::keys() const
 {
     std::vector<IStringView> ret;
     for(const auto& pair : m_header){
-        ret.push_back(pair.first.m_stringView);
+        ret.push_back(pair.first.m_view);
     }
     return ret;
 }
