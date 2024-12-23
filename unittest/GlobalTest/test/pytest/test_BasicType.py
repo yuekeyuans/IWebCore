@@ -114,3 +114,9 @@ def test_formData2():
     print(val.status_code)  
     assert val.status_code == 200
     assert val.text == "中文"
+
+
+def test_beanData():
+    val = requests.post(serverAddress + "/BasicArgument/beanData", json={"index": 102, "name": "yuekeyuan"})
+    print(val.text)
+    print(val.status_code)

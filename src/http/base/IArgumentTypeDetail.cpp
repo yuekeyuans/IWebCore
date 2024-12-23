@@ -617,7 +617,7 @@ bool IArgumentTypeDetail::createBeanTypes()
     }
     auto self = *this;
     this->m_createFun = [=](IRequest& req)->void*{
-        if(req.mime() != IHttpMime::APPLICATION_JSON || req.mime() != IHttpMime::APPLICATION_JSON_UTF8){
+        if(req.mime() != IHttpMime::APPLICATION_JSON && req.mime() != IHttpMime::APPLICATION_JSON_UTF8){
             req.setInvalid(IHttpBadRequestInvalid("bean only for json payload currently"));
             return nullptr;
         }
@@ -630,6 +630,7 @@ bool IArgumentTypeDetail::createBeanTypes()
             QMetaType::destroy(self.m_typeId, ptr);
         }
     };
+    return true;
 }
 
 QVector<IString> IArgumentTypeDetail::makeTypes(const std::string &name)

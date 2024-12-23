@@ -47,7 +47,7 @@ private:    // bean, List<Bean>, Vector<Bean> ， Map<Bean>
     bool createBeanTypes();
 
 //private: // body, query, json 相关，
-    bool createDataTypes();
+//    bool createDataTypes();
 
 private:
     bool m_optional{false};

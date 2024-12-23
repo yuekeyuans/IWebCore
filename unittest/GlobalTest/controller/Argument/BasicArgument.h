@@ -2,6 +2,7 @@
 
 #include <IHttp/IHttpControllerInterface>
 #include "http/net/ICookiePart.h"
+#include "bean/StudentBean.h"
 
 class BasicArgument : public IHttpControllerInterface<BasicArgument>
 {
@@ -69,6 +70,11 @@ public:
     {
         qDebug() << "name" << QString::fromStdString(name);
         return name;
+    }
+
+    $PostMapping(beanData)
+    std::string beanData(StudentBean bean){
+        return bean.toJson().dump();
     }
 };
 
