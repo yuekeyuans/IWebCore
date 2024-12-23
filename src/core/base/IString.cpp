@@ -2,16 +2,13 @@
 
 $PackageWebCoreBegin
 
-IString::IString() : m_type(Type::IStringView) {}
+IString::IString()
+{
+}
 
 IString::~IString()
 {
-    if(m_type == Type::QByteArray){
-        delete static_cast<QByteArray*>(m_data);
-    }else if(m_type == Type::StdString){
-        delete static_cast<std::string*>(m_data);
-    }
-    m_data = nullptr;
+    clear();
 }
 
 IString::IString(const IString& other)
@@ -47,7 +44,6 @@ IString::IString(const IString * istring)
 {
 }
 
-// this just create view, no QByteArray
 IString::IString(const QByteArray * data)
     : m_type(Type::IStringView), m_view(*data)
 {
@@ -267,11 +263,17 @@ QString IString::toQString() const
 
 std::string IString::toStdString() const
 {
+    if(m_type == Type::StdString){
+        return *static_cast<std::string*>(m_data);
+    }
     return m_view.toStdString();
 }
 
 QByteArray IString::toQByteArray() const
 {
+    if(m_type == Type::QByteArray){
+        return *static_cast<QByteArray*>(m_data);
+    }
     return m_view.toQByteArray();
 }
 
@@ -329,7 +331,7 @@ void IString::moveFrom(IString&& other) noexcept {
         default:
             break;
     }
-    other.m_type = Type::IStringView;
+//    other.m_type = Type::IStringView;
 }
 
 $PackageWebCoreEnd
