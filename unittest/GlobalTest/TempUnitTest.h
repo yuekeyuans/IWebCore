@@ -10,5 +10,6 @@ public:
 
 private slots:
     void test_IJson();
+    void test_BeanList();
 };
 

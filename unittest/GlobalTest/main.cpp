@@ -3,9 +3,9 @@
 #include <IWeb/IHttpServer>
 #include "IHttpPythonTestAnnomacro.h"
 
-$EnableTaskOutput(true)
-$EnableUnitTest(false)
-$EnableHttpPythonTest(true)
+$EnableTaskOutput(false)
+$EnableUnitTest(true)
+$EnableHttpPythonTest(false)
 int main(int argc, char *argv[])
 {
     IApplication app(argc, argv);
