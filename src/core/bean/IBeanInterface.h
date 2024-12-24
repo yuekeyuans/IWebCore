@@ -32,8 +32,8 @@ private:
     const std::vector<QMetaProperty>& getMetaProperties() const;
     const QMetaMethod& getMetaMethod(const QString &name) const;
     const QMetaProperty& getMetaProperty(const QString& name) const;
-    virtual QVariant getFieldValue(const QString& name) const final;
-    virtual void setFieldValue(const QString& name, const QVariant& value) final;
+//    virtual QVariant getFieldValue(const QString& name) const final;
+//    virtual void setFieldValue(const QString& name, const QVariant& value) final;
 
 private:
     virtual void $task() final;
@@ -149,19 +149,19 @@ const QMetaProperty& IBeanInterface<T, enabled, U>::getMetaProperty(const QStrin
     return s_prop;
 }
 
-template<typename T, bool enabled, typename U>
-QVariant IBeanInterface<T, enabled, U>::getFieldValue(const QString& name) const
-{
-    const auto& property = getMetaProperty(name);
-    return IMetaUtil::readProperty(property, this);
-}
+//template<typename T, bool enabled, typename U>
+//QVariant IBeanInterface<T, enabled, U>::getFieldValue(const QString& name) const
+//{
+//    const auto& property = getMetaProperty(name);
+//    return IMetaUtil::readProperty(property, this);
+//}
 
-template<typename T, bool enabled, typename U>
-void IBeanInterface<T, enabled, U>::setFieldValue(const QString& name, const QVariant& value)
-{
-    const auto& property = getMetaProperty(name);
-    IMetaUtil::writeProperty(property, this, value);
-}
+//template<typename T, bool enabled, typename U>
+//void IBeanInterface<T, enabled, U>::setFieldValue(const QString& name, const QVariant& value)
+//{
+//    const auto& property = getMetaProperty(name);
+//    IMetaUtil::writeProperty(property, this, value);
+//}
 
 template<typename T, bool enabled, typename U>
 void IBeanInterface<T, enabled, U>::$task()

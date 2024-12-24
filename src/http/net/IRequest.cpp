@@ -114,8 +114,7 @@ const std::vector<IMultiPart> &IRequest::bodyMultiParts() const
     return m_impl->m_reqRaw.m_multiParts;
 }
 
-// TODO: check it
-IJson IRequest::bodyJson() const
+const IJson& IRequest::bodyJson() const
 {
     return m_impl->m_reqRaw.m_json;
 }

@@ -622,7 +622,9 @@ bool IArgumentTypeDetail::createBeanTypes()
             return nullptr;
         }
         auto ptr = QMetaType::create(self.m_typeId);
-        // assigned data to ptr;
+        if(!IBeanTypeManage::instance()->getBeanAssign(self.m_typeId)(ptr, req.bodyJson())){
+            req.setInvalid(IHttpBadRequestInvalid("json can not be converted to Bean"));
+        }
         return ptr;
     };
     this->m_destroyFun = [=](void* ptr){

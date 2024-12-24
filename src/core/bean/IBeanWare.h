@@ -14,9 +14,9 @@ public:
     virtual IJson toJson() const = 0;
     virtual bool loadJson(const IJson&) = 0;
 
-public:
-    virtual QVariant getFieldValue(const QString& name) const = 0;
-    virtual void setFieldValue(const QString& name, const QVariant& value) = 0;
+public: // TODO:
+    virtual QVariant getFieldValue(const QString& name) const {return {};}
+    virtual void setFieldValue(const QString& name, const QVariant& value) {}
 };
 
 $PackageWebCoreEnd

@@ -21,6 +21,7 @@ HEADERS += \
     $$PWD/core/base/IString.h \
     $$PWD/core/base/IStringViewStash.h \
     $$PWD/core/bean/IBeanAbort.h \
+    $$PWD/core/bean/IBeanContainerInterface.h \
     $$PWD/core/bean/IBeanTraitInterface.h \
     $$PWD/core/task/default/IRegisterBaseTypeTask.h \
     $$PWD/core/test/ITestTaskInterface.h \

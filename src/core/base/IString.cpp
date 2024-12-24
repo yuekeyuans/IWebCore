@@ -328,10 +328,7 @@ void IString::moveFrom(IString&& other) noexcept {
         case Type::IStringView:
             m_view = other.m_view;
             break;
-        default:
-            break;
     }
-//    other.m_type = Type::IStringView;
 }
 
 $PackageWebCoreEnd

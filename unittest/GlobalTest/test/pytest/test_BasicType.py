@@ -117,6 +117,9 @@ def test_formData2():
 
 
 def test_beanData():
-    val = requests.post(serverAddress + "/BasicArgument/beanData", json={"index": 102, "name": "yuekeyuan"})
+    val = requests.post(serverAddress + "/BasicArgument/beanData", json={"index": 102, "name": "yueqichu"})
     print(val.text)
     print(val.status_code)
+    assert val.text == '{"index":102,"name":"yueqichu"}'
+    assert val.status_code == 200
+    

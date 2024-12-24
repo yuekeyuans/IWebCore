@@ -1,6 +1,5 @@
-#include "StudentBean.h"
+﻿#include "StudentBean.h"
 
 StudentBean::StudentBean()
 {
-
 }

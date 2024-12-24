@@ -58,7 +58,7 @@ public:
     const QMap<IStringView, IStringView>& paramParameters() const;
     const QMap<IStringView, IStringView>& bodyFormParameters() const;
     const std::vector<IMultiPart>& bodyMultiParts() const;
-    IJson bodyJson() const;
+    const IJson& bodyJson() const;
 
     /*
 
