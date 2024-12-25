@@ -6,42 +6,57 @@
 $PackageWebCoreBegin
 $IPackageBegin(IJsonUtil)
 
+//template<typename T>
+//bool fromJson(T, const IJson&);
+
+//template<typename T>
+//bool  fromJson(T *ptr, const IJson &json)
+//{
+//    return ptr->loadJson(json);
+//}
+
 template<typename T>
-bool fromJson(T* ptr, const IJson& json)
+std::enable_if_t<ITraitUtil::has_class_member_loadJson_v<T>, bool>
+fromJson(T* ptr, const IJson& json)
 {
     if(!ptr) return false;
     if(json.is_discarded() || json.is_null()) return false;
-
-    if constexpr (ITraitUtil::has_class_member_fromJson<T>){
-        return ptr->fromJson(json);
-    }
-
-    return false;
+    return ptr->loadJson(json);
 }
 
 template<typename T>
 bool fromJson(QList<T>* ptr, const IJson& json)
 {
-    qDebug() << "from json";
+    if(!ptr) return false;
+    if(!json.is_array()) return false;      // TODO: 这个是否可以为空
+
+    for(const IJson& val : json){
+        T bean;
+        if(!(fromJson(&bean, val))){
+            return false;
+        }
+        ptr->append(bean);
+    }
     return true;
 }
 
-//template<>
-//bool fromJson(bool* ptr, const IJson& json)
-//{
-//    if(!ptr) return false;
-//    if(!json.is_boolean()) return false;
-//    *ptr = json.get<bool>();
-//    return true;
-//}
+template<typename T>
+std::enable_if_t<std::is_same_v<bool, T>>
+fromJson(T* ptr, const IJson& json)
+{
+    if(!ptr) return false;
+    if(!json.is_boolean()) return false;
+    *ptr = json.get<bool>();
+    return true;
+}
 
 template <typename T>
-std::enable_if<std::is_arithmetic_v<T>, bool> fromJson(T* ptr, const IJson& json) {
+std::enable_if_t<std::is_arithmetic_v<T>, bool>
+fromJson(T* ptr, const IJson& json) {
     if (!ptr) return false;
     if (!json.is_number()) return false;
 
     try {
-        // 判断是否为整型
         if constexpr (std::is_integral_v<T>) {
             if (json.is_number_integer() || json.is_number_float()) {
                 auto value = json.get<double>(); // 先以浮点数形式获取值

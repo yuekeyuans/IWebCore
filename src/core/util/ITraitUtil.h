@@ -52,6 +52,7 @@ $IPackageBegin(ITraitUtil)
 
     PP_CLASS_HAS_MEMBER(toJson)
     PP_CLASS_HAS_MEMBER(fromJson)
+    PP_CLASS_HAS_MEMBER(loadJson)
 #undef PP_CLASS_HAS_MEMBER
 
 $IPackageEnd(ITraitUtil)
