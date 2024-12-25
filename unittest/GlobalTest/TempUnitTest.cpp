@@ -12,7 +12,17 @@ void TempUnitTest::test_BeanList()
     list.append(StudentBean{});
     list.append(StudentBean{});
 
-    qDebug() << __FUNCTION__;
     std::cout << list.toJson();
-//    std::cout << list.toJson().dump();
+
+    auto json = list.toJson();
+
+    auto id = IMetaUtil::registerMetaType<StudentBeanQList>();
+    qDebug() << id << QMetaType::typeName(id);
+
+    auto ptr = QMetaType::create(id);
+
+    IBeanTypeManage::instance()->getBeanAssign(id)(ptr, json);
+
+    auto obj = static_cast<StudentBeanQList*>(ptr);
+    qDebug() << obj->length();
 }
