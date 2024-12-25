@@ -1,9 +1,71 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
+#include "core/util/ITraitUtil.h"
 
 $PackageWebCoreBegin
 $IPackageBegin(IJsonUtil)
+
+template<typename T>
+bool fromJson(T* ptr, const IJson& json)
+{
+    if(!ptr) return false;
+    if(json.is_discarded() || json.is_null()) return false;
+
+    if constexpr (ITraitUtil::has_class_member_fromJson<T>){
+        return ptr->fromJson(json);
+    }
+
+    return false;
+}
+
+template<typename T>
+bool fromJson(QList<T>* ptr, const IJson& json)
+{
+    qDebug() << "from json";
+    return true;
+}
+
+//template<>
+//bool fromJson(bool* ptr, const IJson& json)
+//{
+//    if(!ptr) return false;
+//    if(!json.is_boolean()) return false;
+//    *ptr = json.get<bool>();
+//    return true;
+//}
+
+template <typename T>
+std::enable_if<std::is_arithmetic_v<T>, bool> fromJson(T* ptr, const IJson& json) {
+    if (!ptr) return false;
+    if (!json.is_number()) return false;
+
+    try {
+        // 判断是否为整型
+        if constexpr (std::is_integral_v<T>) {
+            if (json.is_number_integer() || json.is_number_float()) {
+                auto value = json.get<double>(); // 先以浮点数形式获取值
+                if (value >= std::numeric_limits<T>::min() && value <= std::numeric_limits<T>::max()) {
+                    *ptr = static_cast<T>(value); // 范围内则安全转换
+                    return true;
+                }
+            }
+        }
+        // 判断是否为浮点型
+        else if constexpr (std::is_floating_point_v<T>) {
+            if (json.is_number_float() || json.is_number_integer()) {
+                auto value = json.get<double>(); // 先以浮点数形式获取值
+                if (value >= -std::numeric_limits<T>::max() && value <= std::numeric_limits<T>::max()) {
+                    *ptr = static_cast<T>(value); // 范围内则安全转换
+                    return true;
+                }
+            }
+        }
+    } catch (...) {
+        return false;
+    }
+    return false;
+}
 
 
 

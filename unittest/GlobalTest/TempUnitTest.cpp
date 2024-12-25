@@ -45,6 +45,6 @@ void TempUnitTest::test_BeanList()
         auto ptr = QMetaType::create(id);
         IBeanTypeManage::instance()->getBeanAssign(id)(ptr, json);
         auto obj = static_cast<QList<StudentBean>*>(ptr);
-//        qDebug() << QString::fromStdString(obj->toJson().dump(4));
+        qDebug() << QString::fromStdString(IJsonUtil::toJson(*obj).dump(4));
     }
 }

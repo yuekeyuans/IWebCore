@@ -193,8 +193,7 @@ private:
                 IBeanTypeManage::instance()->registerBeanId(id);
                 IBeanTypeManage::instance()->registerBeanAssign(id,
                     [](void* ptr, const IJson& json)->bool{
-                        qDebug() << "invoke here";
-                        return true;
+                        return IJsonUtil::fromJson(static_cast<QList<StudentBean>*>(ptr), json);
                 });
             }
         });
