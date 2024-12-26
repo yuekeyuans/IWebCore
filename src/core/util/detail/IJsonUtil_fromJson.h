@@ -6,7 +6,7 @@
 $PackageWebCoreBegin
 $IPackageBegin(IJsonUtil)
 
-// sequence container
+// list / vector
 #define PP_FROM_JSON_SEQUENCE_CONTAINER(Type)                    \
 template<typename T>                                             \
     bool fromJson( Type <T>* ptr, const IJson& json)             \
@@ -26,6 +26,59 @@ template<typename T>                                             \
     PP_FROM_JSON_SEQUENCE_CONTAINER(std::list)
     PP_FROM_JSON_SEQUENCE_CONTAINER(std::vector)
 #undef PP_FROM_JSON_SEQUENCE_CONTAINER
+
+// maps
+template<typename T>
+bool fromJson(QMap<QString, T>* ptr, const IJson& json)
+{
+    if(!ptr) return false;
+    if(!json.is_object()) return false;
+    for(auto& [key, value] : json.items()){
+        T bean;
+        if(IJsonUtil::fromJson(&bean, value)) return false;
+        (*ptr)[QString::fromStdString(key)] = std::move(bean);
+    }
+    return true;
+}
+
+template<typename T>
+bool fromJson(QMap<std::string, T>* ptr, const IJson& json)
+{
+    if(!ptr) return false;
+    if(!json.is_object()) return false;
+    for(auto& [key, value] : json.items()){
+        T bean;
+        if(IJsonUtil::fromJson(&bean, value)) return false;
+        (*ptr)[key] = std::move(bean);
+    }
+    return true;
+}
+
+template<typename T>
+bool fromJson(std::map<QString, T>* ptr, const IJson& json)
+{
+    if(!ptr) return false;
+    if(!json.is_object()) return false;
+    for(auto& [key, value] : json.items()){
+        T bean;
+        if(IJsonUtil::fromJson(&bean, value)) return false;
+        (*ptr)[QString::fromStdString(key)] = std::move(bean);
+    }
+    return true;
+}
+
+template<typename T>
+bool fromJson(std::map<std::string, T>* ptr, const IJson& json)
+{
+    if(!ptr) return false;
+    if(!json.is_object()) return false;
+    for(auto& [key, value] : json.items()){
+        T bean;
+        if(IJsonUtil::fromJson(&bean, value)) return false;
+        (*ptr)[key] = std::move(bean);
+    }
+    return true;
+}
 
 // beans
 template<typename T>
@@ -102,8 +155,6 @@ fromJson(T* ptr, const IJson& json) {
     }
     return false;
 }
-
-
 
 $IPackageEnd(IJsonUtil)
 $PackageWebCoreEnd

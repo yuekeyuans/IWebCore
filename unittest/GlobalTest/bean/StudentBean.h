@@ -23,10 +23,12 @@ class StudentBeanMapRegistration : public ITaskInstantUnit<StudentBeanMapRegistr
 inline void StudentBeanMapRegistration::$task()
 {
     auto id = IMetaUtil::registerMetaType<QMap<QString, StudentBean>>();
-    IBeanTypeManage::instance()->registerFromJson(id, [](void* ptr, const IJson&)->bool{
-        return false;
+    IBeanTypeManage::instance()->registerFromJson(id, [](void* ptr, const IJson& json)->bool{
+        return IJsonUtil::fromJson(static_cast<QMap<QString, StudentBean>*>(ptr), json);
+    });
+    IBeanTypeManage::instance()->registerToJson(id, [](void* ptr)->IJson{
+        return IJsonUtil::toJson(static_cast<QMap<QString, StudentBean>*>(ptr));
     });
 }
-
 
 $AsBeanContainer(StudentBean)
