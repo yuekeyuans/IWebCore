@@ -42,6 +42,7 @@ void TempUnitTest::test_BeanList()
     }
     {
         auto id = IMetaUtil::registerMetaType<QList<StudentBean>>();
+        qDebug() << id << QMetaType(id).typeName(id);
         auto ptr = QMetaType::create(id);
         IBeanTypeManage::instance()->getBeanAssign(id)(ptr, json);
         auto obj = static_cast<QList<StudentBean>*>(ptr);

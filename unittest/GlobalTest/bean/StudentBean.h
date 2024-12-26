@@ -16,187 +16,49 @@ public:
 };
 
 
-class StudentBeanStdList : public IBeanWare, public QVector<StudentBean>, public ITaskInstantUnit<StudentBeanStdList>
-{
-public:
-    virtual IJson toJson() const final{
-        IJson obj = IJson::array();
-        int len = this->length();
-        for(int i=0; i<len; i++){
-            const auto& bean = this->at(i);
-            auto value = bean.toJson();
-            obj.emplace_back(bean.toJson());
-        }
-        return obj;
-    }
-    virtual bool loadJson(const IJson& json) final
-    {
-        this->clear();
-        if(!json.is_array()){
-            return false;
-        }
-        for(const auto& val : json){
-            StudentBean bean;
-            if(!bean.loadJson(val)){
-                return false;
-            }
-            this->append(bean);
-        }
-        return true;
-    }
-
-private:
-    virtual void $task() final{
-        static std::once_flag flag;
-        std::call_once(flag, [](){
-            auto id = IMetaUtil::registerMetaType<StudentBeanStdList>();
-            IBeanTypeManage::instance()->registerBeanId(id);
-            IBeanTypeManage::instance()->registerBeanAssign(id,
-                [](void* ptr, const IJson& json)->bool{
-                    return static_cast<StudentBeanStdList*>(ptr)->loadJson(json);
-            });
-        });
-
-    }
+#define $AsBeanSequentialContainer(ContainerName, Container, Bean)                                                                                       \
+class Bean ## ContainerName : public IBeanWare, public Container< Bean >, public ITaskInstantUnit< Bean ## ContainerName >                        \
+{                                                                                                                                         \
+public:                                                                                                                                   \
+    virtual IJson toJson() const final{                                                                                                   \
+        IJson obj = IJson::array();                                                                                                       \
+        for(const auto& bean : *this){                                                                                                    \
+            obj.emplace_back(bean.toJson());                                                                                              \
+        }                                                                                                                                 \
+        return obj;                                                                                                                       \
+    }                                                                                                                                     \
+    virtual bool loadJson(const IJson& json) final {                                                                                      \
+        if(!json.is_array()) return false;                                                                                                \
+        for(const auto& val : json){                                                                                                      \
+            Bean bean;                                                                                                                    \
+            if(!bean.loadJson(val)) return false;                                                                                         \
+            this->push_back(std::move(bean));                                                                                                           \
+        }                                                                                                                                 \
+        return true;                                                                                                                      \
+    }                                                                                                                                     \
+                                                                                                                                          \
+private:                                                                                                                                  \
+    virtual void $task() final{                                                                                                           \
+        static std::once_flag flag;                                                                                                       \
+        std::call_once(flag, [](){                                                                                                        \
+            auto id1 = IMetaUtil::registerMetaType< Bean ## ContainerName >();                                                                \
+            IBeanTypeManage::instance()->registerBeanId(id1);                                                                             \
+            IBeanTypeManage::instance()->registerBeanAssign(id1,                                                                          \
+                [](void* ptr, const IJson& json)->bool{return static_cast< Bean ## ContainerName *>(ptr)->loadJson(json);}                    \
+            );                                                                                                                            \
+            auto id2 = IMetaUtil::registerMetaType<Container < Bean >>();                                                                 \
+            IBeanTypeManage::instance()->registerBeanId(id2);                                                                              \
+            IBeanTypeManage::instance()->registerBeanAssign(id2,                                                                           \
+                [](void* ptr, const IJson& json)->bool{return IJsonUtil::fromJson(static_cast< Container < Bean >*>(ptr), json);}         \
+            );                                                                                                                            \
+        });                                                                                                                               \
+    }                                                                                                                                     \
 };
 
+#define $AsBeanContainer(Bean)  \
+    $AsBeanSequentialContainer(QList, QList, Bean) \
+    $AsBeanSequentialContainer(QVector, QVector, Bean)   \
+    $AsBeanSequentialContainer(StdList, std::list, Bean) \
+    $AsBeanSequentialContainer(StdVector, std::vector, Bean)
 
-class StudentBeanStdVector : public IBeanWare, public QVector<StudentBean>, public ITaskInstantUnit<StudentBeanStdVector>
-{
-public:
-    virtual IJson toJson() const final{
-        IJson obj = IJson::array();
-        int len = this->length();
-        for(int i=0; i<len; i++){
-            const auto& bean = this->at(i);
-            auto value = bean.toJson();
-            obj.emplace_back(bean.toJson());
-        }
-        return obj;
-    }
-    virtual bool loadJson(const IJson& json) final
-    {
-        this->clear();
-        if(!json.is_array()){
-            return false;
-        }
-        for(const auto& val : json){
-            StudentBean bean;
-            if(!bean.loadJson(val)){
-                return false;
-            }
-            this->append(bean);
-        }
-        return true;
-    }
-
-private:
-    virtual void $task() final{
-        static std::once_flag flag;
-        std::call_once(flag, [](){
-            auto id = IMetaUtil::registerMetaType<StudentBeanStdVector>();
-            IBeanTypeManage::instance()->registerBeanId(id);
-            IBeanTypeManage::instance()->registerBeanAssign(id,
-                [](void* ptr, const IJson& json)->bool{
-                    return static_cast<StudentBeanStdVector*>(ptr)->loadJson(json);
-            });
-        });
-
-    }
-};
-
-
-class StudentBeanQVector : public IBeanWare, public QVector<StudentBean>, public ITaskInstantUnit<StudentBeanQVector>
-{
-public:
-    virtual IJson toJson() const final{
-        IJson obj = IJson::array();
-        int len = this->length();
-        for(int i=0; i<len; i++){
-            const auto& bean = this->at(i);
-            auto value = bean.toJson();
-            obj.emplace_back(bean.toJson());
-        }
-        return obj;
-    }
-    virtual bool loadJson(const IJson& json) final
-    {
-        this->clear();
-        if(!json.is_array()){
-            return false;
-        }
-        for(const auto& val : json){
-            StudentBean bean;
-            if(!bean.loadJson(val)){
-                return false;
-            }
-            this->append(bean);
-        }
-        return true;
-    }
-
-private:
-    virtual void $task() final{
-        static std::once_flag flag;
-        std::call_once(flag, [](){
-            auto id = IMetaUtil::registerMetaType<StudentBeanQVector>();
-            IBeanTypeManage::instance()->registerBeanId(id);
-            IBeanTypeManage::instance()->registerBeanAssign(id,
-                [](void* ptr, const IJson& json)->bool{
-                    return static_cast<StudentBeanQVector*>(ptr)->loadJson(json);
-            });
-        });
-
-    }
-};
-
-
-class StudentBeanQList : public IBeanWare, public QList<StudentBean>, public ITaskInstantUnit<StudentBeanQList>
-{
-public:
-    virtual IJson toJson() const final{
-        IJson obj = IJson::array();
-        for(const auto& bean : *this){
-            obj.emplace_back(bean.toJson());
-        }
-        return obj;
-    }
-    virtual bool loadJson(const IJson& json) final
-    {
-        if(json.is_array()){
-            for(const auto& val : json){
-                StudentBean bean;
-                if(!bean.loadJson(val)){
-                    return false;
-                }
-                this->append(bean);
-            }
-            return true;
-        }
-        return false;
-    }
-
-private:
-    virtual void $task() final{
-        static std::once_flag flag;
-        std::call_once(flag, [](){
-            {
-                auto id = IMetaUtil::registerMetaType<StudentBeanQList>();
-                IBeanTypeManage::instance()->registerBeanId(id);
-                IBeanTypeManage::instance()->registerBeanAssign(id,
-                    [](void* ptr, const IJson& json)->bool{
-                        return static_cast<StudentBeanQList*>(ptr)->loadJson(json);
-                });
-            }
-            {
-                auto id = IMetaUtil::registerMetaType<QList<StudentBean>>();
-                IBeanTypeManage::instance()->registerBeanId(id);
-                IBeanTypeManage::instance()->registerBeanAssign(id,
-                    [](void* ptr, const IJson& json)->bool{
-                        return IJsonUtil::fromJson(static_cast<QList<StudentBean>*>(ptr), json);
-                });
-            }
-        });
-
-    }
-};
+$AsBeanContainer(StudentBean)

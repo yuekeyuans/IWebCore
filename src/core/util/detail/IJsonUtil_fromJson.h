@@ -6,15 +6,28 @@
 $PackageWebCoreBegin
 $IPackageBegin(IJsonUtil)
 
-//template<typename T>
-//bool fromJson(T, const IJson&);
+// sequence container
+#define PP_FROM_JSON_SEQUENCE_CONTAINER(Type)                    \
+template<typename T>                                             \
+    bool fromJson( Type <T>* ptr, const IJson& json)             \
+    {                                                            \
+        if(!ptr) return false;                                   \
+        if(!json.is_array()) return false;                       \
+                                                                 \
+        for(const IJson& val : json){                            \
+            T bean;                                              \
+            if(!(fromJson(&bean, val)))  return false;           \
+            ptr->push_back(std::move(bean));                     \
+        }                                                        \
+        return true;                                             \
+    }
+    PP_FROM_JSON_SEQUENCE_CONTAINER(QList)
+    PP_FROM_JSON_SEQUENCE_CONTAINER(QVector)
+    PP_FROM_JSON_SEQUENCE_CONTAINER(std::list)
+    PP_FROM_JSON_SEQUENCE_CONTAINER(std::vector)
+#undef PP_FROM_JSON_SEQUENCE_CONTAINER
 
-//template<typename T>
-//bool  fromJson(T *ptr, const IJson &json)
-//{
-//    return ptr->loadJson(json);
-//}
-
+// beans
 template<typename T>
 std::enable_if_t<ITraitUtil::has_class_member_loadJson_v<T>, bool>
 fromJson(T* ptr, const IJson& json)
@@ -24,22 +37,7 @@ fromJson(T* ptr, const IJson& json)
     return ptr->loadJson(json);
 }
 
-template<typename T>
-bool fromJson(QList<T>* ptr, const IJson& json)
-{
-    if(!ptr) return false;
-    if(!json.is_array()) return false;      // TODO: 这个是否可以为空
-
-    for(const IJson& val : json){
-        T bean;
-        if(!(fromJson(&bean, val))){
-            return false;
-        }
-        ptr->append(bean);
-    }
-    return true;
-}
-
+// bool
 template<typename T>
 std::enable_if_t<std::is_same_v<bool, T>>
 fromJson(T* ptr, const IJson& json)
@@ -50,6 +48,7 @@ fromJson(T* ptr, const IJson& json)
     return true;
 }
 
+// arithmetic
 template <typename T>
 std::enable_if_t<std::is_arithmetic_v<T>, bool>
 fromJson(T* ptr, const IJson& json) {

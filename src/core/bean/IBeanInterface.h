@@ -169,11 +169,11 @@ void IBeanInterface<T, enabled, U>::$task()
     if constexpr (enabled){
         static std::once_flag initRegisterFlag;
         std::call_once(initRegisterFlag, [](){
-            IBeanTypeManage::instance()->registerBeanId(IMetaUtil::registerMetaType<T>());
-            IBeanTypeManage::instance()->registerBeanAssign(IMetaUtil::registerMetaType<T>(),
-                [](void* ptr, const IJson& json)->bool{
-                return static_cast<T*>(ptr)->loadJson(json);
-            });
+            auto id = IMetaUtil::registerMetaType<T>();
+            IBeanTypeManage::instance()->registerBeanId(id);
+            IBeanTypeManage::instance()->registerBeanAssign(id,
+                [](void* ptr, const IJson& json)->bool{ return static_cast<T*>(ptr)->loadJson(json);}
+            );
         });
     }
 }

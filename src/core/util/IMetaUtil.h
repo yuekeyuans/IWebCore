@@ -30,10 +30,7 @@ namespace IMetaUtil
     int registerMetaType();
 
     template<typename T>
-    const std::string& getTypename();
-
-    template<typename T>
-    const std::string& getBareTypeName();
+    std::string getBareTypeName();
 
     QString demangleName(const char*);
 }
@@ -41,39 +38,40 @@ namespace IMetaUtil
 template<typename T>
 int IMetaUtil::registerMetaType()
 {
-    QStringList names;
-    QString name = QString::fromStdString(getTypename<T>());
-    if(name.contains(" ")){
-        name = name.split(" ").last();
-    }
-    names.append(name);
-    if(name.contains("::")){
-        names.append(name.split("::").last());
-    }
+    static int s_id;
+    static std::once_flag flag;
+    std::call_once(flag, [](){
+        QStringList names;
+        QString name = QString::fromStdString(getBareTypeName<T>());
 
-    QList<int> ids;
-    for(auto name : names){
-        ids << qRegisterMetaType<T>(name.toUtf8());
-        ids << qRegisterMetaType<T>(QString((name + "&")).toUtf8());
-    };
-    return ids.first();
+        names.append(name);
+        if(!name.startsWith("std::")){
+            if(name.contains("::")){
+                names.append(name.split("::").last());
+            }
+        }
+
+        qDebug() << name;
+
+        for(auto name : names){
+            s_id = qRegisterMetaType<T>(name.toUtf8());
+            s_id = qRegisterMetaType<T>(QString((name + "&")).toUtf8());
+        };
+    });
+    return s_id;
 }
 
 template<typename T>
-const std::string& IMetaUtil::getTypename(){
-    static std::string typeName = demangleName(typeid(T).name()).toStdString();
-    return typeName;
-}
-
-template<typename T>
-const std::string& IMetaUtil::getBareTypeName()
+std::string IMetaUtil::getBareTypeName()
 {
     QString name = demangleName(typeid(T).name());
     if(name.startsWith("class ")){
         name = name.mid(6);
     }
-    static std::string typeName = name.replace("<class ", "<").replace(",class ", ", ").toStdString();
-    return typeName;
+    if(name.startsWith("struct ")){
+        name = name.mid(7);
+    }
+    return name.replace("<class ", "<").replace(",class ", ", ").toStdString();
 }
 
 $PackageWebCoreEnd
