@@ -48,4 +48,18 @@ void TempUnitTest::test_BeanList()
         auto obj = static_cast<QList<StudentBean>*>(ptr);
         qDebug() << QString::fromStdString(IJsonUtil::toJson(*obj).dump(4));
     }
+    {
+        auto id = IMetaUtil::registerMetaType<std::list<StudentBean>>();
+        qDebug() << id << QMetaType(id).typeName(id);
+        auto ptr = QMetaType::create(id);
+        IBeanTypeManage::instance()->getBeanAssign(id)(ptr, json);
+        auto obj = static_cast<std::list<StudentBean>*>(ptr);
+        qDebug() << QString::fromStdString(IJsonUtil::toJson(*obj).dump(4));
+    }
+    {
+        qDebug() << QMetaType::type("std::list<StudentBean>");
+        qDebug() << QMetaType::type("std::list<StudentBean, std::allocator<StudentBean> >");
+        qDebug() << QMetaType::type("QList<StudentBean>");
+        qDebug() << QMetaType::type("StudentBeanStdList");
+    }
 }

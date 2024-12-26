@@ -48,6 +48,28 @@ fromJson(T* ptr, const IJson& json)
     return true;
 }
 
+// QString
+template<typename T>
+std::enable_if_t<std::is_same_v<QString, T>, bool>
+fromJson(T* ptr, const IJson& json)
+{
+    if(!ptr) return false;
+    if(!json.is_string()) return false;
+    *ptr = QString::fromStdString(json.get<std::string>());
+    return true;
+}
+
+// std::string
+template<typename T>
+std::enable_if_t<std::is_same_v<std::string, T>, bool>
+fromJson(T* ptr, const IJson& json)
+{
+    if(!ptr) return false;
+    if(!json.is_string()) return false;
+    *ptr = json.get<std::string>();
+    return true;
+}
+
 // arithmetic
 template <typename T>
 std::enable_if_t<std::is_arithmetic_v<T>, bool>

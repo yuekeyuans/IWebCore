@@ -15,7 +15,6 @@ public:
     $BeanField(QString, name, "yuekeyuan")
 };
 
-
 #define $AsBeanSequentialContainer(ContainerName, Container, Bean)                                                                                       \
 class Bean ## ContainerName : public IBeanWare, public Container< Bean >, public ITaskInstantUnit< Bean ## ContainerName >                        \
 {                                                                                                                                         \
