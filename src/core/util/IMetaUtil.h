@@ -30,6 +30,9 @@ namespace IMetaUtil
     int registerMetaType();
 
     template<typename T>
+    int reigsterMetaType2(const QString& name);
+
+    template<typename T>
     std::string getBareTypeName();
 
     QString demangleName(const char*);
@@ -50,13 +53,22 @@ int IMetaUtil::registerMetaType()
                 names.append(name.split("::").last());
             }
         }
-
-        qDebug() << name;
-
         for(auto name : names){
             s_id = qRegisterMetaType<T>(name.toUtf8());
             s_id = qRegisterMetaType<T>(QString((name + "&")).toUtf8());
         };
+    });
+    return s_id;
+}
+
+template<typename T>
+int IMetaUtil::reigsterMetaType2(const QString& name)
+{
+    static int s_id;
+    static std::once_flag flag;
+    std::call_once(flag, [=](){
+        s_id = qRegisterMetaType<T>(name.toUtf8());
+        s_id = qRegisterMetaType<T>(QString((name + "&")).toUtf8());
     });
     return s_id;
 }

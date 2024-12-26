@@ -1,200 +1,8 @@
 ﻿#pragma once
 
 #include "core/util/IPreProcessorUtil.h"
-#include "core/util/ITraitUtil.h"
 #include "core/util/IJsonUtil.h"
-#include "core/bean/IBeanAbort.h"
 #include "core/bean/IBeanTypeManage.h"
-#include <typeinfo>
-
-$PackageWebCoreBegin
-
-//namespace detail{
-
-//template<typename T>
-//bool writeJsonOfBoolType(T* ptr, const IJson& val)
-//{
-//    if(val.is_boolean()){
-//        *ptr = val.get<bool>();
-//        return true;
-//    }
-//    return false;
-//}
-
-//template<typename T>
-//bool writeJsonOfNumberType(T*ptr, const IJson& val)
-//{
-//    if(val.is_number()){
-//        *ptr = val.get<T>();
-//        return true;
-//    }
-//    return false;
-//}
-
-//template<typename T>
-//bool writeJsonOfStdStringType(T* ptr, const IJson& value){
-//    if(value.is_string()){
-//        *ptr = value.get<std::string>();
-//        return true;
-//    }
-//    return false;
-//}
-
-//template<typename T>
-//bool writeJsonOfIJsonType(T* ptr, const IJson& value)
-//{
-//    *ptr = value;
-//    return true;
-//}
-
-//template<typename T>
-//bool writeJsonOfQStringType(T* ptr, const IJson& value){
-//    if(value.is_string()){
-//        *ptr = QString::fromStdString(value.get<std::string>());
-//        return true;
-//    }
-//    return false;
-//}
-
-//template<typename T>
-//bool writeJsonOfQStringListType(T* ptr, const IJson& value){
-//    if(value.is_array()){
-//        QStringList data;
-//        for(const auto& val : value){
-//            if(val.is_string()){
-//                data.append(QString::fromStdString(val.get<std::string>()));
-//            }else{
-//                return false;     // stop once error occured
-//            }
-//        }
-//        *ptr = data;
-//        return true;
-//    }
-//    return false;
-//}
-
-//// TODO: check exception
-//template<typename T>
-//bool writeJsonOfStdVectorType(T* ptr, const IJson& value){
-//    using U = std::remove_cv_t<T::value_type>;
-//    if(value.is_array()){
-//        T data;
-//        for(const auto& val : value){
-//            U item;
-//            if(fromJson(&item, val)){
-//                data.push_back(std::move(item));
-//            }else{
-//                return false;
-//            }
-//        }
-//        *ptr = std::move(data);
-//        return true;
-//    }
-//    return false;
-//}
-
-//// TODO: check exception
-//template<typename T>
-//bool writeJsonOfQVectorType(T* ptr, const IJson& value)
-//{
-//    using U = std::remove_cv_t<T::value_type>;
-//    if(value.is_array()){
-//        T data;
-//        for(const auto& val : value){
-//            U item;
-//            if(fromJson(&item, val)){
-//                data.append(std::move(item));
-//            }else{
-//                return false;
-//            }
-//        }
-//        *ptr = std::move(data);
-//        return true;
-//    }
-//    return false;
-//}
-
-
-//template<typename T>
-//bool writeJsonOfStdStringMapType(T*ptr, const IJson& value)
-//{
-//    using U = std::remove_cv_t<T::mapped_type>;
-//    if(value.is_object()){
-//        T data;
-//        for(const auto& [key, val] : value.items()){
-//            U item;
-//            if(fromJson(&item, val)){
-//                data[key] = std::move(item);
-//            }else{
-//                return false;
-//            }
-//        }
-//        *ptr = std::move(data);
-//        return true;
-//    }
-//    return false;
-//}
-
-//// slow, check
-//template<typename T>
-//bool writeJsonOfQStringMapType(T*ptr, const IJson& value)
-//{
-//    using U = std::remove_cv_t<T::value_type>;
-//    if(value.is_object()){
-//        T data;
-//        for(const auto& [key, val] : value.items()){
-//            U item;
-//            if(fromJson(&item, val)){
-//                data[key] = std::move(item);
-//            }else{
-//                return false;
-//            }
-//        }
-//        *ptr = std::move(data);
-//        reutrn true;
-//    }
-//    return false;
-//}
-
-//template<typename T>
-//bool writeJsonOfBeanType(T* ptr, const IJson& value)
-//{
-//    return ptr->loadJson(value);
-//}
-
-//template<typename T>
-//bool fromJson(T* ptr, const IJson& json)
-//{
-//    if constexpr (std::is_same_v<T, bool>){
-//        return detail::writeJsonOfBoolType(ptr, json);
-//    }else if constexpr (std::is_floating_point_v<T> || std::is_integral_v<T>){
-//        return detail::writeJsonOfNumberType(ptr, json );
-//    } else if constexpr (std::is_same_v<std::string, T >){
-//        return detail::writeJsonOfStdStringType( ptr, json );
-//    }else if constexpr( std::is_same_v<IJson, T>){
-//        return detail::writeJsonOfIJsonType(ptr, json);
-//    } else if constexpr (std::is_same_v<QString, T >) {
-//        return detail::writeJsonOfQStringType< T >( ptr, json );
-//    } else if constexpr (std::is_same_v<QStringList, T >){
-//        return detail::writeJsonOfQStringListType< T >( ptr, json );
-//    } else if constexpr ( ITraitUtil::is_std_vector_v< T >){
-//        return detail::writeJsonOfStdVectorType< T >( ptr, json );
-//    } else if constexpr (ITraitUtil::is_q_vector_v< T >){
-//        return detail::writeJsonOfQVectorType< T >( ptr, json );
-//    } else if constexpr (ITraitUtil::is_std_string_map_v< T >) {
-//        return detail::writeJsonOfStdStringMapType< T > ( ptr, json );
-//    } else if constexpr (ITraitUtil::is_q_string_map_v< T >){
-//        return detail::writeJsonOfQStringMapType< T >( ptr, json );
-//    } else if constexpr (ITraitUtil::has_class_member_toJson_v< T >){
-//        return detail::writeJsonOfBeanType< T > ( ptr, json );
-//    }
-//    return false;
-//}
-
-//}
-
-
-$PackageWebCoreEnd
 
 #define $BeanFieldDeclare(type, name)                                                               \
 private:                                                                                            \
@@ -255,3 +63,49 @@ public:
 #define $BeanField_(N) $BeanField_##N
 #define $BeanField_EVAL(N) $BeanField_(N)
 #define $BeanField(...) PP_EXPAND( $BeanField_EVAL(PP_EXPAND( PP_NARG(__VA_ARGS__) ))(__VA_ARGS__) )
+
+// container
+#define $AsBeanSequentialContainer(ContainerName, Container, Bean)                                                                           \
+class Bean ## ContainerName : public IBeanWare, public Container< Bean >, public ITaskInstantUnit< Bean ## ContainerName >                   \
+{                                                                                                                                            \
+public:                                                                                                                                      \
+    virtual IJson toJson() const final{                                                                                                      \
+        IJson obj = IJson::array();                                                                                                          \
+        for(const auto& bean : *this){                                                                                                       \
+            obj.emplace_back(bean.toJson());                                                                                                 \
+        }                                                                                                                                    \
+        return obj;                                                                                                                          \
+    }                                                                                                                                        \
+    virtual bool loadJson(const IJson& json) final {                                                                                         \
+        if(!json.is_array()) return false;                                                                                                   \
+        for(const auto& val : json){                                                                                                         \
+            Bean bean;                                                                                                                       \
+            if(!bean.loadJson(val)) return false;                                                                                            \
+            this->push_back(std::move(bean));                                                                                                \
+        }                                                                                                                                    \
+        return true;                                                                                                                         \
+    }                                                                                                                                        \
+                                                                                                                                             \
+private:                                                                                                                                     \
+    virtual void $task() final{                                                                                                              \
+        static std::once_flag flag;                                                                                                          \
+        std::call_once(flag, [](){                                                                                                           \
+            auto id1 = IMetaUtil::registerMetaType< Bean ## ContainerName >();                                                               \
+            IBeanTypeManage::instance()->registerBeanId(id1);                                                                                \
+            IBeanTypeManage::instance()->registerFromJson(id1,                                                                             \
+                [](void* ptr, const IJson& json)->bool{return static_cast< Bean ## ContainerName *>(ptr)->loadJson(json);}                   \
+            );                                                                                                                               \
+            auto id2 = IMetaUtil::registerMetaType<Container < Bean >>();                                                                    \
+            IBeanTypeManage::instance()->registerBeanId(id2);                                                                                \
+            IBeanTypeManage::instance()->registerFromJson(id2,                                                                             \
+                [](void* ptr, const IJson& json)->bool{return IJsonUtil::fromJson(static_cast< Container < Bean >*>(ptr), json);}            \
+            );                                                                                                                               \
+        });                                                                                                                                  \
+    }                                                                                                                                        \
+};
+
+#define $AsBeanContainer(Bean)  \
+    $AsBeanSequentialContainer(QList, QList, Bean) \
+    $AsBeanSequentialContainer(QVector, QVector, Bean)   \
+    $AsBeanSequentialContainer(StdList, std::list, Bean) \
+    $AsBeanSequentialContainer(StdVector, std::vector, Bean)

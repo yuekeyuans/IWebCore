@@ -7,14 +7,24 @@ void IBeanTypeManage::registerBeanId(int id)
     m_beanIds.insert(id);
 }
 
-void IBeanTypeManage::registerBeanAssign(int id, IBeanTypeManage::BeanAssign assign)
+void IBeanTypeManage::registerFromJson(int id, IBeanTypeManage::FromJson assign)
 {
-    m_beanAssign[id] = assign;
+    m_beanFromJson[id] = assign;
 }
 
-IBeanTypeManage::BeanAssign &IBeanTypeManage::getBeanAssign(int id)
+void IBeanTypeManage::registerToJson(int id, IBeanTypeManage::ToJson fetch)
 {
-    return m_beanAssign[id];
+    m_beanToJson[id] = fetch;
+}
+
+IBeanTypeManage::FromJson &IBeanTypeManage::getBeanFromJson(int id)
+{
+    return m_beanFromJson[id];
+}
+
+IBeanTypeManage::ToJson &IBeanTypeManage::getBeanToJson(int id)
+{
+    return m_beanToJson[id];
 }
 
 bool IBeanTypeManage::isBeanIdExist(int id) const

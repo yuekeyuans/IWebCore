@@ -248,7 +248,6 @@ SOURCES += \
     $$PWD/core/test/IUnitTestTask.cpp \
     $$PWD/core/unit/ISingletonUnit.cpp \
 #    $$PWD/http/IHttpAssert.cpp \
-    $$PWD/core/util/detail/IJsonUtil_fromJson.cpp \
     $$PWD/http/IHttpManage.cpp \
     $$PWD/http/base/IArgumentTypeDetail.cpp \
     $$PWD/http/base/IMethodParameterManage.cpp \

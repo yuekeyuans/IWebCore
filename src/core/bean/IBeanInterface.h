@@ -1,14 +1,13 @@
 ﻿#pragma once
 
 #include "IBeanWare.h"
+#include "IBeanAbort.h"
 #include "IBeanTypeManage.h"
 #include "IBeanPreProcessor.h"
 #include "IBeanTraitInterface.h"
 #include "core/util/IMetaUtil.h"
 #include "core/unit/ITraceUnit.h"
 #include "core/task/unit/ITaskInstantUnit.h"
-#include "IJson.h"
-#include <optional>
 
 $PackageWebCoreBegin
 
@@ -171,7 +170,7 @@ void IBeanInterface<T, enabled, U>::$task()
         std::call_once(initRegisterFlag, [](){
             auto id = IMetaUtil::registerMetaType<T>();
             IBeanTypeManage::instance()->registerBeanId(id);
-            IBeanTypeManage::instance()->registerBeanAssign(id,
+            IBeanTypeManage::instance()->registerFromJson(id,
                 [](void* ptr, const IJson& json)->bool{ return static_cast<T*>(ptr)->loadJson(json);}
             );
         });
