@@ -12,7 +12,7 @@ private:                                                                        
         return IJsonUtil::toJson( name );                                                           \
     }                                                                                               \
     Q_INVOKABLE bool $##name##_fromJsonValue(const IJson& json) {                                   \
-        return IJsonUtil::fromJson(& name, json);                                                   \
+        return IJsonUtil::fromJson( name, json);                                                   \
     }                                                                                               \
 public:
 

@@ -9,8 +9,6 @@ $IPackageBegin(IJsonUtil)
 #define PP_DIRECT_RETURN_TOJSON(klass)     \
     inline IJson toJson(klass value) { return value; }
     PP_DIRECT_RETURN_TOJSON(const char*)
-    PP_DIRECT_RETURN_TOJSON(const IJson&)
-    PP_DIRECT_RETURN_TOJSON(const std::string&)
     PP_DIRECT_RETURN_TOJSON(bool)
     PP_DIRECT_RETURN_TOJSON(char)
     PP_DIRECT_RETURN_TOJSON(unsigned char)
@@ -26,18 +24,6 @@ $IPackageBegin(IJsonUtil)
     PP_DIRECT_RETURN_TOJSON(float)
     PP_DIRECT_RETURN_TOJSON(double)
 #undef PP_DIRECT_RETURN_TOJSON
-
-inline IJson toJson(std::string&& value) {return std::move(value);}
-inline IJson toJson(const QString& value) {return value.toStdString();}
-inline IJson toJson(IJson&& value) {return std::move(value);}
-inline IJson toJson(const QStringList& value)
-{
-    IJson array = IJson::array();
-    for(const QString& val : value){
-        array.push_back(val.toStdString());
-    }
-    return array;
-}
 
 #define PP_ARRAY_LIKE_TOJSON(klass)               \
     template<typename T>                              \
@@ -55,6 +41,21 @@ inline IJson toJson(const QStringList& value)
     PP_ARRAY_LIKE_TOJSON(QVector)
 #undef PP_ARRAY_LIKE_TOJSON
 
+inline IJson toJson(std::string&& value) {return std::move(value);}
+inline IJson toJson(const std::string& value) {return value;}
+inline IJson toJson(const QString& value) {return value.toStdString();}
+inline IJson toJson(const IString& value){return value.toStdString();}
+inline IJson toJson(IJson&& value) {return std::move(value);}
+inline IJson toJson(const IJson& value){return value;}
+inline IJson toJson(const QStringList& value)
+{
+    IJson array = IJson::array();
+    for(const QString& val : value){
+        array.push_back(val.toStdString());
+    }
+    return array;
+}
+
 template<typename T>
 std::enable_if_t<ITraitUtil::has_class_member_toJson_v<T>, IJson> toJson(const T& value)
 {
@@ -66,9 +67,10 @@ IJson toJson(const std::map<T, U>& map)
 {
     constexpr bool c_valid = std::is_same_v<T, std::string>
             || std::is_same_v<T, QString>
+            || std::is_same_v<T, IString>
             || std::is_floating_point_v<T>
             || std::is_arithmetic_v<T>;
-    static_assert(c_valid, "std::map key only support number, QString, std::string");
+    static_assert(c_valid, "std::map key only support number, QString, std::string and IString");
 
     IJson result = IJson::object();
     for (auto it = map.cbegin(); it != map.cend(); ++it) {
@@ -91,9 +93,10 @@ IJson toJson(const QMap<T, U>& map)
     constexpr bool c_valid = std::is_same_v<T, std::string>
             || std::is_same_v<T, QString>
             || std::is_same_v<T, IStringView>
+            || std::is_same_v<T, IString>
             || std::is_floating_point_v<T>
             || std::is_arithmetic_v<T>;
-    static_assert(c_valid, "std::map key only support number, QString, std::string");
+    static_assert(c_valid, "std::map key only support number, QString, std::string, IString");
 
     IJson result = IJson::object();
     for (auto it = map.cbegin(); it != map.cend(); ++it) {
