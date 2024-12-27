@@ -27,6 +27,18 @@ $IPackageBegin(IJsonUtil)
     PP_DIRECT_RETURN_TOJSON(double)
 #undef PP_DIRECT_RETURN_TOJSON
 
+inline IJson toJson(std::string&& value) {return std::move(value);}
+inline IJson toJson(const QString& value) {return value.toStdString();}
+inline IJson toJson(IJson&& value) {return std::move(value);}
+inline IJson toJson(const QStringList& value)
+{
+    IJson array = IJson::array();
+    for(const QString& val : value){
+        array.push_back(val.toStdString());
+    }
+    return array;
+}
+
 #define PP_ARRAY_LIKE_TOJSON(klass)               \
     template<typename T>                              \
     IJson toJson(const klass <T>& value){             \
@@ -42,18 +54,6 @@ $IPackageBegin(IJsonUtil)
     PP_ARRAY_LIKE_TOJSON(QList)
     PP_ARRAY_LIKE_TOJSON(QVector)
 #undef PP_ARRAY_LIKE_TOJSON
-
-inline IJson toJson(std::string&& value) {return std::move(value);}
-inline IJson toJson(const QString& value) {return value.toStdString();}
-inline IJson toJson(IJson&& value) {return std::move(value);}
-inline IJson toJson(const QStringList& value)
-{
-    IJson array = IJson::array();
-    for(const QString& val : value){
-        array.push_back(val.toStdString());
-    }
-    return array;
-}
 
 template<typename T>
 std::enable_if_t<ITraitUtil::has_class_member_toJson_v<T>, IJson> toJson(const T& value)

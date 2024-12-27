@@ -8,17 +8,18 @@ void TempUnitTest::test_IJson()
 
 void TempUnitTest::test_BeanList()
 {
-//    StudentBeanQList list;
-//    list.append(StudentBean{});
-//    list.append(StudentBean{});
-//    auto json = list.toJson();
-//    {
-//        auto id = IMetaUtil::registerMetaType<StudentBeanQList>();
-//        auto ptr = QMetaType::create(id);
-//        IBeanTypeManage::instance()->getBeanFromJson(id)(ptr, json);
-//        auto obj = static_cast<StudentBeanQList*>(ptr);
-//        qDebug() << QString::fromStdString(obj->toJson().dump(4));
-//    }
+    QList<StudentBean> list;
+    list.append(StudentBean{});
+    list.append(StudentBean{});
+    auto json = IJsonUtil::toJson(list);
+    {
+        auto id = IMetaUtil::registerMetaType<std::list<StudentBean>>().toList().first();
+        auto ptr = new std::list<StudentBean>();
+
+        qDebug() << IBeanTypeManage::instance()->getBeanFromJson(id)(ptr, json);
+        auto obj = static_cast<std::list<StudentBean>*>(ptr);
+        qDebug() << QString::fromStdString(IJsonUtil::toJson(*static_cast<std::list<StudentBean>*>(ptr)).dump());
+    }
 //    {
 //        auto id = IMetaUtil::registerMetaType<StudentBeanQVector>();
 //        auto ptr = QMetaType::create(id);
@@ -61,5 +62,15 @@ void TempUnitTest::test_BeanList()
 //        qDebug() << QMetaType::type("std::list<StudentBean, std::allocator<StudentBean> >");
 //        qDebug() << QMetaType::type("QList<StudentBean>");
 //        qDebug() << QMetaType::type("StudentBeanStdList");
-//    }
+    //    }
+}
+
+void TempUnitTest::test_RegisterTypeOutput()
+{
+    for(int i=1024; i<3000; i++){
+        QString name = QMetaType::typeName(i);
+        if(!name.isEmpty()){
+            qDebug() << "type" << i << name;
+        }
+    }
 }

@@ -6,7 +6,7 @@
 $PackageWebCoreBegin
 $IPackageBegin(IJsonUtil)
 
-// list / vector
+// list / vector // TODO: optimised it!!!
 #define PP_FROM_JSON_SEQUENCE_CONTAINER(Type)                    \
 template<typename T>                                             \
     bool fromJson( Type <T>* ptr, const IJson& json)             \
@@ -17,7 +17,7 @@ template<typename T>                                             \
         for(const IJson& val : json){                            \
             T bean;                                              \
             if(!(fromJson(&bean, val)))  return false;           \
-            ptr->push_back(std::move(bean));                     \
+            ptr->push_back(bean);                     \
         }                                                        \
         return true;                                             \
     }
@@ -62,7 +62,9 @@ bool fromJson(QMap<IString, T>* ptr, const IJson& json)
     for(auto& [key, value] : json.items()){
         T bean;
         if(IJsonUtil::fromJson(&bean, value)) return false;
-        (*ptr)[key] = std::move(bean);
+        IString keyVal = &key;
+        keyVal.solidify();
+        (*ptr)[keyVal] = std::move(bean);
     }
     return true;
 }
@@ -93,6 +95,22 @@ bool fromJson(std::map<std::string, T>* ptr, const IJson& json)
     }
     return true;
 }
+
+template<typename T>
+bool fromJson(std::map<IString, T>* ptr, const IJson& json)
+{
+    if(!ptr) return false;
+    if(!json.is_object()) return false;
+    for(auto& [key, value] : json.items()){
+        T bean;
+        if(IJsonUtil::fromJson(&bean, value)) return false;
+        IString keyVal = &key;
+        keyVal.solidify();
+        (*ptr)[keyVal] = std::move(bean);
+    }
+    return true;
+}
+
 
 // beans
 template<typename T>

@@ -17,14 +17,22 @@ void IBeanTypeManage::registerToJson(int id, IBeanTypeManage::ToJson fetch)
     m_beanToJson[id] = fetch;
 }
 
-IBeanTypeManage::FromJson &IBeanTypeManage::getBeanFromJson(int id)
+IBeanTypeManage::FromJson IBeanTypeManage::getBeanFromJson(int id)
 {
-    return m_beanFromJson[id];
+    if(m_beanFromJson.contains(id)){
+        return m_beanFromJson[id];
+    }
+    qFatal("not exist");
+    return nullptr;
 }
 
-IBeanTypeManage::ToJson &IBeanTypeManage::getBeanToJson(int id)
+IBeanTypeManage::ToJson IBeanTypeManage::getBeanToJson(int id)
 {
-    return m_beanToJson[id];
+    if(m_beanToJson.contains(id)){
+        return m_beanToJson[id];
+    }
+    qFatal("not exist");
+    return nullptr;
 }
 
 bool IBeanTypeManage::isBeanIdExist(int id) const

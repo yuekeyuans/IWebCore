@@ -18,14 +18,14 @@ public:
     void registerBeanId(int id);
     void registerFromJson(int id, FromJson);
     void registerToJson(int id, ToJson);
-    FromJson& getBeanFromJson(int id);
-    ToJson& getBeanToJson(int id);
+    FromJson getBeanFromJson(int id);
+    ToJson getBeanToJson(int id);
     bool isBeanIdExist(int id) const;
 
 private:
     std::unordered_set<int> m_beanIds;
-    std::unordered_map<int, FromJson> m_beanFromJson;
-    std::unordered_map<int, ToJson> m_beanToJson;
+    QMap<int, FromJson> m_beanFromJson;
+    QMap<int, ToJson> m_beanToJson;
 };
 
 $PackageWebCoreEnd
