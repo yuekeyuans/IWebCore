@@ -2,7 +2,6 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "core/util/IConvertUtil.h"
-#include "core/util/IMetaUtil.h"
 #include "core/bean/IBeanInterface.h"
 
 $PackageWebCoreBegin

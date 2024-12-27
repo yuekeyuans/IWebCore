@@ -27,10 +27,7 @@ namespace IMetaUtil
     QVariant readProperty(const QMetaProperty& prop, const void* handler);
 
     template<typename T>
-    int registerMetaType();
-
-    template<typename T>
-    int reigsterMetaType2(const QString& name);
+    QSet<int> registerMetaType(QStringList names={});
 
     template<typename T>
     std::string getBareTypeName();
@@ -39,36 +36,28 @@ namespace IMetaUtil
 }
 
 template<typename T>
-int IMetaUtil::registerMetaType()
+QSet<int> IMetaUtil::registerMetaType(QStringList names)
 {
-    static int s_id;
-    static std::once_flag flag;
-    std::call_once(flag, [](){
-        QStringList names;
-        QString name = QString::fromStdString(getBareTypeName<T>());
-
-        names.append(name);
-        if(!name.startsWith("std::")){
-            if(name.contains("::")){
-                names.append(name.split("::").last());
-            }
-        }
-        for(auto name : names){
-            s_id = qRegisterMetaType<T>(name.toUtf8());
-            s_id = qRegisterMetaType<T>(QString((name + "&")).toUtf8());
-        };
-    });
-    return s_id;
-}
-
-template<typename T>
-int IMetaUtil::reigsterMetaType2(const QString& name)
-{
-    static int s_id;
+    static QSet<int> s_id;
     static std::once_flag flag;
     std::call_once(flag, [=](){
-        s_id = qRegisterMetaType<T>(name.toUtf8());
-        s_id = qRegisterMetaType<T>(QString((name + "&")).toUtf8());
+        auto names_ = names;
+        if(names_.isEmpty()){
+            QString name = QString::fromStdString(getBareTypeName<T>());
+
+            names_.append(name);
+            if(!name.startsWith("std::")){
+                if(name.contains("::")){
+                    names_.append(name.split("::").last());
+                }
+            }
+        }
+
+        for(auto name : names_){
+            s_id << qRegisterMetaType<T>(name.toUtf8());
+            s_id << qRegisterMetaType<T>(QString((name + "&")).toUtf8());
+        };
+        qDebug() << names_ << s_id;
     });
     return s_id;
 }

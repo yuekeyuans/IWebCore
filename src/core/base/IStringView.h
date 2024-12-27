@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "core/util/IPackageUtil.h"
-#include "core/unit/IRegisterMetaTypeUnit.h"
 #include <string_view>
 #include <QString>
 #include <QByteArray>

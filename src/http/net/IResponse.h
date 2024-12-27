@@ -1,7 +1,6 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
-#include "core/unit/IRegisterMetaTypeUnit.h"
 #include "http/biscuits/IHttpStatus.h"
 #include "http/biscuits/IHttpVersion.h"
 #include "http/biscuits/IHttpMime.h"

@@ -55,6 +55,20 @@ bool fromJson(QMap<std::string, T>* ptr, const IJson& json)
 }
 
 template<typename T>
+bool fromJson(QMap<IString, T>* ptr, const IJson& json)
+{
+    if(!ptr) return false;
+    if(!json.is_object()) return false;
+    for(auto& [key, value] : json.items()){
+        T bean;
+        if(IJsonUtil::fromJson(&bean, value)) return false;
+        (*ptr)[key] = std::move(bean);
+    }
+    return true;
+}
+
+
+template<typename T>
 bool fromJson(std::map<QString, T>* ptr, const IJson& json)
 {
     if(!ptr) return false;

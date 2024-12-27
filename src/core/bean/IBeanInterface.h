@@ -4,6 +4,7 @@
 #include "IBeanAbort.h"
 #include "IBeanTypeManage.h"
 #include "IBeanPreProcessor.h"
+#include "IBeanRegisterTypeUnit.h"
 #include "IBeanTraitInterface.h"
 #include "core/util/IMetaUtil.h"
 #include "core/unit/ITraceUnit.h"
@@ -12,7 +13,7 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled = true, typename U=IBeanDefaultTrait>
-class IBeanInterface : protected IBeanWare, public ITaskInstantUnit<T, enabled>, protected U
+class IBeanInterface : protected IBeanWare, public ITaskInstantUnit<T, enabled>, protected U, private IBeanRegisterTypeUnit<T>
 {
 public:
     static inline constexpr bool IS_USE_EXCEPTION = U::ERROR_HANDLE_TYPE == IBeanDefaultTrait::ErrorHandleType::Exception;
@@ -30,7 +31,7 @@ private:
     const QMap<QString, QString>& getMetaClassInfos() const;
     const std::vector<QMetaProperty>& getMetaProperties() const;
     const QMetaMethod& getMetaMethod(const QString &name) const;
-    const QMetaProperty& getMetaProperty(const QString& name) const;
+//    const QMetaProperty& getMetaProperty(const QString& name) const;
 //    virtual QVariant getFieldValue(const QString& name) const final;
 //    virtual void setFieldValue(const QString& name, const QVariant& value) final;
 
@@ -134,19 +135,19 @@ const QMetaMethod& IBeanInterface<T, enabled, U>::getMetaMethod(const QString &n
     return s_emptyMethod;
 }
 
-template<typename T, bool enabled, typename U>
-const QMetaProperty& IBeanInterface<T, enabled, U>::getMetaProperty(const QString& name) const
-{
-    const auto props = getMetaProperties();
-    for(const QMetaProperty& prop : props){
-        if(prop.name() == name){
-            return prop;
-        }
-    }
+//template<typename T, bool enabled, typename U>
+//const QMetaProperty& IBeanInterface<T, enabled, U>::getMetaProperty(const QString& name) const
+//{
+//    const auto props = getMetaProperties();
+//    for(const QMetaProperty& prop : props){
+//        if(prop.name() == name){
+//            return prop;
+//        }
+//    }
 
-    static QMetaProperty s_prop{};
-    return s_prop;
-}
+//    static QMetaProperty s_prop{};
+//    return s_prop;
+//}
 
 //template<typename T, bool enabled, typename U>
 //QVariant IBeanInterface<T, enabled, U>::getFieldValue(const QString& name) const
@@ -168,11 +169,7 @@ void IBeanInterface<T, enabled, U>::$task()
     if constexpr (enabled){
         static std::once_flag initRegisterFlag;
         std::call_once(initRegisterFlag, [](){
-            auto id = IMetaUtil::registerMetaType<T>();
-            IBeanTypeManage::instance()->registerBeanId(id);
-            IBeanTypeManage::instance()->registerFromJson(id,
-                [](void* ptr, const IJson& json)->bool{ return static_cast<T*>(ptr)->loadJson(json);}
-            );
+            IBeanRegisterTypeUnit::registType();
         });
     }
 }
