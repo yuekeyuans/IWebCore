@@ -68,6 +68,31 @@ def test_bean():
     print(val.text)
     print(val.headers)
 
+def test_getBeanQList():
+    val = requests.get(serverAddress + "/ReturnTypeController/getBeanQList")
+    print(val.text)
+    print(val.headers)
+    assert val.status_code == 200
+    assert val.json() == [{"index":1,"name":"hello"},{"index":2,"name":"world"}]
+    assert val.headers["Content-Type"]  == "application/json; charset=UTF-8"
+
+def test_getBeanStdList():
+    val = requests.get(serverAddress + "/ReturnTypeController/getBeanStdList")
+    print(val.text)
+    print(val.headers)
+    assert val.status_code == 200
+    assert val.json() == [{"index":1,"name":"hello"},{"index":2,"name":"world"}]
+    assert val.headers["Content-Type"]  == "application/json; charset=UTF-8"
+
+def test_getBeanQMapQstring():
+    val = requests.get(serverAddress + "/ReturnTypeController/getBeanQMapQstring")
+    print(val.text)
+    print(val.headers)
+    assert val.status_code == 200
+    assert val.json() == {'qichu': {'index': 2, 'name': 'world'}, 'yue': {'index': 1, 'name': 'hello'}}
+    assert val.headers["Content-Type"]  == "application/json; charset=UTF-8"
+
+
 def test_getBeanList():
     val = requests.get(serverAddress + "/ReturnTypeController/getBeanList")
     assert val.status_code == 200
@@ -75,7 +100,6 @@ def test_getBeanList():
     assert val.headers["Content-Type"]  == "application/json; charset=UTF-8"
     print(val.text)
     print(val.headers)
-
 
 def test_fileResponse():
     val = requests.get(serverAddress + "/ReturnTypeController/fileResponse")

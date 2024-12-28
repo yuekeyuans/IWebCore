@@ -65,6 +65,14 @@ QSet<int> IMetaUtil::registerMetaType(QStringList names)
 template<typename T>
 std::string IMetaUtil::getBareTypeName()
 {
+    if constexpr( std::is_same_v<T, std::string>){
+        return "std::string";
+    }else if constexpr (std::is_same_v<T, IString>){
+        return "IString";
+    }else if constexpr (std::is_same_v<T, QString>){
+        return "QString";
+    }
+
     QString name = demangleName(typeid(T).name());
     if(name.startsWith("class ")){
         name = name.mid(6);

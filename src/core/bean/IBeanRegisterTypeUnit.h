@@ -50,7 +50,7 @@ void IBeanRegisterTypeUnit<T>::registType()
 
 template<typename T>
 void IBeanRegisterTypeUnit<T>::registBean()
-{
+{   
     auto ids = IMetaUtil::registerMetaType<T>();
     for(auto id : ids){
         IBeanTypeManage::instance()->registerBeanId(id);
@@ -66,7 +66,8 @@ void IBeanRegisterTypeUnit<T>::registBean()
 template<typename T>
 void IBeanRegisterTypeUnit<T>::registerQList()
 {
-    auto ids = IMetaUtil::registerMetaType<QList<T>>();
+    auto name = "QList<" + QString::fromStdString(IMetaUtil::getBareTypeName<T>()) + ">";
+    auto ids = IMetaUtil::registerMetaType<QList<T>>({name});
     for(auto id : ids){
         IBeanTypeManage::instance()->registerBeanId(id);
         IBeanTypeManage::instance()->registerFromJson(id,[](void* ptr, const IJson& json)->bool{
@@ -81,7 +82,8 @@ void IBeanRegisterTypeUnit<T>::registerQList()
 template<typename T>
 void IBeanRegisterTypeUnit<T>::registerStdList()
 {
-    auto ids = IMetaUtil::registerMetaType<std::list<T>>({"std::list<" + QString::fromStdString(IMetaUtil::getBareTypeName<T>()) + ">"});
+    auto name = "std::list<" + QString::fromStdString(IMetaUtil::getBareTypeName<T>()) + ">";
+    auto ids = IMetaUtil::registerMetaType<std::list<T>>({name});
     for(auto id : ids){
         IBeanTypeManage::instance()->registerBeanId(id);
         IBeanTypeManage::instance()->registerFromJson(id,[](void* ptr, const IJson& json)->bool{
@@ -96,7 +98,8 @@ void IBeanRegisterTypeUnit<T>::registerStdList()
 template<typename T>
 void IBeanRegisterTypeUnit<T>::registerQVector()
 {
-    auto ids = IMetaUtil::registerMetaType<QVector<T>>();
+    auto name = "QVector<" + QString::fromStdString(IMetaUtil::getBareTypeName<T>()) + ">";
+    auto ids = IMetaUtil::registerMetaType<QVector<T>>({name});
     for(auto id : ids){
         IBeanTypeManage::instance()->registerBeanId(id);
         IBeanTypeManage::instance()->registerFromJson(id,[](void* ptr, const IJson& json)->bool{
@@ -127,7 +130,8 @@ void IBeanRegisterTypeUnit<T>::registerStdVector()
 template<typename T>
 void IBeanRegisterTypeUnit<T>::registerQStringQMap()
 {
-    auto ids = IMetaUtil::registerMetaType<QMap<QString, T>>();
+    auto name = "QMap<QString, " + QString::fromStdString(IMetaUtil::getBareTypeName<T>()) + ">";
+    auto ids = IMetaUtil::registerMetaType<QMap<QString, T>>({name});
     for(auto id : ids){
         IBeanTypeManage::instance()->registerBeanId(id);
         IBeanTypeManage::instance()->registerFromJson(id,[](void* ptr, const IJson& json)->bool{

@@ -1,4 +1,5 @@
 ﻿#include "IRegisterBaseTypeTask.h"
+#include "core/bean/IBeanRegisterTypeUnit.h"
 #include "IJson.h"
 
 $PackageWebCoreBegin
@@ -6,8 +7,8 @@ $PackageWebCoreBegin
 template<typename T>
 void registerBaseType(const QString &name)
 {
-    qRegisterMetaType<T>(name.toUtf8());
-    qRegisterMetaType<T>(QString((name + "&")).toUtf8());
+    qDebug() << name << qRegisterMetaType<T>(name.toUtf8());
+    qDebug() << name << qRegisterMetaType<T>(QString((name + "&")).toUtf8());
 }
 
 void IRegisterBaseTypeTask::$task()
@@ -20,14 +21,21 @@ void IRegisterBaseTypeTask::$task()
     registerBaseType<qlonglong>("qlonglong");
     registerBaseType<qulonglong>("qulonglong");
 
-    registerBaseType<uint8_t>("uint8_t");
-    registerBaseType<int8_t>("int8_t");
-    registerBaseType<int16_t>("int16_t");
-    registerBaseType<uint16_t>("uint16_t");
-    registerBaseType<int32_t>("int32_t");
-    registerBaseType<uint32_t>("uint32_t");
-    registerBaseType<int64_t>("int64_t");
-    registerBaseType<uint64_t>("uint64_t");
+    IBeanRegisterTypeUnit<short>::registType();
+    IBeanRegisterTypeUnit<unsigned short>::registType();
+    IBeanRegisterTypeUnit<int>::registType();
+    IBeanRegisterTypeUnit<unsigned int>::registType();
+    IBeanRegisterTypeUnit<long>::registType();
+    IBeanRegisterTypeUnit<unsigned long>::registType();
+    IBeanRegisterTypeUnit<long long>::registType();
+    IBeanRegisterTypeUnit<unsigned long long>::registType();
+    IBeanRegisterTypeUnit<float>::registType();
+    IBeanRegisterTypeUnit<double>::registType();
+
+//    IBeanRegisterTypeUnit<IStringView>::registType();
+    IBeanRegisterTypeUnit<IString>::registType();
+    IBeanRegisterTypeUnit<std::string>::registType();
+    IBeanRegisterTypeUnit<QString>::registType();
 }
 
 $PackageWebCoreEnd

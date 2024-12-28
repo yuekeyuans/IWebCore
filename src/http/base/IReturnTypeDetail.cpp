@@ -74,8 +74,9 @@ void IReturnTypeDetail::createResponseFun()
 void IReturnTypeDetail::createBeanFun()
 {
     if(IBeanTypeManage::instance()->isBeanIdExist(m_typeId)){
-        m_resolveFunction = [](IRequestImpl& impl, void* ptr){
-            IJson json = static_cast<IBeanWare*>(ptr)->toJson();
+        auto self = *this;
+        m_resolveFunction = [self](IRequestImpl& impl, void* ptr){
+            IJson json = IBeanTypeManage::instance()->getBeanToJson(self.m_typeId)(ptr);
             impl.setResponseWare(IJsonResponse(std::move(json)));
         };
     }
@@ -106,7 +107,7 @@ void IReturnTypeDetail::createStatusFun()
 
 void IReturnTypeDetail::createStdStringFun()
 {
-    if(m_typeId == QMetaType::UnknownType && m_typeName == "std::string"){
+    if(m_typeName == "std::string"){
         m_resolveFunction = [](IRequestImpl& impl, void* ptr){
             const std::string& value = *static_cast<std::string*>(ptr);
             if(IStringUtil::startsWith(value, "$")){

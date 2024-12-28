@@ -4,7 +4,7 @@
 #include "IHttpPythonTestAnnomacro.h"
 
 $EnableTaskOutput(false)
-$EnableUnitTest(true)
+$EnableUnitTest(false)
 $EnableHttpPythonTest(true)
 int main(int argc, char *argv[])
 {

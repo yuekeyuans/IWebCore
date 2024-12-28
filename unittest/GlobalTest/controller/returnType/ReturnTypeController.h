@@ -66,6 +66,33 @@ public:
         return {};
     }
 
+    $GetMapping(getBeanQList)
+    QList<StudentBean> getBeanQList()
+    {
+        return QList<StudentBean>{
+            StudentBean{1, "hello"},
+            StudentBean{2, "world"}
+        };
+    }
+
+    $GetMapping(getBeanStdList)
+    std::list<StudentBean> getBeanStdList()
+    {
+        return std::list<StudentBean>{
+            StudentBean{1, "hello"},
+            StudentBean{2, "world"}
+        };
+    }
+
+    $GetMapping(getBeanQMapQstring)
+    QMap<QString, StudentBean> getBeanQMapQstring()
+    {
+        return QMap<QString, StudentBean>{
+            {"yue", StudentBean{1, "hello"}},
+            {"qichu", StudentBean{2, "world"}}
+        };
+    }
+
     $GetMapping(getBeanList)
     IJsonResponse getBeanList(){
         return QList<StudentBean>{
