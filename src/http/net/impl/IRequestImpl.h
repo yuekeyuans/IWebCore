@@ -38,7 +38,6 @@ public:
     IRequestImpl(IRequest& self);
     ~IRequestImpl();
 
-
 private:
     void parseData();
     bool doFirstLineState();

@@ -94,6 +94,11 @@ const IString& IRequest::content() const
     return m_impl->m_reqRaw.m_body;
 }
 
+const QMap<IStringView, IStringView> &IRequest::pathParameters() const
+{
+    return m_impl->m_reqRaw.m_paths;
+}
+
 const QMap<IStringView, IStringView> &IRequest::urlParameters() const
 {
     return m_impl->m_reqRaw.m_queries;
@@ -163,149 +168,6 @@ IStringView IRequest::stash(IStringView data)
 {
     return m_impl->stash(data);
 }
-
-/*
-QJsonValue IRequest::bodyJson(bool &ok) const
-{
-//    return impl->requestJson(ok);
-    return impl->m_raw->m_requestJson;
-}
-
-IStringView IRequest::getParameter(const QString &name, bool& ok) const
-{
-    return impl->getParameter(name, ok);
-}
-
-IResult<IStringView> IRequest::getParameter(const QString &name) const
-{
-    bool ok;
-    auto value = impl->getParameter(name, ok);
-    return {std::move(value), ok};
-}
-
-IStringView IRequest::getMixedParameter(const QString &name, bool& ok) const
-{
-    // FIXME:
-    return {};
-//    return impl->getMixedParameter(name, ok);
-}
-
-IResult<IStringView> IRequest::getMixedParameter(const QString &name) const
-{
-    // FIXME:
-    return {IStringView(), false};
-    //    bool ok;
-//    auto value = impl->getMixedParameter(name, ok);
-//    return {std::move(value), ok};
-}
-
-IStringView IRequest::getUrlParameter(const QString &name, bool& ok) const
-{
-    return impl->getUrlParameter(name, ok);
-}
-
-IResult<IStringView> IRequest::getUrlParameter(const QString &name) const
-{
-    bool ok;
-    auto value = impl->getUrlParameter(name, ok);
-    return {std::move(value), ok};
-}
-
-IStringView IRequest::getParamParameter(const QString &name, bool& ok) const
-{
-    return impl->getParamParameter(name, ok);
-}
-
-IResult<IStringView> IRequest::getParamParameter(const QString &name) const
-{
-    bool ok;
-    auto value = impl->getParamParameter(name, ok);
-    return {std::move(value), ok};
-}
-
-IStringView IRequest::getHeaderParameter(const QString &name, bool& ok) const
-{
-    return impl->getHeaderParameter(name, ok);
-}
-
-IResult<IStringView> IRequest::getHeaderParameter(const QString &name) const
-{
-    bool ok;
-    auto value = impl->getHeaderParameter(name, ok);
-    return {std::move(value), ok};
-}
-
-IStringView IRequest::getBodyParameter(const QString &name, bool& ok) const
-{
-    return impl->getBodyParameter(name, ok);
-}
-
-IResult<IStringView> IRequest::getBodyParameter(const QString &name) const
-{
-    bool ok;
-    auto value = impl->getBodyParameter(name, ok);
-    return {std::move(value), ok};
-}
-
-IStringView IRequest::getCookieParameter(const QString &name, bool& ok) const
-{
-    return impl->getCookieParameter(name, ok);
-}
-
-IResult<IStringView> IRequest::getCookieParameter(const QString &name) const
-{
-    bool ok;
-    auto value = impl->getCookieParameter(name, ok);
-    return {std::move(value), ok};
-}
-
-QByteArray IRequest::getSessionParameter(const QString &name, bool& ok) const
-{
-    return impl->getSessionParameter(name, ok);
-}
-
-IResult<QByteArray> IRequest::getSessionParameter(const QString &name) const
-{
-    bool ok;
-    auto value = impl->getSessionParameter(name, ok);
-    return {std::move(value), ok};
-}
-*/
-
-//const QMap<QString, QVariant> &IRequest::attributes() const
-//{
-//    return m_impl->m_attribute;
-//}
-
-//bool IRequest::hasAttribute(const QString &name) const
-//{
-//    return m_impl->m_attribute.contains(name);
-//}
-
-//void IRequest::setAttribute(const QString &name, const QVariant &value)
-//{
-//    m_impl->m_attribute[name] = value;
-//}
-
-//QVariant IRequest::getAttribute(const QString &name, bool& ok) const
-//{
-//    if(m_impl->m_attribute.contains(name)){
-//        ok = true;
-//        return m_impl->m_attribute[name];
-//    }
-//    ok = false;
-//    return {};
-//}
-
-//IResult<QVariant> IRequest::getAttribute(const QString &name) const
-//{
-//    bool ok;
-//    auto value = getAttribute(name, ok);
-//    if(ok){
-//        return value;
-//    }
-//    return std::nullopt;
-//}
 
 bool IRequest::isValid() const
 {

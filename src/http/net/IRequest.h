@@ -53,38 +53,12 @@ public:
     const IString& contentType() const;
     const IString& content() const;
 
+    const QMap<IStringView, IStringView>& pathParameters() const;
     const QMap<IStringView, IStringView>& urlParameters() const;
     const QMap<IStringView, IStringView>& paramParameters() const;
     const QMap<IStringView, IStringView>& bodyFormParameters() const;
     const std::vector<IMultiPart>& bodyMultiParts() const;
     const IJson& bodyJson() const;
-
-    /*
-
-    IStringView getParameter(const QString& name, bool& ok) const;
-    IResult<IStringView> getParameter(const QString& name) const;      // 考虑删掉
-
-    IStringView getMixedParameter(const QString& name, bool& ok) const;
-    IResult<IStringView> getMixedParameter(const QString& name) const;
-
-    IStringView getUrlParameter(const QString& name, bool& ok) const;
-    IResult<IStringView> getUrlParameter(const QString& name) const;
-
-    IStringView getParamParameter(const QString& name, bool& ok) const ;
-    IResult<IStringView> getParamParameter(const QString& name) const ;
-
-    IStringView getHeaderParameter(const QString& name, bool& ok) const;
-    IResult<IStringView> getHeaderParameter(const QString& name) const;
-
-    IStringView getBodyParameter(const QString& name, bool& ok) const;
-    IResult<IStringView> getBodyParameter(const QString& name) const;
-
-    IStringView getCookieParameter(const QString& name, bool& ok) const;
-    IResult<IStringView> getCookieParameter(const QString& name) const;
-
-    QByteArray getSessionParameter(const QString& name, bool& ok) const;
-    IResult<QByteArray> getSessionParameter(const QString& name) const;
-*/
 
 public:
     IStringView stash(const char* data);
@@ -96,7 +70,6 @@ public:
     IStringView stash(IString&& data);
     IStringView stash(const IString& data);
     IStringView stash(IStringView data);
-
 
 public:
     bool isValid() const;
