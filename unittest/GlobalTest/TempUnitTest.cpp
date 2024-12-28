@@ -67,10 +67,10 @@ void TempUnitTest::test_BeanList()
 
 void TempUnitTest::test_RegisterTypeOutput()
 {
-    for(int i=1024; i<3000; i++){
-        QString name = QMetaType::typeName(i);
-        if(!name.isEmpty()){
-            qDebug() << "type" << i << name;
-        }
-    }
+//    for(int i=1024; i<3000; i++){
+//        QString name = QMetaType::typeName(i);
+//        if(!name.isEmpty()){
+//            qDebug() << "type" << i << name;
+//        }
+//    }
 }
