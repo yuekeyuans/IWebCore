@@ -13,8 +13,19 @@ def test_QString():
 
 def test_stdString():
     val = requests.get(serverAddress + "/ReturnTypeController/stdString")
+    print(val.text)
+    print(val.headers)
     assert val.status_code == 200
     assert val.text == "stdString"
+    
+
+def test_istring():
+    val = requests.get(serverAddress + "/ReturnTypeController/istring")
+    print(val.text)
+    print(val.headers)
+    assert val.status_code == 200
+    assert val.text == "istring"
+
 
 def test_ijson():
     val = requests.get(serverAddress + "/ReturnTypeController/ijson")

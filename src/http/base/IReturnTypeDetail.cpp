@@ -32,6 +32,7 @@ private:
     void createStdStringFun();
     void createQStringFun();
     void createQByteArrayFun();
+    void createIStringFun();
     void createIJsonFun();
 };
 
@@ -51,6 +52,7 @@ void IReturnTypeDetail::createResolveFuntion()
             &IReturnTypeDetail::createStatusFun,
             &IReturnTypeDetail::createStdStringFun,
             &IReturnTypeDetail::createQStringFun,
+            &IReturnTypeDetail::createIStringFun,
             &IReturnTypeDetail::createQByteArrayFun,
             &IReturnTypeDetail::createIJsonFun,
     };
@@ -150,6 +152,25 @@ void IReturnTypeDetail::createQByteArrayFun()
         m_resolveFunction = [](IRequestImpl& impl, void *ptr){
             QByteArray& array = *static_cast<QByteArray*>(ptr);
             impl.setResponseWare(IByteArrayResponse(std::move(array)));
+        };
+    }
+}
+
+void IReturnTypeDetail::createIStringFun()
+{
+    if(m_typeName == "IString"){
+        m_resolveFunction = [](IRequestImpl& impl, void* ptr){
+            std::string value = static_cast<IString*>(ptr)->toStdString();
+            if(IStringUtil::startsWith(value, "$")){
+                IResponseWare* ware = IResponseManage::instance()->convertableMatch(value);
+                if(ware){
+                    auto content = ware->prefixCreate(value);
+                    impl.setResponseWare(*content);
+                    delete content;
+                    return;
+                }
+            }
+            impl.setResponseWare(IPlainTextResponse(std::move(value)));
         };
     }
 }

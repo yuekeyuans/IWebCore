@@ -28,6 +28,12 @@ public:
         return "stdString";
     }
 
+    $GetMapping(istring)
+    IString istring(){
+        IString a = "istring";
+        return a;
+    }
+
     $GetMapping(ijson)
     IJson ijson(){
         return IJson({"hello", "world"});
