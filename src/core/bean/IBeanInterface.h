@@ -80,6 +80,8 @@ bool IBeanInterface<T, enabled, U>::loadJson(const IJson &value)
         }
     });
 
+    // TODO: 这里要有一个匹配规则
+    if(!value.is_object()) return false;
     for(const auto& [key, method] : methodPair){
         if(value.contains(key)){
             auto val = value[key];

@@ -191,6 +191,7 @@ IArgumentTypeDetail::IArgumentTypeDetail(int typeId, QByteArray paramTypeName, Q
             return;
         }
     }
+    qFatal("create argument parse failed");
 }
 
 void IArgumentTypeDetail::resolveName()
@@ -623,7 +624,7 @@ bool IArgumentTypeDetail::createBeanTypes()
         }
         auto ptr = QMetaType::create(self.m_typeId);
         if(!IBeanTypeManage::instance()->getBeanFromJson(self.m_typeId)(ptr, req.bodyJson())){
-            req.setInvalid(IHttpBadRequestInvalid("json can not be converted to Bean"));
+            req.setInvalid(IHttpInternalErrorInvalid("json can not be converted to Bean"));
         }
         return ptr;
     };

@@ -68,6 +68,7 @@ void IBeanRegisterTypeUnit<T>::registerQList()
 {
     auto ids = IMetaUtil::registerMetaType<QList<T>>();
     for(auto id : ids){
+        IBeanTypeManage::instance()->registerBeanId(id);
         IBeanTypeManage::instance()->registerFromJson(id,[](void* ptr, const IJson& json)->bool{
             return IJsonUtil::fromJson(*static_cast<QList<T>*>(ptr), json);
         });
@@ -82,6 +83,7 @@ void IBeanRegisterTypeUnit<T>::registerStdList()
 {
     auto ids = IMetaUtil::registerMetaType<std::list<T>>({"std::list<" + QString::fromStdString(IMetaUtil::getBareTypeName<T>()) + ">"});
     for(auto id : ids){
+        IBeanTypeManage::instance()->registerBeanId(id);
         IBeanTypeManage::instance()->registerFromJson(id,[](void* ptr, const IJson& json)->bool{
             return IJsonUtil::fromJson(*static_cast<std::list<T>*>(ptr), json);
         });
@@ -96,6 +98,7 @@ void IBeanRegisterTypeUnit<T>::registerQVector()
 {
     auto ids = IMetaUtil::registerMetaType<QVector<T>>();
     for(auto id : ids){
+        IBeanTypeManage::instance()->registerBeanId(id);
         IBeanTypeManage::instance()->registerFromJson(id,[](void* ptr, const IJson& json)->bool{
             return IJsonUtil::fromJson(*static_cast<QVector<T>*>(ptr), json);
         });
@@ -111,6 +114,7 @@ void IBeanRegisterTypeUnit<T>::registerStdVector()
     auto name = "std::vector<" + QString::fromStdString(IMetaUtil::getBareTypeName<T>()) + ">";
     auto ids = IMetaUtil::registerMetaType<std::vector<T>>({name});
     for(auto id : ids){
+        IBeanTypeManage::instance()->registerBeanId(id);
         IBeanTypeManage::instance()->registerFromJson(id,[](void* ptr, const IJson& json)->bool{
             return IJsonUtil::fromJson(*static_cast<std::vector<T>*>(ptr), json);
         });
@@ -125,6 +129,7 @@ void IBeanRegisterTypeUnit<T>::registerQStringQMap()
 {
     auto ids = IMetaUtil::registerMetaType<QMap<QString, T>>();
     for(auto id : ids){
+        IBeanTypeManage::instance()->registerBeanId(id);
         IBeanTypeManage::instance()->registerFromJson(id,[](void* ptr, const IJson& json)->bool{
             return IJsonUtil::fromJson(*static_cast<QMap<QString, T>*>(ptr), json);
         });
@@ -140,6 +145,7 @@ void IBeanRegisterTypeUnit<T>::registerStdStringQMap()
     auto name = "QMap<std::string, " + QString::fromStdString(IMetaUtil::getBareTypeName<T>()) + ">";
     auto ids = IMetaUtil::registerMetaType<QMap<std::string, T>>({name});
     for(auto id : ids){
+        IBeanTypeManage::instance()->registerBeanId(id);
         IBeanTypeManage::instance()->registerFromJson(id,[](void* ptr, const IJson& json)->bool{
             return IJsonUtil::fromJson(*static_cast<QMap<std::string, T>*>(ptr), json);
         });
@@ -155,6 +161,7 @@ void IBeanRegisterTypeUnit<T>::registerIStringQMap()
     auto name = "QMap<IString, " + QString::fromStdString(IMetaUtil::getBareTypeName<T>()) + ">";
     auto ids = IMetaUtil::registerMetaType<QMap<IString, T>>({name});
     for(auto id : ids){
+        IBeanTypeManage::instance()->registerBeanId(id);
         IBeanTypeManage::instance()->registerFromJson(id,[](void* ptr, const IJson& json)->bool{
             return IJsonUtil::fromJson(*static_cast<QMap<IString, T>*>(ptr), json);
         });
@@ -170,6 +177,7 @@ void IBeanRegisterTypeUnit<T>::registerQStringStdMap()
     auto name = "std::map<QString, " + QString::fromStdString(IMetaUtil::getBareTypeName<T>()) + ">";
     auto ids = IMetaUtil::registerMetaType<std::map<QString, T>>({name});
     for(auto id : ids){
+        IBeanTypeManage::instance()->registerBeanId(id);
         IBeanTypeManage::instance()->registerFromJson(id,[](void* ptr, const IJson& json)->bool{
             return IJsonUtil::fromJson(*static_cast<std::map<QString, T>*>(ptr), json);
         });
@@ -185,6 +193,7 @@ void IBeanRegisterTypeUnit<T>::registerStdStringStdMap()
     auto name = "std::map<std::string, " + QString::fromStdString(IMetaUtil::getBareTypeName<T>()) + ">";
     auto ids = IMetaUtil::registerMetaType<std::map<std::string, T>>({name});
     for(auto id : ids){
+        IBeanTypeManage::instance()->registerBeanId(id);
         IBeanTypeManage::instance()->registerFromJson(id,[](void* ptr, const IJson& json)->bool{
             return IJsonUtil::fromJson(*static_cast<std::map<std::string, T>*>(ptr), json);
         });
@@ -200,6 +209,7 @@ void IBeanRegisterTypeUnit<T>::registerIStringStdMap()
     auto name = "std::map<IString, " + QString::fromStdString(IMetaUtil::getBareTypeName<T>()) + ">";
     auto ids = IMetaUtil::registerMetaType<std::map<IString, T>>({name});
     for(auto id : ids){
+        IBeanTypeManage::instance()->registerBeanId(id);
         IBeanTypeManage::instance()->registerFromJson(id,[](void* ptr, const IJson& json)->bool{
             return IJsonUtil::fromJson(*static_cast<std::map<IString, T>*>(ptr), json);
         });

@@ -76,5 +76,10 @@ public:
     std::string beanData(StudentBean bean){
         return bean.toJson().dump();
     }
+
+    $PostMapping(beanDatas)
+    std::string beanDatas(QList<StudentBean> beans){
+        return IJsonUtil::toJson(beans).dump();
+    }
 };
 

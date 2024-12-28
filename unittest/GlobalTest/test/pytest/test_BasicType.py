@@ -122,4 +122,17 @@ def test_beanData():
     print(val.status_code)
     assert val.text == '{"index":102,"name":"yueqichu"}'
     assert val.status_code == 200
-    
+
+def test_beanData2():
+    val = requests.post(serverAddress + "/BasicArgument/beanData", json=[{"index": 102, "name": "yueqichu"},{"index": 103, "name": "yuekeyuan"}])
+    print(val.text)
+    print(val.status_code)
+    # assert val.text == '{"index":102,"name":"yueqichu"}'
+    assert val.status_code == 500
+
+def test_beanDatas():
+    val = requests.post(serverAddress + "/BasicArgument/beanDatas", json=[{"index": 102, "name": "yueqichu"},{"index": 103, "name": "yuekeyuan"}])
+    print(val.text)
+    print(val.status_code)
+    assert val.json() == [{"index": 102, "name": "yueqichu"}, {"index": 103, "name": "yuekeyuan"}]
+    assert val.status_code == 200
