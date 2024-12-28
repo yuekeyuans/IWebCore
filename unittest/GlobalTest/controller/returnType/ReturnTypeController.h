@@ -15,7 +15,7 @@ class ReturnTypeController : public IHttpControllerInterface<ReturnTypeControlle
     Q_GADGET
     $AsController(ReturnTypeController)
 public:
-    ReturnTypeController();
+    ReturnTypeController() = default;
 
 public:
     $GetMapping(qstring)
