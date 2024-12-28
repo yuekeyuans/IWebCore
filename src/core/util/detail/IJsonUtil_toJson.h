@@ -48,6 +48,8 @@ IJson toJson(const std::map<T, U>& map)
             result[it->first.toStdString()] = toJson(it->second);
         }else if constexpr(std::is_same_v<T, IStringView>){
             result[std::string(it->first)] = toJson(it->second);
+        }else if constexpr (std::is_same_v<T, IString>){
+            result[it->first.toStdString()] = toJson(it->second);
         }else{
             result[std::to_string(it->first)] = toJson(it->second);
         }
@@ -74,6 +76,8 @@ IJson toJson(const QMap<T, U>& map)
             result[it.key().toStdString()] = toJson(it.value());
         }else if constexpr (std::is_same_v<T, IStringView>){
             result[std::string(it.key())] = toJson(it.value());
+        }else if constexpr (std::is_same_v<T, IString>){
+            result[it.key().toStdString()] = toJson(it.value());
         }else{
             result[std::to_string(it.key())] = toJson(it.value());
         }

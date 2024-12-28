@@ -34,29 +34,46 @@ fromJson(T& data, const IJson& json)
     return data.loadJson(json);
 }
 
-#define PP_FROM_JSON_MAP_CONTAINER(Type)                                        \
-    template<typename T, typename U>                                                \
-    bool fromJson( Type <T, U>& data, const IJson& json)                          \
-    {                                                                               \
-        if(!json.is_object()) return false;                                         \
-        for(auto& [key, value] : json.items()){                                     \
-            U bean;                                                                 \
-            if(IJsonUtil::fromJson(bean, value)) return false;                      \
-            if constexpr (std::is_same_v<T, std::string>){                          \
-                data[key] = std::move(bean);                                        \
-            }else if constexpr(std::is_same_v<T, QString>){                         \
-                data[QString::fromStdString(key)] = std::move(bean);                \
-            }else if constexpr( std::is_same_v<T, IString>){                        \
-                IString keyVal = &key;                                              \
-                keyVal.solidify();                                                  \
-                data[keyVal] = std::move(bean);                                     \
-            }                                                                       \
-        }                                                                           \
-        return true;                                                                \
+template<typename T, typename U>
+bool fromJson(std::map <T, U>& data, const IJson& json)
+{
+    if(!json.is_object()) return false;
+    for(auto& [key, value] : json.items()){
+        U bean;
+        if(!IJsonUtil::fromJson(bean, value)) return false;
+        if constexpr (std::is_same_v<T, std::string>){
+            data[key] = std::move(bean);
+        }else if constexpr(std::is_same_v<T, QString>){
+            data[QString::fromStdString(key)] = std::move(bean);
+        }else if constexpr( std::is_same_v<T, IString>){
+            IString keyVal = &key;
+            keyVal.solidify();
+            data[keyVal] = std::move(bean);
+        }
     }
-    PP_FROM_JSON_MAP_CONTAINER(std::map)
-    PP_FROM_JSON_MAP_CONTAINER(QMap)
-#undef PP_FROM_JSON_MAP_CONTAINER
+    return true;
+}
+
+template<typename T, typename U>
+bool fromJson(QMap <T, U>& data, const IJson& json)
+{
+    if(!json.is_object()) return false;
+    for(auto& [key, value] : json.items()){
+        U bean;
+        if(!IJsonUtil::fromJson(bean, value)) return false;
+        if constexpr (std::is_same_v<T, std::string>){
+            data[key] = std::move(bean);
+        }else if constexpr(std::is_same_v<T, QString>){
+            data[QString::fromStdString(key)] = std::move(bean);
+        }else if constexpr( std::is_same_v<T, IString>){
+            IString keyVal = &key;
+            keyVal.solidify();
+            data[keyVal] = std::move(bean);
+        }
+    }
+    return true;
+}
+
 
 // arithmetic
 template <typename T>

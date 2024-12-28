@@ -81,5 +81,39 @@ public:
     std::string beanDatas(QList<StudentBean> beans){
         return IJsonUtil::toJson(beans).dump();
     }
+
+    $PostMapping(beanDataStdList)
+    std::string beanDataStdList(QList<StudentBean> beans){
+        return IJsonUtil::toJson(beans).dump();
+    }
+
+    $PostMapping(beanDataQMap)
+    std::string beanDataQMap(QMap<IString, StudentBean> beans){
+        return IJsonUtil::toJson(beans).dump();
+    }
+
+    $PostMapping(beanDataQMapQString)
+    std::string beanDataQMapQString(QMap<QString, StudentBean> beans){
+        return IJsonUtil::toJson(beans).dump();
+    }
+
+    $PostMapping(beanDataQMapStdString)
+    std::string beanDataQMapStdString(QMap<std::string, StudentBean> beans){
+        return IJsonUtil::toJson(beans).dump();
+    }
+
+    $PostMapping(beanDataStdMap)
+    std::string beanDataStdMap(std::map<IString, StudentBean> beans){
+        return IJsonUtil::toJson(beans).dump();
+    }
+    $PostMapping(beanDataStdMapQString)
+    std::string beanDataStdMapQString(std::map<QString, StudentBean> beans){
+        return IJsonUtil::toJson(beans).dump();
+    }
+    $PostMapping(beanDataStdMapStdString)
+    std::string beanDataStdMapStdString(std::map<std::string, StudentBean> beans){
+        return IJsonUtil::toJson(beans).dump();
+    }
+
 };
 

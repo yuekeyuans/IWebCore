@@ -130,9 +130,64 @@ def test_beanData2():
     # assert val.text == '{"index":102,"name":"yueqichu"}'
     assert val.status_code == 500
 
-def test_beanDatas():
+def test_beanDataQList():
     val = requests.post(serverAddress + "/BasicArgument/beanDatas", json=[{"index": 102, "name": "yueqichu"},{"index": 103, "name": "yuekeyuan"}])
     print(val.text)
     print(val.status_code)
     assert val.json() == [{"index": 102, "name": "yueqichu"}, {"index": 103, "name": "yuekeyuan"}]
+    assert val.status_code == 200
+
+def test_beanDataStdList():
+    val = requests.post(serverAddress + "/BasicArgument/beanDataStdList", json=[{"index": 102, "name": "yueqichu"},{"index": 103, "name": "yuekeyuan"}])
+    print(val.text)
+    print(val.status_code)
+    assert val.json() == [{"index": 102, "name": "yueqichu"}, {"index": 103, "name": "yuekeyuan"}]
+    assert val.status_code == 200
+
+def test_beanDataQMap():
+    val = requests.post(serverAddress + "/BasicArgument/beanDataQMap", json={
+        "fei" :{"index": 102, "name": "yueqichu"}, "yue": {"index": 103, "name": "yuekeyuan"}})
+    print(val.text)
+    print(val.status_code)
+    assert val.json() == {"fei":{"index":102,"name":"yueqichu"},"yue":{"index":103,"name":"yuekeyuan"}}
+    assert val.status_code == 200
+
+def test_beanDataQMapQString():
+    val = requests.post(serverAddress + "/BasicArgument/beanDataQMapQString", json={
+        "fei" :{"index": 102, "name": "yueqichu"}, "yue": {"index": 103, "name": "yuekeyuan"}})
+    print(val.text)
+    print(val.status_code)
+    assert val.json() == {"fei":{"index":102,"name":"yueqichu"},"yue":{"index":103,"name":"yuekeyuan"}}
+    assert val.status_code == 200
+
+def test_beanDataQMapStdString():
+    val = requests.post(serverAddress + "/BasicArgument/beanDataQMapStdString", json={
+        "fei" :{"index": 102, "name": "yueqichu"}, "yue": {"index": 103, "name": "yuekeyuan"}})
+    print(val.text)
+    print(val.status_code)
+    assert val.json() == {"fei":{"index":102,"name":"yueqichu"},"yue":{"index":103,"name":"yuekeyuan"}}
+    assert val.status_code == 200
+
+def test_beanDataStdMap():
+    val = requests.post(serverAddress + "/BasicArgument/beanDataStdMap", json={
+        "fei" :{"index": 102, "name": "yueqichu"}, "yue": {"index": 103, "name": "yuekeyuan"}})
+    print(val.text)
+    print(val.status_code)
+    assert val.json() == {"fei":{"index":102,"name":"yueqichu"},"yue":{"index":103,"name":"yuekeyuan"}}
+    assert val.status_code == 200
+
+def test_beanDataStdMapQString():
+    val = requests.post(serverAddress + "/BasicArgument/beanDataStdMapQString", json={
+        "fei" :{"index": 102, "name": "yueqichu"}, "yue": {"index": 103, "name": "yuekeyuan"}})
+    print(val.text)
+    print(val.status_code)
+    assert val.json() == {"fei":{"index":102,"name":"yueqichu"},"yue":{"index":103,"name":"yuekeyuan"}}
+    assert val.status_code == 200
+
+def test_beanDataStdMapStdString():
+    val = requests.post(serverAddress + "/BasicArgument/beanDataStdMapStdString", json={
+        "fei" :{"index": 102, "name": "yueqichu"}, "yue": {"index": 103, "name": "yuekeyuan"}})
+    print(val.text)
+    print(val.status_code)
+    assert val.json() == {"fei":{"index":102,"name":"yueqichu"},"yue":{"index":103,"name":"yuekeyuan"}}
     assert val.status_code == 200
