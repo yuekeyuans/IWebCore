@@ -37,6 +37,11 @@ fromJson(T& data, const IJson& json)
 template<typename T, typename U>
 bool fromJson(std::map <T, U>& data, const IJson& json)
 {
+    constexpr bool c_valid = std::is_same_v<T, std::string>
+            || std::is_same_v<T, QString>
+            || std::is_same_v<T, IString>;
+    static_assert(c_valid, "std::map key only support QString, std::string and IString");
+
     if(!json.is_object()) return false;
     for(auto& [key, value] : json.items()){
         U bean;
@@ -57,6 +62,12 @@ bool fromJson(std::map <T, U>& data, const IJson& json)
 template<typename T, typename U>
 bool fromJson(QMap <T, U>& data, const IJson& json)
 {
+    constexpr bool c_valid = std::is_same_v<T, std::string>
+            || std::is_same_v<T, QString>
+            || std::is_same_v<T, IString>;
+    static_assert(c_valid, "QMap key only support QString, std::string and IString");
+
+
     if(!json.is_object()) return false;
     for(auto& [key, value] : json.items()){
         U bean;

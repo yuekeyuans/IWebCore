@@ -35,10 +35,9 @@ IJson toJson(const std::map<T, U>& map)
 {
     constexpr bool c_valid = std::is_same_v<T, std::string>
             || std::is_same_v<T, QString>
-            || std::is_same_v<T, IString>
-            || std::is_floating_point_v<T>
-            || std::is_arithmetic_v<T>;
-    static_assert(c_valid, "std::map key only support number, QString, std::string and IString");
+            || std::is_same_v<T, IStringView>
+            || std::is_same_v<T, IString>;
+    static_assert(c_valid, "std::map key only support QString, std::string, IStringView and IString");
 
     IJson result = IJson::object();
     for (auto it = map.cbegin(); it != map.cend(); ++it) {
@@ -63,10 +62,8 @@ IJson toJson(const QMap<T, U>& map)
     constexpr bool c_valid = std::is_same_v<T, std::string>
             || std::is_same_v<T, QString>
             || std::is_same_v<T, IStringView>
-            || std::is_same_v<T, IString>
-            || std::is_floating_point_v<T>
-            || std::is_arithmetic_v<T>;
-    static_assert(c_valid, "std::map key only support number, QString, std::string, IString");
+            || std::is_same_v<T, IString>;
+    static_assert(c_valid, "QMap key only support QString, std::string, IStringView and IString");
 
     IJson result = IJson::object();
     for (auto it = map.cbegin(); it != map.cend(); ++it) {
