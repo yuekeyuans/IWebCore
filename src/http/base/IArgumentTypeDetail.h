@@ -19,7 +19,7 @@ private:
     void resolveName();
 
 private:// IRequest, IResponse, Jars
-    bool createBasicType();
+    void createBasicTypes();
     void createRequestType();
     void createResponseType();
     void createMultiPartJarType();
@@ -28,12 +28,12 @@ private:// IRequest, IResponse, Jars
     void createHeaderJarType();
 
 private: // cookiepart, multipart
-    bool createPartTypes();
+    void createPartTypes();
     void createMultiPartType();
     void createCookiePartType();
 
 private: // $Header, $Cookie, $Path, $Query, $Body, $Form, $Session, $Json
-    bool createDecorateTypes();
+    void createDecorateTypes();
     void createQueryType();
     void createHeaderType();
     void createCookieType();
@@ -43,8 +43,8 @@ private: // $Header, $Cookie, $Path, $Query, $Body, $Form, $Session, $Json
     void createFormType();
     void createJsonType();
 
-private:    // bean, List<Bean>, Vector<Bean> ， Map<Bean>
-    bool createBeanTypes();
+private:    // bean, List<Bean>, Vector<Bean> ， Map<Bean> ...
+    void createBeanTypes();
 
 private:
     bool m_optional{false};

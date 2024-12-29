@@ -180,16 +180,17 @@ IArgumentTypeDetail::IArgumentTypeDetail(int typeId, QByteArray paramTypeName, Q
     m_nameRaw = std::move(nameRaw);
     resolveName();
 
-    static QList<decltype(&IArgumentTypeDetail::createBasicType)> funs = {
-        &IArgumentTypeDetail::createBasicType,
+    static QList<decltype(&IArgumentTypeDetail::createBasicTypes)> funs = {
+        &IArgumentTypeDetail::createBasicTypes,
         &IArgumentTypeDetail::createPartTypes,
         &IArgumentTypeDetail::createDecorateTypes,
         &IArgumentTypeDetail::createBeanTypes,
     };
     for(auto fun : funs){
-        if(std::mem_fn(fun)(this)){
+        std::mem_fn(fun)(this);
+        if(m_createFun){
             return;
-        }
+        };
     }
     qFatal("create argument parse failed");
 }
@@ -235,7 +236,7 @@ void IArgumentTypeDetail::resolveName()
     }
 }
 
-bool IArgumentTypeDetail::createBasicType()
+void IArgumentTypeDetail::createBasicTypes()
 {
     static QList<decltype(&IArgumentTypeDetail::createRequestType)> funs = {
         &IArgumentTypeDetail::createRequestType,
@@ -247,22 +248,21 @@ bool IArgumentTypeDetail::createBasicType()
     };
 
     if(this->m_typeId != QMetaType::UnknownType){
-        return false;
+        return;
     }
 
     for(auto fun : funs){
         std::mem_fn(fun)(this);
-        if(this->m_createFun){
+        if(m_createFun){
             if(m_optional){
                 qFatal("optional can not be exist here");
             }
             if(m_position != Position::Auto){
                 qFatal("position should be empty");
             }
-            return true;
+            return;
         }
     }
-    return false;
 }
 
 void IArgumentTypeDetail::createRequestType()
@@ -328,10 +328,10 @@ void IArgumentTypeDetail::createHeaderJarType()
     }
 }
 
-bool IArgumentTypeDetail::createPartTypes()
+void IArgumentTypeDetail::createPartTypes()
 {
     if(this->m_typeId != QMetaType::UnknownType){
-        return false;
+        return;
     }
     static QList<decltype(&IArgumentTypeDetail::createRequestType)> funs = {
         &IArgumentTypeDetail::createMultiPartType,
@@ -339,11 +339,10 @@ bool IArgumentTypeDetail::createPartTypes()
     };
     for(auto fun : funs){
         std::mem_fn(fun)(this);
-        if(this->m_createFun){
-            return true;
+        if(m_createFun){
+            return;
         }
     }
-    return false;
 }
 
 void IArgumentTypeDetail::createMultiPartType()
@@ -401,7 +400,7 @@ void IArgumentTypeDetail::createCookiePartType()
     };
 }
 
-bool IArgumentTypeDetail::createDecorateTypes()
+void IArgumentTypeDetail::createDecorateTypes()
 {
     QList<decltype(&IArgumentTypeDetail::createQueryType)> funs = {
         &IArgumentTypeDetail::createQueryType,
@@ -416,7 +415,7 @@ bool IArgumentTypeDetail::createDecorateTypes()
 
     for(auto fun : funs){
         std::mem_fn(fun)(this);
-        if(this->m_createFun){
+        if(m_createFun){
             auto typeId = m_typeId;
             auto typeName = m_typeName;
             if(!this->m_destroyFun){
@@ -424,10 +423,9 @@ bool IArgumentTypeDetail::createDecorateTypes()
                     detail::deletePtr(ptr, typeId, typeName);
                 };
             }
-            return true;
+            return;
         }
     }
-    return false;
 }
 
 void IArgumentTypeDetail::createQueryType()
@@ -611,10 +609,10 @@ void IArgumentTypeDetail::createJsonType()
     };
 }
 
-bool IArgumentTypeDetail::createBeanTypes()
+void IArgumentTypeDetail::createBeanTypes()
 {
     if(!IBeanTypeManage::instance()->isBeanIdExist(m_typeId)){
-        return false;
+        return;
     }
     auto self = *this;
     this->m_createFun = [=](IRequest& req)->void*{
@@ -633,7 +631,6 @@ bool IArgumentTypeDetail::createBeanTypes()
             QMetaType::destroy(self.m_typeId, ptr);
         }
     };
-    return true;
 }
 
 QVector<IString> IArgumentTypeDetail::makeTypes(const std::string &name)
