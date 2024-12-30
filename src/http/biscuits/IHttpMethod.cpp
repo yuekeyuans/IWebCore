@@ -15,7 +15,6 @@ IHttpMethod IHttpMethodUtil::toMethod(const QString &name)
     return toMethod(IStringView(name.toUtf8()));
 }
 
-// TODO: 这里必须大写
 IHttpMethod IHttpMethodUtil::toMethod(const IString& name)
 {
     auto index = methodNames().indexOf(name);
