@@ -70,7 +70,7 @@ void IAbortInterface<T>::abort(int code, const char* data, const QString& descri
 template<typename T>
 QString IAbortInterface<T>::abortClass()
 {
-    return QString::fromStdString(IMetaUtil::getBareTypeName<T>()); // TODO: fix latter
+    return QString::fromStdString(IMetaUtil::getBareTypeName<T>());
 }
 
 template<typename T>

@@ -347,47 +347,6 @@ void IRequestImpl::resolvePayload()
     }
 }
 
-// TODO:
-//void IRequestImpl::resolvePathProcessor()
-//{
-//    if(m_raw->m_method == IHttpMethod::OPTIONS){
-//        m_raw->m_processer.type = IRequestRaw::ProcessUnit::Type::Option;
-//        return;
-//    }
-
-//    // TODO: 这里需要看一下
-//    static auto controllerManage = IHttpManage::instance();
-////    static const bool isUrlActionEnabled = controllerManage->isUrlActionNodeEnabled();     // process as dynamic server first
-//    if(true){
-//        m_raw->m_processer.node = controllerManage->getAction(*m_request);
-//        if(m_raw->m_processer.node != nullptr){
-//            m_raw->m_processer.type = IRequestRaw::ProcessUnit::Type::Function;
-//            return;
-//        }
-//    }
-
-//    static bool isStaticFileEnabled = controllerManage->isStaticFileActionPathEnabled();        // process as static file server then
-//    if(isStaticFileEnabled && m_request->method() == IHttpMethod::GET){
-//        m_raw->m_processer.path = controllerManage->getStaticFileActionPath(*m_request);
-//        if(!m_raw->m_processer.path.isEmpty()){
-//            m_raw->m_processer.type = IRequestRaw::ProcessUnit::Type::Path;
-//            return;
-//        }
-
-//        static $Bool handleDir{"/http/fileService/folderHandled", false};
-//        if(*handleDir){
-//            m_raw->m_processer.entries = controllerManage->getStaticFolderActionPath(*m_request);
-//            if(!m_raw->m_processer.entries.isEmpty()){
-//                m_raw->m_processer.type = IRequestRaw::ProcessUnit::Type::Directory;
-//                return;
-//            }
-//        }
-//    }
-
-//    QString info = m_request->url().toQString() + " " + IHttpMethodUtil::toString(m_request->method()) + " has no function to handle";
-//    m_request->setInvalid(IHttpNotFoundInvalid(std::move(info)));
-//}
-
 void IRequestImpl::parseUrlEncodedData(IStringView view, bool isBody)
 {
     auto parts = view.split("&");
@@ -410,26 +369,6 @@ void IRequestImpl::parseUrlEncodedData(IStringView view, bool isBody)
             m_reqRaw.m_paths[key] = value;
         }
     }
-
-//    IStringView data = stash(QByteArray::fromPercentEncoding(QByteArray(view.data(), view.length())));
-//    int pos{};
-//    for(;;){
-//        auto index = data.find_first_of("&", pos);
-//        if(index == IStringView::npos){
-//            break;
-//        }
-//        auto value = data.substr(pos, index).trimmed();
-//        auto partIndex = value.find_first_of('=');
-//        if(partIndex == IStringView::npos){
-//            setInvalid(IHttpBadRequestInvalid("the parameters in body should be pair"));
-//        }
-//        if(isBody){
-//            m_reqRaw.m_forms[value.substr(0, partIndex).trimmed()] = value.substr(partIndex + 1).trimmed();
-//        }else{
-//            m_reqRaw.m_paths[value.substr(0, partIndex).trimmed()] = value.substr(partIndex + 1).trimmed();
-//        }
-//        pos = index+1;
-//    }
 }
 
 void IRequestImpl::parseJsonData(IStringView data)
@@ -497,26 +436,5 @@ void IRequestImpl::setResponseWare(const IResponseWare &ware)
     m_isValid &= ware.m_raw->m_isValid;
     m_respRaw.setResponseWare(ware);
 }
-
-//void IRequestImplHelper::checkDumplicatedParameters(const QList<QPair<QString, IRequestImpl::FunType>>& maps, const IRequestImpl* ptr, const QString& name)
-//{
-//    static const QByteArray fakeVal = "&y&u$e$k#e#y*u*a@n@";
-//    bool convertOk;
-//    if(IConstantUtil::DebugMode){
-//        int count = 0;
-//        for(auto pair : maps){
-//            std::mem_fn(pair.second)(ptr, name, convertOk);     // TODO:这里要检查一下
-//            if(convertOk){
-//                count ++;
-//            }
-//        }
-
-//        if(count >1){
-//            IAssertInfo info;
-//            info.reason = name + " parameter exist more than one in (body, path, param, session, cookie), please check. name : " + name;
-//            $Ast->fatal("checkDumplicatedParameters_find_More_than_one_value", info);
-//        }
-//    }
-//}
 
 $PackageWebCoreEnd
