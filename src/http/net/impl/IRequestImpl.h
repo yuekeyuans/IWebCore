@@ -8,6 +8,7 @@
 #include "http/biscuits/IHttpStatus.h"
 #include "http/biscuits/IHttpMethod.h"
 #include "http/biscuits/IHttpAttribute.h"
+#include "http/mappings/IHttpAction.h"
 #include "http/net/impl/IResponseRaw.h"
 #include "http/net/impl/IRequestRaw.h"
 #include "http/net/IMultiPart.h"
@@ -88,6 +89,9 @@ public:
 public:
     ITcpConnection& m_connection;
     ITcpConnectionData& m_data;
+
+public:
+    IHttpAction* m_action{};    // 执行当前 http 的 action
 
 private:
     State m_readState{FirstLineState};

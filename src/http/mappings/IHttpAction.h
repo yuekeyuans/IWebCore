@@ -18,6 +18,4 @@ public:
     bool m_autoRecycle{false};    // auto recycle after used
 };
 
-//using IHttpActionInterface = IHttpAction;
-
 $PackageWebCoreEnd

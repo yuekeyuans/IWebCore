@@ -77,7 +77,7 @@ public:
     void setInvalid(IHttpInvalidWare) const;
 
 public:
-//    void doAction(IHttpAction* action);
+    void doAction(IHttpAction* action);
     void doWrite();
 
 protected:
