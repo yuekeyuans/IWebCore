@@ -106,7 +106,9 @@ HEADERS += \
     $$PWD/http/controller/IHttpControllerNode.h \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.h \
     $$PWD/http/controller/detail/IHttpPath.h \
+    $$PWD/http/controller/detail/IHttpPathDetail.h \
     $$PWD/http/controller/detail/IHttpPathFragment.h \
+    $$PWD/http/controller/detail/IHttpUrlFragmentDetail.h \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.h \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.h \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.h \
@@ -261,8 +263,9 @@ SOURCES += \
     $$PWD/http/controller/IHttpControllerNode.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.cpp \
-    $$PWD/http/controller/detail/IHttpPath.cpp \
+    $$PWD/http/controller/detail/IHttpPathDetail.cpp \
     $$PWD/http/controller/detail/IHttpPathFragment.cpp \
+    $$PWD/http/controller/detail/IHttpUrlFragmentDetail.cpp \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.cpp \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.cpp \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.cpp \

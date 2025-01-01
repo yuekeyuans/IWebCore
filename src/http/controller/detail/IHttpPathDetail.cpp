@@ -1,17 +1,24 @@
-﻿#include "IHttpPath.h"
+﻿#include "IHttpPathDetail.h"
 #include "core/util/ISpawnUtil.h"
 #include "http/controller/IHttpControllerAbort.h"
 
 $PackageWebCoreBegin
 
-struct IHttpUrlDetail : public IHttpPath
+IHttpPathDetail::IHttpPathDetail(const QStringList& args)
 {
-public:
-    IHttpUrlDetail(const QStringList& args);
-private:
+    QStringList m_urlPieces;
+    for(const QString& arg : args){
+        if(!arg.trimmed().isEmpty() && arg.trimmed() != "/"){
+            m_urlPieces.append(arg.trimmed());
+            fragments.emplace_back(ISpawnUtil::construct<IHttpPathFragment>(arg.trimmed()));
+        }
+    }
+    this->path = m_urlPieces.join("/");
 
+    checkMappingUrl();
+}
 
-void checkMappingUrl()
+void IHttpPathDetail::checkMappingUrl()
 {
     for(const auto& fragement : fragments){
         if(fragement.fragment.isEmpty()){
@@ -23,10 +30,9 @@ void checkMappingUrl()
             checkMappingUrlErrorCommon(fragement.fragment);
         }
     }
-
 }
 
-void checkMappingUrlErrorCommon(const QString &piece)
+void IHttpPathDetail::checkMappingUrlErrorCommon(const QString &piece)
 {
     static QRegularExpression regexExclude(R"([^ \t\n\r\f\v~`!@#$%^&*()+=|\[\]{}\'\";:/?,.<>]+)");
     static QRegularExpression regexInclude(R"([a-zA-Z0-9\-\._\?\=\&\|/,\:;\'\"\-\~\#\*\+\[\]\(\)\|\$\!\@]+|%(?:[0-9a-fA-F]{2})+)");
@@ -36,7 +42,7 @@ void checkMappingUrlErrorCommon(const QString &piece)
     }
 }
 
-void CheckMappingUrlErrorWildCard(const QString& piece)
+void IHttpPathDetail::CheckMappingUrlErrorWildCard(const QString &piece)
 {
     static QRegularExpression validName("^[0-9a-zA-Z_]+$");
     static QRegularExpression expression0("^<(.*)>$");
@@ -89,26 +95,10 @@ void CheckMappingUrlErrorWildCard(const QString& piece)
 
 }
 
-bool isPieceWildCard(const QString &piece)
+bool IHttpPathDetail::isPieceWildCard(const QString &piece)
 {
     static QRegularExpression wildcard("^<.*>$");
     return wildcard.match(piece).hasMatch();
-}
-
-};
-
-IHttpUrlDetail::IHttpUrlDetail(const QStringList& args)
-{
-    QStringList m_urlPieces;
-    for(const QString& arg : args){
-        if(!arg.trimmed().isEmpty() && arg.trimmed() != "/"){
-            m_urlPieces.append(arg.trimmed());
-            fragments.emplace_back(ISpawnUtil::construct<IHttpPathFragment>(arg.trimmed()));
-        }
-    }
-    this->path = m_urlPieces.join("/");
-
-    checkMappingUrl();
 }
 
 namespace ISpawnUtil
@@ -116,7 +106,7 @@ namespace ISpawnUtil
     template<>
     IHttpPath construct<IHttpPath, const QStringList&>(const QStringList& args)
     {
-        return IHttpUrlDetail(args);
+        return IHttpPathDetail(args);
     }
 
     template<>
@@ -135,5 +125,3 @@ namespace ISpawnUtil
 }
 
 $PackageWebCoreEnd
-
-
