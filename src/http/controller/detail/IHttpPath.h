@@ -1,15 +1,15 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
-#include "http/controller/detail/IHttpUrlFragment.h"
+#include "http/controller/detail/IHttpPathFragment.h"
 
 $PackageWebCoreBegin
 
-struct IHttpUrl
+struct IHttpPath
 {
 public:
     QString path;
-    std::vector<IHttpUrlFragment> fragments;
+    std::vector<IHttpPathFragment> fragments;
 };
 
 $PackageWebCoreEnd

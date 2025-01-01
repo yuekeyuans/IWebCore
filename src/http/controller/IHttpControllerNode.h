@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "core/util/IHeaderUtil.h"
 #include "http/biscuits/IHttpMethod.h"
-#include "http/controller/detail/IHttpUrlFragment.h"
+#include "http/controller/detail/IHttpPathFragment.h"
 
 $PackageWebCoreBegin
 
@@ -10,7 +10,7 @@ class IHttpControllerNode
 {
 public:
     IHttpControllerNode() = default;
-    explicit IHttpControllerNode(const IHttpUrlFragment& fragment);
+    explicit IHttpControllerNode(const IHttpPathFragment& fragment);
     bool operator==(const IHttpControllerNode& node);
 
 public:
@@ -19,15 +19,15 @@ public:
     void setAction(const IHttpControllerAction& action);
     IHttpControllerAction* getAction(IHttpMethod method) const;
 
-    void addChild(const IHttpUrlFragment& fragment);
+    void addChild(const IHttpPathFragment& fragment);
     void addChild(const IHttpControllerNode& node);
-    IHttpControllerNode* getChild(const IHttpUrlFragment& fragment);
+    IHttpControllerNode* getChild(const IHttpPathFragment& fragment);
 
     QVector<const IHttpControllerNode*> getChildren(IStringView nodeName) const;
     void travelPrint(int space=0) const;
 
 public:
-    IHttpUrlFragment urlFragment;
+    IHttpPathFragment urlFragment;
     IHttpControllerAction *getMethodAction{nullptr};
     IHttpControllerAction *putMethodAction{nullptr};
     IHttpControllerAction *postMethodAction{nullptr};

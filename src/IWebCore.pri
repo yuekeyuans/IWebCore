@@ -105,8 +105,8 @@ HEADERS += \
     $$PWD/http/controller/IHttpControllerInterface.h \
     $$PWD/http/controller/IHttpControllerNode.h \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.h \
-    $$PWD/http/controller/detail/IHttpUrl.h \
-    $$PWD/http/controller/detail/IHttpUrlFragment.h \
+    $$PWD/http/controller/detail/IHttpPath.h \
+    $$PWD/http/controller/detail/IHttpPathFragment.h \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.h \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.h \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.h \
@@ -261,8 +261,8 @@ SOURCES += \
     $$PWD/http/controller/IHttpControllerNode.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.cpp \
-    $$PWD/http/controller/detail/IHttpUrl.cpp \
-    $$PWD/http/controller/detail/IHttpUrlFragment.cpp \
+    $$PWD/http/controller/detail/IHttpPath.cpp \
+    $$PWD/http/controller/detail/IHttpPathFragment.cpp \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.cpp \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.cpp \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.cpp \

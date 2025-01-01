@@ -5,7 +5,7 @@
 
 $PackageWebCoreBegin
 
-IHttpControllerNode::IHttpControllerNode(const IHttpUrlFragment& fragment)
+IHttpControllerNode::IHttpControllerNode(const IHttpPathFragment& fragment)
 {
     urlFragment = fragment;
 }
@@ -91,7 +91,7 @@ IHttpControllerAction* IHttpControllerNode::getAction(IHttpMethod method) const
     return nullptr;
 }
 
-void IHttpControllerNode::addChild(const IHttpUrlFragment &fragment)
+void IHttpControllerNode::addChild(const IHttpPathFragment &fragment)
 {
     if(!this->getChild(fragment)){
         this->addChild(IHttpControllerNode{fragment});
@@ -100,22 +100,22 @@ void IHttpControllerNode::addChild(const IHttpUrlFragment &fragment)
 
 void IHttpControllerNode::addChild(const IHttpControllerNode& node)
 {
-    if(node.urlFragment.type == IHttpUrlFragment::TEXT_MATCH){
+    if(node.urlFragment.type == IHttpPathFragment::TEXT_MATCH){
         return this->children.prepend(node);
-    }else if(node.urlFragment.type == IHttpUrlFragment::FULL_MATCH){
+    }else if(node.urlFragment.type == IHttpPathFragment::FULL_MATCH){
         return this->children.append(node);
     }
 
     int index;
     for(index=0; index<children.length(); index++){
-        if(children[index].urlFragment.type != IHttpUrlFragment::TEXT_MATCH){
+        if(children[index].urlFragment.type != IHttpPathFragment::TEXT_MATCH){
             break;
         }
     }
     children.insert(index, node);
 }
 
-IHttpControllerNode *IHttpControllerNode::getChild(const IHttpUrlFragment &fragment)
+IHttpControllerNode *IHttpControllerNode::getChild(const IHttpPathFragment &fragment)
 {
     for(auto& child : children){
         if(child.urlFragment.fragment == fragment.fragment){

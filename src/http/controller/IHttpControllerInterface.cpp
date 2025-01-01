@@ -3,7 +3,7 @@
 #include "http/biscuits/IHttpMethod.h"
 #include "http/controller/IHttpControllerAbort.h"
 #include "http/controller/IHttpControllerAction.h"
-#include "http/controller/detail/IHttpUrlFragment.h"
+#include "http/controller/detail/IHttpPathFragment.h"
 #include "http/mappings/IHttpControllerMapping.h"
 
 $PackageWebCoreBegin
@@ -16,7 +16,7 @@ public:
 public:
     int index;
     QString funName;
-    std::vector<IHttpUrlFragment> fragments;
+    std::vector<IHttpPathFragment> fragments;
     IHttpMethod method;
 };
 
@@ -32,7 +32,7 @@ private:
     void parseRootPaths();
 
 private:
-    std::vector<IHttpUrlFragment> parseFragments(const QString& path);
+    std::vector<IHttpPathFragment> parseFragments(const QString& path);
     IMethodNode getHttpMethodNode(const QString& name);
 
 private:
@@ -46,7 +46,7 @@ private:
     QVector<QMetaMethod> classMethods;
 
 private:
-    std::vector<IHttpUrlFragment> rootFragments;
+    std::vector<IHttpPathFragment> rootFragments;
     QVector<IHttpMethodMappingInfo> m_mappingInfos;
 
 public:
@@ -105,7 +105,7 @@ void IHttpControllerInfo::parseMappingLeaves()
     for(const IHttpMethodMappingInfo& mapping : m_mappingInfos){
         IHttpControllerAction node;
         node.httpMethod = mapping.method;
-        node.route = ISpawnUtil::construct<IHttpUrl, const std::vector<IHttpUrlFragment>&>(mapping.fragments);
+        node.route = ISpawnUtil::construct<IHttpPath, const std::vector<IHttpPathFragment>&>(mapping.fragments);
         node.methodNode = getHttpMethodNode(mapping.funName);
         m_urlNodes.append(node);
     }
@@ -157,10 +157,10 @@ void IHttpControllerInfo::parseRootPaths()
     }
 }
 
-std::vector<IHttpUrlFragment> IHttpControllerInfo::parseFragments(const QString &path)
+std::vector<IHttpPathFragment> IHttpControllerInfo::parseFragments(const QString &path)
 {
     static constexpr char CONTROLLER_MAPPING_FLAG[] = "IHttpControllerMapping$";
-    std::vector<IHttpUrlFragment> ret;
+    std::vector<IHttpPathFragment> ret;
     auto args =  path.split("/");
     for(const QString& arg : args){
         auto piece = arg.trimmed();
@@ -168,7 +168,7 @@ std::vector<IHttpUrlFragment> IHttpControllerInfo::parseFragments(const QString 
             IHttpControllerAbort::abortUrlDotAndDotDotError("Controller mapping:" + classInfo[CONTROLLER_MAPPING_FLAG]);
         }
         if(!piece.isEmpty()){
-            ret.push_back(ISpawnUtil::construct<IHttpUrlFragment>(piece));
+            ret.push_back(ISpawnUtil::construct<IHttpPathFragment>(piece));
         }
     }
     return ret;

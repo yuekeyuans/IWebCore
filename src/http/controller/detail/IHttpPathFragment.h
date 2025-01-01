@@ -4,7 +4,7 @@
 
 $PackageWebCoreBegin
 
-struct IHttpUrlFragment
+struct IHttpPathFragment
 {
 public:
     using ValidateFun = std::function<bool(const QString&)>;

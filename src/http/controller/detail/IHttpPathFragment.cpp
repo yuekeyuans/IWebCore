@@ -1,25 +1,25 @@
-﻿#include "IHttpUrlFragment.h"
+﻿#include "IHttpPathFragment.h"
 #include "http/IHttpManage.h"
 #include "core/util/ISpawnUtil.h"
 
 $PackageWebCoreBegin
 
-bool IHttpUrlFragment::isMatch(IStringView value) const
+bool IHttpPathFragment::isMatch(IStringView value) const
 {
     return isMatch(value.toQString());
 }
 
-bool IHttpUrlFragment::isMatch(const QString &nodeName) const
+bool IHttpPathFragment::isMatch(const QString &nodeName) const
 {
     return false
-            || type == IHttpUrlFragment::TEXT_MATCH && fragment == nodeName
-            || type == IHttpUrlFragment::REGEXP_MATCH && regexpValidator.match(nodeName).hasMatch()
-            || type == IHttpUrlFragment::FUNC_MATCH && funValidator(nodeName)
-            || type == IHttpUrlFragment::FULL_MATCH;
+            || type == IHttpPathFragment::TEXT_MATCH && fragment == nodeName
+            || type == IHttpPathFragment::REGEXP_MATCH && regexpValidator.match(nodeName).hasMatch()
+            || type == IHttpPathFragment::FUNC_MATCH && funValidator(nodeName)
+            || type == IHttpPathFragment::FULL_MATCH;
 }
 
 
-struct IHttpUrlFragmentDetail : public IHttpUrlFragment
+struct IHttpUrlFragmentDetail : public IHttpPathFragment
 {
 public:
     IHttpUrlFragmentDetail(const QString& fragment);
@@ -46,7 +46,7 @@ IHttpUrlFragmentDetail::IHttpUrlFragmentDetail(const QString &_fragment)
     };
 
     fragment = _fragment;
-    type = IHttpUrlFragment::REGEXP_MATCH;
+    type = IHttpPathFragment::REGEXP_MATCH;
     for(const auto& fun : funs){
         if(std::mem_fn(fun)(this, fragment) == true){
             break;
@@ -59,7 +59,7 @@ bool IHttpUrlFragmentDetail::evaluatePlainText(const QString &nodeName)
     static QRegularExpression plainTextType("^\\w+$");
     auto result = plainTextType.match(nodeName);
     if(result.hasMatch()){
-        this->type = IHttpUrlFragment::TEXT_MATCH;
+        this->type = IHttpPathFragment::TEXT_MATCH;
         return true;
     }
     return false;
@@ -70,7 +70,7 @@ bool IHttpUrlFragmentDetail::evaluateTypeEmptyNode(const QString &nodeName)
     static QRegularExpression regTypeEmpty("^<>$");
     auto result = regTypeEmpty.match(nodeName);
     if(result.hasMatch()){
-        this->type = IHttpUrlFragment::FULL_MATCH;
+        this->type = IHttpPathFragment::FULL_MATCH;
         return true;
     }
     return false;
@@ -82,7 +82,7 @@ bool IHttpUrlFragmentDetail::evaluateNameOnlyNode(const QString &nodeName)
     auto result = regTypeNameOnly.match(nodeName);
     if(result.hasMatch()){
         this->name = result.captured(1);
-        this->type = IHttpUrlFragment::FULL_MATCH;
+        this->type = IHttpPathFragment::FULL_MATCH;
         return true;
     }
     return false;
@@ -102,18 +102,18 @@ bool IHttpUrlFragmentDetail::evaluateNameTypeNode(const QString &nodeName)
         auto express = IHttpManage::queryPathRegValidator(valueType);
         if(!express.isEmpty()){
             this->regexpValidator = QRegularExpression(express);
-            this->type = IHttpUrlFragment::REGEXP_MATCH;
+            this->type = IHttpPathFragment::REGEXP_MATCH;
             return true;
         }
 
         auto fun = IHttpManage::queryPathFunValidator(valueType);
         if(fun != nullptr){
             this->funValidator = fun;
-            this->type = IHttpUrlFragment::FUNC_MATCH;
+            this->type = IHttpPathFragment::FUNC_MATCH;
             return true;
         }
     }else  {
-        this->type = IHttpUrlFragment::FULL_MATCH;
+        this->type = IHttpPathFragment::FULL_MATCH;
         return true;
     }
     return false;
@@ -124,7 +124,7 @@ bool IHttpUrlFragmentDetail::evaluateRegTypeNode(const QString &nodeName)
     static QRegularExpression regTypeNameReg("^<(reg)?:(\\w*):(\\w*)>$");
     if(regTypeNameReg.match(nodeName).hasMatch()){
         auto result = regTypeNameReg.match(nodeName);
-        this->type = IHttpUrlFragment::REGEXP_MATCH;
+        this->type = IHttpPathFragment::REGEXP_MATCH;
         this->name = result.captured(2);
 
         auto expression = result.captured(3);
@@ -149,7 +149,7 @@ bool IHttpUrlFragmentDetail::evaluateUnMatchedNode(const QString &nodeName)
 namespace ISpawnUtil
 {
     template<>
-    IHttpUrlFragment construct(QString data)
+    IHttpPathFragment construct(QString data)
     {
         return IHttpUrlFragmentDetail(data);
     }

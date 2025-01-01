@@ -1,10 +1,10 @@
-﻿#include "IHttpUrl.h"
+﻿#include "IHttpPath.h"
 #include "core/util/ISpawnUtil.h"
 #include "http/controller/IHttpControllerAbort.h"
 
 $PackageWebCoreBegin
 
-struct IHttpUrlDetail : public IHttpUrl
+struct IHttpUrlDetail : public IHttpPath
 {
 public:
     IHttpUrlDetail(const QStringList& args);
@@ -103,7 +103,7 @@ IHttpUrlDetail::IHttpUrlDetail(const QStringList& args)
     for(const QString& arg : args){
         if(!arg.trimmed().isEmpty() && arg.trimmed() != "/"){
             m_urlPieces.append(arg.trimmed());
-            fragments.emplace_back(ISpawnUtil::construct<IHttpUrlFragment>(arg.trimmed()));
+            fragments.emplace_back(ISpawnUtil::construct<IHttpPathFragment>(arg.trimmed()));
         }
     }
     this->path = m_urlPieces.join("/");
@@ -114,20 +114,20 @@ IHttpUrlDetail::IHttpUrlDetail(const QStringList& args)
 namespace ISpawnUtil
 {
     template<>
-    IHttpUrl construct<IHttpUrl, const QStringList&>(const QStringList& args)
+    IHttpPath construct<IHttpPath, const QStringList&>(const QStringList& args)
     {
         return IHttpUrlDetail(args);
     }
 
     template<>
-    IHttpUrl construct<IHttpUrl, const std::vector<IHttpUrlFragment>&>(const std::vector<IHttpUrlFragment>& fragments_)
+    IHttpPath construct<IHttpPath, const std::vector<IHttpPathFragment>&>(const std::vector<IHttpPathFragment>& fragments_)
     {
         QStringList args;
         for(const auto& info : fragments_){
             args.push_back(info.fragment);
         }
 
-        IHttpUrl url;
+        IHttpPath url;
         url.path = args.join("/");
         url.fragments = fragments_;
         return url;
