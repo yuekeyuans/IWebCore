@@ -104,10 +104,9 @@ HEADERS += \
     $$PWD/http/controller/IHttpControllerAction.h \
     $$PWD/http/controller/IHttpControllerInterface.h \
     $$PWD/http/controller/IHttpControllerNode.h \
+    $$PWD/http/controller/IHttpPath.h \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.h \
-    $$PWD/http/controller/detail/IHttpPath.h \
     $$PWD/http/controller/detail/IHttpPathDetail.h \
-    $$PWD/http/controller/detail/IHttpPathFragment.h \
     $$PWD/http/controller/detail/IHttpUrlFragmentDetail.h \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.h \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.h \
@@ -261,10 +260,10 @@ SOURCES += \
     $$PWD/http/controller/IHttpControllerAction.cpp \
     $$PWD/http/controller/IHttpControllerInterface.cpp \
     $$PWD/http/controller/IHttpControllerNode.cpp \
+    $$PWD/http/controller/IHttpPath.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
     $$PWD/http/controller/IHttpPathRegexpValidatorInterface.cpp \
     $$PWD/http/controller/detail/IHttpPathDetail.cpp \
-    $$PWD/http/controller/detail/IHttpPathFragment.cpp \
     $$PWD/http/controller/detail/IHttpUrlFragmentDetail.cpp \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.cpp \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.cpp \

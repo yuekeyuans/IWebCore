@@ -18,7 +18,7 @@ void TempUnitTest::test_BeanList()
 
         qDebug() << IBeanTypeManage::instance()->getBeanFromJson(id)(ptr, json);
         auto obj = static_cast<std::list<StudentBean>*>(ptr);
-        qDebug() << QString::fromStdString(IJsonUtil::toJson(*static_cast<std::list<StudentBean>*>(ptr)).dump());
+        qDebug() << QString::fromStdString(IJsonUtil::toJson(*obj).dump());
     }
 //    {
 //        auto id = IMetaUtil::registerMetaType<StudentBeanQVector>();

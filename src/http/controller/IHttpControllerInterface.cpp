@@ -3,7 +3,7 @@
 #include "http/biscuits/IHttpMethod.h"
 #include "http/controller/IHttpControllerAbort.h"
 #include "http/controller/IHttpControllerAction.h"
-#include "http/controller/detail/IHttpPathFragment.h"
+#include "http/controller/IHttpPath.h"
 #include "http/mappings/IHttpControllerMapping.h"
 
 $PackageWebCoreBegin

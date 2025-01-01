@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "IHttpPath.h"
+#include "http/controller/IHttpPath.h"
 
 $PackageWebCoreBegin
 

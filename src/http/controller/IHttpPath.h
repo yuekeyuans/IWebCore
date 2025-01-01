@@ -27,4 +27,11 @@ public:
     ValidateFun funValidator;               // 使用 函数 验证数据是否正确
 };
 
+struct IHttpPath
+{
+public:
+    QString path;
+    std::vector<IHttpPathFragment> fragments;
+};
+
 $PackageWebCoreEnd

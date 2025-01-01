@@ -1,6 +1,4 @@
-﻿#include "IHttpPathFragment.h"
-#include "http/IHttpManage.h"
-#include "core/util/ISpawnUtil.h"
+﻿#include "IHttpPath.h"
 
 $PackageWebCoreBegin
 
@@ -19,7 +17,3 @@ bool IHttpPathFragment::isMatch(const QString &nodeName) const
 }
 
 $PackageWebCoreEnd
-
-
-
-

@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "core/util/IHeaderUtil.h"
 #include "http/biscuits/IHttpMethod.h"
-#include "http/controller/detail/IHttpPathFragment.h"
+#include "http/controller/IHttpPath.h"
 
 $PackageWebCoreBegin
 
