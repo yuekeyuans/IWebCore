@@ -4,10 +4,10 @@
 
 $PackageWebCoreBegin
 
-struct IHttpUrlFragmentDetail : public IHttpPathFragment
+struct IHttpPathFragmentDetail : public IHttpPathFragment
 {
 public:
-    IHttpUrlFragmentDetail(const QString& fragment);
+    IHttpPathFragmentDetail(const QString& fragment);
 
 private:
     bool evaluatePlainText(const QString& nodeName);
