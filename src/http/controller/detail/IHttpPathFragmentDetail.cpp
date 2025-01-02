@@ -4,11 +4,21 @@
 
 $PackageWebCoreBegin
 
+/*
+ *  <>
+ *  <name>
+ *  <name|function>
+ *  <|function>
+ *  <name||reg>
+ *  <||reg>
+ *  plainText
+ */
+
 IWebCore::IHttpPathFragmentDetail::IHttpPathFragmentDetail(const QString &fragment)
 {
     IHttpPathFragment::m_fragment = fragment;
     using FunType = bool (IHttpPathFragmentDetail::*)(const QString&);
-    static FunType funs[] = {
+    static const FunType funs[] = {
         &IHttpPathFragmentDetail::evaluateTypeEmptyNode,
         &IHttpPathFragmentDetail::evaluateNameOnlyNode,
         &IHttpPathFragmentDetail::evaluateNameTypeNode,
@@ -21,17 +31,16 @@ IWebCore::IHttpPathFragmentDetail::IHttpPathFragmentDetail(const QString &fragme
             return;
         }
     }
-
     auto info = fragment + " is not a valid expression, please check it";
     qFatal(info.toUtf8());
 }
 
 bool IHttpPathFragmentDetail::evaluatePlainText(const QString &nodeName)
 {
-    static QRegularExpression plainTextType("^\\w+$");
-    auto result = plainTextType.match(nodeName);
+    QRegularExpression regex("^(?:[A-Za-z0-9\\-._~!$&'()*+,;=:@]|%[0-9A-Fa-f]{2})*$");
+    auto result = regex.match(nodeName);
     if(result.hasMatch()){
-        this->m_type = IHttpPathFragment::TEXT_MATCH;
+        this->m_type = IHttpPathFragment::TEXT;
         return true;
     }
     return false;
@@ -39,10 +48,11 @@ bool IHttpPathFragmentDetail::evaluatePlainText(const QString &nodeName)
 
 bool IHttpPathFragmentDetail::evaluateTypeEmptyNode(const QString &nodeName)
 {
-    static QRegularExpression regTypeEmpty("^<>$");
+    QRegularExpression regTypeEmpty("^<(\\w*)>$");
     auto result = regTypeEmpty.match(nodeName);
     if(result.hasMatch()){
         this->m_type = IHttpPathFragment::FULL_MATCH;
+        this->m_name = result.captured(1);
         return true;
     }
     return false;
@@ -50,7 +60,7 @@ bool IHttpPathFragmentDetail::evaluateTypeEmptyNode(const QString &nodeName)
 
 bool IHttpPathFragmentDetail::evaluateNameOnlyNode(const QString &nodeName)
 {
-    static QRegularExpression regTypeNameOnly("^<(\\w+)>$");    // <name>
+    QRegularExpression regTypeNameOnly("^<(\\w+)>$");    // <name>
     auto result = regTypeNameOnly.match(nodeName);
     if(result.hasMatch()){
         this->m_name = result.captured(1);
@@ -62,7 +72,7 @@ bool IHttpPathFragmentDetail::evaluateNameOnlyNode(const QString &nodeName)
 
 bool IHttpPathFragmentDetail::evaluateNameTypeNode(const QString &nodeName)
 {
-    static const QRegularExpression regex("^<(\\w*)\\|(\\w+)>$");  // <name|function>
+    QRegularExpression regex("^<(\\w*)\\|(\\w+)>$");  // <name|function>
     auto result = regex.match(nodeName);
     if(!result.hasMatch()){
         return false;
@@ -77,7 +87,7 @@ bool IHttpPathFragmentDetail::evaluateNameTypeNode(const QString &nodeName)
     auto fun = IHttpManage::instance()->queryPathFunValidator(valueType);
     if(fun != nullptr){
         this->m_validator = fun;
-        this->m_type = IHttpPathFragment::FUNC_MATCH;
+        this->m_type = IHttpPathFragment::FUNCTION;
         return true;
     }else{
         qFatal("not supported path function");
@@ -85,16 +95,15 @@ bool IHttpPathFragmentDetail::evaluateNameTypeNode(const QString &nodeName)
     return false;
 }
 
-//TODO: 这个补充一下
 bool IHttpPathFragmentDetail::evaluateRegTypeNode(const QString &nodeName)
 {
-    static const QRegularExpression regex("^<(\\w*)\\|\\|(.+)>$");  // <name||reg>
+    QRegularExpression regex("^<(\\w*)\\|\\|(.+)>$");  // <name||reg>
     auto result = regex.match(nodeName);
     if(!result.hasMatch()){
         return false;
     }
 
-    this->m_type = IHttpPathFragment::FUNC_MATCH;
+    this->m_type = IHttpPathFragment::FUNCTION;
     this->m_name = result.captured(1);
     auto exp = result.captured(2);
 
@@ -116,6 +125,5 @@ namespace ISpawnUtil
         return IHttpPathFragmentDetail(data);
     }
 }
-
 
 $PackageWebCoreEnd

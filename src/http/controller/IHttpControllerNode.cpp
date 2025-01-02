@@ -100,7 +100,7 @@ void IHttpControllerNode::addChild(const IHttpPathFragment &fragment)
 
 void IHttpControllerNode::addChild(const IHttpControllerNode& node)
 {
-    if(node.urlFragment.m_type == IHttpPathFragment::TEXT_MATCH){
+    if(node.urlFragment.m_type == IHttpPathFragment::TEXT){
         return this->children.prepend(node);
     }else if(node.urlFragment.m_type == IHttpPathFragment::FULL_MATCH){
         return this->children.append(node);
@@ -108,7 +108,7 @@ void IHttpControllerNode::addChild(const IHttpControllerNode& node)
 
     int index;
     for(index=0; index<children.length(); index++){
-        if(children[index].urlFragment.m_type != IHttpPathFragment::TEXT_MATCH){
+        if(children[index].urlFragment.m_type != IHttpPathFragment::TEXT){
             break;
         }
     }

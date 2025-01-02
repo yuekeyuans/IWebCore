@@ -8,9 +8,9 @@ struct IHttpPathFragment
 {
 public:
     using Validator = std::function<bool(const QString&)>;
-    enum NodeType{
-        TEXT_MATCH,     // match text
-        FUNC_MATCH,     // match function
+    enum PathType{
+        TEXT,     // match text
+        FUNCTION,     // match function
         FULL_MATCH      // empty node match, match any thing
     };
 
@@ -19,7 +19,7 @@ public:
     bool isMatch(const QString&) const;
 
 public:
-    NodeType m_type{NodeType::FULL_MATCH};
+    PathType m_type{PathType::FULL_MATCH};
     QString m_fragment;
     QString m_name;
     Validator m_validator{nullptr};
