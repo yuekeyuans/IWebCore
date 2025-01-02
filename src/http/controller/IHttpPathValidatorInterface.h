@@ -9,7 +9,7 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled=true>
-class IHttpPathFunctorValidatorInterface : public ITaskWareUnit<T, IHttpTaskCatagory, enabled>, public ISingletonUnit<T>
+class IHttpPathValidatorInterface : public ITaskWareUnit<T, IHttpTaskCatagory, enabled>, public ISingletonUnit<T>
 {
 public:
     using Validator = std::function<bool(const QString&)>;
@@ -32,13 +32,13 @@ private:
 };
 
 template<typename T, bool enabled>
-void IHttpPathFunctorValidatorInterface<T, enabled>::$task()
+void IHttpPathValidatorInterface<T, enabled>::$task()
 {
     IHttpPathFunctorValidatorInterfaceHelper::registValidator(this->marker(), this->validator());
 }
 
 template<typename T, bool enabled>
-double IHttpPathFunctorValidatorInterface<T, enabled>::$order() const
+double IHttpPathValidatorInterface<T, enabled>::$order() const
 {
     return 49;
 }

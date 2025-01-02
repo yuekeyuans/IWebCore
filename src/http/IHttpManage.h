@@ -26,18 +26,14 @@ public:
     IHttpInvalidHandlerWare* getInvalidHandler(const std::string& name) const;
     void printMappingTrace();
 
-    void registerPathValidator(const QString& name, const QString& regexp);
     void registerPathValidator(const QString& name, ValidatorFun fun);
-
-    static QString queryPathRegValidator(const QString& path);
-    static ValidatorFun queryPathFunValidator(const QString& path);
+    ValidatorFun queryPathFunValidator(const QString& path);
 
 private:
     bool m_isServerStarted{false};
     std::vector<IHttpMappingWare*> m_mappings;
     std::map<const std::string*, IHttpInvalidHandlerWare*> m_invalidHandlers;
 
-    QMap<QString, QString> m_pathRegValidators;
     QMap<QString, ValidatorFun> m_pathFunValidators;
 };
 

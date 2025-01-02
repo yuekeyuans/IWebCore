@@ -105,13 +105,13 @@ HEADERS += \
     $$PWD/http/controller/IHttpControllerInterface.h \
     $$PWD/http/controller/IHttpControllerNode.h \
     $$PWD/http/controller/IHttpPath.h \
-    $$PWD/http/controller/IHttpPathFunctorValidatorInterface.h \
+    $$PWD/http/controller/IHttpPathValidatorInterface.h \
     $$PWD/http/controller/detail/IHttpPathDetail.h \
     $$PWD/http/controller/detail/IHttpPathFragmentDetail.h \
+    $$PWD/http/controller/detail/IHttpPathValidatorsTask.h \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.h \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.h \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.h \
-    $$PWD/http/core/defaultTask/IHttpUrlPathValidatorTask.h \
     $$PWD/http/core/unit/IRegisterResponseUnit.h \
     $$PWD/http/invalid/IHttpBadRequestInvalid.h \
     $$PWD/http/invalid/IHttpInternalErrorInvalid.h \
@@ -179,7 +179,6 @@ HEADERS += \
     $$PWD/http/biscuits/IHttpMime.h \
     $$PWD/http/biscuits/IHttpStatus.h \
     $$PWD/http/biscuits/IHttpVersion.h \
-    $$PWD/http/controller/IHttpPathRegexpValidatorInterface.h \
     $$PWD/http/net/ICookieJar.h \
     $$PWD/http/net/ICookiePart.h \
     $$PWD/http/net/IHeaderJar.h \
@@ -262,13 +261,12 @@ SOURCES += \
     $$PWD/http/controller/IHttpControllerNode.cpp \
     $$PWD/http/controller/IHttpPath.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
-    $$PWD/http/controller/IHttpPathRegexpValidatorInterface.cpp \
     $$PWD/http/controller/detail/IHttpPathDetail.cpp \
     $$PWD/http/controller/detail/IHttpPathFragmentDetail.cpp \
+    $$PWD/http/controller/detail/IHttpPathValidatorsTask.cpp \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.cpp \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.cpp \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.cpp \
-    $$PWD/http/core/defaultTask/IHttpUrlPathValidatorTask.cpp \
     $$PWD/http/invalid/IHttpBadRequestInvalid.cpp \
     $$PWD/http/invalid/IHttpInternalErrorInvalid.cpp \
     $$PWD/http/invalid/IHttpInvalidWare.cpp \

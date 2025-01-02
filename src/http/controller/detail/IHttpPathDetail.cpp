@@ -10,24 +10,24 @@ IHttpPathDetail::IHttpPathDetail(const QStringList& args)
     for(const QString& arg : args){
         if(!arg.trimmed().isEmpty() && arg.trimmed() != "/"){
             m_urlPieces.append(arg.trimmed());
-            fragments.emplace_back(ISpawnUtil::construct<IHttpPathFragment>(arg.trimmed()));
+            m_fragments.emplace_back(ISpawnUtil::construct<IHttpPathFragment>(arg.trimmed()));
         }
     }
-    this->path = m_urlPieces.join("/");
+    this->m_path = m_urlPieces.join("/");
 
     checkMappingUrl();
 }
 
 void IHttpPathDetail::checkMappingUrl()
 {
-    for(const auto& fragement : fragments){
-        if(fragement.fragment.isEmpty()){
+    for(const auto& fragement : m_fragments){
+        if(fragement.m_fragment.isEmpty()){
             return;
         }
-        if(isPieceWildCard(fragement.fragment)){
-            CheckMappingUrlErrorWildCard(fragement.fragment);
+        if(isPieceWildCard(fragement.m_fragment)){
+            CheckMappingUrlErrorWildCard(fragement.m_fragment);
         }else{
-            checkMappingUrlErrorCommon(fragement.fragment);
+            checkMappingUrlErrorCommon(fragement.m_fragment);
         }
     }
 }
@@ -114,12 +114,12 @@ namespace ISpawnUtil
     {
         QStringList args;
         for(const auto& info : fragments_){
-            args.push_back(info.fragment);
+            args.push_back(info.m_fragment);
         }
 
         IHttpPath url;
-        url.path = args.join("/");
-        url.fragments = fragments_;
+        url.m_path = args.join("/");
+        url.m_fragments = fragments_;
         return url;
     }
 }

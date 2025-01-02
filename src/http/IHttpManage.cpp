@@ -45,22 +45,6 @@ IHttpInvalidHandlerWare *IHttpManage::getInvalidHandler(const std::string &name)
     return nullptr;
 }
 
-void IHttpManage::registerPathValidator(const QString &name, const QString &regexp)
-{
-    QRegularExpression exp(regexp);
-    if(!exp.isValid()){
-        auto info = regexp + " : regular expression is not valid";
-        qFatal(info.toUtf8());
-    }
-
-    if(m_pathRegValidators.contains(name) || m_pathFunValidators.contains(name)){
-        auto info = name + " validator already registered";
-        qFatal(info.toUtf8());
-    }
-
-    m_pathRegValidators[name] = regexp;
-}
-
 void IHttpManage::registerPathValidator(const QString &name, ValidatorFun fun)
 {
     if(m_pathFunValidators.contains(name) || m_pathFunValidators.contains(name)){
@@ -78,20 +62,10 @@ void IHttpManage::printMappingTrace()
     }
 }
 
-QString IHttpManage::queryPathRegValidator(const QString &path)
-{
-    auto inst = instance();
-    if(inst->m_pathRegValidators.contains(path)){
-        return inst->m_pathRegValidators[path];
-    }
-    return "";
-}
-
 IHttpManage::ValidatorFun IHttpManage::queryPathFunValidator(const QString &path)
 {
-    auto inst = instance();
-    if(inst->m_pathFunValidators.contains(path)){
-        return inst->m_pathFunValidators[path];
+    if(m_pathFunValidators.contains(path)){
+        return m_pathFunValidators[path];
     }
     return nullptr;
 }

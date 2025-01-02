@@ -10,6 +10,7 @@ SOURCES += \
         TempUnitTest.cpp \
         bean/StudentBean.cpp \
         controller/Argument/BasicArgument.cpp \
+        controller/UrlController.cpp \
         controller/returnType/ReturnTypeController.cpp \
         main.cpp
 
@@ -22,4 +23,5 @@ HEADERS += \
     TempUnitTest.h \
     bean/StudentBean.h \
     controller/Argument/BasicArgument.h \
+    controller/UrlController.h \
     controller/returnType/ReturnTypeController.h

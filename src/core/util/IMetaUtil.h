@@ -57,7 +57,6 @@ QSet<int> IMetaUtil::registerMetaType(QStringList names)
             s_id << qRegisterMetaType<T>(name.toUtf8());
             s_id << qRegisterMetaType<T>(QString((name + "&")).toUtf8());
         };
-        qDebug() << names_ << s_id;
     });
     return s_id;
 }

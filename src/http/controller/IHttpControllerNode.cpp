@@ -12,9 +12,9 @@ IHttpControllerNode::IHttpControllerNode(const IHttpPathFragment& fragment)
 
 bool IHttpControllerNode::operator==(const IHttpControllerNode &node)
 {
-    return  urlFragment.name == node.urlFragment.name
-            && urlFragment.type == node.urlFragment.type
-            && urlFragment.fragment == node.urlFragment.fragment
+    return  urlFragment.m_name == node.urlFragment.m_name
+            && urlFragment.m_type == node.urlFragment.m_type
+            && urlFragment.m_fragment == node.urlFragment.m_fragment
             && children == node.children;
 }
 
@@ -100,15 +100,15 @@ void IHttpControllerNode::addChild(const IHttpPathFragment &fragment)
 
 void IHttpControllerNode::addChild(const IHttpControllerNode& node)
 {
-    if(node.urlFragment.type == IHttpPathFragment::TEXT_MATCH){
+    if(node.urlFragment.m_type == IHttpPathFragment::TEXT_MATCH){
         return this->children.prepend(node);
-    }else if(node.urlFragment.type == IHttpPathFragment::FULL_MATCH){
+    }else if(node.urlFragment.m_type == IHttpPathFragment::FULL_MATCH){
         return this->children.append(node);
     }
 
     int index;
     for(index=0; index<children.length(); index++){
-        if(children[index].urlFragment.type != IHttpPathFragment::TEXT_MATCH){
+        if(children[index].urlFragment.m_type != IHttpPathFragment::TEXT_MATCH){
             break;
         }
     }
@@ -118,7 +118,7 @@ void IHttpControllerNode::addChild(const IHttpControllerNode& node)
 IHttpControllerNode *IHttpControllerNode::getChild(const IHttpPathFragment &fragment)
 {
     for(auto& child : children){
-        if(child.urlFragment.fragment == fragment.fragment){
+        if(child.urlFragment.m_fragment == fragment.m_fragment){
             return &child;
         }
     }
@@ -146,10 +146,10 @@ void IHttpControllerNode::travelPrint(int space) const
         if(action){
             qDebug().noquote()<< QString().fill(' ', 4 * space)
                               << "    |::" + IHttpMethodUtil::toString(action->httpMethod)
-                              << action->route.path << "\t==>" << action->methodNode.signature;
+                              << action->route.m_path << "\t==>" << action->methodNode.signature;
         }
     };
-    qDebug().noquote() << QString().fill(' ', 4* space) << "|" + this->urlFragment.fragment;
+    qDebug().noquote() << QString().fill(' ', 4* space) << "|" + this->urlFragment.m_fragment;
     print(this->getMethodAction, space);
     print(this->putMethodAction, space);
     print(this->postMethodAction, space);

@@ -7,7 +7,7 @@ $PackageWebCoreBegin
 struct IHttpPathFragmentDetail : public IHttpPathFragment
 {
 public:
-    IHttpPathFragmentDetail(const QString& fragment);
+    IHttpPathFragmentDetail(const QString& m_fragment);
 
 private:
     bool evaluatePlainText(const QString& nodeName);
@@ -15,7 +15,6 @@ private:
     bool evaluateNameOnlyNode(const QString &nodeName);
     bool evaluateNameTypeNode(const QString &nodeName);
     bool evaluateRegTypeNode(const QString &nodeName);
-    bool evaluateUnMatchedNode(const QString &nodeName);
 };
 
 $PackageWebCoreEnd

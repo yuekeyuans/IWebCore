@@ -7,10 +7,9 @@ $PackageWebCoreBegin
 struct IHttpPathFragment
 {
 public:
-    using ValidateFun = std::function<bool(const QString&)>;
+    using Validator = std::function<bool(const QString&)>;
     enum NodeType{
         TEXT_MATCH,     // match text
-        REGEXP_MATCH,   // match reg
         FUNC_MATCH,     // match function
         FULL_MATCH      // empty node match, match any thing
     };
@@ -20,18 +19,17 @@ public:
     bool isMatch(const QString&) const;
 
 public:
-    QString fragment;
-    NodeType type;
-    QString name;
-    QRegularExpression regexpValidator;     // 使用 正则式验证数据的正确性与否
-    ValidateFun funValidator;               // 使用 函数 验证数据是否正确
+    QString m_fragment;
+    NodeType m_type;
+    QString m_name;
+    Validator m_validator;               // 使用 函数 验证数据是否正确
 };
 
 struct IHttpPath
 {
 public:
-    QString path;
-    std::vector<IHttpPathFragment> fragments;
+    QString m_path;
+    std::vector<IHttpPathFragment> m_fragments;
 };
 
 $PackageWebCoreEnd

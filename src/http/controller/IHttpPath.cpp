@@ -10,10 +10,9 @@ bool IHttpPathFragment::isMatch(IStringView value) const
 bool IHttpPathFragment::isMatch(const QString &nodeName) const
 {
     return false
-            || type == IHttpPathFragment::TEXT_MATCH && fragment == nodeName
-            || type == IHttpPathFragment::REGEXP_MATCH && regexpValidator.match(nodeName).hasMatch()
-            || type == IHttpPathFragment::FUNC_MATCH && funValidator(nodeName)
-            || type == IHttpPathFragment::FULL_MATCH;
+            || m_type == IHttpPathFragment::TEXT_MATCH && m_fragment == nodeName
+            || m_type == IHttpPathFragment::FUNC_MATCH && m_validator(nodeName)
+            || m_type == IHttpPathFragment::FULL_MATCH;
 }
 
 $PackageWebCoreEnd

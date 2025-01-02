@@ -9,7 +9,7 @@ $PackageWebCoreBegin
 void IHttpControllerMapping::registerUrlActionNode(const IHttpControllerAction& node)
 {
     auto ptr = &m_urlMapppings;
-    for(const auto& fragment : node.route.fragments){
+    for(const auto& fragment : node.route.m_fragments){
         if(!ptr->getChild(fragment)){
             ptr->addChild(fragment);
         }

@@ -3,10 +3,10 @@
 
 $PackageWebCoreBegin
 
-class IHttpUrlPathValidatorTask : public IInitializationTaskInterface<IHttpUrlPathValidatorTask>
+class IHttpPathValidatorsTask : public IInitializationTaskInterface<IHttpPathValidatorsTask>
 {
 public:
-    IHttpUrlPathValidatorTask() = default;
+    IHttpPathValidatorsTask() = default;
 
 public:
     virtual void $task() final;
