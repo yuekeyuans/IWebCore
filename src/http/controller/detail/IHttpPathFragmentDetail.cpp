@@ -62,8 +62,8 @@ bool IHttpPathFragmentDetail::evaluateNameOnlyNode(const QString &nodeName)
 
 bool IHttpPathFragmentDetail::evaluateNameTypeNode(const QString &nodeName)
 {
-    static QRegularExpression regTypeNameValue("^<(\\w*)|(\\w*)>$");  // <name|function>
-    auto result = regTypeNameValue.match(nodeName);
+    static const QRegularExpression regex("^<(\\w*)\\|(\\w+)>$");  // <name|function>
+    auto result = regex.match(nodeName);
     if(!result.hasMatch()){
         return false;
     }
@@ -88,8 +88,8 @@ bool IHttpPathFragmentDetail::evaluateNameTypeNode(const QString &nodeName)
 //TODO: 这个补充一下
 bool IHttpPathFragmentDetail::evaluateRegTypeNode(const QString &nodeName)
 {
-    static QRegularExpression regTypeNameReg("^<(\\w*)||(\\w+)>$");  // <name||reg>
-    auto result = regTypeNameReg.match(nodeName);
+    static const QRegularExpression regex("^<(\\w*)\\|\\|(.+)>$");  // <name||reg>
+    auto result = regex.match(nodeName);
     if(!result.hasMatch()){
         return false;
     }
@@ -98,7 +98,7 @@ bool IHttpPathFragmentDetail::evaluateRegTypeNode(const QString &nodeName)
     this->m_name = result.captured(1);
     auto exp = result.captured(2);
 
-    auto regExp = QRegularExpression(exp);
+    QRegularExpression regExp(exp);
     if(!regExp.isValid()){
         qFatal("expression not valid");
     }

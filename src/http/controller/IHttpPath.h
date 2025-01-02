@@ -19,10 +19,10 @@ public:
     bool isMatch(const QString&) const;
 
 public:
+    NodeType m_type{NodeType::FULL_MATCH};
     QString m_fragment;
-    NodeType m_type;
     QString m_name;
-    Validator m_validator;               // 使用 函数 验证数据是否正确
+    Validator m_validator{nullptr};
 };
 
 struct IHttpPath
