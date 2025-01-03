@@ -27,7 +27,7 @@ IWebCore::IHttpPathFragmentDetail::IHttpPathFragmentDetail(const QString &fragme
     };
 
     for(const auto& fun : funs){
-        if(std::mem_fn(fun)(this) == true){
+        if(std::invoke(fun, this) == true){
             return;
         }
     }

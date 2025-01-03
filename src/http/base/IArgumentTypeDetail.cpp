@@ -187,7 +187,7 @@ IArgumentTypeDetail::IArgumentTypeDetail(int typeId, QByteArray paramTypeName, Q
         &IArgumentTypeDetail::createBeanTypes,
     };
     for(auto fun : funs){
-        std::mem_fn(fun)(this);
+        std::invoke(fun, this);
         if(m_createFun){
             return;
         };
@@ -252,7 +252,7 @@ void IArgumentTypeDetail::createBasicTypes()
     }
 
     for(auto fun : funs){
-        std::mem_fn(fun)(this);
+        std::invoke(fun, this);
         if(m_createFun){
             if(m_optional){
                 qFatal("optional can not be exist here");
@@ -338,7 +338,7 @@ void IArgumentTypeDetail::createPartTypes()
         &IArgumentTypeDetail::createCookiePartType,
     };
     for(auto fun : funs){
-        std::mem_fn(fun)(this);
+        std::invoke(fun, this);
         if(m_createFun){
             return;
         }
@@ -414,7 +414,7 @@ void IArgumentTypeDetail::createDecorateTypes()
     };
 
     for(auto fun : funs){
-        std::mem_fn(fun)(this);
+        std::invoke(fun, this);
         if(m_createFun){
             auto typeId = m_typeId;
             auto typeName = m_typeName;

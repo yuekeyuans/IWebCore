@@ -57,7 +57,7 @@ void IReturnTypeDetail::createResolveFuntion()
             &IReturnTypeDetail::createIJsonFun,
     };
     for(auto fun : funs){
-        std::bind(fun, this)();
+        std::invoke(fun, this);
     }
     if(!m_resolveFunction){
         qFatal("return type can not be resolved");
