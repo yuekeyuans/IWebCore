@@ -22,7 +22,6 @@ public:
 
 public:
     void setHeader(IString key, IString value);
-    void setHeader(IString key, const std::vector<IString>& values);
     void setMime(IHttpMime m_mime);
 
     void setContent(const IHttpInvalidWare& ware);
