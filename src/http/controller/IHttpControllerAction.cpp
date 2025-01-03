@@ -11,11 +11,11 @@ void IHttpControllerAction::invoke(IRequest &request) const
 {
     auto params = createParams(request);
     if(request.isValid()){
-        auto index = methodNode.metaMethod.methodIndex();
-        auto enclosingObject = methodNode.metaMethod.enclosingMetaObject();
+        auto index = m_methodNode.metaMethod.methodIndex();
+        auto enclosingObject = m_methodNode.metaMethod.enclosingMetaObject();
         enclosingObject->static_metacall(QMetaObject::InvokeMetaMethod, index, params.data());
         if(request.isValid()){
-            methodNode.returnNode.m_resolveFunction(request.impl(), params[0]);
+            m_methodNode.returnNode.m_resolveFunction(request.impl(), params[0]);
         }
     }
 
@@ -26,10 +26,10 @@ void IHttpControllerAction::invoke(IRequest &request) const
 IHttpControllerAction::ParamType IHttpControllerAction::createParams(IRequest& request) const
 {
     ParamType params{0};
-    params[0] = methodNode.returnNode.create();
-    int len = methodNode.argumentNodes.length();
+    params[0] = m_methodNode.returnNode.create();
+    int len = m_methodNode.argumentNodes.length();
     for(int i=0; i<len; i++){
-        params[i+1] = methodNode.argumentNodes[i].m_createFun(request);
+        params[i+1] = m_methodNode.argumentNodes[i].m_createFun(request);
         if(!request.isValid()){
             break;
         }
@@ -39,11 +39,11 @@ IHttpControllerAction::ParamType IHttpControllerAction::createParams(IRequest& r
 
 void IHttpControllerAction::destroyParams(const IHttpControllerAction::ParamType& params) const
 {
-    methodNode.returnNode.destroy(params[0]);
-    int len = methodNode.argumentNodes.length();
+    m_methodNode.returnNode.destroy(params[0]);
+    int len = m_methodNode.argumentNodes.length();
     for(int i=0; i<len; i++){
-        if(params[i+1] && methodNode.argumentNodes[i].m_destroyFun){
-            methodNode.argumentNodes[i].m_destroyFun(params[i+1]);
+        if(params[i+1] && m_methodNode.argumentNodes[i].m_destroyFun){
+            m_methodNode.argumentNodes[i].m_destroyFun(params[i+1]);
         }
     }
 }

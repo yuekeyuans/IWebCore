@@ -99,14 +99,9 @@ const QMap<IStringView, IStringView> &IRequest::pathParameters() const
     return m_impl->m_reqRaw.m_paths;
 }
 
-const QMap<IStringView, IStringView> &IRequest::urlParameters() const
+const QMap<IStringView, IStringView> &IRequest::queryParameters() const
 {
     return m_impl->m_reqRaw.m_queries;
-}
-
-const QMap<IStringView, IStringView> &IRequest::paramParameters() const
-{
-    return m_impl->m_reqRaw.m_paths;
 }
 
 const QMap<IStringView, IStringView> &IRequest::bodyFormParameters() const
@@ -184,12 +179,6 @@ void IRequest::setInvalidIf(bool condition, IHttpInvalidWare ware) const
 void IRequest::setInvalid(IHttpInvalidWare ware) const
 {
     m_impl->setInvalid(ware);
-}
-
-void IRequest::doAction(IHttpAction *action)
-{
-    m_impl->m_action = action;
-    action->invoke(*this);
 }
 
 void IRequest::doWrite()

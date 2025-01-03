@@ -5,6 +5,7 @@
 #include "core/util/IConstantUtil.h"
 #include "core/config/IProfileImport.h"
 #include "http/IHttpManage.h"
+#include "http/controller/IHttpControllerAction.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
 #include "http/invalid/IHttpNotFoundInvalid.h"
 #include "http/invalid/IHttpInternalErrorInvalid.h"
@@ -135,10 +136,10 @@ void IRequestImpl::contentState(std::size_t length)
 
 void IRequestImpl::endState()
 {
+    parseAction();
     auto application = dynamic_cast<IAsioApplication*>(IApplicationInterface::instance());
     asio::post(application->ioContext(), [=](){
-        auto action = IHttpManage::instance()->getAction(m_request);
-        m_request.doAction(action);
+        this->m_action->invoke(m_request);
     });
 }
 
@@ -402,6 +403,19 @@ void IRequestImpl::parseMultiPartData(IStringView data)
             }
             m_reqRaw.m_multiParts.emplace_back(std::move(part));
         }
+    }
+}
+
+void IRequestImpl::parseAction()
+{
+    m_action = IHttpManage::instance()->getAction(m_request);
+    auto action = dynamic_cast<IHttpControllerAction*>(m_action);
+    if(action){
+        const auto& paths = action->m_path;
+        for(const auto& arg : paths.m_fragments){
+            // TODO;
+        }
+
     }
 }
 

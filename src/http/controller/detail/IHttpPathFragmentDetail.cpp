@@ -17,7 +17,7 @@ $PackageWebCoreBegin
 IWebCore::IHttpPathFragmentDetail::IHttpPathFragmentDetail(const QString &fragment)
 {
     IHttpPathFragment::m_fragment = fragment;
-    using FunType = bool (IHttpPathFragmentDetail::*)(const QString&);
+    using FunType = bool (IHttpPathFragmentDetail::*)();
     static const FunType funs[] = {
         &IHttpPathFragmentDetail::evaluateTypeEmptyNode,
         &IHttpPathFragmentDetail::evaluateNameOnlyNode,
@@ -27,18 +27,18 @@ IWebCore::IHttpPathFragmentDetail::IHttpPathFragmentDetail(const QString &fragme
     };
 
     for(const auto& fun : funs){
-        if(std::mem_fn(fun)(this, fragment) == true){
+        if(std::mem_fn(fun)(this) == true){
             return;
         }
     }
-    auto info = fragment + " is not a valid expression, please check it";
+    auto info = m_fragment + " is not a valid expression, please check it";
     qFatal(info.toUtf8());
 }
 
-bool IHttpPathFragmentDetail::evaluatePlainText(const QString &nodeName)
+bool IHttpPathFragmentDetail::evaluatePlainText()
 {
     QRegularExpression regex("^(?:[A-Za-z0-9\\-._~!$&'()*+,;=:@]|%[0-9A-Fa-f]{2})*$");
-    auto result = regex.match(nodeName);
+    auto result = regex.match(m_fragment);
     if(result.hasMatch()){
         this->m_type = IHttpPathFragment::TEXT;
         return true;
@@ -46,39 +46,39 @@ bool IHttpPathFragmentDetail::evaluatePlainText(const QString &nodeName)
     return false;
 }
 
-bool IHttpPathFragmentDetail::evaluateTypeEmptyNode(const QString &nodeName)
+bool IHttpPathFragmentDetail::evaluateTypeEmptyNode()
 {
     QRegularExpression regTypeEmpty("^<(\\w*)>$");
-    auto result = regTypeEmpty.match(nodeName);
+    auto result = regTypeEmpty.match(m_fragment);
     if(result.hasMatch()){
         this->m_type = IHttpPathFragment::FULL_MATCH;
-        this->m_name = result.captured(1);
+        this->m_name = result.captured(1).toStdString();
         return true;
     }
     return false;
 }
 
-bool IHttpPathFragmentDetail::evaluateNameOnlyNode(const QString &nodeName)
+bool IHttpPathFragmentDetail::evaluateNameOnlyNode()
 {
     QRegularExpression regTypeNameOnly("^<(\\w+)>$");    // <name>
-    auto result = regTypeNameOnly.match(nodeName);
+    auto result = regTypeNameOnly.match(m_fragment);
     if(result.hasMatch()){
-        this->m_name = result.captured(1);
+        this->m_name = result.captured(1).toStdString();
         this->m_type = IHttpPathFragment::FULL_MATCH;
         return true;
     }
     return false;
 }
 
-bool IHttpPathFragmentDetail::evaluateNameTypeNode(const QString &nodeName)
+bool IHttpPathFragmentDetail::evaluateNameTypeNode()
 {
     QRegularExpression regex("^<(\\w*)\\|(\\w+)>$");  // <name|function>
-    auto result = regex.match(nodeName);
+    auto result = regex.match(m_fragment);
     if(!result.hasMatch()){
         return false;
     }
 
-    this->m_name = result.captured(1);
+    this->m_name = result.captured(1).toStdString();
     auto valueType = result.captured(2);
     if(valueType.isEmpty()){
         qFatal("no capture function name found");
@@ -95,16 +95,16 @@ bool IHttpPathFragmentDetail::evaluateNameTypeNode(const QString &nodeName)
     return false;
 }
 
-bool IHttpPathFragmentDetail::evaluateRegTypeNode(const QString &nodeName)
+bool IHttpPathFragmentDetail::evaluateRegTypeNode()
 {
     QRegularExpression regex("^<(\\w*)\\|\\|(.+)>$");  // <name||reg>
-    auto result = regex.match(nodeName);
+    auto result = regex.match(m_fragment);
     if(!result.hasMatch()){
         return false;
     }
 
     this->m_type = IHttpPathFragment::FUNCTION;
-    this->m_name = result.captured(1);
+    this->m_name = result.captured(1).toStdString();
     auto exp = result.captured(2);
 
     QRegularExpression regExp(exp);

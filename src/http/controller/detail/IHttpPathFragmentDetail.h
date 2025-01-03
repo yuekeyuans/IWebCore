@@ -10,11 +10,11 @@ public:
     IHttpPathFragmentDetail(const QString& m_fragment);
 
 private:
-    bool evaluatePlainText(const QString& nodeName);
-    bool evaluateTypeEmptyNode(const QString &nodeName);
-    bool evaluateNameOnlyNode(const QString &nodeName);
-    bool evaluateNameTypeNode(const QString &nodeName);
-    bool evaluateRegTypeNode(const QString &nodeName);
+    bool evaluatePlainText();
+    bool evaluateTypeEmptyNode();
+    bool evaluateNameOnlyNode();
+    bool evaluateNameTypeNode();
+    bool evaluateRegTypeNode();
 };
 
 $PackageWebCoreEnd

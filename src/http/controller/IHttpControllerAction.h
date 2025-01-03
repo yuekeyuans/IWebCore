@@ -20,11 +20,11 @@ private:
     void destroyParams(const ParamType&) const;
 
 public:
-    IHttpMethod httpMethod;
-    void* parentNode{};
+    IHttpMethod m_httpMethod;
+    void* m_parentNode{};
 
-    IHttpPath route;
-    IMethodNode methodNode;
+    IHttpPath m_path;
+    IMethodNode m_methodNode;
 };
 
 $PackageWebCoreEnd

@@ -54,8 +54,7 @@ public:
     const IString& content() const;
 
     const QMap<IStringView, IStringView>& pathParameters() const;
-    const QMap<IStringView, IStringView>& urlParameters() const;
-    const QMap<IStringView, IStringView>& paramParameters() const;
+    const QMap<IStringView, IStringView>& queryParameters() const;
     const QMap<IStringView, IStringView>& bodyFormParameters() const;
     const std::vector<IMultiPart>& bodyMultiParts() const;
     const IJson& bodyJson() const;
@@ -77,7 +76,6 @@ public:
     void setInvalid(IHttpInvalidWare) const;
 
 public:
-    void doAction(IHttpAction* action);
     void doWrite();
 
 protected:

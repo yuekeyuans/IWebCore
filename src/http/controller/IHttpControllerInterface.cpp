@@ -104,9 +104,9 @@ void IHttpControllerInfo::parseMappingLeaves()
 {
     for(const IHttpMethodMappingInfo& mapping : m_mappingInfos){
         IHttpControllerAction node;
-        node.httpMethod = mapping.method;
-        node.route = ISpawnUtil::construct<IHttpPath, const std::vector<IHttpPathFragment>&>(mapping.fragments);
-        node.methodNode = getHttpMethodNode(mapping.funName);
+        node.m_httpMethod = mapping.method;
+        node.m_path = ISpawnUtil::construct<IHttpPath, const std::vector<IHttpPathFragment>&>(mapping.fragments);
+        node.m_methodNode = getHttpMethodNode(mapping.funName);
         m_urlNodes.append(node);
     }
 }

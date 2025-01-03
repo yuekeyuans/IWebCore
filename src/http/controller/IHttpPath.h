@@ -21,7 +21,7 @@ public:
 public:
     PathType m_type{PathType::FULL_MATCH};
     QString m_fragment;
-    QString m_name;
+    IString m_name;
     Validator m_validator{nullptr};
 };
 

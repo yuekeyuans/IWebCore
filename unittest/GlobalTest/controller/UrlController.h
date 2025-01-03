@@ -9,6 +9,11 @@ class UrlController : public IHttpControllerInterface<UrlController>
 public:
     UrlController();
 
+    $GetMapping(index, /)
+    QString index(){
+        return "hello";
+    }
+
     $GetMapping(hello, helloWorld)
     QString hello(){
         return "hello";
@@ -18,7 +23,7 @@ public:
     QString hello1(){
         return "hello";
     }
-    $GetMapping(helloInt, hello/<world|int>)
+    $GetMapping(helloInt, hello/<world|double>)
     QString helloInt(){
         return "hello";
     }
@@ -31,12 +36,12 @@ public:
         return "hello";
     }
 
-    $GetMapping(helloIntAnomyous2, hello/<path||(\w+)>)
+    $GetMapping(helloIntAnomyous2, hello/<path||(\\w+)>)
     QString helloIntAnomyous2(){
         return "hello";
     }
 
-    $GetMapping(helloIntAnomyous3, hello/?d)
+    $GetMapping(helloIntAnomyous3, hello/&d)
     QString helloIntAnomyous3(){
         return "hello";
     }

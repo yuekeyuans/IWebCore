@@ -41,14 +41,14 @@ bool IHttpControllerNode::isEmpty() const
 
 void IHttpControllerNode::setAction(const IHttpControllerAction &action)
 {
-    auto ptr = getAction(action.httpMethod);
+    auto ptr = getAction(action.m_httpMethod);
     if(ptr){
         qFatal("action already registered");
     }
 
     auto newAction = new IHttpControllerAction(action);
-    newAction->parentNode = this;
-    switch (action.httpMethod) {
+    newAction->m_parentNode = this;
+    switch (action.m_httpMethod) {
     case IHttpMethod::GET:
         getMethodAction = newAction;
         break;
@@ -145,8 +145,8 @@ void IHttpControllerNode::travelPrint(int space) const
     auto print = [](IHttpControllerAction* action, int space){
         if(action){
             qDebug().noquote()<< QString().fill(' ', 4 * space)
-                              << "    |::" + IHttpMethodUtil::toString(action->httpMethod)
-                              << action->route.m_path << "\t==>" << action->methodNode.signature;
+                              << "    |::" + IHttpMethodUtil::toString(action->m_httpMethod).toQString()
+                              << "/" + action->m_path.m_path << "\t==>" << action->m_methodNode.signature;
         }
     };
     qDebug().noquote() << QString().fill(' ', 4* space) << "|" + this->urlFragment.m_fragment;
