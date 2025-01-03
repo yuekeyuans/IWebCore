@@ -39,8 +39,19 @@ public:
 
     IResponse& setContent(IString&&);
     IResponse& setContent(const IString&);
+    IResponse& setContent(std::string&&);
+    IResponse& setContent(const std::string&);
+    IResponse& setContent(QByteArray&&);
+    IResponse& setContent(const QByteArray&);
+
+    IResponse& setContent(IStringView);
+    IResponse& setContent(const QString&);
+    IResponse& setContent(const char*);
+
     IResponse& setContent(const IResponseWare&);    // 对于这个，可以多思考一下，使用引用怎么样
     IResponse& setContent(const IHttpInvalidWare&);
+
+
 
     void setInvalid(const IHttpInvalidWare& ware);
 
@@ -55,15 +66,3 @@ private:
 
 $PackageWebCoreEnd
 
-// TODO: 这个之后可以再加回来
-//    IResponse& setContent(std::string&&);
-//    IResponse& setContent(const std::string&);
-
-//    IResponse& setContent(IStringView);
-
-//    IResponse& setContent(QString&&);
-//    IResponse& setContent(const QString&);
-
-//    IResponse& setContent(QByteArray&&);
-//    IResponse& setContent(const QByteArray&);
-//    IResponse& setContent(const char*);

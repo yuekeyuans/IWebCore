@@ -24,7 +24,7 @@ public:
     void updateLocationPath();
 
 private:
-    QString redirectPath;   // TODO: 这个值改变一下
+    QString m_redirectPath;
 };
 
 IRedirectResponse operator"" _redirect(const char* str, size_t size);

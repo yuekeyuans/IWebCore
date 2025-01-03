@@ -71,6 +71,41 @@ IResponse &IResponse::setContent(const IString & value)
     return *this;
 }
 
+IResponse &IResponse::setContent(std::string && value)
+{
+    return setContent(IStringView(std::move(value)));
+}
+
+IResponse &IResponse::setContent(const std::string &value)
+{
+    return setContent(IStringView(value));
+}
+
+IResponse &IResponse::setContent(QByteArray && value)
+{
+    return setContent(IString(std::move(value)));
+}
+
+IResponse &IResponse::setContent(const QByteArray & value)
+{
+    return setContent(IString(value));
+}
+
+IResponse &IResponse::setContent(IStringView view)
+{
+    return setContent(IString(view));
+}
+
+IResponse &IResponse::setContent(const QString &view)
+{
+    return setContent(IString(view.toStdString()));
+}
+
+IResponse &IResponse::setContent(const char * value)
+{
+    return setContent(IString(std::string(value)));
+}
+
 IResponse &IResponse::setContent(const IResponseWare& ware)
 {
     m_impl.setResponseWare(ware);

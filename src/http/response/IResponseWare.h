@@ -31,7 +31,7 @@ public:
 
     const IHttpHeader& headers() const;
     IHttpHeader& headers();
-    // TODO: 这个可以扩展一下，
+
     void setHeader(IString key, IString value);
     void addHeader(IString key, IString value);
 

@@ -11,14 +11,14 @@ IRedirectResponse::IRedirectResponse()
 IRedirectResponse::IRedirectResponse(const char *data)
 {
     m_raw->m_status = IHttpStatus::FOUND_302;
-    this->redirectPath = data;
+    this->m_redirectPath = data;
     updateLocationPath();
 }
 
 IRedirectResponse::IRedirectResponse(const QString &path)
 {
     m_raw->m_status = IHttpStatus::FOUND_302;
-    this->redirectPath = path;
+    this->m_redirectPath = path;
     updateLocationPath();
 }
 
@@ -32,15 +32,12 @@ std::string IRedirectResponse::prefixMatcher()
     return "$redirect:";
 }
 
-// TODO: 这里参数 encodeUri了， 那么url 需不需要 encode
-// TODO: 这里把所有的字符都encode 掉吧
 void IRedirectResponse::updateLocationPath()
 {
-    if(redirectPath.isEmpty()){
+    if(m_redirectPath.isEmpty()){
         return;
     }
-    // 防止 非 acsii 字符，比如说汉字      //TODO: 这里是个啥， 需要看一下
-    auto path = ICodecUtil::pathEncode(redirectPath);
+    auto path = ICodecUtil::pathEncode(m_redirectPath);
     m_raw->m_headers.replace(IHttpHeader::Location, path.toUtf8());
 }
 
