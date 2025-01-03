@@ -54,13 +54,10 @@ std::vector<IStringView> generateHeadersContent(IRequestImpl& m_raw, int content
     std::vector<IStringView> ret;
     ret.push_back(ServerHeader.m_view);
 
-    std::unordered_map<IString, std::vector<IString>>& headerMap = headers.m_header;
-    for(const auto& pair : headerMap){
+    for(const auto& pair : headers.m_header){
         ret.push_back(pair.first.m_view);
         ret.push_back(IConstantUtil::CommaSpace.m_view);
-        for(const auto& val : pair.second){
-            ret.push_back(val.m_view);
-        }
+        ret.push_back(pair.second.m_view);
         ret.push_back(IConstantUtil::NewLine.m_view);
     }
 
@@ -80,12 +77,6 @@ IResponseRaw::~IResponseRaw()
 void IResponseRaw::setHeader(IString key, IString value)
 {
     m_headers.insert(std::move(key.solidify()), std::move(value.solidify()));
-}
-
-void IResponseRaw::setHeader(IString key, const std::vector<IString> &values)
-{
-    m_headers.m_header.erase(key);
-    m_headers.insert(std::move(key.solidify()),  values);
 }
 
 void IResponseRaw::setMime(IHttpMime mime)
@@ -173,11 +164,9 @@ void IResponseRaw::setResponseWare(const IResponseWare &response)
         m_status = response.status();
     }
 
-    // TODO: 先不做, 这个还是有一点复杂， 因为可能涉及到多值的情况
     if(!response.headers().isEmpty()){
-        auto keys = response.headers().keys();
-        for(const auto& key : keys){
-            setHeader(key, response.headers().values(key));
+        for(auto& [key, val] : response.headers().m_header){
+            setHeader(std::move(key), std::move(val));
         }
     }
 
