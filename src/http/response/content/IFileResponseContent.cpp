@@ -44,7 +44,7 @@ void detail::fileResponseProcessor(const IResponseContent &content, IResponseRaw
             && content.m_attribute->contains(IFileResponseContent::ContentDispoistion)
             && content.m_attribute->operator [](IFileResponseContent::ContentDispoistion) == IConstantUtil::True)
     {
-        raw.m_headers.replace(IHttpHeader::ContentDisposition, detail::createDispoisition(content.m_content));
+        raw.m_headers.insert(IHttpHeader::ContentDisposition, detail::createDispoisition(content.m_content));
     }
 
     if(false || !content.m_attribute
@@ -53,7 +53,7 @@ void detail::fileResponseProcessor(const IResponseContent &content, IResponseRaw
     {
         const IString& mime = detail::findMime(content.m_content);
         if(mime != IHttpMimeUtil::MIME_UNKNOWN_STRING){
-            raw.m_headers.replace(IHttpHeader::ContentType, mime);
+            raw.m_headers.insert(IHttpHeader::ContentType, mime);
         }
     }
 }

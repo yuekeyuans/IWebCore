@@ -15,7 +15,6 @@ public:
     const IResponseHeader& operator=(const IString& value);
     const IString& key();
     const IString& value();
-    const std::vector<IString> & values();
 
 private:
     IResponseRaw& m_raw;

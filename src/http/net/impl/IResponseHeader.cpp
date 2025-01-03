@@ -15,7 +15,7 @@ IResponseHeader::operator const IString&() noexcept
 
 const IResponseHeader& IResponseHeader::operator=(const IString &value)
 {
-    m_raw.m_headers.replace(m_key, value);
+    m_raw.m_headers.insert(m_key, value);
     return *this;
 }
 
@@ -27,11 +27,6 @@ const IString& IResponseHeader::key()
 const IString& IResponseHeader::value()
 {
     return m_raw.m_headers.value(m_key);
-}
-
-const std::vector<IString> & IResponseHeader::values()
-{
-    return m_raw.m_headers.values(m_key);
 }
 
 $PackageWebCoreEnd

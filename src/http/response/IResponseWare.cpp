@@ -76,7 +76,7 @@ IHttpHeader &IResponseWare::headers()
 
 void IResponseWare::setHeader(IString key, IString value)
 {
-    m_raw->m_headers.replace(std::move(key), std::move(value));
+    m_raw->m_headers.insert(std::move(key), std::move(value));
 }
 
 void IResponseWare::addHeader(IString key, IString value)

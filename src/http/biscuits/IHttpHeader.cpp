@@ -5,29 +5,10 @@ $PackageWebCoreBegin
 
 void IHttpHeader::insert(IString key, IString value)
 {
-    m_header[std::move(key)].push_back(std::move(value));
+    m_header[std::move(key)] = std::move(value);
 }
 
-void IHttpHeader::insert(IString key, const std::vector<IString> &value)
-{
-    m_header.emplace(std::move(key), value);
-}
-
-void IHttpHeader::replace(IString key, IString value)
-{
-    m_header.erase(key);
-    m_header[std::move(key)].push_back(std::move(value));
-}
-
-void IHttpHeader::remove(const IString& key, const IString& value)
-{
-    if(m_header.find(key) != m_header.end()){
-        auto& vec = m_header.at(key);
-        vec.erase(std::remove(vec.begin(), vec.end(), value), vec.end());
-    }
-}
-
-void IHttpHeader::clear(const IString& key)
+void IHttpHeader::remove(const IString& key)
 {
     m_header.erase(key);
 }
@@ -41,21 +22,14 @@ std::vector<IStringView> IHttpHeader::keys() const
     return ret;
 }
 
-const std::vector<IString> &IHttpHeader::values(const IString& key) const
-{
-    if(m_header.find(key) != m_header.end()){
-        return m_header.at(key);
-    }
-    return IConstantUtil::EmptyVector;
-}
-
 const IString &IHttpHeader::value(const IString &key) const
 {
-    const auto& vals = values(key);
-    if(vals.empty()){
-        return IConstantUtil::Empty;
+    for(const auto& pair : m_header){
+        if(pair.first == key){
+            return pair.second;
+        }
     }
-    return vals.front();
+    return IConstantUtil::Empty;
 }
 
 bool IHttpHeader::contain(const IString &key) const

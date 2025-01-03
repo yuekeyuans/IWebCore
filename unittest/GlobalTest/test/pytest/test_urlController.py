@@ -10,3 +10,4 @@ def test_hello():
     print(val.elapsed.microseconds)
     assert val.status_code == 200 
     assert val.text == "hello"
+

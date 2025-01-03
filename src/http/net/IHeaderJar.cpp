@@ -90,7 +90,7 @@ void IHeaderJar::setResponseHeader(IString key, const QStringList &values)
 
 void IHeaderJar::deleteReponseHeader(const IString &key)
 {
-    m_impl.m_respRaw.m_headers.clear(key);
+    m_impl.m_respRaw.m_headers.remove(key);
 }
 
 $PackageWebCoreEnd

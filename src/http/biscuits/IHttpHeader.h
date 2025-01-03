@@ -9,12 +9,8 @@ struct IHttpHeader
     friend class IResponseRaw;
 public:
     void insert(IString key, IString value);
-    void insert(IString key, const std::vector<IString>& value);
-    void replace(IString key, IString value);
-    void remove(const IString& key, const IString& value);
-    void clear(const IString& key);
+    void remove(const IString& key);
     std::vector<IStringView> keys() const;
-    const std::vector<IString>& values(const IString& key) const;
     const IString& value(const IString& key) const;
     bool contain(const IString& key) const ;
     bool isEmpty() const;
@@ -31,7 +27,7 @@ public:
     inline static const IString SetCookie = "Set-Cookie";
 
 public:
-    std::unordered_map<IString, std::vector<IString>> m_header;
+    std::unordered_map<IString, IString> m_header;
 };
 
 $PackageWebCoreEnd
