@@ -101,7 +101,6 @@ IMethodNode IHttpControllerInfo::getHttpMethodNode(const QString &name)
     return {};
 }
 
-// 这个检查的目的是检测 IArgument中的 path 是否和 IPath 中的匹配，起码有这个东西
 void IHttpControllerInfo::checkPathArgumentMatch()
 {
     for(const IHttpControllerAction& node : m_actionNodes){
