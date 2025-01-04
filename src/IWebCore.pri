@@ -258,7 +258,6 @@ SOURCES += \
     $$PWD/http/biscuits/IHttpAttribute.cpp \
     $$PWD/http/biscuits/IHttpHeader.cpp \
     $$PWD/http/controller/IHttpControllerAction.cpp \
-    $$PWD/http/controller/IHttpControllerInterface.cpp \
     $$PWD/http/controller/IHttpControllerNode.cpp \
     $$PWD/http/controller/IHttpPath.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \

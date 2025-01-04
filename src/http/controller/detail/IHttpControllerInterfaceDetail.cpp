@@ -3,6 +3,7 @@
 #include "http/biscuits/IHttpMethod.h"
 #include "http/controller/IHttpControllerAbort.h"
 #include "http/controller/IHttpPath.h"
+#include "http/mappings/IHttpControllerMapping.h"
 
 $PackageWebCoreBegin
 
@@ -44,7 +45,6 @@ void IHttpControllerInfo::parseMapppingInfos()
             info.m_fragments = rootFragments;
             auto fragments = parseFragments(classInfo[key]);
             info.m_fragments.insert(info.m_fragments.end(), fragments.begin(), fragments.end());
-
             m_mappingInfos.append(info);
         }
     }
@@ -136,6 +136,23 @@ IMethodNode IHttpControllerInfo::getHttpMethodNode(const QString &name)
     }
     qFatal("this will never be called");
     return {};
+}
+
+namespace ISpawnUtil
+{
+    template<>
+    void construct<void, void*, const QString&, const QMap<QString, QString> &, const QVector<QMetaMethod>&>(
+        void *handler,
+        const QString &className,
+        const QMap<QString, QString> &classInfo,
+        const QVector<QMetaMethod> &methods
+    ){
+        IHttpControllerInfo info(handler, className, classInfo, methods);
+        for(const IHttpControllerAction& action : info.m_urlNodes){
+            IHttpControllerMapping::instance()->registerUrlActionNode(action);
+        }
+    }
+
 }
 
 $PackageWebCoreEnd

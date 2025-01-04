@@ -117,7 +117,6 @@ namespace ISpawnUtil
     IHttpPath construct<IHttpPath, const std::vector<IHttpPathFragment>&>(const std::vector<IHttpPathFragment>& fragments)
     {
         IHttpPath url;
-        url.m_fragments = fragments;
 
         QStringList args;
         for(const auto& info : fragments){
@@ -126,8 +125,9 @@ namespace ISpawnUtil
                 url.m_hasPathParameter = true;
             }
         }
-        url.m_path = args.join("/");
 
+        url.m_path = args.join("/");
+        url.m_fragments = fragments;
         return url;
     }
 }

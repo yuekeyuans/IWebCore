@@ -5,6 +5,7 @@
 #include "core/task/unit/ITaskWareUnit.h"
 #include "core/unit/ISingletonUnit.h"
 #include "http/IHttpTaskCatagory.h"
+#include "core/util/ISpawnUtil.h"
 
 $PackageWebCoreBegin
 
@@ -15,22 +16,15 @@ public:
     virtual void $task() final;
 };
 
-namespace detail{
-
-void registerController(void* handler,
-                        const QString& className,
-                        const QMap<QString, QString>& classMap,
-                        const QVector<QMetaMethod>& methods);
-}
-
 template<typename T, bool enabled>
 void IHttpControllerInterface<T, enabled>::$task()
 {
-    if constexpr (enabled){
+    if/* constexpr */(enabled){
         auto className = IMetaUtil::getMetaClassName (T::staticMetaObject);
         auto classInfo = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
         auto classMethods = IMetaUtil::getMetaMethods(T::staticMetaObject);
-        detail::registerController(this, className, classInfo, classMethods);
+        ISpawnUtil::construct<void, void*, const QString&, const QMap<QString, QString> &, const QVector<QMetaMethod>&>
+            (this, className, classInfo, classMethods);
     }
 }
 
