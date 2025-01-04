@@ -30,9 +30,7 @@ struct IHttpPath
 public:
     QString m_path;
     std::vector<IHttpPathFragment> m_fragments;    
-
-public:
-    bool m_hasPathParameter{false};         // check whether exist named path
+    QMap<IString, int> m_actionNameMap;  // 帮助字段
 };
 
 $PackageWebCoreEnd

@@ -33,6 +33,10 @@ IHttpControllerInfo::IHttpControllerInfo(void* handler_, const QString &classNam
     parseRootPaths();
     parseMapppingInfos();
     parseMappingLeaves();
+
+    checkPathArgumentMatch();
+    checkMappingOverloadFunctions();
+    checkMappingNameAndFunctionIsMatch();
 }
 
 void IHttpControllerInfo::parseMapppingInfos()
@@ -48,9 +52,6 @@ void IHttpControllerInfo::parseMapppingInfos()
             m_mappingInfos.append(info);
         }
     }
-
-    checkMappingOverloadFunctions();
-    checkMappingNameAndFunctionIsMatch();
 }
 
 void IHttpControllerInfo::parseMappingLeaves()
@@ -60,7 +61,58 @@ void IHttpControllerInfo::parseMappingLeaves()
         node.m_httpMethod = mapping.m_method;
         node.m_path = ISpawnUtil::construct<IHttpPath, const std::vector<IHttpPathFragment>&>(mapping.m_fragments);
         node.m_methodNode = getHttpMethodNode(mapping.m_funName);
-        m_urlNodes.append(node);
+        m_actionNodes.append(node);
+    }
+}
+
+void IHttpControllerInfo::parseRootPaths()
+{
+    static constexpr char CONTROLLER_MAPPING_FLAG[] = "IHttpControllerMapping$";
+    if(classInfo.contains(CONTROLLER_MAPPING_FLAG) && !classInfo[CONTROLLER_MAPPING_FLAG].isEmpty()){
+        rootFragments = parseFragments(classInfo[CONTROLLER_MAPPING_FLAG]);
+    }
+}
+
+std::vector<IHttpPathFragment> IHttpControllerInfo::parseFragments(const QString &path)
+{
+    static constexpr char CONTROLLER_MAPPING_FLAG[] = "IHttpControllerMapping$";
+    std::vector<IHttpPathFragment> ret;
+    auto args =  path.split("/");
+    for(const QString& arg : args){
+        auto piece = arg.trimmed();
+        if(piece == "." || piece == ".."){
+            IHttpControllerAbort::abortUrlDotAndDotDotError("Controller mapping:" + classInfo[CONTROLLER_MAPPING_FLAG]);
+        }
+        if(!piece.isEmpty()){
+            ret.push_back(ISpawnUtil::construct<IHttpPathFragment>(piece));
+        }
+    }
+    return ret;
+}
+
+IMethodNode IHttpControllerInfo::getHttpMethodNode(const QString &name)
+{
+    for(const QMetaMethod& method : classMethods){
+        if(name == method.name()){
+            return ISpawnUtil::construct<IMethodNode>(handler, className, method);
+        }
+    }
+    qFatal("this will never be called");
+    return {};
+}
+
+// 这个检查的目的是检测 IArgument中的 path 是否和 IPath 中的匹配，起码有这个东西
+void IHttpControllerInfo::checkPathArgumentMatch()
+{
+    for(const IHttpControllerAction& node : m_actionNodes){
+        auto keys = node.m_path.m_actionNameMap.keys();
+        for(const IArgumentType& arg : node.m_methodNode.argumentNodes){
+            if(!arg.m_name.isEmpty() && arg.m_position == IArgumentType::Path){
+                if(!keys.contains(arg.m_name)){
+                    qFatal("error, path argument not match");
+                }
+            }
+        }
     }
 }
 
@@ -102,42 +154,6 @@ void IHttpControllerInfo::checkMappingNameAndFunctionIsMatch()
     }
 }
 
-void IHttpControllerInfo::parseRootPaths()
-{
-    static constexpr char CONTROLLER_MAPPING_FLAG[] = "IHttpControllerMapping$";
-    if(classInfo.contains(CONTROLLER_MAPPING_FLAG) && !classInfo[CONTROLLER_MAPPING_FLAG].isEmpty()){
-        rootFragments = parseFragments(classInfo[CONTROLLER_MAPPING_FLAG]);
-    }
-}
-
-std::vector<IHttpPathFragment> IHttpControllerInfo::parseFragments(const QString &path)
-{
-    static constexpr char CONTROLLER_MAPPING_FLAG[] = "IHttpControllerMapping$";
-    std::vector<IHttpPathFragment> ret;
-    auto args =  path.split("/");
-    for(const QString& arg : args){
-        auto piece = arg.trimmed();
-        if(piece == "." || piece == ".."){
-            IHttpControllerAbort::abortUrlDotAndDotDotError("Controller mapping:" + classInfo[CONTROLLER_MAPPING_FLAG]);
-        }
-        if(!piece.isEmpty()){
-            ret.push_back(ISpawnUtil::construct<IHttpPathFragment>(piece));
-        }
-    }
-    return ret;
-}
-
-IMethodNode IHttpControllerInfo::getHttpMethodNode(const QString &name)
-{
-    for(const QMetaMethod& method : classMethods){
-        if(name == method.name()){
-            return ISpawnUtil::construct<IMethodNode>(handler, className, method);
-        }
-    }
-    qFatal("this will never be called");
-    return {};
-}
-
 namespace ISpawnUtil
 {
     template<>
@@ -148,7 +164,7 @@ namespace ISpawnUtil
         const QVector<QMetaMethod> &methods
     ){
         IHttpControllerInfo info(handler, className, classInfo, methods);
-        for(const IHttpControllerAction& action : info.m_urlNodes){
+        for(const IHttpControllerAction& action : info.m_actionNodes){
             IHttpControllerMapping::instance()->registerUrlActionNode(action);
         }
     }

@@ -13,9 +13,6 @@ public:
 
 public:
     virtual void invoke(IRequest& request) const = 0;
-
-public:
-    bool m_autoRecycle{false};    // auto recycle after used
 };
 
 $PackageWebCoreEnd

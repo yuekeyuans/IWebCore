@@ -32,6 +32,7 @@ private:
     IMethodNode getHttpMethodNode(const QString& name);
 
 private:
+    void checkPathArgumentMatch();
     void checkMappingOverloadFunctions();
     void checkMappingNameAndFunctionIsMatch();
 
@@ -46,7 +47,7 @@ private:
     QVector<IHttpMethodMappingInfo> m_mappingInfos;
 
 public:
-    QVector<IHttpControllerAction> m_urlNodes;
+    QVector<IHttpControllerAction> m_actionNodes;
 };
 
 $PackageWebCoreEnd

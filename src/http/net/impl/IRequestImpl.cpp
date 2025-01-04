@@ -415,13 +415,6 @@ void IRequestImpl::parseMultiPartData(IStringView data)
 void IRequestImpl::parseAction()
 {
     m_action = IHttpManage::instance()->getAction(m_request);
-    auto action = dynamic_cast<IHttpControllerAction*>(m_action);       // expensive, check it
-    if(action && action->m_path.m_hasPathParameter){
-        const auto& paths = action->m_path;
-        for(const auto& arg : paths.m_fragments){
-            qDebug() << "____________" << arg.m_name;
-        }
-    }
 }
 
 IStringView IRequestImpl::getBoundary(IStringView data)

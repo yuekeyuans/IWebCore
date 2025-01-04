@@ -16,4 +16,4 @@ def test_hello_world_1():
     print(val.status_code)
     print(val.text)
     assert val.status_code == 200 
-
+    assert val.text == "hello1"

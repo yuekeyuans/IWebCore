@@ -8,11 +8,6 @@ $PackageWebCoreBegin
 struct IArgumentTypeDetail : public IArgumentType
 {
 public:
-    enum Position{
-        Auto, Path, Query, Header, Cookie, Session, Body, Form, Json,
-    };
-
-public:
     IArgumentTypeDetail(int typeId, QByteArray typeName, QByteArray nameRaw);   // TODO: better to add signature,but skip here now.
 
 private:
@@ -47,9 +42,7 @@ private:    // bean, List<Bean>, Vector<Bean> ， Map<Bean> ...
     void createBeanTypes();
 
 private:
-    bool m_optional{false};
     IString m_optionalString;
-    Position m_position{Auto};
     IString m_nameRaw;
     void* m_optionalPtr{}; // NOTE: this wont be release till program exits
 

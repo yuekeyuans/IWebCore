@@ -32,8 +32,8 @@ public:
         return "hello";
     }
     $GetMapping(helloIntAnomyous1, hello/world/<a|int>)
-    QString helloIntAnomyous1(){
-        return "hello";
+    QString helloIntAnomyous1(int $Path(a)){
+        return "hello" + QString::number(a);
     }
 
     $GetMapping(helloIntAnomyous2, hello/<path||(\\w+)>)

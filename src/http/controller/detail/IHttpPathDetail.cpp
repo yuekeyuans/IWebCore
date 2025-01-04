@@ -11,10 +11,6 @@ IHttpPathDetail::IHttpPathDetail(const QStringList& args)
         if(!arg.trimmed().isEmpty() && arg.trimmed() != "/"){
             m_urlPieces.append(arg.trimmed());
             m_fragments.emplace_back(ISpawnUtil::construct<IHttpPathFragment>(arg.trimmed()));
-
-            if(!m_fragments.back().m_name.isEmpty()){
-                m_hasPathParameter = true;
-            }
         }
     }
     this->m_path = m_urlPieces.join("/");
@@ -110,25 +106,35 @@ namespace ISpawnUtil
     template<>
     IHttpPath construct<IHttpPath, const QStringList&>(const QStringList& args)
     {
-        return IHttpPathDetail(args);
+        auto path = IHttpPathDetail(args);
+        path.m_actionNameMap.clear();
+        for(std::size_t i=0; i< path.m_fragments.size(); i++){
+            if(!path.m_fragments[i].m_name.isEmpty()){
+                path.m_actionNameMap[path.m_fragments[i].m_name] = i;
+            }
+        }
+        return path;
     }
 
     template<>
     IHttpPath construct<IHttpPath, const std::vector<IHttpPathFragment>&>(const std::vector<IHttpPathFragment>& fragments)
     {
-        IHttpPath url;
+        IHttpPath path;
 
         QStringList args;
         for(const auto& info : fragments){
             args.push_back(info.m_fragment);
-            if(!info.m_name.isEmpty()){
-                url.m_hasPathParameter = true;
-            }
         }
 
-        url.m_path = args.join("/");
-        url.m_fragments = fragments;
-        return url;
+        path.m_path = args.join("/");
+        path.m_fragments = fragments;
+        path.m_actionNameMap.clear();
+        for(std::size_t i=0; i< path.m_fragments.size(); i++){
+            if(!path.m_fragments[i].m_name.isEmpty()){
+                path.m_actionNameMap[path.m_fragments[i].m_name] = i;
+            }
+        }
+        return path;
     }
 }
 

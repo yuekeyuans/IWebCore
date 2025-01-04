@@ -3,6 +3,7 @@
 #include "core/util/IConstantUtil.h"
 #include "core/bean/IBeanTypeManage.h"
 #include "http/controller/IHttpControllerAbort.h"
+#include "http/controller/IHttpControllerAction.h"
 #include "http/IHttpManage.h"
 #include "http/invalid/IHttpInternalErrorInvalid.h"
 #include "http/invalid/IHttpBadRequestInvalid.h"
@@ -229,6 +230,9 @@ void IArgumentTypeDetail::resolveName()
             }
             if(detail::isTypeConvertable(m_typeId, m_typeName)){
                 m_optionalPtr = detail::convertPtr(m_optionalString, m_typeId, m_typeName);
+                if(!m_optionalPtr){
+                    qFatal("optional can not be converted");
+                }
             }else{
                 qFatal("optional not convertable");
             }
@@ -488,7 +492,11 @@ void IArgumentTypeDetail::createCookieType()
         if(detail::isMultipleType(self.m_typeId, self.m_typeName)){
             auto values = request.impl().m_reqRaw.m_cookies.values(self.m_name);
             if(!values.isEmpty()){
-                return detail::convertPtr(values, self.m_typeId, self.m_typeName);
+                auto ptr = detail::convertPtr(values, self.m_typeId, self.m_typeName);
+                if(!ptr){
+                    request.setInvalid(IHttpBadRequestInvalid("header field value not proper"));
+                }
+                return ptr;
             }
             if(self.m_optional){
                 return self.m_optionalPtr;
@@ -498,7 +506,11 @@ void IArgumentTypeDetail::createCookieType()
         }else{
             if(request.impl().m_reqRaw.m_cookies.contains(self.m_name)){
                 auto value = request.impl().m_reqRaw.m_cookies.value(self.m_name);
-                return detail::convertPtr(value, self.m_typeId, self.m_typeName);
+                auto ptr = detail::convertPtr(value, self.m_typeId, self.m_typeName);
+                if(!ptr){
+                    request.setInvalid(IHttpBadRequestInvalid("header field value not proper"));
+                }
+                return ptr;
             }
             if(self.m_optional){
                 return self.m_optionalPtr;
@@ -517,7 +529,27 @@ void IArgumentTypeDetail::createSessionType()
 
 void IArgumentTypeDetail::createPathType()
 {
-
+    if(this->m_position != Position::Path){
+        return;
+    }
+    if(!detail::isTypeConvertable(m_typeId, m_typeName)){
+        qFatal("not convertable");
+    }
+    if(this->m_optional){
+        qFatal("path can`t be optional");
+    }
+    auto self = *this;
+    this->m_createFun = [=](IRequest& req) -> void*{
+        auto action = dynamic_cast<IHttpControllerAction*>(req.impl().m_action);
+        auto index = action->m_path.m_actionNameMap[self.m_name];
+        auto url = req.impl().m_reqRaw.m_url.split("/");
+        auto value = url[index+1];      // 这里第一个数值是空
+        auto ptr = detail::convertPtr(value, self.m_typeId, self.m_typeName);
+        if(!ptr){
+            req.setInvalid(IHttpBadRequestInvalid("path value can not be converted"));
+        }
+        return ptr;
+    };
 }
 
 void IArgumentTypeDetail::createBodyType()
@@ -541,7 +573,11 @@ void IArgumentTypeDetail::createBodyType()
             req.setInvalid(IHttpInternalErrorInvalid("request do not contain body"));
             return nullptr;
         }
-        return detail::convertPtr(req.impl().m_reqRaw.m_body, self.m_typeId, self.m_typeName);
+        auto ptr = detail::convertPtr(req.impl().m_reqRaw.m_body, self.m_typeId, self.m_typeName);
+        if(!ptr){
+            req.setInvalid(IHttpBadRequestInvalid("body field can not be conveted"));
+        }
+        return ptr;
     };
 }
 
@@ -561,7 +597,11 @@ void IArgumentTypeDetail::createFormType()
         }
         if(req.impl().m_reqRaw.m_forms.contains(self.m_name.m_view)){
             auto data = req.impl().m_reqRaw.m_forms[self.m_name];
-            return detail::convertPtr(data, self.m_typeId, self.m_typeName);
+            auto ptr = detail::convertPtr(data, self.m_typeId, self.m_typeName);
+            if(!ptr){
+                req.setInvalid(IHttpBadRequestInvalid("form field value not proper"));
+            }
+            return ptr;
         }
         if(self.m_optional){
             return m_optionalPtr;
