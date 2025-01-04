@@ -94,28 +94,6 @@ std::vector<IHttpAction *> IHttpControllerMapping::queryFunctionNodes(const IHtt
 //    return true;
 //}
 
-//QMap<IStringView, IStringView> IHttpControllerMapping::getPathVariable(void *node, const IStringViewList &fragments)
-//{
-//    // FIXME:
-//    return {};
-
-//    //    QMap<QString, QString> ret;
-////    if(node == nullptr){
-////        return ret;
-////    }
-
-////    IHttpRouteMapping* routeNode = static_cast<IHttpRouteMapping*>(node);
-////    QVector<IHttpRouteMapping *>  nodes = routeNode->getParentNodes();
-////    nodes.pop_front();      // 去掉第一个node， 因为第一个 node 是 / 根节点，不参与。
-////    assert(nodes.length() == fragments.length());
-////    for(int i=0;i<nodes.length();i++){
-////        if(nodes[i]->type != IHttpRouteMapping::TEXT_MATCH && !nodes[i]->name.isEmpty()){
-////            ret[nodes[i]->name] = fragments[i];
-////        }
-////    }
-////    return ret;
-//}
-
 $PackageWebCoreEnd
 
 

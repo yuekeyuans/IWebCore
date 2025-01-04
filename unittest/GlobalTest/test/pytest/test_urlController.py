@@ -11,3 +11,9 @@ def test_hello():
     assert val.status_code == 200 
     assert val.text == "hello"
 
+def test_hello_world_1():
+    val = requests.get(serverAddress + "/UrlController/hello/world/1")
+    print(val.status_code)
+    print(val.text)
+    assert val.status_code == 200 
+

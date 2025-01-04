@@ -9,9 +9,9 @@ struct IHttpPathFragment
 public:
     using Validator = std::function<bool(const QString&)>;
     enum PathType{
-        TEXT,     // match text
-        FUNCTION,     // match function
-        FULL_MATCH      // empty node match, match any thing
+        TEXT,
+        FUNCTION,
+        FULL_MATCH
     };
 
 public:
@@ -29,7 +29,10 @@ struct IHttpPath
 {
 public:
     QString m_path;
-    std::vector<IHttpPathFragment> m_fragments;
+    std::vector<IHttpPathFragment> m_fragments;    
+
+public:
+    bool m_hasPathParameter{false};         // check whether exist named path
 };
 
 $PackageWebCoreEnd

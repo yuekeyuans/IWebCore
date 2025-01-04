@@ -31,7 +31,7 @@ public:
     QString helloIntAnomyous(){
         return "hello";
     }
-    $GetMapping(helloIntAnomyous1, hello/world/<>)
+    $GetMapping(helloIntAnomyous1, hello/world/<a|int>)
     QString helloIntAnomyous1(){
         return "hello";
     }

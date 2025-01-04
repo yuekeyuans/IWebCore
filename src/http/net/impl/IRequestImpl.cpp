@@ -17,6 +17,7 @@
 #include "http/server/ITcpConnection.h"
 #include "http/session/ISessionManager.h"
 #include <algorithm>
+#include <regex>
 
 $PackageWebCoreBegin
 
@@ -187,12 +188,14 @@ bool IRequestImpl::prepareToReadChunkedData()
 
 void IRequestImpl::parseFirstLine(IStringView line)
 {
+    static const std::regex URI_REGEX(R"(^(\/[\w\-._~%!$&'()*+,;=:@/]*(\?[\w\-._~%!$&'()*+,;=:@/?]*)?|https?:\/\/[\w\-._~%!$&'()*+,;=:@]+\.[\w\-._~%!$&'()*+,;=:@]+(:\d+)?(\/[\w\-._~%!$&'()*+,;=:@/]*(\?[\w\-._~%!$&'()*+,;=:@/?]*)?)?|[*])$)");
     static $UInt urlMaxLength{"/http/urlMaxLength", 1024*8};
     if(line.length() >= *urlMaxLength){
         return setInvalid(IHttpInvalidWare(IHttpStatus::URI_TOO_LONG_414));
     }
 
-    int pos = 0;
+    int pos{};
+
     // method
     auto index = line.find_first_of(' ', pos);
     if(index == std::string::npos){
@@ -205,12 +208,15 @@ void IRequestImpl::parseFirstLine(IStringView line)
     }
     pos = index + 1;
 
-    // path TODO: 检查一下url 是否合规
+    // path
     index = line.find_first_of(' ', pos);
     if(index == std::string_view::npos){
         return setInvalid(IHttpBadRequestInvalid("request path is not correct"));
     }
     m_reqRaw.m_rawUrl = line.substr(pos, index-pos);
+    if (!std::regex_match(m_reqRaw.m_rawUrl.begin(), m_reqRaw.m_rawUrl.end(), URI_REGEX)) {
+        return setInvalid(IHttpBadRequestInvalid("url not valid"));
+    }
     pos = index +1;
 
     // version
@@ -409,13 +415,12 @@ void IRequestImpl::parseMultiPartData(IStringView data)
 void IRequestImpl::parseAction()
 {
     m_action = IHttpManage::instance()->getAction(m_request);
-    auto action = dynamic_cast<IHttpControllerAction*>(m_action);
-    if(action){
+    auto action = dynamic_cast<IHttpControllerAction*>(m_action);       // expensive, check it
+    if(action && action->m_path.m_hasPathParameter){
         const auto& paths = action->m_path;
         for(const auto& arg : paths.m_fragments){
-            // TODO;
+            qDebug() << "____________" << arg.m_name;
         }
-
     }
 }
 

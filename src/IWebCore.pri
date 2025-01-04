@@ -106,6 +106,7 @@ HEADERS += \
     $$PWD/http/controller/IHttpControllerNode.h \
     $$PWD/http/controller/IHttpPath.h \
     $$PWD/http/controller/IHttpPathValidatorInterface.h \
+    $$PWD/http/controller/detail/IHttpControllerInterfaceDetail.h \
     $$PWD/http/controller/detail/IHttpPathDetail.h \
     $$PWD/http/controller/detail/IHttpPathFragmentDetail.h \
     $$PWD/http/controller/detail/IHttpPathValidatorsTask.h \
@@ -261,6 +262,7 @@ SOURCES += \
     $$PWD/http/controller/IHttpControllerNode.cpp \
     $$PWD/http/controller/IHttpPath.cpp \
     $$PWD/http/controller/IHttpPathFunctorValidatorInterface.cpp \
+    $$PWD/http/controller/detail/IHttpControllerInterfaceDetail.cpp \
     $$PWD/http/controller/detail/IHttpPathDetail.cpp \
     $$PWD/http/controller/detail/IHttpPathFragmentDetail.cpp \
     $$PWD/http/controller/detail/IHttpPathValidatorsTask.cpp \
