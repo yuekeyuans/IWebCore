@@ -5,7 +5,7 @@
 
 $EnableTaskOutput(false)
 $EnableUnitTest(false)
-$EnableHttpPythonTest(false)
+$EnableHttpPythonTest(true)
 int main(int argc, char *argv[])
 {
     IApplication app(argc, argv);
