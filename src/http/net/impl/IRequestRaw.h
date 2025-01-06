@@ -25,7 +25,7 @@ public:
 
 public:
     IString m_url;
-    IString m_body;
+    IStringView m_body;
     IHttpVersion m_httpVersion {IHttpVersion::UNKNOWN};
     IHttpMethod m_method {IHttpMethod::UNKNOWN};
     IHttpMime m_mime {IHttpMime::UNKNOWN};

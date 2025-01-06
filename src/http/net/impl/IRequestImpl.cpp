@@ -111,6 +111,7 @@ bool IRequestImpl::headersState(uint length)
     }else if(m_reqRaw.m_isChunked){
         m_readState = State::ChunckState;
         prepareToReadChunkedData();
+        return true;
     }else{
         m_readState = State::EndState;
     }
@@ -119,7 +120,15 @@ bool IRequestImpl::headersState(uint length)
 
 void IRequestImpl::chunkedState()
 {
-    // TODO: 这个先不解析
+    auto length = m_data.m_buffer.size();
+    auto data = IStringView(static_cast<const char*>(m_data.m_buffer.data().data()), length);
+    m_reqRaw.m_body = parseChunkedData(data);
+
+    if(m_isValid){
+        resolvePayload();
+    }
+
+    m_readState = State::EndState;
 }
 
 void IRequestImpl::contentState(std::size_t length)
@@ -167,23 +176,11 @@ bool IRequestImpl::prepareToReadContentLengthData()
     return false;
 }
 
-// TODO:
 bool IRequestImpl::prepareToReadChunkedData()
 {
-    //    }else if(!m_multipartBoundary.empty()){
-    //        IStringView view(m_data.m_data + m_data.m_parsedSize, readLength);
-    //        if(view.find(m_multipartBoundaryEnd) != std::string_view::npos){
-    //            return true;
-    //        }
-
-    //        m_bodyInData = false;
-    //        auto data = asio::buffer_cast<char*>(m_data.m_buffer.prepare(readLength * 2));
-    //        memcpy(data, m_data.m_data + m_data.m_parsedSize, readLength); // 拷贝数据
-    //        m_connection.doReadStreamBy(m_reqRaw.m_contentLength-readLength);
-    //        m_data.m_buffer.commit(readLength);
-    //        m_connection.doReadStreamUntil(m_multipartBoundaryEnd);
-    //    }
-    return false;
+    m_data.m_bodyInData = false;
+    m_connection.doReadStreamUntil("\r\n\r\n");
+    return true;
 }
 
 void IRequestImpl::parseFirstLine(IStringView line)
@@ -434,6 +431,61 @@ IStringView IRequestImpl::getBoundary(IStringView data)
         view = view.substr(1, view.length()-2);
     }
     return stash("--" + view.toStdString());
+}
+
+IStringView IRequestImpl::parseChunkedData(IStringView data) {
+    std::string result;
+    std::size_t pos{};
+    while(true){
+        auto end = data.find("\r\n", pos);
+        if(end == std::string_view::npos){
+            setInvalid(IHttpBadRequestInvalid("Invalid chunked data: missing chunk size delimiter"));
+            return {};
+        }
+        std::string_view chunkedSize = data.substr(pos, end - pos);
+        size_t chunk_size = 0;
+        try {
+            chunk_size = std::stoul(std::string(chunkedSize), nullptr, 16);
+        } catch (...) {
+            setInvalid(IHttpBadRequestInvalid("Invalid chunk size:"));
+            return {};
+        }
+        pos = end + 2;
+        if(chunk_size == 0){
+            pos+=2;
+            break;
+        }
+        if(pos + chunk_size > data.size()){
+            setInvalid(IHttpBadRequestInvalid("Invalid chunked data: missing chunk terminator"));
+            return {};
+        }
+        result.append(data.substr(pos, chunk_size));
+        pos += chunk_size;
+        if(!data.substr(pos, 2).equalIgnoreCase("\r\n")){
+            setInvalid(IHttpBadRequestInvalid("Invalid chunked data: missing chunk terminator"));
+            return {};
+        }
+        pos += 2;
+    }
+    while (pos < data.size()){
+        auto end = data.find("\r\n", pos);
+        if(end == std::string_view::npos){
+            setInvalid(IHttpBadRequestInvalid("Invalid chunked data: incomplete trailer"));
+            return {};
+        }
+        if(end == pos){
+            pos += 2;
+            break;
+        }
+        auto line = data.substr(pos, end-pos);
+        auto colonPos = line.find(":");
+        auto key = line.substr(0, colonPos).trimmed();
+        auto value = line.substr(colonPos + 1).trimmed();
+        m_reqRaw.m_headers[key] = value;
+
+        pos = end + 2;
+    }
+    return stash(result);
 }
 
 void IRequestImpl::setInvalid(const IHttpInvalidWare& ware)

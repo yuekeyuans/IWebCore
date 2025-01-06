@@ -67,6 +67,7 @@ private:
 
 private:
     IStringView getBoundary(IStringView);
+    IStringView parseChunkedData(IStringView);
 
 public:
     void setInvalid(const IHttpInvalidWare&);

@@ -51,30 +51,18 @@ void ITcpConnection::doReadStreamBy(int length, bool isData)
     }
 }
 
-void ITcpConnection::doReadStreamUntil(IStringView data, bool isData)
+void ITcpConnection::doReadStreamUntil(IStringView data)
 {
-    if(isData){
-        asio::async_read_until(m_socket, m_data.m_buffer, std::string(data), [&](std::error_code error, std::size_t length){
-            if(error){
-                return doDestroy();
-            }
+    asio::async_read_until(m_socket, m_data.m_buffer, std::string(data), [&](std::error_code error, std::size_t length){
+        if(error){
+            return doDestroy();
+        }
 
-            if(length > m_data.m_maxSize - m_data.m_readSize){
-                return doDestroy();
-            }
-            m_data.m_buffer.consume(m_data.m_buffer.size());
-            memcpy(m_data.m_data, m_data.m_buffer.data().data(), length);
-            m_data.m_readSize += length;
-            resolveData();
-        });
-    }else{
-        asio::async_read_until(m_socket, m_data.m_buffer, std::string(data), [&](std::error_code error, std::size_t){
-            if(error){
-                return doDestroy();
-            }
-            resolveData();
-        });
-    }
+        if(length > m_data.m_maxSize - m_data.m_readSize){
+            return doDestroy();
+        }
+        resolveData();
+    });
 }
 
 void ITcpConnection::doWrite()
