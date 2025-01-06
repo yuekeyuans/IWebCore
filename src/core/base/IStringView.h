@@ -43,6 +43,10 @@ public:
     bool endWith(IStringView suffix) const;
     bool equalIgnoreCase(IStringView) const;
     bool containIgnoreCase(IStringView) const;
+
+public:
+    template<typename T>
+    T value(bool& ok) const;
 };
 
 class IStringViewList : public QList<IStringView>

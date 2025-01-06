@@ -33,8 +33,8 @@ public:
     ~IRequest();
 
 public:
-    const IString& operator[](const IString& header) const;
-    const IString& operator[](const QString& header) const;
+    IStringView operator[](const IString& header) const;
+    IStringView operator[](const QString& header) const;
 
 public:
     const ICookieJar& cookieJar() const;
@@ -50,8 +50,8 @@ public:
     IHttpMethod method() const;
 
     int contentLength() const;
-    const IString& contentType() const;
-    const IString& content() const;
+    IStringView contentType() const;
+    IStringView content() const;
 
     const QMap<IStringView, IStringView>& pathParameters() const;
     const QMap<IStringView, IStringView>& queryParameters() const;

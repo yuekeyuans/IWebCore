@@ -19,6 +19,7 @@ namespace IConstantUtil
     extern const IString NewLine;
     extern const IString Equal;
     extern const IString Empty;
+    extern const IStringView EmptyView;
     extern const IString Space;
 
     extern const IString Type;

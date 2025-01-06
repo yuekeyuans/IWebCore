@@ -7,6 +7,7 @@ const IString IConstantUtil::Semicolon = ";";
 const IString IConstantUtil::NewLine = "\r\n";
 const IString IConstantUtil::Equal = "=";
 const IString IConstantUtil::Empty = {};
+const IStringView IConstantUtil::EmptyView = {};
 const IString IConstantUtil::Space = " ";
 
 const IString IConstantUtil::Type = "Type";

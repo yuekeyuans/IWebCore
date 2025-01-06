@@ -21,12 +21,12 @@ IRequest::~IRequest()
     delete m_impl;
 }
 
-const IString& IRequest::operator[](const IString &header) const
+IStringView IRequest::operator[](const IString &header) const
 {
     return m_impl->m_headerJar.getRequestHeaderValue(header);
 }
 
-const IString& IRequest::operator[](const QString &header) const
+IStringView IRequest::operator[](const QString &header) const
 {
     return m_impl->m_headerJar.getRequestHeaderValue(header.toUtf8());
 }
@@ -84,12 +84,12 @@ int IRequest::contentLength() const
     return m_impl->m_reqRaw.m_contentLength;
 }
 
-const IString& IRequest::contentType() const
+IStringView IRequest::contentType() const
 {
     return m_impl->m_headerJar.getRequestHeaderValue(IHttpHeader::ContentType);
 }
 
-const IString& IRequest::content() const
+IStringView IRequest::content() const
 {
     return m_impl->m_reqRaw.m_body;
 }

@@ -31,7 +31,7 @@ public:
     IHttpMime m_mime {IHttpMime::UNKNOWN};
 
     QMap<IStringView, IStringView> m_paths;
-    QMap<IString, IString> m_headers;
+    QMap<IStringView, IStringView> m_headers;
     QMap<IStringView, IStringView> m_queries;
     QMap<IStringView, IStringView> m_forms;
     std::vector<IMultiPart> m_multiParts;

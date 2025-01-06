@@ -122,7 +122,7 @@ void IRequestImpl::chunkedState()
 {
     auto length = m_data.m_buffer.size();
     auto data = IStringView(static_cast<const char*>(m_data.m_buffer.data().data()), length);
-    m_reqRaw.m_body = parseChunkedData(data);
+    parseChunkedData(data);
 
     if(m_isValid){
         resolvePayload();
@@ -277,7 +277,7 @@ void IRequestImpl::parseHeader(IStringView line)
     if(m_headerJar.containRequestHeaderKey(key)){
         return m_request.setInvalid(IHttpBadRequestInvalid("header duplicated"));
     }
-    m_reqRaw.m_headers[std::move(key)] = std::move(value);
+    m_reqRaw.m_headers[key] = value;
 }
 
 void IRequestImpl::parseCookie(IStringView cookie)
@@ -299,13 +299,13 @@ void IRequestImpl::parseCookie(IStringView cookie)
 void IRequestImpl::resolveHeaders()
 {
     const auto& encoding = m_headerJar.getRequestHeaderValue(IHttpHeader::TransferEncoding);
-    if(&encoding != &IConstantUtil::Empty){
+    if(encoding.length()){
         if(encoding.equalIgnoreCase("chunked")){
             m_reqRaw.m_isChunked = true;
         }
     }
     const auto& contentLength = m_headerJar.getRequestHeaderValue(IHttpHeader::ContentLength);
-    if(&contentLength != &IConstantUtil::Empty){
+    if(contentLength.length()){
         if(m_reqRaw.m_isChunked){
             return setInvalid(IHttpBadRequestInvalid("ContentLength and chunked exist at same time"));
         }
@@ -321,7 +321,7 @@ void IRequestImpl::resolveHeaders()
     }
 
     const auto& contentType = m_headerJar.getRequestHeaderValue(IHttpHeader::ContentType);
-    if(&contentType != &IConstantUtil::Empty){
+    if(contentType.length()){
         m_reqRaw.m_mime = IHttpMimeUtil::toMime(contentType);
         if(m_reqRaw.m_mime == IHttpMime::MULTIPART_FORM_DATA){
             m_multipartBoundary = getBoundary(contentType);
@@ -433,23 +433,21 @@ IStringView IRequestImpl::getBoundary(IStringView data)
     return stash("--" + view.toStdString());
 }
 
-IStringView IRequestImpl::parseChunkedData(IStringView data) {
-    qDebug() << data.toQString();
+void IRequestImpl::parseChunkedData(IStringView data) {
     std::string result;
+    result.reserve(data.length());
     std::size_t pos{};
     while(true){
         auto end = data.find("\r\n", pos);
         if(end == std::string_view::npos){
-            setInvalid(IHttpBadRequestInvalid("Invalid chunked data: missing chunk size delimiter"));
-            return {};
+            return setInvalid(IHttpBadRequestInvalid("Invalid chunked data: missing chunk size delimiter"));
         }
         std::string_view chunkedSize = data.substr(pos, end - pos);
         size_t chunk_size = 0;
         try {
             chunk_size = std::stoul(std::string(chunkedSize), nullptr, 16);
         } catch (...) {
-            setInvalid(IHttpBadRequestInvalid("Invalid chunk size:"));
-            return {};
+            return setInvalid(IHttpBadRequestInvalid("Invalid chunk size:"));
         }
         pos = end + 2;
         if(chunk_size == 0){
@@ -457,22 +455,20 @@ IStringView IRequestImpl::parseChunkedData(IStringView data) {
             break;
         }
         if(pos + chunk_size > data.size()){
-            setInvalid(IHttpBadRequestInvalid("Invalid chunked data: missing chunk terminator"));
-            return {};
+            return setInvalid(IHttpBadRequestInvalid("Invalid chunked data: missing chunk terminator"));
         }
+
         result.append(data.substr(pos, chunk_size));
         pos += chunk_size;
         if(!data.substr(pos, 2).equalIgnoreCase("\r\n")){
-            setInvalid(IHttpBadRequestInvalid("Invalid chunked data: missing chunk terminator"));
-            return {};
+            return setInvalid(IHttpBadRequestInvalid("Invalid chunked data: missing chunk terminator"));
         }
         pos += 2;
     }
     while (pos < data.size()){
         auto end = data.find("\r\n", pos);
         if(end == std::string_view::npos){
-            setInvalid(IHttpBadRequestInvalid("Invalid chunked data: incomplete trailer"));
-            return {};
+            return setInvalid(IHttpBadRequestInvalid("Invalid chunked data: incomplete trailer"));
         }
         if(end == pos){
             pos += 2;
@@ -483,10 +479,10 @@ IStringView IRequestImpl::parseChunkedData(IStringView data) {
         auto key = line.substr(0, colonPos).trimmed();
         auto value = line.substr(colonPos + 1).trimmed();
         m_reqRaw.m_headers[key] = value;
-
         pos = end + 2;
     }
-    return stash(result);
+    m_reqRaw.m_contentLength = result.length();
+    m_reqRaw.m_body = stash(result);
 }
 
 void IRequestImpl::setInvalid(const IHttpInvalidWare& ware)
