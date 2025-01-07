@@ -19,3 +19,12 @@ def test_QString():
     print("Response Body:", response.text)
     assert response.status_code == 200
     # assert response.text == "Chunk 1\nChunk 2\nChunk 3\nChunk 4\nChunk 5\n"
+
+def test_headMethod():
+    url = serverAddress + "/Content/headMethod"
+    val = requests.head(url)
+    print(val.headers)
+    print(val.text)
+    assert val.status_code == 200
+    assert val.text == ""
+    assert val.headers["Content-Length"] == "10"

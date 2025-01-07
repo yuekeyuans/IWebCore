@@ -15,5 +15,10 @@ public:
         qDebug() << data.toQString();
         return data.toQString();
     }
+
+    $GetMapping(headMethod)
+    QString headMethod(){
+        return "headMethod";
+    }
 };
 
