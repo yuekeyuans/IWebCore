@@ -13,7 +13,7 @@ namespace detail
 {
     static void fileResponseProcessor(const IResponseContent& content, IResponseRaw& raw);
     static IString createDispoisition(const IString&);
-    static const IString& findMime(const IString&);
+    IStringView findMime(const IString&);
 }
 
 IFileResponseContent::IFileResponseContent(IString && value)
@@ -51,8 +51,8 @@ void detail::fileResponseProcessor(const IResponseContent &content, IResponseRaw
              || !content.m_attribute->contains(IFileResponseContent::ContentTypeEnabled)
              || content.m_attribute->operator [](IFileResponseContent::ContentTypeEnabled) != IConstantUtil::False)
     {
-        const IString& mime = detail::findMime(content.m_content);
-        if(mime != IHttpMimeUtil::MIME_UNKNOWN_STRING){
+        auto mime = detail::findMime(content.m_content);
+        if(mime != IHttpMimeUtil::MIME_UNKNOWN_STRING.m_view){
             raw.m_headers.insert(IHttpHeader::ContentType, mime);
         }
     }
@@ -65,7 +65,7 @@ IString detail::createDispoisition(const IString & data)
     return (QString("attachment;filename=").append(ICodecUtil::urlEncode(fileName))).toUtf8();
 }
 
-static const IString& detail::findMime(const IString& data)
+IStringView detail::findMime(const IString& data)
 {
     auto suffix = QFileInfo(data.m_view.toQString()).suffix();
     return IHttpMimeUtil::getSuffixMime(IString(suffix.toUtf8()));

@@ -17,7 +17,7 @@ protected:
 };
 
 namespace detail{
-    const IStringList & getMimeStringList(){
+    const IStringViewList & getMimeStringList(){
         static const IStringList mimes = {
             // TEXT  16
             "text/plain",                                               // TEXT_PLAIN
@@ -126,11 +126,18 @@ namespace detail{
             // UNKOWN
             "UNKNOWN"                                                   // UNKNOWN
         };
-        return mimes;
+        static IStringViewList viewList;
+        static std::once_flag flag;
+        std::call_once(flag, [](){
+            for(const auto& mime : mimes){
+                viewList.append(mime.m_view);
+            }
+        });
+        return viewList;
     }
 
-    const QMap<IString, IHttpMime>& getSystemSuffixMimeMap(){
-        static const QMap<IString, IHttpMime> suffixMimePair = {
+    const QMap<IStringView, IHttpMime>& getSystemSuffixMimeMap(){
+        static const QMap<IStringView, IHttpMime> suffixMimePair = {
             // TEXT
             {"txt", IHttpMime::TEXT_PLAIN_UTF8},
 
@@ -231,12 +238,12 @@ namespace detail{
     static std::map<IString, IString> m_userDefinedSuffixes;
 }
 
-const IString& IHttpMimeUtil::toString(IHttpMime mime)
+IStringView IHttpMimeUtil::toString(IHttpMime mime)
 {
     static const auto& mimes = detail::getMimeStringList();
     int mimeValue = static_cast<int>(mime);
     if(mimeValue < 0 || mimeValue >mimes.length()-1){
-        return IHttpMimeUtil::MIME_UNKNOWN_STRING;
+        return IHttpMimeUtil::MIME_UNKNOWN_STRING.m_view;
     }
 
     return mimes[static_cast<int>(mime)];
@@ -260,18 +267,16 @@ IHttpMime IHttpMimeUtil::toMime(const IString& data)
     return IHttpMime::UNKNOWN;
 }
 
-// TODO: 这里没有做大小写匹配, 目的是为了性能，之后可以考虑做一下。
-const IString& IHttpMimeUtil::getSuffixMime(const IString &suffix)
+IStringView IHttpMimeUtil::getSuffixMime(const IString &suffix)
 {
     if(suffix.isEmpty()){
-        return IHttpMimeUtil::MIME_UNKNOWN_STRING;
+        return IHttpMimeUtil::MIME_UNKNOWN_STRING.m_view;
     }
 
-    static const IStringList keys = detail::getSystemSuffixMimeMap().keys();
+    static const IStringViewList keys = detail::getSystemSuffixMimeMap().keys();
     if(keys.contains(suffix)){
         return IHttpMimeUtil::toString(detail::getSystemSuffixMimeMap()[suffix]);
     }
-
     if(detail::m_userDefinedSuffixes.find(suffix) != detail::m_userDefinedSuffixes.end()){
         return detail::m_userDefinedSuffixes[suffix];
     }

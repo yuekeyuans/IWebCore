@@ -115,6 +115,7 @@ def test_getBeanList():
 def test_fileResponse():
     val = requests.get(serverAddress + "/ReturnTypeController/fileResponse")
     assert val.text.__contains__("http")
+    assert val.headers["Content-Type"] == "application/json"
     print(val.text)
     print(val.headers)
     print(val.status_code)

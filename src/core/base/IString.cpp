@@ -246,6 +246,11 @@ bool IString::startWith(const IString & data) const
     return m_view.startWith(data.m_view);
 }
 
+bool IString::equal(const IString &data) const
+{
+    return m_view == data.m_view;
+}
+
 bool IString::equalIgnoreCase(const IString & data) const
 {
     return m_view.equalIgnoreCase(data.m_view);
