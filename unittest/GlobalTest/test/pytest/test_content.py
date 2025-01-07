@@ -1,4 +1,6 @@
+import http
 from ServerConfig import *
+from http.client import HTTPConnection
 import requests
 
 def generate_chunks():
@@ -44,3 +46,21 @@ def test_optionsMethod2():
     print(val.headers)
     print(val.text)
     assert val.status_code == 404
+
+
+# NOTE: install http.client for Python 3.x
+def test_optionsAll():
+        # 创建与服务器的连接
+    conn = http.client.HTTPConnection(ip, port)
+
+    # 发送 OPTIONS * 请求
+    conn.request("OPTIONS", "*", headers={})
+
+    # 获取响应
+    response = conn.getresponse()
+    print(f"Status Code: {response.status}")
+    print(f"Headers: {response.getheaders()}")
+    print(f"Response Body: {response.read().decode('utf-8')}")
+
+    # 关闭连接
+    conn.close()
