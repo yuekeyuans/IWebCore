@@ -4,6 +4,8 @@
 #include "http/mappings/IHttpMappingWare.h"
 #include "http/mappings/IHttpNotFoundAction.h"
 #include "http/mappings/IHttpBadRequestAction.h"
+#include "http/mappings/IHttpOptionsMethodAction.h"
+#include "http/mappings/IHttpInvalidRequestAction.h"
 #include "http/invalid/IHttpInvalidHandlerInterface.h"
 
 $PackageWebCoreBegin
@@ -26,6 +28,9 @@ void IHttpManage::registInvalidHandler(const std::string& name, IHttpInvalidHand
 IHttpAction *IHttpManage::getAction(IRequest &request)
 {
     if(request.isValid()){
+        if(request.method() == IHttpMethod::OPTIONS){
+            return IHttpOptionsMethodAction::instance();
+        }
         for(IHttpMappingWare* ware : m_mappings){
             auto action = ware->getAction(request);
             if(action != nullptr){
@@ -34,7 +39,7 @@ IHttpAction *IHttpManage::getAction(IRequest &request)
         }
         return IHttpNotFoundAction::instance();
     }
-    return IHttpBadRequestAction::instance();
+    return IHttpInvalidRequestAction::instance();
 }
 
 IHttpInvalidHandlerWare *IHttpManage::getInvalidHandler(const std::string &name) const

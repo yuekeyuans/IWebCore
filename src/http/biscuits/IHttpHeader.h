@@ -22,7 +22,7 @@ public:
     inline static const IString TransferEncoding = "Transfer-Encoding";
     inline static const IString ContentDisposition = "Content-Disposition";
     inline static const IString ContentTransferEncoding = "Content-Transfer-Encoding";
-
+    inline static const IString Allow = "Allow";
     inline static const IString Cookie = "Cookie";
     inline static const IString SetCookie = "Set-Cookie";
 

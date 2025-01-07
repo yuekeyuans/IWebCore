@@ -125,9 +125,11 @@ HEADERS += \
     $$PWD/http/mappings/IHttpBadRequestAction.h \
     $$PWD/http/mappings/IHttpControllerMapping.h \
     $$PWD/http/mappings/IHttpInternalErrorAction.h \
+    $$PWD/http/mappings/IHttpInvalidRequestAction.h \
     $$PWD/http/mappings/IHttpMappingInterface.h \
     $$PWD/http/mappings/IHttpMappingWare.h \
     $$PWD/http/mappings/IHttpNotFoundAction.h \
+    $$PWD/http/mappings/IHttpOptionsMethodAction.h \
     $$PWD/http/net/IRequestManage.h \
     $$PWD/http/net/impl/IRequestRaw.h \
     $$PWD/http/net/impl/IResponseHeader.h \
@@ -278,8 +280,10 @@ SOURCES += \
     $$PWD/http/mappings/IHttpBadRequestAction.cpp \
     $$PWD/http/mappings/IHttpControllerMapping.cpp \
     $$PWD/http/mappings/IHttpInternalErrorAction.cpp \
+    $$PWD/http/mappings/IHttpInvalidRequestAction.cpp \
     $$PWD/http/mappings/IHttpMappingWare.cpp \
     $$PWD/http/mappings/IHttpNotFoundAction.cpp \
+    $$PWD/http/mappings/IHttpOptionsMethodAction.cpp \
     $$PWD/http/net/IRequestManage.cpp \
     $$PWD/http/net/impl/IResponseHeader.cpp \
     $$PWD/http/net/impl/IResponseRaw.cpp \

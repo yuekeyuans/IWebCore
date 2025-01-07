@@ -2,12 +2,12 @@
 
 $PackageWebCoreBegin
 
-const IString& IHttpMethodUtil::toString(IHttpMethod method)
+IStringView IHttpMethodUtil::toString(IHttpMethod method)
 {
     if(method >= IHttpMethod::UNKNOWN){
         method = IHttpMethod::UNKNOWN;
     }
-    return methodNames()[static_cast<int>(method)];
+    return methodNames()[static_cast<int>(method)].m_view;
 }
 
 IHttpMethod IHttpMethodUtil::toMethod(const QString &name)

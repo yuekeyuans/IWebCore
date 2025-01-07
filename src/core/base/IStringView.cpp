@@ -191,4 +191,27 @@ IStringViewList::IStringViewList(QList<IStringView> data)
 {
 }
 
+std::string IStringViewList::join(IStringView spliter)
+{
+    if (isEmpty()) {
+        return "";
+    }
+
+    size_t total_length = 0;
+    for (const auto& piece : *this) {
+        total_length += piece.size();
+    }
+    total_length += spliter.size() * (size() - 1); // 加上分隔符的长度
+
+    std::string result;
+    result.reserve(total_length);
+    for (int i = 0; i < size(); ++i) {
+        result += this->at(i);
+        if (i < size() - 1) {
+            result += spliter;
+        }
+    }
+    return result;
+}
+
 $PackageWebCoreEnd

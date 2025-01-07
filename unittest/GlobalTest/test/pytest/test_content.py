@@ -28,3 +28,19 @@ def test_headMethod():
     assert val.status_code == 200
     assert val.text == ""
     assert val.headers["Content-Length"] == "10"
+
+def test_optionsMethod():
+    url = serverAddress + "/BasicArgument/headerType"
+    val = requests.options(url) 
+    print(val.headers)
+    print(val.text)
+    assert val.status_code == 200
+    assert val.text == ""
+    assert val.headers["Allow"] == "GET, HEAD, OPTIONS"
+
+def test_optionsMethod2():
+    url = serverAddress + "/BasicArgument/headerType1"
+    val = requests.options(url) 
+    print(val.headers)
+    print(val.text)
+    assert val.status_code == 404

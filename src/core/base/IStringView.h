@@ -54,6 +54,9 @@ class IStringViewList : public QList<IStringView>
 public:
     IStringViewList() = default;
     IStringViewList(QList<IStringView> data);
+
+public:
+    std::string join(IStringView);
 };
 
 $PackageWebCoreEnd
