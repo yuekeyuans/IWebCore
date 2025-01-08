@@ -6,7 +6,7 @@
 
 $PackageWebCoreBegin
 
-const QMultiHash<IString, IString> &ICookieJar::requestCookies() const
+const QMultiHash<IStringView, IStringView> &ICookieJar::requestCookies() const
 {
     return m_impl.m_reqRaw.m_cookies;
 }
@@ -14,7 +14,7 @@ const QMultiHash<IString, IString> &ICookieJar::requestCookies() const
 ICookiePart ICookieJar::getRequestCookie(IString key) const
 {
     auto value = m_impl.m_reqRaw.m_cookies.value(key);
-    if(value.isEmpty()){
+    if(value.length() == 0){
         return {};
     }
     return {key, value};
@@ -30,7 +30,7 @@ QList<ICookiePart> ICookieJar::getRequestCookies(const IString &key) const
     return cookies;
 }
 
-QList<IString> ICookieJar::requestCookieKeys() const
+IStringViewList ICookieJar::requestCookieKeys() const
 {
     return m_impl.m_reqRaw.m_cookies.keys();
 }

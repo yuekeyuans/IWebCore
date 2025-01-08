@@ -35,7 +35,7 @@ public:
     QMap<IStringView, IStringView> m_queries;
     QMap<IStringView, IStringView> m_forms;
     std::vector<IMultiPart> m_multiParts;
-    QMultiHash<IString, IString> m_cookies;     // 这个可以再封装一下
+    QMultiHash<IStringView, IStringView> m_cookies;     // 这个可以再封装一下
     IJson m_json;
 };
 

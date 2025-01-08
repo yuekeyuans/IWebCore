@@ -13,11 +13,11 @@ public:
     using IJarUnit::IJarUnit;
 
 public:
-    const QMultiHash<IString, IString>& requestCookies() const;
+    const QMultiHash<IStringView, IStringView>& requestCookies() const;
     ICookiePart getRequestCookie(IString key) const;
     QList<ICookiePart> getRequestCookies(const IString& key) const;
 
-    QList<IString> requestCookieKeys() const;
+    IStringViewList requestCookieKeys() const;
 
     bool containRequestCookieKey(const IString& key) const;
 

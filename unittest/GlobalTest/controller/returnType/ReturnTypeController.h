@@ -20,6 +20,7 @@ public:
 public:
     $GetMapping(qstring)
     QString qstring(){
+//        qDebug() << QThread::currentThreadId();
         return "QString";
     }
 

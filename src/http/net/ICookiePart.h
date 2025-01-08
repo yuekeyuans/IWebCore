@@ -4,6 +4,7 @@
 
 $PackageWebCoreBegin
 
+// TODO: 这里建议 IString 替换成 IStringView
 class ICookiePart
 {
 public:

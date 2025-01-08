@@ -61,6 +61,26 @@ namespace detail
         return nullptr;
     }
 
+    static void* convertPtr(const IStringViewList& data, QMetaType::Type typeId, const IString& typeName)
+    {
+        if(typeId == QMetaType::QStringList){
+            auto ret = new QStringList;
+            for(const auto& val : data){
+                ret->append(val.toQString());
+            }
+            return ret;
+        }
+        if(typeName == "QList<IString>") {
+            auto ret = new QList<IString> ;
+            for(auto value : data){
+                ret->append(value);
+            }
+            return ret;
+        }
+        qFatal("not supported");
+        return nullptr;
+    }
+
     static void* convertPtr(const IString& data, QMetaType::Type typeId, const IString& typeName)
     {
         switch (typeId) {
@@ -389,7 +409,7 @@ void IArgumentTypeDetail::createCookiePartType()
     this->m_createFun = [=](IRequest& request) -> void*{
         if(request.impl().m_reqRaw.m_cookies.contains(self.m_name)){
             const auto& value = request.impl().m_reqRaw.m_cookies.value(self.m_name);
-            return new ICookiePart(self.m_name, value.m_view);
+            return new ICookiePart(self.m_name, value);
         }
         if(self.m_optional){
             return m_optionalPtr;

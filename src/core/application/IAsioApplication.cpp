@@ -55,7 +55,7 @@ IAsioApplication::IAsioApplication(int argc, char **argv)
     :IApplicationInterface(argc, argv)
 {
     m_instance = this;
-    m_ioContext = new asio::io_context(1);
+    m_ioContext = new asio::io_context();
     ITaskManage::run();
 }
 
@@ -68,7 +68,18 @@ int IAsioApplication::run()
 {
     detail::SignalHandler signal_handler(m_ioContext);
 
+    auto threadCount = std::thread::hardware_concurrency();
+    std::vector<std::thread> threads;
+    for(std::size_t i=0; i<threadCount; i++){
+        threads.emplace_back(std::thread([&](){
+            m_ioContext->run();
+        }));
+    }
     m_ioContext->run();
+    for(std::size_t i=0; i<threadCount; i++){
+        threads[i].join();
+    }
+
     return 0;
 }
 

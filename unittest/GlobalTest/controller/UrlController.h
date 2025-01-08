@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <IHttp/IHttpControllerInterface>
+#include <iostream>
 
 class UrlController : public IHttpControllerInterface<UrlController>
 {
@@ -16,6 +17,7 @@ public:
 
     $GetMapping(hello, helloWorld)
     QString hello(){
+        qDebug() << &(std::this_thread::get_id());
         return "hello";
     }
 
