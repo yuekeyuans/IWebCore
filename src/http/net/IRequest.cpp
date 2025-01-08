@@ -59,7 +59,7 @@ IRequestImpl& IRequest::impl() const
     return *m_impl;
 }
 
-const IString &IRequest::url() const
+IStringView IRequest::url() const
 {
     return m_impl->m_reqRaw.m_url;
 }

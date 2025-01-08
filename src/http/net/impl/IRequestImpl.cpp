@@ -228,12 +228,12 @@ void IRequestImpl::resolveFirstLine()
     auto index = m_reqRaw.m_rawUrl.find_first_of('?');
     if(index == std::string_view::npos){
         m_reqRaw.m_rawPath = m_reqRaw.m_rawUrl;
-        m_reqRaw.m_url = QByteArray::fromPercentEncoding(QByteArray(m_reqRaw.m_rawUrl.data(), m_reqRaw.m_rawUrl.length()));
+        m_reqRaw.m_url = stash(QByteArray::fromPercentEncoding(QByteArray(m_reqRaw.m_rawUrl.data(), m_reqRaw.m_rawUrl.length())));
         return;
     }
 
     m_reqRaw.m_rawPath = m_reqRaw.m_rawUrl.substr(0, index);
-    m_reqRaw.m_url = QByteArray::fromPercentEncoding(QByteArray(m_reqRaw.m_rawUrl.data(), m_reqRaw.m_rawUrl.length()));
+    m_reqRaw.m_url = stash(QByteArray::fromPercentEncoding(QByteArray(m_reqRaw.m_rawUrl.data(), m_reqRaw.m_rawUrl.length())));
 
     m_reqRaw.m_rawPathArgs = m_reqRaw.m_rawUrl.substr(index+1);
     parseUrlEncodedData(m_reqRaw.m_rawPathArgs, false);

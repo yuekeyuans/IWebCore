@@ -24,7 +24,7 @@ public:
     bool m_isChunked{false};
 
 public:
-    IString m_url;
+    IStringView m_url;
     IStringView m_body;
     IHttpVersion m_httpVersion {IHttpVersion::UNKNOWN};
     IHttpMethod m_method {IHttpMethod::UNKNOWN};

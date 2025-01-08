@@ -27,7 +27,7 @@ void IHttpControllerMapping::travelPrint() const
 
 IHttpAction * IHttpControllerMapping::getAction(IRequest &request) const
 {
-    IString url = request.url();
+    auto url = request.url();
     IHttpMethod method = request.method();
 
     auto nodePtr = &instance()->m_urlMapppings;
@@ -35,7 +35,7 @@ IHttpAction * IHttpControllerMapping::getAction(IRequest &request) const
         return {nodePtr->getAction(method)};
     }
 
-    IStringViewList fragments = url.m_view.split('/');
+    IStringViewList fragments = url.split('/');
     if(fragments.first().empty()){
         fragments.pop_front();
     }
