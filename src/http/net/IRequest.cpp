@@ -187,6 +187,11 @@ void IRequest::doWrite()
     m_connection.doWrite();
 }
 
+void IRequest::startRead()
+{
+    m_connection.doRead();
+}
+
 void IRequest::resolve()
 {
     m_impl->parseData();

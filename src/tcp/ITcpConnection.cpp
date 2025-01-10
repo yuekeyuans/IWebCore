@@ -8,7 +8,8 @@ $PackageWebCoreBegin
 ITcpConnection::ITcpConnection(asio::ip::tcp::socket socket, int resolverFactoryId)
     : m_socket(std::move(socket)), m_resolverFactoryId(resolverFactoryId)
 {
-    doRead();
+
+//    doRead();
 }
 
 ITcpConnection::~ITcpConnection()
@@ -90,7 +91,13 @@ void ITcpConnection::doReuse()
 //    delete m_resolver;
 //    m_resolver = nullptr;
 
-//    resolveData();
+    //    resolveData();
+}
+
+void ITcpConnection::addResolver(ITcpResolver *resolver)
+{
+    m_resolvers.push(resolver);
+    resolver->startRead();
 }
 
 void ITcpConnection::resolveData()

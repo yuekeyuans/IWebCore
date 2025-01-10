@@ -79,6 +79,7 @@ public:
     void doWrite();
 
 protected:
+    virtual void startRead() final;
     virtual void resolve() final;
     virtual std::vector<asio::const_buffer> getOutput() final;
 

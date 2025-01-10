@@ -1,5 +1,6 @@
 ﻿#include "IHttpResolverFactory.h"
 #include "http/net/IRequest.h"
+#include "tcp/ITcpConnection.h"
 
 $PackageWebCoreBegin
 
@@ -11,7 +12,9 @@ IString IHttpResolverFactory::getName()
 
 ITcpResolver *IHttpResolverFactory::createResolver(ITcpConnection &connection)
 {
-    return new IRequest(connection);
+    auto resolver = new IRequest(connection);
+    connection.addResolver(resolver);
+    return resolver;
 }
 
 $PackageWebCoreEnd

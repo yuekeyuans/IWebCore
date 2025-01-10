@@ -22,6 +22,9 @@ public:
     void doDestroy();
     void doReuse();
 
+public:
+    void addResolver(ITcpResolver*);
+
 private:
     void resolveData();
 

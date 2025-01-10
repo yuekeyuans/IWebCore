@@ -17,8 +17,10 @@ public:
    virtual ~ITcpResolver() = default;
 
 public:
+    virtual void startRead() = 0;
     virtual void resolve() = 0;
     virtual std::vector<asio::const_buffer> getOutput() = 0;
+
 
 public:
     ITcpConnection& m_connection;
