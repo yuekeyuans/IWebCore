@@ -143,7 +143,7 @@ HEADERS += \
     $$PWD/http/response/content/IFileResponseContent.h \
     $$PWD/http/response/content/IInvalidReponseContent.h \
     $$PWD/http/response/content/IResponseContent.h \
-    $$PWD/http/server/IHttpConnection.h \
+#    $$PWD/http/server/IHttpConnection.h \
     $$PWD/http/response/IStatusResponse.h \
     $$PWD/orm/IOrmAbort.h \
 #    $$PWD/orm/IOrmAssert.h \
@@ -298,7 +298,7 @@ SOURCES += \
     $$PWD/http/response/content/IInvalidReponseContent.cpp \
     $$PWD/http/response/content/IResponseContent.cpp \
     $$PWD/http/response/IStatusResponse.cpp \
-    $$PWD/http/server/IHttpConnection.cpp \
+#    $$PWD/http/server/IHttpConnection.cpp \
     $$PWD/orm/IOrmManage.cpp \
     $$PWD/orm/IOrmUtil.cpp \
     $$PWD/orm/database/IOrmDataSource.cpp \
