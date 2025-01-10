@@ -73,7 +73,7 @@ public:
 public:
     bool isValid() const;
     void setInvalidIf(bool condition, IHttpInvalidWare) const;
-    void setInvalid(IHttpInvalidWare) const;
+    void setInvalid(const IHttpInvalidWare&) const;
 
 public:
     void doWrite();

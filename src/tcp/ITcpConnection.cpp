@@ -12,8 +12,6 @@ ITcpConnection::ITcpConnection(asio::ip::tcp::socket&& socket, int resolverFacto
 
 ITcpConnection::~ITcpConnection()
 {
-    if(!m_resolvers.empty()){
-    }
     if(m_socket.is_open()){
         m_socket.close();
     }

@@ -5,16 +5,16 @@ $PackageWebCoreBegin
 
 void ITcpManage::addConnection(ITcpConnection * conn)
 {
-    std::lock_guard lock(mutex);
-    m_connections.emplace(conn);
+//    std::lock_guard lock(mutex);
+//    m_connections.emplace(conn);
 }
 
 void ITcpManage::removeConnection(ITcpConnection *conn)
 {
-    {
-        std::lock_guard lock(mutex);
-        m_connections.erase(conn);
-    }
+//    {
+//        std::lock_guard lock(mutex);
+//        m_connections.erase(conn);
+//    }
     delete conn;
 }
 

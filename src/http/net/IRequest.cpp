@@ -176,7 +176,7 @@ void IRequest::setInvalidIf(bool condition, IHttpInvalidWare ware) const
     }
 }
 
-void IRequest::setInvalid(IHttpInvalidWare ware) const
+void IRequest::setInvalid(const IHttpInvalidWare& ware) const
 {
     m_impl->setInvalid(ware);
 }
