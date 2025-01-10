@@ -12,9 +12,7 @@ IString IHttpResolverFactory::getName()
 
 ITcpResolver *IHttpResolverFactory::createResolver(ITcpConnection &connection)
 {
-    auto resolver = new IRequest(connection);
-    connection.addResolver(resolver);
-    return resolver;
+    return new IRequest(connection);
 }
 
 $PackageWebCoreEnd

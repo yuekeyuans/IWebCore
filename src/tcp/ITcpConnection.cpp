@@ -8,91 +8,121 @@ $PackageWebCoreBegin
 ITcpConnection::ITcpConnection(asio::ip::tcp::socket socket, int resolverFactoryId)
     : m_socket(std::move(socket)), m_resolverFactoryId(resolverFactoryId)
 {
-
-//    doRead();
 }
 
 ITcpConnection::~ITcpConnection()
 {
-//    if(m_socket.is_open()){
-//        m_socket.close();
-//    }
-//    delete m_resolver;
+    if(m_socket.is_open()){
+        m_socket.close();
+    }
 }
 
 void ITcpConnection::doRead()
 {
-//    m_socket.async_read_some(m_data.getDataBuffer(), [&](std::error_code error, std::size_t length){
-//        if(error) {
-//            return doDestroy();
-//        }
-//        m_data.m_readSize += length;
-//        resolveData();
-//    });
+    if(m_resolvers.empty()){
+        return;
+    }
+    m_socket.async_read_some(m_resolvers.back()->m_data.getDataBuffer(), [&](std::error_code error, std::size_t length){
+        if(error) {
+            return doReadError(error);
+        }
+        qDebug() << "read file" << length << IStringView(m_resolvers.back()->m_data.m_data, length).toQString();
+        m_resolvers.back()->m_data.m_readSize += length;
+        m_resolvers.back()->resolve();
+    });
 }
 
 void ITcpConnection::doReadStreamBy(int length, bool isData)
 {
-//    if(isData){
-//        asio::async_read(m_socket, m_data.getDataBuffer(), asio::transfer_exactly(length), [&](std::error_code error, std::size_t length){
-//            if(error){
-//                return doDestroy();
-//            }
-//            m_data.m_readSize += length;
-//            resolveData();
-//        });
-//    }else{
-//        asio::async_read(m_socket, m_data.m_buffer, asio::transfer_exactly(length), [&](std::error_code error, std::size_t){
-//            if(error){
-//                return doDestroy();
-//            }
-//            resolveData();
-//        });
-//    }
+    if(m_resolvers.empty()){
+        return;
+    }
+    if(isData){
+        asio::async_read(m_socket, m_resolvers.back()->m_data.getDataBuffer(), asio::transfer_exactly(length), [&](std::error_code error, std::size_t length){
+            if(error){
+                return doReadError(error);
+            }
+            m_resolvers.back()->m_data.m_readSize += length;
+            m_resolvers.back()->resolve();
+        });
+    }else{
+        asio::async_read(m_socket, m_resolvers.back()->m_data.m_buffer, asio::transfer_exactly(length), [&](std::error_code error, std::size_t){
+            if(error){
+                return doReadError(error);
+            }
+            m_resolvers.back()->resolve();
+        });
+    }
 }
 
 void ITcpConnection::doReadStreamUntil(IStringView data)
 {
-//    asio::async_read_until(m_socket, m_data.m_buffer, std::string(data), [&](std::error_code error, std::size_t length){
-//        if(error){
-//            return doDestroy();
-//        }
+    asio::async_read_until(m_socket, m_resolvers.back()->m_data.m_buffer, std::string(data), [&](std::error_code error, std::size_t length){
+        Q_UNUSED(length)
+        if(error){
+            return doReadError(error);
+        }
 
-//        if(length > m_data.m_maxSize - m_data.m_readSize){
+        // TODO: 之后看一下
+//        if(length > m_resolvers.back()->m_data.m_maxSize - m_resolvers.back()->m_data.m_readSize){
 //            return doDestroy();
 //        }
-//        resolveData();
-//    });
+        m_resolvers.back()->resolve();
+    });
 }
 
 void ITcpConnection::doWrite()
 {
-//    auto result = m_resolver->getOutput();
-//    asio::async_write(m_socket, result, [=](std::error_code err, int){
-//        if(!m_closeConnection && !err){
-//            return doReuse();
-//        }else{
-//            doDestroy();
-//        }
-//    });
+    auto resolver = m_resolvers.front();
+    auto result = resolver->getOutput();
+    asio::async_write(m_socket, result, [&](std::error_code err, int){
+        if(err){
+            return doWriteError(err);
+        }
+        qDebug() << this->m_resolvers.size();
+        auto ptr = this->m_resolvers.front();
+        m_resolvers.pop();
+        delete ptr;
+        ITcpManage::instance()->removeConnection(this);
+    });
 }
 
-// TODO: this is safe?, but it works
-void ITcpConnection::doDestroy()
+void ITcpConnection::doReadResolverFinished()
 {
-//    asio::post([=](){
-//    ITcpManage::instance()->removeConnection(this);
-//    });
+
 }
 
-void ITcpConnection::doReuse()
+void ITcpConnection::doWriteResolverFinished()
 {
-//    m_data.resetForReuse();
-//    delete m_resolver;
-//    m_resolver = nullptr;
 
-    //    resolveData();
 }
+
+void ITcpConnection::doReadError(std::error_code error)
+{
+
+}
+
+void ITcpConnection::doWriteError(std::error_code error)
+{
+
+}
+
+//// TODO: this is safe?, but it works
+//void ITcpConnection::doDestroy()
+//{
+////    asio::post([=](){
+////    ITcpManage::instance()->removeConnection(this);
+////    });
+//}
+
+//void ITcpConnection::doReuse()
+//{
+////    m_data.resetForReuse();
+////    delete m_resolver;
+////    m_resolver = nullptr;
+
+//    //    resolveData();
+//}
 
 void ITcpConnection::addResolver(ITcpResolver *resolver)
 {
@@ -100,12 +130,12 @@ void ITcpConnection::addResolver(ITcpResolver *resolver)
     resolver->startRead();
 }
 
-void ITcpConnection::resolveData()
-{
-//    if(!m_resolver){
-//        m_resolver = ITcpResolverManage::instance()->createResolver(*this);
-//    }
-//    m_resolver->resolve();
-}
+//void ITcpConnection::resolveData()
+//{
+////    if(!m_resolver){
+////        m_resolver = ITcpResolverManage::instance()->createResolver(*this);
+////    }
+////    m_resolver->resolve();
+//}
 
 $PackageWebCoreEnd

@@ -19,14 +19,14 @@ public:
     void doReadStreamBy(int length, bool isData = true);
     void doReadStreamUntil(IStringView);
     void doWrite();
-    void doDestroy();
-    void doReuse();
+
+    void doReadResolverFinished();
+    void doWriteResolverFinished();
+    void doReadError(std::error_code);
+    void doWriteError(std::error_code);
 
 public:
     void addResolver(ITcpResolver*);
-
-private:
-    void resolveData();
 
 private:
     asio::ip::tcp::socket m_socket;
