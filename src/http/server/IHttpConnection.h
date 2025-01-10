@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "ITcpConnection.h"
+#include "tcp/ITcpConnection.h"
 
 $PackageWebCoreBegin
 

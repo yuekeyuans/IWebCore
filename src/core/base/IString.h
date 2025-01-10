@@ -1,5 +1,8 @@
 ﻿#pragma once
 
+#ifndef __I_STRING_GUARD__
+#define __I_STRING_GUARD__
+
 #include "core/util/IPackageUtil.h"
 #include "core/base/IStringView.h"
 
@@ -114,3 +117,5 @@ namespace std {
         }
     };
 }
+
+#endif

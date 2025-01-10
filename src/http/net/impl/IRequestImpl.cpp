@@ -14,15 +14,15 @@
 #include "http/net/impl/IRequestRaw.h"
 #include "http/net/ISessionJar.h"
 #include "http/response/IResponseWare.h"
-#include "http/server/ITcpConnection.h"
 #include "http/session/ISessionManager.h"
+#include "tcp/ITcpConnection.h"
 #include <algorithm>
 #include <regex>
 
 $PackageWebCoreBegin
 
 IRequestImpl::IRequestImpl(IRequest& self)
-    : m_request(self), m_connection(self.m_connection), m_data(self.m_connection.m_data),
+    : m_request(self), m_connection(self.m_connection), m_data(self.m_data),
       m_headerJar{*this}, m_cookieJar{*this}, m_multiPartJar{*this}
 {
     if(ISessionManager::instance()->getSessionWare() != nullptr){
@@ -75,7 +75,7 @@ void IRequestImpl::parseData()
     }
 }
 
-void IRequestImpl::firstLineState(uint length)
+void IRequestImpl::firstLineState(std::size_t length)
 {
     IStringView data(m_data.m_data+m_data.m_parsedSize, length);
     m_data.m_parsedSize += length;
@@ -88,7 +88,7 @@ void IRequestImpl::firstLineState(uint length)
     m_readState = State::HeaderState;
 }
 
-bool IRequestImpl::headersState(uint length)
+bool IRequestImpl::headersState(std::size_t length)
 {
     IStringView data(m_data.m_data+m_data.m_parsedSize, length);
     m_data.m_parsedSize += length;

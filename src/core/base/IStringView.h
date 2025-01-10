@@ -1,5 +1,8 @@
 ﻿#pragma once
 
+#ifndef __I_STRING_VIEW_GUARD__
+#define __I_STRING_VIEW_GUARD__
+
 #include "core/util/IPackageUtil.h"
 #include <string_view>
 #include <QString>
@@ -61,11 +64,11 @@ public:
 
 $PackageWebCoreEnd
 
-template<>
-inline uint qHash<IWebCore::IStringView>(const IWebCore::IStringView *obj, uint seed)
-{
-    return IWebCore::IStringView::qHash(obj, seed);
-}
+//template<>
+//inline uint qHash<IWebCore::IStringView>(const IWebCore::IStringView *obj, uint seed)
+//{
+//    return IWebCore::IStringView::qHash(obj, seed);
+//}
 
 template<>
 inline uint qHash<IWebCore::IStringView>(const IWebCore::IStringView &obj, uint seed)
@@ -77,7 +80,10 @@ namespace std {
     template <>
     struct hash<IWebCore::IStringView> {
         size_t operator()(const IWebCore::IStringView& obj) const {
-            return qHash(&obj);
+//            return qHash(&obj);
+            return IWebCore::IStringView::qHash(&obj);
         }
     };
 }
+
+#endif

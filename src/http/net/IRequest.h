@@ -6,7 +6,7 @@
 #include "http/biscuits/IHttpMime.h"
 #include "http/net/IMultiPart.h"
 #include "http/invalid/IHttpInvalidWare.h"
-#include "http/server/ITcpResolverInterface.h"
+#include "tcp/ITcpResolver.h"
 
 $PackageWebCoreBegin
 
@@ -19,7 +19,7 @@ class ISessionJar;
 class IRequestImpl;
 class IRequestRaw;
 class IHttpAction;
-class IRequest :public ITcpResolverInterface
+class IRequest :public ITcpResolver
 {
     friend class IResponse;
 public:

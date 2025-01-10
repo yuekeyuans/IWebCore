@@ -1,17 +1,17 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
-#include "http/server/ITcpConnectionData.h"
+#include <queue>
 
 $PackageWebCoreBegin
 
-class ITcpResolverInterface;
+class ITcpResolver;
 
 class ITcpConnection
 {
-    friend class ITcpResolverInterface;
+    friend class ITcpResolver;
 public:
-    ITcpConnection(asio::ip::tcp::socket socket);
+    ITcpConnection(asio::ip::tcp::socket socket, int resolverFactoryId);
     virtual ~ITcpConnection();
 
 public:
@@ -25,13 +25,11 @@ public:
 private:
     void resolveData();
 
-public:
-    ITcpConnectionData m_data;
-
 private:
     asio::ip::tcp::socket m_socket;
-    ITcpResolverInterface* m_resolver{};
+    std::queue<ITcpResolver*> m_resolvers;
     bool m_closeConnection{true};
+    int m_resolverFactoryId{};
 };
 
 $PackageWebCoreEnd

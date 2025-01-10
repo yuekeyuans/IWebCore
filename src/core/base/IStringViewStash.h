@@ -1,5 +1,8 @@
 ﻿#pragma once
 
+#ifndef __I_STRING_VIEW_STASH_GUARD__
+#define __I_STRING_VIEW_STASH_GUARD__
+
 #include "core/util/IPackageUtil.h"
 #include "core/base/IStringView.h"
 #include "core/base/IString.h"
@@ -27,3 +30,5 @@ private:
 };
 
 $PackageWebCoreEnd
+
+#endif

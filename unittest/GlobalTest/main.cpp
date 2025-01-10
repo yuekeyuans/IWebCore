@@ -1,6 +1,6 @@
 ﻿#include <ICore/IApplication>
 #include <ICore/IContext>
-#include <IWeb/IHttpServer>
+#include "tcp/ITcpServer.h"
 #include "IHttpPythonTestAnnomacro.h"
 
 $EnableTaskOutput(false)
@@ -9,7 +9,7 @@ $EnableHttpPythonTest(true)
 int main(int argc, char *argv[])
 {
     IApplication app(argc, argv);
-    IHttpServer server;
+    ITcpServer server;
     server.listen();
     return app.run();
 }

@@ -4,6 +4,12 @@ QT += sql xml testlib
 
 CONFIG += c++17
 
+msvc {
+    debug {
+        QMAKE_CXXFLAGS += /bigobj
+    }
+}
+
 include($$PWD/core/package/package.pri)
 
 PRECOMPILED_HEADER = $$PWD/core/util/IHeaderUtil.h
@@ -138,12 +144,6 @@ HEADERS += \
     $$PWD/http/response/content/IInvalidReponseContent.h \
     $$PWD/http/response/content/IResponseContent.h \
     $$PWD/http/server/IHttpConnection.h \
-    $$PWD/http/server/IHttpServer.h \
-    $$PWD/http/server/ITcpConnection.h \
-    $$PWD/http/server/ITcpConnectionData.h \
-    $$PWD/http/server/ITcpConnectionManage.h \
-    $$PWD/http/server/ITcpResolverInterface.h \
-    $$PWD/http/server/ITcpResolverManage.h \
     $$PWD/http/response/IStatusResponse.h \
     $$PWD/orm/IOrmAbort.h \
 #    $$PWD/orm/IOrmAssert.h \
@@ -213,7 +213,14 @@ HEADERS += \
     $$PWD/http/controller/pp/IPutMappingPreProcessor.h \
     $$PWD/http/session/ISessionInterface.h \
     $$PWD/http/session/ISessionManager.h \
-    $$PWD/http/session/ISessionWare.h
+    $$PWD/http/session/ISessionWare.h \
+    $$PWD/tcp/ITcpConnection.h \
+    $$PWD/tcp/ITcpConnectionData.h \
+    $$PWD/tcp/ITcpManage.h \
+    $$PWD/tcp/ITcpResolver.h \
+    $$PWD/tcp/ITcpResolverFactoryInterface.h \
+    $$PWD/tcp/ITcpResolverFactoryWare.h \
+    $$PWD/tcp/ITcpServer.h
 
 SOURCES += \
     $$PWD/core/abort/IGlobalAbort.cpp \
@@ -292,13 +299,6 @@ SOURCES += \
     $$PWD/http/response/content/IResponseContent.cpp \
     $$PWD/http/response/IStatusResponse.cpp \
     $$PWD/http/server/IHttpConnection.cpp \
-    $$PWD/http/server/IHttpServer.cpp \
-    $$PWD/http/server/ITcpConnection.cpp \
-    $$PWD/http/server/ITcpConnectionData.cpp \
-    $$PWD/http/server/ITcpConnectionManage.cpp \
-    $$PWD/http/server/ITcpResolverInterface.cpp \
-    $$PWD/http/server/ITcpResolverManage.cpp \
-#    $$PWD/orm/IOrmAssert.cpp \
     $$PWD/orm/IOrmManage.cpp \
     $$PWD/orm/IOrmUtil.cpp \
     $$PWD/orm/database/IOrmDataSource.cpp \
@@ -348,7 +348,12 @@ SOURCES += \
     $$PWD/http/response/IResponseWare.cpp \
     $$PWD/http/session/ISessionInterface.cpp \
     $$PWD/http/session/ISessionManager.cpp \
-    $$PWD/http/session/ISessionWare.cpp
+    $$PWD/http/session/ISessionWare.cpp \
+    $$PWD/tcp/ITcpConnection.cpp \
+    $$PWD/tcp/ITcpConnectionData.cpp \
+    $$PWD/tcp/ITcpManage.cpp \
+    $$PWD/tcp/ITcpResolver.cpp \
+    $$PWD/tcp/ITcpServer.cpp
 
 HEADERS += \
     $$PWD/IWebCore   \

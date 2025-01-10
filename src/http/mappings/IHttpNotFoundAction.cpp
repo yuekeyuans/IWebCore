@@ -1,7 +1,6 @@
 ﻿#include "IHttpNotFoundAction.h"
 #include "http/invalid/IHttpNotFoundInvalid.h"
 #include "http/net/IRequest.h"
-#include "http/server/IHttpConnection.h"
 
 $PackageWebCoreBegin
 

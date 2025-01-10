@@ -6,12 +6,12 @@
 #include "http/net/ICookieJar.h"
 #include "http/net/ISessionJar.h"
 #include "http/net/IHeaderJar.h"
-#include "http/server/ITcpConnection.h"
+#include "tcp/ITcpConnection.h"
 
 $PackageWebCoreBegin
 
 IRequest::IRequest(ITcpConnection& connection)
-    : ITcpResolverInterface(connection)
+    : ITcpResolver(connection)
 {
     m_impl = new IRequestImpl(*this);
 }

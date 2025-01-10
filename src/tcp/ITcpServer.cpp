@@ -1,17 +1,16 @@
-﻿#include "IHttpServer.h"
+﻿#include "ITcpServer.h"
 #include "core/application/IApplicationInterface.h"
 #include "core/application/IAsioApplication.h"
 #include "core/config/IProfileImport.h"
 #include "core/config/IContextManage.h"
 #include "http/net/IRequest.h"
 #include "http/net/IRequestManage.h"
-#include "http/server/ITcpResolverManage.h"
-#include "http/server/ITcpConnection.h"
-#include "http/server/ITcpConnectionManage.h"
+#include "tcp/ITcpConnection.h"
+#include "tcp/ITcpManage.h"
 
 $PackageWebCoreBegin
 
-IHttpServer::IHttpServer(asio::io_context* context)
+ITcpServer::ITcpServer(asio::io_context* context)
     : m_context(context)
 {
     if(context == nullptr){
@@ -26,7 +25,7 @@ IHttpServer::IHttpServer(asio::io_context* context)
     m_acceptor = new asio::ip::tcp::acceptor(*m_context);
 }
 
-IHttpServer::~IHttpServer()
+ITcpServer::~ITcpServer()
 {
     if(m_acceptor){
         if(m_acceptor->is_open()){
@@ -38,7 +37,7 @@ IHttpServer::~IHttpServer()
     }
 }
 
-void IHttpServer::listen()
+void ITcpServer::listen()
 {
     if(m_acceptor->is_open()){
         qFatal("server started already");
@@ -59,7 +58,7 @@ void IHttpServer::listen()
     qDebug() << "server started, listen at " << *ip + ":" + QString::number(*port);
 }
 
-void IHttpServer::doAccept()
+void ITcpServer::doAccept()
 {
     m_acceptor->async_accept([this](std::error_code ec, asio::ip::tcp::socket socket){
         if(!m_acceptor->is_open()){
@@ -69,8 +68,8 @@ void IHttpServer::doAccept()
         if(!ec){
             $Int m_timeout{"/http/readTimeOut"};
             socket.set_option(asio::detail::socket_option::integer<SOL_SOCKET, SO_RCVTIMEO>{ m_timeout.value() });
-            auto connection = new ITcpConnection(std::move(socket));
-            ITcpConnectionManage::instance()->addTcpConnection(connection);
+            auto connection = new ITcpConnection(std::move(socket), m_resolverFactoryId);
+            ITcpManage::instance()->addConnection(connection);
         }
         doAccept();
     });
