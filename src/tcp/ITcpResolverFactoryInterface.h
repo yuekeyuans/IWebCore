@@ -8,7 +8,7 @@
 $PackageWebCoreBegin
 
 template<typename T, bool enabled=true>
-class ITcpResolverFactoryInterface : public ITcpResolver, public ITaskInstantUnit<T, enabled>
+class ITcpResolverFactoryInterface : public ITcpResolverFactoryWare, public ITaskInstantUnit<T, enabled>
 {
 public:
     virtual void $task() final;
@@ -17,8 +17,8 @@ public:
 template<typename T, bool enabled>
 void ITcpResolverFactoryInterface<T, enabled>::$task()
 {
-    if constexpr (enabled){
-        ITcpManage::instance()->re
+    if  (enabled){
+        ITcpManage::instance()->registResolverFactory(ISingletonUnitDetail::getInstance<T>());
     }
 }
 

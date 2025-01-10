@@ -100,6 +100,7 @@ HEADERS += \
     $$PWD/core/util/detail/IJsonUtil_toJson.h \
     $$PWD/http/IHttpAnnomacro.h \
     $$PWD/http/IHttpManage.h \
+    $$PWD/http/IHttpResolverFactory.h \
     $$PWD/http/IHttpTaskCatagory.h \
     $$PWD/http/base/IArgumentType.h \
     $$PWD/http/base/IArgumentTypeDetail.h \
@@ -261,6 +262,7 @@ SOURCES += \
     $$PWD/core/unit/ISingletonUnit.cpp \
 #    $$PWD/http/IHttpAssert.cpp \
     $$PWD/http/IHttpManage.cpp \
+    $$PWD/http/IHttpResolverFactory.cpp \
     $$PWD/http/base/IArgumentTypeDetail.cpp \
     $$PWD/http/base/IMethodParameterManage.cpp \
     $$PWD/http/base/IReturnType.cpp \

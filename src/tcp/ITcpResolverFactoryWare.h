@@ -9,7 +9,7 @@ class ITcpConnection;
 class ITcpResolverFactoryWare
 {
 public:
-    ITcpResolverFactoryWare();
+    ITcpResolverFactoryWare() = default;
 
 public:
     virtual IString getName() = 0;

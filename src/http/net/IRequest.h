@@ -19,7 +19,7 @@ class ISessionJar;
 class IRequestImpl;
 class IRequestRaw;
 class IHttpAction;
-class IRequest :public ITcpResolver
+class IRequest : public ITcpResolver
 {
     friend class IResponse;
 public:
