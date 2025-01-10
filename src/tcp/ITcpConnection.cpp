@@ -5,13 +5,15 @@
 
 $PackageWebCoreBegin
 
-ITcpConnection::ITcpConnection(asio::ip::tcp::socket socket, int resolverFactoryId)
+ITcpConnection::ITcpConnection(asio::ip::tcp::socket&& socket, int resolverFactoryId)
     : m_socket(std::move(socket)), m_resolverFactoryId(resolverFactoryId)
 {
 }
 
 ITcpConnection::~ITcpConnection()
 {
+    if(!m_resolvers.empty()){
+    }
     if(m_socket.is_open()){
         m_socket.close();
     }
@@ -26,7 +28,6 @@ void ITcpConnection::doRead()
         if(error) {
             return doReadError(error);
         }
-        qDebug() << "read file" << length << IStringView(m_resolvers.back()->m_data.m_data, length).toQString();
         m_resolvers.back()->m_data.m_readSize += length;
         m_resolvers.back()->resolve();
     });
@@ -79,10 +80,8 @@ void ITcpConnection::doWrite()
         if(err){
             return doWriteError(err);
         }
-        qDebug() << this->m_resolvers.size();
-        auto ptr = this->m_resolvers.front();
+        delete m_resolvers.front();
         m_resolvers.pop();
-        delete ptr;
         ITcpManage::instance()->removeConnection(this);
     });
 }

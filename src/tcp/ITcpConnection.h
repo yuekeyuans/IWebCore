@@ -11,7 +11,7 @@ class ITcpConnection
 {
     friend class ITcpResolver;
 public:
-    ITcpConnection(asio::ip::tcp::socket socket, int resolverFactoryId);
+    ITcpConnection(asio::ip::tcp::socket&& socket, int resolverFactoryId);
     virtual ~ITcpConnection();
 
 public:
