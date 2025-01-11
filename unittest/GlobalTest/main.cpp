@@ -12,6 +12,7 @@ $EnableHttpPythonTest(true)
 //$SetTcpResolverFactory("http")
 //$SetTcpIp("127.0.0.1")
 //$SetTcpPort(8999)
+
 $SetHttpIp("127.0.0.1")
 $SetHttpPort(8557)
 int main(int argc, char *argv[])
