@@ -80,6 +80,7 @@ void ITcpConnection::doWrite()
         }
         delete m_resolvers.front();
         m_resolvers.pop();
+        delete this;    // NOTE: this is essential
 //        m_resolvers.front()->resolve();
     });
 }
