@@ -85,14 +85,9 @@ void ITcpConnection::doWrite()
         if(err){
             return doWriteError(err);
         }
-        m_resolvers.front()->m_readState = ITcpResolver::ReadState::Finished;
         m_resolvers.front()->m_writeCount --;
+        m_resolvers.front()->m_readState = ITcpResolver::ReadState::Finished;
         m_resolvers.front()->resolve();
-
-        // TODO: to be deleted!!!
-//        delete m_resolvers.front();
-//        m_resolvers.pop();
-//        delete this;    // NOTE: this is essential
     });
 }
 
@@ -107,7 +102,7 @@ void ITcpConnection::doReadResolverFinished()
 void ITcpConnection::doWriteResolverFinished()
 {
     delete m_resolvers.front();
-    m_resolvers.pop();
+    m_resolvers.pop_front();
 
     if(!m_resolvers.empty()){
         doWrite();
@@ -118,7 +113,14 @@ void ITcpConnection::doWriteResolverFinished()
 
 void ITcpConnection::doReadError(std::error_code error)
 {
-    qDebug() << __FUNCTION__;
+    Q_UNUSED(error)
+    m_keepAlive = false;
+    delete m_resolvers.back();
+    m_resolvers.pop_back();
+
+    if(m_resolvers.empty()){
+        delete this;
+    }
 }
 
 void ITcpConnection::doWriteError(std::error_code error)
@@ -126,26 +128,9 @@ void ITcpConnection::doWriteError(std::error_code error)
     qDebug() << __FUNCTION__;
 }
 
-//// TODO: this is safe?, but it works
-//void ITcpConnection::doDestroy()
-//{
-////    asio::post([=](){
-////    ITcpManage::instance()->removeConnection(this);
-////    });
-//}
-
-//void ITcpConnection::doReuse()
-//{
-////    m_data.resetForReuse();
-////    delete m_resolver;
-////    m_resolver = nullptr;
-
-//    //    resolveData();
-//}
-
 void ITcpConnection::addResolver(ITcpResolver *resolver)
 {
-    m_resolvers.push(resolver);
+    m_resolvers.push_back(resolver);
     resolver->startRead();
 }
 

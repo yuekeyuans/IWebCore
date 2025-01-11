@@ -34,7 +34,7 @@ public:
 
 private:
     asio::ip::tcp::socket m_socket;
-    std::queue<ITcpResolver*> m_resolvers;
+    std::deque<ITcpResolver*> m_resolvers;
 };
 
 $PackageWebCoreEnd

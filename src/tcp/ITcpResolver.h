@@ -10,12 +10,10 @@ class ITcpResolver
 {
 public:
     enum class ReadState{
-//        Pending,
         Reading,
         Finished
     };
     enum class WriteState{
-//        Pending,
         Writing,
         Finished
     };
