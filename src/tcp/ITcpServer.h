@@ -9,21 +9,21 @@ class ITcpServer
 {
 public:
     ITcpServer(asio::io_context* context=nullptr);
-    ~ITcpServer();
+    virtual ~ITcpServer();
 
 public:
     void listen();
 
 private:
+    void loadResolverFactory();
     void doAccept();
 
-private:
-    $QString ip{"/http/ip", "0.0.0.0"};
-    $Int port{"/http/port", 8550};
-    int m_resolverFactoryId{};
+protected:
+    std::string m_ip{};
+    int m_port{};
+    int m_resolverFactoryId{-1};
     asio::io_context* m_context{};
     asio::ip::tcp::acceptor* m_acceptor{};
-
 };
 
 $PackageWebCoreEnd

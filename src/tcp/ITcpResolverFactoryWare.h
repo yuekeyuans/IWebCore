@@ -10,6 +10,7 @@ class ITcpResolverFactoryWare
 {
 public:
     ITcpResolverFactoryWare() = default;
+    virtual ~ITcpResolverFactoryWare() = default;
 
 public:
     virtual IString getName() = 0;

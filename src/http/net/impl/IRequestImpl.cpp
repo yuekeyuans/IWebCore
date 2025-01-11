@@ -39,7 +39,7 @@ void IRequestImpl::parseData()
 {
     uint length{};
     while(true){
-        switch (m_readState) {
+        switch (m_state) {
         case State::FirstLineState:
             if((length = m_data.getLine())){
                 firstLineState(length);
@@ -70,7 +70,7 @@ void IRequestImpl::parseData()
         }
 
         if(!m_isValid){
-            m_readState = State::EndState;
+            m_state = State::EndState;
         }
     }
 }
@@ -85,7 +85,7 @@ void IRequestImpl::firstLineState(std::size_t length)
         return;
     }
     resolveFirstLine();
-    m_readState = State::HeaderState;
+    m_state = State::HeaderState;
 }
 
 bool IRequestImpl::headersState(std::size_t length)
@@ -104,16 +104,16 @@ bool IRequestImpl::headersState(std::size_t length)
     }
 
     if(m_reqRaw.m_contentLength){
-        m_readState = State::ContentState;
+        m_state = State::ContentState;
         if(prepareToReadContentLengthData()){
             return true;
         }
     }else if(m_reqRaw.m_isChunked){
-        m_readState = State::ChunckState;
+        m_state = State::ChunckState;
         prepareToReadChunkedData();
         return true;
     }else{
-        m_readState = State::EndState;
+        m_state = State::EndState;
     }
     return false;
 }
@@ -128,7 +128,7 @@ void IRequestImpl::chunkedState()
         resolvePayload();
     }
 
-    m_readState = State::EndState;
+    m_state = State::EndState;
 }
 
 void IRequestImpl::contentState(std::size_t length)
@@ -141,7 +141,7 @@ void IRequestImpl::contentState(std::size_t length)
     }
 
     resolvePayload();
-    m_readState = State::EndState;
+    m_state = State::EndState;
 }
 
 void IRequestImpl::endState()

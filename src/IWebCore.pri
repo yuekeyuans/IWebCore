@@ -101,6 +101,7 @@ HEADERS += \
     $$PWD/http/IHttpAnnomacro.h \
     $$PWD/http/IHttpManage.h \
     $$PWD/http/IHttpResolverFactory.h \
+    $$PWD/http/IHttpServer.h \
     $$PWD/http/IHttpTaskCatagory.h \
     $$PWD/http/base/IArgumentType.h \
     $$PWD/http/base/IArgumentTypeDetail.h \
@@ -215,6 +216,7 @@ HEADERS += \
     $$PWD/http/session/ISessionInterface.h \
     $$PWD/http/session/ISessionManager.h \
     $$PWD/http/session/ISessionWare.h \
+    $$PWD/tcp/ITcpAnnomarco.h \
     $$PWD/tcp/ITcpConnection.h \
     $$PWD/tcp/ITcpConnectionData.h \
     $$PWD/tcp/ITcpManage.h \
@@ -263,6 +265,7 @@ SOURCES += \
 #    $$PWD/http/IHttpAssert.cpp \
     $$PWD/http/IHttpManage.cpp \
     $$PWD/http/IHttpResolverFactory.cpp \
+    $$PWD/http/IHttpServer.cpp \
     $$PWD/http/base/IArgumentTypeDetail.cpp \
     $$PWD/http/base/IMethodParameterManage.cpp \
     $$PWD/http/base/IReturnType.cpp \

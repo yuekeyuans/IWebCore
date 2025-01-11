@@ -80,28 +80,28 @@ void ITcpConnection::doWrite()
         }
         delete m_resolvers.front();
         m_resolvers.pop();
-        ITcpManage::instance()->removeConnection(this);
+//        m_resolvers.front()->resolve();
     });
 }
 
 void ITcpConnection::doReadResolverFinished()
 {
 
+    qDebug() << __FUNCTION__;
 }
 
 void ITcpConnection::doWriteResolverFinished()
 {
-
 }
 
 void ITcpConnection::doReadError(std::error_code error)
 {
-
+    qDebug() << __FUNCTION__;
 }
 
 void ITcpConnection::doWriteError(std::error_code error)
 {
-
+    qDebug() << __FUNCTION__;
 }
 
 //// TODO: this is safe?, but it works
@@ -126,13 +126,5 @@ void ITcpConnection::addResolver(ITcpResolver *resolver)
     m_resolvers.push(resolver);
     resolver->startRead();
 }
-
-//void ITcpConnection::resolveData()
-//{
-////    if(!m_resolver){
-////        m_resolver = ITcpResolverManage::instance()->createResolver(*this);
-////    }
-////    m_resolver->resolve();
-//}
 
 $PackageWebCoreEnd

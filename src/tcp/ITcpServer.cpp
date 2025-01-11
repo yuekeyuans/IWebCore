@@ -22,6 +22,8 @@ ITcpServer::ITcpServer(asio::io_context* context)
         m_context = &application->ioContext();
     }
 
+    m_ip = *$StdString{"/tcp/ip", "0.0.0.0"};
+    m_port = *$Int{"/tcp/port", 8550};
     m_acceptor = new asio::ip::tcp::acceptor(*m_context);
 }
 
@@ -42,20 +44,33 @@ void ITcpServer::listen()
     if(m_acceptor->is_open()){
         qFatal("server started already");
     }
+    loadResolverFactory();
 
     asio::ip::tcp::resolver resolver(*m_context);
     asio::ip::tcp::endpoint endpoint = *resolver.resolve(
-                ip.value().toStdString(),
-                QString::number(port.value()).toStdString()).begin();
+                m_ip, std::to_string(m_port)).begin();
     m_acceptor->open(endpoint.protocol());
     m_acceptor->set_option(asio::ip::tcp::acceptor::reuse_address(true));
     m_acceptor->bind(endpoint);
     m_acceptor->listen();
     doAccept();
 
-    IContextManage::instance()->addConfig(IJson(ip.value().toStdString()), "/runtime/ip");
-    IContextManage::instance()->addConfig(IJson(*port), "/runtime/port");
-    qDebug() << "server started, listen at " << *ip + ":" + QString::number(*port);
+    IContextManage::instance()->addConfig(IJson(m_ip), "/runtime/ip");
+    IContextManage::instance()->addConfig(IJson(m_port), "/runtime/port");
+    qDebug() << "server started, listen at " << QString::fromStdString(m_ip) + ":" + QString::number(m_port);
+}
+
+void ITcpServer::loadResolverFactory()
+{
+    if(m_resolverFactoryId >= 0){
+        return;
+    }
+    $StdString factory{"/tcp/resolverFactory"};
+    IString data(*factory);
+    m_resolverFactoryId = ITcpManage::instance()->getResolverFactoryId(data.m_view);
+    if(m_resolverFactoryId == -1){
+        qFatal("resolver factory not configed, please config resolver factory");
+    }
 }
 
 void ITcpServer::doAccept()
@@ -67,10 +82,9 @@ void ITcpServer::doAccept()
 
         if(!ec){
             $Int m_timeout{"/http/readTimeOut"};
-            socket.set_option(asio::detail::socket_option::integer<SOL_SOCKET, SO_RCVTIMEO>{ m_timeout.value() });
+            socket.set_option(asio::detail::socket_option::integer<SOL_SOCKET, SO_RCVTIMEO>{ *m_timeout });
             auto connection = new ITcpConnection(std::move(socket), m_resolverFactoryId);
             ITcpManage::instance()->addConnection(connection);
-
             connection->addResolver(ITcpManage::instance()->createResolver(*connection, m_resolverFactoryId));
         }
         doAccept();

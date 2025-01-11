@@ -29,7 +29,7 @@ class IRequestImpl : public IStringViewStash
     friend class IRequest;
 public:
     enum State{
-        FirstLineState, HeaderState, ChunckState, ContentState, EndState,
+        FirstLineState, HeaderState, ChunckState, ContentState, EndState
     };
 
 public:
@@ -96,7 +96,7 @@ public:
     IHttpAction* m_action{};    // 执行当前 http 的 action
 
 private:
-    State m_readState{FirstLineState};
+    State m_state{FirstLineState};
     IStringView m_multipartBoundary;
     IStringView m_multipartBoundaryEnd;
 };
