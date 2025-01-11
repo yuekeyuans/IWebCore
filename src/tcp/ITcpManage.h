@@ -13,9 +13,9 @@ class ITcpManage : public ISingletonUnit<ITcpManage>
 public:
     ITcpManage() = default;
 
-public:
-    void addConnection(ITcpConnection*);
-    void removeConnection(ITcpConnection*);
+//public:
+//    void addConnection(ITcpConnection*);
+//    void removeConnection(ITcpConnection*);
 
 public:
     void registResolverFactory(ITcpResolverFactoryWare*);

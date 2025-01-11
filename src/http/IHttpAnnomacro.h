@@ -4,6 +4,13 @@
 
 #include "tcp/ITcpAnnomarco.h"
 
+#define $SetHttpIp(value)    \
+    PP_PROFILE_CONFIG(SetHttpIpAddress, /http/ip, value)
+
+#define $SetHttpPort(value)   \
+    PP_PROFILE_CONFIG(SetHttpIpPort, /http/port, value)
+
+
 #define $EnableWebPrintTrace(boolValue) \
     PP_PROFILE_CONFIG(EnableWebPrintTrace, http.printTrace, boolValue)
 
