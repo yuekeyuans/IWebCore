@@ -1,3 +1,3 @@
-port="8555"
+port="8557"
 ip="127.0.0.1"
-serverAddress="http://127.0.0.1:8555"
+serverAddress="http://127.0.0.1:8557"

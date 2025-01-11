@@ -20,7 +20,7 @@ void IHttpControllerAction::invoke(IRequest &request) const
     }
 
     destroyParams(params);
-    request.doWrite();
+    request.startWrite();
 }
 
 IHttpControllerAction::ParamType IHttpControllerAction::createParams(IRequest& request) const

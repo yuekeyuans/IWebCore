@@ -10,10 +10,10 @@ $EnableUnitTest(false)
 $EnableHttpPythonTest(true)
 
 //$SetTcpResolverFactory("http")
-$SetTcpIp("127.0.0.1")
-$SetTcpPort(8999)
+//$SetTcpIp("127.0.0.1")
+//$SetTcpPort(8999)
 $SetHttpIp("127.0.0.1")
-$SetHttpPort(8555)
+$SetHttpPort(8557)
 int main(int argc, char *argv[])
 {
     IApplication app(argc, argv);

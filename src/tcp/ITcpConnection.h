@@ -28,11 +28,13 @@ public:
 public:
     void addResolver(ITcpResolver*);
 
+public:
+    bool m_keepAlive{false};
+    int m_resolverFactoryId;
+
 private:
     asio::ip::tcp::socket m_socket;
     std::queue<ITcpResolver*> m_resolvers;
-    bool m_closeConnection{true};
-    int m_resolverFactoryId{};
 };
 
 $PackageWebCoreEnd

@@ -19,7 +19,7 @@ void IHttpOptionsMethodAction::invoke(IRequest &request) const
     }else{
         processUrlOptions(request);
     }
-    request.doWrite();
+    request.startWrite();
 }
 
 void IHttpOptionsMethodAction::processUrlOptions(IRequest& request) const

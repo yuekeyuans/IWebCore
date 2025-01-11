@@ -181,20 +181,25 @@ void IRequest::setInvalid(const IHttpInvalidWare& ware) const
     m_impl->setInvalid(ware);
 }
 
-void IRequest::doWrite()
-{
-    // TODO: 这里也需要异步处理
-    m_connection.doWrite();
-}
-
 void IRequest::startRead()
 {
+    m_readState = ReadState::Reading;
     m_connection.doRead();
 }
 
 void IRequest::resolve()
 {
+    if(m_writeCount == 0){
+        m_connection.doWriteResolverFinished();
+        return;
+    }
     m_impl->parseData();
+}
+
+void IRequest::startWrite()
+{
+    m_writeState = WriteState::Writing;
+    m_connection.doWrite();
 }
 
 std::vector<asio::const_buffer> IRequest::getOutput()

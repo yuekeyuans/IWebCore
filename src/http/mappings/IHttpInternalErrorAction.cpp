@@ -7,7 +7,7 @@ $PackageWebCoreBegin
 void IHttpInternalErrorAction::invoke(IRequest &request) const
 {
     request.setInvalid(IHttpInternalErrorInvalid());
-    request.doWrite();
+    request.startWrite();
 }
 
 $PackageWebCoreEnd

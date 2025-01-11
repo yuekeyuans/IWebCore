@@ -5,17 +5,19 @@ $PackageWebCoreBegin
 
 //void ITcpManage::addConnection(ITcpConnection * conn)
 //{
+//    Q_UNUSED(conn)
 ////    std::lock_guard lock(mutex);
 ////    m_connections.emplace(conn);
 //}
 
 //void ITcpManage::removeConnection(ITcpConnection *conn)
 //{
+//    Q_UNUSED(conn)
 ////    {
 ////        std::lock_guard lock(mutex);
 ////        m_connections.erase(conn);
 ////    }
-//    delete conn;
+////    delete conn;
 //}
 
 void ITcpManage::registResolverFactory(ITcpResolverFactoryWare * ware)

@@ -76,11 +76,9 @@ public:
     void setInvalid(const IHttpInvalidWare&) const;
 
 public:
-    void doWrite();
-
-protected:
     virtual void startRead() final;
     virtual void resolve() final;
+    virtual void startWrite() final;
     virtual std::vector<asio::const_buffer> getOutput() final;
 
 private:

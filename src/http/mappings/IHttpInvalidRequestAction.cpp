@@ -5,7 +5,7 @@ $PackageWebCoreBegin
 
 void IHttpInvalidRequestAction::invoke(IRequest &request) const
 {
-    request.doWrite();
+    request.startWrite();
 }
 
 $PackageWebCoreEnd

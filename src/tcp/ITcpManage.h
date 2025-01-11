@@ -23,9 +23,9 @@ public:
     ITcpResolver* createResolver(ITcpConnection&, int id);
 
 private:
-    std::mutex mutex;
-    std::unordered_set<ITcpConnection*> m_connections;
     std::vector<ITcpResolverFactoryWare*> m_resolverFactories;
+//    std::mutex mutex;
+//    std::unordered_set<ITcpConnection*> m_connections;
 };
 
 $PackageWebCoreEnd

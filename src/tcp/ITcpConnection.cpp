@@ -12,6 +12,10 @@ ITcpConnection::ITcpConnection(asio::ip::tcp::socket&& socket, int resolverFacto
 
 ITcpConnection::~ITcpConnection()
 {
+    if(!m_resolvers.empty()){
+        qFatal("error");
+    }
+
     if(m_socket.is_open()){
         m_socket.close();
     }
@@ -72,27 +76,44 @@ void ITcpConnection::doReadStreamUntil(IStringView data)
 
 void ITcpConnection::doWrite()
 {
-    auto resolver = m_resolvers.front();
-    auto result = resolver->getOutput();
+    if(m_resolvers.front()->m_writeState != ITcpResolver::WriteState::Writing){
+        return;
+    }
+
+    auto result = m_resolvers.front()->getOutput();
     asio::async_write(m_socket, result, [&](std::error_code err, int){
         if(err){
             return doWriteError(err);
         }
-        delete m_resolvers.front();
-        m_resolvers.pop();
-        delete this;    // NOTE: this is essential
-//        m_resolvers.front()->resolve();
+        m_resolvers.front()->m_readState = ITcpResolver::ReadState::Finished;
+        m_resolvers.front()->m_writeCount --;
+        m_resolvers.front()->resolve();
+
+        // TODO: to be deleted!!!
+//        delete m_resolvers.front();
+//        m_resolvers.pop();
+//        delete this;    // NOTE: this is essential
     });
 }
 
+// TODO: 这两个函数中考虑要有一个锁？ 按照道理来说，不会有异常，之后再考虑吧
 void ITcpConnection::doReadResolverFinished()
 {
-
-    qDebug() << __FUNCTION__;
+    if(m_keepAlive){
+        addResolver(ITcpManage::instance()->createResolver(*this, m_resolverFactoryId));
+    }
 }
 
 void ITcpConnection::doWriteResolverFinished()
 {
+    delete m_resolvers.front();
+    m_resolvers.pop();
+
+    if(!m_resolvers.empty()){
+        doWrite();
+    }else{
+        delete this;
+    }
 }
 
 void ITcpConnection::doReadError(std::error_code error)
