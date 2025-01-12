@@ -3,11 +3,11 @@
 #include "http/biscuits/IHttpHeader.h"
 #include "http/biscuits/IHttpVersion.h"
 #include "Http/net/impl/IRequestImpl.h"
-
 #include "http/response/IResponseWare.h"
 #include "http/invalid/IHttpInvalidWare.h"
 #include "http/response/content/IInvalidReponseContent.h"
 #include "http/response/content/IFileResponseContent.h"
+#include "tcp/ITcpConnection.h"
 
 $PackageWebCoreBegin
 
@@ -44,20 +44,26 @@ std::vector<IStringView> generateCookieHeaders(IRequestImpl& impl)
 std::vector<IStringView> generateHeadersContent(IRequestImpl& m_raw, int contentSize)
 {
     auto& headers = m_raw.m_respRaw.m_headers;
+
+    headers.insert(IHttpHeader::ContentLength, IString(std::to_string(contentSize)));
     if(contentSize != 0){
-        headers.insert(IHttpHeader::ContentLength, IString(std::to_string(contentSize)));
         if(!headers.contain(IHttpHeader::ContentType) && !m_raw.m_respRaw.m_mime.isEmpty()){
             headers.insert(IHttpHeader::ContentType, m_raw.m_respRaw.m_mime);
         }
+    }
+
+    if(m_raw.m_connection.m_keepAlive){
+        headers.insert(IHttpHeader::Connection, "keep-alive");
+        headers.insert(IHttpHeader::KeepAlive, "timeout=10, max=50");
     }
 
     std::vector<IStringView> ret;
     ret.push_back(ServerHeader.m_view);
 
     for(const auto& pair : headers.m_header){
-        ret.push_back(pair.first.m_view);
+        ret.push_back(pair.first);
         ret.push_back(IConstantUtil::CommaSpace.m_view);
-        ret.push_back(pair.second.m_view);
+        ret.push_back(pair.second);
         ret.push_back(IConstantUtil::NewLine.m_view);
     }
 
@@ -76,7 +82,7 @@ IResponseRaw::~IResponseRaw()
 
 void IResponseRaw::setHeader(IString key, IString value)
 {
-    m_headers.insert(std::move(key.solidify()), std::move(value.solidify()));
+    m_headers.insert(std::move(key), std::move(value));
 }
 
 void IResponseRaw::setMime(IHttpMime mime)
@@ -166,7 +172,7 @@ void IResponseRaw::setResponseWare(const IResponseWare &response)
 
     if(!response.headers().isEmpty()){
         for(auto& [key, val] : response.headers().m_header){
-            setHeader(std::move(key), std::move(val));
+            setHeader(key, val);
         }
     }
 

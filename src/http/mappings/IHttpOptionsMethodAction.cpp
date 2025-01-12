@@ -46,6 +46,7 @@ void IHttpOptionsMethodAction::processUrlOptions(IRequest& request) const
         views.append(IHttpMethodUtil::toString(IHttpMethod::OPTIONS));
         auto ret = request.stash(views.join(", "));
         IResponseWare ware;
+        ware.setStatus(IHttpStatus::NO_CONTENT_204);
         ware.setHeader(IHttpHeader::Allow, ret);
         request.impl().setResponseWare(ware);
     }

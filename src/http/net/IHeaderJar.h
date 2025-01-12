@@ -20,13 +20,9 @@ public:
     IHttpHeader& responseHeaders();
 
     std::vector<IStringView> responseHeaderKeys() const;
-    bool containResponseHeaderKey(const IString& key) const;
-
+    bool containResponseHeaderKey(IStringView key) const;
     void addResponseHeader(IString key, IString value);
-    void addResponseHeader(IString key, const QStringList& values);
-    void setResponseHeader(IString key, IString value);
-    void setResponseHeader(IString key, const QStringList& values);
-    void deleteReponseHeader(const IString& key);
+    void deleteReponseHeader(IStringView key);
 };
 
 $PackageWebCoreEnd

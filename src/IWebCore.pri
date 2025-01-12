@@ -140,7 +140,7 @@ HEADERS += \
     $$PWD/http/mappings/IHttpOptionsMethodAction.h \
     $$PWD/http/net/IRequestManage.h \
     $$PWD/http/net/impl/IRequestRaw.h \
-    $$PWD/http/net/impl/IResponseHeader.h \
+#    $$PWD/http/net/impl/IResponseHeader.h \
     $$PWD/http/net/impl/IResponseRaw.h \
     $$PWD/http/response/content/IFileResponseContent.h \
     $$PWD/http/response/content/IInvalidReponseContent.h \
@@ -297,7 +297,7 @@ SOURCES += \
     $$PWD/http/mappings/IHttpNotFoundAction.cpp \
     $$PWD/http/mappings/IHttpOptionsMethodAction.cpp \
     $$PWD/http/net/IRequestManage.cpp \
-    $$PWD/http/net/impl/IResponseHeader.cpp \
+#    $$PWD/http/net/impl/IResponseHeader.cpp \
     $$PWD/http/net/impl/IResponseRaw.cpp \
     $$PWD/http/response/content/IFileResponseContent.cpp \
     $$PWD/http/response/content/IInvalidReponseContent.cpp \

@@ -24,22 +24,22 @@ IFileResponse::IFileResponse(const QString &data)
 
 IFileResponse::IFileResponse(IString &&path)
 {
-    m_fileRepsonse = new IFileResponseContent(std::move(path));
-    m_raw->setContent(m_fileRepsonse);
+    m_fileResponseContent = new IFileResponseContent(std::move(path));
+    m_raw->setContent(m_fileResponseContent);
     m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
 }
 
 IFileResponse::IFileResponse(const IString &path)
 {
-    m_fileRepsonse = new IFileResponseContent(path);
-    m_raw->setContent(m_fileRepsonse);
+    m_fileResponseContent = new IFileResponseContent(path);
+    m_raw->setContent(m_fileResponseContent);
     m_raw->setMime(IHttpMime::APPLICATION_OCTET_STREAM);
 
 }
 
 void IFileResponse::enableContentDisposition()
 {
-    m_fileRepsonse->setAttribute(IFileResponseContent::ContentDispoistion, IConstantUtil::True);
+    m_fileResponseContent->setAttribute(IFileResponseContent::ContentDispoistion, IConstantUtil::True);
 }
 
 std::string IFileResponse::prefixMatcher()

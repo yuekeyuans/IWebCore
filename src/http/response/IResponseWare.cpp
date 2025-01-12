@@ -39,10 +39,10 @@ IResponseWare &IResponseWare::operator = (IResponseWare && rhs)
     return *this;
 }
 
-IResponseHeader IResponseWare::operator[](const IString &header)
-{
-    return IResponseHeader(*m_raw, header);
-}
+//IResponseHeader IResponseWare::operator[](const IString &header)
+//{
+//    return IResponseHeader(*m_raw, header);
+//}
 
 const IString& IResponseWare::mime() const
 {
@@ -74,14 +74,9 @@ IHttpHeader &IResponseWare::headers()
     return m_raw->m_headers;
 }
 
-void IResponseWare::setHeader(IString key, IString value)
+void IResponseWare::setHeader(IStringView key, IStringView value)
 {
-    m_raw->m_headers.insert(std::move(key), std::move(value));
-}
-
-void IResponseWare::addHeader(IString key, IString value)
-{
-    m_raw->m_headers.insert(std::move(key), std::move(value));
+    m_raw->m_headers.insert(key, value);
 }
 
 void IResponseWare::setCookie(ICookiePart && cookie)

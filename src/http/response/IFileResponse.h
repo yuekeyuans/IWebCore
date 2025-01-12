@@ -11,7 +11,7 @@ class IFileResponse : public IResponseInterface<IFileResponse>
     $AsResponse(IFileResponse)
 public:
     using IResponseInterface::IResponseInterface;
-    using IResponseInterface::operator [];
+//    using IResponseInterface::operator [];
 
 public:
     IFileResponse();
@@ -27,7 +27,7 @@ public:
     virtual std::string prefixMatcher() final;
 
 private:
-    IFileResponseContent* m_fileRepsonse{};
+    IFileResponseContent* m_fileResponseContent{};
 };
 
 IFileResponse operator"" _file(const char* str, size_t size);

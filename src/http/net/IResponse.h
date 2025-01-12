@@ -6,7 +6,7 @@
 #include "http/biscuits/IHttpMime.h"
 #include "http/biscuits/IHttpHeader.h"
 #include "http/invalid/IHttpInvalidWare.h"
-#include "http/net/impl/IResponseHeader.h"
+//#include "http/net/impl/IResponseHeader.h"
 
 $PackageWebCoreBegin
 
@@ -26,8 +26,8 @@ public:
     ~IResponse() = default;
 
 public:
-    IResponseHeader operator[](const IString& header) const;
-    IResponse& setHeader(IString key, IString value);
+//    IResponseHeader operator[](const IString& header) const;
+    IResponse& setHeader(IStringView key, IStringView value);
 
     IResponse& setStatus(IHttpStatus statusCode);
     IResponse& setStatus(int statusCode);
@@ -50,8 +50,6 @@ public:
 
     IResponse& setContent(const IResponseWare&);    // 对于这个，可以多思考一下，使用引用怎么样
     IResponse& setContent(const IHttpInvalidWare&);
-
-
 
     void setInvalid(const IHttpInvalidWare& ware);
 

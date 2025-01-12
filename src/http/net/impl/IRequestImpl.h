@@ -33,9 +33,6 @@ public:
     };
 
 public:
-    using FunType = QByteArray (IRequestImpl::*)(const QString& name, bool& ok) const;
-
-public:
     IRequestImpl(IRequest& self);
     ~IRequestImpl();
 
@@ -97,9 +94,9 @@ public:
 
 private:
     State m_state{FirstLineState};
+    bool m_requestComplete{false};
     IStringView m_multipartBoundary;
     IStringView m_multipartBoundaryEnd;
 };
 
 $PackageWebCoreEnd
-

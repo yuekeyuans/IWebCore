@@ -10,7 +10,7 @@ class IByteArrayResponse : public IResponseInterface<IByteArrayResponse>
     $AsResponse(IByteArrayResponse)
 public:
     using IResponseInterface::IResponseInterface;
-    using IResponseInterface::operator [];
+//    using IResponseInterface::operator [];
 
 public:
     IByteArrayResponse();

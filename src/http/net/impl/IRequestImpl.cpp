@@ -113,6 +113,7 @@ bool IRequestImpl::headersState(std::size_t length)
         prepareToReadChunkedData();
         return true;
     }else{
+        m_requestComplete = true;
         m_state = State::EndState;
     }
     return false;
@@ -146,6 +147,10 @@ void IRequestImpl::contentState(std::size_t length)
 
 void IRequestImpl::endState()
 {
+    if(!m_requestComplete){
+        m_connection.m_keepAlive = false;
+    }
+    m_connection.doReadFinished();
     parseAction();
     auto application = dynamic_cast<IAsioApplication*>(IApplicationInterface::instance());
     asio::post(application->ioContext(), [=](){
@@ -298,13 +303,14 @@ void IRequestImpl::parseCookie(IStringView cookie)
 
 void IRequestImpl::resolveHeaders()
 {
-    const auto& encoding = m_headerJar.getRequestHeaderValue(IHttpHeader::TransferEncoding);
+    auto encoding = m_headerJar.getRequestHeaderValue(IHttpHeader::TransferEncoding);
     if(encoding.length()){
         if(encoding.equalIgnoreCase("chunked")){
             m_reqRaw.m_isChunked = true;
         }
     }
-    const auto& contentLength = m_headerJar.getRequestHeaderValue(IHttpHeader::ContentLength);
+
+    auto contentLength = m_headerJar.getRequestHeaderValue(IHttpHeader::ContentLength);
     if(contentLength.length()){
         if(m_reqRaw.m_isChunked){
             return setInvalid(IHttpBadRequestInvalid("ContentLength and chunked exist at same time"));
@@ -320,7 +326,7 @@ void IRequestImpl::resolveHeaders()
         }
     }
 
-    const auto& contentType = m_headerJar.getRequestHeaderValue(IHttpHeader::ContentType);
+    auto contentType = m_headerJar.getRequestHeaderValue(IHttpHeader::ContentType);
     if(contentType.length()){
         m_reqRaw.m_mime = IHttpMimeUtil::toMime(contentType);
         if(m_reqRaw.m_mime == IHttpMime::MULTIPART_FORM_DATA){
@@ -331,10 +337,27 @@ void IRequestImpl::resolveHeaders()
             m_multipartBoundaryEnd = stash(m_multipartBoundary.toQByteArray() + "--");
         }
     }
+
+
+    if(m_reqRaw.m_httpVersion == IHttpVersion::VERSION_1_0){
+        m_connection.m_keepAlive = false;
+    }else{
+        m_connection.m_keepAlive = true;
+    }
+    auto connection = m_headerJar.getRequestHeaderValue(IHttpHeader::Connection);
+    if(connection.length() != 0){
+        if(connection.containIgnoreCase("keep-alive")){
+            m_connection.m_keepAlive = true;
+        }
+        if(connection.containIgnoreCase("close")){
+            m_connection.m_keepAlive = false;
+        }
+    }
 }
 
 void IRequestImpl::resolvePayload()
 {
+    m_requestComplete = true;
     switch (m_reqRaw.m_mime) {
     case IHttpMime::MULTIPART_FORM_DATA:
         parseMultiPartData(m_reqRaw.m_body);

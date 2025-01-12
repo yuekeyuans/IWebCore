@@ -20,8 +20,8 @@ public:
     void doReadStreamUntil(IStringView);
     void doWrite();
 
-    void doReadResolverFinished();
-    void doWriteResolverFinished();
+    void doReadFinished();
+    void doWriteFinished();
     void doReadError(std::error_code);
     void doWriteError(std::error_code);
 

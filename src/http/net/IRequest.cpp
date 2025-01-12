@@ -190,7 +190,7 @@ void IRequest::startRead()
 void IRequest::resolve()
 {
     if(m_writeCount == 0){
-        m_connection.doWriteResolverFinished();
+        m_connection.doWriteFinished();
         return;
     }
     m_impl->parseData();

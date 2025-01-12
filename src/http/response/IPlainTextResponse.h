@@ -11,7 +11,7 @@ class IPlainTextResponse : public IResponseInterface<IPlainTextResponse>
     $AsResponse(IPlainTextResponse)
 public:
     using IResponseInterface::IResponseInterface;
-    using IResponseInterface::operator [];
+//    using IResponseInterface::operator [];
 
 public:
     IPlainTextResponse();

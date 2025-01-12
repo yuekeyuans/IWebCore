@@ -36,7 +36,7 @@ def test_optionsMethod():
     val = requests.options(url) 
     print(val.headers)
     print(val.text)
-    assert val.status_code == 200
+    assert val.status_code == 204
     assert val.text == ""
     assert val.headers["Allow"] == "GET, HEAD, OPTIONS"
 

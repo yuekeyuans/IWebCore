@@ -47,48 +47,17 @@ std::vector<IStringView> IHeaderJar::responseHeaderKeys() const
     return m_impl.m_respRaw.m_headers.keys();
 }
 
-bool IHeaderJar::containResponseHeaderKey(const IString &key) const
+bool IHeaderJar::containResponseHeaderKey(IStringView key) const
 {
     return m_impl.m_respRaw.m_headers.contain(key);
 }
 
-// NOTE: 注意这两者之间的差别， setReponseHeader是，如果有这个值，就替换， addResponseHeader 表示不管怎样，直接添加。
 void IHeaderJar::addResponseHeader(IString key, IString value)
 {
     m_impl.m_respRaw.m_headers.insert(std::move(key), std::move(value));
 }
 
-void IHeaderJar::addResponseHeader(IString key, const QStringList &values)
-{
-    for(const auto& value : values){
-        m_impl.m_respRaw.m_headers.insert(key, value.toStdString());
-    }
-}
-
-void IHeaderJar::setResponseHeader(IString key, IString value)
-{
-    deleteReponseHeader(key);
-    m_impl.m_respRaw.m_headers.insert(std::move(key), std::move(value));
-}
-
-void IHeaderJar::setResponseHeader(IString key, const QStringList &values)
-{
-    deleteReponseHeader(key);
-    for(const auto& value : values){
-        m_impl.m_respRaw.m_headers.insert(key, value.toStdString());
-    }
-}
-
-// TODO: 这里 HEADERS 重构时再做吧
-//void IHeaderJar::setResponseHeader(IString key, const IString & value)
-//{
-//    deleteReponseHeader(key);
-////    for(const auto& value : values){
-////    m_impl.m_respRaw.m_headers.insert(key, value.toStringView().toStdString());
-////    }
-//}
-
-void IHeaderJar::deleteReponseHeader(const IString &key)
+void IHeaderJar::deleteReponseHeader(IStringView key)
 {
     m_impl.m_respRaw.m_headers.remove(key);
 }

@@ -16,14 +16,14 @@ IResponse::IResponse(IRequest& request) : m_impl(request.impl())
 {
 }
 
-IResponseHeader IResponse::operator[](const IString &header) const
-{
-    return {m_impl.m_respRaw, header};
-}
+//IResponseHeader IResponse::operator[](const IString &header) const
+//{
+//    return {m_impl.m_respRaw, header};
+//}
 
-IResponse &IResponse::setHeader(IString key, IString value)
+IResponse &IResponse::setHeader(IStringView key, IStringView value)
 {
-    m_impl.m_headerJar.setResponseHeader(std::move(key), value);
+    m_impl.m_headerJar.addResponseHeader(key, value);
     return *this;
 }
 

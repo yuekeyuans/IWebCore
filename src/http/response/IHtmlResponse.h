@@ -10,7 +10,7 @@ class IHtmlResponse : public IResponseInterface<IHtmlResponse>
     $AsResponse(IHtmlResponse)
 public:
     using IResponseInterface::IResponseInterface;
-    using IResponseInterface::operator [];
+//    using IResponseInterface::operator [];
 
 public:
     IHtmlResponse();

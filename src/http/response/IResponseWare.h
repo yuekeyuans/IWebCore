@@ -4,7 +4,7 @@
 #include "http/biscuits/IHttpMime.h"
 #include "http/biscuits/IHttpStatus.h"
 #include "http/net/impl/IResponseRaw.h"
-#include "http/net/impl/IResponseHeader.h"
+//#include "http/net/impl/IResponseHeader.h"
 
 $PackageWebCoreBegin
 
@@ -20,7 +20,7 @@ public:
     IResponseWare(const IResponseWare &);
     IResponseWare& operator =(const IResponseWare&);
     IResponseWare& operator =(IResponseWare&&);
-    IResponseHeader operator[](const IString& header);
+//    IResponseHeader operator[](const IString& header);
 
 public:
     const IString& mime() const;
@@ -32,8 +32,7 @@ public:
     const IHttpHeader& headers() const;
     IHttpHeader& headers();
 
-    void setHeader(IString key, IString value);
-    void addHeader(IString key, IString value);
+    void setHeader(IStringView key, IStringView value);
 
     void setCookie(ICookiePart&&);
     void setCookie(const ICookiePart&);

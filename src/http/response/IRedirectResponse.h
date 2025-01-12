@@ -11,7 +11,7 @@ class IRedirectResponse : public IResponseInterface<IRedirectResponse>
     $AsResponse(IRedirectResponse)
 public:
     using IResponseInterface::IResponseInterface;
-    using IResponseInterface::operator [];
+//    using IResponseInterface::operator [];
 
 public:
     IRedirectResponse();

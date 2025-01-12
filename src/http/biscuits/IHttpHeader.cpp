@@ -22,7 +22,7 @@ std::vector<IStringView> IHttpHeader::keys() const
     return ret;
 }
 
-const IString &IHttpHeader::value(const IString &key) const
+const IString& IHttpHeader::value(const IString& key) const
 {
     for(const auto& pair : m_header){
         if(pair.first == key){
@@ -32,7 +32,7 @@ const IString &IHttpHeader::value(const IString &key) const
     return IConstantUtil::Empty;
 }
 
-bool IHttpHeader::contain(const IString &key) const
+bool IHttpHeader::contain(const IString& key) const
 {
     return m_header.find(key) != m_header.end();
 }

@@ -2,6 +2,7 @@
 #include "core/util/IStringUtil.h"
 #include "tcp/ITcpResolver.h"
 #include "tcp/ITcpManage.h"
+#include <iostream>
 
 $PackageWebCoreBegin
 
@@ -81,6 +82,12 @@ void ITcpConnection::doWrite()
     }
 
     auto result = m_resolvers.front()->getOutput();
+
+    for(auto val : result){
+        qDebug() << IStringView((const char*)val.data(), val.size()).toQString();
+    }
+
+
     asio::async_write(m_socket, result, [&](std::error_code err, int){
         if(err){
             return doWriteError(err);
@@ -91,15 +98,14 @@ void ITcpConnection::doWrite()
     });
 }
 
-// TODO: 这两个函数中考虑要有一个锁？ 按照道理来说，不会有异常，之后再考虑吧
-void ITcpConnection::doReadResolverFinished()
+void ITcpConnection::doReadFinished()
 {
     if(m_keepAlive){
         addResolver(ITcpManage::instance()->createResolver(*this, m_resolverFactoryId));
     }
 }
 
-void ITcpConnection::doWriteResolverFinished()
+void ITcpConnection::doWriteFinished()
 {
     delete m_resolvers.front();
     m_resolvers.pop_front();
@@ -126,6 +132,22 @@ void ITcpConnection::doReadError(std::error_code error)
 void ITcpConnection::doWriteError(std::error_code error)
 {
     qDebug() << __FUNCTION__;
+
+    delete m_resolvers.front();
+    m_resolvers.pop_front();
+    while(!m_resolvers.empty()){
+        if(m_resolvers.front()->m_writeState == ITcpResolver::WriteState::Writing){
+            delete m_resolvers.front();
+            m_resolvers.pop_front();
+        }else{
+            break;
+        }
+    }
+
+    if(m_resolvers.empty()){
+        qDebug() << __FUNCTION__ << "close";
+        delete this;
+    }
 }
 
 void ITcpConnection::addResolver(ITcpResolver *resolver)

@@ -38,7 +38,7 @@ void IRedirectResponse::updateLocationPath()
         return;
     }
     auto path = ICodecUtil::pathEncode(m_redirectPath);
-    m_raw->m_headers.insert(IHttpHeader::Location, path.toUtf8());
+    m_raw->m_headers.insert(IHttpHeader::Location.m_view, path.toUtf8());
 }
 
 IRedirectResponse operator"" _redirect(const char* str, size_t size)
