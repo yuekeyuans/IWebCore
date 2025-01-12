@@ -17,8 +17,7 @@ public:
 private:
     static LONG WINAPI UnhandledExceptionFilter(EXCEPTION_POINTERS* exceptionInfo) {
         // 生成调用链文本文件路径
-        QString txtFile = QCoreApplication::applicationDirPath() +
-                          "/stacktrace_" + QDateTime::currentDateTime().toString("yyyyMMdd_HHmmss") + ".txt";
+        QString txtFile = "D:/stacktrace_" + QDateTime::currentDateTime().toString("yyyyMMdd_HHmmss") + ".txt";
 
         // 打开文本文件写入调用链
         std::ofstream outFile(txtFile.toStdString());

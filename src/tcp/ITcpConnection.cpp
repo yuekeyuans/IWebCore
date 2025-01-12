@@ -27,6 +27,10 @@ void ITcpConnection::doRead()
     if(m_resolvers.empty()){
         return;
     }
+
+    static int index{};
+    qDebug() << __FUNCTION__ << index ++;
+
     m_socket.async_read_some(m_resolvers.back()->m_data.getDataBuffer(), [&](std::error_code error, std::size_t length){
         if(error) {
             return doReadError(error);
@@ -41,6 +45,11 @@ void ITcpConnection::doReadStreamBy(int length, bool isData)
     if(m_resolvers.empty()){
         return;
     }
+
+
+    static int index{};
+    qDebug() << __FUNCTION__ << index ++;
+
     if(isData){
         asio::async_read(m_socket, m_resolvers.back()->m_data.getDataBuffer(), asio::transfer_exactly(length), [&](std::error_code error, std::size_t length){
             if(error){
@@ -61,6 +70,10 @@ void ITcpConnection::doReadStreamBy(int length, bool isData)
 
 void ITcpConnection::doReadStreamUntil(IStringView data)
 {
+
+    static int index{};
+    qDebug() << __FUNCTION__ << index ++;
+
     asio::async_read_until(m_socket, m_resolvers.back()->m_data.m_buffer, std::string(data), [&](std::error_code error, std::size_t length){
         Q_UNUSED(length)
         if(error){
@@ -80,6 +93,9 @@ void ITcpConnection::doWrite()
     if(m_resolvers.front()->m_writeState != ITcpResolver::WriteState::Writing){
         return;
     }
+
+    static int index{};
+    qDebug() << __FUNCTION__ << index ++;
 
     auto result = m_resolvers.front()->getOutput();
     asio::async_write(m_socket, result, [&](std::error_code err, int){
@@ -101,8 +117,11 @@ void ITcpConnection::doReadFinished()
 
 void ITcpConnection::doWriteFinished()
 {
-    delete m_resolvers.front();
-    m_resolvers.pop_front();
+    if(!m_resolvers.empty()){
+        std::lock_guard lock(m_mutex);
+        delete m_resolvers.front();
+        m_resolvers.pop_front();
+    }
 
     if(!m_resolvers.empty()){
         doWrite();
@@ -114,11 +133,20 @@ void ITcpConnection::doWriteFinished()
 void ITcpConnection::doReadError(std::error_code error)
 {
     Q_UNUSED(error)
-    m_keepAlive = false;
-    delete m_resolvers.back();
-    m_resolvers.pop_back();
 
+    qDebug() << __FUNCTION__ << "1";
+    m_keepAlive = false;
+    if(!m_resolvers.empty()){
+        if(m_resolvers.back()->m_data.m_readSize == 0){
+            qDebug() << "t";
+            delete m_resolvers.back();
+            m_resolvers.pop_back();
+            qDebug() << "tt";
+        }
+    }
+    qDebug() << __FUNCTION__ << "2";
     if(m_resolvers.empty()){
+        qDebug() << "delete";
         delete this;
     }
 }
@@ -126,24 +154,34 @@ void ITcpConnection::doReadError(std::error_code error)
 void ITcpConnection::doWriteError(std::error_code error)
 {
     Q_UNUSED(error)
-    delete m_resolvers.front();
-    m_resolvers.pop_front();
+    qDebug() << __FUNCTION__;
+    if(!m_resolvers.empty()){
+        delete m_resolvers.front();
+        m_resolvers.pop_front();
+    }
+
     while(!m_resolvers.empty()){
         if(m_resolvers.front()->m_writeState == ITcpResolver::WriteState::Writing){
-            delete m_resolvers.front();
-            m_resolvers.pop_front();
+            if(m_resolvers.empty()){
+                delete m_resolvers.front();
+                m_resolvers.pop_front();
+            }
         }else{
             break;
         }
     }
+    qDebug() << __FUNCTION__ << "3";
 
     if(m_resolvers.empty()){
         delete this;
     }
+    qDebug() << __FUNCTION__ << "4";
 }
 
 void ITcpConnection::addResolver(ITcpResolver *resolver)
 {
+//    std::lock_guard lock(m_mutex);
+
     m_resolvers.push_back(resolver);
     resolver->startRead();
 }

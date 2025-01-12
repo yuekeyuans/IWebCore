@@ -33,6 +33,7 @@ public:
     int m_resolverFactoryId;
 
 private:
+    std::mutex m_mutex;
     asio::ip::tcp::socket m_socket;
     std::deque<ITcpResolver*> m_resolvers;
 };

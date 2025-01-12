@@ -14,7 +14,7 @@
 
 $EnableTaskOutput(false)
 $EnableUnitTest(false)
-$EnableHttpPythonTest(true)
+$EnableHttpPythonTest(false)
 
 //$SetTcpResolverFactory("http")
 //$SetTcpIp("127.0.0.1")
@@ -24,8 +24,6 @@ $SetHttpIp("127.0.0.1")
 $SetHttpPort(8561)
 int main(int argc, char *argv[])
 {
-
-
     IApplication app(argc, argv);
     IHttpServer server;
     server.listen();
