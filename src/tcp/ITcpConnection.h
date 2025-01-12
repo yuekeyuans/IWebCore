@@ -7,6 +7,18 @@ $PackageWebCoreBegin
 
 class ITcpResolver;
 
+class IResolvers : public std::deque<ITcpResolver*>
+{
+public:
+    void deleteFront();
+
+    void deleteBack();
+
+    void push_back(ITcpResolver*);
+private:
+    std::mutex m_mutex;
+};
+
 class ITcpConnection
 {
     friend class ITcpResolver;
@@ -33,9 +45,8 @@ public:
     int m_resolverFactoryId;
 
 private:
-    std::mutex m_mutex;
     asio::ip::tcp::socket m_socket;
-    std::deque<ITcpResolver*> m_resolvers;
+    IResolvers m_resolvers;
 };
 
 $PackageWebCoreEnd

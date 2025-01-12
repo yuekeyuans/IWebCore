@@ -9,14 +9,16 @@ $PackageWebCoreBegin
 ITcpConnection::ITcpConnection(asio::ip::tcp::socket&& socket, int resolverFactoryId)
     : m_socket(std::move(socket)), m_resolverFactoryId(resolverFactoryId)
 {
+    qDebug() << __FUNCTION__;
 }
 
 ITcpConnection::~ITcpConnection()
 {
     if(!m_resolvers.empty()){
-        qFatal("error");
+        qDebug() << "not empyt";
     }
 
+    qDebug() << __FUNCTION__;
     if(m_socket.is_open()){
         m_socket.close();
     }
@@ -28,13 +30,12 @@ void ITcpConnection::doRead()
         return;
     }
 
-    static int index{};
-    qDebug() << __FUNCTION__ << index ++;
-
+    qDebug() << __FUNCTION__ << m_resolvers.back()->m_index;
     m_socket.async_read_some(m_resolvers.back()->m_data.getDataBuffer(), [&](std::error_code error, std::size_t length){
         if(error) {
             return doReadError(error);
         }
+        qDebug() << length;
         m_resolvers.back()->m_data.m_readSize += length;
         m_resolvers.back()->resolve();
     });
@@ -45,7 +46,6 @@ void ITcpConnection::doReadStreamBy(int length, bool isData)
     if(m_resolvers.empty()){
         return;
     }
-
 
     static int index{};
     qDebug() << __FUNCTION__ << index ++;
@@ -94,9 +94,13 @@ void ITcpConnection::doWrite()
         return;
     }
 
-    static int index{};
-    qDebug() << __FUNCTION__ << index ++;
+    static unsigned long long lastindex = 1024;
+    if(m_resolvers.front()->m_index == lastindex){
+        qDebug() << "called last index" << lastindex;
+    }
+    lastindex = m_resolvers.front()->m_index;
 
+    qDebug() << __FUNCTION__ << m_resolvers.front()->m_index;
     auto result = m_resolvers.front()->getOutput();
     asio::async_write(m_socket, result, [&](std::error_code err, int){
         if(err){
@@ -118,72 +122,94 @@ void ITcpConnection::doReadFinished()
 void ITcpConnection::doWriteFinished()
 {
     if(!m_resolvers.empty()){
-        std::lock_guard lock(m_mutex);
-        delete m_resolvers.front();
-        m_resolvers.pop_front();
+        m_resolvers.deleteFront();
     }
 
     if(!m_resolvers.empty()){
+        qDebug() << "try" << m_resolvers.front()->m_index;
         doWrite();
     }else{
+        qDebug() << __FUNCTION__ << "delete" << m_keepAlive << m_resolvers.size();
         delete this;
     }
 }
 
 void ITcpConnection::doReadError(std::error_code error)
 {
-    Q_UNUSED(error)
-
-    qDebug() << __FUNCTION__ << "1";
+    qDebug() << __FUNCTION__ << error.category().name() << error.value() << QString::fromStdString(error.message());
     m_keepAlive = false;
     if(!m_resolvers.empty()){
         if(m_resolvers.back()->m_data.m_readSize == 0){
-            qDebug() << "t";
-            delete m_resolvers.back();
-            m_resolvers.pop_back();
-            qDebug() << "tt";
+            m_resolvers.deleteBack();
         }
     }
-    qDebug() << __FUNCTION__ << "2";
     if(m_resolvers.empty()){
-        qDebug() << "delete";
+        qDebug() << __FUNCTION__ << "delete";
         delete this;
     }
 }
 
 void ITcpConnection::doWriteError(std::error_code error)
 {
+    qDebug() << __FUNCTION__ << error.category().name() << error.value() << QString::fromStdString(error.message());
     Q_UNUSED(error)
-    qDebug() << __FUNCTION__;
-    if(!m_resolvers.empty()){
-        delete m_resolvers.front();
-        m_resolvers.pop_front();
-    }
+//    if(!m_resolvers.empty()){
+    m_resolvers.deleteFront();
+//    }
 
     while(!m_resolvers.empty()){
         if(m_resolvers.front()->m_writeState == ITcpResolver::WriteState::Writing){
-            if(m_resolvers.empty()){
-                delete m_resolvers.front();
-                m_resolvers.pop_front();
+            if(!m_resolvers.empty()){
+                m_resolvers.deleteFront();
+//                qDebug() << "clear again";
+//                delete m_resolvers.front();
+//                m_resolvers.pop_front();
             }
         }else{
             break;
         }
     }
-    qDebug() << __FUNCTION__ << "3";
-
     if(m_resolvers.empty()){
+        qDebug() << __FUNCTION__ << "delete";
         delete this;
     }
-    qDebug() << __FUNCTION__ << "4";
 }
 
 void ITcpConnection::addResolver(ITcpResolver *resolver)
 {
-//    std::lock_guard lock(m_mutex);
-
+    qDebug() << __FUNCTION__ << resolver->m_index;
     m_resolvers.push_back(resolver);
     resolver->startRead();
+}
+
+void IResolvers::deleteFront()
+{
+    ITcpResolver* resolver;
+    {
+        std::lock_guard lock(m_mutex);
+        resolver = this->front();
+        this->pop_front();
+    }
+    qDebug() << __FUNCTION__ << resolver->m_index;
+    delete resolver;
+}
+
+void IResolvers::deleteBack()
+{
+    ITcpResolver* resolver;
+    {
+        std::lock_guard lock(m_mutex);
+        resolver = this->back();
+        this->pop_back();
+    }
+    qDebug() << __FUNCTION__ << resolver->m_index;
+    delete resolver;
+}
+
+void IResolvers::push_back(ITcpResolver *resolver)
+{
+    std::lock_guard lock(m_mutex);
+    std::deque<ITcpResolver*>::push_back(resolver);
 }
 
 $PackageWebCoreEnd
