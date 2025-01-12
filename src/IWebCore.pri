@@ -4,6 +4,14 @@ QT += sql xml testlib
 
 CONFIG += c++17
 
+
+CONFIG += console release  # 允许在 release 模式下输出到控制台
+CONFIG -= app_bundle       # 禁用 Windows GUI 应用，仅控制台
+DEFINES += QT_MESSAGELOGCONTEXT  # 保留文件名、行号等上下文信息
+QMAKE_CXXFLAGS_RELEASE += -Zi  # 生成 PDB 调试符号
+QMAKE_LFLAGS_RELEASE += /DEBUG  # 保留 PDB 调试符号文件
+LIBS += -ldbghelp  # 链接 dbghelp 库以支持 MiniDump
+
 msvc {
     debug {
         QMAKE_CXXFLAGS += /bigobj
@@ -43,6 +51,7 @@ HEADERS += \
     $$PWD/core/util/IHeaderUtil.h \
     $$PWD/core/util/IJsonUtil.h \
     $$PWD/core/util/IMetaUtil.h \
+    $$PWD/core/util/IMinidumpUtil.h \
     $$PWD/core/util/IPackageUtil.h \
     $$PWD/core/util/IPreProcessorUtil.h \
     $$PWD/core/util/ISpawnUtil.h \

@@ -82,12 +82,6 @@ void ITcpConnection::doWrite()
     }
 
     auto result = m_resolvers.front()->getOutput();
-
-    for(auto val : result){
-        qDebug() << IStringView((const char*)val.data(), val.size()).toQString();
-    }
-
-
     asio::async_write(m_socket, result, [&](std::error_code err, int){
         if(err){
             return doWriteError(err);
@@ -131,8 +125,7 @@ void ITcpConnection::doReadError(std::error_code error)
 
 void ITcpConnection::doWriteError(std::error_code error)
 {
-    qDebug() << __FUNCTION__;
-
+    Q_UNUSED(error)
     delete m_resolvers.front();
     m_resolvers.pop_front();
     while(!m_resolvers.empty()){
@@ -145,7 +138,6 @@ void ITcpConnection::doWriteError(std::error_code error)
     }
 
     if(m_resolvers.empty()){
-        qDebug() << __FUNCTION__ << "close";
         delete this;
     }
 }
