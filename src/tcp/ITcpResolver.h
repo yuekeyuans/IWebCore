@@ -29,13 +29,16 @@ public:
     virtual std::vector<asio::const_buffer> getOutput() = 0;
 
 public:
-    unsigned long long m_index;
-
     ReadState m_readState{ReadState::Finished};
     WriteState m_writeState{WriteState::Finished};
     std::atomic<int> m_writeCount = 1;
     ITcpConnection& m_connection;
     ITcpConnectionData m_data;
 };
+
+inline ITcpResolver::ITcpResolver(ITcpConnection&  connection)
+    : m_connection(connection)
+{
+}
 
 $PackageWebCoreEnd

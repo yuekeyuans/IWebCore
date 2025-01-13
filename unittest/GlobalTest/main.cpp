@@ -19,7 +19,7 @@ $EnableHttpPythonTest(false)
 //$SetTcpPort(8999)
 
 $SetHttpIp("127.0.0.1")
-$SetHttpPort(8561)
+$SetHttpPort(8550)
 int main(int argc, char *argv[])
 {
     IApplication app(argc, argv);
