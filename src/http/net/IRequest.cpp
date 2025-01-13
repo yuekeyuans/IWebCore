@@ -199,7 +199,7 @@ void IRequest::resolve()
 void IRequest::startWrite()
 {
     m_writeState = WriteState::Writing;
-    m_connection.doWrite();
+    m_connection.doWrite(this);
 }
 
 std::vector<asio::const_buffer> IRequest::getOutput()

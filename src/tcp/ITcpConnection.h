@@ -7,7 +7,7 @@ $PackageWebCoreBegin
 
 class ITcpResolver;
 
-class IResolvers : public std::deque<ITcpResolver*>
+class IResolvers : public std::list<ITcpResolver*>
 {
 public:
     void deleteFront();
@@ -30,21 +30,26 @@ public:
     void doRead();
     void doReadStreamBy(int length, bool isData = true);
     void doReadStreamUntil(IStringView);
-    void doWrite();
+    void doWrite(ITcpResolver*);
 
     void doReadFinished();
     void doWriteFinished();
     void doReadError(std::error_code);
     void doWriteError(std::error_code);
 
+private:
+    void doWriteImpl();
+
 public:
     void addResolver(ITcpResolver*);
 
 public:
-    bool m_keepAlive{false};
+    std::atomic_bool m_keepAlive{false};
     int m_resolverFactoryId;
 
 private:
+    std::mutex m_mutex;
+    std::atomic_int m_unWrittenCount{0};
     asio::ip::tcp::socket m_socket;
     IResolvers m_resolvers;
 };

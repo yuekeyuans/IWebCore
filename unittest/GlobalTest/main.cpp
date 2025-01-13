@@ -4,9 +4,7 @@
 #include "http/IHttpAnnomacro.h"
 #include "http/IHttpServer.h"
 #include "IHttpPythonTestAnnomacro.h"
-
 #include "core/util/IMinidumpUtil.h"
-
 #include <windows.h>
 #include <dbghelp.h>
 #include <tchar.h>

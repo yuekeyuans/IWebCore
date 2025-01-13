@@ -33,7 +33,7 @@ public:
 
     ReadState m_readState{ReadState::Finished};
     WriteState m_writeState{WriteState::Finished};
-    int m_writeCount = 1;
+    std::atomic<int> m_writeCount = 1;
     ITcpConnection& m_connection;
     ITcpConnectionData m_data;
 };

@@ -50,9 +50,7 @@ void IRequestImpl::parseData()
                 break;
             }
             if(m_isValid){
-                qDebug() << "1";
                 m_request.startRead();
-                qDebug() << "2";
             }
         case State::HeaderState:
             if((length = m_data.getBreakSegment())){    // TODO: 明天改这个
@@ -157,7 +155,7 @@ void IRequestImpl::endState()
     m_connection.doReadFinished();
     parseAction();
     auto application = dynamic_cast<IAsioApplication*>(IApplicationInterface::instance());
-    qDebug() << __FUNCTION__ << m_request.m_index;
+    //  qDebug() << __FUNCTION__ << m_request.m_index;
 //    asio::post(application->ioContext(), [=](){
     this->m_action->invoke(m_request);
 //    });

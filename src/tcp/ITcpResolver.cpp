@@ -5,9 +5,9 @@ $PackageWebCoreBegin
 ITcpResolver::ITcpResolver(ITcpConnection&  connection)
     : m_connection(connection)
 {
-    static unsigned long long index{};
+    static std::atomic<std::uint64_t> index{};
     m_index = index ++;
-    qDebug() << __FUNCTION__ << m_index;
+//    qDebug() << __FUNCTION__ << m_index;
 }
 
 $PackageWebCoreEnd
