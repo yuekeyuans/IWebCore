@@ -32,7 +32,6 @@ void ITcpConnection::doRead()
         back->m_data.m_readSize += length;
         back->resolve();
     });
-
 }
 
 void ITcpConnection::doReadStreamBy(int length, bool isData)

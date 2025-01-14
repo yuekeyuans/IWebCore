@@ -53,24 +53,24 @@ private:
 
 inline void IResolvers::deleteFront()
 {
-    ITcpResolver* resolver;
-    {
+//    ITcpResolver* resolver;
+//    {
 //        std::lock_guard lock(m_mutex);
-        resolver = this->front();
+        delete this->front();
         this->pop_front();
-    }
-    delete resolver;
+//    }
+//    delete resolver;
 }
 
 inline void IResolvers::deleteBack()
 {
-    ITcpResolver* resolver;
-    {
+//    ITcpResolver* resolver;
+//    {
 //        std::lock_guard lock(m_mutex);
-        resolver = this->back();
+        delete this->back();
         this->pop_back();
-    }
-    delete resolver;
+//    }
+//    delete resolver;
 }
 
 inline void IResolvers::push_back(ITcpResolver *resolver)
