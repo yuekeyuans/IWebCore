@@ -1,7 +1,4 @@
-﻿#pragma once
-
-#include <vector>
-#include <mutex>
+﻿#include <atomic>
 #include <cstddef>
 #include <new>
 
@@ -21,13 +18,15 @@ public:
     void releaseAll();
 
 private:
-    struct CacheEntry {
+    struct Node {
         void* ptr;        // 指向内存的指针
         std::size_t size; // 缓存的数组大小（字节数）
+        Node* next;       // 指向下一个节点
     };
 
-    std::vector<CacheEntry> arrayCache; // 缓存池
-    std::mutex mutex_;                  // 互斥锁保护
+    std::atomic<Node*> head{nullptr}; // 无锁栈的头指针
+
+    void freeNode(Node* node); // 递归释放节点
 };
 
 template <typename T>
@@ -37,38 +36,52 @@ IMemoryArrayPool<T>::~IMemoryArrayPool() {
 
 template <typename T>
 T* IMemoryArrayPool<T>::allocateArray(std::size_t count) {
+    std::size_t size = sizeof(T) * count;
+    Node* node = head.load(std::memory_order_acquire);
 
-        return static_cast<T*>(::operator new(count));
-//    std::lock_guard<std::mutex> lock(mutex_);
-//    std::size_t size = sizeof(T) * count;
+    while (node) {
+        // 遍历无锁栈，尝试取出符合大小的内存块
+        if (node->size >= size) {
+            if (head.compare_exchange_weak(node, node->next, std::memory_order_acquire)) {
+                T* ptr = static_cast<T*>(node->ptr);
+                delete node; // 释放栈节点（但不释放内存）
+                return ptr;
+            }
+        } else {
+            node = node->next;
+        }
+    }
 
-//    // 查找适合的缓存
-//    for (auto it = arrayCache.begin(); it != arrayCache.end(); ++it) {
-//        if (it->size >= size) {
-//            void* ptr = it->ptr;
-//            arrayCache.erase(it); // 从缓存中移除已使用的内存
-//            return static_cast<T*>(ptr);
-//        }
-//    }
-
-    // 如果没有合适的缓存，则分配新内存
-//    return static_cast<T*>(::operator new(size));
+    // 如果没有找到合适的内存块，则分配新内存
+    return static_cast<T*>(::operator new(size));
 }
 
 template <typename T>
 void IMemoryArrayPool<T>::deallocateArray(T* ptr, std::size_t count) {
-    delete [] ptr;
-//    if (ptr) {
-//        std::lock_guard<std::mutex> lock(mutex_);
-//        arrayCache.push_back({ptr, sizeof(T) * count}); // 回收到缓存池
-//    }
+    if (!ptr) return;
+
+    // 创建一个新的栈节点
+    Node* newNode = new Node{ptr, sizeof(T) * count, nullptr};
+
+    // 将节点无锁地推入栈
+    Node* oldHead = head.load(std::memory_order_acquire);
+    do {
+        newNode->next = oldHead;
+    } while (!head.compare_exchange_weak(oldHead, newNode, std::memory_order_release));
 }
 
 template <typename T>
 void IMemoryArrayPool<T>::releaseAll() {
-    std::lock_guard<std::mutex> lock(mutex_);
-    for (auto& entry : arrayCache) {
-        ::operator delete(entry.ptr); // 释放缓存的内存
+    Node* node = head.exchange(nullptr, std::memory_order_acquire); // 原子清空栈
+    freeNode(node); // 释放所有栈节点及其内存
+}
+
+template <typename T>
+void IMemoryArrayPool<T>::freeNode(Node* node) {
+    while (node) {
+        ::operator delete(node->ptr); // 释放内存块
+        Node* temp = node;
+        node = node->next;
+        delete temp; // 释放栈节点
     }
-    arrayCache.clear(); // 清空缓存池
 }

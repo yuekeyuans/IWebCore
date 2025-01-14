@@ -16,9 +16,6 @@ ITcpConnection::ITcpConnection(asio::ip::tcp::socket&& socket, int resolverFacto
 
 ITcpConnection::~ITcpConnection()
 {
-    if(!m_resolvers.empty()){
-        qFatal("error");
-    }
     if(m_socket.is_open()){
         m_socket.close();
     }
@@ -108,6 +105,7 @@ void ITcpConnection::doWriteFinished()
             doWriteImpl();
         }
     }
+
     if(m_resolvers.empty()){
         delete this;
     }

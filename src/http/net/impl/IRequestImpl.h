@@ -86,15 +86,13 @@ public:
     IHttpAttribute m_attribute;
 
 public:
+    IHttpAction* m_action{};
     ITcpConnection& m_connection;
     ITcpConnectionData& m_data;
 
-public:
-    IHttpAction* m_action{};    // 执行当前 http 的 action
-
 private:
-    State m_state{FirstLineState};
     bool m_requestComplete{false};
+    State m_state{FirstLineState};
     IStringView m_multipartBoundary;
     IStringView m_multipartBoundaryEnd;
 };

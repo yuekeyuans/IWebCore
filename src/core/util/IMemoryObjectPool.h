@@ -35,39 +35,35 @@ template<typename T>
 template <typename... Args>
 T* IMemoryObjectPool<T>::allocate(Args&&... args)
 {
-    return new T(std::forward<Args>(args)...);  // 使用 placement new
-//    Node* old_head = m_stack.load(std::memory_order_acquire);
-//    while (old_head) {
-//        // 尝试弹出栈顶节点
-//        if (m_stack.compare_exchange_weak(old_head, old_head->next, std::memory_order_acquire, std::memory_order_relaxed)) {
-//            T* obj = old_head->object;
-//            delete old_head;  // 释放节点本身
-//            new (obj) T(std::forward<Args>(args)...);  // 使用 placement new 构造对象
-//            return obj;
-//        }
-//    }
+    Node* old_head = m_stack.load(std::memory_order_acquire);
+    while (old_head) {
+        // 尝试弹出栈顶节点
+        if (m_stack.compare_exchange_weak(old_head, old_head->next, std::memory_order_acquire, std::memory_order_relaxed)) {
+            T* obj = old_head->object;
+            delete old_head;  // 释放节点本身
+            new (obj) T(std::forward<Args>(args)...);  // 使用 placement new 构造对象
+            return obj;
+        }
+    }
 
-//    // 如果栈为空，分配新内存
-//    void* mem = ::operator new(sizeof(T));
-//    return new (mem) T(std::forward<Args>(args)...);  // 使用 placement new
+    // 如果栈为空，分配新内存
+    void* mem = ::operator new(sizeof(T));
+    return new (mem) T(std::forward<Args>(args)...);  // 使用 placement new
 }
 
 template<typename T>
 void IMemoryObjectPool<T>::deallocate(T* ptr)
 {
-    delete ptr;
+    ptr->~T();  // 显式调用析构函数
 
-//    if (ptr) {
-//        ptr->~T();  // 显式调用析构函数
+    // 创建新节点存储对象
+    Node* new_node = new Node{ptr, nullptr};
+    Node* old_head = m_stack.load(std::memory_order_acquire);
 
-//        // 创建新节点存储对象
-//        Node* new_node = new Node{ptr, nullptr};
-//        Node* old_head = m_stack.load(std::memory_order_acquire);
+    do {
+        new_node->next = old_head;  // 新节点指向当前栈顶
+    } while (!m_stack.compare_exchange_weak(old_head, new_node, std::memory_order_release, std::memory_order_relaxed));
 
-//        do {
-//            new_node->next = old_head;  // 新节点指向当前栈顶
-//        } while (!m_stack.compare_exchange_weak(old_head, new_node, std::memory_order_release, std::memory_order_relaxed));
-//    }
 }
 
 template<typename T>

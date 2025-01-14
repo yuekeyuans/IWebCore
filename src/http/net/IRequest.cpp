@@ -1,6 +1,7 @@
 ﻿#include "IRequest.h"
 
 #include "core/abort/IGlobalAbort.h"
+#include "core/util/IMemoryObjectPool.h"
 #include "http/mappings/IHttpAction.h"
 #include "http/net/impl/IRequestImpl.h"
 #include "http/net/ICookieJar.h"
@@ -10,15 +11,23 @@
 
 $PackageWebCoreBegin
 
+namespace detail
+{
+    static IMemoryObjectPool<IRequestImpl> s_pool;
+}
+
 IRequest::IRequest(ITcpConnection& connection, int resolverFactoryId)
     : ITcpResolver(connection, resolverFactoryId)
 {
-    m_impl = new IRequestImpl(*this);
+//    qDebug() << sizeof(IRequestImpl);
+//    m_impl = new IRequestImpl(*this);
+    m_impl = detail::s_pool.allocate(*this);
 }
 
 IRequest::~IRequest()
 {
-    delete m_impl;
+    detail::s_pool.deallocate(m_impl);
+//    delete m_impl;
 }
 
 IStringView IRequest::operator[](const IString &header) const
