@@ -367,7 +367,6 @@ SOURCES += \
     $$PWD/tcp/ITcpConnection.cpp \
     $$PWD/tcp/ITcpConnectionData.cpp \
     $$PWD/tcp/ITcpManage.cpp \
-    $$PWD/tcp/ITcpResolver.cpp \
     $$PWD/tcp/ITcpServer.cpp
 
 HEADERS += \

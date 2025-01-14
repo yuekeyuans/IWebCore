@@ -9,6 +9,9 @@ $PackageWebCoreBegin
 ITcpConnection::ITcpConnection(asio::ip::tcp::socket&& socket, int resolverFactoryId)
     : m_socket(std::move(socket)), m_resolverFactoryId(resolverFactoryId)
 {
+    auto resolver = ITcpManage::instance()->createResolver(*this, m_resolverFactoryId);
+    m_resolvers.push_back(resolver);
+    resolver->startRead();
 }
 
 ITcpConnection::~ITcpConnection()
@@ -87,13 +90,17 @@ void ITcpConnection::doWrite(ITcpResolver* resolver)
 void ITcpConnection::doReadFinished()
 {
     if(m_keepAlive){
-        addResolver(ITcpManage::instance()->createResolver(*this, m_resolverFactoryId));
+        auto resolver = ITcpManage::instance()->createResolver(*this, m_resolverFactoryId);
+        m_resolvers.push_back(resolver);
+        resolver->startRead();
     }
 }
 
 void ITcpConnection::doWriteFinished()
 {
-    m_resolvers.deleteFront();
+    auto front = m_resolvers.front();
+    m_resolvers.pop_front();
+    delete front;
 
     if(m_unWrittenCount != 0){
         if(m_resolvers.front()->m_writeState == ITcpResolver::WriteState::Writing){
@@ -112,7 +119,9 @@ void ITcpConnection::doReadError(std::error_code error)
 
     m_keepAlive = false;
     if(m_resolvers.back()->m_readState == ITcpResolver::ReadState::Finished){       // 说明这个还没读取， 只删除没有读取的。
-        m_resolvers.deleteBack();
+        auto back = m_resolvers.back();
+        m_resolvers.pop_back();
+        delete back;
     }
 
     if(m_resolvers.empty()){
@@ -123,7 +132,10 @@ void ITcpConnection::doReadError(std::error_code error)
 void ITcpConnection::doWriteError(std::error_code error)
 {
     Q_UNUSED(error)
-    m_resolvers.deleteFront();
+    auto front = m_resolvers.front();
+    m_resolvers.pop_front();
+    delete front;
+
     if(m_unWrittenCount != 0 && m_resolvers.front()->m_writeState == ITcpResolver::WriteState::Writing){
         m_unWrittenCount --;
         doWriteImpl();
@@ -145,12 +157,6 @@ void ITcpConnection::doWriteImpl()
         m_resolvers.front()->m_writeState = ITcpResolver::WriteState::Finished;
         m_resolvers.front()->resolve();
     });
-}
-
-void ITcpConnection::addResolver(ITcpResolver *resolver)
-{
-    m_resolvers.push_back(resolver);
-    resolver->startRead();
 }
 
 $PackageWebCoreEnd

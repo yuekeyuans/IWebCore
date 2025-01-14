@@ -84,7 +84,6 @@ void ITcpServer::doAccept()
             $Int m_timeout{"/http/readTimeOut"};
             socket.set_option(asio::detail::socket_option::integer<SOL_SOCKET, SO_RCVTIMEO>{ *m_timeout });
             auto connection = new ITcpConnection(std::move(socket), m_resolverFactoryId);
-            connection->addResolver(ITcpManage::instance()->createResolver(*connection, m_resolverFactoryId));
         }
         doAccept();
     });

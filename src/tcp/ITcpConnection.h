@@ -6,15 +6,6 @@
 $PackageWebCoreBegin
 
 class ITcpResolver;
-
-class IResolvers : public std::deque<ITcpResolver*>
-{
-public:
-    void deleteFront();
-    void deleteBack();
-    void push_back(ITcpResolver*);
-};
-
 class ITcpConnection
 {
     friend class ITcpResolver;
@@ -37,16 +28,13 @@ private:
     void doWriteImpl();
 
 public:
-    void addResolver(ITcpResolver*);
-
-public:
     std::atomic_bool m_keepAlive{false};
     int m_resolverFactoryId;
 
 private:
     std::atomic_int m_unWrittenCount{0};
     asio::ip::tcp::socket m_socket;
-    IResolvers m_resolvers;
+    std::list<ITcpResolver*> m_resolvers;
 };
 
 $PackageWebCoreEnd
