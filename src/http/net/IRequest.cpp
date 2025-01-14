@@ -19,15 +19,12 @@ namespace detail
 IRequest::IRequest(ITcpConnection& connection, int resolverFactoryId)
     : ITcpResolver(connection, resolverFactoryId)
 {
-//    qDebug() << sizeof(IRequestImpl);
-//    m_impl = new IRequestImpl(*this);
     m_impl = detail::s_pool.allocate(*this);
 }
 
 IRequest::~IRequest()
 {
     detail::s_pool.deallocate(m_impl);
-//    delete m_impl;
 }
 
 IStringView IRequest::operator[](const IString &header) const

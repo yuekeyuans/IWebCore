@@ -97,7 +97,7 @@ void ITcpConnection::doWriteFinished()
 {
     auto front = m_resolvers.front();
     m_resolvers.pop_front();
-    delete front;
+    ITcpManage::instance()->destoryResolver(front);
 
     if(m_unWrittenCount != 0){
         if(m_resolvers.front()->m_writeState == ITcpResolver::WriteState::Writing){
@@ -119,7 +119,7 @@ void ITcpConnection::doReadError(std::error_code error)
     if(m_resolvers.back()->m_readState == ITcpResolver::ReadState::Finished){       // 说明这个还没读取， 只删除没有读取的。
         auto back = m_resolvers.back();
         m_resolvers.pop_back();
-        delete back;
+        ITcpManage::instance()->destoryResolver(back);
     }
 
     if(m_resolvers.empty()){
@@ -132,7 +132,7 @@ void ITcpConnection::doWriteError(std::error_code error)
     Q_UNUSED(error)
     auto front = m_resolvers.front();
     m_resolvers.pop_front();
-    delete front;
+    ITcpManage::instance()->destoryResolver(front);
 
     if(m_unWrittenCount != 0 && m_resolvers.front()->m_writeState == ITcpResolver::WriteState::Writing){
         m_unWrittenCount --;
