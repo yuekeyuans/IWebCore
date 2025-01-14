@@ -3,20 +3,21 @@
 
 $PackageWebCoreBegin
 
+namespace detail
+{
+    static IMemoryArrayPool<char> s_pool {};
+}
+
 ITcpConnectionData::ITcpConnectionData()
 {
     static const $ULong MAX_SIZE{"/http/urlHeaderMaxLength", 1024*10};
-
-    // TODO: retrive from cache.
-    if(!m_data){
-        m_maxSize = *MAX_SIZE;
-        m_data = new char[m_maxSize];
-    }
+    m_data = detail::s_pool.allocateArray(*MAX_SIZE);
 }
 
 ITcpConnectionData::~ITcpConnectionData()
 {
-    delete []m_data;
+    static const $ULong MAX_SIZE{"/http/urlHeaderMaxLength", 1024*10};
+    detail::s_pool.deallocateArray(m_data, *MAX_SIZE);
 }
 
 std::size_t ITcpConnectionData::getLine() const
