@@ -29,7 +29,7 @@ int ITcpManage::getResolverFactoryId(IStringView data)
 {
     for(std::size_t i=0; i<m_resolverFactories.size(); i++){
         if(m_resolverFactories[i]->getName().m_view == data){
-            return i;
+            return static_cast<int>(i);
         }
     }
     return -1;
@@ -37,7 +37,12 @@ int ITcpManage::getResolverFactoryId(IStringView data)
 
 ITcpResolver *ITcpManage::createResolver(ITcpConnection & connection, int id)
 {
-    return m_resolverFactories[id]->createResolver(connection);
+    return m_resolverFactories[id]->createResolver(connection, id);
+}
+
+void ITcpManage::destoryResolver(ITcpResolver * resolver)
+{
+    return m_resolverFactories[resolver->m_resolverFactoryId]->destroyResolver(resolver);
 }
 
 $PackageWebCoreEnd

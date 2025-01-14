@@ -10,8 +10,8 @@
 
 $PackageWebCoreBegin
 
-IRequest::IRequest(ITcpConnection& connection)
-    : ITcpResolver(connection)
+IRequest::IRequest(ITcpConnection& connection, int resolverFactoryId)
+    : ITcpResolver(connection, resolverFactoryId)
 {
     m_impl = new IRequestImpl(*this);
 }

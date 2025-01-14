@@ -1,10 +1,10 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
+#include "tcp/ITcpResolver.h"
 
 $PackageWebCoreBegin
 
-class ITcpResolver;
 class ITcpConnection;
 class ITcpResolverFactoryWare
 {
@@ -14,7 +14,8 @@ public:
 
 public:
     virtual IString getName() = 0;
-    virtual ITcpResolver* createResolver(ITcpConnection&) = 0;
+    virtual ITcpResolver* createResolver(ITcpConnection&, int) = 0;
+    virtual void destroyResolver(ITcpResolver*) = 0;
 };
 
 $PackageWebCoreEnd

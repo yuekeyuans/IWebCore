@@ -43,10 +43,4 @@ bool ITcpConnectionData::isDataFull()
     return m_readSize == m_maxSize;
 }
 
-void ITcpConnectionData::resetForReuse()
-{
-    // TODO: do nothing, but clear now;
-    // 这个在现在这个条件下似乎没啥必要了，但是，还是写在这里，之后再考虑这件事情
-}
-
 $PackageWebCoreEnd

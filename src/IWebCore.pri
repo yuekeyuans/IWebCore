@@ -50,6 +50,7 @@ HEADERS += \
     $$PWD/core/util/IFileUtil.h \
     $$PWD/core/util/IHeaderUtil.h \
     $$PWD/core/util/IJsonUtil.h \
+    $$PWD/core/util/IMemoryObjectPool.h \
     $$PWD/core/util/IMetaUtil.h \
     $$PWD/core/util/IMinidumpUtil.h \
     $$PWD/core/util/IPackageUtil.h \

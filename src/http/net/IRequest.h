@@ -29,7 +29,7 @@ public:
     IRequest(IRequest&&) = delete;
     IRequest& operator=(IRequest&&) = delete;
 
-    explicit IRequest(ITcpConnection&);
+    explicit IRequest(ITcpConnection&, int);
     ~IRequest();
 
 public:

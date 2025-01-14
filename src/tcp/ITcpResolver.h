@@ -19,7 +19,7 @@ public:
     };
 
 public:
-    ITcpResolver(ITcpConnection& connection);
+    ITcpResolver(ITcpConnection& connection, int resolverFactoryId);
     virtual ~ITcpResolver() = default;
 
 public:
@@ -34,10 +34,11 @@ public:
     std::atomic<int> m_writeCount = 1;
     ITcpConnection& m_connection;
     ITcpConnectionData m_data;
+    int m_resolverFactoryId;
 };
 
-inline ITcpResolver::ITcpResolver(ITcpConnection&  connection)
-    : m_connection(connection)
+inline ITcpResolver::ITcpResolver(ITcpConnection&  connection, int resolverFactoryId)
+    : m_connection(connection), m_resolverFactoryId(resolverFactoryId)
 {
 }
 

@@ -18,7 +18,6 @@ public:
     std::size_t getBreakSegment() const;
     std::size_t getUnparsedLength() const;
     bool isDataFull();
-    void resetForReuse();
 
 public:
     char* m_data{};

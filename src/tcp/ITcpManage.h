@@ -21,6 +21,7 @@ public:
     void registResolverFactory(ITcpResolverFactoryWare*);
     int getResolverFactoryId(IStringView);
     ITcpResolver* createResolver(ITcpConnection&, int id);
+    void destoryResolver(ITcpResolver*);
 
 private:
     std::vector<ITcpResolverFactoryWare*> m_resolverFactories;

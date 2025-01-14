@@ -7,14 +7,12 @@ $PackageWebCoreBegin
 
 class ITcpResolver;
 
-class IResolvers : public std::list<ITcpResolver*>
+class IResolvers : public std::deque<ITcpResolver*>
 {
 public:
     void deleteFront();
     void deleteBack();
     void push_back(ITcpResolver*);
-private:
-//    std::mutex m_mutex;
 };
 
 class ITcpConnection
@@ -50,34 +48,5 @@ private:
     asio::ip::tcp::socket m_socket;
     IResolvers m_resolvers;
 };
-
-inline void IResolvers::deleteFront()
-{
-//    ITcpResolver* resolver;
-//    {
-//        std::lock_guard lock(m_mutex);
-        delete this->front();
-        this->pop_front();
-//    }
-//    delete resolver;
-}
-
-inline void IResolvers::deleteBack()
-{
-//    ITcpResolver* resolver;
-//    {
-//        std::lock_guard lock(m_mutex);
-        delete this->back();
-        this->pop_back();
-//    }
-//    delete resolver;
-}
-
-inline void IResolvers::push_back(ITcpResolver *resolver)
-{
-//    std::lock_guard lock(m_mutex);
-    std::list<ITcpResolver*>::push_back(resolver);
-}
-
 
 $PackageWebCoreEnd

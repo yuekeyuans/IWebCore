@@ -10,9 +10,4 @@ IString IHttpResolverFactory::getName()
     return IString(&name);
 }
 
-ITcpResolver *IHttpResolverFactory::createResolver(ITcpConnection &connection)
-{
-    return new IRequest(connection);
-}
-
 $PackageWebCoreEnd

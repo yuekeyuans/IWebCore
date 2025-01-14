@@ -1,17 +1,18 @@
 ﻿#pragma once
 
 #include "tcp/ITcpResolverFactoryInterface.h"
+#include "http/net/IRequest.h"
+#include "core/util/IMemoryObjectPool.h"
 
 $PackageWebCoreBegin
 
-class IHttpResolverFactory : public ITcpResolverFactoryInterface<IHttpResolverFactory>
+class IHttpResolverFactory : public ITcpResolverFactoryInterface<IHttpResolverFactory, IRequest>
 {
 public:
     IHttpResolverFactory() = default;
 
 public:
     virtual IString getName() final;
-    virtual ITcpResolver* createResolver(ITcpConnection&) final;
 };
 
 $PackageWebCoreEnd
