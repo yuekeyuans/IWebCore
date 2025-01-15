@@ -3,8 +3,8 @@
 #include "core/util/IHeaderUtil.h"
 #include "http/biscuits/IHttpMime.h"
 #include "http/biscuits/IHttpStatus.h"
-#include "http/net/impl/IResponseRaw.h"
-//#include "http/net/impl/IResponseHeader.h"
+#include "http/detail/IResponseRaw.h"
+
 
 $PackageWebCoreBegin
 

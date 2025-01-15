@@ -1,8 +1,8 @@
 ﻿#include "IHttpControllerAction.h"
-#include "http/net/IRequest.h"
-#include "http/net/IResponse.h"
-#include "http/net/impl/IResponseRaw.h"
-#include "http/net/impl/IRequestRaw.h"
+#include "http/IRequest.h"
+#include "http/IResponse.h"
+#include "http/detail/IResponseRaw.h"
+#include "http/detail/IRequestRaw.h"
 #include "tcp/ITcpConnection.h"
 
 $PackageWebCoreBegin

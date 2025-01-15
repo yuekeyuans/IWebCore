@@ -1,7 +1,7 @@
 ﻿#include "IInvalidReponseContent.h"
 #include "core/util/IConstantUtil.h"
 #include "http/biscuits/IHttpMime.h"
-#include "http/net/impl/IResponseRaw.h"
+#include "http/detail/IResponseRaw.h"
 
 $PackageWebCoreBegin
 

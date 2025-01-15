@@ -3,7 +3,7 @@
 #include "core/util/IFileUtil.h"
 #include "core/util/ICodecUtil.h"
 #include "http/biscuits/IHttpMime.h"
-#include "http/net/impl/IResponseRaw.h"
+#include "http/detail/IResponseRaw.h"
 #include "http/invalid/IHttpNotFoundInvalid.h"
 #include "http/response/content/IInvalidReponseContent.h"
 

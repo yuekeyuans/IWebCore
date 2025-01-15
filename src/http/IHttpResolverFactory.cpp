@@ -1,5 +1,5 @@
 ﻿#include "IHttpResolverFactory.h"
-#include "http/net/IRequest.h"
+#include "http/IRequest.h"
 #include "tcp/ITcpConnection.h"
 
 $PackageWebCoreBegin

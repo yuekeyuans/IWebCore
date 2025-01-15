@@ -2,7 +2,7 @@
 
 #include "core/util/IConstantUtil.h"
 #include "core/abort/IGlobalAbort.h"
-#include "http/net/impl/IResponseRaw.h"
+#include "http/detail/IResponseRaw.h"
 #include "http/response/IRedirectResponse.h"
 
 $PackageWebCoreBegin

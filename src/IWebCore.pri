@@ -114,10 +114,10 @@ HEADERS += \
     $$PWD/http/IHttpResolverFactory.h \
     $$PWD/http/IHttpServer.h \
     $$PWD/http/IHttpTaskCatagory.h \
-    $$PWD/http/base/IArgumentType.h \
-    $$PWD/http/base/IArgumentTypeDetail.h \
-    $$PWD/http/base/IMethodParameterManage.h \
-    $$PWD/http/base/IReturnType.h \
+    $$PWD/http/callable/IArgumentType.h \
+    $$PWD/http/callable/IArgumentTypeDetail.h \
+    $$PWD/http/callable/IMethodParameterManage.h \
+    $$PWD/http/callable/IReturnType.h \
     $$PWD/http/biscuits/IHttpAttribute.h \
     $$PWD/http/controller/IHttpControllerAbort.h \
     $$PWD/http/controller/IHttpControllerAction.h \
@@ -132,27 +132,26 @@ HEADERS += \
     $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.h \
     $$PWD/http/core/defaultTask/IHttpFileServiceTask.h \
     $$PWD/http/core/defaultTask/IHttpPrintTraceTask.h \
-    $$PWD/http/core/unit/IRegisterResponseUnit.h \
     $$PWD/http/invalid/IHttpBadRequestInvalid.h \
     $$PWD/http/invalid/IHttpInternalErrorInvalid.h \
     $$PWD/http/invalid/IHttpInvalidHandlerInterface.h \
     $$PWD/http/invalid/IHttpInvalidInterface.h \
     $$PWD/http/invalid/IHttpInvalidWare.h \
     $$PWD/http/invalid/IHttpNotFoundInvalid.h \
-    $$PWD/http/mappings/IHttpAction.h \
-    $$PWD/http/mappings/IHttpActionInterface.h \
-    $$PWD/http/mappings/IHttpBadRequestAction.h \
-    $$PWD/http/mappings/IHttpControllerMapping.h \
-    $$PWD/http/mappings/IHttpInternalErrorAction.h \
-    $$PWD/http/mappings/IHttpInvalidRequestAction.h \
-    $$PWD/http/mappings/IHttpMappingInterface.h \
-    $$PWD/http/mappings/IHttpMappingWare.h \
-    $$PWD/http/mappings/IHttpNotFoundAction.h \
-    $$PWD/http/mappings/IHttpOptionsMethodAction.h \
-    $$PWD/http/net/IRequestManage.h \
-    $$PWD/http/net/impl/IRequestRaw.h \
-#    $$PWD/http/net/impl/IResponseHeader.h \
-    $$PWD/http/net/impl/IResponseRaw.h \
+    $$PWD/http/action/IHttpAction.h \
+    $$PWD/http/action/IHttpActionInterface.h \
+    $$PWD/http/action/IHttpBadRequestAction.h \
+    $$PWD/http/action/IHttpControllerMapping.h \
+    $$PWD/http/action/IHttpInternalErrorAction.h \
+    $$PWD/http/action/IHttpInvalidRequestAction.h \
+    $$PWD/http/action/IHttpMappingInterface.h \
+    $$PWD/http/action/IHttpMappingWare.h \
+    $$PWD/http/action/IHttpNotFoundAction.h \
+    $$PWD/http/action/IHttpOptionsMethodAction.h \
+    $$PWD/http/detail/IRequestRaw.h \
+#    $$PWD/http/detail/IResponseHeader.h \
+    $$PWD/http/detail/IResponseRaw.h \
+    $$PWD/http/response/IRegisterResponseUnit.h \
     $$PWD/http/response/content/IFileResponseContent.h \
     $$PWD/http/response/content/IInvalidReponseContent.h \
     $$PWD/http/response/content/IResponseContent.h \
@@ -195,18 +194,18 @@ HEADERS += \
     $$PWD/http/biscuits/IHttpMime.h \
     $$PWD/http/biscuits/IHttpStatus.h \
     $$PWD/http/biscuits/IHttpVersion.h \
-    $$PWD/http/net/ICookieJar.h \
-    $$PWD/http/net/ICookiePart.h \
-    $$PWD/http/net/IHeaderJar.h \
-    $$PWD/http/net/IJarUnit.h \
-    $$PWD/http/net/IMultiPart.h \
-    $$PWD/http/net/IMultiPartJar.h \
-    $$PWD/http/net/ISessionJar.h \
-    $$PWD/http/net/IRequest.h \
-    $$PWD/http/net/IResponse.h \
-#    $$PWD/http/net/impl/IRequestAssert.h \
-    $$PWD/http/net/impl/IRequestImpl.h \
-    $$PWD/http/base/IMethodNode.h \
+    $$PWD/http/ICookieJar.h \
+    $$PWD/http/ICookiePart.h \
+    $$PWD/http/IHeaderJar.h \
+    $$PWD/http/IJarUnit.h \
+    $$PWD/http/IMultiPart.h \
+    $$PWD/http/IMultiPartJar.h \
+    $$PWD/http/ISessionJar.h \
+    $$PWD/http/IRequest.h \
+    $$PWD/http/IResponse.h \
+#    $$PWD/http/detail/IRequestAssert.h \
+    $$PWD/http/detail/IRequestImpl.h \
+    $$PWD/http/callable/IMethodNode.h \
     $$PWD/http/response/IByteArrayResponse.h \
     $$PWD/http/response/IFileResponse.h \
     $$PWD/http/response/IHtmlResponse.h \
@@ -277,10 +276,10 @@ SOURCES += \
     $$PWD/http/IHttpManage.cpp \
     $$PWD/http/IHttpResolverFactory.cpp \
     $$PWD/http/IHttpServer.cpp \
-    $$PWD/http/base/IArgumentTypeDetail.cpp \
-    $$PWD/http/base/IMethodParameterManage.cpp \
-    $$PWD/http/base/IReturnType.cpp \
-    $$PWD/http/base/IReturnTypeDetail.cpp \
+    $$PWD/http/callable/IArgumentTypeDetail.cpp \
+    $$PWD/http/callable/IMethodParameterManage.cpp \
+    $$PWD/http/callable/IReturnType.cpp \
+    $$PWD/http/callable/IReturnTypeDetail.cpp \
     $$PWD/http/biscuits/IHttpAttribute.cpp \
     $$PWD/http/biscuits/IHttpHeader.cpp \
     $$PWD/http/controller/IHttpControllerAction.cpp \
@@ -298,18 +297,17 @@ SOURCES += \
     $$PWD/http/invalid/IHttpInternalErrorInvalid.cpp \
     $$PWD/http/invalid/IHttpInvalidWare.cpp \
     $$PWD/http/invalid/IHttpNotFoundInvalid.cpp \
-    $$PWD/http/mappings/IHttpAction.cpp \
-    $$PWD/http/mappings/IHttpActionInterface.cpp \
-    $$PWD/http/mappings/IHttpBadRequestAction.cpp \
-    $$PWD/http/mappings/IHttpControllerMapping.cpp \
-    $$PWD/http/mappings/IHttpInternalErrorAction.cpp \
-    $$PWD/http/mappings/IHttpInvalidRequestAction.cpp \
-    $$PWD/http/mappings/IHttpMappingWare.cpp \
-    $$PWD/http/mappings/IHttpNotFoundAction.cpp \
-    $$PWD/http/mappings/IHttpOptionsMethodAction.cpp \
-    $$PWD/http/net/IRequestManage.cpp \
-#    $$PWD/http/net/impl/IResponseHeader.cpp \
-    $$PWD/http/net/impl/IResponseRaw.cpp \
+    $$PWD/http/action/IHttpAction.cpp \
+    $$PWD/http/action/IHttpActionInterface.cpp \
+    $$PWD/http/action/IHttpBadRequestAction.cpp \
+    $$PWD/http/action/IHttpControllerMapping.cpp \
+    $$PWD/http/action/IHttpInternalErrorAction.cpp \
+    $$PWD/http/action/IHttpInvalidRequestAction.cpp \
+    $$PWD/http/action/IHttpMappingWare.cpp \
+    $$PWD/http/action/IHttpNotFoundAction.cpp \
+    $$PWD/http/action/IHttpOptionsMethodAction.cpp \
+#    $$PWD/http/detail/IResponseHeader.cpp \
+    $$PWD/http/detail/IResponseRaw.cpp \
     $$PWD/http/response/content/IFileResponseContent.cpp \
     $$PWD/http/response/content/IInvalidReponseContent.cpp \
     $$PWD/http/response/content/IResponseContent.cpp \
@@ -343,16 +341,16 @@ SOURCES += \
     $$PWD/http/biscuits/IHttpMime.cpp \
     $$PWD/http/biscuits/IHttpStatus.cpp \
     $$PWD/http/biscuits/IHttpVersion.cpp \
-    $$PWD/http/net/ICookieJar.cpp \
-    $$PWD/http/net/ICookiePart.cpp \
-    $$PWD/http/net/IHeaderJar.cpp \
-    $$PWD/http/net/IMultiPart.cpp \
-    $$PWD/http/net/IMultiPartJar.cpp \
-    $$PWD/http/net/ISessionJar.cpp \
-    $$PWD/http/net/IRequest.cpp \
-    $$PWD/http/net/IResponse.cpp \
-    $$PWD/http/net/impl/IRequestImpl.cpp \
-    $$PWD/http/base/IMethodNode.cpp \
+    $$PWD/http/ICookieJar.cpp \
+    $$PWD/http/ICookiePart.cpp \
+    $$PWD/http/IHeaderJar.cpp \
+    $$PWD/http/IMultiPart.cpp \
+    $$PWD/http/IMultiPartJar.cpp \
+    $$PWD/http/ISessionJar.cpp \
+    $$PWD/http/IRequest.cpp \
+    $$PWD/http/IResponse.cpp \
+    $$PWD/http/detail/IRequestImpl.cpp \
+    $$PWD/http/callable/IMethodNode.cpp \
     $$PWD/http/response/IByteArrayResponse.cpp \
     $$PWD/http/response/IFileResponse.cpp \
     $$PWD/http/response/IHtmlResponse.cpp \

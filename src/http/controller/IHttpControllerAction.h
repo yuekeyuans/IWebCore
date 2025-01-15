@@ -1,9 +1,9 @@
 ﻿#pragma once
 
 #include "http/biscuits/IHttpMethod.h"
-#include "http/base/IMethodNode.h"
+#include "http/callable/IMethodNode.h"
 #include "http/controller/IHttpPath.h"
-#include "http/mappings/IHttpActionInterface.h"
+#include "http/action/IHttpActionInterface.h"
 
 $PackageWebCoreBegin
 

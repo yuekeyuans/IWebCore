@@ -43,6 +43,8 @@ T* IMemoryObjectPool<T>::allocate(Args&&... args) {
 
 template<typename T>
 void IMemoryObjectPool<T>::deallocate(T* ptr) {
+    if(ptr == nullptr) return;
+
     ptr->~T();
     T* old_head = m_stack.load(std::memory_order_acquire);
     do {

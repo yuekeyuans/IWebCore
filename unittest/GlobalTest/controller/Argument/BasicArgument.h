@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <IHttp/IHttpControllerInterface>
-#include "http/net/ICookiePart.h"
+#include "http/ICookiePart.h"
 #include "bean/StudentBean.h"
 
 class BasicArgument : public IHttpControllerInterface<BasicArgument>

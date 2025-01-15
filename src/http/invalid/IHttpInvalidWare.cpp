@@ -1,9 +1,9 @@
 ﻿#include "IHttpInvalidWare.h"
 #include "core/abort/IGlobalAbort.h"
-#include "http/net/IRequest.h"
-#include "http/net/IResponse.h"
-#include "http/net/impl/IRequestRaw.h"
-#include "http/net/impl/IResponseRaw.h"
+#include "http/IRequest.h"
+#include "http/IResponse.h"
+#include "http/detail/IRequestRaw.h"
+#include "http/detail/IResponseRaw.h"
 
 $PackageWebCoreBegin
 

@@ -5,20 +5,39 @@
 #include "core/unit/IRegisterMetaTypeUnit.h"
 #include "http/biscuits/IHttpStatus.h"
 #include "http/biscuits/IHttpMime.h"
+#include "http/response/IRegisterResponseUnit.h"
 #include "http/response/IResponseManage.h"
 #include "http/response/IResponseWare.h"
-#include "http/core/unit/IRegisterResponseUnit.h"
 #include "http/response/content/IInvalidReponseContent.h"
 #include "http/invalid/IHttpInvalidWare.h"
 
 $PackageWebCoreBegin
 
+namespace detail
+{
+    template<typename T, bool enabled>
+    class IRegisterResponseUnit
+    {
+        $AsTaskUnit(IRegisterResponseUnit)
+    public:
+        IRegisterResponseUnit() = default;
+    };
+
+    $UseTaskUnit(IRegisterResponseUnit)
+    {
+        static std::once_flag flag;
+        std::call_once(flag, [](){
+            IResponseManage::instance()->registerResponse(IMetaUtil::getBareTypeName<T>(),
+                                                          ISingletonUnitDetail::getInstance<T>());
+        });
+    }
+}
+
 class IResponseRaw;
 class IRedirectResponse;
 class IStatusResponse;
-
 template<typename T, bool enabled=true>
-class IResponseInterface : public IResponseWare, IRegisterMetaTypeUnit<T, enabled>, IRegisterResponseUnit<T, enabled>
+class IResponseInterface : public IResponseWare, IRegisterMetaTypeUnit<T, enabled>, detail::IRegisterResponseUnit<T, enabled>
 {
 public:
     IResponseInterface() = default;

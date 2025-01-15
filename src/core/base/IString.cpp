@@ -1,6 +1,12 @@
 ﻿#include "IString.h"
+#include "core/util/IMemoryObjectPool.h"
 
 $PackageWebCoreBegin
+
+namespace detail
+{
+    IMemoryObjectPool<std::string> s_pool;
+}
 
 IString::IString()
 {
@@ -57,7 +63,7 @@ IString::IString(const std::string * stdStringPtr)
 IString::IString(const char * data)
     : m_type(Type::StdString)
 {
-    m_data = new std::string(data);
+    m_data = detail::s_pool.allocate(data);
     m_view = IStringView(*static_cast<std::string*>(m_data));
 }
 
@@ -76,13 +82,13 @@ IString::IString(QByteArray&& byteArray) noexcept : m_type(Type::QByteArray)
 
 IString::IString(const std::string& stdString) : m_type(Type::StdString)
 {
-    m_data = new std::string(stdString);
+    m_data = detail::s_pool.allocate(stdString);
     m_view = IStringView(*static_cast<std::string*>(m_data));
 }
 
 IString::IString(std::string&& stdString) noexcept : m_type(Type::StdString)
 {
-    m_data = new std::string(std::move(stdString));
+    m_data = detail::s_pool.allocate(std::move(stdString));
     m_view = IStringView(*static_cast<std::string*>(m_data));
 }
 
@@ -119,7 +125,7 @@ IString &IString::operator=(const char *value)
 {
     clear();
     m_type = Type::QByteArray;
-    m_data = new std::string(value);
+    m_data = detail::s_pool.allocate(value);
     m_view = IStringView(*static_cast<std::string*>(m_data));
     return *this;
 }
@@ -128,7 +134,7 @@ IString &IString::operator=(const QString & qstring)
 {
     clear();
     m_type = Type::StdString;
-    m_data = new std::string(qstring.toStdString());
+    m_data = detail::s_pool.allocate(qstring.toStdString());
     m_view = IStringView(*static_cast<std::string*>(m_data));
     return *this;
 }
@@ -152,7 +158,7 @@ IString& IString::operator=(QByteArray&& byteArray) noexcept {
 IString& IString::operator=(const std::string& stdString) {
     clear();
     m_type = Type::StdString;
-    m_data = new std::string(stdString);
+    m_data = detail::s_pool.allocate(stdString);
     m_view = IStringView(*static_cast<std::string*>(m_data));
     return *this;
 }
@@ -160,7 +166,7 @@ IString& IString::operator=(const std::string& stdString) {
 IString& IString::operator=(std::string&& stdString) noexcept {
     clear();
     m_type = Type::StdString;
-    m_data = new std::string(std::move(stdString));
+    m_data = detail::s_pool.allocate(std::move(stdString));
     m_view = IStringView(*static_cast<std::string*>(m_data));
     return *this;
 }
@@ -224,7 +230,7 @@ IString& IString::solidify()
 {
     if(m_type == Type::IStringView && !m_view.empty()){
         m_type = Type::StdString;
-        m_data = new std::string(m_view.toStdString());
+        m_data = detail::s_pool.allocate(m_view.toStdString());
         m_view = IStringView(*static_cast<std::string*>(m_data));
     }
 
@@ -296,7 +302,8 @@ void IString::clear() {
     if(m_type == Type::QByteArray){
         delete static_cast<QByteArray*>(m_data);
     }else if(m_type == Type::StdString){
-        delete static_cast<std::string*>(m_data);
+        detail::s_pool.deallocate(static_cast<std::string*>(m_data));
+//        delete static_cast<std::string*>(m_data);
     }
     m_data = nullptr;
     m_type = Type::IStringView;
@@ -310,7 +317,7 @@ void IString::copyFrom(const IString& other) {
             m_view = IStringView(*static_cast<QByteArray*>(m_data));
             break;
         case Type::StdString:
-            m_data = new std::string(*static_cast<std::string*>(other.m_data));
+            m_data = detail::s_pool.allocate(*static_cast<std::string*>(other.m_data));
             m_view = IStringView(*static_cast<std::string*>(m_data));
             break;
         case Type::IStringView:

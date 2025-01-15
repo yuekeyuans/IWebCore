@@ -3,8 +3,7 @@
 #include "core/application/IAsioApplication.h"
 #include "core/config/IProfileImport.h"
 #include "core/config/IContextManage.h"
-#include "http/net/IRequest.h"
-#include "http/net/IRequestManage.h"
+#include "http/IRequest.h"
 #include "tcp/ITcpConnection.h"
 #include "tcp/ITcpManage.h"
 

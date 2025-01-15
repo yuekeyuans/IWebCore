@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "tcp/ITcpResolverFactoryInterface.h"
-#include "http/net/IRequest.h"
+#include "http/IRequest.h"
 #include "core/util/IMemoryObjectPool.h"
 
 $PackageWebCoreBegin

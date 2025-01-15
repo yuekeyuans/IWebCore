@@ -2,7 +2,7 @@
 #include "core/util/IStringUtil.h"
 #include "IResponseWare.h"
 #include "IResponseTemplateRenderer.h"
-#include "http/net/impl/IResponseRaw.h"
+#include "http/detail/IResponseRaw.h"
 
 $PackageWebCoreBegin
 
