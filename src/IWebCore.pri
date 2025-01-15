@@ -111,7 +111,6 @@ HEADERS += \
     $$PWD/core/util/detail/IJsonUtil_toJson.h \
     $$PWD/http/IHttpAnnomacro.h \
     $$PWD/http/IHttpManage.h \
-    $$PWD/http/IHttpResolverFactory.h \
     $$PWD/http/IHttpServer.h \
     $$PWD/http/IHttpTaskCatagory.h \
     $$PWD/http/callable/IArgumentType.h \
@@ -129,9 +128,10 @@ HEADERS += \
     $$PWD/http/controller/detail/IHttpPathDetail.h \
     $$PWD/http/controller/detail/IHttpPathFragmentDetail.h \
     $$PWD/http/controller/detail/IHttpPathValidatorsTask.h \
-    $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.h \
-    $$PWD/http/core/defaultTask/IHttpFileServiceTask.h \
-    $$PWD/http/core/defaultTask/IHttpPrintTraceTask.h \
+    $$PWD/http/detail/task/IHttpDefaultProfileTask.h \
+    $$PWD/http/detail/task/IHttpFileServiceTask.h \
+    $$PWD/http/detail/task/IHttpPrintTraceTask.h \
+    $$PWD/http/detail/task/IHttpResolverFactory.h \
     $$PWD/http/invalid/IHttpBadRequestInvalid.h \
     $$PWD/http/invalid/IHttpInternalErrorInvalid.h \
     $$PWD/http/invalid/IHttpInvalidHandlerInterface.h \
@@ -144,14 +144,13 @@ HEADERS += \
     $$PWD/http/action/IHttpControllerMapping.h \
     $$PWD/http/action/IHttpInternalErrorAction.h \
     $$PWD/http/action/IHttpInvalidRequestAction.h \
-    $$PWD/http/action/IHttpMappingInterface.h \
-    $$PWD/http/action/IHttpMappingWare.h \
     $$PWD/http/action/IHttpNotFoundAction.h \
     $$PWD/http/action/IHttpOptionsMethodAction.h \
     $$PWD/http/detail/IRequestRaw.h \
 #    $$PWD/http/detail/IResponseHeader.h \
     $$PWD/http/detail/IResponseRaw.h \
-    $$PWD/http/response/IRegisterResponseUnit.h \
+    $$PWD/http/mapping/IHttpMappingInterface.h \
+    $$PWD/http/mapping/IHttpMappingWare.h \
     $$PWD/http/response/content/IFileResponseContent.h \
     $$PWD/http/response/content/IInvalidReponseContent.h \
     $$PWD/http/response/content/IResponseContent.h \
@@ -274,7 +273,6 @@ SOURCES += \
     $$PWD/core/unit/ISingletonUnit.cpp \
 #    $$PWD/http/IHttpAssert.cpp \
     $$PWD/http/IHttpManage.cpp \
-    $$PWD/http/IHttpResolverFactory.cpp \
     $$PWD/http/IHttpServer.cpp \
     $$PWD/http/callable/IArgumentTypeDetail.cpp \
     $$PWD/http/callable/IMethodParameterManage.cpp \
@@ -290,9 +288,10 @@ SOURCES += \
     $$PWD/http/controller/detail/IHttpPathDetail.cpp \
     $$PWD/http/controller/detail/IHttpPathFragmentDetail.cpp \
     $$PWD/http/controller/detail/IHttpPathValidatorsTask.cpp \
-    $$PWD/http/core/defaultTask/IHttpDefaultProfileTask.cpp \
-    $$PWD/http/core/defaultTask/IHttpFileServiceTask.cpp \
-    $$PWD/http/core/defaultTask/IHttpPrintTraceTask.cpp \
+    $$PWD/http/detail/task/IHttpDefaultProfileTask.cpp \
+    $$PWD/http/detail/task/IHttpFileServiceTask.cpp \
+    $$PWD/http/detail/task/IHttpPrintTraceTask.cpp \
+    $$PWD/http/detail/task/IHttpResolverFactory.cpp \
     $$PWD/http/invalid/IHttpBadRequestInvalid.cpp \
     $$PWD/http/invalid/IHttpInternalErrorInvalid.cpp \
     $$PWD/http/invalid/IHttpInvalidWare.cpp \
@@ -303,11 +302,11 @@ SOURCES += \
     $$PWD/http/action/IHttpControllerMapping.cpp \
     $$PWD/http/action/IHttpInternalErrorAction.cpp \
     $$PWD/http/action/IHttpInvalidRequestAction.cpp \
-    $$PWD/http/action/IHttpMappingWare.cpp \
     $$PWD/http/action/IHttpNotFoundAction.cpp \
     $$PWD/http/action/IHttpOptionsMethodAction.cpp \
 #    $$PWD/http/detail/IResponseHeader.cpp \
     $$PWD/http/detail/IResponseRaw.cpp \
+    $$PWD/http/mapping/IHttpMappingWare.cpp \
     $$PWD/http/response/content/IFileResponseContent.cpp \
     $$PWD/http/response/content/IInvalidReponseContent.cpp \
     $$PWD/http/response/content/IResponseContent.cpp \

@@ -4,8 +4,8 @@
 #include "core/task/unit/ITaskWareUnit.h"
 #include "core/unit/ISingletonUnit.h"
 #include "http/IHttpTaskCatagory.h"
-#include "http/action/IHttpMappingWare.h"
 #include "http/IHttpManage.h"
+#include "http/mapping/IHttpMappingWare.h"
 
 $PackageWebCoreBegin
 

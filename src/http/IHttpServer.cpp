@@ -1,5 +1,5 @@
 ﻿#include "IHttpServer.h"
-#include "http/IHttpResolverFactory.h"
+#include "http/detail/task/IHttpResolverFactory.h"
 #include "core/config/IProfileImport.h"
 
 IHttpServer::IHttpServer(asio::io_context *context)

@@ -1,12 +1,12 @@
 ﻿#include "IHttpManage.h"
 #include "http/IRequest.h"
 #include "http/action/IHttpAction.h"
-#include "http/action/IHttpMappingWare.h"
 #include "http/action/IHttpNotFoundAction.h"
 #include "http/action/IHttpBadRequestAction.h"
 #include "http/action/IHttpOptionsMethodAction.h"
 #include "http/action/IHttpInvalidRequestAction.h"
 #include "http/invalid/IHttpInvalidHandlerInterface.h"
+#include "http/mapping/IHttpMappingWare.h"
 
 $PackageWebCoreBegin
 

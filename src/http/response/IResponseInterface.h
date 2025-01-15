@@ -5,7 +5,6 @@
 #include "core/unit/IRegisterMetaTypeUnit.h"
 #include "http/biscuits/IHttpStatus.h"
 #include "http/biscuits/IHttpMime.h"
-#include "http/response/IRegisterResponseUnit.h"
 #include "http/response/IResponseManage.h"
 #include "http/response/IResponseWare.h"
 #include "http/response/content/IInvalidReponseContent.h"

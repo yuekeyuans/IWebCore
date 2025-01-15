@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "core/util/IHeaderUtil.h"
-#include "http/action/IHttpMappingInterface.h"
+#include "http/mapping//IHttpMappingInterface.h"
 #include "http/controller/IHttpControllerNode.h"
 
 $PackageWebCoreBegin
