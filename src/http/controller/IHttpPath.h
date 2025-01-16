@@ -16,7 +16,6 @@ public:
 
 public:
     bool isMatch(IStringView) const;
-//    bool isMatch(const QString&) const;
 
 public:
     PathType m_type{PathType::FULL_MATCH};

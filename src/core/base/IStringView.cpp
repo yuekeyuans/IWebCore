@@ -152,24 +152,15 @@ bool IStringView::endWith(IStringView suffix) const
 
 bool IStringView::equalIgnoreCase(IStringView data) const
 {
-    if (this->length() != data.length()) {
+    if (size() != data.size()) {
         return false;
     }
-    if(this->operator ==(data)){
-        return true;
-    }
-
-    const char* ptr1 = this->data();
-    const char* ptr2 = data.data();
-    for (size_t i = 0; i < length(); ++i) {
-        if(ptr1[i] == ptr2[i]){
-            continue;
-        }
-        if (std::tolower(ptr1[i]) != std::tolower(ptr2[i])) {
+    std::size_t size = data.size();
+    for (size_t i = 0; i < size; ++i) {
+        if (std::tolower(static_cast<unsigned char>((*this)[i])) != std::tolower(static_cast<unsigned char>(data[i]))) {
             return false;
         }
     }
-
     return true;
 }
 

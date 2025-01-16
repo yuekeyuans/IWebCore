@@ -24,10 +24,10 @@ void IHttpPathDetail::checkMappingUrl()
         if(fragement.m_fragment.isEmpty()){
             return;
         }
-        if(isPieceWildCard(fragement.m_fragment)){
-            CheckMappingUrlErrorWildCard(fragement.m_fragment);
+        if(isPieceWildCard(fragement.m_fragment.m_view)){
+            CheckMappingUrlErrorWildCard(fragement.m_fragment.m_view);
         }else{
-            checkMappingUrlErrorCommon(fragement.m_fragment);
+            checkMappingUrlErrorCommon(fragement.m_fragment.m_view);
         }
     }
 }

@@ -272,9 +272,17 @@ void IRequestImpl::parseHeader(IStringView line)
     if (key.equalIgnoreCase(IHttpHeader::Cookie)) {
         return parseCookie(value);
     }
-    if (m_headerJar.containRequestHeaderKey(key)) {
-        return m_request.setInvalid(IHttpBadRequestInvalid("header duplicated"));
+
+    for(auto it=m_reqRaw.m_headers.begin(); it !=m_reqRaw.m_headers.end(); it++){
+        if(it.key().equalIgnoreCase(key)){
+            return m_request.setInvalid(IHttpBadRequestInvalid("header duplicated"));
+        }
     }
+
+    // this is too low
+//    if (m_headerJar.containRequestHeaderKey(key)) {
+//        return m_request.setInvalid(IHttpBadRequestInvalid("header duplicated"));
+//    }
     m_reqRaw.m_headers[key] = value;
 }
 
