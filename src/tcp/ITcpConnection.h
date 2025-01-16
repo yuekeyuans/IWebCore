@@ -32,6 +32,8 @@ public:
     int m_resolverFactoryId;
 
 private:
+    std::mutex m_mutex;
+    std::atomic_bool m_error;
     std::atomic_int m_unWrittenCount{0};
     asio::ip::tcp::socket m_socket;
     std::list<ITcpResolver*> m_resolvers;

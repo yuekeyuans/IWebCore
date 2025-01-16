@@ -115,14 +115,17 @@ void ITcpConnection::doReadError(std::error_code error)
 {
     Q_UNUSED(error);
 
+    qDebug() << __FUNCTION__ << "2";
+//    std::lock_guard lock(m_mutex);
     m_keepAlive = false;
-    if(m_resolvers.back()->m_readState == ITcpResolver::ReadState::Finished){       // 说明这个还没读取， 只删除没有读取的。
-        auto back = m_resolvers.back();
+    auto back = m_resolvers.back();
+    if(back->m_readState == ITcpResolver::ReadState::Finished){       // 说明这个还没读取， 只删除没有读取的。
         m_resolvers.pop_back();
         ITcpManage::instance()->destoryResolver(back);
     }
 
     if(m_resolvers.empty()){
+        qDebug() << __FUNCTION__ << "1";
         delete this;
     }
 }
@@ -130,6 +133,9 @@ void ITcpConnection::doReadError(std::error_code error)
 void ITcpConnection::doWriteError(std::error_code error)
 {
     Q_UNUSED(error)
+
+    qDebug() << __FUNCTION__ << "2";
+//    std::lock_guard lock(m_mutex);
     auto front = m_resolvers.front();
     m_resolvers.pop_front();
     ITcpManage::instance()->destoryResolver(front);
@@ -140,6 +146,7 @@ void ITcpConnection::doWriteError(std::error_code error)
     }
 
     if(m_resolvers.empty()){
+        qDebug() << __FUNCTION__ << "1";
         delete this;
     }
 }
