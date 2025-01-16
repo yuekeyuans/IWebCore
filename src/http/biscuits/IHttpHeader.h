@@ -29,7 +29,7 @@ public:
     inline static const IString TransferEncoding = "Transfer-Encoding";
 
 public:
-    std::unordered_map<IString, IString> m_header;  // TODO: 这个改成 IStringView,
+    std::map<IString, IString> m_header;  // TODO: 这个在使用中显示耗时比较长，可以优化一下
 };
 
 $PackageWebCoreEnd
