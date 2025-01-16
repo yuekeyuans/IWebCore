@@ -68,7 +68,7 @@ int IAsioApplication::run()
 {
     detail::SignalHandler signal_handler(m_ioContext);
 
-    auto threadCount = std::thread::hardware_concurrency() * 2;
+    auto threadCount = std::thread::hardware_concurrency();
     std::vector<std::thread> threads;
     for(std::size_t i=0; i<threadCount; i++){
         threads.emplace_back(std::thread([&](){

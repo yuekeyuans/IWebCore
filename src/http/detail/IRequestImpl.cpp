@@ -154,11 +154,7 @@ void IRequestImpl::endState()
     }
     m_connection.doReadFinished();
     parseAction();
-    auto application = dynamic_cast<IAsioApplication*>(IApplicationInterface::instance());
-    //  qDebug() << __FUNCTION__ << m_request.m_index;
-//    asio::post(application->ioContext(), [=](){
     this->m_action->invoke(m_request);
-//    });
 }
 
 bool IRequestImpl::prepareToReadContentLengthData()
@@ -250,19 +246,8 @@ void IRequestImpl::resolveFirstLine()
 void IRequestImpl::parseHeaders(IStringView data)
 {
     auto lines = data.split("\r\n");
-    while(!lines.empty()){
-        auto line = lines.takeLast();
-        if(!line.empty()){
-            if(line.startWith("\t") || line.startWith("  ")){
-                if(lines.empty()){
-                    return setInvalid(IHttpBadRequestInvalid("header invalid"));
-                }
-                auto newLine = stash(lines.takeLast().toStdString() + line.trimmed().toStdString());
-                lines.push_back(newLine);
-            }else{
-                parseHeader(line);
-            }
-        }
+    for(auto line : lines){
+        parseHeader(line);
     }
 }
 
@@ -389,10 +374,10 @@ void IRequestImpl::parseUrlEncodedData(IStringView view, bool isBody)
             setInvalid(IHttpBadRequestInvalid("form data error"));
             return;
         }
-        pair.first().trimmed();
-        pair.last().trimmed();
-        auto key = stash(QByteArray::fromPercentEncoding(QByteArray(pair.first().data(), pair.first().length())));
-        auto value = stash(QByteArray::fromPercentEncoding(QByteArray(pair.last().data(), pair.last().length())));
+        auto first = pair.first().trimmed();
+        auto last = pair.last().trimmed();
+        auto key = stash(QByteArray::fromPercentEncoding(QByteArray(first.data(), first.length())));
+        auto value = stash(QByteArray::fromPercentEncoding(QByteArray(last.data(), last.length())));
         if(isBody){
             m_reqRaw.m_forms[key] = value;
         }else{
