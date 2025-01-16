@@ -19,7 +19,7 @@ $EnableHttpPythonTest(false)
 //$SetTcpPort(8999)
 
 $SetHttpIp("127.0.0.1")
-$SetHttpPort(8550)
+$SetHttpPort(8551)
 int main(int argc, char *argv[])
 {
     IApplication app(argc, argv);
@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
     server.listen();
 
     // 初始化崩溃捕获机制
-    CrashHandler::Initialize();
+//    CrashHandler::Initialize();
 
     return app.run();
 }

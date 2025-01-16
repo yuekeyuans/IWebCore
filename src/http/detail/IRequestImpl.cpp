@@ -23,9 +23,9 @@ $PackageWebCoreBegin
 
 IRequestImpl::IRequestImpl(IRequest& self)
     : m_request(self), m_connection(self.m_connection), m_data(self.m_data),
-      m_headerJar{*this}, m_cookieJar{*this}, m_multiPartJar{*this}
+    m_headerJar{ *this }, m_cookieJar{ *this }, m_multiPartJar{ *this }
 {
-    if(ISessionManager::instance()->getSessionWare() != nullptr){
+    if (ISessionManager::instance()->getSessionWare() != nullptr) {
         m_sessionJar = new ISessionJar(m_request.impl());
     }
 }
@@ -38,23 +38,23 @@ IRequestImpl::~IRequestImpl()
 void IRequestImpl::parseData()
 {
     uint length{};
-    while(true){
+    while (true) {
         switch (m_state) {
         case State::FirstLineState:
-            if((length = m_data.getLine())){
+            if ((length = m_data.getLine())) {
                 firstLineState(length);
                 break;
             }
-            if(m_data.isDataFull()){
+            if (m_data.isDataFull()) {
                 setInvalid(IHttpBadRequestInvalid("first line error"));
                 break;
             }
-            if(m_isValid){
+            if (m_isValid) {
                 m_request.startRead();
             }
         case State::HeaderState:
-            if((length = m_data.getBreakSegment())){    // TODO: 明天改这个
-                if(headersState(length)){
+            if ((length = m_data.getBreakSegment())) {    // TODO: 明天改这个
+                if (headersState(length)) {
                     return;
                 }
                 break;
@@ -63,7 +63,7 @@ void IRequestImpl::parseData()
             chunkedState();
             break;
         case ContentState:
-            if((length = m_data.getUnparsedLength()) >= m_reqRaw.m_contentLength){
+            if ((length = m_data.getUnparsedLength()) >= m_reqRaw.m_contentLength) {
                 contentState(m_reqRaw.m_contentLength);
                 break;
             }
@@ -71,7 +71,7 @@ void IRequestImpl::parseData()
             return endState();
         }
 
-        if(!m_isValid){
+        if (!m_isValid) {
             m_state = State::EndState;
         }
     }
@@ -79,11 +79,11 @@ void IRequestImpl::parseData()
 
 void IRequestImpl::firstLineState(std::size_t length)
 {
-    IStringView data(m_data.m_data+m_data.m_parsedSize, length);
+    IStringView data(m_data.m_data + m_data.m_parsedSize, length);
     m_data.m_parsedSize += length;
 
-    parseFirstLine(data.substr(0, data.length()-2));
-    if(!m_isValid){
+    parseFirstLine(data.substr(0, data.length() - 2));
+    if (!m_isValid) {
         return;
     }
     resolveFirstLine();
@@ -92,29 +92,31 @@ void IRequestImpl::firstLineState(std::size_t length)
 
 bool IRequestImpl::headersState(std::size_t length)
 {
-    IStringView data(m_data.m_data+m_data.m_parsedSize, length);
+    IStringView data(m_data.m_data + m_data.m_parsedSize, length);
     m_data.m_parsedSize += length;
 
     parseHeaders(data);
-    if(!m_isValid){
+    if (!m_isValid) {
         return false;
     }
 
     resolveHeaders();
-    if(!m_isValid){
+    if (!m_isValid) {
         return false;
     }
 
-    if(m_reqRaw.m_contentLength){
+    if (m_reqRaw.m_contentLength) {
         m_state = State::ContentState;
-        if(prepareToReadContentLengthData()){
+        if (prepareToReadContentLengthData()) {
             return true;
         }
-    }else if(m_reqRaw.m_isChunked){
+    }
+    else if (m_reqRaw.m_isChunked) {
         m_state = State::ChunckState;
         prepareToReadChunkedData();
         return true;
-    }else{
+    }
+    else {
         m_requestComplete = true;
         m_state = State::EndState;
     }
@@ -127,7 +129,7 @@ void IRequestImpl::chunkedState()
     auto data = IStringView(static_cast<const char*>(m_data.m_buffer.data().data()), length);
     parseChunkedData(data);
 
-    if(m_isValid){
+    if (m_isValid) {
         resolvePayload();
     }
 
@@ -136,10 +138,11 @@ void IRequestImpl::chunkedState()
 
 void IRequestImpl::contentState(std::size_t length)
 {
-    if(m_data.m_bodyInData){
-        m_reqRaw.m_body = IStringView(m_data.m_data+m_data.m_parsedSize, length);
+    if (m_data.m_bodyInData) {
+        m_reqRaw.m_body = IStringView(m_data.m_data + m_data.m_parsedSize, length);
         m_data.m_parsedSize += length;
-    }else{
+    }
+    else {
         m_reqRaw.m_body = IStringView(asio::buffer_cast<const char*>(m_data.m_buffer.data()), length);
     }
 
@@ -149,7 +152,7 @@ void IRequestImpl::contentState(std::size_t length)
 
 void IRequestImpl::endState()
 {
-    if(!m_requestComplete){
+    if (!m_requestComplete) {
         m_connection.m_keepAlive = false;
     }
     m_connection.doReadFinished();
@@ -160,21 +163,22 @@ void IRequestImpl::endState()
 bool IRequestImpl::prepareToReadContentLengthData()
 {
     auto unparsedLength = m_data.getUnparsedLength();
-    if(unparsedLength >= m_reqRaw.m_contentLength){
+    if (unparsedLength >= m_reqRaw.m_contentLength) {
         return false;
     }
 
-    if(m_data.m_parsedSize + m_reqRaw.m_contentLength < m_data.m_maxSize){
-        if(unparsedLength < m_reqRaw.m_contentLength){
-            m_connection.doReadStreamBy(m_reqRaw.m_contentLength-unparsedLength, true);
+    if (m_data.m_parsedSize + m_reqRaw.m_contentLength < m_data.m_maxSize) {
+        if (unparsedLength < m_reqRaw.m_contentLength) {
+            m_connection.doReadStreamBy(m_reqRaw.m_contentLength - unparsedLength, true);
             return true;
         }
-    }else{
+    }
+    else {
         m_data.m_bodyInData = false;
         auto data = asio::buffer_cast<char*>(m_data.m_buffer.prepare(m_reqRaw.m_contentLength));
         memcpy(data, m_data.m_data + m_data.m_parsedSize, unparsedLength); // 拷贝数据
         m_data.m_buffer.commit(unparsedLength);
-        m_connection.doReadStreamBy(m_reqRaw.m_contentLength-unparsedLength, false);
+        m_connection.doReadStreamBy(m_reqRaw.m_contentLength - unparsedLength, false);
         return true;
     }
     return false;
@@ -187,11 +191,12 @@ bool IRequestImpl::prepareToReadChunkedData()
     return true;
 }
 
+// TODO: 这个可以通过 debug 优化， 判断，因为实在是太浪费性能了，占到总性能的四成以上。
 void IRequestImpl::parseFirstLine(IStringView line)
 {
-    static const std::regex URI_REGEX(R"(^(\/[\w\-._~%!$&'()*+,;=:@/]*(\?[\w\-._~%!$&'()*+,;=:@/?]*)?|https?:\/\/[\w\-._~%!$&'()*+,;=:@]+\.[\w\-._~%!$&'()*+,;=:@]+(:\d+)?(\/[\w\-._~%!$&'()*+,;=:@/]*(\?[\w\-._~%!$&'()*+,;=:@/?]*)?)?|[*])$)");
-    static $UInt urlMaxLength{"/http/urlMaxLength", 1024*8};
-    if(line.length() >= *urlMaxLength){
+    //static const std::regex URI_REGEX(R"(^(\/[\w\-._~%!$&'()*+,;=:@/]*(\?[\w\-._~%!$&'()*+,;=:@/?]*)?|https?:\/\/[\w\-._~%!$&'()*+,;=:@]+\.[\w\-._~%!$&'()*+,;=:@]+(:\d+)?(\/[\w\-._~%!$&'()*+,;=:@/]*(\?[\w\-._~%!$&'()*+,;=:@/?]*)?)?|[*])$)");
+    static $UInt urlMaxLength{ "/http/urlMaxLength", 1024 * 8 };
+    if (line.length() >= *urlMaxLength) {
         return setInvalid(IHttpInvalidWare(IHttpStatus::URI_TOO_LONG_414));
     }
 
@@ -199,30 +204,30 @@ void IRequestImpl::parseFirstLine(IStringView line)
 
     // method
     auto index = line.find_first_of(' ', pos);
-    if(index == std::string::npos){
+    if (index == std::string::npos) {
         return setInvalid(IHttpBadRequestInvalid("can not resolve current method type"));
     }
     auto method = line.substr(pos, index);
     m_reqRaw.m_method = IHttpMethodUtil::toMethod(method);
-    if(m_reqRaw.m_method == IHttpMethod::UNKNOWN){
+    if (m_reqRaw.m_method == IHttpMethod::UNKNOWN) {
         return setInvalid(IHttpInvalidWare(IHttpStatus::METHOD_NOT_ALLOWED_405));
     }
     pos = index + 1;
 
     // path
     index = line.find_first_of(' ', pos);
-    if(index == std::string_view::npos){
+    if (index == std::string_view::npos) {
         return setInvalid(IHttpBadRequestInvalid("request path is not correct"));
     }
-    m_reqRaw.m_rawUrl = line.substr(pos, index-pos);
-    if (!std::regex_match(m_reqRaw.m_rawUrl.begin(), m_reqRaw.m_rawUrl.end(), URI_REGEX)) {
-        return setInvalid(IHttpBadRequestInvalid("url not valid"));
-    }
-    pos = index +1;
+    m_reqRaw.m_rawUrl = line.substr(pos, index - pos);
+//    if (!std::regex_match(m_reqRaw.m_rawUrl.begin(), m_reqRaw.m_rawUrl.end(), URI_REGEX)) {
+//        return setInvalid(IHttpBadRequestInvalid("url not valid"));
+//    }
+    pos = index + 1;
 
     // version
     m_reqRaw.m_httpVersion = IHttpVersionUtil::toVersion(line.substr(pos));
-    if(m_reqRaw.m_httpVersion == IHttpVersion::UNKNOWN){
+    if (m_reqRaw.m_httpVersion == IHttpVersion::UNKNOWN) {
         return setInvalid(IHttpInvalidWare(IHttpStatus::HTTP_VERSION_NOT_SUPPORTED_505));
     }
 }
@@ -230,7 +235,7 @@ void IRequestImpl::parseFirstLine(IStringView line)
 void IRequestImpl::resolveFirstLine()
 {
     auto index = m_reqRaw.m_rawUrl.find_first_of('?');
-    if(index == std::string_view::npos){
+    if (index == std::string_view::npos) {
         m_reqRaw.m_rawPath = m_reqRaw.m_rawUrl;
         m_reqRaw.m_url = stash(QByteArray::fromPercentEncoding(QByteArray(m_reqRaw.m_rawUrl.data(), m_reqRaw.m_rawUrl.length())));
         return;
@@ -239,35 +244,35 @@ void IRequestImpl::resolveFirstLine()
     m_reqRaw.m_rawPath = m_reqRaw.m_rawUrl.substr(0, index);
     m_reqRaw.m_url = stash(QByteArray::fromPercentEncoding(QByteArray(m_reqRaw.m_rawUrl.data(), m_reqRaw.m_rawUrl.length())));
 
-    m_reqRaw.m_rawPathArgs = m_reqRaw.m_rawUrl.substr(index+1);
+    m_reqRaw.m_rawPathArgs = m_reqRaw.m_rawUrl.substr(index + 1);
     parseUrlEncodedData(m_reqRaw.m_rawPathArgs, false);
 }
 
 void IRequestImpl::parseHeaders(IStringView data)
 {
-    auto lines = data.split("\r\n");
-    for(auto line : lines){
+    auto lines = data.trimmed().split("\r\n");
+    for (auto line : lines) {
         parseHeader(line);
     }
 }
 
 void IRequestImpl::parseHeader(IStringView line)
 {
-    static $UInt headerMaxLength("/http/headerMaxLength", 1024*8);
-    if(line.length() > *headerMaxLength){
+    static $UInt headerMaxLength("/http/headerMaxLength", 1024 * 8);
+    if (line.length() > *headerMaxLength) {
         return setInvalid(IHttpInvalidWare(IHttpStatus::REQUEST_HEADER_FIELDS_TOO_LARGE_431));
     }
     auto index = line.find(':');
-    if(index == std::string_view::npos){
+    if (index == std::string_view::npos) {
         return setInvalid(IHttpBadRequestInvalid("server do not support headers item multiline, or without key/value pair"));  // SEE: 默认不支持 headers 换行书写
     }
     auto key = line.substr(0, index).trimmed();
-    auto value = line.substr(index+1).trimmed();
+    auto value = line.substr(index + 1).trimmed();
 
-    if(key.equalIgnoreCase(IHttpHeader::Cookie)){
+    if (key.equalIgnoreCase(IHttpHeader::Cookie)) {
         return parseCookie(value);
     }
-    if(m_headerJar.containRequestHeaderKey(key)){
+    if (m_headerJar.containRequestHeaderKey(key)) {
         return m_request.setInvalid(IHttpBadRequestInvalid("header duplicated"));
     }
     m_reqRaw.m_headers[key] = value;
@@ -276,13 +281,14 @@ void IRequestImpl::parseHeader(IStringView line)
 void IRequestImpl::parseCookie(IStringView cookie)
 {
     auto pairs = cookie.split(IConstantUtil::Semicolon);
-    for(auto pair : pairs){
+    for (auto pair : pairs) {
         auto val = pair.trimmed();
-        if(!val.empty()){
+        if (!val.empty()) {
             auto args = val.split(IConstantUtil::Equal);
-            if(args.length() == 1){
+            if (args.length() == 1) {
                 m_reqRaw.m_cookies.insertMulti(stash(args.first()), stash(args.first()));
-            }else{
+            }
+            else {
                 m_reqRaw.m_cookies.insertMulti(stash(args.first()), stash(args.last()));
             }
         }
@@ -292,52 +298,52 @@ void IRequestImpl::parseCookie(IStringView cookie)
 void IRequestImpl::resolveHeaders()
 {
     auto encoding = m_headerJar.getRequestHeaderValue(IHttpHeader::TransferEncoding);
-    if(encoding.length()){
-        if(encoding.equalIgnoreCase("chunked")){
+    if (encoding.length()) {
+        if (encoding.equalIgnoreCase("chunked")) {
             m_reqRaw.m_isChunked = true;
         }
     }
 
     auto contentLength = m_headerJar.getRequestHeaderValue(IHttpHeader::ContentLength);
-    if(contentLength.length()){
-        if(m_reqRaw.m_isChunked){
+    if (contentLength.length()) {
+        if (m_reqRaw.m_isChunked) {
             return setInvalid(IHttpBadRequestInvalid("ContentLength and chunked exist at same time"));
         }
         bool ok;
         m_reqRaw.m_contentLength = contentLength.value<int>(ok);
-        if(!ok){
+        if (!ok) {
             return setInvalid(IHttpBadRequestInvalid("ContentLength error"));
         }
         static $UInt bodyMaxLength("/http/bodyMaxLength", 4194304);
-        if(m_reqRaw.m_contentLength > *bodyMaxLength){
+        if (m_reqRaw.m_contentLength > *bodyMaxLength) {
             return setInvalid(IHttpBadRequestInvalid("Content Length too large to accept"));
         }
     }
 
     auto contentType = m_headerJar.getRequestHeaderValue(IHttpHeader::ContentType);
-    if(contentType.length()){
+    if (contentType.length()) {
         m_reqRaw.m_mime = IHttpMimeUtil::toMime(contentType);
-        if(m_reqRaw.m_mime == IHttpMime::MULTIPART_FORM_DATA){
+        if (m_reqRaw.m_mime == IHttpMime::MULTIPART_FORM_DATA) {
             m_multipartBoundary = getBoundary(contentType);
-            if(m_multipartBoundary.empty()){
+            if (m_multipartBoundary.empty()) {
                 return setInvalid(IHttpBadRequestInvalid("multipart request has no boundary"));
             }
             m_multipartBoundaryEnd = stash(m_multipartBoundary.toQByteArray() + "--");
         }
     }
 
-
-    if(m_reqRaw.m_httpVersion == IHttpVersion::VERSION_1_0){
+    if (m_reqRaw.m_httpVersion == IHttpVersion::VERSION_1_0) {
         m_connection.m_keepAlive = false;
-    }else{
+    }
+    else {
         m_connection.m_keepAlive = true;
     }
     auto connection = m_headerJar.getRequestHeaderValue(IHttpHeader::Connection);
-    if(connection.length() != 0){
-        if(connection.containIgnoreCase("keep-alive")){
+    if (connection.length() != 0) {
+        if (connection.containIgnoreCase("keep-alive")) {
             m_connection.m_keepAlive = true;
         }
-        if(connection.containIgnoreCase("close")){
+        if (connection.containIgnoreCase("close")) {
             m_connection.m_keepAlive = false;
         }
     }
@@ -365,12 +371,12 @@ void IRequestImpl::resolvePayload()
 void IRequestImpl::parseUrlEncodedData(IStringView view, bool isBody)
 {
     auto parts = view.split("&");
-    for(auto part : parts){
-        if(part.empty()){
+    for (auto part : parts) {
+        if (part.empty()) {
             continue;
         }
         IStringViewList pair = part.split("=");
-        if(pair.length() != 2){
+        if (pair.length() != 2) {
             setInvalid(IHttpBadRequestInvalid("form data error"));
             return;
         }
@@ -378,9 +384,10 @@ void IRequestImpl::parseUrlEncodedData(IStringView view, bool isBody)
         auto last = pair.last().trimmed();
         auto key = stash(QByteArray::fromPercentEncoding(QByteArray(first.data(), first.length())));
         auto value = stash(QByteArray::fromPercentEncoding(QByteArray(last.data(), last.length())));
-        if(isBody){
+        if (isBody) {
             m_reqRaw.m_forms[key] = value;
-        }else{
+        }
+        else {
             m_reqRaw.m_paths[key] = value;
         }
     }
@@ -389,7 +396,7 @@ void IRequestImpl::parseUrlEncodedData(IStringView view, bool isBody)
 void IRequestImpl::parseJsonData(IStringView data)
 {
     m_reqRaw.m_json = IJson::parse(data.begin(), data.end(), nullptr, true);
-    if(m_reqRaw.m_json.is_discarded()){
+    if (m_reqRaw.m_json.is_discarded()) {
         setInvalid(IHttpBadRequestInvalid("json error"));
     }
 }
@@ -397,22 +404,22 @@ void IRequestImpl::parseJsonData(IStringView data)
 void IRequestImpl::parseMultiPartData(IStringView data)
 {
     data = data.trimmed();
-    if(!data.startWith(m_multipartBoundary)){
+    if (!data.startWith(m_multipartBoundary)) {
         return setInvalid(IHttpBadRequestInvalid("multipart start error"));
     }
     data = data.substr(m_multipartBoundary.length()).trimmed();
 
     auto endPos = data.find(m_multipartBoundaryEnd);
-    if(endPos == IStringView::npos){
+    if (endPos == IStringView::npos) {
         return setInvalid(IHttpBadRequestInvalid("multipart end error"));
     }
     data = data.substr(0, endPos);
 
     auto values = data.split(m_multipartBoundary);
-    for(IStringView value : values){
-        if(!value.trimmed().empty()){
+    for (IStringView value : values) {
+        if (!value.trimmed().empty()) {
             IMultiPart part(value, &m_request);
-            if(!part.isValid()){
+            if (!part.isValid()) {
                 return;
             }
             m_reqRaw.m_multiParts.emplace_back(std::move(part));
@@ -429,17 +436,17 @@ IStringView IRequestImpl::getBoundary(IStringView data)
 {
     static const std::string prefix = "boundary=";
     auto index = data.find(prefix);
-    if(index == std::string_view::npos){
+    if (index == std::string_view::npos) {
         return {};
     }
 
     auto view = data.substr(index + prefix.length());
-    if(view.empty()){
+    if (view.empty()) {
         return {};
     }
 
-    if(view.startWith("\"") && view.endWith("\"")){
-        view = view.substr(1, view.length()-2);
+    if (view.startWith("\"") && view.endWith("\"")) {
+        view = view.substr(1, view.length() - 2);
     }
     return stash("--" + view.toStdString());
 }
@@ -448,44 +455,45 @@ void IRequestImpl::parseChunkedData(IStringView data) {
     std::string result;
     result.reserve(data.length());
     std::size_t pos{};
-    while(true){
+    while (true) {
         auto end = data.find("\r\n", pos);
-        if(end == std::string_view::npos){
+        if (end == std::string_view::npos) {
             return setInvalid(IHttpBadRequestInvalid("Invalid chunked data: missing chunk size delimiter"));
         }
         std::string_view chunkedSize = data.substr(pos, end - pos);
         size_t chunk_size = 0;
         try {
             chunk_size = std::stoul(std::string(chunkedSize), nullptr, 16);
-        } catch (...) {
+        }
+        catch (...) {
             return setInvalid(IHttpBadRequestInvalid("Invalid chunk size:"));
         }
         pos = end + 2;
-        if(chunk_size == 0){
-            pos+=2;
+        if (chunk_size == 0) {
+            pos += 2;
             break;
         }
-        if(pos + chunk_size > data.size()){
+        if (pos + chunk_size > data.size()) {
             return setInvalid(IHttpBadRequestInvalid("Invalid chunked data: missing chunk terminator"));
         }
 
         result.append(data.substr(pos, chunk_size));
         pos += chunk_size;
-        if(!data.substr(pos, 2).equalIgnoreCase("\r\n")){
+        if (!data.substr(pos, 2).equalIgnoreCase("\r\n")) {
             return setInvalid(IHttpBadRequestInvalid("Invalid chunked data: missing chunk terminator"));
         }
         pos += 2;
     }
-    while (pos < data.size()){
+    while (pos < data.size()) {
         auto end = data.find("\r\n", pos);
-        if(end == std::string_view::npos){
+        if (end == std::string_view::npos) {
             return setInvalid(IHttpBadRequestInvalid("Invalid chunked data: incomplete trailer"));
         }
-        if(end == pos){
+        if (end == pos) {
             pos += 2;
             break;
         }
-        auto line = data.substr(pos, end-pos);
+        auto line = data.substr(pos, end - pos);
         auto colonPos = line.find(":");
         auto key = line.substr(0, colonPos).trimmed();
         auto value = line.substr(colonPos + 1).trimmed();
