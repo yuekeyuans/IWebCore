@@ -32,23 +32,25 @@ void IHttpPathDetail::checkMappingUrl()
     }
 }
 
-void IHttpPathDetail::checkMappingUrlErrorCommon(const QString &piece)
+void IHttpPathDetail::checkMappingUrlErrorCommon(IStringView piece)
 {
     static QRegularExpression regexExclude(R"([^ \t\n\r\f\v~`!@#$%^&*()+=|\[\]{}\'\";:/?,.<>]+)");
     static QRegularExpression regexInclude(R"([a-zA-Z0-9\-\._\?\=\&\|/,\:;\'\"\-\~\#\*\+\[\]\(\)\|\$\!\@]+|%(?:[0-9a-fA-F]{2})+)");
 
-    if(!regexExclude.match(piece).hasMatch() || !regexInclude.match(piece).hasMatch()){
-        IHttpControllerAbort::abortUrlInvalidCharacter(QString("url: ").append(piece), $ISourceLocation);
+    auto data = piece.toQString();
+    if(!regexExclude.match(data).hasMatch() || !regexInclude.match(data).hasMatch()){
+        IHttpControllerAbort::abortUrlInvalidCharacter(QString("url: ").append(data), $ISourceLocation);
     }
 }
 
-void IHttpPathDetail::CheckMappingUrlErrorWildCard(const QString &piece)
+void IHttpPathDetail::CheckMappingUrlErrorWildCard(IStringView data)
 {
     static QRegularExpression validName("^[0-9a-zA-Z_]+$");
     static QRegularExpression expression0("^<(.*)>$");
     static QRegularExpression expression1("^<(.*):(.*)>$");
     static QRegularExpression expression2("^<(reg)?:(.*):(.*)>$");
 
+    auto piece = data.toQString();
     if(!(piece.startsWith('<') && piece.endsWith('>'))){
         return;
     }
@@ -95,10 +97,10 @@ void IHttpPathDetail::CheckMappingUrlErrorWildCard(const QString &piece)
 
 }
 
-bool IHttpPathDetail::isPieceWildCard(const QString &piece)
+bool IHttpPathDetail::isPieceWildCard(IStringView piece)
 {
     static QRegularExpression wildcard("^<.*>$");
-    return wildcard.match(piece).hasMatch();
+    return wildcard.match(piece.toQString()).hasMatch();
 }
 
 namespace ISpawnUtil
@@ -123,7 +125,7 @@ namespace ISpawnUtil
 
         QStringList args;
         for(const auto& info : fragments){
-            args.push_back(info.m_fragment);
+            args.push_back(info.m_fragment.toQString());
         }
 
         path.m_path = args.join("/");

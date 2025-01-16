@@ -10,9 +10,9 @@ public:
     IHttpPathDetail(const QStringList& args);
 private:
     void checkMappingUrl();
-    void checkMappingUrlErrorCommon(const QString &piece);
-    void CheckMappingUrlErrorWildCard(const QString& piece);
-    bool isPieceWildCard(const QString &piece);
+    void checkMappingUrlErrorCommon(IStringView piece);
+    void CheckMappingUrlErrorWildCard(IStringView piece);
+    bool isPieceWildCard(IStringView piece);
 };
 
 $PackageWebCoreEnd

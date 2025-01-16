@@ -5,20 +5,20 @@
 $PackageWebCoreBegin
 
 namespace detail {
-    static bool isShortValue(const QString& value);
-    static bool isUShortValue(const QString& value);
-    static bool isIntValue(const QString& value);
-    static bool isUIntValue(const QString& value);
-    static bool isLongValue(const QString& value);
-    static bool isULongValue(const QString& value);
-    static bool isLongLongValue(const QString& value);
-    static bool isULongLongValue(const QString& value);
-    static bool isFloatValue(const QString& value);
-    static bool isDoubleValue(const QString& value);
-    static bool isQDateValue(const QString& value);
-    static bool isQTimeValue(const QString& value);
-    static bool isQDateTimeValue(const QString& value);
-    static bool isQStringValue(const QString& value);
+    static bool isShortValue(IStringView value);
+    static bool isUShortValue(IStringView value);
+    static bool isIntValue(IStringView value);
+    static bool isUIntValue(IStringView value);
+    static bool isLongValue(IStringView value);
+    static bool isULongValue(IStringView value);
+    static bool isLongLongValue(IStringView value);
+    static bool isULongLongValue(IStringView value);
+    static bool isFloatValue(IStringView value);
+    static bool isDoubleValue(IStringView value);
+    static bool isQDateValue(IStringView value);
+    static bool isQTimeValue(IStringView value);
+    static bool isQDateTimeValue(IStringView value);
+    static bool isQStringValue(IStringView value);
 }
 
 void IHttpPathValidatorsTask::$task()
@@ -53,8 +53,8 @@ void IHttpPathValidatorsTask::$task()
 
     for(auto key : validatorRegMap){
         QRegularExpression exp(validatorRegMap[key]);
-        IHttpManage::instance()->registerPathValidator(key, [=](const QString& value)->bool{
-            return exp.match(value).hasMatch();
+        IHttpManage::instance()->registerPathValidator(key, [=](IStringView value)->bool{
+            return exp.match(value.toQString()).hasMatch();
         });
     }
     for(auto key : validatorFunMap.keys()){
@@ -62,83 +62,111 @@ void IHttpPathValidatorsTask::$task()
     }
 }
 
-bool detail::isShortValue(const QString& value){
-    bool ok;
-    value.toShort(&ok);
-    return ok;
+template<typename T>
+bool isFitIntegerValue(IStringView str)
+{
+    if (str.empty()) {
+        return false;
+    }
+    char* end = nullptr;
+    long long value = std::strtol(str.data(), &end, 10);
+    if (*end != '\0') {
+        return false;
+    }
+    return value >= std::numeric_limits<short>::min() && value <= std::numeric_limits<short>::max();
 }
 
-bool detail::isUShortValue(const QString& value){
-    bool ok;
-    value.toUShort(&ok);
-    return ok;
+bool detail::isShortValue(IStringView value)
+{
+    return isFitIntegerValue<short>(value);
 }
 
-bool detail::isIntValue(const QString& value){
-    bool ok;
-    value.toInt(&ok);
-    return ok;
+bool detail::isUShortValue(IStringView value)
+{
+    return isFitIntegerValue<ushort>(value);
 }
 
-bool detail::isUIntValue(const QString& value){
-    bool ok;
-    value.toUInt(&ok);
-    return ok;
+bool detail::isIntValue(IStringView value)
+{
+    return isFitIntegerValue<int>(value);
 }
 
-bool detail::isLongValue(const QString& value){
-    bool ok;
-    value.toLong(&ok);
-    return ok;
+bool detail::isUIntValue(IStringView value)
+{
+    return isFitIntegerValue<uint>(value);
 }
 
-bool detail::isULongValue(const QString& value){
-    bool ok;
-    value.toULong(&ok);
-    return ok;
+bool detail::isLongValue(IStringView value)
+{
+    return isFitIntegerValue<long>(value);
 }
 
-bool detail::isLongLongValue(const QString& value){
-    bool ok;
-    value.toLongLong(&ok);
-    return ok;
+bool detail::isULongValue(IStringView value)
+{
+    return isFitIntegerValue<ulong>(value);
 }
 
-bool detail::isULongLongValue(const QString& value){
-    bool ok;
-    value.toULongLong(&ok);
-    return ok;
+bool detail::isLongLongValue(IStringView value)
+{
+    return isFitIntegerValue<long long>(value);
 }
 
-bool detail::isFloatValue(const QString& value){
-    bool ok;
-    value.toFloat(&ok);
-    return ok;
+bool detail::isULongLongValue(IStringView str)
+{
+    if (str.empty()) {
+        return false;
+    }
+    char* end = nullptr;
+    long long value = std::strtoull(str.data(), &end, 10);
+    if (*end != '\0') {
+        return false;
+    }
+    return true;
 }
 
-bool detail::isDoubleValue(const QString& value){
-    bool ok;
-    value.toDouble(&ok);
-    return ok;
+bool detail::isFloatValue(IStringView str)
+{
+    if (str.empty()) {
+        return false;
+    }
+    char* end = nullptr;
+    long long value = std::strtof(str.data(), &end);
+    if (*end != '\0') {
+        return false;
+    }
+    return true;
 }
 
-bool detail::isQDateValue(const QString& value){
-    QVariant variant = value;
+bool detail::isDoubleValue(IStringView str)
+{
+    if (str.empty()) {
+        return false;
+    }
+    char* end = nullptr;
+    long long value = std::strtod(str.data(), &end);
+    if (*end != '\0') {
+        return false;
+    }
+    return true;
+}
+
+bool detail::isQDateValue(IStringView value){
+    QVariant variant = value.toQString();
     return variant.toDate().isValid();
 }
 
-bool detail::isQTimeValue(const QString& value){
-    QVariant variant = value;
+bool detail::isQTimeValue(IStringView value){
+    QVariant variant = value.toQString();
     return variant.toTime().isValid();
 }
 
-bool detail::isQDateTimeValue(const QString& value){
-    QVariant variant = value;
+bool detail::isQDateTimeValue(IStringView value){
+    QVariant variant = value.toQString();
     return variant.toDateTime().isValid();
 }
 
-bool detail::isQStringValue(const QString& value){
-    return !value.isEmpty();
+bool detail::isQStringValue(IStringView value){
+    return !value.empty();
 }
 
 $PackageWebCoreEnd

@@ -28,7 +28,7 @@ class IHttpPathFunctorValidatorInterfaceHelper
     template<typename T, bool>
     friend class IHttpPathFunctorValidatorInterface;
 private:
-    static void registValidator(const QString& name, std::function<bool(const QString&)> validator);
+    static void registValidator(const QString& name, std::function<bool(IStringView)> validator);
 };
 
 template<typename T, bool enabled>

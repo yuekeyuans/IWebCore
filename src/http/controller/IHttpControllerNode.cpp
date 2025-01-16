@@ -149,7 +149,7 @@ void IHttpControllerNode::travelPrint(int space) const
                               << "/" + action->m_path.m_path << "\t==>" << action->m_methodNode.signature;
         }
     };
-    qDebug().noquote() << QString().fill(' ', 4* space) << "|" + this->urlFragment.m_fragment;
+    qDebug().noquote() << QString().fill(' ', 4* space) << "|" + this->urlFragment.m_fragment.toQString();
     print(this->getMethodAction, space);
     print(this->putMethodAction, space);
     print(this->postMethodAction, space);

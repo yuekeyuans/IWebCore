@@ -7,7 +7,7 @@ $PackageWebCoreBegin
 struct IHttpPathFragment
 {
 public:
-    using Validator = std::function<bool(const QString&)>;
+    using Validator = std::function<bool(IStringView)>;
     enum PathType{
         TEXT,
         FUNCTION,
@@ -16,11 +16,11 @@ public:
 
 public:
     bool isMatch(IStringView) const;
-    bool isMatch(const QString&) const;
+//    bool isMatch(const QString&) const;
 
 public:
     PathType m_type{PathType::FULL_MATCH};
-    QString m_fragment;
+    IString m_fragment;
     IString m_name;
     Validator m_validator{nullptr};
 };

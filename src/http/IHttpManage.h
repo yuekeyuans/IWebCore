@@ -11,7 +11,7 @@ class IHttpMappingWare;
 class IHttpInvalidHandlerWare;
 class IHttpManage : public ISingletonUnit<IHttpManage>
 {
-    using ValidatorFun = std::function<bool(const QString&)>;
+    using ValidatorFun = std::function<bool(IStringView)>;
 public:
     IHttpManage() = default;
 
