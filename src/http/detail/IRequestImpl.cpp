@@ -153,7 +153,6 @@ void IRequestImpl::contentState(std::size_t length)
 void IRequestImpl::endState()
 {
     if (!m_requestComplete) {
-        qDebug() << "not complete";
         m_connection.m_keepAlive = false;
     }
     m_connection.doReadFinished();

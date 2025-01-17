@@ -28,8 +28,12 @@ private:
     void doWriteImpl();
 
 public:
-    volatile std::atomic_bool m_keepAlive{false};
+    std::atomic_bool m_keepAlive{false};
     int m_resolverFactoryId;
+
+private:
+    std::atomic_int m_addResolverCount{};
+    std::atomic_int m_deleteResolverCount{};
 
 private:
     std::mutex m_mutex;
