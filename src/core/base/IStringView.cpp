@@ -150,31 +150,30 @@ bool IStringView::endWith(IStringView suffix) const
     return this->substr(this->size() - suffix.size()) == suffix;
 }
 
-bool IStringView::equalIgnoreCase(IStringView data) const
+bool IStringView::equalIgnoreCase(IStringView piece) const
 {
-    if (size() != data.size()) {
+    if (piece.length() != length()) {
         return false;
     }
-    std::size_t size = data.size();
-    for (size_t i = 0; i < size; ++i) {
-        if (std::tolower(static_cast<unsigned char>((*this)[i])) != std::tolower(static_cast<unsigned char>(data[i]))) {
-            return false;
+    return std::equal(this->begin(), this->end(), piece.begin(),
+        [](char a, char b) {
+            return std::tolower(static_cast<unsigned char>(a)) == std::tolower(static_cast<unsigned char>(b));
         }
-    }
-    return true;
+    );
 }
 
-bool IStringView::containIgnoreCase(IStringView piece) const
+bool IStringView::containIgnoreCase(IStringView data) const
 {
-    if (piece.length() > length()) {
+    if (data.size() > size()) {
         return false;
     }
-    if(std::search(this->begin(), this->end(), piece.begin(), piece.end()) != this->end()){
-        return true;
-    }
-    return std::search(this->begin(), this->end(), piece.begin(), piece.end(), [](char a, char b) {
-        return std::tolower(a) == std::tolower(b);
-    }) != this->end();
+
+    auto it = std::search(this->begin(), this->end(), data.begin(), data.end(),
+        [](char a, char b) {
+            return std::tolower(static_cast<unsigned char>(a)) == std::tolower(static_cast<unsigned char>(b));
+        });
+
+    return it != this->end();
 }
 
 IStringViewList::IStringViewList(QList<IStringView> data)

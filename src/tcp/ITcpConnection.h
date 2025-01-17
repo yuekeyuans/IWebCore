@@ -28,7 +28,7 @@ private:
     void doWriteImpl();
 
 public:
-    std::atomic_bool m_keepAlive{false};
+    volatile std::atomic_bool m_keepAlive{false};
     int m_resolverFactoryId;
 
 private:

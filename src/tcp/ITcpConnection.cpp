@@ -19,6 +19,7 @@ ITcpConnection::~ITcpConnection()
     if(m_socket.is_open()){
         m_socket.close();
     }
+    qDebug() << __FUNCTION__;
 }
 
 void ITcpConnection::doRead()
@@ -106,26 +107,31 @@ void ITcpConnection::doWriteFinished()
         }
     }
 
-    if(m_resolvers.empty()){
+    if(!m_keepAlive && m_resolvers.empty()){
+        qDebug() << __FUNCTION__ << "delete" << m_keepAlive << m_resolvers.empty() << ((!m_keepAlive) && m_resolvers.empty());
         delete this;
     }
+
 }
 
 void ITcpConnection::doReadError(std::error_code error)
 {
     Q_UNUSED(error);
 
-    qDebug() << __FUNCTION__ << "2";
-//    std::lock_guard lock(m_mutex);
+    qDebug() << __FUNCTION__ << __LINE__ << QString::fromStdString(error.message());
+
     m_keepAlive = false;
     auto back = m_resolvers.back();
     if(back->m_readState == ITcpResolver::ReadState::Finished){       // 说明这个还没读取， 只删除没有读取的。
         m_resolvers.pop_back();
+        qDebug() << __FUNCTION__ << __LINE__;
         ITcpManage::instance()->destoryResolver(back);
     }
 
+    qDebug() << __FUNCTION__ << __LINE__;
+
     if(m_resolvers.empty()){
-        qDebug() << __FUNCTION__ << "1";
+        qDebug() << __FUNCTION__ << "delete";
         delete this;
     }
 }
@@ -145,8 +151,8 @@ void ITcpConnection::doWriteError(std::error_code error)
         doWriteImpl();
     }
 
-    if(m_resolvers.empty()){
-        qDebug() << __FUNCTION__ << "1";
+    if(!m_keepAlive && m_resolvers.empty()){
+        qDebug() << __FUNCTION__ << "delete";
         delete this;
     }
 }

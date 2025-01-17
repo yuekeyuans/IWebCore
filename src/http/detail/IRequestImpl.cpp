@@ -153,6 +153,7 @@ void IRequestImpl::contentState(std::size_t length)
 void IRequestImpl::endState()
 {
     if (!m_requestComplete) {
+        qDebug() << "not complete";
         m_connection.m_keepAlive = false;
     }
     m_connection.doReadFinished();
@@ -342,16 +343,14 @@ void IRequestImpl::resolveHeaders()
 
     if (m_reqRaw.m_httpVersion == IHttpVersion::VERSION_1_0) {
         m_connection.m_keepAlive = false;
-    }
-    else {
+    } else {
         m_connection.m_keepAlive = true;
     }
     auto connection = m_headerJar.getRequestHeaderValue(IHttpHeader::Connection);
     if (connection.length() != 0) {
-        if (connection.containIgnoreCase("keep-alive")) {
+        if (connection.containIgnoreCase("Keep-Alive")) {
             m_connection.m_keepAlive = true;
-        }
-        if (connection.containIgnoreCase("close")) {
+        }else if (connection.containIgnoreCase("close")) {
             m_connection.m_keepAlive = false;
         }
     }
