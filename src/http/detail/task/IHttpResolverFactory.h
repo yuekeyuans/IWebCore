@@ -2,7 +2,7 @@
 
 #include "tcp/ITcpResolverFactoryInterface.h"
 #include "http/IRequest.h"
-#include "core/util/IMemoryObjectPool.h"
+#include "core/unit/IObjectMemoryPoolUnit.h"
 
 $PackageWebCoreBegin
 

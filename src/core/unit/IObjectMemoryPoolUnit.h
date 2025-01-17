@@ -5,10 +5,10 @@
 #include <cstddef>
 
 template <typename T>
-class IMemoryObjectPool {
+class IObjectMemoryPoolUnit {
 public:
-    IMemoryObjectPool() = default;
-    ~IMemoryObjectPool();
+    IObjectMemoryPoolUnit() = default;
+    ~IObjectMemoryPoolUnit();
 
     template <typename... Args>
     T* allocate(Args&&... args);
@@ -21,13 +21,13 @@ private:
 };
 
 template<typename T>
-IMemoryObjectPool<T>::~IMemoryObjectPool() {
+IObjectMemoryPoolUnit<T>::~IObjectMemoryPoolUnit() {
     releaseAll();
 }
 
 template<typename T>
 template <typename... Args>
-T* IMemoryObjectPool<T>::allocate(Args&&... args) {
+T* IObjectMemoryPoolUnit<T>::allocate(Args&&... args) {
     T* old_head = m_stack.load(std::memory_order_acquire);
 
     while (old_head) {
@@ -42,7 +42,7 @@ T* IMemoryObjectPool<T>::allocate(Args&&... args) {
 }
 
 template<typename T>
-void IMemoryObjectPool<T>::deallocate(T* ptr) {
+void IObjectMemoryPoolUnit<T>::deallocate(T* ptr) {
     if(ptr == nullptr) return;
 
     ptr->~T();
@@ -53,7 +53,7 @@ void IMemoryObjectPool<T>::deallocate(T* ptr) {
 }
 
 template<typename T>
-void IMemoryObjectPool<T>::releaseAll() {
+void IObjectMemoryPoolUnit<T>::releaseAll() {
     T* node = m_stack.exchange(nullptr, std::memory_order_acquire);
     while (node) {
         T* next = *reinterpret_cast<T**>(node);

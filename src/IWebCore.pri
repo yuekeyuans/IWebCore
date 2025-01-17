@@ -44,16 +44,15 @@ HEADERS += \
     $$PWD/core/trait/IExceptionTrait.h \
     $$PWD/core/unit/IClassNameUnit.h \
     $$PWD/core/unit/ITraceUnit.h \
+    $$PWD/core/util/IArrayMemoryPoolUnit.h \
     $$PWD/core/util/ICodecUtil.h \
     $$PWD/core/util/IConstantUtil.h \
     $$PWD/core/util/IConvertUtil.h \
     $$PWD/core/util/IFileUtil.h \
     $$PWD/core/util/IHeaderUtil.h \
     $$PWD/core/util/IJsonUtil.h \
-    $$PWD/core/util/IMemoryArrayPool.h \
-    $$PWD/core/util/IMemoryObjectPool.h \
     $$PWD/core/util/IMetaUtil.h \
-    $$PWD/core/util/IMinidumpUtil.h \
+    $$PWD/core/unit/IObjectMemoryPoolUnit.h \
     $$PWD/core/util/IPackageUtil.h \
     $$PWD/core/util/IPreProcessorUtil.h \
     $$PWD/core/util/ISpawnUtil.h \

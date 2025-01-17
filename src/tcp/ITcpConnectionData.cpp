@@ -1,11 +1,12 @@
 ﻿#include "ITcpConnectionData.h"
 #include "core/config/IProfileImport.h"
+#include "core/unit/IArrayMemoryPoolUnit.h"
 
 $PackageWebCoreBegin
 
 namespace detail
 {
-    static IMemoryArrayPool<char> s_pool {};
+    static IArrayMemoryPoolUnit<char> s_pool {};
 }
 
 ITcpConnectionData::ITcpConnectionData()

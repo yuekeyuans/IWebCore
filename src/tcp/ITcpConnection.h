@@ -29,9 +29,6 @@ private:
 
 public:
     std::atomic_bool m_keepAlive{false};
-    int m_resolverFactoryId;
-
-private:
     std::atomic_int m_addResolverCount{};
     std::atomic_int m_deleteResolverCount{};
 
@@ -40,7 +37,8 @@ private:
     std::atomic_bool m_error;
     std::atomic_int m_unWrittenCount{0};
     asio::ip::tcp::socket m_socket;
-    std::list<ITcpResolver*> m_resolvers;
+    std::deque<ITcpResolver*> m_resolvers;
+    int m_resolverFactoryId;
 };
 
 $PackageWebCoreEnd

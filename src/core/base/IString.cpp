@@ -1,11 +1,11 @@
 ﻿#include "IString.h"
-#include "core/util/IMemoryObjectPool.h"
+#include "core/unit/IObjectMemoryPoolUnit.h"
 
 $PackageWebCoreBegin
 
 namespace detail
 {
-    IMemoryObjectPool<std::string> s_pool;
+    static IObjectMemoryPoolUnit<std::string> s_pool;
 }
 
 IString::IString()

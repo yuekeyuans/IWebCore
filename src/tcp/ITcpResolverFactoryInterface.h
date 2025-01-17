@@ -2,7 +2,7 @@
 
 #include "core/util/IHeaderUtil.h"
 #include "core/task/unit/ITaskInstantUnit.h"
-#include "core/util/IMemoryObjectPool.h"
+#include "core/unit/IObjectMemoryPoolUnit.h"
 #include "ITcpResolverFactoryWare.h"
 #include "tcp/ITcpManage.h"
 
@@ -17,7 +17,7 @@ public:
     virtual void destroyResolver(ITcpResolver*) final;
 
 private:
-    IMemoryObjectPool<U> m_pool{};
+    IObjectMemoryPoolUnit<U> m_pool{};
 };
 
 template<typename T, typename U, bool enabled>

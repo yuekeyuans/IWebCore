@@ -3,7 +3,7 @@
 #include <new>
 
 template <typename T>
-class IMemoryArrayPool
+class IArrayMemoryPoolUnit
 {
 private:
     struct Node {
@@ -13,8 +13,8 @@ private:
     };
 
 public:
-    IMemoryArrayPool() = default;
-    ~IMemoryArrayPool();
+    IArrayMemoryPoolUnit() = default;
+    ~IArrayMemoryPoolUnit();
     T* allocateArray(std::size_t count);
     void deallocateArray(T* ptr, std::size_t count);
     void releaseAll();
@@ -25,12 +25,12 @@ private:
 };
 
 template <typename T>
-IMemoryArrayPool<T>::~IMemoryArrayPool() {
+IArrayMemoryPoolUnit<T>::~IArrayMemoryPoolUnit() {
     releaseAll();
 }
 
 template <typename T>
-T* IMemoryArrayPool<T>::allocateArray(std::size_t count) {
+T* IArrayMemoryPoolUnit<T>::allocateArray(std::size_t count) {
     std::size_t size = sizeof(T) * count;
     Node* node = head.load(std::memory_order_acquire);
 
@@ -49,7 +49,7 @@ T* IMemoryArrayPool<T>::allocateArray(std::size_t count) {
 }
 
 template <typename T>
-void IMemoryArrayPool<T>::deallocateArray(T* ptr, std::size_t count)
+void IArrayMemoryPoolUnit<T>::deallocateArray(T* ptr, std::size_t count)
 {
     Node* newNode = new Node{ptr, sizeof(T) * count, nullptr};
 
@@ -60,14 +60,14 @@ void IMemoryArrayPool<T>::deallocateArray(T* ptr, std::size_t count)
 }
 
 template <typename T>
-void IMemoryArrayPool<T>::releaseAll()
+void IArrayMemoryPoolUnit<T>::releaseAll()
 {
     Node* node = head.exchange(nullptr, std::memory_order_acquire);
     freeNode(node);
 }
 
 template <typename T>
-void IMemoryArrayPool<T>::freeNode(Node* node) {
+void IArrayMemoryPoolUnit<T>::freeNode(Node* node) {
     while (node) {
         ::operator delete(node->ptr);
         Node* temp = node;

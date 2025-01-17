@@ -112,7 +112,6 @@ void ITcpConnection::doWriteFinished()
     if(!m_keepAlive && (m_addResolverCount == m_deleteResolverCount)){
         delete this;
     }
-
 }
 
 void ITcpConnection::doReadError(std::error_code error)

@@ -1,7 +1,7 @@
 ﻿#include "IRequest.h"
 
 #include "core/abort/IGlobalAbort.h"
-#include "core/util/IMemoryObjectPool.h"
+#include "core/unit/IObjectMemoryPoolUnit.h"
 #include "http/action/IHttpAction.h"
 #include "http/detail/IRequestImpl.h"
 #include "http/ICookieJar.h"
@@ -13,7 +13,7 @@ $PackageWebCoreBegin
 
 namespace detail
 {
-    static IMemoryObjectPool<IRequestImpl> s_pool;
+    static IObjectMemoryPoolUnit<IRequestImpl> s_pool;
 }
 
 IRequest::IRequest(ITcpConnection& connection, int resolverFactoryId)
