@@ -20,6 +20,7 @@ SOURCES += \
         controller/ContentController.cpp \
         controller/UrlController.cpp \
         controller/returnType/ReturnTypeController.cpp \
+        filters/LogIpFilter.cpp \
         main.cpp
 
 # Default rules for deployment.
@@ -33,4 +34,5 @@ HEADERS += \
     controller/Argument/BasicArgument.h \
     controller/ContentController.h \
     controller/UrlController.h \
-    controller/returnType/ReturnTypeController.h
+    controller/returnType/ReturnTypeController.h \
+    filters/LogIpFilter.h

@@ -44,7 +44,6 @@ HEADERS += \
     $$PWD/core/trait/IExceptionTrait.h \
     $$PWD/core/unit/IClassNameUnit.h \
     $$PWD/core/unit/ITraceUnit.h \
-    $$PWD/core/util/IArrayMemoryPoolUnit.h \
     $$PWD/core/util/ICodecUtil.h \
     $$PWD/core/util/IConstantUtil.h \
     $$PWD/core/util/IConvertUtil.h \
@@ -231,7 +230,9 @@ HEADERS += \
     $$PWD/tcp/ITcpResolver.h \
     $$PWD/tcp/ITcpResolverFactoryInterface.h \
     $$PWD/tcp/ITcpResolverFactoryWare.h \
-    $$PWD/tcp/ITcpServer.h
+    $$PWD/tcp/ITcpServer.h \
+    $$PWD/tcp/ITcpSocketFilterInterface.h \
+    $$PWD/tcp/ITcpTaskCatagory.h
 
 SOURCES += \
     $$PWD/core/abort/IGlobalAbort.cpp \

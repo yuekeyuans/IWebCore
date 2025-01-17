@@ -19,7 +19,7 @@ public:
 template<typename T, bool enabled>
 void IHttpControllerInterface<T, enabled>::$task()
 {
-    if/* constexpr */(enabled){
+    if constexpr (enabled){
         auto className = IMetaUtil::getMetaClassName (T::staticMetaObject);
         auto classInfo = IMetaUtil::getMetaClassInfoMap(T::staticMetaObject);
         auto classMethods = IMetaUtil::getMetaMethods(T::staticMetaObject);

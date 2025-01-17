@@ -45,4 +45,14 @@ void ITcpManage::destoryResolver(ITcpResolver * resolver)
     return m_resolverFactories[resolver->m_resolverFactoryId]->destroyResolver(resolver);
 }
 
+void ITcpManage::registIpFilterWare(ITcpSocketFilterWare *ware)
+{
+    m_ipFilterWare.push_back(ware);
+}
+
+std::vector<ITcpSocketFilterWare *> ITcpManage::getIpFilterWares()
+{
+    return m_ipFilterWare;
+}
+
 $PackageWebCoreEnd

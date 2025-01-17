@@ -5,8 +5,10 @@
 #include "tcp/ITcpResolverFactoryWare.h"
 #include <unordered_set>
 
+
 $PackageWebCoreBegin
 
+class ITcpSocketFilterWare;
 class ITcpConnection;
 class ITcpManage : public ISingletonUnit<ITcpManage>
 {
@@ -23,8 +25,13 @@ public:
     ITcpResolver* createResolver(ITcpConnection&, int id);
     void destoryResolver(ITcpResolver*);
 
+    void registIpFilterWare(ITcpSocketFilterWare*);
+    std::vector<ITcpSocketFilterWare*> getIpFilterWares();
+
+
 private:
     std::vector<ITcpResolverFactoryWare*> m_resolverFactories;
+    std::vector<ITcpSocketFilterWare*> m_ipFilterWare;
 //    std::mutex mutex;
 //    std::unordered_set<ITcpConnection*> m_connections;
 };

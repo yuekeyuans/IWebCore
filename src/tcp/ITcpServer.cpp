@@ -6,6 +6,7 @@
 #include "http/IRequest.h"
 #include "tcp/ITcpConnection.h"
 #include "tcp/ITcpManage.h"
+#include "tcp/ITcpSocketFilterInterface.h"
 
 $PackageWebCoreBegin
 
@@ -74,9 +75,22 @@ void ITcpServer::loadResolverFactory()
 
 void ITcpServer::doAccept()
 {
+    static bool s_enabled = !ITcpManage::instance()->getIpFilterWares().empty();
+
     m_acceptor->async_accept([this](std::error_code ec, asio::ip::tcp::socket socket){
         if(!m_acceptor->is_open()){
             return;
+        }
+
+        if(s_enabled){
+            static const auto& s_filters = ITcpManage::instance()->getIpFilterWares();
+            for(auto filter : s_filters){
+                if(!filter->filter(socket)){
+                    socket.close();
+                    doAccept();
+                    return;
+                }
+            }
         }
 
         if(!ec){

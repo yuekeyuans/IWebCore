@@ -117,7 +117,7 @@ bool detail::isULongLongValue(IStringView str)
         return false;
     }
     char* end = nullptr;
-    long long value = std::strtoull(str.data(), &end, 10);
+    std::strtoull(str.data(), &end, 10);
     if (*end != '\0') {
         return false;
     }
@@ -130,7 +130,7 @@ bool detail::isFloatValue(IStringView str)
         return false;
     }
     char* end = nullptr;
-    long long value = std::strtof(str.data(), &end);
+    std::strtof(str.data(), &end);
     if (*end != '\0') {
         return false;
     }
@@ -143,7 +143,7 @@ bool detail::isDoubleValue(IStringView str)
         return false;
     }
     char* end = nullptr;
-    long long value = std::strtod(str.data(), &end);
+    std::strtod(str.data(), &end);
     if (*end != '\0') {
         return false;
     }

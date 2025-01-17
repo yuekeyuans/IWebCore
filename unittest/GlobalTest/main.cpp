@@ -5,7 +5,7 @@
 #include "http/IHttpServer.h"
 #include "IHttpPythonTestAnnomacro.h"
 
-$EnableTaskOutput(false)
+$EnableTaskOutput(true)
 $EnableUnitTest(false)
 $EnableHttpPythonTest(true)
 
