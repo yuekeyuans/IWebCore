@@ -295,8 +295,6 @@ SOURCES += \
     $$PWD/http/invalid/IHttpInternalErrorInvalid.cpp \
     $$PWD/http/invalid/IHttpInvalidWare.cpp \
     $$PWD/http/invalid/IHttpNotFoundInvalid.cpp \
-    $$PWD/http/action/IHttpAction.cpp \
-    $$PWD/http/action/IHttpActionInterface.cpp \
     $$PWD/http/action/IHttpBadRequestAction.cpp \
     $$PWD/http/action/IHttpControllerMapping.cpp \
     $$PWD/http/action/IHttpInternalErrorAction.cpp \
