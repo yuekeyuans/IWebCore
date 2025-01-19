@@ -149,6 +149,8 @@ HEADERS += \
     $$PWD/http/detail/IResponseRaw.h \
     $$PWD/http/mapping/IHttpMappingInterface.h \
     $$PWD/http/mapping/IHttpMappingWare.h \
+    $$PWD/http/midware/IHttpFirstLineResolverFilterInterface.h \
+    $$PWD/http/midware/IHttpResolverFilterWare.h \
     $$PWD/http/response/content/IFileResponseContent.h \
     $$PWD/http/response/content/IInvalidReponseContent.h \
     $$PWD/http/response/content/IResponseContent.h \
